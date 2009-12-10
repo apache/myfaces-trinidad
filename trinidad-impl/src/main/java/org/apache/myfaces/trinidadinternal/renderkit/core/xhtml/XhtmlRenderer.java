@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,18 +27,17 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.render.CoreRenderer;
-import org.apache.myfaces.trinidad.render.TypedRenderer;
-
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.render.CoreRenderer;
+import org.apache.myfaces.trinidad.render.TypedRenderer;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.util.FormattedTextParser;
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
+
 
 /**
  *  @todo Move "supportsStyleAttributes()", etc., architecture
@@ -95,27 +94,28 @@ public class XhtmlRenderer extends CoreRenderer
    * <p>
    * See section 5.16 of xhtml modularization
    */
-  static public boolean supportsScripting(RenderingContext arc)
+  static public boolean supportsScripting(
+    RenderingContext rc)
   {
-    Object scriptingSpeed = arc.getAgent().getCapabilities().get(
+    Object scriptingSpeed = rc.getAgent().getCapabilities().get(
             TrinidadAgent.CAP_SCRIPTING_SPEED);
 
     return ((scriptingSpeed != null) &&
             (TrinidadAgent.SCRIPTING_SPEED_CAP_NONE != scriptingSpeed));
   }
 
-
-  static public boolean supportsEditing(RenderingContext arc)
+  static public boolean supportsEditing(
+    RenderingContext rc)
   {
-    Object cap = arc.getAgent().getCapabilities().get(
+    Object cap = rc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_EDITING);
     return !Boolean.FALSE.equals(cap);
   }
 
   public static boolean supportsAdvancedForms(
-    RenderingContext arc)
+    RenderingContext rc)
   {
-    Object cap = arc.getAgent().getCapabilities().get(
+    Object cap = rc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_ADVANCED_FORMS);
     return !Boolean.FALSE.equals(cap);
   }
@@ -124,9 +124,9 @@ public class XhtmlRenderer extends CoreRenderer
    * See section 5.14 of xhtml modularization.
    */
   public static boolean supportsIntrinsicEvents(
-    RenderingContext arc)
+    RenderingContext rc)
   {
-    Object cap = arc.getAgent().getCapabilities().get(
+    Object cap = rc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_INTRINSIC_EVENTS);
     return !Boolean.FALSE.equals(cap);
   }
@@ -140,16 +140,16 @@ public class XhtmlRenderer extends CoreRenderer
    * See section 5.18 of xhtml modularization
    */
   public static boolean supportsStyleAttributes(
-          RenderingContext arc
-          )
+    RenderingContext rc)
   {
-    return (arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_STYLE_ATTRIBUTES) !=
+    return (rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_STYLE_ATTRIBUTES) !=
             TrinidadAgent.STYLES_NONE);
   }
 
-  static public boolean supportsNavigation(RenderingContext arc)
+  static public boolean supportsNavigation(
+    RenderingContext rc)
   {
-    Object cap = arc.getAgent().getCapabilities().get(
+    Object cap = rc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_NAVIGATION);
     return !Boolean.FALSE.equals(cap);
   }
@@ -160,54 +160,56 @@ public class XhtmlRenderer extends CoreRenderer
    * See section 5.4.1 of xhtml modularization.
    */
   public static boolean supportsTextPresentation(
-          RenderingContext arc
-          )
+    RenderingContext rc)
   {
-    Object cap = arc.getAgent().getCapabilities().get(
+    Object cap = rc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_TEXT_PRESENTATION);
     return !Boolean.FALSE.equals(cap);
   }
-  static public boolean supportsAccessKeys(RenderingContext arc)
+  static public boolean supportsAccessKeys(
+    RenderingContext rc)
   {
     // In screen reader mode, disable access keys.  Despite
     // the name, they are currently considered an accessibility
     // liability
-    if (isScreenReaderMode(arc))
+    if (isScreenReaderMode(rc))
       return false;
 
-    Object cap = arc.getAgent().getCapabilities().get(
+    Object cap = rc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_ACCESS_KEYS);
     return !Boolean.FALSE.equals(cap);
   }
 
-  static public final boolean supportsDisabledFormElements(RenderingContext arc)
+  static public final boolean supportsDisabledFormElements(
+    RenderingContext rc)
   {
-    Object cap = arc.getAgent().getCapabilities().get(
+    Object cap = rc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_DISABLED_FORM_ELEMENTS);
     return !Boolean.FALSE.equals(cap);
 
   }
 
-  static public final boolean supportsReadonlyFormElements(RenderingContext arc)
+  static public final boolean supportsReadonlyFormElements(
+    RenderingContext rc)
   {
-    Object cap = arc.getAgent().getCapabilities().get(
+    Object cap = rc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_READONLY_FORM_ELEMENTS);
     return !Boolean.FALSE.equals(cap);
 
   }
 
   static public final boolean supportsAutoCompleteFormElements(
-     RenderingContext arc)
+    RenderingContext rc)
   {
-    Object cap = arc.getAgent().getCapabilities().get(
+    Object cap = rc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_AUTO_COMPLETE_FORM_ELEMENTS);
     return !Boolean.FALSE.equals(cap);
   }
 
   static public final boolean supportsSeparateWindow(
-    RenderingContext arc)
+    RenderingContext rc)
   {
-    return XhtmlUtils.supportsSeparateWindow(arc.getAgent());
+    return XhtmlUtils.supportsSeparateWindow(rc.getAgent());
   }
 
   /**
@@ -217,10 +219,9 @@ public class XhtmlRenderer extends CoreRenderer
    * See section 5.12 of xhtml modularization.
    */
   static public final boolean supportsTarget(
-     RenderingContext arc)
-
+     RenderingContext rc)
   {
-    Object cap = arc.getAgent().getCapabilities().get(
+    Object cap = rc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_TARGET);
     return !Boolean.FALSE.equals(cap);
   }
@@ -230,19 +231,16 @@ public class XhtmlRenderer extends CoreRenderer
    * @param context a <code>RenderingContext</code>
    * @return a <code>boolean</code>
    */
-    
-  public static boolean supportsNarrowScreen(RenderingContext arc)
+  public static boolean supportsNarrowScreen(RenderingContext rc)
   {
-    Object cap = arc.getAgent().getCapabilities().get( 
+    Object cap = rc.getAgent().getCapabilities().get(
                                  TrinidadAgent.CAP_NARROW_SCREEN);
     return Boolean.TRUE.equals(cap);
   }
 
-
   //
   // END OF AGENT CAPABILITY CONVENIENCE METHODS
   //
-
 
   @Override
   protected boolean skipDecode(FacesContext context)
@@ -263,7 +261,6 @@ public class XhtmlRenderer extends CoreRenderer
     // properly.  But how the heck is that gonna happen?
     return TrinidadFilterImpl.isExecutingDialogReturn(context);
   }
-
 
   /**
    * Returns true if the component can skip its own rendering;
@@ -324,7 +321,7 @@ public class XhtmlRenderer extends CoreRenderer
     UIComponent  component)
   {
     // If there's partial triggers, always render an ID if possible
-    if (getPartialTriggers(getFacesBean(component)) != null)
+    if (getPartialTriggers(component, getFacesBean(component)) != null)
     {
       return true;
     }
@@ -339,11 +336,13 @@ public class XhtmlRenderer extends CoreRenderer
    * re-divide its functionality in a subclass.  Make it final???
    */
   protected void renderAllAttributes(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    renderAllAttributes(context, arc, bean, true);
+    renderAllAttributes(context, rc, component, bean, true);
   }
 
 
@@ -353,33 +352,37 @@ public class XhtmlRenderer extends CoreRenderer
    * renderStyleAttributes should be called, which renders "class", "style"
    */
   protected void renderAllAttributes(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean,
-    boolean             renderStyleAttrs) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    boolean          renderStyleAttrs
+    ) throws IOException
   {
-    renderShortDescAttribute(context, arc, bean);
+    renderShortDescAttribute(context, rc, component, bean);
     // render the events only if the browser supports JavaScript
-    if (supportsScripting(arc))
+    if (supportsScripting(rc))
     {
-      renderEventHandlers(context, bean);
+      renderEventHandlers(context, component, bean);
     }
     if (renderStyleAttrs)
-      renderStyleAttributes(context, arc, bean);
+      renderStyleAttributes(context, rc, component, bean);
 
   }
+
   /**
    * Renders the inline style attribute for the specified node
    */
   public static void renderInlineStyleAttribute(
-    FacesContext        context,
-    RenderingContext arc,
-    String              style
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    String           style
     ) throws IOException
   {
     if (style != null)
     {
-      if (supportsStyleAttributes(arc))
+      if (supportsStyleAttributes(rc))
       {
         ResponseWriter writer = context.getResponseWriter();
         writer.writeAttribute("style", style, null);
@@ -389,11 +392,13 @@ public class XhtmlRenderer extends CoreRenderer
   }
 
   protected void renderInlineStyle(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    String style = getInlineStyle(bean);
+    String style = getInlineStyle(component, bean);
     if (style != null)
     {
       context.getResponseWriter().writeAttribute("style",
@@ -403,11 +408,13 @@ public class XhtmlRenderer extends CoreRenderer
   }
 
   protected void renderShortDescAttribute(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    String shortDesc = getShortDesc(bean);
+    String shortDesc = getShortDesc(component, bean);
     if (shortDesc != null)
       context.getResponseWriter().writeAttribute("title",
                                                  shortDesc,
@@ -415,14 +422,18 @@ public class XhtmlRenderer extends CoreRenderer
   }
 
   protected void renderStyleAttributes(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    renderStyleAttributes(context, arc, bean, getDefaultStyleClass(bean));
+    renderStyleAttributes(context, rc, component, bean, getDefaultStyleClass(component, bean));
   }
 
-  protected String getDefaultStyleClass(FacesBean bean)
+  protected String getDefaultStyleClass(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return null;
   }
@@ -431,12 +442,14 @@ public class XhtmlRenderer extends CoreRenderer
    * When there's a default style class pass it in to this method
    */
   protected void renderStyleAttributes(
-    FacesContext        context,
-    RenderingContext    arc,
-    FacesBean           bean,
-    String              defaultStyleClass) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    String           defaultStyleClass
+    ) throws IOException
   {
-    String styleClass = getStyleClass(bean);
+    String styleClass = getStyleClass(component, bean);
     List<String> parsedStyleClasses = OutputUtils.parseStyleClassList(styleClass);
 
     if (defaultStyleClass != null)
@@ -462,33 +475,33 @@ public class XhtmlRenderer extends CoreRenderer
         styleClasses[styleCount] = defaultStyleClass;
 
         renderStyleClasses(context,
-                           arc,
+                           rc,
                            styleClasses);
       }
       else
       {
-        renderStyleClass(context, arc, defaultStyleClass);
+        renderStyleClass(context, rc, defaultStyleClass);
       }
     }
     else if (styleClass != null)
     {
       if (parsedStyleClasses == null)
       {
-        styleClass = arc.getStyleClass(styleClass);
+        styleClass = rc.getStyleClass(styleClass);
         context.getResponseWriter().writeAttribute("class",
-                                                   arc.getStyleClass(styleClass),
+                                                   rc.getStyleClass(styleClass),
                                                    "styleClass");
       }
       else
       {
         renderStyleClasses(context,
-                           arc,
+                           rc,
                            parsedStyleClasses.toArray(
                                    new String[parsedStyleClasses.size()]));
       }
     }
 
-    String style = getInlineStyle(bean);
+    String style = getInlineStyle(component, bean);
     if (style != null)
     {
       context.getResponseWriter().writeAttribute("style",
@@ -497,36 +510,37 @@ public class XhtmlRenderer extends CoreRenderer
     }
   }
 
-
   /**
    * Render all the Javascript attributes.
    */
   protected void renderEventHandlers(
     FacesContext context,
-    FacesBean    bean) throws IOException
+    UIComponent  component,
+    FacesBean    bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
-    rw.writeAttribute("onclick", getOnclick(bean),  "onclick");
-    rw.writeAttribute("ondblclick", getOndblclick(bean),  "ondblclick");
-    rw.writeAttribute("onkeydown", getOnkeydown(bean),  "onkeydown");
-    rw.writeAttribute("onkeyup", getOnkeyup(bean),  "onkeyup");
-    rw.writeAttribute("onkeypress", getOnkeypress(bean),  "onkeypress");
-    rw.writeAttribute("onmousedown", getOnmousedown(bean),  "onmousedown");
-    rw.writeAttribute("onmousemove", getOnmousemove(bean),  "onmousemove");
-    rw.writeAttribute("onmouseout", getOnmouseout(bean),  "onmouseout");
-    rw.writeAttribute("onmouseover", getOnmouseover(bean),  "onmouseover");
-    rw.writeAttribute("onmouseup", getOnmouseup(bean),  "onmouseup");
+    rw.writeAttribute("onclick", getOnclick(component, bean), "onclick");
+    rw.writeAttribute("ondblclick", getOndblclick(component, bean), "ondblclick");
+    rw.writeAttribute("onkeydown", getOnkeydown(component, bean), "onkeydown");
+    rw.writeAttribute("onkeyup", getOnkeyup(component, bean), "onkeyup");
+    rw.writeAttribute("onkeypress", getOnkeypress(component, bean), "onkeypress");
+    rw.writeAttribute("onmousedown", getOnmousedown(component, bean), "onmousedown");
+    rw.writeAttribute("onmousemove", getOnmousemove(component, bean), "onmousemove");
+    rw.writeAttribute("onmouseout", getOnmouseout(component, bean), "onmouseout");
+    rw.writeAttribute("onmouseover", getOnmouseover(component, bean), "onmouseover");
+    rw.writeAttribute("onmouseup", getOnmouseup(component, bean), "onmouseup");
   }
 
-
   protected static void renderHAlign(
-    FacesContext        context,
-    RenderingContext arc,
-    Object              hAlign) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    Object           hAlign
+    ) throws IOException
   {
     if (hAlign != null)
     {
-      boolean rtl = arc.isRightToLeft();
+      boolean rtl = rc.isRightToLeft();
 
       if ("start".equals(hAlign))
       {
@@ -549,7 +563,6 @@ public class XhtmlRenderer extends CoreRenderer
   // FORMATTED TEXT
   //
 
-
   final protected void renderPossiblyFormattedText(
     FacesContext context,
     Object       textValue
@@ -567,7 +580,8 @@ public class XhtmlRenderer extends CoreRenderer
 
   final protected void renderFormattedText(
     FacesContext context,
-    Object       textValue) throws IOException
+    Object       textValue
+    ) throws IOException
   {
     if (textValue != null)
     {
@@ -576,7 +590,8 @@ public class XhtmlRenderer extends CoreRenderer
     }
   }
 
-  private boolean _isTextFormatted(String textStr)
+  private boolean _isTextFormatted(
+    String textStr)
   {
     // =-=AEW Should we support "<HTML>" (caps)?
     return textStr.startsWith("<html>");
@@ -595,11 +610,11 @@ public class XhtmlRenderer extends CoreRenderer
   //
 
   static public String getAbsoluteImageUri(
-     FacesContext        context,
-     RenderingContext arc,
-     String              imagePath)
+     FacesContext     context,
+     RenderingContext rc,
+     String           imagePath)
   {
-    return getBaseImageUri(context, arc) + imagePath;
+    return getBaseImageUri(context, rc) + imagePath;
   }
 
   /**
@@ -607,8 +622,8 @@ public class XhtmlRenderer extends CoreRenderer
    * @todo Cache concatentation
    */
   static protected String getBaseImageUri(
-    FacesContext        context,
-    RenderingContext arc)
+    FacesContext     context,
+    RenderingContext rc)
   {
     String contextUri = context.getExternalContext().getRequestContextPath();
     return contextUri + "/adf/images/";
@@ -621,49 +636,48 @@ public class XhtmlRenderer extends CoreRenderer
    * that are purely visual.
    */
   protected final void renderDecorativeIcon(
-    FacesContext        context,
-    RenderingContext arc,
-    String              iconUri,
-    Object              width,
-    Object              height,
-    Object              id,
-    Object              altText
+    FacesContext     context,
+    RenderingContext rc,
+    String           iconUri,
+    Object           width,
+    Object           height,
+    Object           id,
+    Object           altText
     ) throws IOException
   {
-    renderDecorativeIcon(context, arc, iconUri, width, height,
+    renderDecorativeIcon(context, rc, iconUri, width, height,
                          id, altText, null);
   }
 
   protected final void renderDecorativeIcon(
-    FacesContext        context,
-    RenderingContext arc,
-    String              iconUri,
-    Object              width,
-    Object              height,
-    Object              id,
-    Object              altText,
-    UIComponent         comp
+    FacesContext     context,
+    RenderingContext rc,
+    String           iconUri,
+    Object           width,
+    Object           height,
+    Object           id,
+    Object           altText,
+    UIComponent      comp
     ) throws IOException
   {
     // Convert iconUri to an absolute uri
-    String absoluteUri = getAbsoluteImageUri(context, arc, iconUri);
+    String absoluteUri = getAbsoluteImageUri(context, rc, iconUri);
 
-    if ((altText == null) && !isInaccessibleMode(arc))
+    if ((altText == null) && !isInaccessibleMode(rc))
       altText = "";
 
-    OutputUtils.renderImage(context, arc, absoluteUri,
+    OutputUtils.renderImage(context, rc, absoluteUri,
                             width, height, id, altText, comp);
   }
-
 
   /**
    * Renders a vertical spacer for a specified non-null height.
    */
   protected final void renderVerticalSpacer(
-    FacesContext        context,
-    Object              height,
-    Object              id,
-    UIComponent         comp
+    FacesContext context,
+    Object       height,
+    Object       id,
+    UIComponent  comp
     ) throws IOException
   {
     if (height != null)
@@ -690,13 +704,13 @@ public class XhtmlRenderer extends CoreRenderer
    * Renders a spacer.
    */
   protected final void renderSpacer(
-    FacesContext        context,
-    RenderingContext arc,
-    String              width,
-    String              height
+    FacesContext     context,
+    RenderingContext rc,
+    String           width,
+    String           height
     ) throws IOException
   {
-    renderTransparent(context, arc, width, height, false, null);
+    renderTransparent(context, rc, width, height, false, null);
   }
 
 
@@ -704,20 +718,20 @@ public class XhtmlRenderer extends CoreRenderer
    * Renders a transparent gif using a script to save space.
    */
   protected final void renderTransparent(
-    FacesContext        context,
-    RenderingContext arc,
-    String              width,
-    String              height,
-    boolean             needsQuoting,
-    Object              id
+    FacesContext     context,
+    RenderingContext rc,
+    String           width,
+    String           height,
+    boolean          needsQuoting,
+    Object           id
     ) throws IOException
   {
     Counter counter =
-      (Counter) getRenderingProperty(arc, _SCRIPT_SPACER_COUNT);
+      (Counter) getRenderingProperty(rc, _SCRIPT_SPACER_COUNT);
     if (counter == null)
     {
       counter = new Counter();
-      setRenderingProperty(arc, _SCRIPT_SPACER_COUNT, counter);
+      setRenderingProperty(rc, _SCRIPT_SPACER_COUNT, counter);
     }
     int count = counter.count++;
 
@@ -726,70 +740,75 @@ public class XhtmlRenderer extends CoreRenderer
     boolean useScript =
       ((count < 800)
        && (TrinidadAgent.SCRIPTING_SPEED_CAP_FAST ==
-           arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_SCRIPTING_SPEED)));
-    _renderTransparent(context, arc, width, height, needsQuoting, id, useScript);
+           rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_SCRIPTING_SPEED)));
+    _renderTransparent(context, rc, width, height, needsQuoting, id, useScript);
   }
-  
+
   /**
-   * This method evaluates the property of the specified bean if it supports 
-   * the specified property key and if the current value is <code>null</code>, 
+   * This method evaluates the property of the specified bean if it supports
+   * the specified property key and if the current value is <code>null</code>,
    * then evaluate the default value.
    * <p>
-   * If the bean does not support the specified key, this method returns 
-   * <code>null</code>. Unsupported keys occur when the bean's type its type 
-   * returned <code>null</code> from <code>findKey</code> when 
+   * If the bean does not support the specified key, this method returns
+   * <code>null</code>. Unsupported keys occur when the bean's type its type
+   * returned <code>null</code> from <code>findKey</code> when
    * <code>findTypeConstants</code> method was called.
    * </p>
-   * 
+   *
    * @param bean the property value holder.
    * @param key  the key associated to the property to evaluate.
-   * 
-   * @return <code>null</code> if key is <code>null</code>, the current 
-   *         property value in the bean for the specified key if it was 
+   *
+   * @return <code>null</code> if key is <code>null</code>, the current
+   *         property value in the bean for the specified key if it was
    *         set, or the default value if it wasn't.
-   * 
+   *
    * @see #findTypeConstants(org.apache.myfaces.trinidad.bean.FacesBean.Type)
    */
-  protected Object resolveProperty(FacesBean bean, PropertyKey key)
+  protected Object resolveProperty(
+    FacesBean   bean,
+    PropertyKey key)
   {
     return resolveProperty(bean, key, true);
   }
-  
+
   /**
-   * This method evaluates the property of the specified bean if it supports 
-   * the specified property key and if the current value is <code>null</code>, 
-   * then evaluate the default value if and only if <code>checkDefault</code> 
+   * This method evaluates the property of the specified bean if it supports
+   * the specified property key and if the current value is <code>null</code>,
+   * then evaluate the default value if and only if <code>checkDefault</code>
    * is <code>true</code>.
    * <p>
-   * If the bean does not support the specified key, this method returns 
-   * <code>null</code>. Unsupported keys occur when the bean's type its type 
-   * returned <code>null</code> from <code>findKey</code> when 
+   * If the bean does not support the specified key, this method returns
+   * <code>null</code>. Unsupported keys occur when the bean's type its type
+   * returned <code>null</code> from <code>findKey</code> when
    * <code>findTypeConstants</code> method was called.
    * </p>
-   * 
+   *
    * @param bean         the property value holder.
    * @param key          the key associated to the property to evaluate.
-   * @param checkDefault a flag to tell the method to look for the default value 
+   * @param checkDefault a flag to tell the method to look for the default value
    *                     if no value was explicitely set.
-   * 
-   * @return <code>null</code> if key is <code>null</code>, the current 
-   *         property value in the bean for the specified key if it was 
-   *         set, or the default value if it wasn't and checkDefault is 
+   *
+   * @return <code>null</code> if key is <code>null</code>, the current
+   *         property value in the bean for the specified key if it was
+   *         set, or the default value if it wasn't and checkDefault is
    *         <code>true</code>.
    */
-  protected Object resolveProperty(FacesBean bean, PropertyKey key, boolean checkDefault)
+  protected Object resolveProperty(
+    FacesBean   bean,
+    PropertyKey key,
+    boolean     checkDefault)
   {
     if (key == null)
     {
       return null;
     }
-    
+
     Object value = bean.getProperty(key);
     if (value == null && checkDefault)
     {
       value = key.getDefault();
     }
-    
+
     return value;
   }
 
@@ -804,22 +823,22 @@ public class XhtmlRenderer extends CoreRenderer
    * @todo fixup call to addLib
    */
   private void _renderTransparent(
-    FacesContext        context,
-    RenderingContext arc,
-    String              width,
-    String              height,
-    boolean             needsQuoting,
-    Object              id,
-    boolean             useScript
+    FacesContext     context,
+    RenderingContext rc,
+    String           width,
+    String           height,
+    boolean          needsQuoting,
+    Object           id,
+    boolean          useScript
     ) throws IOException
   {
-    PartialPageContext pContext = arc.getPartialPageContext();
+    PartialPageContext pContext = rc.getPartialPageContext();
 
     // cannot use t() in MarlinCore.js on a partial rendering pass
     // just render the icon.
     if (!useScript || (pContext != null))
     {
-      renderDecorativeIcon(context, arc, TRANSPARENT_GIF,
+      renderDecorativeIcon(context, rc, TRANSPARENT_GIF,
                            width, height, id, null);
     }
     else
@@ -827,23 +846,23 @@ public class XhtmlRenderer extends CoreRenderer
       // IE has fast javascript, so render has a js function call
       ResponseWriter writer = context.getResponseWriter();
 
-      if (getRenderingProperty(arc,
+      if (getRenderingProperty(rc,
                                _TRANSPARENT_FUNCTION_WRITTEN_KEY) == null)
       {
         // determine the transparent image's URI
-        String transparentURI = getAbsoluteImageUri(context, arc, TRANSPARENT_GIF);
+        String transparentURI = getAbsoluteImageUri(context, rc, TRANSPARENT_GIF);
 
-        setRenderingProperty(arc,
+        setRenderingProperty(rc,
                              _TRANSPARENT_FUNCTION_WRITTEN_KEY,
                              Boolean.TRUE);
 
         // make sure the transparent image function is loaded
-        XhtmlUtils.addLib(context, arc, "t()");
+        XhtmlUtils.addLib(context, rc, "t()");
 
         writer.startElement("script", null);
         // Bug #3426092:
         // render the type="text/javascript" attribute in accessibility mode
-        renderScriptTypeAttribute(context, arc);
+        renderScriptTypeAttribute(context, rc);
 
         writer.writeAttribute("id", id, null);
 
@@ -854,7 +873,7 @@ public class XhtmlRenderer extends CoreRenderer
         // store accessibility mode as javascript variable
         // which is used in t()
         writer.write("var _axm");
-        if (!isInaccessibleMode(arc))
+        if (!isInaccessibleMode(rc))
           writer.write("=1");
         writer.write(";");
       }
@@ -863,7 +882,7 @@ public class XhtmlRenderer extends CoreRenderer
         writer.startElement("script", null);
         // Bug #3426092:
         // render the type="text/javascript" attribute in accessibility mode
-        renderScriptTypeAttribute(context, arc);
+        renderScriptTypeAttribute(context, rc);
         writer.writeAttribute("id", id, null);
       }
 
@@ -932,8 +951,9 @@ public class XhtmlRenderer extends CoreRenderer
    * before calling this method.
    */
   public static void renderScriptDeferAttribute(
-    FacesContext        context,
-    RenderingContext arc) throws IOException
+    FacesContext     context,
+    RenderingContext rc
+    ) throws IOException
   {
     // At the moment we only render the defer attribute if
     // we are in the partial rendering pass.  This is to
@@ -959,10 +979,11 @@ public class XhtmlRenderer extends CoreRenderer
    * before calling this method.
    */
   public static void renderScriptTypeAttribute(
-    FacesContext        context,
-    RenderingContext arc) throws IOException
+    FacesContext     context,
+    RenderingContext rc
+    ) throws IOException
   {
-    if (!isInaccessibleMode(arc))
+    if (!isInaccessibleMode(rc))
     {
       context.getResponseWriter().writeAttribute("type",
                                                  _ACCESSIBILITY_SCRIPT_TYPE,
@@ -973,21 +994,21 @@ public class XhtmlRenderer extends CoreRenderer
 
   /**
    * This method renders an input element of type "submit". The input element's
-   * name attribute is encoded with parameter name and value pairs. Thus, it 
-   * would enable Non-JavaScript browsers to include the element's name in 
-   * their payLoad, if the element submits the page.    
+   * name attribute is encoded with parameter name and value pairs. Thus, it
+   * would enable Non-JavaScript browsers to include the element's name in
+   * their payLoad, if the element submits the page.
    *
    * @param context a <code>FacesContext</code>
-   * @param arc a <code>RenderingContext</code>
+   * @param rc a <code>RenderingContext</code>
    * @param valueAttri a <code>String</code> it is the value attribute
    *  of the submit button
    * @param nameAttri  a <code>String</code> it is the name attribute
    *  of the submit button
-   * 
+   *
    */
   public static void renderSubmitButtonNonJSBrowser(
     FacesContext     context,
-    RenderingContext arc,
+    RenderingContext rc,
     String           valueAttri,
     String           nameAttri
     ) throws IOException
@@ -997,30 +1018,38 @@ public class XhtmlRenderer extends CoreRenderer
     writer.writeAttribute("type", "submit", null);
     writer.writeAttribute("value", valueAttri, null);
     writer.writeAttribute("name", nameAttri, null);
-    renderStyleClass(context, arc, 
+    renderStyleClass(context, rc,
                        SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS);
     writer.endElement("input");
   }
- 
+
   //
   // ATTRIBUTE HOOKS
   //
-  protected String getShortDesc(FacesBean bean)
+  protected String getShortDesc(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_shortDescKey));
   }
 
-  protected String getStyleClass(FacesBean bean)
+  protected String getStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_styleClassKey));
   }
 
-  protected String getInlineStyle(FacesBean bean)
+  protected String getInlineStyle(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_inlineStyleKey));
   }
 
-  protected String getOnclick(FacesBean bean)
+  protected String getOnclick(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onclickKey == null)
       return null;
@@ -1028,7 +1057,9 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onclickKey));
   }
 
-  protected String getOndblclick(FacesBean bean)
+  protected String getOndblclick(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_ondblclickKey == null)
       return null;
@@ -1036,7 +1067,9 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_ondblclickKey));
   }
 
-  protected String getOnkeydown(FacesBean bean)
+  protected String getOnkeydown(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onkeydownKey == null)
       return null;
@@ -1044,7 +1077,9 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onkeydownKey));
   }
 
-  protected String getOnkeyup(FacesBean bean)
+  protected String getOnkeyup(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onkeyupKey == null)
       return null;
@@ -1052,7 +1087,9 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onkeyupKey));
   }
 
-  protected String getOnkeypress(FacesBean bean)
+  protected String getOnkeypress(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onkeypressKey == null)
       return null;
@@ -1060,7 +1097,9 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onkeypressKey));
   }
 
-  protected String getOnmousedown(FacesBean bean)
+  protected String getOnmousedown(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onmousedownKey == null)
       return null;
@@ -1068,7 +1107,9 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onmousedownKey));
   }
 
-  protected String getOnmousemove(FacesBean bean)
+  protected String getOnmousemove(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onmousemoveKey == null)
       return null;
@@ -1076,7 +1117,9 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onmousemoveKey));
   }
 
-  protected String getOnmouseout(FacesBean bean)
+  protected String getOnmouseout(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onmouseoutKey == null)
       return null;
@@ -1084,7 +1127,9 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onmouseoutKey));
   }
 
-  protected String getOnmouseover(FacesBean bean)
+  protected String getOnmouseover(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onmouseoverKey == null)
       return null;
@@ -1092,7 +1137,9 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onmouseoverKey));
   }
 
-  protected String getOnmouseup(FacesBean bean)
+  protected String getOnmouseup(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onmouseupKey == null)
       return null;
@@ -1100,7 +1147,9 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onmouseupKey));
   }
 
-  protected String[] getPartialTriggers(FacesBean bean)
+  protected String[] getPartialTriggers(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_partialTriggersKey == null)
     {
@@ -1113,16 +1162,17 @@ public class XhtmlRenderer extends CoreRenderer
   }
 
   /**
-   * Returns true if the agent supports the "onclick" JS Handler in an "input" 
+   * Returns true if the agent supports the "onclick" JS Handler in an "input"
    * HTML element of type "image"
    */
-  static public boolean supportsOnClickOnImgInput(RenderingContext arc)
+  static public boolean supportsOnClickOnImgInput(
+    RenderingContext rc)
   {
-    Object cap = arc.getAgent().getCapabilities().get(
+    Object cap = rc.getAgent().getCapabilities().get(
                       TrinidadAgent.CAP_ONCLICK_IMG_INPUT);
     return !Boolean.FALSE.equals(cap);
   }
-  
+
   private PropertyKey _shortDescKey;
   private PropertyKey _styleClassKey;
   private PropertyKey _inlineStyleKey;

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,9 +27,10 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.nav.CoreGoLink;
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
+
 
 public class GoLinkRenderer extends XhtmlRenderer
 {
@@ -38,13 +39,15 @@ public class GoLinkRenderer extends XhtmlRenderer
     this(CoreGoLink.TYPE);
   }
 
-  protected GoLinkRenderer(FacesBean.Type type)
+  protected GoLinkRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _accessKeyKey = type.findKey("accessKey");
@@ -58,27 +61,28 @@ public class GoLinkRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeBegin(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("a", comp);
 
-    if (getDisabled(bean) || !supportsNavigation(arc))
+    if (getDisabled(comp, bean) || !supportsNavigation(rc))
     {
       renderId(context, comp);
-      renderStyleAttributes(context, arc, bean);
+      renderStyleAttributes(context, rc, comp, bean);
     }
     else
     {
       renderId(context, comp);
-      renderAllAttributes(context, arc, bean);
+      renderAllAttributes(context, rc, comp, bean);
 
       // If we have an onclick handler, always provide a destination
-      String destination = getDestination(bean);
-      if ((destination == null) && hasOnclick(bean))
+      String destination = getDestination(comp, bean);
+      if ((destination == null) && hasOnclick(comp, bean))
       {
         destination = "#";
       }
@@ -86,40 +90,41 @@ public class GoLinkRenderer extends XhtmlRenderer
       renderEncodedActionURI(context, "href", destination);
 
       if (!Boolean.FALSE.equals(
-              arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET)))
+              rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET)))
       {
-        rw.writeAttribute("target", getTargetFrame(bean), null);
+        rw.writeAttribute("target", getTargetFrame(comp, bean), null);
       }
     }
 
     char accessKey;
-    if (supportsAccessKeys(arc))
+    if (supportsAccessKeys(rc))
     {
-      accessKey = getAccessKey(bean);
+      accessKey = getAccessKey(comp, bean);
       if (accessKey != CHAR_UNDEFINED)
       {
         rw.writeAttribute("accesskey",
                           Character.valueOf(accessKey),
                           "accessKey");
-      }                   
+      }
     }
     else
     {
       accessKey = CHAR_UNDEFINED;
     }
-    
+
     AccessKeyUtils.renderAccessKeyText(context,
-                                       getText(bean),
+                                       getText(comp, bean),
                                        accessKey,
                                        SkinSelectors.AF_LINKACCESSKEY_STYLE_CLASS);
   }
 
   @Override
   public void encodeEnd(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.endElement("a");
@@ -131,7 +136,8 @@ public class GoLinkRenderer extends XhtmlRenderer
   @Override
   protected void renderId(
     FacesContext context,
-    UIComponent  component) throws IOException
+    UIComponent  component
+    ) throws IOException
   {
     if (shouldRenderId(context, component))
     {
@@ -145,26 +151,33 @@ public class GoLinkRenderer extends XhtmlRenderer
   @Override
   protected void renderEventHandlers(
     FacesContext context,
-    FacesBean    bean) throws IOException
+    UIComponent  component,
+    FacesBean    bean
+    ) throws IOException
   {
-    super.renderEventHandlers(context, bean);
+    super.renderEventHandlers(context, component, bean);
     ResponseWriter rw = context.getResponseWriter();
-    rw.writeAttribute("onblur", getOnblur(bean),  "onblur");
-    rw.writeAttribute("onfocus", getOnfocus(bean),  "onfocus");
+    rw.writeAttribute("onblur", getOnblur(component, bean), "onblur");
+    rw.writeAttribute("onfocus", getOnfocus(component, bean), "onfocus");
   }
 
-  
-  protected char getAccessKey(FacesBean bean)
+  protected char getAccessKey(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toChar(bean.getProperty(_accessKeyKey));
   }
 
-  protected String getDestination(FacesBean bean)
+  protected String getDestination(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toResourceUri(FacesContext.getCurrentInstance(), bean.getProperty(_destinationKey));
   }
 
-  protected boolean getDisabled(FacesBean bean)
+  protected boolean getDisabled(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_disabledKey);
     if (o == null)
@@ -176,13 +189,17 @@ public class GoLinkRenderer extends XhtmlRenderer
   /**
    * Returns true if the bean has onclick;  provided so
    * subclasses that always have onclick can override.
-   */ 
-  protected boolean hasOnclick(FacesBean bean)
+   */
+  protected boolean hasOnclick(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return getOnclick(bean) != null;
+    return getOnclick(component, bean) != null;
   }
 
-  protected String getOnblur(FacesBean bean)
+  protected String getOnblur(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onblurKey == null)
       return null;
@@ -190,7 +207,9 @@ public class GoLinkRenderer extends XhtmlRenderer
     return toString(bean.getProperty(_onblurKey));
   }
 
-  protected String getOnfocus(FacesBean bean)
+  protected String getOnfocus(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onfocusKey == null)
       return null;
@@ -198,24 +217,30 @@ public class GoLinkRenderer extends XhtmlRenderer
     return toString(bean.getProperty(_onfocusKey));
   }
 
-  protected String getTargetFrame(FacesBean bean)
+  protected String getTargetFrame(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_targetFrameKey));
   }
 
-  protected String getText(FacesBean bean)
+  protected String getText(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_textKey));
   }
 
   @Override
-  protected String getDefaultStyleClass(FacesBean bean)
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
     if (((CoreRenderingContext) arc).isDefaultLinkStyleDisabled())
       return null;
 
-    if (getDisabled(bean))
+    if (getDisabled(component, bean))
       return SkinSelectors.LINK_DISABLED_STYLE_CLASS;
     else
       return SkinSelectors.LINK_STYLE_CLASS;

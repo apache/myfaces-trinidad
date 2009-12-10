@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,11 +26,11 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.html.HtmlFrame;
 import org.apache.myfaces.trinidad.component.html.HtmlFrameBorderLayout;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 
 /**
  * Renders a frame.
@@ -44,13 +44,15 @@ public class FrameRenderer extends XhtmlRenderer
     this(HtmlFrame.TYPE);
   }
 
-  protected FrameRenderer(FacesBean.Type type)
+  protected FrameRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
 
@@ -60,7 +62,7 @@ public class FrameRenderer extends XhtmlRenderer
     _longDescUrlKey = type.findKey("longDescURL");
     _scrollingKey = type.findKey("scrolling");
   }
-  
+
   @Override
   public boolean getRendersChildren()
   {
@@ -69,21 +71,23 @@ public class FrameRenderer extends XhtmlRenderer
 
   @Override
   protected void renderAllAttributes(
-    FacesContext        context,
-    RenderingContext    rc,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
-    renderShortDescAttribute(context, rc, bean);
-    renderStyleAttributes(context, rc, bean);
-    
+    renderShortDescAttribute(context, rc, component, bean);
+    renderStyleAttributes(context, rc, component, bean);
+
     writer.writeAttribute("frameborder", "0", null);
-    writer.writeAttribute("marginwidth", 
-                          getMarginWidth(bean),
+    writer.writeAttribute("marginwidth",
+                          getMarginWidth(component, bean),
                           "marginWidth");
     writer.writeAttribute("marginheight",
-                          getMarginHeight(bean),
+                          getMarginHeight(component, bean),
                           "marginHeight");
     writer.writeAttribute("noresize", Boolean.TRUE, null);
 
@@ -99,7 +103,9 @@ public class FrameRenderer extends XhtmlRenderer
                           "scrolling");
   }
 
-  protected Object getMarginWidth(FacesBean bean)
+  protected Object getMarginWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object value = bean.getProperty(_marginWidthKey);
     if (value == null)
@@ -107,7 +113,9 @@ public class FrameRenderer extends XhtmlRenderer
     return value;
   }
 
-  protected Object getMarginHeight(FacesBean bean)
+  protected Object getMarginHeight(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object value = bean.getProperty(_marginHeightKey);
     if (value == null)
@@ -121,7 +129,8 @@ public class FrameRenderer extends XhtmlRenderer
   @Override
   protected void renderId(
     FacesContext context,
-    UIComponent  component) throws IOException
+    UIComponent  component
+    ) throws IOException
   {
     if (shouldRenderId(context, component))
     {
@@ -133,10 +142,11 @@ public class FrameRenderer extends XhtmlRenderer
 
   @Override
   protected final void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     UIComponent parent = component.getParent();
 
@@ -151,10 +161,10 @@ public class FrameRenderer extends XhtmlRenderer
     else
     {
       ResponseWriter writer = context.getResponseWriter();
-  
+
       writer.startElement("frame", component);
       renderId(context, component);
-      renderAllAttributes(context, arc, bean);
+      renderAllAttributes(context, rc, component, bean);
       writer.endElement("frame");
     }
   }

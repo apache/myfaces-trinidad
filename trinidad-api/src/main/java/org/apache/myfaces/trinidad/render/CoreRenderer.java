@@ -81,10 +81,10 @@ public class CoreRenderer extends Renderer
    * @return The VisitResult controlling continued iteration of the visit.
    */
   public VisitResult partialEncodeVisit(
-    VisitContext visitContext,
+    VisitContext       visitContext,
     PartialPageContext partialContext,
-    UIComponent component,
-    VisitCallback callback)
+    UIComponent        component,
+    VisitCallback      callback)
   {
     if (partialContext.isPossiblePartialTarget(component.getId()) &&
         partialContext.isPartialTarget(component.getClientId(visitContext.getFacesContext())))
@@ -116,16 +116,16 @@ public class CoreRenderer extends Renderer
    * @see #tearDownEncodingContext
    */
   public void setupEncodingContext(
-    FacesContext context,
+    FacesContext     context,
     RenderingContext rc,
-    UIXComponent component)
+    UIXComponent     component)
   {
   }
 
   public void setupEncodingContext(
-    FacesContext context,
+    FacesContext     context,
     RenderingContext rc,
-    UIComponent component)
+    UIComponent      component)
   {
     // temporary hack to change UIComponent.  Once the change has propagated through, we will
     // remove the UIXComponent version.
@@ -150,16 +150,16 @@ public class CoreRenderer extends Renderer
    * @see #setupEncodingContext
    */
   public void tearDownEncodingContext(
-    FacesContext context,
+    FacesContext     context,
     RenderingContext rc,
     UIXComponent     component)
   {
   }
 
   public void tearDownEncodingContext(
-    FacesContext context,
+    FacesContext     context,
     RenderingContext rc,
-    UIComponent     component)
+    UIComponent      component)
   {
     // temporary hack to change UIComponent.  Once the change has propagated through, we will
     // remove the UIXComponent version.
@@ -318,8 +318,10 @@ public class CoreRenderer extends Renderer
   }
 
   @Override
-  public final void encodeBegin(FacesContext context,
-                          UIComponent component) throws IOException
+  public final void encodeBegin(
+    FacesContext context,
+    UIComponent  component
+    ) throws IOException
   {
     if (!getRendersChildren())
     {
@@ -336,15 +338,19 @@ public class CoreRenderer extends Renderer
   }
 
   @Override
-  public final void encodeChildren(FacesContext context, UIComponent component)
+  public final void encodeChildren(
+    FacesContext context,
+    UIComponent  component)
   {
     // encodeChildren() is fairly useless - it's simpler to just
     // put the output in encodeEnd(), or use the encodeAll() hook
   }
 
   @Override
-  public final void encodeEnd(FacesContext context,
-                        UIComponent component) throws IOException
+  public final void encodeEnd(
+    FacesContext context,
+    UIComponent  component
+    ) throws IOException
   {
     RenderingContext rc = RenderingContext.getCurrentInstance();
     if (rc == null)
@@ -372,7 +378,8 @@ public class CoreRenderer extends Renderer
     FacesContext     context,
     RenderingContext rc,
     UIComponent      component,
-    FacesBean        bean) throws IOException
+    FacesBean        bean
+    ) throws IOException
   {
     if (getRendersChildren())
       throw new IllegalStateException();
@@ -387,7 +394,8 @@ public class CoreRenderer extends Renderer
    */
   protected final void encodeComponentResources(
     FacesContext context,
-    String       target) throws IOException
+    String       target
+    ) throws IOException
   {
     if(target != null)
     {
@@ -407,7 +415,8 @@ public class CoreRenderer extends Renderer
     FacesContext     context,
     RenderingContext rc,
     UIComponent      component,
-    FacesBean        bean) throws IOException
+    FacesBean        bean
+    ) throws IOException
   {
     if (getRendersChildren())
       throw new IllegalStateException();
@@ -421,7 +430,8 @@ public class CoreRenderer extends Renderer
     FacesContext     context,
     RenderingContext rc,
     UIComponent      component,
-    FacesBean        bean) throws IOException
+    FacesBean        bean
+    ) throws IOException
   {
     if (!getRendersChildren())
       throw new IllegalStateException();
@@ -436,7 +446,8 @@ public class CoreRenderer extends Renderer
   @SuppressWarnings("unchecked")
   protected void encodeChild(
     FacesContext context,
-    UIComponent  child) throws IOException
+    UIComponent  child
+    ) throws IOException
   {
     assert(child.isRendered());
     child.encodeBegin(context);
@@ -461,7 +472,8 @@ public class CoreRenderer extends Renderer
   @SuppressWarnings("unchecked")
   protected void encodeAllChildren(
     FacesContext context,
-    UIComponent  component) throws IOException
+    UIComponent  component
+    ) throws IOException
   {
     int childCount = component.getChildCount();
     if (childCount == 0)
@@ -481,7 +493,8 @@ public class CoreRenderer extends Renderer
     RenderingContext rc,
     UIComponent      component,
     FacesBean        bean,
-    CoreRenderer     renderer) throws IOException
+    CoreRenderer     renderer
+    ) throws IOException
   {
     if (renderer.getRendersChildren())
     {
@@ -498,7 +511,8 @@ public class CoreRenderer extends Renderer
     RenderingContext rc,
     UIComponent      component,
     FacesBean        bean,
-    CoreRenderer     renderer) throws IOException
+    CoreRenderer     renderer
+    ) throws IOException
   {
     if (renderer.getRendersChildren())
     {
@@ -515,7 +529,8 @@ public class CoreRenderer extends Renderer
     RenderingContext rc,
     UIComponent      component,
     FacesBean        bean,
-    CoreRenderer     renderer) throws IOException
+    CoreRenderer     renderer
+    ) throws IOException
   {
     if (renderer.getRendersChildren())
     {
@@ -532,7 +547,8 @@ public class CoreRenderer extends Renderer
    */
   protected void renderId(
     FacesContext context,
-    UIComponent  component) throws IOException
+    UIComponent component
+    ) throws IOException
   {
     if (shouldRenderId(context, component))
     {
@@ -559,7 +575,7 @@ public class CoreRenderer extends Renderer
   // TODO Is this a bottleneck?  If so, optimize!
   protected boolean shouldRenderId(
     FacesContext context,
-    UIComponent  component)
+    UIComponent component)
   {
     String id = component.getId();
 
@@ -574,12 +590,14 @@ public class CoreRenderer extends Renderer
     return true;
   }
 
-  protected boolean skipDecode(FacesContext context)
+  protected boolean skipDecode(
+    FacesContext context)
   {
     return false;
   }
 
-  protected FacesBean getFacesBean(UIComponent component)
+  protected FacesBean getFacesBean(
+    UIComponent component)
   {
     return ((UIXComponent) component).getFacesBean();
   }
@@ -618,7 +636,8 @@ public class CoreRenderer extends Renderer
    * one has rendered=="true".
    */
   @SuppressWarnings("unchecked")
-  static public boolean hasRenderedChildren(UIComponent component)
+  static public boolean hasRenderedChildren(
+    UIComponent component)
   {
     int count = component.getChildCount();
     if (count == 0)
@@ -639,7 +658,8 @@ public class CoreRenderer extends Renderer
    * Returns the total number of children with rendered=="true".
    */
   @SuppressWarnings("unchecked")
-  static public int getRenderedChildCount(UIComponent component)
+  static public int getRenderedChildCount(
+    UIComponent component)
   {
     int count = component.getChildCount();
     if (count == 0)
@@ -665,7 +685,7 @@ public class CoreRenderer extends Renderer
    */
   public static int getNextRenderedChildIndex(
     List<UIComponent> components,
-    int  afterChildIndex
+    int               afterChildIndex
     )
   {
     int childIndex = afterChildIndex + 1;

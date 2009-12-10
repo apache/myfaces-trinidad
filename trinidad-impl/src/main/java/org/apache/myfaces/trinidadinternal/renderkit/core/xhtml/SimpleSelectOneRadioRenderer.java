@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,17 +26,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
-
 import javax.faces.model.SelectItem;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectOneRadio;
-
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+
 
 /**
  */
@@ -47,13 +45,15 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
     this(CoreSelectOneRadio.TYPE);
   }
 
-  public SimpleSelectOneRadioRenderer(FacesBean.Type type)
+  public SimpleSelectOneRadioRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _accessKeyKey   = type.findKey("accessKey");
@@ -61,32 +61,32 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
     _unselectedLabelKey = type.findKey("unselectedLabel");
   }
 
-
   //
   // ENCODE BEHAVIOR
   //
   @Override
   protected void encodeElementContent(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean,
-    List<SelectItem>    selectItems,
-    int                 selectedIndex,
-    Converter           converter,
-    boolean             valuePassThru) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    List<SelectItem> selectItems,
+    int              selectedIndex,
+    Converter        converter,
+    boolean          valuePassThru
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("span", component);
     renderId(context, component);
     // Render all generic attributes, except styles (they go on the item),
     // and onclick (also on the item, see below)
-    renderAllAttributes(context, arc, bean, false /*no styles*/);
+    renderAllAttributes(context, rc, component, bean, false /*no styles*/);
 
-    boolean applyFieldSet = _applyFieldSetWrapper(arc);
+    boolean applyFieldSet = _applyFieldSetWrapper(rc);
     if (applyFieldSet)
     {
-      String shortDesc = getShortDesc(bean);
+      String shortDesc = getShortDesc(component, bean);
       if (shortDesc == null)
       {
         applyFieldSet = false;
@@ -96,14 +96,14 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
         writer.startElement("fieldset", null);
         writer.writeAttribute("style", "border:none;margin:0px;padding:0px;", null);
         writer.startElement("legend", null);
-        renderStyleClass(context, arc,
+        renderStyleClass(context, rc,
                          SkinSelectors.HIDDEN_LABEL_STYLE_CLASS);
         writer.writeText(shortDesc, "shortDesc");
         writer.endElement("legend");
       }
     }
 
-    encodeSelectItems(context, arc, component, bean,
+    encodeSelectItems(context, rc, component, bean,
                       selectItems, selectedIndex, converter,
                       valuePassThru);
     if (applyFieldSet)
@@ -115,38 +115,39 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
   }
 
   protected void encodeSelectItems(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean,
-    List<SelectItem>    selectItems,
-    int                 selectedIndex,
-    Converter           converter,
-    boolean             valuePassThru) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    List<SelectItem> selectItems,
+    int              selectedIndex,
+    Converter        converter,
+    boolean          valuePassThru
+    ) throws IOException
   {
     int size = (selectItems == null) ? 0 : selectItems.size();
 
-    boolean disabled = getDisabled(bean);
+    boolean disabled = getDisabled(component, bean);
     boolean isVertical = !CoreSelectOneRadio.LAYOUT_HORIZONTAL.equals(
-                           getLayout(bean));
+                           getLayout(component, bean));
     Object accessKey;
-    if (supportsAccessKeys(arc))
+    if (supportsAccessKeys(rc))
     {
-      accessKey = getAccessKey(bean);
+      accessKey = getAccessKey(component, bean);
     }
     else
     {
       accessKey = null;
     }
 
-    String itemOnclick = getItemOnclick(arc, bean);
+    String itemOnclick = getItemOnclick(rc, component, bean);
 
     boolean renderedOne = false;
-    String unselectedLabel = getUnselectedLabel(bean);
+    String unselectedLabel = getUnselectedLabel(component, bean);
     if (unselectedLabel != null)
     {
       SelectItem item = new SelectItem("", unselectedLabel, "", false);
-      encodeSelectItem(context, arc, component, item, null, true,
+      encodeSelectItem(context, rc, component, item, null, true,
                        accessKey, -1,  selectedIndex < 0, disabled, false,
                        itemOnclick);
       renderedOne = true;
@@ -155,7 +156,7 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
     for (int i = 0; i < size; i++)
     {
       SelectItem item = selectItems.get(i);
-      if (encodeSelectItem(context, arc, component, item, converter,
+      if (encodeSelectItem(context, rc, component, item, converter,
                            valuePassThru, accessKey,
                            i, selectedIndex == i, disabled,
                            renderedOne && isVertical,
@@ -167,23 +168,24 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
   }
 
   protected boolean encodeSelectItem(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    SelectItem          item,
-    Converter           converter,
-    boolean             valuePassThru,
-    Object              accessKey,
-    int                 index,
-    boolean             isSelected,
-    boolean             isDisabled,
-    boolean             renderBreak,
-    String              itemOnclick) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    SelectItem       item,
+    Converter        converter,
+    boolean          valuePassThru,
+    Object           accessKey,
+    int              index,
+    boolean          isSelected,
+    boolean          isDisabled,
+    boolean          renderBreak,
+    String           itemOnclick
+    ) throws IOException
   {
     if (item == null)
       return false;
 
-    String id = arc.getCurrentClientId();
+    String id = rc.getCurrentClientId();
     if (id == null)
       return false;
 
@@ -230,10 +232,10 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
     // up the "form event handlers" in one pass (seems to be about
     // 8% slower this way)
     // render the events only if the browser supports JavaScript
-    if (supportsScripting(arc))
+    if (supportsScripting(rc))
     {
       rw.writeAttribute("onclick", itemOnclick, null);
-      renderItemFormEventHandlers(context, bean);
+      renderItemFormEventHandlers(context, component, bean);
     }
 
     rw.endElement("input");
@@ -257,7 +259,8 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
   @Override
   protected void renderId(
     FacesContext context,
-    UIComponent  component) throws IOException
+    UIComponent  component
+    ) throws IOException
   {
     if (shouldRenderId(context, component))
     {
@@ -274,10 +277,11 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
   @Override
   protected void renderFormEventHandlers(
     FacesContext context,
-    FacesBean    bean) throws IOException
+    UIComponent  component,
+    FacesBean    bean
+    ) throws IOException
   {
   }
-
 
   /**
    * Disable rendering "onclick" on the parent;  it needs to
@@ -285,36 +289,39 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
    */
   @Override
   protected String getOnclick(
-    FacesBean bean
-    )
+    UIComponent component,
+    FacesBean   bean)
   {
     return null;
   }
-
 
   /**
    * Render the per-item event handlers
    */
   protected void renderItemFormEventHandlers(
     FacesContext context,
-    FacesBean    bean) throws IOException
+    UIComponent  component,
+    FacesBean    bean
+    ) throws IOException
   {
-    super.renderFormEventHandlers(context, bean);
+    super.renderFormEventHandlers(context, component, bean);
   }
-
 
   /**
    * Get the onclick for the individual radio buttons.
    */
-  protected String getItemOnclick(RenderingContext arc, FacesBean bean)
+  protected String getItemOnclick(
+    RenderingContext rc,
+    UIComponent component,
+    FacesBean   bean)
   {
     // Get the overall onclick, and merge in any needed autosubmit script
-    String onclick = super.getOnclick(bean);
-    if (isAutoSubmit(bean))
+    String onclick = super.getOnclick(component, bean);
+    if (isAutoSubmit(component, bean))
     {
-      String source = LabelAndMessageRenderer.__getCachedClientId(arc);
-      boolean immediate = isImmediate(bean);
-      String auto = AutoSubmitUtils.getSubmitScript(arc,
+      String source = LabelAndMessageRenderer.__getCachedClientId(rc);
+      boolean immediate = isImmediate(component, bean);
+      String auto = AutoSubmitUtils.getSubmitScript(rc,
                                                     source,
                                                     XhtmlConstants.AUTOSUBMIT_EVENT,
                                                     immediate);
@@ -324,18 +331,24 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
     return onclick;
   }
 
-  protected Object getAccessKey(FacesBean bean)
+  protected Object getAccessKey(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_accessKeyKey);
   }
 
-  protected String getLayout(FacesBean bean)
+  protected String getLayout(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_layoutKey));
   }
 
   @Override
-  protected String getUnselectedLabel(FacesBean bean)
+  protected String getUnselectedLabel(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_unselectedLabelKey));
   }
@@ -343,37 +356,42 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
   // Never render the "hidden label";  labels entirely go on the individual
   // items
   @Override
-  protected boolean isHiddenLabelRequired(RenderingContext arc)
+  protected boolean isHiddenLabelRequired(
+    RenderingContext rc)
   {
     return false;
   }
-   
+
   @Override
-  protected String getContentStyleClass(FacesBean bean)
+  protected String getContentStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|selectOneRadio::content";
   }
-  
+
   @Override
-  protected String getRootStyleClass(FacesBean bean)  
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|selectOneRadio";
-  }     
+  }
 
-  private static boolean _applyFieldSetWrapper(RenderingContext arc)
+  private static boolean _applyFieldSetWrapper(
+    RenderingContext rc)
   {
     // Don't bother with the output in inaccessible mode
-    if (isInaccessibleMode(arc))
+    if (isInaccessibleMode(rc))
       return false;
 
     // The fieldset trick doesn't work without support for hidden labels
-    if (!HiddenLabelUtils.supportsHiddenLabels(arc))
+    if (!HiddenLabelUtils.supportsHiddenLabels(rc))
       return true;
 
     return Boolean.TRUE.equals(
-       arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_FIELDSET));
+       rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_FIELDSET));
   }
-
 
   private PropertyKey _accessKeyKey;
   private PropertyKey _layoutKey;

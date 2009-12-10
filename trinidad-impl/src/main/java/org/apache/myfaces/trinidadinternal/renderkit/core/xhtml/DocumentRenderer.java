@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -25,7 +25,6 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.CoreDocument;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 
@@ -41,14 +40,16 @@ public class DocumentRenderer extends XhtmlRenderer
   {
     this(CoreDocument.TYPE);
   }
-  
-  protected DocumentRenderer(FacesBean.Type type)
+
+  protected DocumentRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _html = new HtmlRenderer(type);
@@ -64,26 +65,28 @@ public class DocumentRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    delegateRendererBegin(context, arc, component, bean, _html);
+    delegateRendererBegin(context, rc, component, bean, _html);
 
-    delegateRendererBegin(context, arc, component, bean, _head);
+    delegateRendererBegin(context, rc, component, bean, _head);
     UIComponent meta = getFacet(component, CoreDocument.META_CONTAINER_FACET);
     if (meta != null)
       encodeChild(context, meta);
-    delegateRendererEnd(context, arc, component, bean, _head);
+    delegateRendererEnd(context, rc, component, bean, _head);
 
-    delegateRenderer(context, arc, component, bean, _body);
-    delegateRendererEnd(context, arc, component, bean, _html);
+    delegateRenderer(context, rc, component, bean, _body);
+    delegateRendererEnd(context, rc, component, bean, _html);
   }
 
   static private class Head extends HeadRenderer
   {
-    public Head(FacesBean.Type type)
+    public Head(
+      FacesBean.Type type)
     {
       super(type);
     }

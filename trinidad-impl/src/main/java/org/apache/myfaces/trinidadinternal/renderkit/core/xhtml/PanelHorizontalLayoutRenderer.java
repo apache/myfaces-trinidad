@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,8 +29,8 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelHorizontalLayout;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
+
 
 public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
 {
@@ -39,13 +39,15 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
     this(CorePanelHorizontalLayout.TYPE);
   }
 
-  protected PanelHorizontalLayoutRenderer(FacesBean.Type type)
+  protected PanelHorizontalLayoutRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _valignKey = type.findKey("valign");
@@ -60,57 +62,57 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
 
-    Object valign = getValign(bean);
-    Object halign = getHalign(bean);
-
+    Object valign = getValign(component, bean);
+    Object halign = getHalign(component, bean);
 
     rw.startElement("table", component);
-    OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+    OutputUtils.renderLayoutTableAttributes(context, rc, "0", null);
     if (CorePanelHorizontalLayout.HALIGN_CENTER.equals(halign))
       rw.writeAttribute("align", "center", "halign");
 
     renderId(context, component);
-    renderAllAttributes(context, arc, bean);
-
+    renderAllAttributes(context, rc, component, bean);
 
     rw.startElement("tr", null);
 
-    _encodeChildren(context, arc, component, valign, halign);
-
+    _encodeChildren(context, rc, component, valign, halign);
 
     rw.endElement("tr");
     rw.endElement("table");
-
   }
-  
 
-  protected Object getValign(FacesBean bean)
+  protected Object getValign(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_valignKey);
   }
 
-  protected Object getHalign(FacesBean bean)
+  protected Object getHalign(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_halignKey);
-  }  
+  }
 
   /**
    * Render all the children of the PanelGroup
    */
   @SuppressWarnings("unchecked")
   private void _encodeChildren(
-    FacesContext context,
-    RenderingContext arc,
-    UIComponent  component,
-    Object       vAlign,
-    Object       hAlign
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    Object           vAlign,
+    Object           hAlign
     ) throws IOException
   {
 
@@ -124,17 +126,17 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
      * ignore endAligment(<td width = 100%>) in PDA
      */
     boolean isEndAlignment;
-    if (isPDA(arc))
+    if (isPDA(rc))
       isEndAlignment = false;
     else if (CorePanelHorizontalLayout.HALIGN_END.equals(hAlign))
       isEndAlignment = true;
     else if (CorePanelHorizontalLayout.HALIGN_LEFT.equals(hAlign))
-      isEndAlignment = arc.isRightToLeft();
+      isEndAlignment = rc.isRightToLeft();
     else if (CorePanelHorizontalLayout.HALIGN_RIGHT.equals(hAlign))
-      isEndAlignment = !arc.isRightToLeft();
+      isEndAlignment = !rc.isRightToLeft();
     else
       isEndAlignment = false;
-    
+
     for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
       if (!child.isRendered())
@@ -168,7 +170,8 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
   protected void encodeChild(
     FacesContext context,
     UIComponent  child,
-    Object       vAlign) throws IOException
+    Object       vAlign
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("td", null);
@@ -179,14 +182,14 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
     rw.endElement("td");
   }
 
-
   /**
-   * Render a separator 
+   * Render a separator
    */
   protected void encodeSeparator(
     FacesContext context,
     UIComponent  separator,
-    Object       vAlign) throws IOException
+    Object       vAlign
+    ) throws IOException
   {
     if (separator != null)
       encodeChild(context, separator, vAlign);

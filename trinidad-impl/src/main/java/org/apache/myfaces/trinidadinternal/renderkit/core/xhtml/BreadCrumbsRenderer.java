@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.text.Bidi;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,8 +37,9 @@ import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.core.nav.CoreBreadCrumbs;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandLink;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
+
 
 public class BreadCrumbsRenderer extends XhtmlRenderer
 {
@@ -44,9 +47,10 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
   {
     super(CoreBreadCrumbs.TYPE);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _orientationKey = type.findKey("orientation");
@@ -57,30 +61,31 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
   {
     return true;
   }
-  
+
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    
+
     writer.startElement("span", component);
-    renderAllAttributes(context, arc, bean);
+    renderAllAttributes(context, rc, component, bean);
     renderId(context, component);
-        
+
     int renderedItemCount = _getItemCount((UIXHierarchy)component);
-    int minItemCount = _getMinItemCount(arc);
+    int minItemCount = _getMinItemCount(rc);
 
     // no kids, no NavigationPath -- but you still get the span.
     if (renderedItemCount > minItemCount )
     {
-      renderContent(context, arc, 
+      renderContent(context, rc,
                     (UIXHierarchy)component, bean);
     }
-    
+
     writer.endElement("span");
   }
 
@@ -88,47 +93,47 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
    * Gets the stamp to use to render each link
    */
   protected UIComponent getStamp(
-    FacesContext        context,
-    RenderingContext arc,
-    UIXHierarchy        component,
-    FacesBean           bean
+    FacesContext     context,
+    RenderingContext rc,
+    UIXHierarchy     component,
+    FacesBean        bean
     )
   {
-    UIComponent stamp = component.getFacet("nodeStamp");   
+    UIComponent stamp = component.getFacet("nodeStamp");
     return stamp;
   }
 
   @SuppressWarnings("unchecked")
   protected void renderContent(
-    FacesContext        context,
-    RenderingContext arc,
-    UIXHierarchy        component,
-    FacesBean           bean
+    FacesContext     context,
+    RenderingContext rc,
+    UIXHierarchy     component,
+    FacesBean        bean
     ) throws IOException
   {
 
     boolean isVertical;
-     
+
     // To reduce the breadcrumb's width, render vertically for narrow-screen
     // PDAs.
-    if (supportsNarrowScreen(arc))
-    { 
+    if (supportsNarrowScreen(rc))
+    {
       isVertical = true;
     }
     else
     {
       isVertical = _isVertical(bean);
     }
-    
-    boolean shouldRenderLastChild = shouldRenderLastChild(arc);    
+
+    boolean shouldRenderLastChild = shouldRenderLastChild(rc);
     boolean isLastChild   = false;
     boolean isFirstChild  = true;
     int renderedCount     = 0;
     int nextVisChildIndex = 1;
-    UIComponent stamp = getStamp(context, arc, component, bean);
-    Icon separatorIcon = arc.getIcon(
-                            SkinSelectors.AF_NAVIGATION_PATH_SEPARATOR_ICON_NAME); 
- 
+    UIComponent stamp = getStamp(context, rc, component, bean);
+    Icon separatorIcon = rc.getIcon(
+                            SkinSelectors.AF_NAVIGATION_PATH_SEPARATOR_ICON_NAME);
+
     // use the focusKey to stamp out path
     if(stamp != null)
     {
@@ -137,12 +142,12 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
       Object focusPath = _getFocusRowKey(component);
       if (focusPath == null)
         return;
-      
-      List<Object> paths = 
+
+      List<Object> paths =
         new ArrayList<Object>(component.getAllAncestorContainerRowKeys(focusPath));
-      
+
       paths.add(focusPath);
-      int size = paths.size();        
+      int size = paths.size();
 
       for (int i = 0; i < size; i++)
       {
@@ -152,15 +157,15 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
           nextVisChildIndex=NO_CHILD_INDEX;
         else
           nextVisChildIndex = i + 1;
-        
-        isLastChild = (nextVisChildIndex == NO_CHILD_INDEX);  
+
+        isLastChild = (nextVisChildIndex == NO_CHILD_INDEX);
         component.setRowKey(paths.get(i));
 
-        renderNode(context, arc, separatorIcon, stamp, renderedCount,
+        renderNode(context, rc, separatorIcon, stamp, renderedCount,
                    shouldRenderLastChild, isFirstChild, isLastChild, isVertical);
         renderedCount++;
         isFirstChild = false;
-        
+
       }
 
       // Restore the old path
@@ -174,46 +179,47 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
       nextVisChildIndex = getNextRenderedChildIndex(children, -1);
       while (nextVisChildIndex != NO_CHILD_INDEX)
       {
-        UIComponent child = children.get(nextVisChildIndex);        
-        nextVisChildIndex = getNextRenderedChildIndex(children, 
+        UIComponent child = children.get(nextVisChildIndex);
+        nextVisChildIndex = getNextRenderedChildIndex(children,
                                                       nextVisChildIndex);
-        isLastChild = (nextVisChildIndex == NO_CHILD_INDEX);           
-        renderNode(context, arc, separatorIcon, child, renderedCount,
+        isLastChild = (nextVisChildIndex == NO_CHILD_INDEX);
+        renderNode(context, rc, separatorIcon, child, renderedCount,
                    shouldRenderLastChild, isFirstChild, isLastChild, isVertical);
-        renderedCount++;           
+        renderedCount++;
         isFirstChild = false;
       }
     }
-    
+
   }
 
-  protected boolean hasChildren(UIComponent component)
+  protected boolean hasChildren(
+    UIComponent component)
   {
     int childCount = component.getChildCount();
     return childCount > 0;
   }
 
   protected void renderNode(
-    FacesContext        context,
-    RenderingContext    arc,
-    Icon                separatorIcon,
-    UIComponent         child,
-    int                 renderedCount,
-    boolean             shouldRenderLastChild,
-    boolean             isFirstChild,
-    boolean             isLastChild,
-    boolean             isVertical
+    FacesContext     context,
+    RenderingContext rc,
+    Icon             separatorIcon,
+    UIComponent      child,
+    int              renderedCount,
+    boolean          shouldRenderLastChild,
+    boolean          isFirstChild,
+    boolean          isLastChild,
+    boolean          isVertical
     ) throws IOException
-  {      
-    
-    boolean separatorOnNewRow = shouldRenderSeparatorOnNewLineWhenVertical(arc);
+  {
+
+    boolean separatorOnNewRow = shouldRenderSeparatorOnNewLineWhenVertical(rc);
 
     if (!isLastChild || shouldRenderLastChild)
     {
       renderStartOfLink(context, isVertical);
-      
+
       ResponseWriter writer = context.getResponseWriter();
-      
+
       // if oriented vertically, then indent the levels
       if(!isFirstChild && isVertical)
       {
@@ -221,51 +227,52 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
         chars[0] = XhtmlConstants.NBSP_CHAR;
 
         int indents = separatorOnNewRow ? renderedCount - 1 : renderedCount;
-        int indentSpaces = indents * getNumberOfIndentSpaces(arc);
+        int indentSpaces = indents * getNumberOfIndentSpaces(rc);
         for(int i = 0; i < indentSpaces; i++)
         {
           writer.writeText(chars, 0, 1);
         }
       }
-      
-      if (arc.isRightToLeft())
+
+      if (rc.isRightToLeft())
       {
         writer.startElement(XhtmlConstants.SPAN_ELEMENT, null);
         writer.writeAttribute(XhtmlConstants.DIR_ATTRIBUTE_VALUE, "rtl", null);
       }
-      
+
       if (!isFirstChild && (isVertical && separatorOnNewRow) )
       {
-        OutputUtils.renderIcon(context, arc, separatorIcon, "", null );
+        OutputUtils.renderIcon(context, rc, separatorIcon, "", null );
       }
 
-      renderLink(context, arc, child, renderedCount, isLastChild);
+      renderLink(context, rc, child, renderedCount, isLastChild);
 
       if (!isLastChild && (!isVertical || !separatorOnNewRow) )
       {
-        OutputUtils.renderIcon(context, arc, separatorIcon, "", null );
-      }      
-      
-      if (arc.isRightToLeft())
+        OutputUtils.renderIcon(context, rc, separatorIcon, "", null );
+      }
+
+      if (rc.isRightToLeft())
       {
          writer.endElement(XhtmlConstants.SPAN_ELEMENT);
       }
-      
+
       renderEndOfLink(context, isVertical);
-      
+
     }
   }
 
   protected void renderLink(
-    FacesContext context,
-    RenderingContext arc,
-    UIComponent child,
-    int renderedCount,
-    boolean isLastChild) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      child,
+    int              renderedCount,
+    boolean          isLastChild
+    ) throws IOException
   {
     if (isLastChild)
-      ((CoreRenderingContext) arc).setLinkDisabled(true);    
-  
+      ((CoreRenderingContext) rc).setLinkDisabled(true);
+
     boolean isBidi = false;
     String text = toString(child.getAttributes().get(CoreCommandLink.TEXT_KEY.getName()));
     if ((text != null) && (text.length() > 0))
@@ -274,11 +281,11 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
       firstChar[0] = text.charAt(0);
       isBidi = Bidi.requiresBidi(firstChar, 0, 1);
     }
-    
-    Map<String, String> originalResourceKeyMap = arc.getSkinResourceKeyMap();
+
+    Map<String, String> originalResourceKeyMap = rc.getSkinResourceKeyMap();
     try
     {
-      arc.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
+      rc.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
       if (!isBidi)
       {
         ResponseWriter writer = context.getResponseWriter();
@@ -288,47 +295,48 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
         writer.endElement(XhtmlConstants.SPAN_ELEMENT);
       }
       else
-        encodeChild(context, child);      
-      
+        encodeChild(context, child);
+
       if (isLastChild)
-        ((CoreRenderingContext) arc).setLinkDisabled(false);       
+        ((CoreRenderingContext) rc).setLinkDisabled(false);
     }
     finally
     {
-      arc.setSkinResourceKeyMap(originalResourceKeyMap);
-    }       
-  }
- 
-  protected boolean shouldRenderLastChild(
-    RenderingContext arc
-  )
-  {
-    Object propValue = arc.getSkin().getProperty(
-                      SkinProperties.AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY);
-                      
-    return Boolean.TRUE.equals(propValue);                      
+      rc.setSkinResourceKeyMap(originalResourceKeyMap);
+    }
   }
 
-  /** 
+  protected boolean shouldRenderLastChild(
+    RenderingContext rc
+  )
+  {
+    Object propValue = rc.getSkin().getProperty(
+                      SkinProperties.AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY);
+
+    return Boolean.TRUE.equals(propValue);
+  }
+
+  /**
    * renderStyleAttributes - use the NavigationPath style class as the default
    * styleClass
    */
   @Override
   protected void renderStyleAttributes(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    renderStyleAttributes(context, arc, bean, 
+    renderStyleAttributes(context, rc, component, bean,
                           SkinSelectors.AF_NAVIGATION_PATH_STYLE_CLASS);
   }
 
-
-
-  protected String getOrientation(FacesBean bean)
+  protected String getOrientation(
+    FacesBean bean)
   {
     return toString(bean.getProperty(_orientationKey));
-  }  
+  }
 
 
   //
@@ -339,8 +347,9 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
    * for explanation, do we still need this code?
    */
   protected final void renderStartOfLink(
-    FacesContext        context,
-    boolean             isVertical) throws IOException
+    FacesContext context,
+    boolean      isVertical
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -360,41 +369,41 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
   // Renders everything that goes after the link
   //
   protected final void renderEndOfLink(
-    FacesContext        context,
-    boolean             isVertical
+    FacesContext context,
+    boolean      isVertical
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
     writer.endElement("nobr");
-  
+
     if(isVertical)
     {
       writer.endElement("div");
     }
   }
-  
+
   private Object _getFocusRowKey(
-    UIXHierarchy    component
+    UIXHierarchy component
   )
-  {  
+  {
     return component.getFocusRowKey();
   }
 
   private int _getMinItemCount(
-    RenderingContext arc
+    RenderingContext rc
   )
   {
     int minChildCount = 0;
-    boolean shouldRenderLastChild = shouldRenderLastChild(arc);
+    boolean shouldRenderLastChild = shouldRenderLastChild(rc);
     if ( !shouldRenderLastChild)
       minChildCount = 1;
-      
+
     return minChildCount;
   }
 
   private int _getItemCount(
-    UIXHierarchy    component
+    UIXHierarchy component
     )
   {
     Object focusPath = _getFocusRowKey(component);
@@ -411,33 +420,34 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
    * defaults to horizontal.
    * @return true if the orientation is vertical
    */
-  private boolean _isVertical(FacesBean bean)
+  private boolean _isVertical(
+    FacesBean bean)
   {
     String orientation = getOrientation(bean);
     return XhtmlConstants.ORIENTATION_VERTICAL.equals(orientation);
   }
 
   protected boolean shouldRenderSeparatorOnNewLineWhenVertical(
-    RenderingContext arc
+    RenderingContext rc
   )
   {
-    Object propValue = arc.getSkin().getProperty(
+    Object propValue = rc.getSkin().getProperty(
                                   SkinProperties.AF_BREAD_CRUMBS_SEPARATOR_ON_NEW_LINE);
     return Boolean.TRUE.equals(propValue);
   }
 
   protected int getNumberOfIndentSpaces(
-      RenderingContext arc
+    RenderingContext rc
   )
   {
-    // In the case of narrow-screen PDAs, the number of indent spaces is 
+    // In the case of narrow-screen PDAs, the number of indent spaces is
     // reduced to decrease the overall breadcrumb's width.
-    if (supportsNarrowScreen(arc))
-    { 
+    if (supportsNarrowScreen(rc))
+    {
       return NARROW_SCREEN_INDENT_SPACES;
     }
-    
-    Object propValue = arc.getSkin().getProperty(
+
+    Object propValue = rc.getSkin().getProperty(
                                       SkinProperties.AF_BREAD_CRUMBS_INDENT_SPACES);
 
     int intValue = _INDENT_SPACES;
@@ -451,28 +461,26 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
     return intValue;
   }
 
-
   private PropertyKey _orientationKey;
-  
 
   // # of hard spaces to use in indenting vertical breadcrumbs
-  private static final int _INDENT_SPACES = 10;  
-  
-  // # of hard spaces to use in indenting vertical breadcrumbs 
+  private static final int _INDENT_SPACES = 10;
+
+  // # of hard spaces to use in indenting vertical breadcrumbs
   // in the case of narrow-screen PDAs
-  private static final int NARROW_SCREEN_INDENT_SPACES = 3; 
-  
+  private static final int NARROW_SCREEN_INDENT_SPACES = 3;
+
   private static final Map<String, String> _RESOURCE_KEY_MAP;
   static
   {
     _RESOURCE_KEY_MAP  =  new HashMap<String, String>();
-    
+
     _RESOURCE_KEY_MAP.put(
       SkinSelectors.LINK_STYLE_CLASS,
       SkinSelectors.AF_NAVIGATION_PATH_STEP_STYLE_CLASS);
     // the selected step is disabled, which is why we map these two styles
     _RESOURCE_KEY_MAP.put(
       SkinSelectors.LINK_DISABLED_STYLE_CLASS,
-      SkinSelectors.AF_NAVIGATION_PATH_SELECTED_STEP_STYLE_CLASS); 
+      SkinSelectors.AF_NAVIGATION_PATH_SELECTED_STEP_STYLE_CLASS);
   }
 }

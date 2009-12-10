@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.awt.Color;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -27,33 +28,30 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
-import org.apache.myfaces.trinidad.config.RegionManager;
-
 import org.apache.myfaces.trinidad.component.visit.VisitContext;
 import org.apache.myfaces.trinidad.component.visit.VisitHint;
-
-
+import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidad.context.PageResolver;
-import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
 import org.apache.myfaces.trinidad.context.DialogService;
-
+import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
+import org.apache.myfaces.trinidad.context.PageResolver;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
-
+import org.apache.myfaces.trinidadinternal.context.MVisitContextFactory;
 import org.apache.myfaces.trinidadinternal.context.PageFlowScopeProviderImpl;
 import org.apache.myfaces.trinidadinternal.context.PageResolverDefaultImpl;
 
+
 public class MRequestContext extends RequestContext
 {
-
   public MRequestContext()
   {
     attach();
@@ -99,7 +97,7 @@ public class MRequestContext extends RequestContext
 
   @Override
   public void returnFromDialog(
-      Object returnValue, 
+      Object returnValue,
       Map<Object, Object> returnParam)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
@@ -107,10 +105,10 @@ public class MRequestContext extends RequestContext
 
   @Override
   public void launchDialog(
-      UIViewRoot dialogRoot, 
-      Map<String, Object> dialogParameters, 
-      UIComponent source, 
-      boolean useWindow, 
+      UIViewRoot dialogRoot,
+      Map<String, Object> dialogParameters,
+      UIComponent source,
+      boolean useWindow,
       Map<String, Object> windowProperties)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
@@ -121,7 +119,7 @@ public class MRequestContext extends RequestContext
   {
     return false;
   }
-  
+
   @Override
   public boolean isPartialRequest(FacesContext context)
   {
@@ -304,14 +302,14 @@ public class MRequestContext extends RequestContext
   {
     // throw new UnsupportedOperationException("Not implemented yet");
   }
-  
+
   /**
    * @see org.apache.myfaces.trinidad.context.RequestContext#addPartialTargets(javax.faces.component.UIComponent, java.lang.String[])
    */
   @Override
   public void addPartialTargets(UIComponent from, String... targets)
   {
-    
+
   }
 
   @Override
@@ -382,7 +380,7 @@ public class MRequestContext extends RequestContext
    Set<VisitHint> hints,
    PhaseId phaseId)
   {
-    throw new UnsupportedOperationException("Not implemented yet");
+    return MVisitContextFactory.createVisitContext(context, ids, hints, phaseId);
   }
 
   @Override
@@ -440,7 +438,7 @@ public class MRequestContext extends RequestContext
 
   static private TimeZone _FIXED_TIME_ZONE =
     TimeZone.getTimeZone("America/Los_Angeles");
-    
+
   static private final String _VIEW_MAP_KEY =
     MRequestContext.class.getName() + ".VIEW_MAP";
 }

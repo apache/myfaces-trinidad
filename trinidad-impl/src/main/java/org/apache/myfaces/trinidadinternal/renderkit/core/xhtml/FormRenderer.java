@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -35,26 +35,26 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.validator.Validator;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.component.UIXForm;
 import org.apache.myfaces.trinidad.component.core.CoreForm;
-import org.apache.myfaces.trinidad.context.RequestContext;
-
 import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidad.util.RequestType;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SubformRenderer;
+import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
+
 
 // TODO: Remove this class
-import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/FormRenderer.java#0 $) $Date: 10-nov-2005.18:53:51 $
@@ -68,8 +68,9 @@ public class FormRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(FacesContext context,
-                     UIComponent component)
+  public void decode(
+    FacesContext context,
+    UIComponent  component)
   {
     Map<String, String> paramMap =
       context.getExternalContext().getRequestParameterMap();
@@ -94,7 +95,8 @@ public class FormRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
 
@@ -107,19 +109,19 @@ public class FormRenderer extends XhtmlRenderer
 
   @Override
   public void setupEncodingContext(
-    FacesContext context,
+    FacesContext     context,
     RenderingContext rc,
-    UIXComponent component)
+    UIXComponent     component)
   {
     // temp hack
     setupEncodingContext(context, rc, (UIComponent)component);
   }
-  
+
   @Override
   public void setupEncodingContext(
-    FacesContext context,
+    FacesContext     context,
     RenderingContext rc,
-    UIComponent component)
+    UIComponent      component)
   {
     String formName = getClientId(context, component);
 
@@ -136,7 +138,7 @@ public class FormRenderer extends XhtmlRenderer
     // Check to see if this is a partial page render.  If so, we need
     // to push the ID of the postscript onto the partial target stack
     final String postscriptId = _getPostscriptId(rc, formName);
-    
+
     PartialPageContext pprContext = rc.getPartialPageContext();
 
     if (pprContext != null)
@@ -165,36 +167,37 @@ public class FormRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeBegin(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     ExternalContext ec = context.getExternalContext();
 
-    String formName = arc.getFormData().getName();
-    
-    if (supportsScripting(arc))
+    String formName = rc.getFormData().getName();
+
+    if (supportsScripting(rc))
     {
       // we depend on the form submission library
-      XhtmlUtils.addLib(context, arc, "submitForm()");
-      XhtmlUtils.addLib(context, arc, "_submitOnEnter()");
+      XhtmlUtils.addLib(context, rc, "submitForm()");
+      XhtmlUtils.addLib(context, rc, "_submitOnEnter()");
 
       // if the onSubmit attribute is set, generate the JavaScript variable
       // with the source code to execute when submitting.  We do this,
       // because the normal onSubmit handler on forms is NOT called if
       // the form is submitted programatically
-      String onsubmit = getOnsubmit(bean);
+      String onsubmit = getOnsubmit(comp, bean);
 
       if (onsubmit != null)
       {
         rw.startElement("script", null);
-        renderScriptDeferAttribute(context, arc);
+        renderScriptDeferAttribute(context, rc);
 
         // Bug #3426092:
         // render the type="text/javascript" attribute in accessibility mode
-        renderScriptTypeAttribute(context, arc);
+        renderScriptTypeAttribute(context, rc);
 
         rw.write("var _");
         rw.write(XhtmlUtils.getJSIdentifier(formName));
@@ -209,11 +212,11 @@ public class FormRenderer extends XhtmlRenderer
 
     rw.startElement("form", comp);
     renderId(context, comp);
-    renderAllAttributes(context, arc, bean);
+    renderAllAttributes(context, rc, comp, bean);
 
     // Render the method.  It's POST if they want file upload, and they
     // can actually upload files otherwise we'll just use whatever they request
-    if (getUsesUpload(bean))
+    if (getUsesUpload(comp, bean))
     {
       rw.writeAttribute("enctype", "multipart/form-data", "usesUpload");
     }
@@ -221,7 +224,7 @@ public class FormRenderer extends XhtmlRenderer
     rw.writeAttribute("method", "POST", null);
 
     //only render onkeypress if supports scripting (not in printable mode)
-    if (supportsScripting(arc))
+    if (supportsScripting(rc))
     {
       rw.writeAttribute("onkeypress",
                       getFullOnkeypress(context,
@@ -232,9 +235,9 @@ public class FormRenderer extends XhtmlRenderer
     }
 
     // render the autocomplete attribute
-    if (supportsAutoCompleteFormElements(arc))
+    if (supportsAutoCompleteFormElements(rc))
     {
-      String autocomplete = getAutoComplete(bean);
+      String autocomplete = getAutoComplete(comp, bean);
       if (autocomplete.equalsIgnoreCase(CoreForm.AUTO_COMPLETE_OFF))
       {
         rw.writeAttribute("autocomplete", "off", "autoComplete");
@@ -245,33 +248,34 @@ public class FormRenderer extends XhtmlRenderer
     String action =
       context.getApplication().getViewHandler().getActionURL(context, viewId);
     renderEncodedActionURI(context, "action", action);
-    
+
     RequestType type = ExternalContextUtils.getRequestType(ec);
-    
+
     //Always add expando to portlet form
     if(type.isPortlet())
     {
       renderEncodedResourceURI(context, "_trinPPRAction", action);
     }
-    
-    if (supportsTarget(arc))
+
+    if (supportsTarget(rc))
     {
-      rw.writeAttribute("target", getTargetFrame(bean), "targetFrame");
+      rw.writeAttribute("target", getTargetFrame(comp, bean), "targetFrame");
     }
   }
 
   @Override
   protected void encodeEnd(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
     String noJavaScriptSupport = "false";
     ResponseWriter writer = context.getResponseWriter();
 
-    String formName = arc.getFormData().getName();
-    PartialPageContext pprContext = arc.getPartialPageContext();
+    String formName = rc.getFormData().getName();
+    PartialPageContext pprContext = rc.getPartialPageContext();
 
     // Write out the hidden form field that identifies which
     // form is the one being submitted
@@ -284,7 +288,7 @@ public class FormRenderer extends XhtmlRenderer
      * set the hidden parameter noJavaScriptSupport as true for Non-JavaScript
      * browsers
      */
-    if( !supportsScripting(arc))
+    if( !supportsScripting(rc))
     {
       noJavaScriptSupport = XhtmlConstants.NON_JS_BROWSER_TRUE;
     }
@@ -294,20 +298,20 @@ public class FormRenderer extends XhtmlRenderer
     writer.writeAttribute("value", noJavaScriptSupport, null);
     writer.endElement("input");
 
-    final String postscriptId = _getPostscriptId(arc, formName);
+    final String postscriptId = _getPostscriptId(rc, formName);
 
     // render postscript element containing the state and the
-    _renderPostscriptElement(context, arc, writer, postscriptId);
+    _renderPostscriptElement(context, rc, writer, postscriptId);
 
     //this condition is needed for bug 4526850- It ensures that only
     //state token and form name parameters are overwritten when there is
     //a partial page submission.
     // (also include blackberry browser in this condition)
-    if (isPDA(arc) && pprContext == null)
+    if (isPDA(rc) && pprContext == null)
     {
       //Add hidden elements in the form for enabling PPR on IE Mobile.
 
-      Object domLevel =  arc.getAgent().getCapabilities().get(
+      Object domLevel =  rc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_DOM);
 
       if(
@@ -315,11 +319,11 @@ public class FormRenderer extends XhtmlRenderer
          domLevel == TrinidadAgent.DOM_CAP_NONE ||
          domLevel == TrinidadAgent.DOM_CAP_FORM)
       {
-        FormData formData = arc.getFormData();
+        FormData formData = rc.getFormData();
         if(formData != null)
         {
           boolean isPIE = Agent.PLATFORM_PPC.equalsIgnoreCase(
-                       arc.getAgent().getPlatformName());
+                       rc.getAgent().getPlatformName());
 
           // =-=AdamWiner: this isn't correct - these
           // parameters should be added by the components that need
@@ -332,19 +336,19 @@ public class FormRenderer extends XhtmlRenderer
             formData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
 
             // In the case of Windows-mobile(WM) browsers, store the value of
-            // the request-header field, UA-pixels, into a hidden-parameter's 
-            // value attribute. WM browsers' PPRs don't contain UA-pixels in 
-            // their request-headers. So during a WM browser's PPR, we need to  
-            // manually (using JavaScript) set the field, UA-pixels, into  
+            // the request-header field, UA-pixels, into a hidden-parameter's
+            // value attribute. WM browsers' PPRs don't contain UA-pixels in
+            // their request-headers. So during a WM browser's PPR, we need to
+            // manually (using JavaScript) set the field, UA-pixels, into
             // the request-header with the hidden parameter's value.
-                                
-            Map<String, String> headerMap = 
+
+            Map<String, String> headerMap =
                         context.getExternalContext().getRequestHeaderMap();
-                        
+
             _renderHiddenField(writer,
                                XhtmlConstants.WINDOWS_MOBILE_UAPIXELS,
                                headerMap.get("UA-pixels"));
-           
+
           }
           else
           {
@@ -354,17 +358,17 @@ public class FormRenderer extends XhtmlRenderer
         }
       }
 
-      _renderNeededValues(context, arc);
+      _renderNeededValues(context, rc);
     }
 
     // Render submitFormCheck js function --
     // checks if submitForm was rejected because form was incomplete
     // when it was called, and thus calls submitForm again.
     if (pprContext == null)
-      _renderSubmitFormCheck(context, arc);
+      _renderSubmitFormCheck(context, rc);
 
     // trigger the rendering of targeted resource
-    // for the FORM, on UIViewRoot - if there are 
+    // for the FORM, on UIViewRoot - if there are
     // any...
     encodeComponentResources(context, "form");
 
@@ -380,10 +384,11 @@ public class FormRenderer extends XhtmlRenderer
    * @throws IOException
    */
   private void _renderPostscriptElement(
-    FacesContext context,
+    FacesContext     context,
     RenderingContext rc,
-    ResponseWriter rw,
-    final String postscriptId) throws IOException
+    ResponseWriter   rw,
+    final String     postscriptId
+    ) throws IOException
   {
     if (postscriptId != null)
     {
@@ -432,19 +437,19 @@ public class FormRenderer extends XhtmlRenderer
 
   @Override
   public void tearDownEncodingContext(
-    FacesContext context,
+    FacesContext     context,
     RenderingContext rc,
     UIXComponent     component)
   {
     // temp hack
     tearDownEncodingContext(context, rc, (UIComponent)component);
   }
-  
+
   @Override
   public void tearDownEncodingContext(
-    FacesContext context,
+    FacesContext     context,
     RenderingContext rc,
-    UIComponent     component)
+    UIComponent      component)
   {
     // Clear out the form name property
     rc.getProperties().remove(XhtmlConstants.FORM_NAME_PROPERTY);
@@ -453,20 +458,20 @@ public class FormRenderer extends XhtmlRenderer
     rc.clearFormData();
   }
 
-
   /**
    * Returns the inline Style used to render this node.
    */
   @Override
-  protected String getInlineStyle(FacesBean bean)
+  protected String getInlineStyle(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String inlineStyle = super.getInlineStyle(bean);
+    String inlineStyle = super.getInlineStyle(component, bean);
     if (inlineStyle == null)
       return "margin:0px";
 
     return inlineStyle + ";margin:0px";
   }
-
 
   /**
    * Render the client ID as both an "id" and a "name"
@@ -474,7 +479,8 @@ public class FormRenderer extends XhtmlRenderer
   @Override
   protected void renderId(
     FacesContext context,
-    UIComponent  component) throws IOException
+    UIComponent  component
+    ) throws IOException
   {
     String clientId = getClientId(context, component);
 
@@ -496,18 +502,19 @@ public class FormRenderer extends XhtmlRenderer
 
   // Renders reset call code
   private static void _renderResetCalls(
-    FacesContext context,
-    RenderingContext arc) throws IOException
+    FacesContext     context,
+    RenderingContext rc
+    ) throws IOException
   {
 
     // if scripting isn't supported, no need to do the rest
-    if (!supportsScripting(arc))
+    if (!supportsScripting(rc))
       return;
 
     //
     // Write the array of reset calls
     //
-    CoreFormData fData = (CoreFormData) arc.getFormData();
+    CoreFormData fData = (CoreFormData) rc.getFormData();
     Map<String, String> resetCallMap = fData.getResetCalls(false);
 
     int resetCallCount = (resetCallMap != null)
@@ -518,10 +525,10 @@ public class FormRenderer extends XhtmlRenderer
     {
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("script", null);
-      renderScriptDeferAttribute(context, arc);
+      renderScriptDeferAttribute(context, rc);
       // Bug #3426092:
       // render the type="text/javascript" attribute in accessibility mode
-      renderScriptTypeAttribute(context, arc);
+      renderScriptTypeAttribute(context, rc);
       writer.writeText("TrPage.getInstance()._addResetCalls('", null);
       writer.writeText(fData.getName(), null);
       writer.writeText("',{", null);
@@ -558,7 +565,6 @@ public class FormRenderer extends XhtmlRenderer
 
   }
 
-
   // Renders validation code
   // Code is of the form:
   //  - Dependencies, written sequentially
@@ -579,26 +585,26 @@ public class FormRenderer extends XhtmlRenderer
   //     - _Formats array: now used only for required messages
   //
   private static void _renderValidationScripts(
-    FacesContext        context,
-    RenderingContext arc
+    FacesContext     context,
+    RenderingContext rc
     ) throws IOException
   {
     // if scripting isn't supported, no need to do the rest
-    if (!supportsScripting(arc))
+    if (!supportsScripting(rc))
       return;
 
     //
     // Output validation-related JavaScript
     //
     ResponseWriter writer = context.getResponseWriter();
-    CoreFormData   fData = (CoreFormData) arc.getFormData();
+    CoreFormData   fData = (CoreFormData) rc.getFormData();
 
     // Fix up the form name for use as a Javascript identifier
     String jsID = XhtmlUtils.getJSIdentifier(fData.getName());
 
     writer.startElement("script", null);
-    renderScriptDeferAttribute(context, arc);
-    renderScriptTypeAttribute(context, arc);
+    renderScriptDeferAttribute(context, rc);
+    renderScriptTypeAttribute(context, rc);
 
     //
     // Write the array of client dependencies
@@ -614,24 +620,24 @@ public class FormRenderer extends XhtmlRenderer
         writer.writeText(clientDependencies.get(d),null);
       }
     }
-    
-    RequestContext rc = RequestContext.getCurrentInstance();
-    boolean isClientValidationDisabled = 
-      rc.getClientValidation() == RequestContext.ClientValidation.DISABLED;
+
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    boolean isClientValidationDisabled =
+      requestContext.getClientValidation() == RequestContext.ClientValidation.DISABLED;
 
     // Only bother writing out the function when there's no PPR,
     // as the content doesn't change request to request
-    if (arc.getPartialPageContext() == null)
+    if (rc.getPartialPageContext() == null)
     {
       boolean isInline =
-        (rc.getClientValidation() == RequestContext.ClientValidation.INLINE);
+        (requestContext.getClientValidation() == RequestContext.ClientValidation.INLINE);
 
       //
       // write the validation function for this form
       //
       writer.writeText("function _", null);
       writer.writeText(jsID, null);
-      
+
       writer.writeText("Validator(f,s){return ", null);
 
       if (isClientValidationDisabled)
@@ -647,18 +653,18 @@ public class FormRenderer extends XhtmlRenderer
       {
         writer.writeText("_validateAlert(f,s,null,\"", null);
         writer.writeText(XhtmlUtils.escapeJS(
-            arc.getTranslatedString(_GLOBAL_FORMAT_KEY)), null);
+            rc.getTranslatedString(_GLOBAL_FORMAT_KEY)), null);
         writer.writeText("\",\"", null);
-      
+
         writer.writeText(XhtmlUtils.escapeJS(
-            arc.getTranslatedString("af_form.SUBMIT_ERRORS")), null);
+            rc.getTranslatedString("af_form.SUBMIT_ERRORS")), null);
         writer.writeText("\")", null);
       }
-      
+
       writer.writeText(";}", null);
     }
-    
-    
+
+
     // If no client-side validation, return now
     if (isClientValidationDisabled)
     {
@@ -674,7 +680,7 @@ public class FormRenderer extends XhtmlRenderer
     //
     Map<String, List<CoreFormData.ConvertValidate>> validatorInfoMap =
       fData.getFormValidatorsInfo(false);
-    
+
     if (validatorInfoMap != null)
     {
       writer.writeText("_addValidators(\"", null);
@@ -691,10 +697,10 @@ public class FormRenderer extends XhtmlRenderer
         String clientId = validatorEntry.getKey();
         List<CoreFormData.ConvertValidate> validatorInfoList =
           validatorEntry.getValue();
-      
+
         for (CoreFormData.ConvertValidate convertValidate : validatorInfoList)
         {
-          
+
           if (firstFormInfo)
           {
             firstFormInfo = false;
@@ -704,9 +710,9 @@ public class FormRenderer extends XhtmlRenderer
             // write the separator every time except the first time
             writer.writeText("],", null);
           }
-          
+
           writer.writeText("\"", null);
-          
+
           // write the element name of the element to be validated
           writer.writeText(clientId, null);
           writer.writeText("\",", null);
@@ -714,17 +720,17 @@ public class FormRenderer extends XhtmlRenderer
           // write out whether or not this element is required
           writer.writeText(convertValidate.required? "1" : "0", null);
           writer.writeText(",", null);
-          
+
           if (convertValidate.requiredFormatIndex != null)
           {
             // write out the index of the required error message
             writer.writeText(convertValidate.requiredFormatIndex, null);
           }
-          
+
           writer.writeText(",", null);
-          
+
           Object converterInfo = convertValidate.converter;
-          
+
           if (converterInfo != null)
           {
             writer.writeText(converterInfo, null);
@@ -733,15 +739,15 @@ public class FormRenderer extends XhtmlRenderer
           {
             writer.writeText("(void 0)", null);
           }
-          
+
           writer.writeText(",[", null);
-          
+
           ArrayList<Integer> validatorInfo = convertValidate.validators;
 
           if (validatorInfo != null)
           {
             boolean firstValidator = true;
-            
+
             int i = 0;
             while (i < validatorInfo.size())
             {
@@ -754,10 +760,10 @@ public class FormRenderer extends XhtmlRenderer
                 // write the separator every time except the first time
                 writer.writeText(",", null);
               }
-              
+
               // write the validation string for the validater
               writer.writeText(validatorInfo.get(i).toString(), null);
-              
+
               i = i + 1;
             }
           }
@@ -774,7 +780,7 @@ public class FormRenderer extends XhtmlRenderer
         while(validationIterator.hasNext())
         {
           String currValidation = validationIterator.next();
-          
+
           if (firstValidation)
           {
             firstValidation = false;
@@ -784,7 +790,7 @@ public class FormRenderer extends XhtmlRenderer
             // write the separator every time except the first time
             writer.writeText(",", null);
           }
-          
+
           // write the error format
           // use single quotes since embedded single quotes
           // are automatically escaped
@@ -794,37 +800,37 @@ public class FormRenderer extends XhtmlRenderer
         }
       }
 
-        
+
       writer.writeText("],{", null);
-      
+
 
       //
       // Render the labels used by validated fields in this form
       //
-      
+
       // list of labels used for validation on this form
       List<String> inputList = fData.getValidatedInputList(false);
-      
+
       int inputCount = (inputList != null)
                          ? inputList.size()
                          : 0;
-      
+
       if (inputCount > 0)
       {
         Map<String, String> labelMap = fData.getLabelMap(false);
-        
+
         if (labelMap != null)
         {
           boolean firstLabel = true;
-          
+
           for (int i = 0; i < inputCount; i++)
           {
             String currID = inputList.get(i);
-            
+
             // remove the ID entry to prevent multiple labels from
             // being written
             String currLabel = labelMap.remove(currID);
-            
+
             if (currLabel != null)
             {
               if (firstLabel)
@@ -836,7 +842,7 @@ public class FormRenderer extends XhtmlRenderer
                 // write the separator every time except the first time
                 writer.writeText(",", null);
               }
-              
+
               // write the ID of the validated field as the key
               writer.writeText("\'", null);
               writer.writeText(currID, null);
@@ -854,18 +860,18 @@ public class FormRenderer extends XhtmlRenderer
       //
       // Render the error format list for this form
       //
-      
+
       // list of error formats used for validation on this form
       Iterator<String> errorFormatIterator = fData.getErrorFormatIterator();
 
       if (errorFormatIterator != null)
       {
         boolean firstFormat = true;
-        
+
         while(errorFormatIterator.hasNext())
         {
           String currErrorFormat = errorFormatIterator.next();
-          
+
           if (firstFormat)
           {
             firstFormat = false;
@@ -875,7 +881,7 @@ public class FormRenderer extends XhtmlRenderer
             // write the separator every time except the first time
             writer.writeText(",", null);
           }
-          
+
           // write the error format
           writer.writeText("'", null);
           writer.writeText(XhtmlUtils.escapeJS(currErrorFormat), null);
@@ -891,10 +897,9 @@ public class FormRenderer extends XhtmlRenderer
     writer.endElement("script");
   }
 
-
   private static void _renderSubformLists(
-    FacesContext      context,
-    String           jsID
+    FacesContext context,
+    String       jsID
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
@@ -929,40 +934,37 @@ public class FormRenderer extends XhtmlRenderer
     writer.writeText("};", null);
   }
 
-
   // render script which will check if submitForm script has been called before
   // the form has rendered in its entirety, and if so, it will re-call
   // submitForm.
   // this script should be rendered at the very end of the form.
   private static void _renderSubmitFormCheck(
-    FacesContext        context,
-    RenderingContext arc
+    FacesContext     context,
+    RenderingContext rc
     ) throws IOException
   {
     // if scripting isn't supported, no need to do the rest
-    if (!supportsScripting(arc))
+    if (!supportsScripting(rc))
       return;
 
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("script", null);
-    renderScriptDeferAttribute(context, arc);
+    renderScriptDeferAttribute(context, rc);
     // Bug #3426092:
     // render the type="text/javascript" attribute in accessibility mode
-    renderScriptTypeAttribute(context, arc);
+    renderScriptTypeAttribute(context, rc);
 
     writer.writeText("_submitFormCheck();", null);
     writer.endElement("script");
   }
-
-
 
   /**
    * @param call a function call.
    * "eval(call)" will be called on the client when resetting.
    */
   public static void addResetCall(
-    String           clientId,
-    String           call
+    String clientId,
+    String call
     )
   {
     CoreFormData fData = (CoreFormData)
@@ -1003,24 +1005,21 @@ public class FormRenderer extends XhtmlRenderer
    * <code>targetID</code>
    */
   public static void addLabelMapping(
-    String           targetID,
-    String           label
+    String targetID,
+    String label
     )
   {
     FormData fData = RenderingContext.getCurrentInstance().getFormData();
     fData.addLabel(targetID, label);
   }
 
-
-  public static int getInputTextCount(
-  )
+  public static int getInputTextCount()
   {
     CoreFormData fData = (CoreFormData) RenderingContext.getCurrentInstance().getFormData();
     return fData.getInputTextCount();
   }
 
-  public static void incrementInputTextCount(
-  )
+  public static void incrementInputTextCount()
   {
     CoreFormData fData = (CoreFormData) RenderingContext.getCurrentInstance().getFormData();
     fData.incrementInputTextCount();
@@ -1028,22 +1027,26 @@ public class FormRenderer extends XhtmlRenderer
 
   // Returns the ID to use for our postscript if PPR is supported
   private static String _getPostscriptId(
-    RenderingContext arc,
-    String formName
+    RenderingContext rc,
+    String           formName
     )
   {
-    if (PartialPageUtils.supportsPartialRendering(arc))
+    if (PartialPageUtils.supportsPartialRendering(rc))
       return "tr_" + formName + "_Postscript";
 
     return null;
   }
 
-  protected String getDefaultCommand(FacesBean bean)
+  protected String getDefaultCommand(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_defaultCommandKey));
   }
 
-  protected String getOnsubmit(FacesBean bean)
+  protected String getOnsubmit(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onsubmitKey == null)
       return null;
@@ -1051,13 +1054,16 @@ public class FormRenderer extends XhtmlRenderer
     return toString(bean.getProperty(_onsubmitKey));
   }
 
-  protected String getTargetFrame(FacesBean bean)
+  protected String getTargetFrame(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_targetFrameKey));
   }
 
-
-  protected boolean getUsesUpload(FacesBean bean)
+  protected boolean getUsesUpload(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_usesUploadKey);
     if (o == null)
@@ -1066,16 +1072,15 @@ public class FormRenderer extends XhtmlRenderer
     return Boolean.TRUE.equals(o);
   }
 
-
   protected String getFullOnkeypress(
-     FacesContext context,
-     UIComponent  component,
-     FacesBean    bean,
-     String       clientId)
+    FacesContext context,
+    UIComponent  component,
+    FacesBean    bean,
+    String       clientId)
   {
-    String onKeypress = super.getOnkeypress(bean);
+    String onKeypress = super.getOnkeypress(component, bean);
 
-    String defaultCommand = getDefaultCommand(bean);
+    String defaultCommand = getDefaultCommand(component, bean);
 
     String submitFunc = null;
 
@@ -1097,15 +1102,15 @@ public class FormRenderer extends XhtmlRenderer
       {
         immediate = 0;
       }
-      
+
       //PPR
-      Boolean ppr = (Boolean) defaultCommandComponent.getAttributes().get("partialSubmit"); 
+      Boolean ppr = (Boolean) defaultCommandComponent.getAttributes().get("partialSubmit");
       if(ppr != null && ppr)
       {
         submitFunc = "return _submitOnEnter"
             + "(event,'"  + clientId
             + "'," + "'" + defaultCommandId
-            + "'," + immediate 
+            + "'," + immediate
             + "," + true +");";
       }
       //no PPR
@@ -1114,7 +1119,7 @@ public class FormRenderer extends XhtmlRenderer
         submitFunc = "return _submitOnEnter"
             + "(event,'"  + clientId
             + "'," + "'" + defaultCommandId
-            + "'," + immediate 
+            + "'," + immediate
             + "," + false +");";
       }
     }
@@ -1131,13 +1136,17 @@ public class FormRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected String getOnkeypress(FacesBean bean)
+  protected String getOnkeypress(
+    UIComponent component,
+    FacesBean   bean)
   {
     // Back out the default keypress, since we need more info
     return null;
   }
 
-  protected String getAutoComplete(FacesBean bean)
+  protected String getAutoComplete(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_autoCompleteKey);
     if (o == null)
@@ -1147,8 +1156,8 @@ public class FormRenderer extends XhtmlRenderer
 
   private static void _renderHiddenField(
     ResponseWriter writer,
-    Object       name,
-    Object       value
+    Object         name,
+    Object         value
     ) throws IOException
   {
     writer.startElement("input", null);
@@ -1164,12 +1173,12 @@ public class FormRenderer extends XhtmlRenderer
    * @see FormRenderer#encodeEnd(FacesContext,RenderingContext, UIComponent, FacesBean)
    */
   static private void _renderNeededValues(
-    FacesContext        context,
-    RenderingContext arc
+    FacesContext     context,
+    RenderingContext rc
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    CoreFormData fData = (CoreFormData) arc.getFormData();
+    CoreFormData fData = (CoreFormData) rc.getFormData();
 
     if (fData.useCompoundNames())
     {
@@ -1198,7 +1207,7 @@ public class FormRenderer extends XhtmlRenderer
         // the needed values, as we will be filling them
         // in.  For non-js platforms, use a value that will
         // result in the value being passed to the server
-        String neededValue = (supportsScripting(arc))
+        String neededValue = (supportsScripting(rc))
                                 ? null
                                 : "a";
 
@@ -1227,13 +1236,13 @@ public class FormRenderer extends XhtmlRenderer
         //
         if (realNeededIndex > 0)
         {
-          if (supportsScripting(arc))
+          if (supportsScripting(rc))
           {
             writer.startElement("script", null);
-            renderScriptDeferAttribute(context, arc);
+            renderScriptDeferAttribute(context, rc);
             // Bug #3426092:
             // render the type="text/javascript" attribute in accessibility mode
-            renderScriptTypeAttribute(context, arc);
+            renderScriptTypeAttribute(context, rc);
 
             writer.writeText("TrPage.getInstance()._addResetFields('", null);
             writer.writeText(fData.getName(), null);
@@ -1253,7 +1262,6 @@ public class FormRenderer extends XhtmlRenderer
       }
     }
   }
-
 
   // key used to indicate whether or not usesUpload is used:
   public static final Object USES_UPLOAD_KEY = new Object();

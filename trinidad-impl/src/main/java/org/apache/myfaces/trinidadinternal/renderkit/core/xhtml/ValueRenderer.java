@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,18 +26,20 @@ import javax.faces.convert.Converter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-
 import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
+
 
 abstract public class ValueRenderer extends XhtmlRenderer
 {
-  protected ValueRenderer(FacesBean.Type type)
+  protected ValueRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _converterKey = type.findKey("converter");
@@ -49,14 +51,14 @@ abstract public class ValueRenderer extends XhtmlRenderer
     UIComponent  component,
     FacesBean    bean)
   {
-    Object value = getValue(bean);
-    Converter converter = getConverter(bean);
+    Object value = getValue(component, bean);
+    Converter converter = getConverter(component, bean);
     // If there's no explicitly set converter, and the value is non-null
     // and not a String, try to get a default converter
     if ((converter == null) &&
         (value != null) &&
         !(value instanceof String))
-      converter = getDefaultConverter(context, bean);
+      converter = getDefaultConverter(context, component, bean);
 
     if (converter != null)
     {
@@ -66,12 +68,12 @@ abstract public class ValueRenderer extends XhtmlRenderer
     return toString(value);
   }
 
-
   protected Converter getDefaultConverter(
     FacesContext context,
+    UIComponent  component,
     FacesBean    bean)
   {
-    ValueExpression expression = getValueExpression(bean);
+    ValueExpression expression = getValueExpression(component, bean);
     if (expression == null)
       return null;
 
@@ -79,7 +81,9 @@ abstract public class ValueRenderer extends XhtmlRenderer
     return ConverterUtils.createConverter(context, type);
   }
 
-  protected Object getValue(FacesBean bean)
+  protected Object getValue(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_valueKey);
   }
@@ -87,12 +91,16 @@ abstract public class ValueRenderer extends XhtmlRenderer
   /**
    * Returns the ValueExpression for the "value" property.
    */
-  protected ValueExpression getValueExpression(FacesBean bean)
+  protected ValueExpression getValueExpression(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getValueExpression(_valueKey);
   }
 
-  protected Converter getConverter(FacesBean bean)
+  protected Converter getConverter(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Converter) bean.getProperty(_converterKey);
   }

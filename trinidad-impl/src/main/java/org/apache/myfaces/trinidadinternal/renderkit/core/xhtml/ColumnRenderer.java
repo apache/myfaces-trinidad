@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,14 +30,15 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.BandingData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.RenderStage;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.RowData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRenderingContext;
+
 
 public class ColumnRenderer extends ColumnGroupRenderer
 {
@@ -50,10 +52,11 @@ public class ColumnRenderer extends ColumnGroupRenderer
    */
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     TableRenderingContext tContext =
       TableRenderingContext.getCurrentInstance();
@@ -67,7 +70,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
 
     if (_isColumnGroup(component))
     {
-      _columnGroupRenderer.encodeAll(context, arc, component, bean);
+      _columnGroupRenderer.encodeAll(context, rc, component, bean);
       return;
     }
 
@@ -77,15 +80,15 @@ public class ColumnRenderer extends ColumnGroupRenderer
     switch (stage)
     {
     case RenderStage.INITIAL_STAGE:
-      _computeMode(arc, tContext, component, bean);
+      _computeMode(rc, tContext, component, bean);
       break;
 
     case RenderStage.COLUMN_HEADER_STAGE:
-      _renderHeaderMode(context, arc, tContext, component);
+      _renderHeaderMode(context, rc, tContext, component);
       break;
 
     case RenderStage.COLUMN_FOOTER_STAGE:
-      _renderFooterMode(context, arc, tContext, component);
+      _renderFooterMode(context, rc, tContext, component);
       break;
 
     case RenderStage.TREE_NODE_STAGE:
@@ -93,7 +96,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
       break;
 
     case RenderStage.DATA_STAGE:
-      _renderDataMode(context, arc, tContext, component);
+      _renderDataMode(context, rc, tContext, component);
       break;
 
     case RenderStage.START_ROW_STAGE:
@@ -114,7 +117,8 @@ public class ColumnRenderer extends ColumnGroupRenderer
   }
 
   @SuppressWarnings("unchecked")
-  private boolean _isColumnGroup(UIComponent column)
+  private boolean _isColumnGroup(
+    UIComponent column)
   {
     Iterator<UIComponent> kids = column.getChildren().iterator();
     // Special columns - nothing is a column group
@@ -126,10 +130,12 @@ public class ColumnRenderer extends ColumnGroupRenderer
 
 
   @SuppressWarnings("unchecked")
-  protected void renderKids(FacesContext          context,
-                            RenderingContext      arc,
-                            TableRenderingContext trc,
-                            UIComponent           column) throws IOException
+  protected void renderKids(
+    FacesContext          context,
+    RenderingContext      rc,
+    TableRenderingContext trc,
+    UIComponent           column
+    ) throws IOException
   {
     boolean renderedOne = false;
     for(UIComponent child : (List<UIComponent>)column.getChildren())
@@ -157,15 +163,17 @@ public class ColumnRenderer extends ColumnGroupRenderer
    * Render either one child or all (which depends on useSeparateRows)
    * @todo This dual-purpose method is creepy.
    */
-  private void _renderKids(FacesContext          context,
-                           RenderingContext   arc,
-                           TableRenderingContext tContext,
-                           UIComponent           column,
-                           int          kid) throws IOException
+  private void _renderKids(
+    FacesContext          context,
+    RenderingContext      rc,
+    TableRenderingContext tContext,
+    UIComponent           column,
+    int                   kid
+    ) throws IOException
   {
     if (kid < 0)
     {
-      renderKids(context, arc, tContext, column);
+      renderKids(context, rc, tContext, column);
     }
     else
     {
@@ -176,8 +184,8 @@ public class ColumnRenderer extends ColumnGroupRenderer
 
   private void _startRowMode(
     TableRenderingContext tContext,
-    UIComponent           column)
-    throws IOException
+    UIComponent           column
+    ) throws IOException
   {
     ColumnData colData = tContext.getColumnData();
     int physicalIndex  = colData.getPhysicalColumnIndex();
@@ -194,13 +202,12 @@ public class ColumnRenderer extends ColumnGroupRenderer
     // the default is to span just one row.
   }
 
-
   private void _renderDataMode(
-    FacesContext        context,
-    RenderingContext arc,
+    FacesContext          context,
+    RenderingContext      rc,
     TableRenderingContext tContext,
-    UIComponent           column)
-    throws IOException
+    UIComponent           column
+    ) throws IOException
   {
     ColumnData colData = tContext.getColumnData();
     RowData rowData = tContext.getRowData();
@@ -229,7 +236,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
         int span = (subRow == (totalKids - 1))
           ? (currentRowSpan - subRow)
           : 1;
-        _renderTD(context, arc, tContext, column, subRow, span);
+        _renderTD(context, rc, tContext, column, subRow, span);
       }
 
       return;
@@ -238,7 +245,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
     // we only render if we haven't been rendered before:
     if (subRow == 0)
     {
-      _renderTD(context, arc, tContext, column, -1, currentRowSpan);
+      _renderTD(context, rc, tContext, column, -1, currentRowSpan);
     }
   }
 
@@ -248,8 +255,9 @@ public class ColumnRenderer extends ColumnGroupRenderer
    * @throws java.io.IOException
    */
   public static void renderHeadersAttr(
-    FacesContext context,
-    TableRenderingContext tContext) throws IOException
+    FacesContext          context,
+    TableRenderingContext tContext
+    ) throws IOException
   {
     if (tContext.isExplicitHeaderIDMode())
     {
@@ -271,13 +279,14 @@ public class ColumnRenderer extends ColumnGroupRenderer
   /**
    * @todo Generate Unique IDs correctly!
    */
-  private void _renderTD(FacesContext          context,
-                         RenderingContext   arc,
-                         TableRenderingContext tContext,
-                         UIComponent           column,
-                         int kidIndex,
-                         int rowSpan)
-    throws IOException
+  private void _renderTD(
+    FacesContext          context,
+    RenderingContext      rc,
+    TableRenderingContext tContext,
+    UIComponent           column,
+    int                   kidIndex,
+    int                   rowSpan
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     ColumnData colData = tContext.getColumnData();
@@ -304,21 +313,21 @@ public class ColumnRenderer extends ColumnGroupRenderer
       }
 
       borderStyleClass =
-      CellUtils.getHeaderBorderStyle(tContext, arc, false, false);
+      CellUtils.getHeaderBorderStyle(tContext, rc, false, false);
     }
     else // !isRowHeader
     {
       writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, column);
       cellClass = getTableDataStyleClass(tContext);
       renderHeadersAttr(context, tContext);
-      borderStyleClass = CellUtils.getDataBorderStyle(arc, tContext);
+      borderStyleClass = CellUtils.getDataBorderStyle(rc, tContext);
     } // endif (isRowHeader)
 
     FacesBean bean = getFacesBean(column);
-    String userStyleClass = getStyleClass(bean);
-    String userInlineStyle = getInlineStyle(bean);
+    String userStyleClass = getStyleClass(column, bean);
+    String userInlineStyle = getInlineStyle(column, bean);
 
-    renderStyleClasses(context, arc, new String[]{userStyleClass, cellClass, borderStyleClass});
+    renderStyleClasses(context, rc, new String[]{userStyleClass, cellClass, borderStyleClass});
 
     writer.writeAttribute("style", userInlineStyle, null);
 
@@ -327,7 +336,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
 
     CellUtils.renderSpan(context, true /*isRowSpan*/, rowSpan);
 
-    _renderKids(context, arc, tContext, column, kidIndex);
+    _renderKids(context, rc, tContext, column, kidIndex);
 
     writer.endElement(isRowHeader
       ? XhtmlConstants.TABLE_HEADER_ELEMENT
@@ -338,8 +347,9 @@ public class ColumnRenderer extends ColumnGroupRenderer
   /**
    *  @todo I don't think this method is used.
    */
-  protected Object getColumnWidthFromTable(TableRenderingContext tContext,
-                                  int index)
+  protected Object getColumnWidthFromTable(
+    TableRenderingContext tContext,
+    int                   index)
   {
     return tContext.getColumnWidth(index);
   }
@@ -348,11 +358,11 @@ public class ColumnRenderer extends ColumnGroupRenderer
    * protected so that the table data style can be overridden.
    * see FocusColumnRenderer
    */
-  protected String getTableDataStyleClass(TableRenderingContext tContext)
+  protected String getTableDataStyleClass(
+    TableRenderingContext tContext)
   {
     return getDataStyleClass(tContext);
   }
-
 
   protected boolean isSpecialColumn()
   {
@@ -362,7 +372,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
   /**
    */
   private void _computeMode(
-    RenderingContext arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
     UIComponent           component,
     FacesBean             bean)
@@ -370,7 +380,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
     boolean shouldWrap = getShouldWrap();
 
     UIComponent header = getFacet(component, CoreColumn.HEADER_FACET);
-    Object headerText = getHeaderText(bean);
+    Object headerText = getHeaderText(component, bean);
 
     // SpecialColumn check is to fix
     // 3820854 APPS: NEED WAY TO NOT RENDER SELECTION COLUMN HEADER
@@ -382,19 +392,19 @@ public class ColumnRenderer extends ColumnGroupRenderer
     if (isSpecialColumn())
     {
       colData.setSpecialColumnData(tContext,
-                                   arc,
-                                   getNoWrap(bean) && !shouldWrap,
+                                   rc,
+                                   getNoWrap(component, bean) && !shouldWrap,
                                    shouldWrap,
-                                   getFormatType(bean));
+                                   getFormatType(component, bean));
     }
     else
     {
-      colData.setColumnData(getWidth(bean),
-                            getFormatType(bean),
-                            getNoWrap(bean) && !shouldWrap,
-                            getHeaderNoWrap(bean) && !shouldWrap,
-                            getSeparateRows(bean),
-                            getRowHeader(bean));
+      colData.setColumnData(getWidth(component, bean),
+                            getFormatType(component, bean),
+                            getNoWrap(component, bean) && !shouldWrap,
+                            getHeaderNoWrap(component, bean) && !shouldWrap,
+                            getSeparateRows(component, bean),
+                            getRowHeader(component, bean));
     }
 
     NodeData parentNode = getParentNode(tContext);
@@ -420,11 +430,11 @@ public class ColumnRenderer extends ColumnGroupRenderer
   }
 
   private void _renderFooterMode(
-    FacesContext        context,
-    RenderingContext arc,
+    FacesContext          context,
+    RenderingContext      rc,
     TableRenderingContext tContext,
-    UIComponent           column)
-    throws IOException
+    UIComponent           column
+    ) throws IOException
   {
     ColumnData colData = tContext.getColumnData();
 
@@ -453,12 +463,12 @@ public class ColumnRenderer extends ColumnGroupRenderer
       String borderStyleClass =
                CellUtils.getBorderClass(false, true, false, false);
 
-      renderStyleClasses(context, arc,
+      renderStyleClasses(context, rc,
                          new String[]{styleClass, borderStyleClass});
 
     }
     else
-      renderStyleClass(context, arc, styleClass);
+      renderStyleClass(context, rc, styleClass);
 
     UIComponent footer = getFacet(column, CoreColumn.FOOTER_FACET);
     if (footer != null)
@@ -469,11 +479,11 @@ public class ColumnRenderer extends ColumnGroupRenderer
   }
 
   private void _renderHeaderMode(
-    FacesContext        context,
-    RenderingContext arc,
+    FacesContext          context,
+    RenderingContext      rc,
     TableRenderingContext tContext,
-    UIComponent           column)
-    throws IOException
+    UIComponent           column
+    ) throws IOException
   {
     final ColumnData colData = tContext.getColumnData();
     int rowSpan = colData.getHeaderRowSpan();
@@ -500,7 +510,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
     }
 
     String colID = renderHeaderAndSpan(context,
-                                       arc,
+                                       rc,
                                        tContext,
                                        column,
                                        rowSpan,
@@ -523,12 +533,12 @@ public class ColumnRenderer extends ColumnGroupRenderer
     }
   }
 
-
   //
   // static code follows ***********************************************
   //
 
-  public static String getDataStyleClass(TableRenderingContext tContext)
+  public static String getDataStyleClass(
+    TableRenderingContext tContext)
   {
     final String cellClass;
     final ColumnData colData = tContext.getColumnData();
@@ -564,12 +574,12 @@ public class ColumnRenderer extends ColumnGroupRenderer
 
   public static String renderDataStyleClass(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext)
     throws IOException
   {
     String cellClass = getDataStyleClass(tContext);
-    renderStyleClass(context, arc, cellClass);
+    renderStyleClass(context, rc, cellClass);
     return cellClass;
 
   }

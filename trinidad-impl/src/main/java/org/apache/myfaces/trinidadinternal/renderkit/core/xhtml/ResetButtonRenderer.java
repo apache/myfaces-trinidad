@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,9 +18,12 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
+import javax.faces.component.UIComponent;
+
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.input.CoreResetButton;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+
 
 public class ResetButtonRenderer extends CommandButtonRenderer
 {
@@ -42,9 +45,11 @@ public class ResetButtonRenderer extends CommandButtonRenderer
   }
 
   @Override
-  protected String getOnclick(FacesBean bean)
+  protected String getOnclick(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String onclick = getComponentOnclick(bean);
+    String onclick = getComponentOnclick(component, bean);
 
     RenderingContext arc = RenderingContext.getCurrentInstance();
     if (arc.getFormData() != null)
@@ -58,24 +63,30 @@ public class ResetButtonRenderer extends CommandButtonRenderer
                                           true);
       }
     }
-    
+
     return onclick;
   }
 
   @Override
-  protected String getDefaultStyleClass(FacesBean bean)
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return SkinSelectors.AF_RESET_BUTTON_STYLE_CLASS;
   }
 
   @Override
-  protected String getIcon(FacesBean bean)
+  protected String getIcon(
+    UIComponent component,
+    FacesBean   bean)
   {
     return null;
   }
 
   @Override
-  protected boolean getPartialSubmit(FacesBean bean)
+  protected boolean getPartialSubmit(
+    UIComponent component,
+    FacesBean   bean)
   {
     return false;
   }

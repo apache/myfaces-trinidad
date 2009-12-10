@@ -43,6 +43,7 @@ import org.apache.myfaces.trinidad.component.UIXSwitcher;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.XhtmlScriptletFactory;
@@ -644,34 +645,32 @@ public class XhtmlUtils
     return(nameAttri.toString());
   }
 
-
   /**
-   * Renders a non-submission client event handler (onfocus for example) including any associated
+   * Build a client event handler (onfocus for example) including any associated
    * client behaviors for the event.
+   * <p>{@link #setUpClientBehaviorContext} should be called before invoking this function,
+   * otherwise parameters will not be sent to the server for submitting behaviors.</p>
    *
    * @param facesContext The faces context
    * @param component The component
    * @param disabled true if the component is disabled, stops the processing of client behaviors
    * @param eventName The event, without the "on*" prefix, to render
    * @param eventHandlerScript Script to be executed after the behaviors. May be null
-   * @param eventAttributeName the event attribute name. Null if it should not be rendered. Example
-   * value: onclick
    * @param userHandlerScript user event handler to be executed before the event handler script and
    * any client behavior scripts. May be null.
-   * @param params Any parameters that should be sent by behaviors that submit
    * @throws IOException If a rendering exception occurs
    */
-  public static void renderClientEventHandler(
-    FacesContext                                facesContext,
-    UIComponent                                 component,
-    boolean                                     disabled,
-    String                                      eventName,
-    String                                      eventAttributeName,
-    Collection<ClientBehaviorContext.Parameter> params,
-    String                                      userHandlerScript,
-    String                                      eventHandlerScript
+  public static String getClientEventHandler(
+    FacesContext facesContext,
+    UIComponent  component,
+    boolean      disabled,
+    String       eventName,
+    String       userHandlerScript,
+    String       eventHandlerScript
     ) throws IOException
   {
+    Collection<ClientBehaviorContext.Parameter> params = CoreRenderer.getBehaviorParameters(
+      component);
     List<ClientBehavior> behaviors = null;
     ClientBehaviorContext behaviorContext = null;
 
@@ -744,10 +743,7 @@ public class XhtmlUtils
       }
     }
 
-    if (script != null)
-    {
-      facesContext.getResponseWriter().writeAttribute(eventAttributeName, script, null);
-    }
+    return script;
   }
 
   private static boolean _isSubmittingBehavior(
@@ -755,6 +751,8 @@ public class XhtmlUtils
   {
     return behavior.getHints().contains(ClientBehaviorHint.SUBMITTING);
   }
+
+  private static final Object _CLIENT_BEHAVIORS_KEY = new Object();
 
   /** HashMap mapping names to their scriptlets */
   private static Map<Object, Scriptlet> _sScriptletTable =

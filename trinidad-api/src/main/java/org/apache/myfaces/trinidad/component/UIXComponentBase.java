@@ -25,10 +25,7 @@ import java.io.ObjectOutputStream;
 
 import java.net.URL;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +40,6 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
-import javax.faces.component.PartialStateHolder;
-import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
@@ -269,8 +264,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
-
   /**
    */
   @Override
@@ -290,7 +283,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return getFacesBean().getValueBinding(key);
   }
 
-
   @Override
   public void setValueBinding(String name, ValueBinding binding)
   {
@@ -300,7 +292,6 @@ abstract public class UIXComponentBase extends UIXComponent
     PropertyKey key = getPropertyKey(name);
     getFacesBean().setValueBinding(key, binding);
   }
-
 
   @Override
   public Map<String, Object> getAttributes()
@@ -312,8 +303,6 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
   // ------------------------------------------------------------- Properties
-
-
 
   @Override
   public String getClientId(FacesContext context)
@@ -362,7 +351,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return clientId;
   }
 
-
   /**
    * Gets the identifier for the component.
    */
@@ -371,7 +359,6 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     return (String) getProperty(ID_KEY);
   }
-
 
   /**
    * Sets the identifier for the component.  The identifier
@@ -396,11 +383,8 @@ abstract public class UIXComponentBase extends UIXComponent
     setProperty(ID_KEY, id);
   }
 
-
-
   @Override
   abstract public String getFamily();
-
 
   @Override
   public UIComponent getParent()
@@ -912,20 +896,12 @@ abstract public class UIXComponentBase extends UIXComponent
     // FIXME: Set to true, but never read
     //_initialStateMarked = true;
     getFacesBean().markInitialState();
-    if (_behaviors != null)
-    {
-      _behaviors.markInitialState();
-    }
   }
 
   @Override
   public void clearInitialState()
   {
     getFacesBean().clearInitialState();
-    if (_behaviors != null)
-    {
-      _behaviors.clearInitialState();
-    }
   }
 
   @Override
@@ -936,27 +912,14 @@ abstract public class UIXComponentBase extends UIXComponent
 
   public Object saveState(FacesContext facesContext)
   {
-    return new Object[]
-      {
-        getFacesBean().saveState(facesContext),
-        _behaviors == null ? null : _behaviors.saveState(facesContext)
-      };
+    return getFacesBean().saveState(facesContext);
   }
 
   public void restoreState(
     FacesContext facesContext,
     Object       stateObj)
   {
-    Object[] state = (Object[])stateObj;
-    getFacesBean().restoreState(facesContext, state[0]);
-    if (state[1] != null)
-    {
-      if (_behaviors == null)
-      {
-        _behaviors = new BehaviorMap();
-      }
-      _behaviors.restoreState(facesContext, state[1]);
-    }
+    getFacesBean().restoreState(facesContext, stateObj);
   }
 
   @Override
@@ -1472,30 +1435,7 @@ abstract public class UIXComponentBase extends UIXComponent
       return;
     }
 
-    if (_behaviors != null)
-    {
-      if (_behaviors.initialStateMarked())
-      {
-        // Resest the state of the behaviors so that their full state is saved when the
-        // behaviors of this component have been changed
-        _behaviors.clearInitialState();
-      }
-    }
-    else
-    {
-      _behaviors = new BehaviorMap();
-      _behaviorsReadOnly = null;
-    }
-
-    List<ClientBehavior> list = _behaviors.get(eventName);
-    if (list == null)
-    {
-      // Use a small number here as it will not be likely to have many behaviors for a component
-      // per event (probably 1)
-      list = new ArrayList<ClientBehavior>(5);
-      _behaviors.put(eventName, list);
-    }
-    list.add(behavior);
+    getFacesBean().addClientBehavior(eventName, behavior);
   }
 
   // Note, we do not need to provide a default implementation for the event names, as client
@@ -1516,17 +1456,7 @@ abstract public class UIXComponentBase extends UIXComponent
    */
   protected Map<String, List<ClientBehavior>> getClientBehaviors()
   {
-    if (_behaviors == null)
-    {
-      // never return null, per the spec.
-      return Collections.emptyMap();
-    }
-
-    if (_behaviorsReadOnly == null)
-    {
-      _behaviorsReadOnly = Collections.unmodifiableMap(_behaviors);
-    }
-    return _behaviorsReadOnly;
+    return getFacesBean().getClientBehaviors();
   }
 
   /**
@@ -1716,9 +1646,6 @@ abstract public class UIXComponentBase extends UIXComponent
   private Map<String, Object>      _attributes;
   private Map<String, UIComponent> _facets;
   private UIComponent              _parent;
-  private BehaviorMap              _behaviors;
-
-  private transient Map<String, List<ClientBehavior>> _behaviorsReadOnly;
 
   // Cached instance of the Renderer for this component.
   // The instance will be re-retrieved in encodeBegin()
@@ -1805,165 +1732,6 @@ abstract public class UIXComponentBase extends UIXComponent
       throw new UnsupportedOperationException();
     }
 
-  }
-
-  private static class BehaviorMap
-    extends HashMap<String, List<ClientBehavior>>
-    implements PartialStateHolder
-  {
-    BehaviorMap()
-    {
-      // We do not expect many event types to be present on the component and we will assume 5
-      // to avoid the overhead of actually checking the number by calling the component method
-      this(5);
-    }
-
-    BehaviorMap(int initialCapacity)
-    {
-      super(initialCapacity, 1.0f);
-    }
-
-    public void markInitialState()
-    {
-      for (Map.Entry<String, List<ClientBehavior>> e : this.entrySet())
-      {
-        for (ClientBehavior behavior : e.getValue())
-        {
-          if (behavior instanceof PartialStateHolder)
-          {
-            ((PartialStateHolder)behavior).markInitialState();
-          }
-        }
-      }
-      _initialStateMarked = true;
-    }
-
-    public void clearInitialState()
-    {
-      _initialStateMarked = false;
-      for (Map.Entry<String, List<ClientBehavior>> e : this.entrySet())
-      {
-        for (ClientBehavior behavior : e.getValue())
-        {
-          if (behavior instanceof PartialStateHolder)
-          {
-            ((PartialStateHolder)behavior).clearInitialState();
-          }
-        }
-      }
-    }
-
-    public boolean initialStateMarked()
-    {
-      return _initialStateMarked;
-    }
-
-    public Object saveState(
-      FacesContext facesContext)
-    {
-      Map<String, Object[]> state = new HashMap<String, Object[]>(this.size());
-      for (Map.Entry<String, List<ClientBehavior>> e : this.entrySet())
-      {
-        List<ClientBehavior> l = e.getValue();
-        Object[] entryState = new Object[l.size()];
-        boolean stateWasSaved = false;
-        for (int i = 0, size = entryState.length; i < size; ++i)
-        {
-          ClientBehavior behavior = l.get(i);
-          if (_initialStateMarked)
-          {
-            // JSF 2 state saving, only save the behavior's state if it is a state holder,
-            // otherwise the re-application of the template will handle the re-creation of the
-            // client behavior in the correct state
-            if (behavior instanceof StateHolder)
-            {
-              entryState[i] = ((StateHolder)behavior).saveState(facesContext);
-            }
-          }
-          else
-          {
-            // Use JSF <= 1.2 state saving method as the initial state was not marked
-            entryState[i] = StateUtils.saveStateHolder(facesContext, behavior);
-          }
-
-          stateWasSaved &= (entryState[i] != null);
-        }
-
-        if (stateWasSaved)
-        {
-          state.put(e.getKey(), entryState);
-        }
-      }
-      return state.isEmpty() ? null : state;
-    }
-
-    public void restoreState(
-      FacesContext facesContext,
-      Object       state)
-    {
-      @SuppressWarnings("unchecked")
-      Map<String, Object[]> savedState = (Map<String, Object[]>) state;
-
-      if (_initialStateMarked)
-      {
-        // In JSF 2 state saving, we only need to super impose the state onto the existing
-        // client behavior list of the current map as the behaviors will already be restored in
-        // the same order that they were in the previous request (if not there is an application
-        // bug).
-        for (Map.Entry<String, Object[]> e : savedState.entrySet())
-        {
-          // Assume that the behaviors were correctly re-attached to the component and we only
-          // need to restore the state onto the objects. The order must be maintained.
-          List<ClientBehavior> behaviors = get(e.getKey());
-          Object[] entryState = e.getValue();
-          for (int i = 0, size = entryState.length; i < size; ++i)
-          {
-            if (entryState[i] != null)
-            {
-              ClientBehavior behavior = behaviors.get(i);
-              if (behavior instanceof StateHolder)
-              {
-                ((StateHolder)behavior).restoreState(facesContext, entryState[i]);
-              }
-            }
-          }
-        }
-      }
-      else
-      {
-        // For JSF <= 1.2 style state saving, we should ensure that we are empty and then
-        // re-hydrate the behaviors directly from the state
-        this.clear();
-
-        for (Map.Entry<String, Object[]> e : savedState.entrySet())
-        {
-          Object[] entryState = e.getValue();
-          // Assume the list is not going to grow in this request, so only allocate the size
-          // of the list from the previous request
-          List<ClientBehavior> list = new ArrayList<ClientBehavior>(entryState.length);
-          for (int i = 0, size = entryState.length; i < size; ++i)
-          {
-            list.add((ClientBehavior)StateUtils.restoreStateHolder(facesContext, entryState[i]));
-          }
-
-          this.put(e.getKey(), list);
-        }
-      }
-    }
-
-    public boolean isTransient()
-    {
-      return _transient;
-    }
-
-    public void setTransient(
-      boolean newTransientValue)
-    {
-      _transient = newTransientValue;
-    }
-
-    private boolean _transient;
-    private boolean _initialStateMarked;
   }
 
   static private final LifecycleRenderer _UNDEFINED_LIFECYCLE_RENDERER =

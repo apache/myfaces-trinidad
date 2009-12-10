@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -30,65 +30,66 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.NavigationPaneRe
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 
+
 /**
- * On PDA, do not render NavigationPane children in a table. Instead, render 
+ * On PDA, do not render NavigationPane children in a table. Instead, render
  * them consecutively with non-breaking spaces. Also, renderTabItems as buttons
  */
 public class PdaNavigationPaneRenderer extends NavigationPaneRenderer
 {
-  public PdaNavigationPaneRenderer() 
+  public PdaNavigationPaneRenderer()
   {
-    super();        
+    super();
   }
-  
+
   @Override
   protected void renderTabItem(
-    FacesContext context,
-    RenderingContext arc,
-    ResponseWriter rw,
+    FacesContext        context,
+    RenderingContext    rc,
+    ResponseWriter      rw,
     Map<String, Object> itemData,
-    boolean isRtl
-    )throws IOException
+    boolean             isRtl
+    ) throws IOException
   {
-    renderNonOverlappingItem(context, arc, rw, itemData, isRtl, false, false);
+    renderNonOverlappingItem(context, rc, rw, itemData, isRtl, false, false);
   }
-    
+
   @Override
   protected void renderNonOverlappingItem(
-    FacesContext context,
-    RenderingContext arc,
-    ResponseWriter rw,
+    FacesContext        context,
+    RenderingContext    rc,
+    ResponseWriter      rw,
     Map<String, Object> itemData,
-    boolean isRtl,
-    boolean isBar,
-    boolean isList
+    boolean             isRtl,
+    boolean             isBar,
+    boolean             isList
     ) throws IOException
   {
     //Pocket IE, IE Mobile and BlackBerry browsers do not support
     //style="display:inine" attribute. Therefore, instead of putting content in
     //columns of a table, render it inside a span with appropriate styling.
-    if (!isList) 
+    if (!isList)
     {
         rw.startElement("span", null);
         StringBuilder itemStyleClass = new StringBuilder();
-        String userStyleClass = 
+        String userStyleClass =
              toString(itemData.get("styleClass"));
-        if (userStyleClass != null) 
+        if (userStyleClass != null)
         {
           itemStyleClass.append(userStyleClass);
           itemStyleClass.append(" "); // more style classes are appended below
         }
 
         // Assign the event handlers:
-        boolean isDisabled = 
+        boolean isDisabled =
            getBooleanFromProperty(itemData.get("isDisabled"));
-        boolean isActive = 
+        boolean isActive =
              getBooleanFromProperty(itemData.get("isActive"));
-        if (isActive) 
+        if (isActive)
         {
-          if (isDisabled) 
+          if (isDisabled)
           {
-            if (isBar) 
+            if (isBar)
             {
               itemStyleClass.append(SkinSelectors.AF_NAVIGATION_LEVEL_BAR_ACTIVE_DISABLED_STYLE_CLASS);
             }
@@ -99,24 +100,24 @@ public class PdaNavigationPaneRenderer extends NavigationPaneRenderer
           }
           else
           {
-            if (isBar) 
+            if (isBar)
             {
               itemStyleClass.append(SkinSelectors.AF_NAVIGATION_LEVEL_BAR_ACTIVE_ENABLED_STYLE_CLASS);
-            } 
+            }
             else
             {
               itemStyleClass.append(SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_ACTIVE_ENABLED_STYLE_CLASS);
             }
           }
         }
-        else 
+        else
         {
-          if (isDisabled) 
+          if (isDisabled)
           {
-            if (isBar) 
-            {  
+            if (isBar)
+            {
               itemStyleClass.append(SkinSelectors.AF_NAVIGATION_LEVEL_BAR_INACTIVE_DISABLED_STYLE_CLASS);
-            } 
+            }
             else
             {
               itemStyleClass.append(SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_INACTIVE_DISABLED_STYLE_CLASS);
@@ -124,7 +125,7 @@ public class PdaNavigationPaneRenderer extends NavigationPaneRenderer
           }
           else
           {
-            if (isBar) 
+            if (isBar)
             {
               itemStyleClass.append(SkinSelectors.AF_NAVIGATION_LEVEL_BAR_INACTIVE_ENABLED_STYLE_CLASS);
             }
@@ -132,72 +133,72 @@ public class PdaNavigationPaneRenderer extends NavigationPaneRenderer
             {
               itemStyleClass.append(SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_INACTIVE_ENABLED_STYLE_CLASS);
             }
-          }    
-        }  
-        renderStyleClass(context, arc, itemStyleClass.toString());
-        
+          }
+        }
+        renderStyleClass(context, rc, itemStyleClass.toString());
+
         rw.startElement("span", null); // centerContent
-        if (isList) 
+        if (isList)
         {
-          renderStyleClass(context, arc, 
+          renderStyleClass(context, rc,
                              SkinSelectors.AF_NAVIGATION_LEVEL_LIST_CONTENT_STYLE_CLASS);
         }
         else if (isBar)
         {
-          renderStyleClass(context, arc, 
+          renderStyleClass(context, rc,
                            SkinSelectors.AF_NAVIGATION_LEVEL_BAR_CONTENT_STYLE_CLASS);
         }
         else
         {
-          renderStyleClass(context, arc, 
+          renderStyleClass(context, rc,
                            SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_CONTENT_STYLE_CLASS);
         }
-        
+
         writeInlineStyles(rw, toString(itemData.get("inlineStyle")), null);
-        appendIconAndText(context, arc, rw, 
-                           toString(itemData.get("icon")), 
+        appendIconAndText(context, rc, rw,
+                           toString(itemData.get("icon")),
                            itemData, isDisabled, isRtl);
         rw.endElement("span"); // centerContent
-        
-        boolean narrowScreen = supportsNarrowScreen(arc);
-        
-        if (!getBooleanFromProperty(itemData.get("isLast"))) 
+
+        boolean narrowScreen = supportsNarrowScreen(rc);
+
+        if (!getBooleanFromProperty(itemData.get("isLast")))
         {
           rw.startElement("span", null); // rightContent
-          if (isBar) 
+          if (isBar)
           {
-            renderStyleClass(context, arc, 
+            renderStyleClass(context, rc,
                              SkinSelectors.AF_NAVIGATION_LEVEL_BAR_SEPARATOR_STYLE_CLASS);
-          } 
+          }
           else
           {
-            renderStyleClass(context, arc, 
+            renderStyleClass(context, rc,
                                 SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_SEPARATOR_STYLE_CLASS);
           }
-          
-          // Narrow-screen PDAs don't need"|", since navigation items 
+
+          // Narrow-screen PDAs don't need"|", since navigation items
           // are rendered vertically for narrow-screen PDAs.
           if (!narrowScreen)
           {
             rw.write("|");
           }
-          
+
           rw.endElement("span"); // rightContent
-        }  
+        }
         rw.endElement("span"); // rightContent
-        
+
         // render vertically for narrow-screen PDAs
         if (narrowScreen)
-        { 
+        {
           rw.startElement("br", null);
           rw.endElement("br");
         }
       }
       // Render as List
-      else 
+      else
       {
          rw.startElement("table", null);
-         OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+         OutputUtils.renderLayoutTableAttributes(context, rc, "0", null);
          String appendedStyle = null;
          writeInlineStyles(rw, toString(itemData.get("inlineStyle")),
            appendedStyle); // user's style + what we must have on top of it
@@ -224,12 +225,12 @@ public class PdaNavigationPaneRenderer extends NavigationPaneRenderer
            {
              itemStyleClass.append(
                  SkinSelectors.AF_NAVIGATION_LEVEL_LIST_ACTIVE_ENABLED_STYLE_CLASS);
-           }                      
-         }  
+           }
+         }
          else
          {
            if (isDisabled)
-           {         
+           {
              itemStyleClass.append(
                  SkinSelectors.AF_NAVIGATION_LEVEL_LIST_INACTIVE_DISABLED_STYLE_CLASS);
            }
@@ -238,14 +239,14 @@ public class PdaNavigationPaneRenderer extends NavigationPaneRenderer
              itemStyleClass.append(
                  SkinSelectors.AF_NAVIGATION_LEVEL_LIST_INACTIVE_ENABLED_STYLE_CLASS);
            }
-         }  
-         renderStyleClass(context, arc, itemStyleClass.toString());
+         }
+         renderStyleClass(context, rc, itemStyleClass.toString());
          rw.startElement("tbody", null);
          rw.startElement("tr", null);
          rw.startElement("td", null); // bulletCell
          renderStyleClass(
             context,
-            arc,
+            rc,
             SkinSelectors.AF_NAVIGATION_LEVEL_LIST_BULLET_STYLE_CLASS);
          rw.startElement("div", null); // bulletContent
          rw.write(" ");
@@ -253,12 +254,12 @@ public class PdaNavigationPaneRenderer extends NavigationPaneRenderer
          rw.endElement("td"); // bulletCell
          rw.startElement("td", null); // centerCell
          rw.startElement("div", null); // centerContent
-         renderStyleClass(context, arc,
+         renderStyleClass(context, rc,
            SkinSelectors.AF_NAVIGATION_LEVEL_LIST_CONTENT_STYLE_CLASS);
-      
+
          appendIconAndText(
             context,
-            arc,
+            rc,
             rw,
             toString(itemData.get("icon")),
             itemData,
@@ -268,7 +269,7 @@ public class PdaNavigationPaneRenderer extends NavigationPaneRenderer
          rw.endElement("td"); // centerCell
          rw.endElement("tr");
          rw.endElement("tbody");
-         rw.endElement("table");   
-      }   
-  }        
+         rw.endElement("table");
+      }
+  }
 }

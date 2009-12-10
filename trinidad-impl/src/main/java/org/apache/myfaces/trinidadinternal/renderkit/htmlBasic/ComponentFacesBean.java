@@ -19,16 +19,20 @@
 package org.apache.myfaces.trinidadinternal.renderkit.htmlBasic;
 
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.el.ValueExpression;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+
 
 /**
  * Implementation of FacesBean that purely passes through
@@ -131,7 +135,6 @@ public class ComponentFacesBean implements FacesBean
     throw new UnsupportedOperationException();
   }
 
-
   final public Set<PropertyKey> keySet()
   {
     throw new UnsupportedOperationException();
@@ -163,6 +166,16 @@ public class ComponentFacesBean implements FacesBean
   }
 
   public Object saveState(FacesContext context)
+  {
+    throw new UnsupportedOperationException();
+  }
+
+  public void addClientBehavior(String eventName, ClientBehavior behavior)
+  {
+    throw new UnsupportedOperationException();
+  }
+
+  public Map<String, List<ClientBehavior>> getClientBehaviors()
   {
     throw new UnsupportedOperationException();
   }

@@ -44,14 +44,15 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 
 public class TableSelectOneRenderer extends XhtmlRenderer
 {
-
-  public TableSelectOneRenderer(FacesBean.Type type)
+  public TableSelectOneRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _renderer = createCellRenderer(type);
@@ -62,7 +63,9 @@ public class TableSelectOneRenderer extends XhtmlRenderer
   //
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(FacesContext context, UIComponent component)
+  public void decode(
+    FacesContext context,
+    UIComponent  component)
   {
     UIXCollection table = (UIXCollection) component;
     Object oldKey = table.getRowKey();
@@ -114,7 +117,6 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     }
   }
 
-
   //
   // Encode
   //
@@ -126,10 +128,11 @@ public class TableSelectOneRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     TableRenderingContext tContext =
       TableRenderingContext.getCurrentInstance();
@@ -149,7 +152,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
         break;
 
       case RenderStage.DATA_STAGE:
-        renderCellContent(context, arc, tContext, component, bean);
+        renderCellContent(context, rc, tContext, component, bean);
         break;
 
       default:
@@ -162,21 +165,23 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     return true;
   }
 
-  protected CoreRenderer createCellRenderer(FacesBean.Type type)
+  protected CoreRenderer createCellRenderer(
+    FacesBean.Type type)
   {
     return new Radio(type);
   }
 
   protected void renderCellContent(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
     UIComponent           component,
-    FacesBean             bean) throws IOException
+    FacesBean             bean
+    ) throws IOException
   {
-    arc.setCurrentClientId(tContext.getTableId());
-    delegateRenderer(context, arc, component, bean, _renderer);
-    arc.setCurrentClientId(null);
+    rc.setCurrentClientId(tContext.getTableId());
+    delegateRenderer(context, rc, component, bean, _renderer);
+    rc.setCurrentClientId(null);
   }
 
   /**
@@ -184,7 +189,8 @@ public class TableSelectOneRenderer extends XhtmlRenderer
    * for testing.
    */
   static String __getSelectionParameterName(
-    FacesContext context, UIComponent table)
+    FacesContext context,
+    UIComponent  table)
   {
     return (table.getClientId(context) +
             NamingContainer.SEPARATOR_CHAR +
@@ -193,13 +199,15 @@ public class TableSelectOneRenderer extends XhtmlRenderer
 
   public static class Radio extends SimpleSelectBooleanCheckboxRenderer
   {
-    public Radio(FacesBean.Type type)
+    public Radio(
+      FacesBean.Type type)
     {
       super(type);
     }
 
     @Override
-    protected String getCompositeId(String clientId)
+    protected String getCompositeId(
+      String clientId)
     {
       return null;
     }
@@ -208,15 +216,20 @@ public class TableSelectOneRenderer extends XhtmlRenderer
      * we do not want to render the simple span for the checkbox.
      */
     @Override
-    protected boolean getRenderSimpleSpan(FacesBean bean)
+    protected boolean getRenderSimpleSpan(
+      UIComponent component,
+      FacesBean   bean)
     {
       return false;
     }
+
     /**
      * don't render a special content style class on the radio.
      */
     @Override
-    protected String getContentStyleClass(FacesBean bean)
+    protected String getContentStyleClass(
+      UIComponent component,
+      FacesBean   bean)
     {
      return null;
     }
@@ -224,7 +237,8 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     @Override
     protected void renderId(
       FacesContext context,
-      UIComponent  component) throws IOException
+      UIComponent  component
+      ) throws IOException
     {
       TableRenderingContext tContext =
         TableRenderingContext.getCurrentInstance();
@@ -235,19 +249,23 @@ public class TableSelectOneRenderer extends XhtmlRenderer
       writer.writeAttribute("name", param, null);
       // =-=AEW Inefficient.  We only need the "id" when there's
       // a shortDescription (which is when we'll get a label)
-      if (getShortDesc(getFacesBean(component)) != null)
+      if (getShortDesc(component, getFacesBean(component)) != null)
         writer.writeAttribute("id", getClientId(context, component), null);
     }
 
     @Override
-    protected String getClientId(FacesContext context, UIComponent component)
+    protected String getClientId(
+      FacesContext context,
+      UIComponent  component)
     {
       // We use the table's container client ID
       return component.getContainerClientId(context);
     }
 
     @Override
-    protected Object getSubmittedValue(FacesBean bean)
+    protected Object getSubmittedValue(
+    UIComponent component,
+    FacesBean   bean)
     {
       TableRenderingContext tContext =
         TableRenderingContext.getCurrentInstance();
@@ -262,7 +280,8 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     }
 
     @Override
-    protected Object getValueAttr(RenderingContext arc)
+    protected Object getValueAttr(
+      RenderingContext rc)
     {
       TableRenderingContext tContext =
         TableRenderingContext.getCurrentInstance();
@@ -271,7 +290,9 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     }
 
     @Override
-    protected String getShortDesc(FacesBean bean)
+    protected String getShortDesc(
+    UIComponent component,
+    FacesBean   bean)
     {
       String key = getDefaultShortDescKey();
       RenderingContext arc = RenderingContext.getCurrentInstance();
@@ -284,13 +305,17 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     }
 
     @Override
-    protected char getAccessKey(FacesBean bean)
+    protected char getAccessKey(
+      UIComponent component,
+      FacesBean   bean)
     {
       return CHAR_UNDEFINED;
     }
 
     @Override
-    protected boolean isImmediate(FacesBean bean)
+    protected boolean isImmediate(
+      UIComponent component,
+      FacesBean   bean)
     {
       TableRenderingContext tContext =
         TableRenderingContext.getCurrentInstance();
@@ -298,13 +323,18 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     }
 
     @Override
-    protected boolean getReadOnly(FacesContext context, FacesBean bean)
+    protected boolean getReadOnly(
+      FacesContext context,
+      UIComponent  component,
+      FacesBean    bean)
     {
       return false;
     }
 
     @Override
-    protected boolean getDisabled(FacesBean bean)
+    protected boolean getDisabled(
+      UIComponent component,
+      FacesBean   bean)
     {
       return false;
     }
@@ -313,7 +343,9 @@ public class TableSelectOneRenderer extends XhtmlRenderer
      * @todo Support?
      */
     @Override
-    protected String getOnblur(FacesBean bean)
+    protected String getOnblur(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
@@ -322,28 +354,35 @@ public class TableSelectOneRenderer extends XhtmlRenderer
      * @todo Support?
      */
     @Override
-    protected String getOnfocus(FacesBean bean)
+    protected String getOnfocus(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     @Override
-    protected String getOnchange(FacesBean bean)
+    protected String getOnchange(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
-    protected String getOnselect(FacesBean bean)
+    protected String getOnselect(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     @Override
-    protected String getText(FacesBean bean)
+    protected String getText(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
-
   }
 
   private CoreRenderer _renderer;

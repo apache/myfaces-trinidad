@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,7 +47,8 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _chromeTypeKey = type.findKey("chromeType");
@@ -61,29 +62,31 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
 
    // =-=AEW We don't have any real agent switching
-    if (!isDesktop(arc))
+    if (!isDesktop(rc))
     {
-      delegateRenderer(context, arc, component, bean, _pdaRenderer);
+      delegateRenderer(context, rc, component, bean, _pdaRenderer);
     }
     else
     {
-      encodeAllDesktop(context, arc, component, bean);
+      encodeAllDesktop(context, rc, component, bean);
     }
 
   }
 
   protected void encodeAllDesktop(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
 
     UIComponent branding        = getFacet(component,
@@ -109,7 +112,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
     // brandingApp goes next to the branding, else it goes
     // under the branding.
 
-    Object chromeType = getChromeType(bean);
+    Object chromeType = getChromeType(component, bean);
 
     boolean isCompact = !CorePanelPageHeader.CHROME_TYPE_EXPANDED.equals(chromeType);
 
@@ -117,20 +120,20 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
     boolean AppContextOrCompact =
       ((brandingAppCont != null) || isCompact);
 
-    boolean isRTL = arc.isRightToLeft();
+    boolean isRTL = rc.isRightToLeft();
 
     boolean hasGlobal = navigationGlobal != null;
     boolean hasSwitch = menuSwitch != null;
 
     ResponseWriter writer    = context.getResponseWriter();
     writer.startElement("span", component);
-    renderAllAttributes(context, arc, bean);
+    renderAllAttributes(context, rc, component, bean);
     renderId(context, component);
 
 
     // start the table element for the next piece
     writer.startElement("table", null);
-    OutputUtils.renderLayoutTableAttributes(context, arc, "0", "100%");
+    OutputUtils.renderLayoutTableAttributes(context, rc, "0", "100%");
 
 
     int rowSpan = 0;
@@ -196,7 +199,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
           // changed the table from 100% to 1% since it seemed to fix
           // the bug where you have extra space between branding
           // and brandingApp.
-          OutputUtils.renderLayoutTableAttributes(context, arc, "2", "1%" );
+          OutputUtils.renderLayoutTableAttributes(context, rc, "2", "1%" );
 
           writer.startElement("tr", null);
           writer.startElement("td", null);
@@ -247,7 +250,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
           {
             writer.writeAttribute("valign", "bottom", null);
           }
-          else if(isIE(arc))
+          else if(isIE(rc))
           {
             // this keeps the table small, so that the tabs can
             // get close. Otherwise, the table was super wide.
@@ -322,7 +325,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
 
           // we want the navigationGlobal/menuSwitch
           // to layer on top of the branding when the browser is too narrow.
-          if (isIE(arc))
+          if (isIE(rc))
           {
             writer.writeAttribute(
               "style",
@@ -373,7 +376,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
             writer.startElement("tr", null);
           }
           // render navigation1. takes up two tds.
-          _renderNavigation1(context, arc, writer, navigation1, isRTL);
+          _renderNavigation1(context, rc, writer, navigation1, isRTL);
 
         }
       }
@@ -402,7 +405,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
     if ( hasSearch )
     {
       // render search in a row
-      _renderSearch(context, arc, writer, search, colSpan);
+      _renderSearch(context, rc, writer, search, colSpan);
     }
 
     writer.endElement("table");
@@ -412,22 +415,23 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
 
   }
 
-  protected Object getChromeType(FacesBean bean)
+  protected Object getChromeType(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_chromeTypeKey);
   }
-
 
   /**
    * render two tds, one with the navigation1 and one with a spacer
    * @return void
    */
   private void  _renderNavigation1(
-    FacesContext        context,
-    RenderingContext arc,
-    ResponseWriter      writer,
-    UIComponent         navigation1,
-    boolean             isRTL
+    FacesContext     context,
+    RenderingContext rc,
+    ResponseWriter   writer,
+    UIComponent      navigation1,
+    boolean          isRTL
     ) throws IOException
   {
     writer.startElement("td", null);
@@ -439,20 +443,19 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
     writer.endElement("td");
 
     writer.startElement("td", null);
-    renderSpacer(context, arc, _NAVIGATION1_SPACER_SIZE, "1");
+    renderSpacer(context, rc, _NAVIGATION1_SPACER_SIZE, "1");
     writer.endElement("td");
   }
-
 
   /**
    * render a table row with the navigation2
    * @return void
    */
   private void _renderNavigation2(
-    FacesContext     context,
-    ResponseWriter   writer,
-    UIComponent      navigation2,
-    int              colSpan
+    FacesContext   context,
+    ResponseWriter writer,
+    UIComponent    navigation2,
+    int            colSpan
     ) throws IOException
   {
       writer.startElement("tr", null);
@@ -471,20 +474,18 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
       writer.endElement("tr");
   }
 
-
   /**
    * render a table row with the search
    * @return void
    */
   private void _renderSearch(
-    FacesContext context,
-    RenderingContext arc,
+    FacesContext     context,
+    RenderingContext rc,
     ResponseWriter   writer,
-    UIComponent           search,
+    UIComponent      search,
     int              colSpan
     ) throws IOException
   {
-
     writer.startElement("tr", null);
     writer.startElement("td", null);
     writer.writeAttribute("width",
@@ -494,7 +495,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
       writer.writeAttribute("colspan", colSpan, null);
 
     writer.startElement("table", null);
-    OutputUtils.renderLayoutTableAttributes(context, arc,
+    OutputUtils.renderLayoutTableAttributes(context, rc,
                                 "0",
                                 "100%");
 
@@ -505,14 +506,14 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
 
     writer.startElement("td", null);
     writer.writeAttribute( "width", "4", null);
-    renderSpacer(context, arc, "4", "1");
+    renderSpacer(context, rc, "4", "1");
     writer.endElement("td");
 
     writer.startElement("td", null);
     writer.writeAttribute("width",
                           "100%", null);
     writer.writeAttribute("colspan","3", null);
-    renderStyleClass(context, arc, SkinSelectors.QUICK_SEARCH_BOX_STYLE_CLASS);
+    renderStyleClass(context, rc, SkinSelectors.QUICK_SEARCH_BOX_STYLE_CLASS);
 
 
     encodeChild(context, search);
@@ -521,7 +522,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
 
     writer.startElement("td", null);
     writer.writeAttribute( "width", "4", null);
-    renderSpacer(context, arc, "4", "1");
+    renderSpacer(context, rc, "4", "1");
     writer.endElement("td");
 
     writer.endElement("tr");
@@ -531,15 +532,13 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
     writer.endElement("tr");
   }
 
-
-
  /**
    * Figure out how many columns we have to span for navigation2
    * and search
    * @return int colSpan number of columns to span.
    */
   private int _calculateColSpan(
-    int brandingCount,
+    int     brandingCount,
     boolean navigation1Exists,
     boolean navigation2Exists
     )
@@ -558,9 +557,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
     return colSpan;
   }
 
-
   private PropertyKey _chromeTypeKey;
-
 
   private CoreRenderer _pdaRenderer = new PdaPanelPageHeaderRenderer();
   private static final String _NAVIGATION1_SPACER_SIZE = "10";

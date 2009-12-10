@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.List;
 import java.util.Map;
 
@@ -31,14 +32,13 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelAccordion;
 import org.apache.myfaces.trinidad.component.core.layout.CoreShowDetailItem;
-import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.DisclosureEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+
 
 /**
  * Renderer for PanelAccordion
@@ -53,7 +53,8 @@ public class PanelAccordionRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _discloseNoneKey = type.findKey("discloseNone");
@@ -62,18 +63,20 @@ public class PanelAccordionRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(FacesContext context, UIComponent component)
+  public void decode(
+    FacesContext context,
+    UIComponent  component)
   {
-    Map<String, String> parameters = 
+    Map<String, String> parameters =
       context.getExternalContext().getRequestParameterMap();
-    
+
     Object event = parameters.get(XhtmlConstants.EVENT_PARAM);
     if (XhtmlConstants.HIDE_EVENT.equals(event) ||
         XhtmlConstants.SHOW_EVENT.equals(event))
     {
       Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
       String id = component.getClientId(context);
-      
+
       if (id.equals(source))
       {
         boolean isDisclosed = XhtmlConstants.SHOW_EVENT.equals(event);
@@ -126,7 +129,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
   {
     return true;
   }
-  
+
   /**
    *  First: If nothing is disclosed, makes the first child disclosed.
    *
@@ -151,12 +154,13 @@ public class PanelAccordionRenderer extends XhtmlRenderer
   @SuppressWarnings("unchecked")
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    FormData fData = arc.getFormData();
+    FormData fData = rc.getFormData();
     String formName = "";
 
     if (fData != null)
@@ -170,7 +174,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
       // Hidden field to store parameter targetItem is needed for non
       // Ajax browsers to pass the target item Id back to the server.
       boolean pprEnabled =
-        PartialPageUtils.supportsPartialRendering(arc);
+        PartialPageUtils.supportsPartialRendering(rc);
       if (!pprEnabled)
       {
         fData.addNeededValue(XhtmlConstants.TARGETITEM_PARAM);
@@ -214,7 +218,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
 
     // If we have a minimum of 1 disclosed child and none have been disclosed
     // yet, disclose the first rendered one:
-    if ( (disclosedChild == null) && !getDiscloseNone(bean) &&
+    if ( (disclosedChild == null) && !getDiscloseNone(component, bean) &&
       (renderableChild != null) && !renderableChild.isDisclosedTransient())
     {
       renderableChild.setDisclosed(true);
@@ -226,10 +230,10 @@ public class PanelAccordionRenderer extends XhtmlRenderer
     out.startElement("div", component);
 
     renderId(context, component);
-    renderAllAttributes(context, arc, bean);
+    renderAllAttributes(context, rc, component, bean);
 
-    boolean discloseMany = getDiscloseMany(bean);
-    boolean discloseNone = getDiscloseNone(bean);
+    boolean discloseMany = getDiscloseMany(component, bean);
+    boolean discloseNone = getDiscloseNone(component, bean);
     boolean disclosedFixed = false;
     if (discloseMany && !discloseNone) // must keep at least one item disclosed
     {
@@ -264,7 +268,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
       if (!(child instanceof UIXShowDetail) ||
           !child.isRendered())
         continue;
-      
+
       UIXShowDetail detailItem = (UIXShowDetail) child;
       boolean disabled = _isItemDisabled(detailItem);
       String titleText = (String)
@@ -292,8 +296,8 @@ public class PanelAccordionRenderer extends XhtmlRenderer
         itemStyleClass = getHeaderExpandedStyleClass();
       else
         itemStyleClass = getHeaderCollapsedStyleClass();
-        
-      renderStyleClass(context, arc, itemStyleClass);
+
+      renderStyleClass(context, rc, itemStyleClass);
 
       // Render the toolbar component, if any (we use float to keep
       // the toolbar on the right - or left, in RTL languages - so
@@ -303,13 +307,13 @@ public class PanelAccordionRenderer extends XhtmlRenderer
       if (toolbar != null)
       {
         out.startElement("div", detailItem);
-        renderStyleClass(context, arc, SkinSelectors.AF_PANELACCORDION_TOOLBAR_STYLE_CLASS);
+        renderStyleClass(context, rc, SkinSelectors.AF_PANELACCORDION_TOOLBAR_STYLE_CLASS);
         encodeChild(context, toolbar);
         out.endElement("div");
       }
-      
-      boolean javaScriptSupport = supportsScripting(arc);
-      
+
+      boolean javaScriptSupport = supportsScripting(rc);
+
       if (javaScriptSupport)
       {
         out.startElement("a", null);
@@ -317,15 +321,15 @@ public class PanelAccordionRenderer extends XhtmlRenderer
       }
       else
       {
-        // For Non-JavaScript browsers, render an input element(type=submit) to 
-        // submit the page. Encode the name attribute with the parameter name 
-        // and value thus it would enable the browsers to include the name of 
+        // For Non-JavaScript browsers, render an input element(type=submit) to
+        // submit the page. Encode the name attribute with the parameter name
+        // and value thus it would enable the browsers to include the name of
         // this element in its payLoad if it submits the page.
         out.startElement("input", null);
         out.writeAttribute("type", "submit", null);
       }
 
-      renderStyleClass(context, arc,
+      renderStyleClass(context, rc,
                        disabled
                          ? getLinkDisabledStyleClass()
                          : getLinkEnabledStyleClass());
@@ -337,11 +341,11 @@ public class PanelAccordionRenderer extends XhtmlRenderer
       {
         boolean isImmediate = detailItem.isImmediate();
         String event = disclosed ? "hide" : "show";
-        
+
         if (javaScriptSupport)
         {
           String onClickHandler = _getFormSubmitScript(component,
-                                                       arc,
+                                                       rc,
                                                        event,
                                                        detailItemId,
                                                        formName,
@@ -361,19 +365,19 @@ public class PanelAccordionRenderer extends XhtmlRenderer
                              + XhtmlUtils.getEncodedParameter
                                          (XhtmlConstants.TARGETITEM_PARAM)
                              + detailItemId;
-                             
+
           out.writeAttribute("name", nameAttri, null);
         }
       }
-      
+
       if (javaScriptSupport)
-      { 
+      {
         // =-=rbaranwa Per the UI Review, no icon to be rendered when
         // panel is disabled.
         if (! disabled)
         {
           ShowDetailRenderer.renderDisclosureIcon(context,
-                                                   arc,
+                                                   rc,
                                                    disclosed,
                                                    getDisclosedTipKey(),
                                                    getUndisclosedTipKey());
@@ -386,7 +390,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
       }
       else
       {
-        // Since we cannot render any image element as a child of input element, 
+        // Since we cannot render any image element as a child of input element,
         // just render the icon symbol along with the text.
         String icon = disclosed ? XhtmlConstants.NON_JS_DETAIL_DISCLOSED_ICON :
                                   XhtmlConstants.NON_JS_DETAIL_UNDISCLOSED_ICON;
@@ -394,17 +398,17 @@ public class PanelAccordionRenderer extends XhtmlRenderer
         {
           icon = icon + titleText;
         }
-        
+
         out.writeAttribute("value", icon, null);
-        
+
         if (disabled || !disclosable)
         {
           out.writeAttribute("disabled", Boolean.TRUE, "disabled");
         }
-        
+
         out.endElement("input");
       }
-      
+
       out.endElement("div"); // Ending div for an individual panel
 
 
@@ -415,7 +419,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
       //    one showDetail child has it's disclosed property set to true.
       if (disclosed && (! disabled) && (! childAlreadyRendered) )
       {
-        _encodeDetailItem(context, arc, component, detailItem, out);
+        _encodeDetailItem(context, rc, component, detailItem, out);
         if (!discloseMany)
         {
           childAlreadyRendered = true;
@@ -426,7 +430,9 @@ public class PanelAccordionRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected String getDefaultStyleClass(FacesBean bean)
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return SkinSelectors.AF_PANELACCORDION_STYLE_CLASS;
   }
@@ -482,19 +488,20 @@ public class PanelAccordionRenderer extends XhtmlRenderer
    * @param out the response writer object
    * @throws IOException when some issues while writing output
    */
-  private void _encodeDetailItem(FacesContext context,
-                                 RenderingContext arc,
-                                 UIComponent component,
-                                 UIXShowDetail detailItem,
-                                 ResponseWriter out)
-    throws IOException
+  private void _encodeDetailItem(
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    UIXShowDetail    detailItem,
+    ResponseWriter   out
+    ) throws IOException
   {
     out.startElement("table", component);
     out.writeAttribute("cellSpacing", "0", null);
     out.writeAttribute("cellPadding", "0", null);
     out.writeAttribute("summary", "", null);
 
-    renderStyleClass(context, arc, getContentStyleClass());
+    renderStyleClass(context, rc, getContentStyleClass());
 
     out.startElement("tr", component);
     out.startElement("td", component);
@@ -507,22 +514,22 @@ public class PanelAccordionRenderer extends XhtmlRenderer
     out.endElement("table"); // Ending table for the contained child
   }
 
-
   /**
    *  Creates javascript used to submit the page.
    */
-  private String _getFormSubmitScript(UIComponent component,
-                                      RenderingContext arc,
-                                      String event,
-                                      String detailItemId,
-                                      String formName,
-                                      String compId,
-                                      boolean isImmediate)
+  private String _getFormSubmitScript(
+    UIComponent      component,
+    RenderingContext rc,
+    String           event,
+    String           detailItemId,
+    String           formName,
+    String           compId,
+    boolean          isImmediate)
   {
     // Check if PPR enabled, do a _submitPartialChange, else do a formSubmit.
     String onClickHandler = "";
     boolean pprEnabled =
-      PartialPageUtils.supportsPartialRendering(arc);
+      PartialPageUtils.supportsPartialRendering(rc);
 
     String validate = "1";
     if (isImmediate)
@@ -545,7 +552,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
             .append(detailItemId)
             .append("'});return false;");
 
-      onClickHandler = onClickHandlerBuff.toString();            
+      onClickHandler = onClickHandlerBuff.toString();
     }
     else
     {
@@ -566,8 +573,9 @@ public class PanelAccordionRenderer extends XhtmlRenderer
     return onClickHandler;
   }
 
-
-  protected boolean getDiscloseMany(FacesBean bean)
+  protected boolean getDiscloseMany(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_discloseManyKey);
     if (o == null)
@@ -576,7 +584,9 @@ public class PanelAccordionRenderer extends XhtmlRenderer
     return Boolean.TRUE.equals(o);
   }
 
-  protected boolean getDiscloseNone(FacesBean bean)
+  protected boolean getDiscloseNone(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_discloseNoneKey);
     if (o == null)
@@ -585,7 +595,8 @@ public class PanelAccordionRenderer extends XhtmlRenderer
     return Boolean.TRUE.equals(o);
   }
 
-  private boolean _isItemDisabled(UIComponent component)
+  private boolean _isItemDisabled(
+    UIComponent component)
   {
     Object isDisabled = component.getAttributes().get(
       CoreShowDetailItem.DISABLED_KEY.getName());
@@ -602,5 +613,4 @@ public class PanelAccordionRenderer extends XhtmlRenderer
     "af_panelAccordion.DISCLOSED_TIP";
   private static final String _UNDISCLOSED_TIP_KEY =
     "af_panelAccordion.UNDISCLOSED_TIP";
-
 }

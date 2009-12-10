@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.awt.Dimension;
+
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -31,7 +33,6 @@ import java.util.Set;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
 import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
@@ -45,15 +46,17 @@ import org.apache.myfaces.trinidad.component.core.layout.CorePanelFormLayout;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
+
 public class PanelFormLayoutRenderer extends XhtmlRenderer
 {
   public PanelFormLayoutRenderer()
   {
     super(CorePanelFormLayout.TYPE);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
 
@@ -78,14 +81,17 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
   protected void renderStyleAttributes(
     FacesContext     context,
     RenderingContext rc,
-    FacesBean        bean)
-    throws IOException
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    renderStyleAttributes(context, rc, bean, SkinSelectors.AF_PANEL_FORM_STYLE_CLASS);
+    renderStyleAttributes(context, rc, component, bean, SkinSelectors.AF_PANEL_FORM_STYLE_CLASS);
   }
 
   @Override
-  protected String getDefaultStyleClass(FacesBean bean)
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return SkinSelectors.AF_LABEL_TEXT_STYLE_CLASS;
   }
@@ -102,10 +108,10 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("div", component); // the root element
     renderId(context, component);
-    renderAllAttributes(context, rc, bean);
+    renderAllAttributes(context, rc, component, bean);
 
     int maxColumns = 0;
-    Number maxColumnsNumber = _getMaxColumns(bean);
+    Number maxColumnsNumber = _getMaxColumns(component, bean);
     if (maxColumnsNumber != null)
     {
       maxColumns = maxColumnsNumber.intValue();
@@ -120,7 +126,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     {
       maxColumns = 1;
     }
-    Number rowsNumber = _getRows(bean);
+    Number rowsNumber = _getRows(component, bean);
     if (rowsNumber == null)
     {
       rows = Integer.MAX_VALUE;
@@ -146,7 +152,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @param component the component being rendered
    * @return true if the parent is a PanelFormLayout
    */
-  static boolean __isInPanelFormLayout(FacesContext context, UIComponent component)
+  static boolean __isInPanelFormLayout(
+    FacesContext context,
+    UIComponent  component)
   {
    Map requestMap = context.getExternalContext().getRequestMap();
    Object formItem = requestMap.get(_PANEL_FORM_LAYOUT_FORM_ITEM_KEY);
@@ -170,8 +178,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     UIComponent      component,
     FacesBean        bean,
     int              maxColumns,
-    int              rows)
-    throws IOException
+    int              rows
+    ) throws IOException
   {
     // We cannot render a nested panelForm with any more than a single column
     // so we must monitor whether we are nested or not:
@@ -221,9 +229,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     // we really need:
     int actualColumns = maxColumns;
     int actualRows = rows;
-    Object labelAlignment; 
-    
-    // In the case of narrow-screen PDAs, the label and field are rendered 
+    Object labelAlignment;
+
+    // In the case of narrow-screen PDAs, the label and field are rendered
     // vertically to reduce the overall page's width. Thus, labelAlignment
     // is always "top" for narrow-screen PDAs.
     if (supportsNarrowScreen(rc))
@@ -232,9 +240,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     }
     else
     {
-      labelAlignment = _getLabelAlignment(bean);
+      labelAlignment = _getLabelAlignment(component, bean);
     }
-    
+
     boolean forceSingleColumn = (nestLevel != 0);
     boolean startAlignedLabels = !forceSingleColumn;
     if ("start".equals(labelAlignment))
@@ -278,8 +286,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     // These widths can either be pixels, percentages, or undefined.
     // We must ensure that if using percentages or undefined that we correct them
     // to total up properly.
-    String labelWidth = (String)_getLabelWidth(bean);
-    String fieldWidth = (String)_getFieldWidth(bean);
+    String labelWidth = (String)_getLabelWidth(component, bean);
+    String fieldWidth = (String)_getFieldWidth(component, bean);
 
     // Create the DOM for the form:
     ResponseWriter rw = context.getResponseWriter();
@@ -325,7 +333,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
       int[] footerGroupSizes = new int[totalFooterItemCount];
       _computeRenderedGroupSizes(footerGroupStates, footerGroupSizes);
 
-      List<LayoutAction> footerLayoutActions = 
+      List<LayoutAction> footerLayoutActions =
                   _computeLayoutActions(totalFooterItemCount, footerGroupSizes, footerGroupStates);
 
       ColumnEncodingState footerEncodingState = new ColumnEncodingState(
@@ -369,7 +377,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    */
   private static int _computeRenderedGroupSizes(
     List<GroupState> groupStates,
-    int[] renderedGroupSizes)
+    int[]            renderedGroupSizes)
   {
     int totalFormItemCount = renderedGroupSizes.length;
 
@@ -415,8 +423,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @return LayoutActions for each child to lay out
    */
   private static List<LayoutAction> _computeLayoutActions(
-    int rowCount,
-    int[] renderedGroupSizes,
+    int              rowCount,
+    int[]            renderedGroupSizes,
     List<GroupState> groupStates)
   {
     int totalFormItemCount = groupStates.size();
@@ -461,7 +469,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
             (GroupState.OUTSIDE_GROUP.equals(currGroupState) &&
              GroupState.START_GROUP.equals(lastGroupState)))
           layoutAction = LayoutAction.NEW_GROUP;
-        else          
+        else
           layoutAction = LayoutAction.FLAT;
       }
 
@@ -486,11 +494,11 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    *         represents the number of rows
    */
   private static Dimension _computeActualColumnsAndRows(
-    int guessColumns,
-    int guessRows,
-    int totalFormItemCount,
+    int   guessColumns,
+    int   guessRows,
+    int   totalFormItemCount,
     int[] renderedGroupSizes,
-    int renderedGroupsCount)
+    int   renderedGroupsCount)
   {
     if (totalFormItemCount == 0)
       return new Dimension(0, 0);
@@ -575,9 +583,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    */
   private FormWidths _getFormWidths(
     boolean startAlignLabels,
-    String labelWidth,
-    String fieldWidth,
-    int actualColumns)
+    String  labelWidth,
+    String  fieldWidth,
+    int     actualColumns)
   {
     WidthType labelWidthType = WidthType.NONE;
     WidthType fieldWidthType = WidthType.NONE;
@@ -621,11 +629,11 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @return width information for various parts of the form
    */
   private FormWidths _getStartAlignedFormWidths(
-    String labelWidth,
+    String    labelWidth,
     WidthType labelWidthType,
-    String fieldWidth,
+    String    fieldWidth,
     WidthType fieldWidthType,
-    int actualColumns)
+    int       actualColumns)
   {
     String effectiveLabelWidth = null;
     String effectiveFieldWidth = null;
@@ -677,15 +685,15 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
       labelRatio = Double.valueOf(labelWidth.substring(0, labelPercentCharIndex));
       int fieldPercentCharIndex = fieldWidth.indexOf("%");
       fieldRatio = Double.valueOf(fieldWidth.substring(0, fieldPercentCharIndex));
-      
-      // BlackBerry(BB) browsers cannot handle width if it is expressed in 
-      // percentage and the percentage value contains a decimal points like 
-      // 40.0%. So lets truncate the percentage value from the decimal point  
+
+      // BlackBerry(BB) browsers cannot handle width if it is expressed in
+      // percentage and the percentage value contains a decimal points like
+      // 40.0%. So lets truncate the percentage value from the decimal point
       // for BB browsers. Example, instead of 40.0%, lets render 40%.
       RenderingContext arc = RenderingContext.getCurrentInstance();
       Agent agent = arc.getAgent();
-      
-      boolean isBlackBerry = 
+
+      boolean isBlackBerry =
                  Agent.AGENT_BLACKBERRY.equals(agent.getAgentName());
 
       // Now normalize the percentages (including the footer label width):
@@ -693,18 +701,18 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
       double effectiveLabelWidthDouble = labelRatio / ratioTotal;
       double footerLabel = effectiveLabelWidthDouble / actualColumns;
       double footerField = 100 - footerLabel;
-      
+
       if (isBlackBerry)
       {
         effectiveLabelWidth = (int) effectiveLabelWidthDouble + "%";
-        effectiveFieldWidth = (int) (fieldRatio / ratioTotal) + "%"; 
+        effectiveFieldWidth = (int) (fieldRatio / ratioTotal) + "%";
         effectiveFooterLabelWidth = (int) _roundTo2DecimalPlaces(footerLabel) + "%";
         effectiveFooterFieldWidth = (int) _roundTo2DecimalPlaces(footerField) + "%";
       }
       else
       {
         effectiveLabelWidth = Math.floor(effectiveLabelWidthDouble) + "%";
-        effectiveFieldWidth = Math.floor(fieldRatio / ratioTotal) + "%"; 
+        effectiveFieldWidth = Math.floor(fieldRatio / ratioTotal) + "%";
         effectiveFooterLabelWidth = _roundTo2DecimalPlaces(footerLabel) + "%";
         effectiveFooterFieldWidth = _roundTo2DecimalPlaces(footerField) + "%";
       }
@@ -744,11 +752,11 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @return width information for various parts of the form
    */
   private FormWidths _getTopAlignedFormWidths(
-    String labelWidth,
+    String    labelWidth,
     WidthType labelWidthType,
-    String fieldWidth,
+    String    fieldWidth,
     WidthType fieldWidthType,
-    int actualColumns)
+    int       actualColumns)
   {
     String effectiveLabelWidth = null;
     String effectiveFieldWidth = null;
@@ -763,7 +771,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     }
     else if (labelWidthType.equals(WidthType.PERCENT) || fieldWidthType.equals(WidthType.PERCENT))
     {
-      //If either one is set to a percent, then we use 100%, because with top aligned the only 
+      //If either one is set to a percent, then we use 100%, because with top aligned the only
       //choices are auto, pixel value, or 100%
       outerTableWidth = "100%";
       effectiveLabelWidth = labelWidthType.equals(WidthType.PERCENT) ? "100%" : null;
@@ -771,21 +779,21 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
       effectiveFooterLabelWidth = effectiveLabelWidth;
       effectiveFooterFieldWidth = effectiveFieldWidth;
     }
-    else 
+    else
     {
-      //either label or field has a pixel (or no) width value. Use the larger value of the two for 
+      //either label or field has a pixel (or no) width value. Use the larger value of the two for
       //the table width.
 
       int labelPixels = 0;
       int fieldPixels = 0;
-      
+
       if (labelWidthType.equals(WidthType.PIXEL))
       {
         effectiveLabelWidth = labelWidth + "px";
         effectiveFooterLabelWidth = effectiveLabelWidth;
         labelPixels = Integer.valueOf(labelWidth);
       }
-      
+
       if (fieldWidthType.equals(WidthType.PIXEL))
       {
         effectiveFieldWidth = fieldWidth + "px";
@@ -804,7 +812,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
       outerTableWidth);
   }
 
-  private double _roundTo2DecimalPlaces(double value)
+  private double _roundTo2DecimalPlaces(
+    double value)
   {
     return Math.round(value * 100) / 100.0;
   }
@@ -819,8 +828,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
   private static void _encodeGroupDivider(
     FacesContext     context,
     RenderingContext rc,
-    boolean          startAlignedLabels)
-    throws IOException
+    boolean          startAlignedLabels
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("tr", null);
@@ -852,8 +861,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     FacesContext     context,
     RenderingContext rc,
     boolean          startAlignedLabels,
-    UIComponent      item)
-    throws IOException
+    UIComponent      item
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     boolean isFullRow = _isFullRow(context, item);
@@ -907,7 +916,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
           renderStyleClass(context, rc,
             SkinSelectors.AF_PANEL_FORM_CONTENT_CELL_STYLE_CLASS);
         }
-        
+
         encodeChild(context, item);
 
         if(isSimple)
@@ -966,8 +975,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    */
   private static void _encodeBeforeLabelTd(
     FacesContext context,
-    boolean      startAlignedLabels)
-    throws IOException
+    boolean      startAlignedLabels
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     // startAlignedLabels means (labels side-by-side with fields)
@@ -986,8 +995,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    */
   private static void _encodeAfterFieldTd(
     FacesContext context,
-    boolean      startAlignedLabels)
-    throws IOException
+    boolean      startAlignedLabels
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     if (!startAlignedLabels) // top-aligned (labels stacked above fields)
@@ -1082,7 +1091,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @return true if the child can and should render a complete form
    *              layout row specifically structured for the panelFormLayout
    */
-  private boolean _isFullRow(FacesContext context, UIComponent component)
+  private boolean _isFullRow(
+    FacesContext context,
+    UIComponent  component)
   {
     String rendererType = component.getRendererType();
 
@@ -1111,11 +1122,14 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @param component the child component
    * @return true if the child is rendered in simple mode
    */
-  private boolean _isSimple(UIComponent component, Renderer renderer)
+  private boolean _isSimple(
+    UIComponent component,
+    Renderer    renderer)
   {
     if (renderer != null && renderer instanceof InputLabelAndMessageRenderer)
     {
-      return (((InputLabelAndMessageRenderer)renderer).getSimple(getFacesBean(component)));
+      return (((InputLabelAndMessageRenderer)renderer)
+        .getSimple(component, getFacesBean(component)));
     }
     else
     {
@@ -1130,7 +1144,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @param component the child component
    * @return <code>Renderer</code> for the given <code>UIComponent</code>.
    */
-  private Renderer _getRenderer(FacesContext context, UIComponent component)
+  private Renderer _getRenderer(
+    FacesContext context,
+    UIComponent  component)
   {
     // =-= AEW Might consider altering the following approach of getting the
     //         child renderer in case anyone wants to use renderer decoration.
@@ -1156,7 +1172,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @param bean the FacesBean of the component to render
    * @return the defined "labelWidth" or null if not defined
    */
-  private Object _getLabelWidth(FacesBean bean)
+  private Object _getLabelWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_labelWidthKey);
   }
@@ -1166,7 +1184,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @param bean the FacesBean of the component to render
    * @return the defined "labelAlignment" or null if not defined
    */
-  private Object _getLabelAlignment(FacesBean bean)
+  private Object _getLabelAlignment(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_labelAlignmentKey);
   }
@@ -1176,7 +1196,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @param bean the FacesBean of the component to render
    * @return the defined "fieldWidth" or null if not defined
    */
-  private Object _getFieldWidth(FacesBean bean)
+  private Object _getFieldWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_fieldWidthKey);
   }
@@ -1186,7 +1208,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @param bean the FacesBean of the component to render
    * @return the defined "rows" or null if not defined
    */
-  private Number _getRows(FacesBean bean)
+  private Number _getRows(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Number)bean.getProperty(_rowsKey);
   }
@@ -1196,7 +1220,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @param bean the FacesBean of the component to render
    * @return the defined "maxColumns" or null if not defined
    */
-  private Number _getMaxColumns(FacesBean bean)
+  private Number _getMaxColumns(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Number)bean.getProperty(_maxColumnsKey);
   }
@@ -1207,7 +1233,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @param defaultValue
    * @return the current nesting level
    */
-  private static int _getNestLevel(FacesContext context, int defaultValue)
+  private static int _getNestLevel(
+    FacesContext context,
+    int          defaultValue)
   {
     Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
 
@@ -1224,7 +1252,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    */
   private static class GroupingState
   {
-    public GroupingState(int initialSize)
+    public GroupingState(
+      int initialSize)
     {
       this.groupStates = new ArrayList<GroupState>(initialSize);
     }
@@ -1257,7 +1286,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
   private enum LayoutAction
   {
     /** create a new column for this child */
-    NEW_COLUMN,  
+    NEW_COLUMN,
 
     /** create a new group for this child */
     NEW_GROUP,
@@ -1270,14 +1299,15 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * Visitor used to collect information about the rendered flattened children into the
    * GroupingState.  This information is later processed to determine the correct layout.
    */
-  private class RenderedItemExtractor implements ComponentProcessor<GroupingState>
+  private class RenderedItemExtractor
+    implements ComponentProcessor<GroupingState>
   {
     public void processComponent(
       FacesContext               context,
       ComponentProcessingContext cpContext,
       UIComponent                currChild,
-      GroupingState              groupingState)
-      throws IOException
+      GroupingState              groupingState
+      ) throws IOException
     {
       int groupDepth = cpContext.getGroupDepth();
 
@@ -1341,8 +1371,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
       FacesContext               context,
       ComponentProcessingContext cpContext,
       UIComponent                currChild,
-      ColumnEncodingState        columnEncodingState)
-      throws IOException
+      ColumnEncodingState        columnEncodingState
+      ) throws IOException
     {
       ResponseWriter rw = context.getResponseWriter();
 
@@ -1407,7 +1437,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
         }
       }
 
-      // render the separator, if any                                                                                                      
+      // render the separator, if any
       if (LayoutAction.NEW_GROUP.equals(currLayoutAction))
       {
         PanelFormLayoutRenderer._encodeGroupDivider(context,
@@ -1428,15 +1458,16 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
       }
     }
 
-    private void _finishColumn(ResponseWriter rw) throws IOException
+    private void _finishColumn(
+      ResponseWriter rw
+      ) throws IOException
     {
       rw.endElement("tbody"); // the inner tbody
       rw.endElement("table"); // the inner table
-      rw.endElement("td"); // the outer column      
+      rw.endElement("td"); // the outer column
     }
   }
 
-  
   /**
    * Request map key for child renderers to inspect to see if their
    * labels should be stacked above their fields as opposed to the side.
@@ -1476,9 +1507,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
   private static final int _COLUMNS_DEFAULT = 3;
 
   // we need a  resource key map since we are using LabelAndMessageRenderer.
-  private static final Map<String, String> _RESOURCE_KEY_SIDE_BY_SIDE_MAP = 
+  private static final Map<String, String> _RESOURCE_KEY_SIDE_BY_SIDE_MAP =
                                                                      new HashMap<String, String>();
-  private static final Map<String, String> _RESOURCE_KEY_STACKED_MAP = 
+  private static final Map<String, String> _RESOURCE_KEY_STACKED_MAP =
                                                                      new HashMap<String, String>();
 
   static

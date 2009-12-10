@@ -141,6 +141,10 @@
           <resourceRoots>
             <resourceRoot>src/main/javascript/</resourceRoot>
           </resourceRoots>
+          <projectHasTests>true</projectHasTests>
+          <testSourceRoots>
+            <file>${project.basedir}/src/test</file>
+          </testSourceRoots>
         </configuration>
       </plugin>
       <plugin>

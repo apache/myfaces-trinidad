@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,13 +29,16 @@ import java.util.Set;
 
 import javax.el.ValueExpression;
 
+import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 
 /**
  * Base interface for FacesBean storage objects.
- * 
+ *
  */
 public interface FacesBean
 {
@@ -48,7 +51,7 @@ public interface FacesBean
    * Returns a property.  If the property has not been explicitly
    * set, and the key supports bindings, and a ValueBinding has
    * been set for this key, that ValueBinding will be evaluated.
-   * 
+   *
    * @param key the property key
    * @exception IllegalArgumentException if key is a list key
    */
@@ -63,7 +66,7 @@ public interface FacesBean
 
   /**
    * Return a property, ignoring any value bindings.
-   * 
+   *
    * @exception IllegalArgumentException if key is a list key
    */
   public Object getLocalProperty(PropertyKey key);
@@ -84,38 +87,38 @@ public interface FacesBean
   public ValueBinding getValueBinding(PropertyKey key);
 
   /**
-   * Gets the current unevaluated value for the specified property key. 
-   * <p>The method will first look for a local value. If it exists, it will 
-   * be returned. If it does not and the bean supports value expressions, the 
-   * method will look for an expression with the specified key and return it 
+   * Gets the current unevaluated value for the specified property key.
+   * <p>The method will first look for a local value. If it exists, it will
+   * be returned. If it does not and the bean supports value expressions, the
+   * method will look for an expression with the specified key and return it
    * directly if it exists without evaluatig its value.</p>
    * <p>This method is mainly used when:</p>
    * <ul>
-   *   <li>The caller cannot ensure that FacesContext exists at the time 
+   *   <li>The caller cannot ensure that FacesContext exists at the time
    *   of the call</li>
    *   <li>The FacesContext does not yet contains the managed bean
    *   referenced by the value binding</li>
-   *   <li>The managed bean referenced by the value binding is not yet 
+   *   <li>The managed bean referenced by the value binding is not yet
    *   in a coherent state to evaluate the expression</li>
    * </ul>
-   * <p>The most common use case of this method is for message attributes 
-   * set on converters and validators using a value binding referencing 
-   * a managed bean created by <code>&lt;f:loadBundle/&gt;<code>. Since 
-   * loadBundle only creates its bean during the render response phase 
-   * while converter and validators take action during process validation 
-   * phase, the message property's value binding must be stored in a 
-   * special <code>FacesMessage</code> implementation that will evaluate 
+   * <p>The most common use case of this method is for message attributes
+   * set on converters and validators using a value binding referencing
+   * a managed bean created by <code>&lt;f:loadBundle/&gt;<code>. Since
+   * loadBundle only creates its bean during the render response phase
+   * while converter and validators take action during process validation
+   * phase, the message property's value binding must be stored in a
+   * special <code>FacesMessage</code> implementation that will evaluate
    * the binding only during render response.</p>
-   * 
+   *
    * @param key the parameter key of the raw property value to get.
-   * 
-   * @return the local value of the specified key if it exists, a 
-   *         <code>ValueExpression</code> object if the specified key 
-   *         supports expressions and an expression was specified for that 
+   *
+   * @return the local value of the specified key if it exists, a
+   *         <code>ValueExpression</code> object if the specified key
+   *         supports expressions and an expression was specified for that
    *         property, <code>null</code> otherwise.
-   * 
+   *
    * @throws IllegalArgumentException if the specified key is a list key.
-   * 
+   *
    * @see #getLocalProperty(PropertyKey)
    * @see #getValueBinding(PropertyKey)
    * @see #getValueExpression(PropertyKey)
@@ -138,6 +141,21 @@ public interface FacesBean
   public void setValueBinding(PropertyKey key, ValueBinding binding);
 
   /**
+   * Add a client behavior for a bean of a component that is a
+   * {@link javax.faces.component.behavior.ClientBehaviorHolder}
+   * @param eventName the event name
+   * @param behavior the behavior
+   */
+  public void addClientBehavior(String eventName, ClientBehavior behavior);
+
+  /**
+   * Get a map of event name to list of client behaviors for a bean of a component that is a
+   * {@link javax.faces.component.behavior.ClientBehaviorHolder}
+   * @return Non-null map of client behaviors (will return an empty map if none are present)
+   */
+  public Map<String, List<ClientBehavior>> getClientBehaviors();
+
+  /**
    * Add an entry to a list.  The same value may be added
    * repeatedly;  null is also a legal value.  (Consumers of
    * this API can apply more stringent rules to specific keys
@@ -153,7 +171,7 @@ public interface FacesBean
   public void removeEntry(PropertyKey listKey, Object value);
 
   /**
-   * Return as an array all elements of this key that 
+   * Return as an array all elements of this key that
    * are instances of the specified class.
    * @return an array whose instance type is the class
    * @exception IllegalArgumentException if the key is not a list key.
@@ -203,15 +221,15 @@ public interface FacesBean
    */
   public void markInitialState();
 
-  /** 
+  /**
    * @return true if delta state changes are being tracked, otherwise false
    */
   public boolean initialStateMarked();
 
-  /** 
+  /**
    * Reset to a non-delta tracking state.
    */
-  public void clearInitialState();     
+  public void clearInitialState();
 
   /**
    * Saves the state of a FacesBean.
@@ -270,7 +288,7 @@ public interface FacesBean
     {
       if ((index < 0) || (index >= _keyList.size()))
         return null;
-      
+
       return _keyList.get(index);
     }
 
@@ -343,14 +361,14 @@ public interface FacesBean
     public PropertyKey registerAlias(PropertyKey key, String alias)
     {
       _checkLocked();
-      
+
       if (findKey(alias) != null)
         throw new IllegalStateException();
 
       _keyMap.put(alias, key);
       return key;
     }
-    
+
 
     /**
      * Register a new key with a set of capabilities.
@@ -358,7 +376,7 @@ public interface FacesBean
      *    or the key already exists.
      */
     public PropertyKey registerKey(
-      String   name, 
+      String   name,
       Class<?> type,
       Object   defaultValue,
       int      capabilities)
@@ -374,8 +392,8 @@ public interface FacesBean
       addKey(key);
       return key;
     }
-    
-    
+
+
     /**
      * Locks the type object, preventing further changes.
      */
@@ -407,12 +425,12 @@ public interface FacesBean
     {
       return propertyKeys().iterator();
     }
-    
+
     /**
      * Returns an unmodifiable <code>Collection</code> of registered property keys,
      * excluding aliases.
-     * 
-     * @return unmodifiable <code>Collection</code> with registered 
+     *
+     * @return unmodifiable <code>Collection</code> with registered
      */
     public Collection<PropertyKey> propertyKeys()
     {
@@ -454,7 +472,7 @@ public interface FacesBean
     protected void addKey(PropertyKey key)
     {
       _checkLocked();
-      
+
       // Restore the old key
       PropertyKey oldValue = _keyMap.put(key.getName(), key);
       if (oldValue != null)
@@ -463,7 +481,7 @@ public interface FacesBean
         throw new IllegalStateException(_LOG.getMessage(
           "NAME_ALREADY_REGISTERED", key.getName()));
       }
-      
+
       int index = key.getIndex();
       if (index >= 0)
       {
@@ -476,12 +494,12 @@ public interface FacesBean
               "INDEX_ALREADY_REGISTERED", index));
           }
       }
-      
+
       // Set the backpointer
       key.__setOwner(this);
     }
-     
-    
+
+
     static private void _expandListToIndex(ArrayList<PropertyKey> list, int count)
     {
       list.ensureCapacity(count + 1);
@@ -514,6 +532,6 @@ public interface FacesBean
     private boolean   _isLocked;
     private int       _index;
     private final Type _superType;
-    static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(Type.class); 
+    static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(Type.class);
   }
 }
