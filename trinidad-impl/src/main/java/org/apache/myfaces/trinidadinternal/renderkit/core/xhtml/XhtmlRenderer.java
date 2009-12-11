@@ -29,6 +29,7 @@ import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.UIXCommand;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -42,8 +43,9 @@ import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 /**
  *  @todo Move "supportsStyleAttributes()", etc., architecture
  */
-public class XhtmlRenderer extends CoreRenderer
-                           implements TypedRenderer, Cloneable
+public class XhtmlRenderer
+  extends CoreRenderer
+  implements TypedRenderer, Cloneable
 {
   public static final String TRANSPARENT_GIF = "t.gif";
 
@@ -94,40 +96,36 @@ public class XhtmlRenderer extends CoreRenderer
    * <p>
    * See section 5.16 of xhtml modularization
    */
-  static public boolean supportsScripting(
-    RenderingContext rc)
+  static public boolean supportsScripting(RenderingContext rc)
   {
-    Object scriptingSpeed = rc.getAgent().getCapabilities().get(
-            TrinidadAgent.CAP_SCRIPTING_SPEED);
+    Object scriptingSpeed =
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_SCRIPTING_SPEED);
 
     return ((scriptingSpeed != null) &&
-            (TrinidadAgent.SCRIPTING_SPEED_CAP_NONE != scriptingSpeed));
+      (TrinidadAgent.SCRIPTING_SPEED_CAP_NONE != scriptingSpeed));
   }
 
-  static public boolean supportsEditing(
-    RenderingContext rc)
+  static public boolean supportsEditing(RenderingContext rc)
   {
-    Object cap = rc.getAgent().getCapabilities().get(
-                    TrinidadAgent.CAP_EDITING);
+    Object cap =
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_EDITING);
     return !Boolean.FALSE.equals(cap);
   }
 
-  public static boolean supportsAdvancedForms(
-    RenderingContext rc)
+  public static boolean supportsAdvancedForms(RenderingContext rc)
   {
-    Object cap = rc.getAgent().getCapabilities().get(
-                    TrinidadAgent.CAP_ADVANCED_FORMS);
+    Object cap =
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_ADVANCED_FORMS);
     return !Boolean.FALSE.equals(cap);
   }
 
   /**
    * See section 5.14 of xhtml modularization.
    */
-  public static boolean supportsIntrinsicEvents(
-    RenderingContext rc)
+  public static boolean supportsIntrinsicEvents(RenderingContext rc)
   {
-    Object cap = rc.getAgent().getCapabilities().get(
-                    TrinidadAgent.CAP_INTRINSIC_EVENTS);
+    Object cap =
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_INTRINSIC_EVENTS);
     return !Boolean.FALSE.equals(cap);
   }
 
@@ -139,18 +137,16 @@ public class XhtmlRenderer extends CoreRenderer
    * <p>
    * See section 5.18 of xhtml modularization
    */
-  public static boolean supportsStyleAttributes(
-    RenderingContext rc)
+  public static boolean supportsStyleAttributes(RenderingContext rc)
   {
     return (rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_STYLE_ATTRIBUTES) !=
-            TrinidadAgent.STYLES_NONE);
+      TrinidadAgent.STYLES_NONE);
   }
 
-  static public boolean supportsNavigation(
-    RenderingContext rc)
+  static public boolean supportsNavigation(RenderingContext rc)
   {
-    Object cap = rc.getAgent().getCapabilities().get(
-                    TrinidadAgent.CAP_NAVIGATION);
+    Object cap =
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_NAVIGATION);
     return !Boolean.FALSE.equals(cap);
   }
 
@@ -159,15 +155,14 @@ public class XhtmlRenderer extends CoreRenderer
    * <p>
    * See section 5.4.1 of xhtml modularization.
    */
-  public static boolean supportsTextPresentation(
-    RenderingContext rc)
+  public static boolean supportsTextPresentation(RenderingContext rc)
   {
-    Object cap = rc.getAgent().getCapabilities().get(
-                    TrinidadAgent.CAP_TEXT_PRESENTATION);
+    Object cap =
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TEXT_PRESENTATION);
     return !Boolean.FALSE.equals(cap);
   }
-  static public boolean supportsAccessKeys(
-    RenderingContext rc)
+
+  static public boolean supportsAccessKeys(RenderingContext rc)
   {
     // In screen reader mode, disable access keys.  Despite
     // the name, they are currently considered an accessibility
@@ -175,39 +170,35 @@ public class XhtmlRenderer extends CoreRenderer
     if (isScreenReaderMode(rc))
       return false;
 
-    Object cap = rc.getAgent().getCapabilities().get(
-                    TrinidadAgent.CAP_ACCESS_KEYS);
+    Object cap =
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_ACCESS_KEYS);
     return !Boolean.FALSE.equals(cap);
   }
 
-  static public final boolean supportsDisabledFormElements(
-    RenderingContext rc)
+  static public final boolean supportsDisabledFormElements(RenderingContext rc)
   {
-    Object cap = rc.getAgent().getCapabilities().get(
-                    TrinidadAgent.CAP_DISABLED_FORM_ELEMENTS);
+    Object cap =
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_DISABLED_FORM_ELEMENTS);
     return !Boolean.FALSE.equals(cap);
 
   }
 
-  static public final boolean supportsReadonlyFormElements(
-    RenderingContext rc)
+  static public final boolean supportsReadonlyFormElements(RenderingContext rc)
   {
-    Object cap = rc.getAgent().getCapabilities().get(
-                    TrinidadAgent.CAP_READONLY_FORM_ELEMENTS);
+    Object cap =
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_READONLY_FORM_ELEMENTS);
     return !Boolean.FALSE.equals(cap);
 
   }
 
-  static public final boolean supportsAutoCompleteFormElements(
-    RenderingContext rc)
+  static public final boolean supportsAutoCompleteFormElements(RenderingContext rc)
   {
-    Object cap = rc.getAgent().getCapabilities().get(
-                    TrinidadAgent.CAP_AUTO_COMPLETE_FORM_ELEMENTS);
+    Object cap =
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_AUTO_COMPLETE_FORM_ELEMENTS);
     return !Boolean.FALSE.equals(cap);
   }
 
-  static public final boolean supportsSeparateWindow(
-    RenderingContext rc)
+  static public final boolean supportsSeparateWindow(RenderingContext rc)
   {
     return XhtmlUtils.supportsSeparateWindow(rc.getAgent());
   }
@@ -218,11 +209,10 @@ public class XhtmlRenderer extends CoreRenderer
    * <p>
    * See section 5.12 of xhtml modularization.
    */
-  static public final boolean supportsTarget(
-     RenderingContext rc)
+  static public final boolean supportsTarget(RenderingContext rc)
   {
-    Object cap = rc.getAgent().getCapabilities().get(
-                    TrinidadAgent.CAP_TARGET);
+    Object cap =
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET);
     return !Boolean.FALSE.equals(cap);
   }
 
@@ -233,8 +223,8 @@ public class XhtmlRenderer extends CoreRenderer
    */
   public static boolean supportsNarrowScreen(RenderingContext rc)
   {
-    Object cap = rc.getAgent().getCapabilities().get(
-                                 TrinidadAgent.CAP_NARROW_SCREEN);
+    Object cap =
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_NARROW_SCREEN);
     return Boolean.TRUE.equals(cap);
   }
 
@@ -271,14 +261,11 @@ public class XhtmlRenderer extends CoreRenderer
    * <p>
    * Call this overload if you have the clientId already.
    */
-  protected boolean canSkipRendering(
-    RenderingContext rc,
-    String           clientId)
+  protected boolean canSkipRendering(RenderingContext rc, String clientId)
   {
     PartialPageContext ppc = rc.getPartialPageContext();
-    if ((ppc == null) ||
-        ppc.isInsidePartialTarget() ||
-        ppc.isPartialTarget(clientId))
+    if ((ppc == null) || ppc.isInsidePartialTarget() ||
+      ppc.isPartialTarget(clientId))
       return false;
 
     return true;
@@ -293,14 +280,11 @@ public class XhtmlRenderer extends CoreRenderer
    * <p>
    * Call this overload if you don't have the clientId already.
    */
-  protected boolean canSkipRendering(
-    FacesContext     context,
-    RenderingContext rc,
-    UIComponent      component)
+  protected boolean canSkipRendering(FacesContext context,
+    RenderingContext rc, UIComponent component)
   {
     PartialPageContext ppc = rc.getPartialPageContext();
-    if ((ppc == null) ||
-        ppc.isInsidePartialTarget())
+    if ((ppc == null) || ppc.isInsidePartialTarget())
       return false;
 
     String clientId = component.getClientId(context);
@@ -316,9 +300,8 @@ public class XhtmlRenderer extends CoreRenderer
    * @todo Profile and possibly optimize.
    */
   @Override
-  protected boolean shouldRenderId(
-    FacesContext context,
-    UIComponent  component)
+  protected boolean shouldRenderId(FacesContext context,
+    UIComponent component)
   {
     // If there's partial triggers, always render an ID if possible
     if (getPartialTriggers(component, getFacesBean(component)) != null)
@@ -335,12 +318,9 @@ public class XhtmlRenderer extends CoreRenderer
    * @todo Since this is non-final, it can become difficult to
    * re-divide its functionality in a subclass.  Make it final???
    */
-  protected void renderAllAttributes(
-    FacesContext     context,
-    RenderingContext rc,
-    UIComponent      component,
-    FacesBean        bean
-    ) throws IOException
+  protected void renderAllAttributes(FacesContext context,
+    RenderingContext rc, UIComponent component, FacesBean bean)
+    throws IOException
   {
     renderAllAttributes(context, rc, component, bean, true);
   }
@@ -351,13 +331,10 @@ public class XhtmlRenderer extends CoreRenderer
    * and all the Javascript attributes. Takes a boolean to determine if
    * renderStyleAttributes should be called, which renders "class", "style"
    */
-  protected void renderAllAttributes(
-    FacesContext     context,
-    RenderingContext rc,
-    UIComponent      component,
-    FacesBean        bean,
-    boolean          renderStyleAttrs
-    ) throws IOException
+  protected void renderAllAttributes(FacesContext context,
+    RenderingContext rc, UIComponent component, FacesBean bean,
+    boolean renderStyleAttrs)
+    throws IOException
   {
     renderShortDescAttribute(context, rc, component, bean);
     // render the events only if the browser supports JavaScript
@@ -373,12 +350,9 @@ public class XhtmlRenderer extends CoreRenderer
   /**
    * Renders the inline style attribute for the specified node
    */
-  public static void renderInlineStyleAttribute(
-    FacesContext     context,
-    RenderingContext rc,
-    UIComponent      component,
-    String           style
-    ) throws IOException
+  public static void renderInlineStyleAttribute(FacesContext context,
+    RenderingContext rc, UIComponent component, String style)
+    throws IOException
   {
     if (style != null)
     {
@@ -391,49 +365,38 @@ public class XhtmlRenderer extends CoreRenderer
     }
   }
 
-  protected void renderInlineStyle(
-    FacesContext     context,
-    RenderingContext rc,
-    UIComponent      component,
-    FacesBean        bean
-    ) throws IOException
+  protected void renderInlineStyle(FacesContext context,
+    RenderingContext rc, UIComponent component, FacesBean bean)
+    throws IOException
   {
     String style = getInlineStyle(component, bean);
     if (style != null)
     {
-      context.getResponseWriter().writeAttribute("style",
-                                                 style,
-                                                 "inlineStyle");
+      context.getResponseWriter().writeAttribute("style", style,
+          "inlineStyle");
     }
   }
 
-  protected void renderShortDescAttribute(
-    FacesContext     context,
-    RenderingContext rc,
-    UIComponent      component,
-    FacesBean        bean
-    ) throws IOException
+  protected void renderShortDescAttribute(FacesContext context,
+    RenderingContext rc, UIComponent component, FacesBean bean)
+    throws IOException
   {
     String shortDesc = getShortDesc(component, bean);
     if (shortDesc != null)
-      context.getResponseWriter().writeAttribute("title",
-                                                 shortDesc,
-                                                 "shortDesc");
+      context.getResponseWriter().writeAttribute("title", shortDesc,
+          "shortDesc");
   }
 
-  protected void renderStyleAttributes(
-    FacesContext     context,
-    RenderingContext rc,
-    UIComponent      component,
-    FacesBean        bean
-    ) throws IOException
+  protected void renderStyleAttributes(FacesContext context,
+    RenderingContext rc, UIComponent component, FacesBean bean)
+    throws IOException
   {
-    renderStyleAttributes(context, rc, component, bean, getDefaultStyleClass(component, bean));
+    renderStyleAttributes(context, rc, component, bean,
+        getDefaultStyleClass(component, bean));
   }
 
-  protected String getDefaultStyleClass(
-    UIComponent  component,
-    FacesBean    bean)
+  protected String getDefaultStyleClass(UIComponent component,
+    FacesBean bean)
   {
     return null;
   }
@@ -441,26 +404,25 @@ public class XhtmlRenderer extends CoreRenderer
   /**
    * When there's a default style class pass it in to this method
    */
-  protected void renderStyleAttributes(
-    FacesContext     context,
-    RenderingContext rc,
-    UIComponent      component,
-    FacesBean        bean,
-    String           defaultStyleClass
-    ) throws IOException
+  protected void renderStyleAttributes(FacesContext context,
+    RenderingContext rc, UIComponent component, FacesBean bean,
+    String defaultStyleClass)
+    throws IOException
   {
     String styleClass = getStyleClass(component, bean);
-    List<String> parsedStyleClasses = OutputUtils.parseStyleClassList(styleClass);
+    List<String> parsedStyleClasses =
+      OutputUtils.parseStyleClassList(styleClass);
 
     if (defaultStyleClass != null)
     {
-      if(styleClass!= null )
+      if (styleClass != null)
       {
         // If we've got both a defaultStyleClass and a styleClass,
         // build up an array containing each - and if the styleClass
         // is really a list of styleClasses, break it apart so it
         // can be compressed correctly
-        int styleCount = (parsedStyleClasses == null) ? 1 : parsedStyleClasses.size();
+        int styleCount =
+          (parsedStyleClasses == null)? 1: parsedStyleClasses.size();
         String[] styleClasses = new String[1 + styleCount];
         if (parsedStyleClasses != null)
         {
@@ -474,9 +436,7 @@ public class XhtmlRenderer extends CoreRenderer
 
         styleClasses[styleCount] = defaultStyleClass;
 
-        renderStyleClasses(context,
-                           rc,
-                           styleClasses);
+        renderStyleClasses(context, rc, styleClasses);
       }
       else
       {
@@ -489,54 +449,54 @@ public class XhtmlRenderer extends CoreRenderer
       {
         styleClass = rc.getStyleClass(styleClass);
         context.getResponseWriter().writeAttribute("class",
-                                                   rc.getStyleClass(styleClass),
-                                                   "styleClass");
+            rc.getStyleClass(styleClass), "styleClass");
       }
       else
       {
-        renderStyleClasses(context,
-                           rc,
-                           parsedStyleClasses.toArray(
-                                   new String[parsedStyleClasses.size()]));
+        renderStyleClasses(context, rc,
+            parsedStyleClasses.toArray(new String[parsedStyleClasses.size()]));
       }
     }
 
     String style = getInlineStyle(component, bean);
     if (style != null)
     {
-      context.getResponseWriter().writeAttribute("style",
-                                                 style,
-                                                 "inlineStyle");
+      context.getResponseWriter().writeAttribute("style", style,
+          "inlineStyle");
     }
   }
 
   /**
    * Render all the Javascript attributes.
    */
-  protected void renderEventHandlers(
-    FacesContext context,
-    UIComponent  component,
-    FacesBean    bean
-    ) throws IOException
+  protected void renderEventHandlers(FacesContext context,
+    UIComponent component, FacesBean bean)
+    throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.writeAttribute("onclick", getOnclick(component, bean), "onclick");
-    rw.writeAttribute("ondblclick", getOndblclick(component, bean), "ondblclick");
-    rw.writeAttribute("onkeydown", getOnkeydown(component, bean), "onkeydown");
+    rw.writeAttribute("ondblclick", getOndblclick(component, bean),
+        "ondblclick");
+    rw.writeAttribute("onkeydown", getOnkeydown(component, bean),
+        "onkeydown");
     rw.writeAttribute("onkeyup", getOnkeyup(component, bean), "onkeyup");
-    rw.writeAttribute("onkeypress", getOnkeypress(component, bean), "onkeypress");
-    rw.writeAttribute("onmousedown", getOnmousedown(component, bean), "onmousedown");
-    rw.writeAttribute("onmousemove", getOnmousemove(component, bean), "onmousemove");
-    rw.writeAttribute("onmouseout", getOnmouseout(component, bean), "onmouseout");
-    rw.writeAttribute("onmouseover", getOnmouseover(component, bean), "onmouseover");
-    rw.writeAttribute("onmouseup", getOnmouseup(component, bean), "onmouseup");
+    rw.writeAttribute("onkeypress", getOnkeypress(component, bean),
+        "onkeypress");
+    rw.writeAttribute("onmousedown", getOnmousedown(component, bean),
+        "onmousedown");
+    rw.writeAttribute("onmousemove", getOnmousemove(component, bean),
+        "onmousemove");
+    rw.writeAttribute("onmouseout", getOnmouseout(component, bean),
+        "onmouseout");
+    rw.writeAttribute("onmouseover", getOnmouseover(component, bean),
+        "onmouseover");
+    rw.writeAttribute("onmouseup", getOnmouseup(component, bean),
+        "onmouseup");
   }
 
-  protected static void renderHAlign(
-    FacesContext     context,
-    RenderingContext rc,
-    Object           hAlign
-    ) throws IOException
+  protected static void renderHAlign(FacesContext context,
+    RenderingContext rc, Object hAlign)
+    throws IOException
   {
     if (hAlign != null)
     {
@@ -544,15 +504,11 @@ public class XhtmlRenderer extends CoreRenderer
 
       if ("start".equals(hAlign))
       {
-        hAlign = (rtl)
-                  ? "right"
-                  : "left";
+        hAlign = (rtl)? "right": "left";
       }
       else if ("end".equals(hAlign))
       {
-        hAlign = (rtl)
-                  ? "left"
-                  : "right";
+        hAlign = (rtl)? "left": "right";
       }
 
       context.getResponseWriter().writeAttribute("align", hAlign, null);
@@ -563,10 +519,9 @@ public class XhtmlRenderer extends CoreRenderer
   // FORMATTED TEXT
   //
 
-  final protected void renderPossiblyFormattedText(
-    FacesContext context,
-    Object       textValue
-    ) throws IOException
+  final protected void renderPossiblyFormattedText(FacesContext context,
+    Object textValue)
+    throws IOException
   {
     if (textValue != null)
     {
@@ -578,10 +533,9 @@ public class XhtmlRenderer extends CoreRenderer
     }
   }
 
-  final protected void renderFormattedText(
-    FacesContext context,
-    Object       textValue
-    ) throws IOException
+  final protected void renderFormattedText(FacesContext context,
+    Object textValue)
+    throws IOException
   {
     if (textValue != null)
     {
@@ -590,8 +544,7 @@ public class XhtmlRenderer extends CoreRenderer
     }
   }
 
-  private boolean _isTextFormatted(
-    String textStr)
+  private boolean _isTextFormatted(String textStr)
   {
     // =-=AEW Should we support "<HTML>" (caps)?
     return textStr.startsWith("<html>");
@@ -609,10 +562,8 @@ public class XhtmlRenderer extends CoreRenderer
   // SPACERS AND TRANSPARENT IMAGES
   //
 
-  static public String getAbsoluteImageUri(
-     FacesContext     context,
-     RenderingContext rc,
-     String           imagePath)
+  static public String getAbsoluteImageUri(FacesContext context,
+    RenderingContext rc, String imagePath)
   {
     return getBaseImageUri(context, rc) + imagePath;
   }
@@ -621,11 +572,11 @@ public class XhtmlRenderer extends CoreRenderer
    * @todo GET FROM REAL SOURCE?
    * @todo Cache concatentation
    */
-  static protected String getBaseImageUri(
-    FacesContext     context,
+  static protected String getBaseImageUri(FacesContext context,
     RenderingContext rc)
   {
-    String contextUri = context.getExternalContext().getRequestContextPath();
+    String contextUri =
+      context.getExternalContext().getRequestContextPath();
     return contextUri + "/adf/images/";
   }
 
@@ -635,30 +586,19 @@ public class XhtmlRenderer extends CoreRenderer
    * This method may only be called for decorative icons - icons
    * that are purely visual.
    */
-  protected final void renderDecorativeIcon(
-    FacesContext     context,
-    RenderingContext rc,
-    String           iconUri,
-    Object           width,
-    Object           height,
-    Object           id,
-    Object           altText
-    ) throws IOException
+  protected final void renderDecorativeIcon(FacesContext context,
+    RenderingContext rc, String iconUri, Object width, Object height,
+    Object id, Object altText)
+    throws IOException
   {
-    renderDecorativeIcon(context, rc, iconUri, width, height,
-                         id, altText, null);
+    renderDecorativeIcon(context, rc, iconUri, width, height, id, altText,
+        null);
   }
 
-  protected final void renderDecorativeIcon(
-    FacesContext     context,
-    RenderingContext rc,
-    String           iconUri,
-    Object           width,
-    Object           height,
-    Object           id,
-    Object           altText,
-    UIComponent      comp
-    ) throws IOException
+  protected final void renderDecorativeIcon(FacesContext context,
+    RenderingContext rc, String iconUri, Object width, Object height,
+    Object id, Object altText, UIComponent comp)
+    throws IOException
   {
     // Convert iconUri to an absolute uri
     String absoluteUri = getAbsoluteImageUri(context, rc, iconUri);
@@ -666,19 +606,16 @@ public class XhtmlRenderer extends CoreRenderer
     if ((altText == null) && !isInaccessibleMode(rc))
       altText = "";
 
-    OutputUtils.renderImage(context, rc, absoluteUri,
-                            width, height, id, altText, comp);
+    OutputUtils.renderImage(context, rc, absoluteUri, width, height, id,
+        altText, comp);
   }
 
   /**
    * Renders a vertical spacer for a specified non-null height.
    */
-  protected final void renderVerticalSpacer(
-    FacesContext context,
-    Object       height,
-    Object       id,
-    UIComponent  comp
-    ) throws IOException
+  protected final void renderVerticalSpacer(FacesContext context,
+    Object height, Object id, UIComponent comp)
+    throws IOException
   {
     if (height != null)
     {
@@ -691,7 +628,8 @@ public class XhtmlRenderer extends CoreRenderer
         //pu: CSS mandates specifying units, a crude sanity check if height
         //  does not already contain units, if yes treat it as pixels.
         boolean isUnitsNotSpecified =
-          Character.isDigit(heightString.charAt(heightString.length()-1));
+          Character.isDigit(heightString.charAt(heightString.length() -
+              1));
         if (isUnitsNotSpecified)
           heightString += "px";
         writer.writeAttribute("style", "margin-top:" + heightString, null);
@@ -703,12 +641,9 @@ public class XhtmlRenderer extends CoreRenderer
   /**
    * Renders a spacer.
    */
-  protected final void renderSpacer(
-    FacesContext     context,
-    RenderingContext rc,
-    String           width,
-    String           height
-    ) throws IOException
+  protected final void renderSpacer(FacesContext context,
+    RenderingContext rc, String width, String height)
+    throws IOException
   {
     renderTransparent(context, rc, width, height, false, null);
   }
@@ -717,14 +652,10 @@ public class XhtmlRenderer extends CoreRenderer
   /**
    * Renders a transparent gif using a script to save space.
    */
-  protected final void renderTransparent(
-    FacesContext     context,
-    RenderingContext rc,
-    String           width,
-    String           height,
-    boolean          needsQuoting,
-    Object           id
-    ) throws IOException
+  protected final void renderTransparent(FacesContext context,
+    RenderingContext rc, String width, String height, boolean needsQuoting,
+    Object id)
+    throws IOException
   {
     Counter counter =
       (Counter) getRenderingProperty(rc, _SCRIPT_SPACER_COUNT);
@@ -738,10 +669,10 @@ public class XhtmlRenderer extends CoreRenderer
     // do not use the script spacer, if we have already rendered an enormous
     // number of spacers. bug 3786394:
     boolean useScript =
-      ((count < 800)
-       && (TrinidadAgent.SCRIPTING_SPEED_CAP_FAST ==
-           rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_SCRIPTING_SPEED)));
-    _renderTransparent(context, rc, width, height, needsQuoting, id, useScript);
+      ((count < 800) && (TrinidadAgent.SCRIPTING_SPEED_CAP_FAST ==
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_SCRIPTING_SPEED)));
+    _renderTransparent(context, rc, width, height, needsQuoting, id,
+        useScript);
   }
 
   /**
@@ -764,9 +695,7 @@ public class XhtmlRenderer extends CoreRenderer
    *
    * @see #findTypeConstants(org.apache.myfaces.trinidad.bean.FacesBean.Type)
    */
-  protected Object resolveProperty(
-    FacesBean   bean,
-    PropertyKey key)
+  protected Object resolveProperty(FacesBean bean, PropertyKey key)
   {
     return resolveProperty(bean, key, true);
   }
@@ -793,10 +722,8 @@ public class XhtmlRenderer extends CoreRenderer
    *         set, or the default value if it wasn't and checkDefault is
    *         <code>true</code>.
    */
-  protected Object resolveProperty(
-    FacesBean   bean,
-    PropertyKey key,
-    boolean     checkDefault)
+  protected Object resolveProperty(FacesBean bean, PropertyKey key,
+    boolean checkDefault)
   {
     if (key == null)
     {
@@ -822,15 +749,10 @@ public class XhtmlRenderer extends CoreRenderer
    * then an html IMG tag will be used.
    * @todo fixup call to addLib
    */
-  private void _renderTransparent(
-    FacesContext     context,
-    RenderingContext rc,
-    String           width,
-    String           height,
-    boolean          needsQuoting,
-    Object           id,
-    boolean          useScript
-    ) throws IOException
+  private void _renderTransparent(FacesContext context,
+    RenderingContext rc, String width, String height, boolean needsQuoting,
+    Object id, boolean useScript)
+    throws IOException
   {
     PartialPageContext pContext = rc.getPartialPageContext();
 
@@ -838,23 +760,23 @@ public class XhtmlRenderer extends CoreRenderer
     // just render the icon.
     if (!useScript || (pContext != null))
     {
-      renderDecorativeIcon(context, rc, TRANSPARENT_GIF,
-                           width, height, id, null);
+      renderDecorativeIcon(context, rc, TRANSPARENT_GIF, width, height, id,
+          null);
     }
     else
     {
       // IE has fast javascript, so render has a js function call
       ResponseWriter writer = context.getResponseWriter();
 
-      if (getRenderingProperty(rc,
-                               _TRANSPARENT_FUNCTION_WRITTEN_KEY) == null)
+      if (getRenderingProperty(rc, _TRANSPARENT_FUNCTION_WRITTEN_KEY) ==
+        null)
       {
         // determine the transparent image's URI
-        String transparentURI = getAbsoluteImageUri(context, rc, TRANSPARENT_GIF);
+        String transparentURI =
+          getAbsoluteImageUri(context, rc, TRANSPARENT_GIF);
 
-        setRenderingProperty(rc,
-                             _TRANSPARENT_FUNCTION_WRITTEN_KEY,
-                             Boolean.TRUE);
+        setRenderingProperty(rc, _TRANSPARENT_FUNCTION_WRITTEN_KEY,
+            Boolean.TRUE);
 
         // make sure the transparent image function is loaded
         XhtmlUtils.addLib(context, rc, "t()");
@@ -937,6 +859,7 @@ public class XhtmlRenderer extends CoreRenderer
   //
   // JAVASCRIPT RENDERING
   //
+
   /**
    * Renders the "defer" attribute for a script element.
    * In order to support partial page rendering, scripts must
@@ -950,10 +873,9 @@ public class XhtmlRenderer extends CoreRenderer
    * Note: ResponseWriter.startElement("script", null) must be called
    * before calling this method.
    */
-  public static void renderScriptDeferAttribute(
-    FacesContext     context,
-    RenderingContext rc
-    ) throws IOException
+  public static void renderScriptDeferAttribute(FacesContext context,
+    RenderingContext rc)
+    throws IOException
   {
     // At the moment we only render the defer attribute if
     // we are in the partial rendering pass.  This is to
@@ -967,7 +889,8 @@ public class XhtmlRenderer extends CoreRenderer
     // ScriptBufferingResponseWriter.  Otherwise, we run into bug
     // 2466017.
     if (false)
-      context.getResponseWriter().writeAttribute("defer", Boolean.TRUE, null);
+      context.getResponseWriter().writeAttribute("defer", Boolean.TRUE,
+          null);
   }
 
   /**
@@ -978,16 +901,14 @@ public class XhtmlRenderer extends CoreRenderer
    * Note: ResponseWriter.startElement("script", null) must be called
    * before calling this method.
    */
-  public static void renderScriptTypeAttribute(
-    FacesContext     context,
-    RenderingContext rc
-    ) throws IOException
+  public static void renderScriptTypeAttribute(FacesContext context,
+    RenderingContext rc)
+    throws IOException
   {
     if (!isInaccessibleMode(rc))
     {
       context.getResponseWriter().writeAttribute("type",
-                                                 _ACCESSIBILITY_SCRIPT_TYPE,
-                                                 null);
+          _ACCESSIBILITY_SCRIPT_TYPE, null);
     }
   }
 
@@ -1006,12 +927,9 @@ public class XhtmlRenderer extends CoreRenderer
    *  of the submit button
    *
    */
-  public static void renderSubmitButtonNonJSBrowser(
-    FacesContext     context,
-    RenderingContext rc,
-    String           valueAttri,
-    String           nameAttri
-    ) throws IOException
+  public static void renderSubmitButtonNonJSBrowser(FacesContext context,
+    RenderingContext rc, String valueAttri, String nameAttri)
+    throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("input", null);
@@ -1019,47 +937,44 @@ public class XhtmlRenderer extends CoreRenderer
     writer.writeAttribute("value", valueAttri, null);
     writer.writeAttribute("name", nameAttri, null);
     renderStyleClass(context, rc,
-                       SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS);
+        SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS);
     writer.endElement("input");
   }
 
   //
   // ATTRIBUTE HOOKS
   //
-  protected String getShortDesc(
-    UIComponent component,
-    FacesBean   bean)
+
+  protected String getShortDesc(UIComponent component, FacesBean bean)
   {
     return toString(bean.getProperty(_shortDescKey));
   }
 
-  protected String getStyleClass(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getStyleClass(UIComponent component, FacesBean bean)
   {
     return toString(bean.getProperty(_styleClassKey));
   }
 
-  protected String getInlineStyle(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getInlineStyle(UIComponent component, FacesBean bean)
   {
     return toString(bean.getProperty(_inlineStyleKey));
   }
 
-  protected String getOnclick(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getOnclick(UIComponent component, FacesBean bean)
   {
     if (_onclickKey == null)
       return null;
 
-    return toString(bean.getProperty(_onclickKey));
+    return XhtmlUtils.getClientEventHandler(
+      FacesContext.getCurrentInstance(),
+      component,
+      "click",
+      component instanceof UIXCommand ? "action" : null,
+      toString(bean.getProperty(_onclickKey)),
+      null);
   }
 
-  protected String getOndblclick(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getOndblclick(UIComponent component, FacesBean bean)
   {
     if (_ondblclickKey == null)
       return null;
@@ -1067,9 +982,7 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_ondblclickKey));
   }
 
-  protected String getOnkeydown(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getOnkeydown(UIComponent component, FacesBean bean)
   {
     if (_onkeydownKey == null)
       return null;
@@ -1077,9 +990,7 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onkeydownKey));
   }
 
-  protected String getOnkeyup(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getOnkeyup(UIComponent component, FacesBean bean)
   {
     if (_onkeyupKey == null)
       return null;
@@ -1087,9 +998,7 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onkeyupKey));
   }
 
-  protected String getOnkeypress(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getOnkeypress(UIComponent component, FacesBean bean)
   {
     if (_onkeypressKey == null)
       return null;
@@ -1097,9 +1006,7 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onkeypressKey));
   }
 
-  protected String getOnmousedown(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getOnmousedown(UIComponent component, FacesBean bean)
   {
     if (_onmousedownKey == null)
       return null;
@@ -1107,9 +1014,7 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onmousedownKey));
   }
 
-  protected String getOnmousemove(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getOnmousemove(UIComponent component, FacesBean bean)
   {
     if (_onmousemoveKey == null)
       return null;
@@ -1117,9 +1022,7 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onmousemoveKey));
   }
 
-  protected String getOnmouseout(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getOnmouseout(UIComponent component, FacesBean bean)
   {
     if (_onmouseoutKey == null)
       return null;
@@ -1127,9 +1030,7 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onmouseoutKey));
   }
 
-  protected String getOnmouseover(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getOnmouseover(UIComponent component, FacesBean bean)
   {
     if (_onmouseoverKey == null)
       return null;
@@ -1137,9 +1038,7 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onmouseoverKey));
   }
 
-  protected String getOnmouseup(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getOnmouseup(UIComponent component, FacesBean bean)
   {
     if (_onmouseupKey == null)
       return null;
@@ -1147,9 +1046,8 @@ public class XhtmlRenderer extends CoreRenderer
     return toString(bean.getProperty(_onmouseupKey));
   }
 
-  protected String[] getPartialTriggers(
-    UIComponent component,
-    FacesBean   bean)
+  protected String[] getPartialTriggers(UIComponent component,
+    FacesBean bean)
   {
     if (_partialTriggersKey == null)
     {
@@ -1157,7 +1055,7 @@ public class XhtmlRenderer extends CoreRenderer
     }
     else
     {
-      return (String[])bean.getProperty(_partialTriggersKey);
+      return (String[]) bean.getProperty(_partialTriggersKey);
     }
   }
 
@@ -1165,11 +1063,10 @@ public class XhtmlRenderer extends CoreRenderer
    * Returns true if the agent supports the "onclick" JS Handler in an "input"
    * HTML element of type "image"
    */
-  static public boolean supportsOnClickOnImgInput(
-    RenderingContext rc)
+  static public boolean supportsOnClickOnImgInput(RenderingContext rc)
   {
-    Object cap = rc.getAgent().getCapabilities().get(
-                      TrinidadAgent.CAP_ONCLICK_IMG_INPUT);
+    Object cap =
+      rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_ONCLICK_IMG_INPUT);
     return !Boolean.FALSE.equals(cap);
   }
 
@@ -1189,7 +1086,8 @@ public class XhtmlRenderer extends CoreRenderer
   private PropertyKey _partialTriggersKey;
 
   // The value bound to the type attribute in script tags in accessibilty mode.
-  private static final String _ACCESSIBILITY_SCRIPT_TYPE = "text/javascript";
+  private static final String _ACCESSIBILITY_SCRIPT_TYPE =
+    "text/javascript";
 
   // Key to look up the number of times we have rendered the script spacer:
   private static final Object _SCRIPT_SPACER_COUNT = new Object();
@@ -1199,5 +1097,6 @@ public class XhtmlRenderer extends CoreRenderer
   //                 XhtmlLafRenderer.__TRANSPARENT_URL_KEY = "_t.gif";
   private static final String _TRANSPARENT_FUNCTION_WRITTEN_KEY = "_t.gif";
 
-  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(XhtmlRenderer.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(XhtmlRenderer.class);
 }

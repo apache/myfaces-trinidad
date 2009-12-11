@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -122,11 +123,12 @@ public class XhtmlUtils
   /**
    */
   static public void addLib(
-    FacesContext        context,
-    RenderingContext arc,
-    Object              libKey) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    Object           libKey
+    ) throws IOException
   {
-    if ((XhtmlRenderer.supportsScripting(arc)) && (libKey != null))
+    if ((XhtmlRenderer.supportsScripting(rc)) && (libKey != null))
     {
       Scriptlet scriptlet = _sScriptletTable.get(libKey);
       if (scriptlet == null)
@@ -136,7 +138,7 @@ public class XhtmlUtils
       }
       else
       {
-        scriptlet.outputScriptlet(context, arc);
+        scriptlet.outputScriptlet(context, rc);
       }
     }
   }
@@ -282,20 +284,15 @@ public class XhtmlUtils
     String... scripts
     )
   {
-    if (scripts.length == 2)
-    {
-      // Use the more efficient code for two scripts
-      return getChainedJS(scripts[0], scripts[1], shortCircuit);
-    }
-
     if (scripts.length == 0)
     {
       return null;
     }
 
-    if (scripts.length == 1)
+    if (scripts.length <= 2)
     {
-      return scripts[1];
+      // Use the more efficient code for two scripts, or less
+      return getChainedJS(scripts[0], scripts.length == 2 ? scripts[1] : null, shortCircuit);
     }
 
     StringBuilder builder = new StringBuilder(100);
@@ -648,63 +645,56 @@ public class XhtmlUtils
   /**
    * Build a client event handler (onfocus for example) including any associated
    * client behaviors for the event.
-   * <p>{@link #setUpClientBehaviorContext} should be called before invoking this function,
-   * otherwise parameters will not be sent to the server for submitting behaviors.</p>
    *
    * @param facesContext The faces context
    * @param component The component
-   * @param disabled true if the component is disabled, stops the processing of client behaviors
    * @param eventName The event, without the "on*" prefix, to render
+   * @param secondaryEventName If applicable, the secondary event name. For command components,
+   * "click" and "action" behaviors are included together and for input components, "change" and
+   * "valueChange" are included together.
    * @param eventHandlerScript Script to be executed after the behaviors. May be null
    * @param userHandlerScript user event handler to be executed before the event handler script and
    * any client behavior scripts. May be null.
-   * @throws IOException If a rendering exception occurs
    */
   public static String getClientEventHandler(
     FacesContext facesContext,
     UIComponent  component,
-    boolean      disabled,
     String       eventName,
+    String       secondaryEventName,
     String       userHandlerScript,
     String       eventHandlerScript
-    ) throws IOException
+    )
   {
-    Collection<ClientBehaviorContext.Parameter> params = CoreRenderer.getBehaviorParameters(
-      component);
-    List<ClientBehavior> behaviors = null;
-    ClientBehaviorContext behaviorContext = null;
+    BehaviorsData data = null;
+    if (component instanceof ClientBehaviorHolder)
+    {
+      data = new BehaviorsData();
+      _getBehaviorScripts(facesContext, component, eventName, data);
 
-    if (!disabled && component instanceof ClientBehaviorHolder)
-    {
-      behaviors = ((ClientBehaviorHolder)component).getClientBehaviors().get(eventName);
-      if (behaviors != null && !behaviors.isEmpty())
+      if (secondaryEventName != null)
       {
-        behaviorContext = ClientBehaviorContext.createClientBehaviorContext(
-          facesContext, component, eventName, component.getClientId(facesContext), params);
+        _getBehaviorScripts(facesContext, component, eventName, data);
       }
-    }
-    if (params == null)
-    {
-      params = Collections.emptyList();
     }
 
     boolean hasHandler = eventHandlerScript != null && eventHandlerScript.length() > 0;
     boolean hasUserHandler = userHandlerScript != null && userHandlerScript.length() > 0;
     String script = null;
+    boolean hasBehaviors = data != null && data.behaviorScripts != null &&
+      !data.behaviorScripts.isEmpty();
 
-    if (hasHandler && behaviorContext == null && !hasUserHandler)
+    if (hasHandler && !hasBehaviors && !hasUserHandler)
     {
       script = eventHandlerScript;
     }
-    else if (hasUserHandler && behaviorContext == null && !hasHandler)
+    else if (hasUserHandler && !hasBehaviors && !hasHandler)
     {
       script = userHandlerScript;
     }
-    else if (!hasUserHandler && !hasHandler && behaviorContext != null && behaviors.size() == 1)
+    else if (!hasUserHandler && !hasHandler && hasBehaviors && data.behaviorScripts.size() == 1)
     {
-      ClientBehavior behavior = behaviors.get(0);
-      script = behavior.getScript(behaviorContext);
-      if ("click".equals(eventName) && _isSubmittingBehavior(behavior))
+      script = data.behaviorScripts.get(0);
+      if ("action".equals(secondaryEventName) && data.submitting)
       {
         // prevent the default click action if submitting
         script += ";return false;";
@@ -713,7 +703,8 @@ public class XhtmlUtils
     else
     {
       // There are multiple scripts, we will need to chain the methods.
-      int length = behaviors.size();
+      int numBehaviorScripts = hasBehaviors ? data.behaviorScripts.size() : 0;
+      int length = numBehaviorScripts;
       if (hasHandler) { ++length; }
       if (hasUserHandler) { ++length; }
       String[] scripts = new String[length];
@@ -724,12 +715,13 @@ public class XhtmlUtils
         scripts[0] = userHandlerScript;
         index = 1;
       }
-      for (int size = behaviors.size() + index; index < size; ++index)
+
+      if (hasBehaviors)
       {
-        ClientBehavior behavior = behaviors.get(index);
-        scripts[index] = behavior.getScript(behaviorContext);
-        submitting |= _isSubmittingBehavior(behavior);
+        System.arraycopy(data.behaviorScripts.toArray(), 0, scripts, index, numBehaviorScripts);
+        index += numBehaviorScripts;
       }
+
       if (hasHandler)
       {
         scripts[index] = eventHandlerScript;
@@ -746,10 +738,71 @@ public class XhtmlUtils
     return script;
   }
 
-  private static boolean _isSubmittingBehavior(
-    ClientBehavior behavior)
+  /**
+   * Gather the behavior scripts for a client behavior holder
+   *
+   * @param facesContext the faces context
+   * @param component the behavior holder (must implement ClientBehaviorHolder)
+   * @param eventName the event of the behaviors to get
+   * @param data the data to populate, which may have data from a previous invokation of this
+   * function
+   * @return the data collected while getting the behaviors (used for performance to avoid
+   * duplicate lookup and allow for lazy loading of the parameters)
+   */
+  private static void _getBehaviorScripts(
+    FacesContext  facesContext,
+    UIComponent   component,
+    String        eventName,
+    BehaviorsData data)
   {
-    return behavior.getHints().contains(ClientBehaviorHint.SUBMITTING);
+    ClientBehaviorHolder behaviorHolder = (ClientBehaviorHolder)component;
+
+    List<ClientBehavior> behaviors = behaviorHolder.getClientBehaviors().get(eventName);
+    if (behaviors != null && !behaviors.isEmpty())
+    {
+      // if params are not null, a submitting behavior was found in a previous call to this
+      // function, so we do not need to check for submitting here
+      data.submitting = data.submitting || _hasSubmittingBehavior(behaviors);
+      if (data.params == null && data.submitting)
+      {
+        // We only need to gather the parameters if there is a submitting behavior, so do
+        // not incur the performance overhead if not needed
+        data.params = CoreRenderer.getBehaviorParameters(component);
+      }
+
+      ClientBehaviorContext behaviorContext = ClientBehaviorContext.createClientBehaviorContext(
+        facesContext, component, eventName, component.getClientId(facesContext), data.params);
+
+      if (data.behaviorScripts == null)
+      {
+        data.behaviorScripts = new ArrayList<String>(behaviors.size());
+      }
+
+      for (ClientBehavior behavior : behaviors)
+      {
+        data.behaviorScripts.add(behavior.getScript(behaviorContext));
+      }
+    }
+  }
+
+  private static boolean _hasSubmittingBehavior(
+    Iterable<ClientBehavior> behaviors)
+  {
+    for (ClientBehavior behavior : behaviors)
+    {
+      if (behavior.getHints().contains(ClientBehaviorHint.SUBMITTING))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static class BehaviorsData
+  {
+    Collection<ClientBehaviorContext.Parameter> params;
+    List<String>                                behaviorScripts;
+    boolean                                     submitting;
   }
 
   private static final Object _CLIENT_BEHAVIORS_KEY = new Object();
