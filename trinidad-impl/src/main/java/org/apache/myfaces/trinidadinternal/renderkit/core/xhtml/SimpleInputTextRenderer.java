@@ -571,7 +571,6 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     return onKeydown;
   }
 
-
   /**
    * @todo We have to "getCurrentInstance()" *twice*.  UGH!
    */
@@ -645,7 +644,9 @@ public class SimpleInputTextRenderer extends FormInputRenderer
                                         maximumLength.intValue());
       }
     }
-    return onpaste;
+
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "paste", null, null, onpaste);
   }
 
   protected String getOnselect(
@@ -657,7 +658,8 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     if (_onselectKey == null)
       return null;
 
-    return toString(bean.getProperty(_onselectKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "select", null, toString(bean.getProperty(_onselectKey)), null);
   }
 
   protected Number getColumns(

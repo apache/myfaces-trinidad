@@ -268,7 +268,6 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     return toString(bean.getProperty(_contentStyleKey));
   }
 
-
   protected String getOnblur(
     UIComponent component,
     FacesBean   bean)
@@ -276,7 +275,8 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     if (_onblurKey == null)
       return null;
 
-    return toString(bean.getProperty(_onblurKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "blur", null, toString(bean.getProperty(_onblurKey)), null);
   }
 
   protected String getOnfocus(
@@ -286,7 +286,8 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     if (_onfocusKey == null)
       return null;
 
-    return toString(bean.getProperty(_onfocusKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "focus", null, toString(bean.getProperty(_onfocusKey)), null);
   }
 
   protected String getOnchange(
@@ -296,7 +297,8 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     if (_onchangeKey == null)
       return null;
 
-    return toString(bean.getProperty(_onchangeKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "change", "valueChange", toString(bean.getProperty(_onchangeKey)), null);
   }
 
   @Override

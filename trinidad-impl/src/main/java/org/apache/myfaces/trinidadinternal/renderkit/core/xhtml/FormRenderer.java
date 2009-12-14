@@ -1051,7 +1051,8 @@ public class FormRenderer extends XhtmlRenderer
     if (_onsubmitKey == null)
       return null;
 
-    return toString(bean.getProperty(_onsubmitKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "submit", null, toString(bean.getProperty(_onsubmitKey)), null);
   }
 
   protected String getTargetFrame(

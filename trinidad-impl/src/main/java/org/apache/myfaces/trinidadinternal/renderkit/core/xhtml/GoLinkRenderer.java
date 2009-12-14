@@ -204,7 +204,8 @@ public class GoLinkRenderer extends XhtmlRenderer
     if (_onblurKey == null)
       return null;
 
-    return toString(bean.getProperty(_onblurKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "blur", null, toString(bean.getProperty(_onblurKey)), null);
   }
 
   protected String getOnfocus(
@@ -214,7 +215,8 @@ public class GoLinkRenderer extends XhtmlRenderer
     if (_onfocusKey == null)
       return null;
 
-    return toString(bean.getProperty(_onfocusKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "focus", null, toString(bean.getProperty(_onfocusKey)), null);
   }
 
   protected String getTargetFrame(

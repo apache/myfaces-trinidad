@@ -248,9 +248,8 @@ public class BodyRenderer extends PanelPartialRootRenderer
         checkLoad = "_checkLoadNoPPR()";
     }
 
-    onload = XhtmlUtils.getChainedJS(checkLoad, onload, false);
-
-    return onload;
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "load", null, XhtmlUtils.getChainedJS(checkLoad, onload, false), null);
   }
 
   protected String getOnunload(
@@ -271,7 +270,8 @@ public class BodyRenderer extends PanelPartialRootRenderer
                                          false);
     }
 
-    return onunload;
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "unload", null, onunload, null);
   }
 
   /**

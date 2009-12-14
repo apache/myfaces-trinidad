@@ -945,22 +945,30 @@ public class XhtmlRenderer
   // ATTRIBUTE HOOKS
   //
 
-  protected String getShortDesc(UIComponent component, FacesBean bean)
+  protected String getShortDesc(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_shortDescKey));
   }
 
-  protected String getStyleClass(UIComponent component, FacesBean bean)
+  protected String getStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_styleClassKey));
   }
 
-  protected String getInlineStyle(UIComponent component, FacesBean bean)
+  protected String getInlineStyle(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_inlineStyleKey));
   }
 
-  protected String getOnclick(UIComponent component, FacesBean bean)
+  protected String getOnclick(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onclickKey == null)
       return null;
@@ -974,80 +982,108 @@ public class XhtmlRenderer
       null);
   }
 
-  protected String getOndblclick(UIComponent component, FacesBean bean)
+  protected String getOndblclick(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_ondblclickKey == null)
       return null;
 
-    return toString(bean.getProperty(_ondblclickKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "dblclick", null, toString(bean.getProperty(_ondblclickKey)), null);
   }
 
-  protected String getOnkeydown(UIComponent component, FacesBean bean)
+  protected String getOnkeydown(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onkeydownKey == null)
       return null;
 
-    return toString(bean.getProperty(_onkeydownKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "keydown", null, toString(bean.getProperty(_onkeydownKey)), null);
   }
 
-  protected String getOnkeyup(UIComponent component, FacesBean bean)
+  protected String getOnkeyup(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onkeyupKey == null)
       return null;
 
-    return toString(bean.getProperty(_onkeyupKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "keyup", null, toString(bean.getProperty(_onkeyupKey)), null);
   }
 
-  protected String getOnkeypress(UIComponent component, FacesBean bean)
+  protected String getOnkeypress(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onkeypressKey == null)
       return null;
 
-    return toString(bean.getProperty(_onkeypressKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "keypress", null, toString(bean.getProperty(_onkeypressKey)), null);
   }
 
-  protected String getOnmousedown(UIComponent component, FacesBean bean)
+  protected String getOnmousedown(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onmousedownKey == null)
       return null;
 
-    return toString(bean.getProperty(_onmousedownKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "mousedown", null, toString(bean.getProperty(_onmousedownKey)), null);
   }
 
-  protected String getOnmousemove(UIComponent component, FacesBean bean)
+  protected String getOnmousemove(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onmousemoveKey == null)
       return null;
 
-    return toString(bean.getProperty(_onmousemoveKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "mousemove", null, toString(bean.getProperty(_onmousemoveKey)), null);
   }
 
-  protected String getOnmouseout(UIComponent component, FacesBean bean)
+  protected String getOnmouseout(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onmouseoutKey == null)
       return null;
 
-    return toString(bean.getProperty(_onmouseoutKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "mouseout", null, toString(bean.getProperty(_onmouseoutKey)), null);
   }
 
-  protected String getOnmouseover(UIComponent component, FacesBean bean)
+  protected String getOnmouseover(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onmouseoverKey == null)
       return null;
 
-    return toString(bean.getProperty(_onmouseoverKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "mouseover", null, toString(bean.getProperty(_onmouseoverKey)), null);
   }
 
-  protected String getOnmouseup(UIComponent component, FacesBean bean)
+  protected String getOnmouseup(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onmouseupKey == null)
       return null;
 
-    return toString(bean.getProperty(_onmouseupKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "mouseup", null, toString(bean.getProperty(_onmouseupKey)), null);
   }
 
-  protected String[] getPartialTriggers(UIComponent component,
-    FacesBean bean)
+  protected String[] getPartialTriggers(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_partialTriggersKey == null)
     {
