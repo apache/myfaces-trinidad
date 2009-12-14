@@ -308,6 +308,9 @@
       <mfp:component-metadata/>
       <mfp:uix2-local-name>page</mfp:uix2-local-name>
       <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+      <fmd:default-event-name>click</fmd:default-event-name>
+      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup</fmd:event-names>
     </component-extension>
   </component>
 </faces-config>

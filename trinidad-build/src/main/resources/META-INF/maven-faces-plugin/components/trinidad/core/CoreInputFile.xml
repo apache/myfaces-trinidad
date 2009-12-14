@@ -190,6 +190,9 @@ tip), and may use simpler layout primitives]]>
 @see org.apache.myfaces.trinidad.webapp.TrinidadFilter]]>
       </mfp:javadoc-tags>
       <mfp:uix2-local-name>inputFile</mfp:uix2-local-name>
+      <fmd:default-event-name>change</fmd:default-event-name>
+      <fmd:event-names>change click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup focus blur select</fmd:event-names>
       <fmd:component-metadata>
         <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
         <fmd:default-property>label</fmd:default-property>

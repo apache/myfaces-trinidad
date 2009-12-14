@@ -109,7 +109,7 @@
         <fmd:property-metadata>
           <fmd:required>false</fmd:required>
         </fmd:property-metadata>
-      </property-extension>      
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[Indicates whether or not this table cell is a header cell or a data cell.
@@ -143,7 +143,7 @@
         <mfp:property-metadata>
           <mfp:multi-scoped-id-holder>true</mfp:multi-scoped-id-holder>
         </mfp:property-metadata>
-      </property-extension>      
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[an onclick Javascript handler.]]></description>
@@ -319,6 +319,9 @@
       <mfp:java-constructor>
         <mfp:property-name>vAlign</mfp:property-name>
       </mfp:java-constructor>
+      <fmd:default-event-name>click</fmd:default-event-name>
+      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
         <fmd:required-ancestor-contracts>org-apache-myfaces-trinidad-htmlcellformat-holder</fmd:required-ancestor-contracts>
       </fmd:component-metadata>

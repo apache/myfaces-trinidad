@@ -115,6 +115,9 @@
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>document</mfp:uix2-local-name>
+      <fmd:default-event-name>load</fmd:default-event-name>
+      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup load unload</fmd:event-names>
       <fmd:component-metadata>
         <fmd:default-property>title</fmd:default-property>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreForm</fmd:preferred-child-components>

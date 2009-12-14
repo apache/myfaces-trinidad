@@ -76,6 +76,9 @@
       <mfp:component-metadata/>
       <mfp:uix2-local-name>tree</mfp:uix2-local-name>
       <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+      <fmd:default-event-name>click</fmd:default-event-name>
+      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
         <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
         <fmd:default-property>value</fmd:default-property>

@@ -128,6 +128,9 @@
       <mfp:author>Gabrielle Crawford</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>bulletedList</mfp:uix2-local-name>
+      <fmd:default-event-name>click</fmd:default-event-name>
+      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
         <fmd:default-property>rows</fmd:default-property>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreCommandLink</fmd:preferred-child-components>

@@ -232,6 +232,9 @@ tip), and may use simpler layout primitives]]>
       <mfp:author>John Fallows</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>selectOneRadio</mfp:uix2-local-name>
+      <fmd:default-event-name>change</fmd:default-event-name>
+      <fmd:event-names>change click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup focus blur</fmd:event-names>
       <fmd:component-metadata>
         <fmd:default-property>label</fmd:default-property>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreSelectItem</fmd:preferred-child-components>

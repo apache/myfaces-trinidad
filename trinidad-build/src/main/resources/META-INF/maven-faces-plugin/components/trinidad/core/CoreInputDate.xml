@@ -44,7 +44,7 @@
         <mfp:property-metadata>
           <mfp:scoped-id-holder>true</mfp:scoped-id-holder>
         </mfp:property-metadata>
-      </property-extension>      
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[whether the element is read-only.]]></description>
@@ -247,6 +247,9 @@ tip), and may use simpler layout primitives]]>
         <mfp:unsupported-agents>phone</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>inputDate</mfp:uix2-local-name>
+      <fmd:default-event-name>change</fmd:default-event-name>
+      <fmd:event-names>change click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup focus blur</fmd:event-names>
       <fmd:component-metadata>
         <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
         <fmd:default-property>label</fmd:default-property>

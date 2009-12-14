@@ -103,6 +103,9 @@
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>form</mfp:uix2-local-name>
+      <fmd:default-event-name>submit</fmd:default-event-name>
+      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup submit</fmd:event-names>
       <fmd:component-metadata>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CorePanelPage org.apache.myfaces.trinidad.CorePage</fmd:preferred-child-components>
       </fmd:component-metadata>
