@@ -210,7 +210,7 @@
       <mfp:author>Marissa Treinen</mfp:author>
       <fmd:default-event-name>change</fmd:default-event-name>
       <fmd:event-names>change click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup focus blur</fmd:event-names>
+        keypress keydown keyup focus blur valueChange</fmd:event-names>
       <mfp:component-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>

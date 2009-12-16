@@ -145,7 +145,7 @@
       <mfp:component-metadata/>
       <mfp:uix2-local-name>link</mfp:uix2-local-name>
       <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+      <fmd:event-names>action click dblclick mousedown mouseup mouseover mousemove mouseout
         keypress keydown keyup blur focus</fmd:event-names>
       <fmd:component-metadata>
         <fmd:default-property>text</fmd:default-property>

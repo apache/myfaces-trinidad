@@ -22,15 +22,12 @@ package org.apache.myfaces.trinidadinternal.config;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.faces.context.ExternalContext;
 
 import javax.servlet.ServletRequest;
-
 import javax.servlet.ServletRequestWrapper;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.myfaces.trinidad.config.Configurator;
@@ -40,6 +37,9 @@ import org.apache.myfaces.trinidad.context.RequestContextFactory;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.RequestStateMap;
+import org.apache.myfaces.trinidad.util.RequestType;
 import org.apache.myfaces.trinidadinternal.context.RequestContextFactoryImpl;
 import org.apache.myfaces.trinidadinternal.context.external.ServletCookieMap;
 import org.apache.myfaces.trinidadinternal.context.external.ServletRequestHeaderMap;
@@ -49,9 +49,7 @@ import org.apache.myfaces.trinidadinternal.context.external.ServletRequestParame
 import org.apache.myfaces.trinidadinternal.context.external.ServletRequestParameterValuesMap;
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
-import org.apache.myfaces.trinidad.util.ExternalContextUtils;
-import org.apache.myfaces.trinidad.util.RequestStateMap;
-import org.apache.myfaces.trinidad.util.RequestType;
+
 
 /**
  * This is the implementation of the Trinidad's Global configurator. It provides the entry point for
@@ -410,7 +408,7 @@ public final class GlobalConfiguratorImpl
       finally
       {
 
-        //Do cleanup of anything which may have use the thread local manager durring
+        //Do cleanup of anything which may have use the thread local manager during
         //init.
         _releaseManagedThreadLocals();
       }

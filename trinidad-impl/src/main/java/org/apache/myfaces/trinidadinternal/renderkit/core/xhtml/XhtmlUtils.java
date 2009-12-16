@@ -673,7 +673,7 @@ public class XhtmlUtils
 
       if (secondaryEventName != null)
       {
-        _getBehaviorScripts(facesContext, component, eventName, data);
+        _getBehaviorScripts(facesContext, component, secondaryEventName, data);
       }
     }
 

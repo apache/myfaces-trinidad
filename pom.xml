@@ -61,7 +61,7 @@
     <!-- Plugins -->
     <trinidad-plugins.version>2.0.0-SNAPSHOT</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
-    <jetty-plugin.version>6.1.16</jetty-plugin.version>
+    <jetty-plugin.version>6.1.21</jetty-plugin.version>
     <pluto.version>1.1.6</pluto.version>
     <pluto.package>org.apache.pluto</pluto.package>
     

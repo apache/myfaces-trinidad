@@ -3148,7 +3148,7 @@ function _chain(
   shortCircuit // shortcircuit if handler 1 false
   )
 {
-  return _chainMultiple([evh1, evh2], target, event);
+  return _chainMultiple([evh1, evh2], target, event, shortCircuit);
 }
 
 /**

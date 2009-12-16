@@ -69,6 +69,16 @@
     </locale-config>
 
   </application>
+
+  <!-- behaviors -->
+
+  <behavior>
+    <behavior-id>invoke-function</behavior-id>
+    <behavior-class>org.apache.myfaces.trinidaddemo.behaviors.InvokeFunctionBehavior</behavior-class>
+  </behavior>
+
+  <!-- components -->
+
   <component>
     <component-type>org.apache.myfaces.trinidaddemo.DateField</component-type>
     <component-class>org.apache.myfaces.trinidaddemo.composite.DateField</component-class>
@@ -80,6 +90,13 @@
       <renderer-type>org.apache.myfaces.trinidaddemo.DateField</renderer-type>
       <renderer-class>org.apache.myfaces.trinidaddemo.composite.DateFieldAsRenderer</renderer-class>
     </renderer>
+
+    <client-behavior-renderer>
+      <client-behavior-renderer-type>invoke-function</client-behavior-renderer-type>
+      <client-behavior-renderer-class>
+        org.apache.myfaces.trinidaddemo.behaviors.render.InvokeFunctionBehaviorRenderer
+      </client-behavior-renderer-class>
+    </client-behavior-renderer>
   </render-kit>
 
   <converter>

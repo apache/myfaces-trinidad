@@ -16,12 +16,18 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-     
+
 -->
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
+
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+
   <!-- Use client-side state saving.  In Trinidad, it is an
        optimized, token-based mechanism that is almost always a
        better choice than the standard JSF server-side state saving. -->
@@ -73,7 +79,7 @@
     <param-name>org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE</param-name>
     <param-value>false</param-value>
   </context-param>
-<!-- Uncomment this if you are debugging skinning and want the styleclasses to not be compressed  
+<!-- Uncomment this if you are debugging skinning and want the styleclasses to not be compressed
 <context-param>
  <param-name>org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION</param-name>
  <param-value>true</param-value>
@@ -96,14 +102,14 @@
        Change Persistence is entirely disabled. The ChangeManager is
        an API, which can persist component modifications (like,
        is a showDetail or tree expanded or collapsed). For providing
-       a custom Change Persistence implementation inherit from the 
-       Trinidad API's ChangeManager class. As the value you have 
+       a custom Change Persistence implementation inherit from the
+       Trinidad API's ChangeManager class. As the value you have
        to use the fullqualified class name. -->
   <context-param>
     <param-name>org.apache.myfaces.trinidad.CHANGE_PERSISTENCE</param-name>
     <param-value>session</param-value>
   </context-param>
-  
+
   <context-param>
     <param-name>org.apache.myfaces.trinidad.resource.DEBUG</param-name>
     <param-value>false</param-value>
@@ -119,7 +125,7 @@
   <!--context-param>
     <param-name>org.apache.myfaces.trinidad.DIALOG_NAVIGATION_PREFIX</param-name>
     <param-value>userInputHere:</param-value>
-  </context-param--> 
+  </context-param-->
 
   <!-- Temporarily disable partial state saving default until we make it work with Trinidad -->
   <context-param>
@@ -127,19 +133,24 @@
     <param-value>false</param-value>
   </context-param>
 
-  <!-- Uncomment the below for use with Facelets 
+  <!-- Facelets configuration, comment to use JSP -->
 
   <context-param>
     <param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
     <param-value>*.xhtml</param-value>
-  </context-param>     
+  </context-param>
 
   <context-param>
     <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
     <param-value>true</param-value>
   </context-param>
 
-  -->
+  <context-param>
+    <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+    <param-value>/WEB-INF/tr-demo.taglib.xml</param-value>
+  </context-param>
+
+  <!-- End of facelets configuration -->
 
   <filter>
     <filter-name>trinidad</filter-name>
@@ -150,7 +161,7 @@
     <filter-name>demoRedirect</filter-name>
     <filter-class>org.apache.myfaces.trinidaddemo.webapp.RedirectFilter</filter-class>
   </filter>
-  
+
   <filter-mapping>
     <filter-name>trinidad</filter-name>
     <servlet-name>faces</servlet-name>
@@ -166,7 +177,7 @@
     <servlet-name>faces</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
   </servlet>
-  
+
   <!-- resource loader servlet -->
   <servlet>
     <servlet-name>resources</servlet-name>
@@ -189,7 +200,7 @@
     <servlet-name>faces</servlet-name>
     <url-pattern>*.faces</url-pattern>
   </servlet-mapping>
-    
+
   <servlet-mapping>
     <servlet-name>resources</servlet-name>
     <url-pattern>/adf/*</url-pattern>
@@ -211,7 +222,7 @@
   </welcome-file-list>
 
   <!-- Survey Demo (Custom) Tag Library -->
-  <jsp-config>
+  <!--jsp-config>
     <taglib>
       <taglib-uri>http://myfaces.apache.org/trinidad/demo</taglib-uri>
       <taglib-location>/WEB-INF/survey.tld</taglib-location>
@@ -221,6 +232,6 @@
       <taglib-uri>http://myfaces.apache.org/trinidaddemo</taglib-uri>
       <taglib-location>/WEB-INF/trinidaddemo.tld</taglib-location>
     </taglib>
-  </jsp-config>
+  </jsp-config-->
 
 </web-app>
