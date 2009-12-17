@@ -33,20 +33,14 @@
     <ui:composition template="/WEB-INF/facelets/templates/main.xhtml">
       <ui:define name="body">
         <tr:panelTabbed>
-          <tr:showDetailItem
-            text="#{msgs.component_index_tab_tr}">
-            <tr:panelList
-              rows="#{componentIndex.numRowsMap['tr']}">
-              <tr:goLink 
-                
-            </tr:panelList>
-          </tr:showDetailItem>
-          <tr:showDetailItem
-            text="#{msgs.component_index_tab_trh}">
-          </tr:showDetailItem>
-          <tr:showDetailItem
-            text="#{msgs.component_index_tab_trs}">
-          </tr:showDetailItem>          
+          <!-- Use a for each loop since panelTabbed does not support flattened component -->
+          <c:forEach
+            var="_tagLibrary"
+            items="#{tagLibrariesMenuModel}">
+            <tr:showDetailItem
+              text="#{_tagLibrary.displayName} - (#{_tagLibrary.shortName})">
+            </tr:showDetailItem>
+          </c:forEach>
         </tr:panelTabbed>
       </ui:define>
     </ui:composition>

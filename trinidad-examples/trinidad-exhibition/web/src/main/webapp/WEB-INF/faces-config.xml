@@ -43,6 +43,13 @@
     </resource-bundle>
   </application>
   
+  <!-- Converters: -->
+  <converter>
+    <converter-for-class>org.apache.myfaces.trinidadexhibition.faces.NavigationItem</converter-for-class>
+    <converter-class>org.apache.myfaces.trinidadexhibition.faces.NavigationItemConverter</converter-class>
+  </converter>
+  
+  <!-- Managed beans: -->
   <managed-bean>
     <description>
       Bean for collecting faces meta data for use in the demo pages.
@@ -56,12 +63,21 @@
   
   <managed-bean>
     <description>
-      Bean for managing the exhibition menus
+      Bean for managing the exhibition menu definitions
     </description>
-    <managed-bean-name>menus</managed-bean-name>
+    <managed-bean-name>menuDefs</managed-bean-name>
     <managed-bean-class>
-      org.apache.myfaces.trinidadexhibition.webapp.MenusBean
+      org.apache.myfaces.trinidadexhibition.webapp.MenusDefinitionBean
     </managed-bean-class>
+    <managed-property>
+      <property-name>mainMenuFromString</property-name>
+      <list-entries>
+        <value>menus_component_demo, /components/index.xhtml</value>
+        <value>menus_feature_demo, /features/index.xhtml</value>
+        <value>menus_example_apps, /examples/index.xhtml</value>
+        <value>menus_resources, /resources.xhtml</value>
+      </list-entries>
+    </managed-property>
   </managed-bean>
 
   <managed-bean>
@@ -77,7 +93,7 @@
 
   <managed-bean>
     <description>
-      Bean for the component index page
+      Bean for the component index page meta data
     </description>
     <managed-bean-name>componentIndex</managed-bean-name>
     <managed-bean-class>
@@ -88,6 +104,10 @@
   
   <navigation-rule>
     <!-- Global rules -->
+    <navigation-case>
+      <from-outcome>components_index</from-outcome>
+      <to-view-id>/components/index.xhtml</to-view-id>
+    </navigation-case>
 
     <!-- Main menu -->
     <navigation-case>

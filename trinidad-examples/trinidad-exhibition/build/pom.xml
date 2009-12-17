@@ -26,7 +26,6 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.apache.myfaces.trinidad</groupId>
   <artifactId>trinidad-exhibition-build</artifactId>
 
   <name>Trinidad Exhibition Build</name>

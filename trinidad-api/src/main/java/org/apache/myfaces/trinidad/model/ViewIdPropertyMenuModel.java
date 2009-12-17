@@ -19,7 +19,6 @@
 package org.apache.myfaces.trinidad.model;
 
 import java.beans.IntrospectionException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +49,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * <li>returns the path to the node with the current viewId or null if the current viewId can't be found
  * </ul>
  * <p>
- * Assuming that NavigationTree is a tree of beans with a vieId getter, an
+ * Assuming that NavigationTree is a tree of beans with a viewId getter, an
  * example of creating a MenuModel with this class might look like:
  * <pre><code>
  *     CollectionModel collectionModel = ModelUtils.toCollectionModel(new NavigationTree());

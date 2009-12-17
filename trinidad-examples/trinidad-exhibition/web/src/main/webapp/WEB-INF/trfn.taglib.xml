@@ -8,4 +8,12 @@
     <function-class>org.apache.myfaces.trinidadexhibition.util.Functions</function-class>
     <function-signature>java.lang.String getActionURL(java.lang.String)</function-signature>
   </function>
+  <function>
+    <function-name>asMenuModel</function-name>
+    <function-class>org.apache.myfaces.trinidadexhibition.util.Functions</function-class>
+    <function-signature>
+      org.apache.myfaces.trinidad.model.MenuModel asMenuModel(java.lang.Object,
+        java.lang.String, java.lang.Object)
+    </function-signature>
+  </function>
 </facelet-taglib>

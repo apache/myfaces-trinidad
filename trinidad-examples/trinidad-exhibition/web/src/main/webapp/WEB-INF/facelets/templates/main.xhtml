@@ -98,16 +98,19 @@ DIV.templateBody {
               <tr:panelPopup
                 triggerType="hover"
                 text="#{msgs.template_main_main_menu_text}">
-                <tr:iterator
+                <tr:navigationPane
+                  hint="list"
                   var="_item"
-                  value="#{menus.mainMenuItems}">
-                  <tr:commandLink
-                    partialSubmit="true"
-                    immediate="true"
-                    text="#{_item.label}"
-                    action="#{_item.value}"
-                    styleClass="popupMenuLink" />
-                </tr:iterator>
+                  value="#{menuDefs.mainMenu}">
+                  <f:facet name="nodeStamp">
+                    <tr:commandNavigationItem
+                      text="#{msgs[_item.messageKey]}"
+                      actionListener="#{_item.actionPerformed}"
+                      disabled="#{_item.viewId eq facesContext.viewRoot.viewId}"
+                      styleClass="popupMenuLink"
+                      immediate="true" />
+                  </f:facet>
+                </tr:navigationPane>
               </tr:panelPopup>
               <tr:panelPopup
                 id="aboutDialog"

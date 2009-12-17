@@ -28,7 +28,24 @@ import java.util.Map;
 public class TagLibrary
 {
   private String _shortName;
+  private String _displayName;
   private Map<String, Tag> _tags = new HashMap<String, Tag>();
+
+  /**
+   * @return the displayName
+   */
+  public String getDisplayName()
+  {
+    return _displayName;
+  }
+
+  /**
+   * @param displayName the displayName to set
+   */
+  public void setDisplayName(String displayName)
+  {
+    _displayName = displayName;
+  }
 
   /**
    * @return the shortName

@@ -76,6 +76,7 @@ public final class MetaDataUtils
     
     digester.addObjectCreate("taglib", TagLibrary.class);
     digester.addBeanPropertySetter("taglib/short-name", "shortName");
+    digester.addBeanPropertySetter("taglib/display-name", "displayName");
     
     digester.addObjectCreate("taglib/tag", Tag.class);
     digester.addBeanPropertySetter("taglib/tag/name");
