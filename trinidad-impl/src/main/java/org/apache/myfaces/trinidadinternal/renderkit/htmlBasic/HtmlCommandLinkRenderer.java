@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.htmlBasic;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import javax.faces.component.UIComponent;
@@ -27,8 +28,8 @@ import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.render.RenderUtils;
-
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.CommandLinkRenderer;
+
 
 /**
  * Renderer for h:commandLink.
@@ -81,38 +82,48 @@ public class HtmlCommandLinkRenderer extends Renderer
     return new CommandLinkRenderer()
     {
       @Override
-      public FacesBean getFacesBean(UIComponent comp)
+      public FacesBean getFacesBean(
+        UIComponent comp)
       {
         return bean;
       }
 
       @Override
-      protected String getText(FacesBean bean)
+      protected String getText(
+        UIComponent component,
+        FacesBean   bean)
       {
         return toString(component.getAttributes().get("value"));
       }
 
       @Override
-      protected String getShortDesc(FacesBean bean)
+      protected String getShortDesc(
+        UIComponent component,
+        FacesBean   bean)
       {
         return toString(component.getAttributes().get("title"));
       }
 
       @Override
-      protected char getAccessKey(FacesBean bean)
+      protected char getAccessKey(
+        UIComponent component,
+        FacesBean   bean)
       {
         return toChar(component.getAttributes().get("accesskey"));
       }
 
       @Override
-      protected String getInlineStyle(FacesBean bean)
+      protected String getInlineStyle(
+        UIComponent component,
+        FacesBean   bean)
       {
         return toString(component.getAttributes().get("style"));
       }
 
-
       @Override
-      protected boolean getDisabled(FacesBean bean)
+      protected boolean getDisabled(
+        UIComponent component,
+        FacesBean   bean)
       {
         return Boolean.TRUE.equals(component.getAttributes().get("disabled"));
       }

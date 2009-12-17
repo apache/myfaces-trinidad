@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -54,13 +55,15 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     this(CoreSelectManyShuttle.TYPE);
   }
 
-  protected SelectManyShuttleRenderer(FacesBean.Type type)
+  protected SelectManyShuttleRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _sizeKey = type.findKey("size");
@@ -69,7 +72,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
 
     _trailingHeaderKey = type.findKey("trailingHeader");
     _trailingDescShownKey = type.findKey("trailingDescShown");
-    
+
     _leadingBox = new Box(type,
                           new ShuttleList(type, true),
                           true);
@@ -77,7 +80,6 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
                            new ShuttleList(type, false),
                            false);
   }
-
 
   @Override
   protected Object getSubmittedValue(
@@ -122,8 +124,9 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     return list.toArray(new String[list.size()]);
   }
 
-
-  protected Integer getSize(FacesBean bean)
+  protected Integer getSize(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_sizeKey);
     if (o == null)
@@ -137,13 +140,16 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     return null;
   }
 
-
-  protected boolean getReorderOnly(FacesBean bean)
+  protected boolean getReorderOnly(
+    UIComponent component,
+    FacesBean   bean)
   {
     return false;
   }
 
-  protected boolean getLeadingDescShown(FacesBean bean)
+  protected boolean getLeadingDescShown(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_leadingDescShownKey);
     if (o == null)
@@ -151,12 +157,16 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     return Boolean.TRUE.equals(o);
   }
 
-  protected String getLeadingHeader(FacesBean bean)
+  protected String getLeadingHeader(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_leadingHeaderKey));
   }
 
-  protected boolean getTrailingDescShown(FacesBean bean)
+  protected boolean getTrailingDescShown(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_trailingDescShownKey);
     if (o == null)
@@ -164,27 +174,34 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     return Boolean.TRUE.equals(o);
   }
 
-  protected String getTrailingHeader(FacesBean bean)
+  protected String getTrailingHeader(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_trailingHeaderKey));
   }
 
   @Override
-  protected boolean isAutoSubmit(FacesBean bean)
+  protected boolean isAutoSubmit(
+    UIComponent component,
+    FacesBean   bean)
   {
     // No autoSubmit support yet
     return false;
   }
 
   @Override
-  public boolean getSimple(FacesBean bean)
+  public boolean getSimple(
+    UIComponent component,
+    FacesBean   bean)
   {
     return false;
   }
 
   @Override
   protected boolean renderReadOnlyAsElement(
-    RenderingContext arc,
+    RenderingContext rc,
+    UIComponent      component,
     FacesBean        bean)
   {
     return true;
@@ -192,37 +209,43 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
 
   @Override
   // Make read-only shuttles show disabled lists
-  protected boolean getDisabled(FacesBean bean)
+  protected boolean getDisabled(
+    UIComponent component,
+    FacesBean   bean)
   {
-    if (super.getDisabled(bean))
+    if (super.getDisabled(component, bean))
       return true;
-    
-    return super.getReadOnly(FacesContext.getCurrentInstance(), bean);
+
+    return super.getReadOnly(FacesContext.getCurrentInstance(), component, bean);
   }
 
   @Override
-  protected String getContentStyleClass(FacesBean bean)
+  protected String getContentStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|selectManyShuttle::content";
   }
-  
+
   @Override
-  protected String getRootStyleClass(FacesBean bean)  
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|selectManyShuttle";
   }
 
-
   @Override
   protected void encodeElementContent(
-    FacesContext        context,
-    RenderingContext    rc,
-    UIComponent         component,
-    FacesBean           bean,
-    List<SelectItem>    selectItems,
-    int[]               selectedIndices,
-    Converter           converter,
-    boolean             valuePassThru) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    List<SelectItem> selectItems,
+    int[]            selectedIndices,
+    Converter        converter,
+    boolean          valuePassThru
+    ) throws IOException
   {
     FormData fData = rc.getFormData();
     if (fData == null)
@@ -247,7 +270,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
 
     // Start the leading list off with everything, and the trailing list
     // off with nothing
-    List<SelectItem> leadingSelectItems = new ArrayList<SelectItem>(selectItems);    
+    List<SelectItem> leadingSelectItems = new ArrayList<SelectItem>(selectItems);
     List<SelectItem> trailingSelectItems =
        new ArrayList<SelectItem>(selectedIndices.length);
 
@@ -280,13 +303,10 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
       leadingSelectItems.remove(selectedIndex);
     }
 
-    
+
     // Initialize global info
-    ShuttleInfo info = _createAndSetShuttleInfo(rc,
-                                                bean,
-                                                leadingSelectItems,
-                                                trailingSelectItems,
-                                                clientId);
+    ShuttleInfo info = _createAndSetShuttleInfo(rc, component, bean, leadingSelectItems,
+      trailingSelectItems, clientId);
     leadingSelectItems.add(new SelectItem("", info.barText));
     trailingSelectItems.add(new SelectItem("", info.barText));
 
@@ -295,28 +315,28 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     /* FIXME: add this?
       XhtmlLafUtils.addOnSubmitRequiredValidator(
                                        context,
-                                       node, 
-                                       UIXSelectMany.REQUIRED_MESSAGE_ID, 
+                                       node,
+                                       UIXSelectMany.REQUIRED_MESSAGE_ID,
                                        getNodeName(context, node));
-                                       
+
     */
 
     ResponseWriter rw = context.getResponseWriter();
 
     _addTranslations(context, rc);
-    
-    boolean onlyOneList = getReorderOnly(bean);
+
+    boolean onlyOneList = getReorderOnly(component, bean);
 
     rw.startElement("table", component);
     OutputUtils.renderLayoutTableAttributes(context, rc, "0", "10%");
     // Don't use renderID(), which because we're on formElement will try to
     // write out "name" too
     rw.writeAttribute("id", clientId, null);
-    renderShortDescAttribute(context, rc, bean);
-    renderEventHandlers(context, bean);
+    renderShortDescAttribute(context, rc, component, bean);
+    renderEventHandlers(context, component, bean);
     renderRootDomElementStyles(context, rc, component, bean);
 
-    _renderHeaderRow(context, rc, bean, onlyOneList);
+    _renderHeaderRow(context, rc, component, bean, onlyOneList);
     _renderContainerRow(context, rc, component, bean, onlyOneList, clientId);
 
     rw.endElement("table");
@@ -328,14 +348,16 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
   private void _renderScriptsAndValues(
     FacesContext     context,
     RenderingContext rc,
+    UIComponent      component,
     FacesBean        bean,
     String           clientId,
-    boolean          onlyOneList) throws IOException
+    boolean          onlyOneList
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     ContainerInfo leadingInfo = _getContainerInfo(rc, true);
     ContainerInfo trailingInfo = _getContainerInfo(rc, false);
-      
+
     // Write out some hidden values
     if (!onlyOneList)
     {
@@ -357,12 +379,12 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
                       _getValue(trailingInfo.itemsList),
                       null);
     rw.endElement("input");
-    
+
     // Render the scripts
     rw.startElement("script", null);
     renderScriptDeferAttribute(context, rc);
     renderScriptTypeAttribute(context, rc);
-    if (!onlyOneList && getLeadingDescShown(bean))
+    if (!onlyOneList && getLeadingDescShown(component, bean))
     {
       _writeDescriptionScript(context,
                               leadingInfo.itemsList,
@@ -380,15 +402,18 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
   protected void renderReorderButtons(
     FacesContext     context,
     RenderingContext rc,
+    UIComponent      component,
     FacesBean        bean,
-    String           listId) throws IOException
+    String           listId
+    ) throws IOException
   {
   }
 
   private void _writeResetScript(
     FacesContext     context,
     RenderingContext rc,
-    String           clientId) throws IOException
+    String           clientId
+    ) throws IOException
   {
     // FIXME: Make sure we don't NPE when not in form
 
@@ -396,7 +421,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     String formName = rc.getFormData().getName();
     String jsFormName = XhtmlUtils.getJSIdentifier(formName);
     String jsClientId = XhtmlUtils.getJSIdentifier(clientId);
-    
+
     // Add the reset call to the form as a whole
     StringBuilder funcCallBuffer = new StringBuilder(
                                                19 +
@@ -423,9 +448,10 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
   }
 
   private void _writeDescriptionScript(
-    FacesContext context,
+    FacesContext     context,
     List<SelectItem> selectItems,
-    String id) throws IOException
+    String           id
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
 
@@ -465,7 +491,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     for (int j=0; j < length; j++)
     {
       SelectItem oldSelectItem = itemsToConvert.get(j);
-      // We have to create a new item - the old ones are not 
+      // We have to create a new item - the old ones are not
       // necessarily ours, so we can't just mutate 'em
       SelectItem newSelectItem = new SelectItem(j,
                                                oldSelectItem.getLabel(),
@@ -476,7 +502,8 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
   }
 
 
-  private String _getValue(List<SelectItem> items)
+  private String _getValue(
+    List<SelectItem> items)
   {
     StringBuilder vals = new StringBuilder();
     for (SelectItem item : items)
@@ -491,7 +518,8 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
 
   private void _addTranslations(
     FacesContext     context,
-    RenderingContext rc) throws IOException
+    RenderingContext rc
+    ) throws IOException
   {
     // Add needed translations
     if (!rc.getProperties().containsKey(_TRANSLATED_VARS_EXIST_PROPERTY_KEY))
@@ -508,7 +536,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
       String noItems = rc.getTranslatedString(_SHUTTLE_NO_ITEMS_FEEDBACK_KEY);
       String noItemsSelected =
         rc.getTranslatedString(_SHUTTLE_NO_ITEM_SELECTED_FEEDBACK_KEY);
-      
+
       rw.writeText(_TRANSLATED_JS_FEEDBACK_NO_ITEMS, null);
       if (noItems != null)
         rw.writeText(XhtmlUtils.escapeJS(noItems, true), null);
@@ -527,8 +555,10 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
   private void _renderHeaderRow(
     FacesContext     context,
     RenderingContext rc,
+    UIComponent      component,
     FacesBean        bean,
-    boolean          onlyOneList) throws IOException
+    boolean          onlyOneList
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("tr", null);
@@ -537,7 +567,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
       rw.startElement("td", null);
       renderStyleClass(context, rc, SkinSelectors.SHUTTLE_HEADER_STYLE_CLASS);
       rw.writeAttribute("valign", "bottom", null);
-      String leadingHeader = getLeadingHeader(bean);
+      String leadingHeader = getLeadingHeader(component, bean);
       if (leadingHeader != null)
         rw.writeText(leadingHeader, "leadingHeader");
       rw.endElement("td");
@@ -549,7 +579,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     rw.startElement("td", null);
     renderStyleClass(context, rc, SkinSelectors.SHUTTLE_HEADER_STYLE_CLASS);
     rw.writeAttribute("valign", "bottom", null);
-    if (getRequired(bean) || getShowRequired(bean))
+    if (getRequired(component, bean) || getShowRequired(component, bean))
     {
       // Get the required Icon from the context
       Icon icon = rc.getIcon(SkinSelectors.REQUIRED_ICON_ALIAS_NAME);
@@ -562,13 +592,12 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
       }
     }
 
-    String trailingHeader = getTrailingHeader(bean);
+    String trailingHeader = getTrailingHeader(component, bean);
     if (trailingHeader != null)
       rw.writeText(trailingHeader, "trailingHeader");
     rw.endElement("td");
     rw.endElement("tr");
   }
-
 
   private void _renderContainerRow(
     FacesContext     context,
@@ -576,7 +605,8 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     UIComponent      component,
     FacesBean        bean,
     boolean          onlyOneList,
-    String           clientId) throws IOException
+    String           clientId
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     if (!onlyOneList)
@@ -589,13 +619,13 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
                        bean,
                        _leadingBox);
       rw.endElement("td");
-      
+
       rw.startElement("td", null);
       rw.writeAttribute("align", "center", null);
       rw.writeAttribute("valign", "middle", null);
       rw.writeAttribute("nowrap", Boolean.TRUE, null);
       rw.writeAttribute("style", "padding:5px", null);
-      _renderMoveButtons(context, rc, bean);
+      _renderMoveButtons(context, rc, component, bean);
       rw.endElement("td");
     }
 
@@ -607,17 +637,18 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
                      _trailingBox);
 
     // Put the values in this TD, so they're at least inside of the table
-    _renderScriptsAndValues(context, rc, bean, clientId, onlyOneList);
+    _renderScriptsAndValues(context, rc, component, bean, clientId, onlyOneList);
     rw.endElement("td");
 
     rw.endElement("tr");
   }
 
-
   private void _renderMoveButtons(
     FacesContext     context,
     RenderingContext rc,
-    FacesBean        bean) throws IOException
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
 
@@ -626,10 +657,10 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     String trailingId = info.trailingInfo.id;
 
     // MOVE button
-    boolean disabled = getDisabled(bean);
+    boolean disabled = getDisabled(component, bean);
     String moveUrl = disabled ? null :
       "javascript:TrShuttleProxy._moveItems('" + leadingId + "','" + trailingId + "');";
-    renderButton(context, rc, 
+    renderButton(context, rc,
                   SkinSelectors.AF_SELECT_MANY_SHUTTLE_MOVE_ICON_NAME,
                   _SELECT_MANY_MOVE_TIP_KEY,
                   moveUrl);
@@ -643,7 +674,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     // MOVE ALL button
     String moveAllUrl = disabled ? null :
       "javascript:TrShuttleProxy._moveAllItems('" + leadingId + "','" + trailingId + "');";
-    renderButton(context, rc, 
+    renderButton(context, rc,
                   SkinSelectors.AF_SELECT_MANY_SHUTTLE_MOVE_ALL_ICON_NAME,
                   _SELECT_MANY_MOVE_ALL_TIP_KEY,
                   moveAllUrl);
@@ -657,7 +688,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     // REMOVE button
     String removeUrl = disabled ? null :
       "javascript:TrShuttleProxy._moveItems('" + trailingId + "','" + leadingId + "');";
-    renderButton(context, rc, 
+    renderButton(context, rc,
                   SkinSelectors.AF_SELECT_MANY_SHUTTLE_REMOVE_ICON_NAME,
                   _SELECT_MANY_REMOVE_TIP_KEY,
                   removeUrl);
@@ -671,7 +702,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     // REMOVE ALL button
     String removeAllUrl = disabled ? null :
       "javascript:TrShuttleProxy._moveAllItems('" + trailingId + "','" + leadingId + "');";
-    renderButton(context, rc, 
+    renderButton(context, rc,
                   SkinSelectors.AF_SELECT_MANY_SHUTTLE_REMOVE_ALL_ICON_NAME,
                   _SELECT_MANY_REMOVE_ALL_TIP_KEY,
                   removeAllUrl);
@@ -681,11 +712,12 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
   }
 
   private int _getBestListLen(
-    FacesBean bean,
-    int       leadingListCount,
-    int       trailingListCount)
+    UIComponent component,
+    FacesBean   bean,
+    int         leadingListCount,
+    int         trailingListCount)
   {
-    Integer rows = getSize(bean);
+    Integer rows = getSize(component, bean);
     if ( rows != null )
     {
       return Math.min(_MAXIMUM_LIST_LEN,
@@ -699,7 +731,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
                           leadingListCount < _MAXIMUM_LIST_LEN);
       boolean between2 = (trailingListCount > _MINIMUM_LIST_LEN &&
                           trailingListCount < _MAXIMUM_LIST_LEN);
-      
+
       //if either higher than max, take max
       if( higher1 || higher2 )
       {
@@ -717,7 +749,6 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     }
   }
 
-
   private static final void _clearContext(
     RenderingContext rc
   )
@@ -726,10 +757,10 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     rc.getProperties().remove(_SHUTTLE_INFO_KEY);
   }
 
-
   private void _startRow(
     FacesContext context,
-    int          colspan) throws IOException
+    int          colspan
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("tr", null);
@@ -743,7 +774,8 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
   private void _endRow(
     FacesContext     context,
     RenderingContext rc,
-    int              height) throws IOException
+    int              height
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.endElement("td");
@@ -762,7 +794,8 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     RenderingContext rc,
     String           iconName,
     String           shortDescKey,
-    String           href) throws IOException
+    String           href
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("a", null);
@@ -776,7 +809,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     // I suspect this came up in strict rendering mode
     if (icon != null)
       OutputUtils.renderIcon(context,
-                             rc, 
+                             rc,
                              icon,
                              rc.getTranslatedString(shortDescKey),
                              null,
@@ -789,7 +822,8 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     RenderingContext rc,
     String           textKey,
     String           shortDescKey,
-    String           href) throws IOException
+    String           href
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("a", null);
@@ -809,23 +843,24 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     return _SHUTTLE_KEY_MAP;
   }
 
-
-  private ShuttleInfo _getShuttleInfo(RenderingContext rc)
+  private ShuttleInfo _getShuttleInfo(
+    RenderingContext rc)
   {
     return (ShuttleInfo) rc.getProperties().get(_SHUTTLE_INFO_KEY);
-  } 
+  }
 
   private ContainerInfo _getContainerInfo(
     RenderingContext rc,
-    boolean isLeading)
+    boolean          isLeading)
   {
     ShuttleInfo shuttleInfo = _getShuttleInfo(rc);
     return isLeading ?
         shuttleInfo.leadingInfo : shuttleInfo.trailingInfo;
-  } 
+  }
 
   private ShuttleInfo _createAndSetShuttleInfo(
     RenderingContext rc,
+    UIComponent      component,
     FacesBean        bean,
     List<SelectItem> leadingItems,
     List<SelectItem> trailingItems,
@@ -837,7 +872,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     leadingInfo.id = clientId + _LEADING_COMPLETE;
     trailingInfo.id = clientId + _TRAILING_COMPLETE;
 
-    shuttleInfo.listLen = _getBestListLen(bean,
+    shuttleInfo.listLen = _getBestListLen(component, bean,
                                           leadingInfo.listCount,
                                           trailingInfo.listCount);
     int barWidth = Math.max(Math.max(trailingInfo.maxWidth,
@@ -863,10 +898,10 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     else
     {
       char[] addedChars = new char[barWidth - _BARS_MINIMUM_WIDTH];
-      
+
       for(int i=0; i < barWidth - _BARS_MINIMUM_WIDTH; i++)
         addedChars[i] = '_';
-      
+
       shuttleInfo.barText = _BARS_MINIMUM + new String(addedChars);
     }
 
@@ -880,14 +915,18 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
 
   private class ShuttleList extends SimpleSelectManyListboxRenderer
   {
-    public ShuttleList(FacesBean.Type type, boolean isLeading)
+    public ShuttleList(
+      FacesBean.Type type,
+      boolean        isLeading)
     {
       super(type);
       _isLeading = isLeading;
     }
 
     @Override
-    protected String getClientId(FacesContext context, UIComponent component)
+    protected String getClientId(
+      FacesContext context,
+      UIComponent  component)
     {
       RenderingContext rc = RenderingContext.getCurrentInstance();
       ContainerInfo info = _getContainerInfo(rc, _isLeading);
@@ -895,12 +934,14 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     }
 
     @Override
-    protected String getOndblclick(FacesBean bean)
+    protected String getOndblclick(
+      UIComponent component,
+      FacesBean   bean)
     {
       RenderingContext rc = RenderingContext.getCurrentInstance();
       ContainerInfo info = _getContainerInfo(rc, _isLeading);
       ContainerInfo otherInfo = _getContainerInfo(rc, !_isLeading);
- 
+
       StringBuilder builder = new StringBuilder();
       builder.append("TrShuttleProxy._moveItems('");
       builder.append(info.id);
@@ -913,42 +954,51 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     }
 
     @Override
-    protected String getShortDesc(FacesBean bean)
+    protected String getShortDesc(
+      UIComponent component,
+      FacesBean   bean)
     {
       // Use the header as the description for the list
       if (_isLeading)
-        return getLeadingHeader(bean);
+        return getLeadingHeader(component, bean);
       else
-        return getTrailingHeader(bean);
+        return getTrailingHeader(component, bean);
     }
 
     @Override
     // Make read-only shuttles show disabled lists
-    protected boolean getDisabled(FacesBean bean)
+    protected boolean getDisabled(
+      UIComponent component,
+      FacesBean   bean)
     {
-      if (super.getDisabled(bean))
+      if (super.getDisabled(component, bean))
         return true;
 
-      return super.getReadOnly(FacesContext.getCurrentInstance(), bean);
+      return super.getReadOnly(FacesContext.getCurrentInstance(), component, bean);
     }
 
     @Override
-    protected boolean getReadOnly(FacesContext context, FacesBean bean)
+    protected boolean getReadOnly(
+      FacesContext context,
+      UIComponent  component,
+      FacesBean    bean)
     {
       return false;
     }
 
     @Override
-    protected String getOnchange(FacesBean bean)
+    protected String getOnchange(
+      UIComponent component,
+      FacesBean   bean)
     {
       if (_isLeading)
       {
-        if (!getLeadingDescShown(bean))
+        if (!getLeadingDescShown(component, bean))
           return null;
       }
       else
       {
-        if (!getTrailingDescShown(bean))
+        if (!getTrailingDescShown(component, bean))
           return null;
       }
 
@@ -965,12 +1015,12 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
 
     @Override
     protected int[] getSelectedIndices(
-      FacesContext        context,
-      UIComponent         component,
-      FacesBean           bean,
-      List<SelectItem>    selectItems,
-      Converter           converter,
-      boolean             valuePassThru)
+      FacesContext     context,
+      UIComponent      component,
+      FacesBean        bean,
+      List<SelectItem> selectItems,
+      Converter        converter,
+      boolean          valuePassThru)
     {
       return _EMPTY_INT_ARRAY;
     }
@@ -986,7 +1036,9 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     }
 
     @Override
-    protected int getSize(FacesBean bean)
+    protected int getSize(
+      UIComponent component,
+      FacesBean   bean)
     {
       RenderingContext rc = RenderingContext.getCurrentInstance();
       ShuttleInfo info = _getShuttleInfo(rc);
@@ -994,106 +1046,137 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     }
 
     @Override
-    protected boolean isAutoSubmit(FacesBean bean)
+    protected boolean isAutoSubmit(
+      UIComponent component,
+      FacesBean   bean)
     {
       return false;
     }
 
     @Override
-    public boolean getSimple(FacesBean bean)
+    public boolean getSimple(
+      UIComponent component,
+      FacesBean   bean)
     {
       return true;
     }
 
     @Override
-    protected boolean getValuePassThru(FacesBean bean)
+    protected boolean getValuePassThru(
+      UIComponent component,
+      FacesBean   bean)
     {
       // Value passthru has already been accounted for
       return true;
     }
 
-
     @Override
-    protected String getStyleClass(FacesBean bean)
+    protected String getStyleClass(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     @Override
-    protected String getInlineStyle(FacesBean bean)
+    protected String getInlineStyle(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     private boolean _isLeading;
   }
-  
+
   private class Box extends PanelBoxRenderer
   {
-    public Box(FacesBean.Type type, ShuttleList list, boolean isLeading)
+    public Box(
+      FacesBean.Type type,
+      ShuttleList    list,
+      boolean        isLeading)
     {
       super(type);
       _list = list;
       _isLeading = isLeading;
     }
-    
+
     @Override
-    protected String getClientId(FacesContext context, UIComponent component)
+    protected String getClientId(
+      FacesContext context,
+      UIComponent  component)
     {
       return null;
     }
 
     @Override
-    protected boolean hasChildren(UIComponent component)
+    protected boolean hasChildren(
+      UIComponent component)
     {
       return true;
     }
 
     @Override
-    protected String getShortDesc(FacesBean bean)
+    protected String getShortDesc(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     @Override
-    protected String getStyleClass(FacesBean bean)
+    protected String getStyleClass(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     @Override
-    protected String getInlineStyle(FacesBean bean)
+    protected String getInlineStyle(
+      UIComponent component,
+      FacesBean   bean)
     {
       return "width:100%";
     }
 
     @Override
-    protected String getText(FacesBean bean)
+    protected String getText(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     @Override
-    protected String getIcon(FacesBean bean)
+    protected String getIcon(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     @Override
-    protected String getContentStyle(FacesBean bean)
+    protected String getContentStyle(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
-    
+
     @Override
-    protected String getBackground(FacesBean bean)
+    protected String getBackground(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     @Override
     protected void encodeAllChildren(
-      FacesContext context, UIComponent component) throws IOException
+      FacesContext context,
+      UIComponent  component
+      ) throws IOException
     {
       ResponseWriter rw = context.getResponseWriter();
       RenderingContext rc = RenderingContext.getCurrentInstance();
@@ -1104,8 +1187,6 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
 
       rw.startElement("table", null);
       OutputUtils.renderLayoutTableAttributes(context, rc, null, null);
-
-      
 
       // Render the filter, if needed
       if (_isLeading)
@@ -1130,14 +1211,14 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
       if (!_isLeading && isReorderable())
       {
         rw.endElement("td");
-        renderReorderButtons(context, rc, bean, containerInfo.id);
+        renderReorderButtons(context, rc, component, bean, containerInfo.id);
         rw.startElement("td", null);
       }
 
-      boolean hasLeadingDesc = getLeadingDescShown(bean);
-      boolean hasTrailingDesc = getTrailingDescShown(bean);
+      boolean hasLeadingDesc = getLeadingDescShown(component, bean);
+      boolean hasTrailingDesc = getTrailingDescShown(component, bean);
       boolean hasDescArea = hasLeadingDesc || hasTrailingDesc;
-      
+
       _endRow(context, rc, 0);
 
       if (hasDescArea)
@@ -1164,13 +1245,13 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
         rw.writeAttribute("wrap", "soft", null);
 
         rw.endElement("textarea");
-        
+
         HiddenLabelUtils.outputHiddenLabelIfNeeded(context,
                                                    rc,
                                                    textareaId,
                                                    label,
                                                    component);
-        
+
         _endRow(context, rc, _DEFAULT_DESC_AREA_HEIGHT);
       }
 
@@ -1189,18 +1270,15 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
         if (footer != null)
           encodeChild(context, footer);
         _endRow(context, rc, _DEFAULT_FOOTER_HEIGHT);
-        
+
       }
 
       rw.endElement("table");
     }
 
-
     private ShuttleList _list;
     private boolean     _isLeading;
   }
-
-
 
   /*
    * Per render shuttle info
@@ -1215,7 +1293,6 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     public ContainerInfo trailingInfo = null;
   }
 
-  
   /*
    * Per render info for each container
    */
@@ -1243,7 +1320,6 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     public int    maxWidth  = 0;
   }
 
-
   private PropertyKey _sizeKey;
   private PropertyKey _leadingDescShownKey;
   private PropertyKey _leadingHeaderKey;
@@ -1259,11 +1335,9 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
 
   private final static String _BARS_MINIMUM    = "_______________";
 
-
   private final static int _DEFAULT_DESC_AREA_HEIGHT = 68;
   private final static int _DEFAULT_FILTER_HEIGHT    = 36;
   private final static int _DEFAULT_FOOTER_HEIGHT    = 36;
-
 
   private final static String _LEADING_COMPLETE     = ":leading";
   private final static String _TRAILING_COMPLETE    = ":trailing";
@@ -1311,11 +1385,11 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     "af_selectManyShuttle.REMOVE_ALL";
   protected final static String _SELECT_MANY_REMOVE_KEY =
     "af_selectManyShuttle.REMOVE";
- 
+
   // map the selectMany translation keys to the selectOrder translation keys.
   // This renderer code uses the selectMany translation keys. If selectOrder
   // shuttle is being rendered, then context.getTranslatedValue will use
-  private static final Map<String, String> _SHUTTLE_KEY_MAP = 
+  private static final Map<String, String> _SHUTTLE_KEY_MAP =
     new HashMap<String, String>();
 
   static

@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -75,14 +75,14 @@
     <property>
       <description><![CDATA[<html>
  Character used to gain quick access to this link.
-              For accessibility reasons, this functionality is not 
+              For accessibility reasons, this functionality is not
               supported in screen reader mode.
               <p>
-              If the same access key appears in multiple input fields in the 
-              same page of output, the rendering user agent will cycle among 
-              the elements accessed by the similar keys. Note that user agents 
-              are inconsistent about dealing with two links having same access 
-              key, and so the cycling behavior is dependent on what the user agent 
+              If the same access key appears in multiple input fields in the
+              same page of output, the rendering user agent will cycle among
+              the elements accessed by the similar keys. Note that user agents
+              are inconsistent about dealing with two links having same access
+              key, and so the cycling behavior is dependent on what the user agent
               provides.
               </p><p>
                 This attribute is sometimes referred to as the "mnemonic".
@@ -144,6 +144,9 @@
       <mfp:author>Andy Schwartz</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>link</mfp:uix2-local-name>
+      <fmd:default-event-name>click</fmd:default-event-name>
+      <fmd:event-names>action click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup blur focus</fmd:event-names>
       <fmd:component-metadata>
         <fmd:default-property>text</fmd:default-property>
       </fmd:component-metadata>

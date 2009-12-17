@@ -19,11 +19,13 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 
 import java.net.URL;
+
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,8 @@ import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
@@ -65,6 +69,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderer;
 import org.apache.myfaces.trinidad.render.LifecycleRenderer;
 import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
+
 
 /**
  * Base implementation of components for all of Trinidad.  UIXComponentBase
@@ -262,8 +267,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
-
   /**
    */
   @Override
@@ -283,7 +286,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return getFacesBean().getValueBinding(key);
   }
 
-
   @Override
   public void setValueBinding(String name, ValueBinding binding)
   {
@@ -293,7 +295,6 @@ abstract public class UIXComponentBase extends UIXComponent
     PropertyKey key = getPropertyKey(name);
     getFacesBean().setValueBinding(key, binding);
   }
-
 
   @Override
   public Map<String, Object> getAttributes()
@@ -305,8 +306,6 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
   // ------------------------------------------------------------- Properties
-
-
 
   @Override
   public String getClientId(FacesContext context)
@@ -355,7 +354,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return clientId;
   }
 
-
   /**
    * Gets the identifier for the component.
    */
@@ -364,7 +362,6 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     return (String) getProperty(ID_KEY);
   }
-
 
   /**
    * Sets the identifier for the component.  The identifier
@@ -389,18 +386,14 @@ abstract public class UIXComponentBase extends UIXComponent
     setProperty(ID_KEY, id);
   }
 
-
-
   @Override
   abstract public String getFamily();
-
 
   @Override
   public UIComponent getParent()
   {
     return _parent;
   }
-
 
   /**
    * <p>Set the parent <code>UIComponent</code> of this
@@ -440,7 +433,6 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     return getBooleanProperty(RENDERED_KEY, true);
   }
-
 
   @Override
   public void setRendered(boolean rendered)
@@ -490,7 +482,6 @@ abstract public class UIXComponentBase extends UIXComponent
     setProperty(RENDERER_TYPE_KEY, rendererType);
   }
 
-
   @Override
   public boolean getRendersChildren()
   {
@@ -501,12 +492,7 @@ abstract public class UIXComponentBase extends UIXComponent
     return renderer.getRendersChildren();
   }
 
-
-
-
   // ------------------------------------------------ Tree Management Methods
-
-
 
   @Override
   public UIComponent findComponent(String id)
@@ -578,8 +564,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
-
   /**
    * <p>Create (if necessary) and return a List of the children associated
    * with this component.</p>
@@ -601,7 +585,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return getChildren().size();
   }
 
-
   /**
    * <p>Create (if necessary) and return a Map of the facets associated
    * with this component.</p>
@@ -616,7 +599,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return _facets;
   }
 
-
   @Override
   public UIComponent getFacet(String facetName)
   {
@@ -626,7 +608,6 @@ abstract public class UIXComponentBase extends UIXComponent
       return null;
     return getFacets().get(facetName);
   }
-
 
   /**
    * Returns an Iterator over the names of all facets.
@@ -700,9 +681,7 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
   // ------------------------------------------- Lifecycle Processing Methods
-
 
   @Override
   public void decode(FacesContext context)
@@ -1012,16 +991,17 @@ abstract public class UIXComponentBase extends UIXComponent
     return getFacesBean().initialStateMarked();
   }
 
-  public Object saveState(FacesContext context)
+  public Object saveState(FacesContext facesContext)
   {
-    return getFacesBean().saveState(context);
+    return getFacesBean().saveState(facesContext);
   }
 
-  public void restoreState(FacesContext context, Object stateObj)
+  public void restoreState(
+    FacesContext facesContext,
+    Object       stateObj)
   {
-    getFacesBean().restoreState(context, stateObj);
+    getFacesBean().restoreState(facesContext, stateObj);
   }
-
 
   @Override
   public String toString()
@@ -1045,7 +1025,6 @@ abstract public class UIXComponentBase extends UIXComponent
     // we could cache this as an instance variable.
     return FacesContext.getCurrentInstance();
   }
-
 
   /**
    * Delegates to LifecycleRenderer, if present,
@@ -1081,7 +1060,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
   /**
    * Delegates to LifecycleRenderer, if present,
    * otherwise calls validateChildrenImpl.
@@ -1116,7 +1094,6 @@ abstract public class UIXComponentBase extends UIXComponent
       kid.processValidators(context);
     }
   }
-
 
   /**
    * Delegates to LifecycleRenderer, if present,
@@ -1378,7 +1355,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return n.intValue();
   }
 
-
   /**
    * Return the number of facets.  This is more efficient than
    * calling getFacets().size();
@@ -1391,7 +1367,6 @@ abstract public class UIXComponentBase extends UIXComponent
 
     return _facets.size();
   }
-
 
   /**
    * Broadcast an event to a MethodBinding.
@@ -1545,7 +1520,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
   /**
    * Override to calls the hooks for setting up and tearing down the
    * context before the children are visited.
@@ -1589,7 +1563,82 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
+  // ------------------------- Client behavior holder methods -------------------------
 
+  /**
+   * Utility method to assist sub-classes in the implementation of the
+   * {@link javax.faces.component.behavior.ClientBehaviorHolder} interface.
+   * <p>This method must only
+   * be called by classes that implement the interface, doing otherwise will result in an exception.
+   * </p>
+   * @param eventName The event name
+   * @param behavior The behavior to add
+   * @see javax.faces.component.behavior.ClientBehaviorHolder#addClientBehavior(String, ClientBehavior)
+   */
+  protected void addClientBehavior(
+    String         eventName,
+    ClientBehavior behavior)
+  {
+    // This will throw a class cast exception when illegally called by a class that does not
+    // implement ClientBehaviorHolder
+    Collection<String> events = ((ClientBehaviorHolder)this).getEventNames();
+
+    // This will throw a null pointer exception if the component author did not correctly implement
+    // the ClientBehaviorHolder contract which requires a non-empty collection to be returned from
+    // getEventNames
+    if (!events.contains(eventName))
+    {
+      return;
+    }
+
+    getFacesBean().addClientBehavior(eventName, behavior);
+  }
+
+  // Note, we do not need to provide a default implementation for the event names, as client
+  // behavior holder components must provide a non-empty list of event names. UIComponentBase
+  // decided to return a non-valid null in their code, but that is only confusing to the user, it
+  // is better to not implement the method and force the users to write the method upon interface
+  // implementation.
+  //protected Collection<String> getEventNames() {}
+
+  /**
+   * Utility method to assist sub-classes in the implementation of the
+   * {@link javax.faces.component.behavior.ClientBehaviorHolder} interface.
+   * <p>This method must only
+   * be called by classes that implement the interface, doing otherwise will result in an exception.
+   * </p>
+   * @see javax.faces.component.behavior.ClientBehaviorHolder#getClientBehaviors()
+   * @return Read-only map of the client behaviors for this component
+   */
+  protected Map<String, List<ClientBehavior>> getClientBehaviors()
+  {
+    return getFacesBean().getClientBehaviors();
+  }
+
+  /**
+   * Utility method to assist sub-classes in the implementation of the
+   * {@link javax.faces.component.behavior.ClientBehaviorHolder} interface.
+   * <p>This method must only
+   * be called by classes that implement the interface, doing otherwise will result in an exception.
+   * </p>
+   * @return null
+   * @see javax.faces.component.behavior.ClientBehaviorHolder#getDefaultEventName()
+   */
+  protected String getDefaultEventName()
+  {
+    _ensureClientBehaviorHolder();
+    return null;
+  }
+
+  private void _ensureClientBehaviorHolder()
+  {
+    if (!(this instanceof ClientBehaviorHolder))
+    {
+      throw new IllegalStateException("Component must implement ClientBehaviorHolder in order " +
+        "to make use of this method.");
+    }
+  }
+  // ------------------------- End of the client behavior holder methods -------------------------
 
   /**
    * <p>
@@ -1668,7 +1717,6 @@ abstract public class UIXComponentBase extends UIXComponent
       component.encodeEnd(context);
     }
   }
-
 
   static private UIComponent _findInsideOf(
     UIComponent from,
@@ -1771,7 +1819,6 @@ abstract public class UIXComponentBase extends UIXComponent
 
   private static final Iterator<UIComponent> _EMPTY_UICOMPONENT_ITERATOR =
     new EmptyIterator<UIComponent>();
-
 
   static private final ThreadLocal<StringBuilder> _STRING_BUILDER =
                                                           ThreadLocalUtils.newRequestThreadLocal();

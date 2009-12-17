@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,10 +33,10 @@ import org.apache.myfaces.trinidad.component.ComponentProcessingContext;
 import org.apache.myfaces.trinidad.component.ComponentProcessor;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelList;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
+
 
 public class PanelListRenderer extends XhtmlRenderer
 {
@@ -46,7 +46,8 @@ public class PanelListRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _maxColumnsKey = type.findKey("maxColumns");
@@ -63,10 +64,11 @@ public class PanelListRenderer extends XhtmlRenderer
   protected void renderStyleAttributes(
     FacesContext     context,
     RenderingContext rc,
+    UIComponent      component,
     FacesBean        bean)
     throws IOException
   {
-    renderStyleAttributes(context, rc, bean, SkinSelectors.AF_PANEL_LIST_STYLE_CLASS);
+    renderStyleAttributes(context, rc, component, bean, SkinSelectors.AF_PANEL_LIST_STYLE_CLASS);
   }
 
   @Override
@@ -80,10 +82,10 @@ public class PanelListRenderer extends XhtmlRenderer
     FacesContext     context,
     RenderingContext rc,
     UIComponent      component,
-    FacesBean        bean)
-    throws IOException
+    FacesBean        bean
+    ) throws IOException
   {
-    Number rowsNumber = getRows(bean);
+    Number rowsNumber = getRows(component, bean);
     int rows;
     if (rowsNumber == null)
     {
@@ -94,7 +96,7 @@ public class PanelListRenderer extends XhtmlRenderer
       rows = rowsNumber.intValue();
     }
 
-    Number maxColumnsNumber = getMaxColumns(bean);
+    Number maxColumnsNumber = getMaxColumns(component, bean);
     int maxCols;
     if (maxColumnsNumber == null)
     {
@@ -105,12 +107,12 @@ public class PanelListRenderer extends XhtmlRenderer
       maxCols = maxColumnsNumber.intValue();
     }
 
-    String listStyle = getListStyle(bean);
+    String listStyle = getListStyle(component, bean);
 
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("div", component);
     renderId(context, component);
-    renderAllAttributes(context, rc, bean);
+    renderAllAttributes(context, rc, component, bean);
 
     ((CoreRenderingContext) rc).setDefaultLinkStyleDisabled(true);
 
@@ -181,25 +183,31 @@ public class PanelListRenderer extends XhtmlRenderer
     ((CoreRenderingContext) rc).setDefaultLinkStyleDisabled(false);
   }
 
-  protected Number getRows(FacesBean bean)
+  protected Number getRows(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Number)bean.getProperty(_rowsKey);
   }
 
-  protected Number getMaxColumns(FacesBean bean)
+  protected Number getMaxColumns(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Number)bean.getProperty(_maxColumnsKey);
   }
 
-  protected String getListStyle(FacesBean bean)
+  protected String getListStyle(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_listStyleKey));
   }
 
   private void _renderListStyle(
     FacesContext context,
-    String       listStyle)
-    throws IOException
+    String       listStyle
+    ) throws IOException
   {
     if (listStyle != null)
     {
@@ -210,7 +218,8 @@ public class PanelListRenderer extends XhtmlRenderer
   /**
    * Get the default columns off of the skin property.
    */
-  private int _getDefaultColumns(RenderingContext rc)
+  private int _getDefaultColumns(
+    RenderingContext rc)
   {
     // TODO Either document this skin property in skin-selectors.xml and add it to the skin demo
     //      page or put it into the panelList component metadata xml file.
@@ -239,7 +248,8 @@ public class PanelListRenderer extends XhtmlRenderer
    */
   private static class GroupingCallbackState
   {
-    public GroupingCallbackState(int initialSize)
+    public GroupingCallbackState(
+      int initialSize)
     {
       this.groupStates = new ArrayList<GroupState>(initialSize);
     }

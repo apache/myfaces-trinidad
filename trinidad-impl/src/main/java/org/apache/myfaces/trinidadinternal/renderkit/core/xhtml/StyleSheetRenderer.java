@@ -23,8 +23,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import java.util.Set;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -33,9 +31,6 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.CoreStyleSheet;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.style.Selector;
-import org.apache.myfaces.trinidad.style.Style;
-import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
@@ -69,7 +64,8 @@ public class StyleSheetRenderer extends XhtmlRenderer
     this(CoreStyleSheet.TYPE);
   }
 
-  protected StyleSheetRenderer(FacesBean.Type type)
+  protected StyleSheetRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
@@ -82,14 +78,15 @@ public class StyleSheetRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
-    StyleContext sContext = ((CoreRenderingContext) arc).getStyleContext();
+    StyleContext sContext = ((CoreRenderingContext) rc).getStyleContext();
     StyleProvider provider = sContext.getStyleProvider();
 
     if (provider != null)
@@ -98,7 +95,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
 
       // Check if we want to write out the css into the page or not. In portlet mode the
       // producer tries to share the consumer's stylesheet if it matches exactly.
-      boolean suppressStylesheet = _isSuppressStylesheet(context, arc);
+      boolean suppressStylesheet = _isSuppressStylesheet(context, rc);
 
       if (!suppressStylesheet)
       {
@@ -108,10 +105,10 @@ public class StyleSheetRenderer extends XhtmlRenderer
           String contextUri = externalContext.getRequestContextPath();
           String baseURL = contextUri + XhtmlConstants.STYLES_CACHE_DIRECTORY;
 
-          String outputMode = arc.getOutputMode();
+          String outputMode = rc.getOutputMode();
           // =-=AEW Don't like hardcoding facet names...
           if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode) &&
-              supportsScripting(arc))
+              supportsScripting(rc))
           {
             writer.startElement("script", null);
             writer.writeText("var _adfSS;if(!_adfSS){_adfSS=1;", null);
@@ -148,12 +145,12 @@ public class StyleSheetRenderer extends XhtmlRenderer
         }
         else
         {
-          if (arc.getSkin() == null)
+          if (rc.getSkin() == null)
             writer.writeComment("ERROR: Could not create stylesheet, because " +
                                 "no skin is available");
           else
             writer.writeComment("ERROR: could not create stylesheet for " +
-                                arc.getSkin().getStyleSheetName());
+                                rc.getSkin().getStyleSheetName());
         }
       }
 
@@ -161,10 +158,10 @@ public class StyleSheetRenderer extends XhtmlRenderer
       // Hand the Faces-major renderers the style Map for compressing.
       // Oddly enough, this code has to be after provider.getStyleSheetURI(),
       // because that call boostraps up the style provider in general.
-      if (arc instanceof CoreRenderingContext)
+      if (rc instanceof CoreRenderingContext)
       {
-        Map<String, String> shortStyles = arc.getSkin().getStyleClassMap(arc);
-        ((CoreRenderingContext) arc).setStyleMap(shortStyles);
+        Map<String, String> shortStyles = rc.getSkin().getStyleClassMap(rc);
+        ((CoreRenderingContext) rc).setStyleMap(shortStyles);
       }
     }
   }
@@ -175,15 +172,17 @@ public class StyleSheetRenderer extends XhtmlRenderer
   // Also, if the Agent Capability cannot handle external css files, this will
   // return true.
   // returns true if the stylesheet should be suppressed and not written out in the page.
-  private boolean _isSuppressStylesheet(FacesContext context, RenderingContext arc)
+  private boolean _isSuppressStylesheet(
+    FacesContext     context,
+    RenderingContext rc)
   {
     // first see if the agent's capability does not support external css files.
-    if (!_supportsExternalStylesheet(arc))
+    if (!_supportsExternalStylesheet(rc))
       return true;
 
     // next check if in portlet mode, and if the suppress stylesheet parameter
     // is set, and it's valid to suppress the stylesheet.
-    String outputMode = arc.getOutputMode();
+    String outputMode = rc.getOutputMode();
     if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode))
     {
       Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
@@ -192,8 +191,8 @@ public class StyleSheetRenderer extends XhtmlRenderer
       {
         // the portlet producer requests that we suppress the stylesheet if the producer's skin
         // and the consumer's skin match exactly.
-        return ((CoreRenderingContext) arc).isRequestMapStyleSheetIdAndSkinEqual(
-                                              context, arc.getSkin());
+        return ((CoreRenderingContext) rc).isRequestMapStyleSheetIdAndSkinEqual(
+                                              context, rc.getSkin());
       }
     }
     return false;
@@ -202,9 +201,10 @@ public class StyleSheetRenderer extends XhtmlRenderer
   // Get the Capability from the agent and return true if the
   // TrinidadAgent.CAP_STYLE_ATTRIBUTES == STYLES_EXTERNAL.
   // Defaults to true in case no capability is set.
-  static private boolean _supportsExternalStylesheet(RenderingContext arc)
+  static private boolean _supportsExternalStylesheet(
+    RenderingContext rc)
   {
-    Object styleCapability = arc.getAgent().getCapabilities().get(
+    Object styleCapability = rc.getAgent().getCapabilities().get(
             TrinidadAgent.CAP_STYLE_ATTRIBUTES);
 
     return (styleCapability == null ||

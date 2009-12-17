@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,18 +29,17 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.FacesEvent;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.component.UIXTree;
-import org.apache.myfaces.trinidad.event.SelectionEvent;
-import org.apache.myfaces.trinidad.model.RowKeySet;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.event.SelectionEvent;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
+
 
 public class TableSelectManyRenderer extends TableSelectOneRenderer
 {
@@ -48,7 +47,8 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
   public static final String SELECTED_KEY = "_s";
   public static final String SELECTED_MODE_KEY = "_sm";
 
-  public TableSelectManyRenderer(FacesBean.Type type)
+  public TableSelectManyRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
@@ -58,7 +58,9 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
   //
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(FacesContext context, UIComponent component)
+  public void decode(
+    FacesContext context,
+    UIComponent  component)
   {
     UIXCollection table = (UIXCollection) component;
     Object oldKey = table.getRowKey();
@@ -66,10 +68,10 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
     table.setRowIndex(-1);
     String tableId = table.getClientId(context);
 
-    Map<String, String[]> parameters = 
+    Map<String, String[]> parameters =
       context.getExternalContext().getRequestParameterValuesMap();
 
-    String[] unselectedBoxes = 
+    String[] unselectedBoxes =
       parameters.get(tableId+NamingContainer.SEPARATOR_CHAR+UNSELECTED_KEY);
 
     // check to see if there were any selection boxes in the request.
@@ -78,7 +80,7 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
     if ((unselectedBoxes == null) || (unselectedBoxes.length == 0))
       return;
 
-    String[] selectedBoxes = 
+    String[] selectedBoxes =
       parameters.get(tableId+NamingContainer.SEPARATOR_CHAR+SELECTED_KEY);
 
     // must work with both table and hgrid:
@@ -121,13 +123,15 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
     table.setRowKey(oldKey);
   }
 
-  private void _setDeltas(UIXCollection table,
-                          String[] selectedBoxes, String[] unselectedBoxes,
-                          RowKeySet current,
-                          RowKeySet selectedDelta,
-                          RowKeySet unselectedDelta)
+  private void _setDeltas(
+    UIXCollection table,
+    String[]      selectedBoxes,
+    String[]      unselectedBoxes,
+    RowKeySet     current,
+    RowKeySet     selectedDelta,
+    RowKeySet     unselectedDelta)
   {
-    Map<String, Boolean> deltas = 
+    Map<String, Boolean> deltas =
       new HashMap<String, Boolean>(unselectedBoxes.length);
     for(int i=0; i< unselectedBoxes.length; i++)
     {
@@ -171,7 +175,8 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
   }
 
   @Override
-  protected CoreRenderer createCellRenderer(FacesBean.Type type)
+  protected CoreRenderer createCellRenderer(
+    FacesBean.Type type)
   {
     return new Checkbox(type);
   }
@@ -184,16 +189,17 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
 
   public static void renderScripts(
     FacesContext          context,
-    RenderingContext      arc,
+    RenderingContext      rc,
     TableRenderingContext trc,
-    boolean               autoSubmit) throws IOException
+    boolean               autoSubmit
+    ) throws IOException
   {
-    if (arc.getProperties().put(_JS_RENDERED_KEY, Boolean.TRUE) == null)
+    if (rc.getProperties().put(_JS_RENDERED_KEY, Boolean.TRUE) == null)
     {
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("script", null);
-      renderScriptDeferAttribute(context, arc);
-      renderScriptTypeAttribute(context, arc);
+      renderScriptDeferAttribute(context, rc);
+      renderScriptTypeAttribute(context, rc);
 
       String jsCall =
       TreeUtils.setupJSMultiSelectCollectionComponent(
@@ -209,19 +215,20 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
     // render hidden field for select mode. this field lets the server
     // know that the user has selected "all" or "none", so that it can
     // use that when repopulating the page or another record set.
-    if (arc.getFormData() != null)
-      arc.getFormData().addNeededValue(selectedModeName);
+    if (rc.getFormData() != null)
+      rc.getFormData().addNeededValue(selectedModeName);
   }
 
   @Override
   protected void renderCellContent(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
     UIComponent           component,
-    FacesBean             bean) throws IOException
+    FacesBean             bean
+    ) throws IOException
   {
-    super.renderCellContent(context, arc, tContext, component, bean);
+    super.renderCellContent(context, rc, tContext, component, bean);
     _renderUnsuccessfulField(context, tContext);
   }
 
@@ -231,7 +238,8 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
    */
   private void _renderUnsuccessfulField(
     FacesContext          context,
-    TableRenderingContext tContext) throws IOException
+    TableRenderingContext tContext
+    ) throws IOException
   {
     String unsuccessfulId = (tContext.getTableId() +
                              NamingContainer.SEPARATOR_CHAR +
@@ -244,12 +252,10 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
                                   value);
   }
 
-
-
-
   static private class Checkbox extends TableSelectOneRenderer.Radio
   {
-    public Checkbox(FacesBean.Type type)
+    public Checkbox(
+      FacesBean.Type type)
     {
       super(type);
     }
@@ -257,7 +263,8 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
     @Override
     protected void renderId(
       FacesContext context,
-      UIComponent  component) throws IOException
+      UIComponent  component
+      ) throws IOException
     {
       TableRenderingContext tContext =
         TableRenderingContext.getCurrentInstance();
@@ -269,7 +276,7 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
 
       // =-=AEW Inefficient.  We only need the "id" when there's
       // a shortDescription (which is when we'll get a label)
-      if (getShortDesc(getFacesBean(component)) != null)
+      if (getShortDesc(component, getFacesBean(component)) != null)
         writer.writeAttribute("id", getClientId(context, component), null);
 
     }

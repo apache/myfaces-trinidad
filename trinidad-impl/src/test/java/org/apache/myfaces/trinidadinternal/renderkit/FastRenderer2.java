@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,20 +19,21 @@
 package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.io.IOException;
-import javax.faces.render.Renderer;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.el.ValueBinding;
+import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
 import org.apache.myfaces.trinidad.context.RequestContext;
-
 import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
+
 
 public class FastRenderer2 extends Renderer
 {
@@ -60,47 +61,51 @@ public class FastRenderer2 extends Renderer
   }
 
   @Override
-  public void encodeBegin(FacesContext context,
-                          UIComponent comp) throws IOException
+  public void encodeBegin(
+    FacesContext context,
+    UIComponent  comp
+    ) throws IOException
   {
     RequestContext.getCurrentInstance();
     FacesBean bean = ((UIXComponent) comp).getFacesBean();
-    if (getEscape(bean))
+    if (getEscape(comp, bean))
     {
       ResponseWriter rw = context.getResponseWriter();
       rw.startElement("span", comp);
-      
+
       rw.writeAttribute("id", comp.getId(), "id");
-      rw.writeAttribute("title", getShortDesc(bean), "shortDesc");
-      rw.writeAttribute("class", getStyleClass(bean), "styleClass");
-      rw.writeAttribute("style", getInlineStyle(bean), "inlineStyle");
-      rw.writeAttribute("onclick", getOnclick(bean),  null);
-      rw.writeAttribute("ondblclick", getOndblclick(bean),  null);
-      rw.writeAttribute("onkeydown", getOnkeydown(bean),  null);
-      rw.writeAttribute("onkeyup", getOnkeyup(bean),  null);
-      rw.writeAttribute("onkeypress", getOnkeypress(bean),  null);
-      rw.writeAttribute("onmousedown", getOnmousedown(bean),  null);
-      rw.writeAttribute("onmousemove", getOnmousemove(bean),  null);
-      rw.writeAttribute("onmouseout", getOnmouseout(bean),  null);
-      rw.writeAttribute("onmouseover", getOnmouseover(bean),  null);
-      rw.writeAttribute("onmouseup", getOnmouseup(bean),  null);
+      rw.writeAttribute("title", getShortDesc(comp, bean), "shortDesc");
+      rw.writeAttribute("class", getStyleClass(comp, bean), "styleClass");
+      rw.writeAttribute("style", getInlineStyle(comp, bean), "inlineStyle");
+      rw.writeAttribute("onclick", getOnclick(comp, bean),  null);
+      rw.writeAttribute("ondblclick", getOndblclick(comp, bean),  null);
+      rw.writeAttribute("onkeydown", getOnkeydown(comp, bean),  null);
+      rw.writeAttribute("onkeyup", getOnkeyup(comp, bean),  null);
+      rw.writeAttribute("onkeypress", getOnkeypress(comp, bean),  null);
+      rw.writeAttribute("onmousedown", getOnmousedown(comp, bean),  null);
+      rw.writeAttribute("onmousemove", getOnmousemove(comp, bean),  null);
+      rw.writeAttribute("onmouseout", getOnmouseout(comp, bean),  null);
+      rw.writeAttribute("onmouseover", getOnmouseover(comp, bean),  null);
+      rw.writeAttribute("onmouseup", getOnmouseup(comp, bean),  null);
     }
   }
 
   @Override
-  public void encodeEnd(FacesContext context,
-                        UIComponent comp) throws IOException
+  public void encodeEnd(
+    FacesContext context,
+    UIComponent  comp
+    ) throws IOException
   {
     RequestContext.getCurrentInstance();
     ResponseWriter rw = context.getResponseWriter();
     FacesBean bean = ((UIXComponent) comp).getFacesBean();
     Object value = getConvertedValue(context, comp, bean);
 
-    if (getEscape(bean))
+    if (getEscape(comp, bean))
     {
       if (value != null)
       {
-        int truncateAt = getTruncateAt(bean);
+        int truncateAt = getTruncateAt(comp, bean);
         if (truncateAt > 0)
         {
           String valueStr = value.toString();
@@ -109,11 +114,11 @@ public class FastRenderer2 extends Renderer
           if (valueStr.length() > truncateAt)
             value = valueStr.substring(0, truncateAt);
         }
-        
+
         rw.writeText(value, "value");
       }
 
-      Object description = getDescription(bean);
+      Object description = getDescription(comp, bean);
       if (description != null)
       {
         rw.startElement("span", null);
@@ -136,11 +141,11 @@ public class FastRenderer2 extends Renderer
     UIComponent  component,
     FacesBean    bean)
   {
-    Object value = getValue(bean);
+    Object value = getValue(component, bean);
     if (value == null)
       return null;
 
-    Converter converter = getConverter(bean);
+    Converter converter = getConverter(component, bean);
     if ((converter == null) && !(value instanceof String))
     {
       converter = getConverterByType(context, bean);
@@ -166,7 +171,9 @@ public class FastRenderer2 extends Renderer
     return ConverterUtils.createConverter(context, type);
   }
 
-  protected boolean getEscape(FacesBean bean)
+  protected boolean getEscape(
+    UIComponent  component,
+    FacesBean    bean)
   {
     Object o = bean.getProperty(_escapeKey);
     if (o == null)
@@ -175,97 +182,129 @@ public class FastRenderer2 extends Renderer
     return !Boolean.FALSE.equals(o);
   }
 
-  protected Object getShortDesc(FacesBean bean)
+  protected Object getShortDesc(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_shortDescKey);
   }
 
-  protected Object getStyleClass(FacesBean bean)
+  protected Object getStyleClass(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_styleClassKey);
   }
 
-  protected Object getInlineStyle(FacesBean bean)
+  protected Object getInlineStyle(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_inlineStyleKey);
   }
 
-  protected Object getOnclick(FacesBean bean)
+  protected Object getOnclick(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_onclickKey);
   }
 
-  protected Object getOndblclick(FacesBean bean)
+  protected Object getOndblclick(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_ondblclickKey);
   }
 
-  protected Object getOnkeydown(FacesBean bean)
+  protected Object getOnkeydown(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_onkeydownKey);
   }
 
-  protected Object getOnkeyup(FacesBean bean)
+  protected Object getOnkeyup(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_onkeyupKey);
   }
 
-  protected Object getOnkeypress(FacesBean bean)
+  protected Object getOnkeypress(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_onkeypressKey);
   }
 
-  protected Object getOnmousedown(FacesBean bean)
+  protected Object getOnmousedown(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_onmousedownKey);
   }
 
-  protected Object getOnmousemove(FacesBean bean)
+  protected Object getOnmousemove(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_onmousemoveKey);
   }
 
-  protected Object getOnmouseout(FacesBean bean)
+  protected Object getOnmouseout(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_onmouseoutKey);
   }
 
-  protected Object getOnmouseover(FacesBean bean)
+  protected Object getOnmouseover(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_onmouseoverKey);
   }
 
-  protected Object getOnmouseup(FacesBean bean)
+  protected Object getOnmouseup(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_onmouseupKey);
   }
 
-  protected int getTruncateAt(FacesBean bean)
+  protected int getTruncateAt(
+    UIComponent  component,
+    FacesBean    bean)
   {
     Object o = bean.getProperty(_truncateAtKey);
     if (o == null)
       o = _truncateAtKey.getDefault();
-    
+
     assert(o != null);
     return ((Number) o).intValue();
   }
 
-  protected Object getDescription(FacesBean bean)
+  protected Object getDescription(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_descriptionKey);
   }
 
-  protected Object getValue(FacesBean bean)
+  protected Object getValue(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return bean.getProperty(_valueKey);
   }
 
-
-  protected Converter getConverter(FacesBean bean)
+  protected Converter getConverter(
+    UIComponent  component,
+    FacesBean    bean)
   {
     return (Converter) bean.getProperty(_converterKey);
   }
-
 
   private PropertyKey _shortDescKey;
   private PropertyKey _styleClassKey;

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.awt.Color;
+
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,13 +61,15 @@ public class SimpleInputColorRenderer
     this(CoreInputColor.TYPE);
   }
 
-  public SimpleInputColorRenderer(FacesBean.Type type)
+  public SimpleInputColorRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _compactKey = type.findKey("compact");
@@ -73,11 +77,13 @@ public class SimpleInputColorRenderer
   }
 
   @Override
-  protected void queueActionEvent(FacesContext context, UIComponent component)
+  protected void queueActionEvent(
+    FacesContext context,
+    UIComponent  component)
   {
     FacesBean bean = getFacesBean(component);
     // If there's a non-default action, then just launch away
-    if (getActionExpression(bean) != null)
+    if (getActionExpression(component, bean) != null)
     {
       super.queueActionEvent(context, component);
     }
@@ -87,7 +93,7 @@ public class SimpleInputColorRenderer
     // a calendar window with the _ldp JS function)
     else
     {
-      Object submittedValue = getSubmittedValue(bean);
+      Object submittedValue = getSubmittedValue(component, bean);
       try
       {
         getConvertedValue(context, component, submittedValue);
@@ -129,9 +135,9 @@ public class SimpleInputColorRenderer
     if (returnValue instanceof Color)
     {
       FacesBean bean = getFacesBean(component);
-      Converter converter = getConverter(bean);
+      Converter converter = getConverter(component, bean);
       if (converter == null)
-        converter = getDefaultConverter(context, bean);
+        converter = getDefaultConverter(context, component, bean);
 
       if (converter != null)
       {
@@ -154,55 +160,57 @@ public class SimpleInputColorRenderer
 
   @Override
   protected void encodeAllAsElement(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (!_colorScriptletsRegistered) 
+    if (!_colorScriptletsRegistered)
     {
         ColorFieldInfoScriptlet.sharedInstance().registerSelf();
         (new AliasedScriptlet(_COLOR_FIELD_LIB, null,
                               new String[]{"openWindow()",
                                            "_getColorFieldFormat()",
                                            ColorFieldInfoScriptlet.COLOR_FIELD_INFO_KEY
-                                           })).registerSelf();    
-        _colorScriptletsRegistered = true;    
+                                           })).registerSelf();
+        _colorScriptletsRegistered = true;
     }
     String chooseId = _computeChooseId(context, component, bean);
-    arc.getProperties().put(_CACHED_CHOOSE_ID, chooseId);
+    rc.getProperties().put(_CACHED_CHOOSE_ID, chooseId);
 
     // Add the scriptlets required by the color field
-    XhtmlUtils.addLib(context, arc, "_fixCFF()");
-    XhtmlUtils.addLib(context, arc, _COLOR_FIELD_LIB);
-    super.encodeAllAsElement(context, arc, component, bean);
+    XhtmlUtils.addLib(context, rc, "_fixCFF()");
+    XhtmlUtils.addLib(context, rc, _COLOR_FIELD_LIB);
+    super.encodeAllAsElement(context, rc, component, bean);
 
-    if (!getDisabled(bean))
+    if (!getDisabled(component, bean))
     {
       // =-=AEW addOnSubmitConverterValidators() when compact???
-      _renderFirstColorFieldScript(context, arc, component, _getChooseId(arc));
+      _renderFirstColorFieldScript(context, rc, component, _getChooseId(rc));
     }
 
-    arc.getProperties().remove(_CACHED_CHOOSE_ID);
+    rc.getProperties().remove(_CACHED_CHOOSE_ID);
   }
 
   @Override
   protected void renderTextField(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (!isCompact(bean) ||
-        !_supportsSwatchAndChooser(arc))
+    if (!isCompact(component, bean) ||
+        !_supportsSwatchAndChooser(rc))
     {
-      super.renderTextField(context, arc, component, bean);
+      super.renderTextField(context, rc, component, bean);
     }
     else
     {
-      if (isAutoSubmit(bean))
-        AutoSubmitUtils.writeDependencies(context, arc);
-      addOnSubmitConverterValidators(context, arc, component, bean);
+      if (isAutoSubmit(component, bean))
+        AutoSubmitUtils.writeDependencies(context, rc);
+      addOnSubmitConverterValidators(context, rc, component, bean);
 
       // In compact mode, write out a hidden field that is
       // the stub
@@ -214,7 +222,7 @@ public class SimpleInputColorRenderer
                                                component,
                                                bean),
                             "value");
-      String id = arc.getCurrentClientId();
+      String id = rc.getCurrentClientId();
       writer.writeAttribute("id", id, null);
       writer.writeAttribute("name", id, null);
       writer.endElement("input");
@@ -223,63 +231,66 @@ public class SimpleInputColorRenderer
 
   @Override
   protected void renderContent(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean,
-    boolean             renderAsElement,
-    boolean             isTextArea) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    boolean          renderAsElement,
+    boolean          isTextArea
+    ) throws IOException
   {
     // Hook here to make sure we're inside the <span>
     assert(!isTextArea);
-    super.renderContent(context, arc, component, bean,
+    super.renderContent(context, rc, component, bean,
                         renderAsElement, isTextArea);
     if (!renderAsElement)
     {
-      renderAfterTextField(context, arc, component, bean);
+      renderAfterTextField(context, rc, component, bean);
     }
   }
 
   @Override
   protected void renderAfterTextField(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (!_supportsSwatchAndChooser(arc))
+    if (!_supportsSwatchAndChooser(rc))
       return;
 
-    if (!isCompact(bean))
+    if (!isCompact(component, bean))
     {
       // =-=AEW TODO: Make spacer a property?
-      renderSpacer(context, arc, "8", "1");
-      renderIcon(context, arc, component, bean);
+      renderSpacer(context, rc, "8", "1");
+      renderIcon(context, rc, component, bean);
     }
     else
     {
-      renderIcon(context, arc, component, bean);
+      renderIcon(context, rc, component, bean);
     }
   }
 
   @Override
   protected void renderIcon(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    boolean isEditable = ((_getChooseId(arc) == null) &&
-                          !getDisabled(bean) &&
-                          !getReadOnly(context, bean));
+    boolean isEditable = ((_getChooseId(rc) == null) &&
+                          !getDisabled(component, bean) &&
+                          !getReadOnly(context, component, bean));
     if (isEditable)
     {
       XhtmlUtils.addLib(context,
-                        arc,
+                        rc,
                         ConfigurationScriptlet.sharedInstance().getScriptletKey());
     }
 
-    _renderColorSwatch(context, arc, component, bean, isEditable);
+    _renderColorSwatch(context, rc, component, bean, isEditable);
   }
 
   /**
@@ -288,6 +299,7 @@ public class SimpleInputColorRenderer
   @Override
   protected Converter getDefaultConverter(
     FacesContext context,
+    UIComponent  component,
     FacesBean    bean)
   {
     return _DEFAULT_CONVERTER;
@@ -295,28 +307,29 @@ public class SimpleInputColorRenderer
 
   @Override
   protected String getLaunchOnclick(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     // If the field has an action, use the default behavior.  Or,
     // if the field doesn't support launching a window at all,
     // use the default behavior.
-    if ((getActionExpression(bean) != null) ||
+    if ((getActionExpression(component, bean) != null) ||
         !Boolean.TRUE.equals(
-            arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_MULTIPLE_WINDOWS)))
-      return super.getLaunchOnclick(context, arc, component, bean);
+            rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_MULTIPLE_WINDOWS)))
+      return super.getLaunchOnclick(context, rc, component, bean);
 
-    String id = arc.getCurrentClientId();
-    if ((id == null) || (arc.getFormData() == null))
+    String id = rc.getCurrentClientId();
+    if ((id == null) || (rc.getFormData() == null))
       return null;
 
     // we want something big enough
     StringBuffer onClickBuffer = new StringBuffer(100);
 
     onClickBuffer.append("_lcp('");
-    onClickBuffer.append(arc.getFormData().getName());
+    onClickBuffer.append(rc.getFormData().getName());
     onClickBuffer.append("','");
 
     onClickBuffer.append(id);
@@ -326,9 +339,11 @@ public class SimpleInputColorRenderer
   }
 
   @Override
-  protected String getOnfocus(FacesBean bean)
+  protected String getOnfocus(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String onfocus = super.getOnfocus(bean);
+    String onfocus = super.getOnfocus(component, bean);
     RenderingContext arc = RenderingContext.getCurrentInstance();
     if (!_supportsSwatchAndChooser(arc))
       return onfocus;
@@ -354,9 +369,11 @@ public class SimpleInputColorRenderer
   }
 
   @Override
-  protected String getOnblur(FacesBean bean)
+  protected String getOnblur(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String onblur = super.getOnblur(bean);
+    String onblur = super.getOnblur(component, bean);
     if (!_supportsSwatchAndChooser(RenderingContext.getCurrentInstance()))
       return XhtmlUtils.getChainedJS(_AUTO_FORMAT_SCRIPT,
                                      onblur, false);
@@ -367,11 +384,14 @@ public class SimpleInputColorRenderer
   }
 
   @Override
-  protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
+  protected Integer getDefaultColumns(
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
     Integer columnsInteger = null;
-    
-    Converter converter = getConverter(bean);
+
+    Converter converter = getConverter(component, bean);
 
     // Ignoring the "default" converter code is intentional;  we'll just
     // fall through to _DEFAULT_COLUMNS here to save time
@@ -384,12 +404,14 @@ public class SimpleInputColorRenderer
     {
       columnsInteger = _DEFAULT_COLUMNS;
     }
-    
+
     return columnsInteger;
   }
 
   @Override
-  protected Number getMaximumLength(FacesBean bean)
+  protected Number getMaximumLength(
+    UIComponent component,
+    FacesBean   bean)
   {
     // Not supported for selectInputColor
     // =-=AEW We could have a good default
@@ -402,12 +424,16 @@ public class SimpleInputColorRenderer
     return SkinSelectors.AF_SELECT_INPUT_COLOR_LAUNCH_ICON_NAME;
   }
 
-  protected String getChooseId(FacesBean bean)
+  protected String getChooseId(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_chooseIdKey));
   }
 
-  protected boolean isCompact(FacesBean bean)
+  protected boolean isCompact(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_compactKey);
     if (o == null)
@@ -417,20 +443,25 @@ public class SimpleInputColorRenderer
   }
 
   @Override
-  protected String getRootStyleClass(FacesBean bean)
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|inputColor";
   }
 
   @Override
-  protected String getContentStyleClass(FacesBean bean)
+  protected String getContentStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|inputColor::content";
   }
 
-  private String _getChooseId(RenderingContext arc)
+  private String _getChooseId(
+    RenderingContext rc)
   {
-    return (String) arc.getProperties().get(_CACHED_CHOOSE_ID);
+    return (String) rc.getProperties().get(_CACHED_CHOOSE_ID);
   }
 
   private String _computeChooseId(
@@ -440,18 +471,21 @@ public class SimpleInputColorRenderer
   {
     return RenderUtils.getRelativeId(context,
                                      component,
-                                     getChooseId(bean));
+                                     getChooseId(component, bean));
 
   }
 
   // On PDAs, we only support a simple text field
-  private boolean _supportsSwatchAndChooser(RenderingContext arc)
+  private boolean _supportsSwatchAndChooser(
+    RenderingContext rc)
   {
-    return (!isPDA(arc));
+    return (!isPDA(rc));
   }
 
   @Override
-  protected String getSearchDesc(FacesBean bean)
+  protected String getSearchDesc(
+    UIComponent component,
+    FacesBean   bean)
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
     if (isInaccessibleMode(arc))
@@ -460,96 +494,99 @@ public class SimpleInputColorRenderer
     return arc.getTranslatedString(_LAUNCH_PICKER_TIP_KEY);
   }
 
-  private String _getColorSwatchId(RenderingContext arc)
+  private String _getColorSwatchId(
+    RenderingContext rc)
   {
-    return arc.getCurrentClientId() + "$sw";
+    return rc.getCurrentClientId() + "$sw";
   }
 
-
   private void _renderColorSwatch(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean,
-    boolean             editable) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    boolean          editable
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     if (editable)
     {
       writer.startElement("a", component);
       writer.writeAttribute("onclick",
-                            getLaunchOnclick(context, arc, component, bean),
+                            getLaunchOnclick(context, rc, component, bean),
                             null);
       writer.writeURIAttribute("href", "#", null);
     }
 
     writer.startElement("img", component);
 
-    String id = _getColorSwatchId(arc);
+    String id = _getColorSwatchId(rc);
 
     // Render the ID directly on the swatch image.
     writer.writeAttribute("id", id, null);
 
     // Render other image attrs
     writer.writeAttribute("align",
-                          isScreenReaderMode(arc) ? "middle" : "absmiddle",
+                          isScreenReaderMode(rc) ? "middle" : "absmiddle",
                           null);
     writer.writeAttribute("width", _CELL_SIZE, null);
     writer.writeAttribute("height", _CELL_SIZE, null);
 
-    Color color = _getColorValue(bean);
+    Color color = _getColorValue(component, bean);
 
     // Render the style attributes
     String inlineStyle = _getInlineStyleForColor(color);
-    renderStyleClass(context, arc, SkinSelectors.COLOR_FIELD_SWATCH_STYLE_CLASS);
+    renderStyleClass(context, rc, SkinSelectors.COLOR_FIELD_SWATCH_STYLE_CLASS);
     writer.writeAttribute("style", inlineStyle, null);
 
     Object altText = null;
 
     if (color != null && color.getAlpha() == 0)
     {
-      Icon icon = arc.getIcon(XhtmlConstants.COLOR_PALETTE_TRANSPARENT_ICON_NAME);
+      Icon icon = rc.getIcon(XhtmlConstants.COLOR_PALETTE_TRANSPARENT_ICON_NAME);
       if (icon != null)
       {
         // FIXME: this should happen with just rendering the Icon, *not*
         // by extracting the URI
-        renderEncodedResourceURI(context, "src", icon.getImageURI(context, arc));
+        renderEncodedResourceURI(context, "src", icon.getImageURI(context, rc));
       }
 
       String key = editable ?
                     "af_inputColor.LAUNCH_PICKER_TIP" :
                     "af_chooseColor.TRANSPARENT";
-      altText = arc.getTranslatedString(key);
+      altText = rc.getTranslatedString(key);
     }
     else
     {
-      String transparentURI = getBaseImageUri(context, arc) + TRANSPARENT_GIF;
+      String transparentURI = getBaseImageUri(context, rc) + TRANSPARENT_GIF;
       renderEncodedResourceURI(context, "src", transparentURI);
 
       if (editable)
-        altText = arc.getTranslatedString("af_inputColor.LAUNCH_PICKER_TIP");
+        altText = rc.getTranslatedString("af_inputColor.LAUNCH_PICKER_TIP");
       else
         altText = "";
     }
 
-    OutputUtils.renderAltAndTooltipForImage(context, arc, altText);
+    OutputUtils.renderAltAndTooltipForImage(context, rc, altText);
 
     writer.endElement("img");
 
     if (editable)
     {
-      Icon overlay = arc.getIcon(SkinSelectors.AF_SELECT_INPUT_COLOR_SWATCH_OVERLAY_ICON_NAME);
+      Icon overlay = rc.getIcon(SkinSelectors.AF_SELECT_INPUT_COLOR_SWATCH_OVERLAY_ICON_NAME);
       if (overlay != null)
-        OutputUtils.renderIcon(context, arc, overlay, "", "middle");
+        OutputUtils.renderIcon(context, rc, overlay, "", "middle");
       writer.endElement("a");
     }
   }
 
 
   // @todo Should this deal with submittedValue, and String values?
-  private Color _getColorValue(FacesBean bean)
+  private Color _getColorValue(
+    UIComponent component,
+    FacesBean   bean)
   {
-    Object value = getValue(bean);
+    Object value = getValue(component, bean);
     if (value instanceof Color)
       return ((Color) value);
     return null;
@@ -557,33 +594,32 @@ public class SimpleInputColorRenderer
 
   // Checks to see whether this is the first color field for
   // a given chooseId, and if so renders a script
-  @SuppressWarnings("unchecked")
   private void _renderFirstColorFieldScript(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    String              chooseId
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    String           chooseId
     ) throws IOException
   {
     if (chooseId == null)
       return;
 
-    if (!_supportsSwatchAndChooser(arc))
+    if (!_supportsSwatchAndChooser(rc))
       return;
 
-    if (arc.getFormData() == null)
+    if (rc.getFormData() == null)
       return;
 
     String id = getClientId(context, component);
 
-
+    @SuppressWarnings("unchecked")
     Map<String, Boolean> chooseColorIds = (Map<String, Boolean>)
-      arc.getProperties().get(_CHOOSE_COLOR_IDS_KEY);
+      rc.getProperties().get(_CHOOSE_COLOR_IDS_KEY);
 
     if (chooseColorIds == null)
     {
       chooseColorIds = new HashMap<String, Boolean>();
-      arc.getProperties().put(_CHOOSE_COLOR_IDS_KEY, chooseColorIds);
+      rc.getProperties().put(_CHOOSE_COLOR_IDS_KEY, chooseColorIds);
     }
 
     // The first dateField that is rendered for each inlineDatePicker
@@ -596,13 +632,13 @@ public class SimpleInputColorRenderer
       // this selectInputColor.
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("script", component);
-      renderScriptTypeAttribute(context, arc);
-      renderScriptDeferAttribute(context, arc);
+      renderScriptTypeAttribute(context, rc);
+      renderScriptDeferAttribute(context, rc);
 
       writer.writeText("_cfBus['", null);
       writer.writeText(chooseId, null);
       writer.writeText("']=document.forms['", null);
-      writer.writeText(arc.getFormData().getName(), null);
+      writer.writeText(rc.getFormData().getName(), null);
       writer.writeText("']['", null);
       writer.writeText(id, null);
       writer.writeText("'];", null);
@@ -613,7 +649,8 @@ public class SimpleInputColorRenderer
     }
   }
 
-  private static String _getInlineStyleForColor(Color color)
+  private static String _getInlineStyleForColor(
+    Color color)
   {
     if (color != null && color.getAlpha() > 0)
       return "background-color:" + CSSUtils.getColorValue(color);
@@ -652,5 +689,4 @@ public class SimpleInputColorRenderer
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(SimpleInputColorRenderer.class);
-
 }

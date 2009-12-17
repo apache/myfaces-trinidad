@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,42 +40,47 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
   {
     super(CorePanelLabelAndMessage.TYPE);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _forKey = type.findKey("for");
     _labelInlineStyleKey = type.findKey("labelStyle");
-  }    
+  }
 
   @Override
-  protected boolean labelShowRequired(FacesBean bean)
+  protected boolean labelShowRequired(
+    UIComponent component,
+    FacesBean   bean)
   {
     // Simpler algorithm for panelLabelAndMessage
-    return getShowRequired(bean);
-  } 
+    return getShowRequired(component, bean);
+  }
 
   @Override
   protected boolean isLeafRenderer()
   {
     return false;
   }
- 
+
   @Override
-  protected String getRootStyleClass(FacesBean bean)
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|panelLabelAndMessage";
   }
-  
+
   @Override
   protected String getLabelFor(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean)
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
-    String forValue = getFor(bean);
+    String forValue = getFor(component, bean);
 
     String val = null;
     if (forValue != null)
@@ -86,23 +91,24 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     {
       if (component.getChildCount() > 0)
       {
-        UIComponent child = findForComponent(context, arc, component, bean);
+        UIComponent child = findForComponent(context, rc, component, bean);
         if (child != null)
         {
           val = child.getClientId(context);
         }
       }
     }
-    
+
     return val;
   }
 
   @Override
   protected void renderFieldCellContents(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     // The structure of this part of the DOM looks like this:
     // +------------------+-----------+
@@ -110,7 +116,7 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     // +------------------+-----------+
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("table", component);
-    OutputUtils.renderLayoutTableAttributes(context, arc, "0", null/*width*/);
+    OutputUtils.renderLayoutTableAttributes(context, rc, "0", null/*width*/);
 
     UIComponent end = getFacet(component, CorePanelLabelAndMessage.END_FACET);
 
@@ -119,15 +125,15 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     rw.startElement("td", null);
     encodeAllChildren(context, component);
     rw.endElement("td");
-    
+
     // For narrow-screen PDAs, End facet is rendered vertically
     // below the Help facet. So skip the End facet rendering here.
-    if (end != null && !supportsNarrowScreen(arc))
+    if (end != null && !supportsNarrowScreen(rc))
     {
       rw.startElement("td", null);
       // =-= mcc TODO apply className for "af|panelLabelAndMessage::end-facet"
       // renderStyleClass(context, arc, ...);
-      //apply className for "af|panelLabelAndMessage::help-facet"     
+      //apply className for "af|panelLabelAndMessage::help-facet"
       encodeChild(context, end);
       rw.endElement("td");
     }
@@ -136,13 +142,17 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     rw.endElement("table");
   }
 
-  protected String getFor(FacesBean bean)
+  protected String getFor(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_forKey));
   }
 
   @Override
-  protected String getLabelInlineStyleKey(FacesBean bean)
+  protected String getLabelInlineStyleKey(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_labelInlineStyleKey));
   }
@@ -150,7 +160,7 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
   /**
    * In the event that the {@link #getFor(FacesBean)} returns null,
    * this class finds the first child that implements {@link EditableValueHolder}
-   * 
+   *
    * @param context
    * @param arc
    * @param component
@@ -172,7 +182,7 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
         return child;
       }
     }
-    
+
     // recursively search the children of the children
     for (Object obj : component.getChildren())
     {
@@ -183,46 +193,46 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
         return result;
       }
     }
-    
+
     return null;
   }
-  
-  /* This method is responsible for rendering the End facet for narrow-screen 
-   * PDAs. In the case of narrow-screen PDAs, End facet is rendered after the 
+
+  /* This method is responsible for rendering the End facet for narrow-screen
+   * PDAs. In the case of narrow-screen PDAs, End facet is rendered after the
    * Help  facet as shown below
    * +------+
-   * |Label | 
+   * |Label |
    * +------+
    * |Field |
    * +----------+
-   * |Help facet| 
+   * |Help facet|
    * +----------+
-   * |End facet | 
+   * |End facet |
    * ------------
    * @param context a <code>FacesContext</code>
-   * @param arc a <code>RenderingContext</code>
+   * @param rc a <code>RenderingContext</code>
    * @param component a <code>UIComponent</code> the component to render
    * @param insideTableData a <code>boolean</code> indicates whether End
    *        Facet to be rendered is in inside a table data(<TD>)
    * @throws IOException if there are problems in rendering contents
    */
-  @Override 
+  @Override
   protected void renderEndFacetForNarrowPDA(
     FacesContext     context,
-    RenderingContext arc,
+    RenderingContext rc,
     UIComponent      component,
     boolean          insideTableData)
     throws IOException
   {
-    if (!supportsNarrowScreen(arc))
-      return;       
-         
+    if (!supportsNarrowScreen(rc))
+      return;
+
     UIComponent end = getFacet(component, CorePanelLabelAndMessage.END_FACET);
-    
+
     if (end != null)
     {
       ResponseWriter rw = context.getResponseWriter();
-      
+
       if (insideTableData)
       {
         rw.startElement("div", null);

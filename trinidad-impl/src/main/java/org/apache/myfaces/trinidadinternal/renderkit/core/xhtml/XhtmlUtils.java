@@ -20,13 +20,20 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.component.behavior.ClientBehaviorHint;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
@@ -37,6 +44,7 @@ import org.apache.myfaces.trinidad.component.UIXSwitcher;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.XhtmlScriptletFactory;
@@ -67,7 +75,6 @@ public class XhtmlUtils
       return component;
     }
   }
-
 
   /**
    * Returns true if the agent has enough support for Trinidad
@@ -105,7 +112,6 @@ public class XhtmlUtils
     return compID.toString();
   }
 
-
   /**
    * Registers a scriptlet.
    */
@@ -117,11 +123,12 @@ public class XhtmlUtils
   /**
    */
   static public void addLib(
-    FacesContext        context,
-    RenderingContext arc,
-    Object              libKey) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    Object           libKey
+    ) throws IOException
   {
-    if ((XhtmlRenderer.supportsScripting(arc)) && (libKey != null))
+    if ((XhtmlRenderer.supportsScripting(rc)) && (libKey != null))
     {
       Scriptlet scriptlet = _sScriptletTable.get(libKey);
       if (scriptlet == null)
@@ -131,11 +138,10 @@ public class XhtmlUtils
       }
       else
       {
-        scriptlet.outputScriptlet(context, arc);
+        scriptlet.outputScriptlet(context, rc);
       }
     }
   }
-
 
   /**
    * Write out a script element importing a library.
@@ -200,8 +206,7 @@ public class XhtmlUtils
     writer.endElement("script");
   }
 
-
-   /**
+  /**
    * Return the chained JavaScript
    */
   public static String getChainedJS(
@@ -271,6 +276,74 @@ public class XhtmlUtils
     return outBuilder.toString();
   }
 
+  /**
+   * Return the chained JavaScript
+   */
+  public static String getChainedJS(
+    boolean   shortCircuit,
+    String... scripts
+    )
+  {
+    if (scripts.length == 0)
+    {
+      return null;
+    }
+
+    if (scripts.length <= 2)
+    {
+      // Use the more efficient code for two scripts, or less
+      return getChainedJS(scripts[0], scripts.length == 2 ? scripts[1] : null, shortCircuit);
+    }
+
+    StringBuilder builder = new StringBuilder(100);
+    builder.append("return _chainMultiple([");
+    int firstNonNullScript = -1;
+    int numScripts = 0;
+
+    for (int i = 0, size = scripts.length; i < size; ++i)
+    {
+      String script = scripts[i];
+      if (script == null) { continue; }
+      script = script.trim();
+      if (script.length() == 0) { continue; }
+      ++numScripts;
+
+      if (firstNonNullScript == -1)
+      {
+        builder.append('\'');
+        firstNonNullScript = i;
+      }
+      else
+      {
+        builder.append(",'");
+      }
+      escapeJS(builder, script, true);
+      builder.append('\'');
+    }
+    if (numScripts == 0) { return null; }
+    if (numScripts == 1) { return scripts[firstNonNullScript]; }
+
+    RenderingContext rc = RenderingContext.getCurrentInstance();
+    if (rc.getAgent().getType().equals(Agent.TYPE_DESKTOP))
+    {
+      if (shortCircuit)
+        builder.append("],this,event,true);");
+      else
+        builder.append("],this,event);");
+    }
+    else
+    {
+      // Some mobile browsers do not support DOM Event object.
+      // If event is passed, the script crushes before the function gains
+      // control.
+      if (shortCircuit)
+        builder.append("],this,null,true);");
+      else
+        builder.append("],this,null);");
+    }
+
+    return builder.toString();
+  }
 
   /**
    * Handle escaping '/', and single quotes, plus escaping text inside of
@@ -284,8 +357,6 @@ public class XhtmlUtils
   {
     return escapeJS(inString, false /* inQuotes */);
   }
-
-
 
   /**
    * Handle escaping '/', and single quotes, plus escaping text inside of
@@ -317,7 +388,6 @@ public class XhtmlUtils
     }
   }
 
-
   /**
    * Handle escaping '/', and single quotes, plus escaping text inside of
    * quotes.
@@ -329,7 +399,6 @@ public class XhtmlUtils
   {
     escapeJS(outBuilder, inString, false /* inQuotes */);
   }
-
 
   /**
    * Handle escaping '/', and single quotes, plus escaping text inside of
@@ -468,7 +537,6 @@ public class XhtmlUtils
     builder.append(hexString);
   }
 
-
   private static void _escapeSingleQuotes(
     StringBuilder outBuilder,
     String       inString
@@ -526,7 +594,7 @@ public class XhtmlUtils
     FastMessageFormat formatter = new FastMessageFormat(pattern);
     return formatter.format(parameters);
   }
-  
+
   /*
    * This method returns the encoded parameter name or paramater value
    * for the Non-JavaScript browsers
@@ -535,45 +603,209 @@ public class XhtmlUtils
   {
     return param + XhtmlConstants.NO_JS_PARAMETER_KEY;
   }
-   
+
   /*
    * This method returns the name attribute of HTML elements for Non-JavaScript
-   * browsers. It is encoded with parameter name and value pair. 
+   * browsers. It is encoded with parameter name and value pair.
    */
   public static String getEncodedNameAttribute(String param[])
   {
     // The incoming array(param[]) must contain parameter name and value pair
     // in the order of <<name1>>, <<value1>>, <<name2>>, <<value2>>,...
-    // The encoded parameter name and value for the above would be 
+    // The encoded parameter name and value for the above would be
     // <<name1>><<encodingKey>><<value1>><<encodingKey>>
     // <<name2>><<encodingKey>><<value2>>
-            
+
     int noOfParam = param.length;
     int bufferLen = 0;
-    
-    // Calculate what would be the length of the encoded param name and  
+
+    // Calculate what would be the length of the encoded param name and
     // value pair. We need it to initialize the buffer size of StringBuilder.
     for(int i = 0; i < noOfParam; i++)
     {
       bufferLen += param[i].length();
     }
-    // If there are N parameter names and values, there would be N-1 
+    // If there are N parameter names and values, there would be N-1
     // encoding key so add its length also
     bufferLen  += (noOfParam -1) * XhtmlConstants.NO_JS_PARAMETER_KEY.length();
-   
+
     StringBuilder nameAttri = new StringBuilder(bufferLen);
-    
+
     //Encode all the parameter names and values except the last parameter value
     for(int i = 0; i < noOfParam-1; i++)
     {
       nameAttri.append(getEncodedParameter(param[i]));
     }
-    
+
     nameAttri.append(param[noOfParam-1]);
-  
+
     return(nameAttri.toString());
   }
-  
+
+  /**
+   * Build a client event handler (onfocus for example) including any associated
+   * client behaviors for the event.
+   *
+   * @param facesContext The faces context
+   * @param component The component
+   * @param eventName The event, without the "on*" prefix, to render
+   * @param secondaryEventName If applicable, the secondary event name. For command components,
+   * "click" and "action" behaviors are included together and for input components, "change" and
+   * "valueChange" are included together.
+   * @param eventHandlerScript Script to be executed after the behaviors. May be null
+   * @param userHandlerScript user event handler to be executed before the event handler script and
+   * any client behavior scripts. May be null.
+   */
+  public static String getClientEventHandler(
+    FacesContext facesContext,
+    UIComponent  component,
+    String       eventName,
+    String       secondaryEventName,
+    String       userHandlerScript,
+    String       eventHandlerScript
+    )
+  {
+    BehaviorsData data = null;
+    if (component instanceof ClientBehaviorHolder)
+    {
+      data = new BehaviorsData();
+      _getBehaviorScripts(facesContext, component, eventName, data);
+
+      if (secondaryEventName != null)
+      {
+        _getBehaviorScripts(facesContext, component, secondaryEventName, data);
+      }
+    }
+
+    boolean hasHandler = eventHandlerScript != null && eventHandlerScript.length() > 0;
+    boolean hasUserHandler = userHandlerScript != null && userHandlerScript.length() > 0;
+    String script = null;
+    boolean hasBehaviors = data != null && data.behaviorScripts != null &&
+      !data.behaviorScripts.isEmpty();
+
+    if (hasHandler && !hasBehaviors && !hasUserHandler)
+    {
+      script = eventHandlerScript;
+    }
+    else if (hasUserHandler && !hasBehaviors && !hasHandler)
+    {
+      script = userHandlerScript;
+    }
+    else if (!hasUserHandler && !hasHandler && hasBehaviors && data.behaviorScripts.size() == 1)
+    {
+      script = data.behaviorScripts.get(0);
+      if ("action".equals(secondaryEventName) && data.submitting)
+      {
+        // prevent the default click action if submitting
+        script += ";return false;";
+      }
+    }
+    else
+    {
+      // There are multiple scripts, we will need to chain the methods.
+      int numBehaviorScripts = hasBehaviors ? data.behaviorScripts.size() : 0;
+      int length = numBehaviorScripts;
+      if (hasHandler) { ++length; }
+      if (hasUserHandler) { ++length; }
+      String[] scripts = new String[length];
+      int index = 0;
+      boolean submitting = false;
+      if (hasUserHandler)
+      {
+        scripts[0] = userHandlerScript;
+        index = 1;
+      }
+
+      if (hasBehaviors)
+      {
+        System.arraycopy(data.behaviorScripts.toArray(), 0, scripts, index, numBehaviorScripts);
+        index += numBehaviorScripts;
+      }
+
+      if (hasHandler)
+      {
+        scripts[index] = eventHandlerScript;
+      }
+
+      script = getChainedJS(true, scripts);
+      if (submitting && "click".equals(eventName))
+      {
+        // prevent the default click action if submitting
+        script += ";return false;";
+      }
+    }
+
+    return script;
+  }
+
+  /**
+   * Gather the behavior scripts for a client behavior holder
+   *
+   * @param facesContext the faces context
+   * @param component the behavior holder (must implement ClientBehaviorHolder)
+   * @param eventName the event of the behaviors to get
+   * @param data the data to populate, which may have data from a previous invokation of this
+   * function
+   * @return the data collected while getting the behaviors (used for performance to avoid
+   * duplicate lookup and allow for lazy loading of the parameters)
+   */
+  private static void _getBehaviorScripts(
+    FacesContext  facesContext,
+    UIComponent   component,
+    String        eventName,
+    BehaviorsData data)
+  {
+    ClientBehaviorHolder behaviorHolder = (ClientBehaviorHolder)component;
+
+    List<ClientBehavior> behaviors = behaviorHolder.getClientBehaviors().get(eventName);
+    if (behaviors != null && !behaviors.isEmpty())
+    {
+      // if params are not null, a submitting behavior was found in a previous call to this
+      // function, so we do not need to check for submitting here
+      data.submitting = data.submitting || _hasSubmittingBehavior(behaviors);
+      if (data.params == null && data.submitting)
+      {
+        // We only need to gather the parameters if there is a submitting behavior, so do
+        // not incur the performance overhead if not needed
+        data.params = CoreRenderer.getBehaviorParameters(component);
+      }
+
+      ClientBehaviorContext behaviorContext = ClientBehaviorContext.createClientBehaviorContext(
+        facesContext, component, eventName, component.getClientId(facesContext), data.params);
+
+      if (data.behaviorScripts == null)
+      {
+        data.behaviorScripts = new ArrayList<String>(behaviors.size());
+      }
+
+      for (ClientBehavior behavior : behaviors)
+      {
+        data.behaviorScripts.add(behavior.getScript(behaviorContext));
+      }
+    }
+  }
+
+  private static boolean _hasSubmittingBehavior(
+    Iterable<ClientBehavior> behaviors)
+  {
+    for (ClientBehavior behavior : behaviors)
+    {
+      if (behavior.getHints().contains(ClientBehaviorHint.SUBMITTING))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static class BehaviorsData
+  {
+    Collection<ClientBehaviorContext.Parameter> params;
+    List<String>                                behaviorScripts;
+    boolean                                     submitting;
+  }
+
+  private static final Object _CLIENT_BEHAVIORS_KEY = new Object();
 
   /** HashMap mapping names to their scriptlets */
   private static Map<Object, Scriptlet> _sScriptletTable =
@@ -599,5 +831,4 @@ public class XhtmlUtils
   }
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(XhtmlUtils.class);
-
 }

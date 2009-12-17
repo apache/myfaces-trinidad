@@ -255,6 +255,9 @@ should be allowed to wrap]]></description>
       <mfp:author>Brian Albers</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>column</mfp:uix2-local-name>
+      <fmd:default-event-name>click</fmd:default-event-name>
+      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
         <fmd:default-property>headerText</fmd:default-property>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreOutputText</fmd:preferred-child-components>

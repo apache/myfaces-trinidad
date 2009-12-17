@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,8 +20,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.html;
 
 import java.io.IOException;
 
-import java.util.List;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -29,10 +27,9 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.html.HtmlScript;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
-
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
+
 
 public class ScriptRenderer extends XhtmlRenderer
 {
@@ -40,9 +37,10 @@ public class ScriptRenderer extends XhtmlRenderer
   {
     super(HtmlScript.TYPE);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _textKey = type.findKey("text");
@@ -70,13 +68,13 @@ public class ScriptRenderer extends XhtmlRenderer
     // TODO: should we render language="javascript"?  The
     // old renderer did
     renderScriptTypeAttribute(context, arc);
-    if (!getGeneratesContent(bean))
+    if (!getGeneratesContent(component, bean))
     {
       renderScriptDeferAttribute(context, arc);
     }
 
-    String source = getSource(context, bean);
-    String text = getText(bean);
+    String source = getSource(context, component, bean);
+    String text = getText(component, bean);
     if (source != null)
     {
       renderEncodedResourceURI(context, "src", source);
@@ -99,7 +97,7 @@ public class ScriptRenderer extends XhtmlRenderer
     {
       rw.startElement("script", component);
       renderScriptTypeAttribute(context, arc);
-      if (!getGeneratesContent(bean))
+      if (!getGeneratesContent(component, bean))
       {
         renderScriptDeferAttribute(context, arc);
       }
@@ -109,22 +107,29 @@ public class ScriptRenderer extends XhtmlRenderer
     }
   }
 
-  protected String getSource(FacesContext context, FacesBean bean)
+  protected String getSource(
+    FacesContext context,
+    UIComponent  component,
+    FacesBean    bean)
   {
     return toResourceUri(context, bean.getProperty(_sourceKey));
   }
 
-  protected String getText(FacesBean bean)
+  protected String getText(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_textKey));
   }
 
-  protected boolean getGeneratesContent(FacesBean bean)
+  protected boolean getGeneratesContent(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_generatesContentKey);
     if (o == null)
       o = _generatesContentKey.getDefault();
-    
+
     // TODO: change the default, as very few scripts actually
     // write content
     return Boolean.TRUE.equals(o);

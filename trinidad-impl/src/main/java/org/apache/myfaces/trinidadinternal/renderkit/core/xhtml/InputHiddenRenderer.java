@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,9 +26,9 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputHidden;
-
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+
 
 public class InputHiddenRenderer extends EditableValueRenderer
 {
@@ -36,7 +36,7 @@ public class InputHiddenRenderer extends EditableValueRenderer
   {
     super(CoreInputHidden.TYPE);
   }
-  
+
   @Override
   protected boolean wasSubmitted(
     FacesContext context,
@@ -53,13 +53,14 @@ public class InputHiddenRenderer extends EditableValueRenderer
 
   @Override
   protected final void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     String id = getClientId(context, component);
-    if (canSkipRendering(arc, id))
+    if (canSkipRendering(rc, id))
       return;
 
     ResponseWriter rw = context.getResponseWriter();
@@ -72,7 +73,7 @@ public class InputHiddenRenderer extends EditableValueRenderer
                       "value");
     rw.endElement("input");
 
-    FormData fd = arc.getFormData();
+    FormData fd = rc.getFormData();
     if (fd != null)
       fd.addRenderedValue(id);
 

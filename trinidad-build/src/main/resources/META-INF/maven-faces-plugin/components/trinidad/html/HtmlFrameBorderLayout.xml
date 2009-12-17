@@ -307,7 +307,7 @@
         <mfp:property-metadata>
           <mfp:multi-scoped-id-holder>true</mfp:multi-scoped-id-holder>
         </mfp:property-metadata>
-      </property-extension>      
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[the CSS style class of the bean.]]></description>
@@ -368,6 +368,8 @@
       <mfp:component-metadata/>
       <mfp:uix2-local-name>frameBorderLayout</mfp:uix2-local-name>
       <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+      <fmd:default-event-name>load</fmd:default-event-name>
+      <fmd:event-names>load unload</fmd:event-names>
       <fmd:component-metadata>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.HtmlFrame</fmd:preferred-child-components>
         <fmd:required-ancestor-contracts>org-apache-myfaces-trinidad-htmlframeborderlayout-holder</fmd:required-ancestor-contracts>

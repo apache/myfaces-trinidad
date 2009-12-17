@@ -128,6 +128,9 @@ refers to]]></description>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>messagePrompt</mfp:uix2-local-name>
+      <fmd:default-event-name>click</fmd:default-event-name>
+      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
         <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
         <fmd:default-property>value</fmd:default-property>

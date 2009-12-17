@@ -20,9 +20,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.pda;
 
 import java.io.IOException;
 
-import java.util.Collections;
-import java.util.List;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -30,15 +27,14 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandLink;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.CommandLinkRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 
+
 /**
- * On PDA,just render as input element of submit type if the browser 
+ * On PDA,just render as input element of submit type if the browser
  * doesn't support javascript.
  */
 
@@ -57,30 +53,31 @@ public class PdaCommandLinkRenderer extends CommandLinkRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (supportsScripting(arc))
+    if (supportsScripting(rc))
     {
-      encodeBegin(context, arc, component, bean);
+      encodeBegin(context, rc, component, bean);
       encodeAllChildren(context, component);
-      encodeEnd(context, arc, component, bean);
+      encodeEnd(context, rc, component, bean);
       return;
     }
 
-   
+
      // For Non-JavaScript browsers render the commandLink as
      // input submit element
-     
+
     String clientId = getClientId(context, component);
-    if (canSkipRendering(arc, clientId))
+    if (canSkipRendering(rc, clientId))
       return;
 
     // Set client ID
-    assert(arc.getCurrentClientId() == null);
-    arc.setCurrentClientId(clientId);
+    assert(rc.getCurrentClientId() == null);
+    rc.setCurrentClientId(clientId);
 
     ResponseWriter rw = context.getResponseWriter();
     String element = "input";
@@ -88,24 +85,24 @@ public class PdaCommandLinkRenderer extends CommandLinkRenderer
     renderId(context, component);
 
     // Write the text and access key
-    String text = getText(bean);
+    String text = getText(component, bean);
     rw.writeAttribute("type", "submit", null);
-    
-    if (getDisabled(bean))
+
+    if (getDisabled(component, bean))
     {
       rw.writeAttribute("disabled", Boolean.TRUE, "disabled");
       // Skip over event attributes when disabled
-      renderStyleAttributes(context, arc, bean);
+      renderStyleAttributes(context, rc, component, bean);
     }
     else
     {
-      renderAllAttributes(context, arc, bean);
+      renderAllAttributes(context, rc, component, bean);
     }
 
     char accessKey;
-    if (supportsAccessKeys(arc))
+    if (supportsAccessKeys(rc))
     {
-      accessKey = getAccessKey(bean);
+      accessKey = getAccessKey(component, bean);
       if (accessKey != CHAR_UNDEFINED)
       {
         rw.writeAttribute("accesskey",
@@ -123,17 +120,17 @@ public class PdaCommandLinkRenderer extends CommandLinkRenderer
 
     rw.writeAttribute("id", clientId , "id");
     rw.writeAttribute("value", text, "text");
-    renderStyleClass(context, arc, 
+    renderStyleClass(context, rc,
                   SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS);
-    String style = getInlineStyle(bean);
-        
+    String style = getInlineStyle(component, bean);
+
     // Append an inlineStyle that makes an input element appear as a link
     _writeInlineStyles(rw, style,
             "border:none;background:inherit;text-decoration:underline;");
     rw.endElement(element);
-    arc.setCurrentClientId(null);
+    rc.setCurrentClientId(null);
   }
-  
+
   /**
    * Renders the client ID as both "id" and "name"
    * @param context the FacesContext object
@@ -143,44 +140,47 @@ public class PdaCommandLinkRenderer extends CommandLinkRenderer
   @Override
   protected void renderId(
     FacesContext context,
-    UIComponent  component) throws IOException
-  { 
+    UIComponent  component
+    ) throws IOException
+  {
     if (shouldRenderId(context, component))
     {
       String clientId = getClientId(context, component);
       context.getResponseWriter().writeURIAttribute("id", clientId, "id");
       RenderingContext arc = RenderingContext.getCurrentInstance();
-      // For Non-JavaScript browsers, name attribute is handled separately 
+      // For Non-JavaScript browsers, name attribute is handled separately
       // so skip it here
       if (supportsScripting(arc))
       {
         context.getResponseWriter().writeURIAttribute("name", clientId, "id");
       }
-    } 
+    }
   }
 
-  
+
   /**
    * This method renders the stylesClass attribute
-   * @param FacesContext - FacesContext for this request
-   * @param arc - RenderingContext for this request
+   * @param context - FacesContext for this request
+   * @param rc - RenderingContext for this request
    * @param bean - FacesBean of the component to render
-   * @param defaultStyleClass - default styleClass of the component  
+   * @param defaultStyleClass - default styleClass of the component
    */
   @Override
   protected void renderStyleAttributes(
-    FacesContext        context,
-    RenderingContext    arc,
-    FacesBean           bean,
-    String              defaultStyleClass) throws IOException
-  { 
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    String           defaultStyleClass
+    ) throws IOException
+  {
     // Skip for HTML basic browsers since it is already handled
-    if (supportsScripting(arc))
+    if (supportsScripting(rc))
     {
-      super.renderStyleAttributes(context, arc, bean, defaultStyleClass);
+      super.renderStyleAttributes(context, rc, component, bean, defaultStyleClass);
     }
-  } 
-  
+  }
+
   /**
    * This method renders the inlineStyle attribute
    * @param rw - the response writer
@@ -189,8 +189,9 @@ public class PdaCommandLinkRenderer extends CommandLinkRenderer
    */
   private void _writeInlineStyles(
     ResponseWriter rw,
-    String userInlineStyle,
-    String appendedInlineStyle ) throws IOException
+    String         userInlineStyle,
+    String         appendedInlineStyle
+    ) throws IOException
   {
     if (userInlineStyle == null)
     {
@@ -204,5 +205,4 @@ public class PdaCommandLinkRenderer extends CommandLinkRenderer
       rw.writeAttribute("style", linkInlineStyle.toString(), "inlineStyle");
     }
   }
-  
 }

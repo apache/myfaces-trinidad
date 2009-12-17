@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -25,6 +25,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectBooleanCheckbox;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
+
 /**
  */
 public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRenderer
@@ -34,15 +35,16 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
     this(CoreSelectBooleanCheckbox.TYPE);
   }
 
-  public SimpleSelectBooleanCheckboxRenderer(FacesBean.Type type)
+  public SimpleSelectBooleanCheckboxRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
-  
+
   //**********************
   //decode
   //**********************
-  
+
   @Override
   protected Object getSubmittedValue(
     FacesContext context,
@@ -55,13 +57,14 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
     return Boolean.TRUE;
   }
 
-  
+
   //**********************
   //encode
   //**********************
 
   @Override
-  protected Object getValueAttr(RenderingContext arc)
+  protected Object getValueAttr(
+    RenderingContext rc)
   {
     // HTML 3.2 specification, default value for checkboxes
     return "t";
@@ -79,10 +82,10 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
   )
   {
     return (selected
-      ? "af_selectBooleanCheckbox.READONLY_CHECKED_TIP" 
+      ? "af_selectBooleanCheckbox.READONLY_CHECKED_TIP"
       : "af_selectBooleanCheckbox.READONLY_NOT_CHECKED_TIP");
   }
-  
+
   @Override
   protected String getIconName(
     boolean selected,
@@ -92,29 +95,29 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
     final String iconName;
     if (disabled)
     {
-      iconName = (selected ? 
-              SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_CHECKED_ICON_NAME : 
+      iconName = (selected ?
+              SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_CHECKED_ICON_NAME :
               SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_UNCHECKED_ICON_NAME);
     }
     else
     {
-      iconName = (selected ? 
-              SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_READONLY_CHECKED_ICON_NAME : 
+      iconName = (selected ?
+              SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_READONLY_CHECKED_ICON_NAME :
               SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_READONLY_UNCHECKED_ICON_NAME);
     }
-    
-    return iconName;           
+
+    return iconName;
   }
-  
+
   @Override
   protected String getOnclick(
-    FacesBean bean
-    )
+    UIComponent component,
+    FacesBean   bean)
   {
-    String onClick = super.getOnclick(bean);
-    if (isAutoSubmit(bean))
+    String onClick = super.getOnclick(component, bean);
+    if (isAutoSubmit(component, bean))
     {
-      String auto = getAutoSubmitScript(bean);
+      String auto = getAutoSubmitScript(component, bean);
       if (onClick == null)
         onClick = auto;
       else if (auto != null)
@@ -122,17 +125,21 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
     }
 
     return onClick;
-  }  
-  
+  }
+
   @Override
-  protected String getContentStyleClass(FacesBean bean)
+  protected String getContentStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
    return "af|selectBooleanCheckbox::content";
   }
-  
+
   @Override
-  protected String getRootStyleClass(FacesBean bean)
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
    return "af|selectBooleanCheckbox";
-  }                                 
+  }
 }

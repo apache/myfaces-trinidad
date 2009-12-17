@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,10 +26,10 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.data.CoreSelectRangeChoiceBar;
-import org.apache.myfaces.trinidad.component.core.nav.CoreSingleStepButtonBar;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelButtonBar;
-
+import org.apache.myfaces.trinidad.component.core.nav.CoreSingleStepButtonBar;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+
 
 public class PanelButtonBarRenderer extends PanelHorizontalLayoutRenderer
 {
@@ -40,7 +40,9 @@ public class PanelButtonBarRenderer extends PanelHorizontalLayoutRenderer
 
   // Not currently supported, but would be easy to add...
   @Override
-  protected Object getValign(FacesBean bean)
+  protected Object getValign(
+    UIComponent component,
+    FacesBean   bean)
   {
     return null;
   }
@@ -51,11 +53,13 @@ public class PanelButtonBarRenderer extends PanelHorizontalLayoutRenderer
    */
   @Override
   protected void renderStyleAttributes(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    renderStyleAttributes(context, arc, bean, 
+    renderStyleAttributes(context, rc, component, bean,
       SkinSelectors.AF_PANEL_BUTTON_BAR_STYLE_CLASS);
   }
 
@@ -66,7 +70,8 @@ public class PanelButtonBarRenderer extends PanelHorizontalLayoutRenderer
   protected void encodeChild(
     FacesContext context,
     UIComponent  child,
-    Object       vAlign) throws IOException
+    Object       vAlign
+    ) throws IOException
   {
     // These two components render themselves
     if ((child instanceof CoreSingleStepButtonBar) ||
@@ -80,15 +85,15 @@ public class PanelButtonBarRenderer extends PanelHorizontalLayoutRenderer
     }
   }
 
-
   /**
-   * Render a separator 
+   * Render a separator
    */
   @Override
   protected void encodeSeparator(
     FacesContext context,
     UIComponent  separator,
-    Object       vAlign) throws IOException
+    Object       vAlign
+    ) throws IOException
   {
     // FIXME Use proper skinning techniques
     RenderingContext rc = RenderingContext.getCurrentInstance();

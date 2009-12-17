@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -26,9 +27,9 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.html.HtmlFrameBorderLayout;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidad.context.RenderingContext;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/FrameBorderLayoutRenderer.java#0 $) $Date: 10-nov-2005.18:53:53 $
@@ -40,23 +41,25 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
     this(HtmlFrameBorderLayout.TYPE);
   }
 
-  protected FrameBorderLayoutRenderer(FacesBean.Type type)
+  protected FrameBorderLayoutRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
-    
+
     _onloadKey = type.findKey("onload");
     _onunloadKey = type.findKey("onunload");
     _frameSpacingKey = type.findKey("frameSpacing");
     _borderWidthKey = type.findKey("borderWidth");
     _frameBorderWidthKey = type.findKey("frameBorderWidth");
   }
-  
+
   @Override
   public boolean getRendersChildren()
   {
@@ -66,19 +69,21 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
 
   @Override
   protected void renderAllAttributes(
-      FacesContext        context,
-      RenderingContext arc,
-      FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    
-    renderShortDescAttribute(context, arc, bean);
-    renderStyleAttributes(context, arc, bean);
+
+    renderShortDescAttribute(context, rc, component, bean);
+    renderStyleAttributes(context, rc, component, bean);
 
     // Explicitly render rows to ensure onunload handler will fire
     writer.writeAttribute(XhtmlConstants.ROWS_ATTRIBUTE, "100%,*", null);
 
-    if (supportsScripting(arc))
+    if (supportsScripting(rc))
     {
       writer.writeAttribute("onload",
                             bean.getProperty(_onloadKey),
@@ -112,18 +117,19 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
 
   @Override
   protected final void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
     writer.startElement("frameset", component);
     renderId(context, component);
 
-    renderAllAttributes(context, arc, bean);
-    
+    renderAllAttributes(context, rc, component, bean);
+
     String leftName       = HtmlFrameBorderLayout.LEFT_FACET;
     String innerLeftName  = HtmlFrameBorderLayout.INNER_LEFT_FACET;
     String rightName      = HtmlFrameBorderLayout.RIGHT_FACET;
@@ -137,7 +143,7 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
     UIComponent innerLeft   = getFacet(component, innerLeftName);
     UIComponent innerRight  = getFacet(component, innerRightName);
 
-    boolean r2l = arc.getLocaleContext().isRightToLeft(); 
+    boolean r2l = rc.getLocaleContext().isRightToLeft();
     if (left == null)
     {
       leftName = r2l ? HtmlFrameBorderLayout.END_FACET : HtmlFrameBorderLayout.START_FACET;
@@ -177,17 +183,17 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
     {
       // this frameset contains the top and bottom children
       writer.startElement("frameset", null);
-      if (!isInaccessibleMode(arc))
+      if (!isInaccessibleMode(rc))
       {
         writer.writeAttribute(
           "title",
-          arc.getTranslatedString(
+          rc.getTranslatedString(
             "af_frameBorderLayout.HORIZONTAL_FRAMESET_LAYOUT_CONTAINER_TITLE"),
           null);
       }
       writer.writeAttribute(XhtmlConstants.ROWS_ATTRIBUTE, sizes, null);
-      
-      _renderFrameBorderAndSpacing(writer, bean);
+
+      _renderFrameBorderAndSpacing(writer, component, bean);
     }
 
     _encodeFacet(context, top);
@@ -208,19 +214,19 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
     {
       // this frameset renders the left, center and right children
       writer.startElement("frameset", null);
-      if (!isInaccessibleMode(arc))
+      if (!isInaccessibleMode(rc))
       {
         writer.writeAttribute(
           "title",
-          arc.getTranslatedString(
+          rc.getTranslatedString(
             "af_frameBorderLayout.VERTICAL_FRAMESET_LAYOUT_CONTAINER_TITLE"),
           null);
       }
       writer.writeAttribute(XhtmlConstants.COLS_ATTRIBUTE, sizes, null);
-      
-      _renderFrameBorderAndSpacing(writer, bean);
+
+      _renderFrameBorderAndSpacing(writer, component, bean);
     }
-    
+
     _encodeFacet(context, left);
     _encodeFacet(context, innerLeft);
     _encodeFacet(context, center);
@@ -241,12 +247,11 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
       writer.endElement("frameset");
     }
 
-    
     UIComponent alternateContent = getFacet(component,
                                  HtmlFrameBorderLayout.ALTERNATE_CONTENT_FACET);
     if (alternateContent != null)
     {
-      writer.startElement("noframes", null);	
+      writer.startElement("noframes", null);
       encodeChild(context, alternateContent);
       writer.endElement("noframes");
     }
@@ -259,7 +264,7 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
     UIComponent inner1,
     UIComponent inner2,
     UIComponent outer2,
-    String attr)
+    String      attr)
   {
     StringBuffer buf = new StringBuffer(17);
 
@@ -280,9 +285,10 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
     return buf.toString();
   }
 
-  private StringBuffer _getPropertyValue(UIComponent frame,
-                                         String attr,
-                                         StringBuffer result)
+  private StringBuffer _getPropertyValue(
+    UIComponent  frame,
+    String       attr,
+    StringBuffer result)
   {
     Object val = frame.getAttributes().get(attr);
 
@@ -297,8 +303,10 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
     return result;
   }
 
-  private void _encodeFacet(FacesContext context,
-                            UIComponent component) throws IOException
+  private void _encodeFacet(
+    FacesContext context,
+    UIComponent  component
+    ) throws IOException
   {
     if (component != null)
     {
@@ -306,15 +314,20 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
     }
   }
 
-  private void _renderFrameBorderAndSpacing(ResponseWriter writer,
-                                            FacesBean bean) throws IOException
+  private void _renderFrameBorderAndSpacing(
+    ResponseWriter writer,
+    UIComponent    component,
+    FacesBean      bean
+    ) throws IOException
   {
-    writer.writeAttribute("framespacing", _getFrameSpacing(bean), "frameSpacing");
-    writer.writeAttribute("border", _getBorderWidth(bean), "borderWidth");
-    writer.writeAttribute("frameborder", _getFrameBorderWidth(bean), "frameBorderWidth");
+    writer.writeAttribute("framespacing", _getFrameSpacing(component, bean), "frameSpacing");
+    writer.writeAttribute("border", _getBorderWidth(component, bean), "borderWidth");
+    writer.writeAttribute("frameborder", _getFrameBorderWidth(component, bean), "frameBorderWidth");
   }
-  
-  private Object _getFrameSpacing(FacesBean bean)
+
+  private Object _getFrameSpacing(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object value = bean.getProperty(_frameSpacingKey);
     if (value == null)
@@ -323,7 +336,9 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
     return value;
   }
 
-  private Object _getBorderWidth(FacesBean bean)
+  private Object _getBorderWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object value = bean.getProperty(_borderWidthKey);
     if (value == null)
@@ -332,8 +347,9 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
     return value;
   }
 
-
-  private Object _getFrameBorderWidth(FacesBean bean)
+  private Object _getFrameBorderWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object value = bean.getProperty(_frameBorderWidthKey);
     if (value == null)
@@ -341,7 +357,6 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
 
     return value;
   }
-
 
   private PropertyKey _onloadKey;
   private PropertyKey _onunloadKey;

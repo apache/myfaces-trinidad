@@ -21,15 +21,14 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.pda;
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
-
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.output.CoreMessages;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.MessageBoxRenderer;
+
 
 /**
  * Renderer for org.apache.myfaces.trinidad.Messages, family org.apache.myfaces.trinidad.Messages.
@@ -42,19 +41,24 @@ public class PdaMessageBoxRenderer extends MessageBoxRenderer
     this(CoreMessages.TYPE);
   }
 
-  protected PdaMessageBoxRenderer(FacesBean.Type type)
+  protected PdaMessageBoxRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
-  protected void encodeAll(FacesContext context, RenderingContext arc,
-      UIComponent component, FacesBean bean) throws IOException
+  protected void encodeAll(
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    Agent agent = arc.getAgent();
+    Agent agent = rc.getAgent();
 
-    // BlackBerry and many pda browsers don't support inline style of 
-    // display:none. Thus, it is necessary to slip rendering entire 
-    // element if there is no message to display. 
+    // BlackBerry and many pda browsers don't support inline style of
+    // display:none. Thus, it is necessary to slip rendering entire
+    // element if there is no message to display.
     // This method checks for the condition and returns true.
 
     if (agent != null &&
@@ -68,6 +72,6 @@ public class PdaMessageBoxRenderer extends MessageBoxRenderer
         return;
       }
     }
-    super.encodeAll(context, arc, component, bean);
+    super.encodeAll(context, rc, component, bean);
   }
 }

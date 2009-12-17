@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,9 +27,9 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
+
 
 public class OutputTextRenderer extends ValueRenderer
 {
@@ -39,7 +39,8 @@ public class OutputTextRenderer extends ValueRenderer
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
 
@@ -56,35 +57,36 @@ public class OutputTextRenderer extends ValueRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (canSkipRendering(context, arc, comp))
+    if (canSkipRendering(context, rc, comp))
       return;
 
     ResponseWriter rw = context.getResponseWriter();
     String value = getConvertedString(context, comp, bean);
-    boolean escape = getEscape(bean);
+    boolean escape = getEscape(comp, bean);
 
     if (escape)
     {
       rw.startElement("span", comp);
-      
-      renderId(context, comp);
-      renderAllAttributes(context, arc, bean);
 
-      _renderDescription(context, arc, bean);
+      renderId(context, comp);
+      renderAllAttributes(context, rc, comp, bean);
+
+      _renderDescription(context, rc, comp, bean);
 
       if (value != null)
       {
-        int truncateAt = getTruncateAt(bean);
+        int truncateAt = getTruncateAt(comp, bean);
         if (truncateAt > 0)
         {
           value = StringUtils.truncateString(value, truncateAt);
         }
-        
+
         rw.writeText(value, "value");
       }
 
@@ -97,8 +99,9 @@ public class OutputTextRenderer extends ValueRenderer
     }
   }
 
-
-  protected boolean getEscape(FacesBean bean)
+  protected boolean getEscape(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_escapeKey);
     if (o == null)
@@ -107,41 +110,46 @@ public class OutputTextRenderer extends ValueRenderer
     return !Boolean.FALSE.equals(o);
   }
 
-  protected int getTruncateAt(FacesBean bean)
+  protected int getTruncateAt(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_truncateAtKey);
     if (o == null)
       o = _truncateAtKey.getDefault();
-    
+
     return ((Number) o).intValue();
   }
 
-  protected Object getDescription(FacesBean bean)
+  protected Object getDescription(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_descriptionKey);
   }
 
   private void _renderDescription(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
     ) throws IOException
   {
-    if (isInaccessibleMode(arc))
+    if (isInaccessibleMode(rc))
       return;
 
-    Object label = getDescription(bean);
+    Object label = getDescription(component, bean);
     if (label == null)
       return;
 
     // Do not attempt to render this label if the underlying
     // platform does not support hidden labels
-    if (!HiddenLabelUtils.supportsHiddenLabels(arc))
+    if (!HiddenLabelUtils.supportsHiddenLabels(rc))
       return;
 
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("span", null);
-    renderStyleClass(context, arc, SkinSelectors.HIDDEN_LABEL_STYLE_CLASS);
+    renderStyleClass(context, rc, SkinSelectors.HIDDEN_LABEL_STYLE_CLASS);
     writer.writeText(label, null);
     writer.endElement("span");
   }

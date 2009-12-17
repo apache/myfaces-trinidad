@@ -98,6 +98,9 @@
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>breadCrumbs</mfp:uix2-local-name>
+      <fmd:default-event-name>click</fmd:default-event-name>
+      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreCommandNavigationItem</fmd:preferred-child-components>
       </fmd:component-metadata>

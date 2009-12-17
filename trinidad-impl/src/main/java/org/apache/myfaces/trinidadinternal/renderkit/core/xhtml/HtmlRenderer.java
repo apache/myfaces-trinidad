@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -30,8 +30,8 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.html.HtmlFrameBorderLayout;
 import org.apache.myfaces.trinidad.component.html.HtmlHtml;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
+
 
 /**
  * Renderer for rendering the root document element
@@ -44,11 +44,12 @@ public class HtmlRenderer extends XhtmlRenderer
    * Identify if standards mode has been disabled.
    * =-=AEW Is this the correct place?
    */
-  static public boolean isStandardsModeDisabled(FacesContext context)
+  static public boolean isStandardsModeDisabled(
+    FacesContext context)
   {
-    String disableStandardsMode = 
+    String disableStandardsMode =
       context.getExternalContext().getInitParameter(_DISABLE_STANDARDS_MODE);
-    
+
     return ((disableStandardsMode != null) &&
             disableStandardsMode.equalsIgnoreCase("true"));
   }
@@ -58,13 +59,15 @@ public class HtmlRenderer extends XhtmlRenderer
     this(HtmlHtml.TYPE);
   }
 
-  protected HtmlRenderer(FacesBean.Type type)
+  protected HtmlRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _modeKey = type.findKey("mode");
@@ -72,10 +75,11 @@ public class HtmlRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeBegin(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -100,11 +104,11 @@ public class HtmlRenderer extends XhtmlRenderer
       }
     }
 
-    String direction = arc.isRightToLeft() ? "rtl" : "ltr";
+    String direction = rc.isRightToLeft() ? "rtl" : "ltr";
     writer.writeAttribute("dir", direction, null);
 
     // render the correct language
-    String lang = arc.getLocaleContext().getTranslationIANALocaleString();
+    String lang = rc.getLocaleContext().getTranslationIANALocaleString();
     if (lang != null)
     {
       if (isXML)
@@ -116,16 +120,19 @@ public class HtmlRenderer extends XhtmlRenderer
 
   @Override
   public void encodeEnd(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.endElement("html");
   }
 
-  protected String getMode(FacesBean bean)
+  protected String getMode(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_modeKey));
   }
@@ -152,10 +159,9 @@ public class HtmlRenderer extends XhtmlRenderer
     }
     else
     {
-      return getDocumentDocType(context, bean);
+      return getDocumentDocType(context, component, bean);
     }
   }
-
 
   /**
    * Returns the document type to use when rendering a frame set, as
@@ -175,17 +181,17 @@ public class HtmlRenderer extends XhtmlRenderer
     }
   }
 
-
   /**
    * Returns the document type to use when rendering a document, as opposed
    * to a frameset.
    */
   protected String getDocumentDocType(
     FacesContext context,
+    UIComponent  component,
     FacesBean    bean
     )
   {
-    String mode = getMode(bean);
+    String mode = getMode(component, bean);
     // default to transitional, rather than strict
     if (isXMLDocument(context))
     {
@@ -205,7 +211,6 @@ public class HtmlRenderer extends XhtmlRenderer
     }
   }
 
-
   /**
    * Determines whether we have a frameset component as a child
    * for determining which doctype to return
@@ -218,12 +223,11 @@ public class HtmlRenderer extends XhtmlRenderer
       if (HtmlFrameBorderLayout.COMPONENT_FAMILY.equals(child.getFamily()))
       {
         return true;
-      }     
+      }
     }
 
     return false;
   }
-
 
   /**
    * Returns the XML namespace to use for this document
@@ -232,7 +236,6 @@ public class HtmlRenderer extends XhtmlRenderer
   {
     return "http://www.w3.org/1999/xhtml";
   }
-
 
   /**
    * Returns true if we are rendering an XML document
