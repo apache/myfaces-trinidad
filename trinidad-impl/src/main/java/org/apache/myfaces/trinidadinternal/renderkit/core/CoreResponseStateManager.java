@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,35 +18,33 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.ObjectStreamClass;
+import java.io.OptionalDataException;
+import java.io.StringReader;
+import java.io.StringWriter;
+
+import java.util.Map;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
+
+import javax.faces.FacesException;
 import javax.faces.application.StateManager;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.ResponseStateManager;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
-import java.io.StringReader;
-import java.io.BufferedReader;
-import java.io.StringWriter;
-import java.io.BufferedWriter;
-
-
-import java.io.ObjectStreamClass;
-
-import java.util.zip.GZIPOutputStream;
-import java.util.zip.GZIPInputStream;
-
-import java.util.Map;
-
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.util.Base64InputStream;
 import org.apache.myfaces.trinidad.util.Base64OutputStream;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
+
 
 /**
  * ResponseStateManager implementation for the Core RenderKit.
@@ -56,21 +54,21 @@ public class CoreResponseStateManager extends ResponseStateManager
 {
 
   @Override
-  public Object getState(FacesContext context, String viewId) 
+  public Object getState(FacesContext context, String viewId)
   {
-    // TODO see doc in StateManagerImpl.restoreView 
+    // TODO see doc in StateManagerImpl.restoreView
     // (search for StateManagerImpl.RESPONSE_STATE_MANAGER_STATE_KEY) to see doc
     // about what's going on here
     Object state = context.getExternalContext().getRequestMap().get(
                                               StateManagerImpl.RESPONSE_STATE_MANAGER_STATE_KEY);
-    
+
     if (state != null)
       return state;
-    else 
+    else
       return super.getState(context, viewId);
   }
-  
-  
+
+
   /**
    * Name of the form field that encodes the UI state.
    */
@@ -161,6 +159,56 @@ public class CoreResponseStateManager extends ResponseStateManager
     return view[1];
   }
 
+  @Override
+  public String getViewState(FacesContext context, Object state)
+  {
+    StateManager.SerializedView serializedView = _getSerializedView(context, state);
+    try
+    {
+      return encodeSerializedViewAsString(serializedView);
+    }
+    catch (IOException e)
+    {
+      throw new FacesException();
+    }
+  }
+
+  private StateManager.SerializedView _getSerializedView(FacesContext context, Object state)
+  {
+
+    StateManager.SerializedView view;
+    if (state instanceof StateManager.SerializedView)
+    {
+      view = (StateManager.SerializedView) state;
+    }
+    else
+    {
+      if (state instanceof Object[])
+      {
+        Object[] stateArray = (Object[]) state;
+
+        // in theory the state should be a black box, but the RI makes assumptions
+        // that the state is an array of length 2
+        if (stateArray.length == 2)
+        {
+          StateManager stateManager =
+            context.getApplication().getStateManager();
+          view =
+              stateManager.new SerializedView(stateArray[0], stateArray[1]);
+        }
+        else
+        {
+          throw new IllegalArgumentException(_LOG.getMessage("UNEXPECTED_STATE"));
+        }
+      }
+      else
+      {
+        throw new IllegalArgumentException(_LOG.getMessage("UNEXPECTED_STATE"));
+      }
+    }
+
+    return view;
+  }
 
   /**
    * Restore the serialized view from the incoming request.
@@ -171,9 +219,9 @@ public class CoreResponseStateManager extends ResponseStateManager
   private Object[] _restoreSerializedView(
      FacesContext context)
   {
-    Map<String, Object> requestMap = 
+    Map<String, Object> requestMap =
       context.getExternalContext().getRequestMap();
-    
+
     Object[] view = (Object[]) requestMap.get(_CACHED_SERIALIZED_VIEW);
     if (view == null)
     {
@@ -243,6 +291,8 @@ public class CoreResponseStateManager extends ResponseStateManager
 
     return view;
   }
+
+
 
 
   /* Test code for dumping out the page's state

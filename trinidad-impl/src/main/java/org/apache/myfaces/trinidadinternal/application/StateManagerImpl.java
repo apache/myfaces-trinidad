@@ -112,6 +112,22 @@ public class StateManagerImpl extends StateManagerWrapper
     return _delegate;
   }
 
+  @Override
+  public String getViewState(FacesContext context)
+  {
+    Object state = saveView(context);
+    
+    if (state != null)
+    {
+      return context.getRenderKit().getResponseStateManager().getViewState(context,state);
+    }
+    else
+    {
+      return null;
+    }
+
+  }
+
   @SuppressWarnings("deprecation")
   @Override
   public Object saveView(FacesContext context)
@@ -138,14 +154,7 @@ public class StateManagerImpl extends StateManagerWrapper
     }
     
     String viewId = context.getViewRoot().getViewId();
-    ViewDeclarationLanguage vdl =  context.getApplication().getViewHandler().
-                                                    getViewDeclarationLanguage(context, viewId);
-    StateManagementStrategy sms = null;
-    
-    if (vdl != null) 
-    {
-      sms = vdl.getStateManagementStrategy(context, viewId);
-    }    
+    StateManagementStrategy sms = _getStateManagementStrategy(context, viewId);
     
     if (sms != null) 
     {      
@@ -498,14 +507,7 @@ public class StateManagerImpl extends StateManagerWrapper
         return root;
       }
 
-      ViewDeclarationLanguage vdl = context.getApplication().getViewHandler().
-                                                        getViewDeclarationLanguage(context, viewId);    
-      StateManagementStrategy sms = null;
-      
-      if (vdl != null) 
-      {
-        sms = vdl.getStateManagementStrategy(context, viewId);
-      }
+      StateManagementStrategy sms = _getStateManagementStrategy(context, viewId);
       
       if (sms!= null) 
       {
@@ -536,14 +538,8 @@ public class StateManagerImpl extends StateManagerWrapper
     }
     else
     {
-      ViewDeclarationLanguage vdl = context.getApplication().getViewHandler().
-                                                       getViewDeclarationLanguage(context, viewId);    
-      StateManagementStrategy sms = null;
-      
-      if (vdl != null) 
-      {
-        sms = vdl.getStateManagementStrategy(context, viewId);
-      }
+
+      StateManagementStrategy sms = _getStateManagementStrategy(context, viewId);
       
       if (sms!= null) 
       {
@@ -914,6 +910,20 @@ public class StateManagerImpl extends StateManagerWrapper
   {
     context.getExternalContext().getRequestMap().put(_CACHED_VIEW_STATE,
                                                      state);
+  }
+  
+  private StateManagementStrategy _getStateManagementStrategy(FacesContext context, String viewId)
+  {
+    ViewDeclarationLanguage vdl =  context.getApplication().getViewHandler().
+                                                    getViewDeclarationLanguage(context, viewId);
+    if (vdl != null) 
+    {
+      return vdl.getStateManagementStrategy(context, viewId);
+    }    
+    else
+    {
+      return null;
+    }
   }
 
   private static final class ViewRootState
