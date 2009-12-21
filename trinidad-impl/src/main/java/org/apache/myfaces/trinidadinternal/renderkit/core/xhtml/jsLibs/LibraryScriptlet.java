@@ -21,6 +21,8 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
+import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
@@ -184,15 +186,37 @@ public class LibraryScriptlet extends Scriptlet
     {
       String debugJavascript = context.
           getExternalContext().getInitParameter(_DEBUG_JAVASCRIPT);
-      if ((debugJavascript != null) &&
-          debugJavascript.equalsIgnoreCase("true"))
+
+      if (debugJavascript != null)
       {
-        _debugJavascript = Boolean.TRUE;
-        _LOG.info("RUNNING_DEBUG_JAVASCRIPT");
+        if (debugJavascript.equalsIgnoreCase("true"))
+        {
+          _debugJavascript = Boolean.TRUE;
+        
+          // if Apache MyFaces Trinidad is running in production stage
+          // running with JavaScript debugging is not desired, therefore
+          // we generate a WARNING message; otherwise we just inform the user
+          if (context.isProjectStage(ProjectStage.Production))
+          {
+            _LOG.warning("RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE");
+          }
+          else
+          {
+            _LOG.info("RUNNING_DEBUG_JAVASCRIPT"); 
+          }
+        }
       }
       else
       {
-        _debugJavascript = Boolean.FALSE;
+        // if the _DEBUG_JAVASCRIPT parameter has NOT been specified, let us
+        // apply the DEFAULT values for the certain Project Stages:
+        // -PRODUCTION we want this value to be FALSE;
+        // -other stages we use TRUE
+        _debugJavascript = !(context.isProjectStage(ProjectStage.Production));
+        if (_debugJavascript)
+        {
+          _LOG.info("RUNNING_DEBUG_JAVASCRIPT"); 
+        }
       }
     }
 

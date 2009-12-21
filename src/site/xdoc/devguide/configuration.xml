@@ -415,20 +415,23 @@ org.apache.myfaces.trinidad.change.ChangeManager.
 </subsection>
 <subsection name="org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT">
 <p>
-Apache Trinidad by default obfuscates the Javascript it delivers
-to the client, as well as stripping comments and whitespace.
-This dramatically reduces the size of our Javascript download,
-but also makes it tricky to debug the Javascript.  This
-flag can be set to true to turn off the obfuscation.
+For applications that run in ProjectStage.Production, Apache Trinidad by default
+obfuscates the Javascript it delivers to the client, as well as stripping
+comments and whitespace. This dramatically reduces the size of our Javascript
+download, but also makes it tricky to debug the Javascript. In other stages the
+default value is TRUE. However, a user can override the ProjectStage behavior
+by using this flag.
 </p>
 </subsection>
 <subsection name="org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION">
 <p>
-Apache Trinidad by default compresses the style class names inside the css that
-is generated on the server.  However, when developing custom Trinidad skins, it
-is much easier to work with the non-compressed style class names, which much more
-directly relate to those used in the skin css file.  This flag can be set to turn
-off automatic compression of style class names.
+For applications that run in ProjectStage.Production, Apache Trinidad by default
+compresses the style class names inside the css that is generated on the server.
+However, when developing custom Trinidad skins, it is much easier to work with
+the non-compressed style class names, which much more directly relate to those
+used in the skin css file. There for in all other stages (like Development) the
+compression is turned off. However, a user can override the ProjectStage
+behavior by using this flag.
 </p>
 </subsection>
 <subsection name="org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION">
@@ -437,7 +440,9 @@ If this parameter is enabled by setting to "true", Apache Trinidad will automati
 check the modification date of your JSPs and skinning CSS files, and discard saved
 state when they change;  this makes development easier,
 but adds overhead that should be avoided when your application
-is deployed.
+is deployed. For applications that run in ProjectStage.Production, the value is 
+"false" and all other stages use "true" as their default value. However, a user
+can override the ProjectStage behavior by using this flag.
 </p>
 </subsection>
 <subsection name="org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS">

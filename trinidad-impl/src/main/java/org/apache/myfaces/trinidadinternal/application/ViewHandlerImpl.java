@@ -36,6 +36,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import javax.faces.FacesException;
+import javax.faces.application.ProjectStage;
 import javax.faces.application.ViewHandler;
 import javax.faces.application.ViewHandlerWrapper;
 import javax.faces.component.UIViewRoot;
@@ -394,18 +395,48 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
   {
     if (_checkTimestamp == null)
     {
+      boolean checkTimestampParam;
       String checkTimestamp =
         context.getExternalContext().getInitParameter(Configuration.CHECK_TIMESTAMP_PARAM);
+      
+      if (checkTimestamp != null)
+      {
+        checkTimestampParam = "true".equals(checkTimestamp);  
+      }
+      else
+      {
+        // if the CHECK_TIMESTAMP_PARAM parameter has NOT been specified, let us
+        // apply the DEFAULT values for the certain Project Stages:
+        // -PRODUCTION we want this value to be FALSE;
+        // -other stages we use TRUE
+        checkTimestampParam = !(context.isProjectStage(ProjectStage.Production));
+      }
+
       // Detect when we're running inside of the JDeveloper embedded OC4J
       // environment - and there, always use timestamp checking
-      // TODO: come up with a non-proprietary way of checking this?
-      boolean performCheck = "true".equals(checkTimestamp) ||
+      // TODO: come up with a non-proprietary way of checking this? (see TRINIDAD-1661)
+      boolean developmentStage = context.isProjectStage(ProjectStage.Development) ||
         "development".equals(System.getProperty("oracle.application.environment"));
+      
+      // if Apache MyFaces Trinidad is running in production stage CHECK_TIMESTAMP_PARAM should
+      // be FALSE, otherwise we generate a WARNING message
+      boolean productionStage = developmentStage || context.isProjectStage(ProjectStage.Production);
+      
+      boolean performCheck = checkTimestampParam || developmentStage;
       _checkTimestamp = Boolean.valueOf(performCheck);
-      if ("true".equals(checkTimestamp))
+      
+      if (checkTimestampParam)
       {
-        _LOG.info("TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION",
-                  Configuration.CHECK_TIMESTAMP_PARAM);
+        if (productionStage)
+        {
+          _LOG.warning("TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION",
+              Configuration.CHECK_TIMESTAMP_PARAM);
+        }
+        else
+        {
+          _LOG.info("TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION",
+                    Configuration.CHECK_TIMESTAMP_PARAM);
+        }
       }
     }
 
