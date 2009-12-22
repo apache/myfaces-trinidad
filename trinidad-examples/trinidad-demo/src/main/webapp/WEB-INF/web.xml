@@ -23,6 +23,12 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
 
+  <!-- setting the project stage to be DEVELOPMENT -->
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>   
+    <param-value>Development</param-value>
+  </context-param>
+
   <context-param>
     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
     <param-value>.jspx</param-value>
