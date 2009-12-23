@@ -122,7 +122,8 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
         if (!isTableAllDisclosure())
           _renderLinkStart(context, arc, bean, parameterString);
         renderStyleClasses(context, arc, getLinkStyleClasses());
-        if (javaScriptSupport)
+        // if navigation is not supported (i.e. printMode) a span-tag is rendered. See _renderLinkStart() and _renderLinkEnd()
+        if (javaScriptSupport || !supportsNavigation(arc))
         {
           rw.writeText(text,
                      disclosed ? "disclosedText" : "undisclosedText");
