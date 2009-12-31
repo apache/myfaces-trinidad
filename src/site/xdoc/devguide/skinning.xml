@@ -829,15 +829,41 @@ public class SkinTranslationMapDemo
         </li>
         <li>
         <strong>@agent</strong> {/skin definitions go here/} - > 
-        Possible values are: netscape, ie, mozilla, gecko, webkit (maps to safari), ice, email. 
+        Possible values are:
+        <ul>
+          <li>netscape</li>
+          <li>ie</li>
+          <li>mozilla</li>
+          <li>gecko</li>
+          <li>webkit (maps to safari)</li>
+          <li>ice</li>
+          <li>email</li>
+          <li>blackberry</li>
+          <li>nokia_s60</li>
+          <li>genericpda</li>
+          <li>konqueror</li>
+          <li>opera</li>
+        </ul>
         This is to define styles only for a particular agent.
-        Agent type can be followed by a space separated list of version numbers.
-        Several agents can be specified separated by commas.
-        <P>
-        You can specify agent versions as well. For example:
         <source>
-        @agent ie and (version: 6) and (version: 7), gecko and (version: 1.9)
+        @agent ie
         </source>
+        Matches any version of Internet Explorer
+        <P>
+        Agent type may  be optionally followed by "and" separated version rules:
+        <source>
+        @agent ie and (version: 6)
+        </source>
+        Matches any 6.x version of Internet Explorer
+        </P>
+        <P>
+        Rules may be OR'ed together using comma-separated rules:
+        <source>
+        @agent ie and (version: 6), ie and (version: 7), gecko and (version: 1.9)
+        </source>        
+        Matches either Internet Explorer version 6.x or Internet Explorer version 7.x or Gecko
+        engine version 1.9 (in FireFox for example).
+        
 	These are the same:
 	<source>
 	@agent ie and (version: 6.*)
@@ -847,7 +873,14 @@ public class SkinTranslationMapDemo
 	<source>
 	@agent ie and (version: 6.0)
 	</source>
-	There is currently no syntax to specify a range of versions.
+	Similarly, you can use max-version and min-version to specify ranges of versions.  The rule:
+        <source>
+        @agent ie and (version: 6), ie and (version: 7), gecko and (version: 1.9)
+        </source>        
+        can be written as:
+        <source>
+        @agent ie and (min-version: 6) and (max-version: 7), gecko and (version: 1.9)
+        </source>
         </P>
         </li>        
         <li>

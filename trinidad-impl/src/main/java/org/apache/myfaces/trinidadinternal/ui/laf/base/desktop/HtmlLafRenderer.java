@@ -53,7 +53,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
     )
   {
     return (context.getAgent().getAgentApplication() ==
-            TrinidadAgent.APPLICATION_NETSCAPE);
+            TrinidadAgent.Application.NETSCAPE);
   }
 
   /**
@@ -64,7 +64,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
     )
   {
     return (context.getAgent().getAgentApplication() ==
-            TrinidadAgent.APPLICATION_SAFARI);
+            TrinidadAgent.Application.SAFARI);
   }
 
 
@@ -76,7 +76,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
     )
   {
     return (context.getAgent().getAgentApplication() ==
-            TrinidadAgent.APPLICATION_GECKO);
+            TrinidadAgent.Application.GECKO);
   }
 
   /**
@@ -87,7 +87,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
     )
   {
     return (context.getAgent().getAgentApplication() ==
-            TrinidadAgent.APPLICATION_IEXPLORER);
+            TrinidadAgent.Application.IEXPLORER);
   }
 
   /**

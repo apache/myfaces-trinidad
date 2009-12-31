@@ -28,27 +28,47 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 /**
  * implementation that supports the AdfFacesAgent
- *
  */
-public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
+public class TrinidadAgentImpl extends TrinidadAgent
 {
 
   public TrinidadAgentImpl(FacesContext context, Agent agent)
   {
     _delegate = agent;
-    _initialize(context);
-  }
 
+    _type = AgentNameUtil.getAgentType(getType());
+    _application = Application.fromAgentName(getAgentName());
+    _os = AgentNameUtil.getPlatform(getPlatformName());
+
+    String versionString = getAgentVersion();
+    
+    if (Application.GECKO == _application)
+      _major = 1;
+    else
+      _major = _getMajorVersion(versionString);
+    
+    _version = new Version(versionString);
+    
+    _skinFamilyType = _getSkinFamilyType(_os, _application);
+    _capMap = _getCapabilityMap(context);
+    
+    Map<Object, Object> requestCaps = _delegate.getCapabilities();
+    
+    if (requestCaps != null)
+    {
+      _capMap = _capMap.merge(requestCaps);
+    }
+  }
 
   public TrinidadAgentImpl(Agent agent)
   {
     this (null, agent);
   }
-
 
   /**
    * @return return the Type of Agent.
@@ -79,10 +99,10 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
 
   /**
    * Returns the specific application to which we're rendering.
-   * Returns APPLICATION_UNKNOWN is the application couldn't
+   * Returns Application.UNKNOWN is the application couldn't
    * be identified.
    */
-  public int getAgentApplication()
+  public Application getAgentApplication()
   {
     return _application;
   }
@@ -93,6 +113,16 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
   public String getAgentVersion()
   {
     return _delegate.getAgentVersion();
+  }
+
+  /**
+   * Returns the Version identifier to use for comparing the Version of this Agent to other
+   * Versions.
+   * @return This Agent's Version
+   */
+  public Version getVersion()
+  {
+    return _version;
   }
 
   /**
@@ -169,17 +199,9 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
   @Override
   public Object clone()
   {
-    try
-    {
-      TrinidadAgentImpl that = (TrinidadAgentImpl) super.clone();
-      that._capMap = (CapabilityMap) _capMap.clone();
-      return that;
-    }
-    catch (CloneNotSupportedException cnse)
-    {
-      assert false;
-      return null;
-    }
+    TrinidadAgentImpl that = (TrinidadAgentImpl)cloneTrinidadAgent();
+    that._capMap = (CapabilityMap) _capMap.clone();
+    return that;
   }
 
 
@@ -231,25 +253,6 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
     }
 
     return new String(buffer);
-  }
-
-  private void _initialize(FacesContext context)
-  {
-    _type = AgentNameUtil.getAgentType(getType());
-    _application = AgentNameUtil.getAgent(getAgentName());
-    _os = AgentNameUtil.getPlatform(getPlatformName());
-
-    if (APPLICATION_GECKO == _application)
-      _major = 1;
-    else
-      _major = _getMajorVersion(getAgentVersion());
-    _setskinFamilyType();
-    _capMap = _getCapabilityMap(context);
-    Map<Object, Object> requestCaps = _delegate.getCapabilities();
-    if (requestCaps != null)
-    {
-      _capMap = _capMap.merge(requestCaps);
-    }
   }
 
   /**
@@ -389,44 +392,44 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
    * the agent's CSS-support. Agents with the same name can have different 
    * skin families if the agents' versions or platforms are different.
    */
-  void _setskinFamilyType()
+  private String _getSkinFamilyType(int os, Application application)
   {
-    if (_os == TrinidadAgent.OS_PPC)
+    if (os == TrinidadAgent.OS_PPC)
     {
-      _skinFamilyType = TrinidadAgent.SKIN_WINDOWS_MOBILE;
+      return TrinidadAgent.SKIN_WINDOWS_MOBILE;
     }
-    else if (_application == TrinidadAgent.APPLICATION_NOKIA_S60)
+    else if (application == TrinidadAgent.Application.NOKIA_S60)
     {
-      _skinFamilyType = TrinidadAgent.SKIN_WEBKIT_NOKIA;
+      return TrinidadAgent.SKIN_WEBKIT_NOKIA;
     }
-    else if (_application == TrinidadAgent.APPLICATION_SAFARI)
+    else if (application == TrinidadAgent.Application.SAFARI)
     {
-      if (_os == TrinidadAgent.OS_IPHONE)
+      if (os == TrinidadAgent.OS_IPHONE)
       {
-        _skinFamilyType = TrinidadAgent.SKIN_WEBKIT_IPHONE;
+        return TrinidadAgent.SKIN_WEBKIT_IPHONE;
       }
-      else if (_os == TrinidadAgent.OS_LINUX)
+      else if (os == TrinidadAgent.OS_LINUX)
       {
-        _skinFamilyType = TrinidadAgent.SKIN_WEBKIT_LINUX;
+        return TrinidadAgent.SKIN_WEBKIT_LINUX;
       }
-      else if (_os == TrinidadAgent.OS_MACOS)
+      else if (os == TrinidadAgent.OS_MACOS)
       {
-        _skinFamilyType = TrinidadAgent.SKIN_WEBKIT_MAC;
+        return TrinidadAgent.SKIN_WEBKIT_MAC;
       }
-      else if (_os == TrinidadAgent.OS_WINDOWS)
+      else if (os == TrinidadAgent.OS_WINDOWS)
       {
-        _skinFamilyType = TrinidadAgent.SKIN_WEBKIT_WINDOWS;
+        return TrinidadAgent.SKIN_WEBKIT_WINDOWS;
       }
       else
       {
-        _skinFamilyType = TrinidadAgent.SKIN_WEBKIT_DEFAULT;  
+        return TrinidadAgent.SKIN_WEBKIT_DEFAULT;  
       }
     }
-    else if (_application == TrinidadAgent.APPLICATION_GENERICPDA)
+    else if (application == TrinidadAgent.Application.GENERICPDA)
     {
-      _skinFamilyType = TrinidadAgent.SKIN_GENERIC_PDA;
+      return TrinidadAgent.SKIN_GENERIC_PDA;
     }
-    else if (_application == TrinidadAgent.APPLICATION_BLACKBERRY)
+    else if (application == TrinidadAgent.Application.BLACKBERRY)
     {
       // BlackBerry browsers' versions are in the format x.y.z.[...]
       // (x,y and z are numerals). For determining the skin-family, truncate
@@ -438,13 +441,15 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
             
       if (Float.parseFloat(version) > 4.5)
       {
-        _skinFamilyType = TrinidadAgent.SKIN_BLACKBERRY;
+        return TrinidadAgent.SKIN_BLACKBERRY;
       }
       else
       {
-        _skinFamilyType = TrinidadAgent.SKIN_BLACKBERRY_MINIMAL;
+        return TrinidadAgent.SKIN_BLACKBERRY_MINIMAL;
       }
     }
+    
+    return null;
   }
   
   void __mergeCapabilities(Map<Object, Object> capabilities)
@@ -467,13 +472,12 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
   private static boolean _deviceRepositoryLoaded;
   private static DeviceRepository _deviceRepository;
 
-  private Agent _delegate;
+  private final Agent _delegate;
   private CapabilityMap _capMap;
-  private int _type;
-  private int _application;
-  private int _os;
-  private int _major;
-  private String _skinFamilyType;
-
-
+  private final int _type;
+  private final Application _application;
+  private final int _os;
+  private final int _major;
+  private final String _skinFamilyType;
+  private final Version _version;
 }

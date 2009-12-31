@@ -96,7 +96,7 @@ public final class UIFunctions
                                  String text, String breakChars)
   {
     UIXRenderingContext rc = uix.getRenderingContext();
-    int agentApp = rc.getAgent().getAgentApplication();
+    TrinidadAgent.Application agentApp = rc.getAgent().getAgentApplication();
 
 
     // bug 3364275
@@ -114,9 +114,9 @@ public final class UIFunctions
 
 
     final char breakHint;
-    if ((agentApp == TrinidadAgent.APPLICATION_IEXPLORER) ||
-        (agentApp == TrinidadAgent.APPLICATION_GECKO) ||
-        (agentApp == TrinidadAgent.APPLICATION_NETSCAPE))
+    if ((agentApp == TrinidadAgent.Application.IEXPLORER) ||
+        (agentApp == TrinidadAgent.Application.GECKO) ||
+        (agentApp == TrinidadAgent.Application.NETSCAPE))
     {
       // insert the special unicode character that tells the output method to
       // use the <wbr> tag. This character is recognized by HTMLEscapes:

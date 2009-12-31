@@ -914,3 +914,13 @@ af|tree {
 {
   af|selectBooleanCheckbox::label {color: red}
 }
+
+@agent ie and (version:7)
+{
+  af|selectBooleanCheckbox::label {color: aqua}
+}
+
+@agent gecko and (min-version:0.8.1.*)  and (max-version:0.9.1.*), gecko and (version:5), ie and (min-version:5.*) and (max-version:8), gecko and (version: 2.9.1.*){
+  af|selectBooleanCheckbox::label {color: fuschia}
+}
+

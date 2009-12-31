@@ -26,8 +26,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -112,7 +110,7 @@ public class SkinCSSDocumentHandler
        CompleteSelectorNode node =
          _createCompleteSelectorNode(selector,
                                      _propertyNodeList,
-                                     _selectorAgents,
+                                     _agentAtRuleMatcher,
                                      _selectorPlatforms,
                                      _getSelectorAccProperties());
        _completeSelectorNodeList.add(node);
@@ -225,7 +223,7 @@ public class SkinCSSDocumentHandler
     String type)
   {
     if (_AT_AGENT.equals(type))
-      _selectorAgents = null;
+      _agentAtRuleMatcher = null;
     else if (_AT_PLATFORM.equals(type))
       _selectorPlatforms = null;
     else if (_AT_ACC_PROFILE.equals(type))
@@ -242,7 +240,7 @@ public class SkinCSSDocumentHandler
   private CompleteSelectorNode _createCompleteSelectorNode(
     String                     selector,
     List<PropertyNode>         propertyNodeList,
-    Map<Integer, Set<Version>> selectorAgentVersions,
+    AgentAtRuleMatcher         agentMatcher,
     int[]                      selectorPlatforms,
     Set<String>                selectorAccProperties)
   {
@@ -269,7 +267,7 @@ public class SkinCSSDocumentHandler
         selector,
         propertyNodeList,
         direction,
-        selectorAgentVersions,
+        agentMatcher,
         selectorPlatforms,
         selectorAccProperties);
   }
@@ -293,7 +291,7 @@ public class SkinCSSDocumentHandler
     {
       // we add to the ssNodeList in this method.
       int direction = completeSelectorNode.getDirection();
-      Map<Integer, Set<Version>> agentVersions = completeSelectorNode.getAgentVersions();
+      AgentAtRuleMatcher agentMatcher = completeSelectorNode.getAgentMatcher();
       int[] platforms = completeSelectorNode.getPlatforms();
       Set<String> accProperties = completeSelectorNode.getAccessibilityProperties();
 
@@ -306,16 +304,16 @@ public class SkinCSSDocumentHandler
       for (int i = skinStyleSheetNodes.size() - 1; i >= 0 && !match; --i)
       {
         SkinStyleSheetNode ssNode = skinStyleSheetNodes.get(i);
-        match = ssNode.matches(direction, agentVersions, platforms, accProperties);
+        match = ssNode.matches(direction, agentMatcher, platforms, accProperties);
         if (match)
           ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
       }
 
       if (!match)
       {
-       // no matching stylesheet node found, so create a new one
+        // no matching stylesheet node found, so create a new one
         SkinStyleSheetNode ssNode =
-         new SkinStyleSheetNode(namespaceMap, direction, agentVersions, platforms, accProperties);
+         new SkinStyleSheetNode(namespaceMap, direction, agentMatcher, platforms, accProperties);
         ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
         skinStyleSheetNodes.add(ssNode);
       }
@@ -345,48 +343,7 @@ public class SkinCSSDocumentHandler
       
       if (_AT_AGENT.equals(type))
       {
-        _selectorAgents = new HashMap<Integer, Set<Version>>();
-
-        for (int i=0; i < typeArray.length; i++)
-        {
-          // TODO: support min-version and max-version
-          // parse the agent versions. Examples:
-          // @agent ie and (version:6)
-          // @agent ie and (version:6.*)
-          // @agent ie and (version:5.0.*)
-          // @agent ie and (version:5.*) and (version:6)
-          
-          String[] sections = _WHITESPACE_PATTERN.split(typeArray[i].trim(), 2);
-          
-          // currently the type must be first
-          if (sections.length == 0)
-          {
-            throw new IllegalArgumentException("Invalid @agent string: " + typeArray[i]);
-          }
-          int agentInt = NameUtils.getBrowser(sections[0]);
-          if (agentInt != TrinidadAgent.APPLICATION_UNKNOWN)
-          {
-            Set<Version> versions = new HashSet<Version>();
-            _selectorAgents.put(agentInt, versions);
-            
-            if (sections.length == 2)
-            {
-              Matcher m = _AND_MEDIA_PROPERTY_SPLITTER.matcher(sections[1]);
-              
-              while (m.find())
-              {
-                String propName = m.group(1);
-                String version = m.group(2);
-                
-                if (!"version".equals(propName))
-                {
-                  throw new IllegalArgumentException("Invalid @agent property name: " + propName);
-                }
-                versions.add(new Version(version, "*"));
-              }
-            }
-          }
-        }
+        _agentAtRuleMatcher = new AgentAtRuleMatcher(typeArray);
       }
       else if (_AT_PLATFORM.equals(type))
       {
@@ -545,19 +502,17 @@ public class SkinCSSDocumentHandler
       String                     selectorName,
       List<PropertyNode>         propertyNodes,
       int                        direction,
-      Map<Integer, Set<Version>> agentVersions,
+      AgentAtRuleMatcher         agentMatcher,
       int[]                      platforms,
       Set<String>                accProperties
       )
     {
       _node = new SkinSelectorPropertiesNode(selectorName, propertyNodes);
       _direction = direction;
+      
       // copy the agents and platforms because these get nulled out
       // at the end of the @rule parsing.
-      _agentVersions = agentVersions != null ?
-        new HashMap<Integer, Set<Version>>(agentVersions) :
-        new HashMap<Integer, Set<Version>>();
-      
+      _agentMatcher = agentMatcher;
       _platforms = _copyIntArray(platforms);
       
       if (accProperties != null)
@@ -566,6 +521,10 @@ public class SkinCSSDocumentHandler
         // bother wrapping in an unmodifiable set - just following
         // the pattern used for the agents/platforms arrays.
         _accProperties = new HashSet<String>(accProperties);
+      }
+      else
+      {
+        _accProperties = null;
       }
     }
     
@@ -580,11 +539,11 @@ public class SkinCSSDocumentHandler
     }
 
     /**
-     * @return The versions of the agent to be supported
+     * @return The AgentMatcher if any for this rule
      */
-    public Map<Integer, Set<Version>> getAgentVersions()
+    public AgentAtRuleMatcher getAgentMatcher()
     {
-      return _agentVersions;
+      return _agentMatcher;
     }
     
     public int[] getPlatforms()
@@ -609,11 +568,11 @@ public class SkinCSSDocumentHandler
       return copy;
     }
 
-    private SkinSelectorPropertiesNode _node;
-    private int _direction;  // the reading direction
-    private Map<Integer, Set<Version>> _agentVersions;
-    private int[] _platforms;
-    private Set<String> _accProperties;
+    private final SkinSelectorPropertiesNode _node;
+    private final int _direction;  // the reading direction
+    private final AgentAtRuleMatcher _agentMatcher;
+    private final int[] _platforms;
+    private final Set<String> _accProperties;
   }
 
   private static String _AT_AGENT = "@agent";
@@ -632,9 +591,8 @@ public class SkinCSSDocumentHandler
   // selectors we are currently parsing in this document.
   private int[] _selectorPlatforms = null;
 
-  // As we need to be able to have multiple versions to an agent
-  // we store a map of agents and their version sets
-  private Map<Integer, Set<Version>> _selectorAgents = null;
+  // matches the current Agent against the allowed agents
+  private AgentAtRuleMatcher _agentAtRuleMatcher = null;
 
   // Stack of accessibility property sets.  While java.util.Stack has the
   // push/pop API that we want, we don't need the synchronization, so we
@@ -645,12 +603,6 @@ public class SkinCSSDocumentHandler
   private Map<String, String> _namespaceMap = new HashMap<String, String>();
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(SkinCSSDocumentHandler.class);
-    
-  private static final Pattern _WHITESPACE_PATTERN =
-    Pattern.compile("\\s+");
-  
-  private static final Pattern _AND_MEDIA_PROPERTY_SPLITTER =
-    Pattern.compile("\\band\\s+\\((\\w+)\\s*:\\s*(\\S+)\\s*\\)");
 }
    
    

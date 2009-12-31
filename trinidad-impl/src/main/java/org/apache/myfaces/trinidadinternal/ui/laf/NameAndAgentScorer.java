@@ -77,7 +77,7 @@ public class NameAndAgentScorer extends LookAndFeelScorer
 
     TrinidadAgent agent = context. getAgent();
     int typeScore = _score(_agentType, agent.getAgentType());
-    int appScore = _score(_agentApplication, agent.getAgentApplication());
+    int appScore = _score(_agentApplication, agent.getAgentApplication().ordinal());
     int versScore = _score(_agentMajorVersion, agent.getAgentMajorVersion());
     int osScore = _score(_agentOS, agent.getAgentOS());
 

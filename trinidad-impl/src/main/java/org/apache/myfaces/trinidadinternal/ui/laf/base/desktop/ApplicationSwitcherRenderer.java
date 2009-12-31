@@ -226,7 +226,7 @@ public class ApplicationSwitcherRenderer extends
     writer.startElement(TABLE_DATA_ELEMENT, null);
 
     if (  context.getAgent().getAgentApplication()
-          != TrinidadAgent.APPLICATION_NETSCAPE)
+          != TrinidadAgent.Application.NETSCAPE)
       writer.writeAttribute("valign", "bottom", null);
   }
 
@@ -284,7 +284,7 @@ public class ApplicationSwitcherRenderer extends
 
     writer.startElement(TABLE_DATA_ELEMENT, null);
     if (  context.getAgent().getAgentApplication()
-          != TrinidadAgent.APPLICATION_NETSCAPE)
+          != TrinidadAgent.Application.NETSCAPE)
       writer.writeAttribute("valign", "bottom", null);
 
     // render goto button
