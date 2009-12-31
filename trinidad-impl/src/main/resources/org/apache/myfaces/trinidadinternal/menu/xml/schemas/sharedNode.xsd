@@ -33,7 +33,7 @@
   <xsd:complexType name="sharedNodeType">
     <xsd:complexContent>
       <xsd:extension base="trmenu:baseType">
-        <xsd:attribute name="id" type="xsd:id" />
+        <xsd:attribute name="id" type="xsd:ID" />
         <xsd:attribute name="ref" type="xsd:string" use="required"/>
       </xsd:extension>
     </xsd:complexContent>
