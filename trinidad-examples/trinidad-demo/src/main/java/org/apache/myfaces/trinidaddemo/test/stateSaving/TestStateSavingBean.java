@@ -26,6 +26,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.apache.myfaces.trinidad.component.core.input.CoreChooseDate;
+import org.apache.myfaces.trinidad.component.core.layout.CoreShowDetail;
+import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
 
 
 public class TestStateSavingBean
@@ -53,6 +55,17 @@ public class TestStateSavingBean
     cal.setTimeInMillis(maxDate.getTime());
     cal.add(Calendar.DAY_OF_YEAR, 1);
     cd.setMaxValue(new Date(cal.getTimeInMillis()));
+  }
+  
+  public void addComponent(ActionEvent ae)
+  {
+    System.out.println("Adding a showDetail child");
+    CoreShowDetail showDetail = new CoreShowDetail();
+    CoreOutputText outputText = new CoreOutputText();
+    outputText.setValue("showDetail Content");
+    showDetail.getChildren().add(outputText);
+    FacesContext context = FacesContext.getCurrentInstance();
+    context.getViewRoot().findComponent("groupLayout").getChildren().add(showDetail);
   }
 
 }
