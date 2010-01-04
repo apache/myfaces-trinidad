@@ -18,7 +18,6 @@
  */
 package org.apache.myfaces.trinidadinternal.application;
 
-import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -29,7 +28,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -412,11 +410,7 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
         checkTimestampParam = !(context.isProjectStage(ProjectStage.Production));
       }
 
-      // Detect when we're running inside of the JDeveloper embedded OC4J
-      // environment - and there, always use timestamp checking
-      // TODO: come up with a non-proprietary way of checking this? (see TRINIDAD-1661)
-      boolean developmentStage = context.isProjectStage(ProjectStage.Development) ||
-        "development".equals(System.getProperty("oracle.application.environment"));
+      boolean developmentStage = context.isProjectStage(ProjectStage.Development);
       
       // if Apache MyFaces Trinidad is running in production stage CHECK_TIMESTAMP_PARAM should
       // be FALSE, otherwise we generate a WARNING message
