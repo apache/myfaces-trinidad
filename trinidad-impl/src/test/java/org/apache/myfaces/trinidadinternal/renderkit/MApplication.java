@@ -36,6 +36,7 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.NavigationHandler;
+import javax.faces.application.ProjectStage;
 import javax.faces.application.StateManager;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
@@ -63,6 +64,12 @@ public class MApplication extends Application
   {
   }
   
+  @Override
+  public ProjectStage getProjectStage()
+  {
+    return ProjectStage.UnitTest;
+  }
+
   @Override
   public void publishEvent(FacesContext context,
                            Class<? extends SystemEvent> systemEventClass,
