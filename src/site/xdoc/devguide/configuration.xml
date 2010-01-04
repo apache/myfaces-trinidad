@@ -749,6 +749,33 @@ containing a single parameter.
       </subsection>
 
     </section>
+
+<section name="System properties">
+<p>
+Some Apache Trinidad configuration options are set by a System Property.
+</p>
+
+<subsection name="org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION">
+<p>
+For better High Availability Testing Support the <code>org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION</code> System Property has been introduced.
+The behavior is controlled by passing a comma-delimited set of case-insensitive values on the system property:
+<ul>
+<li><strong>NONE</strong> no state serialization checks are performed (the default)</li>
+<li><strong>ALL</strong> perform all available tests (unless NONE is also specified, in which case NONE takes precedence)</li>
+<li><strong>SESSION</strong> Wrap the Session Map returned by the ExternalContext to test that only Serializable objects are placed in the Session Map, throwing a CastCastException if the Object is not Serializable</li>
+<li><strong>TREE</strong> aggressively attempt to serialize the component state during state saving and throw an exception if serialization fails</li>
+<li><strong>COMPONENT</strong> aggressively attempt to serialize each component subtree's state during state saving in order to identify the problem component (slow)</li>
+<li><strong>PROPERTY</strong> aggessively attempt to serialize each property value during state saving in order to identify the problem property (slow)</li>
+</ul>
+For high availability testing, the tester would initially start off validating the Session and JSF state is Serializable by setting the system property to:
+<code>-Dorg.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION=session,tree</code>
+
+If a JSF state serialization is detected, the test is rerun with the component and property flags enabled:
+<code>-Dorg.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION=all</code>
+</p>
+</subsection>
+</section>
+
     
   </body>
 </document>
