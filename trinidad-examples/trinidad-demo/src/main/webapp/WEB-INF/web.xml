@@ -46,9 +46,11 @@
     <param-value>false</param-value>
   </context-param>
  
-  <!-- Use client-side state saving.  In Trinidad, it is an
-       optimized, token-based mechanism that is almost always a
-       better choice than the standard JSF server-side state saving. -->
+  <!-- In Trinidad, we use an optimized, token-based mechanism if either 
+       1] javax.faces.STATE_SAVING_METHOD = server
+       2] javax.faces.STATE_SAVING_METHOD = client and 
+          org.apache.myfaces.trinidad.CLIENT_STATE_METHOD = token
+  -->
   <context-param>
     <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
     <param-value>client</param-value>
@@ -99,6 +101,8 @@
   <context-param>
     <param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
     <param-value>*.xhtml</param-value>
+    <!-- to run facelets for jspx files comment the line above and uncomment line below-->
+    <!--param-value>*.xhtml;*.jspx</param-value-->
   </context-param>
 
   <context-param>
@@ -123,6 +127,8 @@
   <context-param>
     <param-name>org.apache.myfaces.trinidad.CHANGE_PERSISTENCE</param-name>
     <param-value>session</param-value>
+    <!-- to run without using the change manager comment the line above and uncomment the line below-->
+    <!--param-value>org.apache.myfaces.trinidad.change.NullChangeManager</param-value-->    
   </context-param>
   
 <!-- Uncomment this if you are debugging skinning and want the styleclasses to not be compressed  
