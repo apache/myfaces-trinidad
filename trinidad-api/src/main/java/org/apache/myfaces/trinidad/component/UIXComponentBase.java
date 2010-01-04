@@ -406,14 +406,20 @@ abstract public class UIXComponentBase extends UIXComponent
   public void setParent(UIComponent parent)
   {
     // do we add this component ?
-    if (parent != null && parent.isInView())
+    if (parent != null)
     {
-      // trigger the ADD_EVENT and call setInView(true)
-      // recursive for all kids/facets...
-      // Application.publishEvent(java.lang.Class, java.lang.Object)  must be called, passing 
-      // PostAddToViewEvent.class as the first argument and the newly added component as the second 
-      // argument.
-      _publishPostAddToViewEvent(getFacesContext(), this);
+      // set the reference
+      _parent = parent;
+
+      if (parent.isInView())
+      {
+        // trigger the ADD_EVENT and call setInView(true)
+        // recursive for all kids/facets...
+        // Application.publishEvent(java.lang.Class, java.lang.Object)  must be called, passing 
+        // PostAddToViewEvent.class as the first argument and the newly added component as the second 
+        // argument.
+        _publishPostAddToViewEvent(getFacesContext(), this);
+      }
     }
     else
     {
@@ -424,8 +430,10 @@ abstract public class UIXComponentBase extends UIXComponent
         // doing this => recursive
         _publishPreRemoveFromViewEvent(getFacesContext(), this);
       }
+
+      // (un)set the reference
+      _parent = parent;
     }
-    _parent = parent;
   }
 
   @Override
