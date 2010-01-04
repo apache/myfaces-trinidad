@@ -19,11 +19,12 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 
 import java.net.URL;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +63,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderer;
 import org.apache.myfaces.trinidad.render.LifecycleRenderer;
 import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
+
 
 /**
  * Base implementation of components for all of Trinidad.  UIXComponentBase
@@ -653,7 +655,7 @@ abstract public class UIXComponentBase extends UIXComponent
       _LOG.fine("Broadcasting event " + event + " to " + this);
 
     UIComponent component = event.getComponent();
-    if (component != null)
+    if (component != null && satisfiesPartialTrigger(event))
     {
       RequestContext adfContext = RequestContext.getCurrentInstance();
       if (adfContext != null)
@@ -678,6 +680,18 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
+  /**
+   * Check if a faces event broadcast to this component should trigger the partial updates of the
+   * target listeners of this component. By default, all events trigger a partial update of the listeners.
+   *
+   * @param event The event to check
+   * @return true if the partial triggers should be updated by this event being broadcast
+   */
+  protected boolean satisfiesPartialTrigger(
+    FacesEvent event)
+  {
+    return true;
+  }
 
   // ------------------------------------------- Lifecycle Processing Methods
 
