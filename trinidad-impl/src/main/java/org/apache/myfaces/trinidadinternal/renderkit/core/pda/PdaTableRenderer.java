@@ -317,7 +317,7 @@ public class PdaTableRenderer extends TableRenderer
                                 IntegerUtils.getString(tContext.getActualColumnCount()),
                                 null);
 
-              renderStyleClass(fc, arc, SkinSelectors.AF_TABLE_DETAIL_STYLE);
+              renderStyleClass(fc, rc, SkinSelectors.AF_TABLE_DETAIL_STYLE);
 
               encodeChild(fc, detail);
 
