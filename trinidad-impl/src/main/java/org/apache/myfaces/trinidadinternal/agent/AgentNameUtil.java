@@ -29,88 +29,6 @@ import org.apache.myfaces.trinidad.context.Agent;
 public class AgentNameUtil
 {
   /**
-   * utility method to get AdfFacesAgent application constant (int) from agent name strings
-   *
-   * @param agentName
-   * @return
-   */
-  public static int getAgent(String agentName)
-  {
-    if (TrinidadAgent.AGENT_NETSCAPE.equals(agentName))
-    {
-      return TrinidadAgent.APPLICATION_NETSCAPE;
-    }
-
-    if (TrinidadAgent.AGENT_IE.equals(agentName))
-    {
-      return TrinidadAgent.APPLICATION_IEXPLORER;
-    }
-
-    if (TrinidadAgent.AGENT_GECKO.equals(agentName))
-    {
-      return TrinidadAgent.APPLICATION_GECKO;
-    }
-
-    if (TrinidadAgent.AGENT_EMAIL.equals(agentName))
-    {
-      return TrinidadAgent.APPLICATION_EMAIL;
-    }    
-    
-    if (TrinidadAgent.AGENT_ELAINE.equals(agentName))
-    {
-      return TrinidadAgent.APPLICATION_WEB_CLIPPING;
-    }
-
-    if (TrinidadAgent.AGENT_ICE_BROWSER.equals(agentName))
-    {
-      return TrinidadAgent.APPLICATION_ICE;
-    }
-
-    if (TrinidadAgent.AGENT_PIXO.equals(agentName))
-    {
-      return TrinidadAgent.APPLICATION_PIXO;
-    }
-
-    if ((TrinidadAgent.AGENT_NETFRONT.equals(agentName)) ||
-        (TrinidadAgent.AGENT_WEBPRO.equals(agentName)))
-    {
-      return TrinidadAgent.APPLICATION_NET_FRONT;
-    }
-
-    if (TrinidadAgent.AGENT_WEBKIT.equals(agentName))
-    {
-      return TrinidadAgent.APPLICATION_SAFARI;
-    }
-
-    if (TrinidadAgent.AGENT_OPERA.equals(agentName))
-    {
-      return TrinidadAgent.APPLICATION_OPERA;
-    }
-
-    if(TrinidadAgent.AGENT_BLACKBERRY.equals(agentName))
-    {
-      return TrinidadAgent.APPLICATION_BLACKBERRY;
-    }
-
-    if (TrinidadAgent.AGENT_NOKIA_S60.equals(agentName))
-    {
-      return TrinidadAgent.APPLICATION_NOKIA_S60;
-    }
-
-    if(TrinidadAgent.AGENT_GENERICPDA.equals(agentName))
-    {
-      return TrinidadAgent.APPLICATION_GENERICPDA;
-    }
-
-    if(TrinidadAgent.AGENT_KONQUEROR.equals(agentName))
-    {
-      return TrinidadAgent.APPLICATION_KONQUEROR;
-    }
-
-    return TrinidadAgent.APPLICATION_UNKNOWN;
-  }
-
-  /**
    * utility method to get AdfFacesAgent application constant (int) from platform/os name strings
    *
    * @param platformName
@@ -191,48 +109,6 @@ public class AgentNameUtil
 
     //Default to desktop (This is UIX 2.2 logic)
     return TrinidadAgent.TYPE_DESKTOP;
-  }
-
-  /**
-   * utility method to get agent name string from AdfFacesAgent application constant (int)
-   *
-   * @param agentId
-   * @return
-   */
-  public static String getAgentName(int agentId)
-  {
-    switch (agentId) {
-      case TrinidadAgent.APPLICATION_NETSCAPE:
-        return TrinidadAgent.AGENT_NETSCAPE;
-      case TrinidadAgent.APPLICATION_IEXPLORER:
-        return TrinidadAgent.AGENT_IE;
-      case TrinidadAgent.APPLICATION_GECKO:
-        return TrinidadAgent.AGENT_GECKO;
-      case TrinidadAgent.APPLICATION_WEB_CLIPPING:
-        return TrinidadAgent.AGENT_ELAINE;
-      case TrinidadAgent.APPLICATION_ICE:
-        return TrinidadAgent.AGENT_ICE_BROWSER;
-      case TrinidadAgent.APPLICATION_PIXO:
-        return TrinidadAgent.AGENT_PIXO;
-      case TrinidadAgent.APPLICATION_NET_FRONT:
-        return TrinidadAgent.AGENT_NETFRONT;
-      case TrinidadAgent.APPLICATION_SAFARI:
-        return TrinidadAgent.AGENT_WEBKIT;
-      case TrinidadAgent.APPLICATION_OPERA:
-        return TrinidadAgent.AGENT_OPERA;
-      case TrinidadAgent.APPLICATION_BLACKBERRY:
-        return TrinidadAgent.AGENT_BLACKBERRY;
-      case TrinidadAgent.APPLICATION_NOKIA_S60:
-        return TrinidadAgent.AGENT_NOKIA_S60;
-      case TrinidadAgent.APPLICATION_GENERICPDA:
-        return TrinidadAgent.AGENT_GENERICPDA;
-      case TrinidadAgent.APPLICATION_KONQUEROR:
-        return TrinidadAgent.AGENT_KONQUEROR;
-      case TrinidadAgent.APPLICATION_EMAIL:
-        return TrinidadAgent.AGENT_EMAIL;
-      default:
-        return TrinidadAgent.AGENT_UNKNOWN;
-    }
   }
 
   /**

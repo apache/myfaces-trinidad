@@ -32,59 +32,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 public class AgentUtil
 {
   /**
-   * Construct an AdfFacesAgent from agentType, agent application constant, agent version
-   * and plaform application constant
-   *
-   * //TODO: Check: if this is really needed
-   *
-   * @param type
-   * @param browser
-   * @param agentVersion
-   * @param platform
-   * @return
-   */
-  public static TrinidadAgent getAgent(
-      int type, 
-      int browser, 
-      String agentVersion, 
-      int platform)
-  {
-    final int fType = type;
-    final int fBrowser = browser;
-    final String fAgentVersion = agentVersion;
-    final int fPlatform = platform;
-
-    Agent agent =
-            new DefaultAgent ()
-            {
-              @Override
-              public Object getType()
-              {
-                return AgentNameUtil.getAgentName(fType);
-              }
-
-              @Override
-              public String getAgentName()
-              {
-                return AgentNameUtil.getAgentName(fBrowser);
-              }
-
-              @Override
-              public String getAgentVersion()
-              {
-                return fAgentVersion;
-              }
-
-              @Override
-              public String getPlatformName()
-              {
-                return AgentNameUtil.getPlatformName(fPlatform);
-              }
-            };
-    return new TrinidadAgentImpl(agent);
-  }
-
-  /**
    * Get a default agent, that defines no characteristics.
    *
    * @return

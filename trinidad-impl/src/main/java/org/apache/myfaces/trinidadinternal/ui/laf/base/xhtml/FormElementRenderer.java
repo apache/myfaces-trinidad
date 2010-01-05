@@ -53,7 +53,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
       // hopefully we can remove it eventually
       if ( context.getAgent().getAgentType() == TrinidadAgent.TYPE_PDA &&
            context.getAgent().getAgentApplication() ==
-                                                TrinidadAgent.APPLICATION_IEXPLORER )
+                                                TrinidadAgent.Application.IEXPLORER )
         setRenderingProperty(context,
                              VISIBLE_FORM_ELEMENT_RENDERED,
                              Boolean.TRUE);

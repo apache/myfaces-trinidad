@@ -44,7 +44,7 @@ public class HiddenLabelUtils
     TrinidadAgent agent = ((CoreRenderingContext) arc).getTrinidadAgent();
     switch (agent.getAgentApplication())
     {
-      case TrinidadAgent.APPLICATION_IEXPLORER:
+      case IEXPLORER:
         if (agent.getAgentOS() == TrinidadAgent.OS_WINDOWS)
         {
           // IE 4 doesn't support the label hack.
@@ -63,11 +63,11 @@ public class HiddenLabelUtils
         return false;
 
       // Mozilla does support the label hack
-      case TrinidadAgent.APPLICATION_GECKO:
+      case GECKO:
         return true;
 
       // Assume everyone else doesn't.
-      case TrinidadAgent.APPLICATION_NETSCAPE:
+      case NETSCAPE:
       default:
         return false;
     }

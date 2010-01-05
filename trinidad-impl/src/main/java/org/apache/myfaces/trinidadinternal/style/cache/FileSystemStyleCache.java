@@ -1065,7 +1065,7 @@ public class FileSystemStyleCache implements StyleProvider
       {
         //don't worry about synchronizing this
         _hashCode  =   (_direction)                ^
-                       (_browser  << 2)            ^
+                       (_browser.ordinal() << 2)   ^
                        (_platform << 8)            ^
                        (_short ? 1 : 0)            ^
                        (_portlet ? 1:0);
@@ -1110,7 +1110,7 @@ public class FileSystemStyleCache implements StyleProvider
     private void _init(
       Locale locale,
       int direction,
-      int browser,
+      TrinidadAgent.Application browser,
       String version,
       int platform,
       boolean useShort,
@@ -1141,7 +1141,7 @@ public class FileSystemStyleCache implements StyleProvider
 
     private Locale         _locale;
     private int            _direction;
-    private int            _browser;
+    private TrinidadAgent.Application _browser;
     private String         _version;
     private int            _platform;
     private boolean        _short;  // Do we use short style classes?

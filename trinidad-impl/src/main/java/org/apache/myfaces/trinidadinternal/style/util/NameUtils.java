@@ -23,8 +23,8 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.Vector;
 
-import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.skin.AgentAtRuleMatcher;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
@@ -43,91 +43,22 @@ public class NameUtils
   /**
    * Returns the id of the browser with the specified name
    */
-  public static int getBrowser(String browserName)
+  public static TrinidadAgent.Application getAgentApplication(String agentName)
   {
-    if (browserName == null)
-      return TrinidadAgent.APPLICATION_UNKNOWN;
-
-    int browser = TrinidadAgent.APPLICATION_UNKNOWN;
-
-    if (_BROWSER_NETSCAPE.equals(browserName))
-      browser = TrinidadAgent.APPLICATION_NETSCAPE;
-    else if (_BROWSER_IE.equals(browserName))
-      browser = TrinidadAgent.APPLICATION_IEXPLORER;
-    else if (_BROWSER_GECKO.equals(browserName) ||
-             _BROWSER_MOZILLA.equals(browserName))
-      browser = TrinidadAgent.APPLICATION_GECKO;
-    else if (_BROWSER_ICE.equals(browserName))
-      browser = TrinidadAgent.APPLICATION_ICE;
-    else if (_BROWSER_WEBKIT.equals(browserName))
-      browser = TrinidadAgent.APPLICATION_SAFARI;
-    else if (_BROWSER_OPERA.equals(browserName))
-      browser = TrinidadAgent.APPLICATION_OPERA;
-    else if (_BROWSER_BLACKBERRY.equals(browserName))
-      browser = TrinidadAgent.APPLICATION_BLACKBERRY;
-    else if (_BROWSER_NOKIA_S60.equals(browserName))
-      browser = TrinidadAgent.APPLICATION_NOKIA_S60;
-    else if (_BROWSER_GENERICPDA.equals(browserName))
-      browser = TrinidadAgent.APPLICATION_GENERICPDA;
-    else if (_BROWSER_EMAIL.equals(browserName))
-      browser = TrinidadAgent.APPLICATION_EMAIL;    
-    else
+    if (agentName == null)
+      return TrinidadAgent.Application.UNKNOWN;
+    
+    TrinidadAgent.Application application = TrinidadAgent.Application.fromAgentName(agentName);
+                                          
+    if (application == null)
     {
       // Either a new or an invalid browser
-      assert false:"Invalid browser name: " + browserName;
+      assert false:"Invalid browser name: " + agentName;
+      
+      application = TrinidadAgent.Application.UNKNOWN;
     }
-
-    return browser;
-  }
-
-  /**
-   * Returns the name of the specified browser id
-   */
-  public static String getBrowserName(int browser)
-  {
-    String name = null;
-
-    switch (browser)
-    {
-    case TrinidadAgent.APPLICATION_NETSCAPE:
-      name = _BROWSER_NETSCAPE;
-      break;
-    case TrinidadAgent.APPLICATION_IEXPLORER:
-      name = _BROWSER_IE;
-      break;
-    case TrinidadAgent.APPLICATION_GECKO:
-      name = _BROWSER_GECKO;
-      break;
-    case TrinidadAgent.APPLICATION_ICE:
-      name = _BROWSER_ICE;
-      break;
-    case TrinidadAgent.APPLICATION_SAFARI:
-      name = _BROWSER_WEBKIT;
-      break;
-    case TrinidadAgent.APPLICATION_OPERA:
-      name = _BROWSER_OPERA;
-      break;
-    case TrinidadAgent.APPLICATION_BLACKBERRY:
-      name = _BROWSER_BLACKBERRY;
-      break;
-    case TrinidadAgent.APPLICATION_NOKIA_S60:
-      name = _BROWSER_NOKIA_S60;
-      break;
-    case TrinidadAgent.APPLICATION_GENERICPDA:
-      name = _BROWSER_GENERICPDA;
-      break;
-    case TrinidadAgent.APPLICATION_EMAIL:
-      name = _BROWSER_EMAIL;
-      break;
-    case TrinidadAgent.APPLICATION_UNKNOWN:
-      // This case is only here to avoid the default assertion
-      break;
-    default:
-      // New or invalid browser id
-      assert false:"Invalid browser id: " +browser;
-    }
-
-    return name;
+                                         
+    return application;
   }
 
   /**
@@ -500,13 +431,9 @@ public class NameUtils
   // Get the browser as a String
   private static String _getBrowserString(StyleContext context)
   {
-    int browser =  context.getAgent().getAgentApplication();
-    String name = getBrowserName(browser);
-
-    if (name == null)
-      return _UNKNOWN_NAME;
-
-    return name;
+    TrinidadAgent.Application application = context.getAgent().getAgentApplication();
+  
+    return application.getApplicationName();
   }
 
   // get the StyleSheetDocument's id.
@@ -644,35 +571,39 @@ public class NameUtils
   private static boolean[] _isBrowserAndVersionMatch(StyleContext context,
       StyleSheetNode[] styleSheets)
   {
-    int browser = context.getAgent().getAgentApplication();
-    Version version = new Version(context.getAgent().getAgentVersion());
-    if (browser == TrinidadAgent.APPLICATION_UNKNOWN)
+    TrinidadAgent agent = context.getAgent();
+    TrinidadAgent.Application browser = agent.getAgentApplication();
+    if (browser == TrinidadAgent.Application.UNKNOWN)
     {
       return new boolean[] { false, false };
     }
 
     boolean browserMatched = false;
-    Integer browserNum = Integer.valueOf(browser);
     
     // If any style sheet has a non-null browser variant, we must
     // have a browser match.
     for (int i = 0; i < styleSheets.length; i++)
     {
-      if (!styleSheets[i].getAgentVersions().isEmpty())
+      AgentAtRuleMatcher agentMatcher = styleSheets[i].getAgentMatcher();
+      
+      if (agentMatcher != null)
       {
-        Set<Version> versions = styleSheets[i].getAgentVersions().get(browserNum);
+        Set<AgentAtRuleMatcher.Match> matches = agentMatcher.match(agent);
         
-        if (versions != null)
+        if (matches.contains(AgentAtRuleMatcher.Match.APPLICATION))
         {
+          // latch the browser matched
           browserMatched = true;
-          for (Version av : versions)
-          {
-            if (av.compareTo(version) == 0)
-            {
-              return new boolean[] { true, true };
-            }
-          }
+          
+          // we can't match better than application and version, so return immediately
+          if (matches.contains(AgentAtRuleMatcher.Match.VERSION))
+            return new boolean[] { true, true };          
         }
+      }
+      else
+      {
+        // no agent matcher, so all agents match
+        browserMatched = true;
       }
     }
 
@@ -745,29 +676,6 @@ public class NameUtils
   private static final String _DIRECTION_RTL = "rtl";
 
   private static final String _DIRECTION_LTR = "ltr";
-
-  // Browser constants
-  private static final String _BROWSER_NETSCAPE = "netscape";
-
-  private static final String _BROWSER_IE = "ie";
-
-  private static final String _BROWSER_MOZILLA = "mozilla";
-
-  private static final String _BROWSER_GECKO = "gecko";
-
-  private static final String _BROWSER_WEBKIT = "webkit";
-
-  private static final String _BROWSER_ICE = "ice";
-
-  private static final String _BROWSER_BLACKBERRY = "blackberry";
-  
-  private static final String _BROWSER_NOKIA_S60 = "nokia_s60";
-
-  private static final String _BROWSER_GENERICPDA = "genericpda";
-
-  private static final String _BROWSER_EMAIL = "email";
-  
-  private static final String _BROWSER_OPERA = "opera";
   
   // Platform constants
   private static final String _PLATFORM_WINDOWS = "windows";

@@ -222,7 +222,7 @@ public class CSSGenerationUtils
         }
 
         if (numberSelectorsWritten + matchingStyles.length >= _MSIE_SELECTOR_LIMIT
-          && TrinidadAgent.APPLICATION_IEXPLORER == context.getAgent().getAgentApplication())
+          && TrinidadAgent.Application.IEXPLORER == context.getAgent().getAgentApplication())
         {
           out.println("/* The number of CSS selectors in this file is " +
                       numberSelectorsWritten + " */");

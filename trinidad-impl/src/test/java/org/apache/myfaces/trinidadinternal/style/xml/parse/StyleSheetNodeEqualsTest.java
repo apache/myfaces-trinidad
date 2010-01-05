@@ -33,6 +33,7 @@ import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
+import org.apache.myfaces.trinidadinternal.skin.AgentAtRuleMatcher;
 
 /**
  * Test the getStyleSheetId() method on the StyleSheetNode object.
@@ -133,17 +134,9 @@ public class StyleSheetNodeEqualsTest extends TestCase
     Locale[] diffOrderLocalesArray = getDiffOrderLocalesArray();
      
     // create a browsers map
-    Map<Integer, Set<Version>> browsers = new HashMap<Integer, Set<Version>>();
-    browsers.put(1, new HashSet<Version>(Arrays.asList(new Version("5"), new Version("6"))));
-    browsers.put(2, new HashSet<Version>(Arrays.asList(new Version("7"), new Version("8"))));
-    Map<Integer, Set<Version>> anotherBrowsers = new HashMap<Integer, Set<Version>>();
-    anotherBrowsers.put(1, new HashSet<Version>(Arrays.asList(new Version("5"), new Version("6"))));
-    anotherBrowsers.put(2, new HashSet<Version>(Arrays.asList(new Version("7"), new Version("8"))));
-    Map<Integer, Set<Version>> anotherBrowsersDiffOrder
-        = new HashMap<Integer, Set<Version>>();
-    anotherBrowsersDiffOrder.put(2, new HashSet<Version>(Arrays.asList(new Version("8"), new Version("7"))));
-    anotherBrowsersDiffOrder.put(1, new HashSet<Version>(Arrays.asList(new Version("6"), new Version("5"))));
-
+    String browserSelector = "netscape and (version:5), netscape and (version:6), ie and (version:7), ie and (version:8)";
+    String anotherBrowserSelector = browserSelector;
+    String anotherBrowserDiffOrder = "ie and (version:8), ie and (version:7), netscape and (version:6), netscape and (version:5)";
 
     int[] platforms = {2, 3, 4};
     int[] anotherPlatforms = {2, 3, 4};
@@ -168,7 +161,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
                          null,
                          localesArray,
                          0,
-                         browsers,
+                         new AgentAtRuleMatcher(browserSelector),
                          platforms,
                          0,
                          accProps);
@@ -178,7 +171,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
                          null,
                          anotherLocalesArray,
                          0,
-                         anotherBrowsersDiffOrder,
+                         new AgentAtRuleMatcher(anotherBrowserSelector),
                          anotherPlatforms,
                          0,
                          anotherAccProps);
@@ -188,7 +181,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
                          null,
                          diffOrderLocalesArray,
                          0,
-                         anotherBrowsersDiffOrder,
+                         new AgentAtRuleMatcher(anotherBrowserDiffOrder),
                          differentOrderPlatforms,
                          0,
                          differentOrderAccProps);
@@ -335,5 +328,6 @@ public class StyleSheetNodeEqualsTest extends TestCase
     return iconNodes;
   }
 }
+
 
 

@@ -880,7 +880,7 @@ public class XhtmlLafUtils extends BaseLafUtils
     // on ICE due to problems with tiling transparent images that
     // are affecting UIXVE.  This code should be removed once the
     // underlying ICE bug is fixed (supposedly ICE 5.4.1)
-    if (TrinidadAgent.APPLICATION_ICE == agent.getAgentApplication())
+    if (TrinidadAgent.Application.ICE == agent.getAgentApplication())
       return false;
 
     //int encodings = ((Integer)agent.getCapability(
@@ -946,9 +946,9 @@ public class XhtmlLafUtils extends BaseLafUtils
     // For now, "top" in Netscape, "absmiddle" everywhere else
 
     String align = null;
-    int agentApplication = context.getAgent().getAgentApplication();
+    TrinidadAgent.Application agentApplication = context.getAgent().getAgentApplication();
 
-    if (agentApplication == TrinidadAgent.APPLICATION_NETSCAPE)
+    if (agentApplication == TrinidadAgent.Application.NETSCAPE)
     {
       align = UIConstants.V_ALIGN_TOP;
     }
