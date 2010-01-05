@@ -40,7 +40,7 @@
           <xsd:element ref="trmenu:groupNode"/>
           <xsd:element ref="trmenu:sharedNode"/>
         </xsd:choice>
-        <xsd:attribute name="id" type="xsd:id" use="required"/>
+        <xsd:attribute name="id" type="xsd:ID" use="required"/>
         <xsd:attribute name="label" type="trmenu:stringOrElExpression"/>
         <xsd:attribute name="icon" type="xsd:anyURI"/>
         <xsd:attribute name="readOnly" default="false"
