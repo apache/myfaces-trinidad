@@ -271,7 +271,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     // based on different platforms using the same disclosed/undisclosed 
     // skinning-key, but we don't have such mechanism in Trinidad right now.  
     // Hence, I have created new skinning-keys for Nokia to render text-icons.
-    if (isNokiaS60(arc))
+    if (isNokiaS60(rc))
     {
       iconName = 
            disclosed 
