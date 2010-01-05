@@ -413,32 +413,25 @@ org.apache.myfaces.trinidad.change.ChangeManager.
 </ul>
 </p>
 </subsection>
-<subsection name="org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE">
-<p>
-This configuration option enables an optimized strategy for caching some
-view state at an application level, which significantly improves
-scalability.  However, it makes it harder to develop (updates to
-pages will not be noticed until the server is restarted), and in
-some rare cases cannot be used for some pages.  See below for
-more information about this option. The default is false.
-</p>
-</subsection>
 <subsection name="org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT">
 <p>
-Apache Trinidad by default obfuscates the Javascript it delivers
-to the client, as well as stripping comments and whitespace.
-This dramatically reduces the size of our Javascript download,
-but also makes it tricky to debug the Javascript.  This
-flag can be set to true to turn off the obfuscation.
+For applications that run in ProjectStage.Production, Apache Trinidad by default
+obfuscates the Javascript it delivers to the client, as well as stripping
+comments and whitespace. This dramatically reduces the size of our Javascript
+download, but also makes it tricky to debug the Javascript. In other stages the
+default value is TRUE. However, a user can override the ProjectStage behavior
+by using this flag.
 </p>
 </subsection>
 <subsection name="org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION">
 <p>
-Apache Trinidad by default compresses the style class names inside the css that
-is generated on the server.  However, when developing custom Trinidad skins, it
-is much easier to work with the non-compressed style class names, which much more
-directly relate to those used in the skin css file.  This flag can be set to turn
-off automatic compression of style class names.
+For applications that run in ProjectStage.Production, Apache Trinidad by default
+compresses the style class names inside the css that is generated on the server.
+However, when developing custom Trinidad skins, it is much easier to work with
+the non-compressed style class names, which much more directly relate to those
+used in the skin css file. There for in all other stages (like Development) the
+compression is turned off. However, a user can override the ProjectStage
+behavior by using this flag.
 </p>
 </subsection>
 <subsection name="org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION">
@@ -447,7 +440,9 @@ If this parameter is enabled by setting to "true", Apache Trinidad will automati
 check the modification date of your JSPs and skinning CSS files, and discard saved
 state when they change;  this makes development easier,
 but adds overhead that should be avoided when your application
-is deployed.
+is deployed. For applications that run in ProjectStage.Production, the value is 
+"false" and all other stages use "true" as their default value. However, a user
+can override the ProjectStage behavior by using this flag.
 </p>
 </subsection>
 <subsection name="org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS">
@@ -497,140 +492,6 @@ However, "token"-based state saving does consume significantly more
 memory, so memory-limited servers may in some cases benefit from using
 "all" client-side state saving.</p>
 
-<subsection name="The Application View Cache">
-<p>
-  <font color="#FF0000">
-    <strong>
-This feature is NOT supported.
-    </strong>
-See <a href="https://issues.apache.org/jira/browse/TRINIDAD-1487" style="color:red">TRINIDAD-1487</a> for more.
-  </font>
-</p>
-<p>
-Apache Trinidad supports a special Application View Cache feature
-that can increase scalability significantly.  However, it
-can, in some unusual cases, break an otherwise functioning
-application, so it is important to understand how it works
-to understand whether it can be enabled for your pages.
-</p>
-<p>
-In conventional JSF state saving, a page's UI state is saved 
-the same way every time it is used.  It doesn't matter if 
-state is being saved for an initial render of a page, or if 
-state is being saved after a user has posted back to that page.
-No two postbacks are necessarily the same - the user may
-have entered entirely different data, navigated to
-a different set of rows in the table, etc.  So, it is extremely
-difficult to share state among postback requests.</p>
-
-<p>However, most of the time, all initial renders of any
-one page have exactly the same view state.  It doesn't matter
-if the page is showing different data, or responding to
-different query parameters, and so forth, because in JSF
-those are conventionally accessed using the JSF expression
-language (EL).  In JSF, what state saving remembers isn't the
-result of evaluating an EL expression  - it's the EL expression
-itself. So, when you see:
-<source><![CDATA[
-  <tr:outputText value="#{mybean.value}"/>
-]]>
-</source>
-... all that's being saved is "#{mybean.value}", and that state is
-the same no matter what that expression evaluates to.
-</p>
-<p>
-The Application View Cache takes advantage of this, and caches
-the state for these initial renders at an application scope.
-Once the page has been viewed once, all users can reuse that
-same state coming and going, saving some CPU (the CPU cost 
-of saving the state each time) and more importantly the
-memory overhead of keeping separate copies for each user.
-State saving for postback is still separated per user,
-but keep in mind that if the result of a postback is
-that you navigate to a new page, the Application View
-Cache is still in effect - it is only disabled when a postback
-remains on a page (for example, because of a validation
-failure).
-</p>
-<p>
-Perhaps even more importantly, the Application View Cache enables
-the use of web Proxy Caches in front of
-your application server.  Token-based client-side state saving
-defeats web proxy caches, because each user may have a different
-token for any one page, defeating cacheability.  The Application
-View Cache uses the same token across all users.
-</p>
-<p>All this should raise the question of why anyone would ever
-not use the Application View Cache.  First, the technology
-currently does not invalidate itself if the page is modified;
-it requires a server restart.  This makes it difficult to use
-during development.  Beyond this, however, there are some
-JSF coding techniques that break the core assumption of
-the Application View Cache - the assumption that the initial
-view state of any one page is always the same, no matter who
-views it:
-<ol>
-<li>Conditional tags that may not evaluate identically for each user</li>
-<li>JSF components that pull EL results into page state</li>
-</ol>
-</p>
-<p>
-The following JSP includes two potential examples of the first problem:
-<source><![CDATA[
-  <c:if test="${user.locale.language='en'}">
-    <h:outputText value="You're in an English locale"/>
-  </c:if>
-
-  <tr:selectOneListbox value="#{someValue}">
-    <tr:forEach var="item" items="#{model.listOfItems}">
-      <tr:selectItem value="#{item.value}" text="#{item.text}"/>
-    </tr:forEach>
-  </tr:selectOneListbox>
-]]>
-</source>
-The &lt;c:if&gt; will show "You're in an English locale" if the locale's
-language is English.  This means that in English, a user's version of
-the page will have an extra component over users who aren't
-using English;  the state will vary accordingly.  This sort of
-problem can cleanly be resolved by using "rendered" instead of &lt;c:if&gt;,
-which is always a recommended JSF best-practice:
-<source><![CDATA[
-    <h:outputText value="You're in an English locale"
-                  rendered="#{user.locale.language == 'en'}"/>
-]]>
-</source>
-The example using &lt;tr:forEach&gt; is less clear-cut, and 
-less easily resolved.  If "model.listOfItems" always has the
-same <em>number</em> of items when a page gets shown at first,
-then there are no issues with this particular code sample.  But
-if the number of items does vary from one user to another,  
-then the page, as written, cannot support the Application View Cache.
-In this particular case, there's also a simple workaround:
-<source><![CDATA[
-  <tr:selectOneListbox value="#{someValue}">
-    <f:selectItems value="#{model.listOfSelectItems}"/>
-  </tr:selectOneListbox>
-]]>
-</source>
-</p>
-<p>
-In addition to problems with non-JSF tags that manipulate the
-page, you can run into problems with some JSF tags that
-directly manipulate page state.  A particular example of this
-is the MyFaces &lt;x:save_state&gt; tag.  This tag will
-evaluate an EL expression and save it directly as part
-of the page's view state.  This is very nice functionality,
-but it does directly and necessarily conflict with the
-technique of the Application View Cache.
-</p>
-
-
-<p>At the moment, the Application View Cache can only
-be enabled or disabled globally.  We are considering
-adding support for disabling (or enabling) the view cache 
-on a page-by-page basis.</p>
-
-</subsection>
 
     </section>
     <section name="RequestContext">

@@ -19,10 +19,13 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.el.ValueExpression;
 
+import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
@@ -96,6 +99,16 @@ public class FacesBeanWrapper
     _wrapped.setValueBinding(key, binding);
   }
 
+  public void addClientBehavior(String eventName, ClientBehavior behavior)
+  {
+    _wrapped.addClientBehavior(eventName, behavior);
+  }
+
+  public Map<String, List<ClientBehavior>> getClientBehaviors()
+  {
+    return _wrapped.getClientBehaviors();
+  }
+
   public void addEntry(PropertyKey listKey, Object value)
   {
     _wrapped.addEntry(listKey, value);
@@ -136,11 +149,6 @@ public class FacesBeanWrapper
     return _wrapped.bindingKeySet();
   }
 
-  public void markInitialState()
-  {
-    _wrapped.markInitialState();
-  }
-
   public Object saveState(FacesContext context)
   {
     return _wrapped.saveState(context);
@@ -149,5 +157,20 @@ public class FacesBeanWrapper
   public void restoreState(FacesContext context, Object state)
   {
     _wrapped.restoreState(context, state);
+  }
+
+  public void clearInitialState()
+  {
+    _wrapped.clearInitialState();
+  }
+
+  public void markInitialState()
+  {
+    _wrapped.markInitialState();
+  }
+
+  public boolean initialStateMarked()
+  {
+    return _wrapped.initialStateMarked();
   }
 }

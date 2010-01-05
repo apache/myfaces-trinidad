@@ -20,6 +20,13 @@
 -->
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee" >
 
+  <name>trinidad</name>
+  <ordering>
+    <after>
+      <others/>
+    </after>
+  </ordering>
+
   <application>
     <view-handler>org.apache.myfaces.trinidadinternal.application.ViewHandlerImpl</view-handler>
     <state-manager>org.apache.myfaces.trinidadinternal.application.StateManagerImpl</state-manager>

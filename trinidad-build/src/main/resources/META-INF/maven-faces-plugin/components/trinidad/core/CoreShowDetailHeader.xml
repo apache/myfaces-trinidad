@@ -83,6 +83,9 @@ between being disclosed(shown) or undisclosed(hidden).]]>
         <mfp:property-name>disclosed</mfp:property-name>
       </mfp:java-constructor>
       <mfp:uix2-local-name>hideShowHeader</mfp:uix2-local-name>
+      <fmd:default-event-name>click</fmd:default-event-name>
+      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
         <fmd:default-property>text</fmd:default-property>
       </fmd:component-metadata>

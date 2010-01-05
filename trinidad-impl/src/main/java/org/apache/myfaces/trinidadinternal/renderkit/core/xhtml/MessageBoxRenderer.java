@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -31,12 +32,11 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreMessages;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
 import org.apache.myfaces.trinidadinternal.util.MessageUtils;
+
 
 /**
  * Renderer for org.apache.myfaces.trinidad.Messages, family org.apache.myfaces.trinidad.Messages.
@@ -49,13 +49,15 @@ public class MessageBoxRenderer extends XhtmlRenderer
     this(CoreMessages.TYPE);
   }
 
-  protected MessageBoxRenderer(FacesBean.Type type)
+  protected MessageBoxRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _textKey     = type.findKey("text");
@@ -74,8 +76,12 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  protected void encodeAll(FacesContext context, RenderingContext arc,
-      UIComponent component, FacesBean bean) throws IOException
+  protected void encodeAll(
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     // Force MessageBox to be re-rendered via PPR, since the set
     // of messages may have changed.
@@ -85,19 +91,19 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
     ResponseWriter writer = context.getResponseWriter();
 
-    Map<String, String> origSkinResourceMap = arc.getSkinResourceKeyMap();
+    Map<String, String> origSkinResourceMap = rc.getSkinResourceKeyMap();
 
     // Setup the rendering context, so that default skin selectors of
     // delegate renderers are mapped to those of this renderer
-    arc.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
+    rc.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
 
     // Check if INLINE validation mode is enabled
     boolean inlineValidation =
         RequestContext.ClientValidation.INLINE.equals(
             RequestContext.getCurrentInstance().getClientValidation());
-    
-    boolean isGlobalOnly = isGlobalOnly(bean);
-    
+
+    boolean isGlobalOnly = isGlobalOnly(component, bean);
+
     // Determine if we should render the MessageBox
     boolean renderMsgBox = (isGlobalOnly && context.getMessages(null).hasNext()) ||
       (!isGlobalOnly && inlineValidation) || (!isGlobalOnly && context.getMessages().hasNext());
@@ -105,27 +111,27 @@ public class MessageBoxRenderer extends XhtmlRenderer
     if (renderMsgBox)
     {
 
-      if (!isGlobalOnly && inlineValidation && supportsScripting(arc))
+      if (!isGlobalOnly && inlineValidation && supportsScripting(rc))
       {
         writer.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
-        renderScriptDeferAttribute(context, arc);
-        renderScriptTypeAttribute(context, arc);
+        renderScriptDeferAttribute(context, rc);
+        renderScriptTypeAttribute(context, rc);
 
         // Output the styles required for client-side manipulation of the MessageBox
 
         // Output style for list of messages
         writer.writeText("TrPage.getInstance().addStyleClassMap( {'", null);
         writer.writeText(SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS + "':'", null);
-        writer.writeText(arc.getStyleClass(SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS), null);
+        writer.writeText(rc.getStyleClass(SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS), null);
 
         // Single entry list uses two styles
         writer.writeText("','" + SkinSelectors.AF_MESSAGES_LIST_SINGLE_STYLE_CLASS + "':'", null);
-        writer.writeText(arc.getStyleClass(SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS), null);
-        writer.writeText(" " + arc.getStyleClass(SkinSelectors.AF_MESSAGES_LIST_SINGLE_STYLE_CLASS), null);
+        writer.writeText(rc.getStyleClass(SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS), null);
+        writer.writeText(" " + rc.getStyleClass(SkinSelectors.AF_MESSAGES_LIST_SINGLE_STYLE_CLASS), null);
 
         // Output Style for MessageBox Anchors
         writer.writeText("','" + SkinSelectors.LINK_STYLE_CLASS + "':'", null);
-        writer.writeText(arc.getStyleClass(SkinSelectors.LINK_STYLE_CLASS), null);
+        writer.writeText(rc.getStyleClass(SkinSelectors.LINK_STYLE_CLASS), null);
         writer.writeText("'} ); ", null);
 
         // Output the script that will register the MessageBox with
@@ -139,7 +145,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
       // Delegate rendering of the outer shell to the BoxRenderer class
       // which will call back to this renderer to output the messages
-      _boxRenderer.encodeAll(context, arc, component, bean);
+      _boxRenderer.encodeAll(context, rc, component, bean);
     }
     else
     {
@@ -148,34 +154,34 @@ public class MessageBoxRenderer extends XhtmlRenderer
       renderId(context, component);
       writer.endElement(XhtmlConstants.SPAN_ELEMENT);
     }
-    
+
     // Reset the skin resource map
-    arc.setSkinResourceKeyMap(origSkinResourceMap);
+    rc.setSkinResourceKeyMap(origSkinResourceMap);
   }
 
   protected void _renderContent(
-      FacesContext context,
-      RenderingContext arc,
-      UIComponent component,
-      FacesBean bean)
-      throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
-    boolean globalOnly = isGlobalOnly(bean);
+    boolean globalOnly = isGlobalOnly(component, bean);
 
     // TODO - Merge styles into AF_MESSAGES_STYLE_CLASS
     writer.startElement(XhtmlConstants.DIV_ELEMENT, component);
-    renderStyleClass(context, arc, SkinSelectors.AF_MESSAGES_BODY_STYLE_CLASS);
+    renderStyleClass(context, rc, SkinSelectors.AF_MESSAGES_BODY_STYLE_CLASS);
 
-    _renderHeader(context, arc, component, bean);
+    _renderHeader(context, rc, component, bean);
 
     // Render the 'message' attribute if specified
-    String message = getMessage(bean);
+    String message = getMessage(component, bean);
     if (message != null)
     {
       writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
-      renderStyleClass(context, arc, SkinSelectors.AF_MESSAGES_MESSAGE_TEXT_STYLE_CLASS);
+      renderStyleClass(context, rc, SkinSelectors.AF_MESSAGES_MESSAGE_TEXT_STYLE_CLASS);
       writer.write(message);
       writer.endElement(XhtmlConstants.DIV_ELEMENT);
     }
@@ -196,12 +202,12 @@ public class MessageBoxRenderer extends XhtmlRenderer
       styleClasses = new String[] {SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS,
         SkinSelectors.AF_MESSAGES_LIST_SINGLE_STYLE_CLASS};
 
-    renderStyleClasses(context, arc, styleClasses);
+    renderStyleClasses(context, rc, styleClasses);
 
-    _renderGlobalMessages(context, arc, component, bean);
+    _renderGlobalMessages(context, rc, component, bean);
 
     if (!globalOnly)
-      _renderComponentMessages(context, arc, component, bean);
+      _renderComponentMessages(context, rc, component, bean);
 
     // End of list
     writer.endElement("ol");
@@ -211,11 +217,11 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   protected void _renderGlobalMessages(
-      FacesContext context,
-      RenderingContext arc,
-      UIComponent component,
-      FacesBean bean)
-      throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -227,7 +233,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
       writer.startElement("li", null);
 
-      String text = MessageUtils.getGlobalMessage(arc, msg.getSummary(), msg.getDetail());
+      String text = MessageUtils.getGlobalMessage(rc, msg.getSummary(), msg.getDetail());
       renderPossiblyFormattedText(context, text);
 
       writer.endElement("li");
@@ -236,11 +242,11 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   protected void _renderComponentMessages(
-      FacesContext context,
-      RenderingContext arc,
-      UIComponent component,
-      FacesBean bean)
-      throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -260,10 +266,10 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
         writer.startElement("li", null);
 
-        _renderMessageAnchor(context, arc, msg, id);
+        _renderMessageAnchor(context, rc, msg, id);
 
-        String text = MessageUtils.getClientMessage(arc, msg.getSummary(), msg.getDetail());
-        
+        String text = MessageUtils.getClientMessage(rc, msg.getSummary(), msg.getDetail());
+
         // If the first two characters are "- ", assume it's due to af_messages.LIST_FORMAT_private;
         // alternatively, we could change the value of this key in CoreBundle.xrts, located in:
         // trinidad-impl\src\main\xrts\org\apache\myfaces\trinidadinternal\renderkit\core\resource
@@ -280,7 +286,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
         {
           isNullLabel = true;
         }
-        
+
         if (isNullLabel && text.charAt(0) == '-' && text.charAt(1) == ' ')
           text = text.substring(2);
 
@@ -292,19 +298,21 @@ public class MessageBoxRenderer extends XhtmlRenderer
   }
 
   protected void _renderHeader(
-      FacesContext        context,
-      RenderingContext arc,
-      UIComponent         component,
-      FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    delegateRenderer(context, arc, component, bean, _headerRenderer);
+    delegateRenderer(context, rc, component, bean, _headerRenderer);
   }
 
   protected void _renderMessageAnchor(
-      FacesContext        context,
-      RenderingContext arc,
-      FacesMessage msg,
-      String componentId) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    FacesMessage     msg,
+    String           componentId
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -321,7 +329,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
       {
         String anchor = MessageUtils.getAnchor(componentId);
         writer.startElement(XhtmlConstants.LINK_ELEMENT, null);
-        renderStyleClass(context, arc, SkinSelectors.LINK_STYLE_CLASS);
+        renderStyleClass(context, rc, SkinSelectors.LINK_STYLE_CLASS);
         writer.writeAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#" + anchor, null);
         writer.write(labelString);
         writer.endElement(XhtmlConstants.LINK_ELEMENT);
@@ -333,27 +341,35 @@ public class MessageBoxRenderer extends XhtmlRenderer
   // Rendering delegate to handle output of the header for the message box
   private class HeaderRenderer extends PanelHeaderRenderer
   {
-    public HeaderRenderer(FacesBean.Type type)
+    public HeaderRenderer(
+      FacesBean.Type type)
     {
       super(type);
     }
 
     @Override
-    protected boolean shouldRenderId(FacesContext context, UIComponent component)
+    protected boolean shouldRenderId(
+      FacesContext context,
+      UIComponent  component)
     {
       // Header will always be refreshed as sub-element of parent
       return false;
     }
 
     @Override
-    protected void renderEventHandlers(FacesContext context, FacesBean bean)
-        throws IOException
+    protected void renderEventHandlers(
+      FacesContext context,
+      UIComponent  component,
+      FacesBean    bean
+      ) throws IOException
     {
       // Prevent HeaderRenderer from re-rendering event handlers
     }
 
     @Override
-    protected String getMessageType(FacesBean bean)
+    protected String getMessageType(
+      UIComponent component,
+      FacesBean   bean)
     {
       String messageType = null;
 
@@ -376,16 +392,19 @@ public class MessageBoxRenderer extends XhtmlRenderer
     }
 
     @Override
-    protected String getText(RenderingContext arc, FacesBean bean,
-        String messageType)
+    protected String getText(
+      RenderingContext rc,
+      UIComponent      component,
+      FacesBean        bean,
+      String           messageType)
     {
-      String text = MessageBoxRenderer.this.getText(bean);
+      String text = MessageBoxRenderer.this.getText(component, bean);
       if (text != null)
         // Use Text attribute of this component for header text
         return text;
 
       // Otherwise parent will decide text & style based on messageType
-      return super.getText(arc, bean, messageType);
+      return super.getText(rc, component, bean, messageType);
     }
 
     @Override
@@ -409,21 +428,22 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
       return iconName;
     }
-
   }
 
   // Delegate renderer, handles the outer element rendering and
   // provides option to wrap message box using rounded borders etc.
   private class BoxRenderer extends PanelBoxRenderer
   {
-
-    public BoxRenderer(FacesBean.Type type)
+    public BoxRenderer(
+      FacesBean.Type type)
     {
       super(type);
     }
 
     @Override
-    protected boolean shouldRenderId(FacesContext context, UIComponent component)
+    protected boolean shouldRenderId(
+      FacesContext context,
+      UIComponent  component)
     {
       // As panelBox is handling the outer rendering, then it should render
       // the id of the MessageBox component
@@ -431,7 +451,9 @@ public class MessageBoxRenderer extends XhtmlRenderer
     }
 
     @Override
-    protected String getBackground(FacesBean bean)
+    protected String getBackground(
+      UIComponent component,
+      FacesBean   bean)
     {
       // Force use of 'light' style, so we know which style
       // to re-map in _RESOURCE_KEY_MAP
@@ -439,9 +461,11 @@ public class MessageBoxRenderer extends XhtmlRenderer
     }
 
     @Override
-    protected String getInlineStyle(FacesBean bean)
+    protected String getInlineStyle(
+      UIComponent component,
+      FacesBean   bean)
     {
-      String inlineStyle = super.getInlineStyle(bean);
+      String inlineStyle = super.getInlineStyle(component, bean);
 
       boolean inlineValidation =
         RequestContext.ClientValidation.INLINE.equals(
@@ -458,29 +482,38 @@ public class MessageBoxRenderer extends XhtmlRenderer
       // Ensure the MessageBox is hidden for inline mode when there are no messages
       if (inlineStyle != null)
         return inlineStyle + ";display:none;";
-      
+
       return "display:none;";
     }
 
     @Override
-    protected boolean hasChildren(UIComponent component)
+    protected boolean hasChildren(
+      UIComponent component)
     {
       // Required to force panelBox to call render properly
       return true;
     }
 
     @Override
-    protected void renderBody(FacesContext context, RenderingContext arc,
-        UIComponent component, FacesBean bean, Object icon, Object text) throws IOException
+    protected void renderBody(
+      FacesContext     context,
+      RenderingContext rc,
+      UIComponent      component,
+      FacesBean        bean,
+      Object           icon,
+      Object           text
+      ) throws IOException
     {
       // Pass control back to MessageBoxRenderer to continue rendering
       // the content of the message box.
-      MessageBoxRenderer.this._renderContent(context, arc, component, bean);
+      MessageBoxRenderer.this._renderContent(context, rc, component, bean);
     }
   }
 
   @Override
-  protected boolean shouldRenderId(FacesContext context, UIComponent component)
+  protected boolean shouldRenderId(
+    FacesContext context,
+    UIComponent  component)
   {
     // Normally BoxRenderer will output the id for this component, but
     // if we're just outputting an empty element for PPR purposes, then
@@ -488,17 +521,23 @@ public class MessageBoxRenderer extends XhtmlRenderer
     return true;
   }
 
-  protected String getText(FacesBean bean)
+  protected String getText(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (String)this.resolveProperty(bean, _textKey);
   }
 
-  protected String getMessage(FacesBean bean)
+  protected String getMessage(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (String)this.resolveProperty(bean, _messageKey);
   }
 
-  protected boolean isGlobalOnly(FacesBean bean)
+  protected boolean isGlobalOnly(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Boolean)this.resolveProperty(bean, _globalOnlyKey, true);
   }

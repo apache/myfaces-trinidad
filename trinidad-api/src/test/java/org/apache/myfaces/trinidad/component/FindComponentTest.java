@@ -23,13 +23,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIViewRoot;
 
+import javax.faces.context.FacesContext;
+
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.apache.myfaces.trinidad.component.UIXPanel;
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 
-public class FindComponentTest extends TestCase
+public class FindComponentTest extends FacesTestCase
 {
   public static final Test suite()
   {
@@ -156,6 +158,7 @@ public class FindComponentTest extends TestCase
     UIXPanel g = new UIXPanel(); g.setId("g");
     UIXPanel h = new UIXPanel(); h.setId("h");
     UIXPanel i = new UIXPanel(); i.setId("i");
+ 
     a.getChildren().add(b);
     a.getChildren().add(c);
     b.getChildren().add(d);

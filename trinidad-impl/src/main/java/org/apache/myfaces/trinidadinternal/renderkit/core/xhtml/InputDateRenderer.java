@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,24 +18,28 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
+import javax.faces.component.UIComponent;
+
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputDate;
 
+
 public class InputDateRenderer extends InputLabelAndMessageRenderer
 {
-
   public InputDateRenderer()
   {
     super(CoreInputDate.TYPE);
-  }  
-  
-  protected InputDateRenderer(FacesBean.Type type)
+  }
+
+  protected InputDateRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _simpleInputDate = new SimpleInputDateRenderer(type);
@@ -48,10 +52,12 @@ public class InputDateRenderer extends InputLabelAndMessageRenderer
   }
 
   @Override
-  protected String getRootStyleClass(FacesBean bean)  
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|inputDate";
-  }  
+  }
 
   private SimpleInputDateRenderer _simpleInputDate;
 }

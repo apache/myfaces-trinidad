@@ -18,13 +18,20 @@
  */
 package org.apache.myfaces.trinidad.render;
 
+
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIParameter;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
@@ -74,10 +81,10 @@ public class CoreRenderer extends Renderer
    * @return The VisitResult controlling continued iteration of the visit.
    */
   public VisitResult partialEncodeVisit(
-    VisitContext visitContext,
+    VisitContext       visitContext,
     PartialPageContext partialContext,
-    UIComponent component,
-    VisitCallback callback)
+    UIComponent        component,
+    VisitCallback      callback)
   {
     if (partialContext.isPossiblePartialTarget(component.getId()) &&
         partialContext.isPartialTarget(component.getClientId(visitContext.getFacesContext())))
@@ -109,16 +116,16 @@ public class CoreRenderer extends Renderer
    * @see #tearDownEncodingContext
    */
   public void setupEncodingContext(
-    FacesContext context,
+    FacesContext     context,
     RenderingContext rc,
-    UIXComponent component)
+    UIXComponent     component)
   {
   }
 
   public void setupEncodingContext(
-    FacesContext context,
+    FacesContext     context,
     RenderingContext rc,
-    UIComponent component)
+    UIComponent      component)
   {
     // temporary hack to change UIComponent.  Once the change has propagated through, we will
     // remove the UIXComponent version.
@@ -143,16 +150,16 @@ public class CoreRenderer extends Renderer
    * @see #setupEncodingContext
    */
   public void tearDownEncodingContext(
-    FacesContext context,
+    FacesContext     context,
     RenderingContext rc,
     UIXComponent     component)
   {
   }
 
   public void tearDownEncodingContext(
-    FacesContext context,
+    FacesContext     context,
     RenderingContext rc,
-    UIComponent     component)
+    UIComponent      component)
   {
     // temporary hack to change UIComponent.  Once the change has propagated through, we will
     // remove the UIXComponent version.
@@ -160,7 +167,6 @@ public class CoreRenderer extends Renderer
     if (component instanceof UIXComponent)
       tearDownEncodingContext(context, rc, (UIXComponent)component);
   }
-
 
   //
   // COERCION HELPERS
@@ -186,6 +192,25 @@ public class CoreRenderer extends Renderer
 
     String uri = o.toString();
 
+    // *** EL Coercion problem ***
+    // If icon or image attribute was declared with #{resource[]} and that expression
+    // evaluates to null (it means ResourceHandler.createResource returns null because requested resource does not exist)
+    // EL implementation turns null into ""
+    // see http://www.irian.at/blog/blogid/unifiedElCoercion/#unifiedElCoercion
+    if (uri.length() == 0)
+    {
+      return null;
+    }
+
+
+    // With JSF 2.0 url for resources can be done with EL like #{resource['resourcename']}
+    // and such EL after evalution contains context path for the current web application already,
+    // -> we dont want call viewHandler.getResourceURL()
+    if (uri.contains(ResourceHandler.RESOURCE_IDENTIFIER))
+    {
+      return uri;
+    }
+
     // Treat two slashes as server-relative
     if (uri.startsWith("//"))
     {
@@ -193,6 +218,9 @@ public class CoreRenderer extends Renderer
     }
     else
     {
+      // If the specified path starts with a "/",
+      // following method will prefix it with the context path for the current web application,
+      // and return the result
       return fc.getApplication().getViewHandler().getResourceURL(fc, uri);
     }
   }
@@ -218,7 +246,6 @@ public class CoreRenderer extends Renderer
     }
   }
 
-
   /**
    * Coerces an object into a resource URI, calling the view-handler.
    * @deprecated use toResourceUri
@@ -227,7 +254,6 @@ public class CoreRenderer extends Renderer
   {
     return toResourceUri(FacesContext.getCurrentInstance(),o);
   }
-
 
   /**
    * Returns the integer value of an object;  this does
@@ -238,8 +264,6 @@ public class CoreRenderer extends Renderer
   {
     return ((Number) o).intValue();
   }
-
-
 
   /**
    * Returns the integer value of an object;  this does
@@ -293,10 +317,11 @@ public class CoreRenderer extends Renderer
     return c;
   }
 
-
   @Override
-  public final void encodeBegin(FacesContext context,
-                          UIComponent component) throws IOException
+  public final void encodeBegin(
+    FacesContext context,
+    UIComponent  component
+    ) throws IOException
   {
     if (!getRendersChildren())
     {
@@ -313,15 +338,19 @@ public class CoreRenderer extends Renderer
   }
 
   @Override
-  public final void encodeChildren(FacesContext context, UIComponent component)
+  public final void encodeChildren(
+    FacesContext context,
+    UIComponent  component)
   {
     // encodeChildren() is fairly useless - it's simpler to just
     // put the output in encodeEnd(), or use the encodeAll() hook
   }
 
   @Override
-  public final void encodeEnd(FacesContext context,
-                        UIComponent component) throws IOException
+  public final void encodeEnd(
+    FacesContext context,
+    UIComponent  component
+    ) throws IOException
   {
     RenderingContext rc = RenderingContext.getCurrentInstance();
     if (rc == null)
@@ -349,10 +378,33 @@ public class CoreRenderer extends Renderer
     FacesContext     context,
     RenderingContext rc,
     UIComponent      component,
-    FacesBean        bean) throws IOException
+    FacesBean        bean
+    ) throws IOException
   {
     if (getRendersChildren())
       throw new IllegalStateException();
+  }
+
+  /**
+   * Hook for rendering the component resources for the <code>target</code>.
+   * @param context Current <code>FacesContext</code> object for this request.
+   * @param target The target for the resources (e.g. head/body/form)
+   *
+   * @throws IOException
+   */
+  protected final void encodeComponentResources(
+    FacesContext context,
+    String       target
+    ) throws IOException
+  {
+    if(target != null)
+    {
+      UIViewRoot viewRoot = context.getViewRoot();
+      for(UIComponent componentResource : viewRoot.getComponentResources(context, target))
+      {
+        componentResource.encodeAll(context);
+      }
+    }
   }
 
   /**
@@ -363,12 +415,12 @@ public class CoreRenderer extends Renderer
     FacesContext     context,
     RenderingContext rc,
     UIComponent      component,
-    FacesBean        bean) throws IOException
+    FacesBean        bean
+    ) throws IOException
   {
     if (getRendersChildren())
       throw new IllegalStateException();
   }
-
 
   /**
    * Hook for rendering all of a component;  only
@@ -378,7 +430,8 @@ public class CoreRenderer extends Renderer
     FacesContext     context,
     RenderingContext rc,
     UIComponent      component,
-    FacesBean        bean) throws IOException
+    FacesBean        bean
+    ) throws IOException
   {
     if (!getRendersChildren())
       throw new IllegalStateException();
@@ -393,7 +446,8 @@ public class CoreRenderer extends Renderer
   @SuppressWarnings("unchecked")
   protected void encodeChild(
     FacesContext context,
-    UIComponent  child) throws IOException
+    UIComponent  child
+    ) throws IOException
   {
     assert(child.isRendered());
     child.encodeBegin(context);
@@ -415,11 +469,11 @@ public class CoreRenderer extends Renderer
     child.encodeEnd(context);
   }
 
-
   @SuppressWarnings("unchecked")
   protected void encodeAllChildren(
     FacesContext context,
-    UIComponent  component) throws IOException
+    UIComponent  component
+    ) throws IOException
   {
     int childCount = component.getChildCount();
     if (childCount == 0)
@@ -439,7 +493,8 @@ public class CoreRenderer extends Renderer
     RenderingContext rc,
     UIComponent      component,
     FacesBean        bean,
-    CoreRenderer     renderer) throws IOException
+    CoreRenderer     renderer
+    ) throws IOException
   {
     if (renderer.getRendersChildren())
     {
@@ -456,7 +511,8 @@ public class CoreRenderer extends Renderer
     RenderingContext rc,
     UIComponent      component,
     FacesBean        bean,
-    CoreRenderer     renderer) throws IOException
+    CoreRenderer     renderer
+    ) throws IOException
   {
     if (renderer.getRendersChildren())
     {
@@ -473,7 +529,8 @@ public class CoreRenderer extends Renderer
     RenderingContext rc,
     UIComponent      component,
     FacesBean        bean,
-    CoreRenderer     renderer) throws IOException
+    CoreRenderer     renderer
+    ) throws IOException
   {
     if (renderer.getRendersChildren())
     {
@@ -490,7 +547,8 @@ public class CoreRenderer extends Renderer
    */
   protected void renderId(
     FacesContext context,
-    UIComponent  component) throws IOException
+    UIComponent component
+    ) throws IOException
   {
     if (shouldRenderId(context, component))
     {
@@ -517,7 +575,7 @@ public class CoreRenderer extends Renderer
   // TODO Is this a bottleneck?  If so, optimize!
   protected boolean shouldRenderId(
     FacesContext context,
-    UIComponent  component)
+    UIComponent component)
   {
     String id = component.getId();
 
@@ -532,12 +590,14 @@ public class CoreRenderer extends Renderer
     return true;
   }
 
-  protected boolean skipDecode(FacesContext context)
+  protected boolean skipDecode(
+    FacesContext context)
   {
     return false;
   }
 
-  protected FacesBean getFacesBean(UIComponent component)
+  protected FacesBean getFacesBean(
+    UIComponent component)
   {
     return ((UIXComponent) component).getFacesBean();
   }
@@ -576,7 +636,8 @@ public class CoreRenderer extends Renderer
    * one has rendered=="true".
    */
   @SuppressWarnings("unchecked")
-  static public boolean hasRenderedChildren(UIComponent component)
+  static public boolean hasRenderedChildren(
+    UIComponent component)
   {
     int count = component.getChildCount();
     if (count == 0)
@@ -597,7 +658,8 @@ public class CoreRenderer extends Renderer
    * Returns the total number of children with rendered=="true".
    */
   @SuppressWarnings("unchecked")
-  static public int getRenderedChildCount(UIComponent component)
+  static public int getRenderedChildCount(
+    UIComponent component)
   {
     int count = component.getChildCount();
     if (count == 0)
@@ -615,7 +677,6 @@ public class CoreRenderer extends Renderer
     return total;
   }
 
-
  /**
    * @param afterChildIndex The children coming after this index, will
    * be considered.
@@ -624,7 +685,7 @@ public class CoreRenderer extends Renderer
    */
   public static int getNextRenderedChildIndex(
     List<UIComponent> components,
-    int  afterChildIndex
+    int               afterChildIndex
     )
   {
     int childIndex = afterChildIndex + 1;
@@ -639,7 +700,6 @@ public class CoreRenderer extends Renderer
 
     return NO_CHILD_INDEX;
   }
-
 
   //
   // AGENT CAPABILITY CONVENIENCE METHODS
@@ -750,6 +810,41 @@ public class CoreRenderer extends Renderer
   // Rendering convenience methods.
   //
 
+  /**
+   * Get a collection of all the parameters that are children of the current component as
+   * client behavior parameters.
+   * @param component The component
+   * @return Collection of parameters (will be non-null)
+   */
+  public static Collection<ClientBehaviorContext.Parameter> getBehaviorParameters(
+    UIComponent component)
+  {
+    int childCount = component.getChildCount();
+    if (childCount > 0)
+    {
+      List<ClientBehaviorContext.Parameter> list = null;
+      for (UIComponent child : component.getChildren())
+      {
+        if (!(child instanceof UIParameter)) { continue; }
+
+        if (list == null)
+        {
+          // leave plenty of room to hold the parameters
+          list = new ArrayList<ClientBehaviorContext.Parameter>(childCount);
+        }
+        UIParameter param = (UIParameter) child;
+        list.add(new ClientBehaviorContext.Parameter(param.getName(), param.getValue()));
+      }
+
+      if (list != null)
+      {
+        return list;
+      }
+    }
+
+    return Collections.<ClientBehaviorContext.Parameter>emptyList();
+  }
+
   protected void renderEncodedActionURI(
    FacesContext context,
    String       name,
@@ -773,8 +868,6 @@ public class CoreRenderer extends Renderer
       context.getResponseWriter().writeURIAttribute(name, value, null);
     }
   }
-
-
 
   /**
    * Render a generic CSS styleClass (not one derived from an attribute).
@@ -846,7 +939,6 @@ public class CoreRenderer extends Renderer
 
     context.getResponseWriter().writeAttribute("class", value, null);
   }
-
 
   // Heuristic guess of the maximum length of a typical compressed style
   private static final int _COMPRESSED_LENGTH = 4;

@@ -27,6 +27,16 @@ import javax.faces.context.FacesContext;
 public interface PropertyMap extends Map<PropertyKey,Object>
 {
   public void markInitialState();
+  
+  /** 
+   * @return true if delta state changes are being tracked, otherwise false
+   */
+  public boolean initialStateMarked();
+
+  /** 
+   * Reset to a non-delta tracking state.
+   */
+  public void clearInitialState();     
   public Object saveState(FacesContext context);
   public void restoreState(FacesContext context, FacesBean.Type type, Object state);
 }

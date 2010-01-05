@@ -16,19 +16,17 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
-  <!-- Use client-side state saving.  In Trinidad, it is an
-       optimized, token-based mechanism that is almost always a
-       better choice than the standard JSF server-side state saving. -->
+
+  <!-- setting the project stage to be DEVELOPMENT -->
   <context-param>
-    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-    <param-value>client</param-value>
-    <!--param-value>server</param-value-->
+    <param-name>javax.faces.PROJECT_STAGE</param-name>   
+    <param-value>Development</param-value>
   </context-param>
 
   <context-param>
@@ -47,6 +45,17 @@
     <param-name>org.apache.myfaces.trinidadinternal.ENABLE_PPR_OPTIMIZATION</param-name>
     <param-value>false</param-value>
   </context-param>
+ 
+  <!-- In Trinidad, we use an optimized, token-based mechanism if either 
+       1] javax.faces.STATE_SAVING_METHOD = server
+       2] javax.faces.STATE_SAVING_METHOD = client and 
+          org.apache.myfaces.trinidad.CLIENT_STATE_METHOD = token
+  -->
+  <context-param>
+    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+    <param-value>client</param-value>
+    <!--param-value>server</param-value-->
+  </context-param>
 
   <!-- Parameter to set the maximum number of client view state tokens.
        Uncomment this to test low-token-count scenarios.
@@ -62,17 +71,66 @@
     <param-name>org.apache.myfaces.trinidad.CLIENT_STATE_METHOD</param-name>
     <param-value>all</param-value>
   </context-param-->
-
-  <!-- Trinidad also supports an optimized strategy for caching some
-   view state at an application level, which significantly improves
-   scalability.  However, it makes it harder to develop (updates to
-   pages will not be noticed until the server is restarted), and in
-   some rare cases cannot be used for some pages (see Trinidad
-   documentation for more information) -->
+<!-- When token client-side state saving is enabled, MyFaces Trinidad can apply an additional
+     optimization by caching an entire UIViewRoot tree with each token. 
+     (Note that this does not affect thread safety or session failover.) 
+     This is a major optimization for AJAX-intensive systems, as postbacks can be processed 
+     far more rapidly without the need to reinstantiate the UIViewRoot tree. 
+     
+     You set the org.apache.myfaces.trinidad.CACHE_VIEW_ROOT parameter to true to enable caching. 
+     True is the default. Set the parameter to false to disable caching.
+     
+     Note: This type of caching is known to interfere with some other JSF technologies. 
+     In particular, the Apache MyFaces Tomahawk saveState component does not work, 
+     and template text in Facelets may appear in duplicate.
+  -->
   <context-param>
-    <param-name>org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE</param-name>
+    <param-name>org.apache.myfaces.trinidad.CACHE_VIEW_ROOT</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  
+
+  <!-- Temporarily disable partial state saving default until we make it work with Trinidad -->
+  <context-param>
+    <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
     <param-value>false</param-value>
   </context-param>
+
+  <!-- Facelets configuration, comment to use JSP -->
+
+  <context-param>
+    <param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
+    <param-value>*.xhtml</param-value>
+    <!-- to run facelets for jspx files comment the line above and uncomment line below-->
+    <!--param-value>*.xhtml;*.jspx</param-value-->
+  </context-param>
+
+  <context-param>
+    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+    <param-value>/WEB-INF/tr-demo.taglib.xml</param-value>
+  </context-param>
+
+  <!-- End of facelets configuration -->
+
+  <!-- Enables Change Persistence at a session scope.  By default,
+       Change Persistence is entirely disabled. The ChangeManager is
+       an API, which can persist component modifications (like,
+       is a showDetail or tree expanded or collapsed). For providing
+       a custom Change Persistence implementation inherit from the 
+       Trinidad API's ChangeManager class. As the value you have 
+       to use the fullqualified class name. -->
+  <context-param>
+    <param-name>org.apache.myfaces.trinidad.CHANGE_PERSISTENCE</param-name>
+    <param-value>session</param-value>
+    <!-- to run without using the change manager comment the line above and uncomment the line below-->
+    <!--param-value>org.apache.myfaces.trinidad.change.NullChangeManager</param-value-->    
+  </context-param>
+  
 <!-- Uncomment this if you are debugging skinning and want the styleclasses to not be compressed  
 <context-param>
  <param-name>org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION</param-name>
@@ -92,18 +150,6 @@
     <param-value>false</param-value>
   </context-param>
 
-  <!-- Enables Change Persistence at a session scope.  By default,
-       Change Persistence is entirely disabled. The ChangeManager is
-       an API, which can persist component modifications (like,
-       is a showDetail or tree expanded or collapsed). For providing
-       a custom Change Persistence implementation inherit from the 
-       Trinidad API's ChangeManager class. As the value you have 
-       to use the fullqualified class name. -->
-  <context-param>
-    <param-name>org.apache.myfaces.trinidad.CHANGE_PERSISTENCE</param-name>
-    <param-value>session</param-value>
-  </context-param>
-  
   <context-param>
     <param-name>org.apache.myfaces.trinidad.resource.DEBUG</param-name>
     <param-value>false</param-value>
@@ -121,22 +167,6 @@
     <param-value>userInputHere:</param-value>
   </context-param--> 
 
-  <!-- Uncomment the below for use with Facelets
-  <context-param>
-    <param-name>org.apache.myfaces.trinidad.ALTERNATE_VIEW_HANDLER</param-name>
-    <param-value>org.apache.myfaces.trinidadinternal.facelets.TrinidadFaceletViewHandler</param-value>
-  </context-param>
-
-  <context-param>
-    <param-name>org.apache.myfaces.trinidad.FACELETS_VIEW_MAPPINGS</param-name>
-    <param-value>*.xhtml</param-value>
-  </context-param>     
-
-  <context-param>
-    <param-name>facelets.SKIP_COMMENTS</param-name>
-    <param-value>true</param-value>
-  </context-param>
-  -->
 
   <filter>
     <filter-name>trinidad</filter-name>

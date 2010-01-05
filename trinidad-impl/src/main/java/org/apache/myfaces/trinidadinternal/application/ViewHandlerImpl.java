@@ -18,7 +18,6 @@
  */
 package org.apache.myfaces.trinidadinternal.application;
 
-import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -29,18 +28,20 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
 import java.util.Set;
 
 import javax.faces.FacesException;
+import javax.faces.application.ProjectStage;
 import javax.faces.application.ViewHandler;
 import javax.faces.application.ViewHandlerWrapper;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
+import javax.faces.view.ViewDeclarationLanguage;
 
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -77,9 +78,22 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
     _loadInternalViews();
   }
 
-  protected ViewHandler getWrapped()
+  public ViewHandler getWrapped()
   {
     return _delegate;
+  }
+  
+  public ViewDeclarationLanguage getViewDeclarationLanguage(FacesContext context,
+                                                            String viewId)
+  {
+    // InternalViews will not use ViewDeclarationLanguage processors,
+    // since they do essentially the same job themselves.
+    InternalView internal = _getInternalView(context, viewId);
+    if (internal != null)
+    {
+      return null;
+    }
+    return _delegate.getViewDeclarationLanguage(context, viewId);
   }
 
   @Override
@@ -379,18 +393,44 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
   {
     if (_checkTimestamp == null)
     {
+      boolean checkTimestampParam;
       String checkTimestamp =
         context.getExternalContext().getInitParameter(Configuration.CHECK_TIMESTAMP_PARAM);
-      // Detect when we're running inside of the JDeveloper embedded OC4J
-      // environment - and there, always use timestamp checking
-      // TODO: come up with a non-proprietary way of checking this?
-      boolean performCheck = "true".equals(checkTimestamp) ||
-        "development".equals(System.getProperty("oracle.application.environment"));
-      _checkTimestamp = Boolean.valueOf(performCheck);
-      if ("true".equals(checkTimestamp))
+      
+      if (checkTimestamp != null)
       {
-        _LOG.info("TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION",
-                  Configuration.CHECK_TIMESTAMP_PARAM);
+        checkTimestampParam = "true".equals(checkTimestamp);  
+      }
+      else
+      {
+        // if the CHECK_TIMESTAMP_PARAM parameter has NOT been specified, let us
+        // apply the DEFAULT values for the certain Project Stages:
+        // -PRODUCTION we want this value to be FALSE;
+        // -other stages we use TRUE
+        checkTimestampParam = !(context.isProjectStage(ProjectStage.Production));
+      }
+
+      boolean developmentStage = context.isProjectStage(ProjectStage.Development);
+      
+      // if Apache MyFaces Trinidad is running in production stage CHECK_TIMESTAMP_PARAM should
+      // be FALSE, otherwise we generate a WARNING message
+      boolean productionStage = developmentStage || context.isProjectStage(ProjectStage.Production);
+      
+      boolean performCheck = checkTimestampParam || developmentStage;
+      _checkTimestamp = Boolean.valueOf(performCheck);
+      
+      if (checkTimestampParam)
+      {
+        if (productionStage)
+        {
+          _LOG.warning("TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION",
+              Configuration.CHECK_TIMESTAMP_PARAM);
+        }
+        else
+        {
+          _LOG.info("TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION",
+                    Configuration.CHECK_TIMESTAMP_PARAM);
+        }
       }
     }
 

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,11 +28,10 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-
 import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
+
 
 /**
  * @todo Do we need to incorporate bug 2669974???
@@ -44,13 +43,15 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     this(CoreInputText.TYPE);
   }
 
-  public SimpleInputTextRenderer(FacesBean.Type type)
+  public SimpleInputTextRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _columnsKey = type.findKey("columns");
@@ -74,16 +75,16 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       return submitted;
 
     FacesBean bean = getFacesBean(component);
-    if (getSecret(bean))
+    if (getSecret(component, bean))
     {
       if (XhtmlConstants.SECRET_FIELD_DEFAULT_VALUE.equals(submitted))
       {
         // if there was a previously submitted value then return it.
         // otherwise, this will return null which means the value is unchanged.
-        return getSubmittedValue(bean);
+        return getSubmittedValue(component, bean);
       }
     }
-    else if (isTextArea(bean))
+    else if (isTextArea(component, bean))
     {
       submitted = _normalizeWhitespace((String) submitted);
     }
@@ -93,41 +94,42 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
   @Override
   protected void encodeAllAsElement(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (isAutoSubmit(bean))
-      AutoSubmitUtils.writeDependencies(context, arc);
+    if (isAutoSubmit(component, bean))
+      AutoSubmitUtils.writeDependencies(context, rc);
     ResponseWriter rw = context.getResponseWriter();
 
-    addOnSubmitConverterValidators(context, arc, component, bean);
+    addOnSubmitConverterValidators(context, rc, component, bean);
     // if simple, render the root dom element and its style classes
-    if (isSimpleInputText(bean))
+    if (isSimpleInputText(component, bean))
     {
       rw.startElement("span", component);
       // put the outer style class here, like af_inputText, styleClass,
       // inlineStyle, 'state' styles like p_AFDisabled, etc.
-      renderRootDomElementStyles(context, arc, component, bean);
+      renderRootDomElementStyles(context, rc, component, bean);
     }
-    
-    if (isTextArea(bean))
+
+    if (isTextArea(component, bean))
     {
       rw.startElement("textarea", component);
       renderId(context, component);
-      renderAllAttributes(context, arc, bean, false);
+      renderAllAttributes(context, rc, component, bean, false);
       /* renderAsElement == true, isTextArea == true */
-      renderContent(context, arc, component, bean, true, true);
+      renderContent(context, rc, component, bean, true, true);
       rw.endElement("textarea");
     }
     else
     {
       rw.startElement("input", component);
       renderId(context, component);
-      renderAllAttributes(context, arc, bean, false);
+      renderAllAttributes(context, rc, component, bean, false);
       String value = getConvertedString(context, component, bean);
-      boolean secret = getSecret(bean);
+      boolean secret = getSecret(component, bean);
       if (secret)
       {
         rw.writeAttribute("type", "password", "secret");
@@ -147,33 +149,34 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
       rw.endElement("input");
     }
-    
+
     // see bug 2880407 we dont need to render hidden label when wrapped with
     // fieldset and legend
-    if (isHiddenLabelRequired(arc))
-      renderShortDescAsHiddenLabel(context, arc, component, bean); 
-    if (isSimpleInputText(bean))
+    if (isHiddenLabelRequired(rc))
+      renderShortDescAsHiddenLabel(context, rc, component, bean);
+    if (isSimpleInputText(component, bean))
       rw.endElement("span");
+  }
 
-  }    
-       
   @Override
   protected void renderAllAttributes(
-    FacesContext        context,
-    RenderingContext    rc,
-    FacesBean           bean,
-    boolean             renderStyleAttrs) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    boolean          renderStyleAttrs
+    ) throws IOException
   {
-    super.renderAllAttributes(context, rc, bean, false);
+    super.renderAllAttributes(context, rc, component, bean, false);
 
     ResponseWriter rw = context.getResponseWriter();
 
-    boolean isTextArea = isTextArea(bean);
-    Object columns = getColumns(bean);
+    boolean isTextArea = isTextArea(component, bean);
+    Object columns = getColumns(component, bean);
 
     if (columns == null)
     {
-      columns = getDefaultColumns(rc, bean);
+      columns = getDefaultColumns(rc, component, bean);
     }
     else
     {
@@ -200,7 +203,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       // element (because we're read-only or disabled)
     if (isTextArea)
     {
-      Object rows = getRows(bean);
+      Object rows = getRows(component, bean);
       if (rows == null)
         rows = getDefaultRows();
       else
@@ -218,10 +221,10 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       }
 
       rw.writeAttribute("rows", rows, "rows");
-      rw.writeAttribute("wrap", getWrap(bean), "wrap");
+      rw.writeAttribute("wrap", getWrap(component, bean), "wrap");
 
       // render the readonly attribute
-      if ((getReadOnly(context, bean) || 
+      if ((getReadOnly(context, component, bean) ||
            !supportsEditing(rc)) &&
           supportsReadonlyFormElements(rc))
         rw.writeAttribute("readonly", Boolean.TRUE, "readOnly");
@@ -232,22 +235,24 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       if (supportsAutoCompleteFormElements(rc))
       {
         // TODO: check for CoreForm...
-        String autocomplete = getAutoComplete(bean);
+        String autocomplete = getAutoComplete(component, bean);
         if (autocomplete.equalsIgnoreCase(CoreInputText.AUTO_COMPLETE_OFF))
         {
           rw.writeAttribute("autocomplete", "off", "autoComplete");
         }
       }
-      
-      Number maximumLength = getMaximumLength(bean);
+
+      Number maximumLength = getMaximumLength(component, bean);
       if(maximumLength != null && maximumLength.intValue()> 0)
         rw.writeAttribute("maxlength", maximumLength, "maximumLength");
     }
 
   }
-  
+
   @Override
-  protected String getRootStyleClass(FacesBean bean)  
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|inputText";
   }
@@ -267,9 +272,12 @@ public class SimpleInputTextRenderer extends FormInputRenderer
    * their own defaults.
    * =-=AEW MOVE ONTO BEAN TYPE?
    */
-  protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
+  protected Integer getDefaultColumns(
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
-    if (isPDA(arc))
+    if (isPDA(rc))
     {
       return _DEFAULT_PDA_COLUMNS;
     }
@@ -282,42 +290,44 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     return "text";
   }
 
-
   /**
    * Renders event handlers for the node.
    */
   @Override
   protected void renderEventHandlers(
     FacesContext context,
-    FacesBean    bean) throws IOException
+    UIComponent  component,
+    FacesBean    bean
+    ) throws IOException
   {
-    super.renderEventHandlers(context, bean);
+    super.renderEventHandlers(context, component, bean);
 
     ResponseWriter rw = context.getResponseWriter();
-    rw.writeAttribute("onselect", getOnselect(bean), "onselect");
-    rw.writeAttribute("onpaste", getOnpaste(bean), "onpaste");
+    rw.writeAttribute("onselect", getOnselect(component, bean), "onselect");
+    rw.writeAttribute("onpaste", getOnpaste(component, bean), "onpaste");
   }
 
   @Override
   protected void encodeAllAsNonElement(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (isTextArea(bean))
+    if (isTextArea(component, bean))
     {
       /* renderAsElement == false, isTextArea == true */
-      renderContent(context, arc, component, bean, false, true);
+      renderContent(context, rc, component, bean, false, true);
     }
     else
     {
       ResponseWriter rw = context.getResponseWriter();
-      boolean isSimple = isSimpleInputText(bean);
+      boolean isSimple = isSimpleInputText(component, bean);
       if (isSimple)
       {
         rw.startElement("span", component);
-        renderRootDomElementStyles(context, arc, component, bean);
+        renderRootDomElementStyles(context, rc, component, bean);
         renderId(context, component);
       }
 
@@ -326,13 +336,13 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       if (!isSimple)
         renderId(context, component);
 
-      renderStyleClass(context, arc, getContentStyleClass(bean));
-      renderInlineStyleAttribute(context, arc, getContentStyle(bean));
-      rw.writeAttribute("title", getShortDesc(bean), "shortDesc");
+      renderStyleClass(context, rc, getContentStyleClass(component, bean));
+      renderInlineStyleAttribute(context, rc, component, getContentStyle(component, bean));
+      rw.writeAttribute("title", getShortDesc(component, bean), "shortDesc");
       /* renderAsElement == false, isTextArea == false */
-      renderContent(context, arc, component, bean, false, false);
+      renderContent(context, rc, component, bean, false, false);
       rw.endElement("div");
-      if (isSimpleInputText(bean))
+      if (isSimpleInputText(component, bean))
         rw.endElement("span");
     }
   }
@@ -343,22 +353,24 @@ public class SimpleInputTextRenderer extends FormInputRenderer
    */
   @Override
   protected void renderNonElementContent(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     // Verify that this hook isn't accidentally getting called.
     throw new IllegalStateException("UNUSED");
   }
 
   protected void renderContent(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean,
-    boolean             renderAsElement,
-    boolean             isTextArea) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    boolean          renderAsElement,
+    boolean          isTextArea
+    ) throws IOException
   {
     // render the element text here
     String textValue = getConvertedString(context, component, bean);
@@ -378,13 +390,14 @@ public class SimpleInputTextRenderer extends FormInputRenderer
         rw.startElement("pre", null);
 
         renderId(context, component);
-        rw.writeAttribute("title", getShortDesc(bean), "shortDesc");
+        rw.writeAttribute("title", getShortDesc(component, bean), "shortDesc");
 
         // =-=AEW TEST STYLE ATTRIBUTE SUPPORT?
         //        if (supportsStyleAttributes(context) &&
         //            doRenderStyleAttrs(context, node))
         {
-          renderStyleAttributes(context, arc, bean, getContentStyleClass(bean));
+          renderStyleAttributes(context, rc, component, bean,
+            getContentStyleClass(component, bean));
         }
 
         // And, for a read-only text input - we also want to wrap
@@ -396,14 +409,14 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
           if (textLength > 0)
           {
-            Object wrap = getWrap(bean);
+            Object wrap = getWrap(component, bean);
             // Only wrap if "wrap" is set to SOFT or HARD
             if (CoreInputText.WRAP_SOFT.equals(wrap) ||
                 CoreInputText.WRAP_HARD.equals(wrap))
             {
-              Number columnsObj = getColumns(bean);
+              Number columnsObj = getColumns(component, bean);
               if (columnsObj == null)
-                columnsObj = getDefaultColumns(arc, bean);
+                columnsObj = getDefaultColumns(rc, component, bean);
 
               int columns = ((columnsObj == null) ? 0 : columnsObj.intValue());
 
@@ -442,7 +455,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     else
     {
       // Don't render anything for disabled password fields
-      if (!getSecret(bean))
+      if (!getSecret(component, bean))
       {
         if (textValue != null)
           rw.writeText(textValue, "value");
@@ -451,10 +464,11 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   }
 
   private void _writeTextWithBreaks(
-    FacesContext     context,
-    BreakIterator    breaks,
-    String           textString,
-    int              columns) throws IOException
+    FacesContext  context,
+    BreakIterator breaks,
+    String        textString,
+    int           columns
+    ) throws IOException
   {
     int start = 0;
     while (true)
@@ -478,10 +492,11 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   }
 
   private void _writeTextLineWithBreaks(
-    FacesContext     context,
-    BreakIterator    breaks,
-    String           textString,
-    int              columns) throws IOException
+    FacesContext  context,
+    BreakIterator breaks,
+    String        textString,
+    int           columns
+    ) throws IOException
   {
     if (textString.length() < columns)
     {
@@ -524,13 +539,13 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
   @Override
   protected String getOnkeyup(
-    FacesBean bean
-    )
+    UIComponent component,
+    FacesBean   bean)
   {
-    String onKeyUp = super.getOnkeyup(bean);
-    if (isTextArea(bean))
+    String onKeyUp = super.getOnkeyup(component, bean);
+    if (isTextArea(component, bean))
     {
-      Number maximumLength = getMaximumLength(bean);
+      Number maximumLength = getMaximumLength(component, bean);
       if(maximumLength != null && maximumLength.intValue()> 0)
       {
         onKeyUp = _getMaxLengthFunction(onKeyUp,
@@ -542,31 +557,34 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   }
 
   @Override
-  protected String getOnkeydown(FacesBean bean)
+  protected String getOnkeydown(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String onKeydown = super.getOnkeydown(bean);
-    if (getSecret(bean))
+    String onKeydown = super.getOnkeydown(component, bean);
+    if (getSecret(component, bean))
     {
       onKeydown = XhtmlUtils.getChainedJS(_SECRET_KEYDOWN_SCRIPT,
                                           onKeydown, false);
     }
-    
+
     return onKeydown;
   }
-
 
   /**
    * @todo We have to "getCurrentInstance()" *twice*.  UGH!
    */
   @Override
-  protected String getOnfocus(FacesBean bean)
+  protected String getOnfocus(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String onfocus = super.getOnfocus(bean);
+    String onfocus = super.getOnfocus(component, bean);
     // If it's a read-only text area, and the agent doesn't actually
     // support read-only text areas, then render an "onfocus" that
     // redirects the user away from the field.
-    if (isTextArea(bean) &&
-        getReadOnly(FacesContext.getCurrentInstance(), bean))
+    if (isTextArea(component, bean) &&
+        getReadOnly(FacesContext.getCurrentInstance(), component, bean))
     {
       RenderingContext arc = RenderingContext.getCurrentInstance();
       if (!supportsReadonlyFormElements(arc))
@@ -582,25 +600,26 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
   @Override
   protected String getOnchange(
-    FacesBean bean
-    )
+    UIComponent component,
+    FacesBean   bean)
   {
-    String onchange = super.getOnchange(bean);
-    if (isAutoSubmit(bean))
+    String onchange = super.getOnchange(component, bean);
+    if (isAutoSubmit(component, bean))
     {
-      RenderingContext arc = RenderingContext.getCurrentInstance();
-      String source = LabelAndMessageRenderer.__getCachedClientId(arc);
-      boolean immediate = isImmediate(bean);
-      String auto = AutoSubmitUtils.getSubmitScript(arc, source, XhtmlConstants.AUTOSUBMIT_EVENT, immediate);
+      RenderingContext rc = RenderingContext.getCurrentInstance();
+      String source = LabelAndMessageRenderer.__getCachedClientId(rc);
+      boolean immediate = isImmediate(component, bean);
+      String auto = AutoSubmitUtils.getSubmitScript(rc, source, XhtmlConstants.AUTOSUBMIT_EVENT,
+                      immediate);
       if (onchange == null)
         onchange = auto;
       else if (auto != null)
         onchange = XhtmlUtils.getChainedJS(onchange, auto, true);
     }
 
-    if (isTextArea(bean))
+    if (isTextArea(component, bean))
     {
-      Number maxLength = getMaximumLength(bean);
+      Number maxLength = getMaximumLength(component, bean);
       if (maxLength != null && maxLength.intValue()> 0)
       {
         onchange = _getMaxLengthFunction(onchange,
@@ -612,55 +631,68 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   }
 
   protected String getOnpaste(
-    FacesBean bean
-    )
+    UIComponent component,
+    FacesBean   bean)
   {
     String onpaste = null;
-    if (isTextArea(bean))
+    if (isTextArea(component, bean))
     {
-      Number maximumLength = getMaximumLength(bean);
+      Number maximumLength = getMaximumLength(component, bean);
       if(maximumLength != null && maximumLength.intValue()> 0)
       {
         onpaste = _getMaxLengthFunction(null,
                                         maximumLength.intValue());
       }
     }
-    return onpaste;
+
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "paste", null, null, onpaste);
   }
 
   protected String getOnselect(
-    FacesBean bean
-    )
+    UIComponent component,
+    FacesBean   bean)
   {
     // Not all components that subclass selectInputText will
     // necessarily have onselect
     if (_onselectKey == null)
       return null;
 
-    return toString(bean.getProperty(_onselectKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "select", null, toString(bean.getProperty(_onselectKey)), null);
   }
 
-  protected Number getColumns(FacesBean bean)
+  protected Number getColumns(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Number) bean.getProperty(_columnsKey);
   }
 
-  protected Number getRows(FacesBean bean)
+  protected Number getRows(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Number) bean.getProperty(_rowsKey);
   }
 
-  protected Number getMaximumLength(FacesBean bean)
+  protected Number getMaximumLength(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Number) bean.getProperty(_maximumLengthKey);
   }
 
-  protected Object getWrap(FacesBean bean)
+  protected Object getWrap(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_wrapKey);
   }
 
-  protected boolean getSecret(FacesBean bean)
+  protected boolean getSecret(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_secretKey);
     if (o == null)
@@ -669,26 +701,13 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     return !Boolean.FALSE.equals(o);
   }
 
-  /**
-   * @todo - Find a efficient way to identify that this is a numeric field
-   */
-  //-= Simon Lessard =-
-  //TODO:  This method is not even used locally
-  @SuppressWarnings("unused")
-  private boolean _isNumericField(
-//    FacesBean bean
-    )
-  {
-    return false;
-  }
-
-
   // map this node to <input type="text"> or <textarea>?
   public boolean isTextArea(
-    FacesBean bean)
+    UIComponent component,
+    FacesBean   bean)
   {
     // if the node has rows > 1, it's a textarea
-    Number rows = getRows(bean);
+    Number rows = getRows(component, bean);
     if ((rows != null) && (rows.intValue() > 1))
       return true;
 
@@ -700,16 +719,17 @@ public class SimpleInputTextRenderer extends FormInputRenderer
    */
   @Override
   protected boolean renderReadOnlyAsElement(
-    RenderingContext arc,
-    FacesBean           bean)
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
     // We render read-only single-line input fields as plain text
-    if (!isTextArea(bean))
+    if (!isTextArea(component, bean))
       return false;
 
     // Otherwise, if we can render "readonly" on this platform,
     // do it.
-    if (supportsReadonlyFormElements(arc))
+    if (supportsReadonlyFormElements(rc))
       return true;
 
     // But otherwise, if we support scripting, we'll use a little
@@ -724,7 +744,9 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     return false;
   }
 
-  protected String getAutoComplete(FacesBean bean)
+  protected String getAutoComplete(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_autoCompleteKey);
     if (o == null)
@@ -736,9 +758,11 @@ public class SimpleInputTextRenderer extends FormInputRenderer
    * Is this a simple input text component? We need to know so that subclasses
    * that contain a inputText won't wrap the input in a span.
    */
-  protected boolean isSimpleInputText(FacesBean bean)
+  protected boolean isSimpleInputText(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return getSimple(bean);
+    return getSimple(component, bean);
   }
 
   static private String _getMaxLengthFunction(
@@ -760,7 +784,8 @@ public class SimpleInputTextRenderer extends FormInputRenderer
    * Browsers can submit all sorts of whitespace endings.
    * Transform anything we see into a plain "\n".
    */
-  static private final String _normalizeWhitespace(String str)
+  static private final String _normalizeWhitespace(
+    String str)
   {
     int from = 0;
     int length = str.length();
@@ -809,8 +834,6 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     return buffer.toString();
   }
 
-
-
   private PropertyKey _columnsKey;
   private PropertyKey _rowsKey;
   private PropertyKey _wrapKey;
@@ -821,7 +844,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
   static private final Integer _DEFAULT_PDA_COLUMNS = Integer.valueOf(11);
   static private final Integer _DEFAULT_COLUMNS = Integer.valueOf(30);
-  static private final String _SECRET_KEYDOWN_SCRIPT = 
+  static private final String _SECRET_KEYDOWN_SCRIPT =
     "return _clearPassword(this, event);";
   static private final int _MAX_COLUMNS = 500;
   static private final int _MAX_ROWS    = 500;

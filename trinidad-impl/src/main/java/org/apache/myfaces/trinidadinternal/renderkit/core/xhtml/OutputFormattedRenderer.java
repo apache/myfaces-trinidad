@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,15 +32,17 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputFormatted;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
+
 public class OutputFormattedRenderer extends ValueRenderer
 {
   public OutputFormattedRenderer()
   {
     super(CoreOutputFormatted.TYPE);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _styleUsageKey = type.findKey("styleUsage");
@@ -53,37 +56,42 @@ public class OutputFormattedRenderer extends ValueRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (canSkipRendering(context, arc, comp))
+    if (canSkipRendering(context, rc, comp))
       return;
 
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("span", comp);
-    
+
     renderId(context, comp);
-    renderAllAttributes(context, arc, bean);
+    renderAllAttributes(context, rc, comp, bean);
 
     String value = getConvertedString(context, comp, bean);
     renderFormattedText(context, value);
     rw.endElement("span");
   }
 
-  protected String getStyleUsage(FacesBean bean)
+  protected String getStyleUsage(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_styleUsageKey));
   }
 
   @Override
-  protected String getStyleClass(FacesBean bean)
+  protected String getStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String styleClass = super.getStyleClass(bean);
+    String styleClass = super.getStyleClass(component, bean);
     if (styleClass == null)
     {
-      String usage = getStyleUsage(bean);
+      String usage = getStyleUsage(component, bean);
       if (usage != null)
       {
         styleClass = _USAGES.get(usage);

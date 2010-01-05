@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,10 +27,11 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CoreShowDetail;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
+
 
 /**
  * This needs to be massively cleaned up...
@@ -44,13 +45,15 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     this(CoreShowDetail.TYPE);
   }
 
-  protected ShowDetailRenderer(FacesBean.Type type)
+  protected ShowDetailRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _immediateKey = type.findKey("immediate");
@@ -62,66 +65,66 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
    */
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    
-    boolean javaScriptSupport = supportsScripting(arc);
-    boolean disclosed = getDisclosed(bean);
+    boolean javaScriptSupport = supportsScripting(rc);
+    boolean disclosed = getDisclosed(component, bean);
 
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("span", component);
     if (!isTableAllDisclosure() && !isTableDetailDisclosure())
       renderId(context, component);
 
-    renderPromptStart(context, arc, component, bean);
+    renderPromptStart(context, rc, component, bean);
     String sourceValue = getClientId(context, component);
     String linkId = getLinkId(sourceValue, disclosed);
-    
+
     String parameterString;
     if (javaScriptSupport)
     {
-      _renderScripts(context, arc, component);
-      parameterString = _generateOnClickString(context, 
-                                               arc, 
-                                               component, 
-                                               bean, 
+      _renderScripts(context, rc, component);
+      parameterString = _generateOnClickString(context,
+                                               rc,
+                                               component,
+                                               bean,
                                                disclosed);
     }
     else
-    { 
-      parameterString = _encodedParam(context, 
-                                      arc, 
-                                      component, 
-                                      bean, 
+    {
+      parameterString = _encodedParam(context,
+                                      rc,
+                                      component,
+                                      bean,
                                       disclosed);
 
     }
-    
-    _renderLinkStart(context, arc, bean, parameterString);
+
+    _renderLinkStart(context, rc, component, bean, parameterString);
 
     if (linkId != null)
       rw.writeAttribute("id", linkId, null);
 
     if (!isTableAllDisclosure())
     {
-      renderStyleClasses(context, arc, getDisclosureIconLinkStyleClasses());
-      renderDisclosureIcon(context, arc, disclosed);
-      _renderLinkEnd(context, arc);
+      renderStyleClasses(context, rc, getDisclosureIconLinkStyleClasses());
+      renderDisclosureIcon(context, rc, disclosed);
+      _renderLinkEnd(context, rc);
     }
 
     UIComponent prompt = getFacet(component,
                                   CoreShowDetail.PROMPT_FACET);
     if (prompt == null)
     {
-      String text = getDisclosureText(arc, bean, disclosed);
+      String text = getDisclosureText(rc, component, bean, disclosed);
       if (text != null)
       {
         if (!isTableAllDisclosure())
-          _renderLinkStart(context, arc, bean, parameterString);
-        renderStyleClasses(context, arc, getLinkStyleClasses());
+          _renderLinkStart(context, rc, component, bean, parameterString);
+        renderStyleClasses(context, rc, getLinkStyleClasses());
         if (javaScriptSupport)
         {
           rw.writeText(text,
@@ -129,17 +132,17 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
         }
         else
         {
-          // Since for Non-JavaScript browsers we render an input tag, set the 
+          // Since for Non-JavaScript browsers we render an input tag, set the
           // value attribute to text
-          rw.writeAttribute("value", text, 
+          rw.writeAttribute("value", text,
                            disclosed ? "disclosedText" : "undisclosedText");
         }
-        _renderLinkEnd(context, arc);
+        _renderLinkEnd(context, rc);
       }
     }
 
     if (isTableAllDisclosure() && prompt != null)
-      _renderLinkEnd(context, arc);
+      _renderLinkEnd(context, rc);
 
     if (prompt != null)
     {
@@ -163,10 +166,11 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
   }
 
   protected void renderPromptStart(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -177,11 +181,12 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     else
       writer.startElement("div", component);
 
-    renderAllAttributes(context, arc, bean);
+    renderAllAttributes(context, rc, component, bean);
   }
 
   protected void renderPromptEnd(
-    FacesContext        context) throws IOException
+    FacesContext  context
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -193,23 +198,24 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
 
 
   static public void renderDisclosureIcon(
-    FacesContext        context,
-    RenderingContext arc,
-    boolean             disclosed,
-    String              disclosedAltTextKey,
-    String              undisclosedAltTextKey) throws IOException
-  { 
+    FacesContext     context,
+    RenderingContext rc,
+    boolean          disclosed,
+    String           disclosedAltTextKey,
+    String           undisclosedAltTextKey
+    ) throws IOException
+  {
     String key = disclosed ? disclosedAltTextKey : undisclosedAltTextKey;
     // Get the alt text
-    String altText = arc.getTranslatedString(key);
+    String altText = rc.getTranslatedString(key);
     // Since we render input element for Non-JavaScript browsers, we cannot
-    // render image element as its child. So set the value attribute of 
-    // input element to the icon symbol 
-    if (!supportsScripting(arc))
+    // render image element as its child. So set the value attribute of
+    // input element to the icon symbol
+    if (!supportsScripting(rc))
     {
       ResponseWriter rw = context.getResponseWriter();
       String icon = disclosed ? XhtmlConstants.NON_JS_DETAIL_DISCLOSED_ICON :
-                                XhtmlConstants.NON_JS_DETAIL_UNDISCLOSED_ICON;  
+                                XhtmlConstants.NON_JS_DETAIL_UNDISCLOSED_ICON;
       rw.writeAttribute("title", altText, null);
       rw.writeAttribute("value", icon, null);
       String linkConverter = "border: none; background: inherit;";
@@ -217,24 +223,25 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     }
     else
     {
-      Icon icon = _getDisclosureIcon(arc, disclosed);
+      Icon icon = _getDisclosureIcon(rc, disclosed);
       if (icon != null)
       {
         // Get the align
-        String align = OutputUtils.getMiddleIconAlignment(arc);
+        String align = OutputUtils.getMiddleIconAlignment(rc);
         // Render the icon with the specified attrs
-        OutputUtils.renderIcon(context, arc, icon, altText, align);
+        OutputUtils.renderIcon(context, rc, icon, altText, align);
       }
     }
   }
 
 
   protected void renderDisclosureIcon(
-    FacesContext        context,
-    RenderingContext arc,
-    boolean             disclosed) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    boolean          disclosed
+    ) throws IOException
   {
-    renderDisclosureIcon(context, arc, disclosed,
+    renderDisclosureIcon(context, rc, disclosed,
                          _DISCLOSED_TIP_KEY, _UNDISCLOSED_TIP_KEY);
   }
 
@@ -249,11 +256,10 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     return true;
   }
 
-
   // Returns the disclosure Icon
   private static Icon _getDisclosureIcon(
-    RenderingContext arc,
-    boolean             disclosed
+    RenderingContext rc,
+    boolean          disclosed
     )
   {
     String iconName;
@@ -279,38 +285,39 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
                   : SkinSelectors.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME);
     }
     
-    return arc.getIcon(iconName);
+    return rc.getIcon(iconName);
   }
 
   protected String getDisclosureText(
-    RenderingContext arc,
-    FacesBean           bean,
-    boolean             disclosed)
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    boolean          disclosed)
   {
     String text;
     if (disclosed)
     {
-      text = getDisclosedText(bean);
+      text = getDisclosedText(component, bean);
       if (text == null)
       {
         //smo: This functionality was added durring API Merge.  If getDisclosedText is not present
         //we'll render undislosedText text if it's present before rendering the defaults
-        text = getUndisclosedText(bean);
+        text = getUndisclosedText(component, bean);
         if(text == null)
         {
-          text = arc.getTranslatedString(_DISCLOSED_KEY);
+          text = rc.getTranslatedString(_DISCLOSED_KEY);
         }
       }
     }
     else
     {
-      text = getUndisclosedText(bean);
+      text = getUndisclosedText(component, bean);
       if (text == null)
       {
-        text = getDisclosedText(bean);
+        text = getDisclosedText(component, bean);
         if(text == null)
         {
-          text = arc.getTranslatedString(_UNDISCLOSED_KEY);
+          text = rc.getTranslatedString(_UNDISCLOSED_KEY);
         }
       }
     }
@@ -319,14 +326,15 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
   }
 
   private void _renderScripts(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component
+    ) throws IOException
   {
-    if (!supportsNavigation(arc))
+    if (!supportsNavigation(rc))
       return;
 
-    FormData fData = arc.getFormData();
+    FormData fData = rc.getFormData();
     if (fData == null)
     {
       _LOG.warning("SHOWDETAIL_NOT_IN_FORM_WILLNOT_FUNCTION_PROPERLY");
@@ -340,9 +348,9 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     boolean partial = PartialPageUtils.isPPRActive(context);
 
     // the first time, render the necessary Javascript
-    if (arc.getProperties().get(_SHOW_DETAIL_SUBMIT_JS_RENDERED) == null)
+    if (rc.getProperties().get(_SHOW_DETAIL_SUBMIT_JS_RENDERED) == null)
     {
-      arc.getProperties().put(_SHOW_DETAIL_SUBMIT_JS_RENDERED,
+      rc.getProperties().put(_SHOW_DETAIL_SUBMIT_JS_RENDERED,
                               Boolean.TRUE);
       // write the submit function
 
@@ -384,8 +392,8 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
 
       // write the submit function
       rw.startElement("script", null);
-      renderScriptDeferAttribute(context, arc);
-      renderScriptTypeAttribute(context, arc);
+      renderScriptDeferAttribute(context, rc);
+      renderScriptTypeAttribute(context, rc);
 
       rw.writeText(js, null);
       rw.endElement("script");
@@ -400,30 +408,31 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     // And add this needed value if it ever comes up
     if (valueValue != null)
       fData.addNeededValue(XhtmlConstants.VALUE_PARAM);
-
   }
 
   private void _renderLinkStart(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean bean,
-    String           parameterString ) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    String           parameterString
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
-    if (!supportsNavigation(arc)) {
+    if (!supportsNavigation(rc)) {
       rw.startElement("span", null);
     }
-    else if (supportsScripting(arc))
+    else if (supportsScripting(rc))
     {
-      String onclick = getOnclick(bean);
+      String onclick = getOnclick(component, bean);
       rw.startElement("a", null);
       onclick = XhtmlUtils.getChainedJS(onclick, parameterString, true);
       rw.writeAttribute("onclick", onclick, null);
       rw.writeURIAttribute("href", "#", null);
     }
-    // For Non-JavaScript browsers, render an input element(type=submit) to 
-    // submit the page. Encode the name attribute with the parameter name 
-    // and value thus it would enable the browsers to include the name of 
+    // For Non-JavaScript browsers, render an input element(type=submit) to
+    // submit the page. Encode the name attribute with the parameter name
+    // and value thus it would enable the browsers to include the name of
     // this element in its payLoad if it submits the page.
     else
     {
@@ -434,13 +443,13 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
   }
 
   private String _generateOnClickString(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean,
-    boolean             disclosed)
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    boolean          disclosed)
   {
-    FormData fData = arc.getFormData();
+    FormData fData = rc.getFormData();
     if (fData == null)
        return null;
 
@@ -467,7 +476,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     linkBuffer.append("return _submitHideShow('");
     linkBuffer.append(formName);
     linkBuffer.append("',");
-    linkBuffer.append(getImmediate(bean) ? '0' : '1');
+    linkBuffer.append(getImmediate(component, bean) ? '0' : '1');
     linkBuffer.append(",'");
     linkBuffer.append(eventValue);
     linkBuffer.append("','");
@@ -486,43 +495,43 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     return linkBuffer.toString();
   }
 
-
   private void _renderLinkEnd(
-    FacesContext        context,
-    RenderingContext arc) throws IOException
+    FacesContext     context,
+    RenderingContext rc
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
-    if (!supportsNavigation(arc))
+    if (!supportsNavigation(rc))
       rw.endElement("span");
-    else if (supportsScripting(arc))
+    else if (supportsScripting(rc))
       rw.endElement("a");
     else
       rw.endElement("input");
   }
-  
+
   /**
    * @return encoded parameter name and value pairs for Non-JavaScript
-   * browsers 
+   * browsers
    */
   private String _encodedParam(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean,
-    boolean             disclosed)
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    boolean          disclosed)
   {
-    FormData fData = arc.getFormData();
+    FormData fData = rc.getFormData();
     if (fData == null)
        return null;
-       
+
     String sourceValue = getClientId(context, component);
     String eventValue = (disclosed
                          ? XhtmlConstants.HIDE_EVENT
                          : XhtmlConstants.SHOW_EVENT);
-                         
+
     String valueValue = getValueParameter(component);
     String linkId = getLinkId(sourceValue, disclosed);
-  
+
     String nameAttri = XhtmlUtils.getEncodedParameter
                                   (XhtmlConstants.SOURCE_PARAM)
                        + XhtmlUtils.getEncodedParameter(sourceValue)
@@ -531,7 +540,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
                        + XhtmlUtils.getEncodedParameter(eventValue)
                        + XhtmlUtils.getEncodedParameter
                                   (XhtmlConstants.VALUE_PARAM)
-                       + valueValue;  
+                       + valueValue;
     return nameAttri;
   }
 
@@ -560,7 +569,8 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     return false;
   }
 
-  protected String getValueParameter(UIComponent component)
+  protected String getValueParameter(
+    UIComponent component)
   {
     return null;
   }
@@ -576,12 +586,16 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
 
   /**
    */
-  protected String getLinkId(String rootId, boolean disclosed)
+  protected String getLinkId(
+    String  rootId,
+    boolean disclosed)
   {
     return XhtmlUtils.getCompositeId(rootId, null);
   }
 
-  protected boolean getImmediate(FacesBean bean)
+  protected boolean getImmediate(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_immediateKey);
     if (o == null)
@@ -591,7 +605,9 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
   }
 
 
-  protected String getDisclosedText(FacesBean bean)
+  protected String getDisclosedText(
+    UIComponent component,
+    FacesBean   bean)
   {
     // It can be null in the table...
     if (_disclosedTextKey == null)
@@ -600,7 +616,9 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     return toString(bean.getProperty(_disclosedTextKey));
   }
 
-  protected String getUndisclosedText(FacesBean bean)
+  protected String getUndisclosedText(
+    UIComponent component,
+    FacesBean   bean)
   {
     // It can be null in the table...
     if (_undisclosedTextKey == null)
@@ -613,14 +631,18 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     return DISCLOSURE_ICON_LINK_STYLE_CLASSES;
   }
 
-  protected String getPromptStyleClass(boolean disclosed) {
+  protected String getPromptStyleClass(
+    boolean disclosed) {
     return disclosed
         ? SkinSelectors.AF_SHOW_DETAIL_PROMPT_DISCLOSED_STYLE_CLASS
         : SkinSelectors.AF_SHOW_DETAIL_PROMPT_UNDISCLOSED_STYLE_CLASS;
   }
 
-  protected String getDefaultStyleClass(FacesBean bean) {
-    return getPromptStyleClass(getDisclosed(bean));
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
+  {
+    return getPromptStyleClass(getDisclosed(component, bean));
   }
 
   private PropertyKey _immediateKey;

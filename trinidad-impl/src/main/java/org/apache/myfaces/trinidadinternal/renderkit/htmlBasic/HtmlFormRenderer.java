@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.htmlBasic;
 
 import java.io.IOException;
+
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -26,8 +27,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
-
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
+
 
 /**
  * Renderer for h:commandLink.
@@ -69,32 +70,41 @@ public class HtmlFormRenderer extends Renderer
     return new FormRenderer()
     {
       @Override
-      public FacesBean getFacesBean(UIComponent comp)
+      public FacesBean getFacesBean(
+        UIComponent comp)
       {
         return bean;
       }
 
       @Override
-      protected String getInlineStyle(FacesBean bean)
+      protected String getInlineStyle(
+        UIComponent component,
+        FacesBean   bean)
       {
         return toString(component.getAttributes().get("style"));
       }
 
       @Override
-      protected String getTargetFrame(FacesBean bean)
+      protected String getTargetFrame(
+        UIComponent component,
+        FacesBean   bean)
       {
         return toString(component.getAttributes().get("target"));
       }
 
       @Override
-      protected String getShortDesc(FacesBean bean)
+      protected String getShortDesc(
+        UIComponent component,
+        FacesBean   bean)
       {
         return toString(component.getAttributes().get("title"));
       }
 
       @SuppressWarnings("unchecked")
       @Override
-      protected boolean getUsesUpload(FacesBean bean)
+      protected boolean getUsesUpload(
+        UIComponent component,
+        FacesBean   bean)
       {
         Map<String, Object> attrs = component.getAttributes();
         return "multipart/form-data".equals(attrs.get("enctype"));

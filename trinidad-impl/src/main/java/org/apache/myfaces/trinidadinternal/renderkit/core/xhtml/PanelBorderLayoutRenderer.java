@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -25,8 +25,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
-import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.bean.FacesBean.Type;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelBorderLayout;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -34,25 +34,12 @@ import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 
+
 /**
  * @version $Name:  $ $
  */
 public class PanelBorderLayoutRenderer extends XhtmlRenderer
 {
-  private PropertyKey _layoutKey;
-  private PropertyKey _topHeightKey;
-  private PropertyKey _innerTopHeightKey;
-  private PropertyKey _bottomHeightKey;
-  private PropertyKey _innerBottomHeightKey;
-  private PropertyKey _leftWidthKey;
-  private PropertyKey _innerLeftWidthKey;
-  private PropertyKey _rightWidthKey;
-  private PropertyKey _innerRightWidthKey;
-  private PropertyKey _startWidthKey;
-  private PropertyKey _innerStartWidthKey;
-  private PropertyKey _endWidthKey;
-  private PropertyKey _innerEndWidthKey;
-  
   public PanelBorderLayoutRenderer()
   {
     super(CorePanelBorderLayout.TYPE);
@@ -63,33 +50,38 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
   {
     return true;
   }
-  
+
   /**
-   * @see org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer#getDefaultStyleClass(
-   * org.apache.myfaces.trinidad.bean.FacesBean)
+   * @see org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer#getDefaultStyleClass
    */
   @Override
-  protected String getDefaultStyleClass(FacesBean bean)
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return "positioned".equals(getLayout(bean)) ? SkinSelectors.AF_PANEL_BORDER_POSITIONED_ROOT_STYLE_CLASS : null;
+    return "positioned".equals(getLayout(component, bean)) ?
+      SkinSelectors.AF_PANEL_BORDER_POSITIONED_ROOT_STYLE_CLASS : null;
   }
-  
+
   /**
    * @see org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer#shouldRenderId(
    * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
    */
   @Override
-  protected boolean shouldRenderId(FacesContext context, UIComponent component)
+  protected boolean shouldRenderId(
+    FacesContext context,
+    UIComponent  component)
   {
     return true;
   }
-  
+
   /**
    * @see org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer#findTypeConstants(
    * org.apache.myfaces.trinidad.bean.FacesBean.Type)
    */
   @Override
-  protected void findTypeConstants(Type type)
+  protected void findTypeConstants(
+    Type type)
   {
     super.findTypeConstants(type);
     _layoutKey = type.findKey("layout");
@@ -106,70 +98,109 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     _endWidthKey = type.findKey("endWidth");
     _innerEndWidthKey = type.findKey("innerEndWidth");
   }
-  
-  protected String getLayout(FacesBean bean)
+
+  protected String getLayout(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return ComponentUtils.resolveString(bean.getProperty(_layoutKey), (String)_layoutKey.getDefault());
+    return ComponentUtils.resolveString(bean.getProperty(_layoutKey),
+             (String)_layoutKey.getDefault());
   }
-  
-  protected String getTopHeight(FacesBean bean)
+
+  protected String getTopHeight(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return ComponentUtils.resolveString(bean.getProperty(_topHeightKey), (String)_topHeightKey.getDefault());
+    return ComponentUtils.resolveString(bean.getProperty(_topHeightKey),
+             (String)_topHeightKey.getDefault());
   }
-  
-  protected String getinnerTopHeight(FacesBean bean)
+
+  protected String getinnerTopHeight(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return ComponentUtils.resolveString(bean.getProperty(_innerTopHeightKey), (String)_innerTopHeightKey.getDefault());
+    return ComponentUtils.resolveString(bean.getProperty(_innerTopHeightKey),
+             (String)_innerTopHeightKey.getDefault());
   }
-  
-  protected String getBottomHeight(FacesBean bean)
+
+  protected String getBottomHeight(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return ComponentUtils.resolveString(bean.getProperty(_bottomHeightKey), (String)_bottomHeightKey.getDefault());
+    return ComponentUtils.resolveString(bean.getProperty(_bottomHeightKey),
+             (String)_bottomHeightKey.getDefault());
   }
-  
-  protected String getinnerBottomHeight(FacesBean bean)
+
+  protected String getinnerBottomHeight(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return ComponentUtils.resolveString(bean.getProperty(_innerBottomHeightKey), (String)_innerBottomHeightKey.getDefault());
+    return ComponentUtils.resolveString(bean.getProperty(_innerBottomHeightKey),
+             (String)_innerBottomHeightKey.getDefault());
   }
-  
-  protected String getLeftWidth(FacesBean bean)
+
+  protected String getLeftWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return ComponentUtils.resolveString(bean.getProperty(_leftWidthKey), (String)_leftWidthKey.getDefault());
+    return ComponentUtils.resolveString(bean.getProperty(_leftWidthKey),
+             (String)_leftWidthKey.getDefault());
   }
-  
-  protected String getinnerLeftWidth(FacesBean bean)
+
+  protected String getinnerLeftWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return ComponentUtils.resolveString(bean.getProperty(_innerLeftWidthKey), (String)_innerLeftWidthKey.getDefault());
+    return ComponentUtils.resolveString(bean.getProperty(_innerLeftWidthKey),
+             (String)_innerLeftWidthKey.getDefault());
   }
-  
-  protected String getRightWidth(FacesBean bean)
+
+  protected String getRightWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return ComponentUtils.resolveString(bean.getProperty(_rightWidthKey), (String)_rightWidthKey.getDefault());
+    return ComponentUtils.resolveString(bean.getProperty(_rightWidthKey),
+             (String)_rightWidthKey.getDefault());
   }
-  
-  protected String getinnerRightWidth(FacesBean bean)
+
+  protected String getinnerRightWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return ComponentUtils.resolveString(bean.getProperty(_innerRightWidthKey), (String)_innerRightWidthKey.getDefault());
+    return ComponentUtils.resolveString(bean.getProperty(_innerRightWidthKey),
+             (String)_innerRightWidthKey.getDefault());
   }
-  
-  protected String getEndWidth(FacesBean bean)
+
+  protected String getEndWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return ComponentUtils.resolveString(bean.getProperty(_endWidthKey), (String)_endWidthKey.getDefault());
+    return ComponentUtils.resolveString(bean.getProperty(_endWidthKey),
+             (String)_endWidthKey.getDefault());
   }
-  
-  protected String getEndInnerWidth(FacesBean bean)
+
+  protected String getEndInnerWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return ComponentUtils.resolveString(bean.getProperty(_innerEndWidthKey), (String)_innerEndWidthKey.getDefault());
+    return ComponentUtils.resolveString(bean.getProperty(_innerEndWidthKey),
+             (String)_innerEndWidthKey.getDefault());
   }
-  
-  protected String getStartWidth(FacesBean bean)
+
+  protected String getStartWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return ComponentUtils.resolveString(bean.getProperty(_startWidthKey), (String)_startWidthKey.getDefault());
+    return ComponentUtils.resolveString(bean.getProperty(_startWidthKey),
+             (String)_startWidthKey.getDefault());
   }
-  
-  protected String getStartInnerWidth(FacesBean bean)
+
+  protected String getStartInnerWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return ComponentUtils.resolveString(bean.getProperty(_innerStartWidthKey), (String)_innerStartWidthKey.getDefault());
+    return ComponentUtils.resolveString(bean.getProperty(_innerStartWidthKey),
+             (String)_innerStartWidthKey.getDefault());
   }
 
   @Override
@@ -180,8 +211,8 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     FacesBean        bean
     ) throws IOException
   {
-    String layout = getLayout(bean);
-    
+    String layout = getLayout(component, bean);
+
     if ("positioned".equals(layout))
     {
       _encodeAllPositioned(context, rc, component, bean);
@@ -200,11 +231,13 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     }
   }
 
-  private boolean _hasSideFacets(RenderingContext arc, UIComponent component)
+  private boolean _hasSideFacets(
+    RenderingContext rc,
+    UIComponent      component)
   {
     // For PDAs, disavow allow knowledge of side facets (there's no space
     // to render them).  Ideally, this would be height/width driven...
-    if (isPDA(arc))
+    if (isPDA(rc))
       return false;
 
     return ((getFacet(component, CorePanelBorderLayout.LEFT_FACET) != null) ||
@@ -218,21 +251,22 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
   }
 
   protected void _encodeAllWithSideFacets(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("table", component);
-    OutputUtils.renderLayoutTableAttributes(context, arc, "0", "100%");
-    
+    OutputUtils.renderLayoutTableAttributes(context, rc, "0", "100%");
+
     renderId(context, component);
-    renderAllAttributes(context, arc, bean);
+    renderAllAttributes(context, rc, component, bean);
 
 
     Integer rowSpan = _getRowSpan(component);
-    Integer colSpan = _getColSpan(component, arc, rowSpan);
+    Integer colSpan = _getColSpan(component, rc, rowSpan);
 
     //
     // If we have a header node, render it
@@ -242,14 +276,14 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     if (topFacet != null)
     {
       rw.startElement("tr", null);
-      _renderMarginSpacer(context, arc, null);
+      _renderMarginSpacer(context, rc, null);
 
       rw.startElement("td", null);
       rw.writeAttribute("colspan", colSpan, null);
       encodeChild(context, topFacet);
       rw.endElement("td");
 
-      _renderMarginSpacer(context, arc, null);
+      _renderMarginSpacer(context, rc, null);
       rw.endElement("tr");
     }
 
@@ -258,37 +292,37 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     //
     rw.startElement("tr", null);
 
-    _renderMarginSpacer(context, arc, rowSpan);
+    _renderMarginSpacer(context, rc, rowSpan);
 
 
     //
     // Render the left hand side
     //
-    String leftName = _getSideFacet(component, arc, true);
+    String leftName = _getSideFacet(component, rc, true);
     UIComponent leftFacet = getFacet(component, leftName);
     if (leftFacet != null)
       renderSideFacet(context, leftFacet, rowSpan, null);
-  
+
     //
     // Render the inner left side node, if any
     //
-    String innerleftName = _getInnerSideFacet(component, arc, true);
+    String innerleftName = _getInnerSideFacet(component, rc, true);
     UIComponent innerLeftFacet = getFacet(component, innerleftName);
 
     if (innerLeftFacet != null)
     {
       renderSideFacet(context, innerLeftFacet, rowSpan, null);
     }
-  
+
     //
     // Render the child on the inside top of the layout
     //
     boolean isRightSideRendered =
-      _renderMiddleFacet(context, arc, component,
+      _renderMiddleFacet(context, rc, component,
                          CorePanelBorderLayout.INNER_TOP_FACET, rowSpan,
                          false, true);
 
-        
+
     // render the content
     if (component.getChildCount() > 0)
     {
@@ -298,11 +332,11 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
       {
         rw.startElement("tr", null);
       }
-        
+
       rw.startElement("td", null);
       rw.writeAttribute("width", "100%", null);
       rw.writeAttribute("valign", "top", null);
-        
+
       encodeAllChildren(context, component);
 
       rw.endElement("td");
@@ -311,7 +345,7 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
          here */
       if (!isRightSideRendered)
       {
-        _renderRightFacets(context, arc, component, rowSpan);
+        _renderRightFacets(context, rc, component, rowSpan);
         isRightSideRendered = true;
       }
 
@@ -322,7 +356,7 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
        right side nodes have been rendered, and render the
        right side nodes if they have not been rendered.  */
     isRightSideRendered |=
-      _renderMiddleFacet(context, arc, component,
+      _renderMiddleFacet(context, rc, component,
                          CorePanelBorderLayout.INNER_BOTTOM_FACET, rowSpan,
                          isRightSideRendered,
                          !isRightSideRendered);
@@ -331,7 +365,7 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
        to render it here */
     if (!isRightSideRendered)
     {
-      _renderRightFacets(context, arc, component, rowSpan);
+      _renderRightFacets(context, rc, component, rowSpan);
       rw.endElement("tr");
     }
 
@@ -343,14 +377,14 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     if (bottomFacet != null)
     {
       rw.startElement("tr", null);
-      _renderMarginSpacer(context, arc, null);
-        
+      _renderMarginSpacer(context, rc, null);
+
       rw.startElement("td", null);
       rw.writeAttribute("colspan", colSpan, null);
       encodeChild(context, bottomFacet);
       rw.endElement("td");
-        
-      _renderMarginSpacer(context, arc, null);
+
+      _renderMarginSpacer(context, rc, null);
       rw.endElement("tr");
     }
 
@@ -358,15 +392,16 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
   }
 
   protected void _encodeAllInDiv(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("div", component);
     renderId(context, component);
-    renderAllAttributes(context, arc, bean);
+    renderAllAttributes(context, rc, component, bean);
 
     UIComponent top = getFacet(component, CorePanelBorderLayout.TOP_FACET);
     if (top != null)
@@ -374,14 +409,14 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
 
     rw.startElement("div", null);
     rw.endElement("div");
-    
+
     UIComponent innerTop = getFacet(component, CorePanelBorderLayout.INNER_TOP_FACET);
     if (innerTop != null)
       encodeChild(context, innerTop);
 
     rw.startElement("div", null);
     rw.endElement("div");
-    
+
     encodeAllChildren(context, component);
 
     rw.startElement("div", null);
@@ -390,7 +425,7 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     UIComponent innerBottom = getFacet(component, CorePanelBorderLayout.INNER_BOTTOM_FACET);
     if (innerBottom != null)
       encodeChild(context, innerBottom);
-    
+
     rw.startElement("div", null);
     rw.endElement("div");
 
@@ -421,14 +456,15 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     writer.endElement("td");
   }
 
-  private boolean _renderMiddleFacet(FacesContext context,
-                                     RenderingContext arc,
-                                     UIComponent component,
-                                     String middleFacetName,
-                                     Integer rowSpan,
-                                     boolean startTableRow,
-                                     boolean renderRightFacets)
-    throws IOException
+  private boolean _renderMiddleFacet(
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    String           middleFacetName,
+    Integer          rowSpan,
+    boolean          startTableRow,
+    boolean          renderRightFacets
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     UIComponent middleFacet = getFacet(component, middleFacetName);
@@ -436,11 +472,11 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     {
       if (startTableRow)
         writer.startElement("tr", null);
-    
+
       _renderInnerFacet(context, middleFacet);
 
       if (renderRightFacets)
-        _renderRightFacets(context, arc, component, rowSpan);
+        _renderRightFacets(context, rc, component, rowSpan);
 
       writer.endElement("tr");
       return true;
@@ -454,17 +490,17 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
    */
   private boolean _renderRightFacets(
     FacesContext     context,
-    RenderingContext arc,
+    RenderingContext rc,
     UIComponent      component,
     Integer          rowSpan
     ) throws IOException
   {
     boolean facetRendered = false;
-    
+
     //
     // Render the inner right node.
     //
-    String innerSideName = _getInnerSideFacet(component, arc, false);
+    String innerSideName = _getInnerSideFacet(component, rc, false);
     UIComponent innerSideFacet = getFacet(component, innerSideName);
     if (innerSideFacet != null)
     {
@@ -475,24 +511,24 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
 
       facetRendered = true;
     }
-    
+
     //
     // Render the side node
     //
-    String sideName = _getSideFacet(component, arc, false);
+    String sideName = _getSideFacet(component, rc, false);
     UIComponent sideFacet = getFacet(component, sideName);
 
     if (sideFacet != null)
     {
       renderSideFacet(context, sideFacet, rowSpan, null);
-      _renderMarginSpacer(context, arc, rowSpan);
-      
+      _renderMarginSpacer(context, rc, rowSpan);
+
       facetRendered = true;
     }
-    
+
     return facetRendered;
   }
-  
+
   /**
    * Renders one of the inner nodes.
    */
@@ -511,7 +547,7 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
 
   private void _renderMarginSpacer(
     FacesContext     context,
-    RenderingContext arc,
+    RenderingContext rc,
     Integer          rowSpan
     ) throws IOException
   {
@@ -519,10 +555,10 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
 
     writer.startElement("td", null);
     writer.writeAttribute("rowspan", rowSpan, null);
-    Object spacerWidth = arc.getSkin().getProperty(
+    Object spacerWidth = rc.getSkin().getProperty(
        SkinProperties.AF_PANEL_BORDER_LAYOUT_SPACER_WIDTH);
     if (spacerWidth != null)
-      renderSpacer(context, arc, spacerWidth.toString(), "0");
+      renderSpacer(context, rc, spacerWidth.toString(), "0");
     writer.endElement("td");
   }
 
@@ -552,21 +588,21 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
    * Returns the column span to use for the top and bottom children.
    */
   private Integer _getColSpan(
-    UIComponent       component,
-    RenderingContext  arc,
-    Integer           rowSpan
+    UIComponent      component,
+    RenderingContext rc,
+    Integer          rowSpan
     )
   {
     int colSpan = 0;
-    
+
     // increment the colspan if we have a left side node
-    if (getFacet(component, _getSideFacet(component, arc, true)) != null)
+    if (getFacet(component, _getSideFacet(component, rc, true)) != null)
     {
       colSpan++;
     }
 
     // increment the colspan if we have an inner left side node
-    if (getFacet(component, _getInnerSideFacet(component, arc, true)) != null)
+    if (getFacet(component, _getInnerSideFacet(component, rc, true)) != null)
     {
       colSpan++;
     }
@@ -578,13 +614,13 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     }
 
     // increment the colspan if we have an inner right side node
-    if (getFacet(component, _getInnerSideFacet(component, arc, false)) != null)
+    if (getFacet(component, _getInnerSideFacet(component, rc, false)) != null)
     {
       colSpan++;
     }
-    
+
     // increment the colspan if we have a right side node
-    if (getFacet(component, _getSideFacet(component, arc, false)) != null)
+    if (getFacet(component, _getSideFacet(component, rc, false)) != null)
     {
       colSpan++;
     }
@@ -598,12 +634,12 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
    * layout, following bi-di rules.
    */
   private String _getSideFacet(
-    UIComponent         component,
-    RenderingContext    arc,
-    boolean             getLeftName
+    UIComponent      component,
+    RenderingContext rc,
+    boolean          getLeftName
     )
   {
-    boolean isRTL = arc.isRightToLeft();
+    boolean isRTL = rc.isRightToLeft();
 
     //
     // A precisely specified name wins over a dynamic name
@@ -639,12 +675,12 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
    * layout, following bi-di rules.
    */
   private String _getInnerSideFacet(
-    UIComponent         component,
-    RenderingContext    arc,
-    boolean             getLeftName
+    UIComponent      component,
+    RenderingContext rc,
+    boolean          getLeftName
     )
   {
-    boolean isRTL = arc.isRightToLeft();
+    boolean isRTL = rc.isRightToLeft();
 
     //
     // A precisely specified name wins over a dynamic name
@@ -674,7 +710,7 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
 
     return exactName;
   }
-  
+
   /**
    * Encode the panel for a positioned layout
    */
@@ -686,7 +722,7 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    
+
     // IE6 does not support stretching by setting both top & bottom or left & right,
     // so we have to use some ugly code.
     TrinidadAgent agent = (TrinidadAgent)rc.getAgent();
@@ -697,15 +733,15 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
       // send down the JS that we need to stretch the components
       XhtmlUtils.addLib(context, rc, IE6_SCRIPT.getScriptletKey());
     }
-    
+
     writer.startElement("div", component);
     renderId(context, component);
     if (isIE6)
     {
       writer.writeAttribute("onresize", "TrPanelBorderLayoutResizeIE6(this)", null);
     }
-    renderAllAttributes(context, rc, bean);
-        
+    renderAllAttributes(context, rc, component, bean);
+
     UIComponent topFacet = getFacet(component, CorePanelBorderLayout.TOP_FACET);
     UIComponent bottomFacet = getFacet(component, CorePanelBorderLayout.BOTTOM_FACET);
     UIComponent leftFacet = getFacet(component, CorePanelBorderLayout.LEFT_FACET);
@@ -714,17 +750,17 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     UIComponent innerBottomFacet = getFacet(component, CorePanelBorderLayout.INNER_BOTTOM_FACET);
     UIComponent innerLeftFacet = getFacet(component, CorePanelBorderLayout.INNER_LEFT_FACET);
     UIComponent innerRightFacet = getFacet(component, CorePanelBorderLayout.INNER_RIGHT_FACET);
-    
+
     // Don't make room for non-rendered facets
     if (topFacet != null && !topFacet.isRendered()) topFacet = null;
     if (bottomFacet != null && !bottomFacet.isRendered()) bottomFacet = null;
     if (innerTopFacet != null && !innerTopFacet.isRendered()) innerTopFacet = null;
     if (innerBottomFacet != null && !innerBottomFacet.isRendered()) innerBottomFacet = null;
-    
+
     boolean useLR = leftFacet != null || rightFacet != null
       || innerLeftFacet != null || innerRightFacet != null;
     boolean ltr = !rc.isRightToLeft();
-    
+
     if (!useLR)
     {
       leftFacet = getFacet(component, ltr ?
@@ -741,37 +777,40 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     if (innerRightFacet != null && !innerRightFacet.isRendered()) innerRightFacet = null;
     if (innerLeftFacet != null && !innerLeftFacet.isRendered()) innerLeftFacet = null;
     if (innerRightFacet != null && !innerRightFacet.isRendered()) innerRightFacet = null;
-    
-    String topHeight = (topFacet == null) ? "0px" : getTopHeight(bean);
-    String innerTopHeight = (innerTopFacet == null) ? "0px" : getinnerTopHeight(bean);
-    String bottomHeight = (bottomFacet == null) ? "0px" : getBottomHeight(bean);
-    String innerBottomHeight = (innerBottomFacet == null) ? "0px" : getinnerBottomHeight(bean);
+
+    String topHeight = (topFacet == null) ? "0px" : getTopHeight(component, bean);
+    String innerTopHeight = (innerTopFacet == null) ? "0px" : getinnerTopHeight(component, bean);
+    String bottomHeight = (bottomFacet == null) ? "0px" : getBottomHeight(component, bean);
+    String innerBottomHeight = (innerBottomFacet == null) ? "0px" :
+      getinnerBottomHeight(component, bean);
     String leftWidth = (leftFacet == null) ? "0px" :
-      (useLR ? getLeftWidth(bean) : (ltr ? getStartWidth(bean) : getEndWidth(bean)));
+      (useLR ? getLeftWidth(component, bean) :
+      (ltr ? getStartWidth(component, bean) : getEndWidth(component, bean)));
     String rightWidth = (rightFacet == null) ? "0px" :
-      (useLR ? getRightWidth(bean) : (ltr ? getEndWidth(bean) : getStartWidth(bean)));
+      (useLR ? getRightWidth(component, bean) :
+      (ltr ? getEndWidth(component, bean) : getStartWidth(component, bean)));
     String innerLeftWidth = (innerLeftFacet == null) ? "0px" :
-      (useLR ? getinnerLeftWidth(bean) :
-        (ltr ? getStartInnerWidth(bean) : getEndInnerWidth(bean)));
+      (useLR ? getinnerLeftWidth(component, bean) :
+        (ltr ? getStartInnerWidth(component, bean) : getEndInnerWidth(component, bean)));
     String innerRightWidth = (innerRightFacet == null) ? "0px" :
-      (useLR ? getinnerRightWidth(bean) :
-        (ltr ? getEndInnerWidth(bean) : getStartInnerWidth(bean)));
-    
+      (useLR ? getinnerRightWidth(component, bean) :
+        (ltr ? getEndInnerWidth(component, bean) : getStartInnerWidth(component, bean)));
+
     String clientId = component.getClientId(context);
-    
+
     _encodePositionedFacetGroup(context, rc, bean, writer, clientId, component,
       topFacet, topHeight,
       rightFacet, rightWidth,
       bottomFacet, bottomHeight,
       leftFacet, leftWidth,
       false, useLR, isIE6, ltr);
-    
+
     writer.startElement("div", null);
     writer.writeAttribute("id", _createSubId(clientId, "center"), null);
     writer.writeAttribute("style", _buildPositionedCenterCss(
       topHeight, bottomHeight, leftWidth, rightWidth, isIE6), null);
     renderStyleClass(context, rc, SkinSelectors.AF_PANEL_BORDER_POSITIONED_CENTER_STYLE_CLASS);
-    
+
     _encodePositionedFacetGroup(context, rc, bean, writer, clientId, component,
       innerTopFacet, innerTopHeight,
       innerRightFacet, innerRightWidth,
@@ -786,11 +825,11 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     renderStyleClass(context, rc, SkinSelectors.AF_PANEL_BORDER_POSITIONED_INNER_CENTER_STYLE_CLASS);
 
     encodeAllChildren(context, component);
-    
+
     writer.endElement("div");
     writer.endElement("div");
     writer.endElement("div");
-    
+
     if (isIE6)
     {
       // force the resize code to run at earliest moment
@@ -805,12 +844,12 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
       writer.endElement(XhtmlConstants.SCRIPT_ELEMENT);
     }
   }
-  
+
   private String _buildPositionedCenterCss(
-    String topHeight,
-    String bottomHeight,
-    String leftWidth,
-    String rightWidth,
+    String  topHeight,
+    String  bottomHeight,
+    String  leftWidth,
+    String  rightWidth,
     boolean isIE6)
   {
     return isIE6 ?
@@ -833,7 +872,7 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
         .append(rightWidth)
         .toString();
   }
-  
+
   private void _encodePositionedFacetGroup(
     FacesContext     context,
     RenderingContext rc,
@@ -892,7 +931,7 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
         isInner, false, isIE6);
     }
   }
-  
+
   private String _createSubId(
     String clientId,
     String name)
@@ -903,7 +942,7 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
       .append(name)
       .toString();
   }
-  
+
   private void _encodePositionedHeightFacet(
     FacesContext     context,
     RenderingContext rc,
@@ -926,11 +965,11 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
       .append("height:") // 7 chars
       .append(cssHeight)
       .toString();
-    renderInlineStyleAttribute(context, rc, style);
+    renderInlineStyleAttribute(context, rc, component, style);
     encodeChild(context, component);
     writer.endElement("div");
   }
-  
+
   private void _encodePositionedWidthFacet(
     FacesContext     context,
     RenderingContext rc,
@@ -952,7 +991,7 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
       isInner ? (isLeft ? "innerLeft" : "innerRight") : (isLeft ? "left" : "right")), null);
     renderStyleClass(context, rc, cssClass);
     String style;
-    
+
     if (isIE6)
     {
       style = new StringBuilder(11 + cssTopHeight.length() + cssWidth.length())
@@ -974,11 +1013,25 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
           .append(cssBottomHeight)
           .toString();
     }
-    renderInlineStyleAttribute(context, rc, style);
+    renderInlineStyleAttribute(context, rc, component, style);
     encodeChild(context, component);
     writer.endElement("div");
   }
-  
+
+  private PropertyKey _layoutKey;
+  private PropertyKey _topHeightKey;
+  private PropertyKey _innerTopHeightKey;
+  private PropertyKey _bottomHeightKey;
+  private PropertyKey _innerBottomHeightKey;
+  private PropertyKey _leftWidthKey;
+  private PropertyKey _innerLeftWidthKey;
+  private PropertyKey _rightWidthKey;
+  private PropertyKey _innerRightWidthKey;
+  private PropertyKey _startWidthKey;
+  private PropertyKey _innerStartWidthKey;
+  private PropertyKey _endWidthKey;
+  private PropertyKey _innerEndWidthKey;
+
   // Since IE6 cannot stretch components using docking, we are forced to use
   // JavaScript to do the dirty work
   private static final Scriptlet IE6_SCRIPT = new Scriptlet()
@@ -1027,13 +1080,13 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
       "  if (innerElems[7]) innerElems[7].style.height = innerCenterHeight + 'px';\n" +
       "  if (innerElems[8]) innerElems[8].style.height = innerCenterHeight + 'px';\n" +
       "}";
-    
+
     @Override
     public Object getScriptletKey()
     {
       return "TrPanelBorderLayoutResizeIE6()";
     };
-    
+
     @Override
     protected void outputScriptletContent(
       FacesContext context,
@@ -1043,7 +1096,7 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
       context.getResponseWriter().writeText(IE_JS_CODE, null);
     };
   };
-  
+
   static
   {
     XhtmlUtils.registerScriptlet(IE6_SCRIPT.getScriptletKey(), IE6_SCRIPT);

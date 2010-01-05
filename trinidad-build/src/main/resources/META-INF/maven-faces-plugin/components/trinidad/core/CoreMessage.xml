@@ -103,6 +103,9 @@ setting the "simple" attribute to true.]]>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>messageText</mfp:uix2-local-name>
+      <fmd:default-event-name>click</fmd:default-event-name>
+      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
         <fmd:expert>true</fmd:expert>
       </fmd:component-metadata>

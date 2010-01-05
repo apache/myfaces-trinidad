@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,8 +29,8 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelGroupLayout;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
+
 
 public class PanelGroupLayoutRenderer extends XhtmlRenderer
 {
@@ -39,13 +39,15 @@ public class PanelGroupLayoutRenderer extends XhtmlRenderer
     this(CorePanelGroupLayout.TYPE);
   }
 
-  protected PanelGroupLayoutRenderer(FacesBean.Type type)
+  protected PanelGroupLayoutRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _layoutKey = type.findKey("layout");
@@ -57,34 +59,33 @@ public class PanelGroupLayoutRenderer extends XhtmlRenderer
     return true;
   }
 
-  /**
-   * @see org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer#getDefaultStyleClass(
-   * org.apache.myfaces.trinidad.bean.FacesBean)
-   */
   @Override
-  protected String getDefaultStyleClass(FacesBean bean)
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     // Fix for TRINIDAD-652
     return SkinSelectors.AF_PANEL_GROUP_LAYOUT_STYLE_CLASS;
   }
-  
+
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
 
-    Object layout        = getLayout(bean);
+    Object layout        = getLayout(component, bean);
     boolean isVertical   = CorePanelGroupLayout.LAYOUT_VERTICAL.equals(layout);;
     boolean isHorizontal = CorePanelGroupLayout.LAYOUT_HORIZONTAL.equals(layout);
 
     if (isHorizontal)
     {
       rw.startElement("table", component);
-      OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+      OutputUtils.renderLayoutTableAttributes(context, rc, "0", null);
     }
     else if (isVertical)
     {
@@ -96,7 +97,7 @@ public class PanelGroupLayoutRenderer extends XhtmlRenderer
     }
 
     renderId(context, component);
-    renderAllAttributes(context, arc, bean);
+    renderAllAttributes(context, rc, component, bean);
 
     if (isHorizontal)
     {
@@ -162,7 +163,8 @@ public class PanelGroupLayoutRenderer extends XhtmlRenderer
   protected void encodeSeparator(
     FacesContext context,
     UIComponent  separator,
-    boolean      isHorizontal) throws IOException
+    boolean      isHorizontal
+    ) throws IOException
   {
     if (separator != null)
       encodeChild(context, separator, isHorizontal);
@@ -174,7 +176,8 @@ public class PanelGroupLayoutRenderer extends XhtmlRenderer
   protected void encodeChild(
     FacesContext context,
     UIComponent  child,
-    boolean      isHorizontal) throws IOException
+    boolean      isHorizontal
+    ) throws IOException
   {
     if (isHorizontal)
     {
@@ -189,11 +192,12 @@ public class PanelGroupLayoutRenderer extends XhtmlRenderer
     }
   }
 
-  protected Object getLayout(FacesBean bean)
+  protected Object getLayout(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_layoutKey);
   }
-
 
   private PropertyKey _layoutKey;
 }

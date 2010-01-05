@@ -36,6 +36,7 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.NavigationHandler;
+import javax.faces.application.ProjectStage;
 import javax.faces.application.StateManager;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
@@ -46,6 +47,7 @@ import javax.faces.el.PropertyResolver;
 import javax.faces.el.ValueBinding;
 import javax.faces.el.VariableResolver;
 import javax.faces.event.ActionListener;
+import javax.faces.event.SystemEvent;
 import javax.faces.validator.Validator;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -60,6 +62,29 @@ public class MApplication extends Application
   
   private MApplication()
   {
+  }
+  
+  @Override
+  public ProjectStage getProjectStage()
+  {
+    return ProjectStage.UnitTest;
+  }
+
+  @Override
+  public void publishEvent(FacesContext context,
+                           Class<? extends SystemEvent> systemEventClass,
+                           Class<?> sourceBaseType,
+                           Object source)
+  {
+    // do nothing
+  }
+  
+  @Override
+  public void publishEvent(FacesContext context,
+                           Class<? extends SystemEvent> systemEventClass,
+                           Object source)
+  {
+    //do nothing
   }
 
   @Override
@@ -306,7 +331,7 @@ public class MApplication extends Application
   }
 
   @Override
-  public Iterator<Class> getConverterTypes()
+  public Iterator<Class<?>> getConverterTypes()
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }

@@ -26,6 +26,7 @@ import java.util.Iterator;
 import javax.el.MethodExpression;
 
 import javax.faces.component.NamingContainer;
+import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
@@ -792,4 +793,24 @@ abstract public class UIXComponent extends UIComponent
    * @see UIXComponentBase#getClientId(FacesContext context)
    */
   abstract public String getContainerClientId(FacesContext context, UIComponent child);
+
+  /**
+   * We are using FacesBean to save state, which does not implement StateHelper, so
+   * calling this method will call UnsupportedOperationException
+   */
+  @Override
+  protected StateHelper getStateHelper()
+  {
+    throw new UnsupportedOperationException();
+  }
+  
+  /**
+   * We are using FacesBean to save state, which does not implement StateHelper, so
+   * calling this method will call UnsupportedOperationException
+   */
+  @Override
+  protected StateHelper getStateHelper(boolean create)
+  {
+    throw new UnsupportedOperationException();
+  }
 }

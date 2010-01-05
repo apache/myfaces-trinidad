@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,22 +33,19 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-
 import org.apache.myfaces.trinidad.component.UIXSelectMany;
-import org.apache.myfaces.trinidad.util.MessageFactory;
-
-import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.MessageFactory;
+import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
+
 
 /**
  * Renderer for SelectMany listboxes.
@@ -57,13 +54,15 @@ import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
  */
 abstract public class SimpleSelectManyRenderer extends FormInputRenderer
 {
-  public SimpleSelectManyRenderer(FacesBean.Type type)
+  public SimpleSelectManyRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _valuePassThruKey = type.findKey("valuePassThru");
@@ -80,7 +79,8 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
   public Object getConvertedValue(
     FacesContext context,
     UIComponent  component,
-    Object       submittedValue) throws ConverterException
+    Object       submittedValue
+    ) throws ConverterException
   {
     // If "submittedValue" is null, something's gone wrong;  that
     // should be caught by editable component
@@ -91,18 +91,18 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
       return null;
 
     FacesBean bean = getFacesBean(component);
-    Converter converter = getConverter(bean);
+    Converter converter = getConverter(component, bean);
     if ( converter == null)
-      converter = getDefaultConverter(context, bean);
+      converter = getDefaultConverter(context, component, bean);
 
     Class<?> modelClass = null;
-    ValueExpression expression = getValueExpression(bean);
+    ValueExpression expression = getValueExpression(component, bean);
     if (expression != null)
     {
       modelClass = expression.getType(context.getELContext());
     }
 
-    boolean valuePassThru = getValuePassThru(getFacesBean(component));
+    boolean valuePassThru = getValuePassThru(component, bean);
     if (!valuePassThru)
     {
       return _convertIndexedSubmittedValue(context,
@@ -150,9 +150,10 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
   @Override
   protected Converter getDefaultConverter(
     FacesContext context,
+    UIComponent  copmonent,
     FacesBean    bean)
   {
-    ValueExpression expression = getValueExpression(bean);
+    ValueExpression expression = getValueExpression(copmonent, bean);
     if (expression == null)
       return null;
 
@@ -170,13 +171,13 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     return null;
   }
 
-
   static private Object _convertSubmittedValue(
     FacesContext context,
     UIComponent  component,
     Converter    converter,
     String[]     values,
-    Class<?>     modelClass) throws ConverterException
+    Class<?>     modelClass
+    ) throws ConverterException
   {
     // Handle lists
     if ((modelClass == null) || modelClass.isAssignableFrom(List.class))
@@ -233,7 +234,8 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     UIComponent  component,
     Converter    converter,
     String[]     values,
-    Class<?>     modelClass) throws ConverterException
+    Class<?>     modelClass
+    ) throws ConverterException
   {
     List<SelectItem> selectItems = getSelectItems(component, converter, true);
 
@@ -313,46 +315,47 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
   }
 
   protected List<SelectItem> getSelectItems(
-    UIComponent component, 
-    Converter converter)
+    UIComponent component,
+    Converter   converter)
   {
     return getSelectItems(component, converter, false);
   }
 
   protected List<SelectItem> getSelectItems(
     UIComponent component,
-    Converter converter,
-    boolean filteredItems)
+    Converter   converter,
+    boolean     filteredItems)
   {
     return SelectItemSupport.getSelectItems(component, converter, filteredItems);
   }
 
   @Override
   protected void encodeAllAsElement(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    Converter converter = getConverter(bean);
+    Converter converter = getConverter(component, bean);
     if ( converter == null)
-      converter = getDefaultConverter(context, bean);
-    boolean valuePassThru = getValuePassThru(bean);
+      converter = getDefaultConverter(context, component, bean);
+    boolean valuePassThru = getValuePassThru(component, bean);
 
-    if (isAutoSubmit(bean))
-      AutoSubmitUtils.writeDependencies(context, arc);
+    if (isAutoSubmit(component, bean))
+      AutoSubmitUtils.writeDependencies(context, rc);
 
     // Only add in validators and converters when we're in valuePassThru
     // mode; otherwise, there's not enough on the client to even consider
-    FormData fData = arc.getFormData();
+    FormData fData = rc.getFormData();
     if (fData != null)
     {
       ((CoreFormData) fData).addOnSubmitConverterValidators(component,
                       valuePassThru ? converter : null,
-                      valuePassThru ? getValidators(bean) : null,
+                      valuePassThru ? getValidators(component, bean) : null,
                       getClientId(context, component),
-                      isImmediate(bean),
-                      getRequired(bean),
+                      isImmediate(component, bean),
+                      getRequired(component, bean),
                       getRequiredMessageKey());
     }
 
@@ -365,16 +368,16 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
                                                valuePassThru);
 
     ResponseWriter writer = context.getResponseWriter();
-    boolean simple = getSimple(bean);
+    boolean simple = getSimple(component, bean);
     if (simple)
     {
       writer.startElement("span", component);
       // put the outer style class here, like af_selectManyRadio, styleClass,
       // inlineStyle, 'state' styles like p_AFDisabled, etc.
-      renderRootDomElementStyles(context, arc, component, bean);
+      renderRootDomElementStyles(context, rc, component, bean);
     }
     encodeElementContent(context,
-                         arc,
+                         rc,
                          component,
                          bean,
                          selectItems,
@@ -383,8 +386,8 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
                          valuePassThru);
 
 
-    if (isHiddenLabelRequired(arc))
-      renderShortDescAsHiddenLabel(context, arc, component, bean);
+    if (isHiddenLabelRequired(rc))
+      renderShortDescAsHiddenLabel(context, rc, component, bean);
     if (simple)
     {
       writer.endElement("span");
@@ -394,47 +397,48 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
   /**
    * Encode the content of a SelectMany component.
    * @param context the FacesContext
-   * @param arc  the AdfRenderingContext
+   * @param rc  the AdfRenderingContext
    * @param component the UIComponent
    * @param bean the FacesBean
    * @param selectItems a List of SelectItem instances
-   * @param selectItems a List of SelectItem instances
    */
   abstract protected void encodeElementContent(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean,
-    List<SelectItem>    selectItems,
-    int[]               selectedIndices,
-    Converter           converter,
-    boolean             valuePassThru) throws IOException;
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    List<SelectItem> selectItems,
+    int[]            selectedIndices,
+    Converter        converter,
+    boolean          valuePassThru
+    ) throws IOException;
 
   @Override
   protected void renderNonElementContent(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     // http://issues.apache.org/jira/browse/ADFFACES-151
     // Getting default converter for null value leads to exception but
     // if value of component is null than there is no need to perform
     // this method
-    if (getValue(bean) == null)
+    if (getValue(component, bean) == null)
       return;
 
-    Converter converter = getConverter(bean);
+    Converter converter = getConverter(component, bean);
     if ( converter == null)
-      converter = getDefaultConverter(context, bean);
-    boolean valuePassThru = getValuePassThru(bean);
+      converter = getDefaultConverter(context, component, bean);
+    boolean valuePassThru = getValuePassThru(component, bean);
 
     // =-=AEW If needed, this could be made more efficient
     // by iterating through the list instead of getting
     // all the items
-    List<SelectItem> selectItems = 
+    List<SelectItem> selectItems =
       getSelectItems(component, converter);
-    
+
     int selectedIndices[] = getSelectedIndices(context,
                                                component,
                                                bean,
@@ -447,7 +451,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     {
       if (i > 0)
       {
-        renderBetweenNonElements(context, arc, component, bean);
+        renderBetweenNonElements(context, rc, component, bean);
       }
 
       SelectItem item = selectItems.get(selectedIndices[i]);
@@ -456,10 +460,11 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
   }
 
   protected void renderBetweenNonElements(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("br", component);
@@ -472,7 +477,9 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     return UIXSelectMany.REQUIRED_MESSAGE_ID;
   }
 
-  protected boolean getValuePassThru(FacesBean bean)
+  protected boolean getValuePassThru(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_valuePassThruKey);
     if (o == null)
@@ -480,7 +487,6 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     assert(o != null);
     return Boolean.TRUE.equals(o);
   }
-
 
   /**
    * Returns true if the renderer cares about order.
@@ -498,15 +504,15 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
    */
   @SuppressWarnings("unchecked")
   protected int[] getSelectedIndices(
-    FacesContext        context,
-    UIComponent         component,
-    FacesBean           bean,
-    List<SelectItem>    selectItems,
-    Converter           converter,
-    boolean             valuePassThru)
+    FacesContext     context,
+    UIComponent      component,
+    FacesBean        bean,
+    List<SelectItem> selectItems,
+    Converter        converter,
+    boolean          valuePassThru)
   {
     List<SelectItem> selectItemList =  flatItemList(selectItems);
-    Object submittedValue = getSubmittedValue(bean);
+    Object submittedValue = getSubmittedValue(component, bean);
     // In passthru mode, if there's a submitted value, we just
     // have to turn it into an array of ints and range-check it
     if ((submittedValue != null) && !valuePassThru)
@@ -532,7 +538,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     Object value;
     if (submittedValue == null)
     {
-      value = getValue(bean);
+      value = getValue(component, bean);
     }
     else
     {
@@ -709,7 +715,6 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
                       UIXSelectMany.CONVERSION_MESSAGE_ID,
                       component));
   }
-
 
   static private void _throwUnsupportedModelType(
     FacesContext context, Class<?> type, UIComponent component)

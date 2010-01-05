@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -22,11 +22,10 @@ import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
 import javax.faces.context.ResponseWriter;
+
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelPageHeader;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
 
@@ -50,30 +49,31 @@ public class PdaPanelPageHeaderRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
-    UIComponent branding        = getFacet(component,
-                                           CorePanelPageHeader.BRANDING_FACET);
-    UIComponent brandingApp     = getFacet(component,
-                                       CorePanelPageHeader.BRANDING_APP_FACET);
-    UIComponent navigation1           = getFacet(component,
-                                           CorePanelPageHeader.NAVIGATION1_FACET);
-    UIComponent navigation2           = getFacet(component,
-                                           CorePanelPageHeader.NAVIGATION2_FACET);
+    UIComponent branding    = getFacet(component,
+                                CorePanelPageHeader.BRANDING_FACET);
+    UIComponent brandingApp = getFacet(component,
+                                CorePanelPageHeader.BRANDING_APP_FACET);
+    UIComponent navigation1 = getFacet(component,
+                                CorePanelPageHeader.NAVIGATION1_FACET);
+    UIComponent navigation2 = getFacet(component,
+                                CorePanelPageHeader.NAVIGATION2_FACET);
     writer.startElement("span", component);
-    renderAllAttributes(context, arc, bean);
+    renderAllAttributes(context, rc, component, bean);
     renderId(context, component);
 
     if( branding != null)
       encodeChild(context, branding);
 
     if (branding != null && brandingApp != null)
-      renderSpacer(context, arc, "5", "1");
+      renderSpacer(context, rc, "5", "1");
 
     if(brandingApp != null)
       encodeChild(context, brandingApp);
@@ -85,7 +85,6 @@ public class PdaPanelPageHeaderRenderer extends XhtmlRenderer
       encodeChild(context, navigation1);
     }
 
-
     if( navigation2 != null)
     {
       writer.startElement("div", null);
@@ -94,6 +93,5 @@ public class PdaPanelPageHeaderRenderer extends XhtmlRenderer
     }
 
     writer.endElement("span");
-
   }
 }

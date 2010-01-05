@@ -25,6 +25,7 @@ import java.io.ObjectOutputStream;
 
 import java.net.URL;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,8 @@ import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
@@ -47,6 +50,9 @@ import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
+import javax.faces.event.PostAddToViewEvent;
+import javax.faces.event.PreRemoveFromViewEvent;
+import javax.faces.event.PreRenderComponentEvent;
 import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 
@@ -261,8 +267,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
-
   /**
    */
   @Override
@@ -282,7 +286,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return getFacesBean().getValueBinding(key);
   }
 
-
   @Override
   public void setValueBinding(String name, ValueBinding binding)
   {
@@ -292,7 +295,6 @@ abstract public class UIXComponentBase extends UIXComponent
     PropertyKey key = getPropertyKey(name);
     getFacesBean().setValueBinding(key, binding);
   }
-
 
   @Override
   public Map<String, Object> getAttributes()
@@ -304,8 +306,6 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
   // ------------------------------------------------------------- Properties
-
-
 
   @Override
   public String getClientId(FacesContext context)
@@ -354,7 +354,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return clientId;
   }
 
-
   /**
    * Gets the identifier for the component.
    */
@@ -363,7 +362,6 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     return (String) getProperty(ID_KEY);
   }
-
 
   /**
    * Sets the identifier for the component.  The identifier
@@ -388,11 +386,8 @@ abstract public class UIXComponentBase extends UIXComponent
     setProperty(ID_KEY, id);
   }
 
-
-
   @Override
   abstract public String getFamily();
-
 
   @Override
   public UIComponent getParent()
@@ -400,27 +395,52 @@ abstract public class UIXComponentBase extends UIXComponent
     return _parent;
   }
 
-
   /**
    * <p>Set the parent <code>UIComponent</code> of this
    * <code>UIComponent</code>.</p>
-   *
+   * 
    * @param parent The new parent, or <code>null</code> for the root node
    *  of a component tree
    */
   @Override
   public void setParent(UIComponent parent)
   {
-    _parent = parent;
-  }
+    // do we add this component ?
+    if (parent != null)
+    {
+      // set the reference
+      _parent = parent;
 
+      if (parent.isInView())
+      {
+        // trigger the ADD_EVENT and call setInView(true)
+        // recursive for all kids/facets...
+        // Application.publishEvent(java.lang.Class, java.lang.Object)  must be called, passing 
+        // PostAddToViewEvent.class as the first argument and the newly added component as the second 
+        // argument.
+        _publishPostAddToViewEvent(getFacesContext(), this);
+      }
+    }
+    else
+    {
+      if (_parent != null && _parent.isInView())
+      {
+        // trigger the "remove event" lifecycle
+        // and call setInView(false) for all children/facets
+        // doing this => recursive
+        _publishPreRemoveFromViewEvent(getFacesContext(), this);
+      }
+
+      // (un)set the reference
+      _parent = parent;
+    }
+  }
 
   @Override
   public boolean isRendered()
   {
     return getBooleanProperty(RENDERED_KEY, true);
   }
-
 
   @Override
   public void setRendered(boolean rendered)
@@ -470,7 +490,6 @@ abstract public class UIXComponentBase extends UIXComponent
     setProperty(RENDERER_TYPE_KEY, rendererType);
   }
 
-
   @Override
   public boolean getRendersChildren()
   {
@@ -481,12 +500,7 @@ abstract public class UIXComponentBase extends UIXComponent
     return renderer.getRendersChildren();
   }
 
-
-
-
   // ------------------------------------------------ Tree Management Methods
-
-
 
   @Override
   public UIComponent findComponent(String id)
@@ -558,8 +572,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
-
   /**
    * <p>Create (if necessary) and return a List of the children associated
    * with this component.</p>
@@ -581,7 +593,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return getChildren().size();
   }
 
-
   /**
    * <p>Create (if necessary) and return a Map of the facets associated
    * with this component.</p>
@@ -596,7 +607,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return _facets;
   }
 
-
   @Override
   public UIComponent getFacet(String facetName)
   {
@@ -606,7 +616,6 @@ abstract public class UIXComponentBase extends UIXComponent
       return null;
     return getFacets().get(facetName);
   }
-
 
   /**
    * Returns an Iterator over the names of all facets.
@@ -638,7 +647,7 @@ abstract public class UIXComponentBase extends UIXComponent
       if (_children == null)
         return _facets.values().iterator();
     }
-    
+
     return new CompositeIterator<UIComponent>(_children.iterator(), _facets.values().iterator());
   }
 
@@ -655,7 +664,7 @@ abstract public class UIXComponentBase extends UIXComponent
       _LOG.fine("Broadcasting event " + event + " to " + this);
 
     UIComponent component = event.getComponent();
-    if (component != null && satisfiesPartialTrigger(event))
+    if (component != null)
     {
       RequestContext adfContext = RequestContext.getCurrentInstance();
       if (adfContext != null)
@@ -680,21 +689,7 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-  /**
-   * Check if a faces event broadcast to this component should trigger the partial updates of the
-   * target listeners of this component. By default, all events trigger a partial update of the listeners.
-   *
-   * @param event The event to check
-   * @return true if the partial triggers should be updated by this event being broadcast
-   */
-  protected boolean satisfiesPartialTrigger(
-    FacesEvent event)
-  {
-    return true;
-  }
-
   // ------------------------------------------- Lifecycle Processing Methods
-
 
   @Override
   public void decode(FacesContext context)
@@ -721,11 +716,17 @@ abstract public class UIXComponentBase extends UIXComponent
     if (context == null)
       throw new NullPointerException();
 
+    // Call UIComponent.pushComponentToEL(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+    pushComponentToEL(context, this);
+
     if (!isRendered())
       return;
 
+    context.getApplication().publishEvent(context,  PreRenderComponentEvent.class, UIComponent.class, this);
+
     _cacheRenderer(context);
     Renderer renderer = getRenderer(context);
+
     // if there is a Renderer for this component
     if (renderer != null)
     {
@@ -756,14 +757,21 @@ abstract public class UIXComponentBase extends UIXComponent
     if (context == null)
       throw new NullPointerException();
 
-    if (isRendered())
+    try
     {
-      Renderer renderer = getRenderer(context);
-      // if there is a Renderer for this component
-      if (renderer != null)
+      if (isRendered())
       {
-        renderer.encodeEnd(context, this);
+        Renderer renderer = getRenderer(context);
+        // if there is a Renderer for this component
+        if (renderer != null)
+        {
+          renderer.encodeEnd(context, this);
+        }
       }
+    }
+    finally
+    {
+      popComponentFromEL(context);
     }
   }
 
@@ -809,12 +817,23 @@ abstract public class UIXComponentBase extends UIXComponent
     if (!isRendered())
       return;
 
-    // Process all facets and children of this component
-    decodeChildren(context);
+    pushComponentToEL(context, this);
 
-    // Process this component itself
-    decode(context);
+    try
+    {
+      // Process all facets and children of this component
+      decodeChildren(context);
 
+      // Process this component itself
+      decode(context);
+    }
+    finally
+    {
+      // Call UIComponent.popComponentFromEL(javax.faces.context.FacesContext) from inside of a finally
+      // block, just before returning.
+
+      popComponentFromEL(context);
+    }
   }
 
   @Override
@@ -826,8 +845,17 @@ abstract public class UIXComponentBase extends UIXComponent
     if (!isRendered())
       return;
 
-    // Process all facets and children of this component
-    validateChildren(context);
+    pushComponentToEL(context, this);
+
+    try
+    {
+      // Process all facets and children of this component
+      validateChildren(context);
+    }
+    finally
+    {
+      popComponentFromEL(context);
+    }
   }
 
   @Override
@@ -839,8 +867,17 @@ abstract public class UIXComponentBase extends UIXComponent
     if (!isRendered())
       return;
 
-    // Process all facets and children of this component
-    updateChildren(context);
+    pushComponentToEL(context, this);
+
+    try
+    {
+      // Process all facets and children of this component
+      updateChildren(context);
+    }
+    finally
+    {
+      popComponentFromEL(context);
+    }
   }
 
   @Override
@@ -851,9 +888,11 @@ abstract public class UIXComponentBase extends UIXComponent
 
     if (_LOG.isFiner())
       _LOG.finer("processSaveState() on " + this);
-    
+
+    pushComponentToEL(context, this);
+
     Object state = null;
-    
+
     try
     {
       if (((_children == null) || _children.isEmpty()) &&
@@ -867,17 +906,22 @@ abstract public class UIXComponentBase extends UIXComponent
         treeState.saveState(context, this);
         if (treeState.isEmpty())
           state = null;
-  
+
         state = treeState;
       }
     }
     catch (RuntimeException e)
     {
       _LOG.warning(_LOG.getMessage("COMPONENT_CHILDREN_SAVED_STATE_FAILED", this));
-      
+
       throw e;
     }
-    
+
+    finally
+    {
+      popComponentFromEL(context);
+    }
+
     // if component state serialization checking is on, attempt to Serialize the
     // component state immediately in order to determine which component's state
     // failed state saving.  Note that since our parent will attempt this same
@@ -888,7 +932,7 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       try
       {
-        new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(state);  
+        new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(state);
       }
       catch (IOException e)
       {
@@ -912,16 +956,25 @@ abstract public class UIXComponentBase extends UIXComponent
     if (_LOG.isFiner())
       _LOG.finer("processRestoreState() on " + this);
 
-    // If we saved a "TreeState", use it to restore everything
-    if (state instanceof TreeState)
+    pushComponentToEL(context, this);
+
+    try
     {
-      ((TreeState) state).restoreState(context, this);
+      // If we saved a "TreeState", use it to restore everything
+      if (state instanceof TreeState)
+      {
+        ((TreeState) state).restoreState(context, this);
+      }
+      // Otherwise, we had no children or facets, and just use
+      // the "state" object
+      else
+      {
+        restoreState(context, state);
+      }
     }
-    // Otherwise, we had no children or facets, and just use
-    // the "state" object
-    else
+    finally
     {
-      restoreState(context, state);
+      popComponentFromEL(context);
     }
   }
 
@@ -934,16 +987,29 @@ abstract public class UIXComponentBase extends UIXComponent
     getFacesBean().markInitialState();
   }
 
-  public Object saveState(FacesContext context)
+  @Override
+  public void clearInitialState()
   {
-    return getFacesBean().saveState(context);
+    getFacesBean().clearInitialState();
   }
 
-  public void restoreState(FacesContext context, Object stateObj)
+  @Override
+  public boolean initialStateMarked()
   {
-    getFacesBean().restoreState(context, stateObj);
+    return getFacesBean().initialStateMarked();
   }
 
+  public Object saveState(FacesContext facesContext)
+  {
+    return getFacesBean().saveState(facesContext);
+  }
+
+  public void restoreState(
+    FacesContext facesContext,
+    Object       stateObj)
+  {
+    getFacesBean().restoreState(facesContext, stateObj);
+  }
 
   @Override
   public String toString()
@@ -967,7 +1033,6 @@ abstract public class UIXComponentBase extends UIXComponent
     // we could cache this as an instance variable.
     return FacesContext.getCurrentInstance();
   }
-
 
   /**
    * Delegates to LifecycleRenderer, if present,
@@ -1003,7 +1068,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
   /**
    * Delegates to LifecycleRenderer, if present,
    * otherwise calls validateChildrenImpl.
@@ -1038,7 +1102,6 @@ abstract public class UIXComponentBase extends UIXComponent
       kid.processValidators(context);
     }
   }
-
 
   /**
    * Delegates to LifecycleRenderer, if present,
@@ -1119,6 +1182,81 @@ abstract public class UIXComponentBase extends UIXComponent
     if (renderer != null)
     {
       renderer.decode(context, this);
+    }
+  }
+
+  /**
+   * Publish PostAddToViewEvent to the component and all facets and children.
+   * 
+   * @param context the current FacesContext
+   * @param component the current UIComponent
+   */
+  private void _publishPostAddToViewEvent(
+    FacesContext context,
+    UIComponent component)
+  {
+    component.setInView(true);
+    context.getApplication().publishEvent(context, PostAddToViewEvent.class, UIComponent.class, component);
+
+    if (component.getChildCount() > 0)
+    {
+      List<UIComponent> children = component.getChildren();
+      UIComponent child = null;
+      UIComponent currentChild = null;
+      int i = 0;
+      while (i < children.size())
+      {
+        child = children.get(i);
+
+        // Iterate over the same index if the component was removed
+        // This prevents skip components when processing
+        do 
+        {
+          _publishPostAddToViewEvent(context, child);
+          currentChild = child;
+        }
+        while ((i < children.size()) &&
+               ((child = children.get(i)) != currentChild) );
+        i++;
+      }
+    }
+
+    if (component.getFacetCount() > 0)
+    {
+      for (UIComponent child : component.getFacets().values())
+      {
+        _publishPostAddToViewEvent(context, child);
+      }
+    }
+  } 
+
+  /**
+   * Publish PreRemoveFromViewEvent to the component and all facets and children.
+   * 
+   * @param context the current FacesContext
+   * @param component the current UIComponent
+   */
+  private void _publishPreRemoveFromViewEvent(
+    FacesContext context,
+    UIComponent component)
+  {
+    component.setInView(false);
+    context.getApplication().publishEvent(context, PreRemoveFromViewEvent.class, UIComponent.class, component);
+
+    if (component.getChildCount() > 0)
+    {
+      for (UIComponent child : component.getChildren())
+      {
+        _publishPreRemoveFromViewEvent(context, child);
+      }
+    }
+
+    if (component.getFacetCount() > 0)
+    {
+      for (UIComponent child : component.getFacets().values())
+      {
+        _publishPreRemoveFromViewEvent(context, child);
+      }
     }
   }
 
@@ -1225,7 +1363,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return n.intValue();
   }
 
-
   /**
    * Return the number of facets.  This is more efficient than
    * calling getFacets().size();
@@ -1238,7 +1375,6 @@ abstract public class UIXComponentBase extends UIXComponent
 
     return _facets.size();
   }
-
 
   /**
    * Broadcast an event to a MethodBinding.
@@ -1325,14 +1461,14 @@ abstract public class UIXComponentBase extends UIXComponent
     throws FacesException
   {
     Iterator<UIComponent> children = getFacetsAndChildren();
-    
+
     boolean found = false;
-    
+
     while (children.hasNext() && !found)
     {
       found = children.next().invokeOnComponent(context, clientId, callback);
     }
-    
+
     return found;
   }
 
@@ -1352,7 +1488,7 @@ abstract public class UIXComponentBase extends UIXComponent
     throws FacesException
   {
     assert this instanceof NamingContainer : "Only use invokeOnNamingContainerComponent on NamingContainers";
-    
+
     String thisClientId = getClientId(context);
 
     if (clientId.equals(thisClientId))
@@ -1372,10 +1508,10 @@ abstract public class UIXComponentBase extends UIXComponent
       }
 
       boolean invokedComponent = false;
-      
+
       // set up the context for visiting the children
       setupVisitingContext(context);
-            
+
       try
       {
         // iterate through children. We inline this code instead of calling super in order
@@ -1387,11 +1523,10 @@ abstract public class UIXComponentBase extends UIXComponent
         // teardown the context now that we have visited the children
         tearDownVisitingContext(context);
       }
-      
+
       return invokedComponent;
     }
   }
-  
 
   /**
    * Override to calls the hooks for setting up and tearing down the
@@ -1405,7 +1540,7 @@ abstract public class UIXComponentBase extends UIXComponent
     String clientId,
     ContextCallback callback)
     throws FacesException
-  {    
+  {
     String thisClientId = getClientId(context);
 
     if (clientId.equals(thisClientId))
@@ -1416,10 +1551,10 @@ abstract public class UIXComponentBase extends UIXComponent
     else
     {
       boolean invokedComponent = false;
-      
+
       // set up the context for visiting the children
       setupVisitingContext(context);
-            
+
       try
       {
         // iterate through children. We inline this code instead of calling super in order
@@ -1431,12 +1566,87 @@ abstract public class UIXComponentBase extends UIXComponent
         // teardown the context now that we have visited the children
         tearDownVisitingContext(context);
       }
-      
+
       return invokedComponent;
     }
   }
 
+  // ------------------------- Client behavior holder methods -------------------------
 
+  /**
+   * Utility method to assist sub-classes in the implementation of the
+   * {@link javax.faces.component.behavior.ClientBehaviorHolder} interface.
+   * <p>This method must only
+   * be called by classes that implement the interface, doing otherwise will result in an exception.
+   * </p>
+   * @param eventName The event name
+   * @param behavior The behavior to add
+   * @see javax.faces.component.behavior.ClientBehaviorHolder#addClientBehavior(String, ClientBehavior)
+   */
+  protected void addClientBehavior(
+    String         eventName,
+    ClientBehavior behavior)
+  {
+    // This will throw a class cast exception when illegally called by a class that does not
+    // implement ClientBehaviorHolder
+    Collection<String> events = ((ClientBehaviorHolder)this).getEventNames();
+
+    // This will throw a null pointer exception if the component author did not correctly implement
+    // the ClientBehaviorHolder contract which requires a non-empty collection to be returned from
+    // getEventNames
+    if (!events.contains(eventName))
+    {
+      return;
+    }
+
+    getFacesBean().addClientBehavior(eventName, behavior);
+  }
+
+  // Note, we do not need to provide a default implementation for the event names, as client
+  // behavior holder components must provide a non-empty list of event names. UIComponentBase
+  // decided to return a non-valid null in their code, but that is only confusing to the user, it
+  // is better to not implement the method and force the users to write the method upon interface
+  // implementation.
+  //protected Collection<String> getEventNames() {}
+
+  /**
+   * Utility method to assist sub-classes in the implementation of the
+   * {@link javax.faces.component.behavior.ClientBehaviorHolder} interface.
+   * <p>This method must only
+   * be called by classes that implement the interface, doing otherwise will result in an exception.
+   * </p>
+   * @see javax.faces.component.behavior.ClientBehaviorHolder#getClientBehaviors()
+   * @return Read-only map of the client behaviors for this component
+   */
+  protected Map<String, List<ClientBehavior>> getClientBehaviors()
+  {
+    return getFacesBean().getClientBehaviors();
+  }
+
+  /**
+   * Utility method to assist sub-classes in the implementation of the
+   * {@link javax.faces.component.behavior.ClientBehaviorHolder} interface.
+   * <p>This method must only
+   * be called by classes that implement the interface, doing otherwise will result in an exception.
+   * </p>
+   * @return null
+   * @see javax.faces.component.behavior.ClientBehaviorHolder#getDefaultEventName()
+   */
+  protected String getDefaultEventName()
+  {
+    _ensureClientBehaviorHolder();
+    return null;
+  }
+
+  private void _ensureClientBehaviorHolder()
+  {
+    if (!(this instanceof ClientBehaviorHolder))
+    {
+      throw new IllegalStateException("Component must implement ClientBehaviorHolder in order " +
+        "to make use of this method.");
+    }
+  }
+  // ------------------------- End of the client behavior holder methods -------------------------
 
   /**
    * <p>
@@ -1515,7 +1725,6 @@ abstract public class UIXComponentBase extends UIXComponent
       component.encodeEnd(context);
     }
   }
-
 
   static private UIComponent _findInsideOf(
     UIComponent from,
@@ -1618,7 +1827,6 @@ abstract public class UIXComponentBase extends UIXComponent
 
   private static final Iterator<UIComponent> _EMPTY_UICOMPONENT_ITERATOR =
     new EmptyIterator<UIComponent>();
-
 
   static private final ThreadLocal<StringBuilder> _STRING_BUILDER =
                                                           ThreadLocalUtils.newRequestThreadLocal();

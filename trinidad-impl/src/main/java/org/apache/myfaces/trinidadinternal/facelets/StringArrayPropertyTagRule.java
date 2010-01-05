@@ -24,15 +24,16 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.tag.Metadata;
-import com.sun.facelets.tag.MetadataTarget;
-import com.sun.facelets.tag.MetaRule;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagAttributeException;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.Metadata;
+import javax.faces.view.facelets.MetadataTarget;
+import javax.faces.view.facelets.MetaRule;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagAttributeException;
+
 
 /**
- * 
+ *
  * @version $Id: StringArrayPropertyTagRule.java,v 1.1 2005/08/23 05:54:54 adamwiner Exp $
  */
 final class StringArrayPropertyTagRule extends MetaRule

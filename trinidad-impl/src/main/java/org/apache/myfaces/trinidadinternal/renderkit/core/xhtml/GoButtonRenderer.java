@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,12 +27,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.util.StringUtils;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.util.StringUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
+
 
 /**
  * FIXME: the inheritance hierarchy is a bit annoying:  should
@@ -46,18 +47,19 @@ public class GoButtonRenderer extends GoLinkRenderer
     this(CoreGoButton.TYPE);
   }
 
-  protected GoButtonRenderer(FacesBean.Type type)
+  protected GoButtonRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _iconKey = type.findKey("icon");
   }
-
 
   @Override
   public boolean getRendersChildren()
@@ -67,39 +69,40 @@ public class GoButtonRenderer extends GoLinkRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     String clientId = component.getClientId(context);
-    if (canSkipRendering(arc, clientId))
+    if (canSkipRendering(rc, clientId))
       return;
 
     // Make sure we don't have anything to save
-    assert(arc.getCurrentClientId() == null);
-    arc.setCurrentClientId(clientId);
+    assert(rc.getCurrentClientId() == null);
+    rc.setCurrentClientId(clientId);
 
     String element;
-    boolean useButton = false;  
+    boolean useButton = false;
     boolean useInput = false;
     boolean supportScriptEvents = false;
     boolean imageLink = false;
     boolean iconAvailable = false;
-    String icon = getIcon(bean);
+    String icon = getIcon(component, bean);
 
     if (icon != null)
     {
       iconAvailable = true;
     }
-    if ((supportsScripting(arc) && supportsIntrinsicEvents(arc)))
+    if ((supportsScripting(rc) && supportsIntrinsicEvents(rc)))
     {
       supportScriptEvents = true;
     }
-    
+
     if (supportScriptEvents)
     {
-      if (supportsAdvancedForms(arc))
+      if (supportsAdvancedForms(rc))
       {
         element = XhtmlLafConstants.BUTTON_ELEMENT;
         useButton = true;
@@ -107,7 +110,7 @@ public class GoButtonRenderer extends GoLinkRenderer
       //if icon is set, render as an image element within a link element
       //since "buttons" html element is not supported and "input" element of
       //type=image does not support "onClick" JS handler.
-      else if (iconAvailable && !supportsOnClickOnImgInput(arc)) 
+      else if (iconAvailable && !supportsOnClickOnImgInput(rc))
       {
         element = XhtmlLafConstants.LINK_ELEMENT;
         imageLink = true;
@@ -122,41 +125,41 @@ public class GoButtonRenderer extends GoLinkRenderer
     {
       element = XhtmlLafConstants.LINK_ELEMENT;
     }
-  
+
     ResponseWriter rw = context.getResponseWriter();
-    boolean disabled = getDisabled(bean);
+    boolean disabled = getDisabled(component, bean);
     rw.startElement(element, component);
     renderId(context, component);
-    
+
     if (supportScriptEvents)
-    { 
+    {
       if (useInput && iconAvailable)
       {
         rw.writeAttribute("type", "image", null);
-      } 
-      //For any element like <button> or <input> except <a> set type to "button" 
+      }
+      //For any element like <button> or <input> except <a> set type to "button"
       else if (!imageLink)
       {
-        rw.writeAttribute("type", "button", null);   
+        rw.writeAttribute("type", "button", null);
       }
-      // If disabled, render "disable" only for <input> and <button> elements 
+      // If disabled, render "disable" only for <input> and <button> elements
       if (!imageLink && disabled)
       {
         rw.writeAttribute("disabled", Boolean.TRUE, "disabled");
       }
     }
-       
-    if (disabled || !supportsNavigation(arc))
+
+    if (disabled || !supportsNavigation(rc))
     {
       // Skip over event attributes when disabled
-      renderStyleAttributes(context, arc, bean);
+      renderStyleAttributes(context, rc, component, bean);
     }
     else
     {
-      renderAllAttributes(context, arc, bean);
+      renderAllAttributes(context, rc, component, bean);
       if (supportScriptEvents)
       {
-        rw.writeAttribute("onclick", getButtonOnclick(bean), null);
+        rw.writeAttribute("onclick", getButtonOnclick(component, bean), null);
         if (imageLink)
         {
           renderEncodedActionURI(context, XhtmlConstants.HREF_ATTRIBUTE, "#");
@@ -164,11 +167,12 @@ public class GoButtonRenderer extends GoLinkRenderer
       }
       else
       {
-        renderEncodedActionURI(context, XhtmlConstants.HREF_ATTRIBUTE, getDestination(bean));
-        
-        if (supportsTarget(arc))
+        renderEncodedActionURI(context, XhtmlConstants.HREF_ATTRIBUTE,
+          getDestination(component, bean));
+
+        if (supportsTarget(rc))
         {
-          rw.writeAttribute("target", getTargetFrame(bean), null);
+          rw.writeAttribute("target", getTargetFrame(component, bean), null);
         }
       }
     }
@@ -176,9 +180,9 @@ public class GoButtonRenderer extends GoLinkRenderer
     // Write the text and access key
 
     char accessKey;
-    if (supportsAccessKeys(arc))
+    if (supportsAccessKeys(rc))
     {
-      accessKey = getAccessKey(bean);
+      accessKey = getAccessKey(component, bean);
       if (accessKey != CHAR_UNDEFINED)
       {
         rw.writeAttribute("accesskey",
@@ -191,46 +195,46 @@ public class GoButtonRenderer extends GoLinkRenderer
       accessKey = CHAR_UNDEFINED;
     }
 
-    String text = getText(bean);
-    
+    String text = getText(component, bean);
+
     if (useButton)
     {
-      
+
       AccessKeyUtils.renderAccessKeyText(context,
                                          text,
                                          accessKey,
                                          SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
       if (icon != null)
-        OutputUtils.renderImage(context, arc, icon, null, null, null,
-                                  getShortDesc(bean));
+        OutputUtils.renderImage(context, rc, icon, null, null, null,
+                                  getShortDesc(component, bean));
     }
     // For PDAs, render only the image if icon is available
-    else if (!supportScriptEvents) 
+    else if (!supportScriptEvents)
     {
       if(iconAvailable)
       {
-        
-       OutputUtils.renderImage(context, arc, icon, null, null, null,
-                                  getShortDesc(bean));
+
+       OutputUtils.renderImage(context, rc, icon, null, null, null,
+                                  getShortDesc(component, bean));
       }
       else
       {
-        
+
        AccessKeyUtils.renderAccessKeyText(context,
                                          text,
                                          accessKey,
-                                         SkinSelectors.AF_ACCESSKEY_STYLE_CLASS); 
+                                         SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
       }
     }
-    else 
+    else
     {
       // Render an image tag inside the anchor tag
       if (imageLink)
       {
-        OutputUtils.renderImage(context, arc, icon, null, null, null,
-                                getShortDesc(bean));
+        OutputUtils.renderImage(context, rc, icon, null, null, null,
+                                getShortDesc(component, bean));
       }
-      // For input element render src attribute to the url of the icon 
+      // For input element render src attribute to the url of the icon
       else if (iconAvailable)
       {
         renderEncodedResourceURI(context, "src", icon);
@@ -242,20 +246,21 @@ public class GoButtonRenderer extends GoLinkRenderer
     }
 
     rw.endElement(element);
-    arc.setCurrentClientId(null);
+    rc.setCurrentClientId(null);
   }
 
   /**
    * Override to return any state-based (selected, disabled, etc.)
-   * CSS style markers.  HINT: use an immutable, cached List<String>
+   * CSS style markers.  HINT: use an immutable, cached List&lt;String>
    * for better performance.
    */
   protected List<String> getStateStyleClasses(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean)
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
-    if (getDisabled(bean))
+    if (getDisabled(component, bean))
       return _DISABLED_STATE_LIST;
     return null;
   }
@@ -263,22 +268,24 @@ public class GoButtonRenderer extends GoLinkRenderer
   // FIXME: move this implementation to XhtmlRenderer
   @Override
   protected void renderStyleAttributes(
-    FacesContext        context,
-    RenderingContext    arc,
-    FacesBean           bean,
-    String              defaultStyleClass) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    String           defaultStyleClass
+    ) throws IOException
   {
-    String styleClass = getStyleClass(bean);
+    String styleClass = getStyleClass(component, bean);
     // -= Simon =-
     // FIXME: How come inlineStyle is never read
     //String inlineStyle = getInlineStyle(bean);
-    List<String> stateStyleClasses = getStateStyleClasses(context, arc, bean);
+    List<String> stateStyleClasses = getStateStyleClasses(context, rc, component, bean);
 
     if ((styleClass==null) &&
         (defaultStyleClass != null) &&
         (stateStyleClasses == null))
     {
-      renderStyleClass(context, arc, defaultStyleClass);
+      renderStyleClass(context, rc, defaultStyleClass);
     }
     else
     {
@@ -304,11 +311,11 @@ public class GoButtonRenderer extends GoLinkRenderer
           styleClasses[i] = stateStyleClasses.get(j);
         }
 
-        renderStyleClasses(context, arc, styleClasses);
+        renderStyleClasses(context, rc, styleClasses);
       }
     }
 
-    String style = getInlineStyle(bean);
+    String style = getInlineStyle(component, bean);
     if (style != null)
     {
       context.getResponseWriter().writeAttribute("style",
@@ -318,15 +325,19 @@ public class GoButtonRenderer extends GoLinkRenderer
   }
 
   @Override
-  protected String getOnclick(FacesBean bean)
+  protected String getOnclick(
+    UIComponent component,
+    FacesBean   bean)
   {
     return null;
   }
 
-  protected String getButtonOnclick(FacesBean bean)
+  protected String getButtonOnclick(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String base = super.getOnclick(bean);
-    String destination = getDestination(bean);
+    String base = super.getOnclick(component, bean);
+    String destination = getDestination(component, bean);
     if (destination == null)
       return base;
 
@@ -344,7 +355,7 @@ public class GoButtonRenderer extends GoLinkRenderer
       // Escape the destination in case there's any quotes
       destination = StringUtils.replace(destination, "'", "\\'");
 
-      String targetFrame = getTargetFrame(bean);
+      String targetFrame = getTargetFrame(component, bean);
       // Look for target frames with well-known names, like
       // _self, _top, _parent, _blank, and _new.  (_new
       // is actually non-standard, but often used for _blank)
@@ -381,12 +392,16 @@ public class GoButtonRenderer extends GoLinkRenderer
   }
 
   @Override
-  protected String getDefaultStyleClass(FacesBean bean)
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return SkinSelectors.AF_GO_BUTTON_STYLE_CLASS;
   }
 
-  protected String getIcon(FacesBean bean)
+  protected String getIcon(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toResourceUri(FacesContext.getCurrentInstance(), bean.getProperty(_iconKey));
   }

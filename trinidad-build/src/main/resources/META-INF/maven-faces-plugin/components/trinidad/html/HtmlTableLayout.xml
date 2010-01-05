@@ -102,7 +102,7 @@
         <mfp:property-metadata>
           <mfp:multi-scoped-id-holder>true</mfp:multi-scoped-id-holder>
         </mfp:property-metadata>
-      </property-extension>      
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[an onclick Javascript handler.]]></description>
@@ -277,6 +277,9 @@
       <mfp:java-constructor>
         <mfp:property-name>width</mfp:property-name>
       </mfp:java-constructor>
+      <fmd:default-event-name>click</fmd:default-event-name>
+      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.HtmlRowLayout</fmd:preferred-child-components>
         <fmd:satisfied-contracts>org-apache-myfaces-trinidad-htmlrowlayout-holder</fmd:satisfied-contracts>

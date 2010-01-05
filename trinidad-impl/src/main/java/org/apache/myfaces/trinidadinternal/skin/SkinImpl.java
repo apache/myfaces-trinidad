@@ -35,6 +35,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.el.ELContext;
 import javax.el.ValueExpression;
 
+import javax.faces.application.ProjectStage;
 import javax.faces.context.ExternalContext;
 
 import javax.faces.context.FacesContext;
@@ -921,9 +922,37 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   // else return false.
   private boolean _isDisableContentCompressionParameterTrue(FacesContext context)
   {
-    ExternalContext external  = context.getExternalContext();
+    // TODO: this section needs to be MOVED up, perhaps to API,
+    // as the StyleContextIMPL.java has exactly the same code;
+    // this will be fixed with the advent of "TRINIDAD-1662".
+    
+    String disableContentCompression = context.getExternalContext().
+      getInitParameter(Configuration.DISABLE_CONTENT_COMPRESSION);
 
-    return "true".equals(external.getInitParameter(Configuration.DISABLE_CONTENT_COMPRESSION));
+    boolean disableContentCompressionBoolean; 
+
+    // what value has been specified for the DISABLE_CONTENT_COMPRESSION param?
+    if (disableContentCompression != null)
+    {
+      disableContentCompressionBoolean = "true".equals(disableContentCompression);
+    }
+    else 
+    {
+      // if the DISABLE_CONTENT_COMPRESSION parameter has NOT been specified, let us
+      // apply the DEFAULT values for the certain Project Stages:
+      // -PRODUCTION we want this value to be FALSE;
+      // -other stages we use TRUE
+      disableContentCompressionBoolean = !(context.isProjectStage(ProjectStage.Production));
+    }
+
+    // if Apache MyFaces Trinidad is running in production stage and 
+    // running with content compression disabled we generate a WARNING
+    // message
+    if (disableContentCompressionBoolean && context.isProjectStage(ProjectStage.Production))
+    {
+      _LOG.warning("DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE");
+    }
+    return disableContentCompressionBoolean;
   }
 
   // a TranslationSource fills in the keyValueMap differently depending upon

@@ -79,7 +79,7 @@
         <mfp:property-metadata>
           <mfp:multi-scoped-id-holder>true</mfp:multi-scoped-id-holder>
         </mfp:property-metadata>
-      </property-extension>      
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[an onclick Javascript handler.]]></description>
@@ -279,6 +279,9 @@ and assigning initial page focus.
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>body</mfp:uix2-local-name>
+      <fmd:default-event-name>load</fmd:default-event-name>
+      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+        keypress keydown keyup load unload</fmd:event-names>
       <fmd:component-metadata>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CorePanelPage org.apache.myfaces.trinidad.CoreForm</fmd:preferred-child-components>
         <fmd:required-ancestor-contracts>org-apache-myfaces-trinidad-htmlbody-holder</fmd:required-ancestor-contracts>

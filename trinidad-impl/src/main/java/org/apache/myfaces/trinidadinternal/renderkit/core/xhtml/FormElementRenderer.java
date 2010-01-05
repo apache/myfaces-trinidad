@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -32,15 +33,18 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
+
 abstract public class FormElementRenderer extends EditableValueRenderer
 {
-  protected FormElementRenderer(FacesBean.Type type)
+  protected FormElementRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _autoSubmitKey = type.findKey("autoSubmit");
@@ -50,7 +54,7 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     _labelKey = type.findKey("label");
     _contentStyleKey = type.findKey("contentStyle");
   }
-  
+
 
   @Override
   public boolean getRendersChildren()
@@ -78,15 +82,15 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     UIComponent  component,
     String       clientId)
   {
-      Map<String, String> parameterMap = 
+      Map<String, String> parameterMap =
         context.getExternalContext().getRequestParameterMap();
-      
+
       String source = parameterMap.get("source");
       if (clientId.equals(source))
       {
         String event = parameterMap.get("event");
         if (XhtmlConstants.AUTOSUBMIT_EVENT.equals(event) &&
-            isAutoSubmit(getFacesBean(component)))
+            isAutoSubmit(component, getFacesBean(component)))
         {
           (new AutoSubmitEvent(component)).queue();
         }
@@ -95,23 +99,24 @@ abstract public class FormElementRenderer extends EditableValueRenderer
 
   @Override
   protected final void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (!renderAsElement(context, arc, bean))
+    if (!renderAsElement(context, rc, component, bean))
     {
-      encodeAllAsNonElement(context, arc, component, bean);
+      encodeAllAsNonElement(context, rc, component, bean);
     }
     else
     {
-      encodeAllAsElement(context, arc, component, bean);
+      encodeAllAsElement(context, rc, component, bean);
     }
   }
 
-
-  protected boolean isHiddenLabelRequired(RenderingContext arc)
+  protected boolean isHiddenLabelRequired(
+    RenderingContext rc)
   {
     return true;
   }
@@ -119,23 +124,23 @@ abstract public class FormElementRenderer extends EditableValueRenderer
   /**
    */
   protected void renderShortDescAsHiddenLabel(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean)
-    throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (HiddenLabelUtils.supportsHiddenLabels(arc) && 
-        isHiddenLabelRequired(arc))
+    if (HiddenLabelUtils.supportsHiddenLabels(rc) &&
+        isHiddenLabelRequired(rc))
     {
       String clientId = getClientId(context, component);
-      if (HiddenLabelUtils.wantsHiddenLabel(arc, clientId))
+      if (HiddenLabelUtils.wantsHiddenLabel(rc, clientId))
       {
-        String hiddenLabel = getHiddenLabel(bean);
+        String hiddenLabel = getHiddenLabel(component, bean);
         if (hiddenLabel != null)
         {
           HiddenLabelUtils.outputHiddenLabel(context,
-                                             arc,
+                                             rc,
                                              clientId,
                                              hiddenLabel,
                                              component);
@@ -143,13 +148,13 @@ abstract public class FormElementRenderer extends EditableValueRenderer
       }
     }
   }
-  
 
   protected void encodeAllAsElement(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
   }
 
@@ -157,71 +162,76 @@ abstract public class FormElementRenderer extends EditableValueRenderer
    * @todo Make abstract if always overriden
    */
   protected void encodeAllAsNonElement(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("span", component);
 
     renderId(context, component);
-    rw.writeAttribute("title", getShortDesc(bean), "shortDesc");
-    renderStyleAttributes(context, arc, bean);
+    rw.writeAttribute("title", getShortDesc(component, bean), "shortDesc");
+    renderStyleAttributes(context, rc, component, bean);
 
-    renderNonElementContent(context, arc, component, bean);
+    renderNonElementContent(context, rc, component, bean);
     rw.endElement("span");
   }
-
 
   /**
    * @todo Remove if never necessary
    */
   protected void renderNonElementContent(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
   }
 
   @Override
   protected void renderEventHandlers(
     FacesContext context,
-    FacesBean    bean) throws IOException
+    UIComponent  component,
+    FacesBean    bean
+    ) throws IOException
   {
-    super.renderEventHandlers(context, bean);
-    renderFormEventHandlers(context, bean);
+    super.renderEventHandlers(context, component, bean);
+    renderFormEventHandlers(context, component, bean);
   }
 
   protected void renderFormEventHandlers(
     FacesContext context,
-    FacesBean    bean) throws IOException
+    UIComponent  component,
+    FacesBean    bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
-    rw.writeAttribute("onblur", getOnblur(bean),  "onblur");
-    rw.writeAttribute("onfocus", getOnfocus(bean),  "onfocus");
-    rw.writeAttribute("onchange", getOnchange(bean),  "onchange");
+    rw.writeAttribute("onblur", getOnblur(component, bean),  "onblur");
+    rw.writeAttribute("onfocus", getOnfocus(component, bean),  "onfocus");
+    rw.writeAttribute("onchange", getOnchange(component, bean),  "onchange");
   }
-
 
   /**
    * Should this component render as a form element, or just
    * as some non-form content?
    */
   protected final boolean renderAsElement(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean)
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
-    if (getReadOnly(context, bean) || !supportsEditing(arc))
+    if (getReadOnly(context, component, bean) || !supportsEditing(rc))
     {
-      if (!renderReadOnlyAsElement(arc, bean))
+      if (!renderReadOnlyAsElement(rc, component, bean))
         return false;
     }
 
-    if (!supportsDisabledFormElements(arc) &&
-        getDisabled(bean))
+    if (!supportsDisabledFormElements(rc) &&
+        getDisabled(component, bean))
     {
       return false;
     }
@@ -230,13 +240,16 @@ abstract public class FormElementRenderer extends EditableValueRenderer
   }
 
   protected boolean renderReadOnlyAsElement(
-    RenderingContext arc,
-    FacesBean           bean)
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
     return false;
   }
 
-  protected String getLabel(FacesBean bean)
+  protected String getLabel(
+    UIComponent component,
+    FacesBean   bean)
   {
     // Not all FormElements necessarily have a label
     if (_labelKey == null)
@@ -245,47 +258,61 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     return toString(bean.getProperty(_labelKey));
   }
 
-  protected String getContentStyle(FacesBean bean)
+  protected String getContentStyle(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_contentStyleKey == null)
       return null;
-    
+
     return toString(bean.getProperty(_contentStyleKey));
   }
-  
 
-  protected String getOnblur(FacesBean bean)
+  protected String getOnblur(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onblurKey == null)
       return null;
 
-    return toString(bean.getProperty(_onblurKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "blur", null, toString(bean.getProperty(_onblurKey)), null);
   }
 
-  protected String getOnfocus(FacesBean bean)
+  protected String getOnfocus(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onfocusKey == null)
       return null;
 
-    return toString(bean.getProperty(_onfocusKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "focus", null, toString(bean.getProperty(_onfocusKey)), null);
   }
 
-  protected String getOnchange(FacesBean bean)
+  protected String getOnchange(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_onchangeKey == null)
       return null;
 
-    return toString(bean.getProperty(_onchangeKey));
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "change", "valueChange", toString(bean.getProperty(_onchangeKey)), null);
   }
 
   @Override
-  protected String getDefaultStyleClass(FacesBean bean)
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return SkinSelectors.AF_FIELD_TEXT_STYLE_CLASS;
   }
 
   /* FIXME: this method is never called
-  protected String getDefaultDisabledStyleClass(FacesBean bean)
+  protected String getDefaultDisabledStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return SkinSelectors.AF_FIELD_TEXT_DISABLED_STYLE_CLASS;
   }*/
@@ -295,7 +322,9 @@ abstract public class FormElementRenderer extends EditableValueRenderer
    *
    * @param bean the bean
    */
-  protected boolean isAutoSubmit(FacesBean bean)
+  protected boolean isAutoSubmit(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_autoSubmitKey == null)
       return false;
@@ -307,11 +336,13 @@ abstract public class FormElementRenderer extends EditableValueRenderer
    * Return the text for a hidden label, using "shortDesc" if set,
    * "label" otherwise.
    */
-  protected String getHiddenLabel(FacesBean bean)
+  protected String getHiddenLabel(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String hiddenLabel = getShortDesc(bean);
+    String hiddenLabel = getShortDesc(component, bean);
     if (hiddenLabel == null)
-      hiddenLabel = getLabel(bean);
+      hiddenLabel = getLabel(component, bean);
 
     return hiddenLabel;
   }
@@ -323,19 +354,22 @@ abstract public class FormElementRenderer extends EditableValueRenderer
    */
   static private final class AutoSubmitEvent extends FacesEvent
   {
-    public AutoSubmitEvent(UIComponent source)
+    public AutoSubmitEvent(
+      UIComponent source)
     {
       super(source);
       setPhaseId(PhaseId.INVOKE_APPLICATION);
     }
 
     @Override
-    public void processListener(FacesListener listener)
+    public void processListener(
+      FacesListener listener)
     {
     }
 
     @Override
-    public boolean isAppropriateListener(FacesListener listener)
+    public boolean isAppropriateListener(
+      FacesListener listener)
     {
       return false;
     }

@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
+import javax.faces.application.ProjectStage;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
@@ -223,8 +224,29 @@ public class RequestContextImpl extends RequestContext
   @Override
   public boolean isDebugOutput()
   {
-    return Boolean.TRUE.equals(
-       _bean.getProperty(RequestContextBean.DEBUG_OUTPUT_KEY));
+    // FALSE is the default value...
+    boolean debugOutput = Boolean.TRUE.equals(
+      _bean.getProperty(RequestContextBean.DEBUG_OUTPUT_KEY));
+
+    FacesContext fc = FacesContext.getCurrentInstance();
+    
+    if (fc.isProjectStage(ProjectStage.Production))
+    {
+      // on production we always want FALSE, unless the 
+      // user explicitly set the config to TRUE, but 
+      // generate a WARNING message for that.
+      if (debugOutput)
+      {
+         _LOG.warning("DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE");
+        return true;
+      }
+
+      return false;
+    }
+    else
+    {
+      return debugOutput;
+    }
   }
 
   @Override

@@ -18,12 +18,11 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
-import java.beans.Beans;
-
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
+import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
@@ -35,7 +34,6 @@ import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
@@ -113,23 +111,16 @@ class StyleContextImpl implements StyleContext
   }
   public boolean checkStylesModified()
   {
-    if (Beans.isDesignTime())
-    {
-      // In Design Time mode, if we have a skin-id on the request scope,
-      // then this means we want to check if the skin css files are modified.
-      // This is an alternative to the initParam (CHECK_TIMESTAMP_PARAM) which
-      // is set in web.xml. Design Time cannot set the web.xml file.
-      FacesContext context = FacesContext.getCurrentInstance();
-      Object requestSkinId = 
-        ((CoreRenderingContext) _arc).getRequestMapSkinId(context);
-      if (requestSkinId != null)
-        return true;
-
-    }
+    // TODO: similar code is present in the ViewHanlder;
+    // this needs to be factored out into a common util.
+    // See TRINIDAD-1662
     
     FacesContext context = FacesContext.getCurrentInstance();
     String checkTimestamp =
       context.getExternalContext().getInitParameter(Configuration.CHECK_TIMESTAMP_PARAM);
+
+    // in production stage we don't want TRUE here;
+    // a WARNING will be triggered by the ViewHandlerImpl.java
     return "true".equals(checkTimestamp);
   }
 
@@ -170,7 +161,7 @@ class StyleContextImpl implements StyleContext
   /**
    *
    * @return true if we should disable style compression. e.g.,
-   * if StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION is true or the skin is a portlet skin
+   * if Configuration.DISABLE_CONTENT_COMPRESSION is true or the skin is a portlet skin
    * or we are in portlet mode and not doing skin sharing.
    */
   public boolean isDisableStyleCompression()
@@ -180,13 +171,37 @@ class StyleContextImpl implements StyleContext
       FacesContext context = FacesContext.getCurrentInstance();
       String disableContentCompression =
         context.getExternalContext().
-        getInitParameter(StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION);
-      boolean disableContentCompressionBoolean = "true".equals(disableContentCompression);
+        getInitParameter(Configuration.DISABLE_CONTENT_COMPRESSION);
+      boolean disableContentCompressionBoolean; 
+
+      // what value has been specified for the DISABLE_CONTENT_COMPRESSION param?
+      if (disableContentCompression != null)
+      {
+        disableContentCompressionBoolean = "true".equals(disableContentCompression);
+      }
+      else 
+      {
+        // if the DISABLE_CONTENT_COMPRESSION parameter has NOT been specified, let us
+        // apply the DEFAULT values for the certain Project Stages:
+        // -PRODUCTION we want this value to be FALSE;
+        // -other stages we use TRUE
+        disableContentCompressionBoolean = !(context.isProjectStage(ProjectStage.Production));
+      }
 
       // the user wants to explicitly disable the content compression and show the full styleclass
       // names
       if (disableContentCompressionBoolean)
+      {
         _isDisableStyleCompression = Boolean.TRUE;
+
+        // if Apache MyFaces Trinidad is running in production stage and 
+        // running with content compression disabled we generate a WARNING
+        // message
+        if (context.isProjectStage(ProjectStage.Production))
+        {
+          _LOG.warning("DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE");
+        }
+      }
 
       // we still need to check if we don't want to compress even if the disable content
       // compression flag is true
@@ -277,8 +292,6 @@ class StyleContextImpl implements StyleContext
   private StyleProvider _styleProvider;
   private Styles _styles;
   private Boolean  _isDisableStyleCompression;
-  static private final String _SKIN_ID_PARAM =
-    "org.apache.myfaces.trinidad.skin.id";
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(StyleContextImpl.class);

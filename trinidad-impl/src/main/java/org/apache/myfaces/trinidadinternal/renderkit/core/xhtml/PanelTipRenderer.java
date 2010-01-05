@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,9 +23,11 @@ import java.io.IOException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import org.apache.myfaces.trinidad.bean.FacesBean;
-import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelTip;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+
 
 /**
  * Renders the page or section level tip UI element.
@@ -47,23 +49,26 @@ public class PanelTipRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected String getDefaultStyleClass(FacesBean bean)
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|panelTip";
   }
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext    rc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("div", component);
     renderId(context, component);
-    renderAllAttributes(context, rc, bean);
-    
+    renderAllAttributes(context, rc, component, bean);
+
      // tip label
     rw.startElement("span", null);
     renderStyleClass(context, rc, SkinSelectors.AF_PANEL_TIP_LABEL_STYLE_CLASS);
@@ -81,7 +86,7 @@ public class PanelTipRenderer extends XhtmlRenderer
     }
 
     rw.endElement("span");
-  
+
     // content
     rw.startElement("span", null);
     renderStyleClass(context, rc,  SkinSelectors.AF_PANEL_TIP_CONTENT_STYLE_CLASS);
