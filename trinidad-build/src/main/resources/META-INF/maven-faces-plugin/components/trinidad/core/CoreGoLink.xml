@@ -148,11 +148,11 @@
       <mfp:java-constructor>
         <mfp:property-name>destination</mfp:property-name>
       </mfp:java-constructor>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup focus blur</fmd:event-names>
       <mfp:uix2-local-name>link</mfp:uix2-local-name>
       <fmd:component-metadata>
+        <fmd:default-event-name>click</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup focus blur</fmd:event-names>
         <fmd:default-property>text</fmd:default-property>
       </fmd:component-metadata>
     </component-extension>

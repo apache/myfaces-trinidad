@@ -178,11 +178,13 @@ disclosed or undisclosed.  A showDetail should be used to:
           ]]>
         </mfp:source-code>
       </mfp:example>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup</fmd:event-names>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>hideShow</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-event-name>click</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup</fmd:event-names>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

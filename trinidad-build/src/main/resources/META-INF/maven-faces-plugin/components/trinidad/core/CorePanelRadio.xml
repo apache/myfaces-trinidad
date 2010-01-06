@@ -111,10 +111,10 @@
       <mfp:component-metadata/>
       <mfp:uix2-local-name>panelRadio</mfp:uix2-local-name>
       <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
+        <fmd:default-event-name>click</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup</fmd:event-names>
         <fmd:default-property>id</fmd:default-property>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreShowDetailItem</fmd:preferred-child-components>
       </fmd:component-metadata>

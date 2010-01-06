@@ -428,10 +428,12 @@
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata/>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup</fmd:event-names>
       <mfp:uix2-local-name>borderLayout</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup</fmd:event-names>
+        <fmd:default-event-name>click</fmd:default-event-name>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

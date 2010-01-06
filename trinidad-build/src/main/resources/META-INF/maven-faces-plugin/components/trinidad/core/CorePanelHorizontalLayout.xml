@@ -97,10 +97,12 @@ by an optional separator child.]]>
       <mfp:java-constructor>
         <mfp:facet-name>separator</mfp:facet-name>
       </mfp:java-constructor>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup</fmd:event-names>
       <mfp:uix2-local-name>panelHorizontalLayout</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-event-name>click</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup</fmd:event-names>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

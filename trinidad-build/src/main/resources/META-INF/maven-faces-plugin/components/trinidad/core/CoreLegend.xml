@@ -77,10 +77,10 @@ be described.  Only one value is currently supported: "required".]]>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>iconKey</mfp:uix2-local-name>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
+        <fmd:default-event-name>click</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup</fmd:event-names>
         <fmd:default-property>name</fmd:default-property>
       </fmd:component-metadata>
     </component-extension>

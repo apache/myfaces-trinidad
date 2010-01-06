@@ -277,10 +277,10 @@
       <mfp:java-constructor>
         <mfp:property-name>width</mfp:property-name>
       </mfp:java-constructor>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
+        <fmd:default-event-name>click</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup</fmd:event-names>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.HtmlRowLayout</fmd:preferred-child-components>
         <fmd:satisfied-contracts>org-apache-myfaces-trinidad-htmlrowlayout-holder</fmd:satisfied-contracts>
       </fmd:component-metadata>
