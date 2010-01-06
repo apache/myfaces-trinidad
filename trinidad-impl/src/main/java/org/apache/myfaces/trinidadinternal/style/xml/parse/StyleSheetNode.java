@@ -25,12 +25,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
-import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.skin.AgentAtRuleMatcher;
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;

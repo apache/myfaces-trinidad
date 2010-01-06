@@ -21,12 +21,10 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
@@ -46,8 +44,10 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
 /**
- * NodeParser for style sheet nodes
+ * NodeParser for style sheet nodes. This class is thread-safe since it is created each time 
+ * with newInstance(). Therefore we do not synchronize
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetNodeParser.java#0 $) $Date: 10-nov-2005.18:58:47 $
+ * @see org.apache.myfaces.trinidadinternal.share.xml.ClassParserFactory#getParser
  */
 public class StyleSheetNodeParser extends BaseNodeParser
   implements XMLConstants, StyleConstants
@@ -63,13 +63,13 @@ public class StyleSheetNodeParser extends BaseNodeParser
     Attributes   attrs
     ) throws SAXParseException
   {
-    _initLocales(attrs.getValue(LOCALES_ATTR));
+    _locales = _initLocales(attrs.getValue(LOCALES_ATTR));
     _direction = NameUtils.getDirection(attrs.getValue(DIRECTION_ATTR));
     _mode = NameUtils.getMode(attrs.getValue(MODE_ATTR));
     _browsers = _initBrowsers(attrs.getValue(BROWSERS_ATTR));
-    _initVersions(attrs.getValue(VERSIONS_ATTR));
-    _initPlatforms(attrs.getValue(PLATFORMS_ATTR));
-    _initAccessibilityProperties(attrs.getValue(ACC_PROFILE_ATTR));
+    _versions = _initVersions(attrs.getValue(VERSIONS_ATTR));
+    _platforms = _initPlatforms(attrs.getValue(PLATFORMS_ATTR));
+    _accProperties = _initAccessibilityProperties(attrs.getValue(ACC_PROFILE_ATTR));
   }
 
   /**
@@ -85,8 +85,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
     StyleNode[] styles = null;
     if (_styles != null)
     {
-      styles = new StyleNode[_styles.size()];
-      _styles.copyInto(styles);
+      styles = _styles.toArray(new StyleNode[_styles.size()]);
     }
     // Do not create an agentMatcher if there are no browsers or versions to compare against.
     // This way a styleSheetNode will match any browser if it hasn't specified a specific browser.
@@ -137,22 +136,22 @@ public class StyleSheetNodeParser extends BaseNodeParser
     if (child instanceof StyleNode)
     {
       if (_styles == null)
-        _styles = new Vector<StyleNode>();
+        _styles = new ArrayList<StyleNode>();
 
-      _styles.addElement((StyleNode)child);
+      _styles.add((StyleNode)child);
     }
   }
 
   // Initialize locales
-  private void _initLocales(String localeAttr)
+  private Set<Locale> _initLocales(String localeAttr)
   {
-    if (localeAttr == null)
-      return;
-
-    // -= Simon Lessard =-
-    // TODO: Check if synchronization is really needed.
-    _locales = Collections.synchronizedSet(new HashSet<Locale>());
     Iterator<String> tokens = _getTokens(localeAttr);
+    
+    if (tokens == null)
+      return Collections.emptySet();
+    
+    Set<Locale> locales = new HashSet<Locale>();
+    
     while (tokens.hasNext())
     {
       String localeString = tokens.next();
@@ -160,8 +159,10 @@ public class StyleSheetNodeParser extends BaseNodeParser
       Locale locale = LocaleUtils.getLocaleForIANAString(localeString.replace('_', '-').trim());
 
       if (locale != null)
-        _locales.add(locale);
+        locales.add(locale);
     }
+    
+    return locales;
   }
 
   // Initialize browsers
@@ -185,16 +186,13 @@ public class StyleSheetNodeParser extends BaseNodeParser
   }
 
   // Initialize version
-  private void _initVersions(String versionAttr)
+  private Version[] _initVersions(String versionAttr)
   {
     Iterator<String> versions = _getTokens(versionAttr);
     if (versions == null)
-      return;
-
-    // -= Simon Lessard =-
-    // TODO: Check if synchronization is really needed.
-    
-    Vector<Version> v = new Vector<Version>();
+      return null;
+  
+    List<Version> v = new ArrayList<Version>();
     while (versions.hasNext())
     {
       String version = versions.next();
@@ -204,19 +202,17 @@ public class StyleSheetNodeParser extends BaseNodeParser
       }
     }
     
-    _versions = v.toArray(new Version[v.size()]);
+    return v.toArray(new Version[v.size()]);
   }
 
   // Initialize platforms
-  private void _initPlatforms(String platformAttr)
+  private int[] _initPlatforms(String platformAttr)
   {
     Iterator<String> platforms = _getTokens(platformAttr);
     if (platforms == null)
-      return;
+      return null;
 
-    // -= Simon Lessard =-
-    // TODO: Check if synchronization is really needed.
-    Vector<Integer> v = new Vector<Integer>();
+    List<Integer> v = new ArrayList<Integer>();
     while (platforms.hasNext())
     {
       String platformName = platforms.next();
@@ -227,18 +223,18 @@ public class StyleSheetNodeParser extends BaseNodeParser
         platform = StyleSheetNode.__OS_UNIX;
 
       if (platform != TrinidadAgent.OS_UNKNOWN)
-        v.addElement(platform);
+        v.add(platform);
     }
 
-    _platforms = _getIntegers(v);
+    return _getIntegers(v);
   }
 
   // Initialize accessibility profile properties
-  private void _initAccessibilityProperties(String accProfileAttr)
+  private Set<String> _initAccessibilityProperties(String accProfileAttr)
   {
     Iterator<String> tokens = _getTokens(accProfileAttr);
     if (tokens == null)
-      return;
+      return Collections.emptySet();
 
     // The number of accessibility properties is always small - typically
     // just 1.  Use a small initial capacity.
@@ -258,11 +254,11 @@ public class StyleSheetNodeParser extends BaseNodeParser
       }
     }
     
-    _accProperties = props;
+    return props;
   }
 
-  // Copies Integers from a Vector into an int array
-  private int[] _getIntegers(Vector<Integer> v)
+  // Copies Integers from a List into an int array
+  private int[] _getIntegers(List<Integer> v)
   {
     int count = v.size();
 
@@ -272,7 +268,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
     int[] array = new int[count];
 
     for (int i = 0; i < count; i++)
-      array[i] = v.elementAt(i).intValue();
+      array[i] = v.get(i).intValue();
 
     return array;
   }
@@ -286,9 +282,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
     return (Arrays.asList(XMLUtils.parseNameTokens(attr))).iterator();
   }
 
-  // -= Simon Lessard =-
-  // TODO: Check if synchronization is really needed.
-  private Vector<StyleNode> _styles;
+  private List<StyleNode> _styles;
   private Set<Locale>       _locales;
   private int               _direction;
   private int               _mode;
