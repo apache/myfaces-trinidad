@@ -113,4 +113,5 @@ public class MessageWrapper extends FacesMessage
   private FacesMessage _msg;
   private Boolean      _labelSearch = null;
   private String       _label = null;
+  private static final long serialVersionUID = 1L;
 }

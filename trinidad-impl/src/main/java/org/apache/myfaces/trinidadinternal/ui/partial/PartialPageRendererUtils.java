@@ -118,10 +118,10 @@ public class PartialPageRendererUtils
     // At the moment we have blocking solved on IE and Mozilla
     if (supportsPartialRendering(context))
     {
-      int application = context.getAgent().getAgentApplication();
+      TrinidadAgent.Application application = context.getAgent().getAgentApplication();
 
-      return ((application == TrinidadAgent.APPLICATION_IEXPLORER)
-              || (application == TrinidadAgent.APPLICATION_GECKO));
+      return ((application == TrinidadAgent.Application.IEXPLORER)
+              || (application == TrinidadAgent.Application.GECKO));
     }
     return false;
   }

@@ -26,6 +26,5 @@
   <capability name="-adfinternal-pngImage" value="true"/>  
   <capability name="-adfinternal-transparentPngImage" value="true"/>     
   <capability name="-adfinternal-autoCompleteFormElements" value="true"/>
-  <capability name="-adfinternal-supportsDisabledOptions" value="true"/>
   <capability name="-adfinternal-fieldset" value="true"/>
 </capabilityData>

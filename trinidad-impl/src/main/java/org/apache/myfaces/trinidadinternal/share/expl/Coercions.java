@@ -23,12 +23,11 @@ import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.share.text.ColorFormat;
 import org.apache.myfaces.trinidadinternal.share.text.RGBColorFormat;
@@ -36,7 +35,6 @@ import org.apache.myfaces.trinidadinternal.share.xml.NamespaceURI;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Coercions is a utility class to coerce values to their target type.
@@ -584,6 +582,7 @@ public final class Coercions
     }
 
     private String _toString;
+    private static final long serialVersionUID = 1L;
   }
 
   private static final ColorFormat _COLOR_FMT = new RGBColorFormat("#RRGGBB");

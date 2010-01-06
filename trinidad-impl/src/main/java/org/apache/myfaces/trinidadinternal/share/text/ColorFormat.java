@@ -123,4 +123,5 @@ public abstract class ColorFormat extends Format
     FieldPosition pos);
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     ColorFormat.class);
+  private static final long serialVersionUID = 1L;
 }

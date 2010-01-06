@@ -96,7 +96,7 @@ public class BaseDesktopUtils extends XhtmlLafUtils
       Score score = super.scoreLookAndFeel(context, lafName);
 
       // We don't support Netscape 4.x
-      if (TrinidadAgent.APPLICATION_NETSCAPE ==
+      if (TrinidadAgent.Application.NETSCAPE ==
           context.getAgent().getAgentApplication())
       {
         score = new ScoreProxy(score)

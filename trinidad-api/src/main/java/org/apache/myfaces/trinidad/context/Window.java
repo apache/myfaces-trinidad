@@ -88,5 +88,6 @@ public abstract class Window implements Serializable
    * was created.
    */
   public abstract boolean isNew();
-}
 
+  private static final long serialVersionUID = 1L;
+}

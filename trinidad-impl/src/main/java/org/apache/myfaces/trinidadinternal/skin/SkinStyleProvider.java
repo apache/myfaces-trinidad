@@ -124,7 +124,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
     String targetDirectoryPath
     ) throws IllegalArgumentException
   {
-    super(null, targetDirectoryPath);
+    super(targetDirectoryPath);
 
     if (skin == null)
       throw new IllegalArgumentException(_LOG.getMessage(

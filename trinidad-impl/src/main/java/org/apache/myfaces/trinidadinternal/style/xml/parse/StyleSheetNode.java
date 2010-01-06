@@ -32,6 +32,7 @@ import java.util.StringTokenizer;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.skin.AgentAtRuleMatcher;
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
@@ -58,7 +59,7 @@ public class StyleSheetNode
     Collection<SkinPropertyNode> skinProperties,
     Locale[] locales,
     int direction,
-    Map<Integer, Set<Version>> agentVersions,
+    AgentAtRuleMatcher agentMatcher,
     int[] platforms,
     int mode,
     Set<String> accessibilityProperties
@@ -91,12 +92,7 @@ public class StyleSheetNode
     else
       _locales = Collections.emptySet();
 
-    if (agentVersions != null)
-    {
-      _agentVersions = Collections.unmodifiableMap(agentVersions);
-    }
-    else
-      _agentVersions = Collections.emptyMap();
+    _agentMatcher = agentMatcher;
 
     if (platforms != null)
     {
@@ -169,12 +165,11 @@ public class StyleSheetNode
   }
 
   /**
-   * Implementation of StyleSheetNode.getAgentVersions().
-   * @return a map containing each browser type mapped to its versions set
+   * @return AgentAtRuleMatcher for matching @agent selectors
    */
-  public Map<Integer, Set<Version>> getAgentVersions()
+  public AgentAtRuleMatcher getAgentMatcher()
   {
-    return _agentVersions;
+    return _agentMatcher;
   }
 
   /**
@@ -216,10 +211,8 @@ public class StyleSheetNode
     int directionMatch = _compareDirection(direction);
     if (directionMatch == 0)
       return 0;
-
-    int browser = agent.getAgentApplication();
     
-    int browserAndVersionMatch = _compareBrowserAndVersion(browser, agent);
+    int browserAndVersionMatch = _compareBrowserAndVersion(agent);
     if (browserAndVersionMatch == 0)
       return 0;
     int modeMatch = _compareMode(mode);
@@ -278,8 +271,7 @@ public class StyleSheetNode
     return getClass().getName() + "[" +
       "locales="   + (_locales != null ? _locales.toString() : "")    + ", " +
       "direction=" + _getDirectionString() + ", " +
-      "agentVersions="  + (_agentVersions != null ? _agentVersions.toString() : "")  + ", " +
-//      "versions="  + _versions.toString()  + ", " +
+      "agentVersions="  + (_agentMatcher != null ? _agentMatcher.toString() : "")  + ", " +
       "platforms=" + (_platforms != null ? _platforms.toString() : "") + ", " +
       "styles="    + (_styles != null ? _styles.toString() : "") + ", " +
       "icons="     + (_icons != null ? _icons.toString() :"")     + ", " +
@@ -317,7 +309,7 @@ public class StyleSheetNode
     hash = 37*hash + _mode;
     hash = 37*hash + _direction;
     hash = 37*hash + _locales.hashCode();
-    hash = 37*hash + _agentVersions.hashCode();
+    hash = 37*hash + ((_agentMatcher != null) ? _agentMatcher.hashCode() : 0);
     hash = 37*hash + _platforms.hashCode();
     hash = 37*hash + _styles.hashCode();
     hash = 37*hash + _accProps.hashCode();
@@ -384,40 +376,39 @@ public class StyleSheetNode
     return 0;
   }
 
-  //Compares the browser and its version against the supported variants
-  private int _compareBrowserAndVersion(int browser, TrinidadAgent agent)
+  // Compares the browser and its version against the supported variants
+  // This uses the AgentAtRuleMatcher object _agentMatcher, which stores the agent  
+  // information for the StyleSheetNode and has a built-in matcher.
+  private int _compareBrowserAndVersion(TrinidadAgent agent)
   {
     // If we don't have a browser specified, we match anything
-    if (_agentVersions.isEmpty())
+    if (_agentMatcher == null)
       return _BROWSER_UNKNOWN_MATCH;
+
+    TrinidadAgent.Application application = agent.getAgentApplication();
 
     // On the other hand, if we do have a browser specified, but
     // the client browser is not known, we don't have a match
-    if (browser == TrinidadAgent.APPLICATION_UNKNOWN)
+    if (application == TrinidadAgent.Application.UNKNOWN)
       return 0;
     
-    //If we have browser exact match, compare versions
-    Integer browserNum = Integer.valueOf(browser);
-    if (_agentVersions.containsKey(browserNum))
+    Set<AgentAtRuleMatcher.Match> matches = _agentMatcher.match(agent);
+    
+    int matchResult = _NO_MATCH;
+    
+    // first check that we have a match against the browser
+    if (matches.contains(AgentAtRuleMatcher.Match.APPLICATION))
     {
-      Set<Version> versions = _agentVersions.get(browserNum);
-      if (versions.isEmpty())
-        return _BROWSER_EXACT_MATCH | _VERSION_UNKNOWN_MATCH;
+      matchResult |= _BROWSER_EXACT_MATCH;
       
-      Version version = new Version(agent.getAgentVersion());
-        
-      for (Version av : versions)
-      {
-        if (av.compareTo(version) == 0)
-        {
-          return _BROWSER_EXACT_MATCH | _VERSION_EXACT_MATCH;
-        }
-      }
-      
-      return 0;
+      // check if the browser also specified a version match that we matched
+      int versionMatch = (matches.contains(AgentAtRuleMatcher.Match.VERSION))
+                           ? _VERSION_EXACT_MATCH
+                           : _VERSION_UNKNOWN_MATCH;
+      matchResult |= versionMatch;
     }
 
-    return 0;
+    return matchResult;
   }
 
 
@@ -582,18 +573,17 @@ public class StyleSheetNode
   // Order does not matter for locales, browsers, versions, platforms
   private final Set<Locale>     _locales;    // The locale variants
   private final int             _direction;  // The reading direction
-  // The browsers mapped to their versions (multiple versions for browser supported)
-  // The Integer value is the APPLICATION value in TrinidadAgent, like if 
-  // Integer is 3, it is APPLICATION_GECKO.
-  // TODO It would be clearer to make the Integer an Enum, and to make the
-  // Application constants an enum.
-  private final Map<Integer, Set<Version>>    _agentVersions;
+  
+  // matches Agent at-rules
+  private final AgentAtRuleMatcher _agentMatcher;
   private final Set<Integer>    _platforms;  // The platform variants
   private final int             _mode;       // The mode
   private final Set<String>     _accProps;   // Accessibility profile properties
   private final int             _id;         // The cached style sheet id
 
   // Constants for accessibility matches - 0x0f000000 bits
+  private static final int _NO_MATCH                = 0;
+
   private static final int _ACC_EXACT_MATCH         = 0x02000000;
   private static final int _ACC_UNKNOWN_MATCH       = 0x01000000;
 
@@ -616,7 +606,7 @@ public class StyleSheetNode
 
   // Constants for version matches - 0x000000f0 bits
   private static final int _VERSION_EXACT_MATCH     = 0x00000020;
-  private static final int _VERSION_UNKNOWN_MATCH   = 0x00000020;
+  private static final int _VERSION_UNKNOWN_MATCH   = 0x00000010;
 
   // Constants for os matches - 0x0000000f bits
   private static final int _OS_EXACT_MATCH          = 0x00000004;

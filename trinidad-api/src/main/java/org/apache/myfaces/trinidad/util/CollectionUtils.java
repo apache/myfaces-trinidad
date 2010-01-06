@@ -27,9 +27,11 @@ import java.lang.reflect.Array;
 
 import java.util.AbstractQueue;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +42,7 @@ import java.util.Queue;
 import java.util.RandomAccess;
 import java.util.Set;
 
+import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -69,6 +72,28 @@ public final class CollectionUtils
   }
 
   /**
+   * Returns an array containing all of the elements of the
+   * Iterator
+   * @param iterator Iterator to copy the contexts of
+   * @return an array containing a copy of the iterator contents
+   */
+  public static <T> T[] toArray(Iterator<? extends T> iterator, Class<T> type)
+  {
+    if (iterator.hasNext())
+    {
+      Collection arrayList = arrayList(iterator);
+      T[] outArray = (T[])Array.newInstance(type, arrayList.size());
+    
+      return (T[])arrayList.toArray(outArray);
+    }
+    else
+    {
+      // optimize empty iterator case
+      return (T[])Array.newInstance(type, 0);
+    }
+  }
+
+  /**
    * Returns an empty, unmodifiable, Serializable Queue.
    * @return an empty, unmodifiable, Serializable Queue.
    */
@@ -94,6 +119,71 @@ public final class CollectionUtils
   {
     return (ListIterator<T>)_EMPTY_LIST_ITERATOR;
   }
+  
+  /**
+   * Returns a minimal Set containing the elements passed in.  There is no guarantee that the
+   * returned set is mutable or immutable.
+   * @param <T>
+   * @param a The elements to add to the Set
+   * @return A set containing the elements passed in.
+   * @see #asUnmodifiableSet
+   */
+  public static <T> Set<T> asSet(T... a)
+  {
+    return _asSet(a, false);
+  }
+
+  /**
+   * Returns an unmodifiable Set containing the elements passed in.
+   * @param <T>
+   * @param a The elements to add to the Set
+   * @return A set containing the elements passed in.
+   * @see #asSet
+   */
+  public static <T> Set<T> asUnmodifiableSet(T... a)
+  {
+    return _asSet(a, true);
+  }
+
+  private static <T> Set<T> _asSet(T[] a, boolean makeImmutable)
+  {
+    int count = (a != null) ? a.length : 0;
+
+    Set<T> outSet;
+    
+    if (count == 0)
+    {
+      outSet = Collections.emptySet();
+    }
+    else
+    {
+      if (count == 1)
+      {
+        outSet = Collections.singleton(a[0]);
+      }
+      else
+      {
+        // make the initial size big enough that we don't have to rehash to fit the array, for
+        // the .75 load factor we pass in
+        int initialSize = (int)Math.ceil(count / .75d);
+        
+        outSet = new HashSet<T>(initialSize, .75f);
+        
+        for (int i = 0; i < count ; i++)
+        {
+          outSet.add(a[i]);
+        } 
+        
+        if (makeImmutable)
+        {
+          outSet = Collections.unmodifiableSet(outSet);
+        }
+      }
+    }
+    
+    return outSet;
+  }
+
 
   /**
    * Returns a Collection based on the passed in Collection <code>c</code>,

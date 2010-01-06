@@ -239,10 +239,6 @@ public final class SkinSelectors
     AF_DIALOG_ROOT_STYLE_CLASS + "::title-text";
   public static final String AF_DIALOG_CLOSE_ICON_STYLE_CLASS =
     AF_DIALOG_ROOT_STYLE_CLASS + "::close-icon";
-  public static final String AF_DIALOG_DISCLOSE_ICON_STYLE_CLASS =
-	  AF_DIALOG_ROOT_STYLE_CLASS + "::disclose-icon";
-  public static final String AF_DIALOG_UNDISCLOSE_ICON_STYLE_CLASS =
-	  AF_DIALOG_ROOT_STYLE_CLASS + "::undisclose-icon";
   public static final String AF_DIALOG_BLOCKED_AREA_STYLE_CLASS =
     AF_DIALOG_ROOT_STYLE_CLASS + "::blocked-area";
 
@@ -1234,6 +1230,16 @@ public final class SkinSelectors
    public static final String AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME =
      "af|showDetail::undisclosed-icon";
 
+   // The Webkit browser that runs in Nokia platform doesn't support Unicode 
+   // characters that display icons, so we need to render text-icons for
+   // Nokia.
+   // Ideally, we should be able to use above skinning-keys and switch it to 
+   // text-icons for Nokia platform, but we don't have such mechanism in Trinidad
+   // right now. Hence, I have created new skinning-keys for Nokia.
+   public static final String AF_SHOW_DETAIL_DISCLOSED_ICON_NAME_FOR_NOKIA_S60 =
+     "af|showDetail::nokia-disclosed-icon";
+   public static final String AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME_FOR_NOKIA_S60 =
+     "af|showDetail::nokia-undisclosed-icon";
    
    //                                                                         //
    //                                                                         //

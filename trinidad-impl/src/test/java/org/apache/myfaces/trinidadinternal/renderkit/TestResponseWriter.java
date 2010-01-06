@@ -348,7 +348,7 @@ public class TestResponseWriter extends ResponseWriter
       }
       else
       {
-        XMLEscapes.writeText(_out, text.toString().toCharArray());
+        XMLEscapes.writeText(_out, text.toString());
       }
     }
   }
@@ -461,13 +461,15 @@ public class TestResponseWriter extends ResponseWriter
       return;
     }
 
+    String valueString = value.toString();
+    
     if (isAttribute)
     {
-      XMLEscapes.writeAttribute(_out, value.toString().toCharArray());
+      XMLEscapes.writeAttribute(_out, valueString);
     }
     else
     {
-      XMLEscapes.writeText(_out, value.toString().toCharArray());
+      XMLEscapes.writeText(_out, valueString);
     }
   }
 

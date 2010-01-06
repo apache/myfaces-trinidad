@@ -96,4 +96,3 @@ public class DisclosureEvent extends FacesEvent
   private final boolean _expanded;
   private static final long serialVersionUID = 1L;
 }
-

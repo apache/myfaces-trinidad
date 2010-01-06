@@ -110,4 +110,5 @@ public class AccessKeyBinding extends ValueExpression implements Serializable
   }
 
   private ValueExpression _base;
+  private static final long serialVersionUID = 1L;
 }

@@ -326,6 +326,26 @@ public class ColumnRenderer extends ColumnGroupRenderer
     FacesBean bean = getFacesBean(column);
     String userStyleClass = getStyleClass(column, bean);
     String userInlineStyle = getInlineStyle(column, bean);
+    
+    // Currently, a column's width is rendered in the column's header (<TH>).
+    // In cases where all columns of a table have empty headersTexts, no 
+    // column header is rendered. Hence, a column's width is not supported
+    // in the aforementioned case.
+    // To fix this problem, lets render the column's width in the  
+    // column's data-element (<TD>) that is in the first row.
+    Object width = tContext.getColumnWidth(physicalIndex);
+    
+    if ((!tContext.hasColumnHeaders()) && (width!= null))
+    {
+      int row = tContext.getRowData().getRangeIndex();
+      
+      // Find the data element in the first row. Also, if there are 
+      // subrows, it enough to render the width for the first subrow 
+      if ((row == 0) && (kidIndex < 1))
+      {
+        writer.writeAttribute("width", width, null);
+      }
+    }    
 
     renderStyleClasses(context, rc, new String[]{userStyleClass, cellClass, borderStyleClass});
 

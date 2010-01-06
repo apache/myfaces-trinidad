@@ -334,11 +334,11 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
     // In screen reader mode, "middle" instead of "absmiddle" for vAlign to
     // comply with 4.01 HTML Spec.
 
-    int application = context.getAgent().getAgentApplication();
+    TrinidadAgent.Application application = context.getAgent().getAgentApplication();
     Object align;
 
-    if ((application == TrinidadAgent.APPLICATION_NETSCAPE)
-        || (application == TrinidadAgent.APPLICATION_GECKO)
+    if ((application == TrinidadAgent.Application.NETSCAPE)
+        || (application == TrinidadAgent.Application.GECKO)
         || (isScreenReaderMode(context)))
     {
       align = UIConstants.V_ALIGN_MIDDLE;

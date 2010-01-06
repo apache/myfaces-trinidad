@@ -41,16 +41,6 @@ function TrPopupDialog()
   closerDiv.className = page.getStyleClass("af|dialog::close-icon");
   _addEvent(closerDiv, "click", TrPopupDialog._returnFromDialog);
   titlebar.appendChild(closerDiv);
-  
-  //setup the title bar
-  var toggleDiv = document.createElement("div");
-  toggleDiv.style.cssText = "float:right;";
-  toggleDiv.className = page.getStyleClass("af|dialog::undisclose-icon");
-  _addEvent(toggleDiv, "click", TrPopupDialog._toggleDialog);
-  titlebar.appendChild(toggleDiv);
-
-  //Hold the div so we can change the styleClass
-  this._toggleDiv = toggleDiv;
 
   //setup the title bar
   var sepDiv = document.createElement("div");
@@ -82,9 +72,6 @@ function TrPopupDialog()
 
   // flag to indicate if dialog size should be locked
   this._fixedSize = false;
-  
-  // iframe height which is set by click on toggle button
-  this._toggleHeight = "0px";
 
 }
 
@@ -275,35 +262,6 @@ TrPopupDialog._returnFromDialog = function()
   else
   {
     alert("returnFromDialog(): Error - Current popup is not a dialog");
-  }
-}
- 
-/*
- * This function handles the click on toggle button. 
- * The first click closes the iframe and the second dicloses. 
- */
-TrPopupDialog._toggleDialog = function()
-{
-  var dialog = TrPopupDialog.DIALOG;
-  if (dialog)
-  {
-    var page = TrPage.getInstance();
-    var tmp = dialog._iframe.height;
-    dialog._iframe.height = dialog._toggleHeight;
-    dialog._toggleHeight = tmp;
-
-    if (dialog._iframe.height === "0px")
-    {
-      dialog._toggleDiv.className = page.getStyleClass("af|dialog::disclose-icon");
-    }
-    else
-    {
-      dialog._toggleDiv.className = page.getStyleClass("af|dialog::undisclose-icon");
-    }
-  }
-  else
-  {
-    alert("Error - Current popup is not a dialog");
   }
 }
 

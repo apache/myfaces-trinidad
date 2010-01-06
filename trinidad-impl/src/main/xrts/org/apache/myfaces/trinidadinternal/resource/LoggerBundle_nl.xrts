@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">De URL van de functiegegevens {0} is ongeldig.</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Kan de opgeslagen viewstatus voor token {0} niet vinden.</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE wordt niet ondersteund en zou niet moeten worden gebruikt, omdat het op dit moment in de meeste gevallen niet werkt.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Er zijn geen structuur en startpunt beschikbaar.</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->

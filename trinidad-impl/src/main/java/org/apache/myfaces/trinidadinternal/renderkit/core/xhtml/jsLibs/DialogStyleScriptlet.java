@@ -81,10 +81,6 @@ public class DialogStyleScriptlet extends Scriptlet
     writer.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_CLOSE_ICON_STYLE_CLASS), null);
     writer.writeText("','" + SkinSelectors.AF_DIALOG_BLOCKED_AREA_STYLE_CLASS + "':'", null);
     writer.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_BLOCKED_AREA_STYLE_CLASS), null);
-    writer.writeText("','" + SkinSelectors.AF_DIALOG_UNDISCLOSE_ICON_STYLE_CLASS + "':'", null);
-    writer.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_UNDISCLOSE_ICON_STYLE_CLASS), null);
-    writer.writeText("','" + SkinSelectors.AF_DIALOG_DISCLOSE_ICON_STYLE_CLASS + "':'", null);
-    writer.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_DISCLOSE_ICON_STYLE_CLASS), null);
     writer.writeText("'} ); ", null);
   }
 

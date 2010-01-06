@@ -154,7 +154,7 @@ public class HeaderRenderer
       // of the changes, I'll only tweak it here.
       if ((context.getAgent().getAgentOS() == TrinidadAgent.OS_MACOS) &&
           (context.getAgent().getAgentApplication() == 
-          TrinidadAgent.APPLICATION_IEXPLORER))
+          TrinidadAgent.Application.IEXPLORER))
 
         renderAttribute(context, NAME_ATTRIBUTE, label);
       else

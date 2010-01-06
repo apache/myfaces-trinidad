@@ -176,7 +176,7 @@
                          href="uri-attr:#"
                         >
                       Select All
-                    </a>&#xa0;|&#xa0;
+                    </a>&#160;|&#160;
                     <a
                          class="OraNavBarActiveLink"
                          onclick="_uixt_mainId.multiSelect(false);return false;"
@@ -525,7 +525,7 @@
                          href="uri-attr:#"
                         >
                       Select All
-                    </a>&#xa0;|&#xa0;
+                    </a>&#160;|&#160;
                     <a
                          class="OraNavBarActiveLink"
                          onclick="_uixt_mainId.multiSelect(false);return false;"
@@ -874,7 +874,7 @@
                          href="uri-attr:#"
                         >
                       Select All
-                    </a>&#xa0;|&#xa0;
+                    </a>&#160;|&#160;
                     <a
                          class="OraNavBarActiveLink"
                          onclick="_uixt_mainId.multiSelect(false);return false;"

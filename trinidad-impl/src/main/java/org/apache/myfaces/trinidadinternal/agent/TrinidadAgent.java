@@ -18,7 +18,11 @@
  */
 package org.apache.myfaces.trinidadinternal.agent;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.Version;
 
 /**
  * Extension of public Agent interface. Defines constants/method for AdInternal use.
@@ -26,7 +30,7 @@ import org.apache.myfaces.trinidad.context.Agent;
  * the current (internal) code base uses this heavily.
  *
  */
-public interface TrinidadAgent extends Agent
+public abstract class TrinidadAgent implements Agent, Cloneable
 {
   static public final CapabilityKey CAP_DOM =
           CapabilityKey.getCapabilityKey("dom", true);
@@ -179,59 +183,59 @@ public interface TrinidadAgent extends Agent
   //
   // Values for CAP_DOM
   //
-  static public Object DOM_CAP_NONE    =
+  static public final Object DOM_CAP_NONE    =
           CapabilityValue.getCapabilityValue (CAP_DOM, "none");
-  static public Object DOM_CAP_FORM    =
+  static public final Object DOM_CAP_FORM    =
           CapabilityValue.getCapabilityValue (CAP_DOM, "form");
-  static public Object DOM_CAP_LEVEL_1 =
+  static public final Object DOM_CAP_LEVEL_1 =
           CapabilityValue.getCapabilityValue (CAP_DOM, "level1");
-  static public Object DOM_CAP_LEVEL_2 =
+  static public final Object DOM_CAP_LEVEL_2 =
           CapabilityValue.getCapabilityValue (CAP_DOM, "level2");
 
   //
   // Values for CAP_SCRIPTING_SPEED
   //
-  static public Object SCRIPTING_SPEED_CAP_NONE =
+  static public final Object SCRIPTING_SPEED_CAP_NONE =
           CapabilityValue.getCapabilityValue (CAP_SCRIPTING_SPEED, "none");
-  static public Object SCRIPTING_SPEED_CAP_SLOW =
+  static public final Object SCRIPTING_SPEED_CAP_SLOW =
           CapabilityValue.getCapabilityValue (CAP_SCRIPTING_SPEED, "slow");
-  static public Object SCRIPTING_SPEED_CAP_FAST =
+  static public final Object SCRIPTING_SPEED_CAP_FAST =
           CapabilityValue.getCapabilityValue (CAP_SCRIPTING_SPEED,"fast");
 
   //
   // Values for CAP_TABLES
   //
-  static public Object TABLES_CAP_BASIC          =
+  static public final Object TABLES_CAP_BASIC          =
           CapabilityValue.getCapabilityValue (CAP_TABLES, "basic");
-  static public Object TABLES_CAP_ADVANCED_ATTRS =
+  static public final Object TABLES_CAP_ADVANCED_ATTRS =
           CapabilityValue.getCapabilityValue (CAP_TABLES, "advanced_attrs");
-  static public Object TABLES_CAP_ADVANCED       =
+  static public final Object TABLES_CAP_ADVANCED       =
           CapabilityValue.getCapabilityValue (CAP_TABLES, "advanced");
 
   //
   // Values for CAP_STYLE_ATTRIBUTES
   //
   // no styling is supported
-  static public Object STYLES_NONE               =
+  static public final Object STYLES_NONE               =
           CapabilityValue.getCapabilityValue (CAP_STYLE_ATTRIBUTES, "none");
   // only the 'style' attribute is supported. The 'class' attribute is not 
   // supported.
-  static public Object STYLES_STYLE_ONLY              =
+  static public final Object STYLES_STYLE_ONLY              =
           CapabilityValue.getCapabilityValue (CAP_STYLE_ATTRIBUTES, "style_only");
   // internal styles only; this includes the style attribute, or the class attribute
   // as long as the style selectors are in the page with the <style> tag.
-  static public Object STYLES_INTERNAL           =
+  static public final Object STYLES_INTERNAL           =
           CapabilityValue.getCapabilityValue (CAP_STYLE_ATTRIBUTES, "internal");
   // external css files are supported.
-  static public Object STYLES_EXTERNAL           =
+  static public final Object STYLES_EXTERNAL           =
           CapabilityValue.getCapabilityValue (CAP_STYLE_ATTRIBUTES, "external");
 
   // Values for CAP_CSS_SELECTORS
-  static public Object SELECTORS_NONE            =
+  static public final Object SELECTORS_NONE            =
           CapabilityValue.getCapabilityValue (CAP_CSS_SELECTORS, "none");
-  static public Object SELECTORS_SINGLE          =
+  static public final Object SELECTORS_SINGLE          =
           CapabilityValue.getCapabilityValue (CAP_CSS_SELECTORS, "single");
-  static public Object SELECTORS_MULTIPLE        =
+  static public final Object SELECTORS_MULTIPLE        =
           CapabilityValue.getCapabilityValue (CAP_CSS_SELECTORS, "multiple");
 
   /**
@@ -255,31 +259,192 @@ public interface TrinidadAgent extends Agent
    */
   static public final int TYPE_VOICE = 3;
 
+  /**
+   * Enumeration representing an Application
+   */
+  public static enum Application
+  {           
+    /**
+     * Application enum when the user agent isn't known.
+     */
+    UNKNOWN("0", AGENT_UNKNOWN),
+    /**
+     * Application enum for the Netscape Navigator browser.
+     */
+    NETSCAPE("netscape", AGENT_NETSCAPE),
+    /**
+     * Application enum for the Microsoft Internet Explorer browser.
+     */
+    IEXPLORER("ie", AGENT_IE),
+    /**
+     * Application enum  for browsers based on the Gecko Layout Engine,
+     * eg: Mozilla, Netscape 7.0+
+     */
+    GECKO("gecko", AGENT_GECKO, "mozilla"),
+    /**
+     * Application enum for Palm Web Clippings
+     */
+    WEB_CLIPPING("web-clipping", AGENT_ELAINE),
+    /**
+     * Application enum for the ICE Browser
+     */
+    ICE("ice", AGENT_ICE_BROWSER, "ice"),
+    /**
+     * Application enum for the Pixo Microbrowser
+     */
+    PIXO("pixo", AGENT_PIXO),
+    /**
+     * Application enum for the WML Microbrowser
+     */
+    WML("wml", "wml"),
+    /**
+     * Application enum for SimpleResult intermediate Form
+     */
+    SIMPLE_RESULT("simple-result", "simple-result"),
+    /**
+     * Application enum for iAS wireless (PTG) client
+     */
+    PTG("ptg", AGENT_PTG),
+    /**
+     * Application enum for the NetFront browser.
+     */
+    NET_FRONT("netfront", AGENT_NETFRONT),
+    /**
+     * Application enum for the Safari browser.
+     */
+    SAFARI("safari", AGENT_WEBKIT),
+    /**
+     * Application enum for the BlackBerry browser.
+     */
+    BLACKBERRY("blackberry", AGENT_BLACKBERRY),
+    /**
+     * Application enum for the Nokia S60 browser.
+     */
+    NOKIA_S60("nokia_s60", AGENT_NOKIA_S60),
+    /**
+     * Application enum for the basic HTMLbrowser.
+     */
+    GENERICPDA("genericpda", AGENT_GENERICPDA),
+    /**
+     * Application enum for Konqueror.
+     */
+    KONQUEROR("konqueror", AGENT_KONQUEROR),
+    /**
+     * Application enum for email.
+     */
+    EMAIL("email", AGENT_EMAIL),
+    /**
+     * Application enum for opera.
+     */
+    OPERA("opera", AGENT_OPERA);
 
+    /**
+     * Return the appropriate Application instance given the name of an Application
+     * @param applicationName Name of application to return the instance of
+     * @return Then Application instance for this name, if any
+     */
+    public static Application fromApplicationName(String applicationName)
+    {
+      return StateHolder.NAME_TO_APPLICATION.get(applicationName);
+    }
 
+    /**
+     * Return the appropriate Application instance given the name of an Agent.  For
+     * backwards compatibility reasons, alias names for some Agents are also supported.
+     * @param agentName Name of Agent to return the instance of
+     * @return Then Application instance for this name, if any
+     */
+    public static Application fromAgentName(String agentName)
+    {
+      return StateHolder.AGENT_TO_APPLICATION.get(agentName);
+    }
+
+    /**
+     * @param applicationName application name for this Application
+     * @param agentName       agent name for this Application
+     */
+    private Application(String applicationName, String agentName)
+    {
+      this(applicationName, agentName, null);
+    }
+
+    /**
+     * @param applicationName application name for this Application
+     * @param agentName       agent name for this Application
+     * @param agentAlias      additional agent name, if any, to support for look ups
+     */
+    private Application(String applicationName, String agentName, String agentAlias)
+    {
+      _applicationName = applicationName;
+      _agentName = agentName;
+
+      StateHolder.NAME_TO_APPLICATION.put(applicationName, this);
+      
+      Map<String, Application> agentToApplication = StateHolder.AGENT_TO_APPLICATION;
+      agentToApplication.put(agentName, this); 
+      
+      // if we have an alias for this agent name, register that as well
+      if (agentAlias != null)
+        agentToApplication.put(agentAlias, this); 
+    }
+
+    /**
+     * Returns the application name that this Application is registered under
+     * @return application name that this Application is registered under
+     */
+    public String getApplicationName()
+    {
+      return _applicationName;
+    }
+
+    /**
+     * Returns the agent name that this Application is registered under
+     * @return agent name that this Application is registered under
+     */
+    public String getAgentName()
+    {
+      return _agentName;
+    }
+    
+    private final String _applicationName;
+    private final String _agentName;
+    
+    /**
+     * Holds the maps of agent name and application name to Application object.  By
+     * using a separate class, we avoid restrictions on Enums refrerencing static
+     * variables from their constructors.
+     */
+    private static class StateHolder
+    {
+      static public final Map<String, Application> NAME_TO_APPLICATION = new HashMap<String, Application>();
+      static public final Map<String, Application> AGENT_TO_APPLICATION = new HashMap<String, Application>();
+    }
+  }
+  
+  
   /**
    * Application constant for an entirely unknown application.
    */
-  static public final int APPLICATION_UNKNOWN   = 0;
+  static public final int APPLICATION_UNKNOWN   = Application.UNKNOWN.ordinal();
 
   /**
    * Application constant for the Netscape Navigator browser.
    * Note that Netscape 6 is considered as Mozilla, since
    * its rendering engine is that of the Mozilla project.
    */
-  static public final int APPLICATION_NETSCAPE  = 1;
+  static public final int APPLICATION_NETSCAPE  = Application.NETSCAPE.ordinal();
 
   /**
    * Application constant for the Microsoft Internet Explorer
    * browser.
    */
-  static public final int APPLICATION_IEXPLORER = 2;
+  static public final int APPLICATION_IEXPLORER = Application.IEXPLORER.ordinal();
 
   /**
    * Application constant for browsers based on the Gecko Layout Engine,
    * eg: Mozilla, Netscape 7.0+
    */
-  static public final int APPLICATION_GECKO   = 3;
+  static public final int APPLICATION_GECKO   = Application.GECKO.ordinal();
 
   /**
    * Application constant for the Mozilla browser, or browsers
@@ -292,67 +457,73 @@ public interface TrinidadAgent extends Agent
   /**
    * Application constant for Palm Web Clippings
    */
-  static public final int APPLICATION_WEB_CLIPPING = 4;
+  static public final int APPLICATION_WEB_CLIPPING = Application.WEB_CLIPPING.ordinal();
 
   /**
    * Application constant for the ICE Browser
    */
-  static public final int APPLICATION_ICE = 5;
+  static public final int APPLICATION_ICE = Application.ICE.ordinal();
 
   /**
    * Application constant for the Pixo Microbrowser
    */
-  static public final int APPLICATION_PIXO = 6;
+  static public final int APPLICATION_PIXO = Application.PIXO.ordinal();
 
   /**
    * Application constant for a WML Microbrowser
    */
-  static public final int APPLICATION_WML = 7;
+  static public final int APPLICATION_WML = Application.WML.ordinal();
 
   /**
    * Application constant for SimpleResult intermediate Form
    */
-  static public final int APPLICATION_SIMPLE_RESULT = 8;
+  static public final int APPLICATION_SIMPLE_RESULT = Application.SIMPLE_RESULT.ordinal();
 
   /**
    * Application constant for iAS wireless (PTG) client
    */
-  static public final int APPLICATION_PTG = 9;
+  static public final int APPLICATION_PTG = Application.PTG.ordinal();
 
   /**
    * Application constant for the NetFront browser.
    */
-  static public final int APPLICATION_NET_FRONT = 10;
+  static public final int APPLICATION_NET_FRONT = Application.NET_FRONT.ordinal();
 
   /**
    * Application constant for the Safari browser.
    */
-  static public final int APPLICATION_SAFARI = 11;
+  static public final int APPLICATION_SAFARI = Application.SAFARI.ordinal();
 
   /**
    * Application constant for the BlackBerry browser.
    */
-  static public final int APPLICATION_BLACKBERRY = 12;
+  static public final int APPLICATION_BLACKBERRY = Application.BLACKBERRY.ordinal();
 
   /**
    * Application constant for the Nokia S60 browser.
    */
-  static public final int APPLICATION_NOKIA_S60 = 13;
+  static public final int APPLICATION_NOKIA_S60 = Application.NOKIA_S60.ordinal();
 
   /**
    * Application constant for the basic HTMLbrowser.
    */
-  static public final int APPLICATION_GENERICPDA = 14;
+  static public final int APPLICATION_GENERICPDA = Application.GENERICPDA.ordinal();
 
   /**
    * Application constant for Konqueror.
    */
-  static public final int APPLICATION_KONQUEROR = 15;
+  static public final int APPLICATION_KONQUEROR = Application.KONQUEROR.ordinal();
 
   /**
    * Application constant for email.
    */
-  static public final int APPLICATION_EMAIL = 16;
+  static public final int APPLICATION_EMAIL = Application.EMAIL.ordinal();
+  
+  /**
+   * Application constant for opera.
+   */
+  static public final int APPLICATION_OPERA = Application.OPERA.ordinal();
+  
   /**
    * OS constant for an unknown operating system.
    */
@@ -512,43 +683,41 @@ public interface TrinidadAgent extends Agent
    * Returns the type of agent to which we're rendering.  Currently,
    * only web browsers are understood.
    */
-  public int getAgentType();
+  public abstract int getAgentType();
 
 
   /**
    * Returns the specific application to which we're rendering.
-   * Returns APPLICATION_UNKNOWN is the application couldn't
+   * Returns Application.UNKNOWN is the application couldn't
    * be identified.
    */
-  public int getAgentApplication();
+  public abstract Application getAgentApplication();
 
 
   /**
    * Returns the major version number of the application, or 0
    * if a version number couldn't be identified.
    */
-  public int getAgentMajorVersion();
-
-
+  public abstract int getAgentMajorVersion();
+  
   /**
-   * Returns the full, unparsed version string.  Returns null
-   * if no version string could be identified.
+   * Returns the Version identifier to use for comparing the Version of this Agent to other
+   * Versions.
    */
-  public String getAgentVersion();
-
+  public abstract Version getVersion();
 
   /**
    * Returns the client operating system.  Returns OS_UNKNOWN if the
    * operating system can't be identified.
    */
-  public int getAgentOS();
+  public abstract int getAgentOS();
 
   /**
    * Returns a capability of a TrinidadAgent
    */
-  public Object getCapability(CapabilityKey key);
+  public abstract Object getCapability(CapabilityKey key);
 
-  public Object clone();
+  public abstract Object clone();
   
   /*
    * @return <code>String</code> object that represents an agent's
@@ -556,5 +725,21 @@ public interface TrinidadAgent extends Agent
    * Agents with the same name can have different skin families
    * if agents' versions or platforms are different.
    */
-  public String getSkinFamilyType();
+  public abstract String getSkinFamilyType();
+  
+  /**
+   * Convenienc method for cloning by subclases.
+   */
+  protected final TrinidadAgent cloneTrinidadAgent()
+  {
+    try
+    {
+      return (TrinidadAgent) super.clone();
+    }
+    catch (CloneNotSupportedException cnse)
+    {
+      assert false;
+      return null;
+    }
+  }
 }

@@ -324,7 +324,7 @@
         <p
              class="af_outputDocument_paragraph"
             >
-          Text with &#xae;
+          Text with &#174;
         </p>
       </div>
 <!--AttributeTest[value,Text with &copy;]-->
@@ -337,7 +337,7 @@
         <p
              class="af_outputDocument_paragraph"
             >
-          Text with &#xa9;
+          Text with &#169;
         </p>
       </div>
 <!--AttributeTest[value,Text with &nbsp;]-->
@@ -350,7 +350,7 @@
         <p
              class="af_outputDocument_paragraph"
             >
-          Text with &#xa0;
+          Text with &#160;
         </p>
       </div>
 <!--AttributeTest[value,Text with &quot;]-->
@@ -363,7 +363,7 @@
         <p
              class="af_outputDocument_paragraph"
             >
-          Text with &quot;
+          Text with "
         </p>
       </div>
 <!--AttributeTest[value,Text with ignored entity &ignored;]-->

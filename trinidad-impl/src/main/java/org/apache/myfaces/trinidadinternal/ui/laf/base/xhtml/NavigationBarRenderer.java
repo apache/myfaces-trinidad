@@ -1042,7 +1042,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
     if ((id != null) &&
         (partialTargets != null) &&
-        (agent.getAgentApplication() == TrinidadAgent.APPLICATION_IEXPLORER))
+        (agent.getAgentApplication() == TrinidadAgent.Application.IEXPLORER))
     {
       iconID = id.toString() + "-i";
     }

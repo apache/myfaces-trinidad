@@ -615,7 +615,7 @@ public class PageLayoutRenderer extends UINodeRenderer
     public Object getValue(UIXRenderingContext context)
     {
       if (context.getAgent().getAgentApplication() ==
-          TrinidadAgent.APPLICATION_NETSCAPE)
+          TrinidadAgent.Application.NETSCAPE)
         return _netscapeObj;
       else return _elseObj;
     }

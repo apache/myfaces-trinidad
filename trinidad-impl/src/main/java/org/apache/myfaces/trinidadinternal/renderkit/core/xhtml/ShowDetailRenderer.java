@@ -262,10 +262,29 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     boolean          disclosed
     )
   {
-    String iconName = (disclosed
-                       ? SkinSelectors.AF_SHOW_DETAIL_DISCLOSED_ICON_NAME
-                       : SkinSelectors.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME);
-
+    String iconName;
+    
+    // Requests from Nokia's WebKit-browsers are handled by desktop renderer.
+    // But unlike desktop browsers, Nokia's WebKit-browsers don't support icons
+    // that are encoded in Unicode.
+    // Ideally, we should be able to use different disclosed/undisclosed icons 
+    // based on different platforms using the same disclosed/undisclosed 
+    // skinning-key, but we don't have such mechanism in Trinidad right now.  
+    // Hence, I have created new skinning-keys for Nokia to render text-icons.
+    if (isNokiaS60(rc))
+    {
+      iconName = 
+           disclosed 
+           ? SkinSelectors.AF_SHOW_DETAIL_DISCLOSED_ICON_NAME_FOR_NOKIA_S60
+           : SkinSelectors.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME_FOR_NOKIA_S60;
+    }
+    else
+    {
+      iconName = (disclosed
+                  ? SkinSelectors.AF_SHOW_DETAIL_DISCLOSED_ICON_NAME
+                  : SkinSelectors.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME);
+    }
+    
     return rc.getIcon(iconName);
   }
 

@@ -338,7 +338,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
     if (renderingHint == null)
     {
-      // =-= mcc TODO pull from arc, e.g. when placed by Page, PanelPage
+      // =-= mcc TODO pull from rc, e.g. when placed by Page, PanelPage
       renderingHint = _HINT_DEFAULT;
     }
     return renderingHint;
@@ -897,7 +897,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
       // In Safari and webkit browsers display:inline doesn't work as expected, and
       // display:inline-block need to be used to make the table inline.
-      if (rc.getAgent().getAgentName() == Agent.AGENT_WEBKIT)
+      // NokiaS60 has a webkit based browser
+      if (rc.getAgent().getAgentName() == Agent.AGENT_WEBKIT || isNokiaS60(rc))
       {
         appendedStyle = "display: inline-block;";
       }
@@ -1095,7 +1096,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
     // In Safari and webkit browsers display:inline doesn't work as expected, and
     // display:inline-block need to be used to make the table inline.
-    if (rc.getAgent().getAgentName() == Agent.AGENT_WEBKIT)
+    // NokiaS60 has a webkit based browser
+    if (rc.getAgent().getAgentName() == Agent.AGENT_WEBKIT || isNokiaS60(rc))
     {
       appendedStyle = "display: inline-block;";
     }
@@ -1372,7 +1374,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
     // In Safari and webkit browsers display:inline doesn't work as expected, and
     // display:inline-block need to be used to make the table inline.
-    if (rc.getAgent().getAgentName() == Agent.AGENT_WEBKIT)
+    // NokiaS60 has a webkit based browser
+    if (rc.getAgent().getAgentName() == Agent.AGENT_WEBKIT || isNokiaS60(rc))
     {
       appendedStyle = "display: inline-block;";
     }

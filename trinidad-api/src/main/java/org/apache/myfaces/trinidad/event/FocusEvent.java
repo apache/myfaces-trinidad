@@ -114,4 +114,3 @@ public class FocusEvent extends FacesEvent
   private final Object _newKey;
   private static final long serialVersionUID = 1L;
 }
-

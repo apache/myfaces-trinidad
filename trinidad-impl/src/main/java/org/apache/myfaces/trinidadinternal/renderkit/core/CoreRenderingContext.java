@@ -465,14 +465,10 @@ public class CoreRenderingContext extends RenderingContext
       return _requestMapSkin;
     _checkedRequestMapSkin = true;
 
-    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()))
+    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()) || Beans.isDesignTime())
     {
       FacesContext context = getFacesContext();
-
-      Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
-
-      // Get the requested Skin Id from the request Map
-      Object requestedSkinId = requestMap.get(_SKIN_ID_PARAM);
+      Object requestedSkinId = getRequestMapSkinId(context);
       if (requestedSkinId != null)
       {
 
@@ -516,6 +512,26 @@ public class CoreRenderingContext extends RenderingContext
 
     } // end outputMode == portlet
     return null;
+  }
+
+  /**
+   * Look on the requestMap for "org.apache.myfaces.trinidad.skin.id", and return
+   * the skin id.
+   * This is for clients who want to send to the server 
+   * the skin id via a request scope rather
+  // than using the trinidad-config.xml's skin-family. The examples are the 
+  // design time and a portal container.
+   * @param facesContext
+   * @return the skin id that is on the request map.
+   */
+  public Object getRequestMapSkinId(FacesContext facesContext)
+  {
+
+    Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+
+    // Get the requested Skin Id from the request Map
+    Object requestedSkinId = requestMap.get(_SKIN_ID_PARAM);
+    return requestedSkinId;
   }
 
   /**
@@ -855,4 +871,5 @@ public class CoreRenderingContext extends RenderingContext
 
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(CoreRenderingContext.class);
+
 }

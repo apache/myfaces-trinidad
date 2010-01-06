@@ -1254,7 +1254,7 @@
                  title="Required"
                 >
               *
-            </span>&#xa0;Label
+            </span>&#160;Label
           </td>
           <td
                class="AFContentCell"
@@ -1506,7 +1506,7 @@
                  title="Required"
                 >
               *
-            </span>&#xa0;Label
+            </span>&#160;Label
           </td>
           <td
                class="AFContentCell"
@@ -1594,7 +1594,7 @@
                  title="Required"
                 >
               *
-            </span>&#xa0;Label
+            </span>&#160;Label
           </td>
           <td
                class="AFContentCell"
@@ -1682,7 +1682,7 @@
                  title="Required"
                 >
               *
-            </span>&#xa0;Label
+            </span>&#160;Label
           </td>
           <td
                class="AFContentCell"
@@ -1770,7 +1770,7 @@
                  title="Required"
                 >
               *
-            </span>&#xa0;Label
+            </span>&#160;Label
           </td>
           <td
                class="AFContentCell"

@@ -35,4 +35,6 @@ public class TypeConversionException extends RuntimeException
     return "Could not convert instance:"+source +
       " of type:"+source.getClass()+" into type:"+targetType;
   }
+
+  private static final long serialVersionUID = 1L;
 }

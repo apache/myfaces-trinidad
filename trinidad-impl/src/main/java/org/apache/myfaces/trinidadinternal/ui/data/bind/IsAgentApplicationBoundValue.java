@@ -50,7 +50,7 @@ public class IsAgentApplicationBoundValue implements BoundValue
     UIXRenderingContext context
     )
   {
-    return Boolean.valueOf(_app == context.getAgent().getAgentApplication());
+    return Boolean.valueOf(_app == context.getAgent().getAgentApplication().ordinal());
   }
 
   private int _app;

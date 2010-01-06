@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">Egenskabsdata-URL&apos;&apos;en {0} er ugyldig</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Kunne ikke finde gemt view-tilstand for tokenet {0}</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE understøttes ikke og bør ikke benyttes, da den i de fleste tilfælde ikke fungerer p.t.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Ingen struktur tilgængelig og ingen rod tilgængelig</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->

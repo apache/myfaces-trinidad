@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  * subsection is compared from left to right.  If one Version doesn't have
  * a version subsection at the current index, the value of versionPadding
  * is used for this comparison.  Version subsections with the wild-card value "*"
- * care considered equal.  The value returned by compareTo() is the value of the
+ * are considered equal.  The value returned by compareTo() is the value of the
  * first non-equal version subsection or zero if all subsections match.
  * 
  * Due to the support for wild-cards, this class has a natural ordering

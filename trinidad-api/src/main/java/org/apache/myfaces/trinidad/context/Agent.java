@@ -61,11 +61,11 @@ public interface Agent
    */
   public static final Object TYPE_PHONE = "phone";
 
- /**
-   * Constant for Unknown platform
+  /**
+   * Constant for unknown platform
    */
   public static final String PLATFORM_UNKNOWN = "unknown";
-
+  
   /**
    * Constant for windows platform
    */
@@ -125,7 +125,7 @@ public interface Agent
   public static final String PLATFORM_GENERICPDA = "genericpda";
 
   /**
-   * Constant for Unknown platform version
+   * Constant for unknown platform version
    */
   public static final String PLATFORM_VERSION_UNKNOWN = "unknown";
 
@@ -148,6 +148,11 @@ public interface Agent
    * Constant for Gecko agent. Used for all Gecko based agents like Mozilla, Netscape 6+
    */
   public static final String AGENT_GECKO = "gecko";
+
+  /**
+   * Constant for Opera agent.
+   */
+  public static final String AGENT_OPERA = "opera";
 
   /**
    * Constant for email agent. Used for all email agents like Outlook 2007
@@ -180,12 +185,12 @@ public interface Agent
   public static final String AGENT_GENERICPDA = "genericpda";
 
   /**
-   * Constant for Unknown Agent version
+   * Constant for unknown Agent version
    */
   public static final String AGENT_VERSION_UNKNOWN = "unknown";
 
   /**
-   * Constant for Unknown make model version
+   * Constant for unknown make model version
    */
   public static final String MAKE_MODEL_UNKNOWN = "unknown";
 

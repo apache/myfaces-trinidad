@@ -454,7 +454,7 @@ public class MediaRenderer extends XhtmlRenderer
     // =-= bts only desktop IE seems to support this
     //         Move this to capability
     return !((agent.getAgentType()       == TrinidadAgent.TYPE_DESKTOP) &&
-            (agent.getAgentApplication() == TrinidadAgent.APPLICATION_IEXPLORER) &&
+            (agent.getAgentApplication() == TrinidadAgent.Application.IEXPLORER) &&
             (agent.getAgentOS()          == TrinidadAgent.OS_WINDOWS));
   }
 

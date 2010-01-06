@@ -199,7 +199,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
     // See bug 2866954
     if ( context.getAgent().getAgentOS() == TrinidadAgent.OS_MACOS &&
          context.getAgent().getAgentApplication() ==
-               TrinidadAgent.APPLICATION_IEXPLORER)
+               TrinidadAgent.Application.IEXPLORER)
       valign = "top";
     else
       valign = "bottom";

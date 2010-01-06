@@ -531,24 +531,45 @@ public class ResourceServlet extends HttpServlet
     URLConnection       connection,
     HttpServletResponse response)
   {
-    String contentType = connection.getContentType();
+    String resourcePath;
+    URL    url;
+    String contentType  = connection.getContentType();
+
     if (contentType == null || "content/unknown".equals(contentType))
     {
-      URL url = connection.getURL();
-      String resourcePath = url.getPath();
-      if(resourcePath.endsWith(".css"))
+      url = connection.getURL();
+      resourcePath = url.getPath();
+
+      // 'Case' statement for unknown content types
+      if (resourcePath.endsWith(".css"))
         contentType = "text/css";
-      else if(resourcePath.endsWith(".js"))
+      else if (resourcePath.endsWith(".js"))
         contentType = "application/x-javascript";
+      else if (resourcePath.endsWith(".cur") || resourcePath.endsWith(".ico"))
+        contentType = "image/vnd.microsoft.icon";
       else
         contentType = getServletContext().getMimeType(resourcePath);
+
+      // The resource has an file extension we have not 
+      // included in the case statement above
+      if (contentType == null)
+      {
+        _LOG.warning("ResourceServlet._setHeaders(): " +  
+                     "Content type for {0} is NULL!\n" +
+                     "Cause: Unknown file extension",
+                     resourcePath);
+      }
     }
-    response.setContentType(contentType);
+    
+    if (contentType != null)
+    {
+      response.setContentType(contentType);    
+      int contentLength = connection.getContentLength();
 
-    int contentLength = connection.getContentLength();
-    if (contentLength >= 0)
-      response.setContentLength(contentLength);
-
+      if (contentLength >= 0)
+        response.setContentLength(contentLength);
+    }
+    
     long lastModified;
     try
     {

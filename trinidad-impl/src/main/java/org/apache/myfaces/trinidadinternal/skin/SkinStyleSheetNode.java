@@ -24,8 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.myfaces.trinidad.context.Version;
-
 /** Stores information about the .css skin file.
  * namespaceMap, a List of SkinSelectorPropertiesNodes, and direction.
  * @todo honor the namespaces that are set in the css file. For now, we ignore
@@ -43,26 +41,27 @@ class SkinStyleSheetNode
     List<SkinSelectorPropertiesNode> skinSelectorNodeList,
     Map<String, String>              namespaceMap,
     int                              direction,
-    Map<Integer, Set<Version>>       agentVersions,
+    AgentAtRuleMatcher               agentMatcher,
     Set<String>                      accProperties)
   {
     _skinSelectorNodeList = skinSelectorNodeList;
     _namespaceMap = namespaceMap;
     _direction = direction;
-    _agentVersions = agentVersions;
+    _agentMatcher = agentMatcher;
+    _platforms     = null;
     _accProperties = accProperties;
   }
 
   SkinStyleSheetNode(
     Map<String, String>        namespaceMap,
     int                        direction,
-    Map<Integer, Set<Version>> agentVersions,
+    AgentAtRuleMatcher         agentMatcher,
     int[]                      platforms,
     Set<String>                accProperties)
   {
     _namespaceMap = namespaceMap;
     _direction = direction;
-    _agentVersions = agentVersions;
+    _agentMatcher = agentMatcher;
     _platforms = platforms;
     _accProperties = accProperties;
   }
@@ -104,9 +103,9 @@ class SkinStyleSheetNode
   /**
    * @return a set of the supported agent versions
    */
-  public Map<Integer, Set<Version>> getAgentVersions()
+  public AgentAtRuleMatcher getAgentMatcher()
   {
-    return _agentVersions;
+    return _agentMatcher;
   }
 
   public int[] getPlatforms()
@@ -121,13 +120,13 @@ class SkinStyleSheetNode
 
   public boolean matches(
     int                        direction,
-    Map<Integer, Set<Version>> agentVersions,
+    AgentAtRuleMatcher         agentMatcher,
     int[]                      platforms,
     Set<String>                accProperties)
   {
     if (direction == _direction)
     {
-      boolean agentsMatch = _mapsEqual(agentVersions, _agentVersions);
+      boolean agentsMatch = _objectsEqual(agentMatcher, _agentMatcher);
 
       if (agentsMatch)
       {
@@ -155,18 +154,18 @@ class SkinStyleSheetNode
 
   private boolean _setsEqual(Set<?> s1, Set<?> s2)
   {
-    return (s1 == null)? (s2 == null): (s1.equals(s2));
+    return _objectsEqual(s1, s2);
   }
 
-  private boolean _mapsEqual(Map<?, ?> m1, Map<?, ?> m2)
+  private boolean _objectsEqual(Object o1, Object o2)
   {
-    return (m1 == null)? (m2 == null): (m1.equals(m2));
+    return (o1 == o2) || ((o1 != null) && o1.equals(o2));
   }
 
-  private Map<String, String> _namespaceMap;
+  private final Map<String, String> _namespaceMap;
   private List<SkinSelectorPropertiesNode> _skinSelectorNodeList;
-  private int _direction; // reading direction
-  private Map<Integer, Set<Version>> _agentVersions;
-  private int[] _platforms;
-  private Set<String> _accProperties;
+  private final int _direction; // reading direction
+  private final AgentAtRuleMatcher _agentMatcher;
+  private final int[] _platforms;
+  private final Set<String> _accProperties;
 }

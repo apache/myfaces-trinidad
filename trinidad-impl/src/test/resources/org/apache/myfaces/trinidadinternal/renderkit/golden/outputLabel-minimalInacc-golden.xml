@@ -44,7 +44,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;label-noaccess
+        </span>&#160;label-noaccess
       </span>
 <!--AttributeTest[id,null]-->
 

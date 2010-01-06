@@ -32,14 +32,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -52,22 +50,16 @@ import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.style.Selector;
 import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidad.style.Styles;
+import org.apache.myfaces.trinidad.util.CollectionUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
-import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
-import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
-import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
-import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.util.CSSGenerationUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleWriterFactory;
-import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.SkinPropertyNode;
@@ -75,8 +67,6 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
-
-import org.xml.sax.SAXException;
 
 
 /**
@@ -92,14 +82,6 @@ import org.xml.sax.SAXException;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/cache/FileSystemStyleCache.java#0 $) $Date: 10-nov-2005.18:58:54 $
  */
-// -= Simon Lessard =-
-// TODO: Synchronization does not seem to be needed since there's
-//       synchronized blocks in the code, using HashMap hence
-//       looks like a better choice than Hashtable.
-// -= Blake Sullivan =-
-// rebuttal - _createEntry() which assigns values to _cache and _entryCache is called
-// without a lock and these Maps are read without a lock.
-// _cache and _entryCache should probably be ConcurrentHashMaps.
 public class FileSystemStyleCache implements StyleProvider
 {
   /**
@@ -114,37 +96,14 @@ public class FileSystemStyleCache implements StyleProvider
   /**
    * Creates a FileSystemStyleCache.
    *
-   * @param source The path of the source XSS document.  The
-   *   specified file must be a valid XSS document.  If the specified
-   *   file does not exists, an IllegalArgumentException is thrown.
    * @param target The path of the target directory.  Generated
    *   CSS files are stored in this directory.  If the directory
    *   does not exist and can not be created, an IllegalArgumentException
    *   is thrown.
+   *  @see org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider - the subclass
    */
-  protected FileSystemStyleCache(String source, String target)
+  protected FileSystemStyleCache(String target)
   {
-    // The source arg may actually be null if we are using a
-    // SkinStyleProvider with no custom style sheet.
-    if (source != null)
-    {
-      File sourceFile = new File(source);
-
-      if (!sourceFile.exists())
-        throw new IllegalArgumentException(
-        "\nRequired XSS file " +
-        source +
-        " does not exist.");
-      _sourceFile = sourceFile;
-
-      // Get the base file name: name minus the extension
-      String baseName = sourceFile.getName();
-      int dotIndex = baseName.indexOf('.');
-      if (dotIndex != -1)
-        baseName = baseName.substring(0, dotIndex);
-      _baseName = baseName;
-    }
-
     // If the target directory does not exist, create it now.
     // Note: If we can't create the target directory, we just
     // plug along anyway instead of throwing an IllegalArgumentException.
@@ -168,8 +127,10 @@ public class FileSystemStyleCache implements StyleProvider
     {
       return Collections.emptyList();
     }
-
-    return entry.uris;
+    else
+    {
+      return entry.uris;
+    }
   }
 
   /**
@@ -182,8 +143,8 @@ public class FileSystemStyleCache implements StyleProvider
 
     if (entry == null)
       return null;
-
-    return entry.styles;
+    else
+      return entry.styles;
   }
 
   /**
@@ -196,8 +157,8 @@ public class FileSystemStyleCache implements StyleProvider
 
     if (entry == null)
       return null;
-
-    return entry.skinProperties;
+    else
+      return entry.skinProperties;
   }
 
   /**
@@ -210,8 +171,8 @@ public class FileSystemStyleCache implements StyleProvider
 
     if (entry == null)
       return null;
-
-    return entry.icons;
+    else
+      return entry.icons;
   }
 
   /**
@@ -249,40 +210,13 @@ public class FileSystemStyleCache implements StyleProvider
    *                (not needed here, but is needed in  subclass)
    * @return The StyleSheetDocument which defines the styles
    *         for this StyleProvider.
+   * @see org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider#createStyleSheetDocument(context)
    */
   protected StyleSheetDocument createStyleSheetDocument(
     StyleContext context
     )
   {
-    // If we don't have a sourceFile, we don't have a StyleSheetDocument
-    if (_sourceFile == null)
-      return null;
-
-    StyleSheetDocument document = null;
-
-    // Get the XML Provider
-    XMLProvider provider = new JaxpXMLProvider();
-
-    try
-    {
-      document = StyleSheetDocumentUtils.createStyleSheetDocument(
-                                                        provider,
-                                                        _resolver,
-                                                        _sourceFile.getPath());
-    }
-    catch (SAXException e)
-    {
-      // The error is logged by the TreeBuilder
-      ;
-    }
-    catch (IOException e)
-    {
-      if (_LOG.isWarning())
-        _LOG.warning("IOEXCEPTION_IN_PHASE", _sourceFile);
-        _LOG.warning(e);
-    }
-
-    return document;
+    return null;
   }
 
   /**
@@ -296,12 +230,6 @@ public class FileSystemStyleCache implements StyleProvider
     // If we haven't parsed yet, don't bother checking the time stamp
     if (_document == null)
       return true;
-
-    InputStreamProvider provider = _getInputStreamProvider();
-    if (provider != null)
-      return provider.hasSourceChanged();
-
-    // Couldn't get an InputStreamProvider, what to do?
     return false;
   }
 
@@ -318,16 +246,9 @@ public class FileSystemStyleCache implements StyleProvider
   {
     StringBuilder buffer = new StringBuilder();
 
-    String baseName = _baseName;
-    if (baseName != null)
-      buffer.append(baseName);
-
     String contextName = NameUtils.getContextName(context, document);
     if ((contextName != null) && contextName.length() > 0)
     {
-      if (baseName != null)
-        buffer.append(_NAME_SEPARATOR);
-
       buffer.append(contextName);
     }
 
@@ -335,14 +256,14 @@ public class FileSystemStyleCache implements StyleProvider
     boolean compressedStyles = _isCompressStyles(context);
     if (compressedStyles)
     {
-      if (baseName != null || contextName != null)
+      if (contextName != null)
         buffer.append(_NAME_SEPARATOR);
       buffer.append(_COMPRESSED);
     }
 
     if (context.isPortletMode())
     {
-      if (baseName != null || contextName != null || compressedStyles)
+      if (contextName != null || compressedStyles)
         buffer.append(_NAME_SEPARATOR);
 
       buffer.append(_PORTLET);
@@ -364,8 +285,8 @@ public class FileSystemStyleCache implements StyleProvider
   // And Entry contains the style sheet URI.
   private Entry _getEntry(StyleContext context)
   {
-    Hashtable<Key, Entry> cache = null;
-    Hashtable<Object, Entry> entryCache = null;
+    ConcurrentMap<Key, Entry> cache = null;
+    ConcurrentMap<Object, Entry> entryCache = null;
     StyleSheetDocument document = null;
     Map<String, String> shortStyleClassMap = null;
     String[] namespacePrefixes = null;
@@ -375,13 +296,6 @@ public class FileSystemStyleCache implements StyleProvider
     // Synchronize while set up the _cache, _entryCache, _document, etc...
     synchronized (this)
     {
-      // Before we do anything, set up the NameResolver and
-      // InputStreamProvider.   _getEntry() is the single entry point
-      // through which all calls into the FileSystemStyleCache flow.
-      // So, by initializing the NameResolver/InputStreamProvider
-      // here, we know they will always be available to other code.
-      _initResolver();
-
       // If checking for modified files, then check to see if the XSS or CSS
       // document has been modified.  If so, we dump our in-memory style cache.
       if (checkModified && hasSourceDocumentChanged(context))
@@ -400,17 +314,10 @@ public class FileSystemStyleCache implements StyleProvider
       // modified.)  We need to use a consistent set of caches
       // throughout the entire request, to avoid adding bogus entries
       // to a new re-allocated cache.
-      // Note: It would probably make sense to use Map for the
-      // cache type in our vars and method prototypes.  We explicitly
-      // use Hashtable, because our implementation relies on the
-      // synchronization provided by Hashtable.  If we change the
-      // cache data structure, we might need to re-code to add
-      // synchronization.  Thus the somewhat ugly explicit references
-      // to Hashtable everywhere.
       if (_cache == null)
-        _cache = new Hashtable<Key, Entry>();
+        _cache = new ConcurrentHashMap<Key, Entry>();
       if (_entryCache == null)
-        _entryCache = new Hashtable<Object, Entry>(19);
+        _entryCache = new ConcurrentHashMap<Object, Entry>(19);
 
       cache = _cache;
       entryCache = _entryCache;
@@ -453,9 +360,9 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   private Entry _getEntry(
-    Map<?, Entry> cache,
-    Object        key,
-    boolean       checkModified
+    ConcurrentMap<?, Entry> cache,
+    Object                  key,
+    boolean                 checkModified
     )
   {
     Entry entry = cache.get(key);
@@ -489,14 +396,9 @@ public class FileSystemStyleCache implements StyleProvider
       if (!valid)
       {
         _deleteAll(existing);
-
-        synchronized (cache)
-        {
-          if (cache.get(key) == entry)
-          {
-            cache.remove(key);
-          }
-        }
+        
+        // atomically remove the key from the cache if it currently points to the entry
+        cache.remove(key, entry);
 
         return null;
       }
@@ -513,15 +415,14 @@ public class FileSystemStyleCache implements StyleProvider
    * and the entry cache (the one that is based on the StyleSheetNodes)
    */
   private Entry _createEntry(
-    StyleContext             context,
-    StyleSheetDocument       document,
-    Hashtable<Key, Entry>    cache,
-    Key                      key,
-    Hashtable<Object, Entry> entryCache,
-    Map<String, String>      shortStyleClassMap,
-    String[]                 namespacePrefixes,
-    boolean                  checkModified
-    )
+    StyleContext                 context,
+    StyleSheetDocument           document,
+    ConcurrentMap<Key, Entry>    cache,
+    Key                          key,
+    ConcurrentMap<Object, Entry> entryCache,
+    Map<String, String>          shortStyleClassMap,
+    String[]                     namespacePrefixes,
+    boolean                      checkModified)
   {
     // Next, get the fully resolved styles for this context. This will be
     // those StyleNodes that match the locale, direction, browser, portlet mode
@@ -578,12 +479,12 @@ public class FileSystemStyleCache implements StyleProvider
    * same StyleSheetNodes.
    */
   private Entry _getCompatibleEntry(
-    StyleContext       context,
-    StyleSheetDocument document,
-    Map<Key, Entry>    cache,
-    Key                key,
-    Map<Object, Entry> entryCache,
-    boolean            checkModified
+    StyleContext                 context,
+    StyleSheetDocument           document,
+    ConcurrentMap<Key, Entry>    cache,
+    Key                          key,
+    ConcurrentMap<Object, Entry> entryCache,
+    boolean                      checkModified
     )
   {
     DerivationKey derivationKey = _getDerivationKey(context, document);
@@ -608,18 +509,16 @@ public class FileSystemStyleCache implements StyleProvider
     // Entries with the same style sheet derivation are compatible.
     // Get the style sheet derivation list.
     Iterator<StyleSheetNode> e = document.getStyleSheets(context);
-    // -= Simon Lessard =-
-    // TODO: Check if synchronization is truly required
-    Vector<StyleSheetNode> v = _copyIterator(e);
-    StyleSheetNode[] styleSheets;
-    if (v == null)
+
+    StyleSheetNode[] styleSheets;    
+    
+    if (e.hasNext())
     {
-      styleSheets = new StyleSheetNode[0];
+      styleSheets = CollectionUtils.toArray(e, StyleSheetNode.class);
     }
     else
     {
-      styleSheets= new StyleSheetNode[v.size()];
-      v.copyInto(styleSheets);
+      styleSheets = _EMPTY_STYLE_SHEET_NODE_ARRAY;
     }
 
     // Create a key out of the style sheet derivation list
@@ -657,7 +556,7 @@ public class FileSystemStyleCache implements StyleProvider
     // Re-initialize our Array of namespace prefixes that are in the selectors
     // Re-initialize our Map of short style class names
     _namespacePrefixes = _getNamespacePrefixes(context, _document);
-    _shortStyleClassMap = _getShortStyleClassMap(context, _document, _namespacePrefixes);
+    _shortStyleClassMap = _getShortStyleClassMap(_document, _namespacePrefixes);
 
     return document;
   }
@@ -960,72 +859,6 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   /**
-   * Gets the InputStreamProvider for the source file
-   */
-  private InputStreamProvider _getInputStreamProvider()
-  {
-    // Source file may be null
-    File sourceFile = _sourceFile;
-    if (sourceFile == null)
-      return null;
-
-    assert (_resolver != null);
-
-    try
-    {
-      return _resolver.getProvider(sourceFile.getPath());
-    }
-    catch (IOException e)
-    {
-      if (_LOG.isWarning())
-        _LOG.warning(e);
-    }
-
-    return null;
-  }
-
-  /**
-   * Initiializes the NameResolver. Does not need to be synchronized only because it is
-   * synchronized in the calling code.
-   */
-  private void _initResolver()
-  {
-
-    if (_resolver == null)
-    {
-      NameResolver resolver = new DefaultNameResolver(_sourceFile, null);
-
-      // We explicitly wrap the NameResolver in a CachingNameResolver
-      // since that conveniently handles checking for modifications to
-      // dependent (imported) files.
-      // The default storage for cached files is a bit large,
-      // so we use a smaller hash table.  Also, always enable
-      // modification checking.
-      // FIXME: Should probably be a ConcurrentHashMap
-      resolver = new CachingNameResolver(resolver,
-                                         new Hashtable<Object, InputStreamProvider>(17),
-                                         true);
-
-      _resolver = resolver;
-    }
-  }
-
-  /**
-   * Copies an enumeration into a Vector
-   */
-  private <T> Vector<T> _copyIterator(Iterator<T> e)
-  {
-    if (e == null)
-      return null;
-
-    Vector<T> v = new Vector<T>();
-    while (e.hasNext())
-      v.addElement(e.next());
-
-    return v;
-  }
-
-  /**
    * Create an array of all the namespace prefixes in the xss/css file. E.g., "af|" or "tr|"
    */
   private static String[] _getNamespacePrefixes(
@@ -1060,7 +893,6 @@ public class FileSystemStyleCache implements StyleProvider
    * Do not shorten styleclasses that start with SkinSelectors.STATE_PREFIX
    */
   private static Map<String, String> _getShortStyleClassMap(
-    StyleContext       context,
     StyleSheetDocument document,
     String[]           namespacePrefixes)
   {
@@ -1233,7 +1065,7 @@ public class FileSystemStyleCache implements StyleProvider
       {
         //don't worry about synchronizing this
         _hashCode  =   (_direction)                ^
-                       (_browser  << 2)            ^
+                       (_browser.ordinal() << 2)   ^
                        (_platform << 8)            ^
                        (_short ? 1 : 0)            ^
                        (_portlet ? 1:0);
@@ -1278,7 +1110,7 @@ public class FileSystemStyleCache implements StyleProvider
     private void _init(
       Locale locale,
       int direction,
-      int browser,
+      TrinidadAgent.Application browser,
       String version,
       int platform,
       boolean useShort,
@@ -1309,7 +1141,7 @@ public class FileSystemStyleCache implements StyleProvider
 
     private Locale         _locale;
     private int            _direction;
-    private int            _browser;
+    private TrinidadAgent.Application _browser;
     private String         _version;
     private int            _platform;
     private boolean        _short;  // Do we use short style classes?
@@ -1429,7 +1261,7 @@ public class FileSystemStyleCache implements StyleProvider
      * @param resolvedStyles
      * @param namespacePrefixArray an array of namespace prefixes that are used in the custom css
      * skinning selectors, like "af" in af|inputText.
-     * @param afSelectoMap a map from one selector to another (like af|panelHeader::link maps to
+     * @param afSelectorMap a map from one selector to another (like af|panelHeader::link maps to
      * af|panelHeader A
      * @param shortStyleClassMap a map from the  non-compressed styleclass
      * to a compressed styleclass.
@@ -1621,28 +1453,19 @@ public class FileSystemStyleCache implements StyleProvider
     }
   }
 
-  private File   _sourceFile; // The source XSS file
   private final String _targetPath; // The location of the cache
-  private String _baseName;   // The base file name for generated CSS files
-
-  /**
-   * The NameResolver and InputStreamProvider we use to
-   * resolve/load all files.  We also use the InputStreamProvider
-   * to check for modifications to any dependent files.
-   */
-  private volatile NameResolver _resolver;
 
   /** The parsed StyleSheetDocument */
   private StyleSheetDocument _document;
 
   /** The cache of style sheet URIs */
-  private Hashtable<Key, Entry> _cache;
+  private ConcurrentMap<Key, Entry> _cache;
 
   /**
    * We cache Entry objects, hashed by DerivationKey (ie.
    * hashed based on the StyleSheetNode derivation list).
    */
-  private Hashtable<Object, Entry> _entryCache;
+  private ConcurrentMap<Object, Entry> _entryCache;
 
   /** Map which maps from full style class names to our compressed names. */
   private Map<String, String> _shortStyleClassMap;
@@ -1791,6 +1614,6 @@ public class FileSystemStyleCache implements StyleProvider
 
   }
 
+  private static final StyleSheetNode[] _EMPTY_STYLE_SHEET_NODE_ARRAY = new StyleSheetNode[0];
   private static final String[] _EMPTY_STRING_ARRAY = new String[0];
-
 }

@@ -8,7 +8,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[id,null]-->
 
@@ -21,7 +21,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[inlineStyle,null]-->
 
@@ -35,7 +35,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[rendered,false]-->
 
@@ -50,7 +50,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[shortDesc,null]-->
 
@@ -64,7 +64,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onclick,null]-->
 
@@ -78,7 +78,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[ondblclick,null]-->
 
@@ -92,7 +92,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onkeydown,null]-->
 
@@ -106,7 +106,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onkeypress,null]-->
 
@@ -120,7 +120,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onkeyup,null]-->
 
@@ -134,7 +134,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onmousedown,null]-->
 
@@ -148,7 +148,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onmousemove,null]-->
 
@@ -162,7 +162,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onmouseout,null]-->
 
@@ -176,7 +176,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onmouseover,null]-->
 
@@ -190,7 +190,7 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onmouseup,null]-->
 
@@ -204,6 +204,6 @@
              class="AFRequiredIconStyle"
             >
           * Required
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 </results>

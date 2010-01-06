@@ -1170,11 +1170,11 @@ TrDateTimeConverter.prototype.getAsObject  = function(
 
   var pattern = this._pattern;
   
-  var facesMessage;
+  var invalidFormatMsg;
   var key = "org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_"+this._type;
   if(this._messages && this._messages["detail"])
   {
-    facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+    invalidFormatMsg = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
                                           this._messages["detail"],
                                           label,
                                           parseString,
@@ -1182,17 +1182,23 @@ TrDateTimeConverter.prototype.getAsObject  = function(
   }
   else
   {
-    facesMessage = _createFacesMessage( key,
+    invalidFormatMsg = _createFacesMessage( key,
                                           label,
                                           parseString,
                                           this._exampleString);
   }
+  
+  var invalidDateMsg = _createFacesMessage ("org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE", 
+                                            label, 
+                                            parseString);
+  
   if (typeof pattern == "string")
   {
     return this._simpleDateParseImpl(parseString,
                                 pattern,
                                 this._localeSymbols,
-                                facesMessage);
+                                invalidFormatMsg,
+                                invalidDateMsg);
   }
   else
   { 
@@ -1203,11 +1209,17 @@ TrDateTimeConverter.prototype.getAsObject  = function(
         var date = this._simpleDateParseImpl(parseString,
                                         pattern[i],
                                         this._localeSymbols,
-                                        facesMessage);
+                                        invalidFormatMsg,
+                                        invalidDateMsg);
         return date;
       }
       catch (e)
       {
+        // Trinidad-1634: If the format is valid, but the date is invalid,
+        // return that error instead of trying other formats.
+        if (e.isDateInvalid)
+          throw e;
+          
         // if we're not on the last pattern try the next one, 
         // but if we're on the last pattern, throw the exception
         if ( i == pattern.length-1 )
@@ -1337,7 +1349,8 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
   parseString,
   parsePattern,
   localeSymbols,
-  msg)
+  invalidFormatMsg,
+  invalidDateMsg)
 {
   // When a pattern (e.g. dd.MM.yyyy HH:mm' Uhr ') requires a whitespace
   // at the end, we should honor that. As the JSF spec (see http://bit.ly/kTelf)
@@ -1362,7 +1375,6 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
   parseContext.parsedDate = null;
   parseContext.hourOffset = null;
   parseContext.minOffset = null;
-  parseContext.parseException = new TrConverterException( msg);
 
   var parsedTime = new Date(0);
   parsedTime.setDate(1);
@@ -1376,6 +1388,7 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
   {
     if (parseString.length != parseContext.currIndex)
     {
+      parseContext.parseException = new TrConverterException (invalidFormatMsg);
       throw parseContext.parseException;
     }
 
@@ -1445,6 +1458,10 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
     // now we check for strictness
     if (!_isStrict(parseContext, parsedTime))
     {
+      // Trinidad-1634: If the format is correct, but the date doesn't 
+      // match, throw a different error.
+      parseContext.parseException = new TrConverterException (invalidDateMsg);
+      parseContext.parseException.isDateInvalid = true;
       throw parseContext.parseException;
     }
       
@@ -1460,6 +1477,7 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
   else
   {
     // failure
-    throw parseContext.parseException;
+     parseContext.parseException = new TrConverterException (invalidFormatMsg);
+     throw parseContext.parseException;
   }
 }

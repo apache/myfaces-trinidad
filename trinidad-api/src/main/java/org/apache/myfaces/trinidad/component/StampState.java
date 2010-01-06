@@ -330,6 +330,8 @@ final class StampState implements Externalizable
     abstract public void restoreRowState(UIComponent child);
 
     abstract public boolean isNull();
+    
+    private static final long serialVersionUID = 8634916495453219932L;
   }
 
   static private final class SDState extends RowState

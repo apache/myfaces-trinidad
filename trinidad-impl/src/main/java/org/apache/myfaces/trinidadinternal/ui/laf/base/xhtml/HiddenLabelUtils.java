@@ -52,7 +52,7 @@ public class HiddenLabelUtils
     TrinidadAgent agent = context.getAgent();
     switch (agent.getAgentApplication())
     {
-      case TrinidadAgent.APPLICATION_IEXPLORER:
+      case IEXPLORER:
         if (agent.getAgentOS() == TrinidadAgent.OS_WINDOWS)
         {
           // IE 4 doesn't support the label hack.
@@ -71,13 +71,13 @@ public class HiddenLabelUtils
         return false;
 
       // Mozilla does support the label hack
-      case TrinidadAgent.APPLICATION_GECKO:
+      case GECKO:
         // Make sure we don't change the VE to Gecko
         assert(agent.getCapability(TrinidadAgent.CAP_IS_JDEV_VE) == null);
         return true;
 
       // Assume everyone else doesn't.
-      case TrinidadAgent.APPLICATION_NETSCAPE:
+      case NETSCAPE:
       default:
         return false;
     }

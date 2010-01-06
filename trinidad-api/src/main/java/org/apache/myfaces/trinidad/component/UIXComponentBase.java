@@ -664,7 +664,7 @@ abstract public class UIXComponentBase extends UIXComponent
       _LOG.fine("Broadcasting event " + event + " to " + this);
 
     UIComponent component = event.getComponent();
-    if (component != null)
+    if (component != null && satisfiesPartialTrigger(event))
     {
       RequestContext adfContext = RequestContext.getCurrentInstance();
       if (adfContext != null)
@@ -688,6 +688,20 @@ abstract public class UIXComponentBase extends UIXComponent
       broadcastToMethodExpression(event, getAttributeChangeListener());
     }
   }
+
+  /**
+   * Check if a faces event broadcast to this component should trigger the partial updates of the
+   * target listeners of this component. By default, all events trigger a partial update of the listeners.
+   *
+   * @param event The event to check
+   * @return true if the partial triggers should be updated by this event being broadcast
+   */
+  protected boolean satisfiesPartialTrigger(
+    FacesEvent event)
+  {
+    return true;
+  }
+
 
   // ------------------------------------------- Lifecycle Processing Methods
 
