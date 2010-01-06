@@ -266,7 +266,7 @@ class SkinStyleSheetParserUtils
           new StyleSheetNode(styleNodeArray,
                              iconNodeList,
                              trSkinPropertyNodeList,
-                             null,/*locales, not yet supported*/
+                             skinSSNode.getLocales(),
                              skinSSNode.getDirection(),
                              skinSSNode.getAgentMatcher(),
                              skinSSNode.getPlatforms(),

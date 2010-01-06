@@ -57,7 +57,7 @@ public class StyleSheetNode
     StyleNode[] styles,
     Collection<IconNode> icons,
     Collection<SkinPropertyNode> skinProperties,
-    Locale[] locales,
+    Set<Locale> locales,
     int direction,
     AgentAtRuleMatcher agentMatcher,
     int[] platforms,
@@ -86,8 +86,7 @@ public class StyleSheetNode
     // locales, browsers, versions, platforms order does not matter, so these are Sets.
     if (locales != null)
     {
-      Set<Locale> localesSet = _copyLocaleArrayToSet(locales);
-      _locales = Collections.unmodifiableSet(localesSet);
+      _locales = Collections.unmodifiableSet(locales);
     }
     else
       _locales = Collections.emptySet();
