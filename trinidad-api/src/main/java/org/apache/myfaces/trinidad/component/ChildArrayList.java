@@ -57,9 +57,10 @@ class ChildArrayList extends ArrayList<UIComponent>
         index = adjustedIndex; 
       }
     }
-
-    element.setParent(_parent);
+    
+    // do not change the order of these calls, see TRINIDAD-1674 for more info
     super.add(index, element);
+    element.setParent(_parent);
   }
 
   
