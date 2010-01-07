@@ -87,9 +87,11 @@ public class StyleSheetNodeParser extends BaseNodeParser
       styles = new StyleNode[_styles.size()];
       _styles.copyInto(styles);
     }
-   
-    AgentAtRuleMatcher agentMatcher = new AgentAtRuleMatcher(_browsers, _versions);
-  
+    // Do not create an agentMatcher if there are no browsers or versions to compare against.
+    // This way a styleSheetNode will match any browser if it hasn't specified a specific browser.
+    AgentAtRuleMatcher agentMatcher = 
+      (_browsers.isEmpty()) ? null : new AgentAtRuleMatcher(_browsers, _versions);
+
     return new StyleSheetNode(
         styles,
         null,      // icons only supported in skin CSS - not XSS

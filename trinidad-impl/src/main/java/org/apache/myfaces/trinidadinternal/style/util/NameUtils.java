@@ -600,6 +600,11 @@ public class NameUtils
             return new boolean[] { true, true };          
         }
       }
+      else
+      {
+        // no agent matcher, so all agents match
+        browserMatched = true;
+      }
     }
 
     return new boolean[] { browserMatched, false };
