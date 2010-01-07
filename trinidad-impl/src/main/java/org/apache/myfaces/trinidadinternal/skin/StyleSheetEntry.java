@@ -37,7 +37,10 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 
 /**
  * Package-private utility class used by Skin implementation
- * to manage a single XSS or CSS skin stylesheet source file.
+ * to manage a single XSS or CSS skin stylesheet source file .
+ * This class calls the parsing code which parses either the XSS or CSS file (_createSkinStyleSheet),
+ * and it stores a StyleSheetDocument object, which is a parsed representation of a 
+ * Trinidad style sheet document whether that is in the css or xss format or merged.
  * This class could actually
  * be pushed into an inner class in Skin, but at the moment
  * it is separated out simply to reduce the amount of code in
@@ -48,7 +51,7 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 class StyleSheetEntry
 {
   /**
-   * Creates a StyleSheetEntry for the specified context/name.
+   * Creates a StyleSheetEntry for the specified context and styleSheetName.
    * This method will log any errors/exceptions and return
    * null if the style sheet source file could not be found/parsed.
    */
@@ -164,7 +167,7 @@ class StyleSheetEntry
     {
 
       // Parse the style sheet to create the StyleSheetDocument
-      StyleSheetDocument document = _createStyleSheetDocument(resolver,
+      StyleSheetDocument document = _createStyleSheetDocumentFromXSS(resolver,
                                                               styleSheetName);
       if (document == null)
         skinStyleSheet = null;
@@ -189,7 +192,7 @@ class StyleSheetEntry
   }
 
 
-  // Creates the StyleSheetEntry
+  // Creates the StyleSheetEntry from a skinning file that ends in .css
   private static StyleSheetEntry _createSkinStyleSheetFromCSS(
     NameResolver     resolver,
     String           styleSheetName
@@ -201,7 +204,7 @@ class StyleSheetEntry
         ParseContextImpl parseContext = new ParseContextImpl();
         // if this is a utility that isn't in this file, then I can't return a SkinStyleSheet.
         // I think instead this parseCSSSource should return a new instance of StyleSheetEntry.
-        return (StyleSheetEntry)SkinStyleSheetParserUtils.parseCSSSource(
+        return SkinStyleSheetParserUtils.parseCSSSource(
                                     parseContext,
                                     resolver,
                                     styleSheetName,
@@ -217,8 +220,8 @@ class StyleSheetEntry
       return null;
   }
 
-  // Creates the StyleSheetDocument
-  private static StyleSheetDocument _createStyleSheetDocument(
+  // Creates the StyleSheetDocument from a skinning file that ends in .xss, like base-desktop.xss
+  private static StyleSheetDocument _createStyleSheetDocumentFromXSS(
     NameResolver     resolver,
     String           styleSheetName
     )
@@ -228,6 +231,7 @@ class StyleSheetEntry
 
     try
     {
+      // this will parse the xss file adn return a StyleSheetDocument
       return StyleSheetDocumentUtils.createStyleSheetDocument(xmlProvider,
                                                               resolver,
                                                               styleSheetName);

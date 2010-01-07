@@ -45,7 +45,8 @@ import org.xml.sax.SAXParseException;
 
 /**
  * NodeParser for style sheet nodes. This class is thread-safe since it is created each time 
- * with newInstance(). Therefore we do not synchronize
+ * with newInstance(). Therefore we do not synchronize.
+ * This parses the XSS file and creates a StyleSheetNode object.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetNodeParser.java#0 $) $Date: 10-nov-2005.18:58:47 $
  * @see org.apache.myfaces.trinidadinternal.share.xml.ClassParserFactory#getParser
  */

@@ -41,8 +41,12 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
  * Private implementation of StyleSheetNode. A StyleSheetNode has StyleNodes for particular
  * browsers, direction, versions, platforms and mode.  In addition, the StyleSheetNode
  * provides access to IconNodes representing the icons which were defined within
- * the context of this style sheet.
- *
+ * the context of this style sheet. StyleSheetNodes are contained in StyleSheetDocuments.
+ * And a StyleSheetNode is created for both .xss skin files and .css files.
+ * .xss skin files create StyleSheetNodes via StyleSheetNodeParser
+ * .css skin files create StyleSheetNodes via SkinStyleSheetParserUtils
+ * @see StyleSheetNodeParser
+ * @see org.apache.myfaces.trinidadinternal.skin.SkinStyleSheetParserUtils
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetNode.java#0 $) $Date: 10-nov-2005.18:58:46 $
  */
 public class StyleSheetNode
@@ -327,6 +331,9 @@ public class StyleSheetNode
       return 0;
 
     int match = 0;
+    
+    if (_locales.contains(locale))
+        return _LOCALE_EXACT_MATCH;
 
     for (Locale tmpLocale : _locales)
     {

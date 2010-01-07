@@ -49,14 +49,14 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
- * Utility class for parsing an XSS document into a StyleSheetDocument.
+ * Utility class for creating  a StyleSheetDocument.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/StyleSheetDocumentUtils.java#0 $) $Date: 10-nov-2005.18:58:00 $
  */
 public class StyleSheetDocumentUtils
 {
   /**
-   * Creates a StyleSheetDocument from the specified InputSource
+   * Creates a StyleSheetDocument from the specified InputSource (.xss file)
    *
    * @param provider The XMLProvider to use to parse the source document
    * @param source The InputSource for the source document.  The system
@@ -84,7 +84,7 @@ public class StyleSheetDocumentUtils
   }
 
   /**
-   * Creates a StyleSheetDocument from the specified InputSource
+   * Creates a StyleSheetDocument from the specified InputSource (.xss file)
    * @param xmlProvider The XMLProvider to use to parse the source document
    * @param resolver The NameResolver to use to locate the source document.
    *                 This must be a non-null instance.
