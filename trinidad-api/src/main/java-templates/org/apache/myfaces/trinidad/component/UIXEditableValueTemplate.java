@@ -536,12 +536,11 @@ abstract public class UIXEditableValueTemplate
             // Trial-error approach to check for Bean Validation impl existence.
             Validation.buildDefaultValidatorFactory().getValidator();
           }
-          // should this be ValidationException ?
-          catch (Exception ve)
+          catch (Exception validationException)
           {
             // SPEC section 3.5.6.2:
             // TODO do a i18n version of the error msg
-            throw new FacesException("A ValidatorFactory can not be retrieved", ve);
+            throw new FacesException("A ValidatorFactory can not be retrieved", validationException);
           }
         }
       }
@@ -549,8 +548,8 @@ abstract public class UIXEditableValueTemplate
       {
         // SPEC section 3.5.6.2:
         // if a Bean Validation provider is not present, bean validation is disabled
-        // TODO need a better warning here, which has more information
-        _LOG.warning(cnfe);
+        // TODO need a better warning (i18n) here, which has more information
+        _LOG.warning("A Bean Validation provider is not present, therefore bean validation is disabled");
         couldLoadBeanValidationAPI = Boolean.FALSE;
       }
 
