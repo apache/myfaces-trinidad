@@ -234,7 +234,7 @@
         <groupId>javax.validation</groupId>
         <artifactId>validation-api</artifactId>
         <version>${validation.version}</version>
-        <scope>compile</scope>
+        <scope>provided</scope>
       </dependency>
 
 <!-- for now we just use the RI, b/c nothing around for MyFaces 2.0 -->
