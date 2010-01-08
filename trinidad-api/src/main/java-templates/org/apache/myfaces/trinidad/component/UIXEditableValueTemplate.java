@@ -43,7 +43,6 @@ import javax.faces.render.Renderer;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.validation.Validation;
-import javax.validation.ValidationException;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
@@ -537,7 +536,8 @@ abstract public class UIXEditableValueTemplate
             // Trial-error approach to check for Bean Validation impl existence.
             Validation.buildDefaultValidatorFactory().getValidator();
           }
-          catch (ValidationException ve)
+          // should this be ValidationException ?
+          catch (Exception ve)
           {
             // SPEC section 3.5.6.2:
             // TODO do a i18n version of the error msg
