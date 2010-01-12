@@ -49,6 +49,11 @@ public abstract class CollectionModelDecorator
     return getCollectionModel().isRowAvailable(rowIndex);
   }
 
+  public boolean isRowAvailable(Object rowKey)
+  {
+    return getCollectionModel().isRowAvailable(rowKey);
+  }
+
   public Object getRowData(int rowIndex)
   {
     return getCollectionModel().getRowData(rowIndex);
@@ -69,6 +74,116 @@ public abstract class CollectionModelDecorator
     getCollectionModel().setSortCriteria(criteria);
   }
 
+  public boolean areRowsAvailable(int startIndex, int rowCount)
+  {
+    return getCollectionModel().areRowsAvailable(startIndex, rowCount);
+  }
+  
+  public boolean areRowsAvailable(Object startRowKey, int rowCount)
+  {
+    return getCollectionModel().areRowsAvailable(startRowKey, rowCount);
+  }
+  
+  public boolean areRowsAvailable(int rowCount)
+  {
+    return getCollectionModel().areRowsAvailable(rowCount);
+  }
+  
+  //
+  // below are the LocalRowKeyIndex APIs
+  //
+  
+  public boolean areRowsLocallyAvailable(int startIndex, int rowCount)
+  {
+    return getCollectionModel().areRowsLocallyAvailable(startIndex, rowCount);
+  }
+  
+  public boolean areRowsLocallyAvailable(Object startRowKey, int rowCount)
+  {
+    return getCollectionModel().areRowsLocallyAvailable(startRowKey, rowCount);
+  }
+    
+  public boolean areRowsLocallyAvailable(int rowCount)
+  {
+    return getCollectionModel().areRowsLocallyAvailable(rowCount);
+  }
+
+  public boolean isRowLocallyAvailable(int rowIndex)
+  {
+    return getCollectionModel().isRowLocallyAvailable(rowIndex);
+  }
+  
+  public boolean isRowLocallyAvailable(Object rowKey)
+  {
+    return getCollectionModel().isRowLocallyAvailable(rowKey);
+  }
+  
+  public int getEstimatedRowCount()
+  {
+    return getCollectionModel().getEstimatedRowCount();
+  }
+  
+  public LocalRowKeyIndex.Confidence getEstimatedRowCountConfidence()
+  {
+    return getCollectionModel().getEstimatedRowCountConfidence();
+  }
+
+  /**
+   * clear all rows from the local cache
+   */
+  public void clearLocalCache()
+  {
+    getCollectionModel().clearLocalCache();
+  }
+  
+  /**
+   * Clear the requested range of rows from the local cache
+   * @param startingIndex starting row index for the range to clear
+   * @param rowsToClear number of rows to clear from the cache
+   */
+  public void clearCachedRows(int startingIndex,  int rowsToClear)
+  {
+    getCollectionModel().clearCachedRows(startingIndex, rowsToClear);
+  }
+  
+  /**
+   * Clear the requested range of rows from the local cache
+   * @param startingRowKey starting row key for the range to clear
+   * @param rowsToClear number of rows to clear from the cache
+   */
+  public void clearCachedRows(Object startingRowKey, int rowsToClear)
+  {
+    getCollectionModel().clearCachedRows(startingRowKey, rowsToClear);
+  }
+  
+  /**
+   * Clear a row from the local cache by row index
+   * @param index row index for the row to clear from the cache
+   */
+  public void clearCachedRow(int index)
+  {
+    getCollectionModel().clearCachedRow(index);
+  }
+  
+  /**
+   * Clear a row from the local cache by row key
+   * @param rowKey row key for the row to clear from the cache
+   */
+  public void clearCachedRow(Object rowKey)
+  {
+    getCollectionModel().clearCachedRow(rowKey);    
+  }
+  
+  /**
+   * Indicates the caching strategy supported by the model
+   * @see LocalCachingStrategy
+   * @return caching strategy supported by the model
+   */
+  public LocalRowKeyIndex.LocalCachingStrategy getCachingStrategy()
+  {
+    return getCollectionModel().getCachingStrategy();
+  }
+  
   //
   // below are the DataModel public APIs
   //
