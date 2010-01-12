@@ -31,7 +31,6 @@ import javax.faces.event.PhaseId;
 
 import javax.faces.render.Renderer;
 import org.apache.myfaces.trinidad.model.CollectionModel;
-import org.apache.myfaces.trinidad.model.LocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.ModelUtils;
 
 /**
@@ -42,7 +41,7 @@ import org.apache.myfaces.trinidad.model.ModelUtils;
  * If {@link #getRows()} returns 0, then the iteration continues until 
  * there are no more elements in the underlying data.
  */
-public abstract class UIXIteratorTemplate extends UIXCollection implements FlattenedComponent, LocalRowKeyIndex
+public abstract class UIXIteratorTemplate extends UIXCollection implements FlattenedComponent
 {
 
 /**/  abstract public int getFirst();
