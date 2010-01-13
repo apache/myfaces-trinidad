@@ -328,61 +328,6 @@ public abstract class UIXCollection extends UIXComponentBase
     return getCollectionModel().isRowAvailable();
   }
 
-  /**
-   * Check for an available row by row key. 
-   * @param rowKey the row key for the row to check.
-   * @return true if a value exists; false otherwise.
-   */
-  public final boolean isRowAvailable(Object rowKey)
-  {
-    return getCollectionModel().isRowAvailable(rowKey);    
-  }
-  
-  /**
-   * Get row data by row key. 
-   * @param rowKey the row key for the row to get data.
-   * @return row data
-   */
-  public final Object getRowData(Object rowKey)
-  {
-    return getCollectionModel().getRowData(rowKey);        
-  }
-  
-  /**
-   * Check if a range of rows is available starting from the current position 
-   * @param rowCount number of rows to check
-   * @return true if all rows in range are available
-   */
-  public final boolean areRowsAvailable(int rowCount)
-  {
-    return getCollectionModel().areRowsAvailable(rowCount);
-  }
-  
-  /**
-   * Check if a range of rows is available from a starting index without 
-   * requiring the client to iterate over the rows
-   * @param startIndex the starting index for the range
-   * @param rowCount number of rows to check
-   * @return true if all rows in range are available
-   */
-  public final boolean areRowsAvailable(int startIndex, int rowCount) 
-  {
-    return getCollectionModel().areRowsAvailable(startIndex, rowCount);
-  }
-  
-  /**
-   * Check if a range of rows is available from a starting row key without 
-   * requiring the client to iterate over the rows
-   * @param startRowKey the starting row key for the range
-   * @param rowCount number of rows to check
-   * @return true if all rows in range are available
-   */
-  public final boolean areRowsAvailable(Object startRowKey, int rowCount)
-  {
-    return getCollectionModel().areRowsAvailable(startRowKey, rowCount);
-  }
-  
-  
 
   /**
    * Gets the total number of rows in this table.
