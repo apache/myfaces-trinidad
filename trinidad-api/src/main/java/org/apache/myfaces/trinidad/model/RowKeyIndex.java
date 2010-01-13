@@ -94,47 +94,4 @@ public interface RowKeyIndex
    * @return null if the current value has been cleared.
    */
   public Object getRowData(int rowIndex);
-
-
-  /**
-   * Check for an available row by row key. 
-   * @param rowKey the row key for the row to check.
-   * @return true if a value exists; false otherwise.
-   */
-  public boolean isRowAvailable(Object rowKey);
-
-
-  /**
-   * Get row data by row key. 
-   * @param rowKey the row key for the row to get data.
-   * @return row data
-   */
-  public Object getRowData(Object rowKey); 
-
-
-  /**
-   * Check if a range of rows is available starting from the current position 
-   * @param rowsToCheck number of rows to check
-   * @return true if all rows in range are available
-   */
-  public boolean areRowsAvailable(int rowsToCheck);
-
-  /**
-   * Check if a range of rows is available from a starting index without 
-   * requiring the client to iterate over the rows
-   * @param startIndex the starting index for the range
-   * @param rowsToCheck number of rows to check
-   * @return true if all rows in range are available
-   */
-  public boolean areRowsAvailable(int startIndex, int rowsToCheck) ;
-
-
-  /**
-   * Check if a range of rows is available from a starting row key without 
-   * requiring the client to iterate over the rows
-   * @param startRowKey the starting row key for the range
-   * @param rowsToCheck number of rows to check
-   * @return true if all rows in range are available
-   */
-  public boolean areRowsAvailable(Object startRowKey, int rowsToCheck) ;  
 }

@@ -49,11 +49,6 @@ public abstract class CollectionModelDecorator
     return getCollectionModel().isRowAvailable(rowIndex);
   }
 
-  public boolean isRowAvailable(Object rowKey)
-  {
-    return getCollectionModel().isRowAvailable(rowKey);
-  }
-
   public Object getRowData(int rowIndex)
   {
     return getCollectionModel().getRowData(rowIndex);
@@ -72,21 +67,6 @@ public abstract class CollectionModelDecorator
   public void setSortCriteria(List<SortCriterion> criteria)
   {
     getCollectionModel().setSortCriteria(criteria);
-  }
-
-  public boolean areRowsAvailable(int startIndex, int rowCount)
-  {
-    return getCollectionModel().areRowsAvailable(startIndex, rowCount);
-  }
-  
-  public boolean areRowsAvailable(Object startRowKey, int rowCount)
-  {
-    return getCollectionModel().areRowsAvailable(startRowKey, rowCount);
-  }
-  
-  public boolean areRowsAvailable(int rowCount)
-  {
-    return getCollectionModel().areRowsAvailable(rowCount);
   }
   
   //
