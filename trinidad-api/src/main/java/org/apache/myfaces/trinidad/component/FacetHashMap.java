@@ -65,9 +65,12 @@ class FacetHashMap extends ArrayMap<String, UIComponent>
     {
       ChildArrayList.__removeFromParent(value, -1);
     }
-
+    
+    // calling setParent triggers an addEvent, which might have listeners, 
+    // so first put the component in the map, then set the parent
+    UIComponent comp = super.put(key, value);
     value.setParent(_parent);
-    return (super.put(key, value));
+    return comp;
   }
 
   @Override
