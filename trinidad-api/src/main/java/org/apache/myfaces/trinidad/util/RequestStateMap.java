@@ -36,6 +36,7 @@ import javax.servlet.ServletRequest;
  @ExcludeFromManagedRequestScope
  public class RequestStateMap extends HashMap<String, Object>
  {
+
    static public RequestStateMap getInstance(ServletRequest req)
    {
      RequestStateMap map = (RequestStateMap)req.getAttribute(_STATE_MAP);
@@ -108,4 +109,5 @@ import javax.servlet.ServletRequest;
    }
    
    private static final String _STATE_MAP = RequestStateMap.class.getName();
+   private static final long serialVersionUID = 1L;
  }
