@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>Publications that cover Apache MyFaces Trinidad</title>
+  </properties>
+
+  <body>
+    <section name="Publications that cover Apache MyFaces Trinidad">
+      <p>
+       <ul>
+        <li>
+          <a href="#Books">Books</a>
+        </li>
+        <li>
+          <a href="#Articles">Articles</a>
+        </li>
+       </ul>
+      </p>
+    </section>
+    <section name="Books">
+      <p>
+The following books are covering Apache MyFaces Trinidad:
+<ul>
+  <li>
+    <a href="http://tinyurl.com/apache-trinidad-book">
+      Apache MyFaces Trinidad 1.2: A Practical Guide (by David Thomas)
+    </a>
+  </li>
+  <li>
+    <a href="http://www.apress.com/book/view/1590597370">
+      The Definitive Guide to Apache MyFaces and Facelets (by Zubin Wadia, Martin Marinschek, Hazem Saleh, Dennis Byrne, Mario Ivankovits, Cagatay Civici, Arvid Huelsebus, Detlef Bartetzko, Bruno Aranda, Allan Lykke Christense)
+    </a>
+  </li>
+</ul>
+      </p>
+    </section>
+    <section name="Articles">
+      <p>
+The following articles are covering Apache MyFaces Trinidad:
+<ul>
+  <li>
+    <a href="http://www.soaworld2007.com/node/273945">
+      Apache Trinidad - A World Cup Skinning Experience? (by Jonas Jacobi)
+    </a>
+  </li>
+</ul>
+      </p>
+    </section>
+
+        <p>
+If the above list of available publications is insufficient, please send e-mail to the <a href="mail-lists.html">users</a> mailing list.
+        </p>
+
+  </body>
+</document>

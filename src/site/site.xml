@@ -44,6 +44,7 @@
 
     <menu name="">
       <item name="Download" href="download.html"/>
+      <item name="Publications" href="publications.html" />
       <item name="Installation" href="devguide/installation.html" />
       <item name="Current Release Notes" href="download.html"/>
       <item name="Supported Browsers" href="browsers.html" />
