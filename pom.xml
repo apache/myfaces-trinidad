@@ -502,7 +502,20 @@
     </pluginManagement>
     
     <plugins>
-      <!-- is this right? -->      
+      <!-- force generating a *-sources.jar when building a jar -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-source</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-xrts-plugin</artifactId>
