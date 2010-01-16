@@ -53,6 +53,17 @@
 <li>pageFlowScope, for communicating between pages</li>
 </ul>
       </p>
+        <p>
+      Apache MyFaces Trinidad currently supports the following JSF versions:
+<ul>
+<li>JSF 1.1: supported by the Apache MyFaces Trinidad 1.0.x line </li>
+<li>JSF 1.2: supported by the Apache MyFaces Trinidad 1.2.x line </li>
+<li>JSF 2.0: supported by the Apache MyFaces Trinidad 2.0.x line </li>
+</ul>
+      </p>
+<p>
+Go to our <a href="download.html">download section</a> to get the lastest version that fits your needs.
+</p>
       </section>
 
       <section name="Documentation">
