@@ -633,6 +633,7 @@ public final class CollectionUtils
   private final static class CheckedSerializationMap<K, V> extends DelegatingMap<K,V>
                                                            implements Serializable
   {
+    
     public CheckedSerializationMap(Map<K, V> delegate)
     {
       if (delegate == null)
@@ -858,6 +859,7 @@ public final class CollectionUtils
     }
 
     private final Map<K, V> _delegate;
+    private static final long serialVersionUID = 1L;
   }
 
   private static class EmptyIterator implements Iterator
