@@ -55,7 +55,7 @@
       <item name="Developer Guide" href="devguide/index.html" />
       <item name="Plugins" href="plugins/index.html"/>
       <item name="Trinidad 1.0.x" href="trinidad-1_0/index.html"/>
-      <item name="Live Demos" href="http://www.irian.at/trinidad-demo/faces/index.jspx" />
+      <item name="Live Demos (Trinidad 1.2.x)" href="http://www.irian.at/trinidad-demo/faces/index.jspx" />
     </menu>
 
     <menu name="Foundation">
