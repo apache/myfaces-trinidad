@@ -386,6 +386,31 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
     SkinAddition addition = new SkinAddition(styleSheetName);
     addSkinAddition(addition);
   }
+  
+  /**
+   * Check to see if this Skin has been marked dirty. 
+   * The only way to mark a Skin dirty is to call setDirty(true).
+   * @return true if the Skin is marked dirty. 
+   * 
+   */
+  @Override
+  public boolean isDirty()
+  {
+    return _dirty;
+  }
+
+  /**
+   * Sets the dirty flag of the Skin. Use this if you want to regenerate the skin. 
+   * During rendering, if isDirty is true, 
+   * the skin's css file will be reprocessed regardless of whether the css file has been modified 
+   * or if the CHECK_FILE_MODIFICATION flag was set. 
+   * The Skinning Framework calls setDirty(false) after the skin has been reprocessed.
+   */
+   @Override
+  public void setDirty(boolean dirty)
+  {
+    _dirty = dirty;
+  }
 
   /**
    * Returns a translated value in the LocaleContext's translation Locale, or null
@@ -489,10 +514,11 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   abstract protected ValueExpression getTranslationSourceValueExpression();
 
   // Checks to see whether any of our style sheets have been updated
+  // or if the skin has been marked dirty
   private boolean _checkStylesModified(
     StyleContext context
     )
-  {
+  {    
     boolean modified = false;
 
     if (_skinStyleSheet != null)
@@ -1157,6 +1183,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   // HashMap of Skin properties
   private ConcurrentHashMap<Object, Object> _properties= new ConcurrentHashMap<Object, Object>();
 
-
+  private boolean _dirty;
+  
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinImpl.class);
 }
