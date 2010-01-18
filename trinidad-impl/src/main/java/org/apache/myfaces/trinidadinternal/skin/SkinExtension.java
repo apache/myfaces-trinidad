@@ -548,6 +548,21 @@ public class SkinExtension extends SkinImpl
       return _fullStyleSheetDocument;
     }
   }
+  
+  /**
+   * Set the skin to be dirty. This will force the skin's css file to
+   * be reprocessed regardless of whether the css file has been modified 
+   * or if the CHECK_FILE_MODIFICATION flag was set.
+   * The Skinning Framework sets the dirty flag back to 
+   * false once it has reprocessed the skin.
+   */
+  @Override
+  public void setDirty(boolean dirty)
+  {
+    super.setDirty(dirty);
+    // also, set the base skin's dirty flag
+    getBaseSkin().setDirty(dirty);
+  }
 
   /**
    * Find the actual icon
