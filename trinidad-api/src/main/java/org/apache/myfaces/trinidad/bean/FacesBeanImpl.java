@@ -330,6 +330,7 @@ abstract public class FacesBeanImpl implements FacesBean
       _expressions.markInitialState();
   }
 
+  @Override
   public void restoreState(FacesContext context, Object state)
   {
     if (_LOG.isFiner())
@@ -359,6 +360,7 @@ abstract public class FacesBeanImpl implements FacesBean
     _getPropertyMap().restoreState(context, getType(), state);
   }
 
+  @Override
   public Object saveState(FacesContext context)
   {
     if (_LOG.isFiner())

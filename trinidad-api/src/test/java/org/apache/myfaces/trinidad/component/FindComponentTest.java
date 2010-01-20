@@ -24,12 +24,13 @@ import javax.faces.component.UIForm;
 import javax.faces.component.UIViewRoot;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 
 import org.apache.myfaces.trinidad.component.UIXPanel;
 
-public class FindComponentTest extends TestCase
+public class FindComponentTest extends FacesTestCase
 {
   public static final Test suite()
   {
