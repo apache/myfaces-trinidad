@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,11 +26,14 @@ import java.io.InputStreamReader;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.Reader;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+
 import java.net.SocketException;
 import java.net.URL;
 import java.net.URLConnection;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +43,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -56,6 +60,7 @@ import org.apache.myfaces.trinidad.resource.DirectoryResourceLoader;
 import org.apache.myfaces.trinidad.resource.ResourceLoader;
 import org.apache.myfaces.trinidad.resource.ServletContextResourceLoader;
 import org.apache.myfaces.trinidad.util.URLUtils;
+
 
 /**
  * A Servlet which serves up web application resources (images, style sheets,
@@ -78,10 +83,10 @@ import org.apache.myfaces.trinidad.util.URLUtils;
 public class ResourceServlet extends HttpServlet
 {
   /**
-   * 
+   *
    */
   private static final long serialVersionUID = 4547362994406585148L;
-  
+
   /**
    * Override of Servlet.destroy();
    */
@@ -94,7 +99,7 @@ public class ResourceServlet extends HttpServlet
 
     super.destroy();
   }
-  
+
   /**
    * Override of Servlet.init();
    */
@@ -150,7 +155,7 @@ public class ResourceServlet extends HttpServlet
     else
     {
       Configurator.disableConfiguratorServices(request);
-    
+
       //=-= Scott O'Bryan =-=
       // Be careful.  This can be wrapped by other things even though it's meant to be a
       // Trinidad only resource call.
@@ -204,7 +209,7 @@ public class ResourceServlet extends HttpServlet
     connection.setDoInput(true);
     connection.setDoOutput(false);
 
-    _setHeaders(connection, response);
+    _setHeaders(connection, response, loader);
 
     InputStream in = connection.getInputStream();
     OutputStream out = response.getOutputStream();
@@ -416,11 +421,12 @@ public class ResourceServlet extends HttpServlet
    */
   private void _setHeaders(
     URLConnection       connection,
-    HttpServletResponse response)
+    HttpServletResponse response,
+    ResourceLoader      loader)
   {
     String resourcePath;
     URL    url;
-    String contentType  = connection.getContentType();
+    String contentType  = ResourceLoader.getContentType(loader, connection);
 
     if (contentType == null || "content/unknown".equals(contentType))
     {
@@ -437,26 +443,26 @@ public class ResourceServlet extends HttpServlet
       else
         contentType = getServletContext().getMimeType(resourcePath);
 
-      // The resource has an file extension we have not 
+      // The resource has an file extension we have not
       // included in the case statement above
       if (contentType == null)
       {
-        _LOG.warning("ResourceServlet._setHeaders(): " +  
+        _LOG.warning("ResourceServlet._setHeaders(): " +
                      "Content type for {0} is NULL!\n" +
                      "Cause: Unknown file extension",
                      resourcePath);
       }
     }
-    
+
     if (contentType != null)
     {
-      response.setContentType(contentType);    
+      response.setContentType(contentType);
       int contentLength = connection.getContentLength();
 
       if (contentLength >= 0)
         response.setContentLength(contentLength);
     }
-    
+
     long lastModified;
     try
     {
@@ -556,7 +562,7 @@ public class ResourceServlet extends HttpServlet
   // cutting back just to be safe.)
   public static final long ONE_YEAR_MILLIS = 31363200000L;
 
-  
+
   private static final Class[] _DECORATOR_SIGNATURE =
                                   new Class[]{ResourceLoader.class};
 
