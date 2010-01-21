@@ -957,15 +957,17 @@ function _decimalParse(
     var floater = false;
     if (parsefloat != null)
     {
-      // Why parseInt(parseFloat(numberString))? Because the server NumberConverter behaves the same 
-      // way as parseFloat. Note the following:
+      // Why trim leading zeroes? parseFloat behaves the same way as the server NumberConverter, 
+      // but parseInt interprets octal, and thus we need to trim leading zeroes. 
+      // Note the following:
       // parseInt interprets octal and hex:
       //   alert(parseInt("0xA")); // returns 10
       //   alert(parseInt("008")); // returns 0, as it stops parsing octal at the first invalid character, 8
       // parseFloat interprets neither octal nor hex:
       //   alert(parseFloat("0xA")); // returns 0, as it stops parsing decimal at the first invalid character, x
       //   alert(parseFloat("008")); // returns 8
-      result = parsefloat ? parseFloat(numberString) : parseInt(parseFloat(numberString));
+      numberString = TrNumberFormat.trimLeadingZeroes(numberString);
+      result = parsefloat ? parseFloat(numberString) : parseInt(numberString);
     }
     else
     {
