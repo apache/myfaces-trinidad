@@ -339,6 +339,10 @@ public class FileSystemStyleCache implements StyleProvider
     // The Key class is a private static class that is used for hashing. It implements
     // hashCode and equals which are based on locale, direction, browser, version, platform.
     Key key = new Key(context);
+    if (_LOG.isFinest())
+    {
+      _LOG.finest("FileSystemStyleCache's Key's hashCode is ", key.hashCode());
+    }
     Entry entry = _getEntry(cache, key, checkModified);
     if (entry != null)
       return entry;
