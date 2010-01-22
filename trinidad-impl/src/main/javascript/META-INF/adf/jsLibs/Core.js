@@ -4846,15 +4846,30 @@ TrUIUtils._getElementLocation = function(elem)
     // if possible, use more accurate browser specific methods
     if (_agent.isGecko)
     {
-      TrUIUtils._getElemLoc = function(elem)
+      var doc = elem.ownerDocument;
+
+      if (doc.getBoxObjectFor === undefined)
       {
-        var doc = elem.ownerDocument;
+        var boundingRect = elem.getBoundingClientRect();
+        // top and bottom are not rounded off in Gecko1.9
+        // http://www.quirksmode.org/dom/w3c_cssom.html#elementviewm
+        var elemTop = Math.round(boundingRect.top);
+        var elemLeft = boundingRect.left;
+        var docElement = doc.documentElement;
+        // clientLeft and clientTop would be 0 for Gecko1.9
+        // https://bugzilla.mozilla.org/show_bug.cgi?id=174397#c34
+        elemLeft += docElement.scrollLeft;
+        elemTop += docElement.scrollTop;
+        return {x:elemLeft, y:elemTop};
+      }
+      else
+      {
         var box = doc.getBoxObjectFor(elem);
         var loc = { x: box.screenX, y: box.screenY };
         box = doc.getBoxObjectFor(doc.documentElement);
         loc.x -= box.screenX;
         loc.y -= box.screenY;
-        return loc;
+        return loc;        
       }
     }
     else if(_agent.isIE)
