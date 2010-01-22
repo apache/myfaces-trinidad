@@ -4866,7 +4866,7 @@ TrUIUtils._getElementLocation = function(elem)
       TrUIUtils._getElemLoc = function(elem)
       {
         var doc = elem.ownerDocument;
-        
+
         if (doc.getBoxObjectFor === undefined)
         {
           var boundingRect = elem.getBoundingClientRect();
