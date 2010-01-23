@@ -643,6 +643,7 @@
            
       <modules>
         <module>trinidad-assembly</module>
+        <module>trinidad-partial-lifecycle</module>
       </modules>
     </profile>
 
