@@ -25,7 +25,7 @@
   version="2.1">
 
   <display-name>Apache Trinidad Core</display-name>    
-  <tlib-version>1.2.13</tlib-version>
+  <tlib-version>1.2.14</tlib-version>
   <short-name>tr</short-name>
   <uri>http://myfaces.apache.org/trinidad</uri>
   <listener>
