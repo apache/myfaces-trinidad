@@ -436,6 +436,29 @@
     </pluginManagement>
     
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <preparationGoals>clean verify install</preparationGoals>
+          <tagBase>https://svn.apache.org//repos/asf/myfaces/trinidad/tags/</tagBase>
+        </configuration>
+      </plugin>
+
+      <!-- force generating a *-sources.jar when building a jar -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-source</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
       <!-- is this right? -->      
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
@@ -563,7 +586,6 @@
            
       <modules>
         <module>trinidad-assembly</module>
-        <module>trinidad-sandbox</module>
       </modules>
     </profile>
 
