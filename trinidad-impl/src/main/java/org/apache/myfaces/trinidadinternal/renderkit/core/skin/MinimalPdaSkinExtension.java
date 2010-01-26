@@ -37,7 +37,7 @@ public class MinimalPdaSkinExtension extends SkinExtension
      // Create a SkinExtension for Minimal
     super(baseSkin,
           _MINIMAL_PDA_ID,
-          _MINIMAL_FAMILY,
+          TrinidadRenderingConstants.MINIMAL_SKIN_FAMILY,
           TrinidadRenderingConstants.APACHE_TRINIDAD_PDA);
 
     // Register our style sheet
@@ -45,8 +45,6 @@ public class MinimalPdaSkinExtension extends SkinExtension
 
   }
 
-  // Minimal skin family name
-  private static final String _MINIMAL_FAMILY = "minimal";
   private static final String _MINIMAL_PDA_ID = "minimal.pda";
   // Minimal skin style sheet name
   private static final String _MINIMAL_STYLE_SHEET_NAME =

@@ -1,0 +1,3608 @@
+/*
+ * CassaBlanca skin (and it's approach)
+ * was designed and implemented by ADONIS RADUCA,
+ * under the effort to give a new, more modern, look to the Trinidad library.
+ * Other notable effort comes from:
+ * CATALIN KORMOS
+ * COSMIN MARTINCONI
+ * They have an important and decisive role along the entire project.
+ */
+
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* ABOUT CASABLANCA SKINING APPROACH
+/*
+/* GENERAL DESCRIPTION:
+/* The scope of CASABLANCA SKINING PLATFORM is to add a new modern visual
+/* touch and to introduce a new and more pleasurable way of skinning Trinidad
+/* components. We have a completely new styling selectors stack for hiding
+/* the already existing naming inconsistency. In that order this new stack has
+/* coherent naming rules for the selectors and a clear and simple hierarchy.
+/*
+/* CASABLANCA STYLING STACK:
+/* Casablanca layers stack:
+/* GENERIC LAYER
+/*    GENERAL LOOK LAYER
+/*    BASIC CONTROLS LAYER
+/*    COMPLEX CONTROLS LAYER
+/* COMPONENTS STYLING LAYER
+/*    CASABLANCA SELECTORS LAYER
+/*    CASABLANCA INJECTION LAYER
+/* 
+/* The CASABLANCA SELECTORS STACK has two main layers:
+/* - The first one is the GENERIC LAYER – on that layer we have generic styles
+/*   that we use everywhere. This is the level where we made changes
+/*   (in most of part) when we want to made another color scheme for the skin
+/*   or to build another skin based on it.
+/* - The second layer is the COMPONENTS STYLING LAYER – this layer define styles
+/*   for each component individually based on generic styles. We will make changes 
+/*   at this layer if we intent to fine-tune the components aspect.
+/*
+/* The first layer provide a higher lever of abstraction, this is a convenient way
+/* if we plan to make massive changes to the components aspect. This layer has its
+/* own 3 sub-layers:
+/* - GENERAL LOOK LAYER, define the visual aspect at the most generic level.
+/*   We have here some very basic graphical properties that serve as composition
+/*   elements later for defining controls. Each generic style address a specific
+/*   graphical aspect like: rounded-corners look, borders look, text and headings
+/*   look, button look and so on. In that order we have selectors like:
+/*   .CBBorderSolidLook:alias, .CBDefaultFontLook:alias, .CBHeaderLevel1Look:alias,
+/*   .CBLinkLook:alias, .CBButtonLook:alias ans so on. All styles are prefixed
+/*   by “.CB” which means is a Casablanca style and all are postfixed by “:alias”
+/*   that means is a generic style.
+/* - BASIC CONTROLS LAYER, define the full graphic aspect of the basic controls
+/*   using general look layer styles. We have here controls like: link, button,
+/*   checkbox, radio-button, listbox and so on.
+/* - COMPLEX CONTROLS LAYER, define the full graphic aspects of the complex
+/*   controls based on styles defined at the simple controls layer level. In that
+/*   order we have controls like: accordion, table, tree, shuttle, button bar
+/*   and so on.
+/*
+/* NOTE: In general is better at a specific layer to use style defined in the
+/*       layer immediately below it. There are also situations when we need to use
+/*       directly a more generic style when we don’t have alternative, but in general
+/*       is better to use the layer immediately below.
+/*
+/* The second layer introduces another level of abstraction, for decoupling reasons.
+/* In that order we have 2 sub-layers at this level:
+/* - First layer is the CASABLANCA SELECTORS LAYER, this layer define specific 
+/*   formatting for each Trinidad component based on first level styles from basic
+/*   and complex controls layers. In almost all cases we have there styles that use
+/*   directly selectors from the controls layers, only in some specific cases we
+/*   add a custom look by overwriting or adding some extra stuff. So this layer made
+/*   the connection between the Casablanca generic controls and true Trinidad components
+/*   and here is the place for adding a custom look for a specific component.
+/* - Second layer is the CASABLANCA INJECTION LAYER where we actually made the
+/*   “conversion” between Casablanca and standard Trinidad skinning selectors.
+/*   In almost all cases we don’t need to make any change at this level. The scope
+/*   of this layer is only to “translate” between two type of skinning selectors in
+/*   order to hide the naming inconsistency in Trinidad skinning selectors and where
+/*   is possible the lack of uniformity in the output markup.
+/*
+/* CASABLANCA STYLES NAMING CONVENTION:
+/* In the Casablanca terminology, any entity (generic graphical property, Casablanca
+/* control or Trinidad component) where a style is applied is named a styled-entity.
+/* So each style selector is addressed to a specific styled-entity.
+/* Each style selector name must be conforming to the Casablanca styles naming rule:
+/*
+/* .CBName1Name2…NameXType1Type2…TypeXPurposeState1State2…StateX:alias
+/*
+/* .CB – from Casablanca prefixes any style selector, so it’s a required field.
+/* Name1    – the name of the styled-entity, required field.
+/* Name2    – the second name is the name of styled-sub-entity, not required. We can have
+/*            as many sub-entity levels as we want.
+/* Type1    – the type of the styled-entity, not required.
+/* Type2    – the second type of the styled entity, not required. We can have as many types
+/*            as we want.
+/* Purpose  – the purpose of the styled-entity, not required.
+/* State1   – the state of the styled-entity, not required.
+/* State2   – the second state of the styled-entity, not required. We can also have as many
+/*            states as we want.
+/*
+/* EXAMPLES :
+/* .CBLinkLookHover:alias
+/* Link     – styled-entity name
+/* Look     – styled-entity purpose
+/* Hover    – styled-entity State
+/* So we have a link-look generic selector in the hover state.
+/*
+/* .CBPanelHeadSelectedHover:alias
+/* Panel    – styled-entity name.
+/* Head     – styled-sub-entity name.
+/* Selected – styled-entity state.
+/* Hover    – another styled-entity state.
+/* We have the head of the panel complex control selector in the selected-hover state.
+/*
+/* .CBBorderStrongSolidLook:alias
+/* Border   – styled-entity name
+/* Strong   – styled-entity type
+/* Solid    – another styled-entity type
+/* We have a strong-solid-look border generic selector.
+/*
+/*
+/* ENJOY SKINNING !
+/* ------------------------------------------------------------------------------------------------------------------ */
+
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* Casablanca General Selectors                                                                                       */
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* Basic aspect selectors like:
+/* - corners look
+/* - border look
+/* - font look
+/* - link look
+/* - button look
+/* - text-cell look
+/* - icon look 
+/* ------------------------------------------------------------------------------------------------------------------ */
+
+/* Rounded corners -------------------------------------------------------------------------------------------------- */
+/*   Define styles used in:
+/* - buttons
+/* - nevigation stuff
+/* - accordions
+/* - pannels
+/* ------------------------------------------------------------------------------------------------------------------ */
+
+.CBClearRoundCornersLook:alias {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+.CBRoundedAllCornersLook:alias {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+.CBRoundedTopCornersLook:alias {
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-topright: 4px;
+    -webkit-border-top-left-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.CBRoundedRightCornersLook:alias {
+    -moz-border-radius-topright: 4px;
+    -moz-border-radius-bottomright: 4px;
+    -webkit-border-top-right-radius: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.CBRoundedBottomCornersLook:alias {
+    -moz-border-radius-bottomleft: 4px;
+    -moz-border-radius-bottomright: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.CBRoundedLeftCornersLook:alias {
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    -webkit-border-top-left-radius: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+/* Borders Styles --------------------------------------------------------------------------------------------------- */
+/*   Define styles used in:
+/* - buttons
+/* - nevigation stuff
+/* - accordions
+/* - pannels
+/* ------------------------------------------------------------------------------------------------------------------ */
+.CBBorderCommonLook:alias {
+    border-width: 1px;
+}
+.CBBorderSolidLook:alias {
+    -tr-rule-ref: selector(".CBBorderCommonLook:alias");
+    border-style: solid;
+}
+.CBBorderDashedLook:alias {
+    -tr-rule-ref: selector(".CBBorderCommonLook:alias");
+    border-style: dashed;
+}
+/* Solid borders -------------------------------------------------------------- */
+/* Normal borders -------------------------------------- */
+.CBBorderNormalSolidLook:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+    border-color: #CBC3BE;
+}
+.CBBorderNormalSolidLookHover:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+    border-color: #B4A9A0;
+}
+.CBBorderNormalSolidLookSelected:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+    border-color: #B0CEE0;
+}
+.CBBorderNormalSolidLookSelectedHover:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+}
+
+/* Accented borders ------------------------------------ */
+.CBBorderAccentedSolidLook:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+    border-color: #C3BCB6;
+}
+.CBBorderAccentedSolidLookHover:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+}
+.CBBorderAccentedSolidLookSelected:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+    border-color: #8DB7D3;
+}
+.CBBorderAccentedSolidLookSelectedHover:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+    border-color: #699ABB;
+}
+
+/* Strong borders -------------------------------------- */
+.CBBorderStrongSolidLook:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+    border: 1px solid #BAB0A9;
+}
+.CBBorderStrongSolidLookHover:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+    border: 1px solid #A1948A;
+}
+.CBBorderStrongSolidLookSelected:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+}
+.CBBorderStrongSolidLookSelectedHover:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+}
+
+/* Spacers ---------------------------------------------------------------------------------------------------------- */
+/*   Define styles used in:
+/* - Everywhere we need a space.
+/* ------------------------------------------------------------------------------------------------------------------ */
+.CBFormVerticalSpacingLook:alias {
+    padding: 5px 0 0;    
+}
+
+/* Font Styles ------------------------------------------------------------------------------------------------------ */
+/*   Define styles used in:
+/* - Everywhere we need to deal with a text.
+/* ------------------------------------------------------------------------------------------------------------------ */
+.CBSimpleLineHeight:alias {
+    line-height: 1em;    
+}
+.CBParagraphLineHeight:alias {
+    line-height: 1.4em;
+}
+
+.CBDefaultFontLook:alias {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: normal;
+    -tr-rule-ref: selector(".CBSimpleLineHeight:alias");
+    color: black;    
+}
+.CBDefaultAuxFontLook:alias {
+    color: #999999;
+}
+.CBDefaultStrongFontLook:alias {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+    font-weight: bold;
+}
+.CBDefaulFontDisabledLook:alias {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+    color: #999999 ! important;
+}
+.CBDefaultStrongFontDisabledLook:alias {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+    font-weight: bold;
+    color: #999999 ! important;
+}
+
+.AFDefaultFont:alias {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+}
+.AFDefaultBoldFont:alias {
+    f-tr-rule-ref: selector(".CBDefaultStrongFontLook:alias");
+}
+
+/* Header Font Styles ------------------------------------------------------------------------------------------------------ */
+/*   Define styles used in:
+/* - Titles and subtitles
+/* ------------------------------------------------------------------------------------------------------------------ */
+.CBHeaderLookCommon:alias {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+    font-weight: bold;
+}
+.CBHeaderLevel1Look:alias {
+    -tr-rule-ref: selector(".CBHeaderLookCommon:alias");
+    padding-bottom: 10px;
+    font-size: +3pt;
+}
+.CBHeaderLevel2Look:alias {
+    -tr-rule-ref: selector(".CBHeaderLookCommon:alias");
+    font-size: +1pt;
+}
+.CBHeaderLevel3Look:alias {
+    -tr-rule-ref: selector(".CBHeaderLookCommon:alias");
+}
+.CBHeaderLevel4Look:alias {
+    -tr-rule-ref: selector(".CBHeaderLookCommon:alias");
+}
+.CBHeaderLevel5Look:alias {
+    -tr-rule-ref: selector(".CBHeaderLookCommon:alias");
+}
+.CBHeaderLevel6Look:alias {
+    -tr-rule-ref: selector(".CBHeaderLookCommon:alias");
+}
+
+/* Link like controls ----------------------------------------------------------------------------------------------- */
+/*   Define styles used in:
+/* - links
+/* - link-like buttons
+/* - breadcrubs
+/* ------------------------------------------------------------------------------------------------------------------ */
+.CBLinkLookCommon:alias {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.CBLinkLook:alias {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+    -tr-rule-ref: selector(".CBLinkLookCommon:alias");
+    color: #0C87D1;
+}
+.CBLinkLookHover:alias {
+     tr-rule-ref: selector(".CBDefaultFontLook:alias");
+    -tr-rule-ref: selector(".CBLinkLookCommon:alias");
+    color: #0C87D1;
+    text-decoration: underline;
+}
+.CBLinkLookDisabled:alias {
+    -tr-rule-ref: selector(".CBDefaulFontDisabledLook:alias");
+    -tr-rule-ref: selector(".CBLinkLookCommon:alias");
+    cursor: default;
+}
+.CBLinkLookDisabledHover:alias {
+    -tr-rule-ref: selector(".CBDefaulFontDisabledLook:alias");
+    cursor: default;
+}
+
+/* Button like control styles --------------------------------------------------------------------------------------- */
+/* Define styles used in:
+/* - Buttons
+/* - Links that look like buttons
+/* - Navigation stuff (menu bars, tabs, lists and so on)
+/* - Pannels heads (simple panels, accordions and so on)
+/* - Table heads
+/* ------------------------------------------------------------------------------------------------------------------ */
+.CBButtonLookCommon:alias {
+    display: block;
+    -tr-rule-ref: selector(".ie6BlockBahaviour");
+    -tr-rule-ref: selector(".CBBorder:alias");
+    padding: 4px 8px;
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+    text-decoration: none;
+    cursor: pointer;
+    color: black ! important;
+}
+/* Normal buttons -------------------------------------- */
+.CBButtonLook:alias {
+    -tr-rule-ref: selector(".CBButtonLookCommon:alias");
+    -tr-rule-ref: selector(".CBBorderNormalSolidLook:alias");
+    background: white url(/adf/images/casablanca/backgrounds/buttonLikeHead.png) repeat-x top left;
+}
+.CBButtonLookHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookCommon:alias");
+    -tr-rule-ref: selector(".CBBorderNormalSolidLookHover:alias");
+    background: white url(/adf/images/casablanca/backgrounds/buttonLikeHeadHover.png) repeat-x bottom left;
+}
+.CBButtonLookSelected:alias {
+    -tr-rule-ref: selector(".CBButtonLookCommon:alias");
+    -tr-rule-ref: selector(".CBBorderAccentedSolidLookSelected:alias");
+    background: white url(/adf/images/casablanca/backgrounds/buttonLikeHeadSelected.png) repeat-x top left;
+}
+.CBButtonLookSelectedHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookCommon:alias");
+    -tr-rule-ref: selector(".CBBorderAccentedSolidLookSelectedHover:alias");
+    background: white url(/adf/images/casablanca/backgrounds/buttonLikeHeadSelectedHover.png) repeat-x top left;
+}
+.CBButtonLookDisabled:alias {
+    -tr-rule-ref: selector(".CBButtonLookCommon:alias");
+    -tr-rule-ref: selector(".CBBorderNormalSolidLook:alias");
+    -tr-rule-ref: selector(".CBDefaulFontDisabledLook:alias");
+    background: white url(/adf/images/casablanca/backgrounds/buttonLikeHead.png) repeat-x top left;
+    cursor: default;
+}
+.CBButtonLookDisabledHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
+}
+/* Strong buttons -------------------------------------- */
+.CBButtonStrongLook:alias {
+    -tr-rule-ref: selector(".CBButtonLookCommon:alias");
+    -tr-rule-ref: selector(".CBBorderStrongSolidLook:alias");
+    background: white url(/adf/images/casablanca/backgrounds/button.png) repeat-x top left;
+}
+.CBButtonStrongLookHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookCommon:alias");
+    -tr-rule-ref: selector(".CBBorderStrongSolidLookHover:alias");
+    background: white url(/adf/images/casablanca/backgrounds/buttonHover.png) repeat-x bottom left;
+}
+.CBButtonStrongLookDisabled:alias {
+    -tr-rule-ref: selector(".CBButtonLookCommon:alias");
+    -tr-rule-ref: selector(".CBBorderStrongSolidLook:alias");
+    -tr-rule-ref: selector(".CBDefaulFontDisabledLook:alias");    
+    background: white url(/adf/images/casablanca/backgrounds/button.png) repeat-x top left;
+    cursor: default;
+}
+.CBButtonStrongLookDisabledHover:alias {
+    -tr-rule-ref: selector(".CBButtonStrongLookDisabled:alias");
+}
+
+/* Text Cell like controls  ----------------------------------------------------------------------------------------- */
+/* Define styles used in:
+/* - Forms controls like: text fields, text areas, drop downs and so on
+/* - Table cells.
+/* - Other kind if components that looks like a text cell, for ex: progress indicator
+/* ------------------------------------------------------------------------------------------------------------------ */
+.CBTextCellLookCommon:alias {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+    text-decoration: none;    
+    border: 1px solid #BBB1AA;
+    /*-tr-rule-ref: selector(".CBBorderNormalSolidLook:alias");*/
+}
+/* Flat text cells ------------------------------------- */
+/* Recomended for table cells -------------------------- */
+.CBTextCellLook:alias {
+    -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
+    background: white;
+}
+.CBTextCellLookHover:alias {
+    -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
+    /*background: white url(/skins/casablanca/images/backgrounds/textCellLikeHover.png) repeat-x bottom left;*/
+    background: #F6F4F0;
+}
+.CBTextCellLookSelected:alias {
+    -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
+    background: #D9E6F0;
+}
+.CBTextCellLookDisabled:alias {
+    -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
+    -tr-rule-ref: selector(".CBDefaulFontDisabledLook:alias");
+}
+.CBTextCellLookEmphased:alias {
+    -tr-rule-ref: selector(".CBTextCellLookCommon:alias");    
+    background: #F6F4F0;
+}
+
+/* Embossed text cells --------------------------------- */
+/* Recomended for text edit controls ------------------- */
+.CBTextCellEmbosedLook:alias {
+    -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
+    background: white url(/adf/images/casablanca/backgrounds/textCellLikeControlEmbosed.png) repeat-x top left;
+}
+.CBTextCellEmbosedLookSelected:alias {
+    -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
+    background: #D9E6F0 url(/adf/images/casablanca/backgrounds/textCellLikeControlEmbosedSelected.png) repeat-x top left;
+}
+.CBTextCellEmbosedLookDisabled:alias {
+    -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
+    -tr-rule-ref: selector(".CBDefaulFontDisabledLook:alias");
+}
+
+/* Raised text cells ----------------------------------- */
+/* Recomended for visual clue, ex: progressIndicator --- */
+.CBTextCellRaisedLook:alias {
+    -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
+    background: white url(/adf/images/casablanca/backgrounds/textCellLikeRised.png) repeat-x bottom left;
+}
+.CBTextCellRaisedLookDisabled:alias {
+    -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
+    -tr-rule-ref: selector(".CBDefaulFontDisabledLook:alias");
+}
+/* Pressed text cells ---------------------------------- */
+/* Recomended for visual clue -------------------------- */
+.CBTextCellPressedLook:alias {
+    -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
+    background: white url(/adf/images/casablanca/backgrounds/textCellLikePressed.png) repeat-x top left;
+}
+.CBTextCellPressedLookDisabled:alias {
+    -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
+    -tr-rule-ref: selector(".CBDefaulFontDisabledLook:alias");
+}
+
+/* Icons ------------------------------------------------------------------------------------------------------------ */
+/* Define styles used in:
+/* - Everywhere we need an icon
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* Comon icons style */
+.CBIconLookCommon:alias {
+    display: block;
+    float: left;
+    width: 20px;
+    height: 20px;
+    font-size: 0;
+    overflow: hidden;
+}
+
+/* Icons sets for different controls states ------------ */
+.CBIconLook:alias {
+    -tr-rule-ref: selector(".CBIconLookCommon:alias");
+    background: transparent url(/adf/images/casablanca/icons/iconsNormal.png) no-repeat top left;
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    .CBIconLook:alias {
+        background: transparent url(/skins/casablanca/images/icons/iconsNormal_8bit.png) no-repeat top left;
+    }
+}
+.CBIconLookHover:alias {
+    -tr-rule-ref: selector(".CBIconLookCommon:alias");
+    background: transparent url(/adf/images/casablanca/icons/iconsNormalHover.png) no-repeat top left;
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    .CBIconLookHover:alias {
+        background: transparent url(/adf/images/casablanca/icons/iconsNormalHover_8bit.png) no-repeat top left;
+    }
+}
+.CBIconLookSelected:alias {
+    -tr-rule-ref: selector(".CBIconLookCommon:alias");
+    background: transparent url(/adf/images/casablanca/icons/iconsSelected.png) no-repeat top left;
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    .CBIconLookSelected:alias {
+        background: transparent url(/adf/images/casablanca/icons/iconsSelected_8bit.png) no-repeat top left;
+    }
+}
+.CBIconLookSelectedHover:alias {
+    -tr-rule-ref: selector(".CBIconLookCommon:alias");
+    background: transparent url(/adf/images/casablanca/icons/iconsSelected.png) no-repeat top left;
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    .CBIconLookSelectedHover:alias {
+        background: transparent url(/adf/images/casablanca/icons/iconsSelected_8bit.png) no-repeat top left;
+    }
+}
+.CBIconLookDisabled:alias {
+    -tr-rule-ref: selector(".CBIconLookCommon:alias");
+    background: transparent url(/adf/images/casablanca/icons/iconsDisabled.png) no-repeat top left;
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    .CBIconLookDisabled:alias {
+        background: transparent url(/adf/images/casablanca/icons/iconsDisabled_8bit.png) no-repeat top left;
+    }
+}
+.CBIconLookDisabledHover:alias {
+    -tr-rule-ref: selector(".CBIconLookCommon:alias");
+    background: transparent url(/adf/images/casablanca/icons/iconsDisabled.png) no-repeat top left;
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    .CBIconLookDisabledHover:alias {
+        background: transparent url(/adf/images/casablanca/icons/iconsDisabled_8bit.png) no-repeat top left;
+    }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* Simple controls like: button, label, edit, icon, checkbox, listbox, radio and so on                                */
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* Icon Control ----------------------------------------------------------------------------------------------------- */
+/* Sprites indexes for all icons ----------------------- */
+/* Double arrow icons ---------------------------------- */
+.CBIconDoubleArrowUp:alias {
+    background-position: 0 0;
+}
+.CBIconDoubleArrowRight:alias {
+    background-position: -20px 0;
+}
+.CBIconDoubleArrowDown:alias {
+    background-position: -40px 0;
+}
+.CBIconDoubleArrowLeft:alias {
+    background-position: -60px 0;
+}
+
+/* Stop arrow icons ------------------------------------ */
+.CBIconStopArrowUp:alias {
+    background-position: -80px 0;
+}
+.CBIconStopArrowRight:alias {
+    background-position: -100px 0;
+}
+.CBIconStopArrowDown:alias {
+    background-position: -120px 0;
+}
+.CBIconStopArrowLeft:alias {
+    background-position: -140px 0;
+}
+
+/* Simple arrow icons ---------------------------------- */
+.CBIconArrowUp:alias {
+    background-position: -160px 0;
+}
+.CBIconArrowRight:alias {
+    background-position: -180px 0;
+}
+.CBIconArrowDown:alias {
+    background-position: -200px 0;
+}
+.CBIconArrowLeft:alias {
+    background-position: -220px 0;
+}
+.CBIconArrowUpNegative:alias {
+    background-position: -160px -20px;
+}
+.CBIconArrowRightNegative:alias {
+    background-position: -180px -20px;
+}
+.CBIconArrowDownNegative:alias {
+    background-position: -200px -20px;
+}
+.CBIconArrowLeftNegative:alias {
+    background-position: -220px -20px;
+}
+
+/* Triagle icons --------------------------------------- */
+.CBIconTriangleUp:alias {
+    background-position: -240px 0;
+}
+.CBIconTriangleRight:alias {
+    background-position: -260px 0;
+}
+.CBIconTriangleDown:alias {
+    background-position: -280px 0;
+}
+.CBIconTriangleLeft:alias {
+    background-position: -300px 0;
+}
+
+/* Message icons --------------------------------------- */
+.CBIconInfo:alias {
+    background-position: -320px 0;
+}
+.CBIconWarning:alias {
+    background-position: -340px 0;
+}
+.CBIconError:alias {
+    background-position: -360px 0;
+}
+
+/* Input icons --------------------------------------- */
+.CBIconCalendar:alias {
+    background-position: -380px 0;
+}
+.CBIconList:alias {
+    background-position: -400px 0;
+}
+.CBIconColor:alias {
+    background-position: -420px 0;
+}
+
+/* Table icons --------------------------------------- */
+.CBIconSelectAll:alias {
+    background-position: -440px 0;
+}
+.CBIconSelectNone:alias {
+    background-position: -460px 0;
+}
+.CBIconExpandAll:alias {
+    background-position: -480px 0;
+}
+.CBIconCollapseAll:alias {
+    background-position: -500px 0;
+}
+
+/* Expand / Collapse icons --------------------------- */
+.CBIconExpand:alias {
+    background-position: -320px -20px;
+}
+.CBIconCollapse:alias{
+    background-position: -340px -20px;
+}
+.CBIconExpandNegative:alias {
+    background-position: -360px -20px;
+}
+.CBIconCollapseNegative:alias{
+    background-position: -380px -20px;
+}
+
+/* Button Control --------------------------------------------------------------------------------------------------- */
+.CBButtonCommon:alias {
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+}
+@agent ie and (version: 5), ie and (version: 6), ie and (version: 7) {
+    .CBButtonCommon:alias {
+        width: 1%;
+        overflow: visible;
+    }
+}
+.CBButton:alias {
+    -tr-rule-ref: selector(".CBButtonStrongLook:alias");
+    -tr-rule-ref: selector(".CBButtonCommon:alias");
+}
+.CBButtonHover:alias {
+    -tr-rule-ref: selector(".CBButtonStrongLookHover:alias");
+    -tr-rule-ref: selector(".CBButtonCommon:alias");
+}
+.CBButtonDisabled:alias {
+    -tr-rule-ref: selector(".CBButtonStrongLookDisabled:alias");
+    -tr-rule-ref: selector(".CBButtonCommon:alias");
+}
+.CBButtonDisabledHover:alias {
+    -tr-rule-ref: selector(".CBButtonStrongLookDisabledHover:alias");
+    -tr-rule-ref: selector(".CBButtonCommon:alias");
+}
+
+/* Link Control ----------------------------------------------------------------------------------------------------- */
+.CBLink:alias {
+    -tr-rule-ref: selector(".CBLinkLook:alias");
+}
+/* Hover links style */
+.CBLinkHover:alias {
+    -tr-rule-ref: selector(".CBLinkLookHover:alias");
+}
+/* Disabled links style */
+.CBLinkDisabled:alias {
+    -tr-rule-ref: selector(".CBLinkLookDisabled:alias");
+}
+/* Disabled-hover links style */
+.CBLinkDisabledHover:alias {
+    -tr-rule-ref: selector(".CBLinkLookDisabledHover:alias");
+}
+
+/* Label Control ---------------------------------------------------------------------------------------------------- */
+.CBLabel:alias {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+}
+.CBLabelDisabled:alias {
+    -tr-rule-ref: selector(".CBDefaulFontDisabledLook:alias");
+}
+.CBStrongLabel:alias {
+    -tr-rule-ref: selector(".CBDefaultStrongFontLook:alias");
+}
+.CBStrongLabelDisabled:alias {
+    -tr-rule-ref: selector(".CBDefaultStrongFontDisabledLook:alias");
+}
+
+/* InputText Control ------------------------------------------------------------------------------------------------ */
+.CBInputText:alias {
+    -tr-rule-ref: selector(".CBStrongLabel:alias");
+}
+.CBInputTextLabel:alias {
+    -tr-rule-ref: selector(".CBStrongLabel:alias");
+}
+.CBInputTextInputBox:alias {
+    -tr-rule-ref: selector(".CBTextCellEmbosedLook:alias");
+}
+
+/* CheckBox Control ------------------------------------------------------------------------------------------------- */
+.CBCheckBox:alias {
+}
+.CBCheckBoxMainLabel:alias {
+   -tr-rule-ref: selector(".CBStrongLabel:alias");
+}
+.CBChechBoxCheckLabel:alias {
+   -tr-rule-ref: selector(".CBLabel:alias");
+}
+
+/* RadioButton Control ---------------------------------------------------------------------------------------------- */
+.CBRadio:alias {
+}
+.CBRadioMainLabel:alias {
+    -tr-rule-ref: selector(".CBStrongLabel:alias");
+}
+.CBRadioRadioLabel:alias {
+    -tr-rule-ref: selector(".CBLabel:alias");
+}
+
+/* Choice Control --------------------------------------------------------------------------------------------------- */
+.CBChoice:alias {
+}
+.CBChoiceLabel:alias {
+    -tr-rule-ref: selector(".CBStrongLabel:alias");
+}
+.CBChoiceOptionText:alias {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+}
+.CBChoiceChoiceBox:alias {
+    -tr-rule-ref: selector(".CBTextCellEmbosedLook:alias");
+    padding: 1px;
+}
+
+/* Listbox Control -------------------------------------------------------------------------------------------------- */
+.CBListBox:alias {
+}
+.CBListBoxMainLabel:alias {
+    -tr-rule-ref: selector(".CBStrongLabel:alias");
+}
+.CBListBoxOptionText:alias {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+}
+.CBListBoxOptionBox:alias {
+    -tr-rule-ref: selector(".CBTextCellEmbosedLook:alias");
+    padding: 1px;
+}
+
+/* ControlsGroup Control -------------------------------------------------------------------------------------------- */
+.CBControlsGroup:alias {
+    color: #CBC3BE;
+    -tr-rule-ref: selector(".CBBorderNormalSolidLook:alias");
+}
+.CBControlsGroupLabel:alias {
+    -tr-rule-ref: selector(".CBDefaultStrongFontLook:alias");
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* Complex controls like: shuttle, panel, table, tree and so on                                                       */
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* TopBar Control --------------------------------------------------------------------------------------------------- */
+.CBTopBar:alias {
+    -tr-rule-ref: selector(".CBTextCellRaisedLook:alias");
+    -tr-rule-ref: selector(".CBTextCellLookEmphased:alias");
+    padding: 3px 5px 5px;
+}
+
+/* Dialog Control --------------------------------------------------------------------------------------------------- */
+.CBDialog:alias {
+    -tr-rule-ref: selector(".CBTextCellLook:alias");
+}
+.CBDialogHead:alias {
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+    border-width: 0 0 1px 0;
+}
+.CBDialogHeadCloseIcon:alias {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconError:alias");
+}
+.CBDialogHeadCloseIconHover:alias {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconError:alias");
+}
+
+/* Message Control -------------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBMessageTextCommon:alias {
+    margin: 0 0 8px 0;
+    padding: 2px 0;
+}
+.CBMessageText:alias {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+    -tr-rule-ref: selector(".CBMessageTextCommon:alias");
+    font-size: -2pt;
+}
+.CBMessageTextInfo:alias {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+    -tr-rule-ref: selector(".CBMessageTextCommon:alias");
+    font-size: -2pt;
+}
+.CBMessageTextError:alias {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+    -tr-rule-ref: selector(".CBMessageTextCommon:alias");
+    font-size: -2pt;
+}
+
+/* Messages Control ------------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBMessagesTitle:alias {
+    -tr-rule-ref: selector(".CBDefaultStrongFontLook:alias");
+}
+.CBMessagesList:alias {
+    padding: 5px 0;
+    margin: 0;
+    list-style-type: none;
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+}
+.CBMessagesListItem:alias {
+    padding: 4px 0;    
+}
+.CBMessagesBox:alias {
+    -tr-rule-ref: selector(".CBTextCellRaisedLook:alias");
+    -tr-rule-ref: selector(".CBTextCellLookEmphased:alias");
+    margin-bottom: 5px;
+    padding: 0 5px;
+}
+.CBMessagesTextInfo:alias {
+    -tr-rule-ref: selector(".CBDefaulFontDisabledLook:alias");
+    -tr-rule-ref: selector(".CBMessageTextCommon:alias");
+    font-size: -2pt;
+}
+
+/* Shuttle Control -------------------------------------------------------------------------------------------------- */
+.CBShuttle:alias {
+}
+.CBShuttleButton:alias {
+    -tr-rule-ref: selector(".CBButton:alias");
+    display: block;
+    margin: 0 0 2px 0;
+}
+.CBShuttleButtonHover:alias {
+    -tr-rule-ref: selector(".CBButtonHover:alias");
+}
+.CBShuttleListBox:alias {
+    display: block;
+    width: 167px;
+}
+.CBShuttleListBoxContainer:alias {
+    display: block;
+}
+.CBShuttleButtonSpacer:alias {
+    display: none;
+}
+.CBShuttleDisplayBox:alias {
+    display: block;
+}
+.CBShuttleLabel:alias {
+   -tr-rule-ref: selector(".CBStrongLabel:alias");
+    padding: 0 0 0 3px;
+}
+
+/* Panel Control ---------------------------------------------------------------------------------------------------- */
+/* Panels with head ------------------------------------ */
+.CBPanelHeadCommon:alias {
+    padding: 8px 14px;
+}
+.CBPanelHead:alias {
+    -tr-rule-ref: selector(".CBButtonLook:alias");
+    -tr-rule-ref: selector(".CBPanelHeadCommon:alias");
+}
+.CBPanelHeadHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+    -tr-rule-ref: selector(".CBPanelHeadCommon:alias");
+}
+.CBPanelHeadSelected:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelected:alias");
+    -tr-rule-ref: selector(".CBPanelHeadCommon:alias");
+}
+.CBPanelHeadSelectedHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelectedHover:alias");
+    -tr-rule-ref: selector(".CBPanelHeadCommon:alias");
+}
+.CBPanelHeadDisabled:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
+    -tr-rule-ref: selector(".CBPanelHeadCommon:alias");
+}
+.CBPanelHeadDisabledHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabledHover:alias");
+    -tr-rule-ref: selector(".CBPanelHeadCommon:alias");
+}
+.CBPanelHeadRaised:alias {
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+    -tr-rule-ref: selector(".CBPanelHeadCommon:alias");
+}
+.CBPanelHeadRaisedHover:alias {
+}
+.CBPanelHeadRaisedSelected:alias {
+}
+.CBPanelHeadRaisedSelectedHover:alias {
+}
+.CBPanelHeadRaisedDisabled:alias {
+}
+.CBPanelHeadRaisedDisabledHover:alias {
+}
+.CBPanelBodyCommon:alias {
+    width: 100%;
+    margin-bottom: 1px;
+    -tr-rule-ref: selector(".CBRoundedBottomCornersLook:alias");
+    border-width: 0 1px 1px;
+    padding: 10px;
+}
+.CBPanelBody:alias {
+    -tr-rule-ref: selector(".CBPanelBodyCommon:alias");
+    -tr-rule-ref: selector(".CBBorderAccentedSolidLook:alias");
+    border-width: 0 1px 1px 1px;
+}
+.CBPanelBodySelected:alias {
+    -tr-rule-ref: selector(".CBPanelBodyCommon:alias");
+    -tr-rule-ref: selector(".CBBorderNormalSolidLookSelected:alias");
+    background: #FBFCFD ;
+}
+.CBPanelBodyEmbossed:alias {
+    -tr-rule-ref: selector(".CBPanelBody:alias");
+    background-image: url(/adf/images/casablanca/backgrounds/panelBodyEmbossed.png);
+    background-repeat: repeat-x;
+    background-position: top left;
+}
+.CBPanelBodyEmbossedSelected:alias {
+    -tr-rule-ref: selector(".CBPanelBodySelected:alias");
+    background-image: url(/adf/images/casablanca/backgrounds/panelBodyEmbossedSelected.png);
+    background-repeat: repeat-x;
+    background-position: top left;
+}
+
+/* Panels without head --------------------------------- */
+.CBPanelCommon:alias {
+    -tr-rule-ref: selector(".CBPanelBodyCommon:alias");
+    border-width: 1px;
+    width: auto;
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+    margin-bottom: 0;
+}
+.CBPanel:alias {
+    -tr-rule-ref: selector(".CBPanelBody:alias");
+    -tr-rule-ref: selector(".CBPanelCommon:alias");
+}
+.CBPanelAccented:alias {
+    -tr-rule-ref: selector(".CBPanel:alias");
+    background: white url(/adf/images/casablanca/backgrounds/panelBodyAccented.png) repeat-x top left;
+}
+
+/* Table Control ---------------------------------------------------------------------------------------------------- */
+.CBTable:alias {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #BBB1AA;
+}
+.CBTableCellCommon:alias {
+    padding: 4px 6px;
+}
+.CBTableCell:alias {
+    -tr-rule-ref: selector(".CBTextCellLook:alias");
+    -tr-rule-ref: selector(".CBTableCellCommon:alias");
+}
+.CBTableCellHover:alias {
+    -tr-rule-ref: selector(".CBTextCellLookHover:alias");
+    -tr-rule-ref: selector(".CBTableCellCommon:alias");
+}
+.CBTableCellSelected:alias {
+    -tr-rule-ref: selector(".CBTextCellLookSelected:alias");
+    -tr-rule-ref: selector(".CBTableCellCommon:alias");
+}
+.CBTableCellDisabled:alias {
+    -tr-rule-ref: selector(".CBTextCellLookDisabled:alias");
+    -tr-rule-ref: selector(".CBTableCellCommon:alias");
+}
+
+.CBTableHeadCell:alias {
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+    -tr-rule-ref: selector(".CBTableCellCommon:alias");
+}
+.CBTableHeadCellSelected:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelected:alias");
+    -tr-rule-ref: selector(".CBTableCellCommon:alias");
+}
+.CBTableHeadCellDisabled:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
+    -tr-rule-ref: selector(".CBTableCellCommon:alias");
+}
+.CBTableControlBar:alias {
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+    -tr-rule-ref: selector(".CBTableCellCommon:alias");
+    padding: 4px;
+}
+.CBTableSubControlBar:alias {
+    -tr-rule-ref: selector(".CBTableControlBar:alias");
+}
+.CBTableFooterBar:alias {
+    -tr-rule-ref: selector(".CBTableControlBar:alias");
+}
+.CBTableFooterCell:alias {
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+    -tr-rule-ref: selector(".CBTableCellCommon:alias");
+}
+.CBTableBody:alias {
+    -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
+}
+
+/* Train Control ---------------------------------------------------------------------------------------------------- */
+.CBTrain:alias {
+    
+}
+.CBTrainStopCommon:alias {
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+}
+.CBTrainStopUnvisited:alias {
+    -tr-rule-ref: selector(".CBButtonLook:alias");
+    -tr-rule-ref: selector(".CBTrainStopCommon:alias");
+}
+.CBTrainStopUnvisitedHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+    -tr-rule-ref: selector(".CBTrainStopCommon:alias");
+}
+.CBTrainStopVisited:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelected:alias");
+    -tr-rule-ref: selector(".CBTrainStopCommon:alias");
+}
+.CBTrainStopVisitedHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelectedHover:alias");
+    -tr-rule-ref: selector(".CBTrainStopCommon:alias");
+}
+.CBTrainStopSelected:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelected:alias");
+    -tr-rule-ref: selector(".CBTrainStopCommon:alias");
+}
+.CBTrainStopSelectedHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelectedHover:alias");
+    -tr-rule-ref: selector(".CBTrainStopCommon:alias");
+}
+.CBTrainStopDisabled:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
+    -tr-rule-ref: selector(".CBTrainStopCommon:alias");
+}
+.CBTrainStopDisabledHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabledHover:alias");
+    -tr-rule-ref: selector(".CBTrainStopCommon:alias");
+}
+
+/* Tabs Control ----------------------------------------------------------------------------------------------------- */
+.CBTabsHeads:alias {
+    -tr-rule-ref: selector(".CBBorderNormalSolidLookSelected:alias");
+    height: auto;
+    border-width: 0 0 1px 0;
+}
+.CBTabHeadCommon:alias {
+    height: auto;
+    margin: 0 1px 0 0;
+    padding: 7px 12px;
+    text-decoration: none;
+}
+.CBTabHeadTopCommon:alias {
+    -tr-rule-ref: selector(".CBTabHeadCommon:alias");
+    border-width: 1px 1px 0 1px;
+    -tr-rule-ref: selector(".CBRoundedTopCornersLook:alias");
+}
+.CBTabHeadBottomCommon:alias {
+    -tr-rule-ref: selector(".CBTabHeadCommon:alias"); 
+    border-width: 0 1px 1px 1px;
+    -tr-rule-ref: selector(".CBRoundedBottomCornersLook:alias");
+}
+.CBTabHeadTop:alias {
+    -tr-rule-ref: selector(".CBButtonLook:alias");
+    -tr-rule-ref: selector(".CBTabHeadTopCommon:alias");
+}
+.CBTabHeadTopHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+    -tr-rule-ref: selector(".CBTabHeadTopCommon:alias");
+}
+.CBTabHeadTopSelected:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelected:alias");
+    -tr-rule-ref: selector(".CBTabHeadTopCommon:alias");
+}
+.CBTabHeadSelectedTopHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelectedHover:alias");
+    -tr-rule-ref: selector(".CBTabHeadTopCommon:alias");
+}
+.CBTabHeadTopDisabled:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
+    -tr-rule-ref: selector(".CBTabHeadTopCommon:alias");
+}
+.CBTabHeadDisabledTopHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabledHover:alias");
+    -tr-rule-ref: selector(".CBTabHeadTopCommon:alias");
+}
+.CBTabHeadBottom:alias {
+    -tr-rule-ref: selector(".CBButtonLook:alias");
+    -tr-rule-ref: selector(".CBTabHeadBottomCommon:alias");
+}
+.CBTabHeadBottomHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+    -tr-rule-ref: selector(".CBTabHeadBottomCommon:alias");
+}
+.CBTabHeadBottomSelected:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelected:alias");
+    -tr-rule-ref: selector(".CBTabHeadBottomCommon:alias");
+}
+.CBTabHeadBottomSelectedHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelectedHover:alias");
+    -tr-rule-ref: selector(".CBTabHeadBottomCommon:alias");
+}
+.CBTabHeadBottomDisabled:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
+    -tr-rule-ref: selector(".CBTabHeadBottomCommon:alias");
+}
+.CBTabHeadBottomDisabledHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabledHover:alias");
+    -tr-rule-ref: selector(".CBTabHeadBottomCommon:alias");
+}
+
+/* Paginator control ------------------------------------------------------------------------------------------------ */
+.CBPaginatorScrollerCommon:alias {
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+}
+.CBPaginatorScroller:alias {
+    -tr-rule-ref: selector(".CBPaginatorScrollerCommon:alias");
+    -tr-rule-ref: selector(".CBButtonLook:alias");
+}
+.CBPaginatorScrollerHover:alias {
+    -tr-rule-ref: selector(".CBPaginatorScrollerCommon:alias");
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+}
+.CBPaginatorScrollerSelected:alias {
+    -tr-rule-ref: selector(".CBPaginatorScrollerCommon:alias");
+    -tr-rule-ref: selector(".CBButtonLookSelected:alias");
+}
+.CBPaginatorScrollerSelectedHover:alias {
+    -tr-rule-ref: selector(".CBPaginatorScrollerCommon:alias");
+    -tr-rule-ref: selector(".CBButtonLookSelectedHover:alias");
+}
+
+/* SlotBar Control -------------------------------------------------------------------------------------------------- */
+.CBSlotBarOptionCommon:alias {
+    margin: 0;
+    border-width: 0 1px 0 0;
+    padding: 7px 12px;
+    text-decoration: none;
+}
+.CBSlotBarOption:alias {
+    -tr-rule-ref: selector(".CBButtonLook:alias");
+    -tr-rule-ref: selector(".CBSlotBarOptionCommon:alias");
+}
+.CBSlotBarOptionHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+    -tr-rule-ref: selector(".CBSlotBarOptionCommon:alias");
+}
+.CBSlotBarOptionSelected:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelected:alias");
+    -tr-rule-ref: selector(".CBSlotBarOptionCommon:alias");
+}
+.CBSlotBarOptionSelectedHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelectedHover:alias");
+    -tr-rule-ref: selector(".CBSlotBarOptionCommon:alias");
+}
+.CBSlotBarOptionDisabled:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
+    -tr-rule-ref: selector(".CBSlotBarOptionCommon:alias");
+}
+.CBSlotBarOptionDisabledHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabledHover:alias");
+    -tr-rule-ref: selector("..CBSlotBarOptionCommon:alias");
+}
+.CBSlotBarBar:alias {
+    -tr-rule-ref: selector(".CBButtonLook:alias");
+}
+
+/* ButtonBar Control ------------------------------------------------------------------------------------------------ */
+.CBButtonBarOptionCommon:alias {
+    margin: 0 2px 0 0;
+    padding: 7px 12px;
+    text-decoration: none;
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+}
+.CBButtonBarOption:alias {
+    -tr-rule-ref: selector(".CBButtonLook:alias");
+    -tr-rule-ref: selector(".CBButtonBarOptionCommon:alias");
+}
+.CBButtonBarOptionHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+    -tr-rule-ref: selector(".CBButtonBarOptionCommon:alias");
+}
+.CBButtonBarOptionSelected:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelected:alias");
+    -tr-rule-ref: selector(".CBButtonBarOptionCommon:alias");
+}
+.CBButtonBarOptionSelectedHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelectedHover:alias");
+    -tr-rule-ref: selector(".CBButtonBarOptionCommon:alias");
+}
+.CBButtonBarOptionDisabled:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
+    -tr-rule-ref: selector(".CBButtonBarOptionCommon:alias");
+}
+.CBButtonBarOptionDisabledHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabledHover:alias");
+    -tr-rule-ref: selector(".CBButtonBarOptionCommon:alias");
+}
+.CBButtonBarLabel:alias {
+    -tr-rule-ref: selector(".CBTextCellLook:alias");
+    display: block;
+    -tr-rule-ref: selector(".CBButtonBarOptionCommon:alias");
+}
+
+/* ButtonList Control ----------------------------------------------------------------------------------------------- */
+.CBButtonListOptionCommon:alias {
+    width: 120px;
+    margin: 0 0 1px 0;
+    padding: 7px 12px;
+    text-decoration: none;
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+}
+.CBButtonListOption:alias {
+    -tr-rule-ref: selector(".CBButtonLook:alias");
+    -tr-rule-ref: selector(".CBButtonListOptionCommon:alias");
+}
+.CBButtonListOptionHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+    -tr-rule-ref: selector(".CBButtonListOptionCommon:alias");
+}
+.CBButtonListOptionSelected:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelected:alias");
+    -tr-rule-ref: selector(".CBButtonListOptionCommon:alias");
+}
+.CBButtonListOptionSelectedHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelectedHover:alias");
+    -tr-rule-ref: selector(".CBButtonListOptionCommon:alias");
+}
+.CBButtonListOptionDisabled:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
+    -tr-rule-ref: selector(".CBButtonListOptionCommon:alias");
+}
+.CBButtonListOptionDisabledHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabledHover:alias");
+    -tr-rule-ref: selector(".CBButtonListOptionCommon:alias");
+}
+
+/* Navigation List control ------------------------------------------------------------------------------------------ */
+/* CasaBlanca styles */
+.CBNavListOptionCommon:alias {
+    margin: 0;
+    border-width: 0 0 1px 0;
+    border-color: #CAC2BD;
+    padding: 7px 12px;
+    text-decoration: none;
+    background: transparent;
+}
+.CBNavListOption:alias {
+    -tr-rule-ref: selector(".CBButtonLook:alias");
+    -tr-rule-ref: selector(".CBNavListOptionCommon:alias");
+}
+.CBNavListOptionHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookHover:alias");
+    -tr-rule-ref: selector(".CBNavListOptionCommon:alias");
+    -tr-rule-ref: selector(".CBTextCellLookHover:alias");
+    border-width: 0 0 1px 0;
+}
+.CBNavListOptionSelected:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelected:alias");
+    -tr-rule-ref: selector(".CBNavListOptionCommon:alias");
+}
+.CBNavListOptionSelectedHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookSelectedHover:alias");
+    -tr-rule-ref: selector(".CBNavListOptionCommon:alias");
+    -tr-rule-ref: selector(".CBTextCellLookHover:alias");
+    border-width: 0 0 1px 0;
+}
+.CBNavPaneListOptionDisabled:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
+    -tr-rule-ref: selector(".CBNavListOptionCommon:alias");
+}
+.CBNavPaneListOptionDisabledHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookDisabledHover:alias");
+    -tr-rule-ref: selector(".CBNavListOptionCommon:alias");
+}
+
+/* Accordion Control ------------------------------------------------------------------------------------------------ */
+.CBAccordionHeadCommon:alias {
+    margin-bottom: 1px;
+    padding: 8px 5px;
+}
+.CBAccordionHead:alias {
+    -tr-rule-ref: selector(".CBPanelHead:alias");
+    -tr-rule-ref: selector(".CBAccordionHeadCommon:alias");
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+}
+.CBAccordionHeadHover:alias {
+    -tr-rule-ref: selector(".CBPanelHeadHover:alias");
+    -tr-rule-ref: selector(".CBAccordionHeadCommon:alias");
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+}
+.CBAccordionHeadSelected:alias {
+    -tr-rule-ref: selector(".CBPanelHeadSelected:alias");
+    -tr-rule-ref: selector(".CBAccordionHeadCommon:alias");
+    -tr-rule-ref: selector(".CBRoundedTopCornersLook:alias");
+    margin-bottom: 0px;
+}
+.CBAccordionHeadSelectedHover:alias {
+    -tr-rule-ref: selector(".CBPanelHeadSelectedHover:alias");
+    -tr-rule-ref: selector(".CBAccordionHeadCommon:alias");
+    -tr-rule-ref: selector(".CBRoundedTopCornersLook:alias");
+    margin-bottom: 0px;
+}
+.CBAccordionHeadDisabled:alias {
+    -tr-rule-ref: selector(".CBPanelHeadDisabled:alias");
+    -tr-rule-ref: selector(".CBAccordionHeadCommon:alias");
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+    padding-left: 30px;
+}
+.CBAccordionHeadDisabledHover:alias {
+    -tr-rule-ref: selector(".CBPanelHeadDisabledHover:alias");
+    -tr-rule-ref: selector(".CBAccordionHeadCommon:alias");
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+    padding-left: 30px;
+}
+.CBAccordionBody:alias {
+    -tr-rule-ref: selector(".CBPanelBodyEmbossedSelected:alias");
+    border-width: 0 1px 1px 1px;
+}
+
+/* Tree Control ----------------------------------------------------------------------------------------------------- */
+.CBTreeDiscloseIcon:alias {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconArrowDown:alias");
+    /*-tr-rule-ref: selector(".CBIconArrowRight:alias");*/
+}
+.CBTreeLinkCommon:alias {
+    border: 1px solid white;
+}
+.CBTreeLink:alias {
+    -tr-rule-ref: selector(".CBLink:alias") ! important;
+    -tr-rule-ref: selector(".CBTreeLinkCommon:alias");
+}
+.CBTreeLinkHover:alias {
+    -tr-rule-ref: selector(".CBLinkHover:alias") ! important;
+    -tr-rule-ref: selector(".CBTreeLinkCommon:alias");
+}
+.CBTreeLinkDisabled:alias {
+    -tr-rule-ref: selector(".CBLinkDisabled:alias");
+    -tr-rule-ref: selector(".CBTreeLinkCommon:alias");
+}
+.CBTreeLinkDisabledHover:alias {
+    -tr-rule-ref: selector(".CBLinkDisabledHover:alias");
+    -tr-rule-ref: selector(".CBTreeLinkCommon:alias");
+}
+
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* COMPONENTS SELECTORS                                                                                               */
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* TRINIDAD COMPONENTS SELECTORS, TARGETS EACH COMPONENT INDIVIDUALY                                                  */
+/* ------------------------------------------------------------------------------------------------------------------ */
+
+/* Breadcrumbs component -------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBBreadcrumbStep {
+    -tr-rule-ref: selector(".CBLinkLook:alias");
+}
+.CBBreadcrumbStepHover {
+    -tr-rule-ref: selector(".CBLinkLookHover:alias");
+}
+/* Inject CasaBlanca styles */
+af|breadCrumbs af|breadCrumbs::step {
+    -tr-rule-ref: selector("..CBBreadcrumbStep");
+}
+af|breadCrumbs af|breadCrumbs::step:hover {
+    -tr-rule-ref: selector(".CBBreadcrumbStepHover");
+}
+
+/* Chart component -------------------------------------------------------------------------------------------------- */
+/* Not applicable yet */
+
+/* Choice component ------------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBChoiceBox {
+    -tr-rule-ref: selector(".CBChoiceChoiceBox:alias");
+}
+.CBChoiceOptionText {
+    -tr-rule-ref: selector(".CBChoiceOptionText:alias");
+}
+/* Inject CasaBlanca styles */
+select.AFFieldText {
+    -tr-rule-ref: selector(".CBChoiceBox");    
+}
+select.AFFieldText option {
+    -tr-rule-ref: selector(".CBChoiceOptionText");
+}
+
+/* Choose Color component ------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBChooseColorPanel {
+    padding: 2px;
+    -tr-rule-ref: selector(".CBPanelAccented:alias");
+}
+.CBChooseColorGrid {
+    padding: 0;
+}
+.CBChooseColorCell {    
+}
+/* Inject CasaBlanca styles */
+.p_OraColorPalette {
+    -tr-rule-ref: selector(".CBChooseColorPanel");
+}
+.p_OraColorPalette tbody {
+    -tr-rule-ref: selector(".CBChooseColorGrid");
+}
+.p_OraColorPalette tbody td {
+    -tr-rule-ref: selector(".CBChooseColorCell");
+}
+
+/* Choose Date component -------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBDateCommon {
+}
+.CBDate {
+    -tr-rule-ref: selector(".CBTable:alias");
+    padding: 0;
+}
+.CBDateCell {
+    -tr-rule-ref: selector(".CBTableCell:alias");
+}
+.CBDateCellHover {
+    -tr-rule-ref: selector(".CBTableCellHover:alias");
+}
+.CBDateCellSelected {
+    -tr-rule-ref: selector(".CBTableCellSelected:alias");
+    display: block;
+}
+.CBDateCellDisabled {
+    -tr-rule-ref: selector(".CBTableCellDisabled:alias");
+}
+.CBDateHeadCell {
+    -tr-rule-ref: selector(".CBTableHeadCell:alias");
+    display: table-cell;
+    border: 0;
+}
+.CBDateNavPrevMonth {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconArrowLeftNegative:alias");
+    display: block;
+}
+.CBDateNavNextMonth {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconArrowRightNegative:alias");
+    display: block;
+}
+.CBDateNavPrevMonthHover {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconArrowLeftNegative:alias");
+    display: block;
+}
+.CBDateNavNextMonthHover {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconArrowRightNegative:alias");
+}
+.CBDateChoiceBox {
+    -tr-rule-ref: selector(".CBChoiceChoiceBox:alias");
+}
+/* Inject CasaBlanca styles */
+af|chooseDate::title select.AFFieldText {
+    -tr-rule-ref: selector(".CBDateChoiceBox");    
+}
+af|chooseDate::content {
+    -tr-rule-ref: selector(".CBDate");
+}
+af|chooseDate::content af|chooseDate::header th {
+    -tr-rule-ref: selector(".CBDateHeadCell");    
+}
+af|chooseDate::content tr td {
+    -tr-rule-ref: selector(".CBDateCell");
+    padding: 0;
+}
+af|chooseDate::content tr td a {
+    -tr-rule-ref: selector(".CBDateCell");
+    border: none;
+    display: block;
+}
+af|chooseDate::content tr td a:hover {
+    -tr-rule-ref: selector(".CBDateCellHover");
+    border: none;
+    display: block;
+}
+af|chooseDate::content tr td af|chooseDate::selected {
+    -tr-rule-ref: selector(".CBDateCellSelected");
+    /*padding: 0;*/
+}
+af|chooseDate::content tr af|chooseDate::disabled,
+af|chooseDate::content tr af|chooseDate::disabled:hover {
+    -tr-rule-ref: selector(".CBDateCellDisabled");
+}
+/* month navigation controls */
+af|chooseDate::nav[align="left"] a {
+    -tr-rule-ref: selector(".CBDateNavPrevMonth");
+}
+af|chooseDate::nav[align="right"] a {
+    -tr-rule-ref: selector(".CBDateNavNextMonth");
+}
+af|chooseDate::nav[align="left"] a:hover {
+    -tr-rule-ref: selector(".CBDateNavPrevMonthHover");
+}
+af|chooseDate::nav[align="right"] a:hover {
+    -tr-rule-ref: selector(".CBDateNavNextMonthHover");
+}
+af|chooseDate::nav[align="left"] a span {
+    display: none;   
+}
+af|chooseDate::nav[align="right"] a span {
+    display: none;
+}
+
+/* Command button component ----------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBCommandButton {
+    -tr-rule-ref: selector(".CBButton:alias");
+}
+.CBCommandButtonHover {
+    -tr-rule-ref: selector(".CBButtonHover:alias");
+}
+.CBCommandButtonDisabled {
+    -tr-rule-ref: selector(".CBButtonDisabled:alias");
+}
+.CBCommandButtonDisabledHover {
+    -tr-rule-ref: selector(".CBButtonDisabledHover:alias");
+}
+/* Inject CasaBlanca styles */
+af|commandButton, af|goButton, af|resetButton, button, button.OraLink, .OraNavBarActiveLink {
+    -tr-rule-ref: selector(".CBCommandButton");
+}
+af|commandButton:hover, af|goButton:hover, af|resetButton:hover, button:hover, button.OraLink:hover,
+.OraNavBarActiveLink:hover {
+    -tr-rule-ref: selector(".CBCommandButtonHover");
+}
+af|commandButton.p_AFDisabled {
+    -tr-rule-ref: selector(".CBCommandButtonDisabled");
+}
+
+/* Command link component ------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+/* Normal links style */
+.CBCommandLink {
+    -tr-rule-ref: selector(".CBLink:alias");
+}
+/* Hover links style */
+.CBCommandLinkHover {
+    -tr-rule-ref: selector(".CBLinkHover:alias");
+}
+/* Disabled links style */
+.CBCommandLinkDisabled {
+    -tr-rule-ref: selector(".CBLinkDisabled:alias");
+}
+/* Disabled-hover links style */
+.CBCommandLinkDisabledHover {
+    -tr-rule-ref: selector(".CBLinkDisabledHover:alias");
+}
+/* Inject CasaBlanca styles */
+a, .OraLink, .OraLink:link, .OraLink:active, .OraLink:visited, .AFLinkForeground:alias {
+    -tr-rule-ref: selector(".CBCommandLink");
+}
+a:hover, .OraLink:hover, .OraLink:link:hover {
+    -tr-rule-ref: selector(".CBCommandLinkHover");
+}
+.OraLinkDisabled {
+    -tr-rule-ref: selector(".CBCommandLinkDisabled");
+}
+.OraLinkDisabled:hover {
+    -tr-rule-ref: selector(".CBCommandLinkDisabledHover");
+}
+
+/* Command Navigation Item component -------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+/* Normal links style */
+.CBCommandNavigationItem {
+    -tr-rule-ref: selector(".CBLink:alias");
+}
+/* Hover links style */
+.CBCommandNavigationItemHover {
+    -tr-rule-ref: selector(".CBLinkHover:alias");
+}
+/* Disabled links style */
+.CBCommandNavigationItemDisabled {
+    -tr-rule-ref: selector(".CBLinkDisabled:alias");
+}
+/* Disabled-hover links style */
+.CBCommandNavigationItemDisabledHover {
+    -tr-rule-ref: selector(".CBLinkDisabledHover:alias");
+}
+/* No any skining specific selectors to inject CasaBlanca styles */
+
+/* Form component --------------------------------------------------------------------------------------------------- */
+/* No any specific styling for the moment */
+
+/* Go Button component ---------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBGoButton {
+    -tr-rule-ref: selector(".CBButton:alias");
+}
+.CBGoButtonHover {
+    -tr-rule-ref: selector(".CBButtonHover:alias");
+}
+.CBGoButtonDisabled {
+    -tr-rule-ref: selector(".CBButtonDisabled:alias");
+}
+.CBGoButtonDisabledHover {
+    -tr-rule-ref: selector(".CBButtonDisabledHover:alias");
+}
+/* Inject CasaBlanca styles */
+af|goButton {
+    -tr-rule-ref: selector(".CBGoButton");        
+}
+af|goButton:hover {
+    -tr-rule-ref: selector(".CBGoButtonHover");      
+}
+
+/* Go Link component ------------------------------------------------------------------------------------------------ */
+/* CasaBlanca styles */
+/* Normal links style */
+.CBGoLink {
+    -tr-rule-ref: selector(".CBLink:alias");
+}
+/* Hover links style */
+.CBGoLinkHover {
+    -tr-rule-ref: selector(".CBLinkHover:alias");
+}
+/* Disabled links style */
+.CBGoLinkDisabled {
+    -tr-rule-ref: selector(".CBLinkDisabled:alias");
+}
+/* Disabled-hover links style */
+.CBGoLinkDisabledHover {
+    -tr-rule-ref: selector(".CBLinkDisabledHover:alias");
+}
+/* No any skining specific selectors to inject CasaBlanca styles */
+
+/* Icon component --------------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBIconCommon {
+    float: none;    
+}
+.CBIconErrorIcon {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconError:alias");
+    -tr-rule-ref: selector(".CBIconCommon");
+}
+.CBIconInfoIcon {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconInfo:alias");
+    -tr-rule-ref: selector(".CBIconCommon");
+}
+.CBIconWarningIcon {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconWarning:alias");
+    -tr-rule-ref: selector(".CBIconCommon");
+}
+.CBIconRequiredIcon {
+}
+.CBIconQuickSelectIcon {
+}
+.CBIconQuickSelectDisabledIcon {   
+}
+/* Inject CasaBlanca styles */
+.AFErrorIconStyle {
+    -tr-rule-ref: selector(".CBIconErrorIcon");
+}
+.AFInfoIconStyle {
+    -tr-rule-ref: selector(".CBIconInfoIcon");
+}
+.AFWarningIconStyle {
+    -tr-rule-ref: selector(".CBIconWarningIcon");
+}
+.AFRequiredIconStyle {
+    -tr-rule-ref: selector(".CBIconRequiredIcon");
+}
+.AFQuickSelectIconStyle {
+    -tr-rule-ref: selector(".CBIconQuickSelectIcon");
+}
+.AFQuickSelectDisabledIconStyle {
+    -tr-rule-ref: selector(".CBIconQuickSelectDisabledIcon");
+}
+
+/* Image component -------------------------------------------------------------------------------------------------- */
+/* Not applicable yet */
+
+/* Input color component -------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBInputColorInputBox {
+    -tr-rule-ref: selector(".CBInputTextInputBox:alias");
+}
+.CBInputColorCurrentColorCommon {
+    width: 8px;
+    height: 8px;
+    position: relative;
+    display: inline;
+    top: -1px;
+    border-style: solid;
+    border-width: 2px 2px 6px 6px;
+}
+.CBInputColorCurrentColor {
+    -tr-rule-ref: selector(".CBInputColorCurrentColorCommon");
+    border-color: #685951;
+}
+.CBInputColorCurrentColorHover {
+    -tr-rule-ref: selector(".CBInputColorCurrentColorCommon");
+    border-color: #4E3625;
+}
+/* Inject CasaBlanca styles */
+af|inputColor::content {
+    -tr-rule-ref: selector(".CBInputColorInputBox");
+}
+af|inputColor a .p_OraColorFieldSwatch {
+    -tr-rule-ref: selector(".CBInputColorCurrentColor");    
+}
+af|inputColor a:hover .p_OraColorFieldSwatch {
+    -tr-rule-ref: selector(".CBInputColorCurrentColorHover");    
+}
+/* Clear some legacy stuff */
+af|inputColor af|inputColor::swatch-overlay {
+    display: none;
+    width: auto;
+}
+
+/* Input date component --------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBInputDate {
+    position: relative;
+}
+.CBInputDateInputBox {
+    -tr-rule-ref: selector(".CBInputTextInputBox:alias");
+}
+.CBInputDateIconCommon {
+    position: absolute;
+    display: inline;
+    font-size: 1em;
+    margin-left: 4px;
+}
+.CBInputDateIcon {
+    -tr-rule-ref: selector(".CBIconLook:alias");   
+    -tr-rule-ref: selector(".CBIconCalendar:alias");
+    -tr-rule-ref: selector(".CBInputDateIconCommon");
+}
+.CBInputDateIconHover {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconCalendar:alias");
+    -tr-rule-ref: selector(".CBInputDateIconCommon");
+}
+/* Inject CasaBlanca styles */
+af|inputDate {
+    -tr-rule-ref: selector(".CBInputDate");    
+}
+af|inputDate::content {
+    -tr-rule-ref: selector(".CBInputDateInputBox");
+}
+af|inputDate a {
+    -tr-rule-ref: selector(".CBInputDateIcon");    
+}
+af|inputDate a:hover {
+    -tr-rule-ref: selector(".CBInputDateIconHover");    
+}
+/* Clear some legacy stuff */
+af|inputDate img {
+    display: none;
+    width: auto;
+}
+
+/* Input file component --------------------------------------------------------------------------------------------- */
+/* Nothing we can do for the moment */
+
+/* Input list of values component ----------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBListOfValues {
+    position: relative;    
+}
+.CBListOfValuesPanelButtonBar {
+    padding: 8px 0;
+}
+.CBListOfValuesInputBox {
+    -tr-rule-ref: selector(".CBInputTextInputBox:alias");
+}
+.CBListOfValuesIconCommon {
+    position: absolute;
+    display: inline;
+    font-size: 1em;
+    margin-left: 4px;
+}
+.CBListOfValuesIcon {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconList:alias");
+    -tr-rule-ref: selector(".CBListOfValuesIconCommon");
+}
+.CBListOfValuesIconHover {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconList:alias");
+    -tr-rule-ref: selector(".CBListOfValuesIconCommon");
+}
+/* Inject CasaBlanca styles */
+af|inputListOfValues  {
+    -tr-rule-ref: selector(".CBListOfValues");
+}
+af|inputListOfValues a {
+    -tr-rule-ref: selector(".CBListOfValuesIcon");    
+}
+af|inputListOfValues a:hover {
+    -tr-rule-ref: selector(".CBListOfValuesIconHover");    
+}
+af|inputListOfValues af|inputListOfValues::content {
+    -tr-rule-ref: selector(".CBListOfValuesInputBox");
+}
+/* It’s not a specific enough selector, but is all we can do and it works */
+af|panelButtonBar {
+    -tr-rule-ref: selector(".CBListOfValuesPanelButtonBar");
+}
+/* Clear some legacy stuff */
+af|inputListOfValues img {
+    display: none;
+    width: auto;
+}
+
+/* Input Text component --------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBInputTextInputBox {
+    -tr-rule-ref: selector(".CBInputTextInputBox:alias");
+}
+/* Inject CasaBlanca styles */
+af|inputText::content {
+    -tr-rule-ref: selector(".CBInputTextInputBox");
+}
+
+/* Message component ------------------------------------------------------------------------------------------------ */
+/* CasaBlanca styles */
+.CBMessageTextCommon {
+}
+.CBMessageText {
+    -tr-rule-ref: selector(".CBMessageText:alias");
+}
+.CBMessageTextInfo {
+    -tr-rule-ref: selector(".CBMessageTextInfo:alias");
+}
+.CBMessageTextError {
+    -tr-rule-ref: selector(".CBMessageTextError:alias");
+}
+/* Inject CasaBlanca styles */
+.OraInlineInfoText {
+    -tr-rule-ref: selector(".CBMessageTextInfo");
+}
+.OraInlineErrorText {
+    -tr-rule-ref: selector(".CBMessageTextError");
+}
+af|outputLabel span a.AFErrorIconStyle, af|inputText::label a.AFErrorIconStyle {
+    display: none;    
+}
+
+/* Messages component ----------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBMessagesTitle {
+    -tr-rule-ref: selector(".CBMessagesTitle:alias");
+}
+.CBMessagesList {
+    -tr-rule-ref: selector(".CBMessagesList:alias");
+}
+.CBMessagesListItem {
+    -tr-rule-ref: selector(".CBMessagesListItem:alias");    
+}
+.CBMessagesBox {
+    -tr-rule-ref: selector(".CBMessagesBox:alias");
+}
+.CBMessagesTextInfo {
+    -tr-rule-ref: selector(".CBMessagesTextInfo:alias");
+}
+/* Inject CasaBlanca styles */
+af|panelFormLayout::message-cell .OraInlineInfoText {
+    -tr-rule-ref: selector(".CBMessagesTextInfo");
+}
+af|messages::body {
+    -tr-rule-ref: selector(".CBMessagesBox");
+}
+af|messages::body af|messages::header span, af|messages::body af|messages::header {
+    -tr-rule-ref: selector(".CBMessagesTitle");
+}
+af|messages::body ol {
+    -tr-rule-ref: selector(".CBMessagesList");
+}
+af|messages::body ol li {
+    -tr-rule-ref: selector(".CBMessagesListItem");
+}
+/* Navigation Pane component -----------------------------------------------------------------------------------------*/
+/* Bar style ------------------------ */
+/* CasaBlanca styles */
+.CBNavPaneBarOptionCommon {
+}
+.CBNavPaneBarOption {
+    -tr-rule-ref: selector(".CBSlotBarOption:alias");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon");
+}
+.CBNavPaneBarOptionHover {
+    -tr-rule-ref: selector(".CBSlotBarOptionHover:alias");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon");
+}
+.CBNavPaneBarOptionSelected {
+    -tr-rule-ref: selector(".CBSlotBarOptionSelected:alias");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon");
+}
+.CBNavPaneBarOptionSelectedHover {
+    -tr-rule-ref: selector(".CBSlotBarOptionSelectedHover:alias");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon");
+}
+.CBNavPaneBarOptionDisabled {
+    -tr-rule-ref: selector(".CBSlotBarOptionDisabled:alias");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon");
+}
+.CBNavPaneBarOptionDisabledHover {
+    -tr-rule-ref: selector(".CBSlotBarOptionDisabledHover:alias");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon");
+}
+.CBNavPaneBar {
+    -tr-rule-ref: selector(".CBSlotBarBar:alias");
+}
+/* Inject CasaBlanca styles */
+af|navigationPane::bar {
+    -tr-rule-ref: selector(".CBNavPaneBar");
+    padding: 0;
+}
+af|navigationPane::bar-active-enabled af|navigationPane::bar-content a {
+    -tr-rule-ref: selector(".CBNavPaneBarOptionSelected");
+}
+af|navigationPane::bar-active-enabled af|navigationPane::bar-content a:hover {
+    -tr-rule-ref: selector(".CBNavPaneBarOptionSelectedHover");
+}
+af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content a {
+    -tr-rule-ref: selector(".CBNavPaneBarOption");
+}
+af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content a:hover {
+    -tr-rule-ref: selector(".CBNavPaneBarOptionHover");
+}
+af|navigationPane::bar-active-disabled af|navigationPane::bar-content,
+af|navigationPane::bar-inactive-disabled af|navigationPane::bar-content {
+    -tr-rule-ref: selector(".CBNavPaneBarOptionDisabled");
+}
+
+/* Clear some legacy stuff */
+af|navigationPane::bar-separator {
+    display: none;
+}
+af|navigationPane::bar-content {
+    padding: 0;
+}
+af|navigationPane::bar-content img {
+    display: none;
+}
+
+/* Button style ---------------------------------------- */
+/* CasaBlanca styles */
+.CBNavPaneButtonOptionCommon {
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+}
+.CBNavPaneButtonOption {
+    -tr-rule-ref: selector(".CBButtonBarOption:alias");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon");
+}
+.CBNavPaneButtonOptionHover {
+    -tr-rule-ref: selector(".CBButtonBarOptionHover:alias");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon");
+}
+.CBNavPaneButtonOptionSelected {
+    -tr-rule-ref: selector(".CBButtonBarOptionSelected:alias");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon");
+}
+.CBNavPaneButtonOptionSelectedHover {
+    -tr-rule-ref: selector(".CBButtonBarOptionSelectedHover:alias");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon");
+}
+.CBNavPaneButtonOptionDisabled {
+    -tr-rule-ref: selector(".CBButtonBarOptionDisabled:alias");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon");
+}
+.CBNavPaneButtonOptionDisabledHover {
+    -tr-rule-ref: selector(".CBButtonBarOptionDisabledHover:alias");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon");
+}
+/* Inject CasaBlanca styles */
+af|navigationPane::buttons-active-enabled af|navigationPane::buttons-content a {
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionSelected");
+}
+af|navigationPane::buttons-inactive-enabled af|navigationPane::buttons-content a {
+    -tr-rule-ref: selector(".CBNavPaneButtonOption");
+}
+af|navigationPane::buttons-inactive-enabled af|navigationPane::buttons-content a:hover {
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionHover");
+}
+af|navigationPane::buttons-active-enabled af|navigationPane::buttons-content a:hover {
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionSelectedHover");
+}
+af|navigationPane::buttons-active-disabled af|navigationPane::buttons-content,
+af|navigationPane::buttons-inactive-disabled af|navigationPane::buttons-content {
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionDisabled");
+}
+
+/* Clear some legacy stuff */
+af|navigationPane::buttons-separator {
+    display: none;
+}
+af|navigationPane::buttons-content {
+    padding: 0;
+}
+af|navigationPane::buttons-content img {
+    display: none;
+}
+
+
+/* List style ------------------------------------------ */
+/* CasaBlanca styles */
+.CBNavPaneListOptionCommon {
+}
+.CBNavPaneListOption {
+    -tr-rule-ref: selector(".CBNavListOption:alias");
+    -tr-rule-ref: selector(".CBNavPaneListOptionCommon");
+}
+.CBNavPaneListOptionHover {
+    -tr-rule-ref: selector(".CBNavListOptionHover:alias");
+    -tr-rule-ref: selector(".CBNavPaneListOptionCommon");
+}
+.CBNavPaneListOptionSelected {
+    -tr-rule-ref: selector(".CBNavListOptionSelected:alias");
+    -tr-rule-ref: selector(".CBNavPaneListOptionCommon");
+}
+.CBNavPaneListOptionSelectedHover {
+    -tr-rule-ref: selector(".CBNavListOptionSelectedHover:alias");
+    -tr-rule-ref: selector(".CBNavPaneListOptionCommon");
+}
+.CBNavPaneListOptionDisabled {
+    -tr-rule-ref: selector(".CBNavListOptionDisabled:alias");
+    -tr-rule-ref: selector(".CBNavPaneListOptionCommon");
+}
+.CBNavPaneListOptionDisabledHover {
+    -tr-rule-ref: selector(".CBNavListOptionDisabledHover:alias");
+    -tr-rule-ref: selector(".CBNavPaneListOptionCommon");
+}
+/* Inject CasaBlanca styles */
+af|navigationPane::list-active-enabled af|navigationPane::list-content a {
+    -tr-rule-ref: selector(".CBNavPaneListOptionSelected");
+}
+
+@agent ie and (version: 5), ie and (version: 6), ie and (version: 7), ie and (version: 8){
+    af|navigationPane::list-inactive-enabled,
+    af|navigationPane::list-active-enabled,
+    af|navigationPane::list-active-disabled,
+    af|navigationPane::list-inactive-disabled {
+        width: 100%;
+    }
+}
+
+af|navigationPane::list-inactive-enabled af|navigationPane::list-content a {
+    -tr-rule-ref: selector(".CBNavPaneListOption");
+}
+af|navigationPane::list-inactive-enabled af|navigationPane::list-content a:hover {
+    -tr-rule-ref: selector(".CBNavPaneListOptionHover");
+}
+af|navigationPane::list-active-enabled af|navigationPane::list-content a:hover {
+    -tr-rule-ref: selector(".CBNavPaneListOptionSelectedHover");
+}
+af|navigationPane::list-active-disabled af|navigationPane::list-content,
+af|navigationPane::list-inactive-disabled af|navigationPane::list-content {
+    -tr-rule-ref: selector(".CBNavPaneListOptionDisabled");
+}
+
+/* Clear some legacy stuff */
+af|navigationPane::list-content {
+    padding: 0;
+}
+af|navigationPane::list-content img {
+    display: none;
+}
+af|navigationPane::list-active-enabled,
+af|navigationPane::list-active-enabled tbody,
+af|navigationPane::list-active-enabled tr,
+af|navigationPane::list-active-enabled td,
+af|navigationPane::list-active-disabled,
+af|navigationPane::list-active-disabled tbody,
+af|navigationPane::list-active-disabled tr,
+af|navigationPane::list-active-disabled td,
+af|navigationPane::list-inactive-enabled,
+af|navigationPane::list-inactive-enabled tbody,
+af|navigationPane::list-inactive-enabled tr,
+af|navigationPane::list-inactive-enabled td,
+af|navigationPane::list-inactive-disabled,
+af|navigationPane::list-inactive-disabled tbody,
+af|navigationPane::list-inactive-disabled tr,
+af|navigationPane::list-inactive-disabled td {
+    display: block;
+    -tr-rule-ref: selector(".ie6BlockBahaviour");
+}
+tbody tr af|navigationPane::list-bullet {
+    display: none ! important;
+}
+
+/* Choice style ---------------------------------------- */
+/* CasaBlanca styles */
+.CBNavPaneChoiceButtonCommon {
+    padding: 4px 8px;
+    display: inline;
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+}
+.CBNavPaneChoiceButton {
+    -tr-rule-ref: selector(".CBButton:alias");
+    -tr-rule-ref: selector(".CBNavPaneChoiceButtonCommon");
+}
+.CBNavPaneChoiceButtonHover {
+    -tr-rule-ref: selector(".CBButtonHover:alias");
+    -tr-rule-ref: selector(".CBNavPaneChoiceButtonCommon");
+}
+.CBNavPaneChoiceBox {
+    -tr-rule-ref: selector(".CBChoiceChoiceBox:alias");
+}
+.CBNavPaneChoiceOptionText {
+    -tr-rule-ref: selector(".CBChoiceOptionText:alias");    
+}
+/* Inject CasaBlanca styles */
+af|navigationPane::choice-options {
+    -tr-rule-ref: selector(".CBNavPaneChoiceBox");
+}
+af|navigationPane::choice-options option {
+    -tr-rule-ref: selector(".CBNavPaneChoiceOptionText");  
+}
+af|navigationPane af|navigationPane::choice-button {
+    -tr-rule-ref: selector(".CBNavPaneChoiceButton");
+}
+af|navigationPane af|navigationPane::choice-button:hover {
+    -tr-rule-ref: selector(".CBNavPaneChoiceButtonHover");
+}
+
+/* Tabs style --------------------------------------------*/
+.CBNavPane {
+    -tr-rule-ref: selector(".CBTabsHeads:alias");
+}
+.CBNavPaneTabsCommon {
+}
+.CBNavPaneTabs {
+    -tr-rule-ref: selector(".CBTabHeadTop:alias");
+    -tr-rule-ref: selector(".CBNavPaneTabsCommon");
+}
+.CBNavPaneTabsHover {
+    -tr-rule-ref: selector(".CBTabHeadTopHover:alias");
+    -tr-rule-ref: selector(".CBNavPaneTabsCommon");
+}
+.CBNavPaneTabsSelected {
+    -tr-rule-ref: selector(".CBTabHeadTopSelected:alias");
+    -tr-rule-ref: selector(".CBNavPaneTabsCommon");
+}
+.CBNavPaneTabsSelectedHover {
+    -tr-rule-ref: selector(".CBTabHeadSelectedTopHover:alias");
+    -tr-rule-ref: selector(".CBNavPaneTabsCommon");
+}
+.CBNavPaneTabsDisabled {
+    -tr-rule-ref: selector(".CBTabHeadTopDisabled:alias");
+    -tr-rule-ref: selector(".CBNavPaneTabsCommon");
+}
+.CBNavPaneTabsDisabledHover {
+    -tr-rule-ref: selector(".CBTabHeadDisabledTopHover:alias");
+    -tr-rule-ref: selector(".CBNavPaneTabsCommon");
+}
+
+/* Clear some legacy stuff */
+af|navigationPane::tabs af|navigationPane::tabs-mid {
+    background: none;
+    padding: 0;
+}
+af|navigationPane::tabs af|navigationPane::tabs-start,
+af|navigationPane::tabs af|navigationPane::tabs-end,
+af|navigationPane::tabs af|navigationPane::tabs-start-join,
+af|navigationPane::tabs af|navigationPane::tabs-start-join-from-inactive,
+af|navigationPane::tabs af|navigationPane::tabs-start-join-from-active,
+af|navigationPane::tabs af|navigationPane::tabs-end-join-to-inactive,
+af|navigationPane::tabs af|navigationPane::tabs-bottom-start,
+af|navigationPane::tabs af|navigationPane::tabs-bottom-mid,
+af|navigationPane::tabs af|navigationPane::tabs-bottom-end,
+af|navigationPane::tabs af|navigationPane::tabs-bottom-start-content,
+af|navigationPane::tabs af|navigationPane::tabs-bottom-mid-content,
+af|navigationPane::tabs af|navigationPane::tabs-bottom-end-content {
+    -tr-rule-ref: selector(".ie6BlockBahaviour");
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+/* Inject CasaBlanca styles */
+af|navigationPane::tabs {
+    -tr-rule-ref: selector(".CBNavPane");
+}
+af|navigationPane::tabs-inactive af|navigationPane::tabs-mid a {
+    -tr-rule-ref: selector(".CBNavPaneTabs");
+}
+af|navigationPane::tabs-inactive af|navigationPane::tabs-mid a:hover {
+    -tr-rule-ref: selector(".CBNavPaneTabsHover");
+}
+af|navigationPane::tabs-active af|navigationPane::tabs-mid a {
+    -tr-rule-ref: selector(".CBNavPaneTabsSelected");      
+}
+af|navigationPane::tabs-active af|navigationPane::tabs-mid a:hover {
+    -tr-rule-ref: selector(".CBNavPaneTabsSelectedHover");      
+}
+af|navigationPane::tabs .p_AFDisabled af|navigationPane::tabs-mid {
+    -tr-rule-ref: selector(".CBNavPaneTabsDisabled");
+}
+af|navigationPane::tabs .p_AFDisabled af|navigationPane::tabs-mid:hover {
+    -tr-rule-ref: selector(".CBNavPaneTabsDisabledHover");       
+}
+
+/* Navigation Tree component -----------------------------------------------------------------------------------------*/
+/* Also valable for the tree component because the lack of CSS class hooks */
+/* CasaBlanca styles */
+.CBNavigationTreeDiscloseIcon {
+    -tr-rule-ref: selector(".CBTreeDiscloseIcon:alias");
+}
+.CBNavigationTreeLinkCommon {
+}
+.CBNavigationTreeLink {
+    -tr-rule-ref: selector(".CBTreeLink:alias");
+}
+.CBNavigationTreeLinkHover {
+    -tr-rule-ref: selector(".CBTreeLinkHover:alias");
+}
+.CBNavigationTreeExpandCollapseItem {
+    -tr-rule-ref: selector(".CBTreeLink:alias");
+}
+.CBNavigationTreeExpandCollapseItemHover {
+    -tr-rule-ref: selector(".CBTreeLinkHover:alias");
+    text-decoration: none;
+}
+.CBNavigationTreeLinkDisabled {
+    -tr-rule-ref: selector(".CBTreeLinkDisabled:alias");
+}
+.CBNavigationTreeLinkDisabledHover {
+    -tr-rule-ref: selector(".CBTreeLinkDisabledHover:alias");
+}
+/* Inject CasaBlanca styles */
+.p_OraTreeRow a:link,
+.p_OraTreeRow a:active,
+.p_OraTreeRow a:visited,
+.p_OraTreeRowSelected a,
+.p_OraTreeRowSelected a:link,
+.p_OraTreeRowSelected a:active,
+.p_OraTreeRowSelected a:visited {
+    -tr-rule-ref: selector(".CBNavigationTreeLink");
+}
+.p_OraTreeRow a:hover,
+.p_OraTreeRow a:link:hover,
+.p_OraTreeRow a:active:hover,
+.p_OraTreeRow a:visited:hover,
+.p_OraTreeRowSelected a:hover,
+.p_OraTreeRowSelected a:link:hover,
+.p_OraTreeRowSelected a:active:hover,
+.p_OraTreeRowSelected a:visited:hover,
+.p_OraTreeRow a.OraLink:hover,
+.p_OraTreeRowSelected a.OraLink:hover {
+    -tr-rule-ref: selector(".CBNavigationTreeLinkHover");
+}
+.p_OraTreeDisclosedSymbol a,
+.p_OraTreeDisclosedSymbol a:link,
+.p_OraTreeDisclosedSymbol a:active,
+.p_OraTreeDisclosedSymbol a:visited {
+    -tr-rule-ref: selector(".CBNavigationTreeExpandCollapseItem");
+}
+.p_OraTreeDisclosedSymbol a:hover,
+.p_OraTreeDisclosedSymbol a:link:hover,
+.p_OraTreeDisclosedSymbol a:active:hover,
+.p_OraTreeDisclosedSymbol a:visited:hover,
+.p_OraTreeDisclosedSymbol a.OraLink:hover {
+    -tr-rule-ref: selector(".CBNavigationTreeExpandCollapseItemHover");
+}
+.p_OraTreeDisclosedSymbol .OraLinkDisabled,
+.p_OraTreeRow .OraLinkDisabled,
+.p_OraTreeRowSelected .OraLinkDisabled {
+    -tr-rule-ref: selector(".CBNavigationTreeLinkDisabled") ;
+}
+.p_OraTreeDisclosedSymbol .OraLinkDisabled:hover,
+.p_OraTreeRow .OraLinkDisabled:hover,
+.p_OraTreeRowSelected .OraLinkDisabled:hover {
+    -tr-rule-ref: selector(".CBNavigationTreeLinkDisabledHover") ;
+}
+
+/* Output Document componnet ---------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBDocumentTitle {
+    -tr-rule-ref: selector(".CBHeaderLevel1Look:alias");
+}
+.CBDocumentParagraph {
+    text-align: left;
+}
+.CBDocumentHeaderLevel1 {
+    -tr-rule-ref: selector(".CBHeaderLevel2Look:alias");
+}
+.CBDocumentHeaderLevel2 {
+    -tr-rule-ref: selector(".CBHeaderLevel3Look:alias");
+}
+.CBDocumentHeaderLevel3 {
+    -tr-rule-ref: selector(".CBHeaderLevel4Look:alias");
+}
+.CBDocumentNormalText {
+    -tr-rule-ref: selector(".CBDefaultFontLook:alias");
+    -tr-rule-ref: selector(".CBParagraphLineHeight:alias");
+}
+/* Inject CasaBlanca styles */
+af|outputDocument {
+    -tr-rule-ref: selector(".CBDocumentNormalText");
+}
+af|outputDocument af|outputDocument::title {
+    -tr-rule-ref: selector(".CBDocumentTitle");
+}
+af|outputDocument::paragraph {
+    -tr-rule-ref: selector(".CBDocumentParagraph");
+}
+
+/* Output Label component ------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBOutputLabel {
+    -tr-rule-ref: selector(".CBLabel:alias");
+}
+/* Inject CasaBlanca styles */
+af|outputLabel label {
+    -tr-rule-ref: selector(".CBOutputLabel");
+}
+
+/* Output Formated component ---------------------------------------------------------------------------------------- */
+/* Not necesary for the moment */
+
+/* Output Text component -------------------------------------------------------------------------------------------- */
+/* Not necesary for the moment */
+
+/* Panel Accordion component ---------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBAccordionPanelHeadCommon {
+}
+.CBAccordionPanelHead {
+    -tr-rule-ref: selector(".CBAccordionHead:alias");
+    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon");
+}
+.CBAccordionPanelHeadHover {
+    -tr-rule-ref: selector(".CBAccordionHeadHover:alias");
+    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon");
+}
+.CBAccordionPanelHeadSelected {
+    -tr-rule-ref: selector(".CBAccordionHeadSelected:alias");
+    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon");
+}
+.CBAccordionPanelHeadSelectedHover {
+    -tr-rule-ref: selector(".CBAccordionHeadSelectedHover:alias");
+    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon");
+}
+.CBAccordionPanelHeadDisabled {
+    -tr-rule-ref: selector(".CBAccordionHeadDisabled:alias");
+    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon");
+}
+.CBAccordionPanelHeadDisabledHover {
+    -tr-rule-ref: selector(".CBAccordionHeadDisabledHover:alias");
+    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon");
+}
+.CBAccordionPanelBody {
+    -tr-rule-ref: selector(".CBAccordionBody:alias");
+}
+/* Inject CasaBlanca styles */
+af|panelAccordion {
+}
+af|panelAccordion::header-collapsed, af|panelAccordion::header-expanded, af|panelAccordion::header-disabled {
+    height: auto;
+    width: 100%;
+}
+af|panelAccordion::title-link {
+    padding-left: 20px;
+}
+af|panelAccordion::title-link .p_OraHideShowDisclosedSymbol {
+    margin-right: 5px;
+    margin-top: -3px;
+}
+af|panelAccordion::header-collapsed af|panelAccordion::title-link {
+    -tr-rule-ref: selector(".CBAccordionPanelHead");
+}
+af|panelAccordion::header-collapsed af|panelAccordion::title-link .p_OraHideShowDisclosedSymbol {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconArrowDown:alias");
+}
+af|panelAccordion::header-collapsed af|panelAccordion::title-link:hover {
+    -tr-rule-ref: selector(".CBAccordionPanelHeadHover");
+}
+af|panelAccordion::header-collapsed af|panelAccordion::title-link:hover .p_OraHideShowDisclosedSymbol {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconArrowDown:alias");
+}
+af|panelAccordion::header-expanded af|panelAccordion::title-link {
+    -tr-rule-ref: selector(".CBAccordionPanelHeadSelected");
+    margin-bottom: 0;
+}
+af|panelAccordion::header-expanded af|panelAccordion::title-link .p_OraHideShowDisclosedSymbol {
+    -tr-rule-ref: selector(".CBIconLookSelected:alias");
+    -tr-rule-ref: selector(".CBIconArrowUp:alias");
+}
+af|panelAccordion::header-expanded af|panelAccordion::title-link:hover {
+    -tr-rule-ref: selector(".CBAccordionPanelHeadSelectedHover");
+    margin-bottom: 0;
+}
+af|panelAccordion::header-expanded af|panelAccordion::title-link:hover .p_OraHideShowDisclosedSymbol {
+    -tr-rule-ref: selector(".CBIconLookSelectedHover:alias");
+    -tr-rule-ref: selector(".CBIconArrowUp:alias");
+}
+af|panelAccordion::header-disabled af|panelAccordion::title-disabled-link {
+    -tr-rule-ref: selector(".CBAccordionPanelHeadDisabled");   
+}
+af|panelAccordion::header-disabled af|panelAccordion::title-disabled-link:hover {
+    -tr-rule-ref: selector(".CBAccordionPanelHeadDisabledHover");   
+}
+af|panelAccordion::content {
+    -tr-rule-ref: selector(".CBAccordionPanelBody");
+}
+af|panelAccordion::content af|panelFormLayout::label-cell {
+}
+af|panelAccordion::content af|panelHeader::level-one {
+}
+
+/* Panel Border Layout component ------------------------------------------------------------------------------------ */
+/* Not applicable yet */
+
+/* Panel Box component ---------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBPanelBoxHeadCommon {
+    width: auto;
+}
+.CBPanelBoxHead {
+    -tr-rule-ref: selector(".CBPanelHead:alias");
+    -tr-rule-ref: selector(".CBPanelBoxHeadCommon");
+    -tr-rule-ref: selector(".CBRoundedTopCornersLook:alias");
+}
+.CBPanelBoxBodyCommon {
+}
+.CBPanelBoxBody {
+    -tr-rule-ref: selector(".CBPanelBodyEmbossed:alias");
+    -tr-rule-ref: selector(".CBPanelBoxBodyCommon");
+}
+/* Clear some legacy stuff */
+af|panelBox::light af|panelBox::body {
+    background: none;    
+}
+af|panelBox::body af|panelBox::header img {
+    display: none;
+    width: 0;
+    height: 0;
+}
+/* Inject CasaBlanca styles */
+af|panelBox::light af|panelBox::body af|panelBox::header {
+    -tr-rule-ref: selector(".CBPanelBoxHead");
+}
+af|panelBox::light af|panelBox::body af|panelBox::content {
+    -tr-rule-ref: selector(".CBPanelBoxBody");
+}
+
+/* Panel Button Bar component --------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBPanelButtonBarButtonCommon {
+    padding: 6px 11px;    
+}
+.CBPanelButtonBarButton {
+    -tr-rule-ref: selector(".CBButtonBarOption:alias");
+    -tr-rule-ref: selector(".CBPanelButtonBarButtonCommon");
+}
+.CBPanelButtonBarButtonHover {
+    -tr-rule-ref: selector(".CBButtonBarOptionHover:alias");
+    -tr-rule-ref: selector(".CBPanelButtonBarButtonCommon");
+}
+.CBPanelButtonBarButtonDisabled {
+    -tr-rule-ref: selector(".CBButtonBarOptionDisabled:alias");
+    -tr-rule-ref: selector(".CBPanelButtonBarButtonCommon");
+}
+.CBPanelButtonBarButtonDisabledHover {
+    -tr-rule-ref: selector(".CBButtonBarOptionDisabledHover:alias");
+    -tr-rule-ref: selector(".CBPanelButtonBarButtonCommon");
+}
+.CBPanelButtonBarLabel {
+    -tr-rule-ref: selector(".CBButtonBarLabel:alias");
+}
+/* Clear some legacy stuff */
+af|panelButtonBar td img {
+    -tr-rule-ref: selector(".ie6BlockBahaviour");
+    width: 0;
+    height: 0;
+    display: none;    
+}
+/* Inject CasaBlanca styles */
+af|panelButtonBar af|commandButton {
+    -tr-rule-ref: selector(".CBPanelButtonBarButton");
+}
+af|panelButtonBar af|commandButton:hover {
+    -tr-rule-ref: selector(".CBPanelButtonBarButtonHover");
+}
+af|panelButtonBar af|singleStepButtonBar::label {
+    -tr-rule-ref: selector(".CBPanelButtonBarLabel");
+}
+
+/* Panel CaptionGroup component ------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBPanelCaptinonGroup {
+    -tr-rule-ref: selector(".CBControlsGroup:alias");
+}
+.CBPanelCaptinonGroupCaption {
+    -tr-rule-ref: selector(".CBDefaultStrongFontLook:alias");
+}
+/* Inject CasaBlanca styles */
+af|panelCaptionGroup {
+    -tr-rule-ref: selector(".CBPanelCaptinonGroup");
+}
+af|panelCaptionGroup af|panelCaptionGroup::caption {
+    -tr-rule-ref: selector(".CBControlsGroupLabel:alias");
+}
+
+/* Panel Choice component ------------------------------------------------------------------------------------------- */
+/* Not applicable yet */
+/* Panel Form Layout component -------------------------------------------------------------------------------------- */
+/* Not applicable yet */
+/* Panel Group Layout component ------------------------------------------------------------------------------------- */
+/* Not applicable yet */
+
+/* Panel Header component ------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBPanelHeaderCommon {
+}
+.CBHeaderNest {
+    margin: 0;
+    padding: 10px 0 0;
+}
+.CBPanelHeaderLevel1 {
+    -tr-rule-ref: selector(".CBHeaderLevel1Look:alias");
+    -tr-rule-ref: selector(".CBPanelHeaderCommon");
+}
+.CBPanelHeaderLevel2 {
+    -tr-rule-ref: selector(".CBHeaderLevel2Look:alias");
+    -tr-rule-ref: selector(".CBPanelHeaderCommon");
+}
+.CBPanelHeaderLevel3 {
+    -tr-rule-ref: selector(".CBHeaderLevel3Look:alias");
+    -tr-rule-ref: selector(".CBPanelHeaderCommon");
+}
+.CBPanelHeaderLevel4 {
+    -tr-rule-ref: selector(".CBHeaderLevel4Look:alias");
+    -tr-rule-ref: selector(".CBPanelHeaderCommon");
+}
+.CBPanelHeaderLevel5 {
+    -tr-rule-ref: selector(".CBHeaderLevel5Look:alias");
+    -tr-rule-ref: selector(".CBPanelHeaderCommon");
+}
+.CBPanelHeaderLevel6 {
+    -tr-rule-ref: selector(".CBHeaderLevel6Look:alias");
+    -tr-rule-ref: selector(".CBPanelHeaderCommon");
+}
+/* Inject CasaBlanca styles */
+.p_OraHeaderNest {
+    -tr-rule-ref: selector(".CBHeaderNest");    
+}
+af|panelHeader::level-one {
+    -tr-rule-ref: selector(".CBPanelHeaderLevel1");
+}
+af|panelHeader::level-two {
+    -tr-rule-ref: selector(".CBPanelHeaderLevel2");
+}
+af|panelHeader::level-three {
+    -tr-rule-ref: selector(".CBPanelHeaderLevel3");
+}
+af|panelHeader::level-four {
+    -tr-rule-ref: selector(".CBPanelHeaderLevel4");
+}
+af|panelHeader::level-five {
+    -tr-rule-ref: selector(".CBPanelHeaderLevel5");
+}
+af|panelHeader::level-six {
+    -tr-rule-ref: selector(".CBPanelHeaderLevel6");
+}
+
+/* Panel Horizontal Layout component -------------------------------------------------------------------------------- */
+/* Not applicable yet */
+
+/* Panel Label and Message component -------------------------------------------------------------------------------- */
+/* Not applicable yet */
+
+/* Panel List component --------------------------------------------------------------------------------------------- */
+.CBPanelListBorder {
+}
+.CBPanelListList {
+    margin: 4px 0;
+}
+af|panelList {
+    -tr-rule-ref: selector(".CBPanelListBorder");    
+}
+af|panelList ul {
+    -tr-rule-ref: selector(".CBPanelListList");
+}
+
+/* Panel Page component --------------------------------------------------------------------------------------------- */
+/* Not applicable yet */
+
+/* Page TopBar component -------------------------------------------------------------------------------------------- */
+.CBTopBar {
+    -tr-rule-ref: selector(".CBTopBar:alias");
+}
+.p_OraQuickSearchBox {
+    -tr-rule-ref: selector(".CBTopBar");
+}
+af|menuBar::empty {
+    display: none;
+}
+
+/* Panel Popup component -------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBPanelPopUpBodyCommon {
+}
+.CBPanelPopUpBody {
+    -tr-rule-ref: selector(".CBPanelAccented:alias");
+    -tr-rule-ref: selector(".CBPanelPopUpBodyCommon");
+}
+/* Inject CasaBlanca styles */
+af|panelPopup::container {
+    -tr-rule-ref: selector(".CBPanelPopUpBody");
+}
+af|panelPopup::container af|panelPopup::content {
+    background: transparent;
+}
+
+/* Panel Radio component -------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBPanelSidebar {
+    -tr-rule-ref: selector(".CBPanelAccented:alias");  
+}
+.CBPanelSidebarBody {
+    background: none;
+}
+/* Inject CasaBlanca styles */
+af|panelSideBar {
+    -tr-rule-ref: selector(".CBPanelSidebar");
+}
+af|panelSideBar::body {
+    -tr-rule-ref: selector(".CBPanelSidebarBody");
+}
+
+/* Panel Tabbed component ------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBPanelTabTopCommon {
+}
+.CBPanelTabBottomCommon {
+}
+.CBPanelTabTop {
+    -tr-rule-ref: selector(".CBTabHeadTop:alias");
+    -tr-rule-ref: selector(".CBPanelTabTopCommon");
+}
+.CBPanelTabTopHover {
+    -tr-rule-ref: selector(".CBTabHeadTopHover:alias");
+    -tr-rule-ref: selector(".CBPanelTabTopCommon");
+}
+.CBPanelTabTopSelected {
+    -tr-rule-ref: selector(".CBTabHeadTopSelected:alias");
+    -tr-rule-ref: selector(".CBPanelTabTopCommon");
+}
+.CBPanelTabTopSelectedHover {
+    -tr-rule-ref: selector(".CBTabHeadSelectedTopHover:alias");
+    -tr-rule-ref: selector(".CBPanelTabTopCommon");
+}
+.CBPanelTabTopDisabled {
+    -tr-rule-ref: selector(".CBTabHeadTopDisabled:alias");
+    -tr-rule-ref: selector(".CBPanelTabTopCommon");
+}
+.CBPanelTabTopDisabledHover {
+    -tr-rule-ref: selector(".CBTabHeadDisabledTopHover:alias");
+    -tr-rule-ref: selector(".CBPanelTabTopCommon");
+}
+.CBPanelTabBottom {
+    -tr-rule-ref: selector(".CBTabHeadBottom:alias");
+    -tr-rule-ref: selector(".CBPanelTabBottomCommon");
+}
+.CBPanelTabBottomHover {
+    -tr-rule-ref: selector(".CBTabHeadBottomHover:alias");
+    -tr-rule-ref: selector(".CBPanelTabBottomCommon");
+}
+.CBPanelTabBottomSelected {
+    -tr-rule-ref: selector(".CBTabHeadBottomSelected:alias");
+    -tr-rule-ref: selector(".CBPanelTabBottomCommon");
+}
+.CBPanelTabBottomSelectedHover {
+    -tr-rule-ref: selector(".CBTabHeadBottomSelectedHover:alias");
+    -tr-rule-ref: selector(".CBPanelTabBottomCommon");
+}
+.CBPanelTabBottomDisabled {
+    -tr-rule-ref: selector(".CBTabHeadBottomDisabled:alias");
+    -tr-rule-ref: selector(".CBPanelTabBottomCommon");
+}
+.CBPanelTabBottomDisabledHover {
+    -tr-rule-ref: selector(".CBTabHeadBottomDisabledHover:alias");
+    -tr-rule-ref: selector(".CBPanelTabBottomCommon");
+}
+.CBPanelTabBody {
+    -tr-rule-ref: selector(".CBPanelBodySelected:alias");
+    -tr-rule-ref: selector(".CBClearRoundCornersLook:alias");
+    -tr-rule-ref: selector(".CBRoundedRightCornersLook:alias");
+    width: auto;
+    border-width: 1px;
+    margin-bottom: 0;
+}
+/* Clear some legacy stuff */
+af|panelTabbed::cell-start,
+af|panelTabbed::separator,
+af|panelTabbed::separator-before-selected,
+af|panelTabbed::separator-before-selected {
+    display: none;
+}
+/* Inject CasaBlanca styles */
+af|panelTabbed::orientation-top af|panelTabbed::tab, af|panelTabbed::tab-selected {
+    padding: 0 1px 0 0;    
+}
+af|panelTabbed::orientation-top af|panelTabbed::tab a {
+    -tr-rule-ref: selector(".CBPanelTabTop");
+}
+af|panelTabbed::orientation-top af|panelTabbed::tab a:hover {
+    -tr-rule-ref: selector(".CBPanelTabTopHover");
+}
+af|panelTabbed::orientation-top af|panelTabbed::tab-selected a {
+    -tr-rule-ref: selector(".CBPanelTabTopSelected");
+}
+af|panelTabbed::orientation-top af|panelTabbed::tab-selected a:hover {
+    -tr-rule-ref: selector(".CBPanelTabTopSelectedHover");
+}
+af|panelTabbed::orientation-top af|panelTabbed::tab a.p_OraDisabled {
+    -tr-rule-ref: selector(".CBPanelTabTopDisabled");
+}
+af|panelTabbed::orientation-top af|panelTabbed::tab a.p_OraDisabled:hover {
+    -tr-rule-ref: selector(".CBPanelTabTopDisabledHover");
+}
+af|panelTabbed::orientation-bottom af|panelTabbed::tab, af|panelTabbed::tab-selected {
+    padding: 0 1px 0 0;
+}
+af|panelTabbed::orientation-bottom af|panelTabbed::tab a {
+    -tr-rule-ref: selector(".CBPanelTabBottom");
+}
+af|panelTabbed::orientation-bottom af|panelTabbed::tab a:hover {
+    -tr-rule-ref: selector(".CBPanelTabBottomHover");
+}
+af|panelTabbed::orientation-bottom af|panelTabbed::tab-selected a {
+    -tr-rule-ref: selector(".CBPanelTabBottomSelected");
+}
+af|panelTabbed::orientation-bottom af|panelTabbed::tab-selected a:hover {
+    -tr-rule-ref: selector(".CBPanelTabBottomSelectedHover");
+}
+af|panelTabbed::orientation-bottom af|panelTabbed::tab a.p_OraDisabled {
+    -tr-rule-ref: selector(".CBPanelTabBottomDisabled");
+}
+af|panelTabbed::orientation-bottom af|panelTabbed::tab a.p_OraDisabled:hover {
+    -tr-rule-ref: selector(".CBPanelTabBottomDisabledHover");
+}
+af|panelTabbed::body {
+    -tr-rule-ref: selector(".CBPanelTabBody");
+}
+
+/* Panel Tip component ---------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBPanelTipLabel {
+}
+.CBPanelTipContent {   
+}
+/* Inject CasaBlanca styles */
+af|panelTip::label {
+    -tr-rule-ref: selector(".CBPanelTipLabel");
+}
+af|panelTip::content {
+    -tr-rule-ref: selector(".CBPanelTipContent");
+}
+
+/* Process Choicebar component -------------------------------------------------------------------------------------- */
+/* No any specific overwriting for the moment */
+
+/* Progress Indicator component ------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBProgressIndicator {
+   -tr-rule-ref: selector(".CBTextCellRaisedLook:alias");
+   -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+   padding: 2px 15px;
+}
+/* Inject CasaBlanca styles */
+.p_OraProcessingStatus {
+   -tr-rule-ref: selector(".CBProgressIndicator"); 
+}
+
+/* Reset Button component ------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBResetButton {
+   -tr-rule-ref: selector(".CBButton:alias");
+}
+.CBResetButtonHover {
+   -tr-rule-ref: selector(".CBButtonHover:alias");
+}
+.CBResetButtonDisabled {
+}
+.CBResetButtonDisabledHover {
+}
+/* Inject CasaBlanca styles */
+af|resetButton {
+   -tr-rule-ref: selector(".CBResetButton");
+}
+af|resetButton:hover {
+   -tr-rule-ref: selector(".CBResetButtonHover"); 
+}
+
+/* Select Boolean CheckBox component -------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBSelectBooleanCheckBox {
+    -tr-rule-ref: selector(".CBCheckBox:alias");
+}
+.CBSelectBooleanCheckBoxMainLabel {
+    -tr-rule-ref: selector(".CBCheckBoxMainLabel:alias");
+}
+.CBSelectBooleanChechBoxCheckLabel {
+    -tr-rule-ref: selector(".CBChechBoxCheckLabel:alias");
+}
+/* Inject CasaBlanca styles */
+af|selectBooleanCheckbox {
+    -tr-rule-ref: selector(".CBSelectBooleanCheckBox");
+}
+af|selectBooleanCheckbox af|selectBooleanCheckbox::label {
+    -tr-rule-ref: selector(".CBSelectBooleanCheckBoxMainLabel");
+}
+af|selectBooleanCheckbox af|selectBooleanCheckbox::content label {
+    -tr-rule-ref: selector(".CBSelectBooleanChechBoxCheckLabel");
+}
+
+/* Select Boolean Radio component ----------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBSelectBooleanRadio {
+    -tr-rule-ref: selector(".CBRadio:alias");
+}
+.CBSelectBooleanRadioMainLabel {
+    -tr-rule-ref: selector(".CBRadioMainLabel:alias");
+}
+.CBSelectBooleanRadioRadioLabel {
+    -tr-rule-ref: selector(".CBRadioRadioLabel:alias");
+}
+/* Inject CasaBlanca styles */
+af|selectBooleanRadio {
+    -tr-rule-ref: selector(".CBSelectBooleanRadio");
+}
+af|selectBooleanRadio af|selectBooleanRadio::label {
+    -tr-rule-ref: selector(".CBSelectBooleanRadioMainLabel");
+}
+af|selectBooleanRadio af|selectBooleanRadio::content label {
+    -tr-rule-ref: selector(".CBSelectBooleanRadioRadioLabel");
+}
+
+/* Select Item component -------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBSelectItem {
+    -tr-rule-ref: selector(".CBChoice:alias");    
+}
+.CBSelectItemLabel {
+    -tr-rule-ref: selector(".CBChoiceLabel:alias");
+}
+.CBSelectItemOptionText {
+    -tr-rule-ref: selector(".CBChoiceOptionText:alias");
+}
+.CBSelectItemChoiceBox {
+    -tr-rule-ref: selector(".CBChoiceChoiceBox:alias");    
+}
+.CBSelectItemChoiceBoxElementsSpacing {
+    -tr-rule-ref: selector(".CBFormVerticalSpacingLook:alias");
+    display: block;
+}
+/* Inject CasaBlanca styles */
+af|selectOneChoice {
+    -tr-rule-ref: selector(".CBSelectItem");
+}
+af|selectOneChoice af|selectOneChoice::label label {
+    -tr-rule-ref: selector(".CBSelectItemLabel");
+}
+af|selectOneChoice af|selectOneChoice::content option {
+    -tr-rule-ref: selector(".CBSelectItemOptionText");
+}
+af|selectOneChoice af|selectOneChoice::content {
+    -tr-rule-ref: selector(".CBSelectItemChoiceBox");      
+}
+af|selectOneRadio af|selectOneRadio::content br {
+    -tr-rule-ref: selector(".CBSelectItemChoiceBoxElementsSpacing");       
+}
+
+/* Select Many CheckBox component ----------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBSelectManyCheckBox {
+    -tr-rule-ref: selector(".CBCheckBox:alias");
+}
+.CBSelectManyCheckBoxMainLabel {
+    -tr-rule-ref: selector(".CBCheckBoxMainLabel:alias");
+}
+.CBSelectManyChechBoxCheckLabel {
+    -tr-rule-ref: selector(".CBChechBoxCheckLabel:alias");
+}
+/* Inject CasaBlanca styles */
+af|selectManyCheckbox {
+    -tr-rule-ref: selector(".CBSelectManyCheckBox");
+}
+af|selectManyCheckbox af|selectManyCheckbox::label {
+    -tr-rule-ref: selector(".CBSelectManyCheckBoxMainLabel");
+}
+af|selectManyCheckbox af|selectManyCheckbox::content label {
+    -tr-rule-ref: selector(".CBSelectManyChechBoxCheckLabel");
+}
+
+/* Select Many ListBox ---------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBSelectManyListBox {
+    -tr-rule-ref: selector(".CBListBox:alias");    
+}
+.CBSelectManyListBoxMainLabel {
+    -tr-rule-ref: selector(".CBListBoxMainLabel:alias");
+}
+.CBSelectManyListBoxOptionBox {
+    -tr-rule-ref: selector(".CBListBoxOptionBox:alias");
+}
+.CBSelectManyListBoxOptionText {
+    -tr-rule-ref: selector(".CBListBoxOptionText:alias");
+}
+/* Inject CasaBlanca styles */
+af|selectManyListbox {
+    -tr-rule-ref: selector(".CBSelectManyListBox");
+}
+af|selectManyListbox af|selectManyListbox::label {
+    -tr-rule-ref: selector(".CBSelectManyListBoxMainLabel");
+}
+af|selectManyListbox af|selectManyListbox::content {
+    -tr-rule-ref: selector(".CBSelectManyListBoxOptionBox");
+}
+af|selectManyListbox af|selectManyListbox::content option {
+    -tr-rule-ref: selector(".CBSelectManyListBoxOptionText");
+}
+
+/* Select Many Shuttle ---------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBSelectManyShuttle {
+    -tr-rule-ref: selector(".CBShuttle:alias");
+}
+.CBSelectManyShuttleButton {
+    -tr-rule-ref: selector(".CBShuttleButton:alias");
+}
+.CBSelectManyShuttleButtonHover {
+    -tr-rule-ref: selector(".CBShuttleButtonHover:alias");
+}
+.CBSelectManyShuttleListBox {
+    -tr-rule-ref: selector(".CBShuttleListBox:alias");
+}
+.CBSelectManyShuttleListBoxContainer {
+    -tr-rule-ref: selector(".CBShuttleListBoxContainer:alias");
+}
+.CBSelectManyShuttleButtonSpacer {
+    -tr-rule-ref: selector(".CBShuttleButtonSpacer:alias");
+}
+.CBSelectManyShuttleDisplayBox {
+    -tr-rule-ref: selector(".CBShuttleDisplayBox:alias");
+}
+.CBSelectManyShuttleLabel {
+    -tr-rule-ref: selector(".CBShuttleLabel:alias");
+}
+/* Clear some legacy stuff */
+af|selectManyShuttle::box-content af|selectManyListbox::content option[value=""] {
+    display: none;
+}
+/* Inject CasaBlanca styles */
+af|selectManyShuttle a.OraLink {
+    -tr-rule-ref: selector(".CBSelectManyShuttleButton");
+}
+af|selectManyShuttle a.OraLink:hover {
+    -tr-rule-ref: selector(".CBSelectManyShuttleButtonHover");
+}
+af|selectManyShuttle::box-content af|selectManyListbox {
+    -tr-rule-ref: selector(".CBSelectManyShuttleListBoxContainer");
+}
+af|selectManyShuttle::box-content af|selectManyListbox::content {
+    -tr-rule-ref: selector(".CBSelectManyShuttleListBox");
+}
+af|selectManyShuttle div {
+    -tr-rule-ref: selector(".CBSelectManyShuttleButtonSpacer");
+}
+af|selectManyShuttle af|selectManyShuttle::box-content {
+    -tr-rule-ref: selector(".CBSelectManyShuttleDisplayBox");
+}
+af|selectManyShuttle .OraShuttleHeader {
+   -tr-rule-ref: selector(".CBSelectManyShuttleLabel");
+}
+
+/* Select One Choice ------------------------------------------------------------------------------------------------ */
+/* CasaBlanca styles */
+.CBSelectOneChoice {
+    -tr-rule-ref: selector(".CBChoice:alias");
+}
+.CBSelectOneChoiceLabel {
+    -tr-rule-ref: selector(".CBChoiceLabel:alias");
+}
+.CBSelectOneChoiceOptionText {
+    -tr-rule-ref: selector(".CBChoiceOptionText:alias");
+}
+/* Inject CasaBlanca styles */
+af|selectOneChoice {
+    -tr-rule-ref: selector(".CBSelectOneChoice");
+}
+af|selectOneChoice af|selectOneChoice::label label {
+    -tr-rule-ref: selector(".CBSelectOneChoiceLabel");
+}
+af|selectOneChoice af|selectOneChoice::content, af|selectOneChoice af|selectOneChoice::content option {
+    -tr-rule-ref: selector(".CBSelectOneChoiceOptionText");
+}
+
+/* Select One ListBox ----------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBSelectOneListBox {
+    -tr-rule-ref: selector(".CBListBox:alias");
+}
+.CBSelectOneListBoxLabel {
+    -tr-rule-ref: selector(".CBListBoxMainLabel:alias");
+}
+.CBSelectOneListBoxOptionBox {
+    -tr-rule-ref: selector(".CBListBoxOptionBox:alias");
+}
+.CBSelectOneListBoxOptionText {
+    -tr-rule-ref: selector(".CBListBoxOptionText:alias");
+}
+.CBSelectOneListBoxElementsSpacing {
+    -tr-rule-ref: selector(".CBFormVerticalSpacingLook:alias");
+}
+/* Inject CasaBlanca styles */
+af|selectOneListbox {
+    -tr-rule-ref: selector(".CBSelectOneListBox");
+}
+af|selectOneListbox af|selectOneListbox::label label {
+    -tr-rule-ref: selector(".CBSelectOneListBoxLabel");
+}
+af|selectOneListbox af|selectOneListbox::content {
+    -tr-rule-ref: selector(".CBSelectOneListBoxOptionBox");    
+}
+af|selectOneListbox af|selectOneListbox::content option {
+    -tr-rule-ref: selector(".CBSelectOneListBoxOptionText");
+}
+
+/* Select One Radio ------------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBSelectOneRadio {
+    -tr-rule-ref: selector(".CBRadio:alias");
+}
+.CBSelectOneRadioMainLabel {
+    -tr-rule-ref: selector(".CBRadioMainLabel:alias");
+}
+.CBSelectOneRadioRadioLabel {
+    -tr-rule-ref: selector(".CBRadioRadioLabel:alias");
+}
+/* Inject CasaBlanca styles */
+af|selectOneRadio {
+    -tr-rule-ref: selector(".CBSelectOneRadio");
+}
+af|selectOneRadio af|selectOneRadio::label {
+    -tr-rule-ref: selector(".CBSelectOneRadioMainLabel");       
+}
+af|selectOneRadio af|selectOneRadio::content label {
+   -tr-rule-ref: selector(".CBSelectOneRadioRadioLabel");
+}
+
+/* Select Order Shuttle --------------------------------------------------------------------------------------------- */
+/* Inject CasaBlanca styles */
+.CBSelectOrderShuttle {
+    -tr-rule-ref: selector(".CBShuttle:alias");
+}
+.CBSelectOrderShuttleButton {
+    -tr-rule-ref: selector(".CBShuttleButton:alias");
+}
+.CBSelectOrderShuttleButtonHover {
+    -tr-rule-ref: selector(".CBShuttleButtonHover:alias");
+}
+.CBSelectOrderShuttleListBox {
+    -tr-rule-ref: selector(".CBShuttleListBox:alias");
+}
+.CBSelectOrderShuttleListBoxContainer {
+    -tr-rule-ref: selector(".CBShuttleListBoxContainer:alias");
+}
+.CBSelectOrderShuttleButtonSpacer {
+    -tr-rule-ref: selector(".CBShuttleButtonSpacer:alias");
+}
+.CBSelectOrderShuttleDisplayBox {
+    -tr-rule-ref: selector(".CBShuttleDisplayBox:alias");
+}
+.CBSelectOrderShuttleLabel {
+    -tr-rule-ref: selector(".CBShuttleLabel:alias");
+}
+/* Clear some legacy stuff */
+af|selectOrderShuttle::box-content af|selectManyListbox::content option[value=""] {
+    display: none;
+}
+/* Inject CasaBlanca styles */
+af|selectOrderShuttle::box-content a {
+    -tr-rule-ref: selector(".CBSelectOrderShuttleButton");
+}
+af|selectOrderShuttle::box-content a:hover {
+    -tr-rule-ref: selector(".CBSelectOrderShuttleButtonHover");
+}
+af|selectOrderShuttle::box-content af|selectManyListbox {
+    -tr-rule-ref: selector(".CBSelectOrderShuttleListBoxContainer");
+}
+af|selectOrderShuttle::box-content af|selectManyListbox::content {
+    -tr-rule-ref: selector(".CBSelectOrderShuttleListBox");
+}
+af|selectOrderShuttle::box-content br, af|selectOrderShuttle::box-content img {
+    -tr-rule-ref: selector(".CBSelectOrderShuttleButtonSpacer");
+}
+af|selectManyShuttle af|selectOrderShuttle::box-content {
+    -tr-rule-ref: selector(".CBSelectOrderShuttleDisplayBox");
+}
+
+/* Select Range ChoiceBar ------------------------------------------------------------------------------------------- */
+/* No any class hooks for some particular overwritings, we will go on the default formatting for each subcomponent.-- */
+
+/* Separator component ---------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBSeparator {
+    height: auto;
+    margin: 15px 0 0;
+    border-width: 1px 0 0 0;
+    color: #CBC3BE;
+    background-color: #CBC3BE;
+    -tr-rule-ref: selector(".CBBorderNormalSolidLook:alias");
+}
+/* Inject CasaBlanca styles */
+.af|separator, .p_OraContentFooterRule, af|panelFormLayout::separator {
+    -tr-rule-ref: selector(".CBSeparator");
+}
+
+/* Show Detail Header component ------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBShowDetailHeader {
+    -tr-rule-ref: selector(".CBHeaderLevel1Look:alias");
+}
+.CBShowDetailHeaderExpandCollapseItem {
+    -tr-rule-ref: selector(".CBLinkLook:alias");
+}
+.CBShowDetailHeaderExpandCollapseItemHover {
+    -tr-rule-ref: selector(".CBLinkLookHover:alias");
+    text-decoration: none;
+}
+/* Inject CasaBlanca styles */
+h1.af|showDetailHeader {
+    -tr-rule-ref: selector(".CBShowDetailHeader");
+}
+h1.af|showDetailHeader af|showDetail::disclosure-icon-link span {
+    -tr-rule-ref: selector(".CBShowDetailHeaderExpandCollapseItem");
+}
+h1.af|showDetailHeader af|showDetail::disclosure-icon-link:hover,
+h1.af|showDetailHeader af|showDetail::disclosure-icon-link span:hover {
+    -tr-rule-ref: selector(".CBShowDetailHeaderExpandCollapseItemHover");
+}
+
+
+/* Show Detail Item component --------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBShowDetailItem {
+}
+.CBShowDetailTitle {
+    -tr-rule-ref: selector(".CBLinkLook:alias");
+}
+.CBShowDetailTitleHover {
+    -tr-rule-ref: selector(".CBLinkLookHover:alias");  
+}
+.CBShowDetailExpandCollapseItem {
+    -tr-rule-ref: selector(".CBLinkLook:alias");
+}
+.CBShowDetailExpandCollapseItemHover {
+    -tr-rule-ref: selector(".CBLinkLookHover:alias");
+    text-decoration: none; 
+}
+/* Inject CasaBlanca styles */
+af|showDetail::disclosure-icon-link .p_OraHideShowDisclosedSymbol {
+    -tr-rule-ref: selector(".CBShowDetailExpandCollapseItem");
+}
+af|showDetail::prompt-undisclosed af|showDetail::disclosure-icon-link:hover,
+af|showDetail::prompt-disclosed af|showDetail::disclosure-icon-link:hover {
+    -tr-rule-ref: selector(".CBShowDetailExpandCollapseItemHover");
+}
+af|showDetail::prompt-undisclosed af|showDetail::prompt-link,
+af|showDetail::prompt-disclosed af|showDetail::prompt-link {
+    -tr-rule-ref: selector(".CBShowDetailTitle");
+}
+af|showDetail::prompt-undisclosed af|showDetail::prompt-link:hover,
+af|showDetail::prompt-disclosed af|showDetail::prompt-link:hover {
+    -tr-rule-ref: selector(".CBShowDetailTitleHover");    
+}
+
+/* Single step Button Bar component --------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBSingleStepButtonBar {
+}
+.CBSingleStepButtonBarButton {
+    -tr-rule-ref: selector(".CBButton:alias");
+}
+.CBSingleStepButtonBarButtonHover {
+    -tr-rule-ref: selector(".CBButtonHover:alias");
+}
+.CBSingleStepButtonBarButtonDisabled {
+    -tr-rule-ref: selector(".CBButtonDisabled:alias");
+}
+.CBSingleStepButtonBarLabel {
+    -tr-rule-ref: selector(".CBLabel:alias");
+}
+/* Inject CasaBlanca styles */
+af|singleStepButtonBar {
+    -tr-rule-ref: selector(".CBSingleStepButtonBar");
+}
+af|singleStepButtonBar af|commandButton {
+    -tr-rule-ref: selector(".CBSingleStepButtonBarButton");
+}
+af|singleStepButtonBar af|commandButton:hover {
+    -tr-rule-ref: selector(".CBSingleStepButtonBarButtonHover");
+}
+af|singleStepButtonBar af|singleStepButtonBar::label {
+    -tr-rule-ref: selector(".CBSingleStepButtonBarLabel");    
+}
+
+/* Spacer component ------------------------------------------------------------------------------------------------- */
+/* Not applicable yet */
+
+/* Status Indicator component --------------------------------------------------------------------------------------- */
+/* No any specific overwriting for the moment */
+
+/* StyleSheet component --------------------------------------------------------------------------------------------- */
+/* Not applicable yet */
+
+/* Train component -------------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBTrain {
+    -tr-rule-ref: selector(".CBTrain:alias");
+}
+.CBTrainStop {
+    padding-right: 5px;
+}
+.CBTrainStopUnvisited {
+    -tr-rule-ref: selector(".CBTrainStopUnvisited:alias");
+}
+.CBTrainStopUnvisitedHover {
+    -tr-rule-ref: selector(".CBTrainStopUnvisitedHover:alias");
+}
+.CBTrainStopVisited {
+    -tr-rule-ref: selector(".CBTrainStopVisited:alias");
+}
+.CBTrainStopVisitedHover {
+    -tr-rule-ref: selector(".CBTrainStopVisitedHover:alias");
+}
+.CBTrainStopSelected {
+    -tr-rule-ref: selector(".CBTrainStopSelected:alias");
+}
+.CBTrainStopSelectedHover {
+    -tr-rule-ref: selector(".CBTrainStopSelectedHover:alias");
+}
+/* Inject CasaBlanca styles */
+af|train::stop {
+    -tr-rule-ref: selector(".CBTrainStop");    
+}
+.p_AFSelected af|train::link {
+    -tr-rule-ref: selector(".CBTrainStopSelected");
+}
+.p_AFSelected af|train::link:hover {
+    -tr-rule-ref: selector(".CBTrainStopSelectedHover");
+}
+.p_AFVisited af|train::link {
+    -tr-rule-ref: selector(".CBTrainStopVisited");
+}
+.p_AFVisited af|train::link:hover {
+    -tr-rule-ref: selector(".CBTrainStopVisitedHover");
+}
+.p_AFUnvisited af|train::link {
+    -tr-rule-ref: selector(".CBTrainStopUnvisited");
+}
+.p_AFUnvisited af|train::link:hover {
+    -tr-rule-ref: selector(".CBTrainStopUnvisitedHover");
+}
+
+/* Table component -------------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBTableCell {
+    -tr-rule-ref: selector(".CBTableCell:alias");
+}
+.CBTableHeadCell {
+    -tr-rule-ref: selector(".CBTableHeadCell:alias");
+}
+.CBTableFooterCell {
+    -tr-rule-ref: selector(".CBTableFooterCell:alias");
+}
+.CBTableControlBarTop {
+    -tr-rule-ref: selector(".CBTableControlBar:alias");
+    border-width: 1px 1px 0 1px;
+}
+.CBTableControlBarBottom {
+    -tr-rule-ref: selector(".CBTableControlBar:alias");
+    border-width: 0 1px 1px 1px;
+}
+.CBTableSubControlBar {
+    -tr-rule-ref: selector(".CBTableSubControlBar:alias");
+    border-width: 1px 1px 0 1px;
+}
+.CBTableBody {
+    -tr-rule-ref: selector(".CBTableBody:alias");
+}
+.CBTableBarButton {
+    -tr-rule-ref: selector(".CBButton:alias") ;
+    display: inline;
+}
+.CBTableBarButtonHover {
+    -tr-rule-ref: selector(".CBButtonHover:alias");
+    display: inline;
+}
+.CBTableBarButtonDisabled {
+    -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+}
+/* Inject CasaBlanca styles */
+af|table::control-bar-top {
+    -tr-rule-ref: selector(".CBTableControlBarTop");
+}
+af|table::control-bar-bottom {
+    -tr-rule-ref: selector(".CBTableControlBarBottom");
+}
+af|table::sub-control-bar, .OraHGridLocatorHeader {
+    -tr-rule-ref: selector(".CBTableSubControlBar");
+}
+.OraHGridLocatorHeader {
+    padding: 0;
+}
+af|table::sub-control-bar {
+    padding: 8px 3px;
+}
+/* active navigation buttons */
+af|table::sub-control-bar .OraLink,                                                     
+af|table::sub-control-bar af|showDetail::prompt-link {
+   -tr-rule-ref: selector(".CBTableBarButton") ;
+}
+/* active hover navigation buttons */
+af|table::sub-control-bar .OraLink:hover,
+af|table::sub-control-bar af|showDetail::prompt-link:hover {
+   -tr-rule-ref: selector(".CBTableBarButtonHover");
+}
+/* inactive navigation buttons */
+af|table::control-bar-top table td span,
+af|table::control-bar-bottom table td span,
+af|table::sub-control-bar table td span {
+    -tr-rule-ref: selector(".CBTableBarButtonDisabled");
+}
+/* header */
+af|column::header-text {
+    -tr-rule-ref: selector(".CBTableHeadCell");
+    display: table-cell;
+}
+/* sub control bar link like buttons */
+af|table::sub-control-bar .OraNavBarActiveLink,
+af|table::sub-control-bar af|showDetail::prompt-link {
+   -tr-rule-ref: selector(".CBTableBarButton");
+}
+af|table::sub-control-bar .OraNavBarActiveLink:hover,
+af|table::sub-control-bar af|showDetail::prompt-link:hover {
+   -tr-rule-ref: selector(".CBTableBarButtonHover");
+}
+.AFTableCellDataBorderColor:alias, TableCellHeaderBorderColor, af|column::header-text,
+af|table::content {
+    -tr-rule-ref: selector(".CBTableBody");
+}
+af|table::content af|column::cell-text, af|column::cell-number, af|table::content af|column::cell-icon-format,
+af|tableSelectMany::cell-icon-format, af|tableSelectOne::cell-icon-format {
+    -tr-rule-ref: selector(".CBTableCell");    
+}
+/* footer cells */
+af|table::content af|table::column-footer, af|table::content af|column::total-text {
+    display: table-cell;
+    -tr-rule-ref: selector(".CBTableFooterCell");
+}
+
+/* Tree table component --------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBTreeTableCell {
+    -tr-rule-ref: selector(".CBTableCell:alias");
+}
+.CBTreeTableHeadCell {
+    -tr-rule-ref: selector(".CBTableHeadCell:alias");
+}
+.CBTreeTableFooterCell {
+    -tr-rule-ref: selector(".CBTableFooterCell:alias");
+}
+.CBTreeTableControlBarTop {
+    -tr-rule-ref: selector(".CBTableControlBar:alias");
+    border-width: 1px 1px 0 1px;
+}
+.CBTreeTableControlBarBottom {
+    -tr-rule-ref: selector(".CBTableControlBar:alias");
+    border-width: 0 1px 1px 1px;
+}
+.CBTreeTableSubControlBar {
+    -tr-rule-ref: selector(".CBTableSubControlBar:alias");
+    border-width: 1px 1px 0 1px;
+}
+.CBTreeTableBody {
+    -tr-rule-ref: selector(".CBTableBody:alias");
+}
+.CBTreeTableBarButton {
+    -tr-rule-ref: selector(".CBButton:alias") ;
+    display: inline;
+}
+.CBTreeTableBarButtonHover {
+    -tr-rule-ref: selector(".CBButtonHover:alias");
+    display: inline;
+}
+.CBTreeTableBarButtonDisabled {
+    -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
+    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+}
+/* Inject CasaBlanca styles */
+af|treeTable::control-bar-top {
+    -tr-rule-ref: selector(".CBTreeTableControlBarTop");
+}
+af|treeTable::control-bar-bottom {
+    -tr-rule-ref: selector(".CBTreeTableControlBarBottom");
+}
+af|treeTable::sub-control-bar {
+    -tr-rule-ref: selector(".CBTreeTableSubControlBar");
+}
+af|treeTable::sub-control-bar {
+    padding: 8px 3px;
+}
+/* inactive navigation like buttons */
+af|treeTable::control-bar-top table td span,
+af|treeTable::control-bar-bottom table td span,
+af|treeTable::sub-control-bar table td span {
+    -tr-rule-ref: selector(".CBTreeTableBarButtonDisabled");
+}
+/* sub control bar link like buttons */
+af|treeTable::sub-control-bar .OraNavBarActiveLink,
+af|treeTable::sub-control-bar af|showDetail::prompt-link {
+   -tr-rule-ref: selector(".CBTreeTableBarButton");
+}
+af|treeTable::sub-control-bar .OraNavBarActiveLink:hover,
+af|treeTable::sub-control-bar af|showDetail::prompt-link:hover {
+   -tr-rule-ref: selector(".CBTreeTableBarButtonHover");
+}
+af|treeTable::content {
+    -tr-rule-ref: selector(".CBTreeTableBody");
+}
+af|treeTable::content af|column::cell-text, af|treeTable::content af|column::cell-icon-format,
+af|tableSelectMany::cell-icon-format, af|tableSelectOne::cell-icon-format {
+    -tr-rule-ref: selector(".CBTableCell");
+}
+/* footer cells */
+af|treeTable::content af|treeTable::column-footer, af|treeTable::content af|column::total-text {
+    display: table-cell;
+    -tr-rule-ref: selector(".CBTreeTableFooterCell");
+}
+
+/* Tree component --------------------------------------------------------------------------------------------------- */
+/* No any class hooks for some particular overwritings.
+/* We will go on the Navigation Tree component styles
+ */
+
+/* Layouts ---------------------------------------------------------------------------------------------------------- */
+/* Define styles used in:
+/* - Forms controls layouts
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* Tree table component --------------------------------------------------------------------------------------------- */
+/* CasaBlanca styles */
+.CBFormControlSpacing {
+    -tr-rule-ref: selector(".CBFormVerticalSpacingLook:alias");
+}
+/* Inject CasaBlanca styles */
+af|panelFormLayout::content-cell {
+    -tr-rule-ref: selector(".CBFormControlSpacing");
+}
+/* Dialog window component ------------------------------------------------------------------------------------------ */
+.CBDialog {
+    -tr-rule-ref: selector(".CBDialog:alias");
+}
+.CBDialogHead {
+    -tr-rule-ref: selector(".CBDialogHead:alias");
+}
+.CBDialogHeadCloseIcon {
+    -tr-rule-ref: selector(".CBDialogHeadCloseIcon:alias");
+}
+.CBDialogHeadCloseIconHover {
+    -tr-rule-ref: selector(".CBDialogHeadCloseIconHover:alias");
+}
+af|dialog::title-bar {
+    -tr-rule-ref: selector(".CBDialogHead");
+}
+af|dialog::close-icon {
+    -tr-rule-ref: selector(".CBDialogHeadCloseIcon");
+}
+af|dialog::container {
+    -tr-rule-ref: selector(".CBDialog");
+}
+
+
+/* IE hacks --------------------------------------------------------------------------------------------------------- */
+@agent ie and (version: 5), ie and (version: 6) {
+    .ie6BlockBahaviour {
+        height: 1%;
+    }
+}
+/* ------------------------------------------------------------------------------------------------------------------ */
+
+/* Browser normalization ---------------------------------------------------------------------------------------------*/
+ul {
+    padding: 0;
+    list-style-type: none;
+}

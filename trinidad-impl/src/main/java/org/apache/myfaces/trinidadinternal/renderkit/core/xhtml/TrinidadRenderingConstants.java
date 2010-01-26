@@ -190,6 +190,10 @@ public final class TrinidadRenderingConstants
   public static final String APACHE_TRINIDAD_PORTLET = 
     CoreRenderKit.OUTPUT_MODE_PORTLET;
 
+  // skin family names constants
+  public static final String CASABLANCA_SKIN_FAMILY = "casablanca";
+  public static final String MINIMAL_SKIN_FAMILY = "minimal";
+
   public static final String COLOR_PALETTE_TRANSPARENT_ICON_NAME = "cpt.gif";
   
   // 'xc' stands for uiX Composite
