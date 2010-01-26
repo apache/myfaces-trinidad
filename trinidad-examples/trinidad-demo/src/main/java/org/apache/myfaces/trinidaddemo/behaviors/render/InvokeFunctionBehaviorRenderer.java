@@ -39,10 +39,10 @@ public class InvokeFunctionBehaviorRenderer
   {
     InvokeFunctionBehavior behavior = (InvokeFunctionBehavior)clientBehavior;
     String function = behavior.getFunction();
-    return new StringBuilder(10 + function.length())
+    return new StringBuilder(15 + function.length())
       .append("return ")
       .append(function)
-      .append("();")
+      .append("(event);")
       .toString();
   }
 }
