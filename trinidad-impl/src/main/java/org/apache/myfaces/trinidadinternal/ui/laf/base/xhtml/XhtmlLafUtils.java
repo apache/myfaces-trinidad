@@ -1007,7 +1007,47 @@ public class XhtmlLafUtils extends BaseLafUtils
     Object readOnly = node.getAttributeValue(context, READ_ONLY_ATTR);
     return Boolean.TRUE.equals(readOnly);
   }
+  
+  /**
+   * This method returns a script for submitting a PPR request.
+   * @param formName the form name
+   * @param validate indicates whether to validate the form during PPR
+   * @param partialTargets the components to be refreshed during PPR
+   * @param event represents the event created by the component requesting PPR
+   * @param sourceParam id of the the component requesting PPR
+   */
+  public static String getPartialPageSubmitScript
+                               (String formName,
+                                String validate, 
+                                String partialTargets, 
+                                String event,
+                                String sourceParam)
+  {
+    return "_submitPartialChange('" + formName + "'," + validate + ",{"+
+                 PARTIAL_TARGETS_PARAM + ":'" + partialTargets + "'," +
+                 EVENT_PARAM + ":'" + event + "'," +
+                 SOURCE_PARAM + ":'" + sourceParam + "'});return false"; 
+  }
 
+  
+  /**
+   * This method returns a script for submitting the page.
+   * @param formName the form name
+   * @param validate indicates whether to validate the form
+   * @param event represents the event created by the submitting component
+   * @param sourceParam id of the the submitting component
+   */
+  public static String getFullPageSubmitScript
+                               (String formName,
+                                String validate, 
+                                String event,
+                                String sourceParam)
+  {
+    return "submitForm ('" + formName + "'," + validate + ",{"+
+            EVENT_PARAM + ":'" + SHOW_EVENT + "'," +
+            SOURCE_PARAM + ":'" + sourceParam + "'});return false";
+  }
+  
   // This utility method is used to strip /**/ style comments out of
   // JavaScript code.  We strip comments out of scripts that are
   // included in the partial page response, since we actually comment

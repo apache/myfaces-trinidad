@@ -21,10 +21,10 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.SubTabBarUtils;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * Renderer for ShowItem
@@ -57,32 +57,37 @@ public class ShowItemRenderer extends LinkRenderer
     )
   {
     String partialTargets = getAncestorPartialTargets(context);
-    
-    if (partialTargets == null)
-      return null;
-
-    URLEncoder encoder = context.getURLEncoder();
-    String partialTargetsKey = encoder.encodeParameter(PARTIAL_TARGETS_PARAM);
-    String eventParamKey = encoder.encodeParameter(EVENT_PARAM);
-    String sourceParamKey = encoder.encodeParameter(SOURCE_PARAM);
-    String sourceParam = BaseLafUtils.getStringAttributeValue(
-      context, node, ID_ATTR);
-    
+    String sourceParam = BaseLafUtils.getStringAttributeValue(context,
+                                                        node, ID_ATTR);
     String formName = getParentFormName(context);
+     
+    // Lets render fullpage submit if PPR is not enabled
+    if (partialTargets == null)
+    {
+      String fullPageSubmitScript = XhtmlLafUtils.
+                                        getFullPageSubmitScript(formName, "0",
+                                                                SHOW_EVENT,
+                                                                sourceParam);
 
-    char validate = Boolean.TRUE.equals(SubTabBarUtils.isUnvalidated(context)) ? 
-                      '0' : '1';
-    
-    String partialChangeScript = 
-      "_submitPartialChange('" + formName + "'," + validate + ",{"+
-      partialTargetsKey + ":'" + partialTargets + "'," +
-      eventParamKey + ":'" + SHOW_EVENT + "'," +
-      sourceParamKey + ":'" + sourceParam + "'});return false";
-    
-    String partialKey = context.getURLEncoder().encodeParameter(PARTIAL_PARAM);
-    FormValueRenderer.addNeededValue(context, formName, eventParamKey,
-                                     partialTargetsKey, sourceParamKey, partialKey);
-
+      FormValueRenderer.addNeededValue(context, formName, EVENT_PARAM,
+                                        SOURCE_PARAM, null,null);
+      return fullPageSubmitScript;
+    }
+     
+    String validate = 
+              Boolean.TRUE.equals(SubTabBarUtils.isUnvalidated(context)) ? 
+               "0" : "1"; 
+   
+    String partialChangeScript = XhtmlLafUtils.
+                                   getPartialPageSubmitScript(formName,
+                                                              validate,
+                                                              partialTargets,
+                                                              SHOW_EVENT,
+                                                              sourceParam);
+                                                               
+    FormValueRenderer.addNeededValue(context, formName, EVENT_PARAM,
+                                     PARTIAL_TARGETS_PARAM, SOURCE_PARAM,
+                                     PARTIAL_PARAM);
     return partialChangeScript;
   }
 }
