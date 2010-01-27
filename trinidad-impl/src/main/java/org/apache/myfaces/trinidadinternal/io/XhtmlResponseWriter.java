@@ -240,6 +240,8 @@ public class XhtmlResponseWriter extends ResponseWriter
   {
     if (text != null)
     {
+      String valueString = text.toString();
+      
       if (_dontEscape)
       {
         write(text.toString());
@@ -248,7 +250,7 @@ public class XhtmlResponseWriter extends ResponseWriter
       {
         _closeStartIfNecessary();
 
-        XMLEscapes.writeText(_out, text.toString().toCharArray());
+        XMLEscapes.writeText(_out, valueString);
       }
     }
   }
@@ -349,13 +351,15 @@ public class XhtmlResponseWriter extends ResponseWriter
       return;
     }
 
+    String stringValue = value.toString();
+      
     if (isAttribute)
     {
-      XMLEscapes.writeAttribute(_out, value.toString().toCharArray());
+      XMLEscapes.writeAttribute(_out, stringValue);
     }
     else
     {
-      XMLEscapes.writeText(_out, value.toString().toCharArray());
+      XMLEscapes.writeText(_out, stringValue);
     }
   }
 

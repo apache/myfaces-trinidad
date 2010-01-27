@@ -9,7 +9,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[id,null]-->
 
@@ -23,7 +23,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[inlineStyle,null]-->
 
@@ -38,7 +38,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[rendered,false]-->
 
@@ -54,7 +54,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[shortDesc,null]-->
 
@@ -69,7 +69,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onclick,null]-->
 
@@ -84,7 +84,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[ondblclick,null]-->
 
@@ -99,7 +99,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onkeydown,null]-->
 
@@ -114,7 +114,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onkeypress,null]-->
 
@@ -129,7 +129,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onkeyup,null]-->
 
@@ -144,7 +144,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onmousedown,null]-->
 
@@ -159,7 +159,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onmousemove,null]-->
 
@@ -174,7 +174,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onmouseout,null]-->
 
@@ -189,7 +189,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onmouseover,null]-->
 
@@ -204,7 +204,7 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 <!--AttributeTest[onmouseup,null]-->
 
@@ -219,6 +219,6 @@
              title="Required"
             >
           *
-        </span>&#xa0;Indicates required field
+        </span>&#160;Indicates required field
       </span>
 </results>
