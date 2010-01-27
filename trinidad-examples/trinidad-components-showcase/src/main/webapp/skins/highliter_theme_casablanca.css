@@ -1,0 +1,150 @@
+.syntaxhighlighter,
+.syntaxhighlighter div,
+.syntaxhighlighter code,
+.syntaxhighlighter table,
+.syntaxhighlighter table td,
+.syntaxhighlighter table tr,
+.syntaxhighlighter table tbody {
+	line-height: 1.5em !important;
+}
+
+/* Toolbar icons */
+.syntaxhighlighter.collapsed .toolbar .item.expandSource {
+	background-image: url(/skins/icons-highliter/magnifier.png) !important;
+    display: none !important;
+}
+
+.syntaxhighlighter .toolbar .item.viewSource {
+	background-image: url(/skins/icons-highliter/page_white_code.png) !important;
+}
+
+.syntaxhighlighter .toolbar .item.printSource {
+	background-image: url(/skins/icons-highliter/printer.png) !important;
+}
+
+.syntaxhighlighter .toolbar .item.about {
+	background-image: url(/skins/icons-highliter/help.png) !important;
+    display: none !important;
+}
+
+/* Background */
+.syntaxhighlighter {
+    background-color: transparent ! important;
+}
+
+/* Highlighed line number */
+.syntaxhighlighter .line.highlighted .number {
+	color: black !important;
+}
+
+/* Highlighed line */
+.syntaxhighlighter .line.highlighted.alt1,
+.syntaxhighlighter .line.highlighted.alt2 {
+	background-color: #E0E0E0 !important;
+}
+
+/* Gutter line numbers */
+.syntaxhighlighter .line .number {
+    width: 2.3em !important;
+}
+.syntaxhighlighter .line .number code {
+    width: 2.1em !important;
+	color: #BBB1AA !important;
+}
+
+/* Add border to the lines */
+.syntaxhighlighter .line .content {
+	border-left: 1px solid #BBB1AA !important;
+	color: black !important;
+}
+
+.syntaxhighlighter.printing .line .content {
+	border: 0 !important;
+}
+
+/* First line */
+.syntaxhighlighter .line.alt1 {
+    background-color: transparent ! important;
+}
+
+/* Second line */
+.syntaxhighlighter .line.alt2 {
+    background-color: transparent ! important;
+}
+
+.syntaxhighlighter .toolbar {
+	background-color: #F8F8F8 !important;
+	border: #E7E5DC solid 1px !important;
+}
+
+.syntaxhighlighter .toolbar a {
+	color: #A0A0A0 !important;
+}
+
+.syntaxhighlighter .toolbar a:hover {
+	color: red !important;
+}
+
+/************************************
+ * Actual syntax highlighter colors.
+ ************************************/
+.syntaxhighlighter .plain,
+.syntaxhighlighter .plain a {
+	color: black !important;
+}
+
+.syntaxhighlighter .comments,
+.syntaxhighlighter .comments a,
+.syntaxhighlighter .javadoc {
+	color: gray !important;
+    font-style: italic !important;
+}
+
+.syntaxhighlighter .string,
+.syntaxhighlighter .string a {
+    color: #008200 !important;
+}
+
+.syntaxhighlighter .keyword {
+	font-weight: bold !important;
+    color: #000080 !important;
+}
+
+.syntaxhighlighter .preprocessor {
+	color: black !important; 
+}
+
+.syntaxhighlighter .variable {
+	color: #A70 !important; 
+}
+
+.syntaxhighlighter .value {
+	color: #090 !important; 
+}
+
+.syntaxhighlighter .functions {
+	color: #ff1493 !important; 
+}
+
+.syntaxhighlighter .constants {
+	color: #0066CC !important;
+}
+
+.syntaxhighlighter .script {
+	background-color: yellow !important;
+}
+
+.syntaxhighlighter .color1,
+.syntaxhighlighter .color1 a {
+	color: #0000FF !important; 
+}
+
+.syntaxhighlighter .color2,
+.syntaxhighlighter .color2 a {
+	color: #ff1493 !important; 
+}
+
+.syntaxhighlighter .color3,
+.syntaxhighlighter .color3 a {
+	color: red !important; 
+}

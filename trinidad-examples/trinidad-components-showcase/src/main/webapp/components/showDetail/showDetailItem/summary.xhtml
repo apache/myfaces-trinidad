@@ -1,0 +1,13 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    The showDetailItem component is used inside of a showOne component to contain a group of
+    children. It is identified visually by the the text attribute value and lays out its children. When inside of a
+    parent showOne, &quot;disclosed&quot; and &quot;rendered&quot; mean different things: if &quot;rendered&quot; is
+    false, it means that this item and its contents are not available at all to the user, while if &quot;disclosed&quot;
+    is false, it means that the contents of the item are not currently visible, but may be made visible by the user.
+    It is generally used inside of a showOne component, but may be used on its own, in which case &quot;disclosed&quot;
+    functions equivalently to &quot;rendered&quot;, and the &quot;text&quot; attribute is ignored.
+
+</ui:composition>

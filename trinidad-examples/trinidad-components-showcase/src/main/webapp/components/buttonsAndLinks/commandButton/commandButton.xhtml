@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+	<tr:panelHorizontalLayout halign="left">
+        <f:facet name="separator">
+            <tr:spacer width="10" height="5"/>
+        </f:facet>
+        <tr:inputText label="Your name" value="#{commandButtonBean.name}" required="true" />
+        <tr:commandButton text="Say Hello" action="#{commandButtonBean.sayHello}"/>        
+    </tr:panelHorizontalLayout>  
+    
+    <tr:outputText value="#{commandButtonBean.message}" inlineStyle="font-weight: bold;"/>
+
+</ui:composition>

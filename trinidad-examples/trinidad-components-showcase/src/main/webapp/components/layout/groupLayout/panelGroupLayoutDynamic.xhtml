@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    <tr:panelGroupLayout layout="vertical">
+        <f:facet name="separator">
+            <div style="border: 1px solid #CBC3BE; margin-top: 4px; margin-bottom: 4px;"/>
+        </f:facet>
+
+        <c:forEach items="#{groupLayoutDynamicBean.layoutItems}" var="aLayoutItem">
+            <tr:outputText value="#{aLayoutItem}"/>
+        </c:forEach>
+    </tr:panelGroupLayout>
+
+</ui:composition>
+

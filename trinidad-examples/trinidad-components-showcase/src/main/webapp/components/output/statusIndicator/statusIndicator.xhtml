@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    <tr:panelHorizontalLayout>
+        <f:facet name="separator">
+            <tr:spacer width="20"/>
+        </f:facet>
+
+        <tr:panelGroupLayout layout="vertical">
+            <tr:outputText value="Number of seconds you want the page to load:"/>
+            <tr:spacer height="10"/>
+            <tr:inputText value="#{statusIndicatorBean.loadingSec}" simple="true"/>
+            <tr:spacer height="10"/>
+            <tr:commandButton text="Load" action="#{statusIndicatorBean.doLoad}" partialSubmit="true"/>
+        </tr:panelGroupLayout>
+
+        <tr:panelGroupLayout layout="vertical">
+            <tr:panelHorizontalLayout>
+                <tr:panelList>
+                    <tr:outputText value="Icon status indicator:"/>
+                </tr:panelList>
+                <tr:spacer width="70" height="30"/>
+                <tr:statusIndicator/>
+            </tr:panelHorizontalLayout>
+
+            <tr:panelHorizontalLayout>
+                <tr:panelList>
+                    <tr:outputText value="Specified facet status indicator:"/>
+                </tr:panelList>
+                <tr:spacer width="10"/>
+                <tr:statusIndicator>
+                    <f:facet name="busy">
+                        <tr:outputText value="Loading, please wait..."/>
+                    </f:facet>
+                    <f:facet name="ready">
+                        <tr:outputText value="Done!"/>
+                    </f:facet>
+                </tr:statusIndicator>
+            </tr:panelHorizontalLayout>
+        </tr:panelGroupLayout>
+    </tr:panelHorizontalLayout>
+</ui:composition>

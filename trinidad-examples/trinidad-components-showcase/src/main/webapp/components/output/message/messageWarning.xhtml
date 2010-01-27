@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    <tr:outputText value="Type 'cat' to see an error message"/>
+    <tr:spacer height="10"/>
+
+    <tr:panelGroupLayout layout="vertical">
+        <tr:outputLabel for="foo" value="Label"/>
+        <tr:message for="foo" messageType="warning" inlineStyle="background-color:#BBB1AA">
+            <f:facet name="help">
+                <tr:outputText value="Help facet text"/>
+            </f:facet>
+        </tr:message>
+
+        <tr:inputText id="foo" simple="true" label="BigInteger field">
+            <f:converter converterId="javax.faces.BigInteger"/>
+        </tr:inputText>
+        <tr:commandButton text="Submit"/>
+    </tr:panelGroupLayout>
+
+</ui:composition>

@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    <tr:breadCrumbs id="breadCrumbExample" orientation="vertical">
+
+        <tr:commandNavigationItem text="breadCrumbs Demo" 	
+        						  action="breadCrumbs"/>
+        <tr:commandNavigationItem text="Apache.org" 
+        						  destination="http://www.apache.org" targetFrame="_new"/>
+        <tr:commandNavigationItem text="Disabled Item" disabled="true" 
+        						  action="breadCrumbs.tree"/>
+        <tr:commandNavigationItem text="NavigationPane Demo" 
+        						  destination="/component-demo/navigationPane-Default"/>
+        <tr:commandNavigationItem text="Current Page" 
+        						  action="breadCrumbs.this"/>
+
+    </tr:breadCrumbs>
+    
+</ui:composition>

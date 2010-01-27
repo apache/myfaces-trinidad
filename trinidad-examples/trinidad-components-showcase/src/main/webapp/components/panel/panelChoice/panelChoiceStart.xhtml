@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    <tr:panelChoice alignment="top" position="start" 
+                    label="Sales Data" accessKey="S">
+        <tr:showDetailItem id="showDetailItem2" text="Monthly Sales Distribution">
+            <tr:panelHeader text="Monthly Sales Distribution">
+                <tr:image source="/resources/monthlySalesDistribution.gif"
+                          inlineStyle="height:200px; width:300px;" id="monthlySalesImage"
+                          shortDesc="Monthly sales distribution"/>
+            </tr:panelHeader>
+        </tr:showDetailItem>
+
+        <tr:showDetailItem id="showDetailItem3" text="Sales by Geography">
+            <tr:panelHeader text="Sales by Geography">
+                <tr:image source="/resources/salesByGeography.gif" shortDesc="Sales by Geography"
+                          inlineStyle="height:200px; width:300px;" id="salesByGeographyImage"/>
+            </tr:panelHeader>
+        </tr:showDetailItem>
+
+    </tr:panelChoice>
+
+</ui:composition>

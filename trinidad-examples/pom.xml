@@ -93,6 +93,7 @@
   <modules>
     <module>trinidad-blank</module>
     <module>trinidad-demo</module>
+    <module>trinidad-components-showcase</module> 
   </modules>
 
   <profiles>

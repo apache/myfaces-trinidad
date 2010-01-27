@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    The outputFormatted bean accepts a string in its &quot;value&quot; attribute containing
+    a very limited set of HTML markup and outputs formatted results. It is not intended as anything near to a
+    generic HTML output engine, and will never be such a bean. Developers needing full HTML output should use
+    &lt;f:verbatim  	&gt;  or  	&lt;tr:outputText  	&gt; with escape=&quot;false&quot;.
+
+    <br/>
+
+    What this bean does provide is a limited ability to use a single source for translated or
+    user-provided formatted text without further parsing or filtering or dangerous constructs (e.g., Javascript),
+    and with some hope of successful output to non-HTML displays. It also supports more attributes than an
+    unescaped outputText tag - for example, it supports styleClass. 
+
+</ui:composition>
