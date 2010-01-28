@@ -116,7 +116,7 @@
                         <executions>
                             <execution>
                                 <id>unpack-source</id>
-                                <phase>process-resources</phase>
+                                <phase>install</phase>
                                 <goals>
                                     <goal>unpack</goal>
                                 </goals>
