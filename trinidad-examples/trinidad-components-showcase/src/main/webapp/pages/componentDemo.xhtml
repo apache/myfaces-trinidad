@@ -64,17 +64,11 @@
                     <tr:showDetailItem text="JSF Page">
                         <trd:outputSource value="#{navigationHandler.currentComponentVariantDemo.jsfResourcePath}"
                                           styleClass="sourceCode" styleUsage="xml"/>
-                        <h:panelGroup rendered="#{appConfig.jsBasedCodeFormatting}">                 
-                        	<script type="text/javascript">SyntaxHighlighter.all();</script>
-                        </h:panelGroup>	
                     </tr:showDetailItem>
 
                     <tr:showDetailItem text="Backing Beans" rendered="#{!navigationHandler.currentComponentVariantDemo.static}">
                         <trd:outputSource value="#{navigationHandler.currentComponentVariantDemo.backingBeanResourcePath}"
                                           pathPrefix="/WEB-INF/src" styleClass="sourceCode" styleUsage="java"/>
-                        <h:panelGroup rendered="#{appConfig.jsBasedCodeFormatting}">                 
-                        	<script type="text/javascript">SyntaxHighlighter.all();</script>
-                        </h:panelGroup>
                     </tr:showDetailItem>
                 </tr:panelTabbed>
             </div>

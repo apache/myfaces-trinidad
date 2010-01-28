@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidaddemo.support.jsf;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputFormattedRenderer;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidaddemo.support.ApplicationConfigurationBean;
 import org.apache.myfaces.trinidaddemo.support.util.HighlightXhtmlSource;
 import org.apache.myfaces.trinidaddemo.support.util.HighlightJavaSource;
 
@@ -44,39 +43,32 @@ public class OutputSourceRenderer extends OutputFormattedRenderer {
 
     @Override
     protected void encodeAll(FacesContext context, RenderingContext arc, UIComponent comp, FacesBean bean) throws IOException {
-    	if (canSkipRendering(context, arc, comp)) {
+        if (canSkipRendering(context, arc, comp)) {
             return;
         }
-    	
-    	String path = (String)getValue(bean);
-        
-    	ResponseWriter rw = context.getResponseWriter();
+
+        String path = (String)getValue(bean);
+        String sourceType = path.substring(path.lastIndexOf('.') + 1, path.length());
+
+        Renderer hlight;
+
+        if (sourceType.equals("xhtml")) {
+            hlight = new HighlightXhtmlSource();
+        }
+        else if (sourceType.equals("java")) {
+            hlight = new HighlightJavaSource();
+        }
+        else {
+            hlight = null;
+        }
+
+        ResponseWriter rw = context.getResponseWriter();
         rw.startElement("span", comp);
 
         renderId(context, comp);
         renderAllAttributes(context, arc, bean);
-    	
-        ApplicationConfigurationBean appConfig = (ApplicationConfigurationBean)JsfHelper.getBean("appConfig");
-        if (!appConfig.isJsBasedCodeFormatting()) {
-	        String sourceType = path.substring(path.lastIndexOf('.') + 1, path.length());
-	
-	        Renderer hlight;
-	
-	        if (sourceType.equals("xhtml")) {
-	            hlight = new HighlightXhtmlSource();
-	        }
-	        else if (sourceType.equals("java")) {
-	            hlight = new HighlightJavaSource();
-	        }
-	        else {
-	            hlight = null;
-	        } 
-	        
-	        renderSourceHighlighted(context, (OutputSource)comp, bean, hlight);
-        }
-        else {
-        	renderSourceHighlighted(context, (OutputSource)comp, bean);
-        }
+
+        renderSourceHighlighted(context, (OutputSource)comp, bean, hlight);
 
         rw.endElement("span");
     }
@@ -93,23 +85,6 @@ public class OutputSourceRenderer extends OutputFormattedRenderer {
 
         ResponseWriter rw = context.getResponseWriter();
         rw.write(hlight.highlight(null, sourceContent, "UTF-8", true));
-    }
-    
-    /**
-     * @param context
-     * @param outputSource
-     * @param bean
-     * @throws IOException
-     */
-    protected void renderSourceHighlighted(FacesContext context, OutputSource outputSource, FacesBean bean) throws IOException {
-        String sourceContent = readSource(context, outputSource, bean);
-
-        ResponseWriter rw = context.getResponseWriter();
-
-        rw.write("<script type=\"syntaxhighlighter\" class=\"brush: "+super.getStyleUsage(bean)+"; auto-links: false; wrap-lines: true;\">");
-        rw.write(sourceContent);
-        rw.write("</script>");
-
     }
 
     /**

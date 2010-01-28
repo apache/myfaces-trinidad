@@ -32,16 +32,6 @@
     <lifecycle>
         <phase-listener>org.apache.myfaces.trinidaddemo.NavigationHandlerPhaseListener</phase-listener>
     </lifecycle>
-    
-    <managed-bean>
-        <managed-bean-name>appConfig</managed-bean-name>
-        <managed-bean-class>org.apache.myfaces.trinidaddemo.support.ApplicationConfigurationBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-        	<property-name>jsBasedCodeFormatting</property-name>
-        	<value>true</value>
-        </managed-property>
-    </managed-bean>
 
     <managed-bean>
         <managed-bean-name>navigationHandler</managed-bean-name>
