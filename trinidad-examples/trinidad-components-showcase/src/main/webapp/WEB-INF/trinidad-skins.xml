@@ -29,30 +29,5 @@
             skins/layout.css
         </style-sheet-name>
     </skin-addition>
-    
-    <!-- Define the code highliter styling as skin additions to the 'casablanca' skin -->
-    <skin-addition>
-        <id>
-            highliter_core
-        </id>
-	    <skin-id>
-	        casablanca.desktop
-	    </skin-id>
-	    <style-sheet-name>
-            skins/highliter_core.css
-        </style-sheet-name>
-    </skin-addition>    
-
-    <skin-addition>
-        <id>
-            highliter_theme_casablanca
-        </id>
-	    <skin-id>
-	        casablanca.desktop
-	    </skin-id>
-	    <style-sheet-name>
-            skins/highliter_theme_casablanca.css
-        </style-sheet-name>
-    </skin-addition>
 
 </skins>
