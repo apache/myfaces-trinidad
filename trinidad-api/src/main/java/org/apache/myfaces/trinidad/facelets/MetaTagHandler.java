@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.facelets;
+package org.apache.myfaces.trinidad.facelets;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
