@@ -6,6 +6,7 @@
            class="af_messages"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -107,6 +108,7 @@
            class="af_messages"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -208,6 +210,7 @@
            class="af_messages"
            datatable="0"
            id="id_val"
+           role="presentation"
            summary=""
           >
         
@@ -309,6 +312,7 @@
            class="af_messages"
            datatable="0"
            id="mainId"
+           role="presentation"
            style="background-color:red"
            summary=""
           >
@@ -412,6 +416,7 @@
            class="af_messages"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -518,6 +523,7 @@
            class="af_messages"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -619,6 +625,7 @@
            class="af_messages"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
            title="shortDesc_val"
           >
@@ -722,6 +729,7 @@
            class="styleClass_val af_messages"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -824,6 +832,7 @@
            class="af_messages"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
