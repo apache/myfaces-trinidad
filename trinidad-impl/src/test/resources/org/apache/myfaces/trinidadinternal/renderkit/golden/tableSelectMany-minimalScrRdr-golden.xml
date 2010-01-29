@@ -9,6 +9,7 @@
              cellpadding="0"
              cellspacing="0"
              datatable="0"
+             role="presentation"
              summary=""
             >
           
@@ -24,6 +25,7 @@
                    cellspacing="0"
                    class="af_table_control-bar-top"
                    datatable="0"
+                   role="presentation"
                    summary=""
                    width="100%"
                   >
@@ -47,6 +49,7 @@
                          cellspacing="0"
                          datatable="0"
                          id="mainId-nb"
+                         role="presentation"
                          summary=""
                         >
                       
@@ -162,6 +165,7 @@
                    cellspacing="0"
                    class="af_table_sub-control-bar"
                    datatable="0"
+                   role="presentation"
                    summary=""
                    width="100%"
                   >
@@ -362,6 +366,7 @@
              cellpadding="0"
              cellspacing="0"
              datatable="0"
+             role="presentation"
              summary=""
             >
           
@@ -377,6 +382,7 @@
                    cellspacing="0"
                    class="af_table_control-bar-top"
                    datatable="0"
+                   role="presentation"
                    summary=""
                    width="100%"
                   >
@@ -400,6 +406,7 @@
                          cellspacing="0"
                          datatable="0"
                          id="mainId-nb"
+                         role="presentation"
                          summary=""
                         >
                       
@@ -515,6 +522,7 @@
                    cellspacing="0"
                    class="af_table_sub-control-bar"
                    datatable="0"
+                   role="presentation"
                    summary=""
                    width="100%"
                   >
@@ -715,6 +723,7 @@
              cellpadding="0"
              cellspacing="0"
              datatable="0"
+             role="presentation"
              summary=""
             >
           
@@ -730,6 +739,7 @@
                    cellspacing="0"
                    class="af_table_control-bar-top"
                    datatable="0"
+                   role="presentation"
                    summary=""
                    width="100%"
                   >
@@ -753,6 +763,7 @@
                          cellspacing="0"
                          datatable="0"
                          id="mainId-nb"
+                         role="presentation"
                          summary=""
                         >
                       
@@ -868,6 +879,7 @@
                    cellspacing="0"
                    class="af_table_sub-control-bar"
                    datatable="0"
+                   role="presentation"
                    summary=""
                    width="100%"
                   >

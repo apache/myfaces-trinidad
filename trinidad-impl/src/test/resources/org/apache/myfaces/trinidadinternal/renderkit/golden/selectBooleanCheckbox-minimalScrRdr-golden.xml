@@ -6,6 +6,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -50,6 +51,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -94,6 +96,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -138,6 +141,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -188,6 +192,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -233,6 +238,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -277,6 +283,7 @@
            class="af_selectBooleanCheckbox p_AFDisabled"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -322,6 +329,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -371,6 +379,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -415,6 +424,7 @@
            class="af_selectBooleanCheckbox p_AFReadOnly"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -461,6 +471,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -505,6 +516,7 @@
            class="af_selectBooleanCheckbox p_AFRequired"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -554,6 +566,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -598,6 +611,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -643,6 +657,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -692,6 +707,7 @@
            class="test-styleClass af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            style="color:red"
            summary=""
           >
@@ -742,6 +758,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -786,6 +803,7 @@
            class="af_selectBooleanCheckbox p_AFRequired"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -835,6 +853,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="test-id__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -879,6 +898,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
            title="test-shortDesc"
           >
@@ -931,6 +951,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -976,6 +997,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1021,6 +1043,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1066,6 +1089,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1111,6 +1135,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1156,6 +1181,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1201,6 +1227,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1246,6 +1273,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1291,6 +1319,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1336,6 +1365,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1381,6 +1411,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1426,6 +1457,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1471,6 +1503,7 @@
            class="af_selectBooleanCheckbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         

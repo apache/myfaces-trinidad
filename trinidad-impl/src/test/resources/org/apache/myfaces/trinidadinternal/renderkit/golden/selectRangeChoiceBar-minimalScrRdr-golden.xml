@@ -5,6 +5,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -88,6 +89,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -194,6 +196,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -262,6 +265,7 @@
            cellspacing="0"
            datatable="0"
            id="test-id"
+           role="presentation"
            summary=""
           >
         
@@ -335,6 +339,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
            title="test-shortDesc"
           >

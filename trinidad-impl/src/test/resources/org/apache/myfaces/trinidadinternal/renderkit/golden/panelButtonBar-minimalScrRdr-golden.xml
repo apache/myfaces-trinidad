@@ -6,6 +6,7 @@
            class="af_panelButtonBar"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -80,6 +81,7 @@
            class="af_panelButtonBar"
            datatable="0"
            id="test-id"
+           role="presentation"
            summary=""
           >
         
@@ -154,6 +156,7 @@
            class="af_panelButtonBar"
            datatable="0"
            id="mainId"
+           role="presentation"
            style="test-inlineStyle"
            summary=""
           >
@@ -231,6 +234,7 @@
            class="af_panelButtonBar"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -305,6 +309,7 @@
            class="af_panelButtonBar"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
            title="test-shortDesc"
           >
@@ -380,6 +385,7 @@
            class="test-styleClass af_panelButtonBar"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -454,6 +460,7 @@
            class="af_panelButtonBar"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -533,6 +540,7 @@
            class="af_panelButtonBar"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -607,6 +615,7 @@
            class="af_panelButtonBar"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -681,6 +690,7 @@
            class="af_panelButtonBar"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -761,6 +771,7 @@
            class="af_panelButtonBar"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -836,6 +847,7 @@
            datatable="0"
            id="mainId"
            onclick="test-onclick"
+           role="presentation"
            summary=""
           >
         
@@ -911,6 +923,7 @@
            datatable="0"
            id="mainId"
            ondblclick="test-ondblclick"
+           role="presentation"
            summary=""
           >
         
@@ -986,6 +999,7 @@
            datatable="0"
            id="mainId"
            onkeydown="test-onkeydown"
+           role="presentation"
            summary=""
           >
         
@@ -1061,6 +1075,7 @@
            datatable="0"
            id="mainId"
            onkeypress="test-onkeypress"
+           role="presentation"
            summary=""
           >
         
@@ -1136,6 +1151,7 @@
            datatable="0"
            id="mainId"
            onkeyup="test-onkeyup"
+           role="presentation"
            summary=""
           >
         
@@ -1211,6 +1227,7 @@
            datatable="0"
            id="mainId"
            onmousedown="test-onmousedown"
+           role="presentation"
            summary=""
           >
         
@@ -1286,6 +1303,7 @@
            datatable="0"
            id="mainId"
            onmousemove="test-onmousemove"
+           role="presentation"
            summary=""
           >
         
@@ -1361,6 +1379,7 @@
            datatable="0"
            id="mainId"
            onmouseout="test-onmouseout"
+           role="presentation"
            summary=""
           >
         
@@ -1436,6 +1455,7 @@
            datatable="0"
            id="mainId"
            onmouseover="test-onmouseover"
+           role="presentation"
            summary=""
           >
         
@@ -1511,6 +1531,7 @@
            datatable="0"
            id="mainId"
            onmouseup="test-onmouseup"
+           role="presentation"
            summary=""
           >
         
