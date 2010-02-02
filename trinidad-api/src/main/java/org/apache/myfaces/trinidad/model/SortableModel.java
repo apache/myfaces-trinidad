@@ -18,10 +18,13 @@
  */
 package org.apache.myfaces.trinidad.model;
 
+import java.text.Collator;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.ApplicationFactory;
@@ -30,6 +33,7 @@ import javax.faces.el.PropertyResolver;
 import javax.faces.model.DataModel;
 import javax.faces.model.DataModelListener;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
@@ -279,7 +283,7 @@ public class SortableModel extends CollectionModel
     if (_model.isRowAvailable())
     {
       Comparator<Integer> comp =
-        new Comp(__getPropertyResolver(), property);
+        new Comp(__getPropertyResolver(), __getLocale(), property);
       if (!isAscending)
         comp = new Inverter<Integer>(comp);
 
@@ -362,9 +366,10 @@ public class SortableModel extends CollectionModel
 
   private final class Comp implements Comparator<Integer>
   {
-    public Comp(PropertyResolver resolver, String property)
+    public Comp(PropertyResolver resolver, Locale locale, String property)
     {
       _resolver = resolver;
+      _collator = Collator.getInstance(locale);
       _prop = property;
     }
 
@@ -394,18 +399,31 @@ public class SortableModel extends CollectionModel
       // So test before we cast:
       if (value1 instanceof Comparable)
       {
-        return ((Comparable<Object>) value1).compareTo(value2);
+        if ((value1 instanceof String) && (value2 instanceof String)) 
+        {
+          return compare((String) value1, (String) value2);
+        }
+        else 
+        {
+          return ((Comparable<Object>) value1).compareTo(value2);
+        }
       }
       else
       {
         // if the object is not a Comparable, then
         // the best we can do is string comparison:
-        return value1.toString().compareTo(value2.toString());
+        return compare(value1.toString(), value2.toString());
       }
+    }
+    
+    private int compare(String s1, String s2) 
+    {
+      return _collator.compare(s1, s2);
     }
 
     private final PropertyResolver _resolver;
     private final String _prop;
+    private final Collator _collator;
   }
 
   private static final class Inverter<T> implements Comparator<T>
@@ -421,6 +439,25 @@ public class SortableModel extends CollectionModel
     }
 
     private final Comparator<T> _comp;
+  }
+  
+  static Locale __getLocale() 
+  {
+    Locale locale = null;
+    RequestContext requestContext = RequestContext.getCurrentInstance();  
+    
+    if (requestContext != null)
+    {
+      locale = requestContext.getFormattingLocale();
+    }
+    
+    if (locale == null)
+    {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      locale = facesContext.getViewRoot().getLocale();
+    }
+    
+    return locale;
   }
 
   static PropertyResolver __getPropertyResolver()
