@@ -94,7 +94,7 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
       return null;
     }
     
-    // TRINIDAD-1703 - use physical URI (retrieved from the PageResolver before calling the delegate's 
+    // TRINIDAD-1703 - use physical URI (retrieved from the PageResolver) before calling the delegate's 
     // implementation
     viewId = _getPath(viewId);
     
