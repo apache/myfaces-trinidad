@@ -53,4 +53,5 @@ public interface StyleContext
   public AccessibilityProfile getAccessibilityProfile();
   public boolean isPortletMode();
   public boolean isDisableStyleCompression();
+  public boolean isDirty();
 }

@@ -75,9 +75,10 @@ class StyleSheetEntry
         return null;
 
       // We either create a plain old StyleSheetEntry or a special
-      // subclass of StyleSheetEntry that can check for modifications
-      // depending on the Configuration settings
-      if (context.checkStylesModified())
+      // subclass of StyleSheetEntry that will recalculate the StyleSheetEntry
+      // if the skin is dirty or if there are file modifications
+      // and the Configuration settings say to check for file modifications.
+      if (context.checkStylesModified() || context.isDirty())
         return new CheckModifiedEntry(styleSheetName,
                                       skinStyleSheet.getDocument(),
                                       resolver);
@@ -265,8 +266,8 @@ class StyleSheetEntry
   }
 
 
-  // Subclass of StyleSheetEntry which checks for updates
-  // to the underlying style sheet files.
+  // Subclass of StyleSheetEntry which recreates the StyleSheetEntry
+  // if the skin is marked dirty (skin.isDirty()) or if the underlying source files have been modified.
   private static class CheckModifiedEntry extends StyleSheetEntry
   {
     public CheckModifiedEntry(
@@ -290,7 +291,7 @@ class StyleSheetEntry
     {
       // We would synchronize here, but at the moment synchronization
       // is provided by Skin.getStyleSheetDocument().
-      if ((_provider != null) && (_provider.hasSourceChanged()))
+      if (context.isDirty() || ((_provider != null) && (_provider.hasSourceChanged())))
       {
         // Throw away the old InputStreamProvider and StyleSheetDocument
         _provider = null;

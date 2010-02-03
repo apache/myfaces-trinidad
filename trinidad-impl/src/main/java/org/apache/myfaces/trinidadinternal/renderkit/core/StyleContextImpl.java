@@ -116,6 +116,14 @@ class StyleContextImpl implements StyleContext
       context.getExternalContext().getInitParameter(Configuration.CHECK_TIMESTAMP_PARAM);
     return "true".equals(checkTimestamp);
   }
+  /*
+   * checks to see if the Skin is dirty by calling skin.isDirty()
+   */
+  public boolean isDirty()
+  {
+    return _arc.getSkin().isDirty();
+  }
+
 
   public boolean disableStandardsMode()
   {
