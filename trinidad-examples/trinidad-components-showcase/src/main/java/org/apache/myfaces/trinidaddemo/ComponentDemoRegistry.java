@@ -18,8 +18,6 @@
  */
 package org.apache.myfaces.trinidaddemo;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoCategoryId;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
 import org.apache.myfaces.trinidaddemo.support.IComponentDemo;
@@ -31,13 +29,15 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Collection;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * This class represents the central point where component demos can be registered and obtained from.
  */
 public class ComponentDemoRegistry {
 
-    private static final Log log = LogFactory.getLog(ComponentDemoRegistry.class);
+    private static final Logger _LOG = Logger.getLogger(ComponentDemoRegistry.class.getName());
 
     private static ComponentDemoRegistry instance = new ComponentDemoRegistry();
 
@@ -77,7 +77,7 @@ public class ComponentDemoRegistry {
             throw new IllegalArgumentException("Trying to register a null component demo!");
         }
 
-        log.info("Register component demo '" + componentDemo.getDisplayName() + "' in category '" + categoryName + "'");
+        _LOG.log(Level.INFO, "Register component demo '" + componentDemo.getDisplayName() + "' in category '" + categoryName + "'");
 
         IComponentDemoCategory category = categoriesRegistry.get(categoryId);
         if (category == null) {

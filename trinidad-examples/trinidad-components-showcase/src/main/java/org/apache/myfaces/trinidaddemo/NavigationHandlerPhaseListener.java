@@ -24,21 +24,22 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
 import org.apache.myfaces.trinidaddemo.support.IComponentDemo;
 import org.apache.myfaces.trinidaddemo.support.IComponentVariantDemo;
 import org.apache.myfaces.trinidaddemo.support.jsf.JsfHelper;
 
-/**
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
+ /**
  * Phase listener that handles navigation based on URL parameters that identify a certain component demo and its variant.
  */
 public class NavigationHandlerPhaseListener implements PhaseListener {
 
 	private static final long serialVersionUID = -6002602992566868748L;
 
-	private static final Log log = LogFactory.getLog(NavigationHandlerPhaseListener.class);
+	private static final Logger _LOG = Logger.getLogger(NavigationHandlerPhaseListener.class.getName());
 
     public static final String COMPONENT_DEMO_ID_PARAM_NAME = "id";
     public static final String COMPONENT_DEMO_VARIANT_ID_PARAM_NAME = "variantId";
@@ -50,7 +51,7 @@ public class NavigationHandlerPhaseListener implements PhaseListener {
         if (fc.getViewRoot().getViewId().startsWith("/feature") ||
             fc.getViewRoot().getViewId().equals("/pages/demoStart.xhtml") ||
             fc.getViewRoot().getViewId().equals("/pages/demoSearch.xhtml")) {
-                log.info("Ignore request to demoStart or demoSearch pages.");
+                _LOG.log(Level.INFO, "Ignore request to demoStart or demoSearch pages.");
                 return;
         }
 
@@ -68,7 +69,7 @@ public class NavigationHandlerPhaseListener implements PhaseListener {
             fc.addMessage(null, msg);
             fc.getViewRoot().setViewId("/pages/demoStart.xhtml");
 
-            log.error("Either component demo id or variant name is missing.");
+            _LOG.log(Level.SEVERE, "Either component demo id or variant name is missing.");
             return;
         }
 
@@ -88,11 +89,11 @@ public class NavigationHandlerPhaseListener implements PhaseListener {
                 fc.addMessage(null, msg);
                 fc.getViewRoot().setViewId("/pages/demoStart.xhtml");
 
-                log.error("Component with id: '" + componentDemoId + "' doesn't have a variant with name: '"+variantId+"'!");
+                _LOG.log(Level.SEVERE, "Component with id: '" + componentDemoId + "' doesn't have a variant with name: '"+variantId+"'!");
                 return;
             }
 
-            log.info("Navigation successfull to component demo id: '"+componentDemoId+"', variant name: '"+variantId+"'");
+            _LOG.log(Level.INFO, "Navigation successfull to component demo id: '"+componentDemoId+"', variant name: '"+variantId+"'");
             navigationHandler.setCurrentComponentVariantDemo(resultingDemo);
         }
         catch (IllegalArgumentException e) {
@@ -102,7 +103,7 @@ public class NavigationHandlerPhaseListener implements PhaseListener {
             fc.addMessage(null, msg);
             fc.getViewRoot().setViewId("/pages/demoStart.xhtml");
 
-            log.error("Component id: '" + componentDemoId + "' not found!");
+            _LOG.log(Level.SEVERE, "Component id: '" + componentDemoId + "' not found!");
         }             
     }
 

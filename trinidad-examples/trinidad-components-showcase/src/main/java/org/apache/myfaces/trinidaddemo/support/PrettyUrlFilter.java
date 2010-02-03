@@ -20,8 +20,6 @@ package org.apache.myfaces.trinidaddemo.support;
 
 import org.apache.myfaces.trinidaddemo.NavigationHandlerBean;
 import org.apache.myfaces.trinidaddemo.ComponentDemoRegistry;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.Filter;
@@ -37,13 +35,15 @@ import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContextFactory;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  *
  */
 public class PrettyUrlFilter implements Filter {
 
-    private static final Log log = LogFactory.getLog(PrettyUrlFilter.class);
+    private static final Logger _LOG = Logger.getLogger(PrettyUrlFilter.class.getName());
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         String requestURI = getRequestURI(request);
@@ -54,7 +54,7 @@ public class PrettyUrlFilter implements Filter {
 
         navigationHandler.setCurrentComponentVariantDemo(resultingDemo);
 
-        log.info("Forwarding request [" + requestURI + "] to view [" + "/pages/componentDemo.xhtml?id="+resultingDemo.getId()+"&variantId="+resultingDemo.getVariantId()+"]");
+        _LOG.log(Level.INFO, "Forwarding request [" + requestURI + "] to view [" + "/pages/componentDemo.xhtml?id="+resultingDemo.getId()+"&variantId="+resultingDemo.getVariantId()+"]");
         if (!response.isCommitted()) {
             request.getRequestDispatcher("/faces/pages/componentDemo.xhtml").forward(request, response);
         }       

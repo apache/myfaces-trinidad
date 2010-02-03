@@ -39,7 +39,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 /**
+ * Utility class for generating the corresponding sitemap.xml for this demo app.
  *
+ * Example mvn command:
+ *  mvn exec:java
+ *      -Dexec.args="http://example.irian.at/trinidad-components-showcase"
+ *      -Dexec.mainClass="org.apache.myfaces.trinidaddemo.support.util.SitemapGenerator"
  */
 public class SitemapGenerator {
 
@@ -216,7 +221,14 @@ public class SitemapGenerator {
     }
 
     public static void main(String[] args) {
-        SitemapGenerator generator = new SitemapGenerator("http://test.codebeat.ro/trinidad-components-demo");
-        generator.generateSitemap();
+        //expected arg example : ""http://test.codebeat.ro/trinidad-components-demo"
+        //to specify baseURL for the links in the generated sitemap
+        String loc = "http://test.codebeat.ro/trinidad-components-demo"; //default value
+        if (args != null && args.length > 0) {
+            loc = args[0];
+        }
+
+        SitemapGenerator generator = new SitemapGenerator(loc);
+        generator.generateSitemap();        
     }
 }

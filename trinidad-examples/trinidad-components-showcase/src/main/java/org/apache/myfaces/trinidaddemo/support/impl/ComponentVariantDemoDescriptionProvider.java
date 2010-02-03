@@ -19,8 +19,6 @@
 package org.apache.myfaces.trinidaddemo.support.impl;
 
 import org.apache.myfaces.trinidaddemo.support.IComponentVariantDemo;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import java.io.InputStream;
@@ -29,13 +27,15 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.net.URL;
 import java.net.MalformedURLException;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  *
  */
 public class ComponentVariantDemoDescriptionProvider {
 
-    private static final Log log = LogFactory.getLog(ComponentVariantDemoDescriptionProvider.class);
+    private static final Logger _LOG = Logger.getLogger(ComponentVariantDemoDescriptionProvider.class.getName());
 
     /**
      * @param facesContext
@@ -79,12 +79,12 @@ public class ComponentVariantDemoDescriptionProvider {
                     }
                 }
                 catch (IOException exc) {
-                    log.error(exc);
+                    _LOG.log(Level.SEVERE, "Error while closing file reader", exc);
                 }
             }
         }
         catch (Exception exc) {
-            log.error(exc);
+            _LOG.log(Level.INFO, "Error while reading file", exc);
         }
 
         return description.toString();
