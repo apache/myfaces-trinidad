@@ -53,11 +53,22 @@ TrPage.prototype.getRequestQueue = function()
 TrPage.prototype.sendPartialFormPost = function(
   actionForm,
   params,
-  headerParams)
+  headerParams,
+  event)
 {
+  var source = "";
+  if (params != null)
+    source = params.source;
+
+  TrPage._delegateToJSFAjax(actionForm, source, event, params);
+
+
+  /** Delegating to jsf.ajax.request(). Do not call the Trinidad PPR request mechanism
+   
   this.getRequestQueue().sendFormPost(
     this, this._requestStatusChanged,
     actionForm, params, headerParams);
+  */
 }
 
 TrPage.prototype._requestStatusChanged = function(requestEvent)
@@ -746,9 +757,10 @@ TrPage._autoSubmit = function(formId, inputId, event, validateForm, params)
     if (event["type"] == "hidden")
       event = window.event;
   }
-
+  
   // If onchange is used for validation, then first validate 
   // just the current input
+
   var isValid = true;
   if (_TrEventBasedValidation)
     isValid = _validateInput(event, true);
@@ -761,6 +773,27 @@ TrPage._autoSubmit = function(formId, inputId, event, validateForm, params)
     params.event = "autosub";
     params.source = inputId;
   
-    _submitPartialChange(formId, validateForm, params);
+    _submitPartialChange(formId, validateForm, params, event);
   }
+}
+
+/**
+ * Causes a partial submit to occur on a given component using the jsf.ajax.request call. The 
+ * specified component will not be validated (yet).
+ * @param formId(String) Id of the form to partial submit.
+ * @param inputId(String) Id of the element causing the partial submit.  
+ * @param event(Event) The javascript event object.
+ * @param params(Object} additional parameters to send
+ */
+TrPage._delegateToJSFAjax = function(formId, inputId, event, params)
+{
+  var doc = window.document;
+  var source = _getElementById(doc, inputId);
+
+  if (!params)
+    params = {};
+
+  // TODO: add execute and render targets??
+  
+  jsf.ajax.request(source, event, params);
 }

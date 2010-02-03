@@ -39,6 +39,9 @@
     <faces-context-factory>
       org.apache.myfaces.trinidadinternal.context.FacesContextFactoryImpl
     </faces-context-factory>
+    <partial-view-context-factory>
+      org.apache.myfaces.trinidadinternal.context.PartialViewContextFactoryImpl
+    </partial-view-context-factory>
   </factory>
 
   <lifecycle>
