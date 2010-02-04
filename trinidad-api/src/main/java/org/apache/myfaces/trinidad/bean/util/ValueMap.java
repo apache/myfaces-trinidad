@@ -257,6 +257,6 @@ public class ValueMap extends AbstractMap<String, Object>
     throw new ClassCastException();
   }
 
-  private FacesBean    _bean;
-  private MakeEntries  _entries;
+  private final FacesBean    _bean;
+  private transient MakeEntries  _entries;
 }

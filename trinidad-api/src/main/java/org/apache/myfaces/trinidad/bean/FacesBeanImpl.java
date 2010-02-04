@@ -31,8 +31,6 @@ import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-
-
 import org.apache.myfaces.trinidad.bean.util.FlaggedPropertyMap;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -45,12 +43,6 @@ abstract public class FacesBeanImpl implements FacesBean
   public FacesBeanImpl()
   {
   }
-
-  /**
-   * Get the type of a FacesBean
-   */
-  // TODO Use auto "TYPE" detection?
-  abstract public Type getType();
 
   final public Object getProperty(PropertyKey key)
   {
@@ -301,12 +293,12 @@ abstract public class FacesBeanImpl implements FacesBean
     }
   }
 
-  final public Set<PropertyKey> keySet()
+  public Set<PropertyKey> keySet()
   {
     if (_properties == null)
       return Collections.emptySet();
-
-    return _properties.keySet();
+    else
+      return _properties.keySet();
   }
 
   @SuppressWarnings("unchecked")
