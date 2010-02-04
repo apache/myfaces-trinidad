@@ -18,10 +18,14 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import java.util.Collections;
+import java.util.Set;
+
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.util.CollectionUtils;
 
 /**
  * FacesBeanImpl subclass that implements UIXFacesBean.  UIXComponentBase subclasses that want to
@@ -40,7 +44,6 @@ public class UIXFacesBeanImpl extends FacesBeanImpl implements UIXFacesBean
   {
   }
 
-  @Override
   public final Type getType()
   {
     return _type;
@@ -86,6 +89,17 @@ public class UIXFacesBeanImpl extends FacesBeanImpl implements UIXFacesBean
     _component = component;
   }  
 
+  @Override
+  public Set<PropertyKey> keySet()
+  {
+    // override to make sure that the id key is in the returned set.
+    Set<PropertyKey> baseSet = super.keySet();
+    
+    if (baseSet.isEmpty())
+      return _ID_KEY_SET;
+    else
+      return CollectionUtils.compositeSet(baseSet, _ID_KEY_SET);
+  }
 
   @Override
   public void setPropertyImpl(PropertyKey key, Object value)
@@ -137,6 +151,8 @@ public class UIXFacesBeanImpl extends FacesBeanImpl implements UIXFacesBean
     super.restoreState(context, addIdState[1]);
   }
   
+  // Set containing the ID Key
+  private static final Set<PropertyKey> _ID_KEY_SET =Collections.singleton(UIXComponentBase.ID_KEY);
   
   private Type _type;
   private UIXComponent _component;
