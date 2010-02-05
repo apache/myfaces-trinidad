@@ -311,6 +311,33 @@ public final class ExternalContextUtils
   }
 
   /**
+   * Returns the name and version of the underlying servlet container or <code>null</code> if something
+   * went wrong in trying to retrieve the context.
+   *
+   * @param ec the current external context
+   * @return a String containing the name and version of the underlying servlet container
+   */
+  public static String getServerInfo(ExternalContext ec)
+  {
+    try
+    {
+      if (isPortlet(ec))
+      {
+        return (String) _runMethod(ec.getContext(), "getServerInfo");
+      }
+      else
+      {
+        return ((ServletContext) ec.getContext()).getServerInfo();
+      }
+    }
+    catch (final ClassCastException e)
+    {
+      _LOG.severe(e);
+    }
+    return null;
+  }
+
+  /**
    * Returns the content length or -1 if the unknown.
    *
    * @param ec the current external context
