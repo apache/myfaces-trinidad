@@ -138,7 +138,7 @@
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk/</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/trunk/</url>
+    <url>http://svn.apache.org/viewvc/myfaces/trinidad/trunk/</url>
   </scm>
 
   <repositories>
@@ -837,7 +837,7 @@
   </profiles>
 </settings>
       -->
-    <profile>
+    <!--profile>
       <id>java5compilerFor6</id>
       <activation>
         <jdk>1.6</jdk>
@@ -856,9 +856,9 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
+    </profile-->
     <!-- repeat for JDK 1.7 -->
-    <profile>
+    <!--profile>
       <id>java5compilerFor7</id>
       <activation>
         <jdk>1.7</jdk>
@@ -877,6 +877,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
+    </profile-->
   </profiles>
 </project>
