@@ -226,9 +226,9 @@ abstract public class UIXComponent extends UIComponent
    * <p>
    * If a Renderer needs to
    * collect information about its possibly flattened children before calling
-   * <code>encodeFlattenedChild(FacesContext, ComponentProcessor, Iterable<UIComponent>, Object)</code>,
+   * <code>encodeFlattenedChild(FacesContext, ComponentProcessor, Iterable&lt;UIComponent&gt;, Object)</code>,
    * it should call
-   * <code>processFlattenedChildren(FacesContext, ComponentProcessor, Iterable<UIComponent>, Object)</code>
+   * <code>processFlattenedChildren(FacesContext, ComponentProcessor, Iterable&lt;UIComponent&gt;, Object)</code>
    * to collect the information.
    * <p>
    * For each FlattenedComponent child, the <code>childProcessor</code> will
@@ -239,6 +239,10 @@ abstract public class UIXComponent extends UIComponent
    * FlattenedComponents that wish to check whether they are processed for the purpose of
    * encoding can check the ProcessingHints of the ComponentProcessingContext for the
    * presence of <code>PROCESS_FOR_ENCODING hint</code>.
+   * @param context FacesContext
+   * @param childProcessor ComponentProcessor to call on each flattened child
+   * @param children Initial set of children to flatten
+   * @param callbackContext context object to pass to the childProcessor on each invocation
    * @return <code>true</code> If any children were processed
    * @see UIXComponent#processFlattenedChildren(FacesContext, ComponentProcessor, Iterable, Object)
    * @see FlattenedComponent
@@ -326,6 +330,83 @@ abstract public class UIXComponent extends UIComponent
     return visitTree(visitContext, this, callback);
   }
 
+ /**
+  * Hook for subclasses to override the manner in which the component's children are visited.  The default
+  * implementation visits all of the children and facets of the Component.
+  * <code>setupChildrenVisitingContext</code> will have been called before this method is
+  * invoked and <code>tearDownChildrenVisitingContext</code> will be called after.
+  * respectively.  If the purpose of this visit was to encode the component and the
+  * component uses a CoreRenderer, the CoreRenderer's
+  * <code>setupChildrenEncodingContext</code> and <code>tearDownChildrenEncodingContext</code>
+  * will be called before and after this method is invoked, respectively.
+  * @param visitContext the <code>VisitContext</code> for this visit
+  * @param callback the <code>VisitCallback</code> instance
+  * @return <code>true</code> if the visit is complete.
+  * @see #setupChildrenVisitingContext
+  * @see #tearDownChildrenVisitingContext
+  * @see org.apache.myfaces.trinidad.render.CoreRenderer#setupChildrenEncodingContext
+  * @see org.apache.myfaces.trinidad.render.CoreRenderer#tearDownChildrenEncodingContext
+  */
+  protected boolean visitChildren(
+    VisitContext visitContext,
+    VisitCallback callback)
+  {
+    return _visitChildrenImpl(visitContext, this, callback);
+  }
+  
+  /**
+   * Visit all of the children of the component
+   */
+  private static boolean _visitChildrenImpl(
+    VisitContext visitContext,
+    UIComponent   component,
+    VisitCallback callback)
+  {
+    // visit the children of the component
+    Iterator<UIComponent> kids = component.getFacetsAndChildren();
+
+    while(kids.hasNext())
+    {
+      boolean done;
+
+      UIComponent currChild = kids.next();
+
+      if (currChild instanceof UIXComponent)
+      {
+        UIXComponent uixChild = (UIXComponent)currChild;
+
+        // delegate to UIXComponent's visitTree implementation to allow
+        // subclassses to modify the behavior
+        done = uixChild.visitTree(visitContext, callback);
+      }
+      else
+      {
+        // use generic visit implementation
+        done = visitTree(visitContext, currChild, callback);
+      }
+
+      // If any kid visit returns true, we are done.
+      if (done)
+      {
+        return true;
+      }
+    }
+    
+    return false;
+  }
+
+  /**
+   * Returns <code>true</code> if the components are being visited
+   * for the purpose of encoding.
+   */
+  private static boolean _isEncodingVisit(VisitContext visitContext)
+  {
+    PhaseId phaseId = visitContext.getPhaseId();
+
+    return((PhaseId.RENDER_RESPONSE == phaseId) &&
+           visitContext.getHints().contains(VisitHint.EXECUTE_LIFECYCLE));
+  }
+  
   /**
   * <p>Perform a tree visit starting at the specified node in the tree.</p>
   *
@@ -350,10 +431,15 @@ abstract public class UIXComponent extends UIComponent
   * @see VisitContext#invokeVisitCallback VisitContext.invokeVisitCallback()
   */
   public static boolean visitTree(
-    VisitContext visitContext,
+    VisitContext  visitContext,
     UIComponent   component,
     VisitCallback callback)
   {
+    FacesContext context = visitContext.getFacesContext();
+    RenderingContext rc = (_isEncodingVisit(visitContext))
+                            ? RenderingContext.getCurrentInstance()
+                            : null;
+
     UIXComponent uixComponent;
 
     // determine if we should even visit this component subtree
@@ -364,6 +450,18 @@ abstract public class UIXComponent extends UIComponent
       // delegate to the UIXComponent
       if (!uixComponent.isVisitable(visitContext))
         return false;
+
+      // UIXComponents are allowed to set up their context differently for encoding
+      // than normal processing, so behave differently if this is the RenderResponse
+      // phase
+      if (rc != null)
+      {
+        uixComponent.setupEncodingContext(context, rc);
+      }
+      else
+      {
+        uixComponent.setupVisitingContext(context);
+      }
     }
     else
     {
@@ -374,110 +472,108 @@ abstract public class UIXComponent extends UIComponent
       uixComponent = null;
     }
 
-    // invoke the callback for this component
-    VisitResult result = visitContext.invokeVisitCallback(component, callback);
-
-    if (result == VisitResult.COMPLETE)
-      return true;
-    else if (result == VisitResult.ACCEPT)
+    VisitResult visitResult = VisitResult.REJECT;
+    boolean doneVisiting = false;
+    
+    try
     {
-      // now visit the children
-      FacesContext context = visitContext.getFacesContext();
-      PhaseId phaseId = visitContext.getPhaseId();
-      RenderingContext rc = (PhaseId.RENDER_RESPONSE == phaseId)
-                              ? RenderingContext.getCurrentInstance()
-                              : null;
+    // invoke the callback for this component
+      visitResult = visitContext.invokeVisitCallback(component, callback);
 
-      if (uixComponent != null)
+      if (visitResult == VisitResult.COMPLETE)
+        doneVisiting = true;
+      else if (visitResult == VisitResult.ACCEPT)
       {
-        // assume that all UIXComponent NamingContainers always act as NamingContainers,
-        // (unlike <h:form>) and this it is OK to put the optimization where we
-        // don't visit the children if we know that we don't have any ids in this
-        // subtree to visit
-        if (uixComponent instanceof NamingContainer)
-        {
-          if (visitContext.getSubtreeIdsToVisit(uixComponent).isEmpty())
-            return false;
-        }
+        // now determine whether we need to visit the children      
+        boolean skipChildren = false;
 
-        // UIXComponents are allowed to set up their context differently for encoding
-        // than normal processing, so behave differently if this is the RenderResponse
-        // phase
-        if (PhaseId.RENDER_RESPONSE == phaseId)
+        if (uixComponent != null)
         {
-          uixComponent.setUpEncodingContext(context, rc);
+          // assume that all UIXComponent NamingContainers always act as NamingContainers,
+          // (unlike <h:form>) and this it is OK to put the optimization where we
+          // don't visit the children if we know that we don't have any ids in this
+          // subtree to visit
+          if (uixComponent instanceof NamingContainer)
+          {
+            if (visitContext.getSubtreeIdsToVisit(uixComponent).isEmpty())
+              skipChildren = true;
+          }
         }
         else
         {
-          uixComponent.setupVisitingContext(context);
+          // we only optimize walking into non-UIXComponent NamingContainers
+          // if they are UINamingConainer (which is used by <f:subview>
+          if (UINamingContainer.class == component.getClass())
+          {
+            if (visitContext.getSubtreeIdsToVisit(component).isEmpty())
+              skipChildren = true;
+          }
+        }
+  
+        // visit the children of the component if we aren't supposed to skip them
+        if (!skipChildren)
+        {
+          if (uixComponent != null)
+          {
+            // setup any context needed for visiting the children of the component as opposed
+            // to the component itself
+            if (rc != null)
+            {
+              uixComponent._setupChildrenEncodingContext(context, rc);
+            }
+            else
+            {
+              uixComponent.setupChildrenVisitingContext(context);
+            }
+            
+            
+            try
+            {
+              doneVisiting =  uixComponent.visitChildren(visitContext, callback);
+            }
+            finally
+            {
+              // teardown any context initialized above
+              if (rc != null)
+              {
+                uixComponent._tearDownChildrenEncodingContext(context, rc);
+              }
+              else
+              {
+                uixComponent.tearDownChildrenVisitingContext(context);
+              }
+            }
+          }
+          else
+          {
+            doneVisiting = _visitChildrenImpl(visitContext, component, callback);
+          }
         }
       }
       else
       {
-        // we only optimize walking into non-UIXComponent NamingContainers
-        // if they are UINamingConainer (which is used by <f:subview>
-        if (UINamingContainer.class == component.getClass())
-        {
-          if (visitContext.getSubtreeIdsToVisit(component).isEmpty())
-            return false;
-        }
-      }
-
-      // visit the children of the component
-      try
-      {
-        Iterator<UIComponent> kids = component.getFacetsAndChildren();
-
-        while(kids.hasNext())
-        {
-          boolean done;
-
-          UIComponent currChild = kids.next();
-
-          if (currChild instanceof UIXComponent)
-          {
-            UIXComponent uixChild = (UIXComponent)currChild;
-
-            // delegate to UIXComponent's visitTree implementation to allow
-            // subclassses to modify the behavior
-            done = uixChild.visitTree(visitContext, callback);
-          }
-          else
-          {
-            // use generic visit implementation
-            done = visitTree(visitContext, currChild, callback);
-          }
-
-          // If any kid visit returns true, we are done.
-          if (done)
-          {
-            return true;
-          }
-        }
-      }
-      finally
-      {
-        // tear down the context we set up in order to visit our children
-        if (uixComponent != null)
-        {
-          if (PhaseId.RENDER_RESPONSE == phaseId)
-          {
-            uixComponent.tearDownEncodingContext(context, rc);
-          }
-          else
-          {
-            uixComponent.tearDownVisitingContext(context);
-          }
-        }
+        // don't visit the children
+        assert(visitResult == VisitResult.REJECT);
       }
     }
-    else
+    finally
     {
-      assert(result == VisitResult.REJECT);
+      // tear down the context we set up in order to visit our component
+      if (uixComponent != null)
+      {
+        if (rc != null)
+        {
+          uixComponent.tearDownEncodingContext(context, rc);
+        }
+        else
+        {
+          uixComponent.tearDownVisitingContext(context);
+        }
+      }
     }
-
+  
     // if we got this far, we're not done
-    return false;
+    return doneVisiting;
   }
 
   /**
@@ -510,6 +606,29 @@ abstract public class UIXComponent extends UIComponent
   }
 
   /**
+   * Clears all of the cached clientIds in this component subtree
+   */
+  public final void clearCachedClientIds()
+  {
+    clearCachedClientIds(this);
+  }
+
+  /**
+   * Clears all of the cached clientIds in the component's subtree
+   * @param component Component subtree to clear the cached client ids for
+   */
+  public static void clearCachedClientIds(UIComponent component)
+  {
+    String id = component.getId();
+    component.setId(id);
+    
+    Iterator<UIComponent> allChildren = component.getFacetsAndChildren();
+    
+    while (allChildren.hasNext())
+      clearCachedClientIds(allChildren.next());
+  }
+
+  /**
    * Marks this component as a partial target for this request. Typically called
    * by the {@link org.apache.myfaces.trinidad.context.RequestContext RequestContext}.
    * The component should add the client ID the desired rendered component to the context.
@@ -527,9 +646,9 @@ abstract public class UIXComponent extends UIComponent
 
   /**
    * <p>Called by
-   * {@link UIXComponent#visitTree UIXComponent.visitTree()} to determine
+   * {@link UIXComponent#visitTree(VisitContext, VisitCallback) UIXComponent.visitTree()} to determine
    * whether this component is "visitable" - ie. whether this component
-   * satisfies the {@link org.apache.myfaces.trinidad.component.visit.VisitHints} returned by
+   * satisfies the {@link org.apache.myfaces.trinidad.component.visit.VisitHint} returned by
    * {@link VisitContext#getHints VisitContext.getHints()}.</p>
    * <p>If this component is not visitable (ie. if this method returns
    * false), the tree visited is short-circuited such that neither the
@@ -537,7 +656,7 @@ abstract public class UIXComponent extends UIComponent
    * <p>Custom {@code treeVisit()} implementations may call this method
    * to determine whether the component is visitable before performing
    * any visit-related processing.</p>
-   *
+   * @param visitContext VisitingContext to use to determine if the component is visitable
    * @return true if this component should be visited, false otherwise.
    */
   protected boolean isVisitable(VisitContext visitContext)
@@ -645,11 +764,29 @@ abstract public class UIXComponent extends UIComponent
    * <code>tearDownVisitingContext</code> as well.</p>
    * <p>It is guaranteed that if <code>setupVisitingContext</code> completes
    * <code>tearDownVisitingContext</code> will be called for this component</p>
+   * @param context FacesContext
    * @see #tearDownVisitingContext
-   * @see #setUpEncodingContext
+   * @see #setupEncodingContext
    * @see #tearDownEncodingContext
    */
-  protected void setupVisitingContext(FacesContext context)
+  protected void setupVisitingContext(@SuppressWarnings("unused") FacesContext context)
+  {
+    // do nothing
+  }
+
+  /**
+   * <p>Sets up the context necessary to visit or invoke the children of a component for all phases.
+   * </p>
+   * <p>The default implementation does nothing.</p>
+   * <p>If a subclass overrides this method, it should override
+   * <code>tearDownChildrenVisitingContext</code> as well.</p>
+   * <p>It is guaranteed that if <code>setupChildrenVisitingContext</code> completes
+   * <code>tearDownChildrenVisitingContext</code> will be called for this component</p>
+   * @param context FacesContext
+   * @see #visitChildren
+   * @see #tearDownChildrenVisitingContext
+   */
+  protected void setupChildrenVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
     // do nothing
   }
@@ -662,13 +799,37 @@ abstract public class UIXComponent extends UIComponent
    * <code>setupVisitingContext</code> as well</p>
    * <p>It is guaranteed that <code>tearDownVisitingContext</code> will be called only after
    * <code>setupVisitingContext</code> has been called for this component</p>
+   * @param context FacesContext
    * @see #setupVisitingContext
-   * @see #setUpEncodingContext
+   * @see #setupEncodingContext
    * @see #tearDownEncodingContext
    */
-  protected void tearDownVisitingContext(FacesContext context)
+  protected void tearDownVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
     // do nothing
+  }
+
+  /**
+   * <p>Tears down context created in order to visit or invoke the children of a component
+   * for all phases.</p>
+   * <p>The default implementation does nothing.</p>
+   * <p>A subclass should only override this method if it overrode
+   * <code>setupChildrenVisitingContext</code> as well</p>
+   * <p>It is guaranteed that <code>tearDownChildrenVisitingContext</code> will be called only after
+   * <code>setupChildrenVisitingContext</code> has been called for this component</p>
+   * @param context FacesContext
+   * @see #setupChildrenVisitingContext
+   * @see #visitChildren
+   */
+  protected void tearDownChildrenVisitingContext(@SuppressWarnings("unused") FacesContext context)
+  {
+    // do nothing
+  }
+
+  @Deprecated
+  protected final void setUpEncodingContext(FacesContext context, RenderingContext rc)
+  {
+    setupEncodingContext(context, rc);
   }
 
   /**
@@ -680,12 +841,14 @@ abstract public class UIXComponent extends UIComponent
    * <code>tearDownEncodingContext</code> as well.</p>
    * <p>It is guaranteed that if <code>setUpEncodingContext</code> completes
    * <code>tearDownEncodingContext</code> will be called for this component</p>
+   * @param context The FacesContext
+   * @param rc      RenderingContext to use for encoding
    * @see #setupVisitingContext
    * @see #tearDownVisitingContext
    * @see #tearDownEncodingContext
    * @see CoreRenderer#setupEncodingContext
    */
-  protected void setUpEncodingContext(FacesContext context, RenderingContext rc)
+  protected void setupEncodingContext(FacesContext context, RenderingContext rc)
   {
     setupVisitingContext(context);
 
@@ -700,17 +863,41 @@ abstract public class UIXComponent extends UIComponent
   }
 
   /**
+   * Sets the context necessary to encode the children of a component.
+   * @param context The FacesContext
+   * @param rc      RenderingContext to use for encoding
+   * @see #setupChildrenVisitingContext
+   * @see #_tearDownChildrenEncodingContext
+   * @see org.apache.myfaces.trinidad.render.CoreRenderer#setupChildrenEncodingContext
+   */
+  private void _setupChildrenEncodingContext(FacesContext context, RenderingContext rc)
+  {
+    setupChildrenVisitingContext(context);
+
+    Renderer renderer = getRenderer(context);
+
+    if (renderer instanceof CoreRenderer)
+    {
+      CoreRenderer coreRenderer = (CoreRenderer)renderer;
+
+      coreRenderer.setupChildrenEncodingContext(context, rc, this);
+    }    
+  }
+
+  /**
    * <p>Tears down the context created in order to encode the component</p>
    * <p>The default implementation delegates to
    * <code>CoreRenderer.tearDownEncodingContext</code> and then calls
    * <code>tearDownVisitingContext</code></p>
    * <p>A subclass should only override this method if it overrode
-   * <code>setUpEncodingContext</code> as well</p>
+   * <code>setupEncodingContext</code> as well</p>
    * <p>It is guaranteed that <code>tearDownEncodingContext</code> will be called only after
-   * <code>setUpEncodingContext</code> has been called for this component</p>
-   * @see #setUpEncodingContext
+   * <code>setupEncodingContext</code> has been called for this component</p>
+   * @param context The FacesContext
+   * @param rc      RenderingContext to use for encoding
+   * @see #setupEncodingContext
    * @see #tearDownVisitingContext
-   * @see #setUpEncodingContext
+   * @see #setupEncodingContext
    * @see CoreRenderer#tearDownEncodingContext
    */
   protected void tearDownEncodingContext(
@@ -731,6 +918,35 @@ abstract public class UIXComponent extends UIComponent
     finally
     {
       tearDownVisitingContext(context);
+    }
+  }
+
+  /**
+   * Tears down the context necessary to encode the children of a component.
+   * @param context The FacesContext
+   * @param rc      RenderingContext to use for encoding
+   * @see #setupChildrenVisitingContext
+   * @see #_tearDownChildrenEncodingContext
+   * @see org.apache.myfaces.trinidad.render.CoreRenderer#setupChildrenEncodingContext
+   */
+  private void _tearDownChildrenEncodingContext(
+    FacesContext context,
+    RenderingContext rc)
+  {
+    Renderer renderer = getRenderer(context);
+
+    try
+    {
+      if (renderer instanceof CoreRenderer)
+      {
+        CoreRenderer coreRenderer = (CoreRenderer)renderer;
+
+        coreRenderer.tearDownChildrenEncodingContext(context, rc, this);
+      }
+    }
+    finally
+    {
+      tearDownChildrenVisitingContext(context);
     }
   }
 

@@ -27,7 +27,8 @@ import javax.faces.component.UIComponent;
  * taking action on a specific UIComponent (either facet or child) during 
  * a component tree visit.</p>
  *
- * @see org.apache.myfaces.trinidad.component.UIXComponent#visitTree UIComponent.visitTree()
+ * @see org.apache.myfaces.trinidad.component.UIXComponent#visitTree(VisitContext, VisitCallback)
+ * UIComponent.visitTree()
  */
 public interface VisitCallback
 {
@@ -39,7 +40,7 @@ public interface VisitCallback
      * to be in the proper state with respect to its ancestors in the
      * View.</p>
      *
-     * @param context the {@link VisitContext} for this tree visit.
+     * @param visitContext the {@link VisitContext} for this tree visit.
      *
      * @param target the {@link UIComponent} to visit
      *
@@ -47,5 +48,5 @@ public interface VisitCallback
      *   visiting the component's subtree, skip visiting the component's
      *   subtree or end the visit.
      */
-    public VisitResult visit(VisitContext context, UIComponent target);
+    public VisitResult visit(VisitContext visitContext, UIComponent target);
 }

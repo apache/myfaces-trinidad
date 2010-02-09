@@ -25,6 +25,8 @@ import junit.framework.TestSuite;
 
 import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 
+import org.jmock.Mock;
+
 /**
  * Unit tests for CoreBreadCrumbs.
  *
@@ -135,5 +137,16 @@ public class CoreBreadCrumbsTest extends UIComponentTestCase
   {
     CoreBreadCrumbs component = new CoreBreadCrumbs();
     doTestRenderResponse(component);
+  }
+
+  protected Mock createMockUIComponent()
+  {
+    // the BreadCrumbs is allowed to call getId and setId on its child
+    Mock mock = super.createMockUIComponent();
+    
+    mock.stubs().method("getId");
+    mock.stubs().method("setId");
+        
+    return mock;
   }
 }

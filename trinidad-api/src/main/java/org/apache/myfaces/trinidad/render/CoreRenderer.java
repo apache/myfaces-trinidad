@@ -96,7 +96,7 @@ public class CoreRenderer extends Renderer
 
   /**
    * <p>
-   * Called before rendering the current component's children in order to set
+   * Called before rendering the current comopnent's children in order to set
    * up any special context.
    * </p>
    * <p>If <code>setupEncodingContext</code> succeeds then
@@ -105,31 +105,53 @@ public class CoreRenderer extends Renderer
    * <p>The default implementation does nothing</p>
    * @param context FacesContext for this request
    * @param rc RenderingContext for this encoding pass
-   * @ param component Component to encode using this Renderer
+   * @param component Component to encode using this Renderer
    * @see #tearDownEncodingContext
    */
   public void setupEncodingContext(
     FacesContext context,
     RenderingContext rc,
-    UIXComponent component)
-  {
-  }
-
-  public void setupEncodingContext(
-    FacesContext context,
-    RenderingContext rc,
     UIComponent component)
   {
-    // temporary hack to change UIComponent.  Once the change has propagated through, we will
-    // remove the UIXComponent version.
-    // We need to support UIComponents so that we can use CoreRenderers against non-UIXComponents
+    // TODO Remove after one release
     if (component instanceof UIXComponent)
       setupEncodingContext(context, rc, (UIXComponent)component);
   }
 
+  // TODO Remove after one release
+  @Deprecated
+  public void setupEncodingContext(
+    @SuppressWarnings("unused") FacesContext context,
+    @SuppressWarnings("unused") RenderingContext rc,
+    @SuppressWarnings("unused") UIXComponent component)
+  {
+  }
+
+
   /**
    * <p>
-   * Called after rendering the current component's children in order to tear
+   * Called before rendering the current component's children in order to set
+   * up any special context.
+   * </p>
+   * <p>If <code>setupChildrenEncodingContext</code> succeeds then
+   * <code>tearDownChildrenEncodingContext</code> will be called for the same component.
+   * </p>
+   * <p>The default implementation does nothing</p>
+   * @param context FacesContext for this request
+   * @param rc RenderingContext for this encoding pass
+   * @param component Component to encode using this Renderer
+   * @see #tearDownChildrenEncodingContext
+   */
+  public void setupChildrenEncodingContext(
+    @SuppressWarnings("unused") FacesContext context,
+    @SuppressWarnings("unused") RenderingContext rc,
+    @SuppressWarnings("unused") UIComponent component)
+  {
+  }
+
+  /**
+   * <p>
+   * Called after rendering the current component in order to tear
    * down any special context.
    * </p>
    * <p>
@@ -139,28 +161,49 @@ public class CoreRenderer extends Renderer
    * <p>The default implementation does nothing</p>
    * @param context FacesContext for this request
    * @param rc RenderingContext for this encoding pass
-   * @ param component Component to encode using this Renderer
+   * @param component Component to encode using this Renderer
    * @see #setupEncodingContext
    */
   public void tearDownEncodingContext(
     FacesContext context,
     RenderingContext rc,
-    UIXComponent     component)
-  {
-  }
-
-  public void tearDownEncodingContext(
-    FacesContext context,
-    RenderingContext rc,
     UIComponent     component)
   {
-    // temporary hack to change UIComponent.  Once the change has propagated through, we will
-    // remove the UIXComponent version.
-    // We need to support UIComponents so that we can use CoreRenderers against non-UIXComponents
+    // TODO Remove after one release
     if (component instanceof UIXComponent)
       tearDownEncodingContext(context, rc, (UIXComponent)component);
   }
 
+  // TODO Remove after one release
+  @Deprecated
+  public void tearDownEncodingContext(
+    @SuppressWarnings("unused") FacesContext context,
+    @SuppressWarnings("unused") RenderingContext rc,
+    @SuppressWarnings("unused") UIXComponent     component)
+  {
+  }
+
+  /**
+   * <p>
+   * Called after rendering the current component's children in order to tear
+   * down any special context.
+   * </p>
+   * <p>
+   * <code>tearDownChildrenEncodingContext</code> will be called on the component if
+   * <code>setupChildrenEncodingContext</code> succeeded.
+   * </p>
+   * <p>The default implementation does nothing</p>
+   * @param context FacesContext for this request
+   * @param rc RenderingContext for this encoding pass
+   * @param component Component to encode using this Renderer
+   * @see #setupChildrenEncodingContext
+   */
+  public void tearDownChildrenEncodingContext(
+    @SuppressWarnings("unused") FacesContext context,
+    @SuppressWarnings("unused") RenderingContext rc,
+    @SuppressWarnings("unused") UIComponent component)
+  {
+  }
 
   //
   // COERCION HELPERS
@@ -223,6 +266,7 @@ public class CoreRenderer extends Renderer
    * Coerces an object into a resource URI, calling the view-handler.
    * @deprecated use toResourceUri
    */
+  @Deprecated
   static public String toUri(Object o)
   {
     return toResourceUri(FacesContext.getCurrentInstance(),o);

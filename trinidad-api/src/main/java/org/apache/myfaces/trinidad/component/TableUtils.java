@@ -18,7 +18,6 @@
  */
 package org.apache.myfaces.trinidad.component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -280,6 +279,9 @@ public final class TableUtils
       @Override
       protected void process(FacesContext context, UIComponent child)
       {
+        // make sure that any cached clientIds are cleared so that
+        // the clientIds are recalculated with the new row index
+        UIXComponent.clearCachedClientIds(child);
         table.processComponent(context, child, phaseId);
       }
     }.runAlways(context, table);
@@ -299,11 +301,11 @@ public final class TableUtils
     int childCount = comp.getChildCount();
     if (childCount != 0)
     {
-      List children = comp.getChildren();
+      List<UIComponent> children = comp.getChildren();
 
       for (int i = 0; i < childCount; i++)
       {
-        UIComponent child = (UIComponent)children.get(i);
+        UIComponent child = children.get(i);
         comp.processComponent(context, child, phaseId);
       }
     }          

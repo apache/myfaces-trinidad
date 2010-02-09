@@ -304,10 +304,10 @@ abstract public class UIXComponentBase extends UIXComponent
 
   // ------------------------------------------------------------- Properties
 
-
-
-  @Override
-  public String getClientId(FacesContext context)
+  /**
+   * Calculates the clientId for the component
+   */
+  private String _calculateClientId(FacesContext context)
   {
     // the clientId is always at least the id of the current component
     // our implementation of getId() guarantees that this always
@@ -321,27 +321,53 @@ abstract public class UIXComponentBase extends UIXComponent
       if (containerComponent instanceof NamingContainer)
       {
         String contClientId;
-
+    
         // Pass additional context information to naming containers which extend UIXComponent:
         if (containerComponent instanceof UIXComponent)
           contClientId = ((UIXComponent)containerComponent).getContainerClientId(context, this);
         else
           contClientId = containerComponent.getContainerClientId(context);
-
+    
         StringBuilder bld = __getSharedStringBuilder();
         bld.append(contClientId).append(NamingContainer.SEPARATOR_CHAR).append(clientId);
         clientId = bld.toString();
         break;
       }
-
+    
       containerComponent = containerComponent.getParent();
     }
-
+    
     Renderer renderer = getRenderer(context);
     if (null != renderer)
       clientId = renderer.convertClientId(context, clientId);
-
+    
     return clientId;
+  }
+  
+
+
+  @Override
+  public String getClientId(FacesContext context)
+  {
+    return _calculateClientId(context);
+/* TODO put back in when we fix all of the clientID caching issues
+    String clientId = _clientId;
+    
+    if (clientId == null)
+    {
+      clientId = _calculateClientId(context);
+      
+      if (_usesFacesBeanImpl)
+        _clientId = clientId;
+    }
+    else
+    {
+      assert clientId.equals(_calculateClientId(context)) :
+      "cached client id " + _clientId + " for " + this + " doesn't match client id:" + _calculateClientId(context);
+    }
+    
+    return clientId;
+*/
   }
 
 
@@ -397,6 +423,8 @@ abstract public class UIXComponentBase extends UIXComponent
   @Override
   public void setId(String id)
   {
+    _clientId = null;
+    
     FacesBean facesBean = getFacesBean();
     
     // if we are using a FacesBeanImpl, then the FacesBean will
@@ -410,6 +438,13 @@ abstract public class UIXComponentBase extends UIXComponent
       {
         _validateId(id);
         _id = id;
+        
+        // if we're a NamingContainer then changing our id will invalidate the clientIds of all
+        // of our children
+        if ((_clientId != null) && (this instanceof NamingContainer))
+        {
+          clearCachedClientIds(this);
+        }
       }      
     }
     else
@@ -418,7 +453,7 @@ abstract public class UIXComponentBase extends UIXComponent
       facesBean.setProperty(ID_KEY, id);      
     }
   }
-
+  
   @Override
   abstract public String getFamily();
 
@@ -607,7 +642,8 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     if (_children == null)
       return 0;
-    return getChildren().size();
+    else
+      return getChildren().size();
   }
 
 
@@ -631,9 +667,11 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     if (facetName == null)
       throw new NullPointerException();
+    
     if (_facets == null)
       return null;
-    return getFacets().get(facetName);
+    else
+      return getFacets().get(facetName);
   }
 
 
@@ -648,7 +686,8 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     if (_facets == null)
       return _EMPTY_STRING_ITERATOR;
-    return _facets.keySet().iterator();
+    else
+      return _facets.keySet().iterator();
   }
 
   @Override
@@ -1659,6 +1698,7 @@ abstract public class UIXComponentBase extends UIXComponent
   private Map<String, UIComponent> _facets;
   private UIComponent              _parent;
   private String                   _id;
+  private String                   _clientId;
   private boolean                  _usesFacesBeanImpl;
   
   // Cached instance of the Renderer for this component.
