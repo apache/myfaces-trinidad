@@ -33,6 +33,7 @@ import org.apache.myfaces.trinidad.component.visit.VisitCallback;
 import org.apache.myfaces.trinidad.component.visit.VisitContext;
 import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.component.visit.VisitResult;
+import org.apache.myfaces.trinidad.util.CollectionUtils;
 
 /**
  *
@@ -80,11 +81,10 @@ class FullVisitContext extends VisitContext
     _phaseId = phaseId;
 
     // Copy and store hints - ensure unmodifiable and non-empty
-    EnumSet<VisitHint> hintsEnumSet = ((hints == null) || (hints.isEmpty()))
-                                          ? EnumSet.noneOf(VisitHint.class)
-                                          : EnumSet.copyOf(hints);
-
-    _hints = Collections.unmodifiableSet(hintsEnumSet);
+    if (hints == null)
+      _hints = Collections.emptySet();
+    else
+      _hints = CollectionUtils.unmodifiableCopyOfEnumSet(hints);
   }
 
   /**

@@ -114,44 +114,47 @@ public final class HierarchyUtils
   {
     UIComponent nodeStamp = comp.getFacet("nodeStamp");
     int oldRow = comp.getRowIndex();
-    int first = comp.getFirst();
-    int last = TableUtils.getLast(comp, first);
-    for(int i=first; i<=last; i++)
+    
+    try
     {
-      comp.setRowIndex(i);
-      if (processChildrenAsStamps)
-        TableUtils.__processStampedChildren(context, comp, phaseId);
-      comp.processComponent(context, nodeStamp, phaseId);
-      if (comp.isContainer() && (state.isContained()))
+      int first = comp.getFirst();
+      int last = TableUtils.getLast(comp, first);
+      for(int i=first; i<=last; i++)
       {
-        comp.enterContainer();
-        __iterateOverTree( context, 
-                           phaseId, 
-                           comp, 
-                           state, 
-                           processChildrenAsStamps);
-        comp.exitContainer();
+        comp.setRowIndex(i);
+        if (processChildrenAsStamps)
+          TableUtils.__processStampedChildren(context, comp, phaseId);
+        comp.processComponent(context, nodeStamp, phaseId);
+        if (comp.isContainer() && (state.isContained()))
+        {
+          comp.enterContainer();
+          
+          try
+          {
+            __iterateOverTree( context, 
+                               phaseId, 
+                               comp, 
+                               state, 
+                               processChildrenAsStamps);
+          }
+          finally
+          {
+            comp.exitContainer();
+          }
+        }
       }
     }
-    comp.setRowIndex(oldRow);
-  }
-
-  // sets the currency to the row or container that we want to start rendering
-  // from:
-  static boolean __setStartLevelPath(
-    UIXHierarchy component,
-    int          startDepth
-  )
-  {
-    return HierarchyUtils.__setStartDepthPath(component, startDepth);
+    finally
+    {
+      comp.setRowIndex(oldRow);
+    }
   }
 
   // sets the currency to the row or container that we want to start rendering
   // from:
   static boolean __setStartDepthPath(
     UIXHierarchy component,
-    int          startDepth
-  )
+    int          startDepth)
   {
     boolean isNewPath = false;
     Object focusKey = component.getFocusRowKey();

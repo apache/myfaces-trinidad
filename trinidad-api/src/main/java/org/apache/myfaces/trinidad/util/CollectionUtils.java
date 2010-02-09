@@ -1288,8 +1288,6 @@ public final class CollectionUtils
   private static final Class<? extends List> _SYNCHRONIZED_LIST;
   private static final Class<? extends Set> _EMPTY_SET = Collections.emptySet().getClass();
   private static final Class<? extends Set> _SINGLETON_SET = Collections.singleton(null).getClass();
-  
-
   private static final Queue _EMPTY_QUEUE = new EmptyQueue();
   private static final Iterator _EMPTY_ITERATOR = new EmptyIterator();
   private static final Iterator _EMPTY_LIST_ITERATOR = new EmptyListIterator();

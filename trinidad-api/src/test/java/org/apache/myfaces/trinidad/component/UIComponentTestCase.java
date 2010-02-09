@@ -26,6 +26,8 @@ import java.io.IOException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import java.util.Collections;
 import java.util.Map;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -692,6 +694,8 @@ public class UIComponentTestCase extends FacesTestCase
     
     mock.stubs().method("getParent").will(returnValue(null));
     mock.stubs().method("setParent");
+    mock.stubs().method("getFacetsAndChildren").will(returnIterator(Collections.emptyList()));
+
     mock.expects(never()).method("processRestoreState");
     mock.expects(never()).method("processDecodes");
     mock.expects(never()).method("processValidators");
