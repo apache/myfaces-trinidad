@@ -290,9 +290,7 @@ public class FileSystemStyleCache implements StyleProvider
     StyleSheetDocument document = null;
     Map<String, String> shortStyleClassMap = null;
     String[] namespacePrefixes = null;
-    RenderingContext arc = RenderingContext.getCurrentInstance();
-    Skin skin = arc.getSkin();
-    boolean isDirty = skin.isDirty();
+    boolean isDirty = context.isDirty();
     boolean checkModified  = context.checkStylesModified();
 
     // Synchronize while set up the _cache, _entryCache, _document, etc...
