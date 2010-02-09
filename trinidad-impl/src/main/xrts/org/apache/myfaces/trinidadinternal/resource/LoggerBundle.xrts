@@ -1088,4 +1088,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- UNEXPECTED_STATE -->
 <resource key="UNEXPECTED_STATE">IState must be an instance of StateManager.SerializedView or an Object array of length 2.</resource>
 
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED">Partial state saving is not yet supported. Please set context-param javax.faces.PARTIAL_STATE_SAVING to false in your web.xml.</resource>
+
 </resources>
