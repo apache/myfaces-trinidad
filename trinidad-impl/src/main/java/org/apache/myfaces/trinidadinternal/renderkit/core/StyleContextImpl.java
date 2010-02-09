@@ -113,20 +113,6 @@ class StyleContextImpl implements StyleContext
   }
   public boolean checkStylesModified()
   {
-    if (Beans.isDesignTime())
-    {
-      // In Design Time mode, if we have a skin-id on the request scope,
-      // then this means we want to check if the skin css files are modified.
-      // This is an alternative to the initParam (CHECK_TIMESTAMP_PARAM) which
-      // is set in web.xml. Design Time cannot set the web.xml file.
-      FacesContext context = FacesContext.getCurrentInstance();
-      Object requestSkinId = 
-        ((CoreRenderingContext) _arc).getRequestMapSkinId(context);
-      if (requestSkinId != null)
-        return true;
-
-    }
-    
     FacesContext context = FacesContext.getCurrentInstance();
     String checkTimestamp =
       context.getExternalContext().getInitParameter(Configuration.CHECK_TIMESTAMP_PARAM);
@@ -137,6 +123,22 @@ class StyleContextImpl implements StyleContext
    */
   public boolean isDirty()
   {
+    if (Beans.isDesignTime())
+    {
+      // In Design Time mode, if we have a skin-id on the request scope,
+      // then this means the Design Time wants the skin to regenerate. To do this,
+      // we say the skin is dirtys
+      FacesContext context = FacesContext.getCurrentInstance();
+      Object requestSkinId = 
+        ((CoreRenderingContext) _arc).getRequestMapSkinId(context);
+      if (requestSkinId != null)
+      {
+        // set the skin to dirty as well for double insurance, like if someone checks the 
+        // skin directly to see if it is dirty.
+        _arc.getSkin().setDirty(true); 
+        return true;
+      }
+    }
     return _arc.getSkin().isDirty();
   }
 
