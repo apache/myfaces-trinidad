@@ -347,10 +347,41 @@ code {
 
 .sourceCode {
     color: black;
-    font-family: Consolas, Lucida Console, Monaco, monospace;
-    font-size: 9pt;
-    line-height: 1.3em;
+    font: 9pt/1.3em Consolas, Lucida Console, Monaco, monospace;
     white-space: nowrap;
+}
+.line_counter {
+    display: block;
+    float: left;
+    margin-right: 1px;
+    padding-right: 5px;
+    border-right: 1px solid #E7E3E1; 
+    text-align: right;
+    font: 9pt/1.3em Consolas, Lucida Console, Monaco, monospace;
+    white-space: nowrap;
+    color: #BAB0A9;
+}
+.code_body_wrap {
+    display: block;
+    padding-left: 20px;
+    font: 9pt/1.3em Consolas, Lucida Console, Monaco, monospace;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    .code_body_wrap {
+        width: 650px;
+    }
+}
+.code_body {
+    display: block;
+    overflow-y: visible;
+}
+@agent ie and (version: 5), ie and (version: 6), ie and (version: 7) {
+    .code_body {
+        margin-bottom: 20px;
+    }
 }
 
 .highlight_xml_plain {
@@ -362,21 +393,19 @@ code {
 }
 
 .highlight_xml_tag_symbols {
-    color: #003BFF;
+    color: #000000;
 }
 
 .highlight_xml_comment {
     color: #939393;
-    background-color: #F7F7F7;
 }
 
 .highlight_xml_attribute_value {
-    color: #C10000;
+    color: #008200;
 }
 
 .highlight_xml_attribute_name {
-    color: black;
-    font-weight: bold;
+	color: #0000FF;
 }
 
 .highlight_xml_processing_instruction {
@@ -386,6 +415,8 @@ code {
 }
 
 .highlight_xml_tag_name {
+    color: #000080;
+    font-weight: bold;
 }
 
 .highlight_xml_rife_tag {
@@ -403,40 +434,39 @@ code {
 }
 
 .highlight_java_keyword {
-    color: black;
+    color: #000080;
     font-weight: bold;
 }
 
 .highlight_java_type {
-    color: #002CDD;
+    color: #000000;
 }
 
 .highlight_java_operator {
-    color: #007C1F;
+    color: #000000;
 }
 
 .highlight_java_separator {
-    color: #0021FF;
+    color: #000000;
 }
 
 .highlight_java_literal {
-    color: #BC0000;
+    color: #000080;
+    font-weight: bold;
 }
 
 .highlight_java_comment {
     color: #939393;
-    background-color: #F7F7F7;
+    font-style: italic;
 }
 
 .highlight_java_javadoc_comment {
     color: #939393;
-    background-color: #F7F7F7;
     font-style: italic;
 }
 
 .highlight_java_javadoc_tag {
     color: #939393;
-    background-color: #F7F7F7;
     font-style: italic;
     font-weight: bold;
 }
@@ -527,7 +557,8 @@ code {
 
 /* Panel Tabbed ----------------------------------------------------------------------------------------------------- */
 .CBPanelTabBody_Custom {
-    overflow-x: auto;
+    /*overflow-x: auto;*/
+    overflow: hidden;
     width: 710px;
 }
 .samples af|panelTabbed::body {

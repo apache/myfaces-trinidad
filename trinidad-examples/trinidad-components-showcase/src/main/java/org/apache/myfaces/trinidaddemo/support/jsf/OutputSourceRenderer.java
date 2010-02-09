@@ -84,7 +84,15 @@ public class OutputSourceRenderer extends OutputFormattedRenderer {
         String sourceContent = readSource(context, outputSource, bean);
 
         ResponseWriter rw = context.getResponseWriter();
+
+        rw.write("<span class=\"line_counter\">");
+
+        for(int i=0;i<sourceContent.split("\n").length;i++)
+            rw.write("<span>"+(i+1)+"</span><br/>");
+
+        rw.write("</span><span class=\"code_body_wrap\"><span class=\"code_body\">");
         rw.write(hlight.highlight(null, sourceContent, "UTF-8", true));
+        rw.write("</span></span>");
     }
 
     /**
