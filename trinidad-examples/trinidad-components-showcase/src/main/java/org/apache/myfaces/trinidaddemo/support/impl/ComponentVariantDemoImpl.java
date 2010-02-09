@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
  */
 public class ComponentVariantDemoImpl extends AbstractComponentVariantDemo {
 
-    private String jsfResourcePath;
+    private String[] jsfResourcePaths;
     private String summaryResourcePath;
     private String backingBeanResourcePath;
 
@@ -34,13 +34,13 @@ public class ComponentVariantDemoImpl extends AbstractComponentVariantDemo {
      *
      * @param variantId
      * @param componentDemo
-     * @param jsfResourcePath
+     * @param jsfResourcePaths
      * @param summaryResourcePath
      */
     public ComponentVariantDemoImpl(IComponentDemoVariantId variantId,
             AbstractComponentDemo componentDemo,
-            String jsfResourcePath, String summaryResourcePath) {
-        this(variantId, variantId.toString(), componentDemo, jsfResourcePath, summaryResourcePath);
+            String[] jsfResourcePaths, String summaryResourcePath) {
+        this(variantId, variantId.toString(), componentDemo, jsfResourcePaths, summaryResourcePath);
     }
 
     /**
@@ -48,14 +48,14 @@ public class ComponentVariantDemoImpl extends AbstractComponentVariantDemo {
      *
      * @param variantId
      * @param componentDemo
-     * @param jsfResourcePath
+     * @param jsfResourcePaths
      * @param summaryResourcePath
      * @param backingBeanResourcePath
      */
     public ComponentVariantDemoImpl(IComponentDemoVariantId variantId,
             AbstractComponentDemo componentDemo,
-            String jsfResourcePath, String summaryResourcePath, String backingBeanResourcePath) {
-        this(variantId, variantId.toString(), componentDemo, jsfResourcePath, summaryResourcePath, backingBeanResourcePath);
+            String[] jsfResourcePaths, String summaryResourcePath, String backingBeanResourcePath) {
+        this(variantId, variantId.toString(), componentDemo, jsfResourcePaths, summaryResourcePath, backingBeanResourcePath);
     }
 
     /**
@@ -64,13 +64,13 @@ public class ComponentVariantDemoImpl extends AbstractComponentVariantDemo {
      * @param variantId
      * @param variantDisplayName
      * @param componentDemo
-     * @param jsfResourcePath
+     * @param jsfResourcePaths
      * @param summaryResourcePath
      */
     public ComponentVariantDemoImpl(IComponentDemoVariantId variantId, String variantDisplayName,
             AbstractComponentDemo componentDemo,
-            String jsfResourcePath, String summaryResourcePath) {
-        this(variantId, variantDisplayName, componentDemo, jsfResourcePath, summaryResourcePath, null);
+            String[] jsfResourcePaths, String summaryResourcePath) {
+        this(variantId, variantDisplayName, componentDemo, jsfResourcePaths, summaryResourcePath, null);
     }   
 
     /**
@@ -79,23 +79,28 @@ public class ComponentVariantDemoImpl extends AbstractComponentVariantDemo {
      * @param variantId
      * @param variantDisplayName
      * @param componentDemo
-     * @param jsfResourcePath
+     * @param jsfResourcePaths
      * @param summaryResourcePath
      * @param backingBeanResourcePath
      */
     public ComponentVariantDemoImpl(IComponentDemoVariantId variantId, String variantDisplayName,
             AbstractComponentDemo componentDemo,
-            String jsfResourcePath, String summaryResourcePath, String backingBeanResourcePath) {
+            String[] jsfResourcePaths, String summaryResourcePath, String backingBeanResourcePath) {
 
         super(variantId, variantDisplayName, componentDemo);
 
-        this.jsfResourcePath = jsfResourcePath;
+        this.jsfResourcePaths = jsfResourcePaths;
         this.summaryResourcePath = summaryResourcePath;
         this.backingBeanResourcePath = backingBeanResourcePath;
     }
 
-    public String getJsfResourcePath() {
-        return jsfResourcePath;
+    public String[] getJsfResourcePaths(){
+        return jsfResourcePaths;
+    }
+
+
+	public String getEntryPagePath(){
+        return jsfResourcePaths.length != 0 ? jsfResourcePaths[0] : "";
     }
 
     public String getSummaryResourcePath() {

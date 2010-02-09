@@ -39,16 +39,19 @@ public class SelectBooleanCheckboxDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SelectBooleanCheckboxDemo() {
-		super(ComponentDemoId.selectBooleanCheckbox, "Select Boolean Checkbox");
+		super(ComponentDemoId.selectBooleanCheckbox, "Select Boolean Checkbox",
+            new String[]{
+                "/components/select/selectBooleanCheckbox/selectBooleanCheckbox.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
-                "/components/select/selectBooleanCheckbox/selectBooleanCheckboxDetailed.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/select/selectBooleanCheckbox/selectBooleanCheckboxDetailed.xhtml"
+                }, getSummaryResourcePath()));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
-                "/components/select/selectBooleanCheckbox/selectBooleanCheckboxSimple.xhtml", getSummaryResourcePath()));
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/select/selectBooleanCheckbox/selectBooleanCheckbox.xhtml";
+                new String[]{
+                        "/components/select/selectBooleanCheckbox/selectBooleanCheckboxSimple.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

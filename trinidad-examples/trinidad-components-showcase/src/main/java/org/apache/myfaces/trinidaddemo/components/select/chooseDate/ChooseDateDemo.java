@@ -32,11 +32,10 @@ public class ChooseDateDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public ChooseDateDemo() {
-		super(ComponentDemoId.chooseDate, "Choose Date");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/select/chooseDate/chooseDate.xhtml";
+		super(ComponentDemoId.chooseDate, "Choose Date",
+            new String[]{
+                "/components/select/chooseDate/chooseDate.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

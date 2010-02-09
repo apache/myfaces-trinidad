@@ -42,22 +42,35 @@ public class PanelHeaderDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public PanelHeaderDemo() {
-		super(ComponentDemoId.panelHeader, "Panel Header");
+		super(ComponentDemoId.panelHeader, "Panel Header",
+            new String[]{
+                "/components/panel/panelHeader/panelHeader.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ConfirmationMessage, this,
-                "/components/panel/panelHeader/panelHeaderConfirmationMessage.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ErrorMessage, this,
-                "/components/panel/panelHeader/panelHeaderErrorMessage.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.InfoMessage, this,
-                "/components/panel/panelHeader/panelHeaderInfoMessage.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.None, this,
-                "/components/panel/panelHeader/panelHeaderNone.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.WarningMessage, this,
-                "/components/panel/panelHeader/panelHeaderWarningMessage.xhtml", getSummaryResourcePath()));
-	}
+                new String[]{
+                        "/components/panel/panelHeader/panelHeaderConfirmationMessage.xhtml"
+                }, getSummaryResourcePath()));
 
-	public String getJsfResourcePath() {
-		return "/components/panel/panelHeader/panelHeader.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ErrorMessage, this,
+                new String[]{
+                        "/components/panel/panelHeader/panelHeaderErrorMessage.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.InfoMessage, this,
+                new String[]{
+                        "/components/panel/panelHeader/panelHeaderInfoMessage.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.None, this,
+                new String[]{
+                        "/components/panel/panelHeader/panelHeaderNone.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.WarningMessage, this,
+                new String[]{
+                        "/components/panel/panelHeader/panelHeaderWarningMessage.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

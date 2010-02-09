@@ -66,8 +66,8 @@ public interface IComponentDemo extends IComponentVariantDemo {
 	 * 
 	 * @return  a comma separated list of CSS styles classes.
 	 */
-	String getColumnStyleClassNames();
-	
+	String getColumnStyleClassNames();    
+
 	/**
 	 * Returns true if this component supports more than one variant, otherwise returns false.
 	 * 

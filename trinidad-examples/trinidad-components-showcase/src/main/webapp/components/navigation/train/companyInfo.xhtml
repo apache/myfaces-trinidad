@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
+
+    <ui:define name="demoContent">
+
+        <tr:spacer height="5"/>
+        <tr:outputFormatted styleUsage="instruction"
+                            value="&lt;b>Please take the time to complet all the steps of our Trinidad Questionnaire&lt;/b>"/>
+        <tr:spacer height="10"/>
+        <tr:separator/>
+        <tr:spacer height="5"/>
+
+        <tr:train var="foo" value="#{trainBean}">
+            <f:facet name="nodeStamp">
+                <tr:commandNavigationItem text="#{foo.label}"
+                                          action="#{foo.getOutcome}"
+                                          immediate="#{trainBean.immediate}"
+                                          disabled="#{trainBean.readOnly}"
+                                          visited="#{trainBean.visited}"/>
+            </f:facet>
+        </tr:train>
+
+        <tr:spacer height="10px"/>
+        <tr:panelHorizontalLayout>
+            <tr:outputText value="Company Name"/>
+            <tr:inputText/>
+        </tr:panelHorizontalLayout>
+        <tr:panelHorizontalLayout>
+            <tr:outputText value="Activity Domain"/>
+            <tr:spacer width="1" height="40"/>
+            <tr:inputText/>
+        </tr:panelHorizontalLayout>
+        <tr:panelHorizontalLayout>
+            <tr:outputText value="Your Title"/>
+            <tr:spacer width="36" height="10"/>
+            <tr:inputText/>
+        </tr:panelHorizontalLayout>
+        <tr:spacer height="20px"/>
+
+        <tr:panelHorizontalLayout>
+            <tr:commandButton text="&lt; Back" action="trainGeneralInfo"/>
+            <tr:spacer height="10" width="200px"/>
+            <tr:commandButton text="Next &gt;" action="trainJsfSurvey"/>
+        </tr:panelHorizontalLayout>
+
+    </ui:define>
+</ui:composition>

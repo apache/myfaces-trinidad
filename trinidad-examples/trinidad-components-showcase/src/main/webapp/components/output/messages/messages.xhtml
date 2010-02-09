@@ -1,30 +1,36 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:tr="http://myfaces.apache.org/trinidad">
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
 
-    <tr:messages/>
-    <tr:panelFormLayout>
-        <tr:inputText label="Amount">
-            <f:facet name="help">
-                <tr:outputText value="Type 'cat' to see an error in the message box"/>
-            </f:facet>
-            <f:converter converterId="javax.faces.BigInteger"/>
-        </tr:inputText>
-        <tr:inputText label="Threshold">
-            <f:facet name="help">
-                <tr:outputText value="type='percent' locale='en_US' - This results in fraction
+    <ui:define name="demoContent">
+
+        <tr:messages/>
+        <tr:panelFormLayout>
+            <tr:inputText label="Amount">
+                <f:facet name="help">
+                    <tr:outputText value="Type 'cat' to see an error in the message box"/>
+                </f:facet>
+                <f:converter converterId="javax.faces.BigInteger"/>
+            </tr:inputText>
+            <tr:inputText label="Threshold">
+                <f:facet name="help">
+                    <tr:outputText value="type='percent' locale='en_US' - This results in fraction
                         displayed as integer value with % symbol"/>
-            </f:facet>
-            <f:convertNumber type="percent" locale="en_US"/>
-        </tr:inputText>
-    </tr:panelFormLayout>
-    <tr:commandButton text="Submit"/>
-    <tr:panelHorizontalLayout>
-        <tr:commandButton text="Add Message" action="#{messagesBean.createGlobalMessage}"
-                          immediate="true"/>
-        <tr:commandButton text="Add Multiple Messages"
-                          action="#{messagesBean.createMultipleGlobalMessages}" immediate="true"/>
-    </tr:panelHorizontalLayout>
+                </f:facet>
+                <f:convertNumber type="percent" locale="en_US"/>
+            </tr:inputText>
+        </tr:panelFormLayout>
+        <tr:commandButton text="Submit"/>
+        <tr:panelHorizontalLayout>
+            <tr:commandButton text="Add Message"
+                              action="#{messagesBean.createGlobalMessage}"
+                              immediate="true"/>
+            <tr:commandButton text="Add Multiple Messages"
+                              action="#{messagesBean.createMultipleGlobalMessages}"
+                              immediate="true"/>
+        </tr:panelHorizontalLayout>
 
+    </ui:define>
 </ui:composition>

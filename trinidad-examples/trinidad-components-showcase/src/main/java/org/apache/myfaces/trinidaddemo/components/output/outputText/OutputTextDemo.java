@@ -37,11 +37,10 @@ public class OutputTextDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public OutputTextDemo() {
-		super(ComponentDemoId.outputText, "Output Text", VARIANTS.Default, "Default");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/output/outputText/outputText.xhtml";
+		super(ComponentDemoId.outputText, "Output Text", VARIANTS.Default, "Default",
+            new String[]{
+                "/components/output/outputText/outputText.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

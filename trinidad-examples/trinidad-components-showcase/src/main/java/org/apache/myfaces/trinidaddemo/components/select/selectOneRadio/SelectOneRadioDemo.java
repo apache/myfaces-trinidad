@@ -41,20 +41,30 @@ public class SelectOneRadioDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SelectOneRadioDemo() {
-		super(ComponentDemoId.selectOneRadio, "Select One Radio");
+		super(ComponentDemoId.selectOneRadio, "Select One Radio",
+            new String[]{
+                "/components/select/selectOneRadio/selectOneRadio.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
-                "/components/select/selectOneRadio/selectOneRadioSimple.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
-                "/components/select/selectOneRadio/selectOneRadioDetailed.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Horizontal, this,
-                "/components/select/selectOneRadio/selectOneRadioHorizontal.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Vertical, this,
-                "/components/select/selectOneRadio/selectOneRadioVertical.xhtml", getSummaryResourcePath()));
-	}
+                new String[]{
+                        "/components/select/selectOneRadio/selectOneRadioSimple.xhtml"
+                }, getSummaryResourcePath()));
 
-	public String getJsfResourcePath() {
-		return "/components/select/selectOneRadio/selectOneRadio.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
+                new String[]{
+                        "/components/select/selectOneRadio/selectOneRadioDetailed.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Horizontal, this,
+                new String[]{
+                        "/components/select/selectOneRadio/selectOneRadioHorizontal.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Vertical, this,
+                new String[]{
+                        "/components/select/selectOneRadio/selectOneRadioVertical.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

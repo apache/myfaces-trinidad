@@ -41,20 +41,30 @@ public class SelectManyCheckboxDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SelectManyCheckboxDemo() {
-		super(ComponentDemoId.selectManyCheckbox, "Select Many Checkbox");
+		super(ComponentDemoId.selectManyCheckbox, "Select Many Checkbox",
+            new String[]{
+                "/components/select/selectManyCheckbox/selectManyCheckbox.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
-                "/components/select/selectManyCheckbox/selectManyCheckboxSimple.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
-                "/components/select/selectManyCheckbox/selectManyCheckboxDetailed.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Horizontal, this,
-                "/components/select/selectManyCheckbox/selectManyCheckboxHorizontal.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Vertical, this,
-                "/components/select/selectManyCheckbox/selectManyCheckboxVertical.xhtml", getSummaryResourcePath()));
-	}
+                new String[]{
+                        "/components/select/selectManyCheckbox/selectManyCheckboxSimple.xhtml"
+                }, getSummaryResourcePath()));
 
-	public String getJsfResourcePath() {
-		return "/components/select/selectManyCheckbox/selectManyCheckbox.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
+                new String[]{
+                        "/components/select/selectManyCheckbox/selectManyCheckboxDetailed.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Horizontal, this,
+                new String[]{
+                        "/components/select/selectManyCheckbox/selectManyCheckboxHorizontal.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Vertical, this,
+                new String[]{
+                        "/components/select/selectManyCheckbox/selectManyCheckboxVertical.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

@@ -111,7 +111,7 @@
     </managed-bean>
 
     <managed-bean>
-        <managed-bean-name>selectRangeChoiceBarBean</managed-bean-name>    
+        <managed-bean-name>selectRangeChoiceBarBean</managed-bean-name>
         <managed-bean-class>
             org.apache.myfaces.trinidaddemo.components.select.selectRangeChoiceBar.SelectRangeChoiceBarBean
         </managed-bean-class>
@@ -255,38 +255,28 @@
         </navigation-case>
 
         <navigation-case>
-            <from-outcome>train</from-outcome>
-            <to-view-id>/components/navigation/train/train.xhtml</to-view-id>
+            <from-outcome>trainGeneralInfo</from-outcome>
+            <to-view-id>/components/navigation/train/generalInfo.xhtml</to-view-id>
         </navigation-case>
 
         <navigation-case>
-            <from-outcome>train2</from-outcome>
-            <to-view-id>/components/navigation/train/train2.xhtml</to-view-id>
+            <from-outcome>trainCompanyInfo</from-outcome>
+            <to-view-id>/components/navigation/train/companyInfo.xhtml</to-view-id>
         </navigation-case>
 
         <navigation-case>
-            <from-outcome>train3</from-outcome>
-            <to-view-id>/components/navigation/train/train3.xhtml</to-view-id>
+            <from-outcome>trainJsfSurvey</from-outcome>
+            <to-view-id>/components/navigation/train/jsfSurvey.xhtml</to-view-id>
         </navigation-case>
 
         <navigation-case>
-            <from-outcome>train4</from-outcome>
-            <to-view-id>/components/navigation/train/train4.xhtml</to-view-id>
+            <from-outcome>trainTrinidadSurvey</from-outcome>
+            <to-view-id>/components/navigation/train/trinidadSurvey.xhtml</to-view-id>
         </navigation-case>
 
         <navigation-case>
-            <from-outcome>train5</from-outcome>
-            <to-view-id>/components/navigation/train/train5.xhtml</to-view-id>
-        </navigation-case>
-
-        <navigation-case>
-            <from-outcome>train6</from-outcome>
-            <to-view-id>/components/navigation/train/train6.xhtml</to-view-id>
-        </navigation-case>
-
-        <navigation-case>
-            <from-outcome>train7</from-outcome>
-            <to-view-id>/components/navigation/train/train7.xhtml</to-view-id>
+            <from-outcome>trainYouAreDone</from-outcome>
+            <to-view-id>/components/navigation/train/youAreDone.xhtml</to-view-id>
         </navigation-case>
 
         <navigation-case>

@@ -32,11 +32,10 @@ public class OutputDocumentDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public OutputDocumentDemo() {
-		super(ComponentDemoId.outputDocument, "Output Document");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/output/outputDocument/outputDocument.xhtml";
+		super(ComponentDemoId.outputDocument, "Output Document",
+            new String[]{
+                "/components/output/outputDocument/outputDocument.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

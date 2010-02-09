@@ -42,19 +42,30 @@ public class NavigationPaneDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public NavigationPaneDemo() {
-		super(ComponentDemoId.navigationPane, "Navigation Pane");
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Buttons, this,
-                "/components/navigation/navigationPane/navigationPaneButtons.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Choice, this,
-                "/components/navigation/navigationPane/navigationPaneChoice.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.List, this,
-                "/components/navigation/navigationPane/navigationPaneList.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Tabs, this,
-                "/components/navigation/navigationPane/navigationPaneTabs.xhtml", getSummaryResourcePath()));
-	}
+		super(ComponentDemoId.navigationPane, "Navigation Pane",
+            new String[]{
+                "/components/navigation/navigationPane/navigationPaneBar.xhtml"
+            });
 
-	public String getJsfResourcePath() {
-		return "/components/navigation/navigationPane/navigationPaneBar.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Buttons, this,
+                new String[]{
+                        "/components/navigation/navigationPane/navigationPaneButtons.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Choice, this,
+                new String[]{
+                        "/components/navigation/navigationPane/navigationPaneChoice.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.List, this,
+                new String[]{
+                        "/components/navigation/navigationPane/navigationPaneList.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Tabs, this,
+                new String[]{
+                        "/components/navigation/navigationPane/navigationPaneTabs.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

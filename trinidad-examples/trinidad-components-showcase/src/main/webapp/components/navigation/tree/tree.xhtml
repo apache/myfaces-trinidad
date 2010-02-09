@@ -1,12 +1,16 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:tr="http://myfaces.apache.org/trinidad">
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
 
-    <tr:tree var="foo" value="#{treeTableBean.model}" rendered="true">
-        <f:facet name="nodeStamp">
-            <tr:outputText value="#{foo.name}" shortDesc="Enter text"/>
-        </f:facet>
-    </tr:tree>
+    <ui:define name="demoContent">
 
+        <tr:tree var="foo" value="#{treeTableBean.model}" rendered="true">
+            <f:facet name="nodeStamp">
+                <tr:outputText value="#{foo.name}" shortDesc="Enter text"/>
+            </f:facet>
+        </tr:tree>
+
+    </ui:define>
 </ui:composition>

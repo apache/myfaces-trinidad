@@ -1,9 +1,13 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:tr="http://myfaces.apache.org/trinidad">
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
 
-    <tr:panelHeader text="panelHeader 1" messageType="error">
-        <tr:panelHeader text="panelHeader 2"/>
-    </tr:panelHeader>
+    <ui:define name="demoContent">
 
+        <tr:panelHeader text="panelHeader 1" messageType="error">
+            <tr:panelHeader text="panelHeader 2"/>
+        </tr:panelHeader>
+
+    </ui:define>
 </ui:composition>

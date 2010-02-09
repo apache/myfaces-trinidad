@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
  *
  */
 public class InputColorDemo extends AbstractComponentDemo {
-    
+
     private static final long serialVersionUID = -1982061956883498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
@@ -40,18 +40,25 @@ public class InputColorDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public InputColorDemo() {
-		super(ComponentDemoId.inputColor, "Input Color");
+		super(ComponentDemoId.inputColor, "Input Color",
+            new String[]{
+                "/components/input/inputColor/inputColor.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Compact, this,
-                "/components/input/inputColor/inputColorCompact.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
-                "/components/input/inputColor/inputColorDetailed.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
-                "/components/input/inputColor/inputColorSimple.xhtml", getSummaryResourcePath()));
-	}
+                new String[]{
+                        "/components/input/inputColor/inputColorCompact.xhtml"
+                }, getSummaryResourcePath()));
 
-	public String getJsfResourcePath() {
-		return "/components/input/inputColor/inputColor.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
+                new String[]{
+                        "/components/input/inputColor/inputColorDetailed.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
+                new String[]{
+                        "/components/input/inputColor/inputColorSimple.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

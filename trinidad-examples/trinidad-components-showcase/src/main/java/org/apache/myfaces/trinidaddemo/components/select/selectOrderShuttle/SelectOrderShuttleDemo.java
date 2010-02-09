@@ -39,14 +39,15 @@ public class SelectOrderShuttleDemo extends AbstractComponentDemo {
      * Constructor.
      */
     public SelectOrderShuttleDemo() {
-        super(ComponentDemoId.selectOrderShuttle, "Select Order Shuttle", VARIANTS.Default, "Default");
+        super(ComponentDemoId.selectOrderShuttle, "Select Order Shuttle", VARIANTS.Default, "Default",
+            new String[]{
+                "/components/select/selectOrderShuttle/selectOrderShuttle.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ShowDescription, "Show Description", this,
-                "/components/select/selectOrderShuttle/selectOrderShuttleShowDescription.xhtml", getSummaryResourcePath()));
-    }
-
-    public String getJsfResourcePath() {
-        return "/components/select/selectOrderShuttle/selectOrderShuttle.xhtml";
+                new String[]{
+                        "/components/select/selectOrderShuttle/selectOrderShuttleShowDescription.xhtml"
+                }, getSummaryResourcePath()));
     }
 
     public String getSummaryResourcePath() {

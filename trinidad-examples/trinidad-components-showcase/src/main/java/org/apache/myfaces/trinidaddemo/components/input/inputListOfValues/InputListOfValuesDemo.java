@@ -39,18 +39,21 @@ public class InputListOfValuesDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public InputListOfValuesDemo() {
-		super(ComponentDemoId.inputListOfValues, "Input List Of Values");
+		super(ComponentDemoId.inputListOfValues, "Input List Of Values",
+            new String[]{
+                "/components/input/inputListOfValues/inputListOfValues.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
-                "/components/input/inputListOfValues/inputListOfValuesSimple.xhtml", getSummaryResourcePath(),
+                new String[]{
+                        "/components/input/inputListOfValues/inputListOfValuesSimple.xhtml"
+                }, getSummaryResourcePath(),
                 "/org/apache/myfaces/trinidaddemo/components/input/inputListOfValues/InputListOfValuesBean.java"));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
-                "/components/input/inputListOfValues/inputListOfValuesDetailed.xhtml", getSummaryResourcePath(),
+                new String[]{
+                        "/components/input/inputListOfValues/inputListOfValuesDetailed.xhtml"
+                }, getSummaryResourcePath(),
                 "/org/apache/myfaces/trinidaddemo/components/input/inputListOfValues/InputListOfValuesBean.java"));
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/input/inputListOfValues/inputListOfValues.xhtml";
 	}
 
     public String getSummaryResourcePath() {

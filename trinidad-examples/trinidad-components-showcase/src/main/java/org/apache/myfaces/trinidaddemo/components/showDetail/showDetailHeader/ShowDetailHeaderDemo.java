@@ -41,20 +41,30 @@ public class ShowDetailHeaderDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public ShowDetailHeaderDemo(){
-		super(ComponentDemoId.showDetailHeader, "Show Detail Header");
+		super(ComponentDemoId.showDetailHeader, "Show Detail Header",
+            new String[]{
+                "/components/showDetail/showDetailHeader/showDetailHeader.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.InfoMessage, "Info Message", this,
-                "/components/showDetail/showDetailHeader/showDetailHeaderInfoMessage.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ConfirmationMessage, "Confirmation Message", this,
-                "/components/showDetail/showDetailHeader/showDetailHeaderConfirmationMessage.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ErrorMessage, "Error message", this,
-                "/components/showDetail/showDetailHeader/showDetailHeaderErrorMessage.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.WarningMessage, "Warning message", this,
-                "/components/showDetail/showDetailHeader/showDetailHeaderWarningMessage.xhtml", getSummaryResourcePath()));
-	}
+                new String[]{
+                        "/components/showDetail/showDetailHeader/showDetailHeaderInfoMessage.xhtml"
+                }, getSummaryResourcePath()));
 
-	public String getJsfResourcePath() {
-		return "/components/showDetail/showDetailHeader/showDetailHeader.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ConfirmationMessage, "Confirmation Message", this,
+                new String[]{
+                        "/components/showDetail/showDetailHeader/showDetailHeaderConfirmationMessage.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ErrorMessage, "Error message", this,
+                new String[]{
+                        "/components/showDetail/showDetailHeader/showDetailHeaderErrorMessage.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.WarningMessage, "Warning message", this,
+                new String[]{
+                        "/components/showDetail/showDetailHeader/showDetailHeaderWarningMessage.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

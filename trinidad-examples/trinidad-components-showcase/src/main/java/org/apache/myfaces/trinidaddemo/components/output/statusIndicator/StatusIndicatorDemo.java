@@ -32,11 +32,10 @@ public class StatusIndicatorDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public StatusIndicatorDemo() {
-		super(ComponentDemoId.statusIndicator, "Status Indicator");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/output/statusIndicator/statusIndicator.xhtml";
+		super(ComponentDemoId.statusIndicator, "Status Indicator",
+            new String[]{
+                "/components/output/statusIndicator/statusIndicator.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

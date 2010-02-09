@@ -40,18 +40,25 @@ public class PanelTabbedDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public PanelTabbedDemo() {
-		super(ComponentDemoId.panelTabbed, "Panel Tabbed");
+		super(ComponentDemoId.panelTabbed, "Panel Tabbed",
+            new String[]{
+                "/components/panel/panelTabbed/panelTabbed.xhtml"
+            });
         
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Above, this,
-                "/components/panel/panelTabbed/panelTabbedAbove.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Below, this,
-                "/components/panel/panelTabbed/panelTabbedBelow.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Both, this,
-                "/components/panel/panelTabbed/panelTabbedBoth.xhtml", getSummaryResourcePath()));
-	}
+                new String[]{
+                        "/components/panel/panelTabbed/panelTabbedAbove.xhtml"
+                }, getSummaryResourcePath()));
 
-	public String getJsfResourcePath() {
-		return "/components/panel/panelTabbed/panelTabbed.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Below, this,
+                new String[]{
+                        "/components/panel/panelTabbed/panelTabbedBelow.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Both, this,
+                new String[]{
+                        "/components/panel/panelTabbed/panelTabbedBoth.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

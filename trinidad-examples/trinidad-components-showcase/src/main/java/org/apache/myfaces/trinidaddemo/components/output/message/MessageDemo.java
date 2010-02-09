@@ -41,21 +41,31 @@ public class MessageDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public MessageDemo() {
-		super(ComponentDemoId.message, "Message");
+		super(ComponentDemoId.message, "Message",
+            new String[]{
+                "/components/output/message/message.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.None, this,
-                "/components/output/message/messageNone.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/output/message/messageNone.xhtml"
+                }, getSummaryResourcePath()));
+
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Warning, this,
-                "/components/output/message/messageWarning.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/output/message/messageWarning.xhtml"
+                }, getSummaryResourcePath()));
+
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Info, this,
-                "/components/output/message/messageInfo.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/output/message/messageInfo.xhtml"
+                }, getSummaryResourcePath()));
+
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Error, this,
-                "/components/output/message/messageError.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/output/message/messageError.xhtml"
+                }, getSummaryResourcePath()));
 
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/output/message/message.xhtml";
 	}
 
     public String getSummaryResourcePath() {

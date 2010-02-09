@@ -39,16 +39,19 @@ public class SelectOneListboxDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SelectOneListboxDemo() {
-		super(ComponentDemoId.selectOneListbox, "Select One Listbox");
+		super(ComponentDemoId.selectOneListbox, "Select One Listbox",
+            new String[]{
+                "/components/select/selectOneListbox/selectOneListbox.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
-                "/components/select/selectOneListbox/selectOneListboxSimple.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/select/selectOneListbox/selectOneListboxSimple.xhtml"
+                }, getSummaryResourcePath()));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
-                "/components/select/selectOneListbox/selectOneListboxDetailed.xhtml", getSummaryResourcePath()));
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/select/selectOneListbox/selectOneListbox.xhtml";
+                new String[]{
+                        "/components/select/selectOneListbox/selectOneListboxDetailed.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

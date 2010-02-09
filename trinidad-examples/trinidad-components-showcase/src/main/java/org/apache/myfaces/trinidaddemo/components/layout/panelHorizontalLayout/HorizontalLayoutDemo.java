@@ -41,20 +41,30 @@ public class HorizontalLayoutDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public HorizontalLayoutDemo() {
-		super(ComponentDemoId.panelHorizontalLayout, "Horizontal Layout");
+		super(ComponentDemoId.panelHorizontalLayout, "Horizontal Layout",
+            new String[]{
+                "/components/layout/horizontalLayout/panelHorizontalLayout.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Left, this,
-                "/components/layout/horizontalLayout/panelHorizontalLayoutLeft.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Middle, this,
-                "/components/layout/horizontalLayout/panelHorizontalLayoutMiddle.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Right, this,
-                "/components/layout/horizontalLayout/panelHorizontalLayoutRight.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Top, this,
-                "/components/layout/horizontalLayout/panelHorizontalLayoutTop.xhtml", getSummaryResourcePath()));
-	}
+                new String[]{
+                        "/components/layout/horizontalLayout/panelHorizontalLayoutLeft.xhtml"
+                }, getSummaryResourcePath()));
 
-	public String getJsfResourcePath() {
-		return "/components/layout/horizontalLayout/panelHorizontalLayout.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Middle, this,
+                new String[]{
+                        "/components/layout/horizontalLayout/panelHorizontalLayoutMiddle.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Right, this,
+                new String[]{
+                        "/components/layout/horizontalLayout/panelHorizontalLayoutRight.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Top, this,
+                new String[]{
+                        "/components/layout/horizontalLayout/panelHorizontalLayoutTop.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

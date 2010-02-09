@@ -32,11 +32,10 @@ public class ProgressIndicatorDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public ProgressIndicatorDemo() {
-		super(ComponentDemoId.progressIndicator, "Progress Indicator");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/output/progressIndicator/progressIndicator.xhtml";
+		super(ComponentDemoId.progressIndicator, "Progress Indicator",
+            new String[]{
+                "/components/output/progressIndicator/progressIndicator.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

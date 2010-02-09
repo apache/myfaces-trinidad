@@ -32,11 +32,10 @@ public class NavigationTreeDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public NavigationTreeDemo() {
-		super(ComponentDemoId.navigationTree, "Navigation Tree");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/navigation/navigationTree/navigationTree.xhtml";
+		super(ComponentDemoId.navigationTree, "Navigation Tree",
+            new String[]{
+                "/components/navigation/navigationTree/navigationTree.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

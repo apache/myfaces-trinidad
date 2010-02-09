@@ -39,14 +39,15 @@ public class InputNumberSpinboxDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public InputNumberSpinboxDemo() {
-		super(ComponentDemoId.inputNumberSpinbox, "Input Number Spinbox", VARIANTS.Simple, "Simple");
+		super(ComponentDemoId.inputNumberSpinbox, "Input Number Spinbox", VARIANTS.Simple, "Simple",
+            new String[]{
+                "/components/input/inputNumberSpinbox/inputNumberSpinboxSimple.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, "Detailed", this,
-                "/components/input/inputNumberSpinbox/inputNumberSpinboxDetailed.xhtml", getSummaryResourcePath()));
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/input/inputNumberSpinbox/inputNumberSpinboxSimple.xhtml";
+                new String[]{
+                        "/components/input/inputNumberSpinbox/inputNumberSpinboxDetailed.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

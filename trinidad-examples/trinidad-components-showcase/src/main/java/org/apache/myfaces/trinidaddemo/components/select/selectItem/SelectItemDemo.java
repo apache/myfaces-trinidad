@@ -32,11 +32,10 @@ public class SelectItemDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SelectItemDemo() {
-		super(ComponentDemoId.selectItem, "Select Item");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/select/selectItem/selectItem.xhtml";
+		super(ComponentDemoId.selectItem, "Select Item",
+            new String[]{
+                "/components/select/selectItem/selectItem.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

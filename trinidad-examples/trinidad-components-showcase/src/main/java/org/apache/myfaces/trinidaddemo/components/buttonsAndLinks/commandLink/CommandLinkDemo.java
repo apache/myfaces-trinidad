@@ -21,6 +21,9 @@ package org.apache.myfaces.trinidaddemo.components.buttonsAndLinks.commandLink;
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
 
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  *
  */
@@ -32,11 +35,10 @@ public class CommandLinkDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public CommandLinkDemo() {
-		super(ComponentDemoId.commandLink , "Command Link");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/buttonsAndLinks/commandLink/commandLink.xhtml";
+		super(ComponentDemoId.commandLink , "Command Link",
+            new String[]{
+                "/components/buttonsAndLinks/commandLink/commandLink.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

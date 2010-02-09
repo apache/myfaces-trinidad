@@ -37,11 +37,10 @@ public class LegendDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public LegendDemo() {
-		super(ComponentDemoId.legend, "Legend", VARIANTS.Default, "Default");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/output/legend/legend.xhtml";
+		super(ComponentDemoId.legend, "Legend", VARIANTS.Default, "Default",
+            new String[]{
+                "/components/output/legend/legend.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

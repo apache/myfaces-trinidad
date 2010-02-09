@@ -1,20 +1,23 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:tr="http://myfaces.apache.org/trinidad">
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
 
-    <tr:panelHorizontalLayout valign="top">
-        <tr:navigationTree var="node" value="#{navigationTreeBean.model}">
-            <f:facet name="nodeStamp">
-                <tr:commandNavigationItem text="#{node.name}" action="#{node.doAction}"/>
-            </f:facet>
-        </tr:navigationTree>
+    <ui:define name="demoContent">
 
-        <tr:spacer width="80"/>
+        <tr:panelHorizontalLayout valign="top">
+            <tr:navigationTree var="node" value="#{navigationTreeBean.model}">
+                <f:facet name="nodeStamp">
+                    <tr:commandNavigationItem text="#{node.name}"
+                                              action="#{node.doAction}"/>
+                </f:facet>
+            </tr:navigationTree>
+            <tr:spacer width="80"/>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="#{navigationTreeBean.actionString}"
+                                inlineStyle="text-align: center;"/>
+        </tr:panelHorizontalLayout>
 
-        <tr:outputFormatted styleUsage="instruction"
-                            value="#{navigationTreeBean.actionString}" 
-                            inlineStyle="text-align: center;"/>
-    </tr:panelHorizontalLayout>
-
+    </ui:define>
 </ui:composition>

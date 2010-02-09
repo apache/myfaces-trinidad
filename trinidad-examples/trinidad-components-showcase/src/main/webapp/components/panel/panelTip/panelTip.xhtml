@@ -1,10 +1,14 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:tr="http://myfaces.apache.org/trinidad">
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
 
-    <tr:panelTip>
-        <tr:outputFormatted
-                value="Don't forget to go to the &lt;a href='http://myfaces.apache.org'&gt;MyFaces&lt;/a&gt; website."/>
-    </tr:panelTip>
+    <ui:define name="demoContent">
 
+        <tr:panelTip>
+            <tr:outputFormatted
+                    value="Don't forget to go to the &lt;a href='http://myfaces.apache.org'&gt;MyFaces&lt;/a&gt; website."/>
+        </tr:panelTip>
+
+    </ui:define>
 </ui:composition>

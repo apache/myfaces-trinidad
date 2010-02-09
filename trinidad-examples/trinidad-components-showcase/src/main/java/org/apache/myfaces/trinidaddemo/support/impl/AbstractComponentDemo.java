@@ -43,7 +43,7 @@ public abstract class AbstractComponentDemo implements IComponentDemo {
 	private String displayName;
     private IComponentDemoVariantId variantId;
     private String variantDisplayName;
-
+    private String[] jsfResourcePaths;
     private String title;
 
     private enum VARIANTS implements IComponentDemoVariantId {
@@ -62,7 +62,11 @@ public abstract class AbstractComponentDemo implements IComponentDemo {
      * @param displayName
      */
     public AbstractComponentDemo(ComponentDemoId id, String displayName) {
-        this(id, displayName, VARIANTS.Default, DEFAULT_VARIANT_NAME);
+        this(id, displayName, VARIANTS.Default, DEFAULT_VARIANT_NAME, new String[]{});
+    }
+
+    public AbstractComponentDemo(ComponentDemoId id, String displayName, String[] jsfResourcePaths) {
+        this(id, displayName, VARIANTS.Default, DEFAULT_VARIANT_NAME, jsfResourcePaths);
     }
 
     /**
@@ -73,7 +77,15 @@ public abstract class AbstractComponentDemo implements IComponentDemo {
      * @param variantId
      */
     public AbstractComponentDemo(ComponentDemoId id, String displayName, IComponentDemoVariantId variantId) {
-        this(id, displayName, variantId, variantId.toString());
+        this(id, displayName, variantId, variantId.toString(), new String[]{});
+    }
+
+    public AbstractComponentDemo(ComponentDemoId id, String displayName, IComponentDemoVariantId variantId, String[] jsfResourcePaths) {
+        this(id, displayName, variantId, variantId.toString(), jsfResourcePaths);
+    }
+
+    public AbstractComponentDemo(ComponentDemoId id, String displayName, IComponentDemoVariantId variantId, String variantDisplayName) {
+        this(id, displayName, variantId, variantDisplayName, new String[]{});
     }
 
 	/**
@@ -85,13 +97,14 @@ public abstract class AbstractComponentDemo implements IComponentDemo {
      * @param variantDisplayName the display name of the variant this component demo represents.
 	 */
 	public AbstractComponentDemo(ComponentDemoId id, String displayName,
-            IComponentDemoVariantId variantId, String variantDisplayName) {
+            IComponentDemoVariantId variantId, String variantDisplayName, String[] jsfResourcePaths) {
 
 		this.id = id;
 		this.displayName = displayName;
         this.variantId = variantId;
         this.variantDisplayName = variantDisplayName;
-		
+		this.jsfResourcePaths = jsfResourcePaths;
+
 		this.variantsByName = new HashMap<String, IComponentVariantDemo>();
 		this.variants = new ArrayList<IComponentVariantDemo>();
 		
@@ -165,6 +178,15 @@ public abstract class AbstractComponentDemo implements IComponentDemo {
 	public IComponentVariantDemo getVariant(String name) {
 		return variantsByName.get(name);
 	}
+
+
+	public String[] getJsfResourcePaths(){
+        return jsfResourcePaths;
+    }
+
+	public String getEntryPagePath(){
+        return jsfResourcePaths.length != 0 ? jsfResourcePaths[0] : "";
+    }
 
 	public boolean isSupportsMultipleVariants() {
 		if (getVariants().size() > 1) {

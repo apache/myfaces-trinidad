@@ -32,11 +32,10 @@ public class ResetButtonDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public ResetButtonDemo() {
-		super(ComponentDemoId.resetButton, "Reset Button");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/buttonsAndLinks/resetButton/resetButton.xhtml";
+		super(ComponentDemoId.resetButton, "Reset Button",
+            new String[]{
+                "/components/buttonsAndLinks/resetButton/resetButton.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

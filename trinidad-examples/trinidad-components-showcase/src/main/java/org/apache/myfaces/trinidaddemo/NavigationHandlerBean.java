@@ -78,7 +78,7 @@ public class NavigationHandlerBean {
      */
     public String showComponentDemo() {
         if (currentComponentVariantDemo != null) {
-            return currentComponentVariantDemo.getJsfResourcePath();
+            return currentComponentVariantDemo.getEntryPagePath();
         }
 
         return null;

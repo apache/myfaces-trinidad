@@ -43,22 +43,35 @@ public class PanelButtonBarDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public PanelButtonBarDemo() {
-		super(ComponentDemoId.panelButtonBar, "Panel Button Bar", VARIANTS.Default, "Default");
+		super(ComponentDemoId.panelButtonBar, "Panel Button Bar", VARIANTS.Default, "Default",
+            new String[]{
+                "/components/panel/panelButtonBar/panelButtonBar.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Center, "Center", this,
-                "/components/panel/panelButtonBar/panelButtonBarCenter.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Left, "Left", this,
-                "/components/panel/panelButtonBar/panelButtonBarLeft.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Right, "Right", this,
-                "/components/panel/panelButtonBar/panelButtonBarRight.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.End, "End", this,
-                "/components/panel/panelButtonBar/panelButtonBarEnd.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Start, "Start", this,
-                "/components/panel/panelButtonBar/panelButtonBarStart.xhtml", getSummaryResourcePath()));
-	}
+                new String[]{
+                        "/components/panel/panelButtonBar/panelButtonBarCenter.xhtml"
+                }, getSummaryResourcePath()));
 
-	public String getJsfResourcePath() {
-		return "/components/panel/panelButtonBar/panelButtonBar.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Left, "Left", this,
+                new String[]{
+                        "/components/panel/panelButtonBar/panelButtonBarLeft.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Right, "Right", this,
+                new String[]{
+                        "/components/panel/panelButtonBar/panelButtonBarRight.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.End, "End", this,
+                new String[]{
+                        "/components/panel/panelButtonBar/panelButtonBarEnd.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Start, "Start", this,
+                new String[]{
+                        "/components/panel/panelButtonBar/panelButtonBarStart.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

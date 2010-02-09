@@ -43,30 +43,46 @@ public class ChartDemo extends AbstractComponentDemo {
      * Constructor.
      */
     public ChartDemo() {
-        super(ComponentDemoId.chart, "Chart");
+        super(ComponentDemoId.chart, "Chart",
+            new String[]{
+                "/components/output/chart/chart.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Area, this,
-                "/components/output/chart/chartArea.xhtml", getSummaryResourcePath(),
+                new String[]{
+                        "/components/output/chart/chartArea.xhtml"
+                }, getSummaryResourcePath(),
                 "/org/apache/myfaces/trinidaddemo/components/output/chart/ChartBean.java"));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.HorizontalBar, this,
-                "/components/output/chart/chartHorizontalBar.xhtml", getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/output/chart/ChartBean.java"));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.LegendButtom, this,
-                "/components/output/chart/chartLegendButtom.xhtml", getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/output/chart/ChartBean.java"));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.LegendTop, this,
-                "/components/output/chart/chartLegendTop.xhtml", getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/output/chart/ChartBean.java"));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Pie, this,
-                "/components/output/chart/chartPie.xhtml", getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/output/chart/ChartBean.java"));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.VerticalBar, this,
-                "/components/output/chart/chartVerticalBar.xhtml", getSummaryResourcePath(), 
-                "/org/apache/myfaces/trinidaddemo/components/output/chart/ChartBean.java"));
-    }
 
-    public String getJsfResourcePath() {
-        return "/components/output/chart/chart.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.HorizontalBar, this,
+                new String[]{
+                        "/components/output/chart/chartHorizontalBar.xhtml"
+                }, getSummaryResourcePath(),
+                "/org/apache/myfaces/trinidaddemo/components/output/chart/ChartBean.java"));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.LegendButtom, this,
+                new String[]{
+                        "/components/output/chart/chartLegendButtom.xhtml"
+                }, getSummaryResourcePath(),
+                "/org/apache/myfaces/trinidaddemo/components/output/chart/ChartBean.java"));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.LegendTop, this,
+                new String[]{
+                        "/components/output/chart/chartLegendTop.xhtml"
+                }, getSummaryResourcePath(),
+                "/org/apache/myfaces/trinidaddemo/components/output/chart/ChartBean.java"));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Pie, this,
+                new String[]{
+                        "/components/output/chart/chartPie.xhtml"
+                }, getSummaryResourcePath(),
+                "/org/apache/myfaces/trinidaddemo/components/output/chart/ChartBean.java"));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.VerticalBar, this,
+                new String[]{
+                        "/components/output/chart/chartVerticalBar.xhtml"
+                }, getSummaryResourcePath(),
+                "/org/apache/myfaces/trinidaddemo/components/output/chart/ChartBean.java"));
     }
 
     public String getSummaryResourcePath() {

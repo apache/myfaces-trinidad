@@ -41,18 +41,25 @@ public class OutputFormatedDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public OutputFormatedDemo() {
-		super(ComponentDemoId.outputFormated, "Output Formated", VARIANTS.Default, "Default");
+		super(ComponentDemoId.outputFormated, "Output Formated", VARIANTS.Default, "Default",
+            new String[]{
+                "/components/output/outputFormated/outputFormated.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.InContextBrandingStyle, "In context branding style", this,
-                "/components/output/outputFormated/outputFormatedInContextBrandingStyle.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.InstructionStyle, "Instruction style", this,
-                "/components/output/outputFormated/outputFormatedInstructionStyle.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.PageStampStyle, "Page stamp style", this,
-                "/components/output/outputFormated/outputFormatedPageStampStyle.xhtml", getSummaryResourcePath()));
-	}
+                new String[]{
+                        "/components/output/outputFormated/outputFormatedInContextBrandingStyle.xhtml"
+                }, getSummaryResourcePath()));
 
-	public String getJsfResourcePath() {
-		return "/components/output/outputFormated/outputFormated.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.InstructionStyle, "Instruction style", this,
+                new String[]{
+                        "/components/output/outputFormated/outputFormatedInstructionStyle.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.PageStampStyle, "Page stamp style", this,
+                new String[]{
+                        "/components/output/outputFormated/outputFormatedPageStampStyle.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

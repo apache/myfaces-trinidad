@@ -41,20 +41,30 @@ public class TableDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public TableDemo() {
-		super(ComponentDemoId.table, "Table");
+		super(ComponentDemoId.table, "Table",
+            new String[]{
+                "/components/table/table/table.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.SingleRowSelection, "Single Row Selection", this,
-                "/components/table/table/tableSingleRowSelection.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MultipleRowSelection, "Multiple Row Selection", this,
-                "/components/table/table/tableMultipleRowSelection.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoGridLines, "No grid lines", this,
-                "/components/table/table/tableNoGridLines.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Pagination, this,
-                "/components/table/table/tablePaginated.xhtml", getSummaryResourcePath()));
-	}
+                new String[]{
+                        "/components/table/table/tableSingleRowSelection.xhtml"
+                }, getSummaryResourcePath()));
 
-	public String getJsfResourcePath() {
-		return "/components/table/table/table.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MultipleRowSelection, "Multiple Row Selection", this,
+                new String[]{
+                        "/components/table/table/tableMultipleRowSelection.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoGridLines, "No grid lines", this,
+                new String[]{
+                        "/components/table/table/tableNoGridLines.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Pagination, this,
+                new String[]{
+                        "/components/table/table/tablePaginated.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

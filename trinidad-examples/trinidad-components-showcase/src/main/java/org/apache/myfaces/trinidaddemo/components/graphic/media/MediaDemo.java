@@ -43,23 +43,39 @@ public class MediaDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public MediaDemo() {
-		super(ComponentDemoId.media, "Media");
+		super(ComponentDemoId.media, "Media",
+            new String[]{
+                "/components/graphic/media/media.xhtml"
+            });
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.AllControls, "All controls", this,
-                "/components/graphic/media/mediaAllControls.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Link, this,
-                "/components/graphic/media/mediaLink.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoControls, "No controls", this,
-                "/components/graphic/media/mediaNoControls.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Quicktime, this,
-                "/components/graphic/media/mediaQuicktime.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Real, this,
-                "/components/graphic/media/mediaReal.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Windows, this,
-                "/components/graphic/media/mediaWindows.xhtml", getSummaryResourcePath()));
-	}
+                new String[]{
+                        "/components/graphic/media/mediaAllControls.xhtml"
+                }, getSummaryResourcePath()));
 
-	public String getJsfResourcePath() {
-		return "/components/graphic/media/media.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Link, this,
+                new String[]{
+                        "/components/graphic/media/mediaLink.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoControls, "No controls", this,
+                new String[]{
+                        "/components/graphic/media/mediaNoControls.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Quicktime, this,
+                new String[]{
+                        "/components/graphic/media/mediaQuicktime.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Real, this,
+                new String[]{
+                        "/components/graphic/media/mediaReal.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Windows, this,
+                new String[]{
+                        "/components/graphic/media/mediaWindows.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

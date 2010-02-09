@@ -39,16 +39,19 @@ public class SelectOneChoiceDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SelectOneChoiceDemo() {
-		super(ComponentDemoId.selectOneChoice, "Select One Choice");
+		super(ComponentDemoId.selectOneChoice, "Select One Choice",
+            new String[]{
+                "/components/select/selectOneChoice/selectOneChoice.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
-                "/components/select/selectOneChoice/selectOneChoiceSimple.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/select/selectOneChoice/selectOneChoiceSimple.xhtml"
+                }, getSummaryResourcePath()));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
-                "/components/select/selectOneChoice/selectOneChoiceDetailed.xhtml", getSummaryResourcePath()));
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/select/selectOneChoice/selectOneChoice.xhtml";
+                new String[]{
+                        "/components/select/selectOneChoice/selectOneChoiceDetailed.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

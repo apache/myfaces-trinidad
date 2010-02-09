@@ -32,11 +32,10 @@ public class PanelTipDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public PanelTipDemo() {
-		super(ComponentDemoId.panelTip, "Panel Tip");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/panel/panelTip/panelTip.xhtml";
+		super(ComponentDemoId.panelTip, "Panel Tip",
+            new String[]{
+                "/components/panel/panelTip/panelTip.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

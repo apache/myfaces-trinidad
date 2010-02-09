@@ -39,16 +39,15 @@ public class CommandButtonDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public CommandButtonDemo() {
-		super(ComponentDemoId.commnandButton , "Command Button", VARIANTS.fullSubmit, "Full submit");
+		super(ComponentDemoId.commnandButton , "Command Button", VARIANTS.fullSubmit, "Full submit",
+            new String[]{
+                "/components/buttonsAndLinks/commandButton/commandButton.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ajaxSubmit, "Ajax Submit", this,
-            "/components/buttonsAndLinks/commandButton/commandButtonAjax.xhtml",
-            getSummaryResourcePath(),
-            getBackingBeanResourcePath()));
-	}
-
-    public String getJsfResourcePath() {
-		return "/components/buttonsAndLinks/commandButton/commandButton.xhtml";
+            new String[]{
+                "/components/buttonsAndLinks/commandButton/commandButtonAjax.xhtml"
+            }, getSummaryResourcePath(), getBackingBeanResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

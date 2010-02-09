@@ -32,11 +32,10 @@ public class SingleStepButtonBarDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SingleStepButtonBarDemo() {
-		super(ComponentDemoId.singleStepButtonBar, "Single Step Button Bar");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/navigation/singleStepButtonBar/singleStepButtonBar.xhtml";
+		super(ComponentDemoId.singleStepButtonBar, "Single Step Button Bar",
+            new String[]{
+                "/components/navigation/singleStepButtonBar/singleStepButtonBar.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

@@ -1,8 +1,12 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:tr="http://myfaces.apache.org/trinidad">
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
 
-    <tr:chart YMajorGridLineCount="8" value="#{chartBean.value}"
-              type="verticalBar" inlineStyle="width:500px; height:300px;"/>
+    <ui:define name="demoContent">
 
+        <tr:chart YMajorGridLineCount="8" value="#{chartBean.value}"
+                  type="verticalBar" inlineStyle="width:500px; height:300px;"/>
+
+    </ui:define>
 </ui:composition>

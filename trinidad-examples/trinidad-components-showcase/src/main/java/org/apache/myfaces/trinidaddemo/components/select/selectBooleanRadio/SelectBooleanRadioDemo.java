@@ -39,14 +39,15 @@ public class SelectBooleanRadioDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SelectBooleanRadioDemo() {
-		super(ComponentDemoId.selectBooleanRadio, "Select Boolean Radio", VARIANTS.Simple, "Simple");
+		super(ComponentDemoId.selectBooleanRadio, "Select Boolean Radio", VARIANTS.Simple, "Simple",
+            new String[]{
+                "/components/select/selectBooleanRadio/selectBooleanRadioSimple.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, "Detailed", this,
-                "/components/select/selectBooleanRadio/selectBooleanRadioDetailed.xhtml", getSummaryResourcePath()));
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/select/selectBooleanRadio/selectBooleanRadioSimple.xhtml";
+                new String[]{
+                        "/components/select/selectBooleanRadio/selectBooleanRadioDetailed.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

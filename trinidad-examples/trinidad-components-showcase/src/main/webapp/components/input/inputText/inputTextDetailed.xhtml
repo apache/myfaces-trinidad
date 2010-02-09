@@ -1,10 +1,14 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:tr="http://myfaces.apache.org/trinidad">
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
 
-    <tr:panelFormLayout rows="4" labelAlignment="start">
-        <tr:inputText label="Useranme:" simple="false"/>
-        <tr:inputText label="Password:" required="no" secret="true" simple="false"/>
-    </tr:panelFormLayout>
+    <ui:define name="demoContent">
 
+        <tr:panelFormLayout rows="4" labelAlignment="start">
+            <tr:inputText label="Useranme:" simple="false"/>
+            <tr:inputText label="Password:" required="no" secret="true" simple="false"/>
+        </tr:panelFormLayout>
+
+    </ui:define>
 </ui:composition>

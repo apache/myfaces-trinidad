@@ -38,15 +38,15 @@ public class BreadCrumbsDemo extends AbstractComponentDemo{
 	 * Constructor.
 	 */
 	public BreadCrumbsDemo() {
-		super(ComponentDemoId.breadCrumbs, "Bread Crumbs", VARIANTS.Horizontal);
+		super(ComponentDemoId.breadCrumbs, "Bread Crumbs", VARIANTS.Horizontal,
+            new String[]{
+                "/components/navigation/breadCrumbs/breadCrumbsHorizontal.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Vertical, this,
-                "/components/navigation/breadCrumbs/breadCrumbsVertical.xhtml",
-                "/components/navigation/breadCrumbs/summary.xhtml"));
-	}
-
-    public String getJsfResourcePath() {
-		return "/components/navigation/breadCrumbs/breadCrumbsHorizontal.xhtml";
+                new String[]{
+                        "/components/navigation/breadCrumbs/breadCrumbsVertical.xhtml"
+                }, "/components/navigation/breadCrumbs/summary.xhtml"));
 	}
 
     public String getSummaryResourcePath() {

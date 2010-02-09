@@ -32,11 +32,10 @@ public class MessagesDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public MessagesDemo() {
-		super(ComponentDemoId.messages, "Messages");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/output/messages/messages.xhtml";
+		super(ComponentDemoId.messages, "Messages",
+            new String[]{
+                "/components/output/messages/messages.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

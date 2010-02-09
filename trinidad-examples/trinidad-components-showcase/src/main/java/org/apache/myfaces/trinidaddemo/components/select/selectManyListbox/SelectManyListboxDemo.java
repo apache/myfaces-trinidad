@@ -39,17 +39,20 @@ public class SelectManyListboxDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SelectManyListboxDemo() {
-		super(ComponentDemoId.selectManyListbox, "Select Many Listbox");
+		super(ComponentDemoId.selectManyListbox, "Select Many Listbox",
+            new String[]{
+                "/components/select/selectManyListbox/selectManyListbox.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
-                "/components/select/selectManyListbox/selectManyListboxSimple.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/select/selectManyListbox/selectManyListboxSimple.xhtml"
+                }, getSummaryResourcePath()));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
-                "/components/select/selectManyListbox/selectManyListboxDetailed.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/select/selectManyListbox/selectManyListboxDetailed.xhtml"
+                }, getSummaryResourcePath()));
 
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/select/selectManyListbox/selectManyListbox.xhtml";
 	}
 
     public String getSummaryResourcePath() {

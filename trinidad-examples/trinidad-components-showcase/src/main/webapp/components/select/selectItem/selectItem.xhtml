@@ -1,21 +1,26 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:tr="http://myfaces.apache.org/trinidad">
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
 
-    <tr:outputText value="Installation Wizard"/>
-    <tr:spacer height="20px"/>
-    <tr:selectOneRadio label="Select the desired installation type: " >
-        <tr:selectItem label="Typical"/>
-        <tr:selectItem label="Complete"/>
-        <tr:selectItem label="Custom"/>
-    </tr:selectOneRadio>
-    <tr:spacer height="10px"/>
-    <tr:panelHorizontalLayout>
-        <tr:spacer width="5px"/>
-        <tr:commandButton text="&lt; Back" disabled="true"/>
-        <tr:spacer width="10px"/>
-        <tr:commandButton text="Next &gt;"/>
-        <tr:spacer width="25px"/>
-        <tr:commandButton text="Cancel"/>
-    </tr:panelHorizontalLayout>
+    <ui:define name="demoContent">
+
+        <tr:outputText value="Installation Wizard"/>
+        <tr:spacer height="20px"/>
+        <tr:selectOneRadio label="Select the desired installation type: ">
+            <tr:selectItem label="Typical"/>
+            <tr:selectItem label="Complete"/>
+            <tr:selectItem label="Custom"/>
+        </tr:selectOneRadio>
+        <tr:spacer height="10px"/>
+        <tr:panelHorizontalLayout>
+            <tr:spacer width="5px"/>
+            <tr:commandButton text="&lt; Back" disabled="true"/>
+            <tr:spacer width="10px"/>
+            <tr:commandButton text="Next &gt;"/>
+            <tr:spacer width="25px"/>
+            <tr:commandButton text="Cancel"/>
+        </tr:panelHorizontalLayout>
+
+    </ui:define>
 </ui:composition>

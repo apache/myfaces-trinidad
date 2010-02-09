@@ -37,12 +37,11 @@ public class ShowDetailItemDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public ShowDetailItemDemo() {
-		super(ComponentDemoId.showDetailItem, "Show Detail Item", VARIANTS.Default, "Default");
+		super(ComponentDemoId.showDetailItem, "Show Detail Item", VARIANTS.Default, "Default",
+            new String[]{
+                "/components/showDetail/showDetailItem/showDetailItem.xhtml"
+            });
 	}
-
-    public String getJsfResourcePath() {
-		return "/components/showDetail/showDetailItem/showDetailItem.xhtml";
-    }
 
     public String getSummaryResourcePath() {
         return "/components/showDetail/showDetailItem/summary.xhtml";

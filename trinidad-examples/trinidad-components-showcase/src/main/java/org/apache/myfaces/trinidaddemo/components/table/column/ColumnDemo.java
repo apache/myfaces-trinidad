@@ -41,23 +41,33 @@ public class ColumnDemo extends AbstractComponentDemo {
      * Constructor.
      */
     public ColumnDemo() {
-        super(ComponentDemoId.column, "Column");
+        super(ComponentDemoId.column, "Column",
+            new String[]{
+                "/components/table/column/column.xhtml"
+            });
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Center, this,
-                "/components/table/column/columnCenter.xhtml", getSummaryResourcePath(),
+                new String[]{
+                        "/components/table/column/columnCenter.xhtml"
+                }, getSummaryResourcePath(),
                 "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java"));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.End, this,
-                "/components/table/column/columnEnd.xhtml", getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java"));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Left, this,
-                "/components/table/column/columnLeft.xhtml", getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java"));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Right, this,
-                "/components/table/column/columnRight.xhtml", getSummaryResourcePath(), 
-                "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java"));
-    }
 
-    public String getJsfResourcePath() {
-        return "/components/table/column/column.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.End, this,
+                new String[]{
+                        "/components/table/column/columnEnd.xhtml"
+                }, getSummaryResourcePath(),
+                "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java"));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Left, this,
+                new String[]{
+                        "/components/table/column/columnLeft.xhtml"
+                }, getSummaryResourcePath(),
+                "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java"));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Right, this,
+                new String[]{
+                        "/components/table/column/columnRight.xhtml"
+                }, getSummaryResourcePath(),
+                "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java"));
     }
 
     public String getSummaryResourcePath() {

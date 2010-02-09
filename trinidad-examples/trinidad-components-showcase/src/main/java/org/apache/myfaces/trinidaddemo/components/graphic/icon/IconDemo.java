@@ -32,11 +32,10 @@ public class IconDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public IconDemo() {
-		super(ComponentDemoId.icon, "Icon");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/graphic/icon/icon.xhtml";
+		super(ComponentDemoId.icon, "Icon",
+            new String[]{
+                "/components/graphic/icon/icon.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.navigation.train;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -32,14 +34,21 @@ public class TrainDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public TrainDemo() {
-		super(ComponentDemoId.train, "Train");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/navigation/train/train.xhtml";
+		super(ComponentDemoId.train, "Train",
+            new String[]{
+                "/components/navigation/train/generalInfo.xhtml",
+                "/components/navigation/train/companyInfo.xhtml",
+                "/components/navigation/train/jsfSurvey.xhtml",
+                "/components/navigation/train/trinidadSurvey.xhtml",
+                "/components/navigation/train/youAreDone.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {
         return "/components/navigation/train/summary.xhtml";
     }
+    
+    public String getBackingBeanResourcePath() {
+		return "/org/apache/myfaces/trinidaddemo/components/navigation/train/TrainBean.java";
+	}
 }

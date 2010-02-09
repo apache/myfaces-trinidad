@@ -32,11 +32,10 @@ public class TreeDemo extends AbstractComponentDemo {
      * Constructor.
      */
     public TreeDemo() {
-        super(ComponentDemoId.tree, "Tree");
-    }
-
-    public String getJsfResourcePath() {
-        return "/components/navigation/tree/tree.xhtml";
+        super(ComponentDemoId.tree, "Tree",
+            new String[]{
+                "/components/navigation/tree/tree.xhtml"
+            });
     }
 
     public String getSummaryResourcePath() {

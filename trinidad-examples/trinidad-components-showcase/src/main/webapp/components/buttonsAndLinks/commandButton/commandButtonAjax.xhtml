@@ -1,22 +1,26 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:tr="http://myfaces.apache.org/trinidad">
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
 
-	<tr:panelHorizontalLayout halign="left">
-        <f:facet name="separator">
-            <tr:spacer width="10" height="5"/>
-        </f:facet>
+    <ui:define name="demoContent">
 
-        <tr:inputText label="Your name" value="#{commandButtonBean.name}"
-                      required="true"/>
-        <tr:commandButton id="sayHello" text="Say Hello"
-                          partialSubmit="true"
-                          action="#{commandButtonBean.sayHello}"/>
-    </tr:panelHorizontalLayout>
+        <tr:panelHorizontalLayout halign="left">
+            <f:facet name="separator">
+                <tr:spacer width="10" height="5"/>
+            </f:facet>
 
-    <tr:spacer height="15px"/>
-    <tr:outputText value="#{commandButtonBean.message}" partialTriggers="sayHello" 
-                   inlineStyle="font-weight: bold;"/>
+            <tr:inputText label="Your name" value="#{commandButtonBean.name}"
+                          required="true"/>
+            <tr:commandButton id="sayHello" text="Say Hello"
+                              partialSubmit="true"
+                              action="#{commandButtonBean.sayHello}"/>
+        </tr:panelHorizontalLayout>
 
+        <tr:spacer height="15px"/>
+        <tr:outputText value="#{commandButtonBean.message}" partialTriggers="sayHello"
+                       inlineStyle="font-weight: bold;"/>
+
+    </ui:define>
 </ui:composition>

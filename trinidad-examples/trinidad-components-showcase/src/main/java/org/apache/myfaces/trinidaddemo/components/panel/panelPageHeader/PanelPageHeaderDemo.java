@@ -39,17 +39,21 @@ public class PanelPageHeaderDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public PanelPageHeaderDemo() {
-		super(ComponentDemoId.panelPageHeader, "Panel Page Header");
+		super(ComponentDemoId.panelPageHeader, "Panel Page Header",
+            new String[]{
+                "/components/panel/panelPageHeader/panelPageHeader.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Compact, "Compact", this,
-                "/components/panel/panelPageHeader/panelPageHeaderCompact.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/panel/panelPageHeader/panelPageHeaderCompact.xhtml"
+                }, getSummaryResourcePath()));
+        
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Expanded, "Expanded", this,
-                "/components/panel/panelPageHeader/panelPageHeaderExpanded.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/panel/panelPageHeader/panelPageHeaderExpanded.xhtml"
+                }, getSummaryResourcePath()));
 	}
-
-	public String getJsfResourcePath() {
-		return "/components/panel/panelPageHeader/panelPageHeader.xhtml";
-    }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelPageHeader/summary.xhtml";

@@ -32,11 +32,10 @@ public class SelectRangeChoiceBarDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SelectRangeChoiceBarDemo(){
-		super(ComponentDemoId.selectRangeChoiceBar, "Select Range Choice Bar");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/select/selectRangeChoiceBar/selectRangeChoiceBar.xhtml";
+		super(ComponentDemoId.selectRangeChoiceBar, "Select Range Choice Bar",
+            new String[]{
+                "/components/select/selectRangeChoiceBar/selectRangeChoiceBar.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

@@ -32,11 +32,10 @@ public class OutputLabelDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public OutputLabelDemo() {
-		super(ComponentDemoId.outputLabel, "Output Label");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/output/outputLabel/outputLabel.xhtml";
+		super(ComponentDemoId.outputLabel, "Output Label",
+            new String[]{
+                "/components/output/outputLabel/outputLabel.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

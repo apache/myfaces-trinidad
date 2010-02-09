@@ -39,16 +39,19 @@ public class InputFileDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public InputFileDemo() {
-		super(ComponentDemoId.inputFile, "Input File");
+		super(ComponentDemoId.inputFile, "Input File",
+            new String[]{
+                "/components/input/inputFile/inputFile.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
-                "/components/input/inputFile/inputFileSimple.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/input/inputFile/inputFileSimple.xhtml"
+                }, getSummaryResourcePath()));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
-                "/components/input/inputFile/inputFileDetailed.xhtml", getSummaryResourcePath()));
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/input/inputFile/inputFile.xhtml";
+                new String[]{
+                        "/components/input/inputFile/inputFileDetailed.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

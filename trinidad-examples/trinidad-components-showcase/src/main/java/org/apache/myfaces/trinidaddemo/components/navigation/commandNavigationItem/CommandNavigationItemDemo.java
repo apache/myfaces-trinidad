@@ -32,11 +32,10 @@ public class CommandNavigationItemDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public CommandNavigationItemDemo() {
-		super(ComponentDemoId.commandNavigationItem, "Command Navigation Item");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/navigation/commandNavigationItem/commandNavigationItem.xhtml";
+		super(ComponentDemoId.commandNavigationItem, "Command Navigation Item",
+            new String[]{
+                "/components/navigation/commandNavigationItem/commandNavigationItem.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

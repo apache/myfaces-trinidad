@@ -32,11 +32,10 @@ public class SpacerDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SpacerDemo() {
-		super(ComponentDemoId.spacer, "Spacer");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/layout/spacer/spacer.xhtml";
+		super(ComponentDemoId.spacer, "Spacer",
+            new String[]{
+                "/components/layout/spacer/spacer.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

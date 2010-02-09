@@ -73,11 +73,18 @@ public interface IComponentVariantDemo extends Serializable {
     String getVariantDisplayName();
 
     /**
-	 * Returns the path to the corresponding JSF page.
+	 * Returns the paths to the corresponding JSF pages.
+	 *
+	 * @return the paths or null if none is available.
+	 */
+	String[] getJsfResourcePaths();    
+
+    /**
+	 * Returns the entry page path to the corresponding JSF page.
 	 *
 	 * @return the path or null if none is available.
 	 */
-	String getJsfResourcePath();
+	String getEntryPagePath();
 
     /**
      * Returns the path to the corresponding JSF fragment which represents the summary of this demo.

@@ -2,6 +2,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jstl/core"
                 xmlns:tr="http://myfaces.apache.org/trinidad"
                 xmlns:trd="http://localhost:8080/trinidad-demo"
                 template="/template/componentsShowCaseTemplate.xhtml">
@@ -34,7 +35,7 @@
                          columnClasses="#{navigationHandler.currentComponentDemo.columnStyleClassNames}">
 
                 <tr:panelBox text="Component Demo" inlineStyle="width: 100%">
-					<ui:include src="#{navigationHandler.currentComponentVariantDemo.jsfResourcePath}"/>
+                    <ui:insert name="demoContent"/>
                 </tr:panelBox>
 
                 <tr:panelBox text="Variant" inlineStyle="width: 100%;"
@@ -61,10 +62,12 @@
                 <h2 class="page">Code samples</h2>
                 <tr:panelTabbed position="above">
 
-                    <tr:showDetailItem text="JSF Page">
-                        <trd:outputSource value="#{navigationHandler.currentComponentVariantDemo.jsfResourcePath}"
-                                          styleClass="sourceCode" styleUsage="xml"/>
-                    </tr:showDetailItem>
+                    <c:forEach items="#{navigationHandler.currentComponentVariantDemo.jsfResourcePaths}" var="aJsfPath">
+                        <tr:showDetailItem text="JSF Page">
+                            <trd:outputSource value="#{aJsfPath}"
+                                              styleClass="sourceCode" styleUsage="xml"/>
+                        </tr:showDetailItem>
+                    </c:forEach>
 
                     <tr:showDetailItem text="Backing Beans" rendered="#{!navigationHandler.currentComponentVariantDemo.static}">
                         <trd:outputSource value="#{navigationHandler.currentComponentVariantDemo.backingBeanResourcePath}"

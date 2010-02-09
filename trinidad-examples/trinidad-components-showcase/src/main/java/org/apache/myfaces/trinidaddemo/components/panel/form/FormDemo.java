@@ -32,11 +32,10 @@ public class FormDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public FormDemo() {
-		super(ComponentDemoId.form, "Form");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/panel/form/form.xhtml";
+		super(ComponentDemoId.form, "Form",
+            new String[]{
+                "/components/panel/form/form.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

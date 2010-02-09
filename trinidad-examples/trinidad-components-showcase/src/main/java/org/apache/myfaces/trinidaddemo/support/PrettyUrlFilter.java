@@ -54,9 +54,9 @@ public class PrettyUrlFilter implements Filter {
 
         navigationHandler.setCurrentComponentVariantDemo(resultingDemo);
 
-        _LOG.log(Level.INFO, "Forwarding request [" + requestURI + "] to view [" + "/pages/componentDemo.xhtml?id="+resultingDemo.getId()+"&variantId="+resultingDemo.getVariantId()+"]");
+        _LOG.log(Level.INFO,"Forwarding request [" + requestURI + "] to view [" + resultingDemo.getEntryPagePath()+"]");
         if (!response.isCommitted()) {
-            request.getRequestDispatcher("/faces/pages/componentDemo.xhtml").forward(request, response);
+            request.getRequestDispatcher("/faces"+resultingDemo.getEntryPagePath()).forward(request, response);
         }       
     }
 

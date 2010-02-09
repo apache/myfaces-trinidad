@@ -39,16 +39,19 @@ public class InputDateDemo extends AbstractComponentDemo  {
 	 * Constructor.
 	 */
 	public InputDateDemo() {
-		super(ComponentDemoId.inputDate, "Input Date");
+		super(ComponentDemoId.inputDate, "Input Date",
+            new String[]{
+                "/components/input/inputDate/inputDate.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, "Simple", this,
-                "/components/input/inputDate/inputDateSimple.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/input/inputDate/inputDateSimple.xhtml"
+                }, getSummaryResourcePath()));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, "Detailed", this,
-                "/components/input/inputDate/inputDateDetailed.xhtml", getSummaryResourcePath()));
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/input/inputDate/inputDate.xhtml";
+                new String[]{
+                        "/components/input/inputDate/inputDateDetailed.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

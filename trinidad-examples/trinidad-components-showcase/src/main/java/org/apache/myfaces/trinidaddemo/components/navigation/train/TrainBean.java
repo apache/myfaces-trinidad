@@ -20,6 +20,8 @@ package org.apache.myfaces.trinidaddemo.components.navigation.train;
 
 import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
 import org.apache.myfaces.trinidad.model.ProcessMenuModel;
+import org.apache.myfaces.trinidaddemo.NavigationHandlerBean;
+import org.apache.myfaces.trinidaddemo.support.jsf.JsfHelper;
 
 import java.beans.IntrospectionException;
 import java.util.ArrayList;
@@ -30,11 +32,12 @@ import java.util.List;
  */
 public class TrainBean extends ProcessMenuModel /*implements java.io.Serializable*/ {
     private ArrayList<TrainNavigationItem> arrayList = new ArrayList<TrainNavigationItem>();
+    private NavigationHandlerBean navigationHandler = (NavigationHandlerBean) JsfHelper.getBean("navigationHandler");
 
 
     public TrainBean() {
         super();
-        addList();
+        addList();      
     }
 
     public TrainBean(Object instance, String viewIdProperty) throws IntrospectionException {
@@ -49,47 +52,54 @@ public class TrainBean extends ProcessMenuModel /*implements java.io.Serializabl
     }
 
     public void addList() {
-        TrainNavigationItem page1 = new TrainNavigationItem("First Step", "train");
-        TrainNavigationItem page2 = new TrainNavigationItem("Second Step", "train2");
-        TrainNavigationItem page3 = new TrainNavigationItem("Third Step", "train3");
-        TrainNavigationItem page4 = new TrainNavigationItem("Fourth Step", "train4");
-        TrainNavigationItem page5 = new TrainNavigationItem("Fifth Step", "train5");
-        TrainNavigationItem page6 = new TrainNavigationItem("Sixth Step", "train6");
-        TrainNavigationItem page7 = new TrainNavigationItem("Seventh Step", "train7");
+        TrainNavigationItem page1 = new TrainNavigationItem("General info", "trainGeneralInfo");
+        page1.setViewId("/components/navigation/train/generalInfo.xhtml");
+        TrainNavigationItem page2 = new TrainNavigationItem("Company info", "trainCompanyInfo");
+        page2.setViewId("/components/navigation/train/companyInfo.xhtml");
+        TrainNavigationItem page3 = new TrainNavigationItem("JSF survey", "trainJsfSurvey");
+        page3.setViewId("/components/navigation/train/jsfSurvey.xhtml");
+        TrainNavigationItem page4 = new TrainNavigationItem("Trinidad survey", "trainTrinidadSurvey");
+        page4.setViewId("/components/navigation/train/trinidadSurvey.xhtml");
+        TrainNavigationItem page5 = new TrainNavigationItem("You are done!", "trainYouAreDone");
+        page5.setViewId("/components/navigation/train/youAreDone.xhtml");
 
         arrayList.add(page1);
         arrayList.add(page2);
         arrayList.add(page3);
         arrayList.add(page4);
         arrayList.add(page5);
-        arrayList.add(page6);
-        arrayList.add(page7);
+
+        setViewIdProperty("viewId");
 
         ChildPropertyTreeModel childProperty = new ChildPropertyTreeModel();
         childProperty.setChildProperty("children");
         childProperty.setWrappedData(arrayList);
 
+        this.setWrappedData(childProperty);
+    }
 
-        setViewIdProperty("viewId");
-        setMaxPathKey("TRAIN_DEMO_MAX_PATH_KEY");
-        setWrappedData(childProperty);
+    public ArrayList<TrainNavigationItem> getArrayList() {
+        return arrayList;
     }
 
 
     public static class TrainNavigationItem implements java.io.Serializable {
+        
+        private static final long serialVersionUID = 375702448013892058L;
+
         private String _label = null;
-        private String _outcome = null;
         private String _viewId = null;
         private String _destination = null;
         private List<?> _children = null;
+        private String _outcome = null;
 
 
         public TrainNavigationItem() {
         }
 
         public TrainNavigationItem(String _label, String _outcome) {
-            this._label = _label;
-            this._outcome = _outcome;
+            setLabel(_label);
+            setOutcome(_outcome);
         }
 
         public void setLabel(String label) {
@@ -101,7 +111,7 @@ public class TrainBean extends ProcessMenuModel /*implements java.io.Serializabl
         }
 
         public void setOutcome(String outcome) {
-            _outcome = outcome;
+            this._outcome = outcome;
         }
 
         public String getOutcome() {

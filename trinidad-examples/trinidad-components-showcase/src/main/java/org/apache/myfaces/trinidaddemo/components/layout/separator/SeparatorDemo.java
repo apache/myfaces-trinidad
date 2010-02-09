@@ -32,11 +32,10 @@ public class SeparatorDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SeparatorDemo() {
-		super(ComponentDemoId.separator, "Separator");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/layout/separator/separator.xhtml";
+		super(ComponentDemoId.separator, "Separator",
+            new String[]{
+                "/components/layout/separator/separator.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

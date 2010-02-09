@@ -32,11 +32,10 @@ public class GroupDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public GroupDemo() {
-		super(ComponentDemoId.group, "Group");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/panel/group/group.xhtml";
+		super(ComponentDemoId.group, "Group",
+            new String[]{
+                "/components/panel/group/group.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

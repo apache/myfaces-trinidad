@@ -31,11 +31,10 @@ public class GoLinkDemo extends AbstractComponentDemo{
 	 * Constructor.
 	 */
 	public GoLinkDemo() {
-		super(ComponentDemoId.goLink , "Go Link");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/buttonsAndLinks/goLink/goLink.xhtml";
+		super(ComponentDemoId.goLink , "Go Link",
+            new String[]{
+                "/components/buttonsAndLinks/goLink/goLink.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

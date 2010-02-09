@@ -32,11 +32,10 @@ public class ChooseColorDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public ChooseColorDemo() {
-		super(ComponentDemoId.chooseColor, "Choose Color");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/select/chooseColor/chooseColor.xhtml";
+		super(ComponentDemoId.chooseColor, "Choose Color",
+            new String[]{
+                "/components/select/chooseColor/chooseColor.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

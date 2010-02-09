@@ -32,11 +32,10 @@ public class PanelLabelAndMessageDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public PanelLabelAndMessageDemo() {
-		super(ComponentDemoId.panelLabelAndMessage, "Panel Label And Message");
-	}
-
-    public String getJsfResourcePath() {
-		return "/components/panel/panelLabelAndMessage/panelLabelAndMessage.xhtml";
+		super(ComponentDemoId.panelLabelAndMessage, "Panel Label And Message",
+            new String[]{
+                "/components/panel/panelLabelAndMessage/panelLabelAndMessage.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

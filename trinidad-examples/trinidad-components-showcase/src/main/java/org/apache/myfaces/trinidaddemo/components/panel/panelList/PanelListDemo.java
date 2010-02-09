@@ -37,11 +37,10 @@ public class PanelListDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public PanelListDemo() {
-		super(ComponentDemoId.panelList, "Panel List", VARIANTS.Default, "Default");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/panel/panelList/panelList.xhtml";
+		super(ComponentDemoId.panelList, "Panel List", VARIANTS.Default, "Default",
+            new String[]{
+                "/components/panel/panelList/panelList.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

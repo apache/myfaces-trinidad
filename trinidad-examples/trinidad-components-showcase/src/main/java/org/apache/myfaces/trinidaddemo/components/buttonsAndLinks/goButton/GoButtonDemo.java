@@ -32,11 +32,10 @@ public class GoButtonDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public GoButtonDemo() {
-		super(ComponentDemoId.goButton, "Go Button");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/buttonsAndLinks/goButton/goButton.xhtml";
+		super(ComponentDemoId.goButton, "Go Button",
+            new String[]{
+                "/components/buttonsAndLinks/goButton/goButton.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

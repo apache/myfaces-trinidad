@@ -32,11 +32,10 @@ public class ImageDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public ImageDemo() {
-		super(ComponentDemoId.image, "Image");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/graphic/image/image.xhtml";
+		super(ComponentDemoId.image, "Image",
+            new String[]{
+                "/components/graphic/image/image.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

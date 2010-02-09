@@ -32,11 +32,10 @@ public class ProcessChoiceBarDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public ProcessChoiceBarDemo() {
-		super(ComponentDemoId.processChoiceBar, "Process Choice Bar");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/navigation/processChoiceBar/processChoiceBar.xhtml";
+		super(ComponentDemoId.processChoiceBar, "Process Choice Bar",
+            new String[]{
+                "/components/navigation/processChoiceBar/processChoiceBar.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

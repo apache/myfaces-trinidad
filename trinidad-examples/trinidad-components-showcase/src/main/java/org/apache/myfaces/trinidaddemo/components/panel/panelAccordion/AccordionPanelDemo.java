@@ -36,16 +36,19 @@ public class AccordionPanelDemo extends AbstractComponentDemo {
 	}
 
 	public AccordionPanelDemo() {
-		super(ComponentDemoId.panelAccordion, "Accordion Panel");
+		super(ComponentDemoId.panelAccordion, "Accordion Panel",
+            new String[]{
+                "/components/panel/panelAccordion/panelAccordion.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.DiscloseMany, "Disclose Many", this,
-                "/components/panel/panelAccordion/panelAccordionDiscloseMany.xhtml", getSummaryResourcePath()));
+                new String[]{
+                        "/components/panel/panelAccordion/panelAccordionDiscloseMany.xhtml"
+                }, getSummaryResourcePath()));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.DiscloseNone, "Disclose None", this,
-                "/components/panel/panelAccordion/panelAccordionDiscloseNone.xhtml", getSummaryResourcePath()));
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/panel/panelAccordion/panelAccordion.xhtml";
+                new String[]{
+                        "/components/panel/panelAccordion/panelAccordionDiscloseNone.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

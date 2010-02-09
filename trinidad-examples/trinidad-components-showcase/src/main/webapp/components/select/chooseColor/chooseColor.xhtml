@@ -1,18 +1,23 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:tr="http://myfaces.apache.org/trinidad">
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
 
-    <tr:panelGroupLayout>
-        <tr:inputColor id="colorInput" chooseId="colorChooser" label="Input Color"/>
-        <tr:spacer height="15px"/>
+    <ui:define name="demoContent">
+
         <tr:panelGroupLayout>
-            <tr:outputLabel for="colorChooser" value="Select color to input"/>
-            <tr:spacer height="5px"/>
-            <tr:panelHorizontalLayout>
-                <tr:spacer width="5px"/>
-                <tr:chooseColor id="colorChooser" width="18"
-                                colorData="#{requestContext.colorPalette.web216}"/>
-            </tr:panelHorizontalLayout>
+            <tr:inputColor id="colorInput" chooseId="colorChooser" label="Input Color"/>
+            <tr:spacer height="15px"/>
+            <tr:panelGroupLayout>
+                <tr:outputLabel for="colorChooser" value="Select color to input"/>
+                <tr:spacer height="5px"/>
+                <tr:panelHorizontalLayout>
+                    <tr:spacer width="5px"/>
+                    <tr:chooseColor id="colorChooser" width="18"
+                                    colorData="#{requestContext.colorPalette.web216}"/>
+                </tr:panelHorizontalLayout>
+            </tr:panelGroupLayout>
         </tr:panelGroupLayout>
-    </tr:panelGroupLayout>
+
+    </ui:define>
 </ui:composition>

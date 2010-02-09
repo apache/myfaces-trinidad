@@ -38,14 +38,15 @@ public class SelectManyShuttleDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SelectManyShuttleDemo() {
-		super(ComponentDemoId.selectManyShuttle, "Select Many Shuttle");
+		super(ComponentDemoId.selectManyShuttle, "Select Many Shuttle",
+            new String[]{
+                "/components/select/selectManyShuttle/selectManyShuttle.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ShowDescription, "Show description", this,
-                "/components/select/selectManyShuttle/selectManyShuttleShowDescription.xhtml", getSummaryResourcePath()));
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/select/selectManyShuttle/selectManyShuttle.xhtml";
+                new String[]{
+                        "/components/select/selectManyShuttle/selectManyShuttleShowDescription.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

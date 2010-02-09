@@ -32,11 +32,10 @@ public class PanelCaptionGroupDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public PanelCaptionGroupDemo() {
-		super(ComponentDemoId.panelCaptionGroup, "Panel Caption Group");
-	}
-
-	public String getJsfResourcePath() {
-		return "/components/panel/panelCaptionGroup/panelCaptionGroup.xhtml";
+		super(ComponentDemoId.panelCaptionGroup, "Panel Caption Group",
+            new String[]{
+                "/components/panel/panelCaptionGroup/panelCaptionGroup.xhtml"
+            });
 	}
 
     public String getSummaryResourcePath() {

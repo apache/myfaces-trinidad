@@ -42,22 +42,35 @@ public class TreeTableDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public TreeTableDemo() {
-		super(ComponentDemoId.treeTable, "Tree Table");
+		super(ComponentDemoId.treeTable, "Tree Table",
+            new String[]{
+                "/components/table/treeTable/treeTable.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.SingleRowSelection, "Single selection", this,
-                "/components/table/treeTable/treeTableSingleRowSelection.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MultipleRowSelection, "Multiple selection", this,
-                "/components/table/treeTable/treeTableMultipleRowSelection.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoGridLines, "No grid lines", this,
-                "/components/table/treeTable/treeTableNoGridLines.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
-                "/components/table/treeTable/treeTableSimple.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
-                "/components/table/treeTable/treeTableDetailed.xhtml", getSummaryResourcePath()));
-	}
+                new String[]{
+                        "/components/table/treeTable/treeTableSingleRowSelection.xhtml"
+                }, getSummaryResourcePath()));
 
-	public String getJsfResourcePath() {
-		return "/components/table/treeTable/treeTable.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MultipleRowSelection, "Multiple selection", this,
+                new String[]{
+                        "/components/table/treeTable/treeTableMultipleRowSelection.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoGridLines, "No grid lines", this,
+                new String[]{
+                        "/components/table/treeTable/treeTableNoGridLines.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
+                new String[]{
+                        "/components/table/treeTable/treeTableSimple.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
+                new String[]{
+                        "/components/table/treeTable/treeTableDetailed.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

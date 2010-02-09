@@ -41,20 +41,30 @@ public class PanelChoiceDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public PanelChoiceDemo() {
-		super(ComponentDemoId.panelChoice, "Panel Choice");
+		super(ComponentDemoId.panelChoice, "Panel Choice",
+            new String[]{
+                "/components/panel/panelChoice/panelChoice.xhtml"
+            });
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Buttom, this,
-                "/components/panel/panelChoice/panelChoiceButtom.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Center, this,
-                "/components/panel/panelChoice/panelChoiceCenter.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Start, this,
-                "/components/panel/panelChoice/panelChoiceStart.xhtml", getSummaryResourcePath()));
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Top, this,
-                "/components/panel/panelChoice/panelChoiceTop.xhtml", getSummaryResourcePath()));
-	}
+                new String[]{
+                        "/components/panel/panelChoice/panelChoiceButtom.xhtml"
+                }, getSummaryResourcePath()));
 
-	public String getJsfResourcePath() {
-		return "/components/panel/panelChoice/panelChoice.xhtml";
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Center, this,
+                new String[]{
+                        "/components/panel/panelChoice/panelChoiceCenter.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Start, this,
+                new String[]{
+                        "/components/panel/panelChoice/panelChoiceStart.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Top, this,
+                new String[]{
+                        "/components/panel/panelChoice/panelChoiceTop.xhtml"
+                }, getSummaryResourcePath()));
 	}
 
     public String getSummaryResourcePath() {

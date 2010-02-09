@@ -1,15 +1,19 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:tr="http://myfaces.apache.org/trinidad">
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
 
-    <tr:panelFormLayout labelWidth="33%" fieldWidth="67%">
-        <tr:inputText label="non-group item 1"/>
-        <tr:group>
-            <tr:inputText label="group item 1"/>
-            <tr:inputText label="group item 2" inlineStyle="padding-right: 600px;"/>
-            <tr:inputText label="group item 3"/>
-        </tr:group>
-        <tr:inputText label="non-group item 2"/>
-    </tr:panelFormLayout>
+    <ui:define name="demoContent">
 
+        <tr:panelFormLayout labelWidth="33%" fieldWidth="67%">
+            <tr:inputText label="non-group item 1"/>
+            <tr:group>
+                <tr:inputText label="group item 1"/>
+                <tr:inputText label="group item 2" inlineStyle="padding-right: 600px;"/>
+                <tr:inputText label="group item 3"/>
+            </tr:group>
+            <tr:inputText label="non-group item 2"/>
+        </tr:panelFormLayout>
+
+    </ui:define>
 </ui:composition>

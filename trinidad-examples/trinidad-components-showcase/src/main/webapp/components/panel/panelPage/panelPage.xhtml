@@ -1,70 +1,75 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:tr="http://myfaces.apache.org/trinidad">
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
 
-    <tr:panelPage>
-        <f:facet name="navigation2">
-            <tr:navigationPane hint="bar" inlineStyle="margin: 20px 0 10px 2px;">
-                <tr:commandNavigationItem text="Apps" action="none" selected="true"/>
-                <tr:commandNavigationItem text="Godies" action="none"/>
-                <tr:commandNavigationItem text="Support" action="none"/>
-                <tr:commandNavigationItem text="Blog" action="none"/>
-            </tr:navigationPane>
-        </f:facet>
-        <f:facet name="navigation3">
-            <tr:navigationPane hint="list" inlineStyle="width: 150px;">
-                <tr:commandNavigationItem text="Code" action="none" selected="true"/>
-                <tr:commandNavigationItem text="Organize" action="none"/>
-                <tr:commandNavigationItem text="FTP" action="none"/>
-                <tr:commandNavigationItem text="SVN" action="none"/>
-                <tr:commandNavigationItem text="Preview" action="none"/>
-            </tr:navigationPane>
-        </f:facet>
-        <f:facet name="navigationGlobal">
-            <tr:navigationPane hint="buttons" inlineStyle="padding-bottom: 18px">
-                <tr:commandNavigationItem text="About Us" action="none"/>
-                <tr:commandNavigationItem text="Contact" action="none"/>
-            </tr:navigationPane>
-        </f:facet>
-        <f:facet name="branding">
-            <tr:panelGroupLayout layout="horizontal">
-                <tr:image source="/components/panel/panelPageHeader/corporateBrand.gif" shortDesc="corporate"/>
-            </tr:panelGroupLayout>
-        </f:facet>
+    <ui:define name="demoContent">
 
-        <f:facet name="location">
-            <tr:panelHorizontalLayout>
-            <tr:spacer width="15px"></tr:spacer>
-            <tr:breadCrumbs orientation="horizontal">
-                <tr:commandNavigationItem text="Code" action="none"/>
-                <tr:commandNavigationItem text="Features" action="none"/>
-            </tr:breadCrumbs>
-            </tr:panelHorizontalLayout>
-        </f:facet>
-
-        <tr:spacer height="30px"/> 
-        <tr:panelHorizontalLayout>
-        <tr:spacer width="15px"></tr:spacer>
-        <tr:outputDocument value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">
-            <f:facet name="title">
-                <tr:outputText value="Features"/>
+        <tr:panelPage>
+            <f:facet name="navigation2">
+                <tr:navigationPane hint="bar" inlineStyle="margin: 20px 0 10px 2px;">
+                    <tr:commandNavigationItem text="Apps" action="none" selected="true"/>
+                    <tr:commandNavigationItem text="Godies" action="none"/>
+                    <tr:commandNavigationItem text="Support" action="none"/>
+                    <tr:commandNavigationItem text="Blog" action="none"/>
+                </tr:navigationPane>
             </f:facet>
-        </tr:outputDocument>
-        </tr:panelHorizontalLayout>
+            <f:facet name="navigation3">
+                <tr:navigationPane hint="list" inlineStyle="width: 150px;">
+                    <tr:commandNavigationItem text="Code" action="none" selected="true"/>
+                    <tr:commandNavigationItem text="Organize" action="none"/>
+                    <tr:commandNavigationItem text="FTP" action="none"/>
+                    <tr:commandNavigationItem text="SVN" action="none"/>
+                    <tr:commandNavigationItem text="Preview" action="none"/>
+                </tr:navigationPane>
+            </f:facet>
+            <f:facet name="navigationGlobal">
+                <tr:navigationPane hint="buttons" inlineStyle="padding-bottom: 18px">
+                    <tr:commandNavigationItem text="About Us" action="none"/>
+                    <tr:commandNavigationItem text="Contact" action="none"/>
+                </tr:navigationPane>
+            </f:facet>
+            <f:facet name="branding">
+                <tr:panelGroupLayout layout="horizontal">
+                    <tr:image source="/components/panel/panelPageHeader/corporateBrand.gif"
+                              shortDesc="corporate"/>
+                </tr:panelGroupLayout>
+            </f:facet>
 
-        <tr:spacer height="20px"/>
-        <tr:panelHorizontalLayout>
-            <tr:spacer width="15px"></tr:spacer>
-            <tr:outputText value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.">
-            </tr:outputText>
-        </tr:panelHorizontalLayout>
-	    <tr:spacer height="20px"/>
-        <tr:panelHorizontalLayout>
-            <tr:spacer width="15px"></tr:spacer>
-            <tr:outputText value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">
-            </tr:outputText>
-        </tr:panelHorizontalLayout>
-    </tr:panelPage>
+            <f:facet name="location">
+                <tr:panelHorizontalLayout>
+                    <tr:spacer width="15px"></tr:spacer>
+                    <tr:breadCrumbs orientation="horizontal">
+                        <tr:commandNavigationItem text="Code" action="none"/>
+                        <tr:commandNavigationItem text="Features" action="none"/>
+                    </tr:breadCrumbs>
+                </tr:panelHorizontalLayout>
+            </f:facet>
 
+            <tr:spacer height="30px"/>
+            <tr:panelHorizontalLayout>
+                <tr:spacer width="15px"></tr:spacer>
+                <tr:outputDocument value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">
+                    <f:facet name="title">
+                        <tr:outputText value="Features"/>
+                    </f:facet>
+                </tr:outputDocument>
+            </tr:panelHorizontalLayout>
+
+            <tr:spacer height="20px"/>
+            <tr:panelHorizontalLayout>
+                <tr:spacer width="15px"></tr:spacer>
+                <tr:outputText value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.">
+                </tr:outputText>
+            </tr:panelHorizontalLayout>
+            <tr:spacer height="20px"/>
+            <tr:panelHorizontalLayout>
+                <tr:spacer width="15px"></tr:spacer>
+                <tr:outputText value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">
+                </tr:outputText>
+            </tr:panelHorizontalLayout>
+        </tr:panelPage>
+
+    </ui:define>
 </ui:composition>
