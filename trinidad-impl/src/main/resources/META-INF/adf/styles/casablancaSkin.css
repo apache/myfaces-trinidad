@@ -207,6 +207,37 @@
     border-bottom-left-radius: 4px;
 }
 
+/* Borders styles --------------------------------------------------------------------------------------------------- */
+/*   Define styles used in:
+/* - especialy in table cells
+/* ------------------------------------------------------------------------------------------------------------------ */
+
+.CBClearBordersLook:alias {
+    border-width: 0;
+}
+/* TODO: Table border selectors order to be solved in Trinidad,
+/* in order to remove important keywords on the next selectors */
+.CBAllBordersLook:alias {
+    border-width: 1px ! important;
+    border-style: solid ! important;
+}
+.CBTopBoderLook:alias {
+    border-top-width: 1px;
+    border-top-style: solid;
+}
+.CBRightBoderLook:alias {
+    border-right-width: 1px;
+    border-right-style: solid;
+}
+.CBBottomBorderLook:alias {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+.CBLeftBorderLook:alias {
+    border-left-width: 1px;
+    border-left-style: solid;
+}
+
 /* Borders Styles --------------------------------------------------------------------------------------------------- */
 /*   Define styles used in:
 /* - buttons
@@ -1057,6 +1088,48 @@
     -tr-rule-ref: selector(".CBTextCellLook:alias");
     -tr-rule-ref: selector(".CBTableCellCommon:alias");
 }
+.CBTableCellInside:alias {
+    -tr-rule-ref: selector(".CBClearBordersLook:alias");
+}
+.CBTableCellAll:alias {
+    -tr-rule-ref: selector(".CBAllBordersLook:alias"); 
+}
+.CBTableCellTopLine:alias {
+    -tr-rule-ref: selector(".CBClearBordersLook:alias");
+    -tr-rule-ref: selector(".CBTopBoderLook:alias");
+}
+.CBTableCellTopRighCorner:alias {
+    -tr-rule-ref: selector(".CBClearBordersLook:alias");
+    -tr-rule-ref: selector(".CBTopBoderLook:alias ");
+    -tr-rule-ref: selector(".CBRightBoderLook:alias");
+}
+.CBTableCellRightLine:alias {
+    -tr-rule-ref: selector(".CBClearBordersLook:alias");
+    -tr-rule-ref: selector(".CBRightBoderLook:alias");
+}
+.CBTableCellBottomRightCorner:alias {
+    -tr-rule-ref: selector(".CBClearBordersLook:alias");
+    -tr-rule-ref: selector(".CBBottomBorderLook:alias");
+    -tr-rule-ref: selector(".CBRightBoderLook:alias");
+}
+.CBTableCellBottomLine:alias {
+    -tr-rule-ref: selector(".CBClearBordersLook:alias");
+    -tr-rule-ref: selector(".CBBottomBorderLook:alias");
+}
+.CBTableCellBottomLeftCorner:alias {
+    -tr-rule-ref: selector(".CBClearBordersLook:alias");
+    -tr-rule-ref: selector(".CBBottomBorderLook:alias");
+    -tr-rule-ref: selector(".CBLeftBorderLook:alias");
+}
+.CBTableCellLeftLine:alias {
+    -tr-rule-ref: selector(".CBClearBordersLook:alias");
+    -tr-rule-ref: selector(".CBLeftBorderLook:alias");
+}
+.CBTableCellTopLeftCorner:alias {
+    -tr-rule-ref: selector(".CBClearBordersLook:alias");
+    -tr-rule-ref: selector(".CBTopBoderLook:alias");
+    -tr-rule-ref: selector(".CBLeftBorderLook:alias");
+}
 .CBTableCellHover:alias {
     -tr-rule-ref: selector(".CBTextCellLookHover:alias");
     -tr-rule-ref: selector(".CBTableCellCommon:alias");
@@ -1069,7 +1142,6 @@
     -tr-rule-ref: selector(".CBTextCellLookDisabled:alias");
     -tr-rule-ref: selector(".CBTableCellCommon:alias");
 }
-
 .CBTableHeadCell:alias {
     -tr-rule-ref: selector(".CBButtonLookHover:alias");
     -tr-rule-ref: selector(".CBTableCellCommon:alias");
@@ -3379,6 +3451,36 @@ af|train::stop {
 .CBTableCell {
     -tr-rule-ref: selector(".CBTableCell:alias");
 }
+.CBTableCellInside {
+    -tr-rule-ref: selector(".CBTableCellInside:alias");
+}
+.CBTableCellAll {
+    -tr-rule-ref: selector(".CBTableCellAll:alias");    
+}
+.CBTableCellTopLine {
+    -tr-rule-ref: selector(".CBTableCellTopLine:alias");
+}
+.CBTableCellTopRighCorner {
+    -tr-rule-ref: selector(".CBTableCellTopRighCorner:alias");
+}
+.CBTableCellRightLine {
+    -tr-rule-ref: selector(".CBTableCellRightLine:alias");
+}
+.CBTableCellBottomRightCorner {
+    -tr-rule-ref: selector(".CBTableCellBottomRightCorner:alias");
+}
+.CBTableCellBottomLine {
+    -tr-rule-ref: selector(".CBTableCellBottomLine:alias");
+}
+.CBTableCellBottomLeftCorner {
+    -tr-rule-ref: selector(".CBTableCellBottomLeftCorner:alias");
+}
+.CBTableCellLeftLine {
+    -tr-rule-ref: selector(".CBTableCellLeftLine:alias");
+}
+.CBTableCellTopLeftCorner {
+    -tr-rule-ref: selector(".CBTableCellTopLeftCorner:alias");
+}
 .CBTableHeadCell {
     -tr-rule-ref: selector(".CBTableHeadCell:alias");
 }
@@ -3464,8 +3566,38 @@ af|table::content {
 }
 af|table::content af|column::cell-text, af|column::cell-number, af|table::content af|column::cell-icon-format,
 af|tableSelectMany::cell-icon-format, af|tableSelectOne::cell-icon-format {
-    -tr-rule-ref: selector(".CBTableCell");    
+    -tr-rule-ref: selector(".CBTableCell");
+    -tr-rule-ref: selector(".CBTableCellInside"); 
 }
+/* borders types */
+af|table::content .OraTableBorder1111 {
+    -tr-rule-ref: selector(".CBTableCellAll");    
+}
+af|table::content .OraTableBorder1000 {
+    -tr-rule-ref: selector(".CBTableCellTopLine");    
+}
+af|table::content .OraTableBorder1100 {
+    -tr-rule-ref: selector(".CBTableCellTopRighCorner");
+}
+af|table::content .OraTableBorder0100 {
+    -tr-rule-ref: selector(".CBTableCellRightLine");    
+}
+af|table::content .OraTableBorder0110 {
+    -tr-rule-ref: selector(".CBTableCellBottomRightCorner");
+}
+af|table::content .OraTableBorder0010 {
+    -tr-rule-ref: selector(".CBTableCellBottomLine");
+}
+af|table::content .OraTableBorder0011 {
+    -tr-rule-ref: selector(".CBTableCellBottomLeftCorner");
+}
+af|table::content .OraTableBorder0001 {
+    -tr-rule-ref: selector(".CBTableCellLeftLine");
+}
+af|table::content .OraTableBorder1001 {
+    -tr-rule-ref: selector(".CBTableCellTopLeftCorner");
+}
+
 /* footer cells */
 af|table::content af|table::column-footer, af|table::content af|column::total-text {
     display: table-cell;
