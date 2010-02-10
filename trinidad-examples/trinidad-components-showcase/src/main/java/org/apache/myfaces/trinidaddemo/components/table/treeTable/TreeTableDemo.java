@@ -47,6 +47,11 @@ public class TreeTableDemo extends AbstractComponentDemo {
                 "/components/table/treeTable/treeTable.xhtml"
             });
 
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoGridLines, "No grid lines", this,
+                new String[]{
+                        "/components/table/treeTable/treeTableNoGridLines.xhtml"
+                }, getSummaryResourcePath()));        
+
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.SingleRowSelection, "Single selection", this,
                 new String[]{
                         "/components/table/treeTable/treeTableSingleRowSelection.xhtml"
@@ -55,11 +60,6 @@ public class TreeTableDemo extends AbstractComponentDemo {
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MultipleRowSelection, "Multiple selection", this,
                 new String[]{
                         "/components/table/treeTable/treeTableMultipleRowSelection.xhtml"
-                }, getSummaryResourcePath()));
-
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoGridLines, "No grid lines", this,
-                new String[]{
-                        "/components/table/treeTable/treeTableNoGridLines.xhtml"
                 }, getSummaryResourcePath()));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,

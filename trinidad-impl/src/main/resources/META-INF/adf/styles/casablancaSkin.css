@@ -1162,6 +1162,12 @@
 .CBTableSubControlBar:alias {
     -tr-rule-ref: selector(".CBTableControlBar:alias");
 }
+/* fix a Webkit problem */
+@agent webkit {
+    .CBTableSubControlBar:alias {
+        width: auto;
+    }
+}
 .CBTableFooterBar:alias {
     -tr-rule-ref: selector(".CBTableControlBar:alias");
 }
@@ -3564,8 +3570,9 @@ af|table::sub-control-bar af|showDetail::prompt-link:hover {
 af|table::content {
     -tr-rule-ref: selector(".CBTableBody");
 }
-af|table::content af|column::cell-text, af|column::cell-number, af|table::content af|column::cell-icon-format,
-af|tableSelectMany::cell-icon-format, af|tableSelectOne::cell-icon-format {
+af|table::content af|column::cell-text, af|table::content af|column::cell-number,
+af|table::content af|column::cell-icon-format, af|table::content af|tableSelectOne::cell-icon-format,
+af|table::content af|tableSelectMany::cell-icon-format {
     -tr-rule-ref: selector(".CBTableCell");
     -tr-rule-ref: selector(".CBTableCellInside"); 
 }
@@ -3609,6 +3616,36 @@ af|table::content af|table::column-footer, af|table::content af|column::total-te
 .CBTreeTableCell {
     -tr-rule-ref: selector(".CBTableCell:alias");
 }
+.CBTreeTableCellInside {
+    -tr-rule-ref: selector(".CBTableCellInside:alias");
+}
+.CBTreeTableCellAll {
+    -tr-rule-ref: selector(".CBTableCellAll:alias");
+}
+.CBTreeTableCellTopLine {
+    -tr-rule-ref: selector(".CBTableCellTopLine:alias");
+}
+.CBTreeTableCellTopRighCorner {
+    -tr-rule-ref: selector(".CBTableCellTopRighCorner:alias");
+}
+.CBTreeTableCellRightLine {
+    -tr-rule-ref: selector(".CBTableCellRightLine:alias");
+}
+.CBTreeTableCellBottomRightCorner {
+    -tr-rule-ref: selector(".CBTableCellBottomRightCorner:alias");
+}
+.CBTreeTableCellBottomLine {
+    -tr-rule-ref: selector(".CBTableCellBottomLine:alias");
+}
+.CBTreeTableCellBottomLeftCorner {
+    -tr-rule-ref: selector(".CBTableCellBottomLeftCorner:alias");
+}
+.CBTreeTableCellLeftLine {
+    -tr-rule-ref: selector(".CBTableCellLeftLine:alias");
+}
+.CBTreeTableCellTopLeftCorner {
+    -tr-rule-ref: selector(".CBTableCellTopLeftCorner:alias");
+}
 .CBTreeTableHeadCell {
     -tr-rule-ref: selector(".CBTableHeadCell:alias");
 }
@@ -3626,6 +3663,7 @@ af|table::content af|table::column-footer, af|table::content af|column::total-te
 .CBTreeTableSubControlBar {
     -tr-rule-ref: selector(".CBTableSubControlBar:alias");
     border-width: 1px 1px 0 1px;
+    padding: 8px 3px;
 }
 .CBTreeTableBody {
     -tr-rule-ref: selector(".CBTableBody:alias");
@@ -3652,9 +3690,6 @@ af|treeTable::control-bar-bottom {
 af|treeTable::sub-control-bar {
     -tr-rule-ref: selector(".CBTreeTableSubControlBar");
 }
-af|treeTable::sub-control-bar {
-    padding: 8px 3px;
-}
 /* inactive navigation like buttons */
 af|treeTable::control-bar-top table td span,
 af|treeTable::control-bar-bottom table td span,
@@ -3673,9 +3708,39 @@ af|treeTable::sub-control-bar af|showDetail::prompt-link:hover {
 af|treeTable::content {
     -tr-rule-ref: selector(".CBTreeTableBody");
 }
-af|treeTable::content af|column::cell-text, af|treeTable::content af|column::cell-icon-format,
-af|tableSelectMany::cell-icon-format, af|tableSelectOne::cell-icon-format {
-    -tr-rule-ref: selector(".CBTableCell");
+af|treeTable::content af|column::cell-text, af|treeTable::content af|column::cell-number,
+af|treeTable::content af|column::cell-icon-format, af|treeTable::content af|tableSelectOne::cell-icon-format,
+af|treeTable::content af|tableSelectMany::cell-icon-format {
+    -tr-rule-ref: selector(".CBTreeTableCell");
+    -tr-rule-ref: selector(".CBTreeTableCellInside");
+}
+/* borders types */
+af|treeTable::content .OraTableBorder1111 {
+    -tr-rule-ref: selector(".CBTreeTableCellAll");
+}
+af|treeTable::content .OraTableBorder1000 {
+    -tr-rule-ref: selector(".CBTreeTableCellTopLine");
+}
+af|treeTable::content .OraTableBorder1100 {
+    -tr-rule-ref: selector(".CBTreeTableCellTopRighCorner");
+}
+af|treeTable::content .OraTableBorder0100 {
+    -tr-rule-ref: selector(".CBTreeTableCellRightLine");
+}
+af|treeTable::content .OraTableBorder0110 {
+    -tr-rule-ref: selector(".CBTreeTableCellBottomRightCorner");
+}
+af|treeTable::content .OraTableBorder0010 {
+    -tr-rule-ref: selector(".CBTreeTableCellBottomLine");
+}
+af|treeTable::content .OraTableBorder0011 {
+    -tr-rule-ref: selector(".CBTreeTableCellBottomLeftCorner");
+}
+af|treeTable::content .OraTableBorder0001 {
+    -tr-rule-ref: selector(".CBTreeTableCellLeftLine");
+}
+af|treeTable::content .OraTableBorder1001 {
+    -tr-rule-ref: selector(".CBTreeTableCellTopLeftCorner");
 }
 /* footer cells */
 af|treeTable::content af|treeTable::column-footer, af|treeTable::content af|column::total-text {

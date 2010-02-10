@@ -46,6 +46,11 @@ public class TableDemo extends AbstractComponentDemo {
                 "/components/table/table/table.xhtml"
             });
 
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoGridLines, "No grid lines", this,
+                new String[]{
+                        "/components/table/table/tableNoGridLines.xhtml"
+                }, getSummaryResourcePath()));
+
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.SingleRowSelection, "Single Row Selection", this,
                 new String[]{
                         "/components/table/table/tableSingleRowSelection.xhtml"
@@ -54,11 +59,6 @@ public class TableDemo extends AbstractComponentDemo {
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MultipleRowSelection, "Multiple Row Selection", this,
                 new String[]{
                         "/components/table/table/tableMultipleRowSelection.xhtml"
-                }, getSummaryResourcePath()));
-
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoGridLines, "No grid lines", this,
-                new String[]{
-                        "/components/table/table/tableNoGridLines.xhtml"
                 }, getSummaryResourcePath()));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Pagination, this,
