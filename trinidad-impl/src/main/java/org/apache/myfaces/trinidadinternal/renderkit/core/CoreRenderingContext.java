@@ -49,7 +49,7 @@ import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableDecimalFormatContext;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext;
 import org.apache.myfaces.trinidadinternal.skin.RequestSkinWrapper;
@@ -612,16 +612,16 @@ public class CoreRenderingContext extends RenderingContext
       skinFamily = getDefaultSkinFamily();
 
     // get renderKitId, default is desktop renderKit
-    String renderKitId = XhtmlConstants.APACHE_TRINIDAD_DESKTOP;
+    String renderKitId = TrinidadRenderingConstants.APACHE_TRINIDAD_DESKTOP;
     if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()))
     {
-      renderKitId = XhtmlConstants.APACHE_TRINIDAD_PORTLET;
+      renderKitId = TrinidadRenderingConstants.APACHE_TRINIDAD_PORTLET;
     }
     else if (TrinidadAgent.TYPE_PDA == _agent.getAgentType())
     {
       // =-=jmw @todo when we have proper renderKitId switching, I can
       // get rid of this bit of code. Should we use getViewRoot().getRenderKitId() instead?
-      renderKitId = XhtmlConstants.APACHE_TRINIDAD_PDA;
+      renderKitId = TrinidadRenderingConstants.APACHE_TRINIDAD_PDA;
     }
 
 

@@ -114,7 +114,7 @@ public class SkinCSSDocumentHandler
        CompleteSelectorNode node =
          _createCompleteSelectorNode(selector,
                                      _propertyNodeList,
-+                                     _locales,
+                                     _locales,
                                      _agentAtRuleMatcher,
                                      _selectorPlatforms,
                                      _getSelectorAccProperties());
