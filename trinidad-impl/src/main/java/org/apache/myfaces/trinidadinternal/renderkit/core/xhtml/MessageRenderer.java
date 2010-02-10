@@ -173,7 +173,7 @@ public class MessageRenderer extends ValueRenderer
             forId + "::msg", null);
 
       renderAllAttributes(context, arc, bean, false);
-      renderStyleAttributes(context, arc, bean, isError ? 
+      renderStyleAttributes(context, arc, bean, isError ?
           SkinSelectors.INLINE_ERROR_TEXT_STYLE_CLASS :
             SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS);
 
@@ -182,12 +182,12 @@ public class MessageRenderer extends ValueRenderer
         // Output the server-side message
         renderPossiblyFormattedText(context, message);
       }
-//      else 
-//      {
-//        // Hide element ready for client-side validation
-//        writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, 
-//            "display:none;", null);
-//      }
+      else
+      {
+        // Hide element ready for client-side validation
+        writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE,
+            "display:none;", null);
+      }
       
       writer.endElement(XhtmlConstants.SPAN_ELEMENT);
     }    
