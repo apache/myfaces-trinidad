@@ -47,6 +47,8 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.util.Service;
 
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
+
 import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 
 import junit.framework.AssertionFailedError;
@@ -99,7 +101,7 @@ abstract public class RenderKitTestCase extends TestSuite
   }
 
 
-  abstract public class BaseTest extends TestCase
+  abstract public class BaseTest extends FacesTestCase
   {
     public BaseTest(String name,
                     SuiteDefinition definition)

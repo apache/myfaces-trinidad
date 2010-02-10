@@ -225,12 +225,26 @@
         <configuration>
           <showPackage>false</showPackage>
           <showProtected>true</showProtected>
+          <links>
+            <link>http://java.sun.com/j2se/1.5.0/docs/api</link>
+            <link>http://java.sun.com/j2ee/1.4/docs/api</link>
+            <link>http://java.sun.com/javaee/javaserverfaces/2.0/docs/api</link>
+            <link>http://java.sun.com/javaee/5/docs/api</link>
+          </links>
         </configuration>
       </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changelog-plugin</artifactId>
+        <configuration>
+          <basedir>${basedir}</basedir>
+        </configuration>
       </plugin>
 
       <plugin>

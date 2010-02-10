@@ -23,6 +23,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 import java.util.AbstractMap;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,10 @@ import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitHint;
+import org.apache.myfaces.trinidad.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.CollectionModel;
@@ -294,7 +299,9 @@ public abstract class UIXCollection extends UIXComponentBase
     }
     else
     {
-      superState = stampState = clientKeyMgr = null;
+      superState = null;
+      stampState = null;
+      clientKeyMgr = null;
     }
     super.restoreState(context, superState);
 
@@ -320,7 +327,7 @@ public abstract class UIXCollection extends UIXComponentBase
   /**
    * Checks to see if the current row is available. This is useful when the
    * total number of rows is not known.
-   * @see CollectionModel#isRowAvailable
+   * @see CollectionModel#isRowAvailable()
    * @return true iff the current row is available.
    */
   public final boolean isRowAvailable()
@@ -427,7 +434,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Gets the data for the current row.
-   * @see CollectionModel#getRowData
+   * @see CollectionModel#getRowData(int)
    * @return null if the current row is unavailable
    */
   public final Object getRowData()
@@ -536,7 +543,7 @@ public abstract class UIXCollection extends UIXComponentBase
   /**
    * Clear the rowKey-to-currencyString cache.
    * The cache is not cleared immediately; instead it will be cleared
-   * when {@link #encodeBegin} is called.
+   * when {@link #encodeBegin(FacesContext)} is called.
    * @deprecated Have your Renderer implement {@link ClientRowKeyManagerFactory}
    * and create your own {@link ClientRowKeyManager} instances. Then you can
    * manage the lifecycle of each key inside your ClientRowKeyManager.
@@ -800,6 +807,11 @@ public abstract class UIXCollection extends UIXComponentBase
     }
 
     _restoreStampState();
+
+    // ensure the client IDs are reset on the component, otherwise they will not get the
+    // proper stamped IDs. This mirrors the behavior in UIData and follows the JSF specification
+    // on when client IDs are allowed to be cached and when they must be reset
+    clearCachedClientIds();
   }
 
   /**
@@ -856,7 +868,7 @@ public abstract class UIXCollection extends UIXComponentBase
     // just having stamp state, and having stamp state + child/facet state
     assert(!(stampState instanceof Object[]));
 
-    int facetCount = _getFacetCount(stamp);
+    int facetCount = stamp.getFacetCount();
 
     Object[] state = null;
 
@@ -943,11 +955,6 @@ public abstract class UIXCollection extends UIXComponentBase
     // Just a transient component - return
     if ((stampState == Transient.TRUE) || (stampState == null))
     {
-      // ensure the client IDs are reset on the component, otherwise they will not get the
-      // proper stamped IDs. This mirrors the behavior in UIData and follows the JSF specification
-      // on when client IDs are allowed to be cached and when they must be reset
-      String id = stamp.getId();
-      stamp.setId(id);
       return;
     }
 
@@ -997,7 +1004,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Process a component.
-   * This method calls {@link #processDecodes},
+   * This method calls {@link #processDecodes(FacesContext)},
    * {@link #processValidators} or
    * {@link #processUpdates}
    * depending on the {#link PhaseId}.
@@ -1145,6 +1152,268 @@ public abstract class UIXCollection extends UIXComponentBase
 
     return false;
   }
+
+  /**
+   * <p>
+   * Override default children visiting code to visit the facets and facets of the columns
+   * before delegating to the <code>visitData</code> to visit the individual rows of data.
+   * </p><p>
+   * Subclasses should override this method if they wish to change the way in which the non-stamped
+   * children are visited.  If they wish to change the wash the the stamped children are visited,
+   * they should override <code>visitData</code> instead.
+   * </p>
+   * @param visitContext
+   * @param callback
+   * @return <code>true</code> if all of the children to visit have been visited
+   * @see #visitData
+   */
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    return defaultVisitChildren(visitContext, callback);
+  }
+  
+  protected final boolean defaultVisitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    boolean doneVisiting;
+    
+    // Clear out the row index if one is set so that
+    // we start from a clean slate.
+    int oldRowIndex = getRowIndex();
+    setRowIndex(-1);
+
+    try
+    {
+      // visit the unstamped children
+      doneVisiting = visitUnstampedFacets(visitContext, callback);
+      
+      if (!doneVisiting)
+      {
+        doneVisiting = _visitStampedColumnFacets(visitContext, callback);
+        
+        // visit the stamped children
+        if (!doneVisiting)
+        {
+          doneVisiting = visitData(visitContext, callback);
+        }
+      }
+    }
+    finally
+    {
+      // restore the original rowIndex
+      setRowIndex(oldRowIndex);      
+    }
+    
+    return doneVisiting;    
+  }
+  
+  /**
+   * Hook method for subclasses to override to change the behavior
+   * of how unstamped facets of the UIXCollection are visited.  The
+   * Default implementation visits all of the facets of the
+   * UIXCollection.
+   */
+  protected boolean visitUnstampedFacets(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // Visit the facets with no row
+    if (getFacetCount() > 0)
+    {
+      for (UIComponent facet : getFacets().values())
+      {
+        if (UIXComponent.visitTree(visitContext, facet, callback))
+        {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+  
+  /**
+   * Wrapper implementation of VisitContext
+   */
+  private static abstract class VisitContextWrapper extends VisitContext
+  {
+    protected abstract VisitContext getWrapped();
+
+    @Override
+    public FacesContext getFacesContext()
+    {
+      return getWrapped().getFacesContext();
+    }
+    
+    @Override
+    public PhaseId getPhaseId()
+    {
+      return getWrapped().getPhaseId();
+    }
+
+    @Override
+    public Collection<String> getIdsToVisit()
+    {
+      return getWrapped().getIdsToVisit();
+    }
+
+    @Override
+    public Collection<String> getSubtreeIdsToVisit(UIComponent component)
+    {
+      return getWrapped().getSubtreeIdsToVisit(component);
+    }
+
+    @Override
+    public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callback)
+    {
+      return getWrapped().invokeVisitCallback(component, callback);
+    }
+
+    @Override
+    public Set<VisitHint> getHints()
+    {
+      return getWrapped().getHints();
+    }
+  }
+  
+  /**
+   * VistiContext that visits the facets of the UIXColumn children, including
+   * nested UIXColumn childrem
+   */
+  private static class ColumnFacetsOnlyVisitContext extends VisitContextWrapper
+  {
+    public ColumnFacetsOnlyVisitContext(VisitContext wrappedContext)
+    {
+      _wrapped = wrappedContext;
+    }
+    
+    @Override
+    protected VisitContext getWrapped()
+    {
+      return _wrapped;
+    }
+    
+    @Override
+    public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callback)
+    {
+      if (component instanceof UIXColumn)
+      {
+        if (component.getFacetCount() > 0)
+        {
+          // visit the facet children without filtering for just UIXColumn children
+          for (UIComponent facetChild : component.getFacets().values())
+          {
+            if (UIXComponent.visitTree(getWrapped(), facetChild, callback))
+              return VisitResult.COMPLETE;
+          }
+          
+          // visit the indexed children, recursively looking for more columns
+          for (UIComponent child : component.getChildren())
+          {
+            if (UIXComponent.visitTree(this, child, callback))
+              return VisitResult.COMPLETE;
+          }
+        }
+      }
+      
+      // at this point, we either have already manually processed the UIXColumn's children, or
+      // the component wasn't a UIXColumn and shouldn't be processed
+      return VisitResult.REJECT;
+    }
+    
+    private final VisitContext _wrapped;
+  }
+
+  /**
+   * VisitContext implementation that doesn't visit any of the Facets of
+   * UIXColumn children.  This is used when stamping children
+   */
+  protected static final class NoColumnFacetsVisitContext extends VisitContextWrapper
+  {
+    NoColumnFacetsVisitContext(VisitContext wrapped)
+    {
+      _wrapped = wrapped;
+    }
+
+    @Override
+    protected VisitContext getWrapped()
+    {
+      return _wrapped;
+    }
+
+    @Override
+    public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callback)
+    {
+      if (component instanceof UIXColumn)
+      {
+        if (component.getChildCount() > 0)
+        {
+          // visit only the indexed children of the columns
+          for (UIComponent child : component.getChildren())
+          {
+            if (UIXComponent.visitTree(this, child, callback))
+              return VisitResult.COMPLETE;
+          }
+        }
+        
+        return VisitResult.REJECT;
+      }
+      else
+      {
+        if (UIXComponent.visitTree(getWrapped(), component, callback))
+          return VisitResult.COMPLETE;
+        else
+          return VisitResult.REJECT;
+      }
+    }
+    
+    private final VisitContext _wrapped;
+  }
+  
+  /**
+   * Implementation used to visit each stamped row
+   */
+  private boolean _visitStampedColumnFacets(
+    VisitContext      visitContext,
+    VisitCallback     callback)
+  {    
+    // visit the facets of the stamped columns
+    List<UIComponent> stamps = getStamps();
+    
+    if (!stamps.isEmpty())
+    {
+      VisitContext columnVisitingContext = new ColumnFacetsOnlyVisitContext(visitContext);
+      
+      for (UIComponent stamp : stamps)
+      {
+        if (UIXComponent.visitTree(columnVisitingContext, stamp, callback))
+        {
+          return true;
+        }
+      }
+    }
+    
+    return false;
+  }
+
+
+  /**
+   * Visit the rows and children of the columns of the collection per row-index. This should
+   * not visit row index -1 (it will be perfomed in the visitTree method). The columns
+   * themselves should not be visited, only their children in this function.
+   *
+   * @param visitContext The visiting context
+   * @param callback The visit callback
+   * @return true if the visiting should stop
+   * @see #visitChildren(VisitContext, VisitCallback)
+   */
+  protected abstract boolean visitData(
+    VisitContext  visitContext,
+    VisitCallback callback);
 
   /**
    * Gets the CollectionModel to use with this component.
@@ -1359,7 +1628,7 @@ public abstract class UIXCollection extends UIXComponentBase
   
   /**
    * Indicates the caching strategy supported by the model
-   * @see LocalCachingStrategy
+   * @see LocalRowKeyIndex.LocalCachingStrategy
    * @return caching strategy supported by the model
    */
   public LocalRowKeyIndex.LocalCachingStrategy getCachingStrategy()
@@ -1585,21 +1854,8 @@ public abstract class UIXCollection extends UIXComponentBase
     return b.equals(a);
   }
 
-  //
-  // Optimized path that avoids creating the Facet map
-  // unless necessary
-  //
-  private int _getFacetCount(UIComponent component)
-  {
-    if (component instanceof UIXComponent)
-      return ((UIXComponent) component).getFacetCount();
-
-    return component.getFacets().size();
-  }
-
   private static final class DefaultClientKeyManager extends ClientRowKeyManager
   {
-
     public void clear()
     {
       _currencyCache.clear();

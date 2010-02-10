@@ -37,7 +37,10 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 
 /**
  * Package-private utility class used by Skin implementation
- * to manage a single XSS or CSS skin stylesheet source file.
+ * to manage a single XSS or CSS skin stylesheet source file .
+ * This class calls the parsing code which parses either the XSS or CSS file (_createSkinStyleSheet),
+ * and it stores a StyleSheetDocument object, which is a parsed representation of a 
+ * Trinidad style sheet document whether that is in the css or xss format or merged.
  * This class could actually
  * be pushed into an inner class in Skin, but at the moment
  * it is separated out simply to reduce the amount of code in
@@ -48,7 +51,7 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 class StyleSheetEntry
 {
   /**
-   * Creates a StyleSheetEntry for the specified context/name.
+   * Creates a StyleSheetEntry for the specified context and styleSheetName.
    * This method will log any errors/exceptions and return
    * null if the style sheet source file could not be found/parsed.
    */
@@ -75,9 +78,10 @@ class StyleSheetEntry
         return null;
 
       // We either create a plain old StyleSheetEntry or a special
-      // subclass of StyleSheetEntry that can check for modifications
-      // depending on the Configuration settings
-      if (context.checkStylesModified())
+      // subclass of StyleSheetEntry that will recalculate the StyleSheetEntry
+      // if the skin is dirty or if there are file modifications
+      // and the Configuration settings say to check for file modifications.
+      if (context.checkStylesModified() || context.isDirty())
         return new CheckModifiedEntry(styleSheetName,
                                       skinStyleSheet.getDocument(),
                                       resolver);
@@ -164,7 +168,7 @@ class StyleSheetEntry
     {
 
       // Parse the style sheet to create the StyleSheetDocument
-      StyleSheetDocument document = _createStyleSheetDocument(resolver,
+      StyleSheetDocument document = _createStyleSheetDocumentFromXSS(resolver,
                                                               styleSheetName);
       if (document == null)
         skinStyleSheet = null;
@@ -189,7 +193,7 @@ class StyleSheetEntry
   }
 
 
-  // Creates the StyleSheetEntry
+  // Creates the StyleSheetEntry from a skinning file that ends in .css
   private static StyleSheetEntry _createSkinStyleSheetFromCSS(
     NameResolver     resolver,
     String           styleSheetName
@@ -201,7 +205,7 @@ class StyleSheetEntry
         ParseContextImpl parseContext = new ParseContextImpl();
         // if this is a utility that isn't in this file, then I can't return a SkinStyleSheet.
         // I think instead this parseCSSSource should return a new instance of StyleSheetEntry.
-        return (StyleSheetEntry)SkinStyleSheetParserUtils.parseCSSSource(
+        return SkinStyleSheetParserUtils.parseCSSSource(
                                     parseContext,
                                     resolver,
                                     styleSheetName,
@@ -217,8 +221,8 @@ class StyleSheetEntry
       return null;
   }
 
-  // Creates the StyleSheetDocument
-  private static StyleSheetDocument _createStyleSheetDocument(
+  // Creates the StyleSheetDocument from a skinning file that ends in .xss, like base-desktop.xss
+  private static StyleSheetDocument _createStyleSheetDocumentFromXSS(
     NameResolver     resolver,
     String           styleSheetName
     )
@@ -228,6 +232,7 @@ class StyleSheetEntry
 
     try
     {
+      // this will parse the xss file adn return a StyleSheetDocument
       return StyleSheetDocumentUtils.createStyleSheetDocument(xmlProvider,
                                                               resolver,
                                                               styleSheetName);
@@ -265,8 +270,8 @@ class StyleSheetEntry
   }
 
 
-  // Subclass of StyleSheetEntry which checks for updates
-  // to the underlying style sheet files.
+  // Subclass of StyleSheetEntry which recreates the StyleSheetEntry
+  // if the skin is marked dirty (skin.isDirty()) or if the underlying source files have been modified.
   private static class CheckModifiedEntry extends StyleSheetEntry
   {
     public CheckModifiedEntry(
@@ -290,7 +295,7 @@ class StyleSheetEntry
     {
       // We would synchronize here, but at the moment synchronization
       // is provided by Skin.getStyleSheetDocument().
-      if ((_provider != null) && (_provider.hasSourceChanged()))
+      if (context.isDirty() || ((_provider != null) && (_provider.hasSourceChanged())))
       {
         // Throw away the old InputStreamProvider and StyleSheetDocument
         _provider = null;

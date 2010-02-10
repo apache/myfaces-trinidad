@@ -51,7 +51,7 @@ import org.apache.myfaces.trinidadinternal.share.expl.JavaMethod;
 public class XMLUtils
 {
   /**
-   * Parses an XML file.  For includes, see parseInclude().
+   * Parses an XML file, like the skinning .xss file.  For includes, see parseInclude().
    * @param context the current ParseContext, which will be cloned
    * @param xmlProvider an XML provider
    * @param manager a ParserManager

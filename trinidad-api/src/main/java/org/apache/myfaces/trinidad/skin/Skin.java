@@ -186,5 +186,21 @@ abstract public class Skin
    * @return List a List of SkinAdditions.
    */
   abstract public List<SkinAddition> getSkinAdditions ();
+  
+  /**
+   * Check to see if this Skin has been marked dirty. 
+   * The only way to mark a Skin dirty is to call setDirty(true).
+   * @return true if the Skin is marked dirty. 
+   */
+  abstract public boolean isDirty();
+
+  /**
+   * Sets the dirty flag of the Skin. Use this if you want to regenerate the skin. 
+   * During rendering, if isDirty is true, 
+   * the skin's css file will be reprocessed regardless of whether the css file has been modified 
+   * or if the CHECK_FILE_MODIFICATION flag was set. 
+   * The Skinning Framework calls setDirty(false) after the skin has been reprocessed.
+   */
+  abstract public void setDirty(boolean dirty);
     
 }

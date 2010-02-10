@@ -18,10 +18,13 @@
  */
 package org.apache.myfaces.trinidad.model;
 
+import java.text.Collator;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
@@ -34,6 +37,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.DataModelListener;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
@@ -285,10 +289,12 @@ public class SortableModel extends CollectionModel
     if (_model.isRowAvailable())
     {
       FacesContext context = FacesContext.getCurrentInstance();
+      RequestContext rc = RequestContext.getCurrentInstance();
       ELResolver resolver = _getELResolver(context);
       ELContext elContext = _getELContext(context, resolver);
+      Locale locale = _getLocale(rc, context);
       Comparator<Integer> comp =
-        new Comp(resolver, elContext, property);
+        new Comp(resolver, elContext, locale, property);
       if (!isAscending)
         comp = new Inverter<Integer>(comp);
 
@@ -371,10 +377,20 @@ public class SortableModel extends CollectionModel
 
   private final class Comp implements Comparator<Integer>
   {
-    public Comp(ELResolver resolver, ELContext context, String property)
+    public Comp(ELResolver resolver, ELContext context, Locale locale, String property)
     {
       _resolver = resolver;
       _context  = context;
+
+      if (locale != null)
+      {
+        _collator = Collator.getInstance(locale);
+      }
+      else
+      {
+        _collator = null;
+      }
+
       _prop = property;
     }
 
@@ -404,18 +420,38 @@ public class SortableModel extends CollectionModel
       // So test before we cast:
       if (value1 instanceof Comparable)
       {
-        return ((Comparable<Object>) value1).compareTo(value2);
+        if ((value1 instanceof String) && (value2 instanceof String)) 
+        {
+          return compare((String) value1, (String) value2);
+        }
+        else 
+        {
+          return ((Comparable<Object>) value1).compareTo(value2);
+        }
       }
       else
       {
         // if the object is not a Comparable, then
         // the best we can do is string comparison:
-        return value1.toString().compareTo(value2.toString());
+        return compare(value1.toString(), value2.toString());
+      }
+    }
+
+    private int compare(String s1, String s2) 
+    {
+      if (_collator != null)
+      {
+        return _collator.compare(s1, s2);
+      }
+      else
+      {
+        return s1.compareTo(s2);
       }
     }
 
     private final ELResolver _resolver;
     private final ELContext  _context;
+    private final Collator _collator;
     private final String _prop;
   }
 
@@ -485,7 +521,7 @@ public class SortableModel extends CollectionModel
     // going to have to synthesize one!
     if (context != null)
       return context.getELContext();
-   
+
     return new ELContextImpl(resolver); 
   }
 
@@ -495,13 +531,24 @@ public class SortableModel extends CollectionModel
     // get the ELResolver (and the 99.9% scenario)
     if (context != null)
       return context.getApplication().getELResolver();
-    
+
     // If that fails, then we're likely outside of the JSF lifecycle.
     // Look to the ApplicationFactory.
     ApplicationFactory factory = (ApplicationFactory)
       FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
     return factory.getApplication().getELResolver();
     
+  }
+
+  static private Locale _getLocale(RequestContext requestContext, FacesContext facesContext) 
+  {
+    if (requestContext != null)
+      return requestContext.getFormattingLocale();
+
+    if (facesContext != null)
+      return facesContext.getViewRoot().getLocale();
+
+    return null;
   }
 
   private SortCriterion _sortCriterion = null;

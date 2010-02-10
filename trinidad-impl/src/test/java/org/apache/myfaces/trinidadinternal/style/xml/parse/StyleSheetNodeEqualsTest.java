@@ -129,9 +129,8 @@ public class StyleSheetNodeEqualsTest extends TestCase
     List<IconNode> anotherIconNodes = _getIconNodes();
 
     // create locales arrays
-    Locale[] localesArray = getLocalesArray();
-    Locale[] anotherLocalesArray = getAnotherLocalesArray();
-    Locale[] diffOrderLocalesArray = getDiffOrderLocalesArray();
+    Set<Locale> localeSet = getLocalesSet();
+    Set<Locale> diffOrderLocalesSet = getDiffOrderLocalesSet();
      
     // create a browsers map
     String browserSelector = "netscape and (version:5), netscape and (version:6), ie and (version:7), ie and (version:8)";
@@ -159,7 +158,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
       new StyleSheetNode(styleSheetOneNodes,
                          iconNodes,
                          null,
-                         localesArray,
+                         localeSet,
                          0,
                          new AgentAtRuleMatcher(browserSelector),
                          platforms,
@@ -169,7 +168,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
       new StyleSheetNode(anotherStyleSheetOneNodes,
                          anotherIconNodes,
                          null,
-                         anotherLocalesArray,
+                         localeSet,
                          0,
                          new AgentAtRuleMatcher(anotherBrowserSelector),
                          anotherPlatforms,
@@ -179,7 +178,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
       new StyleSheetNode(anotherStyleSheetOneNodes,
                          anotherIconNodes,
                          null,
-                         diffOrderLocalesArray,
+                         diffOrderLocalesSet,
                          0,
                          new AgentAtRuleMatcher(anotherBrowserDiffOrder),
                          differentOrderPlatforms,
@@ -203,7 +202,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
 
     // these should be false
     assertEquals(styleSheetNode.equals(null), false);
-    assertEquals(styleSheetNode.equals(localesArray), false);
+    assertEquals(styleSheetNode.equals(localeSet), false);
     
     /* Test styleSheetNode's toString */
     /*
@@ -328,5 +327,6 @@ public class StyleSheetNodeEqualsTest extends TestCase
     return iconNodes;
   }
 }
+
 
 

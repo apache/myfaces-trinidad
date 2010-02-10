@@ -48,12 +48,15 @@ import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidadinternal.config.LazyValueExpression;
-import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
-import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPdaSkinExtension;
-import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPortletSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimpleDesktopSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimplePdaSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimplePortletSkin;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPdaSkinExtension;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPortletSkinExtension;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaDesktopSkin;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaPdaSkin;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaPortletSkin;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -315,7 +318,7 @@ public class SkinUtils
 
   /**
    * register the Trinidad skins: simpleDesktopSkin, simplePdaSkin,
-   * and minimalDesktopSkin, minimalPdaSkin, and portlet skins.
+   * and minimalDesktopSkin, minimalPdaSkin, casablancaSkin and portlet skins.
    * @param skinFactory
    */
   private static void _registerTrinidadSkins(
@@ -347,6 +350,15 @@ public class SkinUtils
     MinimalPortletSkinExtension minimalPortletSkin = 
       new MinimalPortletSkinExtension(simplePortletSkin);
     skinFactory.addSkin(minimalPortletSkin.getId(), minimalPortletSkin);
+
+    CasablancaDesktopSkin casablancaDesktopSkin = new CasablancaDesktopSkin(simpleDesktopSkin);
+    skinFactory.addSkin(casablancaDesktopSkin.getId(), casablancaDesktopSkin);
+
+    CasablancaPdaSkin casablancaPdaSkin = new CasablancaPdaSkin(simplePdaSkin);
+    skinFactory.addSkin(casablancaPdaSkin.getId(), casablancaPdaSkin);
+
+    CasablancaPortletSkin casablancaPortletSkin = new CasablancaPortletSkin(simplePortletSkin);
+    skinFactory.addSkin(casablancaPortletSkin.getId(), casablancaPortletSkin);
   }
 
   /**

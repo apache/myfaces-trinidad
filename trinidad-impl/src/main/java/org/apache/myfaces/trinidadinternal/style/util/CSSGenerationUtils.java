@@ -165,7 +165,8 @@ public class CSSGenerationUtils
     // We'll start writing the CSS file now.  First
     // write out the header with a time stamp
     Date date = new Date();
-    out.println("/* This CSS file generated on " + date + " */");
+    if (!compressStyles)
+      out.println("/* This CSS file generated on " + date + " */");
 
     // Keep track of the number of selectors written out. The reason? IE has a 4095 limit,
     // and we want to warn when we get to that limit.
@@ -333,7 +334,10 @@ public class CSSGenerationUtils
           }
         }
 
-        out.println("}");
+        if (compressStyles)
+          out.print("}"); // take out the newlines for performance
+        else
+          out.println("}");
       }
     }
     out.println("/* The number of CSS selectors in this file is " + numberSelectorsWritten + " */");

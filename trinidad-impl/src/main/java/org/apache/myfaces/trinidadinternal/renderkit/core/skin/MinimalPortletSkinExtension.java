@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
    {
      super(baseSkin,
            "minimal.portlet",
-           "minimal",
+           TrinidadRenderingConstants.MINIMAL_SKIN_FAMILY,
            XhtmlConstants.OUTPUT_MODE_PORTLET,
            "META-INF/adf/styles/simple-portlet.xss");
    }

@@ -37,17 +37,13 @@ public class MinimalDesktopSkinExtension extends SkinExtension
      // Create a SkinExtension for Minimal
     super(baseSkin,
           _MINIMAL_DESKTOP_ID,
-          _MINIMAL_FAMILY,
+          TrinidadRenderingConstants.MINIMAL_SKIN_FAMILY,
           XhtmlConstants.APACHE_TRINIDAD_DESKTOP);
 
     // Register our style sheet
     setStyleSheetName(_MINIMAL_STYLE_SHEET_NAME);
 
   }
-  
-
-  // Minimal skin family name
-  private static final String _MINIMAL_FAMILY = "minimal";
 
   // Minimal skin id
   private static final String _MINIMAL_DESKTOP_ID = "minimal.desktop";

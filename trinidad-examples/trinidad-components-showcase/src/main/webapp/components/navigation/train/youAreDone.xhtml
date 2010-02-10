@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
+
+    <ui:define name="demoContent">
+
+        <tr:spacer height="5"/>
+        <tr:outputFormatted styleUsage="instruction"
+                            value="&lt;b>Please take the time to complet all the steps of our Trinidad Questionnaire&lt;/b>"/>
+        <tr:spacer height="10"/>
+        <tr:separator/>
+        <tr:spacer height="5"/>
+
+        <tr:train var="foo" value="#{trainBean}">
+            <f:facet name="nodeStamp">
+                <tr:commandNavigationItem text="#{foo.label}"
+                                          action="#{foo.getOutcome}"
+                                          immediate="#{trainBean.immediate}"
+                                          disabled="#{trainBean.readOnly}"
+                                          visited="#{trainBean.visited}"/>
+            </f:facet>
+        </tr:train>
+
+        <tr:spacer height="10px"/>
+        <tr:outputFormatted styleUsage="instruction"
+                            value="&lt;b>Thanks for your feedback!&lt;/b>"/>
+        <tr:spacer height="15"/>
+        <tr:outputFormatted styleUsage="instruction"
+                            value="and enjoy using &lt;b>Trinidads&lt;/b> component library"/>
+        <tr:spacer height="20px"/>
+        <tr:commandButton text="&lt; Back" action="trainTrinidadSurvey"/>
+
+    </ui:define>
+</ui:composition>

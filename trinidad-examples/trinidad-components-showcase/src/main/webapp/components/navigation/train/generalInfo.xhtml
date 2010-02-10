@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
+
+    <ui:define name="demoContent">
+
+        <tr:spacer height="5"/>
+        <tr:outputFormatted styleUsage="instruction"
+                            value="&lt;b>Please take the time to complet all the steps of our Trinidad Questionnaire&lt;/b>"/>
+        <tr:spacer height="10"/>
+        <tr:separator/>
+        <tr:spacer height="5"/>
+
+        <tr:train var="foo" value="#{trainBean}">
+            <f:facet name="nodeStamp">
+                <tr:commandNavigationItem text="#{foo.label}"
+                                          action="#{foo.getOutcome}"
+                                          immediate="#{trainBean.immediate}"
+                                          disabled="#{trainBean.readOnly}"
+                                          visited="#{trainBean.visited}"/>
+            </f:facet>
+        </tr:train>
+
+        <tr:spacer height="10px"/>
+        <tr:panelHorizontalLayout>
+            <tr:outputText value="Your Name"/>
+            <tr:spacer width="10" height="10"/>
+            <tr:inputText/>
+        </tr:panelHorizontalLayout>
+        <tr:panelHorizontalLayout>
+            <tr:outputText value="Your Age"/>
+            <tr:spacer width="21" height="40"/>
+            <tr:inputText columns="5"/>
+        </tr:panelHorizontalLayout>
+        <tr:panelHorizontalLayout valign="top">
+            <tr:outputText value="Your Gender"/>
+            <tr:spacer width="5" height="10"/>
+            <tr:selectBooleanRadio group="Gender" text="male" selected="true"/>
+            <tr:selectBooleanRadio group="Gender" text="female"/>
+        </tr:panelHorizontalLayout>
+        <tr:spacer height="20px"/>
+
+        <tr:panelHorizontalLayout>
+            <tr:spacer height="10" width="268px"/>
+            <tr:commandButton text="Next &gt;" action="trainCompanyInfo"/>
+        </tr:panelHorizontalLayout>
+
+    </ui:define>
+</ui:composition>

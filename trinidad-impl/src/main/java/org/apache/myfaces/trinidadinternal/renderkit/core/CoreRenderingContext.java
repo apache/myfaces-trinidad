@@ -425,12 +425,12 @@ public class CoreRenderingContext extends RenderingContext
   }
 
   /**
-   * Return the default skin family, which is "minimal" for the
+   * Return the default skin family, which is "casablanca" for the
    * core renderkit.
    */
   protected String getDefaultSkinFamily()
   {
-    return "minimal";
+    return TrinidadRenderingConstants.CASABLANCA_SKIN_FAMILY;
   }
 
 

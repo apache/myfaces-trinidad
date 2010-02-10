@@ -519,6 +519,10 @@ public class ImmutableItemNode extends ItemNode
         String label1 = new String(keyArray2, 0, j);
         label = label1;
       }
+      // https://issues.apache.org/jira/browse/TRINIDAD-1588
+      if (accessKey == null) {
+          return label;
+      }
       return _joinLabelAndAccessKey(label, accessKey);
     }
     return null;

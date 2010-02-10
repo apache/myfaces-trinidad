@@ -28,6 +28,8 @@ import javax.faces.context.FacesContext;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
+
 import org.apache.myfaces.trinidad.component.UIXPanel;
 import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 

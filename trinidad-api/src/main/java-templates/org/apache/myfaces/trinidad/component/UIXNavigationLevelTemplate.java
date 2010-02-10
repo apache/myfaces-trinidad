@@ -18,8 +18,12 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
 
 
 /**
@@ -39,17 +43,61 @@ abstract public class UIXNavigationLevelTemplate extends UIXNavigationHierarchy
   {
     Object oldPath = getRowKey();
     HierarchyUtils.__setStartDepthPath(this, getLevel());
+    
     // process stamp for one level
     HierarchyUtils.__processLevel(context, phaseId, this);
     setRowKey(oldPath);
-
 
     // process the children
     TableUtils.__processChildren(context, this, phaseId);
   }
 
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    boolean done = visitData(visitContext, callback);
 
+    if (!done)
+    {
+      // process the children
+      int childCount = getChildCount();
+      if (childCount > 0)
+      {
+        for (UIComponent child : getChildren())
+        {
+          done = UIXComponent.visitTree(visitContext, child, callback);
+          
+          if (done)
+            break;
+        }
+      }          
+    }
+    
+    return done;
+  }
+  
+  @Override
+  protected boolean visitData(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    Object oldKey = getRowKey();
+       
+    boolean done;
 
+    HierarchyUtils.__setStartDepthPath(this, getLevel());
 
-
+    try
+    {
+      done = visitLevel(visitContext, callback, getStamps());
+    }
+    finally
+    {
+      setRowKey(oldKey);
+    }
+    
+    return done;
+  }
 }
