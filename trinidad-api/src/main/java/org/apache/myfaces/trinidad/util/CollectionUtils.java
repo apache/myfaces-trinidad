@@ -26,11 +26,13 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 
 import java.util.AbstractQueue;
+import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -42,6 +44,7 @@ import java.util.Queue;
 import java.util.RandomAccess;
 import java.util.Set;
 
+import org.apache.myfaces.trinidad.component.CompositeIterator;
 import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -145,6 +148,28 @@ public final class CollectionUtils
     return _asSet(a, true);
   }
 
+  /**
+   * Returns an unmodifiable versions of the Set of Enums.  If the contents of the set are known
+   * to be unmodifiable by the caller in any way, the set itself will be retured, otherwise an
+   * unmodifiable copy of the Set will be returned.
+   * @param s Set to get the tamper-proof version of
+   * @return An unmodifiable tamper-proof version of the set
+   */
+  public static <E extends Enum<E>> Set<E> unmodifiableCopyOfEnumSet(Set<E> s)
+  {
+    Class<? extends Set> copyClass = s.getClass();
+
+    if ((_EMPTY_SET == copyClass) || (_SINGLETON_SET == copyClass))
+    {
+      // these classes are already unmodifiable, so just return
+      return s;
+    }
+    else
+    {
+      return Collections.unmodifiableSet(EnumSet.copyOf(s));
+    }
+  }
+
   private static <T> Set<T> _asSet(T[] a, boolean makeImmutable)
   {
     int count = (a != null) ? a.length : 0;
@@ -184,6 +209,23 @@ public final class CollectionUtils
     return outSet;
   }
 
+  /**
+   * Given two disjoint sets, returns a live composition of the two Sets that maintains
+   * the disjoint invariant.  If both Sets are Serializable, the returned
+   * implementation will be Serializable as well.  The returned Set implementation is
+   * not thread safe.
+   * @param primarySet The Set that adds will be applied to
+   * @param secondarySet The other Set
+   * @return The composition of the two disjoint Sets
+   * @throws NullPointerException of primarySet or secondarySet are <code>null</code>
+   */
+  public static <T> Set<T> compositeSet(Set<T> primarySet, Set<T> secondarySet)
+  {
+    if ((primarySet instanceof Serializable) && (secondarySet instanceof Serializable))
+      return new SerializableFixedCompositeSet(primarySet, secondarySet);
+    else
+      return new FixedCompositeSet(primarySet, secondarySet);
+  }
 
   /**
    * Returns a Collection based on the passed in Collection <code>c</code>,
@@ -412,7 +454,273 @@ public final class CollectionUtils
       return getDelegate().toString();
     }
   }
+
+  /**
+   * Note: Requires contents to be disjoint!
+   * @param <E>
+   */
+  protected abstract static class CompositeCollection<E> implements Collection<E>
+  {
+    protected abstract Collection<E> getPrimaryDelegate();
+    protected abstract Collection<E> getSecondaryDelegate();
+
+    public int size()
+    {
+      return getPrimaryDelegate().size() + getSecondaryDelegate().size();
+    }
+
+    public boolean isEmpty()
+    {
+      return getPrimaryDelegate().isEmpty() || getSecondaryDelegate().isEmpty();
+    }
+
+    public boolean contains(Object o)
+    {
+      return getPrimaryDelegate().contains(o) || getSecondaryDelegate().contains(o);
+    }
+
+    public Iterator<E> iterator()
+    {
+      return new CompositeIterator(getPrimaryDelegate().iterator(),
+                                   getSecondaryDelegate().iterator());
+    }
+
+    public Object[] toArray()
+    {
+      int size = size();
+      
+      Object[] out = new Object[size];
+      
+      int i = 0;
+      for (Object currObject : this)
+      {
+        out[i] = currObject;
+        
+        i++;
+        
+        if (i == size)
+          break;
+      }
+      
+      return out;
+    }
+
+    public <T> T[] toArray(T[] outArray)
+    {
+      int collectionSize = size();
+      int arraySize = outArray.length;
+      
+      // size isn't big enough, so need a new array
+      if (collectionSize > arraySize)
+      {
+        outArray = (T[])Array.newInstance(outArray.getClass().getComponentType(),
+                                          collectionSize);
+      }
+
+      Iterator<E> iterator = this.iterator();
+      
+      for (int i = 0; i < collectionSize; i++)
+      {
+        if (!iterator.hasNext())
+          break;
+        
+        outArray[i] = (T)iterator.next();
+      }
+      
+      return outArray;
+    }
+
+    public boolean add(E e)
+    {
+      return getPrimaryDelegate().add(e);
+    }
+
+    public boolean remove(Object o)
+    {
+      boolean removed = getPrimaryDelegate().remove(0);
+      
+      if (!removed)
+        removed = getSecondaryDelegate().remove(0);
+      
+      return removed;
+    }
+
+    public boolean containsAll(Collection<?> c)
+    {
+      // find all of the items in both the collection and the primary delegate
+      
+      Set<Object> intersection = new HashSet<Object>(getPrimaryDelegate());
+      intersection.retainAll(c);
+            
+      if (intersection.size() == c.size())
+      {
+        // the primary delegate contained all of the items, so we're done
+        return true;
+      }
+      else
+      {
+        // compute the set of items we still haven't match in order to check against the
+        // secondary delegate
+        Set<Object> remainder = new HashSet<Object>(c);
+        remainder.removeAll(intersection);
+        
+        return getSecondaryDelegate().containsAll(remainder);
+      }
+    }
+
+    public boolean addAll(Collection<? extends E> c)
+    {
+      // determine the result ahead of time
+      boolean changed = !containsAll(c);
+      
+      // make sure that the collections maintain disjointness
+      getSecondaryDelegate().removeAll(c);
+      getPrimaryDelegate().addAll(c);
+      
+      return changed;
+    }
+
+    public boolean removeAll(Collection<?> c)
+    {
+      return getPrimaryDelegate().removeAll(c) || getSecondaryDelegate().removeAll(c);
+    }
+
+    public boolean retainAll(Collection<?> c)
+    {
+      return getPrimaryDelegate().retainAll(c) || getSecondaryDelegate().retainAll(c);
+    }
+
+    public void clear()
+    {
+      getPrimaryDelegate().clear();
+      getSecondaryDelegate().clear();
+    }
     
+    @Override
+    public String toString()
+    {
+      return super.toString() + 
+             "[primary:" + 
+             getPrimaryDelegate() +
+             ", secondary:" +
+             getSecondaryDelegate() +
+             "]";
+    }
+  }
+  
+  /**
+   * Note: Requires contents to be disjoint!
+   * @param <E>
+   */
+  protected abstract static class CompositeSet<E> extends CompositeCollection<E> implements Set<E>
+  {
+    @Override
+    protected abstract Set<E> getPrimaryDelegate();
+    
+    @Override
+    protected abstract Set<E> getSecondaryDelegate();
+
+    /**
+     * Implement Set-defined equals behavior 
+     */
+    @Override
+    public boolean equals(Object o)
+    {
+      if (o == this)
+        return true;
+      else if (!(o instanceof Set))
+        return false;
+      else
+      {
+        Collection other = (Collection) o;
+
+        if (other.size() != size())
+        {
+          return false;
+        }
+        else
+        {
+          // since the sizes are the same, if we contain all of the other collection's
+          // elements, we are identical
+          try
+          {
+            return containsAll(other);
+          }
+          catch(NullPointerException npe)
+          {
+            // optional NullPointerException that containsAll is allowed to throw
+            return false;
+          }
+          catch(ClassCastException npe)
+          {
+            // optional ClassCastException that containsAll is allowed to throw
+            return false;
+          }
+        }
+      }
+    }
+
+    /**
+     * Implement Set-defined equals behavior 
+     */
+    @Override
+    public int hashCode()
+    {
+      // Set defines hashCode() as additive based on the contents
+      return getPrimaryDelegate().hashCode() + getSecondaryDelegate().hashCode();
+    }
+  }
+  
+  /**
+   * Concrete Composite Set that takes the two sets to compose
+   */
+  private static class FixedCompositeSet<E> extends CompositeSet<E>
+  {
+    FixedCompositeSet(Set<E> primarySet, Set<E> secondarySet)
+    {
+      if (primarySet == null)
+        throw new NullPointerException();
+
+      if (secondarySet == null)
+        throw new NullPointerException();
+      
+      assert Collections.disjoint(primarySet, secondarySet) : "Composed Sets not disjoint";
+      
+      _primarySet   = primarySet;
+      _secondarySet = secondarySet;
+    }
+
+    @Override
+    protected Set<E> getPrimaryDelegate()
+    {
+      return _primarySet;
+    }
+    
+    @Override
+    protected Set<E> getSecondaryDelegate()
+    {
+      return _secondarySet;
+    }
+    
+    private final Set<E> _primarySet;
+    private final Set<E> _secondarySet;
+  }
+
+  /**
+   * Serializable version of FixedCompositeSet
+   * @param <E>
+   */
+  private static final class SerializableFixedCompositeSet<E> extends FixedCompositeSet<E>
+                                                              implements Serializable
+  {
+    SerializableFixedCompositeSet(Set<E> primarySet, Set<E> secondarySet)
+    {
+      super(primarySet, secondarySet);
+    }
+
+    private static final long serialVersionUID = 0L;
+  }
+
   private static class SerializableCollection<E> extends DelegatingCollection<E>
                                                  implements Serializable
   {
@@ -633,6 +941,7 @@ public final class CollectionUtils
   private final static class CheckedSerializationMap<K, V> extends DelegatingMap<K,V>
                                                            implements Serializable
   {
+
     public CheckedSerializationMap(Map<K, V> delegate)
     {
       if (delegate == null)
@@ -965,6 +1274,8 @@ public final class CollectionUtils
   private static final Class<? extends List> _CHECKED_LIST;
   private static final Class<? extends List> _UNMODIFIABLE_LIST;
   private static final Class<? extends List> _SYNCHRONIZED_LIST;
+  private static final Class<? extends Set> _EMPTY_SET = Collections.emptySet().getClass();
+  private static final Class<? extends Set> _SINGLETON_SET = Collections.singleton(null).getClass();
   private static final Queue _EMPTY_QUEUE = new EmptyQueue();
   private static final Iterator _EMPTY_ITERATOR = new EmptyIterator();
   private static final Iterator _EMPTY_LIST_ITERATOR = new EmptyListIterator();
@@ -980,7 +1291,7 @@ public final class CollectionUtils
     _UNMODIFIABLE_LIST = Collections.unmodifiableList(dummyList).getClass();
     _SYNCHRONIZED_LIST = Collections.synchronizedList(dummyList).getClass();
   }
-  
+
   private static final TrinidadLogger _LOG = 
                                         TrinidadLogger.createTrinidadLogger(CollectionUtils.class);
 
