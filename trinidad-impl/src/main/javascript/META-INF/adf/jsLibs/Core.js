@@ -1701,7 +1701,7 @@ function submitForm(
   form,
   doValidate,
   parameters,
-  isPartial, 
+  isPartial,
   event
   )
 {
@@ -3637,7 +3637,6 @@ function _doPprStartBlocking (win)
 //
 function _pprStopBlocking(win)
 {
-
   // No blocking is performed on Nokia, PPC and BlackBerry devices
   if (_agent.isPIE || _agent.isNokiaPhone || _agent.isBlackBerry)
     return;

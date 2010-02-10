@@ -16,15 +16,15 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html"
-          xmlns:tr="http://myfaces.apache.org/trinidad">
- <jsp:directive.page contentType="text/html;charset=utf-8"/>
- <f:view>
+<ui:composition
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:tr="http://myfaces.apache.org/trinidad"
+  xmlns:trd="http://myfaces.apache.org/trinidad/demo"
+  xmlns:trh="http://myfaces.apache.org/trinidad/html">
   <h:outputScript name="jsf.js" library="javax.faces" target="body" id="os"/>
   <tr:document title="Partial Page Rendering Demos">
     <tr:form>
@@ -40,7 +40,7 @@
 
       <tr:panelHeader text="Welcome to the Apache Trinidad Partial Page Rendering Demos for JSF 2.0 Ajax">
         <tr:outputFormatted styleUsage="instruction" id="of0"
-                            value="These demos test Trinidad PPR with JSF 2.0 Ajax using both 
+                            value="These demos test Trinidad PPR with JSF 2.0 Ajax using both
                             trinidad and JSF components."/>
         <tr:panelGroupLayout layout="vertical">
           <f:facet name="separator">
@@ -49,8 +49,8 @@
           <tr:panelHeader text="Command components using JSF 2.0 native Ajax support" id="phCmd">
             <tr:outputFormatted styleUsage="instruction" id="of10"
                                 value="Tests commandButton components wired to use either Ajax JS API
-                                by itself or both JSF 2 Ajax and trinidad PPR. Clicking these buttons 
-                                should cause a partial or a full page submit (without errors) and 
+                                by itself or both JSF 2 Ajax and trinidad PPR. Clicking these buttons
+                                should cause a partial or a full page submit (without errors) and
                                 update the field on the right."/>
             <tr:spacer height="10" id="sp10"/>
             <tr:panelGroupLayout layout="horizontal" id="pgl10">
@@ -58,7 +58,7 @@
                 <f:facet name="separator">
                   <tr:spacer height="6" id="sp11"/>
                 </f:facet>
-                <tr:outputFormatted styleUsage="instruction" value="tr:commandButton using 
+                <tr:outputFormatted styleUsage="instruction" value="tr:commandButton using
                     jsf.ajax.request and partialSubmit=true." id="of11"/>
                 <tr:commandButton id="axBtn1"
                                 partialSubmit="true"
@@ -66,21 +66,21 @@
                                 shortDesc="partialSubmit"
                                 actionListener="#{partialDemoUtil.action}"/>
                   <!--f:ajax event="action" render=""/-->
-                <tr:outputFormatted styleUsage="instruction" value="tr:commandButton using jsf.ajax.request." 
+                <tr:outputFormatted styleUsage="instruction" value="tr:commandButton using jsf.ajax.request."
                  id="of12"/>
                 <tr:commandButton id="axBtn2"
                                   text="Full Submit"
                                   shortDesc="fullSubmit"
                                   actionListener="#{partialDemoUtil.action}"/>
-                
-                <tr:outputFormatted styleUsage="instruction" value="h:commandButton using jsf.ajax.request." 
+
+                <tr:outputFormatted styleUsage="instruction" value="h:commandButton using jsf.ajax.request."
                  id="of13"/>
-                
-                
+
+
               </tr:panelGroupLayout>
-              
+
               <tr:spacer width="30" height="10" id="sp12"/>
-             
+
               <tr:panelGroupLayout id="pgl12">
                 <tr:panelLabelAndMessage label="Button Clicked: " id="plm10">
                   <tr:outputFormatted id="btnTarget"
@@ -93,10 +93,10 @@
              </tr:panelGroupLayout>
            </tr:panelGroupLayout>
          </tr:panelHeader>
-       
+
          <tr:panelHeader text="InputText Component using JSF 2.0 Ajax" id="phInput">
            <tr:outputFormatted styleUsage="instruction"
-                             value="Tests autoSubmitting text fields which is also wired to use JSF 
+                             value="Tests autoSubmitting text fields which is also wired to use JSF
                              2.0 Ajax."/>
             <tr:panelGroupLayout layout="horizontal" id="pgl20">
               <f:facet name="separator">
@@ -114,14 +114,14 @@
                               label="Enter text and tab out: "
                               valueChangeListener="#{partialDemoUtil.valueChanged}"/>
                 <tr:outputFormatted styleUsage="instruction" value="tr:inputText with
-                    autoSubmit=true inside a subform" id="of21"/>                
+                    autoSubmit=true inside a subform" id="of21"/>
                 <tr:subform id="sf20">
                   <tr:inputText autoSubmit="true" id="itxt2" label="Enter a different text and tab out: "
                                  value="#{partialDemoUtil.status.textValue}"
                                  valueChangeListener="#{partialDemoUtil.valueChanged}"/>
                 </tr:subform>
               </tr:panelGroupLayout>
-              
+
               <tr:panelLabelAndMessage label="Input entered: ">
                <tr:outputFormatted id="itTarget"
                                    partialTriggers="itxt1 ::sf20:itxt2"
@@ -130,11 +130,11 @@
               </tr:panelLabelAndMessage>
             </tr:panelGroupLayout>
          </tr:panelHeader>
-         
+
          <tr:panelHeader text="Radio Buttons">
            <tr:outputFormatted styleUsage="instruction"
-                               value="This demo shows a two sets of radio buttons which use autoSubmit. 
-                               There is also an output component which is listening on updates to the 
+                               value="This demo shows a two sets of radio buttons which use autoSubmit.
+                               There is also an output component which is listening on updates to the
                                radio buttons and displaying status text accordingly."/>
           <tr:panelGroupLayout layout="horizontal">
            <tr:panelGroupLayout layout="vertical">
@@ -184,15 +184,14 @@
             </tr:outputFormatted>
            </tr:panelLabelAndMessage>
           </tr:panelGroupLayout>
-         </tr:panelHeader>         
+         </tr:panelHeader>
 
 
       </tr:panelGroupLayout>
      </tr:panelHeader>
      </tr:panelPage>
-     
+
     </tr:form>
-  
+
   </tr:document>
- </f:view>
-</jsp:root>
+</ui:composition>
