@@ -145,6 +145,7 @@ public class OutputUtils
     {
       ResponseWriter writer = context.getResponseWriter();
       writer.writeAttribute("datatable", "0", null);
+      writer.writeAttribute("role", "presentation", null); 
     }
   }
 

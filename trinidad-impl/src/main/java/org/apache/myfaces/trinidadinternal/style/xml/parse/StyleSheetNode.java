@@ -25,12 +25,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
-import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.skin.AgentAtRuleMatcher;
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
@@ -43,8 +41,12 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
  * Private implementation of StyleSheetNode. A StyleSheetNode has StyleNodes for particular
  * browsers, direction, versions, platforms and mode.  In addition, the StyleSheetNode
  * provides access to IconNodes representing the icons which were defined within
- * the context of this style sheet.
- *
+ * the context of this style sheet. StyleSheetNodes are contained in StyleSheetDocuments.
+ * And a StyleSheetNode is created for both .xss skin files and .css files.
+ * .xss skin files create StyleSheetNodes via StyleSheetNodeParser
+ * .css skin files create StyleSheetNodes via SkinStyleSheetParserUtils
+ * @see StyleSheetNodeParser
+ * @see org.apache.myfaces.trinidadinternal.skin.SkinStyleSheetParserUtils
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetNode.java#0 $) $Date: 10-nov-2005.18:58:46 $
  */
 public class StyleSheetNode
@@ -57,7 +59,7 @@ public class StyleSheetNode
     StyleNode[] styles,
     Collection<IconNode> icons,
     Collection<SkinPropertyNode> skinProperties,
-    Locale[] locales,
+    Set<Locale> locales,
     int direction,
     AgentAtRuleMatcher agentMatcher,
     int[] platforms,
@@ -86,8 +88,7 @@ public class StyleSheetNode
     // locales, browsers, versions, platforms order does not matter, so these are Sets.
     if (locales != null)
     {
-      Set<Locale> localesSet = _copyLocaleArrayToSet(locales);
-      _locales = Collections.unmodifiableSet(localesSet);
+      _locales = Collections.unmodifiableSet(locales);
     }
     else
       _locales = Collections.emptySet();
@@ -330,6 +331,9 @@ public class StyleSheetNode
       return 0;
 
     int match = 0;
+
+    if (_locales.contains(locale))
+        return _LOCALE_EXACT_MATCH;
 
     for (Locale tmpLocale : _locales)
     {

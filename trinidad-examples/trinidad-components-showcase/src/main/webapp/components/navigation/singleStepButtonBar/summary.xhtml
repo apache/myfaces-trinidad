@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    SingleStepButtonBar renders a Previous button, text indicating the current step and the
+    maximum steps, and a Next button. SingleStepButtonBar is used to navigate forward and back in a series of steps,
+    like steps in a checkout process. 
+
+    <br/>
+
+    SingleStepButtonBar implements javax.faces.component.ActionSource, which means it is a source of javax.faces.event.ActionEvent's. 
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="The ActionEvent is delivered during the Apply Request Values phase when navigating back,
+        and during the Invoke Application phase when navigating forward. "/>
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="The nextAction/previousAction attributes are of type MethodBinding and must (if non-null)
+        point to an action method. The nextAction method will be called when navigating forward, and the previousAction
+        method will be called when navigating back with a singleStep component. "/>
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="JSF has a default javax.faces.event.ActionListener that passes the nextAction or
+        previousAction outcome to the NavigationHandler. "/>
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="The nextActionListener/previousActionListener attributes are of type MethodBinding and
+        must (in non-null) point to a method accepting an ActionEvent, with a return type of void. When navigating to
+        the previous step, then the previousActionListener method is called. When navigating to the next step, the
+        nextActionListener method is called. "/>
+    
+</ui:composition>

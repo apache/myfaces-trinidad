@@ -25,6 +25,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+
 
 /**
  * Base class for the NavigationPath component.
@@ -68,5 +71,76 @@ abstract public class UIXNavigationPathTemplate extends UIXNavigationHierarchy
     TableUtils.__processChildren(context, this, phaseId);
   }  
 
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    boolean done = visitData(visitContext, callback);
     
+    if (!done)
+    {
+      // process the children
+      int childCount = getChildCount();
+      if (childCount > 0)
+      {
+        for (UIComponent child : getChildren())
+        {
+          done = UIXComponent.visitTree(visitContext, child, callback);
+          
+          if (done)
+            break;
+        }
+      }          
+    }
+    
+    return done;
+  }
+  
+  @Override
+  protected boolean visitData(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    Object focusPath = getFocusRowKey();
+    Object oldRowKey = null;
+    
+    boolean done = false;
+    
+    // start from the focused area
+    if (focusPath != null)
+    {
+      List<UIComponent> stamps = getStamps();
+      
+      if (!stamps.isEmpty())
+      {
+        List<Object> paths =  new ArrayList<Object>(getAllAncestorContainerRowKeys(focusPath));
+        paths.add(focusPath);
+        
+        int focusPathSize = paths.size();
+        
+        try
+        {
+          for (int i = 0; i < focusPathSize && !done; i++)
+          {
+            setRowKey(paths.get(i));
+            
+            for (UIComponent stamp : stamps)
+            {
+              done = UIXComponent.visitTree(visitContext, stamp, callback);
+              
+              if (done)
+                break;
+            }
+          }
+        }
+        finally
+        {
+          setRowKey(oldRowKey);
+        }
+      }
+    }
+    
+    return done;
+  } 
 }

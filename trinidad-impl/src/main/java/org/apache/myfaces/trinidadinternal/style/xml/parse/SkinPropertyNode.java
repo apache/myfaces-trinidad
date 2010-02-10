@@ -23,6 +23,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * A SkinProperyNode is a node that
  * contains the selector, the -tr- property, and the value
  * e.g., af|breadCrumbs, -tr-show-last-item, true
+ * This parses the XSS file.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/SkinPropertyNode.java#0 $) $Date: 10-nov-2005.18:50:45 $
  */

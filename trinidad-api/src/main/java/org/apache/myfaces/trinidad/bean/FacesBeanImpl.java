@@ -347,12 +347,12 @@ abstract public class FacesBeanImpl implements FacesBean
     }
   }
 
-  final public Set<PropertyKey> keySet()
+  public Set<PropertyKey> keySet()
   {
     if (_properties == null)
       return Collections.emptySet();
-
-    return _properties.keySet();
+    else
+      return _properties.keySet();
   }
 
   @SuppressWarnings("unchecked")

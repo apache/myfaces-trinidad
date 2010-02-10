@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/template/componentsShowCaseTemplate.xhtml">
+                                               
+    <ui:define name="componentContent">
+
+        <!-- Google Custom Search Element -->
+
+        <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+        <script type="text/javascript">
+
+            google.load('search', '1');
+
+            function doSearch(searchText) {
+                var searchControl = new google.search.CustomSearchControl('006246683555132490191:_drixd4i10u');
+
+                var el;
+                el = document.getElementById("searchInput");
+                searchControl.draw('cse');
+                searchControl.setLinkTarget(google.search.Search.LINK_TARGET_SELF);
+                searchControl.execute(el.value);
+                searchControl.setNoResultsString("No match");
+            }
+
+            google.setOnLoadCallback(doSearch, true);
+
+        </script>
+
+        <div id="cse" style="width:100%;"/>
+
+    </ui:define>
+
+</ui:composition>

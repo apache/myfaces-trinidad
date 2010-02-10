@@ -116,12 +116,6 @@ final class StampState implements Externalizable
   public static void restoreStampState(FacesContext context, UIComponent stamp,
                                        Object stampState)
   {
-    String stampId = stamp.getId();
-    // Force the ID to be reset to reset the client identifier (needed
-    // for UIComponentBase implementation which caches clientId too
-    // aggressively)
-    stamp.setId(stampId);
-
     if (stampState != null)
     {
       RowState state = (RowState) stampState;

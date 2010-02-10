@@ -60,6 +60,9 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 
 /**
+ * Utility class for creating a StyleSheetDocument.
+ * The main method is parseCSSSource which creates a StyleSheetEntry.
+ * The interim object is SkinStyleSheetNode
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinStyleSheetParserUtils.java#0 $) $Date: 10-nov-2005.18:59:00 $
  */
 class SkinStyleSheetParserUtils
@@ -72,7 +75,7 @@ class SkinStyleSheetParserUtils
    * @param sourceName the name of the target, relative to the current file
    * @param expectedType the expected Java type of the target.
    */
-  static public Object parseCSSSource(
+  static public StyleSheetEntry parseCSSSource(
     ParseContext  context,
     NameResolver  resolver,
     String        sourceName,
@@ -91,7 +94,7 @@ class SkinStyleSheetParserUtils
     InputStreamProvider provider = resolver.getProvider(sourceName);
     Object cached = provider.getCachedResult();
     if ((cached != null) && expectedType.isInstance(cached))
-      return cached;
+      return (StyleSheetEntry)cached;
 
     InputStream stream = provider.openInputStream();
 
@@ -159,7 +162,7 @@ class SkinStyleSheetParserUtils
    * A StyleSheetEntry is an object that contains:
    * styleSheetName, StyleSheetDocument
    * A StyleSheetDocument contains StyleSheetNodes. A StyleSheetNode contains
-   * a list css style selectors and their properties and additional info like
+   * a list style selectors and their properties and additional info like
    * the direction, locale, etc. for this list of selectors.
    * @param context
    * @param sourceName
@@ -266,7 +269,7 @@ class SkinStyleSheetParserUtils
           new StyleSheetNode(styleNodeArray,
                              iconNodeList,
                              trSkinPropertyNodeList,
-                             null,/*locales, not yet supported*/
+                             skinSSNode.getLocales(),
                              skinSSNode.getDirection(),
                              skinSSNode.getAgentMatcher(),
                              skinSSNode.getPlatforms(),

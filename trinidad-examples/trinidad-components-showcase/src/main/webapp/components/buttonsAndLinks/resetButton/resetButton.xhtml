@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
+
+    <ui:define name="demoContent">
+
+        <tr:panelGroupLayout layout="vertical">
+            <tr:panelHeader text="Reset Elements."/>
+            <tr:selectBooleanCheckbox text="Box1"/>
+            <tr:selectBooleanCheckbox text="Box2" selected="true"/>
+            <tr:selectBooleanCheckbox text="Box3"/>
+            <tr:resetButton textAndAccessKey="&amp;Reset"/>
+        </tr:panelGroupLayout>
+
+    </ui:define>
+</ui:composition>

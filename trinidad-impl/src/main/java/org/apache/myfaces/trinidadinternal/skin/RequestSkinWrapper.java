@@ -312,6 +312,17 @@ public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
 
     return ((DocumentProviderSkin)_skin).getStyleSheetDocument(styleContext);
   }
+  
+  @Override
+  public boolean isDirty()
+  {
+    return _skin.isDirty();
+  }
+  @Override
+  public void setDirty(boolean dirty)
+  {
+    _skin.setDirty(dirty);
+  }
 
   // Returns request-specific map of icon names to Icons
   private Map<String, Icon> _getRequestIcons()

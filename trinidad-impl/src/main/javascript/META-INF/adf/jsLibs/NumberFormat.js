@@ -338,6 +338,10 @@ TrNumberFormat.prototype.numberToString = function(number)
     number = (number*-1);
 
   var numberString = number + "";
+  
+  // check for scientific notation
+  numberString = TrNumberFormat.scientificToExpanded(numberString);
+  
   var index = numberString.indexOf(".");
   var numberStringLength = numberString.length;
   var ints;
@@ -415,6 +419,70 @@ TrNumberFormat.prototype.percentageToString = function(number)
   
   number = this.numberToString(number);
   return number + suffix;
+}
+
+/**
+ * Static utility function.
+ * Converts a number string from scientific notation to standard expanded notation.
+ */
+TrNumberFormat.scientificToExpanded = function(numberString)
+{
+  // check for scientific notation
+  var expIndex = numberString.indexOf('e');
+  if (expIndex == -1)
+    return numberString;
+    
+  var prefix = "";
+  if (numberString.charAt(0) == '-')
+  {
+    prefix = "-";
+    numberString = numberString.substring(1);
+    expIndex -= 1;
+  }
+  
+  var isPosExp = numberString.charAt(expIndex + 1) == '+';
+  var exp = parseInt(numberString.substring(expIndex + 2));
+  var nFractionDigits = expIndex - 2;
+  var zeroes = "";
+  
+  // The exponent should always be greater than the number of fraction digits.
+  if (isPosExp)
+  {
+    for (var i = 0; i < exp - nFractionDigits; ++i)
+      zeroes += "0";
+      
+    return prefix + numberString.charAt(0) + numberString.substring(2, expIndex) + zeroes;
+  }
+  
+  // ELSE: negative exponent
+  for (var i = 0; i < exp - 1; ++i)
+    zeroes += "0";
+    
+  return prefix + "0." + zeroes + numberString.charAt(0) + numberString.substring(2, expIndex);
+}
+
+/**
+ * Static utility function.
+ * Trims extraneous leading zeroes.
+ */
+TrNumberFormat.trimLeadingZeroes = function(numberString)
+{
+  var strbuf = [];
+  var i, char;
+  for (i = 0; i < numberString.length; ++i)
+  {
+    char = numberString.charAt(i);
+    
+    if ((char >= '1' && char <= '9') || char == '.')
+      break;
+      
+    if (char == '0' && i+1 < numberString.length && numberString.charAt(i+1) != '.')
+      continue;
+      
+    strbuf.push(char);
+  }
+  
+  return strbuf.join('') + numberString.substring(i);
 }
 
 /**

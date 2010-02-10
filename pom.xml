@@ -33,7 +33,7 @@
 
   <groupId>org.apache.myfaces.trinidad</groupId>
   <artifactId>trinidad</artifactId>
-  <version>2.0.0.1-SNAPSHOT</version>
+  <version>2.0.0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -46,9 +46,9 @@
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>2.0</jsf-spec.version>
     <jsf-ri.version>2.0.1</jsf-ri.version>
+    <jsf-myfaces.version>2.0.0-beta</jsf-myfaces.version>
     <!--jsf-ri.version>2.0.3-SNAPSHOT</jsf-ri.version-->
-    <!--jsf-myfaces.version>1.2.4</jsf-myfaces.version>
-    <jsf-facelets.version>1.1.14</jsf-facelets.version-->
+    <!--jsf-facelets.version>1.1.14</jsf-facelets.version-->
     <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
     <pluto-embedded.version>1.0.1</pluto-embedded.version>
@@ -160,6 +160,12 @@
       <id>jboss releases</id>
       <name>JBoss Releases</name>
       <url>http://repository.jboss.org/maven2/</url>
+      <layout>default</layout>
+    </repository>
+    <repository>
+      <id>maven2-repository.dev.java.net</id>
+      <name>Java.net Repository for Maven</name>
+      <url>http://download.java.net/maven/2/</url>
       <layout>default</layout>
     </repository>
   </repositories>

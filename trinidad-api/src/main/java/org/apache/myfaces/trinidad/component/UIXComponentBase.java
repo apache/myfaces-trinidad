@@ -29,7 +29,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Properties;
 
 import javax.el.ELContext;
@@ -41,6 +40,7 @@ import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
@@ -68,6 +68,7 @@ import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderer;
 import org.apache.myfaces.trinidad.render.LifecycleRenderer;
+import org.apache.myfaces.trinidad.util.CollectionUtils;
 import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 
 
@@ -109,8 +110,6 @@ abstract public class UIXComponentBase extends UIXComponent
   static public final FacesBean.Type TYPE = _createType();
   static public final PropertyKey ID_KEY =
     TYPE.registerKey("id", String.class, PropertyKey.CAP_NOT_BOUND);
-  static private final PropertyKey _GENERATED_ID_KEY =
-    TYPE.registerKey("_genId", String.class, PropertyKey.CAP_NOT_BOUND);
   static public final PropertyKey RENDERED_KEY =
     TYPE.registerKey("rendered", Boolean.class, Boolean.TRUE);
   static public final PropertyKey BINDING_KEY =
@@ -307,22 +306,15 @@ abstract public class UIXComponentBase extends UIXComponent
 
   // ------------------------------------------------------------- Properties
 
-  @Override
-  public String getClientId(FacesContext context)
+  /**
+   * Calculates the clientId for the component
+   */
+  private String _calculateClientId(FacesContext context)
   {
-    // NOTE - client ids cannot be cached because the generated
-    // value has to be dynamically calculated in some cases (UIData)
-
+    // the clientId is always at least the id of the current component
+    // our implementation of getId() guarantees that this always
+    // returns a non-null value
     String clientId = getId();
-    if (clientId == null)
-    {
-      clientId = (String) getProperty(_GENERATED_ID_KEY);
-      if (clientId == null)
-      {
-        clientId = context.getViewRoot().createUniqueId();
-        setProperty(_GENERATED_ID_KEY, clientId);
-      }
-    }
 
     // Search for an ancestor that is a naming container
     UIComponent containerComponent = getParent();
@@ -354,13 +346,67 @@ abstract public class UIXComponentBase extends UIXComponent
     return clientId;
   }
 
+
+  @Override
+  public String getClientId(FacesContext context)
+  {
+    return _calculateClientId(context);
+/* TODO put back in when we fix all of the clientID caching issues
+    String clientId = _clientId;
+    
+    if (clientId == null)
+    {
+      clientId = _calculateClientId(context);
+      
+      if (_usesFacesBeanImpl)
+        _clientId = clientId;
+    }
+    else
+    {
+      assert clientId.equals(_calculateClientId(context)) :
+      "cached client id " + _clientId + " for " + this + " doesn't match client id:" + _calculateClientId(context);
+    }
+    return clientId;
+*/
+  }
+
   /**
-   * Gets the identifier for the component.
+   * Gets the identifier for the component.  This implementation
+   * never returns a null id.
    */
   @Override
   public String getId()
   {
-    return (String) getProperty(ID_KEY);
+    // determine whether we can use the optimized code path or not
+    if (_usesFacesBeanImpl)
+    {
+      // optimized path
+
+      // make sure that we always have an id
+      if (_id == null)
+      {
+        _id = FacesContext.getCurrentInstance().getViewRoot().createUniqueId();        
+      }
+
+      return _id;
+    }
+    else
+    {
+      // unoptimized path
+      FacesBean facesBean = getFacesBean();
+
+      String id = (String)facesBean.getProperty(ID_KEY);
+
+      // make sure that we always have an id
+      if (id == null)
+      {
+        id = FacesContext.getCurrentInstance().getViewRoot().createUniqueId();
+
+        facesBean.setProperty(ID_KEY, id);
+      }
+
+      return id;
+    }
   }
 
   /**
@@ -375,15 +421,35 @@ abstract public class UIXComponentBase extends UIXComponent
   @Override
   public void setId(String id)
   {
-    // =-=AEW Currently, setId() assumes that resetting to
-    // the same value *is not* short-circuited.
-    _validateId(id);
-    // If we're setting the ID to null, don't discard
-    // the _GENERATED_ID
-    if (id != null)
-      setProperty(_GENERATED_ID_KEY, null);
+    _clientId = null;
 
-    setProperty(ID_KEY, id);
+    FacesBean facesBean = getFacesBean();
+
+    // if we are using a FacesBeanImpl, then the FacesBean will
+    // delegate all calls to set the id back to us and we can store
+    // the value localy.  Otehrwise,w e need to store it in
+    // the FacesBean
+    if (_usesFacesBeanImpl)
+    {
+      // only validate if the id has actually changed
+      if ((_id == null) || !_id.equals(id))
+      {
+        _validateId(id);
+        _id = id;
+
+        // if we're a NamingContainer then changing our id will invalidate the clientIds of all
+        // of our children
+        if ((_clientId != null) && (this instanceof NamingContainer))
+        {
+          clearCachedClientIds(this);
+        }
+      }      
+    }
+    else
+    {
+      _validateId(id);
+      facesBean.setProperty(ID_KEY, id);      
+    }
   }
 
   @Override
@@ -590,7 +656,8 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     if (_children == null)
       return 0;
-    return getChildren().size();
+    else
+      return getChildren().size();
   }
 
   /**
@@ -612,9 +679,11 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     if (facetName == null)
       throw new NullPointerException();
+
     if (_facets == null)
       return null;
-    return getFacets().get(facetName);
+    else
+      return getFacets().get(facetName);
   }
 
   /**
@@ -628,7 +697,8 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     if (_facets == null)
       return _EMPTY_STRING_ITERATOR;
-    return _facets.keySet().iterator();
+    else
+      return _facets.keySet().iterator();
   }
 
   @Override
@@ -1812,11 +1882,39 @@ abstract public class UIXComponentBase extends UIXComponent
     String rendererType)
   {
     FacesBean oldBean = _facesBean;
-    _facesBean = createFacesBean(rendererType);
-    if (oldBean != null)
-      _facesBean.addAll(oldBean);
+    FacesBean newBean = createFacesBean(rendererType);;
 
-    _attributes = new ValueMap(_facesBean);
+    if (oldBean != null)
+      newBean.addAll(oldBean);
+
+    _attributes = new ValueMap(newBean);
+
+    _facesBean = newBean;
+
+    // determine whether it is ok to store the attributes locally.  We cache the result since
+    // this can be a little involved
+    boolean usesFacesBeanImpl = false;
+
+    if (newBean instanceof UIXFacesBeanImpl)
+      usesFacesBeanImpl = true;
+    else
+    {
+      // handle the wrapped case
+      FacesBean currImpl = newBean;
+
+      while (currImpl instanceof FacesBeanWrapper)
+      {
+        currImpl = ((FacesBeanWrapper)currImpl).getWrappedBean();
+
+        if (currImpl instanceof UIXFacesBeanImpl)
+        {
+          usesFacesBeanImpl = true;
+          break;
+        }
+      }
+    }
+
+    _usesFacesBeanImpl = usesFacesBeanImpl;
   }
 
   private FacesBean                _facesBean;
@@ -1824,6 +1922,10 @@ abstract public class UIXComponentBase extends UIXComponent
   private Map<String, Object>      _attributes;
   private Map<String, UIComponent> _facets;
   private UIComponent              _parent;
+
+  private String                   _id;
+  private String                   _clientId;
+  private boolean                  _usesFacesBeanImpl;
 
   // Cached instance of the Renderer for this component.
   // The instance will be re-retrieved in encodeBegin()
@@ -1836,11 +1938,9 @@ abstract public class UIXComponentBase extends UIXComponent
   //        So commented out, is that ok? If so, this attribute should be deleted
   //private transient boolean _initialStateMarked;
 
-  private static final Iterator<String> _EMPTY_STRING_ITERATOR =
-    new EmptyIterator<String>();
-
+  private static final Iterator<String> _EMPTY_STRING_ITERATOR = CollectionUtils.emptyIterator();
   private static final Iterator<UIComponent> _EMPTY_UICOMPONENT_ITERATOR =
-    new EmptyIterator<UIComponent>();
+    CollectionUtils.emptyIterator();
 
   static private final ThreadLocal<StringBuilder> _STRING_BUILDER =
                                                           ThreadLocalUtils.newRequestThreadLocal();
@@ -1891,25 +1991,6 @@ abstract public class UIXComponentBase extends UIXComponent
 
   static private class ExtendedRendererImpl extends ExtendedRenderer
   {
-  }
-
-  private static class EmptyIterator<T> implements Iterator<T>
-  {
-    public boolean hasNext()
-    {
-      return false;
-    }
-
-    public T next()
-    {
-      throw new NoSuchElementException();
-    }
-
-    public void remove()
-    {
-      throw new UnsupportedOperationException();
-    }
-
   }
 
   static private final LifecycleRenderer _UNDEFINED_LIFECYCLE_RENDERER =

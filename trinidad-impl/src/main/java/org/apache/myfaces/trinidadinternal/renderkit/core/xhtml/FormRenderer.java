@@ -111,16 +111,6 @@ public class FormRenderer extends XhtmlRenderer
   public void setupEncodingContext(
     FacesContext     context,
     RenderingContext rc,
-    UIXComponent     component)
-  {
-    // temp hack
-    setupEncodingContext(context, rc, (UIComponent)component);
-  }
-
-  @Override
-  public void setupEncodingContext(
-    FacesContext     context,
-    RenderingContext rc,
     UIComponent      component)
   {
     String formName = getClientId(context, component);
@@ -433,16 +423,6 @@ public class FormRenderer extends XhtmlRenderer
     // Close up our postscript span if we have one
     if (postscriptId != null)
       rw.endElement("span");
-  }
-
-  @Override
-  public void tearDownEncodingContext(
-    FacesContext     context,
-    RenderingContext rc,
-    UIXComponent     component)
-  {
-    // temp hack
-    tearDownEncodingContext(context, rc, (UIComponent)component);
   }
 
   @Override

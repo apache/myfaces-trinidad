@@ -34,11 +34,12 @@ import javax.faces.event.PhaseId;
  * state relating to a component tree visit.</p>
  *
  * <p>Component tree visits are initiated by calling
- * {@link org.apache.myfaces.trinidad.component.UIXComponent#visitTree UIComponent.visitTree()},
+ * {@link org.apache.myfaces.trinidad.component.UIXComponent#visitTree(VisitContext,UIComponent,VisitCallback)
+ * UIComponent.visitTree()},
  * at which point both a {@link VisitContext} and a {@link VisitCallback}
  * must be provided.
  *
- * @see org.apache.myfaces.trinidad.component.UIXComponent#visitTree UIXComponent.visitTree()
+ * @see org.apache.myfaces.trinidad.component.UIXComponent#visitTree(VisitContext,UIComponent,VisitCallback) UIXComponent.visitTree()
  * @see VisitCallback
  *
  */

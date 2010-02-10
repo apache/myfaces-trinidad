@@ -1085,6 +1085,8 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH">Invalid variant for Locale identifier {0} - cannot contain slashes to avoid XSS attack. Will use empty string for variant.</resource>
 
+<resource key="COULD_NOT_DELETE_FILE">Could not delete the file {0}</resource>
+
 <!-- UNEXPECTED_STATE -->
 <resource key="UNEXPECTED_STATE">IState must be an instance of StateManager.SerializedView or an Object array of length 2.</resource>
 

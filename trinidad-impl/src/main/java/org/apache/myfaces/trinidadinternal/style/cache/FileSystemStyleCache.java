@@ -290,7 +290,7 @@ public class FileSystemStyleCache implements StyleProvider
     StyleSheetDocument document = null;
     Map<String, String> shortStyleClassMap = null;
     String[] namespacePrefixes = null;
-
+    boolean isDirty = context.isDirty();
     boolean checkModified  = context.checkStylesModified();
 
     // Synchronize while set up the _cache, _entryCache, _document, etc...
@@ -298,7 +298,7 @@ public class FileSystemStyleCache implements StyleProvider
     {
       // If checking for modified files, then check to see if the XSS or CSS
       // document has been modified.  If so, we dump our in-memory style cache.
-      if (checkModified && hasSourceDocumentChanged(context))
+      if (isDirty || (checkModified && hasSourceDocumentChanged(context)))
       {
         _cache = null;
         _entryCache = null;
@@ -337,6 +337,10 @@ public class FileSystemStyleCache implements StyleProvider
     // The Key class is a private static class that is used for hashing. It implements
     // hashCode and equals which are based on locale, direction, browser, version, platform.
     Key key = new Key(context);
+    if (_LOG.isFinest())
+    {
+      _LOG.finest("FileSystemStyleCache's Key's hashCode is ", key.hashCode());
+    }
     Entry entry = _getEntry(cache, key, checkModified);
     if (entry != null)
       return entry;
@@ -356,7 +360,8 @@ public class FileSystemStyleCache implements StyleProvider
                         entryCache,
                         shortStyleClassMap,
                         namespacePrefixes,
-                        checkModified);
+                        checkModified, 
+                        isDirty);
   }
 
   private Entry _getEntry(
@@ -422,7 +427,8 @@ public class FileSystemStyleCache implements StyleProvider
     ConcurrentMap<Object, Entry> entryCache,
     Map<String, String>          shortStyleClassMap,
     String[]                     namespacePrefixes,
-    boolean                      checkModified)
+    boolean                      checkModified,
+    boolean                      isDirty)
   {
     // Next, get the fully resolved styles for this context. This will be
     // those StyleNodes that match the locale, direction, browser, portlet mode
@@ -445,7 +451,8 @@ public class FileSystemStyleCache implements StyleProvider
                                        styleNodes,
                                        shortStyleClassMap,
                                        namespacePrefixes,
-                                       checkModified);
+                                       checkModified,
+                                       isDirty);
 
     _LOG.fine("Finished processing stylesheet {0}", uris);
 
@@ -469,6 +476,11 @@ public class FileSystemStyleCache implements StyleProvider
     // Also, cache the new entry in the entry cache
     DerivationKey derivationKey = _getDerivationKey(context, document);
     entryCache.put(derivationKey, entry);
+    
+    // just in case, clear the dirty flag.
+    RenderingContext arc = RenderingContext.getCurrentInstance();
+    Skin skin = arc.getSkin();
+    skin.setDirty(false);
 
     return entry;
   }
@@ -655,17 +667,21 @@ public class FileSystemStyleCache implements StyleProvider
     StyleNode[]         styles,
     Map<String, String> shortStyleClassMap,
     String[]            namespacePrefixes,
-    boolean             checkModified)
+    boolean             checkModified,
+    boolean             isDirty)
   {
+
     // Get the current files
     List<File> outputFiles = _getOutputFiles(context, document);
 
     // If at least one output file exists, check the last modified time.
     if (!outputFiles.isEmpty())
     {
-      if (checkModified)
+      // If the skin is marked dirty, we regenerate the css even if the document's timestamp has not
+      // changed.
+      if (checkModified || isDirty)
       {
-        if (!_checkSourceModified(document, outputFiles.get(0)))
+        if (!isDirty && (checkModified && !_checkSourceModified(document, outputFiles.get(0))))
         {
           return _getFileNames(outputFiles);
         }
@@ -740,7 +756,15 @@ public class FileSystemStyleCache implements StyleProvider
     {
       if (file.exists())
       {
-        file.delete();
+        boolean success = file.delete();
+        // add warning if success is false, but continue on.
+        // I've seen the delete fail when we try to delete right after the file was created -
+        // like if the skin css file is modified and the page refreshed immediately after the
+        // app was initially run.
+        if (!success && _LOG.isWarning())
+        {
+          _LOG.warning("COULD_NOT_DELETE_FILE", file.getName());
+        }
       }
     }
   }
@@ -813,6 +837,9 @@ public class FileSystemStyleCache implements StyleProvider
       if (parentFile != null)
         parentFile.mkdirs();
 
+      // This throws a FileNotFoundException if it wasn't successfully deleted earlier, most likely
+      // due to creating, then deleting too soon after.
+      // Since the file has the hashcode in the name, it's not bad that it doesn't rewrite it.
       FileOutputStream fos = new FileOutputStream(file);
       OutputStreamWriter writer = null;
 
@@ -835,6 +862,8 @@ public class FileSystemStyleCache implements StyleProvider
     }
     catch (IOException e)
     {
+      // This might happen if we couldn't delete the css file that was already there, so we 
+      // are unable to recreate it.
       if (_LOG.isWarning())
         _LOG.warning("IOEXCEPTION_OPENNING_FILE", file);
         _LOG.warning(e);
@@ -1395,8 +1424,66 @@ public class FileSystemStyleCache implements StyleProvider
         if (name != null && value != null)
           styleProperties.put(name, value);
       }
+      
+      // To save memory, we reuse CSSStyle objects if 
+      // they have the same list of style property names and values.
+      // StyleKey is the key into the StyleKey, CSSStyle map.
+      StyleKey key = new StyleKey(styleProperties);
+      Style cachedStyle = _styleNodeToStyleMap.get(key);
+      if (cachedStyle == null)
+      {
+        // no match is cached yet, so create a new CSSStyle and cache in the map.
+        Style style = new CSSStyle(styleProperties);
+        _styleNodeToStyleMap.put(key, style);
+        return style;         
+      }
+      else
+      {
+        return cachedStyle;
+      }
+    }
+    
+    /**
+     * A StyleKey object is used as a key into a map so that we can share CSSStyle objects
+     * if they are equal and they have the same hashCode.
+     */
+    private static class StyleKey
+    {
+      public StyleKey(Map<String, String> styleProperties)
+      {
+        _styleProperties = styleProperties;
+      }
+      
+      @Override
+      public int hashCode()
+      {
+        int hash = 17;
+        // take each style property name and value and create a hashCode from it.
+        for (Map.Entry<String, String> e : _styleProperties.entrySet())
+        {
+          String name = e.getKey();
+          hash = 37*hash + ((null == name) ? 0 : name.hashCode());
 
-      return new CSSStyle(styleProperties);
+          String value = e.getValue();
+          hash = 37*hash + ((null == value) ? 0 : value.hashCode());
+
+        }
+        return hash;
+      }
+      @Override  
+      public boolean equals(Object obj)
+      {
+        if (this == obj)
+          return true;
+        if (!(obj instanceof StyleKey))
+          return false;
+          
+        // obj at this point must be a StyleKey
+        StyleKey test = (StyleKey)obj;
+        return test._styleProperties.equals(this._styleProperties);
+      }
+      
+      Map<String, String> _styleProperties;
 
     }
 
@@ -1405,6 +1492,7 @@ public class FileSystemStyleCache implements StyleProvider
     private final String[]             _namespacePrefixArray;
     private final Map<String, String>  _shortStyleClassMap;
     private final boolean              _compress;
+    private Map<StyleKey, Style> _styleNodeToStyleMap = new ConcurrentHashMap<StyleKey, Style>();
   }
 
   private class StyleWriterFactoryImpl
@@ -1434,7 +1522,7 @@ public class FileSystemStyleCache implements StyleProvider
       }
 
       File outputFile = _getOutputFile(_baseFilename, _files.size() + 1);
-      // We never want to do anything other then read it or delete it:
+      // We never want to do anything other than read it or delete it:
       outputFile.setReadOnly();
 
       _files.add(outputFile);
@@ -1500,7 +1588,6 @@ public class FileSystemStyleCache implements StyleProvider
    * names do not contain html, whereas our internal style selector
    * names may. We write out the shortened version of the mapped
    * selector names to the css file.
-   * jmw.
    * @todo Need to find a better spot for this, like the skin?
    */
   private static final Map<String, String> _STYLE_KEY_MAP;

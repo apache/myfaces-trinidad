@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tr:document xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:c="http://java.sun.com/jstl/core"
+             xmlns:tr="http://myfaces.apache.org/trinidad"
+             xmlns:trh="http://myfaces.apache.org/trinidad/html"
+             title="#{navigationHandler.currentPageTitle}"
+             inlineStyle="margin: 0;">
+    
+    <f:facet name="metaContainer">
+		<meta name="title" content="#{navigationHandler.currentPageTitle}"/>
+        <meta name="robots" content="index, follow"/>
+        <meta name="author" content="Apache MyFaces Trinidad"/>
+        <meta name="description" content="#{navigationHandler.currentPageDescription}"/>
+	</f:facet>
+
+    <div class="main_container">
+        <div class="page_container">
+            <tr:form>
+                <tr:commandLink styleClass="logo" action="homeForm"/>
+            </tr:form>
+
+            <div class="search_bar">
+                <div class="right_side">
+                    <div class="left_side">
+                        <div class="search_field">
+                            <tr:form id="searchForm" defaultCommand="searchCommand">
+                                <tr:panelHorizontalLayout>
+                                    <f:facet name="separator">
+                                        <tr:spacer width="8" height="1"/>
+                                    </f:facet>
+
+                                    <tr:inputText id="searchInput" label="Search" value="#{navigationHandler.searchText}"/>
+                                    <tr:commandLink id="searchCommand" text="Go" action="#{navigationHandler.validateSearch}"/>
+                                    
+                                </tr:panelHorizontalLayout>
+                            </tr:form>
+                        </div>
+                    </div>
+                    <!-- close search left side -->
+                </div>
+                <!-- close search right side -->
+            </div>
+            <!-- close search bar -->
+
+            <div class="demo_selector">
+                <tr:form id="demoSelectForm">
+                    <tr:goButton text="Featured Demo" destination="/faces/feature/e-mailTemplate.xhtml"/>
+                    <tr:commandButton text="Component Showcase" action="homeForm"/>
+                </tr:form>
+            </div>
+
+            <div class="page_top"></div>
+            <!-- close page top -->
+
+            <div class="page_middle">
+                <tr:form id="mainForm">
+                    <ui:insert name="content"/>
+                </tr:form>
+            </div>
+            <!-- close page middle -->
+            <div class="page_bottom"></div>
+            <!-- close page bottom -->
+        </div>
+        <!-- close page container -->
+    </div>
+    <!-- close main container -->
+
+    <ui:debug/>
+
+</tr:document>

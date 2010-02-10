@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
 
 import org.apache.myfaces.trinidad.skin.Skin;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
 
 /**
@@ -38,8 +38,8 @@ import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
    {
      super(baseSkin,
            "minimal.portlet",
-           "minimal",
-           XhtmlConstants.OUTPUT_MODE_PORTLET,
+           TrinidadRenderingConstants.MINIMAL_SKIN_FAMILY,
+           TrinidadRenderingConstants.OUTPUT_MODE_PORTLET,
            "META-INF/adf/styles/simple-portlet.xss");
    }
 

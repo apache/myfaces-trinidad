@@ -208,7 +208,7 @@ public class ResourceServlet extends HttpServlet
     connection.setDoInput(true);
     connection.setDoOutput(false);
 
-    _setHeaders(connection, response);
+    _setHeaders(connection, response, loader);
 
     InputStream in = connection.getInputStream();
     OutputStream out = response.getOutputStream();
@@ -529,11 +529,12 @@ public class ResourceServlet extends HttpServlet
    */
   private void _setHeaders(
     URLConnection       connection,
-    HttpServletResponse response)
+    HttpServletResponse response,
+    ResourceLoader      loader)
   {
     String resourcePath;
     URL    url;
-    String contentType  = connection.getContentType();
+    String contentType  = ResourceLoader.getContentType(loader, connection);
 
     if (contentType == null || "content/unknown".equals(contentType))
     {
@@ -550,26 +551,26 @@ public class ResourceServlet extends HttpServlet
       else
         contentType = getServletContext().getMimeType(resourcePath);
 
-      // The resource has an file extension we have not 
+      // The resource has an file extension we have not
       // included in the case statement above
       if (contentType == null)
       {
-        _LOG.warning("ResourceServlet._setHeaders(): " +  
+        _LOG.warning("ResourceServlet._setHeaders(): " +
                      "Content type for {0} is NULL!\n" +
                      "Cause: Unknown file extension",
                      resourcePath);
       }
     }
-    
+
     if (contentType != null)
     {
-      response.setContentType(contentType);    
+      response.setContentType(contentType);
       int contentLength = connection.getContentLength();
 
       if (contentLength >= 0)
         response.setContentLength(contentLength);
     }
-    
+
     long lastModified;
     try
     {
@@ -669,7 +670,6 @@ public class ResourceServlet extends HttpServlet
   // cutting back just to be safe.)
   public static final long ONE_YEAR_MILLIS = 31363200000L;
 
-  
   private static final Class[] _DECORATOR_SIGNATURE =
                                   new Class[]{ResourceLoader.class};
 
