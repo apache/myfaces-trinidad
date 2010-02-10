@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidad.util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -111,18 +112,22 @@ public class ComponentReferenceTest extends FacesTestCase
 
     try 
     {
-      FileOutputStream fos = new FileOutputStream("t.tmp");
+      FileOutputStream fos = new FileOutputStream("trinidad.failover");
       ObjectOutputStream oos = new ObjectOutputStream(fos);
 
       oos.writeObject(uiRef);
 
-      FileInputStream fis = new FileInputStream("t.tmp");
+      FileInputStream fis = new FileInputStream("trinidad.failover");
       ObjectInputStream ois = new ObjectInputStream(fis);
 
       uiRef = (ComponentReference<UIInput>) ois.readObject();
 
       referencedComp = uiRef.getComponent();
       assertEquals(input, referencedComp);
+
+      // clean up...
+      File failoverFile = new File("trinidad.failover");
+      failoverFile.delete();
     }
     catch (Exception e)
     {
@@ -151,18 +156,22 @@ public class ComponentReferenceTest extends FacesTestCase
     // fake the failover
     try 
     {
-      FileOutputStream fos = new FileOutputStream("t.tmp");
+      FileOutputStream fos = new FileOutputStream("trinidad.failover");
       ObjectOutputStream oos = new ObjectOutputStream(fos);
 
       oos.writeObject(uiRef);
 
-      FileInputStream fis = new FileInputStream("t.tmp");
+      FileInputStream fis = new FileInputStream("trinidad.failover");
       ObjectInputStream ois = new ObjectInputStream(fis);
 
       uiRef = (ComponentReference<UIInput>) ois.readObject();
 
       referencedComp = uiRef.getComponent();
       assertEquals(input1, referencedComp);
+
+      // clean up...
+      File failoverFile = new File("trinidad.failover");
+      failoverFile.delete();
     }
     catch (Exception e)
     {
