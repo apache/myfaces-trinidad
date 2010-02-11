@@ -138,9 +138,9 @@
   </mailingLists>
 
   <scm>
-    <connection>scm:svn:https://svn.apache.org//repos/asf/myfaces/trinidad/tags/matzewTrinidad2002</connection>
-    <developerConnection>scm:svn:https://svn.apache.org//repos/asf/myfaces/trinidad/tags/matzewTrinidad2002</developerConnection>
-    <url>https://svn.apache.org//repos/asf/myfaces/trinidad/tags/matzewTrinidad2002</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/branches/OLD_trinidad-2.0.x</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/branches/OLD_trinidad-2.0.x</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/trinidad/branches/OLD_trinidad-2.0.x</url>
   </scm>
 
   <repositories>
