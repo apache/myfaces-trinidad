@@ -59,13 +59,15 @@ public class CommandLinkRenderer extends GoLinkRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    FacesBean    facesBean,
+    String       clientId)
   {
-    RequestContext afContext = RequestContext.getCurrentInstance();
+    RequestContext requestContext = RequestContext.getCurrentInstance();
     ReturnEvent returnEvent =
-      afContext.getDialogService().getReturnEvent(component);
+      requestContext.getDialogService().getReturnEvent(component);
     if (returnEvent != null)
     {
       returnEvent.queue();
@@ -73,17 +75,20 @@ public class CommandLinkRenderer extends GoLinkRenderer
     else
     {
       Map<String, String> parameterMap =
-        context.getExternalContext().getRequestParameterMap();
+        facesContext.getExternalContext().getRequestParameterMap();
 
       Object source = parameterMap.get("source");
-      String clientId = component.getClientId(context);
+      if (clientId == null)
+      {
+        clientId = component.getClientId(facesContext);
+      }
 
       if ((source != null) && source.equals(clientId))
       {
         (new ActionEvent(component)).queue();
-        if (getPartialSubmit(component, getFacesBean(component)))
+        if (getPartialSubmit(component, facesBean))
         {
-          PartialPageUtils.forcePartialRendering(context);
+          PartialPageUtils.forcePartialRendering(facesContext);
         }
       }
     }

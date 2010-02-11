@@ -27,11 +27,16 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import java.util.Map;
+
 import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
@@ -210,6 +215,52 @@ public class CoreRenderer extends Renderer
     @SuppressWarnings("unused") RenderingContext rc,
     @SuppressWarnings("unused") UIComponent component)
   {
+  }
+
+  // Note this should probably be made final, but since it is new, doing so could
+  // break compatibility with present sub-classes
+
+  /**
+   * {@inheritDoc}
+   * <p>
+   * Sub-classes should override the
+   * {@link #decode(FacesContext, UIComponent, FacesBean, String)} method
+   * to perform their own decoding logic
+   * </p>
+   *
+   * @see #decode(FacesContext, UIComponent, FacesBean, String)
+   */
+  @Override
+  public final void decode(
+    FacesContext facesContext,
+    UIComponent  component)
+  {
+    FacesBean facesBean = getFacesBean(component);
+    String clientId = null;
+    if (facesBean != null)
+    {
+      clientId = decodeBehaviors(facesContext, component, facesBean);
+    }
+    decode(facesContext, component, facesBean, clientId);
+  }
+
+  /**
+   * Hook for sub-classes to perform their own decode logic
+   * @param facesContext the faces context
+   * @param component the component to decode
+   * @param facesBean the faces bean for the component
+   * @param clientId the client ID if it has been retrieved already
+   * during decoding, otherwise it will be null. Passed in for performance
+   * reasons, so that if it has already been retrieved it will not need to be
+   * retrieved again
+   */
+  protected void decode(
+    @SuppressWarnings("unused") FacesContext facesContext,
+    @SuppressWarnings("unused") UIComponent  component,
+    @SuppressWarnings("unused") FacesBean    facesBean,
+    @SuppressWarnings("unused") String       clientId)
+  {
+    // No-op
   }
 
   //
@@ -794,9 +845,9 @@ public class CoreRenderer extends Renderer
   {
     return (Agent.PLATFORM_GENERICPDA.equals(rc.getAgent().getPlatformName()));
   }
-  
+
   /**
-   * This method returns true if a user-agent's platform is NokiaS60 
+   * This method returns true if a user-agent's platform is NokiaS60
    * @param arc - RenderingContext of a request
    * @return boolean
    */
@@ -854,6 +905,64 @@ public class CoreRenderer extends Renderer
   //
   // Rendering convenience methods.
   //
+
+  /**
+   * Decodes the behaviors of this component, if it is the component that is the source
+   * of the call to the server and the event matches behaviors that are attached to
+   * the component
+   *
+   * @param facesContext the faces context
+   * @param component the component
+   * @param bean the faces bean
+   * @return the client ID if it was retrieved, null otherwise
+   */
+  protected final String decodeBehaviors(
+    FacesContext facesContext,
+    UIComponent  component,
+    FacesBean    bean)
+  {
+    if (!(component instanceof ClientBehaviorHolder))
+    {
+      return null;
+    }
+
+    // Check if there are client behaviors first as it should be faster to access then
+    // getting the behavior event from the request parameter map (fewer method calls)
+    Map<String, List<ClientBehavior>> behaviorsMap = bean.getClientBehaviors();
+    if (behaviorsMap.isEmpty())
+    {
+      return null;
+    }
+
+    // Get the behavior event sent by the client, if any
+    Map<String, String> requestParams = facesContext.getExternalContext().getRequestParameterMap();
+    String event = requestParams.get(_BEHAVIOR_EVENT_KEY);
+    if (event == null)
+    {
+      return null;
+    }
+
+    // Does the component have behaviors for this event type?
+    List<ClientBehavior> behaviors = bean.getClientBehaviors().get(event);
+    if (behaviors.isEmpty())
+    {
+      return null;
+    }
+
+    // See if this is the submitting component
+    String clientId = component.getClientId(facesContext);
+    String sourceClientId = requestParams.get("javax.faces.source");
+    if (clientId.equals(sourceClientId))
+    {
+      // Decode the behaviors
+      for (ClientBehavior behavior: behaviors)
+      {
+        behavior.decode(facesContext, component);
+      }
+    }
+
+    return clientId;
+  }
 
   /**
    * Get a collection of all the parameters that are children of the current component as
@@ -990,4 +1099,5 @@ public class CoreRenderer extends Renderer
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     CoreRenderer.class);
+  private static final String _BEHAVIOR_EVENT_KEY = "javax.faces.behavior.event";
 }

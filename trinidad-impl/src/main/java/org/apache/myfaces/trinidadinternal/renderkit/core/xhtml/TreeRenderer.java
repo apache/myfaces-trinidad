@@ -83,15 +83,22 @@ public class TreeRenderer extends XhtmlRenderer
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
     Map<String, String> parameters =
-      context.getExternalContext().getRequestParameterMap();
+      facesContext.getExternalContext().getRequestParameterMap();
     String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
 
-    if (!component.getClientId(context).equals(source))
+    if (clientId == null)
+    {
+      clientId = getClientId(facesContext, component);
+    }
+    if (!clientId.equals(source))
       return;
 
     TreeUtils.decodeExpandEvents(parameters, component,

@@ -68,18 +68,27 @@ public class FormRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
     Map<String, String> paramMap =
-      context.getExternalContext().getRequestParameterMap();
+      facesContext.getExternalContext().getRequestParameterMap();
 
     Object formName = paramMap.get(CoreResponseStateManager.FORM_FIELD_NAME);
     boolean submitted = false;
 
     if ( formName != null )
-      submitted = formName.equals(getClientId(context, component));
+    {
+      if (clientId == null)
+      {
+        clientId = getClientId(facesContext, component);
+      }
+      submitted = formName.equals(clientId);
+    }
 
     // We use this decode for both our form and UIForm
     if (component instanceof UIForm)

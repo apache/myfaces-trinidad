@@ -49,23 +49,26 @@ public class PollRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
     Map<String, String> parameters =
-      context.getExternalContext().getRequestParameterMap();
+      facesContext.getExternalContext().getRequestParameterMap();
 
     Object event = parameters.get(XhtmlConstants.EVENT_PARAM);
     if (XhtmlConstants.POLL_EVENT.equals(event))
     {
       Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
-      String id = component.getClientId(context);
+      String id = clientId == null ? component.getClientId(facesContext) : clientId;
 
       if (id.equals(source))
       {
         // This component always uses PPR (unless not supported at all)
-        PartialPageUtils.forcePartialRendering(context);
+        PartialPageUtils.forcePartialRendering(facesContext);
 
         // And forcibly re-render ourselves - because that's how
         // we get the poll re-started
@@ -74,7 +77,7 @@ public class PollRenderer extends XhtmlRenderer
         UIXPoll poll = (UIXPoll) component;
         (new PollEvent(component)).queue();
         if (poll.isImmediate())
-          context.renderResponse();
+          facesContext.renderResponse();
       }
     }
   }

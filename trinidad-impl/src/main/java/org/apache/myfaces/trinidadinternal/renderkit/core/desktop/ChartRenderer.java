@@ -86,15 +86,18 @@ public class ChartRenderer extends XhtmlRenderer
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
     Map<String, String> parameters =
-      context.getExternalContext().getRequestParameterMap();
+      facesContext.getExternalContext().getRequestParameterMap();
 
     String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
-    String id = component.getClientId(context);
+    String id = clientId == null ? component.getClientId(facesContext) : clientId;
     if (!id.equals(source))
       return;
     Object eventParam = parameters.get(XhtmlConstants.EVENT_PARAM);

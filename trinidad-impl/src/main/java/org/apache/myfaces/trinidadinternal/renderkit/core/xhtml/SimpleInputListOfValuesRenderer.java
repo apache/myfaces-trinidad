@@ -70,11 +70,14 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
-    super.decode(context, component);
+    super.decode(facesContext, component, facesBean, clientId);
 
     RequestContext afContext = RequestContext.getCurrentInstance();
     // See if a ReturnEvent is waiting for us.  We don't deliver
@@ -84,15 +87,15 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
     if (returnEvent != null)
     {
       afContext.addPartialTarget(component);
-      queueReturnEvent(context, component, returnEvent);
+      queueReturnEvent(facesContext, component, returnEvent);
     }
     else
     {
       Map<String, String> parameterMap =
-        context.getExternalContext().getRequestParameterMap();
+        facesContext.getExternalContext().getRequestParameterMap();
 
       Object source = parameterMap.get("source");
-      String clientId = component.getClientId(context);
+      clientId = clientId == null ? component.getClientId(facesContext) : clientId;
       if ((source != null) && source.equals(clientId))
       {
         Object part = parameterMap.get(_PART_PARAMETER);
@@ -101,11 +104,11 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
           // Force partial rendering (if we're launching a window)
           // =-=AEW I don't believe this is necessary;  I believe
           // we've already got "partial" turned on
-          TrinidadAgent agent = AgentUtil.getAgent(context);
+          TrinidadAgent agent = AgentUtil.getAgent(facesContext);
           if (XhtmlUtils.supportsSeparateWindow(agent))
-            PartialPageUtils.forcePartialRendering(context);
+            PartialPageUtils.forcePartialRendering(facesContext);
 
-          queueActionEvent(context, component);
+          queueActionEvent(facesContext, component);
         }
         // else ???
       }

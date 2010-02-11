@@ -72,12 +72,16 @@ public class TrainRenderer
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    @SuppressWarnings("unused")
+    String       clientId)
   {
     Map<String, String> requestMap =
-      context.getExternalContext().getRequestParameterMap();
+      facesContext.getExternalContext().getRequestParameterMap();
 
     Object event = requestMap.get(XhtmlConstants.EVENT_PARAM);
 
@@ -85,7 +89,7 @@ public class TrainRenderer
     {
       Object source = requestMap.get(XhtmlConstants.SOURCE_PARAM);
 
-      if (source != null && source.equals(component.getClientId(context)))
+      if (source != null && source.equals(component.getClientId(facesContext)))
       {
 
         Object valueObject = requestMap.get(XhtmlConstants.VALUE_PARAM);

@@ -53,11 +53,15 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
   }
 
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    @SuppressWarnings("unused")
+    String       clientId)
   {
-     getFormInputRenderer().decode(context, component);
+     getFormInputRenderer().decode(facesContext, component);
   }
 
   @Override

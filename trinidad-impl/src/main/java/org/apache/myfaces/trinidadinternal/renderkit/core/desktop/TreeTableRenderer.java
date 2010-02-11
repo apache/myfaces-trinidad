@@ -90,17 +90,21 @@ public class TreeTableRenderer extends DesktopTableRenderer
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
-    decodeSelection(context, component);
+    decodeSelection(facesContext, component);
 
     Map<String, String> parameters =
-      context.getExternalContext().getRequestParameterMap();
+      facesContext.getExternalContext().getRequestParameterMap();
 
     Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
-    if (component.getClientId(context).equals(source))
+    clientId = clientId == null ? component.getClientId(facesContext) : clientId;
+    if (clientId.equals(source))
     {
       UIXTreeTable treeTable = (UIXTreeTable) component;
       TreeUtils.decodeExpandEvents(parameters, component,
