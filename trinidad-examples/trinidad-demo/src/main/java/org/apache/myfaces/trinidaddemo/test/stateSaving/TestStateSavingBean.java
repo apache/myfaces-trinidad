@@ -22,6 +22,7 @@ package org.apache.myfaces.trinidaddemo.test.stateSaving;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
@@ -66,6 +67,21 @@ public class TestStateSavingBean
     showDetail.getChildren().add(outputText);
     FacesContext context = FacesContext.getCurrentInstance();
     context.getViewRoot().findComponent("groupLayout").getChildren().add(showDetail);
+  }  
+  
+  public void temporaryMoveComponent(ActionEvent ae)
+  {
+    System.out.println("Temporarily moving a component");
+    UIComponent button = ae.getComponent();
+    UIComponent moveme = button.findComponent("moveme");
+    UIComponent moveto = button.findComponent("moveto");
+    UIComponent parent = moveme.getParent();
+    
+    parent.getChildren().remove(moveme);
+    moveto.getChildren().add(moveme);
+    moveto.getChildren().remove(moveme);
+    parent.getChildren().add(moveme);
   }
+
 
 }
