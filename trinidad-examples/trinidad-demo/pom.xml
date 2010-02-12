@@ -77,14 +77,14 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
-          <version>2.0.0-SNAPSHOT</version>
+          <version>${jsf-myfaces.version}</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
-          <version>2.0.0-SNAPSHOT</version>
+          <version>${jsf-myfaces.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -129,49 +129,34 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
-          <version>2.0.0-SNAPSHOT</version>
+          <version>${jsf-myfaces.version}</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
-          <version>2.0.0-SNAPSHOT</version>
+          <version>${jsf-myfaces.version}</version>
             <scope>compile</scope>
         </dependency>
 
 
 <!--
         <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>${jsf-ri.version}</version>
-            <scope>compile</scope>
-          </dependency>
+          <groupId>com.sun.faces</groupId>
+          <artifactId>jsf-api</artifactId>
+          <version>${jsf-ri.version}</version>
+          <scope>compile</scope>
+        </dependency>
 
-          <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-            <version>${jsf-ri.version}</version>
-            <scope>runtime</scope>
-          </dependency>
+        <dependency>
+          <groupId>com.sun.faces</groupId>
+          <artifactId>jsf-impl</artifactId>
+          <version>${jsf-ri.version}</version>
+          <scope>runtime</scope>
+        </dependency>
 -->
 
-
-
-          <!--dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <version>${jsf-myfaces.version}</version>
-            <scope>compile</scope>
-          </dependency>
-
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-impl</artifactId>
-            <version>${jsf-myfaces.version}</version>
-            <scope>runtime</scope>
-          </dependency-->
         </dependencies>
       </dependencyManagement>
 
