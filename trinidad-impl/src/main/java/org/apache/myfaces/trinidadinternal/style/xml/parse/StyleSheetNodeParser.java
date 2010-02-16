@@ -63,7 +63,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
     Attributes   attrs
     ) throws SAXParseException
   {
-    _initLocales(attrs.getValue(LOCALES_ATTR));
+    _locales = _initLocales(attrs.getValue(LOCALES_ATTR));
     _direction = NameUtils.getDirection(attrs.getValue(DIRECTION_ATTR));
     _mode = NameUtils.getMode(attrs.getValue(MODE_ATTR));
     _browsers = _initBrowsers(attrs.getValue(BROWSERS_ATTR));
