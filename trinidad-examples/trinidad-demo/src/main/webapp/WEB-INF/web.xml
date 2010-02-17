@@ -31,6 +31,13 @@
     <!--param-value>server</param-value-->
   </context-param>
 
+  <!-- *IF* we execute this demo in JSF2 / JavaEE 6 env, we want to use
+       the "OLD" Facelet version -->
+  <context-param>
+    <param-name>javax.faces.DISABLE_FACELET_JSF_VIEWHANDLER</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
   <context-param>
     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
     <param-value>.jspx</param-value>
