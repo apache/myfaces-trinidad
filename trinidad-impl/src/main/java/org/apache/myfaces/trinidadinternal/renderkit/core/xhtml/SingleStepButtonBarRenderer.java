@@ -63,15 +63,18 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
     Map<String, String> parameters =
-      context.getExternalContext().getRequestParameterMap();
+      facesContext.getExternalContext().getRequestParameterMap();
 
     String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
-    String id = getClientId(context, component);
+    String id = clientId == null ? getClientId(facesContext, component) : clientId;
     if ((source != null) && source.startsWith(id))
     {
       // queue the action on the singleStep component
