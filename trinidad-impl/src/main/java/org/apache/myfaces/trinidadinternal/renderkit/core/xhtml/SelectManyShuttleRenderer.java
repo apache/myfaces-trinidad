@@ -289,7 +289,8 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
                                                 clientId);
     leadingSelectItems.add(new SelectItem("", info.barText));
     trailingSelectItems.add(new SelectItem("", info.barText));
-
+    
+    Map<String, String> originalSkinResourceMap = rc.getSkinResourceKeyMap();
     rc.setSkinResourceKeyMap(getResourceKeyMap());
 
     /* FIXME: add this?
@@ -321,6 +322,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
 
     rw.endElement("table");
 
+    rc.setSkinResourceKeyMap(originalSkinResourceMap);
     // remove info about this shuttle from context
     _clearContext(rc);
   }
