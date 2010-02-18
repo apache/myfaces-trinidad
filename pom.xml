@@ -46,6 +46,8 @@
     <jsf-spec.version>1.2</jsf-spec.version>
     <jsf-ri.version>1.2_09</jsf-ri.version>
     <jsf-myfaces.version>1.2.4</jsf-myfaces.version>
+    <sunjsf.ri.version>2.0.2</sunjsf.ri.version>
+    <myfaces2.version>2.0.0-SNAPSHOT</myfaces2.version>
     <jsf-facelets.version>1.1.14</jsf-facelets.version>
     <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
@@ -149,6 +151,12 @@
       <layout>legacy</layout>
     </repository>
     <repository>
+      <id>maven2-repository.dev.java.net</id>
+      <name>Java.net Repository for Maven</name>
+      <url>http://download.java.net/maven/2/</url>
+      <layout>default</layout>
+    </repository>
+    <repository>
       <id>apache.snapshots</id>
       <name>Apache Snapshot Repository</name>
       <url>http://people.apache.org/repo/m2-snapshot-repository</url>
@@ -238,6 +246,20 @@
         <artifactId>myfaces-impl</artifactId>
         <version>${jsf-myfaces.version}</version>
         <scope>provided</scope>
+      </dependency>
+
+
+<!-- JSF2 -->
+      <dependency>
+        <groupId>com.sun.faces</groupId>
+        <artifactId>jsf-api</artifactId>
+        <version>${sunjsf.ri.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.sun.faces</groupId>
+        <artifactId>jsf-impl</artifactId>
+        <version>${sunjsf.ri.version}</version>
       </dependency>
 
       <dependency>
@@ -848,7 +870,7 @@
   </profiles>
 </settings>
       -->
-    <!--profile>
+    <profile>
       <id>java5compilerFor6</id>
       <activation>
         <jdk>1.6</jdk>
@@ -867,9 +889,9 @@
           </plugin>
         </plugins>
       </build>
-    </profile-->
+    </profile>
     <!-- repeat for JDK 1.7 -->
-    <!--profile>
+    <profile>
       <id>java5compilerFor7</id>
       <activation>
         <jdk>1.7</jdk>
@@ -888,6 +910,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile-->
+    </profile>
   </profiles>
 </project>
