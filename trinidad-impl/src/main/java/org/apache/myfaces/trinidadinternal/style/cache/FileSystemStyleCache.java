@@ -1541,8 +1541,66 @@ public class FileSystemStyleCache implements StyleProvider
         if (name != null && value != null)
           styleProperties.put(name, value);
       }
+      
+      // To save memory, we reuse CSSStyle objects if 
+      // they have the same list of style property names and values.
+      // StyleKey is the key into the StyleKey, CSSStyle map.
+      StyleKey key = new StyleKey(styleProperties);
+      Style cachedStyle = _styleNodeToStyleMap.get(key);
+      if (cachedStyle == null)
+      {
+        // no match is cached yet, so create a new CSSStyle and cache in the map.
+        Style style = new CSSStyle(styleProperties);
+        _styleNodeToStyleMap.put(key, style);
+        return style;         
+      }
+      else
+      {
+        return cachedStyle;
+      }
+    }
+    
+    /**
+     * A StyleKey object is used as a key into a map so that we can share CSSStyle objects
+     * if they are equal and they have the same hashCode.
+     */
+    private static class StyleKey
+    {
+      public StyleKey(Map<String, String> styleProperties)
+      {
+        _styleProperties = styleProperties;
+      }
+      
+      @Override
+      public int hashCode()
+      {
+        int hash = 17;
+        // take each style property name and value and create a hashCode from it.
+        for (Map.Entry<String, String> e : _styleProperties.entrySet())
+        {
+          String name = e.getKey();
+          hash = 37*hash + ((null == name) ? 0 : name.hashCode());
 
-      return new CSSStyle(styleProperties);
+          String value = e.getValue();
+          hash = 37*hash + ((null == value) ? 0 : value.hashCode());
+
+        }
+        return hash;
+      }
+      @Override  
+      public boolean equals(Object obj)
+      {
+        if (this == obj)
+          return true;
+        if (!(obj instanceof StyleKey))
+          return false;
+          
+        // obj at this point must be a StyleKey
+        StyleKey test = (StyleKey)obj;
+        return test._styleProperties.equals(this._styleProperties);
+      }
+      
+      Map<String, String> _styleProperties;
 
     }
 
@@ -1551,6 +1609,7 @@ public class FileSystemStyleCache implements StyleProvider
     private final String[]             _namespacePrefixArray;
     private final Map<String, String>  _shortStyleClassMap;
     private final boolean              _compress;
+    private Map<StyleKey, Style> _styleNodeToStyleMap = new ConcurrentHashMap<StyleKey, Style>();
   }
 
   private class StyleWriterFactoryImpl
