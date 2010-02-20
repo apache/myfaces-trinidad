@@ -121,7 +121,6 @@
       <dependencyManagement>
         <dependencies>
 
-<!--
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
@@ -135,7 +134,6 @@
           <version>${jsf-myfaces.version}</version>
             <scope>compile</scope>
         </dependency>
--->
 
         <dependency>
             <groupId>com.sun.faces</groupId>
@@ -209,14 +207,14 @@
       <dependencyManagement>
         <dependencies>
           <dependency>
-            <groupId>javax.faces</groupId>
+            <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
             <version>${jsf-ri.version}</version>
             <scope>compile</scope>
           </dependency>
 
           <dependency>
-            <groupId>javax.faces</groupId>
+            <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <version>${jsf-ri.version}</version>
             <scope>runtime</scope>
