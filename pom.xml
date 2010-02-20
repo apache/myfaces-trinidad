@@ -46,7 +46,7 @@
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>2.0</jsf-spec.version>
     <jsf-ri.version>2.0.1</jsf-ri.version>
-    <jsf-myfaces.version>2.0.0-beta</jsf-myfaces.version>
+    <jsf-myfaces.version>2.0.0-beta-2</jsf-myfaces.version>
     <!--jsf-ri.version>2.0.3-SNAPSHOT</jsf-ri.version-->
     <!--jsf-facelets.version>1.1.14</jsf-facelets.version-->
     <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
@@ -244,7 +244,7 @@
       </dependency>
 
 <!-- for now we just use the RI, b/c nothing around for MyFaces 2.0 -->
-      <!--dependency>
+      <dependency>
         <groupId>org.apache.myfaces.core</groupId>
         <artifactId>myfaces-api</artifactId>
         <version>${jsf-myfaces.version}</version>
@@ -256,7 +256,7 @@
         <artifactId>myfaces-impl</artifactId>
         <version>${jsf-myfaces.version}</version>
         <scope>provided</scope>
-      </dependency-->
+      </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.portlet-bridge</groupId>
@@ -786,7 +786,7 @@
             <scope>runtime</scope>
           </dependency>
 
-          <!--dependency>
+          <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
             <version>${jsf-myfaces.version}</version>
@@ -798,7 +798,7 @@
             <artifactId>myfaces-impl</artifactId>
             <version>${jsf-myfaces.version}</version>
             <scope>runtime</scope>
-          </dependency-->
+          </dependency>
         </dependencies>
       </dependencyManagement>
     </profile>
