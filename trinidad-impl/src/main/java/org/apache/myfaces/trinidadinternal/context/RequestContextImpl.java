@@ -615,7 +615,7 @@ public class RequestContextImpl extends RequestContext
       // _addTargets(_GLOBAL_TRIGGER);
 
       // now do all listeners
-      _addTargets(updated);
+      _addTargets(updated, new HashSet<UIComponent>());
     }
   }
 
@@ -787,27 +787,28 @@ public class RequestContextImpl extends RequestContext
     return lifetimeObj.intValue();
   }
 
-  private void _addTargets(UIComponent key)
+  private void _addTargets(
+    UIComponent      key,
+    Set<UIComponent> visitedComponents)
   {
     Map<UIComponent, Set<UIComponent>> pl = _getPartialListeners();
     Set<UIComponent> listeners = pl.get(key);
-    if (listeners != null)
+    if (listeners != null && !listeners.isEmpty())
     {
-      // protect from infinite recursion
-      pl.remove(key);
+      // protect from infinite recursion by making sure we do not
+      // process the same component twice
+      if (!visitedComponents.add(key))
+      {
+        return;
+      }
 
-      for(UIComponent listener : listeners)
+      for (UIComponent listener : listeners)
       {
         addPartialTarget(listener);
         // This target will be re-rendered, re-render anything that's
         // listening on it also.
-        partialUpdateNotify(listener);
+        _addTargets(listener, visitedComponents);
       }
-      
-      // TRINIDAD-1545
-      // Re-add listeners to the map to accommodate partial targets for different stamps of 
-      // the same component
-      pl.put(key, listeners);
     }
   }
 
