@@ -18,8 +18,16 @@
  */
 package org.apache.myfaces.trinidad.component.visit;
 
+import java.util.Collection;
 import java.util.Collections;
 
+import java.util.Set;
+
+import javax.faces.FactoryFinder;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitContextFactory;
+import javax.faces.component.visit.VisitHint;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.UIXComponent;
@@ -32,6 +40,28 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 public final class VisitTreeUtils
 {
   private VisitTreeUtils() {}
+
+  /**
+   * <p>Creates a VisitContext instance for use with
+   * {@link org.apache.myfaces.trinidad.component.UIXComponent#visitTree UIComponent.visitTree()}.</p>
+   *
+   * @param context the FacesContext for the current request
+   * @param ids the client ids of the components to visit.  If null,
+   *   all components will be visited.
+   * @param hints the VisitHints to apply to the visit
+   * @return a VisitContext instance that is initialized with the
+   *   specified ids and hints.
+   */
+  public static VisitContext createVisitContext(
+    FacesContext context,
+    Collection<String> ids,
+    Set<VisitHint> hints)
+  {
+    VisitContextFactory factory = (VisitContextFactory)
+                                  FactoryFinder.getFactory(FactoryFinder.VISIT_CONTEXT_FACTORY);
+    
+    return factory.getVisitContext(context, ids, hints);
+  }
 
   /**
    * Visit a single component in the component tree starting from the view root.
@@ -47,8 +77,7 @@ public final class VisitTreeUtils
     String        clientId,
     VisitCallback visitCallback)
   {
-    VisitContext visitContext = RequestContext.getCurrentInstance().createVisitContext(facesContext,
-      Collections.singleton(clientId), null, null);
+    VisitContext visitContext = createVisitContext(facesContext, Collections.singleton(clientId), null);
     return UIXComponent.visitTree(visitContext, facesContext.getViewRoot(), visitCallback);
   }
 }

@@ -41,10 +41,11 @@ import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.component.visit.VisitCallback;
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
-import org.apache.myfaces.trinidad.component.visit.VisitHint;
-import org.apache.myfaces.trinidad.component.visit.VisitResult;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitContextWrapper;
+import javax.faces.component.visit.VisitHint;
+import javax.faces.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.CollectionModel;
@@ -1236,50 +1237,7 @@ public abstract class UIXCollection extends UIXComponentBase
     return false;
   }
   
-  /**
-   * Wrapper implementation of VisitContext
-   */
-  private static abstract class VisitContextWrapper extends VisitContext
-  {
-    protected abstract VisitContext getWrapped();
 
-    @Override
-    public FacesContext getFacesContext()
-    {
-      return getWrapped().getFacesContext();
-    }
-    
-    @Override
-    public PhaseId getPhaseId()
-    {
-      return getWrapped().getPhaseId();
-    }
-
-    @Override
-    public Collection<String> getIdsToVisit()
-    {
-      return getWrapped().getIdsToVisit();
-    }
-
-    @Override
-    public Collection<String> getSubtreeIdsToVisit(UIComponent component)
-    {
-      return getWrapped().getSubtreeIdsToVisit(component);
-    }
-
-    @Override
-    public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callback)
-    {
-      return getWrapped().invokeVisitCallback(component, callback);
-    }
-
-    @Override
-    public Set<VisitHint> getHints()
-    {
-      return getWrapped().getHints();
-    }
-  }
-  
   /**
    * VistiContext that visits the facets of the UIXColumn children, including
    * nested UIXColumn childrem
@@ -1292,7 +1250,7 @@ public abstract class UIXCollection extends UIXComponentBase
     }
     
     @Override
-    protected VisitContext getWrapped()
+    public VisitContext getWrapped()
     {
       return _wrapped;
     }
@@ -1340,7 +1298,7 @@ public abstract class UIXCollection extends UIXComponentBase
     }
 
     @Override
-    protected VisitContext getWrapped()
+    public VisitContext getWrapped()
     {
       return _wrapped;
     }

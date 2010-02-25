@@ -23,8 +23,8 @@ import java.util.List;
 
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.trinidad.component.visit.VisitCallback;
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.LocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.ModelUtils;

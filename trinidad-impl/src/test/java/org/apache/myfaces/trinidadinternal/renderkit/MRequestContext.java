@@ -31,12 +31,14 @@ import java.util.TimeZone;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
-import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.Agent;
@@ -371,16 +373,6 @@ public class MRequestContext extends RequestContext
   public UIComponent restoreComponent(Object state)
   {
     throw new UnsupportedOperationException("Not implemented yet");
-  }
-
-  @Override
-  public VisitContext createVisitContext(
-   FacesContext context,
-   Collection<String> ids,
-   Set<VisitHint> hints,
-   PhaseId phaseId)
-  {
-    return MVisitContextFactory.createVisitContext(context, ids, hints, phaseId);
   }
 
   @Override

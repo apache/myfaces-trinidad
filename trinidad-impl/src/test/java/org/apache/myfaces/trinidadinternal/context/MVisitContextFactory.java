@@ -21,11 +21,13 @@ package org.apache.myfaces.trinidadinternal.context;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
-import org.apache.myfaces.trinidad.component.visit.VisitHint;
+import org.apache.myfaces.trinidad.component.visit.VisitTreeUtils;
 
 
 public final class MVisitContextFactory
@@ -38,9 +40,6 @@ public final class MVisitContextFactory
    Set<VisitHint>     hints,
    PhaseId            phaseId)
   {
-    if ((ids == null) || ids.isEmpty())
-      return new FullVisitContext(context, hints, phaseId);
-    else
-      return new PartialVisitContext(context, ids, hints, phaseId);
+    return VisitTreeUtils.createVisitContext(context, ids, hints);
   }
 }
