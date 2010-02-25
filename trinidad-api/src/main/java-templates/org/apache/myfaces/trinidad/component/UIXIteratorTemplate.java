@@ -260,73 +260,103 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
   {
     Collection<String> subtreeIds = visitContext.getSubtreeIdsToVisit(this);
  
-    String ourClientIdPrefix = getClientId(visitContext.getFacesContext());
-   
-    int subtreeIdCount = subtreeIds.size();
-    
-    // build up a set of the row keys to visit rather than iterating
-    // and visiting every row
-    Set<String> rowsToVisit;
-    
-    if (subtreeIdCount > 1)
-    {
-      rowsToVisit = new HashSet<String>(subtreeIdCount);
-
-      for (String currClientId : subtreeIds)
-      {
-        String clientToken = _getClientToken(ourClientIdPrefix, currClientId);
-        
-        if (clientToken != null)
-        {
-          rowsToVisit.add(clientToken);          
-        }
-      }
-    }
-    else
-    {
-      String clientToken = _getClientToken(ourClientIdPrefix,
-                                           subtreeIds.iterator().next());
-      
-      if (clientToken != null)
-      {
-        rowsToVisit = Collections.singleton(clientToken);
-      }
-      else
-      {
-        rowsToVisit = Collections.emptySet();
-      }
-    }
-    
-    // we didn't visit any data
-    if (rowsToVisit.isEmpty())
-      return false;
-    
     // create a special VisitContext that doesn't visit the Facets
     // of column components since they aren't visited on each row
     final VisitContext noColumnFacetContext = new NoColumnFacetsVisitContext(visitContext);
+
+    // runner to use to process the rows
+    Runner runner;
     
-    // visit only the rows
-    Runner runner = new KeyedRunner(rowsToVisit)
+    if (VisitContext.ALL_IDS.equals(subtreeIds))
     {
-      @Override
-      protected void process(
-        UIComponent                kid,
-        ComponentProcessingContext cpContext
-        ) throws IOException
+      // we're processing all of the rows, so use the indexed runner (plus, we can't call size() on
+      // the ALL_IDS collection, so we don't have a whole lot of choice here
+      runner = new IndexedRunner()
       {
-        if (kid.getChildCount() > 0)
+        @Override
+        protected void process(UIComponent kid, ComponentProcessingContext cpContext)
         {
-          for (UIComponent grandKid : kid.getChildren())
+          if (kid.getChildCount() > 0)
           {
-            if (UIXComponent.visitTree(noColumnFacetContext, grandKid, visitCallback))
+            for (UIComponent grandKid : kid.getChildren())
             {
-              throw new AbortProcessingException();
+              if (UIXComponent.visitTree(noColumnFacetContext, grandKid, visitCallback))
+              {
+                throw new AbortProcessingException();
+              }
             }
           }
         }
+      };
+    }
+    else
+    {
+      // We are only visiting a subset of the tree, so figure out which rows to visit
+      
+      String ourClientIdPrefix = getClientId(visitContext.getFacesContext());
+     
+      int subtreeIdCount = subtreeIds.size();
+      
+      // build up a set of the row keys to visit rather than iterating
+      // and visiting every row
+      Set<String> rowsToVisit;
+      
+      if (subtreeIdCount > 1)
+      {
+        rowsToVisit = new HashSet<String>(subtreeIdCount);
+  
+        for (String currClientId : subtreeIds)
+        {
+          String clientToken = _getClientToken(ourClientIdPrefix, currClientId);
+          
+          if (clientToken != null)
+          {
+            rowsToVisit.add(clientToken);          
+          }
+        }
       }
-    };
+      else
+      {
+        String clientToken = _getClientToken(ourClientIdPrefix,
+                                             subtreeIds.iterator().next());
+        
+        if (clientToken != null)
+        {
+          rowsToVisit = Collections.singleton(clientToken);
+        }
+        else
+        {
+          rowsToVisit = Collections.emptySet();
+        }
+      }
+      
+      // we didn't visit any data
+      if (rowsToVisit.isEmpty())
+        return false;
 
+      // visit only the rows we need to
+      runner = new KeyedRunner(rowsToVisit)
+      {
+        @Override
+        protected void process(
+          UIComponent                kid,
+          ComponentProcessingContext cpContext
+          ) throws IOException
+        {
+          if (kid.getChildCount() > 0)
+          {
+            for (UIComponent grandKid : kid.getChildren())
+            {
+              if (UIXComponent.visitTree(noColumnFacetContext, grandKid, visitCallback))
+              {
+                throw new AbortProcessingException();
+              }
+            }
+          }
+        }
+      };
+    }
+        
     try
     {
       runner.run();
