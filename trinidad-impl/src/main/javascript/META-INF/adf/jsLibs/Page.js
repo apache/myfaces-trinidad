@@ -802,13 +802,113 @@ TrPage._delegateToJSFAjax = function(formId, inputId, event, params)
 
 TrPage.prototype._jsfAjaxCallback = function(data)
 {
-  if (data.status == "complete")
+  // TODO: move this code into the request queue to stop this gross infringement
+  // of encapsulation
+  switch (data.status)
   {
-    _pprStopBlocking(window);
+    case "begin":
+      this._requestQueue._state = TrRequestQueue.STATE_BUSY;
+      this._requestQueue._broadcastStateChangeEvent(this._requestQueue._state);
+      break;
+    case "success":
+      try
+      {
+        this._notifyDomReplacementListeners(this._ajaxOldDomElements);
+      }
+      finally
+      {
+        delete this._ajaxOldDomElements;
+      }
+      this._requestQueue._state = TrRequestQueue.STATE_READY;
+      this._requestQueue._broadcastStateChangeEvent(this._requestQueue._state);
+      break;
+    case "complete": default:
+      _pprStopBlocking(window);
+      // Collect the DOM elements that will be replaced to be able to fire the
+      // DOM replacement events
+      this._ajaxOldDomElements = this._getDomToBeUpdated(data.responseCode, data.responseXML);
+      break;
   }
 }
 
 TrPage.prototype._jsfAjaxErrorCallback = function(data)
 {
+  // TODO: move this code into the request queue to stop this gross infringement
+  // of encapsulation
+  this._requestQueue._state = TrRequestQueue.STATE_READY;
+  this._requestQueue._broadcastStateChangeEvent(this._requestQueue._state);
+  delete this._ajaxOldDomElements;
+}
 
+TrPage.prototype._notifyDomReplacementListeners = function(dataArray)
+{
+  var listeners = this._domReplaceListeners;
+  if (!listeners || listeners.length == 0)
+  {
+    return;
+  }
+  for (var i = 0, isize = dataArray.length; i < isize; ++i)
+  {
+    var oldElem = dataArray[i].element;
+    var id = dataArray[i].id;
+    var newElem = id == null ? document.body : document.getElementById(id);
+    for (var j = 0, jsize = listeners.length; j < jsize; ++j)
+    {
+      var currListener = listeners[j];
+      var currInstance = listeners[++j];
+      if (currInstance != null)
+      {
+        currListener.call(currInstance, oldElem, newElem);
+      }
+      else
+      {
+        currListener(oldElem, newElem);
+      }
+    }
+  }
+}
+
+TrPage.prototype._getDomToBeUpdated = function(status, responseXML)
+{
+  // check for a successful request
+  if (status < 200 || status >= 300)
+  {
+    return null;
+  }
+  // see if the response contains changes (not a redirect for example)
+  var nodes = responseXML.getElementsByTagName("partial-response");
+  var responseTypeNode = nodes.length ? nodes[0].firstChild : null;
+  if (!responseTypeNode || responseTypeNode.nodeName !== "changes")
+  {
+    return null;
+  }
+
+  var changeNodes = responseTypeNode.childNodes;
+  var oldElements = [];
+  for (var i = 0, size = changeNodes.length; i < size; ++i)
+  {
+    var node = changeNodes[i];
+    if (node.nodeName !== "update")
+    {
+      // We only care about updates as that is what Trinidad supported for the DOM
+      // replacement notification API
+      continue;
+    }
+
+    var id = node.getAttribute("id");
+    if (id == "javax.faces.ViewState")
+    {
+      continue;
+    }
+    if (id == "javax.faces.ViewRoot" || id == "javax.faces.ViewBody")
+    {
+      oldElements.push({ "id": null, "element": document.body });
+    }
+    else
+    {
+      oldElements.push({ "id": id, "element": document.getElementById(id) });
+    }
+  }
+
+  return oldElements;
 }
