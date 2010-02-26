@@ -30,6 +30,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import java.util.concurrent.atomic.AtomicReference;
+
 import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.MethodExpression;
@@ -349,25 +353,34 @@ abstract public class UIXComponentBase extends UIXComponent
   @Override
   public String getClientId(FacesContext context)
   {
-    return _calculateClientId(context);
-/* TODO put back in when we fix all of the clientID caching issues
-    String clientId = _clientId;
-    
-    if (clientId == null)
+    if (_isClientIdCachingEnabled(context))
     {
-      clientId = _calculateClientId(context);
+      String clientId = _clientId;
       
-      if (_usesFacesBeanImpl)
-        _clientId = clientId;
+      if (clientId == null)
+      {
+        clientId = _calculateClientId(context);
+        
+        if (_usesFacesBeanImpl)
+          _clientId = clientId;
+      }
+      else
+      {
+        // for now validate success by checking the cached result against the dynamically
+        // generated result
+        String realID = _calculateClientId(context);
+        
+        if (!clientId.equals(realID))
+          throw new IllegalStateException(
+        "cached client id " + clientId + " for " + this + " doesn't match client id:" + realID);
+      }
+    
+      return clientId;
     }
     else
     {
-      assert clientId.equals(_calculateClientId(context)) :
-      "cached client id " + _clientId + " for " + this + " doesn't match client id:" + _calculateClientId(context);
+      return _calculateClientId(context);
     }
-    
-    return clientId;
-*/
   }
 
 
@@ -1767,6 +1780,38 @@ abstract public class UIXComponentBase extends UIXComponent
   static private class ExtendedRendererImpl extends ExtendedRenderer
   {
   }
+
+  private static boolean _isClientIdCachingEnabled(FacesContext context)
+  {
+    if (context == null)
+      throw new IllegalArgumentException("FacesContext is null");
+
+    Boolean cacheClientIds = _sClientIdCachingEnabled.get();
+    
+    if (cacheClientIds == null)
+    {
+      // see if client  is enabled for the application (the default is on)
+      boolean cachingEnabled = !Boolean.TRUE.equals(
+                          context.getExternalContext().
+                          getApplicationMap().get(_INIT_PROP_CLIENT_ID_CACHING_ENABLED));
+      
+      // cache the servlet initialization value
+      _sClientIdCachingEnabled.set(cachingEnabled ? Boolean.TRUE : Boolean.FALSE);
+
+      return cachingEnabled;
+    }
+    else
+    {
+      return cacheClientIds.booleanValue();
+    }
+  }
+  
+  private static AtomicReference<Boolean> _sClientIdCachingEnabled = 
+                                                                 new AtomicReference<Boolean>(null);
+  
+  // temporary servlet initialization flag controlling whether client ID caching is enabled
+  private static final String _INIT_PROP_CLIENT_ID_CACHING_ENABLED = 
+                                      "org.apache.myfaces.trinidadinternal.ENABLE_CLIENT_ID_CACHING";
 
   static private final LifecycleRenderer _UNDEFINED_LIFECYCLE_RENDERER =
                                                 new ExtendedRendererImpl();
