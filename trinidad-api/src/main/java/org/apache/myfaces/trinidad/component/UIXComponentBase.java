@@ -488,7 +488,25 @@ abstract public class UIXComponentBase extends UIXComponent
   @Override
   public void setParent(UIComponent parent)
   {
-    _parent = parent;
+    if (parent != _parent)
+    {
+      _parent = parent;
+    
+      // clear cached client ids if necessary
+      if (_clientId != null)
+      {
+        String newClientId = _calculateClientId(FacesContext.getCurrentInstance());
+        
+        // if our clientId changed as a result of being reparented (because we moved
+        // between NamingContainers for instance) then we need to clear out
+        // all of the cached client ids for our subtree
+        if (!_clientId.equals(newClientId))
+        {
+          clearCachedClientIds();
+          _clientId = newClientId;
+        }
+      }
+    }
   }
 
 
@@ -1790,8 +1808,8 @@ abstract public class UIXComponentBase extends UIXComponent
     
     if (cacheClientIds == null)
     {
-      // see if client  is enabled for the application (the default is on)
-      boolean cachingEnabled = !Boolean.TRUE.equals(
+      // see if client  is enabled for the application (the default is off)
+      boolean cachingEnabled = Boolean.TRUE.equals(
                           context.getExternalContext().
                           getApplicationMap().get(_INIT_PROP_CLIENT_ID_CACHING_ENABLED));
       
