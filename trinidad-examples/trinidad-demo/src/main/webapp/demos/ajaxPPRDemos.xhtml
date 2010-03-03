@@ -62,6 +62,10 @@ function init()
   TrPage.getInstance().getRequestQueue().addStateChangeListener(pprStateChangeFunction);
   TrPage.getInstance().addDomReplaceListener(pprDomReplacementFunction);
 }
+function setFocus(event)
+{
+  event.target.focus();
+}
         </trh:script>
       </tr:group>
     </f:facet>
@@ -194,6 +198,16 @@ function init()
                     <f:convertDateTime pattern="HH:mm:ss"/>
                   </tr:outputFormatted>
                 </tr:panelLabelAndMessage>
+              </tr:panelGroupLayout>
+            </tr:panelHeader>
+            <tr:panelHeader text="Focus Restoration">
+              <tr:outputFormatted styleUsage="instruction"
+                                  value="The below command button gets the focus on mouse down and its parent is updated by PPR. It should regain focus after the PPR completes." />
+              <tr:panelGroupLayout id="frpgl1" layout="vertical" partialTriggers="frcb1">
+                <tr:commandButton id="frcb1" text="Demonstrate focus restoration"
+                                  partialSubmit="true">
+                  <trd:invokeFunctionBehavior function="setFocus" event="mousedown" />
+                </tr:commandButton>
               </tr:panelGroupLayout>
             </tr:panelHeader>
           </tr:panelGroupLayout>

@@ -63,6 +63,7 @@ TrPage.prototype.sendPartialFormPost = function(
   if (params != null)
     source = params.source;
 
+  // TODO: move this to the request queue
   TrPage._delegateToJSFAjax(actionForm, source, event, params);
 
 
@@ -811,13 +812,40 @@ TrPage.prototype._jsfAjaxCallback = function(data)
       this._requestQueue._broadcastStateChangeEvent(this._requestQueue._state);
       break;
     case "success":
+      var oldElems = this._ajaxOldDomElements;
       try
       {
-        this._notifyDomReplacementListeners(this._ajaxOldDomElements);
+        this._notifyDomReplacementListeners(oldElems);
       }
       finally
       {
         delete this._ajaxOldDomElements;
+      }
+      if (this._activeNode)
+      {
+        var activeNode = this._activeNode;
+        delete this._activeNode;
+        var index = -1;
+        if (activeNode.id)
+        {
+          for (var i = 0, size = oldElems.length; i < size; ++i)
+          {
+            if (TrPage._isDomAncestorOf(activeNode, oldElems[i].element))
+            {
+              index = i;
+              break;
+            }
+          }
+          if (index >= 0)
+          {
+            activeNode = document.getElementById(activeNode.id);
+            window._trActiveElement = activeNode;
+            if (activeNode)
+            {
+              activeNode.focus();
+            }
+          }
+        }
       }
       this._requestQueue._state = TrRequestQueue.STATE_READY;
       this._requestQueue._broadcastStateChangeEvent(this._requestQueue._state);
@@ -827,6 +855,7 @@ TrPage.prototype._jsfAjaxCallback = function(data)
       // Collect the DOM elements that will be replaced to be able to fire the
       // DOM replacement events
       this._ajaxOldDomElements = this._getDomToBeUpdated(data.responseCode, data.responseXML);
+      this._activeNode = _getActiveElement();
       break;
   }
 }
@@ -838,6 +867,7 @@ TrPage.prototype._jsfAjaxErrorCallback = function(data)
   this._requestQueue._state = TrRequestQueue.STATE_READY;
   this._requestQueue._broadcastStateChangeEvent(this._requestQueue._state);
   delete this._ajaxOldDomElements;
+  delete this._activeNode;
 }
 
 TrPage.prototype._notifyDomReplacementListeners = function(dataArray)
