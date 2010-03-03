@@ -362,7 +362,9 @@ abstract public class UIXComponentBase extends UIXComponent
         clientId = _calculateClientId(context);
         
         if (_usesFacesBeanImpl)
+        {
           _clientId = clientId;
+        }
       }
       else
       {
@@ -436,8 +438,6 @@ abstract public class UIXComponentBase extends UIXComponent
   @Override
   public void setId(String id)
   {
-    _clientId = null;
-    
     FacesBean facesBean = getFacesBean();
     
     // if we are using a FacesBeanImpl, then the FacesBean will
@@ -465,6 +465,8 @@ abstract public class UIXComponentBase extends UIXComponent
       _validateId(id);
       facesBean.setProperty(ID_KEY, id);      
     }
+
+    _clientId = null;
   }
   
   @Override
