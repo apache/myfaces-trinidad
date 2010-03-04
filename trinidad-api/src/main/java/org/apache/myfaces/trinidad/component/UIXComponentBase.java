@@ -30,8 +30,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.el.ELContext;
@@ -264,8 +262,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
-
   /**
    */
   @Override
@@ -285,7 +281,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return getFacesBean().getValueBinding(key);
   }
 
-
   @Override
   public void setValueBinding(String name, ValueBinding binding)
   {
@@ -295,7 +290,6 @@ abstract public class UIXComponentBase extends UIXComponent
     PropertyKey key = getPropertyKey(name);
     getFacesBean().setValueBinding(key, binding);
   }
-
 
   @Override
   public Map<String, Object> getAttributes()
@@ -348,8 +342,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return clientId;
   }
   
-
-
   @Override
   public String getClientId(FacesContext context)
   {
@@ -385,14 +377,13 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
   /**
    * Gets the identifier for the component.  This implementation
    * never returns a null id.
    */
   @Override
   public String getId()
-  {  
+  {
     // determine whether we can use the optimized code path or not
     if (_usesFacesBeanImpl)
     {
@@ -424,7 +415,6 @@ abstract public class UIXComponentBase extends UIXComponent
       return id;
     }
   }
-
 
   /**
    * Sets the identifier for the component.  The identifier
@@ -472,13 +462,11 @@ abstract public class UIXComponentBase extends UIXComponent
   @Override
   abstract public String getFamily();
 
-
   @Override
   public UIComponent getParent()
   {
     return _parent;
   }
-
 
   /**
    * <p>Set the parent <code>UIComponent</code> of this
@@ -511,13 +499,11 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
   @Override
   public boolean isRendered()
   {
     return getBooleanProperty(RENDERED_KEY, true);
   }
-
 
   @Override
   public void setRendered(boolean rendered)
@@ -567,7 +553,6 @@ abstract public class UIXComponentBase extends UIXComponent
     setProperty(RENDERER_TYPE_KEY, rendererType);
   }
 
-
   @Override
   public boolean getRendersChildren()
   {
@@ -578,12 +563,7 @@ abstract public class UIXComponentBase extends UIXComponent
     return renderer.getRendersChildren();
   }
 
-
-
-
   // ------------------------------------------------ Tree Management Methods
-
-
 
   @Override
   public UIComponent findComponent(String id)
@@ -655,8 +635,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
-
   /**
    * <p>Create (if necessary) and return a List of the children associated
    * with this component.</p>
@@ -679,7 +657,6 @@ abstract public class UIXComponentBase extends UIXComponent
       return getChildren().size();
   }
 
-
   /**
    * <p>Create (if necessary) and return a Map of the facets associated
    * with this component.</p>
@@ -694,7 +671,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return _facets;
   }
 
-
   @Override
   public UIComponent getFacet(String facetName)
   {
@@ -706,7 +682,6 @@ abstract public class UIXComponentBase extends UIXComponent
     else
       return getFacets().get(facetName);
   }
-
 
   /**
    * Returns an Iterator over the names of all facets.
@@ -795,9 +770,8 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
   // ------------------------------------------- Lifecycle Processing Methods
-
-
-  @Override
+  
+@Override
   public void decode(FacesContext context)
   {
     if (context == null)
@@ -1069,7 +1043,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return FacesContext.getCurrentInstance();
   }
 
-
   /**
    * Delegates to LifecycleRenderer, if present,
    * otherwise calls decodeChildrenImpl.
@@ -1103,7 +1076,6 @@ abstract public class UIXComponentBase extends UIXComponent
       kid.processDecodes(context);
     }
   }
-
 
   /**
    * Delegates to LifecycleRenderer, if present,
@@ -1139,7 +1111,6 @@ abstract public class UIXComponentBase extends UIXComponent
       kid.processValidators(context);
     }
   }
-
 
   /**
    * Delegates to LifecycleRenderer, if present,
@@ -1326,7 +1297,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return n.intValue();
   }
 
-
   /**
    * Return the number of facets.  This is more efficient than
    * calling getFacets().size();
@@ -1339,7 +1309,6 @@ abstract public class UIXComponentBase extends UIXComponent
 
     return _facets.size();
   }
-
 
   /**
    * Broadcast an event to a MethodBinding.
@@ -1493,7 +1462,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
   
-
   /**
    * Override to calls the hooks for setting up and tearing down the
    * context before the children are visited.
@@ -1506,7 +1474,7 @@ abstract public class UIXComponentBase extends UIXComponent
     String clientId,
     ContextCallback callback)
     throws FacesException
-  {    
+  {
     String thisClientId = getClientId(context);
 
     if (clientId.equals(thisClientId))
@@ -1616,7 +1584,6 @@ abstract public class UIXComponentBase extends UIXComponent
       component.encodeEnd(context);
     }
   }
-
 
   static private UIComponent _findInsideOf(
     UIComponent from,
@@ -1746,7 +1713,6 @@ abstract public class UIXComponentBase extends UIXComponent
   //private transient boolean _initialStateMarked;
 
   private static final Iterator<String> _EMPTY_STRING_ITERATOR = CollectionUtils.emptyIterator();
-
   private static final Iterator<UIComponent> _EMPTY_UICOMPONENT_ITERATOR =
                                                                   CollectionUtils.emptyIterator();
 
@@ -1801,6 +1767,9 @@ abstract public class UIXComponentBase extends UIXComponent
   {
   }
 
+  /**
+   * Temporary function controlling whether clientId caching is enabled
+   */
   private static boolean _isClientIdCachingEnabled(FacesContext context)
   {
     if (context == null)
@@ -1810,11 +1779,14 @@ abstract public class UIXComponentBase extends UIXComponent
     
     if (cacheClientIds == null)
     {
-      // see if client  is enabled for the application (the default is off)
-      boolean cachingEnabled = Boolean.TRUE.equals(
-                          context.getExternalContext().
-                          getApplicationMap().get(_INIT_PROP_CLIENT_ID_CACHING_ENABLED));
+      // get the servlet initialization parameter
+      String cachingParam = context.getExternalContext().getInitParameter(
+                                                             _INIT_PROP_CLIENT_ID_CACHING_ENABLED);
       
+      Boolean cachingEnabled  = (cachingParam != null)
+                                  ? Boolean.valueOf(cachingParam)
+                                  : Boolean.FALSE;  // default to false
+
       // cache the servlet initialization value
       _sClientIdCachingEnabled.set(cachingEnabled ? Boolean.TRUE : Boolean.FALSE);
 

@@ -316,10 +316,10 @@ abstract public class UIXComponent extends UIComponent
   * whose <code>visit</code> method will be called
   * for each node visited.
   * @return component implementations may return <code>true</code>
-  *   to indicate that the tree visit is complete (eg. all components
-  *   that need to be visited have been visited).  This results in
-  *   the tree visit being short-circuited such that no more components
-  *   are visited.
+  * to indicate that the tree visit is complete (eg. all components
+  * that need to be visited have been visited).  This results in
+  * the tree visit being short-circuited such that no more components
+  * are visited.
   *
   * @see VisitContext#invokeVisitCallback VisitContext.invokeVisitCallback()
   */
@@ -858,7 +858,7 @@ abstract public class UIXComponent extends UIComponent
     {
       CoreRenderer coreRenderer = (CoreRenderer)renderer;
 
-      coreRenderer.setupEncodingContext(context, rc, this);
+      coreRenderer.setupEncodingContext(context, rc, (UIComponent)this);
     }
   }
 
@@ -912,7 +912,7 @@ abstract public class UIXComponent extends UIComponent
       {
         CoreRenderer coreRenderer = (CoreRenderer)renderer;
 
-        coreRenderer.tearDownEncodingContext(context, rc, this);
+        coreRenderer.tearDownEncodingContext(context, rc, (UIComponent)this);
       }
     }
     finally
