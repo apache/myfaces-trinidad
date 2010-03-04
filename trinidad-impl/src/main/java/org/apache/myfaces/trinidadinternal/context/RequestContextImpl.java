@@ -45,6 +45,8 @@ import org.apache.myfaces.trinidad.change.NullChangeManager;
 import org.apache.myfaces.trinidad.change.SessionChangeManager;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 import javax.faces.component.visit.VisitContext;
+import javax.faces.view.ViewDeclarationLanguage;
+
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.Agent;
@@ -64,6 +66,7 @@ import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactory;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
+import org.apache.myfaces.trinidadinternal.application.InternalViewHandlingStrategy;
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
 import org.apache.myfaces.trinidadinternal.application.ViewHandlerImpl;
 import org.apache.myfaces.trinidadinternal.el.FormatterMap;
@@ -723,7 +726,10 @@ public class RequestContextImpl extends RequestContext
     if (root == null)
       return false;
 
-    return ViewHandlerImpl.isInternalViewId(context, root.getViewId());
+    ViewDeclarationLanguage strategy = context.getApplication().
+                          getViewHandler().getViewDeclarationLanguage(context, root.getViewId()); 
+    
+    return (strategy instanceof InternalViewHandlingStrategy);
   }
 
   @Override

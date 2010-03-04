@@ -27,9 +27,9 @@ import javax.faces.render.RenderKitFactory;
 import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderKitBootstrap;
 
-public class ViewHandlerImplTest extends FacesTestCase
+public class ViewDeclarationLanguageFactoryImplTest extends FacesTestCase
 {
-  public ViewHandlerImplTest(
+  public ViewDeclarationLanguageFactoryImplTest(
     String testName)
   {
     super(testName);
@@ -49,26 +49,28 @@ public class ViewHandlerImplTest extends FacesTestCase
   
   public static Test suite()
   {
-    return new TestSuite(ViewHandlerImplTest.class);
+    return new TestSuite(ViewDeclarationLanguageFactoryImplTest.class);
   }
 
   public void testInternalView() throws Throwable
   {
-    ViewHandlerImpl vh = new ViewHandlerImpl(new NullViewHandler());
+    ViewDeclarationLanguageFactoryImpl vdlf = 
+        new ViewDeclarationLanguageFactoryImpl(new NullViewDeclarationLanguageFactory());
     RenderKitBootstrap.setFactories(null);
     try
     {
       UIViewRoot viewRoot = new UIViewRoot();
-      viewRoot.setViewId("/testURL");
+      String viewId = "/testURL";
+      viewRoot.setViewId(viewId);
       viewRoot.setRenderKitId(RenderKitFactory.HTML_BASIC_RENDER_KIT);
       facesContext.setViewRoot(viewRoot);
-      vh.renderView(facesContext, viewRoot);
+      vdlf.getViewDeclarationLanguage(viewId).renderView(facesContext, viewRoot);
       assertEquals("render", __internalViewCalled);
 
-      vh.restoreView(facesContext, "/testURL");
+      vdlf.getViewDeclarationLanguage(viewId).restoreView(facesContext, viewId);
       assertEquals("restore", __internalViewCalled);
 
-      vh.createView(facesContext, "/testURL");
+      vdlf.getViewDeclarationLanguage(viewId).createView(facesContext, viewId);
       assertEquals("create", __internalViewCalled);
     }
     finally 
