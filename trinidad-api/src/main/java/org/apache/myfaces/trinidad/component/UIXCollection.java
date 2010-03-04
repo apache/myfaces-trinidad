@@ -812,7 +812,10 @@ public abstract class UIXCollection extends UIXComponentBase
     // ensure the client IDs are reset on the component, otherwise they will not get the
     // proper stamped IDs. This mirrors the behavior in UIData and follows the JSF specification
     // on when client IDs are allowed to be cached and when they must be reset
-    clearCachedClientIds();
+    List<UIComponent> stamps = getStamps();
+    
+    for (UIComponent stamp : stamps)
+      UIXComponent.clearCachedClientIds(stamp);
   }
 
   /**

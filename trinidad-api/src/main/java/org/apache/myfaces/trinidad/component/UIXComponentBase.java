@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.MethodExpression;
@@ -346,28 +348,39 @@ abstract public class UIXComponentBase extends UIXComponent
     return clientId;
   }
 
-
   @Override
   public String getClientId(FacesContext context)
   {
-    return _calculateClientId(context);
-/* TODO put back in when we fix all of the clientID caching issues
-    String clientId = _clientId;
-    
-    if (clientId == null)
+    if (_isClientIdCachingEnabled(context))
     {
-      clientId = _calculateClientId(context);
+      String clientId = _clientId;
       
-      if (_usesFacesBeanImpl)
-        _clientId = clientId;
+      if (clientId == null)
+      {
+        clientId = _calculateClientId(context);
+        
+        if (_usesFacesBeanImpl)
+        {
+          _clientId = clientId;
+        }
+      }
+      else
+      {
+        // for now validate success by checking the cached result against the dynamically
+        // generated result
+        String realID = _calculateClientId(context);
+        
+        if (!clientId.equals(realID))
+          throw new IllegalStateException(
+        "cached client id " + clientId + " for " + this + " doesn't match client id:" + realID);
+      }
+    
+      return clientId;
     }
     else
     {
-      assert clientId.equals(_calculateClientId(context)) :
-      "cached client id " + _clientId + " for " + this + " doesn't match client id:" + _calculateClientId(context);
+      return _calculateClientId(context);
     }
-    return clientId;
-*/
   }
 
   /**
@@ -421,8 +434,6 @@ abstract public class UIXComponentBase extends UIXComponent
   @Override
   public void setId(String id)
   {
-    _clientId = null;
-
     FacesBean facesBean = getFacesBean();
 
     // if we are using a FacesBeanImpl, then the FacesBean will
@@ -450,6 +461,8 @@ abstract public class UIXComponentBase extends UIXComponent
       _validateId(id);
       facesBean.setProperty(ID_KEY, id);      
     }
+
+    _clientId = null;
   }
 
   @Override
@@ -464,7 +477,7 @@ abstract public class UIXComponentBase extends UIXComponent
   /**
    * <p>Set the parent <code>UIComponent</code> of this
    * <code>UIComponent</code>.</p>
-   * 
+   *
    * @param parent The new parent, or <code>null</code> for the root node
    *  of a component tree
    */
@@ -472,33 +485,51 @@ abstract public class UIXComponentBase extends UIXComponent
   public void setParent(UIComponent parent)
   {
     // do we add this component ?
-    if (parent != null)
+    if (parent != _parent)
     {
-      // set the reference
-      _parent = parent;
-
-      if (parent.isInView())
+      if (parent != null)
       {
-        // trigger the ADD_EVENT and call setInView(true)
-        // recursive for all kids/facets...
-        // Application.publishEvent(java.lang.Class, java.lang.Object)  must be called, passing 
-        // PostAddToViewEvent.class as the first argument and the newly added component as the second 
-        // argument.
-        _publishPostAddToViewEvent(getFacesContext(), this);
+        // set the reference
+        _parent = parent;
+
+        if (parent.isInView())
+        {
+          // trigger the ADD_EVENT and call setInView(true)
+          // recursive for all kids/facets...
+          // Application.publishEvent(java.lang.Class, java.lang.Object)  must be called, passing 
+          // PostAddToViewEvent.class as the first argument and the newly added component as the second 
+          // argument.
+          _publishPostAddToViewEvent(getFacesContext(), this);
+        }
       }
-    }
-    else
-    {
-      if (_parent != null && _parent.isInView())
+      else
       {
-        // trigger the "remove event" lifecycle
-        // and call setInView(false) for all children/facets
-        // doing this => recursive
-        _publishPreRemoveFromViewEvent(getFacesContext(), this);
+        if (_parent != null && _parent.isInView())
+        {
+          // trigger the "remove event" lifecycle
+          // and call setInView(false) for all children/facets
+          // doing this => recursive
+          _publishPreRemoveFromViewEvent(getFacesContext(), this);
+        }
+
+        // (un)set the reference
+        _parent = parent;
       }
 
-      // (un)set the reference
-      _parent = parent;
+      // clear cached client ids if necessary
+      if (_clientId != null)
+      {
+        String newClientId = _calculateClientId(FacesContext.getCurrentInstance());
+        
+        // if our clientId changed as a result of being reparented (because we moved
+        // between NamingContainers for instance) then we need to clear out
+        // all of the cached client ids for our subtree
+        if (!_clientId.equals(newClientId))
+        {
+          clearCachedClientIds();
+          _clientId = newClientId;
+        }
+      }
     }
   }
 
@@ -771,7 +802,6 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     return true;
   }
-
 
   // ------------------------------------------- Lifecycle Processing Methods
 
@@ -1922,7 +1952,6 @@ abstract public class UIXComponentBase extends UIXComponent
   private Map<String, Object>      _attributes;
   private Map<String, UIComponent> _facets;
   private UIComponent              _parent;
-
   private String                   _id;
   private String                   _clientId;
   private boolean                  _usesFacesBeanImpl;
@@ -1992,6 +2021,44 @@ abstract public class UIXComponentBase extends UIXComponent
   static private class ExtendedRendererImpl extends ExtendedRenderer
   {
   }
+
+  /**
+   * Temporary function controlling whether clientId caching is enabled
+   */
+  private static boolean _isClientIdCachingEnabled(FacesContext context)
+  {
+    if (context == null)
+      throw new IllegalArgumentException("FacesContext is null");
+
+    Boolean cacheClientIds = _sClientIdCachingEnabled.get();
+    
+    if (cacheClientIds == null)
+    {
+      // get the servlet initialization parameter
+      String cachingParam = context.getExternalContext().getInitParameter(
+                                                             _INIT_PROP_CLIENT_ID_CACHING_ENABLED);
+      
+      Boolean cachingEnabled  = (cachingParam != null)
+                                  ? Boolean.valueOf(cachingParam)
+                                  : Boolean.FALSE;  // default to false
+
+      // cache the servlet initialization value
+      _sClientIdCachingEnabled.set(cachingEnabled ? Boolean.TRUE : Boolean.FALSE);
+
+      return cachingEnabled;
+    }
+    else
+    {
+      return cacheClientIds.booleanValue();
+    }
+  }
+  
+  private static AtomicReference<Boolean> _sClientIdCachingEnabled = 
+                                                                 new AtomicReference<Boolean>(null);
+  
+  // temporary servlet initialization flag controlling whether client ID caching is enabled
+  private static final String _INIT_PROP_CLIENT_ID_CACHING_ENABLED = 
+                                      "org.apache.myfaces.trinidadinternal.ENABLE_CLIENT_ID_CACHING";
 
   static private final LifecycleRenderer _UNDEFINED_LIFECYCLE_RENDERER =
                                                 new ExtendedRendererImpl();

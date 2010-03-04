@@ -797,7 +797,7 @@ abstract public class UIXComponent extends UIComponent
     {
       CoreRenderer coreRenderer = (CoreRenderer)renderer;
 
-      coreRenderer.setupEncodingContext(context, rc, this);
+      coreRenderer.setupEncodingContext(context, rc, (UIComponent)this);
     }
   }
 
@@ -851,7 +851,7 @@ abstract public class UIXComponent extends UIComponent
       {
         CoreRenderer coreRenderer = (CoreRenderer)renderer;
 
-        coreRenderer.tearDownEncodingContext(context, rc, this);
+        coreRenderer.tearDownEncodingContext(context, rc, (UIComponent)this);
       }
     }
     finally
