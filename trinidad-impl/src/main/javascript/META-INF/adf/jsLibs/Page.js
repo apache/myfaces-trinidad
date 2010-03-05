@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,6 +18,9 @@
  */
 function TrPage()
 {
+  jsf.ajax.addOnError(TrUIUtils.createCallback(this, this._jsfAjaxErrorCallback));
+  jsf.ajax.addOnEvent(TrUIUtils.createCallback(this, this._jsfAjaxCallback));
+
   this._loadedLibraries = TrPage._collectLoadedLibraries();
   this._requestQueue = new TrRequestQueue(window);
 }
@@ -47,17 +50,29 @@ TrPage.prototype.getRequestQueue = function()
  * posts and, for multipart/form posts, IFRAME-based transmission.
  * @param actionForm{FormElement} the HTML form to post
  * @param params{Object} additional parameters to send
- * @param headerParams{Object} HTTP headers to include (ignored if 
+ * @param headerParams{Object} HTTP headers to include (ignored if
  *   the request must be a multipart/form post)
  */
 TrPage.prototype.sendPartialFormPost = function(
   actionForm,
   params,
-  headerParams)
+  headerParams,
+  event)
 {
+  var source = "";
+  if (params != null)
+    source = params.source;
+
+  // TODO: move this to the request queue
+  TrPage._delegateToJSFAjax(actionForm, source, event, params);
+
+
+  /** Delegating to jsf.ajax.request(). Do not call the Trinidad PPR request mechanism
+
   this.getRequestQueue().sendFormPost(
     this, this._requestStatusChanged,
     actionForm, params, headerParams);
+  */
 }
 
 TrPage.prototype._requestStatusChanged = function(requestEvent)
@@ -65,7 +80,7 @@ TrPage.prototype._requestStatusChanged = function(requestEvent)
   if (requestEvent.getStatus() == TrXMLRequestEvent.STATUS_COMPLETE)
   {
     var statusCode = requestEvent.getResponseStatusCode();
-    
+
     // The server might not return successfully, for example if an
     // exception is thrown.  When that happens, a non-200 (OK) status
     // code is returned as part of the HTTP prototcol.
@@ -108,7 +123,7 @@ TrPage.prototype._requestStatusChanged = function(requestEvent)
 TrPage.prototype._handlePprResponse = function(documentElement)
 {
   var rootNodeName = TrPage._getNodeName(documentElement);
-  
+
   if (rootNodeName == "content")
   {
     // Update the form action
@@ -116,15 +131,15 @@ TrPage.prototype._handlePprResponse = function(documentElement)
 
     var childNodes = documentElement.childNodes;
     var length = childNodes.length;
-    
+
     for (var i = 0; i < length; i++)
     {
       var childNode = childNodes[i];
       var childNodeName = TrPage._getNodeName(childNode);
-      
+
       if (childNodeName == "fragment")
-      {     
-        this._handlePprResponseFragment(childNode);  
+      {
+        this._handlePprResponseFragment(childNode);
       }
       else if (childNodeName == "script")
       {
@@ -150,7 +165,7 @@ TrPage.prototype._handlePprResponse = function(documentElement)
     if (nodeText == null)
       nodeText = "Unknown error during PPR";
     alert(nodeText);
-  }  
+  }
   else if (rootNodeName == "noop")
   {
     // No op
@@ -263,7 +278,7 @@ TrPage.prototype._resetForm = function(form)
     if (eval(trueResetCallback))
       doReload = true;
   }
-  
+
   return doReload;
 }
 
@@ -284,11 +299,11 @@ TrPage.prototype._handlePprResponseAction = function(contentNode)
 
   if (action)
   {
-    var doc = window.document;    
+    var doc = window.document;
 
     // Replace the form action used by the next postback
     // Particularly important for PageFlowScope which might
-    // change value of the pageflow scope token url parameter.    
+    // change value of the pageflow scope token url parameter.
     // TODO: track submitted form name at client, instead of
     // just updating the first form
     doc.forms[0].action = action;
@@ -433,14 +448,14 @@ TrPage._isDomAncestorOf = function(child, parent)
       break;
     child = parentOfChild;
   }
-  
+
   return false;
 }
 
 
 /**
- * Replaces the a dom element contained in a peer. 
- * 
+ * Replaces the a dom element contained in a peer.
+ *
  * @param newElement{DOMElement} the new dom element
  * @param oldElement{DOMElement} the old dom element
  */
@@ -448,8 +463,8 @@ TrPage.prototype.__replaceDomElement = function(newElement, oldElement)
 {
   oldElement.parentNode.replaceChild(newElement, oldElement);
 }
-  
-// Extracts the text contents from a rich response fragment node and 
+
+// Extracts the text contents from a rich response fragment node and
 // creates an HTML element for the first element that is found.
 TrPage.prototype._getFirstElementFromFragment = function(fragmentNode)
 {
@@ -466,14 +481,14 @@ TrPage.prototype._getFirstElementFromFragment = function(fragmentNode)
   var outerHTML = cdataNode.data;
 
   // We get our html node by slamming the fragment contents into a div.
-  var doc = window.document;  
+  var doc = window.document;
   var div = doc.createElement("div");
 
   // Slam the new HTML content into the div to create DOM
   div.innerHTML = outerHTML;
-  
+
   return TrPage._getFirstElementWithId(div);
-  
+
 }
 
 // Returns the first element underneath the specified dom node
@@ -483,7 +498,7 @@ TrPage._getFirstElementWithId = function(domNode)
 
   var childNodes = domNode.childNodes;
   var length = childNodes.length;
-  
+
   for (var i = 0; i < length; i++)
   {
     var childNode = childNodes[i];
@@ -512,7 +527,7 @@ TrPage.prototype._loadScript = function(source)
   var loadedLibraries = this._loadedLibraries;
   if (loadedLibraries[source])
     return;
-    
+
   loadedLibraries[source] = true;
   var xmlHttp = new TrXMLRequest();
   xmlHttp.setSynchronous(true);
@@ -569,11 +584,11 @@ TrPage._getTextContent = function(element)
     var textContent = element.innerText;
     if (textContent == undefined)
       textContent = element.text;
-        
+
     return textContent;
   }
 
-  // Safari doesn't have "innerText", "text" or "textContent" - 
+  // Safari doesn't have "innerText", "text" or "textContent" -
   // (at least not for XML nodes).  So sum up all the text children
   if (_agent.isSafari)
   {
@@ -666,12 +681,12 @@ TrPage.prototype.removeDomReplaceListener = function(listener, instance)
   // remove the listener/instance combination
   var domReplaceListeners = this._domReplaceListeners;
   var length = domReplaceListeners.length;
-  
+
   for (var i = 0; i < length; i++)
   {
     var currListener = domReplaceListeners[i];
     i++;
-    
+
     if (currListener == listener)
     {
       var currInstance = domReplaceListeners[i];
@@ -682,17 +697,17 @@ TrPage.prototype.removeDomReplaceListener = function(listener, instance)
       }
     }
   }
-  
+
   // remove array, if empty
   if (domReplaceListeners.length == 0)
   {
     this._domReplaceListeners = null;
   }
 }
- 
+
 /**
  * Adds the styleClassMap entries to the existing internal
- * styleClassMap. Styles can then be accessed via the 
+ * styleClassMap. Styles can then be accessed via the
  * getStyleClass function.
  * @param styleClassMap() {key: styleClass, ...}
  */
@@ -708,7 +723,7 @@ TrPage.prototype.addStyleClassMap = function(styleClassMap)
   for (var key in styleClassMap)
     this._styleClassMap[key] = styleClassMap[key];
 }
- 
+
 /**
  * Return the styleClass for the given key.
  * @param key(String) Unique key to retrieve the styleClass
@@ -728,7 +743,7 @@ TrPage.prototype.getStyleClass = function(key)
 
 /**
  * Causes a partial submit to occur on a given component.  The specified
- * component will always be validated first (if appropriate), then optionally 
+ * component will always be validated first (if appropriate), then optionally
  * the whole form, prior to submission.
  * @param formId(String) Id of the form to partial submit.
  * @param inputId(String) Id of the element causing the partial submit.  If this
@@ -747,8 +762,9 @@ TrPage._autoSubmit = function(formId, inputId, event, validateForm, params)
       event = window.event;
   }
 
-  // If onchange is used for validation, then first validate 
+  // If onchange is used for validation, then first validate
   // just the current input
+
   var isValid = true;
   if (_TrEventBasedValidation)
     isValid = _validateInput(event, true);
@@ -760,7 +776,169 @@ TrPage._autoSubmit = function(formId, inputId, event, validateForm, params)
       params = new Object();
     params.event = "autosub";
     params.source = inputId;
-  
-    _submitPartialChange(formId, validateForm, params);
+
+    _submitPartialChange(formId, validateForm, params, event);
   }
+}
+
+/**
+ * Causes a partial submit to occur on a given component using the jsf.ajax.request call. The
+ * specified component will not be validated (yet).
+ * @param formId(String) Id of the form to partial submit.
+ * @param inputId(String) Id of the element causing the partial submit.
+ * @param event(Event) The javascript event object.
+ * @param params(Object} additional parameters to send
+ */
+TrPage._delegateToJSFAjax = function(formId, inputId, event, params)
+{
+  var doc = window.document;
+  var source = _getElementById(doc, inputId);
+
+  if (!params)
+    params = {};
+
+  // TODO: add execute and render targets??
+  jsf.ajax.request(source, event, params);
+}
+
+TrPage.prototype._jsfAjaxCallback = function(data)
+{
+  // TODO: move this code into the request queue to stop this gross infringement
+  // of encapsulation
+  switch (data.status)
+  {
+    case "begin":
+      this._requestQueue._state = TrRequestQueue.STATE_BUSY;
+      this._requestQueue._broadcastStateChangeEvent(this._requestQueue._state);
+      break;
+    case "success":
+      var oldElems = this._ajaxOldDomElements;
+      try
+      {
+        this._notifyDomReplacementListeners(oldElems);
+      }
+      finally
+      {
+        delete this._ajaxOldDomElements;
+      }
+      if (this._activeNode)
+      {
+        var activeNode = this._activeNode;
+        delete this._activeNode;
+        var index = -1;
+        if (activeNode.id)
+        {
+          for (var i = 0, size = oldElems.length; i < size; ++i)
+          {
+            if (TrPage._isDomAncestorOf(activeNode, oldElems[i].element))
+            {
+              index = i;
+              break;
+            }
+          }
+          if (index >= 0)
+          {
+            activeNode = document.getElementById(activeNode.id);
+            window._trActiveElement = activeNode;
+            if (activeNode)
+            {
+              activeNode.focus();
+            }
+          }
+        }
+      }
+      this._requestQueue._state = TrRequestQueue.STATE_READY;
+      this._requestQueue._broadcastStateChangeEvent(this._requestQueue._state);
+      break;
+    case "complete": default:
+      _pprStopBlocking(window);
+      // Collect the DOM elements that will be replaced to be able to fire the
+      // DOM replacement events
+      this._ajaxOldDomElements = this._getDomToBeUpdated(data.responseCode, data.responseXML);
+      this._activeNode = _getActiveElement();
+      break;
+  }
+}
+
+TrPage.prototype._jsfAjaxErrorCallback = function(data)
+{
+  // TODO: move this code into the request queue to stop this gross infringement
+  // of encapsulation
+  this._requestQueue._state = TrRequestQueue.STATE_READY;
+  this._requestQueue._broadcastStateChangeEvent(this._requestQueue._state);
+  delete this._ajaxOldDomElements;
+  delete this._activeNode;
+}
+
+TrPage.prototype._notifyDomReplacementListeners = function(dataArray)
+{
+  var listeners = this._domReplaceListeners;
+  if (!listeners || listeners.length == 0)
+  {
+    return;
+  }
+  for (var i = 0, isize = dataArray.length; i < isize; ++i)
+  {
+    var oldElem = dataArray[i].element;
+    var id = dataArray[i].id;
+    var newElem = id == null ? document.body : document.getElementById(id);
+    for (var j = 0, jsize = listeners.length; j < jsize; ++j)
+    {
+      var currListener = listeners[j];
+      var currInstance = listeners[++j];
+      if (currInstance != null)
+      {
+        currListener.call(currInstance, oldElem, newElem);
+      }
+      else
+      {
+        currListener(oldElem, newElem);
+      }
+    }
+  }
+}
+
+TrPage.prototype._getDomToBeUpdated = function(status, responseXML)
+{
+  // check for a successful request
+  if (status < 200 || status >= 300)
+  {
+    return null;
+  }
+  // see if the response contains changes (not a redirect for example)
+  var nodes = responseXML.getElementsByTagName("partial-response");
+  var responseTypeNode = nodes.length ? nodes[0].firstChild : null;
+  if (!responseTypeNode || responseTypeNode.nodeName !== "changes")
+  {
+    return null;
+  }
+
+  var changeNodes = responseTypeNode.childNodes;
+  var oldElements = [];
+  for (var i = 0, size = changeNodes.length; i < size; ++i)
+  {
+    var node = changeNodes[i];
+    if (node.nodeName !== "update")
+    {
+      // We only care about updates as that is what Trinidad supported for the DOM
+      // replacement notification API
+      continue;
+    }
+
+    var id = node.getAttribute("id");
+    if (id == "javax.faces.ViewState")
+    {
+      continue;
+    }
+    if (id == "javax.faces.ViewRoot" || id == "javax.faces.ViewBody")
+    {
+      oldElements.push({ "id": null, "element": document.body });
+    }
+    else
+    {
+      oldElements.push({ "id": id, "element": document.getElementById(id) });
+    }
+  }
+
+  return oldElements;
 }
