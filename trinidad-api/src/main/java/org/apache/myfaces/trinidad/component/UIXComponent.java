@@ -28,7 +28,6 @@ import javax.el.MethodExpression;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
@@ -352,9 +351,23 @@ abstract public class UIXComponent extends UIComponent
     VisitContext visitContext,
     VisitCallback callback)
   {
+    // visit all of the chikldren of the component
+    return _visitAllChildren(visitContext, callback);
+  }
+ 
+  /**
+   * Default implementation of visiting children that visits all children without iterating
+   * @param visitContext the <code>VisitContext</code> for this visit
+   * @param callback the <code>VisitCallback</code> instance
+   * @return <code>true</code> if the visit is complete.
+   */
+  private boolean _visitAllChildren(
+    VisitContext visitContext,
+    VisitCallback callback)
+  {
     // visit the children of the component
     Iterator<UIComponent> kids = getFacetsAndChildren();
-
+  
     while(kids.hasNext())
     {
       // If any kid visit returns true, we are done.
@@ -366,7 +379,7 @@ abstract public class UIXComponent extends UIComponent
     
     return false;
   }
-  
+   
   /**
    * Returns <code>true</code> if the components are being visited
    * for the purpose of encoding.
@@ -475,7 +488,15 @@ abstract public class UIXComponent extends UIComponent
             
             try
             {
-              doneVisiting =  uixComponent.visitChildren(visitContext, callback);
+              // determine whether this visit should be iterating.  If it shouldn't, don't
+              // even call the protected hook.  We currently don't iterate during the
+              // restore view phase when we are visiting all of the components.
+              boolean noIterate = (visitContext.getIdsToVisit() == VisitContext.ALL_IDS) &&
+                                  (context.getCurrentPhaseId() == PhaseId.RESTORE_VIEW);
+                
+              doneVisiting =  (noIterate)
+                                ? uixComponent._visitAllChildren(visitContext, callback)
+                                : uixComponent.visitChildren(visitContext, callback);
             }
             finally
             {
