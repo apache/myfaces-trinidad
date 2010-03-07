@@ -1607,8 +1607,18 @@ abstract public class UIXComponentBase extends UIXComponent
 
     if (clientId.equals(thisClientId))
     {
-      // this is the component we want, so invoke the callback
-      callback.invokeContextCallback(context, this);
+      pushComponentToEL(context, null);
+      
+      try
+      {
+        // this is the component we want, so invoke the callback
+        callback.invokeContextCallback(context, this);
+      }
+      finally
+      {
+        popComponentFromEL(context);
+      }
+
       return true;
     }
     else
@@ -1659,7 +1669,18 @@ abstract public class UIXComponentBase extends UIXComponent
 
     if (clientId.equals(thisClientId))
     {
-      callback.invokeContextCallback(context, this);
+      pushComponentToEL(context, null);
+      
+      try
+      {
+        // this is the component we want, so invoke the callback
+        callback.invokeContextCallback(context, this);
+      }
+      finally
+      {
+        popComponentFromEL(context);
+      }
+
       return true;
     }
     else

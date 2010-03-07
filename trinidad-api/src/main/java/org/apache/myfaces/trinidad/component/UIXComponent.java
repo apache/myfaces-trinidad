@@ -165,6 +165,8 @@ abstract public class UIXComponent extends UIComponent
       else
       {
         // not a FlattenedComponent, pass the component directly to the ComponentProcessor
+        child.pushComponentToEL(context, null);
+        
         try
         {
           childProcessor.processComponent(context, cpContext, child, callbackContext);
@@ -173,6 +175,7 @@ abstract public class UIXComponent extends UIComponent
         {
           // if startDepth is > 0, only the first visible child will be marked as starting a group
           cpContext.resetStartDepth();
+          child.popComponentFromEL(context);
         }
 
         return true;
@@ -433,104 +436,118 @@ abstract public class UIXComponent extends UIComponent
       if (!uixComponent.isVisitable(visitContext))
         return false;
   
-      RenderingContext rc = (_isEncodingVisit(visitContext))
-                              ? RenderingContext.getCurrentInstance()
-                              : null;
-  
-  
-      // UIXComponents are allowed to set up their context differently for encoding
-      // than normal processing, so behave differently if this is the RenderResponse
-      // phase
-      if (rc != null)
-      {
-        uixComponent.setupEncodingContext(context, rc);
-      }
-      else
-      {
-        uixComponent.setupVisitingContext(context);
-      }
-  
-      VisitResult visitResult = VisitResult.REJECT;
+      // set up the EL Context with the component.  Note that since we do this after call
+      // isVisitable, any attributes retrieved (liek rendered) that are bound with EL referring
+      // to the current component will be evaluated correctly, however, in the specific case
+      // of rendered, rendered already has this problem in normal JSF traversal since it 
+      // is evaluated by the parent component
+      component.pushComponentToEL(context, null);
+
       boolean doneVisiting = false;
       
       try
       {
-        // invoke the callback for this component
-        visitResult = visitContext.invokeVisitCallback(component, callback);
-  
-        if (visitResult == VisitResult.COMPLETE)
-          doneVisiting = true;
-        else if (visitResult == VisitResult.ACCEPT)
+        RenderingContext rc = (_isEncodingVisit(visitContext))
+                                ? RenderingContext.getCurrentInstance()
+                                : null;
+    
+        // UIXComponents are allowed to set up their context differently for encoding
+        // than normal processing, so behave differently if this is the RenderResponse
+        // phase
+        if (rc != null)
         {
-          // now determine whether we need to visit the children      
-
-          // assume that all UIXComponent NamingContainers always act as NamingContainers,
-          // (unlike <h:form>) and this it is OK to put the optimization where we
-          // don't visit the children if we know that we don't have any ids in this
-          // subtree to visit
-          boolean skipChildren = (uixComponent instanceof NamingContainer) &&
-                                 visitContext.getSubtreeIdsToVisit(uixComponent).isEmpty();
-              
-          // visit the children of the component if we aren't supposed to skip them
-          if (!skipChildren)
-          {
-            // setup any context needed for visiting the children of the component as opposed
-            // to the component itself
-            if (rc != null)
-            {
-              uixComponent._setupChildrenEncodingContext(context, rc);
-            }
-            else
-            {
-              uixComponent.setupChildrenVisitingContext(context);
-            }
-            
-            
-            try
-            {
-              // determine whether this visit should be iterating.  If it shouldn't, don't
-              // even call the protected hook.  We currently don't iterate during the
-              // restore view phase when we are visiting all of the components.
-              boolean noIterate = (visitContext.getIdsToVisit() == VisitContext.ALL_IDS) &&
-                                  (context.getCurrentPhaseId() == PhaseId.RESTORE_VIEW);
-                
-              doneVisiting =  (noIterate)
-                                ? uixComponent._visitAllChildren(visitContext, callback)
-                                : uixComponent.visitChildren(visitContext, callback);
-            }
-            finally
-            {
-              // teardown any context initialized above
-              if (rc != null)
-              {
-                uixComponent._tearDownChildrenEncodingContext(context, rc);
-              }
-              else
-              {
-                uixComponent.tearDownChildrenVisitingContext(context);
-              }
-            }
-          }
+          uixComponent.setupEncodingContext(context, rc);
         }
         else
         {
-          // don't visit the children
-          assert(visitResult == VisitResult.REJECT);
+          uixComponent.setupVisitingContext(context);
+        }
+    
+        VisitResult visitResult = VisitResult.REJECT;
+        
+        try
+        {
+          // invoke the callback for this component
+          visitResult = visitContext.invokeVisitCallback(component, callback);
+    
+          if (visitResult == VisitResult.COMPLETE)
+            doneVisiting = true;
+          else if (visitResult == VisitResult.ACCEPT)
+          {
+            // now determine whether we need to visit the children      
+  
+            // assume that all UIXComponent NamingContainers always act as NamingContainers,
+            // (unlike <h:form>) and this it is OK to put the optimization where we
+            // don't visit the children if we know that we don't have any ids in this
+            // subtree to visit
+            boolean skipChildren = (uixComponent instanceof NamingContainer) &&
+                                   visitContext.getSubtreeIdsToVisit(uixComponent).isEmpty();
+                
+            // visit the children of the component if we aren't supposed to skip them
+            if (!skipChildren)
+            {
+              // setup any context needed for visiting the children of the component as opposed
+              // to the component itself
+              if (rc != null)
+              {
+                uixComponent._setupChildrenEncodingContext(context, rc);
+              }
+              else
+              {
+                uixComponent.setupChildrenVisitingContext(context);
+              }
+              
+              
+              try
+              {
+                // determine whether this visit should be iterating.  If it shouldn't, don't
+                // even call the protected hook.  We currently don't iterate during the
+                // restore view phase when we are visiting all of the components.
+                boolean noIterate = (visitContext.getIdsToVisit() == VisitContext.ALL_IDS) &&
+                                    (context.getCurrentPhaseId() == PhaseId.RESTORE_VIEW);
+                  
+                doneVisiting =  (noIterate)
+                                  ? uixComponent._visitAllChildren(visitContext, callback)
+                                  : uixComponent.visitChildren(visitContext, callback);
+              }
+              finally
+              {
+                // teardown any context initialized above
+                if (rc != null)
+                {
+                  uixComponent._tearDownChildrenEncodingContext(context, rc);
+                }
+                else
+                {
+                  uixComponent.tearDownChildrenVisitingContext(context);
+                }
+              }
+            }
+          }
+          else
+          {
+            // don't visit the children
+            assert(visitResult == VisitResult.REJECT);
+          }
+        }
+        finally
+        {  
+         // tear down the context we set up in order to visit our component
+          if (rc != null)
+          {
+            uixComponent.tearDownEncodingContext(context, rc);
+          }
+          else
+          {
+            uixComponent.tearDownVisitingContext(context);
+          }
         }
       }
       finally
       {
-        // tear down the context we set up in order to visit our component
-        if (rc != null)
-        {
-          uixComponent.tearDownEncodingContext(context, rc);
-        }
-        else
-        {
-          uixComponent.tearDownVisitingContext(context);
-        }
+        component.popComponentFromEL(context);        
       }
-    
+      
       // if we got this far, we're not done
       return doneVisiting;
     }

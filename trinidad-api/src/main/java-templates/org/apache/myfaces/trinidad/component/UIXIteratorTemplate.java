@@ -86,7 +86,16 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       @Override
       protected void process(UIComponent kid, ComponentProcessingContext cpContext) throws IOException
       {
-        childProcessor.processComponent(context, cpContext, kid, callbackContext);
+        kid.pushComponentToEL(context, null);
+
+        try
+        {
+          childProcessor.processComponent(context, cpContext, kid, callbackContext);
+        }
+        finally
+        {
+          kid.popComponentFromEL(context);         
+        }
       }
     };
     boolean processedChildren = runner.run();

@@ -1095,7 +1095,17 @@ public abstract class UIXCollection extends UIXComponentBase
         _flushCachedModel();
       }
 
-      callback.invokeContextCallback(context, this);
+      pushComponentToEL(context, null);
+      
+      try
+      {
+        callback.invokeContextCallback(context, this);
+      }
+      finally
+      {
+        popComponentFromEL(context);
+      }
+      
       return true;
     }
     // If we're on a row, set the currency, and invoke
