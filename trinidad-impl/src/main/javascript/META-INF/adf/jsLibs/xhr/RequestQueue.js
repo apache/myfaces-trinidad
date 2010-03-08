@@ -31,6 +31,9 @@ function TrRequestQueue(domWindow)
 
   // Stash away the DOM window for later reference.
   this._window = domWindow;
+  // TODO: set this via a web.xml configuration parameter as well as checking for presense of the
+  // JSF library
+  this._useJsfBuiltInAjaxForXhr = (typeof jsf != "undefined");
 }
 
 // Class constants
@@ -57,7 +60,8 @@ TrRequestQueue._RequestItem = function(
   actionURL,
   headerParams,
   content,
-  method
+  method,
+  event
   )
 {
   this._type = type;
@@ -66,6 +70,7 @@ TrRequestQueue._RequestItem = function(
   this._headerParams = headerParams;
   this._content = content;
   this._method = method;
+  this._event = event;
 }
 
 TrRequestQueue.prototype._broadcastRequestStatusChanged = function(
@@ -92,11 +97,23 @@ TrRequestQueue.prototype._addRequestToQueue = function(
   listener,
   actionURL,
   content,
-  headerParams
+  headerParams,
+  event
   )
 {
   var newRequest = new TrRequestQueue._RequestItem(
-                          type, context, actionURL, headerParams, content, listener);
+                          type, context, actionURL, headerParams, content, listener, event);
+
+  if (this._useJsfBuiltInAjaxForXhr && type == TrRequestQueue._XMLHTTP_TYPE)
+  {
+    // Since JSF 2 already has a queue, we need not queue the request here, instead we should
+    // immediately process the request
+    this._state = TrRequestQueue.STATE_BUSY;
+    this._broadcastStateChangeEvent(TrRequestQueue.STATE_BUSY);
+    this._doXmlHttpRequest(newRequest);
+    return;
+  }
+
   this._requestQueue.push(newRequest);
 
   try
@@ -131,7 +148,8 @@ TrRequestQueue.prototype.sendFormPost = function(
   method,
   actionForm,
   params,
-  headerParams
+  headerParams,
+  event
   )
 {
   //this retrieves the action url for PPR.  Generally this will be the action property on
@@ -139,7 +157,7 @@ TrRequestQueue.prototype.sendFormPost = function(
   //expando property encoded as a ResourceUrl.  As such, if the expando is available, use it
   //for PPR
   var pprURL;
-  // In mobile browsers like windows mobile ie, getAttribute funtion throws an exception if 
+  // In mobile browsers like windows mobile ie, getAttribute funtion throws an exception if
   // actionForm doesn't contain the attribute "_trinPPRAction".
   try
   {
@@ -149,7 +167,7 @@ TrRequestQueue.prototype.sendFormPost = function(
   {
   }
   var action = pprURL?pprURL:actionForm.action;
-  
+
   if (this._isMultipartForm(actionForm))
   {
     // TODO: log a warning if we're dropping any headers?  Or
@@ -158,13 +176,24 @@ TrRequestQueue.prototype.sendFormPost = function(
   }
   else
   {
-    var content = this._getPostbackContent(actionForm, params);
-
     // IE BUG, see TRINIDAD-704
     if(_agent.isIE)
       this._autoCompleteForm(actionForm);
 
-    this.sendRequest(context, method, action, content, headerParams);
+    if (this._useJsfBuiltInAjaxForXhr)
+    {
+      // JSF 2 AJAX will take the parameters and it will determine the form
+      // content itself, so we should not convert the data to a string or
+      // gather the form values
+      // TODO: log a warning if we're dropping any headers?  Or
+      // come up with a hack to send "headers" via a multipart request?
+      this.sendRequest(context, method, action, params, headerParams, event);
+    }
+    else
+    {
+      var content = this._getPostbackContent(actionForm, params);
+      this.sendRequest(context, method, action, content, headerParams, event);
+    }
   }
 }
 
@@ -349,22 +378,25 @@ TrRequestQueue._appendUrlFormEncoded = function(
 
 /**
 * Performs Asynchronous XML HTTP Request with the Server
-* @param context    any object that is sent back to the callback when the request
+* @param context Any object that is sent back to the callback when the request
 *  is complete. This object can be null.
-* @param method   Javascript method
-* @param actionURL   the url to send the request to
-* @param headerParams  Option HTTP header parameters to attach to the request
-* @param content     the content of the Asynchronous XML HTTP Post
+* @param method Javascript method
+* @param actionURL The url to send the request to
+* @param headerParams Option HTTP header parameters to attach to the request
+* @param content The content of the Asynchronous XML HTTP Post
+* @param event The browser event that triggered the request, if any
 */
 TrRequestQueue.prototype.sendRequest = function(
   context,
   method,
   actionURL,
   content,
-  headerParams
+  headerParams,
+  event
   )
 {
-  this._addRequestToQueue(TrRequestQueue._XMLHTTP_TYPE, context, method, actionURL, content, headerParams);
+  this._addRequestToQueue(TrRequestQueue._XMLHTTP_TYPE, context, method, actionURL, content,
+    headerParams, event);
 }
 
 /**
@@ -411,30 +443,42 @@ TrRequestQueue.prototype._doRequest = function()
 
 TrRequestQueue.prototype._doXmlHttpRequest = function(requestItem)
 {
-  var xmlHttp = new TrXMLRequest();
+  var xmlHttp;
+  if (this._useJsfBuiltInAjaxForXhr)
+  {
+    xmlHttp = new TrXMLJsfAjaxRequest(requestItem._event, requestItem._content);
+  }
+  else
+  {
+    xmlHttp = new TrXMLRequest();
+  }
+
   xmlHttp.__dtsRequestContext = requestItem._context;
   xmlHttp.__dtsRequestMethod = requestItem._method;
   var callback = TrUIUtils.createCallback(this, this._handleRequestCallback);
   xmlHttp.setCallback(callback);
 
-  // xmlhttp request uses the same charset as its parent document's charset.
-  // There is no need to set the charset.
-  xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-  var headerParams = requestItem._headerParams;
-
-  if (headerParams != null)
+  if (!this._useJsfBuiltInAjaxForXhr)
   {
-    for (var headerName in headerParams)
+    // xmlhttp request uses the same charset as its parent document's charset.
+    // There is no need to set the charset.
+    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    var headerParams = requestItem._headerParams;
+
+    if (headerParams != null)
     {
-      var currHeader =  headerParams[headerName];
+      for (var headerName in headerParams)
+      {
+        var currHeader =  headerParams[headerName];
 
-      // handle array parameters by joining them together with comma separators
-      // Test if it's an array via the "join" method
-      if (currHeader["join"])
-        currHeader = currHeader.join(',')
+        // handle array parameters by joining them together with comma separators
+        // Test if it's an array via the "join" method
+        if (currHeader["join"])
+          currHeader = currHeader.join(',')
 
-      xmlHttp.setRequestHeader(headerName, currHeader);
+        xmlHttp.setRequestHeader(headerName, currHeader);
+      }
     }
   }
 
@@ -675,7 +719,7 @@ TrRequestQueue.prototype._handleRequestCallback = function(
     // the Http connection  has been closed
   }
 
-  if ((statusCode != 200) && (statusCode != 0))
+  if ((status < 200 || status >= 300) && (statusCode != 0))
   {
     TrRequestQueue._alertError();
     TrRequestQueue._logError("Error StatusCode(",

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,7 +20,7 @@
 /**
  * AJAX Request Event class. This object is passed back to the listeners
  * of a AJAX Service Request. It support ITrXMLRequestEvent pseudo-interface
- * with the following methods: getStatus, getResponseXML, getResponseText, 
+ * with the following methods: getStatus, getResponseXML, getResponseText,
  * isPprResponse, getResponseContentType
  */
 function TrXMLRequestEvent(
@@ -56,7 +56,7 @@ TrXMLRequestEvent.prototype.getResponseXML = function()
 * NOTE: this method is valid only for TrXMLRequestEvent.STATUS_COMPLETE
 **/
 TrXMLRequestEvent.prototype._isResponseValidXML = function()
-{         
+{
   // Note: Mozilla applies default XSLT to XML parse error
   var responseDocument = this._request.getResponseXML();
   if (!responseDocument)
@@ -81,7 +81,7 @@ TrXMLRequestEvent.prototype._isResponseValidXML = function()
 * NOTE: this method is valid only for TrXMLRequestEvent.STATUS_COMPLETE
 **/
 TrXMLRequestEvent.prototype.getResponseText = function()
-{  
+{
   return this._request.getResponseText();
 }
 
@@ -148,3 +148,11 @@ TrXMLRequestEvent.prototype.getResponseContentType = function()
 {
   this.getResponseHeader("Content-Type");
 }
+
+/**
+ * Returns if the request was made by the built in JSF AJAX APIs
+ */
+TrXMLRequestEvent.prototype.isJsfAjaxRequest = function()
+{
+  return (this._request instanceof TrXMLJsfAjaxRequest);
+};

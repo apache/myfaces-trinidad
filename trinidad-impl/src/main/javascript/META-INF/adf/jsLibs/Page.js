@@ -18,13 +18,14 @@
  */
 function TrPage()
 {
-  jsf.ajax.addOnError(TrUIUtils.createCallback(this, this._jsfAjaxErrorCallback));
-  jsf.ajax.addOnEvent(TrUIUtils.createCallback(this, this._jsfAjaxCallback));
+  if (typeof jsf != "undefined")
+  {
+    jsf.ajax.addOnEvent(TrUIUtils.createCallback(this, this._jsfAjaxCallback));
+  }
 
   this._loadedLibraries = TrPage._collectLoadedLibraries();
   this._requestQueue = new TrRequestQueue(window);
 }
-
 
 /**
  * Get the shared instance of the page object.
@@ -59,20 +60,9 @@ TrPage.prototype.sendPartialFormPost = function(
   headerParams,
   event)
 {
-  var source = "";
-  if (params != null)
-    source = params.source;
-
-  // TODO: move this to the request queue
-  TrPage._delegateToJSFAjax(actionForm, source, event, params);
-
-
-  /** Delegating to jsf.ajax.request(). Do not call the Trinidad PPR request mechanism
-
   this.getRequestQueue().sendFormPost(
     this, this._requestStatusChanged,
-    actionForm, params, headerParams);
-  */
+    actionForm, params, headerParams, event);
 }
 
 TrPage.prototype._requestStatusChanged = function(requestEvent)
@@ -82,9 +72,9 @@ TrPage.prototype._requestStatusChanged = function(requestEvent)
     var statusCode = requestEvent.getResponseStatusCode();
 
     // The server might not return successfully, for example if an
-    // exception is thrown.  When that happens, a non-200 (OK) status
-    // code is returned as part of the HTTP prototcol.
-    if (statusCode == 200)
+    // exception is thrown. When that happens, a status that is below
+    // 200 or 300 or above is returned as part of the HTTP prototcol.
+    if (statusCode >= 200 && statusCode < 300)
     {
       _pprStopBlocking(window);
 
@@ -101,7 +91,14 @@ TrPage.prototype._requestStatusChanged = function(requestEvent)
         // Nokia browser is officially supported.
         if (responseDocument != null)
         {
-          this._handlePprResponse(responseDocument.documentElement);
+          if (requestEvent.isJsfAjaxRequest())
+          {
+            this._handleJsfAjaxResponse(requestEvent);
+          }
+          else
+          {
+            this._handlePprResponse(responseDocument.documentElement);
+          }
         }
       }
       else
@@ -116,7 +113,59 @@ TrPage.prototype._requestStatusChanged = function(requestEvent)
       // wrong - we should do the handling here
       _pprStopBlocking(window);
     }
+  }
+  if (requestEvent.isJsfAjaxRequest())
+  {
+    this._handleJsfAjaxResponse(requestEvent);
+  }
+}
 
+TrPage.prototype._handleJsfAjaxResponse = function(requestEvent)
+{
+  try
+  {
+    var statusCode = requestEvent.getResponseStatusCode();
+    if (statusCode >= 200 && statusCode < 300)
+    {
+      if (this._ajaxOldDomElements)
+      {
+        this._notifyDomReplacementListeners(this._ajaxOldDomElements);
+      }
+
+      if (this._activeNode)
+      {
+        var activeNode = this._activeNode;
+        delete this._activeNode;
+        var index = -1;
+        if (activeNode.id)
+        {
+          for (var i = 0, size = this._ajaxOldDomElement.length; i < size; ++i)
+          {
+            if (TrPage._isDomAncestorOf(activeNode, this._ajaxOldDomElement[i].element))
+            {
+              index = i;
+              break;
+            }
+          }
+          if (index >= 0)
+          {
+            activeNode = document.getElementById(activeNode.id);
+            window._trActiveElement = activeNode;
+            if (activeNode)
+            {
+              activeNode.focus();
+            }
+          }
+        }
+      }
+    }
+    // TODO: do we need to do any additional processing here, for instance,
+    // error processing?
+  }
+  finally
+  {
+    delete this._ajaxOldDomElements;
+    delete this._activeNode;
   }
 }
 
@@ -781,93 +830,17 @@ TrPage._autoSubmit = function(formId, inputId, event, validateForm, params)
   }
 }
 
-/**
- * Causes a partial submit to occur on a given component using the jsf.ajax.request call. The
- * specified component will not be validated (yet).
- * @param formId(String) Id of the form to partial submit.
- * @param inputId(String) Id of the element causing the partial submit.
- * @param event(Event) The javascript event object.
- * @param params(Object} additional parameters to send
- */
-TrPage._delegateToJSFAjax = function(formId, inputId, event, params)
-{
-  var doc = window.document;
-  var source = _getElementById(doc, inputId);
-
-  if (!params)
-    params = {};
-
-  // TODO: add execute and render targets??
-  jsf.ajax.request(source, event, params);
-}
-
 TrPage.prototype._jsfAjaxCallback = function(data)
 {
-  // TODO: move this code into the request queue to stop this gross infringement
-  // of encapsulation
-  switch (data.status)
+  if (data.status == "complete")
   {
-    case "begin":
-      this._requestQueue._state = TrRequestQueue.STATE_BUSY;
-      this._requestQueue._broadcastStateChangeEvent(this._requestQueue._state);
-      break;
-    case "success":
-      var oldElems = this._ajaxOldDomElements;
-      try
-      {
-        this._notifyDomReplacementListeners(oldElems);
-      }
-      finally
-      {
-        delete this._ajaxOldDomElements;
-      }
-      if (this._activeNode)
-      {
-        var activeNode = this._activeNode;
-        delete this._activeNode;
-        var index = -1;
-        if (activeNode.id)
-        {
-          for (var i = 0, size = oldElems.length; i < size; ++i)
-          {
-            if (TrPage._isDomAncestorOf(activeNode, oldElems[i].element))
-            {
-              index = i;
-              break;
-            }
-          }
-          if (index >= 0)
-          {
-            activeNode = document.getElementById(activeNode.id);
-            window._trActiveElement = activeNode;
-            if (activeNode)
-            {
-              activeNode.focus();
-            }
-          }
-        }
-      }
-      this._requestQueue._state = TrRequestQueue.STATE_READY;
-      this._requestQueue._broadcastStateChangeEvent(this._requestQueue._state);
-      break;
-    case "complete": default:
-      _pprStopBlocking(window);
-      // Collect the DOM elements that will be replaced to be able to fire the
-      // DOM replacement events
-      this._ajaxOldDomElements = this._getDomToBeUpdated(data.responseCode, data.responseXML);
-      this._activeNode = _getActiveElement();
-      break;
+    // Collect the DOM elements that will be replaced to be able to fire the
+    // DOM replacement events.
+    // This information is used in the _handleJsfAjaxResponse function that is called
+    // as a result of the request queue firing the XMLRequestEvent.
+    this._ajaxOldDomElements = this._getDomToBeUpdated(data.responseCode, data.responseXML);
+    this._activeNode = _getActiveElement();
   }
-}
-
-TrPage.prototype._jsfAjaxErrorCallback = function(data)
-{
-  // TODO: move this code into the request queue to stop this gross infringement
-  // of encapsulation
-  this._requestQueue._state = TrRequestQueue.STATE_READY;
-  this._requestQueue._broadcastStateChangeEvent(this._requestQueue._state);
-  delete this._ajaxOldDomElements;
-  delete this._activeNode;
 }
 
 TrPage.prototype._notifyDomReplacementListeners = function(dataArray)
