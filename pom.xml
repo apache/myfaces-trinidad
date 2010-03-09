@@ -683,7 +683,6 @@
            
       <modules>
         <module>trinidad-assembly</module>
-        <module>trinidad-sandbox</module>
       </modules>
     </profile>
 
