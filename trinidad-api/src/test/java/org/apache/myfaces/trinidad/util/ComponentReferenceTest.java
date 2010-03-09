@@ -18,9 +18,9 @@
  */
 package org.apache.myfaces.trinidad.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -74,7 +74,7 @@ public class ComponentReferenceTest extends FacesTestCase
   }
 
   @SuppressWarnings("unchecked")
-  public void testFailoverOnCustomFacet()
+  public void testFailoverOnCustomFacet() throws IOException, ClassNotFoundException
   {
     UIViewRoot root = facesContext.getViewRoot();
     root.setId("root");
@@ -108,36 +108,26 @@ public class ComponentReferenceTest extends FacesTestCase
     
     // find it again!
     assertEquals(input, uiRef.getComponent());
+
     // fake the failover
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    ObjectOutputStream oos = new ObjectOutputStream(baos);
 
-    try 
-    {
-      FileOutputStream fos = new FileOutputStream("trinidad.failover");
-      ObjectOutputStream oos = new ObjectOutputStream(fos);
+    oos.writeObject(uiRef);
 
-      oos.writeObject(uiRef);
+    ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+    ObjectInputStream ois = new ObjectInputStream(bais);
 
-      FileInputStream fis = new FileInputStream("trinidad.failover");
-      ObjectInputStream ois = new ObjectInputStream(fis);
+    uiRef = (ComponentReference<UIInput>) ois.readObject();
 
-      uiRef = (ComponentReference<UIInput>) ois.readObject();
+    referencedComp = uiRef.getComponent();
+    assertEquals(input, referencedComp);
 
-      referencedComp = uiRef.getComponent();
-      assertEquals(input, referencedComp);
-
-      // clean up...
-      File failoverFile = new File("trinidad.failover");
-      failoverFile.delete();
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
   }
 
   
   @SuppressWarnings("unchecked")
-  public void testFailover()
+  public void testFailover() throws IOException, ClassNotFoundException
   {
     UIViewRoot root = facesContext.getViewRoot();
     root.setId("root");
@@ -154,30 +144,19 @@ public class ComponentReferenceTest extends FacesTestCase
     assertEquals(input1, referencedComp);
     
     // fake the failover
-    try 
-    {
-      FileOutputStream fos = new FileOutputStream("trinidad.failover");
-      ObjectOutputStream oos = new ObjectOutputStream(fos);
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    ObjectOutputStream oos = new ObjectOutputStream(baos);
 
-      oos.writeObject(uiRef);
+    oos.writeObject(uiRef);
+    oos.flush();
 
-      FileInputStream fis = new FileInputStream("trinidad.failover");
-      ObjectInputStream ois = new ObjectInputStream(fis);
+    ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+    ObjectInputStream ois = new ObjectInputStream(bais);
 
-      uiRef = (ComponentReference<UIInput>) ois.readObject();
+    uiRef = (ComponentReference<UIInput>) ois.readObject();
 
-      referencedComp = uiRef.getComponent();
-      assertEquals(input1, referencedComp);
-
-      // clean up...
-      File failoverFile = new File("trinidad.failover");
-      failoverFile.delete();
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
-    
+    referencedComp = uiRef.getComponent();
+    assertEquals(input1, referencedComp);
   }
 
   public void testEmptyViewRootOnGetComponent()

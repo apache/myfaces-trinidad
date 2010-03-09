@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidad.util;
 
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -407,7 +408,7 @@ public abstract class ComponentReference<T extends UIComponent> implements Seria
     return _createScopedId(scopedIdLength, scopedIdList, componentId);
   }
 
-  private Object writeReplace()
+  protected Object writeReplace() throws ObjectStreamException
   {
     // Only use the proxy when Serializing
     return new SerializationProxy(getScopedId());
@@ -575,7 +576,7 @@ public abstract class ComponentReference<T extends UIComponent> implements Seria
     private final String _componentId;
     private final String _scopedId;
 
-    private static final long serialVersionUID = 0L;
+    private static final long serialVersionUID = 1L;
   }
   
   /**
@@ -647,7 +648,7 @@ public abstract class ComponentReference<T extends UIComponent> implements Seria
     private transient volatile String _componentId;
     private volatile String _scopedId;
 
-    private static final long serialVersionUID = 0L;
+    private static final long serialVersionUID = 1L;
   }
 
   /**
@@ -667,7 +668,7 @@ public abstract class ComponentReference<T extends UIComponent> implements Seria
       
     private final String _scopedId;
 
-    private static final long serialVersionUID = 0L;
+    private static final long serialVersionUID = 1L;
   }
 
   private transient volatile List<Object> _componentPath;
@@ -675,5 +676,5 @@ public abstract class ComponentReference<T extends UIComponent> implements Seria
   private static final String _FINISH_INITIALIZATION_LIST_KEY = ComponentReference.class.getName() +
                                                                 "#FINISH_INITIALIZATION";
   
-  private static final long serialVersionUID = -6803949269368863899L;
+  private static final long serialVersionUID = -6803949693688638969L;
 }
