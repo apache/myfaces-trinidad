@@ -25,7 +25,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidad.util.URLUtils;
+
 
 /**
  * An InputStreamProvider for opening URLs.

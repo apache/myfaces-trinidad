@@ -20,6 +20,9 @@ package org.apache.myfaces.trinidadinternal.share.io;
 
 import java.util.Iterator;
 
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
+
+
 /**
  * A subinterface of InputStreamProvider that adds support
  * for tracking dependencies.
