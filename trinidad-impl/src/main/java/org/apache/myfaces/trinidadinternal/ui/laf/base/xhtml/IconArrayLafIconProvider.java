@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.awt.Color;
 
+import org.apache.myfaces.trinidad.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.Icon;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.IconKey;
@@ -27,7 +28,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.IconKey;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 
-import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**

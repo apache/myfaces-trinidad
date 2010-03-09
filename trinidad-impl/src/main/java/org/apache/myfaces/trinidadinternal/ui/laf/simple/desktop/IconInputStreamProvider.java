@@ -24,7 +24,7 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidad.skin.Icon;
 
 /**
