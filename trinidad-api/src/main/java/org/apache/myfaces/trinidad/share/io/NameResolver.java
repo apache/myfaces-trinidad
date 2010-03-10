@@ -47,7 +47,8 @@ public interface NameResolver
 
   /**
    * Return the new NameResolver that should be used to resolve
-   * names relative to a given name.  This function should never
+   * names relative to a given name. For example, if a css file has an @import,
+   * you need to look for the imported file relative to the file. This function should never
    * return null - if the target cannot be resolved, return a
    * resolver that can only support absolute names.
    * @param name the name of the target
