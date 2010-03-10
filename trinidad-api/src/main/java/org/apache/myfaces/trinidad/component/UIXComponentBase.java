@@ -1565,8 +1565,12 @@ abstract public class UIXComponentBase extends UIXComponent
 
   /**
    * Convenience method to call <code>invokeOnComponent</code> on all of the
-   * children of a component.  This is useful when a component sometimes optimizes
-   * away calling <code>invokeOnComponent</code> on its children
+   * children of a component, surrounding the invocation with calls to
+   * <code>setup/tearDownChildrenVisitingContext</code>.
+   * This is useful when a component sometimes optimizes
+   * away calling <code>invokeOnComponent</code> on its children.
+   * @see UIXComponent#setupChildrenVisitingContext
+   * @see UIXComponent#tearDownChildrenVisitingContext
    */
   protected final boolean invokeOnChildrenComponents(
     FacesContext context,
@@ -1574,15 +1578,25 @@ abstract public class UIXComponentBase extends UIXComponent
     ContextCallback callback)
     throws FacesException
   {
-    Iterator<UIComponent> children = getFacetsAndChildren();
+    setupChildrenVisitingContext(context);
 
     boolean found = false;
 
-    while (children.hasNext() && !found)
+    try
     {
-      found = children.next().invokeOnComponent(context, clientId, callback);
+      Iterator<UIComponent> children = getFacetsAndChildren();
+  
+  
+      while (children.hasNext() && !found)
+      {
+        found = children.next().invokeOnComponent(context, clientId, callback);
+      }
     }
-
+    finally
+    {
+      tearDownChildrenVisitingContext(context);
+    }
+    
     return found;
   }
 
@@ -1593,7 +1607,7 @@ abstract public class UIXComponentBase extends UIXComponent
    * NamingContainer's children is skipped.
    * </p>
    * <p>Subclasses implementing NamingContainer should override
-   * <code>invokeOnComponent</code> and delegate to this method.</p>
+   * <code>invokeOnComponent</code> and delegate to this method.
    */
   protected final boolean invokeOnNamingContainerComponent(
     FacesContext context,
@@ -1603,53 +1617,54 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     assert this instanceof NamingContainer : "Only use invokeOnNamingContainerComponent on NamingContainers";
 
-    String thisClientId = getClientId(context);
+    boolean invokedComponent;
 
-    if (clientId.equals(thisClientId))
+    setupVisitingContext(context);
+    
+    try
     {
-      pushComponentToEL(context, null);
-      
-      try
+      String thisClientId = getClientId(context);
+  
+      if (clientId.equals(thisClientId))
       {
-        // this is the component we want, so invoke the callback
-        callback.invokeContextCallback(context, this);
+        pushComponentToEL(context, null);
+        
+        try
+        {
+          // this is the component we want, so invoke the callback
+          callback.invokeContextCallback(context, this);
+        }
+        finally
+        {
+          popComponentFromEL(context);
+        }
+  
+        invokedComponent = true;
       }
-      finally
+      else
       {
-        popComponentFromEL(context);
+        // if this is a NamingContainer, only traverse into it if the clientId we are looking for
+        // is inside of it
+        if ((!clientId.startsWith(thisClientId) ||
+            (clientId.charAt(thisClientId.length()) != NamingContainer.SEPARATOR_CHAR)))
+        {
+          invokedComponent = false;
+        }
+        else
+        {
+          // setup the children visiting context and iterate through children.
+          // We inline this code instead of calling super in order
+          // to avoid making an extra call to getClientId().
+          invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
+        }
       }
-
-      return true;
     }
-    else
+    finally
     {
-      // if this is a NamingContainer, only traverse into it if the clientId we are looking for
-      // is inside of it
-      if ((!clientId.startsWith(thisClientId) ||
-          (clientId.charAt(thisClientId.length()) != NamingContainer.SEPARATOR_CHAR)))
-      {
-        return false;
-      }
-
-      boolean invokedComponent = false;
-
-      // set up the context for visiting the children
-      setupVisitingContext(context);
-
-      try
-      {
-        // iterate through children. We inline this code instead of calling super in order
-        // to avoid making an extra call to getClientId().
-        invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
-      }
-      finally
-      {
-        // teardown the context now that we have visited the children
-        tearDownVisitingContext(context);
-      }
-
-      return invokedComponent;
+      tearDownVisitingContext(context);
     }
+
+    return invokedComponent;
   }
 
   /**
@@ -1665,45 +1680,47 @@ abstract public class UIXComponentBase extends UIXComponent
     ContextCallback callback)
     throws FacesException
   {
-    String thisClientId = getClientId(context);
+    boolean invokedComponent;
+    
+    // set up the context for visiting the children
+    setupVisitingContext(context);
 
-    if (clientId.equals(thisClientId))
+    try
     {
-      pushComponentToEL(context, null);
-      
-      try
+      String thisClientId = getClientId(context);
+  
+      if (clientId.equals(thisClientId))
       {
-        // this is the component we want, so invoke the callback
-        callback.invokeContextCallback(context, this);
+        pushComponentToEL(context, null);
+        
+        try
+        {
+          // this is the component we want, so invoke the callback
+          callback.invokeContextCallback(context, this);
+        }
+        finally
+        {
+          popComponentFromEL(context);
+        }
+  
+        // we found the component
+        invokedComponent = true;
       }
-      finally
+      else
       {
-        popComponentFromEL(context);
-      }
-
-      return true;
-    }
-    else
-    {
-      boolean invokedComponent = false;
-
-      // set up the context for visiting the children
-      setupVisitingContext(context);
-
-      try
-      {
-        // iterate through children. We inline this code instead of calling super in order
+        // set up the children visiting context to iterate through children. We inline this
+        // code instead of calling super in order
         // to avoid making an extra call to getClientId().
         invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
       }
-      finally
-      {
-        // teardown the context now that we have visited the children
-        tearDownVisitingContext(context);
-      }
-
-      return invokedComponent;
     }
+    finally
+    {
+      // teardown the context now that we have visited the component
+      tearDownVisitingContext(context);      
+    }
+    
+    return invokedComponent;
   }
 
   // ------------------------- Client behavior holder methods -------------------------

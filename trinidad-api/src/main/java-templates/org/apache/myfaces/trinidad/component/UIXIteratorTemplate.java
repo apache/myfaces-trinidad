@@ -78,36 +78,57 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     final ComponentProcessor<S> childProcessor,
     final S callbackContext) throws IOException
   {
-    // Mimic what would normally happen in the non-flattening case for encodeBegin():
-    __processFlattenedChildrenBegin();
+    boolean processedChildren;
 
-    Runner runner = new IndexedRunner(cpContext)
+    setupVisitingContext(context);
+    
+    try
     {
-      @Override
-      protected void process(UIComponent kid, ComponentProcessingContext cpContext) throws IOException
+      // Mimic what would normally happen in the non-flattening case for encodeBegin():
+      __processFlattenedChildrenBegin();
+  
+      setupChildrenVisitingContext(context);
+      
+      try
       {
-        kid.pushComponentToEL(context, null);
-
-        try
+        Runner runner = new IndexedRunner(cpContext)
         {
-          childProcessor.processComponent(context, cpContext, kid, callbackContext);
-        }
-        finally
+          @Override
+          protected void process(UIComponent kid, ComponentProcessingContext cpContext) throws IOException
+          {
+            kid.pushComponentToEL(context, null);
+    
+            try
+            {
+              childProcessor.processComponent(context, cpContext, kid, callbackContext);
+            }
+            finally
+            {
+              kid.popComponentFromEL(context);         
+            }
+          }
+        };
+        
+        processedChildren = runner.run();
+        Exception exp = runner.getException();
+        if (exp != null)
         {
-          kid.popComponentFromEL(context);         
+          if (exp instanceof RuntimeException)
+            throw (RuntimeException) exp;
+    
+          if (exp instanceof IOException)
+            throw (IOException) exp;
+          throw new IllegalStateException(exp);
         }
       }
-    };
-    boolean processedChildren = runner.run();
-    Exception exp = runner.getException();
-    if (exp != null)
+      finally
+      {
+        tearDownChildrenVisitingContext(context);
+      }
+    }
+    finally
     {
-      if (exp instanceof RuntimeException)
-        throw (RuntimeException) exp;
-
-      if (exp instanceof IOException)
-        throw (IOException) exp;
-      throw new IllegalStateException(exp);
+      tearDownVisitingContext(context);
     }
     
     return processedChildren;

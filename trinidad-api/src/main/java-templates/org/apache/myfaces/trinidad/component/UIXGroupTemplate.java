@@ -58,12 +58,30 @@ abstract public class UIXGroupTemplate extends UIXComponentBase implements Flatt
     
     try
     {
-      // bump up the group depth and render all of the children
-      return UIXComponent.processFlattenedChildren(context,
-                                                   cpContext,
-                                                   childProcessor,
-                                                   this.getChildren(),
-                                                   callBackContext);
+      setupVisitingContext(context);
+      
+      try
+      {
+        setupChildrenVisitingContext(context);
+        
+        try
+        {
+          // bump up the group depth and render all of the children
+          return UIXComponent.processFlattenedChildren(context,
+                                                       cpContext,
+                                                       childProcessor,
+                                                       this.getChildren(),
+                                                       callBackContext);
+        }
+        finally
+        {
+          tearDownChildrenVisitingContext(context);
+        }
+      }
+      finally
+      {
+        tearDownVisitingContext(context);
+      }
     }
     finally
     {

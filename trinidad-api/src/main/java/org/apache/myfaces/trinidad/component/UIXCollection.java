@@ -1083,88 +1083,100 @@ public abstract class UIXCollection extends UIXComponentBase
                                    ContextCallback callback)
     throws FacesException
   {
-    String thisClientId = getClientId(context);
-    if (clientId.equals(thisClientId))
+    boolean invokedComponent;
+
+    setupVisitingContext(context);
+    
+    try
     {
-      if (!_getAndMarkFirstInvokeForRequest(context, clientId))
+      String thisClientId = getClientId(context);
+      if (clientId.equals(thisClientId))
       {
-        // Call _init() since _flushCachedModel() assumes that
-        // selectedRowKeys and disclosedRowKeys are initialized to be non-null
-        _init();
-
-        _flushCachedModel();
-      }
-
-      pushComponentToEL(context, null);
-      
-      try
-      {
-        callback.invokeContextCallback(context, this);
-      }
-      finally
-      {
-        popComponentFromEL(context);
-      }
-      
-      return true;
-    }
-    // If we're on a row, set the currency, and invoke
-    // inside
-    int thisClientIdLength = thisClientId.length();
-    if (clientId.startsWith(thisClientId) &&
-        (clientId.charAt(thisClientIdLength) == NamingContainer.SEPARATOR_CHAR))
-    {
-      setupVisitingContext(context);
-
-      try
-      {
-        if (!_getAndMarkFirstInvokeForRequest(context, thisClientId))
+        if (!_getAndMarkFirstInvokeForRequest(context, clientId))
         {
           // Call _init() since _flushCachedModel() assumes that
           // selectedRowKeys and disclosedRowKeys are initialized to be non-null
           _init();
-
+  
           _flushCachedModel();
         }
-
-        String postId = clientId.substring(thisClientIdLength + 1);
-        int sepIndex = postId.indexOf(NamingContainer.SEPARATOR_CHAR);
-        // If there's no separator character afterwards, then this
-        // isn't a row key
-        if (sepIndex < 0)
-          return invokeOnChildrenComponents(context, clientId, callback);
-        else
+  
+        pushComponentToEL(context, null);
+        
+        try
         {
-          String currencyString = postId.substring(0, sepIndex);
-          Object rowKey = getClientRowKeyManager().getRowKey(context, this, currencyString);
-
-          // A non-null rowKey here means we are on a row and we should set currency,  otherwise
-          // the client id is for a non-stamped child component in the table/column header/footer.
-          if (rowKey != null)
+          callback.invokeContextCallback(context, this);
+        }
+        finally
+        {
+          popComponentFromEL(context);
+        }
+        
+        invokedComponent = true;
+      }
+      else
+      {
+        // If we're on a row, set the currency, and invoke
+        // inside
+        int thisClientIdLength = thisClientId.length();
+        if (clientId.startsWith(thisClientId) &&
+            (clientId.charAt(thisClientIdLength) == NamingContainer.SEPARATOR_CHAR))
+        {    
+          if (!_getAndMarkFirstInvokeForRequest(context, thisClientId))
           {
-            Object oldRowKey = getRowKey();
-            try
+            // Call _init() since _flushCachedModel() assumes that
+            // selectedRowKeys and disclosedRowKeys are initialized to be non-null
+            _init();
+  
+            _flushCachedModel();
+          }
+  
+          String postId = clientId.substring(thisClientIdLength + 1);
+          int sepIndex = postId.indexOf(NamingContainer.SEPARATOR_CHAR);
+          // If there's no separator character afterwards, then this
+          // isn't a row key
+          if (sepIndex < 0)
+            return invokeOnChildrenComponents(context, clientId, callback);
+          else
+          {
+            String currencyString = postId.substring(0, sepIndex);
+            Object rowKey = getClientRowKeyManager().getRowKey(context, this, currencyString);
+  
+            // A non-null rowKey here means we are on a row and we should set currency,  otherwise
+            // the client id is for a non-stamped child component in the table/column header/footer.
+            if (rowKey != null)
             {
-              setRowKey(rowKey);
-              return invokeOnChildrenComponents(context, clientId, callback);
+              Object oldRowKey = getRowKey();
+              try
+              {
+                setRowKey(rowKey);
+                invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
+              }
+              finally
+              {
+                // And restore the currency
+                setRowKey(oldRowKey);
+              }
             }
-            finally
+            else
             {
-              // And restore the currency
-              setRowKey(oldRowKey);
+              invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
             }
           }
-          else
-            return invokeOnChildrenComponents(context, clientId, callback);
+        }
+        else
+        {
+          // clientId isn't in this subtree
+          invokedComponent = false;
         }
       }
-      finally
-      {
-        tearDownVisitingContext(context);
-      }
     }
-
-    return false;
+    finally
+    {
+      tearDownVisitingContext(context);
+    }
+    
+    return invokedComponent;
   }
 
   /**
