@@ -17,7 +17,6 @@ package org.apache.myfaces.trinidadinternal.lifecycle;
  * limitations under the License.
  */
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 

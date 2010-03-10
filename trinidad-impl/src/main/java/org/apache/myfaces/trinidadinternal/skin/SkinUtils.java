@@ -43,7 +43,7 @@ import javax.el.ValueExpression;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-
+import org.apache.myfaces.trinidad.share.io.NameResolver;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
@@ -61,7 +61,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaPortlet
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.share.xml.ClassParserFactory;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
 import org.apache.myfaces.trinidadinternal.share.xml.ParserFactory;

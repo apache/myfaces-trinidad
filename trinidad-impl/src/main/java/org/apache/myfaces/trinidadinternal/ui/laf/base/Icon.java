@@ -18,7 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
-import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidad.share.io.NameResolver;
 
 import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;

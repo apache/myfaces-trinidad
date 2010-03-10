@@ -122,6 +122,16 @@
   </managed-bean>
 
   <managed-bean>
+    <managed-bean-name>bindingTester</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.util.BindingTest
+    </managed-bean-class>
+    <managed-bean-scope>
+       request
+    </managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
     <managed-bean-name>germanHolidays</managed-bean-name>
     <managed-bean-class>
        org.apache.myfaces.trinidaddemo.GermanHolidayDateListProvider

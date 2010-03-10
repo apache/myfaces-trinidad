@@ -20,12 +20,11 @@ package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.IOException;
 
-import java.util.List;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidad.share.io.NameResolver;
 
 import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
-import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;

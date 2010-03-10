@@ -18,8 +18,9 @@
  */
 package org.apache.myfaces.trinidad.util;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -73,7 +74,7 @@ public class ComponentReferenceTest extends FacesTestCase
   }
 
   @SuppressWarnings("unchecked")
-  public void testFailoverOnCustomFacet()
+  public void testFailoverOnCustomFacet() throws IOException, ClassNotFoundException
   {
     UIViewRoot root = facesContext.getViewRoot();
     root.setId("root");
@@ -107,32 +108,26 @@ public class ComponentReferenceTest extends FacesTestCase
     
     // find it again!
     assertEquals(input, uiRef.getComponent());
+
     // fake the failover
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    ObjectOutputStream oos = new ObjectOutputStream(baos);
 
-    try 
-    {
-      FileOutputStream fos = new FileOutputStream("t.tmp");
-      ObjectOutputStream oos = new ObjectOutputStream(fos);
+    oos.writeObject(uiRef);
 
-      oos.writeObject(uiRef);
+    ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+    ObjectInputStream ois = new ObjectInputStream(bais);
 
-      FileInputStream fis = new FileInputStream("t.tmp");
-      ObjectInputStream ois = new ObjectInputStream(fis);
+    uiRef = (ComponentReference<UIInput>) ois.readObject();
 
-      uiRef = (ComponentReference<UIInput>) ois.readObject();
+    referencedComp = uiRef.getComponent();
+    assertEquals(input, referencedComp);
 
-      referencedComp = uiRef.getComponent();
-      assertEquals(input, referencedComp);
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
   }
 
   
   @SuppressWarnings("unchecked")
-  public void testFailover()
+  public void testFailover() throws IOException, ClassNotFoundException
   {
     UIViewRoot root = facesContext.getViewRoot();
     root.setId("root");
@@ -149,26 +144,19 @@ public class ComponentReferenceTest extends FacesTestCase
     assertEquals(input1, referencedComp);
     
     // fake the failover
-    try 
-    {
-      FileOutputStream fos = new FileOutputStream("t.tmp");
-      ObjectOutputStream oos = new ObjectOutputStream(fos);
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    ObjectOutputStream oos = new ObjectOutputStream(baos);
 
-      oos.writeObject(uiRef);
+    oos.writeObject(uiRef);
+    oos.flush();
 
-      FileInputStream fis = new FileInputStream("t.tmp");
-      ObjectInputStream ois = new ObjectInputStream(fis);
+    ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+    ObjectInputStream ois = new ObjectInputStream(bais);
 
-      uiRef = (ComponentReference<UIInput>) ois.readObject();
+    uiRef = (ComponentReference<UIInput>) ois.readObject();
 
-      referencedComp = uiRef.getComponent();
-      assertEquals(input1, referencedComp);
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
-    
+    referencedComp = uiRef.getComponent();
+    assertEquals(input1, referencedComp);
   }
 
   public void testEmptyViewRootOnGetComponent()
@@ -208,14 +196,17 @@ public class ComponentReferenceTest extends FacesTestCase
     // build the Tree...
     root.getChildren().add(input1);
 
+    ComponentReference ref = ComponentReference.newUIComponentReference(input1);
+
     // Get the ComponentReference util
     try
     {
-      ComponentReference.newUIComponentReference(input1);
+      ref.getComponent();
+      
       // find the component...
-      fail("IllegalArgumentException expected");
+      fail("IllegalStateException expected");
     }
-    catch (Exception e)
+    catch (IllegalStateException e)
     {
       // suppress it - this is as expected
     }
@@ -285,6 +276,38 @@ public class ComponentReferenceTest extends FacesTestCase
     assertNull(referencedComp);
   }
 
+  public void testDeferredMovingInsideNamingContainer()
+  {
+    UIViewRoot root = facesContext.getViewRoot();
+    root.setId("root");
+    UINamingContainer nc1 = new UINamingContainer(); nc1.setId("nc1");
+    UINamingContainer nc2 = new UINamingContainer(); nc2.setId("nc2");
+    UINamingContainer nc3 = new UINamingContainer(); nc3.setId("nc3");
+
+    // almost build the tree
+    nc1.getChildren().add(nc2);
+    nc2.getChildren().add(nc3);
+
+    // Get the ComponentReference util, this will be a deferred component reference since the
+    // component wasn't attached
+    ComponentReference<UINamingContainer> uiRef = ComponentReference.newUIComponentReference(nc3);
+
+    // now finish building the component tree
+    root.getChildren().add(nc1);
+
+    // find the component...
+    UINamingContainer referencedComp = uiRef.getComponent();
+    assertEquals(nc3, referencedComp);
+
+    // let's move the NC3 component one level up;
+    nc2.getChildren().remove(nc3);
+    nc1.getChildren().add(nc3);
+
+    // and we can not find the component...
+    referencedComp = uiRef.getComponent();
+    assertNull(referencedComp);
+  }
+
   public void testComponentNotInTree()
   {
     UINamingContainer nc1 = new UINamingContainer(); nc1.setId("nc1");
@@ -296,13 +319,16 @@ public class ComponentReferenceTest extends FacesTestCase
     nc2.getChildren().add(nc3);
 
     // Get the ComponentReference util
+    ComponentReference ref = ComponentReference.newUIComponentReference(nc3);
+
     try
     {
-      ComponentReference.newUIComponentReference(nc3);
       // find the component...
-      fail("IllegalArgumentException expected");
+      ref.getComponent();
+      
+      fail("IllegalStateException expected");
     }
-    catch (Exception e)
+    catch (IllegalStateException e)
     {
       // suppress it - this is as expected
     }

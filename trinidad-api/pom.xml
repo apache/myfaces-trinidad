@@ -254,4 +254,34 @@
 
     </plugins>
   </reporting>
+
+  <!-- 
+    This profile is for preparing a release....
+  -->
+  <profiles>
+    <profile>
+      <id>prepare-release</id>
+
+      <activation>
+        <property>
+          <name>prepareRelease</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

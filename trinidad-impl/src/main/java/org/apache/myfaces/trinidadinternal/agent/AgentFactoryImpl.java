@@ -715,6 +715,15 @@ public class AgentFactoryImpl implements AgentFactory
 
       int operaIndex = agent.indexOf("Opera/");
       int firstSpace = agent.indexOf(" ");
+            
+      // Opera Mobile running in HTC
+      if (agent.indexOf("HTC-") != -1 || 
+          agent.indexOf("HTC_") != -1 || 
+          agent.indexOf("XV6850") != -1)
+      {
+        firstSpace = agent.indexOf(" ", operaIndex);
+      }
+      
       if (operaIndex >= 0 && firstSpace >=0 )
       {
         agentObj.setAgentVersion(agent.substring(operaIndex + 6,firstSpace));

@@ -22,7 +22,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
@@ -383,9 +383,9 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot
 
         form.encodeBegin(facesContext);
         FormData formData = renderingContext.getFormData();
-        formData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
-        formData.addNeededValue(XhtmlConstants.STATE_PARAM);
-        formData.addNeededValue(XhtmlConstants.VALUE_PARAM);
+        formData.addNeededValue(TrinidadRenderingConstants.PARTIAL_PARAM);
+        formData.addNeededValue(TrinidadRenderingConstants.STATE_PARAM);
+        formData.addNeededValue(TrinidadRenderingConstants.VALUE_PARAM);
 
         // FIXME
         if (renderingContext instanceof CoreRenderingContext)

@@ -1051,6 +1051,9 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
  <!-- FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION -->
  <resource key="FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION">fileDownloadActionListener's 'method' attribute must be an EL expression.</resource>
+ 
+ <!-- UNSUPPORTED_NUMBERCONVERTER_TYPE -->
+ <resource key="UNSUPPORTED_NUMBERCONVERTER_TYPE">Only a server-side NumberConverter will be available; a client-side NumberConverter is provided only if the input value is bound to one of the following supported types: Float Double Integer Short Byte</resource>
 
 <!-- STATUS_INDICATOR_MISSING_ICONS -->
 <resource key="STATUS_INDICATOR_MISSING_ICONS">The statusIndicator component requires both a 'ready' and 'busy' icon;  one is missing.</resource>
