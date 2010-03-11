@@ -847,7 +847,7 @@ abstract public class UIXComponent extends UIComponent
    * @see #tearDownChildrenEncodingContext
    * @see org.apache.myfaces.trinidad.render.CoreRenderer#setupChildrenEncodingContext
    */
-  protected void setupChildrenEncodingContext(FacesContext context, RenderingContext rc)
+  public void setupChildrenEncodingContext(FacesContext context, RenderingContext rc)
   {
     setupChildrenVisitingContext(context);
 
@@ -906,7 +906,7 @@ abstract public class UIXComponent extends UIComponent
    * @see #setupChildrenEncodingContext
    * @see org.apache.myfaces.trinidad.render.CoreRenderer#setupChildrenEncodingContext
    */
-  protected void tearDownChildrenEncodingContext(
+  public void tearDownChildrenEncodingContext(
     FacesContext context,
     RenderingContext rc)
   {
