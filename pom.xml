@@ -138,9 +138,9 @@
   </mailingLists>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/trinidad/trunk/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/branches/trinidad-1.2.x</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/branches/trinidad-1.2.x</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/trinidad/branches/trinidad-1.2.x</url>
   </scm>
 
   <repositories>
@@ -536,7 +536,7 @@
         <version>2.0</version>
         <configuration>
           <preparationGoals>clean verify install</preparationGoals>
-          <tagBase>https://svn.apache.org/repos/asf/myfaces/trinidad/tags/</tagBase>
+          <tagBase>https://svn.apache.org/repos/asf/myfaces/trinidad/tags</tagBase>
         </configuration>
       </plugin>
 
