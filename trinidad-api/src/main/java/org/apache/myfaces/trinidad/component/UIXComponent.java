@@ -490,7 +490,7 @@ abstract public class UIXComponent extends UIComponent
               // to the component itself
               if (rc != null)
               {
-                uixComponent._setupChildrenEncodingContext(context, rc);
+                uixComponent.setupChildrenEncodingContext(context, rc);
               }
               else
               {
@@ -515,7 +515,7 @@ abstract public class UIXComponent extends UIComponent
                 // teardown any context initialized above
                 if (rc != null)
                 {
-                  uixComponent._tearDownChildrenEncodingContext(context, rc);
+                  uixComponent.tearDownChildrenEncodingContext(context, rc);
                 }
                 else
                 {
@@ -823,7 +823,7 @@ abstract public class UIXComponent extends UIComponent
    * @see #setupVisitingContext
    * @see #tearDownVisitingContext
    * @see #tearDownEncodingContext
-   * @see CoreRenderer#setupEncodingContext
+   * @see org.apache.myfaces.trinidad.render.CoreRenderer#setupEncodingContext(FacesContext, RenderingContext, UIComponent)
    */
   protected void setupEncodingContext(FacesContext context, RenderingContext rc)
   {
@@ -844,10 +844,10 @@ abstract public class UIXComponent extends UIComponent
    * @param context The FacesContext
    * @param rc      RenderingContext to use for encoding
    * @see #setupChildrenVisitingContext
-   * @see #_tearDownChildrenEncodingContext
+   * @see #tearDownChildrenEncodingContext
    * @see org.apache.myfaces.trinidad.render.CoreRenderer#setupChildrenEncodingContext
    */
-  private void _setupChildrenEncodingContext(FacesContext context, RenderingContext rc)
+  public void setupChildrenEncodingContext(FacesContext context, RenderingContext rc)
   {
     setupChildrenVisitingContext(context);
 
@@ -875,7 +875,7 @@ abstract public class UIXComponent extends UIComponent
    * @see #setupEncodingContext
    * @see #tearDownVisitingContext
    * @see #setupEncodingContext
-   * @see CoreRenderer#tearDownEncodingContext
+   * @see org.apache.myfaces.trinidad.render.CoreRenderer#tearDownEncodingContext(FacesContext, RenderingContext, UIComponent)
    */
   protected void tearDownEncodingContext(
     FacesContext context,
@@ -903,10 +903,10 @@ abstract public class UIXComponent extends UIComponent
    * @param context The FacesContext
    * @param rc      RenderingContext to use for encoding
    * @see #setupChildrenVisitingContext
-   * @see #_tearDownChildrenEncodingContext
+   * @see #tearDownChildrenEncodingContext
    * @see org.apache.myfaces.trinidad.render.CoreRenderer#setupChildrenEncodingContext
    */
-  private void _tearDownChildrenEncodingContext(
+  public void tearDownChildrenEncodingContext(
     FacesContext context,
     RenderingContext rc)
   {
