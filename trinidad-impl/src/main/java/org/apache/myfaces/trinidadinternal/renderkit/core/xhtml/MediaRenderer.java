@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
@@ -42,14 +43,14 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
  */
 public class MediaRenderer extends XhtmlRenderer
 {
-
   public MediaRenderer()
   {
     super(CoreMedia.TYPE);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _sourceKey = type.findKey("source");
@@ -66,32 +67,44 @@ public class MediaRenderer extends XhtmlRenderer
     _innerHeightKey = type.findKey("innerHeight");
   }
 
-  protected String getSource(FacesBean bean)
+  protected String getSource(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toResourceUri(FacesContext.getCurrentInstance(), bean.getProperty(_sourceKey));
   }
 
-  protected String getPlayer(FacesBean bean)
+  protected String getPlayer(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_playerKey));
   }
 
-  protected String getContentType(FacesBean bean)
+  protected String getContentType(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_contentTypeKey));
   }
 
-  protected String getControls(FacesBean bean)
+  protected String getControls(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_controlsKey));
   }
 
-  protected String getStandbyText(FacesBean bean)
+  protected String getStandbyText(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_standbyTextKey));
   }
 
-  protected boolean getAutostart(FacesBean bean)
+  protected boolean getAutostart(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_autostartKey);
     if (o == null)
@@ -100,8 +113,9 @@ public class MediaRenderer extends XhtmlRenderer
     return Boolean.TRUE.equals(o);
   }
 
-
-  protected Number getPlayCount(FacesBean bean)
+  protected Number getPlayCount(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_playCountKey);
     if (o == null)
@@ -113,27 +127,33 @@ public class MediaRenderer extends XhtmlRenderer
     return null;
   }
 
-  protected String getWidth(FacesBean bean)
+  protected String getWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_widthKey));
   }
 
-  protected String getHeight(FacesBean bean)
+  protected String getHeight(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_heightKey));
   }
 
-
-  protected String getInnerWidth(FacesBean bean)
+  protected String getInnerWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_innerWidthKey));
   }
 
-  protected String getInnerHeight(FacesBean bean)
+  protected String getInnerHeight(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_innerHeightKey));
   }
-
 
   @Override
   public boolean getRendersChildren()
@@ -143,35 +163,34 @@ public class MediaRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (canSkipRendering(context, arc, component))
+    if (canSkipRendering(context, rc, component))
       return;
 
     // get the mime type
-    String mimeType = _getMimeType(bean);
+    String mimeType = _getMimeType(component, bean);
 
     // extract the primary cotnent type from the content mime type
     String primaryContentType = _getPrimaryContentType(mimeType);
 
-    MediaRenderer.PlayerData playerData = _getPlayerData(arc,
-                                                         bean,
-                                                         mimeType,
-                                                         primaryContentType);
+    MediaRenderer.PlayerData playerData = _getPlayerData(rc, component, bean, mimeType,
+      primaryContentType);
 
     ResponseWriter writer = context.getResponseWriter();
 
-    String  source         = getSource(bean);
-    String  contentType    = getContentType(bean);
+    String  source         = getSource(component, bean);
+    String  contentType    = getContentType(component, bean);
     String  id             = getClientId(context, component);
 
     if (_LINK_PLAYER_DATA == playerData)
     {
       _renderLink(context,
-                  arc,
+                  rc,
                   component,
                   bean,
                   id,
@@ -192,7 +211,7 @@ public class MediaRenderer extends XhtmlRenderer
 
       MediaRenderer.ControlData controlData = (controlSet != null)
                                   ? controlSet.getControlData(
-                                                 getControls(bean))
+                                                 getControls(component, bean))
                                   : null;
 
       //
@@ -210,16 +229,16 @@ public class MediaRenderer extends XhtmlRenderer
       }
       else
       {
-        useEmbedTag  = useEmbed(arc);
+        useEmbedTag  = useEmbed(rc);
         useObjectTag = !useEmbedTag;
       }
 
-      String width = getWidth(bean);
+      String width = getWidth(component, bean);
 
       // since current players don't add to width, treat innerWidth
       // identically to width for now
       if (width == null)
-        width = getInnerWidth(bean);
+        width = getInnerWidth(component, bean);
 
       // get whether this set of controls can be autosized.
       // embed elements can not be autosized.
@@ -253,7 +272,7 @@ public class MediaRenderer extends XhtmlRenderer
         //
         // Handle looping attributes
         //
-        Number playCountValue = getPlayCount(bean);
+        Number playCountValue = getPlayCount(component, bean);
 
         if (playCountValue != null)
         {
@@ -278,7 +297,7 @@ public class MediaRenderer extends XhtmlRenderer
         //
         // determine whether we should autostart
         //
-        boolean autostarts = getAutostart(bean);
+        boolean autostarts = getAutostart(component, bean);
         if (autostarts != playerData.autostartByDefault)
         {
           // only write out an autostart value, if its different than
@@ -289,19 +308,14 @@ public class MediaRenderer extends XhtmlRenderer
         }
       }
 
-
-      String standbyText = getStandbyText(bean);
+      String standbyText = getStandbyText(component, bean);
 
       String height = null;
       // if image window and controls rendered separately
       if ( imageWindowControlData != null )
       {
-
-        height = _getInnerHeight( bean,
-                                  canAutosize,
-                                  primaryContentType,
-                                  controlData,
-                                  playerData );
+        height = _getInnerHeight(component, bean, canAutosize, primaryContentType, controlData,
+          playerData);
 
         // since image and controls are rendered separately, a value
         // is needed to associate them. The id will be used if it is not null,
@@ -309,7 +323,7 @@ public class MediaRenderer extends XhtmlRenderer
         String wireImageToControlsParamValue = id;
 
         _render( context,
-                 arc,
+                 rc,
                  component,
                  bean,
                  contentType,
@@ -338,7 +352,7 @@ public class MediaRenderer extends XhtmlRenderer
 
           height = IntegerUtils.getString(controlData.height);
           _render( context,
-                   arc,
+                   rc,
                    component,
                    bean,
                    contentType,
@@ -362,14 +376,11 @@ public class MediaRenderer extends XhtmlRenderer
       // if image window and controls rendered together
       else
       {
-        height = _getHeight( bean,
-                             canAutosize,
-                             primaryContentType,
-                             controlData,
-                             playerData );
+        height = _getHeight(component, bean, canAutosize, primaryContentType, controlData,
+          playerData);
 
         _render( context,
-                 arc,
+                 rc,
                  component,
                  bean,
                  contentType,
@@ -400,7 +411,7 @@ public class MediaRenderer extends XhtmlRenderer
         //        we retrieve using a pretected method
         //
         writer.startElement("noembed", component);
-        _renderLink(context, arc, component, bean, null, source, null, contentType);
+        _renderLink(context, rc, component, bean, null, source, null, contentType);
         writer.endElement("noembed");
       }
     }
@@ -411,7 +422,7 @@ public class MediaRenderer extends XhtmlRenderer
    * specified.
    */
   protected Number getDefaultInnerWidth(
-    String           primaryContentType
+    String primaryContentType
     )
   {
     return _getDefaultSizeArray(primaryContentType)[_DEFAULT_INNER_WIDTH_INDEX];
@@ -423,7 +434,7 @@ public class MediaRenderer extends XhtmlRenderer
    * specified.
    */
   protected Number getDefaultInnerHeight(
-    String           primaryContentType
+    String primaryContentType
     )
   {
     return _getDefaultSizeArray(primaryContentType)[_DEFAULT_INNER_HEIGHT_INDEX];
@@ -435,10 +446,10 @@ public class MediaRenderer extends XhtmlRenderer
    * <object> tag to embed the viewer
    */
   protected boolean useEmbed(
-    RenderingContext arc
+    RenderingContext rc
     )
   {
-    TrinidadAgent agent = (TrinidadAgent) arc.getAgent();
+    TrinidadAgent agent = (TrinidadAgent) rc.getAgent();
 
     // =-= bts only desktop IE seems to support this
     //         Move this to capability
@@ -462,19 +473,18 @@ public class MediaRenderer extends XhtmlRenderer
     return (Number[])sizeArray;
   }
 
-
   /**
    * Renders a link
    */
   private void _renderLink(
-    FacesContext context,
-    RenderingContext arc,
-    UIComponent  component,
-    FacesBean    bean,
-    String       id,
-    String       source,
-    String       iconUrl,
-    String       contentType
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    String           id,
+    String           source,
+    String           iconUrl,
+    String           contentType
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
@@ -487,7 +497,7 @@ public class MediaRenderer extends XhtmlRenderer
       {
         writer.startElement("span", component);
         writer.writeAttribute("id", id, null);
-        renderAllAttributes(context, arc, bean);
+        renderAllAttributes(context, rc, component, bean);
         writer.endElement("span");
       }
     }
@@ -502,7 +512,7 @@ public class MediaRenderer extends XhtmlRenderer
         // And render all the attributes here if we have
         // that ID, because that means this is the main
         // content
-        renderAllAttributes(context, arc, bean);
+        renderAllAttributes(context, rc, component, bean);
       }
 
       // link to the content
@@ -520,7 +530,7 @@ public class MediaRenderer extends XhtmlRenderer
         writer.endElement("img");
       }
 
-      String shortDesc = getShortDesc(bean);
+      String shortDesc = getShortDesc(component, bean);
       if (shortDesc != null)
         writer.writeText(shortDesc, "shortDesc");
 
@@ -528,15 +538,14 @@ public class MediaRenderer extends XhtmlRenderer
     }
   }
 
-
   /**
    * Renders a name value pair as a <param> element
    */
   private void _renderParamAttribute(
-    FacesContext     context,
-    String           paramName,
-    Object           paramValue,
-    boolean          isURL
+    FacesContext context,
+    String       paramName,
+    Object       paramValue,
+    boolean      isURL
     ) throws IOException
   {
     if ( paramValue != null )
@@ -559,14 +568,14 @@ public class MediaRenderer extends XhtmlRenderer
     }
   }
 
-
   /**
    * Returns the constant identifying the player to use
    *
    * =-= bts Do we care about AccessibilityMode?
    */
   private MediaRenderer.PlayerData _getPlayerData(
-    RenderingContext arc,
+    RenderingContext rc,
+    UIComponent      component,
     FacesBean        bean,
     String           mimeType,
     String           primaryMimeType
@@ -574,20 +583,20 @@ public class MediaRenderer extends XhtmlRenderer
   {
     PlayerData playerData = null;
     // the default player is the link player
-    TrinidadAgent agent = (TrinidadAgent) arc.getAgent();
+    TrinidadAgent agent = (TrinidadAgent) rc.getAgent();
     int agentOSInt = agent.getAgentOS();
-    
+
     // get the set of supported players for this OS
     HashSet<Object> supportedPlayers = _sSupportedOSPlayers.get(agentOSInt);
-    
+
     // are we trying to display an image?
     boolean isImage = "image".equals(primaryMimeType);
-    
+
     // check if this OS supports any non-link style players
     if (supportedPlayers != null)
     {
       // get the desired player, if any
-      String playerString = getPlayer(bean);
+      String playerString = getPlayer(component, bean);
       if (playerString != null)
       {
         if (CoreMedia.PLAYER_LINK.equals(playerString))
@@ -600,7 +609,7 @@ public class MediaRenderer extends XhtmlRenderer
           if (!isImage && supportedPlayers.contains(playerString))
           {
             playerData = (PlayerData) _sPlayerData.get(playerString);
-            
+
             if (playerData != null)
             {
               if (mimeType != null)
@@ -615,7 +624,7 @@ public class MediaRenderer extends XhtmlRenderer
           }
         }
       }
-      
+
       // assume that all images can be played by the browser's built-in
       // image player
       if (isImage)
@@ -628,32 +637,32 @@ public class MediaRenderer extends XhtmlRenderer
             !"audio".equals(primaryMimeType))
           playerData = _LINK_PLAYER_DATA;
       }
-      
+
       //
       // guess the player based on the mime type
       //
       if (playerData == null)
       {
         Object preferredPlayer = _sPreferredMimePlayers.get(mimeType);
-        
+
         if ((preferredPlayer != null) &&
             supportedPlayers.contains(preferredPlayer))
         {
           playerData = (PlayerData) _sPlayerData.get(preferredPlayer);
         }
       }
-      
+
       //
       // guess the player based on the operating system
       //
       if (playerData == null)
       {
         Object preferredPlayer = _sPreferredOSPlayers.get(agentOSInt);
-        
+
         if (preferredPlayer != null)
         {
           playerData = (PlayerData) _sPlayerData.get(preferredPlayer);
-          
+
           // check that the format is supported by this player
           if (!playerData.isSupportedMimeType(mimeType))
           {
@@ -662,14 +671,13 @@ public class MediaRenderer extends XhtmlRenderer
         }
       }
     }
-    
+
     // if all else fails, use the link player
     if (playerData == null)
       playerData = _LINK_PLAYER_DATA;
-    
+
     return playerData;
   }
-
 
   /**
    * Returns the primary content type of the result:
@@ -692,7 +700,6 @@ public class MediaRenderer extends XhtmlRenderer
     return null;
   }
 
-
   /**
    * Returns the secondary content type of the result:
    * i.e. "quicktime", "au"
@@ -714,14 +721,15 @@ public class MediaRenderer extends XhtmlRenderer
     return null;
   }
 
-
   /**
    * Returns the most likely MIME type for the content
    */
-  private String _getMimeType(FacesBean bean)
+  private String _getMimeType(
+    UIComponent component,
+    FacesBean   bean)
   {
     // try any provided content mime type first
-    String mimeType = getContentType(bean);
+    String mimeType = getContentType(component, bean);
 
     // primary mime type to force mime type to
     String primaryForced = null;
@@ -758,7 +766,7 @@ public class MediaRenderer extends XhtmlRenderer
     }
 
     // try to determine the mime-type off of the source extension
-    String extension = _getSourceExtension(bean);
+    String extension = _getSourceExtension(component, bean);
 
     if (extension != null)
     {
@@ -781,13 +789,14 @@ public class MediaRenderer extends XhtmlRenderer
     return mimeType;
   }
 
-
   /**
    * Returns the lowercase extension of any source URL
    */
-  private String _getSourceExtension(FacesBean bean)
+  private String _getSourceExtension(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String sourceURLString = getSource(bean);
+    String sourceURLString = getSource(component, bean);
 
     if (sourceURLString != null)
     {
@@ -816,7 +825,7 @@ public class MediaRenderer extends XhtmlRenderer
     {
       int contentLength = contents.length;
 
-      HashSet<Object> set = 
+      HashSet<Object> set =
         new HashSet<Object>((int)(contentLength * 1.5));
 
       for (int i = 0; i < contentLength; i++)
@@ -843,7 +852,7 @@ public class MediaRenderer extends XhtmlRenderer
     {
       int contentLength = contents.length;
 
-      HashMap<Object, Object> map = 
+      HashMap<Object, Object> map =
         new HashMap<Object, Object>((int)(contentLength * 0.75));
 
       for (int i = 0; i < contentLength; i += 2)
@@ -859,23 +868,18 @@ public class MediaRenderer extends XhtmlRenderer
     }
   }
 
-
   // get the height of the image window
   private String _getInnerHeight(
-    FacesBean        bean,
-    boolean          canAutosize,
-    String           primaryContentType,
-    ControlData      controlData,
-    PlayerData       playerData
+    UIComponent component,
+    FacesBean   bean,
+    boolean     canAutosize,
+    String      primaryContentType,
+    ControlData controlData,
+    PlayerData  playerData
     )
   {
     // get the height without checking min
-    String height = _getHeightNoMin(bean,
-                                    canAutosize,
-                                    primaryContentType,
-                                    controlData);
-
-
+    String height = _getHeightNoMin(component, bean, canAutosize, primaryContentType, controlData);
 
     boolean useMinHeight = (height == null);
 
@@ -914,18 +918,19 @@ public class MediaRenderer extends XhtmlRenderer
   // determine the height without checking the min height
   //
   private String _getHeightNoMin(
-    FacesBean        bean,
-    boolean          canAutosize,
-    String           primaryContentType,
-    ControlData      controlData
+    UIComponent component,
+    FacesBean   bean,
+    boolean     canAutosize,
+    String      primaryContentType,
+    ControlData controlData
     )
   {
-    String height = getHeight(bean);
+    String height = getHeight(component, bean);
     // compute default height for players that don't autosize
     if (height == null)
     {
       // get the inner height from the attribute
-      String innerHeight = getInnerHeight(bean);
+      String innerHeight = getInnerHeight(component, bean);
       if (!canAutosize && (innerHeight == null))
       {
         // get the default inner height
@@ -965,19 +970,16 @@ public class MediaRenderer extends XhtmlRenderer
   // determine the height including the controls
   //
   private String _getHeight(
-    FacesBean        bean,
-    boolean          canAutosize,
-    String           primaryContentType,
-    ControlData      controlData,
-    PlayerData       playerData
+    UIComponent component,
+    FacesBean   bean,
+    boolean     canAutosize,
+    String      primaryContentType,
+    ControlData controlData,
+    PlayerData  playerData
     )
   {
-
     // get the height
-    String height = _getHeightNoMin(bean,
-                                    canAutosize,
-                                    primaryContentType,
-                                    controlData);
+    String height = _getHeightNoMin(component, bean, canAutosize, primaryContentType, controlData);
 
     //
     // apply minimum player size to height
@@ -1042,7 +1044,7 @@ public class MediaRenderer extends XhtmlRenderer
 
   private void _render(
     FacesContext     context,
-    RenderingContext  arc,
+    RenderingContext rc,
     UIComponent      component,
     FacesBean        bean,
     String           contentType,
@@ -1061,7 +1063,7 @@ public class MediaRenderer extends XhtmlRenderer
     boolean          useObjectTag,
     boolean          isImage,
     boolean          isNotMainID
-    )throws IOException
+    ) throws IOException
   {
     String elementName = (isImage)
                              ? "img"
@@ -1076,7 +1078,7 @@ public class MediaRenderer extends XhtmlRenderer
 
     // start the element
     writer.startElement(elementName, component);
-    renderAllAttributes(context, arc, bean);
+    renderAllAttributes(context, rc, component, bean);
 
     writer.writeAttribute("width", width, null);
     writer.writeAttribute("height", height, null);
@@ -1219,14 +1221,12 @@ public class MediaRenderer extends XhtmlRenderer
       // =-=bts I feel that our backup rendering should be an icon that
       //        we retrieve using a pretected method
       //
-      _renderLink(context, arc, component, bean, null, source, null, contentType);
+      _renderLink(context, rc, component, bean, null, source, null, contentType);
     }
 
     // close the element
     writer.endElement(elementName);
   }
-
-
 
   //
   // known mime types
@@ -1283,7 +1283,6 @@ public class MediaRenderer extends XhtmlRenderer
     "video/x-mpeg",           _MPEG_VIDEO_MIME_TYPE,
     "video/x-msvideo",        _AVI_MIME_TYPE,
   };
-
 
   /**
    * Maintains attribute and size information for a particular control
@@ -1490,7 +1489,6 @@ public class MediaRenderer extends XhtmlRenderer
     private final HashMap<Object, Object> _controlSets;
     private final HashSet<Object> _unsupportedMimeTypes;
   }
-
 
   // Real Player Class ID
   private static final String _RP_CLASS_ID =
@@ -1761,15 +1759,12 @@ public class MediaRenderer extends XhtmlRenderer
   private static final Number _REAL_ALL_WIDTH  = Integer.valueOf(375);
   private static final int    _REAL_ALL_HEIGHT = 100;
 
-
  // null control data
   private static final MediaRenderer.ControlData _NULL_CONTROL_DATA =
      new MediaRenderer.ControlData(null,
                      false,           // no autosize
                      0,
                      0);
-
-
 
   // control data for showing image window on Real Player
   private static final MediaRenderer.ControlData _REAL_VIDEO_IMAGE_WINDOW_CONTROL_DATA =
@@ -1782,8 +1777,6 @@ public class MediaRenderer extends XhtmlRenderer
                      0,
                      0);
 
-
-
   private static final MediaRenderer.ControlData _REAL_MINIMAL_CONTROL_DATA =
   new MediaRenderer.ControlData(new String[]
                                {
@@ -1793,15 +1786,12 @@ public class MediaRenderer extends XhtmlRenderer
                                _REAL_MINIMAL_HEIGHT,
                                _REAL_MINIMAL_WIDTH);
 
-
   // control data for showing typical controls on Real Player
   private static final MediaRenderer.ControlData _REAL_TYPICAL_CONTROL_DATA =
      new MediaRenderer.ControlData(new String[]{"controls", "ControlPanel"},
                      false,           // no autosize
                      _REAL_TYPICAL_HEIGHT,
                      _REAL_TYPICAL_WIDTH);
-
-
 
   // control data for showing all controls on Real Player
   private static final MediaRenderer.ControlData _REAL_ALL_CONTROL_DATA =
@@ -1815,7 +1805,6 @@ public class MediaRenderer extends XhtmlRenderer
                      false,           // no autosize
                      0,
                      0);
-
 
   private static final MediaRenderer.PlayerData _REAL_PLAYER_DATA =
     new MediaRenderer.PlayerData(
@@ -1938,8 +1927,6 @@ public class MediaRenderer extends XhtmlRenderer
     "xwd",  _X_WINDOW_DUMP_MIME_TYPE,
   };
 
-
-
   // Preferred Players for MimeTypes
   private static final Object[] _PREFERRED_MIME_PLAYERS = new Object[]
   {
@@ -1983,7 +1970,7 @@ public class MediaRenderer extends XhtmlRenderer
   // Supported players on each OS, in prference order
   private static final Object[] _SUPPORTED_OS_PLAYERS = new Object[]
   {
-    _WINDOWS_OS, new Object[]{CoreMedia.PLAYER_WINDOWS,  
+    _WINDOWS_OS, new Object[]{CoreMedia.PLAYER_WINDOWS,
                               CoreMedia.PLAYER_QUICKTIME,
                               CoreMedia.PLAYER_REAL},
     _MAC_OS,     new Object[]{CoreMedia.PLAYER_QUICKTIME,

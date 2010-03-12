@@ -23,7 +23,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelCaptionGroup;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
+
 
 /**
  * @author Danny Robinson
@@ -35,7 +35,8 @@ public class PanelCaptionGroupRenderer extends XhtmlRenderer
     this(CorePanelCaptionGroup.TYPE);
   }
 
-  protected PanelCaptionGroupRenderer(FacesBean.Type type)
+  protected PanelCaptionGroupRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
@@ -46,17 +47,20 @@ public class PanelCaptionGroupRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _captionTextKey = type.findKey("captionText");
   }
 
-  protected String getCaptionText(FacesBean bean)
+  protected String getCaptionText(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(this.resolveProperty(bean, _captionTextKey));
   }
-  
+
   protected String getRootStyle()
   {
     return SkinSelectors.AF_PANEL_CAPTION_GROUP_ROOT_STYLE_CLASS;
@@ -69,38 +73,41 @@ public class PanelCaptionGroupRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  protected void encodeAll(FacesContext context, RenderingContext arc,
-      UIComponent component, FacesBean bean) throws IOException
+  protected void encodeAll(
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    
+
     writer.startElement(XhtmlConstants.FIELDSET_ELEMENT, component);
-    renderAllAttributes(context, arc, bean, false);
-    renderStyleAttributes(context, arc, bean, getRootStyle());
+    renderAllAttributes(context, rc, component, bean, false);
+    renderStyleAttributes(context, rc, component, bean, getRootStyle());
 
     UIComponent captionFacet = getFacet(component, CorePanelCaptionGroup.CAPTION_FACET);
-    String captionText = getCaptionText(bean);
-    
+    String captionText = getCaptionText(component, bean);
+
     // Render either the caption facet or the captionText
     if (captionFacet != null || captionText != null)
     {
       writer.startElement(XhtmlConstants.LEGEND_ELEMENT, null);
-      renderStyleClass(context, arc, getCaptionStyle());
-  
+      renderStyleClass(context, rc, getCaptionStyle());
+
       if (captionFacet != null)
         encodeChild(context, captionFacet);
       else
         writer.writeText(captionText, "captionText");
-        
+
       writer.endElement(XhtmlConstants.LEGEND_ELEMENT);
     }
-    
+
     // Output all the body of the component
     encodeAllChildren(context, component);
 
     writer.endElement(XhtmlConstants.FIELDSET_ELEMENT);
   }
-  
+
   private PropertyKey _captionTextKey;
-  
 }

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -25,8 +25,9 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelButtonBar;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PanelGroupLayoutRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+
 
 /**
  * On PDA, just render the buttons consecutively with non-breaking spaces.
@@ -39,7 +40,9 @@ public class PanelButtonBarRenderer extends PanelGroupLayoutRenderer
   }
 
   @Override
-  protected Object getLayout(FacesBean bean)
+  protected Object getLayout(
+    UIComponent component,
+    FacesBean   bean)
   {
     return null;
   }
@@ -51,9 +54,9 @@ public class PanelButtonBarRenderer extends PanelGroupLayoutRenderer
   protected void encodeSeparator(
     FacesContext context,
     UIComponent  separator,
-    boolean      isHorizontal) throws IOException
+    boolean      isHorizontal
+    ) throws IOException
   {
     context.getResponseWriter().writeText(XhtmlConstants.NBSP_STRING, null);
   }
-
 }

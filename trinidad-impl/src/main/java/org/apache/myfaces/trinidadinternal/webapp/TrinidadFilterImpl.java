@@ -54,7 +54,7 @@ import org.apache.myfaces.trinidadinternal.context.DialogServiceImpl;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.external.ServletExternalContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.webapp.wrappers.BasicHTMLBrowserRequestWrapper;
 
 /**
@@ -134,11 +134,11 @@ public class TrinidadFilterImpl implements Filter
     GlobalConfiguratorImpl config = GlobalConfiguratorImpl.getInstance();
     config.beginRequest(externalContext);
     
-    String noJavaScript = request.getParameter(TrinidadRenderingConstants.NON_JS_BROWSER);
+    String noJavaScript = request.getParameter(XhtmlConstants.NON_JS_BROWSER);
         
     // Wrap the request only for Non-javaScript browsers
     if(noJavaScript != null &&
-              TrinidadRenderingConstants.NON_JS_BROWSER_TRUE.equals(noJavaScript))
+              XhtmlConstants.NON_JS_BROWSER_TRUE.equals(noJavaScript))
     {
       request = new BasicHTMLBrowserRequestWrapper((HttpServletRequest)request);
     } 

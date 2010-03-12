@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 
 import java.io.IOException;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -31,22 +32,25 @@ import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.skin.Icon;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ColumnRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
+
 
 public class TreeNodeColumnRenderer extends ColumnRenderer
 {
   @Override
-  protected void renderKids(FacesContext          context,
-                            RenderingContext   arc,
-                            TableRenderingContext tContext,
-                            UIComponent           column) throws IOException
+  protected void renderKids(
+    FacesContext          context,
+    RenderingContext      rc,
+    TableRenderingContext tContext,
+    UIComponent           column
+    ) throws IOException
   {
     TreeTableRenderingContext ttrc = (TreeTableRenderingContext) tContext;
-    boolean isRTL = arc.isRightToLeft();
+    boolean isRTL = rc.isRightToLeft();
     UIXTreeTable hGrid = ttrc.getUIXTreeTable();
     final boolean disclosed;
     final String onclick;
@@ -115,40 +119,42 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
 
       // Render the style class on the link, so that we can
       // disable the link's text decoration
-      renderStyleClass(context, arc,
+      renderStyleClass(context, rc,
                        SkinSelectors.AF_TREE_TABLE_EXPANSION_ICON_STYLE_CLASS);
       //HKuhn - don't render onclick in printable mode
-      if (XhtmlRenderer.supportsScripting(arc))
+      if (XhtmlRenderer.supportsScripting(rc))
       {
         writer.writeAttribute("onclick", onclick, null);
         writer.writeURIAttribute("href", "#", null);
       }
 
       // Render the expand/collapse Icon
-      _renderExpansionIcon(context, arc, disclosed, onclick);
+      _renderExpansionIcon(context, rc, disclosed, onclick);
 
       writer.endElement("a");
     }
 
-    _renderNodeIcon(context, arc, hGrid, disclosed, onclick != null);
+    _renderNodeIcon(context, rc, hGrid, disclosed, onclick != null);
 
     UIComponent nodeStampColumn = ttrc.getTreeNodeStamp();
     // if in screen reader mode render the node depth from the root as well
-    _renderNodeStampBasedOnAccessibilty(context, arc, ttrc, nodeStampColumn);
+    _renderNodeStampBasedOnAccessibilty(context, rc, ttrc, nodeStampColumn);
 
     writer.endElement("div");
   }
 
-
-  private int _getSpacerWidth(TreeTableRenderingContext ttrc)
+  private int _getSpacerWidth(
+    TreeTableRenderingContext ttrc)
   {
     return ttrc.getSpacerWidth();
   }
 
 
   // Renders the unique id for the expand/collapse icon
-  private void _renderIconID(FacesContext          fc,
-                             TableRenderingContext tContext) throws IOException
+  private void _renderIconID(
+    FacesContext          fc,
+    TableRenderingContext tContext
+    ) throws IOException
   {
     // we need to render a unique ID for the expand/collapse link, so that
     // PPR can restore the focus correctly after a PPR request:
@@ -159,10 +165,11 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
 
   // Renders the expansion Icon
   private void _renderExpansionIcon(
-    FacesContext          context,
-    RenderingContext   arc,
+    FacesContext     context,
+    RenderingContext rc,
     boolean          disclosed,
-    Object           onclick) throws IOException
+    Object           onclick
+    ) throws IOException
   {
     final String iconName;
     final String altTextKey;
@@ -181,31 +188,31 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
       altTextKey = _EXPAND_TIP_KEY;
     }
 
-    Icon icon = arc.getIcon(iconName);
+    Icon icon = rc.getIcon(iconName);
     if (icon != null)
     {
-      Object altText = arc.getTranslatedString(altTextKey);
-      OutputUtils.renderIcon(context, arc, icon, altText, null);
+      Object altText = rc.getTranslatedString(altTextKey);
+      OutputUtils.renderIcon(context, rc, icon, altText, null);
     }
   }
 
   private void _renderNodeIcon(
-      FacesContext context,
-      RenderingContext arc,
-      UIXTreeTable ttr,
-      boolean disclosed,
-      boolean hasChildren
-  ) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIXTreeTable     ttr,
+    boolean          disclosed,
+    boolean          hasChildren
+    ) throws IOException
   {
-    Icon nodeIcon = getNodeIcon(arc, getNodeType(ttr), disclosed, hasChildren);
+    Icon nodeIcon = getNodeIcon(rc, getNodeType(ttr), disclosed, hasChildren);
     if (nodeIcon != null)
     {
-      OutputUtils.renderIcon(context, arc, nodeIcon, null, null);
+      OutputUtils.renderIcon(context, rc, nodeIcon, null, null);
     }
   }
 
   protected String getNodeType(
-      UIXTreeTable ttr
+    UIXTreeTable ttr
   )
   {
     String nodeType = null;
@@ -234,10 +241,9 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
   }
 
   protected String getNodeIconSelector(
-      String nodeType,
-      boolean disclosed,
-      boolean hasChildren
-  )
+    String  nodeType,
+    boolean disclosed,
+    boolean hasChildren)
   {
     if (hasChildren)
     {
@@ -254,11 +260,10 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
   }
 
   protected Icon getNodeIcon(
-      RenderingContext rc,
-      String nodeType,
-      boolean disclosed,
-      boolean hasChildren
-  )
+    RenderingContext rc,
+    String           nodeType,
+    boolean          disclosed,
+    boolean          hasChildren)
   {
     if (nodeType == null || nodeType.length() == 0)
     {
@@ -280,27 +285,28 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
   }
 
   private void _renderNodeStampBasedOnAccessibilty(
-    FacesContext          context,
-    RenderingContext   arc,
+    FacesContext              context,
+    RenderingContext          rc,
     TreeTableRenderingContext ttrc,
-    UIComponent           column) throws IOException
+    UIComponent               column
+    ) throws IOException
   {
-    if (XhtmlRenderer.isScreenReaderMode(arc))
+    if (XhtmlRenderer.isScreenReaderMode(rc))
     {
       int depth = ttrc.getUIXTreeTable().getDepth() + 1;
-      if (arc.isRightToLeft())
+      if (rc.isRightToLeft())
       {
-        super.renderKids(context, arc, ttrc, column);
-        TreeUtils.writeNodeLevel(context, arc, depth, _NODE_LEVEL_TEXT_KEY);
+        super.renderKids(context, rc, ttrc, column);
+        TreeUtils.writeNodeLevel(context, rc, depth, _NODE_LEVEL_TEXT_KEY);
       }
       else
       {
-        TreeUtils.writeNodeLevel(context, arc, depth, _NODE_LEVEL_TEXT_KEY);
-        super.renderKids(context, arc, ttrc, column);
+        TreeUtils.writeNodeLevel(context, rc, depth, _NODE_LEVEL_TEXT_KEY);
+        super.renderKids(context, rc, ttrc, column);
       }
     }
     else
-        super.renderKids(context, arc, ttrc, column);
+        super.renderKids(context, rc, ttrc, column);
   }
 
   // This String is included in the generated IDs that are
@@ -321,5 +327,4 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
   public static final String NODE_ICON_COLLAPSED_SUFFIX = "-collapsed";
 
   public static final int NODE_ICON_MAX_WIDTH = 18;
-
 }

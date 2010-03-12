@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -33,9 +34,8 @@ import org.apache.myfaces.trinidad.component.core.nav.CoreSingleStepButtonBar;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
-
 import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
+
 
 /**
  * Renderer for singleStepButtonBar components
@@ -48,9 +48,10 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
   {
     super(CoreSingleStepButtonBar.TYPE);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _selectedStepKey = type.findKey("selectedStep");
@@ -62,13 +63,18 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(FacesContext context, UIComponent component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
-    Map<String, String> parameters =  
-      context.getExternalContext().getRequestParameterMap();
-    
-    String source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
-    String id = getClientId(context, component);
+    Map<String, String> parameters =
+      facesContext.getExternalContext().getRequestParameterMap();
+
+    String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+    String id = clientId == null ? getClientId(facesContext, component) : clientId;
     if ((source != null) && source.startsWith(id))
     {
       // queue the action on the singleStep component
@@ -94,27 +100,30 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
   {
     return true;
   }
-  
+
   @Override
-  protected String getDefaultStyleClass(FacesBean bean)
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return SkinSelectors.AF_SINGLE_STEP_BUTTON_BAR;
   }
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (canSkipRendering(context, arc, component))
+    if (canSkipRendering(context, rc, component))
       return;
 
-    long currentValue = getSelectedStep(bean);
+    long currentValue = getSelectedStep(component, bean);
 
     // get max value
-    long totalItems = getMaxStep(bean);
+    long totalItems = getMaxStep(component, bean);
 
     boolean showBackButton = (currentValue > 1);
     boolean showNextButton = ((totalItems == _MAX_VALUE_UNKNOWN) ||
@@ -127,14 +136,14 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
       return;
 
 
-    String formName = arc.getFormData().getName();
+    String formName = rc.getFormData().getName();
     if (formName == null)
     {
       _LOG.warning("SINGLE_STEP_MUST_INSIDE_FORM");
       return;
     }
 
-    if (!supportsNavigation(arc))
+    if (!supportsNavigation(rc))
       return;
 
     // If we don't support navigation (e.g., printable pages),
@@ -142,7 +151,7 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
     // This will give us the highest fidelity output - that is,
     // we avoid creating submit buttons.
     boolean renderAsTable = SelectRangeChoiceBarRenderer.__renderAsTable(component);
-    
+
     // start the rendering
     ResponseWriter writer = context.getResponseWriter();
 
@@ -150,9 +159,9 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
     if (renderAsTable)
     {
       writer.startElement("table", component);
-      renderAllAttributes(context, arc, bean);
+      renderAllAttributes(context, rc, component, bean);
       renderId(context, component);
-      OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+      OutputUtils.renderLayoutTableAttributes(context, rc, "0", null);
       writer.startElement("tr", null);
     }
 
@@ -161,10 +170,10 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
     // don't render back button on first step
     if (showBackButton)
     {
-      delegateRenderer(context, arc, component, bean, _backButton);
+      delegateRenderer(context, rc, component, bean, _backButton);
       writer.endElement("td");
 
-      _renderSpacerCell(context, arc);
+      _renderSpacerCell(context, rc);
       writer.startElement("td", null);
     }
 
@@ -177,13 +186,11 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
     if (totalItems > 2)
     {
       // the string to be displayed between buttons
-      String rangeString = _getRangeString(arc,
-                                           bean,
-                                           currentValue,
-                                           totalItems);
+      String rangeString = _getRangeString(rc,
+        component, bean, currentValue, totalItems);
 
       writer.startElement("span", null);
-      renderStyleClass(context, arc,
+      renderStyleClass(context, rc,
                        SkinSelectors.AF_SINGLE_STEP_BUTTON_BAR_LABEL);
       writer.writeText(rangeString, "text");
       writer.endElement("span");
@@ -193,11 +200,11 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
     if (showNextButton)
     {
       writer.endElement("td");
-      
-      _renderSpacerCell(context, arc);
+
+      _renderSpacerCell(context, rc);
 
       writer.startElement("td", null);
-      delegateRenderer(context, arc, component, bean, _nextButton);
+      delegateRenderer(context, rc, component, bean, _nextButton);
     }
 
     writer.endElement("td");
@@ -209,8 +216,9 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
     }
   }
 
-
-  protected long getSelectedStep(FacesBean bean)
+  protected long getSelectedStep(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_selectedStepKey);
     if (o == null)
@@ -218,8 +226,9 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
     return toLong(o);
   }
 
-
-  protected long getMaxStep(FacesBean bean)
+  protected long getMaxStep(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_maxStepKey);
     if (o == null)
@@ -227,8 +236,9 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
     return toLong(o);
   }
 
-
-  protected String getText(FacesBean bean)
+  protected String getText(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_textKey));
   }
@@ -237,16 +247,17 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
    * Writes the separator between two elements
    */
   protected void renderItemSpacer(
-   FacesContext context,
-   RenderingContext arc) throws IOException
+   FacesContext     context,
+   RenderingContext rc
+    ) throws IOException
   {
-    if (isPDA(arc))
+    if (isPDA(rc))
     {
       context.getResponseWriter().writeText(XhtmlConstants.NBSP_STRING, null);
     }
     else
     {
-      renderSpacer(context, arc, "5", "1");
+      renderSpacer(context, rc, "5", "1");
     }
   }
 
@@ -254,27 +265,28 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
    * Writes the separator between two elements
    */
   private void _renderSpacerCell(
-    FacesContext       context,
-    RenderingContext arc
+    FacesContext     context,
+    RenderingContext rc
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
     writer.startElement("td", null);
-    renderItemSpacer(context, arc);
+    renderItemSpacer(context, rc);
     writer.endElement("td");
   }
 
   private String _getRangeString(
-    RenderingContext arc,
+    RenderingContext rc,
+    UIComponent      component,
     FacesBean        bean,
     long             start,
     long             total)
   {
-    String text = getText(bean);
-    
+    String text = getText(component, bean);
+
     if (text == null)
-        text = arc.getTranslatedString(_STEP_TEXT_KEY);
+        text = rc.getTranslatedString(_STEP_TEXT_KEY);
     String pattern;
     String[] parameters;
 
@@ -282,17 +294,17 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
     {
       // =-= right now you can't ever get here because we don't show the
       // step number if maxStep is unknown, but just in case...
-      pattern = arc.getTranslatedString(_SINGLE_RANGE_FORMAT_NO_TOTAL_STRING);
+      pattern = rc.getTranslatedString(_SINGLE_RANGE_FORMAT_NO_TOTAL_STRING);
       parameters = new String[]
                      {
                        text,
                        IntegerUtils.getString(start)
                      };
-      
+
     }
     else
     {
-      pattern = arc.getTranslatedString(_SINGLE_RANGE_FORMAT_TOTAL_STRING);
+      pattern = rc.getTranslatedString(_SINGLE_RANGE_FORMAT_TOTAL_STRING);
       parameters = new String[]
                      {
                        text,
@@ -300,7 +312,7 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
                        IntegerUtils.getString(total)
                      };
     }
-    
+
     return XhtmlUtils.getFormattedString(pattern, parameters);
   }
 
@@ -328,51 +340,65 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
 
   static private class Button extends CommandButtonRenderer
   {
-    public Button(FacesBean.Type type, boolean next)
+    public Button(
+      FacesBean.Type type,
+      boolean        next)
     {
       super(type);
       _next = next;
     }
 
     @Override
-    protected String getClientId(FacesContext context, UIComponent component)
+    protected String getClientId(
+      FacesContext context,
+      UIComponent  component)
     {
       String clientId = super.getClientId(context, component);
       return clientId + (_next ? _NEXT_ID_SUFFIX : _BACK_ID_SUFFIX);
     }
 
     @Override
-    protected String getShortDesc(FacesBean bean)
+    protected String getShortDesc(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     @Override
-    protected String getStyleClass(FacesBean bean)
-    {
-      return null;
-    }
-    
-    @Override
-    protected String getInlineStyle(FacesBean bean)
+    protected String getStyleClass(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     @Override
-    protected String getText(FacesBean bean)
+    protected String getInlineStyle(
+      UIComponent component,
+      FacesBean   bean)
+    {
+      return null;
+    }
+
+    @Override
+    protected String getText(
+      UIComponent component,
+      FacesBean   bean)
     {
       String textAndAccessKey = _getTextAndAccessKey();
       return StringUtils.stripMnemonic(textAndAccessKey);
     }
 
     @Override
-    protected char getAccessKey(FacesBean bean)
+    protected char getAccessKey(
+      UIComponent component,
+      FacesBean   bean)
     {
       String textAndAccessKey = _getTextAndAccessKey();
       int index = StringUtils.getMnemonicIndex(textAndAccessKey);
       if (index < 0)
-        return (char) 0;
+        return 0;
 
       return textAndAccessKey.charAt(index + 1);
     }
@@ -380,39 +406,51 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
     @Override
     protected void renderEventHandlers(
       FacesContext context,
-      FacesBean    bean) throws IOException
+      UIComponent  component,
+      FacesBean    bean
+      ) throws IOException
     {
       context.getResponseWriter().writeAttribute("onclick",
-                                                 getOnclick(bean),
+                                                 getOnclick(component, bean),
                                                  null);
     }
 
     @Override
-    protected String getComponentOnclick(FacesBean bean)
+    protected String getComponentOnclick(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     @Override
-    protected boolean getImmediate(FacesBean bean)
+    protected boolean getImmediate(
+      UIComponent component,
+      FacesBean   bean)
     {
       return !_next;
     }
 
     @Override
-    protected boolean getPartialSubmit(FacesBean bean)
+    protected boolean getPartialSubmit(
+      UIComponent component,
+      FacesBean   bean)
     {
       return false;
     }
 
     @Override
-    protected boolean getDisabled(FacesBean bean)
+    protected boolean getDisabled(
+      UIComponent component,
+      FacesBean   bean)
     {
       return false;
     }
-    
+
     @Override
-    protected String getIcon(FacesBean bean)
+    protected String getIcon(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
@@ -423,7 +461,6 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
       return rc.getTranslatedString(
                 _next ? _SINGLE_NEXT_TEXT_KEY : _SINGLE_BACK_TEXT_KEY);
     }
-
 
     private boolean _next;
   }

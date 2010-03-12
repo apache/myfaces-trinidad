@@ -50,7 +50,7 @@ public class ProcessUtils
   {
     String valueString = IntegerUtils.getString(value);
 
-    String gotoEvent = TrinidadRenderingConstants.GOTO_EVENT;
+    String gotoEvent = XhtmlConstants.GOTO_EVENT;
     int bufferSize = _LINK_ON_CHANGE_FORM_START.length() +
                      form.length() +
                      34 +
@@ -120,7 +120,7 @@ public class ProcessUtils
     boolean          validate
     )
   {
-    String gotoEvent = TrinidadRenderingConstants.GOTO_EVENT;
+    String gotoEvent = XhtmlConstants.GOTO_EVENT;
     int initialSize = _CHOICE_ON_CHANGE_FORM_START.length() +
                           form.length()                         +
                           13                                    +

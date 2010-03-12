@@ -18,7 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
 /**
@@ -65,6 +65,6 @@ public class SimplePdaSkin extends PdaHtmlSkin
   @Override
   public String getRenderKitId()
   {
-    return TrinidadRenderingConstants.APACHE_TRINIDAD_PDA;
+    return XhtmlConstants.APACHE_TRINIDAD_PDA;
   }
 }

@@ -29,7 +29,7 @@ import org.apache.myfaces.trinidad.component.UIXProcess;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelButtonBar;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
@@ -512,13 +512,13 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
       String nameAttri = 
                XhtmlUtils.getEncodedNameAttribute (
                // Array should be in the order of parameter name and value pair
-                      new String[]{ TrinidadRenderingConstants.MULTIPLE_VALUE_PARAM,
+                      new String[]{ XhtmlConstants.MULTIPLE_VALUE_PARAM,
                                     BaseLafUtils.getStringAttributeValue
                                     (context, node, NAME_ATTR)});
 
       _renderSubmitButtonNonJSBrowser(
                            context, 
-                           TrinidadRenderingConstants.NO_JS_PARAMETER_KEY_BUTTON, 
+                           XhtmlConstants.NO_JS_PARAMETER_KEY_BUTTON, 
                            nameAttri);
       
       String nextButtonNameAttr =

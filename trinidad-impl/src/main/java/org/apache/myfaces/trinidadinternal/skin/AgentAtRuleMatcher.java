@@ -639,4 +639,3 @@ public final class AgentAtRuleMatcher
   // We store a map of agents and their version sets
   private final Map<TrinidadAgent.Application, Set<AgentMatcher>> _selectorAgents;
 }
-

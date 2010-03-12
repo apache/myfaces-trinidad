@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputColor;
@@ -27,49 +28,54 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 
 public class InputColorRenderer extends InputLabelAndMessageRenderer
 {
-
   public InputColorRenderer()
   {
     super(CoreInputColor.TYPE);
-  }  
+  }
 
-  protected InputColorRenderer(FacesBean.Type type)
+  protected InputColorRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _simpleInputColor = new SimpleInputColorRenderer(type);
   }
 
   @Override
-  protected String getRootStyleClass(FacesBean bean)  
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|inputColor";
-  }  
-    
+  }
+
   @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleInputColor;
   }
-  
+
   @Override
   protected String getLabelFor(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean)
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
-    if (_isCompact(bean))
+    if (_isCompact(component, bean))
       return null;
-    return super.getLabelFor(context, arc, component, bean);
+    return super.getLabelFor(context, rc, component, bean);
   }
-  
-  private boolean _isCompact(FacesBean bean)
+
+  private boolean _isCompact(
+    UIComponent component,
+    FacesBean   bean)
   {
     FacesBean.Type type = CoreInputColor.TYPE;
     PropertyKey compactKey = type.findKey("compact");

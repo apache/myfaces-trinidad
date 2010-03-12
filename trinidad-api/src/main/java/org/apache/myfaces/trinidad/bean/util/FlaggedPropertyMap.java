@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
-
 import java.util.Set;
 
 import javax.faces.context.FacesContext;
@@ -31,6 +30,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.bean.PropertyMap;
+
 
 public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
                                 implements PropertyMap
@@ -176,6 +176,24 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
       map.markInitialState();
   }
 
+  public void clearInitialState()
+  {
+    PropertyMap map = getPropertyMap(false);
+    if (map != null)
+      map.clearInitialState();
+  }
+
+  public boolean initialStateMarked()
+  {
+    PropertyMap map = getPropertyMap(false);
+
+    if (map != null)
+      return map.initialStateMarked();
+
+    // TODO gcrawford - do something better?
+    return false;
+  }
+
   public Object saveState(FacesContext context)
   {
     PropertyMap map = getPropertyMap(false);
@@ -193,7 +211,6 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
     // flags will be set up correctly
     StateUtils.restoreState(this, context, type, state, getUseStateHolder());
   }
-
 
   public boolean getUseStateHolder()
   {

@@ -47,7 +47,7 @@ public class OutputSourceRenderer extends OutputFormattedRenderer {
             return;
         }
 
-        String path = (String)getValue(bean);
+        String path = (String)getValue(comp, bean);
         String sourceType = path.substring(path.lastIndexOf('.') + 1, path.length());
 
         Renderer hlight;
@@ -66,22 +66,22 @@ public class OutputSourceRenderer extends OutputFormattedRenderer {
         rw.startElement("span", comp);
 
         renderId(context, comp);
-        renderAllAttributes(context, arc, bean);
+        renderAllAttributes(context, arc, comp, bean);
 
-        renderSourceHighlighted(context, (OutputSource)comp, bean, hlight);
+        renderSourceHighlighted(context, comp, bean, hlight);
 
         rw.endElement("span");
     }
 
     /**
      * @param context
-     * @param outputSource
+     * @param comp
      * @param bean
      * @param hlight
      * @throws IOException
      */
-    protected void renderSourceHighlighted(FacesContext context, OutputSource outputSource, FacesBean bean, Renderer hlight) throws IOException {
-        String sourceContent = readSource(context, outputSource, bean);
+    protected void renderSourceHighlighted(FacesContext context, UIComponent comp, FacesBean bean, Renderer hlight) throws IOException {
+        String sourceContent = readSource(context, comp, bean);
 
         ResponseWriter rw = context.getResponseWriter();
 
@@ -97,13 +97,14 @@ public class OutputSourceRenderer extends OutputFormattedRenderer {
 
     /**
      * @param context
-     * @param outputSource
+     * @param comp
      * @param bean
      * @return
      */
-    protected String readSource(FacesContext context, OutputSource outputSource, FacesBean bean) {
-        String path = (String)getValue(bean);
+    protected String readSource(FacesContext context, UIComponent comp, FacesBean bean) {
+        String path = (String)getValue(comp, bean);
 
+        OutputSource outputSource = (OutputSource)comp;
         String pathPrefix = outputSource.getPathPrefix();
         if (pathPrefix == null) {
             pathPrefix = "";

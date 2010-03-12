@@ -158,7 +158,7 @@ public final class CollectionUtils
   public static <E extends Enum<E>> Set<E> unmodifiableCopyOfEnumSet(Set<E> s)
   {
     Class<? extends Set> copyClass = s.getClass();
-    
+
     if ((_EMPTY_SET == copyClass) || (_SINGLETON_SET == copyClass))
     {
       // these classes are already unmodifiable, so just return
@@ -717,10 +717,10 @@ public final class CollectionUtils
     {
       super(primarySet, secondarySet);
     }
-    
-    private static final long serialVersionUID = 0L;    
+
+    private static final long serialVersionUID = 0L;
   }
-  
+
   private static class SerializableCollection<E> extends DelegatingCollection<E>
                                                  implements Serializable
   {
@@ -941,6 +941,7 @@ public final class CollectionUtils
   private final static class CheckedSerializationMap<K, V> extends DelegatingMap<K,V>
                                                            implements Serializable
   {
+
     public CheckedSerializationMap(Map<K, V> delegate)
     {
       if (delegate == null)
@@ -1290,7 +1291,7 @@ public final class CollectionUtils
     _UNMODIFIABLE_LIST = Collections.unmodifiableList(dummyList).getClass();
     _SYNCHRONIZED_LIST = Collections.synchronizedList(dummyList).getClass();
   }
-  
+
   private static final TrinidadLogger _LOG = 
                                         TrinidadLogger.createTrinidadLogger(CollectionUtils.class);
 

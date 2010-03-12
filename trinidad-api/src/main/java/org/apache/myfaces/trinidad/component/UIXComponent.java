@@ -26,17 +26,17 @@ import java.util.Iterator;
 import javax.el.MethodExpression;
 
 import javax.faces.component.NamingContainer;
+import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
-import org.apache.myfaces.trinidad.component.visit.VisitCallback;
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
-import org.apache.myfaces.trinidad.component.visit.VisitHint;
-import org.apache.myfaces.trinidad.component.visit.VisitResult;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+import javax.faces.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
@@ -165,6 +165,8 @@ abstract public class UIXComponent extends UIComponent
       else
       {
         // not a FlattenedComponent, pass the component directly to the ComponentProcessor
+        child.pushComponentToEL(context, null);
+        
         try
         {
           childProcessor.processComponent(context, cpContext, child, callbackContext);
@@ -173,6 +175,7 @@ abstract public class UIXComponent extends UIComponent
         {
           // if startDepth is > 0, only the first visible child will be marked as starting a group
           cpContext.resetStartDepth();
+          child.popComponentFromEL(context);
         }
 
         return true;
@@ -301,28 +304,28 @@ abstract public class UIXComponent extends UIComponent
   }
 
   /**
-  * <p>Perform a tree visit starting at
-  * this node in the tree.</p>
-  *
-  * <p>UIXComponent.visitTree() implementations do not invoke the
-  * {@code VisitCallback} directly, but instead call
-  * {@code VisitContext.invokeVisitCallback()} to invoke the
-  * callback.  This allows {@code VisitContext} implementations
-  * to provide optimized tree traversals, for example by only
-  * calling the {@code VisitCallback} for a subset of components.</p>
-  *
-  * @param visitContext the <code>VisitContext</code> for this visit
-  * @param callback the <code>VisitCallback</code> instance
-  * whose <code>visit</code> method will be called
-  * for each node visited.
-  * @return component implementations may return <code>true</code>
-  * to indicate that the tree visit is complete (eg. all components
-  * that need to be visited have been visited).  This results in
-  * the tree visit being short-circuited such that no more components
-  * are visited.
-  *
-  * @see VisitContext#invokeVisitCallback VisitContext.invokeVisitCallback()
-  */
+   * <p>Perform a tree visit starting at
+   * this node in the tree.</p>
+   *
+   * <p>UIXComponent.visitTree() implementations do not invoke the
+   * {@code VisitCallback}directly, but instead call
+   * {@code VisitContext.invokeVisitCallback()}to invoke the
+   * callback.  This allows {@code VisitContext}implementations
+   * to provide optimized tree traversals, for example by only
+   * calling the {@code VisitCallback}for a subset of components.</p>
+   *
+   * @param visitContext the <code>VisitContext</code> for this visit
+   * @param callback the <code>VisitCallback</code> instance
+   * whose <code>visit</code> method will be called
+   * for each node visited.
+   * @return component implementations may return <code>true</code>
+   * to indicate that the tree visit is complete (eg. all components
+   * that need to be visited have been visited).  This results in
+   * the tree visit being short-circuited such that no more components
+   * are visited.
+   *
+   * @see VisitContext#invokeVisitCallback VisitContext.invokeVisitCallback()
+   */
   public boolean visitTree(
     VisitContext visitContext,
     VisitCallback callback)
@@ -351,42 +354,27 @@ abstract public class UIXComponent extends UIComponent
     VisitContext visitContext,
     VisitCallback callback)
   {
-    return _visitChildrenImpl(visitContext, this, callback);
+    // visit all of the chikldren of the component
+    return _visitAllChildren(visitContext, callback);
   }
-  
+ 
   /**
-   * Visit all of the children of the component
+   * Default implementation of visiting children that visits all children without iterating
+   * @param visitContext the <code>VisitContext</code> for this visit
+   * @param callback the <code>VisitCallback</code> instance
+   * @return <code>true</code> if the visit is complete.
    */
-  private static boolean _visitChildrenImpl(
+  private boolean _visitAllChildren(
     VisitContext visitContext,
-    UIComponent   component,
     VisitCallback callback)
   {
     // visit the children of the component
-    Iterator<UIComponent> kids = component.getFacetsAndChildren();
-
+    Iterator<UIComponent> kids = getFacetsAndChildren();
+  
     while(kids.hasNext())
     {
-      boolean done;
-
-      UIComponent currChild = kids.next();
-
-      if (currChild instanceof UIXComponent)
-      {
-        UIXComponent uixChild = (UIXComponent)currChild;
-
-        // delegate to UIXComponent's visitTree implementation to allow
-        // subclassses to modify the behavior
-        done = uixChild.visitTree(visitContext, callback);
-      }
-      else
-      {
-        // use generic visit implementation
-        done = visitTree(visitContext, currChild, callback);
-      }
-
       // If any kid visit returns true, we are done.
-      if (done)
+      if (kids.next().visitTree(visitContext, callback))
       {
         return true;
       }
@@ -394,186 +382,175 @@ abstract public class UIXComponent extends UIComponent
     
     return false;
   }
-
+   
   /**
    * Returns <code>true</code> if the components are being visited
    * for the purpose of encoding.
    */
   private static boolean _isEncodingVisit(VisitContext visitContext)
   {
-    PhaseId phaseId = visitContext.getPhaseId();
-
-    return((PhaseId.RENDER_RESPONSE == phaseId) &&
-           visitContext.getHints().contains(VisitHint.EXECUTE_LIFECYCLE));
+    return(visitContext.getHints().contains(VisitHint.EXECUTE_LIFECYCLE) &&
+           FacesContext.getCurrentInstance().getCurrentPhaseId() == PhaseId.RENDER_RESPONSE);
   }
   
   /**
-  * <p>Perform a tree visit starting at the specified node in the tree.</p>
-  *
-  * <p>UIXComponent.visitTree() implementations do not invoke the
-  * {@code VisitCallback} directly, but instead call
-  * {@code VisitContext.invokeVisitCallback()} to invoke the
-  * callback.  This allows {@code VisitContext} implementations
-  * to provide optimized tree traversals, for example by only
-  * calling the {@code VisitCallback} for a subset of components.</p>
-  *
-  * @param visitContext the <code>VisitContext</code> for this visit
-  * @param component the <code>UIComponent</code> to start the visit from
-  * @param callback the <code>VisitCallback</code> instance
-  * whose <code>visit</code> method will be called
-  * for each node visited.
-  * @return component implementations may return <code>true</code>
-  *   to indicate that the tree visit is complete (eg. all components
-  *   that need to be visited have been visited).  This results in
-  *   the tree visit being short-circuited such that no more components
-  *   are visited.
-  *
-  * @see VisitContext#invokeVisitCallback VisitContext.invokeVisitCallback()
-  */
+   * <p>Perform a tree visit starting at the specified node in the tree.</p>
+   *
+   * <p>UIXComponent.visitTree() implementations do not invoke the
+   * {@code VisitCallback}directly, but instead call
+   * {@code VisitContext.invokeVisitCallback()}to invoke the
+   * callback.  This allows {@code VisitContext}implementations
+   * to provide optimized tree traversals, for example by only
+   * calling the {@code VisitCallback}for a subset of components.</p>
+   *
+   * @param visitContext the <code>VisitContext</code> for this visit
+   * @param component the <code>UIComponent</code> to start the visit from
+   * @param callback the <code>VisitCallback</code> instance
+   * whose <code>visit</code> method will be called
+   * for each node visited.
+   * @return component implementations may return <code>true</code>
+   * to indicate that the tree visit is complete (eg. all components
+   * that need to be visited have been visited).  This results in
+   * the tree visit being short-circuited such that no more components
+   * are visited.
+   *
+   * @see VisitContext#invokeVisitCallback VisitContext.invokeVisitCallback()
+   */
   public static boolean visitTree(
     VisitContext  visitContext,
     UIComponent   component,
     VisitCallback callback)
   {
-    FacesContext context = visitContext.getFacesContext();
-    RenderingContext rc = (_isEncodingVisit(visitContext))
-                            ? RenderingContext.getCurrentInstance()
-                            : null;
-
-    UIXComponent uixComponent;
-
-    // determine if we should even visit this component subtree
-    if (component instanceof UIXComponent)
+    if (!(component instanceof UIXComponent))
     {
-      uixComponent = (UIXComponent)component;
-
-      // delegate to the UIXComponent
-      if (!uixComponent.isVisitable(visitContext))
-        return false;
-
-      // UIXComponents are allowed to set up their context differently for encoding
-      // than normal processing, so behave differently if this is the RenderResponse
-      // phase
-      if (rc != null)
-      {
-        uixComponent.setupEncodingContext(context, rc);
-      }
-      else
-      {
-        uixComponent.setupVisitingContext(context);
-      }
+      // hopefully the subview implementations have the subId optimization
+      return component.visitTree(visitContext, callback);
     }
     else
     {
-      // use generic isVisitable implemetation
-      if (!_isVisitable(visitContext, component))
+      UIXComponent uixComponent = (UIXComponent)component;
+
+      FacesContext context = visitContext.getFacesContext();
+  
+      // delegate to the UIXComponent
+      if (!uixComponent.isVisitable(visitContext))
         return false;
+  
+      // set up the EL Context with the component.  Note that since we do this after call
+      // isVisitable, any attributes retrieved (liek rendered) that are bound with EL referring
+      // to the current component will be evaluated correctly, however, in the specific case
+      // of rendered, rendered already has this problem in normal JSF traversal since it 
+      // is evaluated by the parent component
+      component.pushComponentToEL(context, null);
 
-      uixComponent = null;
-    }
-
-    VisitResult visitResult = VisitResult.REJECT;
-    boolean doneVisiting = false;
-    
-    try
-    {
-    // invoke the callback for this component
-      visitResult = visitContext.invokeVisitCallback(component, callback);
-
-      if (visitResult == VisitResult.COMPLETE)
-        doneVisiting = true;
-      else if (visitResult == VisitResult.ACCEPT)
+      boolean doneVisiting = false;
+      
+      try
       {
-        // now determine whether we need to visit the children      
-        boolean skipChildren = false;
-
-        if (uixComponent != null)
+        RenderingContext rc = (_isEncodingVisit(visitContext))
+                                ? RenderingContext.getCurrentInstance()
+                                : null;
+    
+        // UIXComponents are allowed to set up their context differently for encoding
+        // than normal processing, so behave differently if this is the RenderResponse
+        // phase
+        if (rc != null)
         {
-          // assume that all UIXComponent NamingContainers always act as NamingContainers,
-          // (unlike <h:form>) and this it is OK to put the optimization where we
-          // don't visit the children if we know that we don't have any ids in this
-          // subtree to visit
-          if (uixComponent instanceof NamingContainer)
-          {
-            if (visitContext.getSubtreeIdsToVisit(uixComponent).isEmpty())
-              skipChildren = true;
-          }
+          uixComponent.setupEncodingContext(context, rc);
         }
         else
         {
-          // we only optimize walking into non-UIXComponent NamingContainers
-          // if they are UINamingConainer (which is used by <f:subview>
-          if (UINamingContainer.class == component.getClass())
-          {
-            if (visitContext.getSubtreeIdsToVisit(component).isEmpty())
-              skipChildren = true;
-          }
+          uixComponent.setupVisitingContext(context);
         }
-  
-        // visit the children of the component if we aren't supposed to skip them
-        if (!skipChildren)
+    
+        VisitResult visitResult = VisitResult.REJECT;
+        
+        try
         {
-          if (uixComponent != null)
+          // invoke the callback for this component
+          visitResult = visitContext.invokeVisitCallback(component, callback);
+    
+          if (visitResult == VisitResult.COMPLETE)
+            doneVisiting = true;
+          else if (visitResult == VisitResult.ACCEPT)
           {
-            // setup any context needed for visiting the children of the component as opposed
-            // to the component itself
-            if (rc != null)
+            // now determine whether we need to visit the children      
+  
+            // assume that all UIXComponent NamingContainers always act as NamingContainers,
+            // (unlike <h:form>) and this it is OK to put the optimization where we
+            // don't visit the children if we know that we don't have any ids in this
+            // subtree to visit
+            boolean skipChildren = (uixComponent instanceof NamingContainer) &&
+                                   visitContext.getSubtreeIdsToVisit(uixComponent).isEmpty();
+                
+            // visit the children of the component if we aren't supposed to skip them
+            if (!skipChildren)
             {
-              uixComponent._setupChildrenEncodingContext(context, rc);
-            }
-            else
-            {
-              uixComponent.setupChildrenVisitingContext(context);
-            }
-            
-            
-            try
-            {
-              doneVisiting =  uixComponent.visitChildren(visitContext, callback);
-            }
-            finally
-            {
-              // teardown any context initialized above
+              // setup any context needed for visiting the children of the component as opposed
+              // to the component itself
               if (rc != null)
               {
-                uixComponent._tearDownChildrenEncodingContext(context, rc);
+                uixComponent._setupChildrenEncodingContext(context, rc);
               }
               else
               {
-                uixComponent.tearDownChildrenVisitingContext(context);
+                uixComponent.setupChildrenVisitingContext(context);
+              }
+              
+              
+              try
+              {
+                // determine whether this visit should be iterating.  If it shouldn't, don't
+                // even call the protected hook.  We currently don't iterate during the
+                // restore view phase when we are visiting all of the components.
+                boolean noIterate = (visitContext.getIdsToVisit() == VisitContext.ALL_IDS) &&
+                                    (context.getCurrentPhaseId() == PhaseId.RESTORE_VIEW);
+                  
+                doneVisiting =  (noIterate)
+                                  ? uixComponent._visitAllChildren(visitContext, callback)
+                                  : uixComponent.visitChildren(visitContext, callback);
+              }
+              finally
+              {
+                // teardown any context initialized above
+                if (rc != null)
+                {
+                  uixComponent._tearDownChildrenEncodingContext(context, rc);
+                }
+                else
+                {
+                  uixComponent.tearDownChildrenVisitingContext(context);
+                }
               }
             }
           }
           else
           {
-            doneVisiting = _visitChildrenImpl(visitContext, component, callback);
+            // don't visit the children
+            assert(visitResult == VisitResult.REJECT);
+          }
+        }
+        finally
+        {  
+         // tear down the context we set up in order to visit our component
+          if (rc != null)
+          {
+            uixComponent.tearDownEncodingContext(context, rc);
+          }
+          else
+          {
+            uixComponent.tearDownVisitingContext(context);
           }
         }
       }
-      else
+      finally
       {
-        // don't visit the children
-        assert(visitResult == VisitResult.REJECT);
+        component.popComponentFromEL(context);        
       }
+      
+      // if we got this far, we're not done
+      return doneVisiting;
     }
-    finally
-    {
-      // tear down the context we set up in order to visit our component
-      if (uixComponent != null)
-      {
-        if (rc != null)
-        {
-          uixComponent.tearDownEncodingContext(context, rc);
-        }
-        else
-        {
-          uixComponent.tearDownVisitingContext(context);
-        }
-      }
-    }
-  
-    // if we got this far, we're not done
-    return doneVisiting;
   }
 
   /**
@@ -646,14 +623,14 @@ abstract public class UIXComponent extends UIComponent
 
   /**
    * <p>Called by
-   * {@link UIXComponent#visitTree(VisitContext, VisitCallback) UIXComponent.visitTree()} to determine
+   * {@link UIXComponent#visitTree(VisitContext,VisitCallback) UIXComponent.visitTree()}to determine
    * whether this component is "visitable" - ie. whether this component
-   * satisfies the {@link org.apache.myfaces.trinidad.component.visit.VisitHint} returned by
+   * satisfies the {@link VisitHint}returned by
    * {@link VisitContext#getHints VisitContext.getHints()}.</p>
    * <p>If this component is not visitable (ie. if this method returns
    * false), the tree visited is short-circuited such that neither the
    * component nor any of its descendents will be visited></p>
-   * <p>Custom {@code treeVisit()} implementations may call this method
+   * <p>Custom {@code treeVisit()}implementations may call this method
    * to determine whether the component is visitable before performing
    * any visit-related processing.</p>
    * @param visitContext VisitingContext to use to determine if the component is visitable
@@ -1008,4 +985,24 @@ abstract public class UIXComponent extends UIComponent
    * @see UIXComponentBase#getClientId(FacesContext context)
    */
   abstract public String getContainerClientId(FacesContext context, UIComponent child);
+
+  /**
+   * We are using FacesBean to save state, which does not implement StateHelper, so
+   * calling this method will call UnsupportedOperationException
+   */
+  @Override
+  protected StateHelper getStateHelper()
+  {
+    throw new UnsupportedOperationException();
+  }
+  
+  /**
+   * We are using FacesBean to save state, which does not implement StateHelper, so
+   * calling this method will call UnsupportedOperationException
+   */
+  @Override
+  protected StateHelper getStateHelper(boolean create)
+  {
+    throw new UnsupportedOperationException();
+  }
 }

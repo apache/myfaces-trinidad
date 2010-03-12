@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
@@ -31,6 +32,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectOrderShuttle;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
+
 public class SelectOrderShuttleRenderer extends SelectManyShuttleRenderer
 {
   public SelectOrderShuttleRenderer()
@@ -38,20 +40,24 @@ public class SelectOrderShuttleRenderer extends SelectManyShuttleRenderer
     super(CoreSelectOrderShuttle.TYPE);
   }
 
-  protected SelectOrderShuttleRenderer(FacesBean.Type type)
+  protected SelectOrderShuttleRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _reorderOnlyKey = type.findKey("reorderOnly");
   }
 
   @Override
-  protected boolean getReorderOnly(FacesBean bean)
+  protected boolean getReorderOnly(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_reorderOnlyKey == null)
       return false;
@@ -75,15 +81,17 @@ public class SelectOrderShuttleRenderer extends SelectManyShuttleRenderer
   protected void renderReorderButtons(
     FacesContext     context,
     RenderingContext rc,
+    UIComponent      component,
     FacesBean        bean,
-    String           listId) throws IOException
+    String           listId
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("td", null);
     rw.writeAttribute("align", "center", null);
     rw.writeAttribute("valign", "middle", null);
-    
-    boolean disabled = getDisabled(bean);
+
+    boolean disabled = getDisabled(component, bean);
     renderButton(context,
                   rc,
                   SkinSelectors.AF_SELECT_ORDER_SHUTTLE_REORDER_TOP_ICON_NAME,
@@ -92,7 +100,7 @@ public class SelectOrderShuttleRenderer extends SelectManyShuttleRenderer
                   "javascript:TrShuttleProxy._orderTopBottomList(0,'" + listId + "');");
     rw.startElement("br", null);
     rw.endElement("br");
-    
+
     renderButton(context,
                   rc,
                   SkinSelectors.AF_SELECT_ORDER_SHUTTLE_REORDER_UP_ICON_NAME,
@@ -103,7 +111,7 @@ public class SelectOrderShuttleRenderer extends SelectManyShuttleRenderer
     renderSpacer(context, rc, "1", "15");
     rw.startElement("br", null);
     rw.endElement("br");
-    
+
     renderButton(context,
                   rc,
                   SkinSelectors.AF_SELECT_ORDER_SHUTTLE_REORDER_DOWN_ICON_NAME,
@@ -112,14 +120,14 @@ public class SelectOrderShuttleRenderer extends SelectManyShuttleRenderer
                   "javascript:TrShuttleProxy._orderList(1,'" + listId + "');");
     rw.startElement("br", null);
     rw.endElement("br");
-    
+
     renderButton(context,
                  rc,
                  SkinSelectors.AF_SELECT_ORDER_SHUTTLE_REORDER_BOTTOM_ICON_NAME,
                  "af_selectOrderShuttle.REORDER_DOWN_ALL_TIP",
                  disabled ? null :
                  "javascript:TrShuttleProxy._orderTopBottomList(1,'" + listId + "');");
-    
+
     rw.endElement("td");
   }
 
@@ -145,7 +153,7 @@ public class SelectOrderShuttleRenderer extends SelectManyShuttleRenderer
     "af_selectOrderShuttle.REMOVE";
 
   // this translation map to map the selectMany keys to the selectOrder keys.
-  private static final Map<String, String> _SELECT_ORDER_KEY_MAP = 
+  private static final Map<String, String> _SELECT_ORDER_KEY_MAP =
     new HashMap<String, String>();
 
   static
@@ -206,5 +214,5 @@ public class SelectOrderShuttleRenderer extends SelectManyShuttleRenderer
     _SELECT_ORDER_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_BOTTOM_END_STYLE_CLASS,
                          SkinSelectors.AF_SELECT_ORDER_SHUTTLE_PB_BOTTOM_END_STYLE_CLASS);
 
-  }  
+  }
 }

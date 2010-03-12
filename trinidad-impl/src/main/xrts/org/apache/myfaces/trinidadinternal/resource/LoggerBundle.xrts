@@ -372,13 +372,22 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="TREE_COMPONENT_MUST_INSIDE_FORM">The tree component must be used inside of a form.</resource>
 
 <!-- CANNOT_FIND_SCRIPTLET -->
-<resource key="CANNOT_FIND_SCRIPTLET">Couldn''t find scriptlet: {0}</resource>
+<resource key="CANNOT_FIND_SCRIPTLET">Could not find scriptlet: {0}</resource>
 
 <!-- UNABLE_GET_RESOURCE -->
 <resource key="UNABLE_GET_RESOURCE">Unable to get resource {0}</resource>
 
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT">Apache Trinidad is running with debug javascript. Do not use in a production environment. See the "org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT" parameter in /WEB-INF/web.xml</resource>
+
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE">Your environment is configured as production and Apache Trinidad is running with debug javascript. See the "org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT" parameter in /WEB-INF/web.xml</resource>
+
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE">Your environment is configured as production and Apache Trinidad is running with debug javascript. See the "org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT" parameter in /WEB-INF/web.xml</resource>
+
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE">Your environment is configured as production and Apache Trinidad is running with debug-output TRUE. See the "debug-output" element in trinidad-config.xml file.</resource>
 
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE">Illegal value:{0} for {1}</resource>
@@ -1080,4 +1089,11 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH">Invalid variant for Locale identifier {0} - cannot contain slashes to avoid XSS attack. Will use empty string for variant.</resource>
 
 <resource key="COULD_NOT_DELETE_FILE">Could not delete the file {0}</resource>
+
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE">IState must be an instance of StateManager.SerializedView or an Object array of length 2.</resource>
+
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED">Partial state saving is not yet supported. Please set context-param javax.faces.PARTIAL_STATE_SAVING to false in your web.xml.</resource>
+
 </resources>

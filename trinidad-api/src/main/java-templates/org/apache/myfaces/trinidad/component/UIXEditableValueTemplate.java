@@ -22,9 +22,13 @@ import java.util.Iterator;
 
 import javax.el.ValueExpression;
 
+import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
@@ -32,14 +36,18 @@ import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
+import javax.faces.event.PostValidateEvent;
+import javax.faces.event.PreValidateEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.render.Renderer;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import javax.validation.Validation;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
 
@@ -62,8 +70,10 @@ abstract public class UIXEditableValueTemplate
     "org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED";
   static public final String CONVERSION_MESSAGE_ID =
     "org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION";
-
-
+  static public final String TRINIDAD_BEAN_VALIDATION_AVAILABLE =
+    "org.apache.myfaces.trinidad.UIXEditableValue.BEAN_VALIDATION_AVAILABLE";
+  static public final String VALIDATE_EMPTY_FIELDS_PARAM_NAME =
+    "org.apache.myfaces.trinidad.UIXEditableValue.VALIDATE_EMPTY_FIELDS";
 
   /**
    * Convenience method to reset this component's value to an
@@ -284,18 +294,17 @@ abstract public class UIXEditableValueTemplate
     if (!isValid())
       return;
 
-    // If our value is empty, only check the required property
-    if (isEmpty(newValue))
+    // If our value is empty, check the required property
+    boolean isEmpty = isEmpty(newValue); 
+    if (isEmpty && isRequired())
     {
-      if (isRequired())
-      {
-        FacesMessage message = _getRequiredFacesMessage(context);
-        context.addMessage(getClientId(context), message);
-        setValid(false);
-      }
+      FacesMessage message = _getRequiredFacesMessage(context);
+      context.addMessage(getClientId(context), message);
+      setValid(false);
     }
-    // If our value is not empty, call all validators
-    else
+    
+    // If our value is not empty, OR we should do empty field validation, call all validators
+    if (!isEmpty || _shouldValidateEmptyFields(context)) 
     {
       Iterator<Validator> validators = (Iterator<Validator>)getFacesBean().entries(VALIDATORS_KEY);
       while (validators.hasNext())
@@ -453,12 +462,110 @@ abstract public class UIXEditableValueTemplate
             (((String) value).trim().length() == 0));
   }
 
+  /**
+   * Checks if the <code>validateValue()</code> should handle
+   * empty field validation (part of BeanValidation and JSF 2.0).
+   * 
+   * @return a (cached) boolean to identify empty field validation
+   */
+  private boolean _shouldValidateEmptyFields(FacesContext context)
+  {
+    ExternalContext ec = context.getExternalContext();
+    Boolean shouldValidateEmptyFields = (Boolean)ec.getApplicationMap().get(VALIDATE_EMPTY_FIELDS_PARAM_NAME);
+
+    if (shouldValidateEmptyFields == null)
+    {
+      // From the JSF 2.0 specification:
+      // The implementation must obtain the init parameter Map  from the ExternalContext and inspect the value
+      // for the key given by the value of the symbolic constant VALIDATE_EMPTY_FIELDS_PARAM_NAME.
+      String param = ec.getInitParameter(UIInput.VALIDATE_EMPTY_FIELDS_PARAM_NAME);
+
+      // If there is no value under that key, use the same key and look in the
+      // application map from the ExternalContext. 
+      if (param == null)
+      {
+        param = (String) ec.getApplicationMap().get(UIInput.VALIDATE_EMPTY_FIELDS_PARAM_NAME);
+      }
+
+      // null means the same as auto (see SPEC on page 11-5)
+      if (param == null)
+      {
+        param = "auto";
+      }
+      else
+      {
+        // The environment variables are case insensitive...
+        param = param.toLowerCase();
+      }
+
+      if (param.equals("auto") && _isBeanValidationAvailable(context))
+      {
+        shouldValidateEmptyFields = Boolean.TRUE;
+      }
+      else
+      {  
+        shouldValidateEmptyFields = Boolean.valueOf(param);
+      }
+
+      ec.getApplicationMap().put(VALIDATE_EMPTY_FIELDS_PARAM_NAME, shouldValidateEmptyFields);
+    }
+
+    return shouldValidateEmptyFields;
+  }
+  
+  /**
+   * This boolean indicates if Bean Validation is present.
+   *
+   * @return a (cached) boolean to identify if bean validation is present
+   */
+  private boolean _isBeanValidationAvailable(FacesContext context)
+  {
+    ExternalContext ec = context.getExternalContext();
+    Boolean couldLoadBeanValidationAPI = (Boolean) ec.getApplicationMap().get(TRINIDAD_BEAN_VALIDATION_AVAILABLE);
+
+    if (couldLoadBeanValidationAPI == null)
+    {
+      try
+      {
+        couldLoadBeanValidationAPI = Boolean.valueOf(ClassLoaderUtils.loadClass("javax.validation.Validation") != null);
+
+        if (couldLoadBeanValidationAPI)
+        {
+          try
+          {
+            // Trial-error approach to check for Bean Validation impl existence.
+            Validation.buildDefaultValidatorFactory().getValidator();
+          }
+          catch (Exception validationException)
+          {
+            // SPEC section 3.5.6.2:
+            // TODO do a i18n version of the error msg
+            throw new FacesException("A ValidatorFactory can not be retrieved", validationException);
+          }
+        }
+      }
+      catch (ClassNotFoundException cnfe)
+      {
+        // SPEC section 3.5.6.2:
+        // if a Bean Validation provider is not present, bean validation is disabled
+        // TODO need a better warning (i18n) here, which has more information
+        _LOG.warning("A Bean Validation provider is not present, therefore bean validation is disabled");
+        couldLoadBeanValidationAPI = Boolean.FALSE;
+      }
+
+      ec.getApplicationMap().put(TRINIDAD_BEAN_VALIDATION_AVAILABLE, couldLoadBeanValidationAPI);
+    }
+
+    return couldLoadBeanValidationAPI;
+  }
 
   /**
    * Executes validation logic.
    */
   private void _executeValidate(FacesContext context)
   {
+    Application application = context.getApplication();
+    application.publishEvent(context, PreValidateEvent.class, UIComponent.class, this);
     try
     {
       validate(context);
@@ -467,6 +574,10 @@ abstract public class UIXEditableValueTemplate
     {
       context.renderResponse();
       throw e;
+    }
+    finally
+    {
+      application.publishEvent(context, PostValidateEvent.class, UIComponent.class, this);
     }
 
     if (!isValid())

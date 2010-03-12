@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,11 +29,11 @@ import javax.faces.event.ActionEvent;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandLink;
+import org.apache.myfaces.trinidad.context.FormData;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
-import org.apache.myfaces.trinidad.context.FormData;
-import org.apache.myfaces.trinidad.context.RenderingContext;
 
 public class CommandLinkRenderer extends GoLinkRenderer
 {
@@ -42,13 +42,15 @@ public class CommandLinkRenderer extends GoLinkRenderer
     this(CoreCommandLink.TYPE);
   }
 
-  protected CommandLinkRenderer(FacesBean.Type type)
+  protected CommandLinkRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _immediateKey = type.findKey("immediate");
@@ -57,90 +59,105 @@ public class CommandLinkRenderer extends GoLinkRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(FacesContext context, UIComponent component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    FacesBean    facesBean,
+    String       clientId)
   {
-    RequestContext afContext = RequestContext.getCurrentInstance();
+    RequestContext requestContext = RequestContext.getCurrentInstance();
     ReturnEvent returnEvent =
-      afContext.getDialogService().getReturnEvent(component);
+      requestContext.getDialogService().getReturnEvent(component);
     if (returnEvent != null)
     {
       returnEvent.queue();
     }
     else
     {
-      Map<String, String> parameterMap = 
-        context.getExternalContext().getRequestParameterMap();
-      
+      Map<String, String> parameterMap =
+        facesContext.getExternalContext().getRequestParameterMap();
+
       Object source = parameterMap.get("source");
-      String clientId = component.getClientId(context);
+      if (clientId == null)
+      {
+        clientId = component.getClientId(facesContext);
+      }
 
       if ((source != null) && source.equals(clientId))
       {
         (new ActionEvent(component)).queue();
-        if (getPartialSubmit(getFacesBean(component)))
+        if (getPartialSubmit(component, facesBean))
         {
-          PartialPageUtils.forcePartialRendering(context);
+          PartialPageUtils.forcePartialRendering(facesContext);
         }
       }
     }
   }
-  
+
   @Override
   protected void encodeBegin(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (getPartialSubmit(bean))
+    if (getPartialSubmit(comp, bean))
     {
-      AutoSubmitUtils.writeDependencies(context, arc);
+      AutoSubmitUtils.writeDependencies(context, rc);
     }
- 
+
     String clientId = getClientId(context, comp);
     // Make sure we don't have anything to save
-    assert(arc.getCurrentClientId() == null);
-    arc.setCurrentClientId(clientId);
-    
-    // Find the params up front, and save them off - 
+    assert(rc.getCurrentClientId() == null);
+    rc.setCurrentClientId(clientId);
+
+    // Find the params up front, and save them off -
     // getOnClick() doesn't have access to the UIComponent
     String extraParams = AutoSubmitUtils.getParameters(comp);
-    Object old = arc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY,
+    Object old = rc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY,
                                          extraParams);
-    super.encodeBegin(context, arc, comp, bean);
+    super.encodeBegin(context, rc, comp, bean);
     // Restore any old params, though really, how could that happen??
-    arc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY, old);
-    
-    arc.setCurrentClientId(null);
+    rc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY, old);
+
+    rc.setCurrentClientId(null);
   }
 
   @Override
   public void encodeEnd(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
-    super.encodeEnd(context, arc, comp, bean);
-    FormData fd = arc.getFormData();
+    super.encodeEnd(context, rc, comp, bean);
+    FormData fd = rc.getFormData();
     if (fd != null)
-      fd.addNeededValue(TrinidadRenderingConstants.SOURCE_PARAM);
+      fd.addNeededValue(XhtmlConstants.SOURCE_PARAM);
   }
 
   @Override
-  protected String getDestination(FacesBean bean)
+  protected String getDestination(
+    UIComponent component,
+    FacesBean   bean)
   {
     return null;
   }
 
   @Override
-  protected String getTargetFrame(FacesBean bean)
+  protected String getTargetFrame(
+    UIComponent component,
+    FacesBean   bean)
   {
     return null;
   }
 
   @Override
-  protected boolean hasOnclick(FacesBean bean)
+  protected boolean hasOnclick(
+    UIComponent component,
+    FacesBean   bean)
   {
     // More efficient
     return true;
@@ -149,24 +166,28 @@ public class CommandLinkRenderer extends GoLinkRenderer
   /**
    * Returns the component's onclick
    */
-  protected String getComponentOnclick(FacesBean bean)
+  protected String getComponentOnclick(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return super.getOnclick(bean);
+    return super.getOnclick(component, bean);
   }
 
   @Override
-  protected String getOnclick(FacesBean bean)
+  protected String getOnclick(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String onclick = getComponentOnclick(bean);
+    String onclick = getComponentOnclick(component, bean);
     RenderingContext arc = RenderingContext.getCurrentInstance();
     String id = arc.getCurrentClientId();
-    boolean immediate = getImmediate(bean);
-    
+    boolean immediate = getImmediate(component, bean);
+
     String extraParams = (String)
       arc.getProperties().get(_EXTRA_SUBMIT_PARAMS_KEY);
 
     String script;
-    if (getPartialSubmit(bean))
+    if (getPartialSubmit(component, bean))
     {
       script = AutoSubmitUtils.getSubmitScript(
                 arc, id, immediate, false,
@@ -183,10 +204,15 @@ public class CommandLinkRenderer extends GoLinkRenderer
                 false/* return false*/);
     }
 
+    //return XhtmlUtils.buildClientEventHandler(facesContext, component, false, "click",
+    //         params, onclick, script);
+
     return XhtmlUtils.getChainedJS(onclick, script, true);
   }
 
-  protected boolean getImmediate(FacesBean bean)
+  protected boolean getImmediate(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_immediateKey);
     if (o == null)
@@ -195,8 +221,9 @@ public class CommandLinkRenderer extends GoLinkRenderer
     return Boolean.TRUE.equals(o);
   }
 
-
-  protected boolean getPartialSubmit(FacesBean bean)
+  protected boolean getPartialSubmit(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_partialSubmitKey);
     if (o == null)
@@ -205,9 +232,8 @@ public class CommandLinkRenderer extends GoLinkRenderer
     return Boolean.TRUE.equals(o);
   }
 
-  
   private PropertyKey _immediateKey;
   private PropertyKey _partialSubmitKey;
-  
+
   static private final Object _EXTRA_SUBMIT_PARAMS_KEY = new Object();
 }

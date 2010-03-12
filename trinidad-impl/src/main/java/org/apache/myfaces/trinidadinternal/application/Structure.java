@@ -272,11 +272,11 @@ final class Structure implements Externalizable
   private List<Object> _facets;
   private List<Structure> _children;
 
-  private static final long serialVersionUID = 1L;
 
   static private final String _COMMON_CLASS_PREFIX =
     "org.apache.myfaces.trinidad.component";
   static private final int _COMMON_CLASS_PREFIX_LENGTH =
     _COMMON_CLASS_PREFIX.length();
+  
+  static private final long serialVersionUID = 1L; 
 }
-

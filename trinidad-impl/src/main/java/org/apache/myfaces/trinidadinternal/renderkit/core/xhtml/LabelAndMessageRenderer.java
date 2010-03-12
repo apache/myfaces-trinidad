@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -44,7 +45,8 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
   static public final String INLINE_MESSAGE_DEFAULT_GAP = "12";
   static public final String INLINE_MESSAGE_PDA_GAP     = "2";
 
-  public LabelAndMessageRenderer(FacesBean.Type type)
+  public LabelAndMessageRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
@@ -56,7 +58,8 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
 
@@ -68,8 +71,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     _label = new Label(type, false);
     _labelInTable = new Label(type, true);
   }
-  
-  private boolean _needsTableTag(UIComponent component)
+
+  private boolean _needsTableTag(
+    UIComponent component)
   {
     // Find the first content-generating parent
     UIComponent parent = XhtmlUtils.getStructuralParent(component);
@@ -91,7 +95,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     return true;
   }
 
-  private boolean _isParentPanelForm(FacesContext context, UIComponent component)
+  private boolean _isParentPanelForm(
+    FacesContext context,
+    UIComponent  component)
   {
     if (PanelFormLayoutRenderer.__isInPanelFormLayout(context, component))
     {
@@ -143,7 +149,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     // For narrow-screen PDAs, always render the Label above fields.
     if (supportsNarrowScreen(RenderingContext.getCurrentInstance()))
       return false;
-          
+
     if (needsPanelFormLayout)
     {
       Map requestMap = context.getExternalContext().getRequestMap();
@@ -160,8 +166,8 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     FacesContext     context,
     RenderingContext rc,
     UIComponent      component,
-    FacesBean        bean)
-    throws IOException
+    FacesBean        bean
+    ) throws IOException
   {
     // do nothing for now
   }
@@ -193,11 +199,11 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     FacesContext     context,
     RenderingContext rc,
     UIComponent      component,
-    FacesBean        bean)
-    throws IOException
+    FacesBean        bean
+    ) throws IOException
   {
     String clientId = component.getClientId(context);
-    
+
     // If we're a leaf component, see if we can skip our rendering
     if (isLeafRenderer() && canSkipRendering(rc, clientId))
     {
@@ -213,9 +219,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
 
     boolean isInTable = _isInTable();
 
-    if (hasOwnLabel(bean) || isInTable)
+    if (hasOwnLabel(component, bean) || isInTable)
     {
-      String value = getLabel(bean);
+      String value = getLabel(component, bean);
       FormData fd = rc.getFormData();
       if (fd != null)
         fd.addLabel(clientId, value);
@@ -237,9 +243,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
         rw.endElement("div");
         _renderMessageCellContents(context, rc, component, bean);
       }
-      
+
       // In the case of narrow-screen PDAs, to reduce the component's width,
-      // End facet is always rendered below. 
+      // End facet is always rendered below.
       renderEndFacetForNarrowPDA(context, rc, component, true);
     }
     else
@@ -259,7 +265,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
         rw.startElement("table", component);
         // =-=AEW THIS DOESN'T SEEM RIGHT - IT SHOULD GO ON THE INPUT FIELD
         // ONLY, RIGHT?  Matching UIX 2.2 behavior here.
-        rw.writeAttribute("title", getShortDesc(bean), "title");
+        rw.writeAttribute("title", getShortDesc(component, bean), "title");
         if (!isDesktop(rc))
         {
           // On PDA browsers label and message pair is always
@@ -290,12 +296,12 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
         //rw.startElement("table", component);
         //OutputUtils.renderLayoutTableAttributes(context, rc, "0", null);
         //rw.startElement("tbody", component);
-        //rw.startElement("tr", component); 
+        //rw.startElement("tr", component);
         //renderRootDomElementStyles(context, rc, component, bean);
 
-        // Basically, we're screwed unless we specify panelForm to keep a 
+        // Basically, we're screwed unless we specify panelForm to keep a
         // class-less container opened to receive the rootDomStyles.
-        // Even if this is the case we need a way to detect if a new 
+        // Even if this is the case we need a way to detect if a new
         // element get opened from encodeBetweenLabelAndFieldCells call.
         // Since the above option is so ugly, I'll assume that.
         // FIXME: That's too strongly coupled to my taste. Even being stuck
@@ -303,7 +309,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
         renderRootDomElementStyles(context, rc, component, bean);
       }
 
-      boolean labelExists = (getLabel(bean) != null);
+      boolean labelExists = (getLabel(component, bean) != null);
 
       _renderLabelCell(context, rc, component, bean, labelExists);
 
@@ -332,7 +338,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
         }
         else
         {
-          rw.writeAttribute("width", hspaceObject, null);              
+          rw.writeAttribute("width", hspaceObject, null);
         }
         rw.endElement("td");
       }
@@ -364,11 +370,11 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
           rw.endElement("tr");
         }
       }
-      
+
       // In the case of narrow-screen PDAs, to reduce the component's width,
       // End facet is always rendered below.
       renderEndFacetForNarrowPDA(context, rc, component, false);
-      
+
       if (needsTableTag)
       {
         rw.endElement("table");
@@ -379,11 +385,13 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
   }
 
   // subclasses should override this
-  protected String getRootStyleClass(FacesBean bean)
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return null;
   }
-  
+
   /**
    * @todo Get cell alignment from skin property.
    */
@@ -392,31 +400,31 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     RenderingContext rc,
     UIComponent      component,
     FacesBean        bean,
-    boolean          labelExists)
-    throws IOException
+    boolean          labelExists
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("td", null);
-    
+
     // render labelStyleClass and defaultStyleClass.
     renderStyleClasses(context, rc, new String[]
       {
-        getLabelStyleClass(bean),
+        getLabelStyleClass(component, bean),
         _getDefaultLabelStyleClass(rc, SkinSelectors.AF_LABEL_TEXT_STYLE_CLASS)
       });
 
-    String labelInlineStyle = getLabelInlineStyleKey(bean);
-   
-    // In the case of narrow-screen PDAs, the Label is rendered above fields. 
-    // So Label should be left aligned to be in align with fields below. 
+    String labelInlineStyle = getLabelInlineStyleKey(component, bean);
+
+    // In the case of narrow-screen PDAs, the Label is rendered above fields.
+    // So Label should be left aligned to be in align with fields below.
     if (supportsNarrowScreen(rc))
     {
       labelInlineStyle = labelInlineStyle + ";text-align: left;";
     }
-    
+
     rw.writeAttribute("style", labelInlineStyle, null);
 
-    String valign = getDefaultLabelValign(bean);
+    String valign = getDefaultLabelValign(component, bean);
 
     rw.writeAttribute("valign", valign, null);
     if (isDesktop(rc))
@@ -446,8 +454,8 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     FacesBean        bean,
     boolean          labelExists,
     boolean          needsPanelFormLayout,
-    boolean          isInline)
-    throws IOException
+    boolean          isInline
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("td", null);
@@ -499,20 +507,25 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     rw.endElement("td");
   }
 
-  static String __getCachedClientId(RenderingContext rc)
+  static String __getCachedClientId(
+    RenderingContext rc)
   {
     String clientId = rc.getCurrentClientId();
     assert(clientId != null);
     return clientId;
   }
 
-  protected String getFieldCellContentsStyleClass(FacesBean bean)
+  protected String getFieldCellContentsStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     // Override if you want a "af_panelLabelAndMessage_content" style class
     return null;
   }
 
-  protected String getFooterContentsStyleClass(FacesBean bean)
+  protected String getFooterContentsStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     // Override if you want a style class for the footer container
     return null;
@@ -551,7 +564,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     UIComponent  component)
   {
     return (super.getClientId(context, component) +
-            TrinidadRenderingConstants.COMPOSITE_ID_EXTENSION);
+            XhtmlConstants.COMPOSITE_ID_EXTENSION);
   }
 
   protected boolean isLeafRenderer()
@@ -559,7 +572,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     return true;
   }
 
-  protected String getDefaultLabelValign(FacesBean bean)
+  protected String getDefaultLabelValign(
+    UIComponent component,
+    FacesBean   bean)
   {
     return null;
   }
@@ -568,8 +583,8 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     FacesContext     context,
     RenderingContext rc,
     UIComponent      component,
-    FacesBean        bean)
-    throws IOException;
+    FacesBean        bean
+    ) throws IOException;
 
   /**
    * Renders footer contents if isFooterPresent() is true.
@@ -583,8 +598,8 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     FacesContext     context,
     RenderingContext rc,
     UIComponent      component,
-    FacesBean        bean)
-    throws IOException
+    FacesBean        bean
+    ) throws IOException
   {
     // render nothing by default
   }
@@ -593,7 +608,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
    * If it's known that the field content is not editable, return false.
    * Otherwise, assume it is editable and return true
    */
-  protected boolean isContentEditable(FacesBean bean)
+  protected boolean isContentEditable(
+    UIComponent component,
+    FacesBean   bean)
   {
     return true;
   }
@@ -608,16 +625,20 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
    * has its own internal label - and that therefore there
    * shouldn't be an HTML &lt;label> tag, for instance.
    */
-  protected boolean hasOwnLabel(FacesBean bean)
+  protected boolean hasOwnLabel(
+    UIComponent component,
+    FacesBean   bean)
   {
     return false;
   }
 
-  protected boolean showAccessKeyOnLabel(FacesBean bean)
+  protected boolean showAccessKeyOnLabel(
+    UIComponent component,
+    FacesBean   bean)
   {
     // By default, if we have our own label, don't show the
     // access key on the label (but that's not always true)
-    return !hasOwnLabel(bean);
+    return !hasOwnLabel(component, bean);
   }
 
   /**
@@ -630,17 +651,22 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     UIComponent      component,
     FacesBean        bean);
 
-  static void __setLabelWidth(RenderingContext rc, Object width)
+  static void __setLabelWidth(
+    RenderingContext rc,
+    Object           width)
   {
     rc.getProperties().put(_LABEL_CELL_WIDTH_KEY, width);
   }
 
-  static void __setFieldWidth(RenderingContext rc, Object width)
+  static void __setFieldWidth(
+    RenderingContext rc,
+    Object           width)
   {
     rc.getProperties().put(_FIELD_CELL_WIDTH_KEY, width);
   }
 
-  static void __clearProperties(RenderingContext rc)
+  static void __clearProperties(
+    RenderingContext rc)
   {
     rc.getProperties().remove(_LABEL_CELL_WIDTH_KEY);
     rc.getProperties().remove(_FIELD_CELL_WIDTH_KEY);
@@ -648,7 +674,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
 
   private class Label extends OutputLabelRenderer
   {
-    public Label(FacesBean.Type type, boolean inTable)
+    public Label(
+      FacesBean.Type type,
+      boolean        inTable)
     {
       super(type);
       _inTable = inTable;
@@ -675,19 +703,21 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     protected void renderAllAttributes(
       FacesContext     context,
       RenderingContext rc,
-      FacesBean        bean)
-      throws IOException
+      UIComponent      component,
+      FacesBean        bean
+      ) throws IOException
     {
       // Block everything
     }
 
     @Override
-    protected String getDefaultValign(FacesBean bean)
+    protected String getDefaultValign(
+      UIComponent component,
+      FacesBean   bean)
     {
       // get the defaultLabelValign from the form component.
-      return getDefaultLabelValign(bean);
+      return getDefaultLabelValign(component, bean);
     }
-
 
     @Override
     protected String getConvertedString(
@@ -698,7 +728,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       if (_inTable)
         return null;
 
-      return LabelAndMessageRenderer.this.getLabel(bean);
+      return LabelAndMessageRenderer.this.getLabel(component, bean);
     }
 
     /**
@@ -706,33 +736,39 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
      * or showRequired is on.
      */
     @Override
-    protected boolean getShowRequired(FacesBean bean)
+    protected boolean getShowRequired(
+      UIComponent component,
+      FacesBean   bean)
     {
       // Inside the table, never show the required icon.
       if (_inTable)
         return false;
 
-      return (LabelAndMessageRenderer.this.labelShowRequired(bean));
+      return (LabelAndMessageRenderer.this.labelShowRequired(component, bean));
     }
 
     @Override
-    protected char getAccessKey(FacesBean bean)
+    protected char getAccessKey(
+      UIComponent component,
+      FacesBean   bean)
     {
-      if (LabelAndMessageRenderer.this.showAccessKeyOnLabel(bean))
-        return super.getAccessKey(bean);
+      if (LabelAndMessageRenderer.this.showAccessKeyOnLabel(component, bean))
+        return super.getAccessKey(component, bean);
 
       return CHAR_UNDEFINED;
     }
 
     @Override
-    protected String getShortDesc(FacesBean bean)
+    protected String getShortDesc(
+      UIComponent component,
+      FacesBean   bean)
     {
-      String shortDesc = super.getShortDesc(bean);
+      String shortDesc = super.getShortDesc(component, bean);
       // =-=AEW Apparently, we're supposed to do this
       // for screenReader selectOneRadio and selectBooleanRadio!?!
       if ((shortDesc == null) && _inTable)
       {
-        shortDesc = LabelAndMessageRenderer.this.getLabel(bean);
+        shortDesc = LabelAndMessageRenderer.this.getLabel(component, bean);
       }
 
       return shortDesc;
@@ -753,15 +789,16 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     @Override
     protected boolean isLabelTagNeeded(
       RenderingContext rc,
+      UIComponent      component,
       FacesBean        bean,
       String           forId,
       int              accessKeyIndex
     )
     {
-      if (LabelAndMessageRenderer.this.hasOwnLabel(bean))
+      if (LabelAndMessageRenderer.this.hasOwnLabel(component, bean))
         return false;
 
-      return super.isLabelTagNeeded(rc, bean, forId, accessKeyIndex);
+      return super.isLabelTagNeeded(rc, component, bean, forId, accessKeyIndex);
     }
 
     private final boolean _inTable;
@@ -769,7 +806,8 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
 
   private class Message extends MessageRenderer
   {
-    public Message(FacesBean.Type type)
+    public Message(
+      FacesBean.Type type)
     {
       super(type);
     }
@@ -783,13 +821,17 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     }
 
     @Override
-    protected String getShortDesc(FacesBean bean)
+    protected String getShortDesc(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     @Override
-    protected boolean getIndented(FacesBean bean)
+    protected boolean getIndented(
+      UIComponent component,
+      FacesBean   bean)
     {
       return LabelAndMessageRenderer.this.isIndented();
     }
@@ -798,8 +840,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     protected void renderAllAttributes(
       FacesContext     context,
       RenderingContext rc,
-      FacesBean        bean)
-      throws IOException
+      UIComponent      component,
+      FacesBean        bean
+      ) throws IOException
     {
     }
 
@@ -816,8 +859,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     }
   }
 
-
-  protected String getLabelInlineStyleKey(FacesBean bean)
+  protected String getLabelInlineStyleKey(
+    UIComponent component,
+    FacesBean   bean)
   {
     return null; // overridden by PanelLabelAndMessageRenderer
   }
@@ -825,26 +869,30 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
   /**
    * Hook for resolving whether we should show the "required" icon.
    */
-  protected boolean labelShowRequired(FacesBean bean)
+  protected boolean labelShowRequired(
+    UIComponent component,
+    FacesBean   bean)
   {
     // If we're required (from the input side of things),
     // or showRequired is true, then show the "required" icon.
     // Unless we're read-only, in which case never show it.
-    if (getRequired(bean) || getShowRequired(bean))
+    if (getRequired(component, bean) || getShowRequired(component, bean))
     {
-      return isContentEditable(bean);
+      return isContentEditable(component, bean);
     }
 
     return false;
   }
 
-  protected boolean getShowRequired(FacesBean bean)
+  protected boolean getShowRequired(
+    UIComponent component,
+    FacesBean   bean)
   {
     if(_showRequiredKey == null)
     { // showRequired is not supporte on the element
       return false;
     }
-    
+
     Object o = bean.getProperty(_showRequiredKey);
     if (o == null)
     {
@@ -854,7 +902,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     return Boolean.TRUE.equals(o);
   }
 
-  protected boolean getRequired(FacesBean bean)
+  protected boolean getRequired(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_requiredKey);
     if (o == null)
@@ -863,8 +913,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     return Boolean.TRUE.equals(o);
   }
 
-
-  protected String getLabel(FacesBean bean)
+  protected String getLabel(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_labelKey));
   }
@@ -874,28 +925,30 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
    * @param bean
    * @return
    */
-  protected String getLabelStyleClass(FacesBean bean)  
+  protected String getLabelStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String styleClass = getRootStyleClass(bean);
+    String styleClass = getRootStyleClass(component, bean);
     if(styleClass != null)
     {
       styleClass += _LABEL_PSEUDO_ELEMENT;
     }
-    
+
     return styleClass;
-  } 
-  
-  /* This method is responsible for rendering the End facet for narrow-screen 
-   * PDAs. In the case of narrow-screen PDAs, End facet is rendered after the 
+  }
+
+  /* This method is responsible for rendering the End facet for narrow-screen
+   * PDAs. In the case of narrow-screen PDAs, End facet is rendered after the
    * Help facet as shown below
    * +------+
-   * |Label | 
+   * |Label |
    * +------+
    * |Field |
    * +----------+
-   * |Help facet| 
+   * |Help facet|
    * +----------+
-   * |End facet | 
+   * |End facet |
    * ------------
    * @param context a <code>FacesContext</code>
    * @param arc a <code>RenderingContext</code>
@@ -904,7 +957,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
    *        Facet to be rendered is in inside a table data(<TD>)
    * @throws IOException if there are problems in rendering contents
    */
-  
+
   protected void renderEndFacetForNarrowPDA(
     FacesContext     context,
     RenderingContext rc,
@@ -912,22 +965,22 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     boolean          insideTableData)
     throws IOException
   {
-    // Nothing by default. Applicable only for the 
+    // Nothing by default. Applicable only for the
     // components that support End facet.
   }
 
-  // If we have mapped this style (like in panelForm), 
+  // If we have mapped this style (like in panelForm),
   // then return the style, otherwise return null
   private String _getDefaultLabelStyleClass(
     RenderingContext rc,
-    String           styleClass)  
+    String           styleClass)
   {
     Map<String, String> keyMap = rc.getSkinResourceKeyMap();
     return (keyMap != null) ?
             keyMap.get(styleClass) :
             null;
   }
-  
+
   private boolean _isFormRendererType(String rendererType)
   {
     return "org.apache.myfaces.trinidad.Form".equals(rendererType) ||
@@ -936,12 +989,12 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
         "org.apache.myfaces.trinidad.TableLayout".equals(rendererType);
   }
 
-  
+
   // THESE VALUES MUST MATCH THOSE IN INLINEMESSAGERENDERER
   // (at least for as long as both classes exist)
   static private final Object _LABEL_CELL_WIDTH_KEY = "_imLCWidth";
   static private final Object _FIELD_CELL_WIDTH_KEY = "_imFCWidth";
-  
+
   private static final String _LABEL_PSEUDO_ELEMENT = "::label";
 
   private PropertyKey   _labelKey;

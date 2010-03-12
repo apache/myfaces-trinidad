@@ -18,12 +18,14 @@
  */
 package org.apache.myfaces.trinidadinternal.facelets;
 
-import com.sun.facelets.tag.MetaRuleset;
-import com.sun.facelets.tag.jsf.ConvertHandler;
-import com.sun.facelets.tag.jsf.ConverterConfig;
+
+
+import javax.faces.view.facelets.ConverterConfig;
+import javax.faces.view.facelets.ConverterHandler;
+import javax.faces.view.facelets.MetaRuleset;
 
 public class TrinidadConverterHandler
-  extends ConvertHandler
+  extends ConverterHandler
 {
   public TrinidadConverterHandler(ConverterConfig config)
   {
@@ -37,6 +39,7 @@ public class TrinidadConverterHandler
     m.addRule(StringArrayPropertyTagRule.Instance);
     m.addRule(ValueExpressionTagRule.Instance);
     m.addRule(LocalePropertyTagRule.Instance);
+    m.addRule (TimezonePropertyTagRule.Instance);
     return m;
   }
 }

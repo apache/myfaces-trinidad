@@ -116,7 +116,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     // Stick another PI indicating that this is a rich reponse
     // Used for an Iframe based communication channel, since it cannot 
     // read response headers
-    super.write("<?Tr-XHR-Response-Type ?>\n");
+    _xml.write("<?Tr-XHR-Response-Type ?>\n");
 
     _xml.startElement("content", null);
     String viewId = _facesContext.getViewRoot().getViewId();

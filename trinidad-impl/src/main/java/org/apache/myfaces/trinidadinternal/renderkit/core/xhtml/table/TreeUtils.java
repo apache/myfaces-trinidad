@@ -43,7 +43,7 @@ import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HiddenLabelUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TableRenderer;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 
@@ -291,7 +291,7 @@ public final class TreeUtils
           if ((startParam == null) || ("".equals(startParam)))
           {
             // this must be a root level range change:
-            startParam = parameters.get(TrinidadRenderingConstants.VALUE_PARAM);
+            startParam = parameters.get(XhtmlConstants.VALUE_PARAM);
             newStart = Integer.parseInt(startParam) - 1; // value is based at one.
             Object focusRowKey = tree.getFocusRowKey();
             tree.setRowKey(focusRowKey);
@@ -415,9 +415,9 @@ public final class TreeUtils
     return XhtmlUtils.getEncodedNameAttribute ( 
                        // Array should be in the order of name
                        // and value pair
-                          new String[]{ TrinidadRenderingConstants.SOURCE_PARAM,
+                          new String[]{ XhtmlConstants.SOURCE_PARAM,
                                         treeName,
-                                        TrinidadRenderingConstants.EVENT_PARAM,
+                                        XhtmlConstants.EVENT_PARAM,
                                         isExpand ? _SHOW : _HIDE,
                                         _PATH_PARAM,
                                         _getPathParam(tree)});

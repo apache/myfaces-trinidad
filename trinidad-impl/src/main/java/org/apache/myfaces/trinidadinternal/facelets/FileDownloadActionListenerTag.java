@@ -29,14 +29,15 @@ import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import javax.faces.view.facelets.ComponentHandler;
+
 import org.apache.myfaces.trinidadinternal.taglib.listener.FileDownloadActionListener;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletException;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.jsf.ComponentSupport;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.FaceletException;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagHandler;
 
 /**
  *
@@ -55,7 +56,7 @@ public class FileDownloadActionListenerTag extends TagHandler
   public void apply(FaceletContext faceletContext,
           UIComponent parent) throws IOException, FacesException, FaceletException, ELException
   {
-    if(ComponentSupport.isNew(parent))
+    if(ComponentHandler.isNew(parent))
     {
       FileDownloadActionListener listener = new FileDownloadActionListener();
       if (_filename != null)

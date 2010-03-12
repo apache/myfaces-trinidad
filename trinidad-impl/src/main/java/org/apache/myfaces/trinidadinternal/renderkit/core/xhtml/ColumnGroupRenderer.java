@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,6 @@ import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.SortCriterion;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
@@ -42,6 +42,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.RenderStage;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRenderingContext;
+
 
 /**
  * @todo Kill the now-strange "compute mode", since we can
@@ -62,7 +63,8 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _headerTextKey = type.findKey("headerText");
@@ -83,12 +85,16 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     return true;
   }
 
-  protected String getHeaderText(FacesBean bean)
+  protected String getHeaderText(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_headerTextKey));
   }
 
-  protected boolean getHeaderNoWrap(FacesBean bean)
+  protected boolean getHeaderNoWrap(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_headerNoWrapKey);
     if (o == null)
@@ -97,7 +103,9 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     return Boolean.TRUE.equals(o);
   }
 
-  protected boolean getNoWrap(FacesBean bean)
+  protected boolean getNoWrap(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_noWrapKey);
     if (o == null)
@@ -106,8 +114,9 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     return Boolean.TRUE.equals(o);
   }
 
-
-  protected boolean getRowHeader(FacesBean bean)
+  protected boolean getRowHeader(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_rowHeaderKey);
     if (o == null)
@@ -116,8 +125,9 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     return Boolean.TRUE.equals(o);
   }
 
-
-  protected boolean getSeparateRows(FacesBean bean)
+  protected boolean getSeparateRows(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_separateRowsKey);
     if (o == null)
@@ -126,18 +136,23 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     return Boolean.TRUE.equals(o);
   }
 
-  protected String getWidth(FacesBean bean)
+  protected String getWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_widthKey));
   }
 
-  protected String getFormatType(FacesBean bean)
+  protected String getFormatType(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_alignKey));
   }
 
-
-  protected boolean getSortable(FacesBean bean)
+  protected boolean getSortable(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_sortableKey);
     if (o == null)
@@ -146,13 +161,16 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     return !Boolean.FALSE.equals(o);
   }
 
-
-  protected String getSortProperty(FacesBean bean)
+  protected String getSortProperty(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_sortPropertyKey));
   }
 
-  protected String getDefaultSortOrder(FacesBean bean)
+  protected String getDefaultSortOrder(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_defaultSortOrderKey == null)
       return null;
@@ -160,8 +178,8 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     return toString(bean.getProperty(_defaultSortOrderKey));
   }
 
-
-  static public String getDefaultHeaderStyleClass(TableRenderingContext tContext)
+  static public String getDefaultHeaderStyleClass(
+    TableRenderingContext tContext)
   {
     return ColumnData.selectFormat(tContext,
                                    SkinSelectors.AF_COLUMN_HEADER_TEXT_STYLE,
@@ -176,7 +194,8 @@ public class ColumnGroupRenderer extends XhtmlRenderer
    * left-aligned for text, right-aligned for numbers and center-aligned
    * for icons.
    */
-  protected String getHeaderStyleClass(TableRenderingContext tContext)
+  protected String getHeaderStyleClass(
+    TableRenderingContext tContext)
   {
     return getDefaultHeaderStyleClass(tContext);
   }
@@ -186,10 +205,11 @@ public class ColumnGroupRenderer extends XhtmlRenderer
    */
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     TableRenderingContext tContext =
       TableRenderingContext.getCurrentInstance();
@@ -202,7 +222,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
       _computeMode(context, tContext, component);
       break;
     case RenderStage.COLUMN_HEADER_STAGE:
-      _renderHeaderMode(context, arc, tContext, component);
+      _renderHeaderMode(context, rc, tContext, component);
       break;
     // For these stages, simply render the children; we
     // need no special processing at the column group level
@@ -221,10 +241,11 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   }
 
   private void _renderHeaderMode(
-    FacesContext        context,
-    RenderingContext arc,
+    FacesContext          context,
+    RenderingContext      rc,
     TableRenderingContext tContext,
-    UIComponent           column) throws IOException
+    UIComponent           column
+    ) throws IOException
   {
     final NodeData parentNode = getParentNode(tContext);
     final boolean areWeRoot;
@@ -256,7 +277,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
       // which row our children will start rendering:
       currentNode.waitUntilRow = rowSpan + row;
 
-      String headerID = _renderColumnHeader(context, arc, tContext, column,
+      String headerID = _renderColumnHeader(context, rc, tContext, column,
                                             rowSpan, currentNode.cols);
       if (headerID != null)
       {
@@ -296,17 +317,17 @@ public class ColumnGroupRenderer extends XhtmlRenderer
    */
   private String _renderColumnHeader(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
     UIComponent           column,
     int                   rowSpan,
-    int                   colSpan)
-    throws IOException
+    int                   colSpan
+    ) throws IOException
   {
     ColumnData colData = tContext.getColumnData();
 
     // only no-wrap header cells if specified
-    boolean isNoWrap = getHeaderNoWrap(getFacesBean(column));
+    boolean isNoWrap = getHeaderNoWrap(column, getFacesBean(column));
 
     // indicate to the headerNode that it is a column group header
     colData.setColumnGroupHeader(true);
@@ -314,7 +335,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     colData.setCurrentHeaderNoWrap(isNoWrap);
 
     final String colID =
-      renderHeaderAndSpan(context, arc, tContext, column,
+      renderHeaderAndSpan(context, rc, tContext, column,
                           rowSpan, colSpan);
     colData.setColumnGroupHeader(false);
     colData.setCurrentHeaderNoWrap(false);
@@ -343,12 +364,12 @@ public class ColumnGroupRenderer extends XhtmlRenderer
    */
   protected final String renderHeaderAndSpan(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
     UIComponent           column,
     int                   rowSpan,
-    int                   colSpan)
-    throws IOException
+    int                   colSpan
+    ) throws IOException
   {
     ColumnData colData = tContext.getColumnData();
     String colID;
@@ -363,8 +384,8 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     int physicalIndex = colData.getPhysicalColumnIndex();
     int sortability = getSortability(tContext, column);
     boolean sortable = (sortability != SORT_NO) &&
-                       supportsNavigation(arc);
-                       
+                       supportsNavigation(rc);
+
     if(sortable)
     {
       // the sortable script has a "state" parameter, so add this
@@ -372,18 +393,18 @@ public class ColumnGroupRenderer extends XhtmlRenderer
       // generation of elements (on those that do, form data elements
       // can be created on the fly as necessary); see the JS
       // referenced in this.getSortingOnclick
-      Object domLevel = 
-        arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_DOM);
+      Object domLevel =
+        rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_DOM);
       if(
-        domLevel == null || 
-        domLevel == TrinidadAgent.DOM_CAP_NONE || 
+        domLevel == null ||
+        domLevel == TrinidadAgent.DOM_CAP_NONE ||
         domLevel == TrinidadAgent.DOM_CAP_FORM)
       {
-        FormData formData = arc.getFormData();
+        FormData formData = rc.getFormData();
         if(formData != null)
         {
-          formData.addNeededValue(TrinidadRenderingConstants.STATE_PARAM);
-        }      
+          formData.addNeededValue(XhtmlConstants.STATE_PARAM);
+        }
       }
     }
 
@@ -398,14 +419,14 @@ public class ColumnGroupRenderer extends XhtmlRenderer
 
 
     String sortIconName = _getIconName(sortability);
-    Icon sortIcon = arc.getIcon(sortIconName);
+    Icon sortIcon = rc.getIcon(sortIconName);
     boolean hasSortingIcon = (sortIcon != null) && !sortIcon.isNull();
 
     // we do not want to wrap if there is an icon on the header:
     // On PDA, where screen width is limited, we cannot afford not to
     // wrap.  isPDA check is used in several places in this class.
     // PDA specific logic will be moved to PDA render kit in the future.
-    if (!isPDA(arc))
+    if (!isPDA(rc))
     {
       isNoWrap = isNoWrap || hasSortingIcon;
     }
@@ -427,15 +448,15 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     String styleClass = getSortableHeaderStyleClass(tContext, sortability);
     String borderStyleClass =
       CellUtils.getHeaderBorderStyle(tContext,
-                                     arc,
+                                     rc,
                                      true, //isColHeader
                                      sortable);
 
-    renderStyleClasses(context, arc, new String[]{ styleClass,
+    renderStyleClasses(context, rc, new String[]{ styleClass,
                                                    borderStyleClass});
 
-    String style = getHeaderInlineStyle(arc);
-    renderInlineStyleAttribute(context, arc, style);
+    String style = getHeaderInlineStyle(rc);
+    renderInlineStyleAttribute(context, rc, column, style);
 
     if (colSpan > 1)
       rw.writeAttribute("colspan", IntegerUtils.getString(colSpan), null);
@@ -446,11 +467,11 @@ public class ColumnGroupRenderer extends XhtmlRenderer
       rw.writeAttribute("rowspan", IntegerUtils.getString(rowSpan), null);
 
     String sortOnclick = "";
-    if (supportsScripting(arc))
+    if (supportsScripting(rc))
     {
-      sortOnclick = getSortingOnclick(arc, tContext, column, sortability);
+      sortOnclick = getSortingOnclick(rc, tContext, column, sortability);
     }
-     
+
     //=-=AEW Review: Does this need to support any other handlers?
 
     //=-=AEW Apparently in PDA, we don't bother rendering
@@ -460,12 +481,12 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     //  be driven off an "event bubbling" agent property.
     // - HKuhn if printable mode (supportScripting is disabled),
     // then no need for rendering onclick
-    if (!isPDA(arc) && supportsScripting(arc))
+    if (!isPDA(rc) && supportsScripting(rc))
       rw.writeAttribute("onclick", sortOnclick, null);
 
     // TODO: we should pass in null for "event bubbling" systems
     renderHeaderContents(context,
-                         arc,
+                         rc,
                          tContext,
                          column,
                          sortability,
@@ -482,7 +503,8 @@ public class ColumnGroupRenderer extends XhtmlRenderer
    * @return an inline style String to be rendered on headers (used on
    *  special subclasses)
    */
-  protected String getHeaderInlineStyle(RenderingContext arc)
+  protected String getHeaderInlineStyle(
+    RenderingContext rc)
   {
     return null;
   }
@@ -491,29 +513,29 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   /**
    */
   protected String getSortingOnclick(
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
     UIComponent           column,
     int                   sortability)
   {
     FacesBean bean = getFacesBean(column);
-    String onclick  = getOnclick(bean);
+    String onclick  = getOnclick(column, bean);
     if (sortability == SORT_NO)
       return onclick;
 
-    if (arc.getFormData() == null)
+    if (rc.getFormData() == null)
     {
       _LOG.warning("SORTING_DISABLED_TABLE_NOT_IN_FORM");
       return onclick;
     }
 
-    String formName = arc.getFormData().getName();
+    String formName = rc.getFormData().getName();
     String source   = tContext.getTableId();
-    String value    = getSortProperty(bean);
+    String value    = getSortProperty(column, bean);
     // Note that "state" refers to the current state, not
     // the state will be set after clicking
-    String state = findSortState(sortability, bean);
-    
+    String state = findSortState(sortability, column, bean);
+
     StringBuffer buffer = new StringBuffer(33+
                                            formName.length() +
                                            source.length() +
@@ -544,12 +566,13 @@ public class ColumnGroupRenderer extends XhtmlRenderer
 
   protected void renderHeaderContents(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
     UIComponent           column,
     int                   sortability,
     Icon                  sortIcon,
-    String                sortOnclick) throws IOException
+    String                sortOnclick
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     UIComponent header = getFacet(column, CoreColumn.HEADER_FACET);
@@ -559,43 +582,42 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     }
     else
     {
-      String headerText = getHeaderText(getFacesBean(column));
+      String headerText = getHeaderText(column, getFacesBean(column));
       if (headerText != null)
         rw.writeText(headerText, "headerText");
     }
 
-     renderSortOrderSymbol(context, arc, column, tContext,
+     renderSortOrderSymbol(context, rc, column, tContext,
                                     sortability, sortIcon, sortOnclick);
-    
+
   }
-  
-  
+
   /**
    * @todo IMPLEMENT
    */
   protected void renderSortOrderSymbol(
-    FacesContext       context,
-    RenderingContext arc,
+    FacesContext          context,
+    RenderingContext      rc,
     UIComponent           column,
     TableRenderingContext tContext,
-    int                 sortability,
-    Icon                icon,
-    String              sortOnclick
+    int                   sortability,
+    Icon                  icon,
+    String                sortOnclick
     ) throws IOException
   {
     if ((icon == null) || icon.isNull())
       return;
 
     ResponseWriter writer = context.getResponseWriter();
-    boolean supportNav = supportsNavigation(arc);
+    boolean supportNav = supportsNavigation(rc);
     boolean NonJavaScriptBrowser = false;
     boolean renderedInput = false;
     if (supportNav)
     {
-      if (isPDA(arc))
+      if (isPDA(rc))
         writer.writeText(XhtmlConstants.NBSP_STRING, null);
-        
-      NonJavaScriptBrowser = !supportsScripting(arc);  
+
+      NonJavaScriptBrowser = !supportsScripting(rc);
       if (NonJavaScriptBrowser)
       {
         renderedInput = true;
@@ -603,52 +625,52 @@ public class ColumnGroupRenderer extends XhtmlRenderer
         writer.writeAttribute("type", "submit", null);
         String source = tContext.getTableId();
         FacesBean bean = getFacesBean(column);
-        String value = getSortProperty(bean);
-        String state = findSortState(sortability, bean);
+        String value = getSortProperty(column, bean);
+        String state = findSortState(sortability, column, bean);
         String nameAttri;
         if (state != "")
         {
           nameAttri =  XhtmlUtils.getEncodedParameter
-                                   (TrinidadRenderingConstants.SOURCE_PARAM)
+                                   (XhtmlConstants.SOURCE_PARAM)
                        + XhtmlUtils.getEncodedParameter(source)
                        + XhtmlUtils.getEncodedParameter
-                                   (TrinidadRenderingConstants.VALUE_PARAM)
+                                   (XhtmlConstants.VALUE_PARAM)
                        + XhtmlUtils.getEncodedParameter(value)
                        + XhtmlUtils.getEncodedParameter
-                                   (TrinidadRenderingConstants.EVENT_PARAM)
+                                   (XhtmlConstants.EVENT_PARAM)
                        + XhtmlUtils.getEncodedParameter
-                                   (TrinidadRenderingConstants.SORT_EVENT)
+                                   (XhtmlConstants.SORT_EVENT)
                        + XhtmlUtils.getEncodedParameter
-                                   (TrinidadRenderingConstants.STATE_PARAM)
+                                   (XhtmlConstants.STATE_PARAM)
                        + state;
         }
         else
         {
           nameAttri =  XhtmlUtils.getEncodedParameter
-                                    (TrinidadRenderingConstants.SOURCE_PARAM)
+                                    (XhtmlConstants.SOURCE_PARAM)
                        + XhtmlUtils.getEncodedParameter(source)
                        + XhtmlUtils.getEncodedParameter
-                                    (TrinidadRenderingConstants.EVENT_PARAM)
+                                    (XhtmlConstants.EVENT_PARAM)
                        + XhtmlUtils.getEncodedParameter
-                                    (TrinidadRenderingConstants.SORT_EVENT)
+                                    (XhtmlConstants.SORT_EVENT)
                        + XhtmlUtils.getEncodedParameter
-                                    (TrinidadRenderingConstants.VALUE_PARAM)
+                                    (XhtmlConstants.VALUE_PARAM)
                        + value;
         }
 
         writer.writeAttribute("name", nameAttri, null);
-        if (state.equals(TrinidadRenderingConstants.SORTABLE_ASCENDING))
+        if (state.equals(XhtmlConstants.SORTABLE_ASCENDING))
         {
           writer.writeAttribute("value",
-              TrinidadRenderingConstants.NON_JS_DESC_ICON, null); 
+                                    XhtmlConstants.NON_JS_DESC_ICON, null);
         }
         else
         {
-          writer.writeAttribute("value", 
-              TrinidadRenderingConstants.NON_JS_ASC_ICON, null); 
+          writer.writeAttribute("value",
+                                    XhtmlConstants.NON_JS_ASC_ICON, null);
         }
 
-        writer.writeAttribute("class", 
+        writer.writeAttribute("class",
              SkinSelectors.SORTABLE_HEADER_SORT_ICON_STYLE_CLASS, null);
       }
       else
@@ -674,10 +696,10 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     }
 
 
-    String altText = arc.getTranslatedString(altTextKey);
+    String altText = rc.getTranslatedString(altTextKey);
 
-    Object align = OutputUtils.getMiddleIconAlignment(arc);
-    
+    Object align = OutputUtils.getMiddleIconAlignment(rc);
+
     //Don't render any child element for input element
     if (!renderedInput)
     {
@@ -685,7 +707,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
       // allows text-based Icons to render their style class
       // and altText directly on the anchor itself
       OutputUtils.renderIcon(context,
-                             arc,
+                             rc,
                              icon,
                              altText,
                              align,
@@ -728,13 +750,13 @@ public class ColumnGroupRenderer extends XhtmlRenderer
       return 0;
 
     // If there's no sort property, it's not sortable
-    String property = getSortProperty(bean);
+    String property = getSortProperty(column, bean);
     if (property == null)
       return SORT_NO;
 
     // And if the renderer-specific "sortable" property is set to false,
     // it's not sortable
-    if (!getSortable(bean))
+    if (!getSortable(column, bean))
       return SORT_NO;
 
     // Otherwise, look at the first sort criteria
@@ -755,8 +777,8 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   }
 
   protected boolean hasSortingIcon(
-    RenderingContext arc,
-    int                 sortability)
+    RenderingContext rc,
+    int              sortability)
   {
     return sortability != SORT_NO;
   }
@@ -764,7 +786,8 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   /**
    * gets the icon name to use
    */
-  private String _getIconName(int sortable)
+  private String _getIconName(
+    int sortable)
   {
     switch (sortable)
     {
@@ -780,9 +803,10 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   }
 
   private void _computeMode(
-    FacesContext        context,
+    FacesContext          context,
     TableRenderingContext tContext,
-    UIComponent           component) throws IOException
+    UIComponent           component
+    ) throws IOException
   {
     // since we use colSpan we need headers attributes on all the table's data
     // cells:
@@ -826,10 +850,11 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   }
 
   @SuppressWarnings("unchecked")
-  private void _renderChildren(FacesContext context,
-                               UIComponent  component,
-                               NodeData     parentNode)
-    throws IOException
+  private void _renderChildren(
+    FacesContext context,
+    UIComponent  component,
+    NodeData     parentNode
+    ) throws IOException
   {
     int i = 0;
     for(UIComponent child : (List<UIComponent>)component.getChildren())
@@ -841,22 +866,24 @@ public class ColumnGroupRenderer extends XhtmlRenderer
         {
           parentNode.currentChild = i;
         }
-        
+
         encodeChild(context, child);
       }
-      
+
       i++;
     }
   }
 
-  protected final NodeData getParentNode(TableRenderingContext tContext)
+  protected final NodeData getParentNode(
+    TableRenderingContext tContext)
   {
     NodeList nl = _getNodeList(tContext, false);
     return (nl == null) ? null : nl.currentNode;
   }
 
-  private void _setParentNode(TableRenderingContext tContext,
-                              NodeData parentNode)
+  private void _setParentNode(
+    TableRenderingContext tContext,
+    NodeData              parentNode)
   {
     _getNodeList(tContext, true).currentNode = parentNode;
   }
@@ -868,8 +895,9 @@ public class ColumnGroupRenderer extends XhtmlRenderer
    * @param sortability the value returned by getSortability()
    * @return the skinning selector for the header
    */
-  protected String getSortableHeaderStyleClass(TableRenderingContext tContext,
-                                      int sortability)
+  protected String getSortableHeaderStyleClass(
+    TableRenderingContext tContext,
+    int                   sortability)
   {
     ColumnData colData = tContext.getColumnData();
     // if we are a columnGroup header, then we must be centered:
@@ -900,8 +928,9 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     }
   }
 
-  private NodeList _getNodeList(TableRenderingContext tContext,
-                                boolean create)
+  private NodeList _getNodeList(
+    TableRenderingContext tContext,
+    boolean               create)
   {
     NodeList root =
       (NodeList) tContext.getHeaderNodesList();
@@ -971,32 +1000,33 @@ public class ColumnGroupRenderer extends XhtmlRenderer
       return _kids[index];
     }
   }
-  
+
   /**
-   * @return the state of the sorting after the page submition 
+   * @return the state of the sorting after the page submition
    */
   private String findSortState(
-     int sortability, 
-     FacesBean bean )
+    int         sortability,
+    UIComponent component,
+    FacesBean   bean)
   {
     String state;
     if (sortability == SORT_ASCENDING)
     {
-      state = TrinidadRenderingConstants.SORTABLE_ASCENDING;
+      state = XhtmlConstants.SORTABLE_ASCENDING;
     }
     else if (sortability == SORT_DESCENDING)
     {
-      state = TrinidadRenderingConstants.SORTABLE_DESCENDING;
+      state = XhtmlConstants.SORTABLE_DESCENDING;
     }
-    else if ("descending".equals(getDefaultSortOrder(bean)))
+    else if ("descending".equals(getDefaultSortOrder(component, bean)))
     {
-      state = TrinidadRenderingConstants.SORTABLE_ASCENDING;
+      state = XhtmlConstants.SORTABLE_ASCENDING;
     }
     else
     {
       state = "";
     }
-    
+
     return state;
   }
 

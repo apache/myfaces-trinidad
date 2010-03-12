@@ -16,33 +16,15 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+package org.apache.myfaces.trinidadinternal.application;
 
-package org.apache.myfaces.trinidad.component.visit;
+import javax.faces.view.ViewDeclarationLanguage;
+import javax.faces.view.ViewDeclarationLanguageFactory;
 
-/**
- *
- * <p>An enum that specifies the possible 
- * results of a call to {@link VisitCallback#visit VisitCallback.visit()}.
- * </p>
- *
- * @see VisitCallback#visit VisitCallback.visit()
- */
-public enum VisitResult
+public class NullViewDeclarationLanguageFactory extends ViewDeclarationLanguageFactory
 {
-  /**
-   * This result indicates that the tree visit should descend into
-   * current component's subtree.
-   */ 
-  ACCEPT,
-
-  /**
-   * This result indicates that the tree visit should continue, but
-   * should skip the current component's subtree.
-   */ 
-  REJECT,
-
-  /**
-   * This result indicates that the tree visit should be terminated.
-   */ 
-  COMPLETE
+  public ViewDeclarationLanguage getViewDeclarationLanguage(String viewId)
+  {
+    return null;
+  }
 }

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,17 +28,18 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreTreeTable;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 
+
 public class TreeTableNavRenderer extends XhtmlRenderer
 {
-  public TreeTableNavRenderer(boolean isTop)
+  public TreeTableNavRenderer(
+    boolean isTop)
   {
     super(CoreTreeTable.TYPE);
     _isTop = isTop;
@@ -54,10 +55,11 @@ public class TreeTableNavRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     //TODO
     final Object childTypeText = null;
@@ -67,20 +69,21 @@ public class TreeTableNavRenderer extends XhtmlRenderer
     int rows = hgrid.getRows();
     int first = hgrid.getFirst();
     int rowCount = hgrid.getRowCount();
-    _renderViewNavBar(context, arc, ttrc, hgrid, 
+    _renderViewNavBar(context, rc, ttrc, hgrid,
                       first, childTypeText, _isTop, rows, rowCount);
   }
 
   private void _renderViewNavBar(
-     FacesContext        context,
-     RenderingContext arc,
+     FacesContext              context,
+     RenderingContext          rc,
      TreeTableRenderingContext ttrc,
-     UIXTreeTable        hgrid,
-     int                   rangeStart,
-     Object                text,
-     boolean               isTop,
-     int                   viewSize,
-     int                   numChildren) throws IOException
+     UIXTreeTable              hgrid,
+     int                       rangeStart,
+     Object                    text,
+     boolean                   isTop,
+     int                       viewSize,
+     int                       numChildren
+    ) throws IOException
   {
     int nextWindowStart = 0;
     int nextWindowEnd = 0;
@@ -119,7 +122,7 @@ public class TreeTableNavRenderer extends XhtmlRenderer
     }
 
     // First get the link direction text
-    String direction = arc.getTranslatedString((isTop
+    String direction = rc.getTranslatedString((isTop
                                                 ? _PREVIOUS_KEY
                                                 : _NEXT_KEY));
     String linkText = direction;
@@ -155,7 +158,7 @@ public class TreeTableNavRenderer extends XhtmlRenderer
         srcs[strNum] = "" + numChildren;
       }
 
-      String format = arc.getTranslatedString(formatKey);
+      String format = rc.getTranslatedString(formatKey);
       if (format != null)
       {
         FastMessageFormat fmf = new FastMessageFormat(format);
@@ -163,19 +166,20 @@ public class TreeTableNavRenderer extends XhtmlRenderer
       }
     }
 
-    _writeCellContents(context, arc, ttrc, hgrid, linkText, disabled, isTop, nextWindowStart);
+    _writeCellContents(context, rc, ttrc, hgrid, linkText, disabled, isTop, nextWindowStart);
   }
 
 
   private void _writeCellContents(
-    FacesContext        context,
-    RenderingContext arc,
+    FacesContext              context,
+    RenderingContext          rc,
     TreeTableRenderingContext ttrc,
-    UIXTreeTable        hgrid,
-    String text,
-    boolean disabled,
-    boolean isTop,
-    int index) throws IOException
+    UIXTreeTable              hgrid,
+    String                    text,
+    boolean                   disabled,
+    boolean                   isTop,
+    int                       index
+    ) throws IOException
   {
     if (text == null)
       return;
@@ -185,7 +189,7 @@ public class TreeTableNavRenderer extends XhtmlRenderer
     String onclick =
       TreeUtils.callJSGotoNode(hgrid, ttrc.getJSVarName(), index);
 
-    boolean isRTL = arc.isRightToLeft();
+    boolean isRTL = rc.isRightToLeft();
     int depth = hgrid.getDepth()+1;
     int spacerWidth = _getSpacerWidth();
 
@@ -204,31 +208,31 @@ public class TreeTableNavRenderer extends XhtmlRenderer
                          "position:relative;top:0px;left:0px;margin-left:"+
                          depth * spacerWidth + "px", null);
     }
-    
-    Icon icon = _getIcon(arc, isTop, disabled); 
-    
+
+    Icon icon = _getIcon(rc, isTop, disabled);
+
     if (icon != null)
     {
       writer.startElement(XhtmlConstants.LINK_ELEMENT, null);
-      String shortDesc = 
-        arc.getTranslatedString(isTop ? _PREVIOUS_ALT_KEY : _NEXT_ALT_KEY);
-        
+      String shortDesc =
+        rc.getTranslatedString(isTop ? _PREVIOUS_ALT_KEY : _NEXT_ALT_KEY);
+
       if (!disabled)
       {
         writer.writeURIAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#", null);
         writer.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, onclick, null);
 
         writer.writeAttribute("title", shortDesc, null);
-      }   
-   
-        String align = OutputUtils.getMiddleIconAlignment(arc);
-        OutputUtils.renderIcon(context, arc, icon, shortDesc, align);
-     
+      }
+
+        String align = OutputUtils.getMiddleIconAlignment(rc);
+        OutputUtils.renderIcon(context, rc, icon, shortDesc, align);
+
         writer.endElement(XhtmlConstants.LINK_ELEMENT);
     }
-    
+
     writer.startElement(XhtmlConstants.LINK_ELEMENT, null);
-    
+
     final String styleClass;
     if (disabled)
     {
@@ -239,22 +243,22 @@ public class TreeTableNavRenderer extends XhtmlRenderer
       styleClass = SkinSelectors.HGRID_NAV_ROW_ALINK_STYLE_CLASS;
       writer.writeURIAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#", null);
       writer.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, onclick, null);
-      String shortDesc = 
-        arc.getTranslatedString(isTop ? _PREVIOUS_ALT_KEY : _NEXT_ALT_KEY);
+      String shortDesc =
+        rc.getTranslatedString(isTop ? _PREVIOUS_ALT_KEY : _NEXT_ALT_KEY);
       writer.writeAttribute("title", shortDesc, null);
-    }   
-    
-    renderStyleClass(context, arc, styleClass);
+    }
+
+    renderStyleClass(context, rc, styleClass);
     if (text != null)
       writer.writeText(text, null);
     writer.endElement(XhtmlConstants.LINK_ELEMENT);
-    
+
     writer.endElement("div");
     writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
   }
 
   private Icon _getIcon(
-    RenderingContext arc,
+    RenderingContext rc,
     boolean          isTop,
     boolean          isDisabled
    )
@@ -273,8 +277,8 @@ public class TreeTableNavRenderer extends XhtmlRenderer
         ? SkinSelectors.AF_TREE_TABLE_DISABLED_NAV_DOWN_ICON_NAME
         : SkinSelectors.AF_TREE_TABLE_NAV_DOWN_ICON_NAME;
     }
-    
-    return arc.getIcon(iconKey);
+
+    return rc.getIcon(iconKey);
   }
 
   private int _getSpacerWidth()
@@ -297,7 +301,7 @@ public class TreeTableNavRenderer extends XhtmlRenderer
 
   private static final String _PREVIOUS_ALT_KEY = "af_treeTable.PREVIOUS_TIP";
   private static final String _NEXT_ALT_KEY     = "af_treeTable.NEXT_TIP";
-  private static final int _INCOMPLETE = TrinidadRenderingConstants.INCOMPLETE_DATA_SET;
+  private static final int _INCOMPLETE = XhtmlConstants.INCOMPLETE_DATA_SET;
   private static final String _PREVIOUS_KEY =
     "af_treeTable.DISABLED_PREVIOUS";
   private static final String _NEXT_KEY =
@@ -311,5 +315,5 @@ public class TreeTableNavRenderer extends XhtmlRenderer
     "af_treeTable.NAV_CELL_FORMAT_T_NC_private";
   private static final String _FORMAT_KEY_NTNC =
     "af_treeTable.NAV_CELL_FORMAT_NT_NC_private";
-  
+
 }

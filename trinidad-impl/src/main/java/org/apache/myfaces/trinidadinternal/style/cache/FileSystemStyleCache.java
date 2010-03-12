@@ -522,7 +522,7 @@ public class FileSystemStyleCache implements StyleProvider
     // Get the style sheet derivation list.
     Iterator<StyleSheetNode> e = document.getStyleSheets(context);
 
-    StyleSheetNode[] styleSheets;
+    StyleSheetNode[] styleSheets;    
     
     if (e.hasNext())
     {

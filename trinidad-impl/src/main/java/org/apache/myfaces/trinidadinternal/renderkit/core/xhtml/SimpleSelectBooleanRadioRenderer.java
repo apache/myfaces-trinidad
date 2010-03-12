@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,14 +19,16 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
 import javax.faces.context.ResponseWriter;
+
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectBooleanRadio;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+
 
 /**
  */
@@ -37,22 +39,24 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
     this(CoreSelectBooleanRadio.TYPE);
   }
 
-  public SimpleSelectBooleanRadioRenderer(FacesBean.Type type)
+  public SimpleSelectBooleanRadioRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _groupKey = type.findKey("group");
   }
-  
+
   //**********************
   //decode
   //**********************
-  
+
   @Override
   public Object getSubmittedValue(
     FacesContext context,
@@ -71,19 +75,19 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
       if (clientId.equals(newValue))
         return Boolean.TRUE;
     }
-    
+
     return Boolean.FALSE;
   }
 
-  
   //**********************
   //encode
   //**********************
 
   @Override
-  protected Object getValueAttr(RenderingContext arc)
+  protected Object getValueAttr(
+    RenderingContext rc)
   {
-    return arc.getCurrentClientId();
+    return rc.getCurrentClientId();
   }
 
   @Override
@@ -98,10 +102,10 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
   )
   {
     return (selected
-      ? "af_selectBooleanRadio.READONLY_CHECKED_TIP" 
+      ? "af_selectBooleanRadio.READONLY_CHECKED_TIP"
       : "af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP");
   }
-  
+
   @Override
   protected String getIconName(
     boolean selected,
@@ -112,18 +116,18 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
 
     if (disabled)
     {
-      iconName = (selected ? 
-              SkinSelectors.AF_SELECT_BOOLEAN_RADIO_DISABLED_SELECTED_ICON_NAME : 
+      iconName = (selected ?
+              SkinSelectors.AF_SELECT_BOOLEAN_RADIO_DISABLED_SELECTED_ICON_NAME :
               SkinSelectors.AF_SELECT_BOOLEAN_RADIO_DISABLED_UNSELECTED_ICON_NAME);
     }
     else
     {
-      iconName = (selected ? 
-              SkinSelectors.AF_SELECT_BOOLEAN_RADIO_READONLY_SELECTED_ICON_NAME : 
+      iconName = (selected ?
+              SkinSelectors.AF_SELECT_BOOLEAN_RADIO_READONLY_SELECTED_ICON_NAME :
               SkinSelectors.AF_SELECT_BOOLEAN_RADIO_READONLY_UNSELECTED_ICON_NAME);
     }
-    
-    return iconName;           
+
+    return iconName;
   }
 
   @Override
@@ -152,7 +156,7 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
   {
     return false;
   }
-  
+
   @Override
   protected boolean isRadio()
   {
@@ -160,90 +164,99 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
   }
 
   @Override
-  protected String getCompositeId(String clientId)
+  protected String getCompositeId(
+    String clientId)
   {
-    return clientId + TrinidadRenderingConstants.COMPOSITE_ID_EXTENSION + "r";   
+    return clientId + XhtmlConstants.COMPOSITE_ID_EXTENSION + "r";
   }
-  
+
   @Override
   protected void renderSpanEventHandlers(
-    FacesContext context, 
-    FacesBean    bean) throws IOException
+    FacesContext context,
+    UIComponent  component,
+    FacesBean    bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
-    
-    // PH: This condition is needed to set onclick on radio rather than on 
-    // enclosing span in an IE Mobile and PIE since these browsers don't have 
-    // onclick support on a span. 
-    
+
+    // PH: This condition is needed to set onclick on radio rather than on
+    // enclosing span in an IE Mobile and PIE since these browsers don't have
+    // onclick support on a span.
+
     if(!isPDA(RenderingContext.getCurrentInstance()))
     {
-      if ( isAutoSubmit(bean))
-        rw.writeAttribute("onclick", getAutoSubmitScript(bean) , null);
+      if ( isAutoSubmit(component, bean))
+        rw.writeAttribute("onclick", getAutoSubmitScript(component, bean) , null);
     }
-    rw.writeAttribute("ondblclick", getOndblclick(bean),  "ondblclick");
-    rw.writeAttribute("onkeydown", getOnkeydown(bean),  "onkeydown");
-    rw.writeAttribute("onkeyup", getOnkeyup(bean),  "onkeyup");
-    rw.writeAttribute("onkeypress", getOnkeypress(bean),  "onkeypress");
-    rw.writeAttribute("onmousedown", getOnmousedown(bean),  "onmousedown");
-    rw.writeAttribute("onmousemove", getOnmousemove(bean),  "onmousemove");
-    rw.writeAttribute("onmouseout", getOnmouseout(bean),  "onmouseout");
-    rw.writeAttribute("onmouseover", getOnmouseover(bean),  "onmouseover");
-    rw.writeAttribute("onmouseup", getOnmouseup(bean),  "onmouseup");
+    rw.writeAttribute("ondblclick", getOndblclick(component, bean),  "ondblclick");
+    rw.writeAttribute("onkeydown", getOnkeydown(component, bean),  "onkeydown");
+    rw.writeAttribute("onkeyup", getOnkeyup(component, bean),  "onkeyup");
+    rw.writeAttribute("onkeypress", getOnkeypress(component, bean),  "onkeypress");
+    rw.writeAttribute("onmousedown", getOnmousedown(component, bean),  "onmousedown");
+    rw.writeAttribute("onmousemove", getOnmousemove(component, bean),  "onmousemove");
+    rw.writeAttribute("onmouseout", getOnmouseout(component, bean),  "onmouseout");
+    rw.writeAttribute("onmouseover", getOnmouseover(component, bean),  "onmouseover");
+    rw.writeAttribute("onmouseup", getOnmouseup(component, bean),  "onmouseup");
   }
-  
+
   @Override
   protected void renderInputEventHandlers(
-    FacesContext context, 
-    FacesBean    bean) throws IOException
+    FacesContext context,
+    UIComponent  component,
+    FacesBean    bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    String onClick = getOnclick(bean); 
-     
-    //PH: this condition is needed to set onclick on radio rather than on 
-    // enclosing span in an IE Mobile and PIE since these browsers don't have 
-    // onclick support on a span. 
+    String onClick = getOnclick(component, bean);
+
+    //PH: this condition is needed to set onclick on radio rather than on
+    // enclosing span in an IE Mobile and PIE since these browsers don't have
+    // onclick support on a span.
     if(isPDA(RenderingContext.getCurrentInstance()))
-    { 
-      if ( isAutoSubmit(bean))
-      { 
-        String auto = getAutoSubmitScript(bean);
-      
+    {
+      if (isAutoSubmit(component, bean))
+      {
+        String auto = getAutoSubmitScript(component, bean);
+
         if (onClick == null)
         {
           onClick = auto;
         }
         else
         {
-          // Since we have both onClick script and autosubmit script to execute,  
+          // Since we have both onClick script and autosubmit script to execute,
           // we need to chain the execution of these scripts.
           onClick = XhtmlUtils.getChainedJS(onClick, auto, true);
         }
       }
     }
-   
+
     writer.writeAttribute("onclick", onClick, "onclick");
-    writer.writeAttribute("onblur", getOnblur(bean),  "onblur");
-    writer.writeAttribute("onfocus", getOnfocus(bean),  "onfocus");
-    writer.writeAttribute("onchange", getOnchange(bean),  "onchange");
+    writer.writeAttribute("onblur", getOnblur(component, bean),  "onblur");
+    writer.writeAttribute("onfocus", getOnfocus(component, bean),  "onfocus");
+    writer.writeAttribute("onchange", getOnchange(component, bean),  "onchange");
   }
-  
+
   protected String getGroup(FacesBean bean)
   {
     return toString(bean.getProperty(_groupKey));
   }
-  
+
   @Override
-  protected String getContentStyleClass(FacesBean bean)
+  protected String getContentStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
    return "af|selectBooleanRadio::content";
   }
-  
+
   @Override
-  protected String getRootStyleClass(FacesBean bean)
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
    return "af|selectBooleanRadio";
   }
-  
+
   private PropertyKey _groupKey;
 }

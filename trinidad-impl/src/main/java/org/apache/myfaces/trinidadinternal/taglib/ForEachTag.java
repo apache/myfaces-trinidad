@@ -423,7 +423,7 @@ public class ForEachTag extends TagSupport
     }
 
     private Object _o;
-
+    
     private static final long serialVersionUID = 1L;
   }
 
@@ -459,5 +459,4 @@ public class ForEachTag extends TagSupport
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ForEachTag.class);
 
-  private static final long serialVersionUID = 1L;
 }

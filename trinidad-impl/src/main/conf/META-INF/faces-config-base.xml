@@ -20,6 +20,13 @@
 -->
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee" >
 
+  <name>trinidad</name>
+  <ordering>
+    <after>
+      <others/>
+    </after>
+  </ordering>
+
   <application>
     <view-handler>org.apache.myfaces.trinidadinternal.application.ViewHandlerImpl</view-handler>
     <state-manager>org.apache.myfaces.trinidadinternal.application.StateManagerImpl</state-manager>
@@ -32,6 +39,9 @@
     <faces-context-factory>
       org.apache.myfaces.trinidadinternal.context.FacesContextFactoryImpl
     </faces-context-factory>
+    <view-declaration-language-factory>
+      org.apache.myfaces.trinidadinternal.application.ViewDeclarationLanguageFactoryImpl
+    </view-declaration-language-factory>
   </factory>
 
   <lifecycle>

@@ -36,10 +36,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.component.UIXComponent;
-import org.apache.myfaces.trinidad.component.visit.VisitCallback;
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
-import org.apache.myfaces.trinidad.component.visit.VisitHint;
-import org.apache.myfaces.trinidad.component.visit.VisitResult;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+import javax.faces.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
@@ -424,8 +424,7 @@ public class PartialPageContextImpl extends PartialPageContext
   }
 
   private static final Set<VisitHint> _PPR_VISIT_HINTS = Collections.unmodifiableSet(
-                                                         EnumSet.of(VisitHint.SKIP_UNRENDERED,
-                                                                    VisitHint.EXECUTE_LIFECYCLE));
+                                                         EnumSet.of(VisitHint.SKIP_UNRENDERED, VisitHint.EXECUTE_LIFECYCLE));
   private final FacesContext _context;
   
   // if the value is TRUE, then this target has been rendered.  If false, it has yet to be rendered

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -22,7 +22,6 @@ import java.beans.Beans;
 
 import java.io.IOException;
 
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -30,8 +29,8 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.html.HtmlBody;
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.util.Service;
@@ -49,13 +48,15 @@ public class BodyRenderer extends PanelPartialRootRenderer
     this(HtmlBody.TYPE);
   }
 
-  protected BodyRenderer(FacesBean.Type type)
+  protected BodyRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _firstClickPassedKey = type.findKey("firstClickPassed");
@@ -66,47 +67,54 @@ public class BodyRenderer extends PanelPartialRootRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("body", component);
     renderId(context, component);
-    renderAllAttributes(context, arc, bean);
-    super.encodeAll(context, arc, component, bean);
+    renderAllAttributes(context, rc, component, bean);
+    super.encodeAll(context, rc, component, bean);
 
     // Output a version comment at the bottom of the body
-    _writeVersionInformation(context, arc);
+    _writeVersionInformation(context, rc);
   }
 
   @Override
   protected void renderAtEnd(
-    FacesContext context,
-    RenderingContext arc) throws IOException
+    FacesContext     context,
+    RenderingContext rc
+    ) throws IOException
   {
     _encodeServiceScripts(context);
 
+    // trigger the rendering of targeted resource
+    // for the BODY, on UIViewRoot - if there are
+    // any...
+    encodeComponentResources(context, "body");
     context.getResponseWriter().endElement("body");
 
-    _renderInitialFocusScript(context, arc);
+    _renderInitialFocusScript(context, rc);
   }
 
   @Override
   protected void renderPPRSupport(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    super.renderPPRSupport(context, arc, component, bean);
-    if (getFirstClickPassed(bean))
+    super.renderPPRSupport(context, rc, component, bean);
+    if (getFirstClickPassed(component, bean))
     {
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("script", null);
-      renderScriptDeferAttribute(context, arc);
-      renderScriptTypeAttribute(context, arc);
+      renderScriptDeferAttribute(context, rc);
+      renderScriptTypeAttribute(context, rc);
       writer.writeText("var _pprFirstClickPass=true;", null);
       writer.endElement("script");
     }
@@ -114,64 +122,67 @@ public class BodyRenderer extends PanelPartialRootRenderer
 
   @Override
   protected void renderContent(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    boolean isPartialPass = PartialPageUtils.isPartialRenderingPass(arc);
+    boolean isPartialPass = PartialPageUtils.isPartialRenderingPass(rc);
 
     _renderAnchorForTop(context);
-    
-    // Since we are supporting Non-JavaScript browsers of generic PDA, 
-    // we don't need to prompt any message in the client side regarding 
+
+    // Since we are supporting Non-JavaScript browsers of generic PDA,
+    // we don't need to prompt any message in the client side regarding
     // the JavaScript capability of generic PDA browsers.
 
-    if (supportsScripting(arc))
+    if (supportsScripting(rc))
     {
-      _renderNoScript(context, arc);
-      _storeInitialFocus(arc, bean);
+      _renderNoScript(context, rc);
+      _storeInitialFocus(rc, component, bean);
     }
 
     if (!isPartialPass)
     {
       // start the span here, and end it in postrender
-      _renderPartialBackSupportSpan(context, arc, true);
+      _renderPartialBackSupportSpan(context, rc, true);
     }
 
-    super.renderContent(context, arc, component, bean);
+    super.renderContent(context, rc, component, bean);
 
     if (!isPartialPass)
     {
       // end the span for PPR Back button support (and render the hidden fields)
-      _renderPartialBackSupportSpan(context, arc, false);
+      _renderPartialBackSupportSpan(context, rc, false);
     }
   }
 
   @Override
   protected void renderEventHandlers(
     FacesContext context,
-    FacesBean    bean) throws IOException
+    UIComponent  component,
+    FacesBean    bean
+    ) throws IOException
   {
-    super.renderEventHandlers(context, bean);
-    RenderingContext arc = RenderingContext.getCurrentInstance();
+    super.renderEventHandlers(context, component, bean);
+    RenderingContext rc = RenderingContext.getCurrentInstance();
     ResponseWriter rw = context.getResponseWriter();
 
-    if (PartialPageUtils.isPartialRenderingPass(arc))
+    if (PartialPageUtils.isPartialRenderingPass(rc))
     {
       rw.writeAttribute("onunload", _PARTIAL_ONUNLOAD_HANDLER, null);
     }
     else
     {
-      rw.writeAttribute("onload", getOnload(arc, bean), "onload");
-      rw.writeAttribute("onunload", getOnunload(arc, bean), "onunload");
+      rw.writeAttribute("onload", getOnload(rc, component, bean), "onload");
+      rw.writeAttribute("onunload", getOnunload(rc, component, bean), "onunload");
 
       // If partial back is supported,
       // render an onbeforeunload event handler. This javascript function
       // will save the page's state when the page is unloaded. This way if the
       // user goes back to the page via the Back button, we'll be able to
       // restore the state: the html and the javascript.
-      if (_isPartialBackSupported(arc))
+      if (_isPartialBackSupported(rc))
       {
         rw.writeAttribute("onbeforeunload",
                           _PPR_BACK_UNLOAD_SCRIPT,
@@ -180,7 +191,9 @@ public class BodyRenderer extends PanelPartialRootRenderer
     }
   }
 
-  protected boolean getFirstClickPassed(FacesBean bean)
+  protected boolean getFirstClickPassed(
+    UIComponent component,
+    FacesBean   bean)
   {
     // =-=AEW firstClickPassed is not currently supported on document
     if (_firstClickPassedKey == null)
@@ -192,12 +205,17 @@ public class BodyRenderer extends PanelPartialRootRenderer
     return Boolean.TRUE.equals(o);
   }
 
-  protected String getInitialFocusId(FacesBean bean)
+  protected String getInitialFocusId(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_initialFocusIdKey));
   }
 
-  protected String getOnload(RenderingContext arc, FacesBean bean)
+  protected String getOnload(
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
     String onload;
     if (_onloadKey == null)
@@ -213,7 +231,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     //Therefore, created another function _checkLoadNoPPR() This function is
     //called by the onLoad JS handler of body tag when device does not support
     //PPR
-    if (PartialPageUtils.supportsPartialRendering(arc))
+    if (PartialPageUtils.supportsPartialRendering(rc))
     {
       // Don't short circuit...
       //PH:_checkLoad(event) is replaced by _checkLoad() because on certain
@@ -226,23 +244,25 @@ public class BodyRenderer extends PanelPartialRootRenderer
     {
       //HKuhn - in printable mode we don't need PPR checking
       // Check only, if Agents supports Navigation or Editing
-      if (supportsNavigation(arc) || supportsEditing(arc))
+      if (supportsNavigation(rc) || supportsEditing(rc))
         checkLoad = "_checkLoadNoPPR()";
     }
-    
-    onload = XhtmlUtils.getChainedJS(checkLoad, onload, false);
 
-    return onload;
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "load", null, XhtmlUtils.getChainedJS(checkLoad, onload, false), null);
   }
 
-  protected String getOnunload(RenderingContext arc, FacesBean bean)
+  protected String getOnunload(
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
     String onunload;
     if (_onunloadKey == null)
       onunload = null;
     else
       onunload = toString(bean.getProperty(_onunloadKey));
-    if (PartialPageUtils.supportsPartialRendering(arc))
+    if (PartialPageUtils.supportsPartialRendering(rc))
     {
       // Don't short circuit...
       onunload = XhtmlUtils.getChainedJS("_checkUnload(event)",
@@ -250,10 +270,9 @@ public class BodyRenderer extends PanelPartialRootRenderer
                                          false);
     }
 
-    return onunload;
+    return XhtmlUtils.getClientEventHandler(FacesContext.getCurrentInstance(), component,
+             "unload", null, onunload, null);
   }
-
-
 
   /**
    * Renders a top anchor at the top of the page
@@ -262,7 +281,9 @@ public class BodyRenderer extends PanelPartialRootRenderer
    * @param context
    * @throws IOException
    */
-  private void _renderAnchorForTop(FacesContext context) throws IOException
+  private void _renderAnchorForTop(
+    FacesContext context
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("a",null);
@@ -271,8 +292,9 @@ public class BodyRenderer extends PanelPartialRootRenderer
   }
 
   private void _renderNoScript(
-    FacesContext        context,
-    RenderingContext arc) throws IOException
+    FacesContext     context,
+    RenderingContext rc
+    ) throws IOException
   {
     // Some accessibility standards rather oddly claim that NOSCRIPT
     // tags are essential for compliance.  So, render NOSCRIPT, at
@@ -282,24 +304,25 @@ public class BodyRenderer extends PanelPartialRootRenderer
     // largely there for JDev 10.1.3 preview, which was rendering
     // the contents of any NOSCRIPT tags in the VE, but it's
     // a check that does no harm.
-    if (!isInaccessibleMode(arc) && !Beans.isDesignTime())
+    if (!isInaccessibleMode(rc) && !Beans.isDesignTime())
     {
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("noscript",null);
-      String message = arc.getTranslatedString("NO_SCRIPT_MESSAGE");
+      String message = rc.getTranslatedString("NO_SCRIPT_MESSAGE");
       writer.writeText(message, null);
       writer.endElement("noscript");
     }
   }
 
   private void _storeInitialFocus(
-    RenderingContext arc,
-    FacesBean           bean)
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
 
     // The initialFocus functionality is only supported in inaccessible mode,
     // and only platforms that support scripting.
-    if (!isInaccessibleMode(arc) || !supportsScripting(arc))
+    if (!isInaccessibleMode(rc) || !supportsScripting(rc))
     {
       return;
     }
@@ -307,7 +330,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     // initial focus is the id of the component to which you want the
     // focus to be when the page full-page loads. In a PPR, the focus is
     // not set, which is a good thing.
-    String initialFocusID = getInitialFocusId(bean);
+    String initialFocusID = getInitialFocusId(component, bean);
     if (initialFocusID != null)
     {
       // Put the initial focus id on the rendering context for use in
@@ -318,7 +341,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
       // NavigationBar creates a special id for the Next button, and sticks
       // this id back on the AdfRenderingContext for the body to know about in
       // postrender.
-      arc.getProperties().put(TrinidadRenderingConstants.INITIAL_FOCUS_CONTEXT_PROPERTY,
+      rc.getProperties().put(XhtmlConstants.INITIAL_FOCUS_CONTEXT_PROPERTY,
                               initialFocusID);
     }
   }
@@ -327,14 +350,14 @@ public class BodyRenderer extends PanelPartialRootRenderer
   // Writes a small script that sets the _initialFocusID variable on the page.
   //
   private void _renderInitialFocusScript(
-    FacesContext        context,
-    RenderingContext arc
+    FacesContext     context,
+    RenderingContext rc
     ) throws IOException
   {
 
     // The initialFocus functionality is not supported if not inaccessible mode
     // nor on Netscape nor on platforms that do not support scripting.
-    if (!isInaccessibleMode(arc) || !supportsScripting(arc))
+    if (!isInaccessibleMode(rc) || !supportsScripting(rc))
     {
       return;
     }
@@ -342,14 +365,14 @@ public class BodyRenderer extends PanelPartialRootRenderer
     // Render the initial focus id, if it exists on the rendering context.
     // The initial focus id was initially set in prerender, and may have
     // been overwritten by the component's renderer if need be.
-    String initialFocusID = (String) arc.getProperties().get(
-                                    TrinidadRenderingConstants.INITIAL_FOCUS_CONTEXT_PROPERTY);
+    String initialFocusID = (String) rc.getProperties().get(
+                                    XhtmlConstants.INITIAL_FOCUS_CONTEXT_PROPERTY);
 
     if (initialFocusID != null)
     {
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("script", null);
-      XhtmlRenderer.renderScriptTypeAttribute(context, arc);
+      XhtmlRenderer.renderScriptTypeAttribute(context, rc);
       writer.writeText("_initialFocusID='", null);
       writer.writeText(initialFocusID, null);
       writer.writeText("';", null);
@@ -363,12 +386,12 @@ public class BodyRenderer extends PanelPartialRootRenderer
   // when the user leaves the page. This way we can restore the html if
   // the user used the Back button to go back to the page.
   private static void _renderPartialBackSupportSpan(
-    FacesContext        context,
-    RenderingContext arc,
-    boolean             isStart
+    FacesContext     context,
+    RenderingContext rc,
+    boolean          isStart
     ) throws IOException
   {
-    if (_isPartialBackSupported(arc))
+    if (_isPartialBackSupported(rc))
     {
       ResponseWriter writer = context.getResponseWriter();
 
@@ -396,10 +419,9 @@ public class BodyRenderer extends PanelPartialRootRenderer
   // not go to the server when the form is submitted.
   private static void _renderPartialBackSupportHiddenFields(
     ResponseWriter writer,
-    String       fieldName
+    String         fieldName
     ) throws IOException
   {
-
     writer.startElement("input", null);
 
     writer.writeAttribute("id", fieldName, null);
@@ -411,8 +433,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
 
 
   private static boolean _isPartialBackSupported(
-    RenderingContext arc
-    )
+    RenderingContext rc)
   {
     /*
       // Only supported on IE  - but comment this out while
@@ -430,9 +451,9 @@ public class BodyRenderer extends PanelPartialRootRenderer
   // Writes version information about the page.
   //
   static private void _writeVersionInformation(
-    FacesContext context,
-    RenderingContext arc)
-    throws IOException
+    FacesContext     context,
+    RenderingContext rc
+    ) throws IOException
   {
     String comment = _VERSION_COMMENT;
 
@@ -447,9 +468,9 @@ public class BodyRenderer extends PanelPartialRootRenderer
     comment += versionInfo;
 
     String accessibilityMode = null;
-    if (isInaccessibleMode(arc))
+    if (isInaccessibleMode(rc))
       accessibilityMode = "disabled";
-    else if (isScreenReaderMode(arc))
+    else if (isScreenReaderMode(rc))
       accessibilityMode = "enhanced";
 
     if (accessibilityMode != null)
@@ -458,7 +479,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     }
 
     // Tack on the Skin id
-    Skin skin = arc.getSkin();
+    Skin skin = rc.getSkin();
     String skinId = skin.getId();
     if (skinId != null)
     {
@@ -474,9 +495,9 @@ public class BodyRenderer extends PanelPartialRootRenderer
     context.getResponseWriter().writeComment(comment);
   }
 
-
-  static private void _encodeServiceScripts(FacesContext context)
-    throws IOException
+  static private void _encodeServiceScripts(
+    FacesContext context
+    ) throws IOException
   {
     ExtendedRenderKitService service =
       Service.getRenderKitService(context, ExtendedRenderKitService.class);
@@ -486,7 +507,9 @@ public class BodyRenderer extends PanelPartialRootRenderer
     }
   }
 
-  static private String _getVersionInfo(Package apiPackage, Package implPackage)
+  static private String _getVersionInfo(
+    Package apiPackage,
+    Package implPackage)
   {
 
     String versionInfo    = "";

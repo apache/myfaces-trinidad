@@ -26,15 +26,15 @@ import javax.faces.FacesException;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 
+import javax.faces.view.facelets.ComponentHandler;
+
 import org.apache.myfaces.trinidadinternal.taglib.listener.ReturnActionListener;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletException;
-import com.sun.facelets.el.LegacyValueBinding;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.jsf.ComponentSupport;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.FaceletException;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagHandler;
 
 /**
  *
@@ -52,7 +52,7 @@ public class ReturnActionListenerTag extends TagHandler
   public void apply(FaceletContext faceletContext,
           UIComponent parent) throws IOException, FacesException, FaceletException, ELException
   {
-    if(ComponentSupport.isNew(parent))
+    if(ComponentHandler.isNew(parent))
     {
       ActionSource actionSource = (ActionSource)parent;
       ReturnActionListener listener = new ReturnActionListener();

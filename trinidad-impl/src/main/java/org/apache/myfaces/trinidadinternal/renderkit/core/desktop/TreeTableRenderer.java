@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.desktop;
 
 import java.io.IOException;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -43,11 +44,10 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ResourceKeyUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.FocusColumnRenderer;
@@ -59,6 +59,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeNodeCo
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeTableNavRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeTableRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
+
 
 /**
  * Renderer for treeTable
@@ -73,7 +74,8 @@ public class TreeTableRenderer extends DesktopTableRenderer
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _immediateKey  = type.findKey("immediate");
@@ -88,17 +90,21 @@ public class TreeTableRenderer extends DesktopTableRenderer
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
-    decodeSelection(context, component);
+    decodeSelection(facesContext, component);
 
     Map<String, String> parameters =
-      context.getExternalContext().getRequestParameterMap();
+      facesContext.getExternalContext().getRequestParameterMap();
 
-    Object source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
-    if (component.getClientId(context).equals(source))
+    Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+    clientId = clientId == null ? component.getClientId(facesContext) : clientId;
+    if (clientId.equals(source))
     {
       UIXTreeTable treeTable = (UIXTreeTable) component;
       TreeUtils.decodeExpandEvents(parameters, component,
@@ -116,12 +122,12 @@ public class TreeTableRenderer extends DesktopTableRenderer
    */
   @Override
   protected TableRenderingContext createRenderingContext(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component
     )
   {
-    return new TreeTableRenderingContext(context, arc, component);
+    return new TreeTableRenderingContext(context, rc, component);
   }
 
   /**
@@ -132,9 +138,10 @@ public class TreeTableRenderer extends DesktopTableRenderer
   @Override
   protected boolean renderTableWithoutColumns(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
-    UIComponent           component) throws IOException
+    UIComponent           component
+    ) throws IOException
   {
     return false;
   }
@@ -144,16 +151,17 @@ public class TreeTableRenderer extends DesktopTableRenderer
    */
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    FormData fData = arc.getFormData();
+    FormData fData = rc.getFormData();
     if (fData != null)
     {
-      fData.addNeededValue(TrinidadRenderingConstants.PARTIAL_TARGETS_PARAM);
-      fData.addNeededValue(TrinidadRenderingConstants.PARTIAL_PARAM);
+      fData.addNeededValue(XhtmlConstants.PARTIAL_TARGETS_PARAM);
+      fData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
     }
 
     // we cannot render without a nodeStamp:
@@ -166,19 +174,19 @@ public class TreeTableRenderer extends DesktopTableRenderer
     TreeUtils.setDefaultFocusRowKey((UIXTree) component);
     TreeUtils.expandFocusRowKey((UIXTree) component);
 
-    super.encodeAll(context, arc, component, bean);
+    super.encodeAll(context, rc, component, bean);
 
     // have we rendered the script before?
     // and are we not in printable mode (scripting disabled)?
-    if (arc.getProperties().put(_JS_LIBS_KEY, Boolean.TRUE) == null
-        && supportsScripting(arc))
+    if (rc.getProperties().put(_JS_LIBS_KEY, Boolean.TRUE) == null
+        && supportsScripting(rc))
     {
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
-      renderScriptDeferAttribute(context, arc);
+      renderScriptDeferAttribute(context, rc);
       // Bug #3426092:
       // render the type="text/javascript" attribute in accessibility mode
-      renderScriptTypeAttribute(context, arc);
+      renderScriptTypeAttribute(context, rc);
       boolean validate = !isImmediate(component, bean);
       String buff = TreeUtils.setupJSTreeCollectionComponent(validate);
       writer.writeText(buff, null);
@@ -187,11 +195,16 @@ public class TreeTableRenderer extends DesktopTableRenderer
   }
 
   @Override
-  protected String getDefaultStyleClass(FacesBean bean) {
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
+  {
     return null;
   }
 
-  protected boolean isImmediate(UIComponent component, FacesBean bean)
+  protected boolean isImmediate(
+    UIComponent component,
+    FacesBean   bean)
   {
     return  Boolean.TRUE.equals(bean.getProperty(_immediateKey));
   }
@@ -203,22 +216,23 @@ public class TreeTableRenderer extends DesktopTableRenderer
   @Override
   protected void renderNavigationHeaderBars(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
     UIComponent           component,
-    FacesBean           bean) throws IOException
+    FacesBean             bean
+    ) throws IOException
   {
-    super.renderNavigationHeaderBars(context, arc, tContext, component, bean);
-    _renderBreadCrumbs(context, arc, tContext, component, bean);
+    super.renderNavigationHeaderBars(context, rc, tContext, component, bean);
+    _renderBreadCrumbs(context, rc, tContext, component, bean);
   }
 
   @Override
   protected final void renderRangePagingControl(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
-    UIComponent           table)
-    throws IOException
+    UIComponent           table
+    ) throws IOException
   {
     UIXHierarchy comp = (UIXHierarchy) table;
     Object focusKey = comp.getFocusRowKey();
@@ -227,7 +241,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
     {
       // set the collection that is being displayed:
       comp.setRowKey(focusKey);
-      super.renderRangePagingControl(context, arc, tContext, table);
+      super.renderRangePagingControl(context, rc, tContext, table);
     }
     finally
     {
@@ -237,28 +251,30 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
   @Override
   protected boolean hasControlBarLinks(
-    FacesContext context,
-    RenderingContext arc,
+    FacesContext          context,
+    RenderingContext      rc,
     TableRenderingContext tContext,
-    UIComponent component) throws IOException
+    UIComponent           component
+    ) throws IOException
   {
     return
-      super.hasControlBarLinks(context, arc, tContext, component) ||
+      super.hasControlBarLinks(context, rc, tContext, component) ||
       isExpandAllEnabled(component);
   }
 
   @Override
   protected void renderControlBarLinks(
-    FacesContext context,
-    RenderingContext arc,
+    FacesContext          context,
+    RenderingContext      rc,
     TableRenderingContext tContext,
-    UIComponent component,
-    boolean useDivider) throws IOException
+    UIComponent           component,
+    boolean               useDivider
+    ) throws IOException
   {
     boolean hasExpandAll = isExpandAllEnabled(component);
-    super.renderControlBarLinks(context, arc, tContext, component,
+    super.renderControlBarLinks(context, rc, tContext, component,
                                 hasExpandAll || useDivider);
-    if (hasExpandAll && supportsScripting(arc)) //not in printable mode
+    if (hasExpandAll && supportsScripting(rc)) //not in printable mode
     {
       // must render these IDs so that PPR can restore the focus correctly:
       String preId = component.getClientId(context) + NamingContainer.SEPARATOR_CHAR;
@@ -267,42 +283,42 @@ public class TreeTableRenderer extends DesktopTableRenderer
             TreeUtils.callJSExpandAll(hContext.getUIXTreeTable(),
                                       tContext.getJSVarName(),
                                       true /*isExpand*/);
-       renderControlBarLink(context, arc, onclick, _EXPAND_ALL_TEXT_KEY,
-                           arc.getIcon(SkinSelectors.AF_TREE_TABLE_EXPAND_ALL_ICON_NAME),
+       renderControlBarLink(context, rc, onclick, _EXPAND_ALL_TEXT_KEY,
+                           rc.getIcon(SkinSelectors.AF_TREE_TABLE_EXPAND_ALL_ICON_NAME),
                             preId+"eAll", true);
       onclick =
             TreeUtils.callJSExpandAll(hContext.getUIXTreeTable(),
                                       tContext.getJSVarName(),
                                       false /*isExpand*/);
-       renderControlBarLink(context, arc, onclick, _COLLAPSE_ALL_TEXT_KEY,
-                           arc.getIcon(SkinSelectors.AF_TREE_TABLE_COLLAPSE_ALL_ICON_NAME),
+       renderControlBarLink(context, rc, onclick, _COLLAPSE_ALL_TEXT_KEY,
+                           rc.getIcon(SkinSelectors.AF_TREE_TABLE_COLLAPSE_ALL_ICON_NAME),
                             preId+"cAll", useDivider);
     }
   }
 
   protected void renderControlBarLink(
-      FacesContext context,
-      RenderingContext arc,
-      String onclick,
-      String translationKey,
-      Icon icon,
-      String id,
-      boolean hasDivider
-  ) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    String           onclick,
+    String           translationKey,
+    Icon             icon,
+    String           id,
+    boolean          hasDivider
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("a", null);
     writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, id, null);
-    renderStyleClass(context, arc, SkinSelectors.NAV_BAR_ALINK_STYLE_CLASS);
+    renderStyleClass(context, rc, SkinSelectors.NAV_BAR_ALINK_STYLE_CLASS);
     writer.writeAttribute("onclick", onclick, null);
     writer.writeURIAttribute("href", "#", null);
     if (icon != null)
     {
-      OutputUtils.renderIcon(context, arc, icon, arc.getTranslatedString(translationKey),
+      OutputUtils.renderIcon(context, rc, icon, rc.getTranslatedString(translationKey),
                              null);
     } else
     {
-      writer.writeText(arc.getTranslatedString(translationKey), null);
+      writer.writeText(rc.getTranslatedString(translationKey), null);
     }
 
     writer.endElement("a");
@@ -311,7 +327,8 @@ public class TreeTableRenderer extends DesktopTableRenderer
       writer.writeText(LINKS_DIVIDER_TEXT, null);
   }
 
-  protected boolean isExpandAllEnabled(UIComponent component)
+  protected boolean isExpandAllEnabled(
+    UIComponent component)
   {
     FacesBean bean = getFacesBean(component);
     Object bool =
@@ -329,17 +346,17 @@ public class TreeTableRenderer extends DesktopTableRenderer
   @Override
   protected int renderSpecialColumns(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
     UIComponent           component,
-    int                   physicalColumnIndex)
-    throws IOException
+    int                   physicalColumnIndex
+    ) throws IOException
   {
     // This renders a whole bunch of <TH>..</TH> elements or <TD>..</TD>
     // elements depending on the RenderStage
 
     physicalColumnIndex = super.renderSpecialColumns(context,
-                                                     arc,
+                                                     rc,
                                                      tContext,
                                                      component,
                                                      physicalColumnIndex);
@@ -351,7 +368,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
                              ColumnData.SPECIAL_COLUMN_INDEX);
       SpecialColumnRenderer focusRenderer = getFocusColumnRenderer();
       UIComponent column = focusRenderer.getSpecialColumn();
-      delegateRenderer(context, arc, column,
+      delegateRenderer(context, rc, column,
                        getFacesBean(column), focusRenderer);
     }
 
@@ -359,7 +376,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
     colData.setColumnIndex(physicalColumnIndex++,
                            ColumnData.SPECIAL_COLUMN_INDEX);
     UIComponent treeNodeColumn = ttrc.getTreeNodeStamp();
-    delegateRenderer(context, arc, treeNodeColumn,
+    delegateRenderer(context, rc, treeNodeColumn,
                      getFacesBean(treeNodeColumn), _TREE_NODE);
 
     return physicalColumnIndex;
@@ -371,10 +388,11 @@ public class TreeTableRenderer extends DesktopTableRenderer
   @Override
   protected void renderTableRows(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext trc,
     UIComponent           component,
-    FacesBean bean) throws IOException
+    FacesBean             bean
+    ) throws IOException
   {
     TreeTableRenderingContext ttrc = (TreeTableRenderingContext) trc;
     final RowData rowData = trc.getRowData();
@@ -382,12 +400,12 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
     // render all the table content rows
     if (isEmptyTable)
-      _renderEmptyTableRow(context, arc, ttrc);
+      _renderEmptyTableRow(context, rc, ttrc);
     else
-      _renderTableRows(context, arc, ttrc, bean);
+      _renderTableRows(context, rc, ttrc, component, bean);
 
     // render the footer
-    renderFooter(context, arc, trc, component);
+    renderFooter(context, rc, trc, component);
 
     // on an HGrid the number of rows depends on whether child nodes are
     // expanded or not.
@@ -399,7 +417,9 @@ public class TreeTableRenderer extends DesktopTableRenderer
     return _FOCUS;
   }
 
-  protected boolean isRootNodeRendered(FacesBean bean)
+  protected boolean isRootNodeRendered(
+    UIComponent component,
+    FacesBean   bean)
   {
     if (_rootNodeRendered == null)
       return true;
@@ -413,33 +433,34 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
   // Renders the hGridLocator Icon
   private void _renderLocatorIcon(
-    FacesContext          fc,
-    RenderingContext   arc)
-    throws IOException
+    FacesContext     fc,
+    RenderingContext rc
+    ) throws IOException
   {
-    Icon icon = arc.getIcon(SkinSelectors.AF_TREE_TABLE_LOCATOR_ICON_NAME);
+    Icon icon = rc.getIcon(SkinSelectors.AF_TREE_TABLE_LOCATOR_ICON_NAME);
 
     if (icon != null)
     {
-      Object altText = arc.getTranslatedString(_BREADCRUMBS_START_KEY);
+      Object altText = rc.getTranslatedString(_BREADCRUMBS_START_KEY);
 
       // Use "middle" alignment to center the icon with text
-      Object align = OutputUtils.getMiddleIconAlignment(arc);
+      Object align = OutputUtils.getMiddleIconAlignment(rc);
 
       // We don't bother specifying the style class.  This can
       // be specified by the Icon itself, since we aren't rendering
       // the Icon within a link (and thus we don't need to render
       // the style class ourselves.)
-      OutputUtils.renderIcon(fc, arc, icon, altText, align);
+      OutputUtils.renderIcon(fc, rc, icon, altText, align);
     }
   }
 
   private void _renderBreadCrumbs(
     FacesContext          fc,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext context,
-    UIComponent tree,
-    FacesBean bean) throws IOException
+    UIComponent           tree,
+    FacesBean             bean
+    ) throws IOException
   {
     // this renders <TR><TD><[crumbs]></TD></TR>
 
@@ -458,7 +479,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
                                                    true,  //left
                                                    false, //bottom
                                                    true); //right
-      renderStyleClasses(fc, arc, new String[] {
+      renderStyleClasses(fc, rc, new String[] {
                                 SkinSelectors.HGRID_LOCATOR_HEADER_STYLE,
                                 borderStyleClass}
                         );
@@ -467,11 +488,11 @@ public class TreeTableRenderer extends DesktopTableRenderer
       writer.writeAttribute("colspan", IntegerUtils.getString(colspan), null);
 
       // The locator icon hits the left border if not for this spacer
-      renderSpacer(fc, arc, "0", "2");
+      renderSpacer(fc, rc, "0", "2");
 
-      _renderLocatorIcon(fc, arc);
+      _renderLocatorIcon(fc, rc);
 
-      delegateRenderer(fc, arc, tree, bean, _CRUMBS);
+      delegateRenderer(fc, rc, tree, bean, _CRUMBS);
 
       writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
       // end the <tr> containing the bread crumbs
@@ -481,17 +502,18 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
   @SuppressWarnings("unchecked")
   private void _renderTableRows(
-    FacesContext          context,
-    final RenderingContext   arc,
+    FacesContext                    context,
+    final RenderingContext          rc,
     final TreeTableRenderingContext ttrc,
-    final FacesBean bean)
-    throws IOException
+    final UIComponent               component,
+    final FacesBean                 bean
+    ) throws IOException
   {
     final UIXTreeTable treeTableBase = ttrc.getUIXTreeTable();
     final ResponseWriter writer = context.getResponseWriter();
     final RowKeySet treeState = treeTableBase.getDisclosedRowKeys();
     final int specialColCount = _getSpecialColCount(ttrc);
-    final boolean rootNodeRendered = isRootNodeRendered(bean);
+    final boolean rootNodeRendered = isRootNodeRendered(component, bean);
 
     TableUtils.RowLoop loop = new TableUtils.RowLoop()
     {
@@ -511,7 +533,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
         if (rootNodeRendered || treeTableBase.getDepth() > 0)
         {
           writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
-          renderSingleRow(context, arc, ttrc, treeTableBase);
+          renderSingleRow(context, rc, ttrc, treeTableBase);
           writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
         }
 
@@ -532,12 +554,12 @@ public class TreeTableRenderer extends DesktopTableRenderer
               ((rowCount < 0) || (rowCount > rows));
             if (renderNavRow)
             {
-              renderEmptyTableRow(context, arc, ttrc, specialColCount, _NAV_TOP);
+              renderEmptyTableRow(context, rc, ttrc, specialColCount, _NAV_TOP);
             }
             super.loop(context, treeTable);
             if (renderNavRow)
             {
-              renderEmptyTableRow(context, arc, ttrc, specialColCount, _NAV_BOTTOM);
+              renderEmptyTableRow(context, rc, ttrc, specialColCount, _NAV_BOTTOM);
             }
             treeTableBase.exitContainer();
           }
@@ -557,14 +579,15 @@ public class TreeTableRenderer extends DesktopTableRenderer
    * @return zero (the number of rows in this table).
    */
   private int _renderEmptyTableRow(
-    FacesContext          context,
-    RenderingContext   arc,
-    TreeTableRenderingContext ttrc) throws IOException
+    FacesContext              context,
+    RenderingContext          rc,
+    TreeTableRenderingContext ttrc
+    ) throws IOException
   {
     // we do not include the object hierarchy column in the specialCols
     // count. This is because we want the emptyText to appear in the
     // hierarchy column.
-    renderEmptyTableRow(context, arc, ttrc, _getSpecialColCount(ttrc));
+    renderEmptyTableRow(context, rc, ttrc, _getSpecialColCount(ttrc));
     return 0;
   }
 
@@ -594,15 +617,17 @@ public class TreeTableRenderer extends DesktopTableRenderer
   private static final CoreRenderer _TREE_NODE = new TreeNodeColumnRenderer();
   private static final CoreRenderer _CRUMBS = new BreadCrumbsRenderer();
 
-  private static final class BreadCrumbsRenderer extends org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.BreadCrumbsRenderer
+  private static final class BreadCrumbsRenderer
+    extends org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.BreadCrumbsRenderer
   {
     @Override
     protected void renderLink(
-      FacesContext context,
-      RenderingContext arc,
-      UIComponent child,
-      int renderedCount,
-      boolean isLastChild) throws IOException
+      FacesContext     context,
+      RenderingContext rc,
+      UIComponent      child,
+      int              renderedCount,
+      boolean          isLastChild
+      ) throws IOException
     {
       TreeTableRenderingContext ttrc = TreeTableRenderingContext.getInstance();
       UIXTreeTable tree = ttrc.getUIXTreeTable();
@@ -613,13 +638,13 @@ public class TreeTableRenderer extends DesktopTableRenderer
       if (isLastChild)
       {
         renderStyleClass(
-          context, arc,
+          context, rc,
           SkinSelectors.AF_TREE_TABLE_MP_SELECTED_STYLE_CLASS);
       }
       else
       {
         renderStyleClass(
-          context, arc,
+          context, rc,
           SkinSelectors.AF_TREE_TABLE_MP_STEP_STYLE_CLASS);
       }
       Object oldPath = tree.getRowKey();
@@ -634,7 +659,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
         String onclick =
           TreeUtils.callJSFocusNode(tree, ttrc.getJSVarName());
         out.writeAttribute("onclick", onclick , null);
-        super.renderLink(context, arc, child, renderedCount, isLastChild);
+        super.renderLink(context, rc, child, renderedCount, isLastChild);
       }
       finally
       {
@@ -644,7 +669,8 @@ public class TreeTableRenderer extends DesktopTableRenderer
     }
 
     @Override
-    protected boolean hasChildren(UIComponent component)
+    protected boolean hasChildren(
+      UIComponent component)
     {
       return false; // do not render the columns. only the pathStamp
     }
@@ -661,10 +687,10 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
     @Override
     protected UIComponent getStamp(
-      FacesContext        context,
-      RenderingContext arc,
-      UIXHierarchy        component,
-      FacesBean           bean
+      FacesContext     context,
+      RenderingContext rc,
+      UIXHierarchy     component,
+      FacesBean        bean
       )
     {
       UIComponent stamp = component.getFacet("pathStamp");
@@ -711,4 +737,4 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
   private static final Object _JS_LIBS_KEY = new Object();
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TreeTableRenderer.class);
- }
+}

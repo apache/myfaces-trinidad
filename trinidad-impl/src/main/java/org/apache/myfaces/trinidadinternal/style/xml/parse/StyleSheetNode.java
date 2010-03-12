@@ -166,7 +166,7 @@ public class StyleSheetNode
   }
 
   /**
-   * @return AgentAtRuleMatcher for matching @Agent selectors
+   * @return AgentAtRuleMatcher for matching @agent selectors
    */
   public AgentAtRuleMatcher getAgentMatcher()
   {
@@ -331,7 +331,7 @@ public class StyleSheetNode
       return 0;
 
     int match = 0;
-    
+
     if (_locales.contains(locale))
         return _LOCALE_EXACT_MATCH;
 
@@ -380,7 +380,9 @@ public class StyleSheetNode
     return 0;
   }
 
-  //Compares the browser and its version against the supported variants
+  // Compares the browser and its version against the supported variants
+  // This uses the AgentAtRuleMatcher object _agentMatcher, which stores the agent  
+  // information for the StyleSheetNode and has a built-in matcher.
   private int _compareBrowserAndVersion(TrinidadAgent agent)
   {
     // If we don't have a browser specified, we match anything

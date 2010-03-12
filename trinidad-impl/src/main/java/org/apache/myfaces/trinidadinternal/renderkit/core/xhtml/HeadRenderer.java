@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,19 +37,21 @@ import org.apache.myfaces.trinidad.render.CoreRenderer;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/HeadRenderer.java#0 $) $Date: 10-nov-2005.19:01:29 $
  */
 public class HeadRenderer extends XhtmlRenderer
-{ 
+{
   public HeadRenderer()
   {
     this(HtmlHead.TYPE);
   }
 
-  protected HeadRenderer(FacesBean.Type type)
+  protected HeadRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _titleKey = type.findKey("title");
@@ -57,16 +59,17 @@ public class HeadRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeBegin(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("head", comp);
     renderId(context, comp);
 
-    String title = getTitle(bean);
+    String title = getTitle(comp, bean);
     if (title != null)
     {
       rw.startElement("title", null);
@@ -74,24 +77,33 @@ public class HeadRenderer extends XhtmlRenderer
       rw.endElement("title");
     }
 
-    // Write the META generator tag        
+    // Write the META generator tag
     _writeGeneratorTag(context);
 
-    delegateRenderer(context, arc, comp, bean, _styleSheetRenderer);
+    delegateRenderer(context, rc, comp, bean, _styleSheetRenderer);
   }
 
   @Override
   protected void encodeEnd(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
+
+    // trigger the rendering of targeted resource
+    // for the HEAD, on UIViewRoot - if there are
+    // any...
+    encodeComponentResources(context, "head");
+
     rw.endElement("head");
   }
 
-  protected String getTitle(FacesBean bean)
+  protected String getTitle(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_titleKey));
   }
@@ -100,19 +112,17 @@ public class HeadRenderer extends XhtmlRenderer
    * Writes the META generator tag that identifies the technology
    * generating the page.
    */
-  static private void _writeGeneratorTag(FacesContext context)
-    throws IOException
+  static private void _writeGeneratorTag(
+    FacesContext context
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    
+
     writer.startElement("meta", null);
     writer.writeAttribute("name", "generator", null);
     writer.writeAttribute("content", "Apache MyFaces Trinidad", null);
     writer.endElement("meta");
   }
-
-
-
 
   private CoreRenderer _styleSheetRenderer = new StyleSheetRenderer()
   {

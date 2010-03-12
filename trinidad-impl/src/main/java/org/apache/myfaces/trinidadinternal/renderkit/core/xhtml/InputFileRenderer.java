@@ -31,19 +31,20 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.LocaleInf
 
 public class InputFileRenderer extends InputLabelAndMessageRenderer
 {
-
   public InputFileRenderer()
   {
     super(CoreInputFile.TYPE);
   }
 
-  protected InputFileRenderer(FacesBean.Type type)
+  protected InputFileRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _simpleInputFile = new SimpleInputFileRenderer(type);
@@ -71,7 +72,9 @@ public class InputFileRenderer extends InputLabelAndMessageRenderer
   }
 
   @Override
-  protected String getRootStyleClass(FacesBean bean)
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|inputFile";
   }
@@ -88,7 +91,9 @@ public class InputFileRenderer extends InputLabelAndMessageRenderer
    * @return false, since inputFile does not support the readOnly attribute
    */
   @Override
-  protected boolean isReadOnly(FacesBean bean)
+  protected boolean isReadOnly(
+    UIComponent component,
+    FacesBean   bean)
   {
     return false;
   }

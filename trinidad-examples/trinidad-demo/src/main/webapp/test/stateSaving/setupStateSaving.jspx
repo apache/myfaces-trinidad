@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document id="doc" title="Setup for State Saving Test" inlineStyle="font-size:10pt;">
+      <tr:panelGroupLayout layout="scroll" id="pgl1">
+        <tr:spacer height="20"/>
+        <tr:panelHeader text="Instructions to configure the demo to test state saving"
+                        id="ph1">
+          <h:panelGrid cellpadding="5" columns="5" border="1" cellspacing="0"
+                       id="pg1">
+            <tr:outputFormatted value="&lt;b>Number&lt;/b>" id="of1"/>
+            <tr:outputFormatted value="&lt;b>Description&lt;/b>" id="of4"/>
+            <tr:outputFormatted value="&lt;b>Required to test &lt;br>state saving&lt;/b>"
+                                id="of7"/>
+            <tr:outputFormatted value="&lt;b>Required to test &lt;br>partial state saving&lt;/b>"
+                                id="of8"/>
+            <tr:outputFormatted value="&lt;b>Instructions&lt;/b>" id="of2"/>
+            <tr:outputText value="1" id="ot14"/>
+            <tr:outputText value="turn off the change manager" id="ot15"/>
+            <tr:outputText value="Yes" id="ot30"/>
+            <tr:outputText value="Yes" id="ot31"/>
+            <tr:panelList id="pl4">
+              <tr:panelGroupLayout id="pgl3">
+                <tr:outputText value="Modify org.apache.myfaces.trinidad.CHANGE_PERSISTENCE context parameter to use the null change manager"
+                               id="ot17"/>
+                <code>
+                  <br/>
+                  &amp;lt;context-param&amp;gt;
+                  <br/>
+                  &amp;nbsp;&amp;nbsp;&amp;lt;param-name&amp;gt;org.apache.myfaces.trinidad.CHANGE_PERSISTENCE&amp;lt;/param-name&amp;gt;
+                  <br/>
+                  &amp;nbsp;&amp;nbsp;&amp;lt;param-value&amp;gt;org.apache.myfaces.trinidad.change.NullChangeManager&amp;lt;/param-value&amp;gt;
+                  <br/>
+                  &amp;lt;/context-param&amp;gt;
+                </code>
+              </tr:panelGroupLayout>
+            </tr:panelList>
+            <tr:outputText value="2" id="ot19"/>
+            <tr:outputText value="turn off the view root cache" id="ot20"/>
+            <tr:outputText value="Yes" id="ot21"/>
+            <tr:outputText value="Yes" id="ot22"/>
+            <tr:panelList id="pl5">
+              <tr:panelGroupLayout id="pgl5">
+                <tr:outputText value="Modify org.apache.myfaces.trinidad.CACHE_VIEW_ROOT context parameter to be false"
+                               id="ot23"/>
+                <code>
+                  <br/>
+                  &amp;lt;context-param&amp;gt;
+                  <br/>
+                  &amp;nbsp;&amp;nbsp;&amp;lt;param-name&amp;gt;org.apache.myfaces.trinidad.CACHE_VIEW_ROOT&amp;lt;/param-name&amp;gt;
+                  <br/>
+                  &amp;nbsp;&amp;nbsp;&amp;lt;param-value&amp;gt;false&amp;lt;/param-value&amp;gt;
+                  <br/>
+                  &amp;lt;/context-param&amp;gt;
+                </code>
+              </tr:panelGroupLayout>
+            </tr:panelList>
+            <tr:outputText value="3" id="ot24"/>
+            <tr:outputText value="turn on facelets to test partial state saving"
+                           id="ot25"/>
+            <tr:outputText value="No" id="ot26"/>
+            <tr:outputText value="Yes" id="ot27"/>
+            <tr:panelList id="pl6">
+              <tr:panelGroupLayout id="pgl4">
+                <tr:outputText value="Modify javax.faces.FACELETS_VIEW_MAPPINGS context parameter to include *.jspx:"
+                               id="ot29"/>
+                <code>
+                  <br/>
+                  &amp;lt;context-param&amp;gt;
+                  <br/>
+                  &amp;nbsp;&amp;nbsp;&amp;lt;param-name&amp;gt;javax.faces.FACELETS_VIEW_MAPPINGS&amp;lt;/param-name&amp;gt;
+                  <br/>
+                  &amp;nbsp;&amp;nbsp;&amp;lt;param-value&amp;gt;*.xhtml;*.jspx;*.jsff&amp;lt;/param-value&amp;gt;
+                  <br/>
+                  &amp;lt;/context-param&amp;gt;
+                </code>
+              </tr:panelGroupLayout>
+            </tr:panelList>
+            <tr:outputText value="4" id="ot1"/>
+            <tr:outputText value="turn on partial state saving context param"
+                           id="ot2"/>
+            <tr:outputText value="No" id="ot3"/>
+            <tr:outputText value="Yes" id="ot4"/>
+            <tr:panelList id="pl1">
+              <tr:panelGroupLayout id="pgl2">
+                <tr:outputText value="Ensure javax.faces.PARTIAL_STATE_SAVING context parameter is either not set or is set to true"
+                               id="ot18"/>
+                <code>
+                  <br/>
+                  &amp;lt;context-param&amp;gt;
+                  <br/>
+                  &amp;nbsp;&amp;nbsp;&amp;lt;param-name&amp;gt;javax.faces.PARTIAL_STATE_SAVING&amp;lt;/param-name&amp;gt;
+                  <br/>
+                  &amp;nbsp;&amp;nbsp;&amp;lt;param-value&amp;gt;true&amp;lt;/param-value&amp;gt;
+                  <br/>
+                  &amp;lt;/context-param&amp;gt;
+                </code>
+              </tr:panelGroupLayout>
+            </tr:panelList>
+            <tr:outputText value="5" id="ot16"/>
+            <tr:outputText value="turn on client side state saving" id="ot32"/>
+            <tr:outputText value="No" id="ot33"/>
+            <tr:outputText value="No" id="ot34"/>
+            <tr:panelList id="pl7">
+              <tr:outputText value="Client side state saving makes it easy to see the state, since the state is sent to the client, so the instructions below allow you to turn on client side state saving."
+                             id="ot37"/>
+              <tr:panelGroupLayout id="pgl6">
+                <tr:outputText value="Modify javax.faces.STATE_SAVING_METHOD context parameter to be client"
+                               id="ot35"/>
+                <code>
+                  <br/>
+                  &amp;lt;context-param&amp;gt;
+                  <br/>
+                  &amp;nbsp;&amp;nbsp;&amp;lt;param-name&amp;gt;javax.faces.STATE_SAVING_METHOD&amp;lt;/param-name&amp;gt;
+                  <br/>
+                  &amp;nbsp;&amp;nbsp;&amp;lt;param-value&amp;gt;client&amp;lt;/param-value&amp;gt;
+                  <br/>
+                  &amp;lt;/context-param&amp;gt;
+                </code>
+              </tr:panelGroupLayout>
+              <tr:panelGroupLayout id="pgl7">
+                <tr:outputText value="Modify org.apache.myfaces.trinidad.CLIENT_STATE_METHOD context parameter to be all"
+                               id="ot36"/>
+                <code>
+                  <br/>
+                  &amp;lt;context-param&amp;gt;
+                  <br/>
+                  &amp;nbsp;&amp;nbsp;&amp;lt;param-name&amp;gt;org.apache.myfaces.trinidad.CLIENT_STATE_METHOD&amp;lt;/param-name&amp;gt;
+                  <br/>
+                  &amp;nbsp;&amp;nbsp;&amp;lt;param-value&amp;gt;all&amp;lt;/param-value&amp;gt;
+                  <br/>
+                  &amp;lt;/context-param&amp;gt;
+                </code>
+              </tr:panelGroupLayout>
+            </tr:panelList>
+          </h:panelGrid>
+        </tr:panelHeader>
+      </tr:panelGroupLayout>
+    </tr:document>
+  </f:view>
+</jsp:root>

@@ -22,6 +22,10 @@ import java.io.IOException;
 
 import javax.el.MethodExpression;
 
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
@@ -29,9 +33,7 @@ import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.component.visit.VisitCallback;
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
-import org.apache.myfaces.trinidad.component.visit.VisitHint;
+
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetTreeImpl;

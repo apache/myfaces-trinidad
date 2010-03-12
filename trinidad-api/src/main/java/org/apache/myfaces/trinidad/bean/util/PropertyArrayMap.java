@@ -141,6 +141,17 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
   }
 
 
+  public void clearInitialState()
+  {
+    _initialStateMarked = false;
+    _deltas = null;
+  }
+
+  public boolean initialStateMarked()
+  {
+    return _initialStateMarked;
+  }
+
   private boolean _createDeltas()
   {
     if (_initialStateMarked)

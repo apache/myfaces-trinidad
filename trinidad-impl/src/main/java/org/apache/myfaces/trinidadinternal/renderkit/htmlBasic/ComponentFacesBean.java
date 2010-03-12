@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,24 +18,30 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.htmlBasic;
 
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.el.ValueExpression;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 
+
 /**
- * Implementation of FacesBean that purely passes through 
+ * Implementation of FacesBean that purely passes through
  * back to a UIComponent.  This exists so that we can
  * reuse existing rendering code to render on a non-FacesBean-based
  * component.  It's also completely immutable.
- * 
+ *
  */
 public class ComponentFacesBean implements FacesBean
 {
@@ -52,6 +58,16 @@ public class ComponentFacesBean implements FacesBean
   final public Object getProperty(PropertyKey key)
   {
     return _component.getAttributes().get(key.getName());
+  }
+  
+  public Map<String, List<ClientBehavior>> getClientBehaviors()
+  {
+    Map<String, List<ClientBehavior>> behaviors = _EMPTY_CLIENT_BEHAVIORS_MAP;
+    if (_component instanceof ClientBehaviorHolder)
+    {
+      behaviors = ((ClientBehaviorHolder)_component).getClientBehaviors();
+    }
+    return behaviors;
   }
 
   /**
@@ -130,7 +146,6 @@ public class ComponentFacesBean implements FacesBean
   {
     throw new UnsupportedOperationException();
   }
-  
 
   final public Set<PropertyKey> keySet()
   {
@@ -147,6 +162,16 @@ public class ComponentFacesBean implements FacesBean
     throw new UnsupportedOperationException();
   }
 
+  public boolean initialStateMarked()
+  {
+    throw new UnsupportedOperationException();
+  }
+
+  public void clearInitialState()
+  {
+    throw new UnsupportedOperationException();
+  }
+
   public void restoreState(FacesContext context, Object state)
   {
     throw new UnsupportedOperationException();
@@ -157,5 +182,12 @@ public class ComponentFacesBean implements FacesBean
     throw new UnsupportedOperationException();
   }
 
+  public void addClientBehavior(String eventName, ClientBehavior behavior)
+  {
+    throw new UnsupportedOperationException();
+  }
+
   private final UIComponent _component;
+  
+  private static final Map<String, List<ClientBehavior>> _EMPTY_CLIENT_BEHAVIORS_MAP = Collections.emptyMap();
 }

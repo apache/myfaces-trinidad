@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.component.UIXInput;
 import org.apache.myfaces.trinidad.component.UIXPanel;
 import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.context.RequestContext;
-
 import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 
 public class PartialTriggersTest extends FacesTestCase

@@ -282,7 +282,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       
       if (typeIdx == _PATTERN_TYPE)
       {
-        // We call this since the pattern may contain the generic currency sign '¤', which we don't 
+        // We call this since the pattern may contain the generic currency sign, which we don't 
         // want to display to the user.
         pattern = getLocalizedPattern(context, pattern, dfs);
         
@@ -750,7 +750,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   }
 
   /**
-   * If <code>pattern</code> contains the generic currency sign '¤', this method will replace it 
+   * If <code>pattern</code> contains the generic currency sign, this method will replace it 
    * with the localized currency symbol (if one exists). 
    * @param context the FacesContext
    * @param pattern the pattern to be localized
@@ -762,13 +762,13 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     if (pattern == null)
       return null;
     
-    // If the pattern contains the generic currency sign '¤', replace it with the localized 
+    // If the pattern contains the generic currency sign, replace it with the localized 
     // currency symbol (if one exists), so that when the pattern is displayed (such as in an error 
     // message), it is more meaningful to the user.
-    // If the pattern contains '¤¤', replace it with the international currency symbol. 
+    // If the pattern contains double international currency symbol, replace it with the international currency symbol. 
     // For an explanation of this behavior, see section "Special Pattern Characters" at: 
     // http://java.sun.com/javase/6/docs/api/java/text/DecimalFormat.html
-    // The unicode for '¤' is: \u00A4
+    // The unicode for the international currency symbol is: \u00A4
     // The xml hex is        : &#xA4;
     int idx = pattern.indexOf('\u00A4');
     if (idx == -1)

@@ -19,8 +19,10 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.desktop;
 
 import java.awt.Color;
+
 import java.io.IOException;
 import java.io.StringWriter;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -38,11 +40,10 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.event.ChartDrillDownEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.ChartModel;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.LibraryScriptlet;
@@ -79,33 +80,34 @@ public class ChartRenderer extends XhtmlRenderer
     _maxPrecisionKey = type.findKey("maxPrecision");
   }
 
-
-
   /**
    * @todo Decode the chart drill down event
    *
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
     Map<String, String> parameters =
-      context.getExternalContext().getRequestParameterMap();
+      facesContext.getExternalContext().getRequestParameterMap();
 
-    String source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
-    String id = component.getClientId(context);
+    String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+    String id = clientId == null ? component.getClientId(facesContext) : clientId;
     if (!id.equals(source))
       return;
-    Object eventParam = parameters.get(TrinidadRenderingConstants.EVENT_PARAM);
-    if (TrinidadRenderingConstants.CHART_DRILL_DOWN_EVENT.equals(eventParam))
+    Object eventParam = parameters.get(XhtmlConstants.EVENT_PARAM);
+    if (XhtmlConstants.CHART_DRILL_DOWN_EVENT.equals(eventParam))
     {
       int[] seriesIndices = null;
       int[] yValueIndices = null;
       double[] yValues = null;
       double[] xValues = null;
-      String value = parameters.get(TrinidadRenderingConstants.VALUE_PARAM);
+      String value = parameters.get(XhtmlConstants.VALUE_PARAM);
       String[] tokens = value.split(_DELIMITER);
       for (String token : tokens)
       {
@@ -165,7 +167,7 @@ public class ChartRenderer extends XhtmlRenderer
   @Override
   protected boolean shouldRenderId(
    FacesContext context,
-   UIComponent  component)
+   UIComponent component)
   {
     return true;
   }
@@ -175,42 +177,44 @@ public class ChartRenderer extends XhtmlRenderer
    */
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (canSkipRendering(context, arc, component))
+    if (canSkipRendering(context, rc, component))
       return;
 
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement(XhtmlConstants.DIV_ELEMENT, component);
     renderId(context, component);
-    renderStyleAttributes(context, arc, bean, SkinSelectors.AF_CHART_STYLE_CLASS);
+    renderStyleAttributes(context, rc, component, bean, SkinSelectors.AF_CHART_STYLE_CLASS);
     // We need the number convertor so that we can format numbers on the client
-    XhtmlUtils.addLib(context, arc, _NUMBER_CONVERTER_SCRIPTLET);
+    XhtmlUtils.addLib(context, rc, _NUMBER_CONVERTER_SCRIPTLET);
     // output the chart javascript library
-    chartLib.outputScriptlet(context, arc);
+    chartLib.outputScriptlet(context, rc);
 
     // We will render the chart using JavaScript
     StringWriter sw = new StringWriter(5000);
     _outputSVGDocumentCreate(context, sw, component, bean);
     _outputJSChartModel(sw, component);
-    _outputJSChartObject(context, arc, sw, component, bean);
+    _outputJSChartObject(context, rc, sw, component, bean);
     // Output the script to the response
     rw.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
-    renderScriptDeferAttribute(context, arc);
-    renderScriptTypeAttribute(context, arc);
+    renderScriptDeferAttribute(context, rc);
+    renderScriptTypeAttribute(context, rc);
     rw.write(sw.toString());
     rw.endElement(XhtmlConstants.SCRIPT_ELEMENT);
     rw.endElement(XhtmlConstants.DIV_ELEMENT);
   }
 
   protected void _outputSVGDocumentCreate(
-    FacesContext        context,
+    FacesContext context,
     StringWriter sw,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    UIComponent  component,
+    FacesBean    bean
+    ) throws IOException
   {
     sw.append("ApacheChart.createSVG(\"");
     String clientId = component.getClientId(context);
@@ -218,7 +222,7 @@ public class ChartRenderer extends XhtmlRenderer
     sw.append("\",\"svgChart");
     sw.append(clientId);
     sw.append("\",\"");
-    String templateURL = getTemplateSource(bean);
+    String templateURL = getTemplateSource(component, bean);
     templateURL = context.getExternalContext().encodeResourceURL(templateURL);
     sw.append(templateURL);
     sw.append("\",\"width:100%; height:100%;\"");
@@ -227,7 +231,8 @@ public class ChartRenderer extends XhtmlRenderer
 
   protected void _outputJSChartModel(
     StringWriter sw,
-    UIComponent         component) throws IOException
+    UIComponent  component
+    ) throws IOException
   {
     CoreChart chart = (CoreChart)component;
     ChartModel model = (ChartModel)chart.getValue();
@@ -278,11 +283,12 @@ public class ChartRenderer extends XhtmlRenderer
   }
 
   protected void _outputJSChartObject(
-    FacesContext        context,
-    RenderingContext    arc,
-    StringWriter sw,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    StringWriter     sw,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     Integer type = _typeToJSTypeMap.get(getType(bean));
     if(type == null)
@@ -297,45 +303,45 @@ public class ChartRenderer extends XhtmlRenderer
     sw.append(";\n");
 
     sw.append("var isPerspective = ");
-    _writeJSObject(sw, isPerspective(bean));
+    _writeJSObject(sw, isPerspective(component, bean));
     sw.append(";\n");
 
     sw.append("var legendPosition = ");
-    _writeJSObject(sw, getLegendPosition(bean));
+    _writeJSObject(sw, getLegendPosition(component, bean));
     sw.append(";\n");
 
     sw.append("var apacheChart = ApacheChart.createChart(type, model, chartId, isPerspective, legendPosition);");
 
     sw.append("apacheChart.setYMajorGridLineCount(");
-    _writeJSObject(sw, getYMajorGridLineCount (bean));
+    _writeJSObject(sw, getYMajorGridLineCount(component, bean));
     sw.append(");\n");
 
     sw.append("apacheChart.setYMinorGridLineCount(");
-    _writeJSObject(sw, getYMinorGridLineCount(bean));
+    _writeJSObject(sw, getYMinorGridLineCount(component, bean));
     sw.append(");\n");
 
     sw.append("apacheChart.setXMajorGridLineCount(");
-    _writeJSObject(sw, getXMajorGridLineCount(bean));
+    _writeJSObject(sw, getXMajorGridLineCount(component, bean));
     sw.append(");\n");
 
     sw.append("apacheChart.setGradientsUsed(");
-    _writeJSObject(sw, isGradientsUsed(bean));
+    _writeJSObject(sw, isGradientsUsed(component, bean));
     sw.append(");\n");
 
     sw.append("apacheChart.setAnimationDuration(");
-    _writeJSObject(sw, getAnimationDuration(bean));
+    _writeJSObject(sw, getAnimationDuration(component, bean));
     sw.append(");\n");
 
     sw.append("apacheChart.setTooltipsVisible(");
-    _writeJSObject(sw, isTooltipsVisible(bean));
+    _writeJSObject(sw, isTooltipsVisible(component, bean));
     sw.append(");\n");
 
     sw.append("apacheChart.setMaxPrecision(");
-    _writeJSObject(sw, getMaxPrecision(bean));
+    _writeJSObject(sw, getMaxPrecision(component, bean));
     sw.append(");\n");
 
     String formName;
-    FormData fData = arc.getFormData();
+    FormData fData = rc.getFormData();
     if (fData == null)
       formName =  null;
     else
@@ -355,21 +361,21 @@ public class ChartRenderer extends XhtmlRenderer
       sw.append(");\n");
     }
 
-    if(TrinidadAgent.AGENT_IE.equals(arc.getAgent().getAgentName()))
+    if(TrinidadAgent.AGENT_IE.equals(rc.getAgent().getAgentName()))
     {
       sw.append("apacheChart.setErrorHtml(");
-      _writeJSObject(sw, arc.getTranslatedString("af_chart.IE_SVG_PLUGIN_ERROR_HTML"));
+      _writeJSObject(sw, rc.getTranslatedString("af_chart.IE_SVG_PLUGIN_ERROR_HTML"));
       sw.append(");\n");
     }
     else
     {
       sw.append("apacheChart.setErrorHtml(");
-      _writeJSObject(sw, arc.getTranslatedString("af_chart.SVG_ENABLED_BROWSER_ERROR_HTML"));
+      _writeJSObject(sw, rc.getTranslatedString("af_chart.SVG_ENABLED_BROWSER_ERROR_HTML"));
       sw.append(");\n");
     }
 
     sw.append("apacheChart.setStatusHtml(");
-    _writeJSObject(sw, arc.getTranslatedString("af_chart.SVG_LOADING_STATUS_HTML"));
+    _writeJSObject(sw, rc.getTranslatedString("af_chart.SVG_LOADING_STATUS_HTML"));
     sw.append(");\n");
 
     // finally draw the chart
@@ -379,7 +385,8 @@ public class ChartRenderer extends XhtmlRenderer
   @SuppressWarnings("unchecked")
   static private void _writeJSObject(
     StringWriter sw,
-    Object   attrValue) throws IOException
+    Object       attrValue
+    ) throws IOException
   {
     if (attrValue == null)
     {
@@ -424,7 +431,8 @@ public class ChartRenderer extends XhtmlRenderer
    */
   static private void _writeJSString(
     StringWriter sw,
-    String  value) throws IOException
+    String       value
+    ) throws IOException
   {
     if (value == null)
     {
@@ -534,7 +542,8 @@ public class ChartRenderer extends XhtmlRenderer
    */
   static public void _writeJSInt(
     StringWriter sw,
-    Integer       value) throws IOException
+    Integer       value
+    ) throws IOException
   {
     sw.append(String.valueOf(value));
   }
@@ -547,7 +556,8 @@ public class ChartRenderer extends XhtmlRenderer
    */
   static private void _writeJSBoolean(
     StringWriter sw,
-    Boolean      value) throws IOException
+    Boolean      value
+    ) throws IOException
   {
     sw.append(String.valueOf(value));
   }
@@ -561,7 +571,8 @@ public class ChartRenderer extends XhtmlRenderer
    */
   static private void _writeJSDouble(
     StringWriter sw,
-    Double        value) throws IOException
+    Double       value
+    ) throws IOException
   {
     sw.append(String.valueOf(value));
   }
@@ -572,7 +583,10 @@ public class ChartRenderer extends XhtmlRenderer
    * @param sw           the StringWriter
    * @param color        the color value
    */
-  static private void _writeJSColor(StringWriter sw, Color color) throws IOException
+  static private void _writeJSColor(
+    StringWriter sw,
+    Color        color
+    ) throws IOException
   {
     sw.append("\"RGB(");
     sw.append(String.valueOf(color.getRed()));
@@ -591,7 +605,8 @@ public class ChartRenderer extends XhtmlRenderer
    */
   static private void _writeJSCollection(
     StringWriter  sw,
-    Collection<?> value) throws IOException
+    Collection<?> value
+    ) throws IOException
   {
     if (value == null)
     {
@@ -617,7 +632,9 @@ public class ChartRenderer extends XhtmlRenderer
     }
   }
 
-  private static Object _getProperty(FacesBean bean, PropertyKey key)
+  private static Object _getProperty(
+    FacesBean   bean,
+    PropertyKey key)
   {
     Object ret = bean.getProperty(key);
     if (ret==null)
@@ -625,18 +642,21 @@ public class ChartRenderer extends XhtmlRenderer
     return ret;
   }
 
-  protected String getType(FacesBean bean)
+  protected String getType(
+    FacesBean bean)
   {
     return toString(_getProperty(bean, _typeKey));
   }
 
-  protected String getTemplateSource(FacesBean bean)
+  protected String getTemplateSource(
+    UIComponent component,
+    FacesBean    bean)
   {
     Object ret = bean.getProperty(_templateSourceKey);
     String uri;
     if (ret==null)
     {
-      if(isGradientsUsed(bean))
+      if (isGradientsUsed(component, bean))
         uri = _TEMPLATE_DOC;
       else
         uri = _TEMPLATE_DOC_NOGRADIENT;
@@ -648,47 +668,65 @@ public class ChartRenderer extends XhtmlRenderer
     return toResourceUri(FacesContext.getCurrentInstance(), uri);
   }
 
-  protected boolean isPerspective(FacesBean bean)
+  protected boolean isPerspective(
+    UIComponent component,
+    FacesBean   bean)
   {
     return Boolean.TRUE.equals(_getProperty(bean, _perspectiveKey));
   }
 
-  protected String getLegendPosition(FacesBean bean)
+  protected String getLegendPosition(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(_getProperty(bean, _legendPositionKey));
   }
 
-  protected Integer getAnimationDuration(FacesBean bean)
+  protected Integer getAnimationDuration(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Integer)_getProperty(bean, _animationDurationKey);
   }
 
-  protected boolean isGradientsUsed(FacesBean bean)
+  protected boolean isGradientsUsed(
+    UIComponent component,
+    FacesBean   bean)
   {
     return Boolean.TRUE.equals(_getProperty(bean, _gradientsUsedKey));
   }
 
-  protected boolean isTooltipsVisible(FacesBean bean)
+  protected boolean isTooltipsVisible(
+    UIComponent component,
+    FacesBean   bean)
   {
     return Boolean.TRUE.equals(_getProperty(bean, _tooltipsVisibleKey));
   }
 
-  protected Integer getYMajorGridLineCount(FacesBean bean)
+  protected Integer getYMajorGridLineCount(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Integer)_getProperty(bean, _YMajorGridLineCountKey);
   }
 
-  protected Integer getXMajorGridLineCount(FacesBean bean)
+  protected Integer getXMajorGridLineCount(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Integer)_getProperty(bean, _XMajorGridLineCountKey);
   }
 
-  protected Integer getYMinorGridLineCount(FacesBean bean)
+  protected Integer getYMinorGridLineCount(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Integer)_getProperty(bean, _YMinorGridLineCountKey);
   }
 
-  protected Integer getMaxPrecision(FacesBean bean)
+  protected Integer getMaxPrecision(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Integer)_getProperty(bean, _maxPrecisionKey);
   }

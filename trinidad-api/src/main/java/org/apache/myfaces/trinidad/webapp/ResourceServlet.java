@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- *
+ * 
  *  http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,24 +26,24 @@ import java.io.InputStreamReader;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.Reader;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-
 import java.net.SocketException;
 import java.net.URL;
 import java.net.URLConnection;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.FacesException;
 import javax.faces.FactoryFinder;
+import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
-
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -60,7 +60,6 @@ import org.apache.myfaces.trinidad.resource.DirectoryResourceLoader;
 import org.apache.myfaces.trinidad.resource.ResourceLoader;
 import org.apache.myfaces.trinidad.resource.ServletContextResourceLoader;
 import org.apache.myfaces.trinidad.util.URLUtils;
-
 
 /**
  * A Servlet which serves up web application resources (images, style sheets,
@@ -83,10 +82,10 @@ import org.apache.myfaces.trinidad.util.URLUtils;
 public class ResourceServlet extends HttpServlet
 {
   /**
-   *
+   * 
    */
   private static final long serialVersionUID = 4547362994406585148L;
-
+  
   /**
    * Override of Servlet.destroy();
    */
@@ -99,7 +98,7 @@ public class ResourceServlet extends HttpServlet
 
     super.destroy();
   }
-
+  
   /**
    * Override of Servlet.init();
    */
@@ -155,7 +154,7 @@ public class ResourceServlet extends HttpServlet
     else
     {
       Configurator.disableConfiguratorServices(request);
-
+    
       //=-= Scott O'Bryan =-=
       // Be careful.  This can be wrapped by other things even though it's meant to be a
       // Trinidad only resource call.
@@ -331,13 +330,10 @@ public class ResourceServlet extends HttpServlet
         else
         {
           // default to serving resources from the servlet context
-          if(_LOG.isWarning())
-          {
-            _LOG.warning("Unable to find ResourceLoader for ResourceServlet" +
-                         " at servlet path:{0}" +
-                         "\nCause: Could not find resource:{1}",
-                         new Object[] {servletPath, key});
-          }
+          _LOG.warning("Unable to find ResourceLoader for ResourceServlet" +
+                       " at servlet path:{0}" +
+                       "\nCause: Could not find resource:{1}",
+                       new Object[] {servletPath, key});
           loader = new ServletContextResourceLoader(getServletContext())
                    {
                      @Override
@@ -411,11 +407,120 @@ public class ResourceServlet extends HttpServlet
       debug = config.getServletContext().getInitParameter(DEBUG_INIT_PARAM);
     }
 
-    _debug = "true".equalsIgnoreCase(debug);
+    // private call to get the used JSF 2.0 ProjectStage as we don't have
+    // access to the FacesContext object here...
+    ProjectStage currentStage = _getFacesProjectStage(config.getServletContext());
+
+    if (debug != null)
+    {
+      _debug = "true".equalsIgnoreCase(debug);  
+    }
+    else
+    {
+      // if the DDEBUG_INIT_PARAM parameter has NOT been specified, let us
+      // apply the DEFAULT values for the certain Project Stages:
+      // -PRODUCTION we want this value to be FALSE;
+      // -other stages we use TRUE
+      _debug = !(ProjectStage.Production.equals(currentStage));
+    }
+
     if (_debug)
     {
-      _LOG.info("RESOURCESERVLET_IN_DEBUG_MODE",DEBUG_INIT_PARAM);
+      // If DEBUG_INIT_PARAM is TRUE on Production-Stage, we
+      // generate a WARNING msg
+      if (ProjectStage.Production.equals(currentStage))
+      {
+        _LOG.warning("RESOURCESERVLET_IN_DEBUG_MODE",DEBUG_INIT_PARAM);
+      }
+      else
+      {
+        _LOG.info("RESOURCESERVLET_IN_DEBUG_MODE",DEBUG_INIT_PARAM); 
+      }
     }
+  }
+
+  /**
+   * private version of the <code>Application.getProjectStage()</code>. See the 
+   * original JavaDoc for a description of the underlying algorithm.
+   * 
+   * It is written as we do not have access to the FacesContext object at the point
+   * of executing this method. 
+   * 
+   * This code comes from the <b>Apache MyFaces 2.0</b> implementation.
+   */
+  private ProjectStage _getFacesProjectStage(ServletContext servletContext)
+  {
+    if (_projectStage == null)
+    {
+      String stageName = null;
+      // Look for a JNDI environment entry under the key given by the
+      // value of ProjectStage.PROJECT_STAGE_JNDI_NAME (a String)
+      try
+      {
+        Context ctx = new InitialContext();
+        Object temp = ctx.lookup(ProjectStage.PROJECT_STAGE_JNDI_NAME);
+        if (temp != null)
+        {
+          if (temp instanceof String)
+          {
+            stageName = (String) temp;
+          }
+          else
+          {
+            if (_LOG.isSevere())
+            {
+              _LOG.severe("Invalid JNDI lookup for key " + ProjectStage.PROJECT_STAGE_JNDI_NAME);
+            }
+          }
+        }
+      }
+      catch (NamingException e)
+      {
+        // no-op we need to ignore this...
+      }
+
+      /*
+       * If found, continue with the algorithm below, otherwise, look for an entry in the initParamMap of the
+       * ExternalContext from the current FacesContext with the key ProjectStage.PROJECT_STAGE_PARAM_NAME
+       */
+      if (stageName == null)
+      {
+        stageName = servletContext.getInitParameter(ProjectStage.PROJECT_STAGE_PARAM_NAME);
+      }
+      
+      // If a value is found found
+      if (stageName != null)
+      {
+        /*
+         * see if an enum constant can be obtained by calling ProjectStage.valueOf(), passing the value from the
+         * initParamMap. If this succeeds without exception, save the value and return it.
+         */
+        try
+        {
+          _projectStage = ProjectStage.valueOf(stageName);
+          return _projectStage;
+        }
+        catch (IllegalArgumentException e)
+        {
+          _LOG.severe("Couldn't discover the current project stage", e);
+        }
+      }
+      else
+      {
+        if (_LOG.isInfo())
+        {
+          _LOG.info("Couldn't discover the current project stage, using " + ProjectStage.Production);
+        }
+      }
+      /*
+       * If not found, or any of the previous attempts to discover the enum constant value have failed, log a
+       * descriptive error message, assign the value as ProjectStage.Production and return it.
+       */
+
+      _projectStage = ProjectStage.Production;      
+    }
+
+    return _projectStage;
   }
 
   /**
@@ -565,7 +670,6 @@ public class ResourceServlet extends HttpServlet
   // cutting back just to be safe.)
   public static final long ONE_YEAR_MILLIS = 31363200000L;
 
-
   private static final Class[] _DECORATOR_SIGNATURE =
                                   new Class[]{ResourceLoader.class};
 
@@ -578,4 +682,5 @@ public class ResourceServlet extends HttpServlet
   private Map<String, ResourceLoader> _loaders;
   private FacesContextFactory _facesContextFactory;
   private Lifecycle _lifecycle;
+  private ProjectStage _projectStage;
 }

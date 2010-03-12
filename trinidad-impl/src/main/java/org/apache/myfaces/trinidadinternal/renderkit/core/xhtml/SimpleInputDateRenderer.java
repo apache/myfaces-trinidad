@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -62,24 +63,28 @@ public class SimpleInputDateRenderer
     this(CoreInputDate.TYPE);
   }
 
-  public SimpleInputDateRenderer(FacesBean.Type type)
+  public SimpleInputDateRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _chooseIdKey = type.findKey("chooseId");
   }
 
   @Override
-  protected void queueActionEvent(FacesContext context, UIComponent component)
+  protected void queueActionEvent(
+    FacesContext context,
+    UIComponent  component)
   {
     FacesBean bean = getFacesBean(component);
     // If there's a non-default action, then just launch away
-    if (getActionExpression(bean) != null)
+    if (getActionExpression(component, bean) != null)
     {
       super.queueActionEvent(context, component);
     }
@@ -89,7 +94,7 @@ public class SimpleInputDateRenderer
     // a calendar window with the _ldp JS function)
     else
     {
-      Object submittedValue = getSubmittedValue(bean);
+      Object submittedValue = getSubmittedValue(component, bean);
       Date date = null;
       try
       {
@@ -113,17 +118,17 @@ public class SimpleInputDateRenderer
       }
 
       RequestContext afContext = RequestContext.getCurrentInstance();
-      DateTimeRangeValidator dtrv = _findDateTimeRangeValidator(bean);
+      DateTimeRangeValidator dtrv = _findDateTimeRangeValidator(component, bean);
 
       if (date == null)
         date = new Date();
 
       Map<String, Object> parameters = new HashMap<String, Object>();
-      parameters.put(TrinidadRenderingConstants.VALUE_PARAM, _getDateAsString(date));
-      parameters.put(TrinidadRenderingConstants.MIN_VALUE_PARAM,
+      parameters.put(XhtmlConstants.VALUE_PARAM, _getDateAsString(date));
+      parameters.put(XhtmlConstants.MIN_VALUE_PARAM,
                      dtrv == null
                      ? null :  _getDateAsString(dtrv.getMinimum()));
-      parameters.put(TrinidadRenderingConstants.MAX_VALUE_PARAM,
+      parameters.put(XhtmlConstants.MAX_VALUE_PARAM,
                      dtrv == null
                      ? null :  _getDateAsString(dtrv.getMaximum()));
       parameters.put(GenericEntry.getEntryKeyParam(),
@@ -136,7 +141,6 @@ public class SimpleInputDateRenderer
                              null);
     }
   }
-
 
   /**
    * Give subclasses a chance to override the ReturnEvent.
@@ -155,9 +159,9 @@ public class SimpleInputDateRenderer
     if ((returnValue instanceof Date) || fac.isConvertible(returnValue, Date.class))
     {
       FacesBean bean = getFacesBean(component);
-      Converter converter = getConverter(bean);
+      Converter converter = getConverter(component, bean);
       if (converter == null)
-        converter = getDefaultConverter(context, bean);
+        converter = getDefaultConverter(context, component, bean);
 
       if (converter != null)
       {
@@ -180,45 +184,47 @@ public class SimpleInputDateRenderer
 
   @Override
   protected void encodeAllAsElement(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
 
-    if (!_dateScriptletsRegistered) 
+    if (!_dateScriptletsRegistered)
     {
       // Register our scriptlet
       DateTimeZoneOffsetScriptlet.sharedInstance().registerSelf();
       _dateScriptletsRegistered = true;
     }
-    
+
     String chooseId = _computeChooseId(context, component, bean);
-    arc.getProperties().put(_CACHED_CHOOSE_ID, chooseId);
+    rc.getProperties().put(_CACHED_CHOOSE_ID, chooseId);
 
     // Add the scriptlets required by the date field
     // =-=AEW What's this one?
-    XhtmlUtils.addLib(context, arc, "_dfsv()");
-    XhtmlUtils.addLib(context, arc, "_fixDFF()");
-    XhtmlUtils.addLib(context, arc, _DATE_TIME_ZONE_OFFSET_KEY);
-    super.encodeAllAsElement(context, arc, component, bean);
+    XhtmlUtils.addLib(context, rc, "_dfsv()");
+    XhtmlUtils.addLib(context, rc, "_fixDFF()");
+    XhtmlUtils.addLib(context, rc, _DATE_TIME_ZONE_OFFSET_KEY);
+    super.encodeAllAsElement(context, rc, component, bean);
 
-    if (!getDisabled(bean))
+    if (!getDisabled(component, bean))
     {
-      _checkIfActive(context, arc, component, _getChooseId(arc));
+      _checkIfActive(context, rc, component, _getChooseId(rc));
     }
   }
 
   @Override
   protected void renderIcon(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     // Add the two scriptlets required by the icon
     XhtmlUtils.addLib(context,
-                      arc,
+                      rc,
                       ConfigurationScriptlet.sharedInstance().getScriptletKey());
 //    XhtmlUtils.addLib(context,
 //                      arc,
@@ -228,24 +234,25 @@ public class SimpleInputDateRenderer
     if (CoreRenderKit.usePopupForDialog(context, RequestContext.getCurrentInstance()))
     {
       XhtmlUtils.addLib(context,
-          arc,
+          rc,
           DialogStyleScriptlet.sharedInstance().getScriptletKey());
     }
-    
-    super.renderIcon(context, arc, component, bean);
+
+    super.renderIcon(context, rc, component, bean);
   }
 
-  @Override 
+  @Override
   protected void renderAfterTextField(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     // ADFFACES-317: don't bother rendering the icon if there's
     // an attached chooser
-    if (_getChooseId(arc) == null)
-      super.renderAfterTextField(context, arc, component, bean);
+    if (_getChooseId(rc) == null)
+      super.renderAfterTextField(context, rc, component, bean);
   }
 
   /**
@@ -256,6 +263,7 @@ public class SimpleInputDateRenderer
   @Override
   protected Converter getDefaultConverter(
     FacesContext context,
+    UIComponent  component,
     FacesBean    bean)
   {
     Converter converter = context.getApplication().
@@ -267,16 +275,16 @@ public class SimpleInputDateRenderer
     if (converter instanceof DateTimeConverter)
     {
       DateTimeConverter dtc = (DateTimeConverter) converter;
-      
+
       boolean trinidadDTC = _isTrinidadDateTimeConverter(converter);
-      
+
       if (!trinidadDTC)
       {
         // if it is not the Trinidad DateTimeConverter, set the date style to
         // short
         dtc.setDateStyle("short");
       }
-      
+
       // if it is not the Trinidad DateTimeConverter or (it is AND
       // no time zone is set) then we want to set the
       // time zone to the one in the faces context or use
@@ -284,25 +292,27 @@ public class SimpleInputDateRenderer
       if (!trinidadDTC || dtc.getTimeZone() == null)
       {
         TimeZone tz = null;
-        
+
         RequestContext requestContext = RequestContext.getCurrentInstance();
         tz = requestContext.getTimeZone();
         if(tz == null)
         {
           tz = TimeZone.getDefault();
         }
-        
+
         dtc.setTimeZone(tz);
       }
     }
-    
+
     return converter;
   }
 
   @Override
-  protected String getOnblur(FacesBean bean)
+  protected String getOnblur(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String onblur = super.getOnblur(bean);
+    String onblur = super.getOnblur(component, bean);
     RenderingContext arc = RenderingContext.getCurrentInstance();
     String chooseId = _getChooseId(arc);
 
@@ -326,9 +336,11 @@ public class SimpleInputDateRenderer
   }
 
   @Override
-  protected String getOnfocus(FacesBean bean)
+  protected String getOnfocus(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String onfocus = super.getOnfocus(bean);
+    String onfocus = super.getOnfocus(component, bean);
     RenderingContext arc = RenderingContext.getCurrentInstance();
     String chooseId = _getChooseId(arc);
 
@@ -358,39 +370,40 @@ public class SimpleInputDateRenderer
 
   @Override
   protected String getLaunchOnclick(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     // If the field has an action, use the default behavior.  Or,
     // if the field doesn't support launching a window at all,
     // use the default behavior.
-    if ((getActionExpression(bean) != null) ||
+    if ((getActionExpression(component, bean) != null) ||
         !Boolean.TRUE.equals(
-            arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_MULTIPLE_WINDOWS)))
-      return super.getLaunchOnclick(context, arc, component, bean);
+            rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_MULTIPLE_WINDOWS)))
+      return super.getLaunchOnclick(context, rc, component, bean);
 
-    String id = arc.getCurrentClientId();
-    if ((id == null) || (arc.getFormData() == null))
+    String id = rc.getCurrentClientId();
+    if ((id == null) || (rc.getFormData() == null))
       return null;
 
     // we want something big enough
     StringBuilder onClickBuffer = new StringBuilder(100);
 
     onClickBuffer.append("_ldp('");
-    onClickBuffer.append(arc.getFormData().getName());
+    onClickBuffer.append(rc.getFormData().getName());
     onClickBuffer.append("','");
 
     onClickBuffer.append(id);
     onClickBuffer.append('\'');
-    
+
     // Decide if we should display the picker in a popup or window
     onClickBuffer.append(',');
-    onClickBuffer.append(CoreRenderKit.usePopupForDialog(context, 
-        RequestContext.getCurrentInstance()));    
+    onClickBuffer.append(CoreRenderKit.usePopupForDialog(context,
+        RequestContext.getCurrentInstance()));
 
-    DateTimeRangeValidator dtrv = _findDateTimeRangeValidator(bean);
+    DateTimeRangeValidator dtrv = _findDateTimeRangeValidator(component, bean);
     if (dtrv != null)
     {
       String minTime = _getDateAsString(dtrv.getMinimum());
@@ -424,12 +437,14 @@ public class SimpleInputDateRenderer
   }
 
   @Override
-  protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
+  protected Integer getDefaultColumns(
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
-  
     Integer columnsInteger = null;
-    
-    Converter converter = getConverter(bean);
+
+    Converter converter = getConverter(component, bean);
 
     // Ignoring the "default" converter code is intentional;  we'll just
     // fall through to _DEFAULT_COLUMNS here to save time
@@ -444,7 +459,7 @@ public class SimpleInputDateRenderer
     {
       columnsInteger = _DEFAULT_COLUMNS;
     }
-    
+
     return columnsInteger;
   }
 
@@ -452,21 +467,25 @@ public class SimpleInputDateRenderer
   protected String getButtonIconName()
   {
     // Currently, date picker is not working for any PDA devices. An issue
-    // (TRINIDAD-1203) was created to fix this problem, so until it is fixed  
-    // let's skip date picker rendering for PDA. 
+    // (TRINIDAD-1203) was created to fix this problem, so until it is fixed
+    // let's skip date picker rendering for PDA.
     if (isPDA(RenderingContext.getCurrentInstance()))
       return null;
-       
+
     return SkinSelectors.AF_SELECT_INPUT_DATE_LAUNCH_ICON_NAME;
   }
 
-  protected String getChooseId(FacesBean bean)
+  protected String getChooseId(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_chooseIdKey));
   }
 
   @Override
-  protected String getSearchDesc(FacesBean bean)
+  protected String getSearchDesc(
+    UIComponent component,
+    FacesBean   bean)
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
     if (isInaccessibleMode(arc))
@@ -476,20 +495,25 @@ public class SimpleInputDateRenderer
   }
 
   @Override
-  protected String getRootStyleClass(FacesBean bean)
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|inputDate";
   }
 
   @Override
-  protected String getContentStyleClass(FacesBean bean)
+  protected String getContentStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|inputDate::content";
   }
 
-  private String _getChooseId(RenderingContext arc)
+  private String _getChooseId(
+    RenderingContext rc)
   {
-    return (String) arc.getProperties().get(_CACHED_CHOOSE_ID);
+    return (String) rc.getProperties().get(_CACHED_CHOOSE_ID);
   }
 
   private String _computeChooseId(
@@ -499,8 +523,8 @@ public class SimpleInputDateRenderer
   {
     return RenderUtils.getRelativeId(context,
                                      component,
-                                     getChooseId(bean));
-    
+                                     getChooseId(component, bean));
+
   }
 
   // Checks to see whether the current dateField should
@@ -508,10 +532,10 @@ public class SimpleInputDateRenderer
   // it.
   @SuppressWarnings("unchecked")
   private void _checkIfActive(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    String              chooseId
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    String           chooseId
     ) throws IOException
   {
     if (chooseId == null)
@@ -520,12 +544,12 @@ public class SimpleInputDateRenderer
     String id = getClientId(context, component);
 
     Map<String, Boolean> activeDateFields = (Map<String, Boolean>)
-      arc.getProperties().get(_ACTIVE_DATE_FIELDS_KEY);
+      rc.getProperties().get(_ACTIVE_DATE_FIELDS_KEY);
 
     if (activeDateFields == null)
     {
       activeDateFields = new HashMap<String, Boolean>();
-      arc.getProperties().put(_ACTIVE_DATE_FIELDS_KEY, activeDateFields);
+      rc.getProperties().put(_ACTIVE_DATE_FIELDS_KEY, activeDateFields);
     }
 
     // The first dateField that is rendered for each inlineDatePicker
@@ -538,8 +562,8 @@ public class SimpleInputDateRenderer
       // the dateField.
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("script", component);
-      renderScriptTypeAttribute(context, arc);
-      renderScriptDeferAttribute(context, arc);
+      renderScriptTypeAttribute(context, rc);
+      renderScriptDeferAttribute(context, rc);
 
       writer.writeText("_dfa('", null);
       writer.writeText(id, null);
@@ -557,9 +581,11 @@ public class SimpleInputDateRenderer
   // Find a DateTimeRangeValidator for use in setting up a
   // minimum and maximum value
   //
-  private DateTimeRangeValidator _findDateTimeRangeValidator(FacesBean bean)
+  private DateTimeRangeValidator _findDateTimeRangeValidator(
+    UIComponent component,
+    FacesBean   bean)
   {
-    Iterator<Validator> validators = getValidators(bean);
+    Iterator<Validator> validators = getValidators(component, bean);
     while (validators.hasNext())
     {
       Object validator = validators.next();
@@ -570,19 +596,19 @@ public class SimpleInputDateRenderer
     return null;
   }
 
-
-  private static boolean _isTrinidadDateTimeConverter(Converter converter)
+  private static boolean _isTrinidadDateTimeConverter(
+    Converter converter)
   {
     return (converter instanceof
             org.apache.myfaces.trinidad.convert.DateTimeConverter);
   }
 
-
   /**
    * Stringify the date into canonical form;  we currently
    * use the long integer date.getTime().
    */
-  private static String _getDateAsString(Date date)
+  private static String _getDateAsString(
+    Date date)
   {
     if (date == null)
       return null;
@@ -595,7 +621,8 @@ public class SimpleInputDateRenderer
    * found in RequestContext and return the new date long value.
    */
   @SuppressWarnings("cast")
-  private static long _adjustTimeZone(Date date)
+  private static long _adjustTimeZone(
+    Date date)
   {
     // get the current date of the server
     Calendar calendar = Calendar.getInstance();
@@ -624,13 +651,13 @@ public class SimpleInputDateRenderer
     if (tzOffset < 0)
     {
       // Cast to (float) has a purpose
-      tzOffset = (long)Math.max((float)tzOffset, 
+      tzOffset = (long)Math.max((float)tzOffset,
                                 (float)Long.MIN_VALUE - (float)dateValueInMs);
     }
     else
     {
       // Cast to (float) has a purpose
-      tzOffset = (long)Math.min((float)tzOffset, 
+      tzOffset = (long)Math.min((float)tzOffset,
                                 (float)Long.MAX_VALUE - (float)dateValueInMs);
     }
 
@@ -644,7 +671,6 @@ public class SimpleInputDateRenderer
   // we format the date field with time values.
   private static class DateTimeZoneOffsetScriptlet extends Scriptlet
   {
-
     static public Scriptlet sharedInstance()
     {
       return _sInstance;
@@ -681,7 +707,6 @@ public class SimpleInputDateRenderer
 
     private static final Scriptlet _sInstance =
       new DateTimeZoneOffsetScriptlet();
-
   }
 
   private PropertyKey _chooseIdKey;
@@ -703,8 +728,7 @@ public class SimpleInputDateRenderer
   // name for our scriptlet
   private static final String _DATE_TIME_ZONE_OFFSET_KEY = "dateTimeZoneOffset";
   private static boolean _dateScriptletsRegistered = false;
-  
+
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(SimpleInputDateRenderer.class);
-
 }

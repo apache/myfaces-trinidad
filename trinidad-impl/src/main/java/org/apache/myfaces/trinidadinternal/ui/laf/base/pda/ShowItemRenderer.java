@@ -21,7 +21,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
@@ -113,10 +113,10 @@ public class ShowItemRenderer extends LinkRenderer
       String sourceParam = BaseLafUtils.getStringAttributeValue(
                                         context, node, ID_ATTR);
       String nameAttri =  XhtmlUtils.getEncodedParameter
-                                      (TrinidadRenderingConstants.SOURCE_PARAM)
+                                      (XhtmlConstants.SOURCE_PARAM)
                           + XhtmlUtils.getEncodedParameter(sourceParam)
                           + XhtmlUtils.getEncodedParameter
-                                      (TrinidadRenderingConstants.EVENT_PARAM)
+                                      (XhtmlConstants.EVENT_PARAM)
                           + SHOW_EVENT;
       renderAttribute(context, "name", nameAttri);
       renderAttribute(context, "value", getText(context,node));

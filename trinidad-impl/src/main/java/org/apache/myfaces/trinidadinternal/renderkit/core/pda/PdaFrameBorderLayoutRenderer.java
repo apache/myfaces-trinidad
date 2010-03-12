@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,15 +19,16 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.pda;
 
 import java.io.IOException;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.html.HtmlFrameBorderLayout;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
+
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/FrameBorderLayoutRenderer.java#0 $) $Date: 10-nov-2005.18:53:53 $
@@ -39,11 +40,12 @@ public class PdaFrameBorderLayoutRenderer extends XhtmlRenderer
     this(HtmlFrameBorderLayout.TYPE);
   }
 
-  protected PdaFrameBorderLayoutRenderer(FacesBean.Type type)
+  protected PdaFrameBorderLayoutRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
-  
+
   @Override
   public boolean getRendersChildren()
   {
@@ -52,27 +54,30 @@ public class PdaFrameBorderLayoutRenderer extends XhtmlRenderer
 
   @Override
   protected void renderAllAttributes(
-      FacesContext        context,
-      RenderingContext arc,
-      FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    renderShortDescAttribute(context, arc, bean);
-    renderStyleAttributes(context, arc, bean);
+    renderShortDescAttribute(context, rc, component, bean);
+    renderStyleAttributes(context, rc, component, bean);
   }
 
   @Override
   protected final void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
     writer.startElement("div", component);
     renderId(context, component);
-    renderAllAttributes(context, arc, bean);
-    
+    renderAllAttributes(context, rc, component, bean);
+
     String leftName       = HtmlFrameBorderLayout.LEFT_FACET;
     String innerLeftName  = HtmlFrameBorderLayout.INNER_LEFT_FACET;
     String rightName      = HtmlFrameBorderLayout.RIGHT_FACET;
@@ -86,7 +91,7 @@ public class PdaFrameBorderLayoutRenderer extends XhtmlRenderer
     UIComponent innerLeft   = getFacet(component, innerLeftName);
     UIComponent innerRight  = getFacet(component, innerRightName);
 
-    boolean r2l = arc.getLocaleContext().isRightToLeft();
+    boolean r2l = rc.getLocaleContext().isRightToLeft();
 
     if (left == null)
     {
@@ -119,12 +124,14 @@ public class PdaFrameBorderLayoutRenderer extends XhtmlRenderer
     _encodeFacet(context, innerRight);
     _encodeFacet(context, right);
     _encodeFacet(context, bottom);
-    
+
     writer.endElement("div");
   }
 
-  private void _encodeFacet(FacesContext context,
-                            UIComponent component) throws IOException
+  private void _encodeFacet(
+    FacesContext context,
+    UIComponent  component
+    ) throws IOException
   {
     if (component != null)
     {

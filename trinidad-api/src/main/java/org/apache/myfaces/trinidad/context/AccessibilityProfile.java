@@ -194,7 +194,7 @@ public class AccessibilityProfile
     {
       super(colorContrast, fontSize);
     }
-    
+
     private static final long serialVersionUID = 1L;
   }
 }

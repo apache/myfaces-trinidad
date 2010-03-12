@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.PollEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
+
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/PollRenderer.java#0 $) $Date: 10-nov-2005.18:55:33 $
  */
@@ -48,21 +49,26 @@ public class PollRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(FacesContext context, UIComponent component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
-    Map<String, String> parameters = 
-      context.getExternalContext().getRequestParameterMap();
-    
-    Object event = parameters.get(TrinidadRenderingConstants.EVENT_PARAM);
-    if (TrinidadRenderingConstants.POLL_EVENT.equals(event))
+    Map<String, String> parameters =
+      facesContext.getExternalContext().getRequestParameterMap();
+
+    Object event = parameters.get(XhtmlConstants.EVENT_PARAM);
+    if (XhtmlConstants.POLL_EVENT.equals(event))
     {
-      Object source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
-      String id = component.getClientId(context);
-      
+      Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+      String id = clientId == null ? component.getClientId(facesContext) : clientId;
+
       if (id.equals(source))
       {
         // This component always uses PPR (unless not supported at all)
-        PartialPageUtils.forcePartialRendering(context);
+        PartialPageUtils.forcePartialRendering(facesContext);
 
         // And forcibly re-render ourselves - because that's how
         // we get the poll re-started
@@ -71,13 +77,14 @@ public class PollRenderer extends XhtmlRenderer
         UIXPoll poll = (UIXPoll) component;
         (new PollEvent(component)).queue();
         if (poll.isImmediate())
-          context.renderResponse();
+          facesContext.renderResponse();
       }
     }
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _intervalKey = type.findKey("interval");
@@ -91,10 +98,11 @@ public class PollRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext    rc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     XhtmlUtils.addLib(context, rc, "PollManager()");
     ResponseWriter rw = context.getResponseWriter();
@@ -116,20 +124,20 @@ public class PollRenderer extends XhtmlRenderer
 
   /**
    * A page should not auto-refresh while in screen-reader mode.
-   * In this case, we create a button which when clicked will send the 
+   * In this case, we create a button which when clicked will send the
    * "poll" event. This is instead of the setTimeout javascript function,
-   * which we render when not in screen-reader mode.     
+   * which we render when not in screen-reader mode.
    */
   private void _renderManualRefresh(
-    FacesContext        context,
-    RenderingContext    rc,
-    UIComponent         component,
-    FacesBean           bean
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
     ) throws IOException
   {
     String elementID = getClientId(context, component);
     boolean isPartial = PartialPageUtils.supportsPartialRendering(rc);
-    String onclick = _getScriptContents(rc, bean, elementID, isPartial, false);
+    String onclick = _getScriptContents(rc, component, bean, elementID, isPartial, false);
 
     CoreGoButton goButton = new CoreGoButton();
     goButton.setOnclick(onclick);
@@ -138,21 +146,21 @@ public class PollRenderer extends XhtmlRenderer
     goButton.encodeBegin(context);
     goButton.encodeEnd(context);
   }
-      
+
   /**
    * Renders a script which sends a 'poll' event after a timeout.
    */
   private void _renderPollingScript(
-    FacesContext        context,
-    RenderingContext    rc,
-    UIComponent         component,
-    FacesBean           bean
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
     ) throws IOException
   {
     String elementID = getClientId(context, component);
     boolean isPartial = PartialPageUtils.supportsPartialRendering(rc);
-    String buffer = 
-      _getScriptContents(rc, bean, elementID, isPartial, true);
+    String buffer =
+      _getScriptContents(rc, component, bean, elementID, isPartial, true);
 
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("script", component);
@@ -160,9 +168,11 @@ public class PollRenderer extends XhtmlRenderer
     renderScriptDeferAttribute(context, rc);
     rw.writeText(buffer, null);
     rw.endElement("script");
-  } 
+  }
 
-  protected int getInterval(FacesBean bean)
+  protected int getInterval(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_intervalKey);
     if (o == null)
@@ -181,24 +191,25 @@ public class PollRenderer extends XhtmlRenderer
   * extract the attributes of the poll element and build
   * a script.
   * the javascript function we build depends on whether the page is refreshed
-  * full or partially, and whether or not it is in a form and whether or 
+  * full or partially, and whether or not it is in a form and whether or
   * not it should be auto-refreshed. For auto-refresh, then
   * the script is a setTimeout script. For manual-refresh
   * this will be the same script we render,
   * but minus the setTimeout call. In manual-refresh mode
-  * the user will need to click on a button 
+  * the user will need to click on a button
   * to send the 'poll' event
   */
-  private String _getScriptContents( 
-      RenderingContext rc,
-      FacesBean        bean,
-      String           elementID,
-      boolean          isPartial,
-      boolean          isAutoRefreshMode
+  private String _getScriptContents(
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    String           elementID,
+    boolean          isPartial,
+    boolean          isAutoRefreshMode
     )
   {
-    // We will build a script like one of the following: 
-    // (these examples assume isAutoRefreshMode is false, 
+    // We will build a script like one of the following:
+    // (these examples assume isAutoRefreshMode is false,
     // if isAutoRefreshMode is true, these commands are registered in the
     // _TrPollManager javascript object, which will manage executing this commands
     // at the specified pollInterval.)
@@ -207,40 +218,40 @@ public class PollRenderer extends XhtmlRenderer
     // "_submitPartialChange('formName',0,{event:'poll',source:'pollingWidgetId',
     //    partialTargets:'pollingWidgetId', partial='true'})")
     // Full page refresh when the poll component is inside of a form:
-    // "submitForm('formName',0,{event:'poll', source:'pollingWidgetId'}), 
+    // "submitForm('formName',0,{event:'poll', source:'pollingWidgetId'}),
     //    timeoutMS)
     /* -------------------------------------------------------- */
-    
+
     // get variables needed to create the javascript function
     int pollInterval = 0;
     if (isAutoRefreshMode)
     {
-      pollInterval = getInterval(bean);
+      pollInterval = getInterval(component, bean);
     }
-    
+
     if (rc.getFormData() == null)
     {
       _LOG.warning("POLL_COMPONENT_MUST_INSIDE_FORM", elementID);
       return null;
     }
 
-    String startScript = _getStartScript(isPartial, 
+    String startScript = _getStartScript(isPartial,
                                    isAutoRefreshMode,
                                    elementID);
-    String argumentString = _getArgumentString(elementID, 
+    String argumentString = _getArgumentString(elementID,
                                                rc.getFormData().getName(),
                                                isPartial);
-    int length = _getScriptBufferLength(startScript, 
+    int length = _getScriptBufferLength(startScript,
                                         argumentString,
                                         pollInterval,
                                         isAutoRefreshMode);
 
     // build the script:
     StringBuilder builder = new StringBuilder(length);
-    
+
     builder.append(startScript);
-    
-    //pu: In manual-refresh mode, submit is through onclick of button, not an 
+
+    //pu: In manual-refresh mode, submit is through onclick of button, not an
     //  auto-scheduled command string, hence no escaping "'" in arguments.
     if (_isAutoRefreshMode(rc))
     {
@@ -250,7 +261,7 @@ public class PollRenderer extends XhtmlRenderer
     {
       builder.append(argumentString);
     }
-    
+
     // auto-refresh is not allowed in accessible mode.
     // So render the pollInterval portion only if in auto-refresh mode.
     if (isAutoRefreshMode)
@@ -258,16 +269,16 @@ public class PollRenderer extends XhtmlRenderer
       builder.append(_MIDDLE_SCRIPT_AUTO_REFRESH);
       builder.append(pollInterval);
     }
-    
+
     builder.append(_END_SCRIPT);
 
     return builder.toString();
   }
 
- 
+
   /**
   * Computes the length of the buffer that is needed to build up the script
-  */ 
+  */
   private static int _getScriptBufferLength(
     String  startScript,
     String  argumentString,
@@ -279,25 +290,25 @@ public class PollRenderer extends XhtmlRenderer
     {
       return 0;
     }
-    
-    int length =  startScript.length() + 
-                  argumentString.length() + 
+
+    int length =  startScript.length() +
+                  argumentString.length() +
                   _MIDDLE_SCRIPT_AUTO_REFRESH.length() +
                   _END_SCRIPT.length();
-                  
+
     if (isAutoRefreshMode && (pollInterval != null))
     {
      length +=  pollInterval.toString().length() + 3;
     }
-   
+
     return length;
   }
-  
+
   /**
   * Returns the start script. The start script depends on whether the poll
   * element is within a form and whether the page is in PPR mode and whether
   * the page is in auto-refresh mode.
-  */ 
+  */
   private static String _getStartScript(
     boolean isPartial,
     boolean isAutoRefreshMode,
@@ -320,21 +331,21 @@ public class PollRenderer extends XhtmlRenderer
     {
       startScript += _START_SCRIPT_FULL_FORM;
     }
-    
+
     return startScript;
   }
 
   /**
    * Returns a String which will be used as the JavaScript arguments: either
-   * a URL with event information or the needed arguments to 
+   * a URL with event information or the needed arguments to
    * submitForm/_submitPartialChange.
    * e.g., if within a form and PPR, the argument string is:
    * 'myform',0,{event:'poll',source:'polling-widget'}",
-  */ 
+  */
   private static String _getArgumentString(
-    String           elementID,
-    String           formName,
-    boolean          isPartial
+    String  elementID,
+    String  formName,
+    boolean isPartial
     )
   {
     StringBuilder buffer = new StringBuilder(60);
@@ -343,9 +354,9 @@ public class PollRenderer extends XhtmlRenderer
     // 0 means do not validate
     buffer.append("',0,");
     buffer.append("{" +
-                  TrinidadRenderingConstants.EVENT_PARAM + ":\'" +
-                  TrinidadRenderingConstants.POLL_EVENT + "\'," +
-                  TrinidadRenderingConstants.SOURCE_PARAM + ":\'");
+                  XhtmlConstants.EVENT_PARAM + ":\'" +
+                  XhtmlConstants.POLL_EVENT + "\'," +
+                  XhtmlConstants.SOURCE_PARAM + ":\'");
     buffer.append(elementID);
     buffer.append("\'}");
     return buffer.toString();
@@ -367,7 +378,7 @@ public class PollRenderer extends XhtmlRenderer
 
   // script constants
   // Script for initializing the auto mode for the command
-  private static final String _PRE_START_SCRIPT_AUTO_REFRESH = 
+  private static final String _PRE_START_SCRIPT_AUTO_REFRESH =
   " if (!self._trPollManager) _trPollManager = new _TrPollManager(); _trPollManager.addAndActivate(\"";
 
   private static final String _START_SCRIPT_PARTIAL_FORM =
@@ -375,8 +386,8 @@ public class PollRenderer extends XhtmlRenderer
   private static final String _START_SCRIPT_FULL_FORM =
     "submitForm(";
   private static final String _END_SCRIPT     = ");";
-  private static final String _MIDDLE_SCRIPT_AUTO_REFRESH  = ")\", "; 
-  
+  private static final String _MIDDLE_SCRIPT_AUTO_REFRESH  = ")\", ";
+
   private static final int _POLL_INTERVAL_DEFAULT = 5000;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PollRenderer.class);

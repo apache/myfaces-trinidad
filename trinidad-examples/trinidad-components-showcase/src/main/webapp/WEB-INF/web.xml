@@ -34,13 +34,18 @@
 
     <context-param>
         <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-        <param-value>.xhtml</param-value>
+        <param-value>.jspx</param-value>
     </context-param>
 
     <context-param>
         <param-name>org.apache.myfaces.CONFIG_REFRESH_PERIOD</param-name>
         <param-value>0</param-value>
-    </context-param>    
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
 
     <!-- Trinidad also supports an optimized strategy for caching some
          view state at an application level, which significantly improves
@@ -96,12 +101,7 @@
     <context-param>
         <param-name>org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT</param-name>
         <param-value>true</param-value>
-    </context-param>
-   
-    <context-param>
-        <param-name>org.apache.myfaces.trinidad.ALTERNATE_VIEW_HANDLER</param-name>
-        <param-value>org.apache.myfaces.trinidadinternal.facelets.TrinidadFaceletViewHandler</param-value>
-    </context-param>
+    </context-param>      
 
     <context-param>
         <param-name>org.apache.myfaces.trinidad.FACELETS_VIEW_MAPPINGS</param-name>
@@ -109,15 +109,15 @@
     </context-param>
 
     <context-param>
-        <param-name>facelets.SKIP_COMMENTS</param-name>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
     </context-param>
 
     <!-- Facelets Config -->
     <context-param>
-        <param-name>facelets.LIBRARIES</param-name>
+        <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
         <param-value>
-        	/WEB-INF/trinidad-demo.taglib.xml
+        	/WEB-INF/trinidad-demo.taglib.xml;     
         </param-value>
     </context-param>
     

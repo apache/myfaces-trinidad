@@ -29,14 +29,16 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.component.UIComponent;
+
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.PhaseId;
 
 import javax.faces.render.Renderer;
 
-import org.apache.myfaces.trinidad.component.visit.VisitCallback;
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.LocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.ModelUtils;
@@ -84,7 +86,16 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       @Override
       protected void process(UIComponent kid, ComponentProcessingContext cpContext) throws IOException
       {
-        childProcessor.processComponent(context, cpContext, kid, callbackContext);
+        kid.pushComponentToEL(context, null);
+
+        try
+        {
+          childProcessor.processComponent(context, cpContext, kid, callbackContext);
+        }
+        finally
+        {
+          kid.popComponentFromEL(context);         
+        }
       }
     };
     boolean processedChildren = runner.run();

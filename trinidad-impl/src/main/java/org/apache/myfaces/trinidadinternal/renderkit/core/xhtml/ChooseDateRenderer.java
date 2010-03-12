@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.text.DateFormatSymbols;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -32,16 +34,15 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreChooseDate;
-import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.FastMessageFormat;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
+
 
 /**
  * Renders the calendar.
@@ -51,25 +52,27 @@ import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
 public class ChooseDateRenderer extends XhtmlRenderer
 {
   // calendar, mobile dateField params
-  public static final String MIN_VALUE_PARAM      = TrinidadRenderingConstants.MIN_VALUE_PARAM;
-  public static final String MAX_VALUE_PARAM      = TrinidadRenderingConstants.MAX_VALUE_PARAM;
-  public static final String LOC_PARAM            = TrinidadRenderingConstants.LOC_PARAM;
-  public static final String SCROLLED_VALUE_PARAM = TrinidadRenderingConstants.SCROLLED_VALUE_PARAM;
-  public static final String MONTH_PARAM          = TrinidadRenderingConstants.MONTH_PARAM;
-  public static final String YEAR_PARAM           = TrinidadRenderingConstants.YEAR_PARAM;
+  public static final String MIN_VALUE_PARAM      = XhtmlConstants.MIN_VALUE_PARAM;
+  public static final String MAX_VALUE_PARAM      = XhtmlConstants.MAX_VALUE_PARAM;
+  public static final String LOC_PARAM            = XhtmlConstants.LOC_PARAM;
+  public static final String SCROLLED_VALUE_PARAM = XhtmlConstants.SCROLLED_VALUE_PARAM;
+  public static final String MONTH_PARAM          = XhtmlConstants.MONTH_PARAM;
+  public static final String YEAR_PARAM           = XhtmlConstants.YEAR_PARAM;
 
   public ChooseDateRenderer()
   {
     this(CoreChooseDate.TYPE);
   }
 
-  protected ChooseDateRenderer(FacesBean.Type type)
+  protected ChooseDateRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _maxValueKey = type.findKey("maxValue");
@@ -96,68 +99,69 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
   @Override
   protected final void encodeAll(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     // Currently, we require scripting to render anything
-    if (!supportsScripting(arc))
+    if (!supportsScripting(rc))
       return;
 
-    if (canSkipRendering(context, arc, component))
+    if (canSkipRendering(context, rc, component))
       return;
 
     // If we are running in inline mode, make sure that we are
     // in an environment that supports partial page rendering.
     // If not, render nothing - the user will need to use the
     // secondary window to select a date.
-    boolean isInline = isInline(bean);
-    if (isInline && !isInlineSupported(arc))
+    boolean isInline = isInline(component, bean);
+    if (isInline && !isInlineSupported(rc))
       return;
 
     // TRINIDAD-1349: The client converter assumes a fixed timezone offset
     // between the server and itself. It calculates that by passing the
-    // server's timezone offset at the current date-time, as _uixLocaleTZ. 
-    // However, if we are rendering a month in which daylight savings occurs in 
+    // server's timezone offset at the current date-time, as _uixLocaleTZ.
+    // However, if we are rendering a month in which daylight savings occurs in
     // the application timezone, the offset value may be different. In that case
-    // pass the new offset value for the client to use. 
-    TimeZone tz = arc.getLocaleContext().getTimeZone();
-    
+    // pass the new offset value for the client to use.
+    TimeZone tz = rc.getLocaleContext().getTimeZone();
+
     // TRINIDAD-1419: chooseDate golden files should stay the same even if
-    // the server runs in different timezones. 
+    // the server runs in different timezones.
     long currTimeMillis = 0;
     Object currTimeValue =  bean.getProperty (_currTimeKey);
     if (currTimeValue != null)
       currTimeMillis = ((Date) currTimeValue).getTime();
     else
       currTimeMillis = System.currentTimeMillis();
-    
+
     int baseTZOffsetMinutes = tz.getOffset(currTimeMillis/(1000*60));
 
-    boolean isDesktop = isDesktop(arc);
+    boolean isDesktop = isDesktop(rc);
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("table", component);
     renderId(context, component);
-    renderAllAttributes(context, arc, bean);
+    renderAllAttributes(context, rc, component, bean);
     if (isDesktop)
-      OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+      OutputUtils.renderLayoutTableAttributes(context, rc, "0", null);
     else
-      OutputUtils.renderLayoutTableAttributes(context, arc, "0", "100%");
+      OutputUtils.renderLayoutTableAttributes(context, rc, "0", "100%");
 
 
     // Get the styles that we'll use to render the calendar
     CalendarStyles styles = _getCalendarStyles(isInline);
 
     // get the calendar of the minimum displayable time
-    long minTime = _getMinTime(arc, bean);
+    long minTime = _getMinTime(rc, bean);
 
     // get the calendar of the maximum displayable time
-    long maxTime = _getMaxTime(arc, bean);
+    long maxTime = _getMaxTime(rc, bean);
 
     // get the currently selected Time
-    long selectedTime = _getSelectedTime(arc, bean, minTime, maxTime);
-    
+    long selectedTime = _getSelectedTime(rc, bean, minTime, maxTime);
+
     // get the id
     String id = getClientId(context, component);
 
@@ -168,11 +172,11 @@ public class ChooseDateRenderer extends XhtmlRenderer
            context,
            GenericEntry.INLINE_DATE_PICKER_ENTRY);
     else
-      destString = getDestination(bean);
+      destString = getDestination(component, bean);
 
 
      // get the calendar of the currently displayed time
-    Calendar displayedCalendar = _getDisplayedCalendar(arc,
+    Calendar displayedCalendar = _getDisplayedCalendar(rc,
                                                        bean,
                                                        minTime,
                                                        maxTime,
@@ -180,7 +184,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
     int firstDOM = _getActualMinimumDayOfMonth(displayedCalendar);
     int lastDOM  = _getActualMaximumDayOfMonth(displayedCalendar);
-    
+
     // determine the the starting times and ending times of the first and
     // last days of the month
     // Create a copy of the calendar so we don't hammer the current values
@@ -195,7 +199,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     calcCal.add(Calendar.DATE, 1);
     long lastDOMTime = calcCal.getTimeInMillis() - 1;
 
-    DateFormatSymbols dateSymbols = _getDateFormatSymbols(arc);
+    DateFormatSymbols dateSymbols = _getDateFormatSymbols(rc);
 
     int firstDOW = displayedCalendar.getMinimum(Calendar.DAY_OF_WEEK);
     int lastDOW = displayedCalendar.getMaximum(Calendar.DAY_OF_WEEK);
@@ -207,13 +211,13 @@ public class ChooseDateRenderer extends XhtmlRenderer
     // If we're running in inline mode, make sure we have
     // access to the necessary scripts
     if (isInline)
-      XhtmlUtils.addLib(context, arc, "_calsd()");
+      XhtmlUtils.addLib(context, rc, "_calsd()");
 
 
     // make sure that the js lib is added
-    XhtmlUtils.addLib(context, arc, "_updateCal()");
+    XhtmlUtils.addLib(context, rc, "_updateCal()");
 
-    String baseNavURL = _createNavURL(arc,
+    String baseNavURL = _createNavURL(rc,
                                       destString,
                                       minTime,
                                       maxTime,
@@ -224,7 +228,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
     // render the previous button
     _renderNextPrev(context,
-                    arc,
+                    rc,
                     component,
                     bean,
                     true,
@@ -235,13 +239,13 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
     writer.startElement("td", null);
     writer.writeAttribute("colspan", IntegerUtils.getString(dowCount - 2), null);
-    renderStyleClass(context, arc, styles.TITLE_STYLE);
+    renderStyleClass(context, rc, styles.TITLE_STYLE);
 
     // don't wrap the month and year controls
     writer.writeAttribute("nowrap", Boolean.TRUE, null);
 
     _renderMonthAndYear(context,
-                        arc,
+                        rc,
                         minTime,
                         maxTime,
                         displayedCalendar,
@@ -254,7 +258,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
     // render the next button
     _renderNextPrev(context,
-                    arc,
+                    rc,
                     component,
                     bean,
                     false,
@@ -274,22 +278,22 @@ public class ChooseDateRenderer extends XhtmlRenderer
     writer.startElement("table", null);
     //fix for bug 4410632: added summary attribute
     OutputUtils.renderDataTableAttributes(context,
-                                            arc,
+                                            rc,
                                             "0", "0", "0", "100%",
-                        arc.getTranslatedString("af_chooseDate.SUMMARY"));
-    renderStyleClass(context, arc, styles.CONTENT_STYLE);
+                        rc.getTranslatedString("af_chooseDate.SUMMARY"));
+    renderStyleClass(context, rc, styles.CONTENT_STYLE);
 
     //
     // Write the day of the week headers
     //
     writer.startElement("tr", null);
-    renderStyleClass(context, arc, styles.HEADER_STYLE);
+    renderStyleClass(context, rc, styles.HEADER_STYLE);
 
     String[] shortWeekdays;
     // Bug 2388968:  Java's "short" weekdays in Arabic are single
     // letters, which we're told are inadequate.  Output entire
     // names instead.
-    if ("ar".equals(arc.getLocaleContext().getFormattingLocale().getLanguage()))
+    if ("ar".equals(rc.getLocaleContext().getFormattingLocale().getLanguage()))
       shortWeekdays = dateSymbols.getWeekdays();
     else
       shortWeekdays = dateSymbols.getShortWeekdays();
@@ -337,7 +341,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
         // is way too big - unless we render the disabled style class.
         if (isInline)
         {
-          renderStyleClass(context, arc, styles.DISABLED_STYLE);
+          renderStyleClass(context, rc, styles.DISABLED_STYLE);
         }
 
         writer.writeText(String.valueOf(i), null);
@@ -355,13 +359,13 @@ public class ChooseDateRenderer extends XhtmlRenderer
     int currLastDOW = firstDOWInMonth + dowCount;
 
     String[] keysAndValues = new String[]{
-        TrinidadRenderingConstants.VALUE_PARAM,
+      XhtmlConstants.VALUE_PARAM,
       null, // placeholder
-      TrinidadRenderingConstants.EVENT_PARAM,
-      TrinidadRenderingConstants.DATE_EVENT,
-      TrinidadRenderingConstants.TYPE_PARAM,
-      TrinidadRenderingConstants.TYPE_POST,
-      TrinidadRenderingConstants.SOURCE_PARAM,
+      XhtmlConstants.EVENT_PARAM,
+      XhtmlConstants.DATE_EVENT,
+      XhtmlConstants.TYPE_PARAM,
+      XhtmlConstants.TYPE_POST,
+      XhtmlConstants.SOURCE_PARAM,
       id};
 
 
@@ -380,7 +384,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
         if (isInline && !enabledDay)
         {
-         renderStyleClass(context, arc, styles.DISABLED_STYLE);
+         renderStyleClass(context, rc, styles.DISABLED_STYLE);
         }
 
         boolean selectedDay = false;
@@ -402,7 +406,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
           // a date in the date field. (see bug #1482511)
           //
           writer.startElement("a", null);
-          renderSelectDayAttributes(arc,
+          renderSelectDayAttributes(rc,
                                     context,
                                     keysAndValues,
                                     id,
@@ -416,7 +420,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
         if (selectedDay)
         {
           writer.startElement("span", null);
-          renderStyleClass(context, arc, styles.SELECTED_STYLE);
+          renderStyleClass(context, rc, styles.SELECTED_STYLE);
         }
 
         writer.writeText(String.valueOf(currDOM), null);
@@ -454,7 +458,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
         break;
       }
     } while (true);
-    
+
     // Reset the calendar
     displayedCalendar.set(Calendar.DAY_OF_MONTH, firstDOM);
 
@@ -478,7 +482,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
         if (isInline)
         {
-          renderStyleClass(context, arc, styles.DISABLED_STYLE);
+          renderStyleClass(context, rc, styles.DISABLED_STYLE);
         }
 
         writer.writeText(String.valueOf(i), null);
@@ -493,32 +497,26 @@ public class ChooseDateRenderer extends XhtmlRenderer
     writer.endElement("tr");
 
     writer.endElement("table");
-
-    // IE-6 only "fix" for TRINIDAD-1071
-    if (Agent.AGENT_IE.equals(arc.getAgent().getAgentName()) && arc.getAgent().getAgentVersion().startsWith("6"))
-    {
-      _renderShowComboBoxScriptForIE6(context, arc, bean);
-    } 
   }
 
 
   protected void renderSelectDayAttributes(
-    RenderingContext arc,
-    FacesContext context,
-    String[] keysAndValues,
-    String id,
-    long currTime,
-    int baseTZOffsetMinutes,
-    boolean isInline,
-    boolean isDesktop,
-    String destString
+    RenderingContext rc,
+    FacesContext     context,
+    String[]         keysAndValues,
+    String           id,
+    long             currTime,
+    int              baseTZOffsetMinutes,
+    boolean          isInline,
+    boolean          isDesktop,
+    String           destString
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    
+
     if (isDesktop)
     {
-      TimeZone tz = arc.getLocaleContext().getTimeZone();
+      TimeZone tz = rc.getLocaleContext().getTimeZone();
       int tzOffsetMinutes = tz.getOffset(currTime)/(1000*60);
 
       StringBuilder clickRef = new StringBuilder(30);
@@ -565,8 +563,8 @@ public class ChooseDateRenderer extends XhtmlRenderer
    * Render the next and previous buttons of the calendar dialog.
    */
   protected void renderNextPrev(
-    FacesContext        context,
-    RenderingContext arc,
+    FacesContext     context,
+    RenderingContext rc,
     UIComponent      component,
     FacesBean        bean,
     boolean          isPrev,
@@ -577,11 +575,11 @@ public class ChooseDateRenderer extends XhtmlRenderer
     String           onClick
     ) throws IOException
   {
-    CalendarStyles styles = _getCalendarStyles(bean);
+    CalendarStyles styles = _getCalendarStyles(component, bean);
 
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("td", null);
-    renderStyleClass(context, arc, styles.NAV_STYLE);
+    renderStyleClass(context, rc, styles.NAV_STYLE);
 
     writer.writeAttribute("align", halign, null);
 
@@ -593,7 +591,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     }
 
     String iconName;
-    if(isInline(bean))
+    if(isInline(component, bean))
     {
       if (isPrev)
       {
@@ -624,13 +622,13 @@ public class ChooseDateRenderer extends XhtmlRenderer
       }
     }
 
-    Icon icon = arc.getIcon(iconName);
+    Icon icon = rc.getIcon(iconName);
 
     // If we've got an Icon, render it
     if (icon != null)
     {
       OutputUtils.renderIcon(context,
-                             arc,
+                             rc,
                              icon,
                              altText,
                              null);
@@ -644,7 +642,9 @@ public class ChooseDateRenderer extends XhtmlRenderer
     writer.endElement("td");
   }
 
-  protected String getDestination(FacesBean bean)
+  protected String getDestination(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_destinationKey));
   }
@@ -652,59 +652,26 @@ public class ChooseDateRenderer extends XhtmlRenderer
   /**
    * Tests whether the calendar is running in "inline" mode.
    */
-  protected boolean isInline(FacesBean bean)
+  protected boolean isInline(
+    UIComponent component,
+    FacesBean   bean)
   {
     // For now, we assume that a null destination means that
     // we are running in inline mode, since CalendarDialogJSP *always*
     // sets the destination.  Perhaps it would be safer if we
     // didn't make this assumption but instead used some explicit
     // attribute which indicates the mode.
-    return (getDestination(bean) == null);
+    return (getDestination(component, bean) == null);
   }
 
-  /**
-   * some hack for unsupported IE6
-   */
-  private void _renderShowComboBoxScriptForIE6(
-    FacesContext context,
-    RenderingContext arc,
-    FacesBean bean
-    ) throws IOException
-  {
-    final String baseId = "";
-    final ResponseWriter writer = context.getResponseWriter();
-    final String monthId = baseId + ChooseDateRenderer.MONTH_PARAM;
-    final String yearId = baseId + ChooseDateRenderer.YEAR_PARAM;
-
-    writer.startElement("script", null);
-    writer.writeAttribute("type", "text/javascript", null);
-    writer.writeText("window.onload=showCombo; \n", null);
-    writer.writeText("function showCombo() { \n", null);
-    // Normal Trinidad onLoad;
-    writer.writeText("_checkLoad(); \n", null);
-    writer.writeText("document.getElementById('" + monthId +
-      "').style.cssText = 'display: inline !important; visibility: visible !important;'; \n",
-                       null);
-    writer.writeText("if (document.getElementById('" + yearId +
-      "') != null) {", null); // MY FIX
-    writer.writeText("document.getElementById('" + yearId +
-      "').style.cssText = 'display: inline !important; visibility: visible !important;'; \n",
-      null);
-    writer.writeText("}", null); // MY FIX
-    // ToDo: Resize iframe to remove scrollbars:
-    writer.writeText("return true; \n", null);
-    writer.writeText("} \n", null);
-
-    writer.endElement("script");
-  }
   /**
    * Render the next and previous buttons of the calendar dialog.
    */
   private void _renderNextPrev(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean,
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
     boolean          isPrev,
     long             compareTime,
     long             buttonTime,
@@ -723,7 +690,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
       // move to the last day in the previous month
       buttonTime -= _MILLIS_IN_DAY;
 
-      iconDesc = arc.getTranslatedString("af_chooseDate.PREVIOUS_MONTH_TIP");
+      iconDesc = rc.getTranslatedString("af_chooseDate.PREVIOUS_MONTH_TIP");
       halign   = "left";
     }
     else
@@ -733,7 +700,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
       // move to the first day in the next month
       buttonTime += _MILLIS_IN_DAY;
 
-      iconDesc = arc.getTranslatedString("af_chooseDate.NEXT_MONTH_TIP");
+      iconDesc = rc.getTranslatedString("af_chooseDate.NEXT_MONTH_TIP");
       halign   = "right";
     }
 
@@ -754,7 +721,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     }
 
     renderNextPrev( context,
-                    arc,
+                    rc,
                     component,
                     bean,
                     isPrev,
@@ -766,13 +733,11 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
   }
 
-
-
   /**
    * Creates the base navigation URL
    */
   private String _createNavURL(
-    RenderingContext arc,
+    RenderingContext rc,
     String           destinationString,
     long             minTime,
     long             maxTime,
@@ -783,7 +748,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     StringBuffer buffer = new StringBuffer();
 
 
-    String[] params = _createNavURLParams( arc,
+    String[] params = _createNavURLParams( rc,
                                            minTime,
                                            maxTime,
                                            selectedTime,
@@ -794,34 +759,30 @@ public class ChooseDateRenderer extends XhtmlRenderer
     return buffer.toString();
   }
 
-
   /**
    * Creates the params for navigation URL
    */
   private String[] _createNavURLParams(
-    RenderingContext  arc,
-    long                 minTime,
-    long                 maxTime,
-    long                 selectedTime,
-    String               id
+    RenderingContext rc,
+    long             minTime,
+    long             maxTime,
+    long             selectedTime,
+    String           id
     )
   {
     return new String[] {
-      TrinidadRenderingConstants.SOURCE_PARAM,
+      XhtmlConstants.SOURCE_PARAM,
       id,
       MIN_VALUE_PARAM,
       String.valueOf(minTime),
       MAX_VALUE_PARAM,
       String.valueOf(maxTime),
-      TrinidadRenderingConstants.VALUE_PARAM,
+      XhtmlConstants.VALUE_PARAM,
       String.valueOf(selectedTime),
       LOC_PARAM,
-      arc.getLocaleContext().getFormattingIANALocaleString()
+      rc.getLocaleContext().getFormattingIANALocaleString()
     };
   }
-
-
-
 
   /**
    * Returns the change handler to use for the choices
@@ -846,22 +807,21 @@ public class ChooseDateRenderer extends XhtmlRenderer
     return buffer.toString();
   }
 
-
   private void _renderMonthChoice(
-    FacesContext        context,
-    RenderingContext arc,
-    String[]          months,
-    Calendar          currentTime,
-    int               visibleMonth,
-    int               minimumMonth,
-    int               maximumMonth,
-    long              offset,
-    String            onChange,
-    String            baseId
+    FacesContext     context,
+    RenderingContext rc,
+    String[]         months,
+    Calendar         currentTime,
+    int              visibleMonth,
+    int              minimumMonth,
+    int              maximumMonth,
+    long             offset,
+    String           onChange,
+    String           baseId
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    String label = arc.getTranslatedString("af_chooseDate.MONTH_CHOICE_LABEL");
+    String label = rc.getTranslatedString("af_chooseDate.MONTH_CHOICE_LABEL");
     String id = MONTH_PARAM;
 
     // If we've got a baseID, tack it on.  This is necessary
@@ -880,7 +840,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     writer.writeAttribute("title", label, null);
     writer.writeAttribute("onchange", onChange, null);
     renderStyleClass(context,
-                     arc,
+                     rc,
                      SkinSelectors.AF_FIELD_TEXT_STYLE_CLASS);
 
     for (int currMonth = minimumMonth; currMonth <= maximumMonth; currMonth++)
@@ -909,7 +869,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     writer.endElement("select");
 
     HiddenLabelUtils.outputHiddenLabelIfNeeded(context,
-                                               arc,
+                                               rc,
                                                id,
                                                label,
                                                null);
@@ -917,8 +877,8 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
 
   private void _renderYearChoice(
-    FacesContext        context,
-    RenderingContext arc,
+    FacesContext     context,
+    RenderingContext rc,
     Calendar         currentTime,
     int              year,
     int              minimumYear,
@@ -927,7 +887,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     String           baseId
     ) throws IOException
   {
-    String label = arc.getTranslatedString("af_chooseDate.YEAR_CHOICE_LABEL");
+    String label = rc.getTranslatedString("af_chooseDate.YEAR_CHOICE_LABEL");
     String id = YEAR_PARAM;
 
     // If we've got a baseID, tack it on.  This is necessary
@@ -945,7 +905,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     writer.writeAttribute("title", label, null);
     writer.writeAttribute("onchange", onChange, null);
     renderStyleClass(context,
-                     arc,
+                     rc,
                      SkinSelectors.AF_FIELD_TEXT_STYLE_CLASS);
 
     boolean needsPrevItem = false;
@@ -1003,7 +963,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
                        currentTime,
                        minimumYear - 1,
                        year,
-                       _getBeforeFormat(arc).format(
+                       _getBeforeFormat(rc).format(
                           new String[]{String.valueOf(minimumYear)}));
     }
 
@@ -1026,14 +986,14 @@ public class ChooseDateRenderer extends XhtmlRenderer
                        currentTime,
                        maximumYear + 1,
                        year,
-                       _getAfterFormat(arc).format(
+                       _getAfterFormat(rc).format(
                               new String[]{String.valueOf(maximumYear)}));
     }
 
     writer.endElement("select");
 
     HiddenLabelUtils.outputHiddenLabelIfNeeded(context,
-                                               arc,
+                                               rc,
                                                id,
                                                label,
                                                null);
@@ -1046,12 +1006,11 @@ public class ChooseDateRenderer extends XhtmlRenderer
    */
   private void _writeYearOption(
     ResponseWriter writer,
-    Calendar     currentTime,
-    int          year,
-    int          selectedYear,
-    String       text
-    )
-    throws IOException
+    Calendar       currentTime,
+    int            year,
+    int            selectedYear,
+    String         text
+    ) throws IOException
   {
     writer.startElement("option", null);
 
@@ -1072,15 +1031,12 @@ public class ChooseDateRenderer extends XhtmlRenderer
     writer.endElement("option");
   }
 
-
-
-
   /**
    * Renders the month and year portion of the Calendar
    */
   private void _renderMonthAndYear(
-    FacesContext        context,
-    RenderingContext arc,
+    FacesContext      context,
+    RenderingContext  rc,
     long              minTime,
     long              maxTime,
     Calendar          displayedCalendar,
@@ -1091,8 +1047,8 @@ public class ChooseDateRenderer extends XhtmlRenderer
     ) throws IOException
   {
     String jsNavURL = _escapeJSURL(context, baseNavURL);
-    Calendar minCalendar = _getCalendar(arc, minTime);
-    Calendar maxCalendar = _getCalendar(arc, maxTime);
+    Calendar minCalendar = _getCalendar(rc, minTime);
+    Calendar maxCalendar = _getCalendar(rc, maxTime);
 
     int minYear = minCalendar.get(Calendar.YEAR);
     int maxYear = maxCalendar.get(Calendar.YEAR);
@@ -1124,7 +1080,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
       // Initialize the calendar for the current year so that we
       // can compute the month offsets
       //
-      Calendar currentTime = _getCalendar(arc);
+      Calendar currentTime = _getCalendar(rc);
 
       _zeroOutTime(currentTime);
 
@@ -1142,7 +1098,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
       currentTime.set(Calendar.DAY_OF_MONTH, 15);
 
       _renderMonthChoice( context,
-                          arc,
+                          rc,
                           monthNames,
                           currentTime,
                           monthIndex,
@@ -1166,7 +1122,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
       currentTime.set(Calendar.MONTH, monthIndex);
 
       _renderYearChoice( context,
-                         arc,
+                         rc,
                          currentTime,
                          year,
                          minYear,
@@ -1179,7 +1135,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     else
     {
       // format used for combining months and years
-      FastMessageFormat titleFormat = _getTitleFormat(arc);
+      FastMessageFormat titleFormat = _getTitleFormat(rc);
 
       String monthName = monthNames[monthIndex];
       String yearName = String.valueOf(year);
@@ -1252,13 +1208,13 @@ public class ChooseDateRenderer extends XhtmlRenderer
         if (tzOffset < 0)
         {
           // Cast to (float) has a purpose
-          tzOffset = (long)Math.max((float)tzOffset, 
+          tzOffset = (long)Math.max((float)tzOffset,
                                     (float)Long.MIN_VALUE - (float)dateValueInMs);
         }
         else
         {
           // Cast to (float) has a purpose
-          tzOffset = (long)Math.min((float)tzOffset, 
+          tzOffset = (long)Math.min((float)tzOffset,
                                     (float)Long.MAX_VALUE - (float)dateValueInMs);
         }
 
@@ -1555,9 +1511,11 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
   // Returns the CalendarStyles object to use when
   // rendering the specified calendar component
-  private CalendarStyles _getCalendarStyles(FacesBean bean)
+  private CalendarStyles _getCalendarStyles(
+    UIComponent component,
+    FacesBean   bean)
   {
-    return _getCalendarStyles(isInline(bean));
+    return _getCalendarStyles(isInline(component, bean));
   }
 
   // Gets the calendar styles for the specified mode
@@ -1574,6 +1532,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     public final String TITLE_STYLE;
     public final String HEADER_STYLE;
     public final String DISABLED_STYLE;
+    public final String ENABLED_STYLE;
     public final String SELECTED_STYLE;
     public final String CONTENT_STYLE;
 
@@ -1591,6 +1550,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
       TITLE_STYLE = titleStyle;
       HEADER_STYLE = headerStyle;
       DISABLED_STYLE = disabledStyle;
+      ENABLED_STYLE = enabledStyle;
       SELECTED_STYLE = selectedStyle;
       CONTENT_STYLE = contentStyle;
     }
@@ -1623,7 +1583,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
   // Rendering Context cache keys
   //
   private static final Object _DATE_SYMBOLS_KEY = new Object();
-  
+
   static
   {
     // =-= bts

@@ -19,8 +19,8 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.pages;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.Map;
+import java.util.Date;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -35,12 +35,12 @@ import org.apache.myfaces.trinidad.component.core.output.CoreSpacer;
 import org.apache.myfaces.trinidad.component.html.HtmlRowLayout;
 import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
 import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
+
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
 /**
@@ -122,15 +122,15 @@ class CalendarDialogJSP
       EncoderUtils.appendURLArguments(cancelDest,
                                       destination,
                                       new String[]{
-                                        TrinidadRenderingConstants.EVENT_PARAM,
-                                        TrinidadRenderingConstants.CANCEL_EVENT
+                                        XhtmlConstants.EVENT_PARAM,
+                                        XhtmlConstants.CANCEL_EVENT
                                       });
 
       // Prepend a slash, because this destination already
       // includes the context root
       cancelButton.setDestination("/" + cancelDest.toString());
 
-      String value = __getParam(context, TrinidadRenderingConstants.VALUE_PARAM);
+      String value = __getParam(context, XhtmlConstants.VALUE_PARAM);
       if (value != null)
       {
         long lg = Long.parseLong(value);
@@ -138,8 +138,8 @@ class CalendarDialogJSP
       }
 
       // get the scrolled value
-      String month = __getParam(context,TrinidadRenderingConstants.MONTH_PARAM);
-      String year = __getParam(context,TrinidadRenderingConstants.YEAR_PARAM);
+      String month = __getParam(context,XhtmlConstants.MONTH_PARAM);
+      String year = __getParam(context,XhtmlConstants.YEAR_PARAM);
 
       // try to create scrolledValue
       if ( month != null && year != null )
@@ -192,10 +192,10 @@ class CalendarDialogJSP
     Map<String, String> requestParameters = 
       context.getExternalContext().getRequestParameterMap();
     
-    String event = requestParameters.get(TrinidadRenderingConstants.EVENT_PARAM);
-    if (TrinidadRenderingConstants.DATE_EVENT.equals(event))
+    String event = requestParameters.get(XhtmlConstants.EVENT_PARAM);
+    if (XhtmlConstants.DATE_EVENT.equals(event))
     {
-      String value = requestParameters.get(TrinidadRenderingConstants.VALUE_PARAM);
+      String value = requestParameters.get(XhtmlConstants.VALUE_PARAM);
       Date date;
       try
       {
@@ -211,7 +211,7 @@ class CalendarDialogJSP
       afContext.returnFromDialog(date, null);
       return true;
     }
-    else if (TrinidadRenderingConstants.CANCEL_EVENT.equals(event))
+    else if (XhtmlConstants.CANCEL_EVENT.equals(event))
     {
       RequestContext afContext = RequestContext.getCurrentInstance();
       afContext.returnFromDialog(null, null);

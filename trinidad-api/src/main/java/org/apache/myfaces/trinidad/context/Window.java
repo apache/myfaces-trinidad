@@ -20,6 +20,8 @@ package org.apache.myfaces.trinidad.context;
 
 import java.io.Serializable;
 
+import javax.faces.context.ExternalContext;
+
 /**
  * Represents a Window in the current user's Session.  Windows are created and vended
  * by the Session's WindowManager and the Window for the current request is

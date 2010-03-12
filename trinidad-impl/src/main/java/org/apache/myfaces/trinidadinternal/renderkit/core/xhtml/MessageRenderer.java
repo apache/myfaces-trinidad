@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -30,12 +30,12 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreMessage;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.util.MessageUtils;
+
 
 /**
  * Renderer for org.apache.myfaces.trinidad.Message, family org.apache.myfaces.trinidad.Message.
- * 
+ *
  */
 public class MessageRenderer extends ValueRenderer
 {
@@ -44,13 +44,15 @@ public class MessageRenderer extends ValueRenderer
     this(CoreMessage.TYPE);
   }
 
-  protected MessageRenderer(FacesBean.Type type)
+  protected MessageRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _forKey         = type.findKey("for");
@@ -63,14 +65,16 @@ public class MessageRenderer extends ValueRenderer
   {
     return true;
   }
-  
+
   @Override
-  protected String getInlineStyle(FacesBean bean)
+  protected String getInlineStyle(
+    UIComponent component,
+    FacesBean   bean)
   {
-    String beanInlineStyle = super.getInlineStyle(bean);
+    String beanInlineStyle = super.getInlineStyle(component, bean);
     String inlineStyle = null;
 
-    if (getIndented(bean))
+    if (getIndented(component, bean))
     {
       inlineStyle = (RenderingContext.getCurrentInstance().isRightToLeft()
           ? _sRTL_INDENTED_STYLE
@@ -81,7 +85,7 @@ public class MessageRenderer extends ValueRenderer
    if (inlineStyle != null && beanInlineStyle != null)
     {
       StringBuffer buffer = new StringBuffer(inlineStyle.length() +
-                                             beanInlineStyle.length() + 
+                                             beanInlineStyle.length() +
                                              1);
       buffer.append(inlineStyle);
       if (!inlineStyle.endsWith(";"))
@@ -91,21 +95,22 @@ public class MessageRenderer extends ValueRenderer
     }
     else if (inlineStyle != null)
       return inlineStyle;
-    else 
+    else
       return beanInlineStyle;
   }
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
-    String message = getMessage(bean);
-    String messageType = getMessageType(bean);
+    String message = getMessage(component, bean);
+    String messageType = getMessageType(component, bean);
 
     String forId = getForId(context, component, bean);
     if ((message == null) || (messageType == null))
@@ -120,33 +125,34 @@ public class MessageRenderer extends ValueRenderer
                         facesMessage.getSeverity());
       }
     }
-    
-    UIComponent help = getFacet(component, "help");   
-   
+
+    UIComponent help = getFacet(component, "help");
+
     boolean isError = true;
     if (messageType != null)
       isError = CoreMessage.MESSAGE_TYPE_ERROR.equals(messageType);
-    
+
     boolean hasHelp = (help != null);
     boolean hasMessage = (message != null);
-    
-    RequestContext rc = RequestContext.getCurrentInstance();
-    boolean isInline = (rc.getClientValidation() ==
+
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    boolean isInline = (requestContext.getClientValidation() ==
                         RequestContext.ClientValidation.INLINE);
-    
+
     // Handle rendering the help text
     if (hasHelp)
     {
       // Write the root level element for the help
       writer.startElement(XhtmlConstants.SPAN_ELEMENT, component);
       if (shouldRenderId(context, component))
-        writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, 
+        writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE,
             forId + "::help", null);
 
-      renderAllAttributes(context, arc, bean, false);
-      renderStyleAttributes(context, arc, bean, SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS);
+      renderAllAttributes(context, rc, component, bean, false);
+      renderStyleAttributes(context, rc, component, bean,
+        SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS);
 
-      encodeChild(context, help); 
+      encodeChild(context, help);
 
       if (hasMessage || isInline)
       {
@@ -162,18 +168,18 @@ public class MessageRenderer extends ValueRenderer
 
     // Handle rendering the message text (or the empty placeholder)
     // Skip if there is no message for PDA
-    if (hasMessage || (isInline && !isPDA(arc)))
+    if (hasMessage || (isInline && !isPDA(rc)))
     {
 
       // Write the root level element for the help
       writer.startElement(XhtmlConstants.SPAN_ELEMENT, component);
 
       if (shouldRenderId(context, component) || (isInline && forId != null))
-        writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, 
+        writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE,
             forId + "::msg", null);
 
-      renderAllAttributes(context, arc, bean, false);
-      renderStyleAttributes(context, arc, bean, isError ?
+      renderAllAttributes(context, rc, component, bean, false);
+      renderStyleAttributes(context, rc, component, bean, isError ?
           SkinSelectors.INLINE_ERROR_TEXT_STYLE_CLASS :
             SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS);
 
@@ -188,27 +194,33 @@ public class MessageRenderer extends ValueRenderer
         writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE,
             "display:none;", null);
       }
-      
+
       writer.endElement(XhtmlConstants.SPAN_ELEMENT);
-    }    
+    }
 
   }
 
   //
   // NEW HOOKS
-  // 
+  //
 
-  protected boolean getIndented(FacesBean bean)
+  protected boolean getIndented(
+    UIComponent component,
+    FacesBean   bean)
   {
     return false;
   }
 
-  protected String getFor(FacesBean bean)
+  protected String getFor(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_forKey));
   }
 
-  protected String getMessageType(FacesBean bean)
+  protected String getMessageType(
+    UIComponent component,
+    FacesBean   bean)
   {
     // We're used in some composite circumstances where
     // the message type is always derived from the presence
@@ -219,7 +231,9 @@ public class MessageRenderer extends ValueRenderer
     return toString(bean.getProperty(_messageTypeKey));
   }
 
-  protected String getMessage(FacesBean bean)
+  protected String getMessage(
+    UIComponent component,
+    FacesBean   bean)
   {
     // Ditto.
     if (_messageKey == null)
@@ -228,13 +242,13 @@ public class MessageRenderer extends ValueRenderer
     return toString(bean.getProperty(_messageKey));
   }
 
-  
+
   protected String getForId(
     FacesContext context,
     UIComponent  component,
     FacesBean    bean)
   {
-    String forValue = getFor(bean);
+    String forValue = getFor(component, bean);
     if (forValue == null)
       return null;
 
@@ -246,7 +260,6 @@ public class MessageRenderer extends ValueRenderer
   private PropertyKey _forKey;
   private PropertyKey _messageTypeKey;
   private PropertyKey _messageKey;
-
 
   static private final String _sLTR_INDENTED_STYLE = "margin-left:21px";
   static private final String _sRTL_INDENTED_STYLE = "margin-right:21px";

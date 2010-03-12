@@ -27,11 +27,12 @@ import javax.faces.component.UIComponent;
 
 import org.apache.myfaces.trinidadinternal.taglib.listener.ResetActionListener;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletException;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.jsf.ComponentSupport;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.FaceletException;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagHandler;
+
+import javax.faces.view.facelets.ComponentHandler;
 
 /**
  *
@@ -47,7 +48,7 @@ public class ResetActionListenerTag extends TagHandler
   public void apply(FaceletContext faceletContext,
 		  UIComponent parent) throws IOException, FacesException, FaceletException, ELException
   {
-    if(ComponentSupport.isNew(parent))
+    if(ComponentHandler.isNew(parent))
     {
       ActionSource actionSource = (ActionSource)parent;
       ResetActionListener listener = new ResetActionListener();

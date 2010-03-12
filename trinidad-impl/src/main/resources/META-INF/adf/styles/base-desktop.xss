@@ -708,28 +708,6 @@
     <property name="height">13px</property>
     <property name="width">13px</property>
   </style>
-  
-  <style selector="af|dialog::disclose-icon">
-    <includeStyle name="AFDefaultFont"/>
-    <includeStyle name="AFMediumFont"/>
-    <property name="margin-left">5px</property>
-    <property name="background-image">url('/adf/images/disclose.gif')</property>
-    <property name="background-position">center</property>
-    <property name="background-repeat">no-repeat</property>
-    <property name="height">13px</property>
-    <property name="width">13px</property>
-  </style>
-  
-  <style selector="af|dialog::undisclose-icon">
-    <includeStyle name="AFDefaultFont"/>
-    <includeStyle name="AFMediumFont"/>
-    <property name="margin-left">5px</property>
-    <property name="background-image">url('/adf/images/undisclose.gif')</property>
-    <property name="background-position">center</property>
-    <property name="background-repeat">no-repeat</property>
-    <property name="height">13px</property>
-    <property name="width">13px</property>
-  </style>
 
   <style selector="af|dialog::content">
     <includeStyle name="AFLightAccentBackground"/>

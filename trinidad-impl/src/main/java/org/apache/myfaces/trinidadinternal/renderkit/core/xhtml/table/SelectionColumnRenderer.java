@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -39,41 +39,49 @@ public class SelectionColumnRenderer extends SpecialColumnRenderer
   }
 
   @Override
-  protected void renderKids(FacesContext          context,
-                            RenderingContext   arc,
-                            TableRenderingContext trc,
-                            UIComponent           column) throws IOException
+  protected void renderKids(
+    FacesContext          context,
+    RenderingContext      rc,
+    TableRenderingContext trc,
+    UIComponent           column
+    ) throws IOException
   {
     UIComponent table = trc.getTable();
-    delegateRenderer(context, arc, table,
-                     getFacesBean(table), 
+    delegateRenderer(context, rc, table,
+                     getFacesBean(table),
                      trc.hasSelectAll()
                      ? _multiRenderer
                      : _singleRenderer);
   }
-  
+
   @Override
-  protected String getHeaderText(FacesBean bean)
+  protected String getHeaderText(
+    UIComponent component,
+    FacesBean   bean)
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
     TableRenderingContext tContext =
       TableRenderingContext.getCurrentInstance();
 
-    String key = _isMultipleSelection(tContext) 
+    String key = _isMultipleSelection(tContext)
      ? "af_tableSelectMany.SELECT_COLUMN_HEADER"
      : "af_tableSelectOne.SELECT_COLUMN_HEADER";
-    
+
     return arc.getTranslatedString(key);
-  }  
+  }
 
   @Override
-  protected boolean getNoWrap(FacesBean bean)
+  protected boolean getNoWrap(
+    UIComponent component,
+    FacesBean   bean)
   {
     return false;
   }
 
   @Override
-  protected String getFormatType(FacesBean bean)
+  protected String getFormatType(
+    UIComponent component,
+    FacesBean   bean)
   {
     return CoreColumn.ALIGN_CENTER;
   }
@@ -88,7 +96,7 @@ public class SelectionColumnRenderer extends SpecialColumnRenderer
   {
     return tContext.hasSelectAll();
   }
-  
+
   private final CoreRenderer _singleRenderer;
   private final CoreRenderer _multiRenderer;
 }

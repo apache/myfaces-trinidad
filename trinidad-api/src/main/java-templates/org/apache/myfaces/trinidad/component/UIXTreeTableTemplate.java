@@ -27,6 +27,9 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+
 import javax.el.MethodExpression;
 
 import javax.faces.component.UIComponent;
@@ -36,8 +39,6 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
-import org.apache.myfaces.trinidad.component.visit.VisitCallback;
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
 import org.apache.myfaces.trinidad.event.FocusEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeListener;

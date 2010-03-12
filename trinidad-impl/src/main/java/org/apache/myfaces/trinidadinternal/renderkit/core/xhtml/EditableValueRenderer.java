@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -31,23 +31,25 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.validator.Validator;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXEditableValue;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 
 abstract public class EditableValueRenderer extends ValueRenderer
 {
-  protected EditableValueRenderer(FacesBean.Type type)
+  protected EditableValueRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
    {
     super.findTypeConstants(type);
     _submittedValueKey = type.findKey("submittedValue");
@@ -62,24 +64,36 @@ abstract public class EditableValueRenderer extends ValueRenderer
   // DECODING IMPLEMENTATION
   //
   @Override
-  public void decode(FacesContext context, UIComponent component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
-    if (skipDecode(context))
+    if (skipDecode(facesContext))
       return;
 
     Object submittedValue;
-    if (!wasSubmitted(context, component))
+    if (!wasSubmitted(facesContext, component))
       submittedValue = null;
     else
-      submittedValue = getSubmittedValue(context,
-                                         component,
-                                         component.getClientId(context));
+    {
+      if (clientId == null)
+      {
+        clientId = component.getClientId(facesContext);
+      }
+      submittedValue = getSubmittedValue(facesContext, component, clientId);
+    }
 
     if (_LOG.isFinest())
     {
+      if (clientId == null)
+      {
+        clientId = component.getClientId(facesContext);
+      }
       _LOG.finest("Value submitted for ID {0} is {1}",
-                  new Object[]{component.getClientId(context),
-                               submittedValue});
+        new Object[]{clientId, submittedValue});
     }
 
     EditableValueHolder evh = (EditableValueHolder) component;
@@ -108,9 +122,9 @@ abstract public class EditableValueRenderer extends ValueRenderer
     Object       submittedValue) throws ConverterException
   {
     FacesBean bean = getFacesBean(component);
-    Converter converter = getConverter(bean);
+    Converter converter = getConverter(component, bean);
     if (converter == null)
-      converter = getDefaultConverter(context, bean);
+      converter = getDefaultConverter(context, component, bean);
 
     if (converter != null)
     {
@@ -132,9 +146,8 @@ abstract public class EditableValueRenderer extends ValueRenderer
     UIComponent  component)
   {
     FacesBean bean = getFacesBean(component);
-    return !getDisabled(bean) && !getReadOnly(context, bean);
+    return !getDisabled(component, bean) && !getReadOnly(context, component, bean);
   }
-
 
   /**
    * All editable components need IDs.
@@ -156,58 +169,58 @@ abstract public class EditableValueRenderer extends ValueRenderer
     UIComponent  component,
     FacesBean    bean)
   {
-    Object o = getSubmittedValue(bean);
+    Object o = getSubmittedValue(component, bean);
     if (o != null)
       return o.toString();
 
     return super.getConvertedString(context, component, bean);
   }
 
-  protected Object getSubmittedValue(FacesBean bean)
+  protected Object getSubmittedValue(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_submittedValueKey);
   }
 
-
-
   protected void addOnSubmitConverterValidators(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean
-  )throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
 
    // Bug 2748146: Don't do validation of a disabled field! If the field is
     // disabled, the user can't have updated it (there is one way for the
     // client to hurt themselves here: by changing the disabled state as part
     // of a PPR update after the user has updated the field).
-    boolean disabled = getDisabled(bean);
+    boolean disabled = getDisabled(component, bean);
 
     if (!disabled)
     {
-      boolean requiredField = getRequired(bean);
+      boolean requiredField = getRequired(component, bean);
 
-      Converter converter = getConverter(bean);
+      Converter converter = getConverter(component, bean);
 
       if ( converter == null)
-        converter = getDefaultConverter(context, bean);
+        converter = getDefaultConverter(context, component, bean);
 
-      Iterator<Validator> validators = getValidators(bean);
+      Iterator<Validator> validators = getValidators(component, bean);
 
       if (requiredField ||
           (converter != null) ||
           validators.hasNext())
       {
 
-        FormData fData = arc.getFormData();
+        FormData fData = rc.getFormData();
         if (fData == null)
         {
           _LOG.warning("COMPONENT_REQUIRES_FORM", component);
           return;
         }
 
-        boolean immediate = isImmediate(bean);
+        boolean immediate = isImmediate(component, bean);
         ((CoreFormData) fData).addOnSubmitConverterValidators(component,
                                              converter,
                                              validators,
@@ -228,7 +241,10 @@ abstract public class EditableValueRenderer extends ValueRenderer
   /**
    * @todo This will need to be cached!!!
    */
-  protected boolean getReadOnly(FacesContext context, FacesBean bean)
+  protected boolean getReadOnly(
+    FacesContext context,
+    UIComponent  component,
+    FacesBean    bean)
   {
     Object o = bean.getProperty(_readOnlyKey);
     if (o == null)
@@ -240,7 +256,7 @@ abstract public class EditableValueRenderer extends ValueRenderer
 
     // Now, if the ValueExpression underlying the value says it's
     // read-only, then again, it is.
-    ValueExpression ve = getValueExpression(bean);
+    ValueExpression ve = getValueExpression(component, bean);
     if ((ve != null) && ve.isReadOnly(context.getELContext()))
     {
       if (_LOG.isFiner())
@@ -255,7 +271,9 @@ abstract public class EditableValueRenderer extends ValueRenderer
     return false;
   }
 
-  protected boolean getDisabled(FacesBean bean)
+  protected boolean getDisabled(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_disabledKey);
     if (o == null)
@@ -264,7 +282,9 @@ abstract public class EditableValueRenderer extends ValueRenderer
     return Boolean.TRUE.equals(o);
   }
 
-  protected boolean getRequired(FacesBean bean)
+  protected boolean getRequired(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_requiredKey);
     if (o == null)
@@ -273,8 +293,9 @@ abstract public class EditableValueRenderer extends ValueRenderer
     return Boolean.TRUE.equals(o);
   }
 
-
-  protected boolean isImmediate(FacesBean bean)
+  protected boolean isImmediate(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_immediateKey);
     if (o == null)
@@ -284,7 +305,9 @@ abstract public class EditableValueRenderer extends ValueRenderer
   }
 
   @SuppressWarnings("unchecked")
-  protected Iterator<Validator> getValidators(FacesBean bean)
+  protected Iterator<Validator> getValidators(
+    UIComponent component,
+    FacesBean   bean)
   {
     return (Iterator<Validator>)bean.entries(_validatorsKey);
   }

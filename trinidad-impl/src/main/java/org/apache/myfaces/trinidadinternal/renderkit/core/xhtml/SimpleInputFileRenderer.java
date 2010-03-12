@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -31,17 +31,15 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
-
 import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 import org.apache.myfaces.trinidadinternal.config.upload.UploadedFiles;
-import org.apache.myfaces.trinidadinternal.context.RequestContextBean;
+
 
 /**
  */
@@ -52,14 +50,15 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     this(CoreInputFile.TYPE);
   }
 
-  public SimpleInputFileRenderer(FacesBean.Type type)
+  public SimpleInputFileRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   //
   // DECODE BEHAVIOR
-  // 
+  //
   @Override
   protected Object getSubmittedValue(
     FacesContext context,
@@ -90,12 +89,13 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     return result;
   }
 
-  protected String getAutoComplete(FacesBean bean)
+  protected String getAutoComplete(
+    UIComponent component,
+    FacesBean   bean)
   {
     return CoreInputText.AUTO_COMPLETE_ON;
   }
 
-  
   @Override
   public Object getConvertedValue(
     FacesContext context,
@@ -109,12 +109,12 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     UploadedFile file = (UploadedFile) submittedValue;
     if(file.getLength() == -1)
     {
-      FacesMessage fm = MessageFactory.getMessage(context, "org.apache.myfaces.trinidad.UPLOAD"); 
+      FacesMessage fm = MessageFactory.getMessage(context, "org.apache.myfaces.trinidad.UPLOAD");
       throw new ConverterException(fm);
     }
 
     FacesBean bean = getFacesBean(component);
-    Converter converter = getConverter(bean);
+    Converter converter = getConverter(component, bean);
     // support converter for the <inputFile> component
     if(converter != null)
     {
@@ -122,7 +122,7 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
       // key to add the actual uploaded file to the requestMap
       String fileNameKey = component.getClass().getName() + "." + file.getFilename();
       context.getExternalContext().getRequestMap().put(fileNameKey, file);
-      
+
       // applying the above convention. The String here is just the
       // unique key which the converter has to use to look for the
       // actual uploaded file.
@@ -134,28 +134,28 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     }
   }
 
-
   //
   // ENCODE BEHAVIOR
-  // 
+  //
 
   @Override
   protected void encodeAllAsElement(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
      // call super...
-    super.encodeAllAsElement(context, arc, component, bean);
+    super.encodeAllAsElement(context, rc, component, bean);
 
     // now evaluate the EL
     // We need to evaluate it here and store it on the sessionMap because
     // during UploadedFileProcessor.processFile() there is no FacesContext
-    RequestContext rc = RequestContext.getCurrentInstance();
-    Object maxMemory = rc.getUploadedFileMaxMemory();
-    Object maxDiskSpace = rc.getUploadedFileMaxDiskSpace();
-    Object tempDir = rc.getUploadedFileTempDir();
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    Object maxMemory = requestContext.getUploadedFileMaxMemory();
+    Object maxDiskSpace = requestContext.getUploadedFileMaxDiskSpace();
+    Object tempDir = requestContext.getUploadedFileTempDir();
     ExternalContext external = context.getExternalContext();
     Map<String, Object> sessionMap = external.getSessionMap();
     sessionMap.put(UploadedFileProcessor.MAX_MEMORY_PARAM_NAME, maxMemory);
@@ -181,58 +181,73 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     return "file";
   }
 
-
   //
   // Overrides disabling all the things you can't do on
   // an inputFile
-  // 
+  //
 
   @Override
   public boolean isTextArea(
-    FacesBean bean)
+    UIComponent component,
+    FacesBean   bean)
   {
     return false;
   }
 
   @Override
   protected boolean isAutoSubmit(
-    FacesBean bean)
+    UIComponent component,
+    FacesBean   bean)
   {
     return false;
   }
 
   @Override
-  protected boolean getSecret(FacesBean bean)
+  protected boolean getSecret(
+    UIComponent component,
+    FacesBean   bean)
   {
     return false;
   }
 
   @Override
-  protected Number getMaximumLength(FacesBean bean)
+  protected Number getMaximumLength(
+    UIComponent component,
+    FacesBean   bean)
   {
     return null;
   }
 
   @Override
-  protected boolean getReadOnly(FacesContext context, FacesBean bean)
+  protected boolean getReadOnly(
+    FacesContext context,
+    UIComponent component,
+    FacesBean   bean)
   {
     return false;
   }
-  
+
   @Override
-  protected String getRootStyleClass(FacesBean bean)  
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|inputFile";
   }
 
   @Override
-  protected String getContentStyleClass(FacesBean bean)
+  protected String getContentStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|inputFile::content";
   }
 
   @Override
-  protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
+  protected Integer getDefaultColumns(
+    RenderingContext rc,
+    UIComponent component,
+    FacesBean   bean)
   {
     return null;
   }

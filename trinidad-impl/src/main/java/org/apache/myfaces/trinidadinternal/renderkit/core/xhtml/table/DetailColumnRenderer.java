@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -22,28 +22,30 @@ import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ShowDetailRenderer;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ShowDetailRenderer;
 
 
 public class DetailColumnRenderer extends SpecialColumnRenderer
 {
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     TableRenderingContext tContext =
       TableRenderingContext.getCurrentInstance();
-    
+
     if (tContext.getRenderStage().getStage() == RenderStage.INITIAL_STAGE)
     {
       // if we have detail disclosure. then we need to use
@@ -55,82 +57,93 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
       int physicalIndex = tContext.getColumnData().getPhysicalColumnIndex();
       tContext.setDetailColumnIndex(physicalIndex);
     }
-    
-    super.encodeAll(context, arc, component, bean);
-  }  
-  
+
+    super.encodeAll(context, rc, component, bean);
+  }
+
   @Override
-  protected String getHeaderText(FacesBean bean)
+  protected String getHeaderText(
+    UIComponent component,
+    FacesBean   bean)
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
     return arc.getTranslatedString("af_table.DETAIL_COLUMN_HEADER");
   }
-  
+
   @Override
-  protected boolean getNoWrap(FacesBean bean)
+  protected boolean getNoWrap(
+    UIComponent component,
+    FacesBean   bean)
   {
     return true;
   }
 
   @Override
-  protected void renderKids(FacesContext          context,
-                            RenderingContext   arc,
-                            TableRenderingContext tContext,
-                            UIComponent           column) throws IOException
+  protected void renderKids(
+    FacesContext          context,
+    RenderingContext      rc,
+    TableRenderingContext tContext,
+    UIComponent           column
+    ) throws IOException
   {
     // Delegate to a ShowDetailRenderer, using the table as the underlying
     // component
     delegateRenderer(context,
-                     arc,
+                     rc,
                      tContext.getTable(),
                      getFacesBean(tContext.getTable()),
                      _detailRenderer);
   }
-  
+
   static private class Detail extends ShowDetailRenderer
   {
-    public Detail() 
+    public Detail()
     {
       super(CoreTable.TYPE);
     }
-    
+
     @Override
     protected void renderAllAttributes(
-       FacesContext        context,
-       RenderingContext arc,
-       FacesBean           bean)
+       FacesContext     context,
+       RenderingContext rc,
+      UIComponent       component,
+       FacesBean        bean)
     {
-      
+
     }
-    
+
     @Override
     protected void renderPromptStart(
-      FacesContext        context,
-      RenderingContext arc,
-      UIComponent         component,
-      FacesBean           bean) throws IOException
+      FacesContext     context,
+      RenderingContext rc,
+      UIComponent      component,
+      FacesBean        bean
+      ) throws IOException
     {
       // bug 4688350:
       component = ((UIXTable) component).getDetailStamp();
-      super.renderPromptStart(context, arc, component, bean);
+      super.renderPromptStart(context, rc, component, bean);
     }
-    
+
     @Override
-    protected String getValueParameter(UIComponent component)
+    protected String getValueParameter(
+      UIComponent component)
     {
       UIXCollection cb = (UIXCollection) component;
       int rowIndex = cb.getRowIndex();
       return IntegerUtils.getString(rowIndex);
     }
-    
+
     @Override
     protected boolean isTableDetailDisclosure()
     {
       return true;
     }
-    
+
     @Override
-    protected boolean getDisclosed(FacesBean bean)
+    protected boolean getDisclosed(
+      UIComponent component,
+      FacesBean   bean)
     {
       TableRenderingContext tContext = TableRenderingContext.getCurrentInstance();
       UIXTable table = (UIXTable) tContext.getCollectionComponent();
@@ -138,13 +151,17 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
     }
 
     @Override
-   protected String getLinkId(String rootId, boolean disclosed)
+   protected String getLinkId(
+      String  rootId,
+      boolean disclosed)
    {
      return _getDetailLinkId(TableRenderingContext.getCurrentInstance());
    }
-   
+
     @Override
-    protected String getClientId(FacesContext context, UIComponent component)
+    protected String getClientId(
+      FacesContext context,
+      UIComponent  component)
     {
       TableRenderingContext tContext = TableRenderingContext.getCurrentInstance();
       return tContext.getTableId();
@@ -152,7 +169,8 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
 
     // Returns the ID for the detail-disclosure link.  We use IDs of the
     // form: "<table name>dd<row index>"
-    private static String _getDetailLinkId(TableRenderingContext tContext)
+    private static String _getDetailLinkId(
+      TableRenderingContext tContext)
     {
       String tableId = tContext.getTableId();
       if (tableId == null)
@@ -172,6 +190,6 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
       return buffer.toString();
     }
   }
-  
+
   private final CoreRenderer _detailRenderer = new Detail();
 }

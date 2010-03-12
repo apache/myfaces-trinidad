@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.awt.Color;
+
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,12 +30,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.apache.myfaces.trinidad.util.ArrayMap;
+
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.skin.Icon;
-import org.apache.myfaces.trinidad.util.ArrayMap;
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 /**
  * Utilities for miscellaneous HTML output.

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -30,8 +31,8 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+
 
 public class CommandButtonRenderer extends CommandLinkRenderer
 {
@@ -40,18 +41,19 @@ public class CommandButtonRenderer extends CommandLinkRenderer
     this(CoreCommandButton.TYPE);
   }
 
-  protected CommandButtonRenderer(FacesBean.Type type)
+  protected CommandButtonRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _iconKey = type.findKey("icon");
   }
-
 
   @Override
   public boolean getRendersChildren()
@@ -61,64 +63,65 @@ public class CommandButtonRenderer extends CommandLinkRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     String clientId = getClientId(context, component);
-    if (canSkipRendering(arc, clientId))
+    if (canSkipRendering(rc, clientId))
       return;
 
-    if (getPartialSubmit(bean))
+    if (getPartialSubmit(component, bean))
     {
-       AutoSubmitUtils.writeDependencies(context, arc);
+      AutoSubmitUtils.writeDependencies(context, rc);
     }
 
     // Make sure we don't have anything to save
-    assert(arc.getCurrentClientId() == null);
-    arc.setCurrentClientId(clientId);
- 	
+    assert(rc.getCurrentClientId() == null);
+    rc.setCurrentClientId(clientId);
+
     ResponseWriter rw = context.getResponseWriter();
-    String icon = getIcon(bean);
+    String icon = getIcon(component, bean);
 
     //if icon is set, render as an image element within a link element
     //since "buttons" html element is not supported and "input" element of
     //type=image does not support "onClick" JS handler.
-    if((icon != null) && !_supportsOnClickOnImgInput(arc)) 
+    if((icon != null) && !_supportsOnClickOnImgInput(rc))
     {
-      if(!getDisabled(bean))
+      if(!getDisabled(component, bean))
       {
         rw.startElement(XhtmlConstants.LINK_ELEMENT, component);
         renderEncodedActionURI(context, XhtmlConstants.HREF_ATTRIBUTE, "#");
-        rw.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, 
-                           getOnclick(bean), null);
+        rw.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE,
+                           getOnclick(component, bean), null);
         rw.startElement("img", component);
-        renderAllAttributes(context, arc, bean);
+        renderAllAttributes(context, rc, component, bean);
         renderEncodedResourceURI(context, "src", icon);
         rw.endElement("img");
         rw.endElement(XhtmlConstants.LINK_ELEMENT);
-      }    
+      }
       else
       {
         //If disabled attribute is set on PDAs for commandButtons set as icon,
         //render a static image
         rw.startElement("img",component);
-        renderAllAttributes(context, arc, bean);
+        renderAllAttributes(context, rc, component, bean);
         renderEncodedResourceURI(context, "src", icon);
         rw.endElement("img");
       }
-    } 
+    }
     else
     {
-      boolean useButtonTag = useButtonTags(arc);
+      boolean useButtonTag = useButtonTags(rc);
       String element = useButtonTag ? "button" : "input";
       rw.startElement(element, component);
       renderId(context, component);
 
       // Write the text and access key
-      String text = getText(bean);
-      
+      String text = getText(component, bean);
+
       if (useButtonTag)
         rw.writeAttribute("type", getButtonType(), null);
       else if (icon != null)
@@ -126,28 +129,28 @@ public class CommandButtonRenderer extends CommandLinkRenderer
       else
         rw.writeAttribute("type", getInputType(), null);
 
-      if (getDisabled(bean))
+      if (getDisabled(component, bean))
       {
         rw.writeAttribute("disabled", Boolean.TRUE, "disabled");
         // Skip over event attributes when disabled
-        renderStyleAttributes(context, arc, bean);
+        renderStyleAttributes(context, rc, component, bean);
       }
       else
       {
-        renderAllAttributes(context, arc, bean);
+        renderAllAttributes(context, rc, component, bean);
       }
 
       char accessKey;
-      if (supportsAccessKeys(arc))
+      if (supportsAccessKeys(rc))
       {
-        accessKey = getAccessKey(bean);
+        accessKey = getAccessKey(component, bean);
         if (accessKey != CHAR_UNDEFINED)
         {
           rw.writeAttribute("accesskey",
                              Character.valueOf(accessKey),
                              "accessKey");
-        }                   
-      }  
+        }
+      }
       else
       {
         accessKey = CHAR_UNDEFINED;
@@ -159,26 +162,26 @@ public class CommandButtonRenderer extends CommandLinkRenderer
                                            accessKey,
                                            SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
         if (icon != null)
-          OutputUtils.renderImage(context, arc, icon, null, null, null,
-                                    getShortDesc(bean));
-      } 
+          OutputUtils.renderImage(context, rc, icon, null, null, null,
+                                    getShortDesc(component, bean));
+      }
       else
       {
-        // For Non-JavaScript browsers, encode the name attribute with the 
-        // parameter name and value thus it would enable the browsers to 
+        // For Non-JavaScript browsers, encode the name attribute with the
+        // parameter name and value thus it would enable the browsers to
         // include the name of this element in its payLoad if it submits the
         // page.
-         
-        if(!supportsScripting(arc))
+
+        if(!supportsScripting(rc))
         {
-          String encodingKey = 
-                        (icon != null)? TrinidadRenderingConstants.NO_JS_INPUT_IMAGE_KEY
-                                      : TrinidadRenderingConstants.NO_JS_PARAMETER_KEY;
-                                      
-          rw.writeAttribute("name", TrinidadRenderingConstants.SOURCE_PARAM + encodingKey
+          String encodingKey =
+                        (icon != null)? XhtmlConstants.NO_JS_INPUT_IMAGE_KEY
+                                      : XhtmlConstants.NO_JS_PARAMETER_KEY;
+
+          rw.writeAttribute("name", XhtmlConstants.SOURCE_PARAM + encodingKey
                                     + clientId, null);
         }
-                
+
         if (icon != null)
         {
           renderEncodedResourceURI(context, "src", icon);
@@ -188,10 +191,10 @@ public class CommandButtonRenderer extends CommandLinkRenderer
           rw.writeAttribute("value", text, "text");
         }
       }
- 
+
       rw.endElement(element);
     }
-    arc.setCurrentClientId(null);
+    rc.setCurrentClientId(null);
   }
 
   protected String getButtonType()
@@ -203,26 +206,27 @@ public class CommandButtonRenderer extends CommandLinkRenderer
   {
     return "submit";
   }
-    
+
   protected boolean useButtonTags(RenderingContext arc)
   {
     return (supportsScripting(arc) &&
             supportsAdvancedForms(arc) &&
             supportsIntrinsicEvents(arc));
-            
+
   }
 
   /**
    * Override to return any state-based (selected, disabled, etc.)
-   * CSS style markers.  HINT: use an immutable, cached List<String>
+   * CSS style markers.  HINT: use an immutable, cached List&lt;String>
    * for better performance.
    */
   protected List<String> getStateStyleClasses(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean)
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
-    if (getDisabled(bean))
+    if (getDisabled(component, bean))
       return _DISABLED_STATE_LIST;
     return null;
   }
@@ -230,22 +234,24 @@ public class CommandButtonRenderer extends CommandLinkRenderer
   // FIXME: move this implementation to XhtmlRenderer
   @Override
   protected void renderStyleAttributes(
-    FacesContext        context,
-    RenderingContext    arc,
-    FacesBean           bean,
-    String              defaultStyleClass) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    String           defaultStyleClass
+    ) throws IOException
   {
-    String styleClass = getStyleClass(bean);
+    String styleClass = getStyleClass(component, bean);
     // -= Simon =-
     // FIXME: How come inline style is never read locally?
     // String inlineStyle = getInlineStyle(bean);
-    List<String> stateStyleClasses = getStateStyleClasses(context, arc, bean);
+    List<String> stateStyleClasses = getStateStyleClasses(context, rc, component, bean);
 
-    if ((styleClass==null) && 
-        (defaultStyleClass != null) && 
+    if ((styleClass==null) &&
+        (defaultStyleClass != null) &&
         (stateStyleClasses == null))
     {
-      renderStyleClass(context, arc, defaultStyleClass);
+      renderStyleClass(context, rc, defaultStyleClass);
     }
     else
     {
@@ -256,17 +262,17 @@ public class CommandButtonRenderer extends CommandLinkRenderer
       else
         userStyleClassCount = parsedStyleClasses.size();
 
-      int numStates =   ((stateStyleClasses != null) ? 
+      int numStates =   ((stateStyleClasses != null) ?
                          stateStyleClasses.size() : 0);
       int numClasses = userStyleClassCount +
                         ((defaultStyleClass != null) ? 1 : 0) +
                         numStates;
       if (numClasses > 0)
       {
-        // set all the styleClasses in one array so we can pass it to 
+        // set all the styleClasses in one array so we can pass it to
         // renderStyleClasses
         String[] styleClasses = new String[numClasses];
-        
+
         int i=0;
         if (parsedStyleClasses != null)
         {
@@ -282,17 +288,17 @@ public class CommandButtonRenderer extends CommandLinkRenderer
         }
         if (defaultStyleClass != null)
           styleClasses[i++] = defaultStyleClass;
-         
+
         for (int j=0; j < numStates; j++, i++)
         {
           styleClasses[i] = stateStyleClasses.get(j);
-        }        
+        }
 
-        renderStyleClasses(context, arc, styleClasses);         
+        renderStyleClasses(context, rc, styleClasses);
       }
     }
 
-    String style = getInlineStyle(bean);
+    String style = getInlineStyle(component, bean);
     if (style != null)
     {
       context.getResponseWriter().writeAttribute("style",
@@ -302,12 +308,16 @@ public class CommandButtonRenderer extends CommandLinkRenderer
   }
 
   @Override
-  protected String getDefaultStyleClass(FacesBean bean)
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS;
   }
 
-  protected String getIcon(FacesBean bean)
+  protected String getIcon(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toResourceUri(FacesContext.getCurrentInstance(), bean.getProperty(_iconKey));
   }
@@ -321,30 +331,32 @@ public class CommandButtonRenderer extends CommandLinkRenderer
   @Override
   protected void renderId(
     FacesContext context,
-    UIComponent  component) throws IOException
-  { 
+    UIComponent  component
+    ) throws IOException
+  {
     if (shouldRenderId(context, component))
     {
       String clientId = getClientId(context, component);
       context.getResponseWriter().writeURIAttribute("id", clientId, "id");
       RenderingContext arc = RenderingContext.getCurrentInstance();
-      // For Non-JavaScript browsers, name attribute is handled separately 
+      // For Non-JavaScript browsers, name attribute is handled separately
       // so skip it here
       if (supportsScripting(arc))
       {
         context.getResponseWriter().writeURIAttribute("name", clientId, "id");
       }
-    } 
+    }
   }
-  
+
   /**
-   * Returns true if the agent supports the "onclick" JS Handler in an "input" 
+   * Returns true if the agent supports the "onclick" JS Handler in an "input"
    * HTML element of type "image"
    *
    */
-  static private boolean _supportsOnClickOnImgInput(RenderingContext arc)
+  static private boolean _supportsOnClickOnImgInput(
+    RenderingContext rc)
   {
-    Object cap = arc.getAgent().getCapabilities().get(
+    Object cap = rc.getAgent().getCapabilities().get(
                       TrinidadAgent.CAP_ONCLICK_IMG_INPUT);
     return !Boolean.FALSE.equals(cap);
   }

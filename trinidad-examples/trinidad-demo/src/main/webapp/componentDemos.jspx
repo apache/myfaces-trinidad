@@ -37,14 +37,14 @@
           </f:facet>
           <tr:panelHeader text="Component Demos">
             <tr:panelHeader text="Core Components">
-              <tr:tree var="comp" value="#{componentTree.model}"
+              <tr:tree var="node" value="#{componentTree.model}"
                 binding="#{componentTreeBean.tree}">
                 <f:facet name="nodeStamp">
                   <tr:panelGroupLayout>
-                    <tr:outputText value="Example:" rendered="#{comp.example}"/>
-                    <tr:commandLink text="#{comp.label}"
-                      disabled="#{empty comp.filename}"
-                      action="#{comp.view}"/>
+                    <tr:outputText value="Example:" rendered="#{node.example}"/>
+                    <tr:commandLink text="#{node.label}"
+                      disabled="#{empty node.filename}"
+                      action="#{node.view}"/>
                   </tr:panelGroupLayout>
                 </f:facet>
               </tr:tree>

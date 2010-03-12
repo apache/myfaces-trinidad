@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,8 +20,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.html;
 
 import java.io.IOException;
 
-import java.util.List;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -29,11 +27,10 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
-
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
+
 
 public class TableLayoutRenderer extends XhtmlRenderer
 {
@@ -41,9 +38,10 @@ public class TableLayoutRenderer extends XhtmlRenderer
   {
     super(HtmlTableLayout.TYPE);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _widthKey = type.findKey("width");
@@ -62,44 +60,45 @@ public class TableLayoutRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("table", component);
     renderId(context, component);
-    renderAllAttributes(context, arc, bean);
-    renderHAlign(context, arc, getHalign(bean));
+    renderAllAttributes(context, rc, component, bean);
+    renderHAlign(context, rc, getHalign(component, bean));
     // TODO: if TABLES_CAP_ADVANCED and TABLES_CAP_ADVANCED_ATTRS
     // are both false, don't render cell padding, cell spacing, or border
-    OutputUtils.renderDataTableAttributes(context,
-                                            arc,
-                                            getCellPadding(bean),
-                                            getCellSpacing(bean),
-                                            getBorderWidth(bean),
-                                            getWidth(bean),
-                                            getSummary(bean));
-
-
+    OutputUtils.renderDataTableAttributes(context, rc, getCellPadding(component, bean),
+      getCellSpacing(component, bean), getBorderWidth(component, bean),
+      getWidth(component, bean), getSummary(component, bean));
 
     encodeAllChildren(context, component);
 
     rw.endElement("table");
   }
 
-  protected Object getWidth(FacesBean bean)
+  protected Object getWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_widthKey);
   }
 
-  protected Object getHalign(FacesBean bean)
+  protected Object getHalign(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_halignKey);
   }
 
-  protected Object getCellSpacing(FacesBean bean)
+  protected Object getCellSpacing(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_cellSpacingKey);
     if (o == null)
@@ -107,7 +106,9 @@ public class TableLayoutRenderer extends XhtmlRenderer
     return o;
   }
 
-  protected Object getCellPadding(FacesBean bean)
+  protected Object getCellPadding(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_cellPaddingKey);
     if (o == null)
@@ -115,7 +116,9 @@ public class TableLayoutRenderer extends XhtmlRenderer
     return o;
   }
 
-  protected Object getBorderWidth(FacesBean bean)
+  protected Object getBorderWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_borderWidthKey);
     if (o == null)
@@ -123,7 +126,9 @@ public class TableLayoutRenderer extends XhtmlRenderer
     return o;
   }
 
-  protected Object getSummary(FacesBean bean)
+  protected Object getSummary(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_summaryKey);
     // Because table layout is for layout, default to an empty
@@ -132,7 +137,6 @@ public class TableLayoutRenderer extends XhtmlRenderer
       o = "";
     return o;
   }
-
 
   private PropertyKey _widthKey;
   private PropertyKey _halignKey;

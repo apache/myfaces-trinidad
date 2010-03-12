@@ -48,7 +48,6 @@ import org.xml.sax.SAXParseException;
  * with newInstance(). Therefore we do not synchronize.
  * This parses the XSS file and creates a StyleSheetNode object.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetNodeParser.java#0 $) $Date: 10-nov-2005.18:58:47 $
- * @see org.apache.myfaces.trinidadinternal.share.xml.ClassParserFactory#getParser
  */
 public class StyleSheetNodeParser extends BaseNodeParser
   implements XMLConstants, StyleConstants
@@ -92,7 +91,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
     // This way a styleSheetNode will match any browser if it hasn't specified a specific browser.
     AgentAtRuleMatcher agentMatcher = 
       (_browsers.isEmpty()) ? null : new AgentAtRuleMatcher(_browsers, _versions);
-  
+
     return new StyleSheetNode(
         styles,
         null,      // icons only supported in skin CSS - not XSS
@@ -162,7 +161,6 @@ public class StyleSheetNodeParser extends BaseNodeParser
       if (locale != null)
         locales.add(locale);
     }
-    
     return locales;
   }
 

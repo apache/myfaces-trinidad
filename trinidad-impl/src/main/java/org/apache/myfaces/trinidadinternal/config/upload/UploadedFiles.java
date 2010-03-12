@@ -194,6 +194,9 @@ final public class UploadedFiles
 
   static public class FixFilename implements UploadedFile, Serializable
   {
+    /**
+     *
+     */
     private static final long serialVersionUID = -8586594511769079566L;
 
     public FixFilename()

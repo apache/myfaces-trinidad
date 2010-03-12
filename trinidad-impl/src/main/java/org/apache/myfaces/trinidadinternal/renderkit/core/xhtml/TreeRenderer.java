@@ -19,8 +19,10 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,9 +43,9 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
+
 
 /**
  * Renderer for trees.
@@ -56,13 +58,15 @@ public class TreeRenderer extends XhtmlRenderer
     this(CoreTree.TYPE);
   }
 
-  protected TreeRenderer(FacesBean.Type type)
+  protected TreeRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _immediateKey = type.findKey("immediate");
@@ -79,13 +83,22 @@ public class TreeRenderer extends XhtmlRenderer
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(FacesContext context, UIComponent component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
     Map<String, String> parameters =
-      context.getExternalContext().getRequestParameterMap();
-    String source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
+      facesContext.getExternalContext().getRequestParameterMap();
+    String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
 
-    if (!component.getClientId(context).equals(source))
+    if (clientId == null)
+    {
+      clientId = getClientId(facesContext, component);
+    }
+    if (!clientId.equals(source))
       return;
 
     TreeUtils.decodeExpandEvents(parameters, component,
@@ -111,7 +124,8 @@ public class TreeRenderer extends XhtmlRenderer
     FacesContext     context,
     RenderingContext rc,
     UIComponent      component,
-    FacesBean        bean) throws IOException
+    FacesBean        bean
+    ) throws IOException
   {
     // Since Train is a naming container, we can be more
     // efficient about skipping its children
@@ -141,17 +155,19 @@ public class TreeRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected boolean shouldRenderId(FacesContext context,
-                                   UIComponent component)
+  protected boolean shouldRenderId(
+    FacesContext context,
+    UIComponent  component)
   {
     return true;
   }
 
-  private void _renderContent(FacesContext context,
-                              RenderingContext rc,
-                              UIXHierarchy tree,
-                              FacesBean bean)
-    throws IOException
+  private void _renderContent(
+    FacesContext     context,
+    RenderingContext rc,
+    UIXHierarchy     tree,
+    FacesBean        bean
+    ) throws IOException
   {
     FormData fd = rc.getFormData();
     if (fd == null)
@@ -163,8 +179,8 @@ public class TreeRenderer extends XhtmlRenderer
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("div", tree);
     renderId(context, tree);
-    renderAllAttributes(context, rc, bean);
-    
+    renderAllAttributes(context, rc, tree, bean);
+
     final String id = getClientId(context, tree);
     UIComponent stamp = getFacet(tree, CoreTree.NODE_STAMP_FACET);
 
@@ -198,7 +214,7 @@ public class TreeRenderer extends XhtmlRenderer
       renderScriptDeferAttribute(context, rc);
       renderScriptTypeAttribute(context, rc);
 
-      _renderTreeJS(context, rc, bean);
+      _renderTreeJS(context, rc, tree, bean);
 
       //out.writeText("_setNodes('"+name+"','"+nodesRendered+"');");
 
@@ -219,19 +235,20 @@ public class TreeRenderer extends XhtmlRenderer
 
   }
 
-
   // return whether to continue with rendering
 
-  protected boolean setInitialPath(UIXHierarchy tree, FacesBean bean)
+  protected boolean setInitialPath(
+    UIXHierarchy tree,
+    FacesBean    bean)
   {
     tree.setRowKey(null);
     return true;
   }
 
-
-  private boolean _isShownSelected(UIXHierarchy tree,
-                                   Map<Object, Boolean> selectedPaths,
-                                   Object currPath)
+  private boolean _isShownSelected(
+    UIXHierarchy         tree,
+    Map<Object, Boolean> selectedPaths,
+    Object               currPath)
   {
 
     boolean selected = false;
@@ -249,7 +266,8 @@ public class TreeRenderer extends XhtmlRenderer
     return false;
   }
 
-  protected Map<Object, Boolean> getSelectedPaths(Object focusPath)
+  protected Map<Object, Boolean> getSelectedPaths(
+    Object focusPath)
   {
     if (focusPath == null)
       return new HashMap<Object, Boolean>(0);
@@ -260,7 +278,8 @@ public class TreeRenderer extends XhtmlRenderer
     return selectedPaths;
   }
 
-  protected RowKeySet getExpandedRowKeys(UIXHierarchy tree)
+  protected RowKeySet getExpandedRowKeys(
+    UIXHierarchy tree)
   {
     return ((UIXTree) tree).getDisclosedRowKeys();
   }
@@ -270,7 +289,8 @@ public class TreeRenderer extends XhtmlRenderer
    * @param rc the RenderingContext
    * @return the value of the AF_TREE_SHOW_LINES skin property
    */
-  protected boolean isShowLines( RenderingContext rc)
+  protected boolean isShowLines(
+    RenderingContext rc)
   {
     Object showLines = rc.getSkin().getProperty(SkinProperties.AF_TREE_SHOW_LINES);
     return showLines == null || showLines.equals(Boolean.TRUE);
@@ -286,11 +306,10 @@ public class TreeRenderer extends XhtmlRenderer
    * @return the URI of the icon
    */
   protected String getConnectingBackgroundIcon(
-      FacesContext context,
-      RenderingContext rc,
-      boolean isLine,
-      boolean leftToRight
-  )
+    FacesContext     context,
+    RenderingContext rc,
+    boolean          isLine,
+    boolean          leftToRight)
   {
     if (!isLine || !isShowLines(rc))
       return null;
@@ -308,12 +327,12 @@ public class TreeRenderer extends XhtmlRenderer
    * @return the URI of the icon
    */
   protected String getIconBackgroundIcon(
-      FacesContext context,
-      RenderingContext rc,
-      boolean isLastSibling,
-      boolean isLeftToRight
-  )
+    FacesContext     context,
+    RenderingContext rc,
+    boolean          isLastSibling,
+    boolean          isLeftToRight)
   {
+    Object showLines = rc.getSkin().getProperty(SkinProperties.AF_TREE_SHOW_LINES);
     if (!isShowLines(rc))
       return null;
     Icon nodeBackgroundIcon = rc.getIcon(isLastSibling
@@ -325,16 +344,14 @@ public class TreeRenderer extends XhtmlRenderer
   // render the correct icon for a specific node
 
   protected void renderExpandCell(
-      FacesContext context,
-      RenderingContext rc,
-      UIXHierarchy tree,
-      int expanded,
-      boolean isLastSibling,
-      String onclick
-  )
-      throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIXHierarchy     tree,
+    int              expanded,
+    boolean          isLastSibling,
+    String           onclick
+    ) throws IOException
   {
-
     Icon icon = null;
     String iconURI = null;
 
@@ -348,8 +365,8 @@ public class TreeRenderer extends XhtmlRenderer
     Object altText = null;
 
     String text = null;
-    
-    boolean isMacOS = 
+
+    boolean isMacOS =
                Agent.PLATFORM_MACOS.equals(rc.getAgent().getPlatformName());
     // add in the expandability
     switch (expanded)
@@ -432,18 +449,19 @@ public class TreeRenderer extends XhtmlRenderer
       _renderTextCell(context, rc, tree, expanded, text, altText, _ICON_WIDTH, onclick,
                       SkinSelectors.TREE_DISCLOSED_SYMBOL_STYLE_CLASS);
     }
-
   }
 
-
-  private void _renderTextCell(FacesContext context,
-                               RenderingContext rc,
-                               UIXHierarchy tree,
-                               int expanded,
-                               String text,
-                               Object altText, String width,
-                               String onclick, String styleClass)
-    throws IOException
+  private void _renderTextCell(
+    FacesContext     context,
+    RenderingContext rc,
+    UIXHierarchy     tree,
+    int              expanded,
+    String           text,
+    Object           altText,
+    String           width,
+    String           onclick,
+    String           styleClass
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -463,17 +481,17 @@ public class TreeRenderer extends XhtmlRenderer
       }
       else
       {
-        // For Non-JavaScript browsers, render an input element(type= submit) to 
-        // submit the page. Encode the name attribute with the parameter name 
-        // and value thus it would enable the browsers to include the name of 
+        // For Non-JavaScript browsers, render an input element(type= submit) to
+        // submit the page. Encode the name attribute with the parameter name
+        // and value thus it would enable the browsers to include the name of
         // this element in its payLoad if it submits the page.
         String nameAttr = TreeUtils.renderEncodedNameAttri(
                                         context,
-                                        rc, 
+                                        rc,
                                         tree,
                                         getClientId(context, tree),
                                         expanded == EXPAND_CLOSED);
-                
+
         writer.startElement("input", null);
         writer.writeAttribute("type", "submit",null);
         writer.writeAttribute("name", nameAttr, null);
@@ -500,18 +518,17 @@ public class TreeRenderer extends XhtmlRenderer
   }
 
   protected void renderExpandIconCell(
-      FacesContext context,
-      RenderingContext rc,
-      String backgroundIcon,
-      String nodeBackgroundIcon,
-      String icon,
-      boolean isIconAbsoluteURI,
-      Object altText,
-      String width,
-      String height,
-      String onclick
-  )
-      throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    String           backgroundIcon,
+    String           nodeBackgroundIcon,
+    String           icon,
+    boolean          isIconAbsoluteURI,
+    Object           altText,
+    String           width,
+    String           height,
+    String           onclick
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -560,12 +577,18 @@ public class TreeRenderer extends XhtmlRenderer
   }
 
 
-  protected void renderIconCell(FacesContext context, RenderingContext rc,
-                                UIXHierarchy tree, String backgroundIcon,
-                                String icon, boolean isIconAbsoluteURI,
-                                Object altText, String width,
-                                String height, String onclick)
-    throws IOException
+  protected void renderIconCell(
+    FacesContext     context,
+    RenderingContext rc,
+    UIXHierarchy     tree,
+    String           backgroundIcon,
+    String           icon,
+    boolean          isIconAbsoluteURI,
+    Object           altText,
+    String           width,
+    String           height,
+    String           onclick
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -601,21 +624,25 @@ public class TreeRenderer extends XhtmlRenderer
   }
 
 
-  private static String _createFocusNodeGetter(String focusNodeId) 
+  private static String _createFocusNodeGetter(
+    String focusNodeId)
   {
     return (focusNodeId != null) ? "document.getElementById('" + focusNodeId + "')" : null;
   }
 
-  private static String _callJSSelect(UIXHierarchy tree, String jsVarName)
+  private static String _callJSSelect(
+    UIXHierarchy tree,
+    String       jsVarName)
   {
     String currencyStr = tree.getClientRowKey();
     return jsVarName + ".select(this,'" + currencyStr + "');";
   }
 
-  private String _createNewJSSelectionState(String formName,
-                                                   String treeClientId,
-                                                   String selectParam,
-                                                   String focusNodeId)
+  private String _createNewJSSelectionState(
+    String formName,
+    String treeClientId,
+    String selectParam,
+    String focusNodeId)
   {
     String treeState = TreeUtils.createNewJSCollectionComponentState(formName, treeClientId);
     String focusNode = _createFocusNodeGetter(focusNodeId);
@@ -631,10 +658,12 @@ public class TreeRenderer extends XhtmlRenderer
     return jsSelectionState;
   }
 
-  private void _renderTreeJS(FacesContext context,
-                             RenderingContext rc,
-                             FacesBean bean)
-    throws IOException
+  private void _renderTreeJS(
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     if (!rc.getProperties().containsKey(_JS_RENDERED_KEY))
     {
@@ -643,7 +672,7 @@ public class TreeRenderer extends XhtmlRenderer
       writer.writeText("function _adfTreeSelector(selectParam,tState,focusNode) {" +
                        "this._selectParam = selectParam;" +
                        "this.treeState = tState;" +
-                       "this._pTag = focusNode;" + 
+                       "this._pTag = focusNode;" +
                        "}" +
                        "_adfTreeSelector.prototype.select = function(tag,path) {" +
                        "if (this._pTag != null) {" +
@@ -714,7 +743,7 @@ public class TreeRenderer extends XhtmlRenderer
       //         "}",
       //         null);
 
-      boolean immediate = getImmediate(bean);
+      boolean immediate = getImmediate(component, bean);
       String buff =
         TreeUtils.setupJSTreeCollectionComponent(!immediate) + ";";
       writer.writeText(buff, null);
@@ -723,18 +752,21 @@ public class TreeRenderer extends XhtmlRenderer
 
   // render one row of the tree
 
-  private void _renderNode(FacesContext context,
-                           RenderingContext rc,
-                           UIXHierarchy tree,
-                           FacesBean bean,
-                           UIComponent stamp,
-                           final String varName,
-                           RowKeySet state,
-                           Map<Object, Boolean> selectedPaths,
-                           Boolean[] prepend, boolean leftToRight,
-                           boolean isFirstSibling, boolean isLastSibling,
-                           int nodeDepth)
-    throws IOException
+  private void _renderNode(
+    FacesContext         context,
+    RenderingContext     rc,
+    UIXHierarchy         tree,
+    FacesBean            bean,
+    UIComponent          stamp,
+    final String         varName,
+    RowKeySet            state,
+    Map<Object, Boolean> selectedPaths,
+    Boolean[]            prepend,
+    boolean              leftToRight,
+    boolean              isFirstSibling,
+    boolean              isLastSibling,
+    int                  nodeDepth
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -817,11 +849,11 @@ public class TreeRenderer extends XhtmlRenderer
   }
 
   protected void renderNodeIconCell(
-      FacesContext context,
-      RenderingContext rc,
-      UIXHierarchy tree,
-      int expand
-  ) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIXHierarchy     tree,
+    int              expand
+    ) throws IOException
   {
     String nodeType = getNodeType(tree);
     Icon nodeIcon = getNodeIcon(rc, nodeType, expand);
@@ -844,8 +876,7 @@ public class TreeRenderer extends XhtmlRenderer
   }
 
   protected String getNodeType(
-      UIXHierarchy tree
-  )
+    UIXHierarchy tree)
   {
     String nodeType = null;
     Object rowData = tree.getRowData();
@@ -860,22 +891,15 @@ public class TreeRenderer extends XhtmlRenderer
         nodeType = (String) method.invoke(rowData);
       }
     }
-    catch (IllegalAccessException e)
-    {
-    }
-    catch (NoSuchMethodException e)
-    {
-    }
-    catch (InvocationTargetException e)
-    {
-    }
+    catch (IllegalAccessException e) { ; }
+    catch (NoSuchMethodException e) { ; }
+    catch (InvocationTargetException e) { ; }
     return nodeType;
   }
 
   protected String getNodeIconSelector(
-      String nodeType,
-      int expandedState
-  )
+    String nodeType,
+    int    expandedState)
   {
     switch (expandedState)
     {
@@ -890,9 +914,9 @@ public class TreeRenderer extends XhtmlRenderer
   }
 
   protected Icon getNodeIcon(
-      RenderingContext rc,
-      String nodeType,
-      int expandedState
+    RenderingContext rc,
+    String           nodeType,
+    int              expandedState
   )
   {
     if (nodeType == null || nodeType.length() == 0)
@@ -914,14 +938,14 @@ public class TreeRenderer extends XhtmlRenderer
 
 
   protected void renderStampCell(
-      FacesContext context,
-      RenderingContext rc,
-      UIXHierarchy tree,
-      UIComponent stamp,
-      String onClick,
-      String treeStyle,
-      int nodeDepth
-  ) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIXHierarchy     tree,
+    UIComponent      stamp,
+    String           onClick,
+    String           treeStyle,
+    int              nodeDepth
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -933,7 +957,7 @@ public class TreeRenderer extends XhtmlRenderer
     writer.startElement(XhtmlConstants.SPAN_ELEMENT, null);
     writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, getClientId(context, tree), null);
     renderStyleClass(context, rc, treeStyle);
-    
+
     if (supportsScripting(rc))
     {
       writer.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, onClick, null);
@@ -947,20 +971,20 @@ public class TreeRenderer extends XhtmlRenderer
   }
 
   private void _renderNodeChildren(
-      FacesContext context,
-      RenderingContext rc,
-      UIXHierarchy tree,
-      FacesBean bean,
-      UIComponent stamp,
-      final String varName,
-      RowKeySet state,
-      Map<Object, Boolean> selectedPaths,
-      Boolean[] prepend,
-      boolean leftToRight,
-      boolean isFirstSibling,
-      boolean isLastSibling,
-      int nodeDepth
-  ) throws IOException
+    FacesContext         context,
+    RenderingContext     rc,
+    UIXHierarchy         tree,
+    FacesBean            bean,
+    UIComponent          stamp,
+    final String         varName,
+    RowKeySet            state,
+    Map<Object, Boolean> selectedPaths,
+    Boolean[]            prepend,
+    boolean              leftToRight,
+    boolean              isFirstSibling,
+    boolean              isLastSibling,
+    int                  nodeDepth
+    ) throws IOException
   {
     tree.enterContainer();
     int childCount = tree.getRowCount();
@@ -992,7 +1016,9 @@ public class TreeRenderer extends XhtmlRenderer
 
   // is this row childless, open, or closed?
 
-  private int _getExpandValue(UIXHierarchy tree, RowKeySet state)
+  private int _getExpandValue(
+    UIXHierarchy tree,
+    RowKeySet    state)
   {
     if (tree.isContainer())
     {
@@ -1005,13 +1031,17 @@ public class TreeRenderer extends XhtmlRenderer
     return NO_CHILDREN;
   }
 
-
   // render an icon with our own special formatting
 
-  private void _renderIcon(FacesContext context, RenderingContext rc, String icon,
-                           boolean isIconAbsoluteURI, Object text,
-                           String width, String height)
-    throws IOException
+  private void _renderIcon(
+    FacesContext     context,
+    RenderingContext rc,
+    String           icon,
+    boolean          isIconAbsoluteURI,
+    Object           text,
+    String           width,
+    String           height
+    ) throws IOException
   {
     if (icon != null)
     {
@@ -1046,7 +1076,9 @@ public class TreeRenderer extends XhtmlRenderer
   // add a boolean flag to the chain of icons.
   // the chain is rendered before each icon
 
-  private Boolean[] _appendIcon(Boolean[] prepend, Boolean isLine)
+  private Boolean[] _appendIcon(
+    Boolean[] prepend,
+    Boolean   isLine)
   {
     int currLength = prepend.length;
 
@@ -1072,17 +1104,19 @@ public class TreeRenderer extends XhtmlRenderer
   }
 
 
-  private void _prependIcons(FacesContext context, RenderingContext rc,
-                             UIXHierarchy tree, Boolean[] prepend,
-                             boolean leftToRight)
-    throws IOException
+  private void _prependIcons(
+    FacesContext     context,
+    RenderingContext rc,
+    UIXHierarchy     tree,
+    Boolean[]        prepend,
+    boolean          leftToRight
+    ) throws IOException
   {
     int currLength = prepend.length;
     Boolean isLine;
 
     for (int i = 0; i < currLength; i++)
     {
-
       isLine = prepend[i];
 
       if (isLine != null)
@@ -1097,11 +1131,11 @@ public class TreeRenderer extends XhtmlRenderer
                        _ICON_WIDTH, "100%", null);
       }
     }
-
   }
 
-
-  protected boolean getImmediate(FacesBean bean)
+  protected boolean getImmediate(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_immediateKey);
     if (o == null)
@@ -1110,19 +1144,17 @@ public class TreeRenderer extends XhtmlRenderer
     return Boolean.TRUE.equals(o);
   }
 
-
-
   protected String getDefaultIconName()
   {
     return null;
   }
 
-
-  private void _renderStampBasedOnAccessibilty(FacesContext context,
-                                               RenderingContext rc,
-                                               UIComponent stamp,
-                                               int depth)
-    throws IOException
+  private void _renderStampBasedOnAccessibilty(
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      stamp,
+    int              depth
+    ) throws IOException
   {
     if (isScreenReaderMode(rc))
     {
@@ -1153,7 +1185,6 @@ public class TreeRenderer extends XhtmlRenderer
   private static final String _ICON_HEIGHT = "18";
   private static final String _NODE_SPACER = "3";
 
-
   // expanded states
   protected static final int NO_CHILDREN = 0;
   protected static final int EXPAND_CLOSED = 1;
@@ -1170,7 +1201,6 @@ public class TreeRenderer extends XhtmlRenderer
 
   // Key used by StyledTextBean to query style class
   static final String _STYLE_CLASS_KEY = "_styleClass";
-
 
   private PropertyKey _immediateKey;
 

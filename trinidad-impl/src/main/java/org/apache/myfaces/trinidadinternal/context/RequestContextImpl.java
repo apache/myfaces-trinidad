@@ -33,19 +33,20 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
+import javax.faces.application.ProjectStage;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.change.NullChangeManager;
 import org.apache.myfaces.trinidad.change.SessionChangeManager;
 import org.apache.myfaces.trinidad.component.UIXComponent;
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
-import org.apache.myfaces.trinidad.component.visit.VisitHint;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.view.ViewDeclarationLanguage;
+
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.Agent;
@@ -65,6 +66,7 @@ import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactory;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
+import org.apache.myfaces.trinidadinternal.application.InternalViewHandlingStrategy;
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
 import org.apache.myfaces.trinidadinternal.application.ViewHandlerImpl;
 import org.apache.myfaces.trinidadinternal.el.FormatterMap;
@@ -223,8 +225,29 @@ public class RequestContextImpl extends RequestContext
   @Override
   public boolean isDebugOutput()
   {
-    return Boolean.TRUE.equals(
-       _bean.getProperty(RequestContextBean.DEBUG_OUTPUT_KEY));
+    // FALSE is the default value...
+    boolean debugOutput = Boolean.TRUE.equals(
+      _bean.getProperty(RequestContextBean.DEBUG_OUTPUT_KEY));
+
+    FacesContext fc = FacesContext.getCurrentInstance();
+    
+    if (fc.isProjectStage(ProjectStage.Production))
+    {
+      // on production we always want FALSE, unless the 
+      // user explicitly set the config to TRUE, but 
+      // generate a WARNING message for that.
+      if (debugOutput)
+      {
+         _LOG.warning("DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE");
+        return true;
+      }
+
+      return false;
+    }
+    else
+    {
+      return debugOutput;
+    }
   }
 
   @Override
@@ -637,32 +660,6 @@ public class RequestContextImpl extends RequestContext
     return _partialTargets;
   }
 
-  /**
-   * <p>Creates a VisitContext instance for use with
-   * {@link org.apache.myfaces.trinidad.component.UIXComponent#visitTree UIComponent.visitTree()}.</p>
-   *
-   * @param context the FacesContext for the current request
-   * @param ids the client ids of the components to visit.  If null,
-   *   all components will be visited.
-   * @param hints the VisitHints to apply to the visit
-   * @param phaseId.  PhaseId if any for this visit.  If PhaseId is specified,
-   * hints must contain VisitHint.EXECUTE_LIFECYCLE
-   * @return a VisitContext instance that is initialized with the
-   *   specified ids and hints.
-   */
-   @Override
-  public VisitContext createVisitContext(
-    FacesContext context,
-    Collection<String> ids,
-    Set<VisitHint> hints,
-    PhaseId phaseId)
-  {
-    if ((ids == null) || ids.isEmpty())
-      return new FullVisitContext(context, hints, phaseId);
-    else
-      return new PartialVisitContext(context, ids, hints, phaseId);
-  }
-
   @Override
   public Map<String, List<Color>> getColorPalette()
   {
@@ -729,7 +726,10 @@ public class RequestContextImpl extends RequestContext
     if (root == null)
       return false;
 
-    return ViewHandlerImpl.isInternalViewId(context, root.getViewId());
+    ViewDeclarationLanguage strategy = context.getApplication().
+                          getViewHandler().getViewDeclarationLanguage(context, root.getViewId()); 
+    
+    return (strategy instanceof InternalViewHandlingStrategy);
   }
 
   @Override

@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-example</artifactId>
-    <version>1.2.14-SNAPSHOT</version>
+    <version>2.0.0.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>trinidad-demo</artifactId>
@@ -22,6 +22,22 @@
       <artifactId>trinidad-partial-lifecycle</artifactId>
       <version>${project.version}</version>
     </dependency>-->
+
+          <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.0.0.GA</version>
+          </dependency>
+          <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.4.2</version>
+          </dependency>
+          <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.4.2</version>
+          </dependency>
 
     <dependency>
       <groupId>javax.mail</groupId>
@@ -55,7 +71,35 @@
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
     </dependency>
+
+<!--
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-api</artifactId>
+          <version>${jsf-myfaces.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-impl</artifactId>
+          <version>${jsf-myfaces.version}</version>
+            <scope>compile</scope>
+        </dependency>
+-->
   </dependencies>
+
+
+  <repositories>
+    <repository>
+      <id>Leo-stage</id>
+      <name>Apache Leo Incubator</name>
+      <url>http://people.apache.org/~lu4242/myfaces200beta/</url>
+      <layout>default</layout>
+    </repository>
+
+  </repositories>
+
   
   <build>
     <plugins>
@@ -76,31 +120,32 @@
       <id>jettyConfig</id>
       <dependencyManagement>
         <dependencies>
-          <dependency>
-            <groupId>javax.faces</groupId>
+
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-api</artifactId>
+          <version>${jsf-myfaces.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-impl</artifactId>
+          <version>${jsf-myfaces.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
             <version>${jsf-ri.version}</version>
             <scope>compile</scope>
           </dependency>
 
           <dependency>
-            <groupId>javax.faces</groupId>
+            <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <version>${jsf-ri.version}</version>
-            <scope>runtime</scope>
-          </dependency>
-
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <version>${jsf-myfaces.version}</version>
-            <scope>compile</scope>
-          </dependency>
-
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-impl</artifactId>
-            <version>${jsf-myfaces.version}</version>
             <scope>runtime</scope>
           </dependency>
         </dependencies>
@@ -162,14 +207,14 @@
       <dependencyManagement>
         <dependencies>
           <dependency>
-            <groupId>javax.faces</groupId>
+            <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
             <version>${jsf-ri.version}</version>
             <scope>compile</scope>
           </dependency>
 
           <dependency>
-            <groupId>javax.faces</groupId>
+            <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <version>${jsf-ri.version}</version>
             <scope>runtime</scope>

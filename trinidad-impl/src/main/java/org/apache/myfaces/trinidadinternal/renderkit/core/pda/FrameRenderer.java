@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,12 +26,12 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.html.HtmlFrame;
 import org.apache.myfaces.trinidad.component.html.HtmlFrameBorderLayout;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
+
 
 /**
  * Renders a frame.
@@ -57,7 +57,7 @@ public class FrameRenderer extends XhtmlRenderer
 
     _sourceKey = type.findKey("source");
   }
-  
+
   @Override
   public boolean getRendersChildren()
   {
@@ -67,10 +67,11 @@ public class FrameRenderer extends XhtmlRenderer
 
   @Override
   protected final void encodeAll(
-    FacesContext        context,
-    RenderingContext    rc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     UIComponent parent = component.getParent();
 
@@ -85,12 +86,12 @@ public class FrameRenderer extends XhtmlRenderer
     else
     {
       ResponseWriter writer = context.getResponseWriter();
-  
+
       writer.startElement("a", component);
       renderId(context, component);
-      
+
       String source = toResourceUri(context, bean.getProperty(_sourceKey));
-      String shortDesc = getShortDesc(bean);
+      String shortDesc = getShortDesc(component, bean);
 
       // =-=Adam Winer: OraLink is obviously not a good style class
       // here - substitute something like trh|frame in a PDA css

@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -39,11 +40,11 @@ import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 import org.apache.myfaces.trinidad.component.core.nav.CoreNavigationPane;
 import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.RenderUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidad.context.RenderingContext;
+
 
 public class NavigationPaneRenderer extends XhtmlRenderer
 {
@@ -53,7 +54,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _hintKey = type.findKey("hint");
@@ -69,14 +71,15 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     // Since NavigationPane is a naming container, we can be more
     // efficient about skipping its children
-    if (!PartialPageUtils.containsPprTargets(arc,
+    if (!PartialPageUtils.containsPprTargets(rc,
                                              component,
                                              getClientId(context, component)))
     {
@@ -86,8 +89,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     ResponseWriter writer = context.getResponseWriter();
 
     writer.startElement("div", component);
-    renderAllAttributes(context, arc, bean, false);
-    _renderStyleAttributes(context, arc, bean);
+    renderAllAttributes(context, rc, component, bean, false);
+    _renderStyleAttributes(context, rc, component, bean);
     renderId(context, component);
 
     int renderedItemCount = _getItemCount((UIXHierarchy)component);
@@ -96,7 +99,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     // no kids, no NavigationLevel -- but you still get the span.
     if (renderedItemCount > 0 || renderedRowCount > 0)
     {
-      renderContent(context, arc,
+      renderContent(context, rc,
                     (UIXHierarchy)component, bean);
     }
 
@@ -107,7 +110,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
    * Gets the stamp to use to render each link
    */
   private UIComponent _getStamp(
-    UIXHierarchy        component
+    UIXHierarchy component
     )
   {
     UIComponent stamp = component.getFacet("nodeStamp");
@@ -116,15 +119,15 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   protected void renderContent(
-    FacesContext        context,
-    RenderingContext arc,
-    UIXHierarchy        component,
-    FacesBean           bean
+    FacesContext     context,
+    RenderingContext rc,
+    UIXHierarchy     component,
+    FacesBean        bean
     ) throws IOException
   {
     NavItemData navItemData = new NavItemData();
     List<UIComponent> nonNavItemList = new ArrayList<UIComponent>();
-    String renderingHint = _getHint(bean);
+    String renderingHint = _getHint(component, bean);
 
     UIComponent nodeStamp = _getStamp(component);
     if (nodeStamp == null)
@@ -204,7 +207,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     {
       // starting outer markup:
       ResponseWriter rw = context.getResponseWriter();
-      boolean isRtl = arc.getLocaleContext().isRightToLeft();
+      boolean isRtl = rc.getLocaleContext().isRightToLeft();
       boolean isChoiceHint =
         (NavigationPaneRenderer._HINT_CHOICE.equals(renderingHint));
       String choiceSelectId = null;
@@ -213,27 +216,27 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         choiceSelectId = getClientId(context, component) + _CHOICE_SELECT_ID_SUFFIX;
         if (isRtl)
         {
-          _renderChoiceButton(context, arc, rw, isRtl, choiceSelectId);
+          _renderChoiceButton(context, rc, rw, isRtl, choiceSelectId);
         }
         else
         {
-          _renderChoiceLabel(context, arc, rw, isRtl, bean);
+          _renderChoiceLabel(context, rc, rw, isRtl, component, bean);
         }
 
         rw.startElement("select", null);
         rw.writeAttribute("id", choiceSelectId, null);
-           
+
         // For Non-JavaScript browsers, render the name attribute thus it would
         // enable the browsers to include the name and value of this element
         // in its payLoad.
 
-        if ( !supportsScripting(arc) )
+        if ( !supportsScripting(rc) )
         {
           rw.writeAttribute("name", choiceSelectId, null);
         }
-        renderStyleClass(context, arc,
+        renderStyleClass(context, rc,
           SkinSelectors.AF_NAVIGATION_LEVEL_CHOICE_OPTIONS_STYLE_CLASS);
-        if (getDisabled(bean))
+        if (getDisabled(component, bean))
           rw.writeAttribute("disabled", Boolean.TRUE, null);
       }
 
@@ -259,14 +262,14 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           Integer rowIndex = (Integer) currentItemData.get("rowIndex");
           if (rowIndex != null)
             component.setRowIndex(rowIndex.intValue());
-          _renderNavigationItem(context, arc, rw, currentItemData,
+          _renderNavigationItem(context, rc, rw, currentItemData,
               renderingHint, isRtl);
           previousActive =
               getBooleanFromProperty(currentItemData.get("isActive"));
         }
         else
         {
-          renderNonCommandChild(i, context, arc,iter.next(), (i == lastRowIndex), renderingHint);
+          renderNonCommandChild(i, context, rc,iter.next(), (i == lastRowIndex), renderingHint);
         }
       }
       component.setRowKey(oldPath);
@@ -277,16 +280,17 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         rw.endElement("select");
         if (isRtl)
         {
-          _renderChoiceLabel(context, arc, rw, isRtl, bean);
+          _renderChoiceLabel(context, rc, rw, isRtl, component, bean);
         }
         {
-          _renderChoiceButton(context, arc, rw, isRtl, choiceSelectId);
+          _renderChoiceButton(context, rc, rw, isRtl, choiceSelectId);
         }
       }
     }
   }
 
-  protected boolean hasChildren(UIComponent component)
+  protected boolean hasChildren(
+    UIComponent component)
   {
     int childCount = component.getChildCount();
     return childCount > 0;
@@ -297,51 +301,59 @@ public class NavigationPaneRenderer extends XhtmlRenderer
    * styleClass
    */
   private void _renderStyleAttributes(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    String renderingHint = _getHint(bean);
-    
-    // Since navigation items are rendered vertically for narrow-screen PDAs, 
-    // Tab style class, which sets the navigationPane's height, is no longer 
+    String renderingHint = _getHint(component, bean);
+
+    // Since navigation items are rendered vertically for narrow-screen PDAs,
+    // Tab style class, which sets the navigationPane's height, is no longer
     // applicable for narrow-screen PDAs
-    if (!supportsNarrowScreen(arc) && 
+    if (!supportsNarrowScreen(rc) &&
                 NavigationPaneRenderer._HINT_TABS.equals(renderingHint))
-    { 
-      renderStyleAttributes(context, arc, bean,
+    {
+      renderStyleAttributes(context, rc, component, bean,
                             SkinSelectors.AF_NAVIGATION_LEVEL_TABS_STYLE_CLASS);
     }
     else if (NavigationPaneRenderer._HINT_BAR.equals(renderingHint))
     {
-      renderStyleAttributes(context, arc, bean,
+      renderStyleAttributes(context, rc, component, bean,
                             SkinSelectors.AF_NAVIGATION_LEVEL_BAR_STYLE_CLASS);
     }
     else
     {
-      renderStyleAttributes(context, arc, bean,
+      renderStyleAttributes(context, rc, component, bean,
                             SkinSelectors.AF_NAVIGATION_LEVEL_STYLE_CLASS);
     }
   }
 
-  private String _getHint(FacesBean bean)
+  private String _getHint(
+    UIComponent component,
+    FacesBean   bean)
   {
     String renderingHint = toString(bean.getProperty(_hintKey));
 
     if (renderingHint == null)
     {
-      // =-= mcc TODO pull from arc, e.g. when placed by Page, PanelPage
+      // =-= mcc TODO pull from rc, e.g. when placed by Page, PanelPage
       renderingHint = _HINT_DEFAULT;
     }
     return renderingHint;
   }
 
-  protected String getTitle(FacesBean bean)
+  protected String getTitle(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_titleKey));
   }
 
-  protected boolean getDisabled(FacesBean bean)
+  protected boolean getDisabled(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_disabledKey);
     if (o == null)
@@ -386,8 +398,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
   private void _collectNavItemData(
     NavItemData navItemData,
-    UIXCommand commandChild,
-    int        rowIndex,
+    UIXCommand  commandChild,
+    int         rowIndex,
     UIXHierarchy component)
   {
     int itemDataIndex = navItemData.getItemCount();
@@ -440,7 +452,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     navItemData.addItemData(itemDataMap);
   }
 
-  protected boolean getBooleanFromProperty(Object value)
+  protected boolean getBooleanFromProperty(
+    Object value)
   {
     if (value == null)
     {
@@ -453,7 +466,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
   private Object _getCommandChildProperty(
     UIXCommand commandChild,
-    String propertyName)
+    String     propertyName)
   {
     FacesBean childFacesBean = commandChild.getFacesBean();
     FacesBean.Type type = childFacesBean.getType();
@@ -473,40 +486,40 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   private void _renderNavigationItem(
-    FacesContext context,
-    RenderingContext arc,
-    ResponseWriter rw,
+    FacesContext        context,
+    RenderingContext    rc,
+    ResponseWriter      rw,
     Map<String, Object> itemData,
-    String renderingHint,
-    boolean isRtl
+    String              renderingHint,
+    boolean             isRtl
     ) throws IOException
   {
     if (_HINT_BAR.equals(renderingHint))
     {
-      renderNonOverlappingItem(context, arc, rw, itemData, isRtl, true, false);
+      renderNonOverlappingItem(context, rc, rw, itemData, isRtl, true, false);
     }
     else if (_HINT_BUTTONS.equals(renderingHint))
     {
-      renderNonOverlappingItem(context, arc, rw, itemData, isRtl, false, false);
+      renderNonOverlappingItem(context, rc, rw, itemData, isRtl, false, false);
     }
     else if (_HINT_CHOICE.equals(renderingHint))
     {
-      _renderChoiceItem(context, arc, rw, itemData);
+      _renderChoiceItem(context, rc, rw, itemData);
     }
     else if (_HINT_LIST.equals(renderingHint))
     {
-      renderNonOverlappingItem(context, arc, rw, itemData, isRtl, false, true);
+      renderNonOverlappingItem(context, rc, rw, itemData, isRtl, false, true);
     }
     else // _HINT_TABS
     {
-      renderTabItem(context, arc, rw, itemData, isRtl);
+      renderTabItem(context, rc, rw, itemData, isRtl);
     }
   }
 
   protected void writeInlineStyles(
     ResponseWriter rw,
-    Object userInlineStyle,
-    String appendedInlineStyle
+    Object         userInlineStyle,
+    String         appendedInlineStyle
     ) throws IOException
   {
     if (userInlineStyle == null)
@@ -537,12 +550,12 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   private void _writeInlineTbodyStyles(
-    RenderingContext arc,
-    ResponseWriter rw
+    RenderingContext rc,
+    ResponseWriter   rw
     ) throws IOException
   {
     // IE and Firefox require the TABLE to be "inline".
-    if (arc.getAgent().getAgentName() == Agent.AGENT_GECKO)
+    if (rc.getAgent().getAgentName() == Agent.AGENT_GECKO)
     {
       // Firefox 1.5 also requires the TBODY to be "inline":
       rw.writeAttribute("style", "display: inline;", null);
@@ -550,32 +563,32 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   protected void appendIconAndText(
-    FacesContext context,
-    RenderingContext arc,
-    ResponseWriter rw,
-    String iconUri,
+    FacesContext        context,
+    RenderingContext    rc,
+    ResponseWriter      rw,
+    String              iconUri,
     Map<String, Object> itemData,
-    boolean isDisabled,
-    boolean isRtl
+    boolean             isDisabled,
+    boolean             isRtl
     ) throws IOException
   {
     if ( (iconUri != null) && !isRtl )
     {
-      _appendIcon(context, rw, iconUri, isRtl, arc);
+      _appendIcon(context, rw, iconUri, isRtl, rc);
     }
-     _writeItemLink(context, arc, rw, itemData, isDisabled);
+     _writeItemLink(context, rc, rw, itemData, isDisabled);
     if ( (iconUri != null) && isRtl )
     {
-      _appendIcon(context, rw, iconUri, isRtl, arc);
+      _appendIcon(context, rw, iconUri, isRtl, rc);
     }
   }
 
   private void _appendIcon(
-    FacesContext context,
-    ResponseWriter rw,
-    String iconUri,
-    boolean isRtl,
-    RenderingContext arc
+    FacesContext     context,
+    ResponseWriter   rw,
+    String           iconUri,
+    boolean          isRtl,
+    RenderingContext rc
     ) throws IOException
   {
     String styleAppender = "";
@@ -583,7 +596,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     rw.writeAttribute("border", "0", null);
     rw.writeAttribute("align", "absmiddle", null);
 
-    if (isPDA(arc))
+    if (isPDA(rc))
     {
       if (isRtl)
       {
@@ -616,7 +629,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   @SuppressWarnings("unchecked")
   private void _renderCommandChildren(
     FacesContext context,
-    UIXCommand uiComp) throws IOException
+    UIXCommand   uiComp
+    ) throws IOException
   {
     for(UIComponent child : (List<UIComponent>)uiComp.getChildren())
     {
@@ -625,8 +639,9 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   private void _renderText(
-    ResponseWriter rw,
-    Map<String, Object> itemData) throws IOException
+    ResponseWriter      rw,
+    Map<String, Object> itemData
+    ) throws IOException
   {
     String text = toString(itemData.get("text"));
     if(text != null)
@@ -636,11 +651,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   private void _writeItemLink(
-    FacesContext context,
-    RenderingContext arc,
-    ResponseWriter rw,
+    FacesContext        context,
+    RenderingContext    rc,
+    ResponseWriter      rw,
     Map<String, Object> itemData,
-    boolean isDisabled
+    boolean             isDisabled
     ) throws IOException
   {
 
@@ -661,63 +676,63 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       partialSubmit = getBooleanFromProperty(itemData.get("partialSubmit"));
       if (partialSubmit)
       {
-        AutoSubmitUtils.writeDependencies(context, arc);
+        AutoSubmitUtils.writeDependencies(context, rc);
       }
       String clientId = commandChild.getClientId(context);
       // Make sure we don't have anything to save
-      assert(arc.getCurrentClientId() == null);
-      arc.setCurrentClientId(clientId);
+      assert(rc.getCurrentClientId() == null);
+      rc.setCurrentClientId(clientId);
 
       // Find the params up front, and save them off -
       // getOnClick() doesn't have access to the UIComponent
       String extraParams = AutoSubmitUtils.getParameters(commandChild);
-      arc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY, extraParams);
+      rc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY, extraParams);
     }
 
     boolean isActive = getBooleanFromProperty(itemData.get("isActive"));
-    boolean isDesktop = (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
-    
-    boolean nonJavaScriptSubmit = (!supportsScripting(arc))
-                                             && (destination == null);    
-    
+    boolean isDesktop = (rc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
+
+    boolean nonJavaScriptSubmit = (!supportsScripting(rc))
+                                             && (destination == null);
+
     // For non-javascript browsers, we need to render a submit element
     // instead of an anchor tag if the anchor tag doesn't have a destination
-    
+
     if (nonJavaScriptSubmit)
     {
-    
+
       rw.startElement("input", commandChild);
-    
+
       rw.writeAttribute("type", "submit", null);
       rw.writeAttribute("value", toString(itemData.get("text")), "text");
-    
+
       String clientId = getClientId(context, commandChild);
       rw.writeAttribute("id", clientId, "id");
-      
-      
-      
-      // For Non-JavaScript browsers, encode the name attribute with the 
-      // parameter name and value thus it would enable the browsers to 
+
+
+
+      // For Non-JavaScript browsers, encode the name attribute with the
+      // parameter name and value thus it would enable the browsers to
       // include the name of this element in its payLoad if it submits the
       // page.
-       
+
       rw.writeAttribute("name", XhtmlUtils.getEncodedParameter
-                                  (TrinidadRenderingConstants.SOURCE_PARAM)
+                                  (XhtmlConstants.SOURCE_PARAM)
                                    + clientId, null);
-      renderStyleClass(context, arc, 
+      renderStyleClass(context, rc,
                   SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS);
-      String linkConverter = 
+      String linkConverter =
              "border:none;background:inherit;text-decoration:underline;";
-    
+
       // Few mobile browsers couldn't apply css property for active elements
       // so making it inline
       if (isActive && !isDesktop)
       {
         linkConverter = linkConverter + "font-weight: bold;";
       }
-    
+
       writeInlineStyles(rw, null,linkConverter);
-    
+
     }
     else
     {
@@ -740,7 +755,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         renderEncodedActionURI(context, "href", destination);
         String targetFrame = toString(itemData.get("targetFrame"));
         if ( (targetFrame != null) && !Boolean.FALSE.equals(
-          arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET)) )
+          rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET)) )
         {
           rw.writeAttribute("target", targetFrame, null);
         }
@@ -751,10 +766,10 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       // Cannot use super.renderEventHandlers(context, bean); because the wrong
       // property keys would be in use so must do it this way:
       // Also render the events only if the browser supports JavaScript
-      if (supportsScripting(arc))
+      if (supportsScripting(rc))
       {
         _writeOnclickProperty(
-          arc,
+          rc,
           rw,
           commandChild,
           (destination == null),
@@ -771,18 +786,18 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         _writeCommandChildProperty(rw, commandChild, "onmouseup");
       }
     }
-    
+
     String accessKey = toString(itemData.get("accessKey"));
     if ( !isDisabled && (accessKey != null) )
     {
       rw.writeAttribute("accessKey", accessKey, null);
     }
-    
-    // In the case of HTML basic browsers, we render an input element. Hence, 
+
+    // In the case of HTML basic browsers, we render an input element. Hence,
     // we cannot render any children, so skip calling _renderCommandChildren
     if (nonJavaScriptSubmit)
-    { 
-      rw.endElement("input"); 
+    {
+      rw.endElement("input");
     }
     else
     {
@@ -790,18 +805,18 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       _renderCommandChildren(context, commandChild);
       rw.endElement("a"); // linkElement
     }
-    
+
     if (destination == null)
     {
-      arc.setCurrentClientId(null);
-      arc.getProperties().remove(_EXTRA_SUBMIT_PARAMS_KEY);
+      rc.setCurrentClientId(null);
+      rc.getProperties().remove(_EXTRA_SUBMIT_PARAMS_KEY);
     }
   }
 
   private void _writeCommandChildProperty(
     ResponseWriter rw,
-    UIXCommand commandChild,
-    String propertyName
+    UIXCommand     commandChild,
+    String         propertyName
     ) throws IOException
   {
     rw.writeAttribute(
@@ -811,18 +826,18 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   private void _writeOnclickProperty(
-    RenderingContext arc,
-    ResponseWriter rw,
-    UIXCommand commandChild,
-    boolean actionSpecialCase,
-    boolean immediate,
-    boolean partialSubmit
+    RenderingContext rc,
+    ResponseWriter   rw,
+    UIXCommand       commandChild,
+    boolean          actionSpecialCase,
+    boolean          immediate,
+    boolean          partialSubmit
     ) throws IOException
   {
     if (actionSpecialCase)
     {
       String onclick = (String)_getCommandChildProperty(commandChild, "onclick");
-      String script = _getAutoSubmitScript(arc, immediate, partialSubmit);
+      String script = _getAutoSubmitScript(rc, immediate, partialSubmit);
       rw.writeAttribute(
         "onclick", XhtmlUtils.getChainedJS(onclick, script, true), "onclick");
     }
@@ -833,21 +848,21 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   private String _getAutoSubmitScript(
-    RenderingContext arc,
-    boolean immediate,
-    boolean partialSubmit
+    RenderingContext rc,
+    boolean          immediate,
+    boolean          partialSubmit
     )
   {
-    String id = arc.getCurrentClientId();
+    String id = rc.getCurrentClientId();
 
     String extraParams = (String)
-      arc.getProperties().get(_EXTRA_SUBMIT_PARAMS_KEY);
+      rc.getProperties().get(_EXTRA_SUBMIT_PARAMS_KEY);
 
     String script;
     if (partialSubmit)
     {
       script = AutoSubmitUtils.getSubmitScript(
-        arc, id, immediate, false,
+        rc, id, immediate, false,
         null/* no event*/,
         extraParams,
         false);
@@ -855,7 +870,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     else
     {
       script = AutoSubmitUtils.getFullPageSubmitScript(
-        arc, id, immediate,
+        rc, id, immediate,
         null/*no event*/,
         extraParams,
         false/* return false*/);
@@ -864,26 +879,26 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   protected void renderNonOverlappingItem(
-    FacesContext context,
-    RenderingContext arc,
-    ResponseWriter rw,
+    FacesContext        context,
+    RenderingContext    rc,
+    ResponseWriter      rw,
     Map<String, Object> itemData,
-    boolean isRtl,
-    boolean isBar,
-    boolean isList
+    boolean             isRtl,
+    boolean             isBar,
+    boolean             isList
     ) throws IOException
   {
     rw.startElement("table", null);
-    OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+    OutputUtils.renderLayoutTableAttributes(context, rc, "0", null);
     String appendedStyle = null;
     if (!isList)
     {
       appendedStyle = "display: inline;"; // style to make the table inline
-      
-      // In Safari and webkit browsers display:inline doesn't work as expected, and 
+
+      // In Safari and webkit browsers display:inline doesn't work as expected, and
       // display:inline-block need to be used to make the table inline.
       // NokiaS60 has a webkit based browser
-      if (arc.getAgent().getAgentName() == Agent.AGENT_WEBKIT || isNokiaS60(arc))
+      if (rc.getAgent().getAgentName() == Agent.AGENT_WEBKIT || isNokiaS60(rc))
       {
         appendedStyle = "display: inline-block;";
       }
@@ -980,11 +995,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         }
       }
     }
-    renderStyleClass(context, arc, itemStyleClass.toString());
+    renderStyleClass(context, rc, itemStyleClass.toString());
     rw.startElement("tbody", null);
     if (!isList)
     {
-      _writeInlineTbodyStyles(arc, rw);
+      _writeInlineTbodyStyles(rc, rw);
     }
     rw.startElement("tr", null);
 
@@ -993,7 +1008,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       rw.startElement("td", null); // bulletCell
       renderStyleClass(
         context,
-        arc,
+        rc,
         SkinSelectors.AF_NAVIGATION_LEVEL_LIST_BULLET_STYLE_CLASS);
       rw.startElement("div", null); // bulletContent
       rw.write(" ");
@@ -1005,22 +1020,22 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     rw.startElement("div", null); // centerContent
     if (isList)
     {
-      renderStyleClass(context, arc,
+      renderStyleClass(context, rc,
         SkinSelectors.AF_NAVIGATION_LEVEL_LIST_CONTENT_STYLE_CLASS);
     }
     else if (isBar)
     {
-      renderStyleClass(context, arc,
+      renderStyleClass(context, rc,
         SkinSelectors.AF_NAVIGATION_LEVEL_BAR_CONTENT_STYLE_CLASS);
     }
     else
     {
-      renderStyleClass(context, arc,
+      renderStyleClass(context, rc,
         SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_CONTENT_STYLE_CLASS);
     }
     appendIconAndText(
       context,
-      arc,
+      rc,
       rw,
       toString(itemData.get("icon")),
       itemData,
@@ -1035,12 +1050,12 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       rw.startElement("div", null); // rightContent
       if (isBar)
       {
-        renderStyleClass(context, arc,
+        renderStyleClass(context, rc,
           SkinSelectors.AF_NAVIGATION_LEVEL_BAR_SEPARATOR_STYLE_CLASS);
       }
       else
       {
-        renderStyleClass(context, arc,
+        renderStyleClass(context, rc,
           SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_SEPARATOR_STYLE_CLASS);
       }
       rw.write("|");
@@ -1058,36 +1073,37 @@ public class NavigationPaneRenderer extends XhtmlRenderer
    * This is used only for hint="bar" and hint="buttons"
    * @param index
    * @param context
-   * @param arc
+   * @param rc
    * @param child
    * @param isLastItem
    * @param hint
    * @throws IOException
    */
   protected void renderNonCommandChild(
-    int index,
-    FacesContext context,
-    RenderingContext arc,
-    UIComponent child,
-    boolean isLastItem,
-    String hint) throws IOException
+    int              index,
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      child,
+    boolean          isLastItem,
+    String           hint
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("table", null);
-    OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+    OutputUtils.renderLayoutTableAttributes(context, rc, "0", null);
     String appendedStyle = null;
-    appendedStyle = "display: inline;"; // style to make the table inline    
-      
-    // In Safari and webkit browsers display:inline doesn't work as expected, and 
+    appendedStyle = "display: inline;"; // style to make the table inline
+
+    // In Safari and webkit browsers display:inline doesn't work as expected, and
     // display:inline-block need to be used to make the table inline.
     // NokiaS60 has a webkit based browser
-    if (arc.getAgent().getAgentName() == Agent.AGENT_WEBKIT || isNokiaS60(arc))
+    if (rc.getAgent().getAgentName() == Agent.AGENT_WEBKIT || isNokiaS60(rc))
     {
       appendedStyle = "display: inline-block;";
     }
     writeInlineStyles(rw, null, appendedStyle);
     rw.startElement("tbody", null);
-    _writeInlineTbodyStyles(arc, rw);
+    _writeInlineTbodyStyles(rc, rw);
     rw.startElement("tr", null);
     rw.startElement("td", null);
     rw.startElement("div", null);
@@ -1100,12 +1116,12 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       rw.startElement("div", null); // rightContent
       if (hint == _HINT_BAR)
       {
-        renderStyleClass(context, arc,
+        renderStyleClass(context, rc,
           SkinSelectors.AF_NAVIGATION_LEVEL_BAR_SEPARATOR_STYLE_CLASS);
       }
       else
       {
-        renderStyleClass(context, arc,
+        renderStyleClass(context, rc,
           SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_SEPARATOR_STYLE_CLASS);
       }
 
@@ -1119,9 +1135,9 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   private void _renderChoiceItem(
-    FacesContext context,
-    RenderingContext arc,
-    ResponseWriter rw,
+    FacesContext        context,
+    RenderingContext    rc,
+    ResponseWriter      rw,
     Map<String, Object> itemData
     ) throws IOException
   {
@@ -1130,7 +1146,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     // If the agent, doesn't support disabled options, don't render anything
     // for such options
     if ( !isDisabled ||
-         Boolean.TRUE.equals(arc.getAgent().getCapabilities().get(
+         Boolean.TRUE.equals(rc.getAgent().getCapabilities().get(
                 TrinidadAgent.CAP_SUPPORTS_DISABLED_OPTIONS)))
     {
       boolean isActive = getBooleanFromProperty(itemData.get("isActive"));
@@ -1138,16 +1154,16 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       String destination = null;
       boolean partialSubmit = false;
       if (!isDisabled)
-      {  
+      {
          // Write the script to evaluate once the item is selected
          commandChild = (UIXCommand)itemData.get("component");
          destination = toString(itemData.get("destination"));
          if (destination == null)
-         { 
+         {
            partialSubmit = getBooleanFromProperty(itemData.get("partialSubmit"));
            if (partialSubmit)
            {
-             AutoSubmitUtils.writeDependencies(context, arc);
+             AutoSubmitUtils.writeDependencies(context, rc);
            }
          }
       }
@@ -1167,27 +1183,27 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           immediate = getBooleanFromProperty(itemData.get("immediate"));
           String clientId = commandChild.getClientId(context);
           // Make sure we don't have anything to save
-          assert(arc.getCurrentClientId() == null);
-          arc.setCurrentClientId(clientId);
+          assert(rc.getCurrentClientId() == null);
+          rc.setCurrentClientId(clientId);
 
           // Find the params up front, and save them off -
           // getOnClick() doesn't have access to the UIComponent
           String extraParams = AutoSubmitUtils.getParameters(commandChild);
-          arc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY, extraParams);
+          rc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY, extraParams);
         }
         _renderCommandChildId(context, commandChild);
         String selectionScript;
-        
-        // For Non-javaScript browsers, set the value attribute to the id of 
+
+        // For Non-javaScript browsers, set the value attribute to the id of
         // the element instead of a javascript code
-         
-        if (!supportsScripting(arc))
+
+        if (!supportsScripting(rc))
         {
-          selectionScript = arc.getCurrentClientId();
+          selectionScript = rc.getCurrentClientId();
         }
         else if (destination == null)
         {
-          selectionScript = _getAutoSubmitScript(arc, immediate, partialSubmit);
+          selectionScript = _getAutoSubmitScript(rc, immediate, partialSubmit);
 
           // Trim off the "return false;" because we will be performing an
           // "eval" on the script and a "return" will yield a runtime error:
@@ -1201,7 +1217,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           String targetFrame = toString(itemData.get("targetFrame"));
           StringBuilder sb = new StringBuilder();
           if ( (targetFrame != null) && !Boolean.FALSE.equals(
-            arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET)) )
+            rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET)) )
           {
             sb.append("window.open('");
             sb.append(encodedDestination);
@@ -1221,8 +1237,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
         if (destination == null)
         {
-          arc.setCurrentClientId(null);
-          arc.getProperties().remove(_EXTRA_SUBMIT_PARAMS_KEY);
+          rc.setCurrentClientId(null);
+          rc.getProperties().remove(_EXTRA_SUBMIT_PARAMS_KEY);
         }
       }
 
@@ -1232,17 +1248,18 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   private void _renderChoiceLabel(
-    FacesContext context,
-    RenderingContext arc,
-    ResponseWriter rw,
-    boolean isRtl,
-    FacesBean bean
+    FacesContext     context,
+    RenderingContext rc,
+    ResponseWriter   rw,
+    boolean          isRtl,
+    UIComponent      component,
+    FacesBean        bean
     ) throws IOException
   {
-    String chooseText = getTitle(bean);
+    String chooseText = getTitle(component, bean);
     if ( (chooseText == null) || (chooseText.length() == 0) )
     {
-      chooseText = getShortDesc(bean);
+      chooseText = getShortDesc(component, bean);
     }
 
     if ( (chooseText != null) && (chooseText.length() != 0) )
@@ -1252,7 +1269,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         _renderSpace(rw);
       }
       rw.startElement("span", null);
-      renderStyleClass(context, arc,
+      renderStyleClass(context, rc,
         SkinSelectors.AF_NAVIGATION_LEVEL_CHOICE_LABEL_STYLE_CLASS);
       rw.write(chooseText);
       rw.endElement("span");
@@ -1264,11 +1281,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   private void _renderChoiceButton(
-    FacesContext context,
-    RenderingContext arc,
-    ResponseWriter rw,
-    boolean isRtl,
-    String choiceSelectId
+    FacesContext     context,
+    RenderingContext rc,
+    ResponseWriter   rw,
+    boolean          isRtl,
+    String           choiceSelectId
     ) throws IOException
   {
     if (!isRtl)
@@ -1277,32 +1294,32 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     }
     //The button html element is not supported on all browsers;  use "input"
     //if it is not
-    boolean useButtonTag = supportsAdvancedForms(arc);
+    boolean useButtonTag = supportsAdvancedForms(rc);
     String element = useButtonTag ? "button" : "input";
 
     rw.startElement(element, null);
-    renderStyleClass(context, arc,
+    renderStyleClass(context, rc,
       SkinSelectors.AF_NAVIGATION_LEVEL_CHOICE_BUTTON_STYLE_CLASS);
-    String goText = arc.getSkin().getTranslatedString(
-      arc.getLocaleContext(),
+    String goText = rc.getSkin().getTranslatedString(
+      rc.getLocaleContext(),
       _GO_BUTTON_LABEL_KEY);
 
     rw.writeAttribute("type", useButtonTag ? "button"  : "submit", null);
-    
-    // For Non-JavaScript browsers, encode the name attribute with the 
-    // parameter name and value thus it would enable the browsers to 
+
+    // For Non-JavaScript browsers, encode the name attribute with the
+    // parameter name and value thus it would enable the browsers to
     // include the name of this element in its payLoad if it submits
     // the page.
-    
-    if (!supportsScripting(arc) )
+
+    if (!supportsScripting(rc) )
     {
-    
+
       String nameAttri = XhtmlUtils.getEncodedParameter
-                                     (TrinidadRenderingConstants.MULTIPLE_VALUE_PARAM)
+                                     (XhtmlConstants.MULTIPLE_VALUE_PARAM)
                                      + choiceSelectId;
-    
+
       rw.writeAttribute("name", nameAttri, null);
-    
+
     }
     else
     {
@@ -1343,22 +1360,22 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   protected void renderTabItem(
-    FacesContext context,
-    RenderingContext arc,
-    ResponseWriter rw,
+    FacesContext        context,
+    RenderingContext    rc,
+    ResponseWriter      rw,
     Map<String, Object> itemData,
-    boolean isRtl
+    boolean             isRtl
     ) throws IOException
   {
     rw.startElement("table", null);
-    OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
-    
-    String appendedStyle = "display: inline;";    
-      
-    // In Safari and webkit browsers display:inline doesn't work as expected, and 
+    OutputUtils.renderLayoutTableAttributes(context, rc, "0", null);
+
+    String appendedStyle = "display: inline;";
+
+    // In Safari and webkit browsers display:inline doesn't work as expected, and
     // display:inline-block need to be used to make the table inline.
     // NokiaS60 has a webkit based browser
-    if (arc.getAgent().getAgentName() == Agent.AGENT_WEBKIT || isNokiaS60(arc))
+    if (rc.getAgent().getAgentName() == Agent.AGENT_WEBKIT || isNokiaS60(rc))
     {
       appendedStyle = "display: inline-block;";
     }
@@ -1396,9 +1413,9 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       sectionStyleClass1 =
         SkinSelectors.AF_NAVIGATION_LEVEL_TABS_INACTIVE_STYLE_CLASS;
     }
-    renderStyleClass(context, arc, itemStyleClass.toString());
+    renderStyleClass(context, rc, itemStyleClass.toString());
     rw.startElement("tbody", null);
-    _writeInlineTbodyStyles(arc, rw);
+    _writeInlineTbodyStyles(rc, rw);
     rw.startElement("tr", null);
 
     boolean isFirst = getBooleanFromProperty(itemData.get("isFirst"));
@@ -1412,7 +1429,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       rw.startElement("td", null);
       _renderTabSection(
         context,
-        arc,
+        rc,
         rw,
         sectionStyleClass1,
         sectionStyleClass2,
@@ -1430,7 +1447,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       rw.startElement("td", null);
       _renderTabSection(
         context,
-        arc,
+        rc,
         rw,
         sectionStyleClass1,
         sectionStyleClass2,
@@ -1448,7 +1465,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       rw.startElement("td", null);
       _renderTabSection(
         context,
-        arc,
+        rc,
         rw,
         sectionStyleClass1,
         sectionStyleClass2,
@@ -1466,7 +1483,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       rw.startElement("td", null);
       _renderTabSection(
         context,
-        arc,
+        rc,
         rw,
         sectionStyleClass1,
         sectionStyleClass2,
@@ -1483,7 +1500,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     rw.startElement("td", null);
     _renderTabSection(
       context,
-      arc,
+      rc,
       rw,
       sectionStyleClass1,
       sectionStyleClass2,
@@ -1501,7 +1518,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       rw.startElement("td", null);
       _renderTabSection(
         context,
-        arc,
+        rc,
         rw,
         sectionStyleClass1,
         sectionStyleClass2,
@@ -1519,7 +1536,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       rw.startElement("td", null);
       _renderTabSection(
         context,
-        arc,
+        rc,
         rw,
         sectionStyleClass1,
         sectionStyleClass2,
@@ -1538,39 +1555,39 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   private void _renderTabSection(
-    FacesContext context,
-    RenderingContext arc,
-    ResponseWriter rw,
-    String sectionStyleClass1,
-    String sectionStyleClass2,
-    String topStyleClass,
-    String bottomStyleClass,
-    String bottomContentStyleClass,
+    FacesContext        context,
+    RenderingContext    rc,
+    ResponseWriter      rw,
+    String              sectionStyleClass1,
+    String              sectionStyleClass2,
+    String              topStyleClass,
+    String              bottomStyleClass,
+    String              bottomContentStyleClass,
     Map<String, Object> itemData,
-    boolean isDisabled,
-    boolean isRtl
+    boolean             isDisabled,
+    boolean             isRtl
     ) throws IOException
   {
     rw.startElement("table", null);
-    OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+    OutputUtils.renderLayoutTableAttributes(context, rc, "0", null);
     if (sectionStyleClass2 == null)
     {
-      renderStyleClass(context, arc, sectionStyleClass1);
+      renderStyleClass(context, rc, sectionStyleClass1);
     }
     else
     {
       String[] sectionStyleClasses = { sectionStyleClass1, sectionStyleClass2 };
-      renderStyleClasses(context, arc, sectionStyleClasses);
+      renderStyleClasses(context, rc, sectionStyleClasses);
     }
     rw.startElement("tbody", null);
     rw.startElement("tr", null);
     rw.startElement("td", null);
-    renderStyleClass(context, arc, topStyleClass);
+    renderStyleClass(context, rc, topStyleClass);
     if (itemData != null)
     {
       appendIconAndText(
         context,
-        arc,
+        rc,
         rw,
         toString(itemData.get("icon")),
         itemData,
@@ -1581,11 +1598,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     rw.endElement("tr");
     rw.startElement("tr", null);
     rw.startElement("td", null);
-    renderStyleClass(context, arc, bottomStyleClass);
+    renderStyleClass(context, rc, bottomStyleClass);
     if (bottomContentStyleClass != null)
     {
       rw.startElement("div", null);
-      renderStyleClass(context, arc, bottomContentStyleClass);
+      renderStyleClass(context, rc, bottomContentStyleClass);
       rw.endElement("div");
     }
     rw.endElement("td");
@@ -1638,7 +1655,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   /**
    * Check if a component is on a focus path
    */
-  private static boolean _isOnFocusPath(UIXHierarchy component)
+  private static boolean _isOnFocusPath(
+    UIXHierarchy component)
   {
     boolean isOnFocusPath = false;
     Object focusKey = component.getFocusRowKey();

@@ -29,7 +29,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 /*
  * This class decodes the encoded parameter names and values for Non-JavaScript  
@@ -69,10 +69,10 @@ public class BasicHTMLBrowserRequestWrapper extends HttpServletRequestWrapper
       paramName = (String)enumeration.nextElement();
       
       // Search for name attribute that contains encoded parameters 
-      if (paramName.indexOf(TrinidadRenderingConstants.NO_JS_PARAMETER_KEY) != -1)
+      if (paramName.indexOf(XhtmlConstants.NO_JS_PARAMETER_KEY) != -1)
       {
         encodedParameterName = paramName;
-        paramDetail = paramName.split(TrinidadRenderingConstants.NO_JS_PARAMETER_KEY);
+        paramDetail = paramName.split(XhtmlConstants.NO_JS_PARAMETER_KEY);
         findSubmit = false;
       }
       
@@ -82,13 +82,13 @@ public class BasicHTMLBrowserRequestWrapper extends HttpServletRequestWrapper
       // represents the coordinate of the image that was activated. Example,
       // if the name attribute of the element is 'paramName', browser will 
       // create two parameter names like 'paramName.x' and 'paramName.y'.
-      else if (paramName.indexOf(TrinidadRenderingConstants.NO_JS_INPUT_IMAGE_KEY) != -1)
+      else if (paramName.indexOf(XhtmlConstants.NO_JS_INPUT_IMAGE_KEY) != -1)
       {
         encodedParameterName = paramName;
         
         // Remove '.x' or '.y' from the parameter name before decoding
         paramName = paramName.substring(0, paramName.length()-2);  
-        paramDetail = paramName.split(TrinidadRenderingConstants.NO_JS_INPUT_IMAGE_KEY);
+        paramDetail = paramName.split(XhtmlConstants.NO_JS_INPUT_IMAGE_KEY);
         findSubmit = false;
       }
     }
@@ -102,19 +102,19 @@ public class BasicHTMLBrowserRequestWrapper extends HttpServletRequestWrapper
       decodedParamMap.put(paramDetail[i], new String[]{ paramDetail[i + 1]});
     }
   
-    if(decodedParamMap.containsKey(TrinidadRenderingConstants.MULTIPLE_VALUE_PARAM)) 
+    if(decodedParamMap.containsKey(XhtmlConstants.MULTIPLE_VALUE_PARAM)) 
     {
       paramName  = decodedParamMap.
-                                 get(TrinidadRenderingConstants.MULTIPLE_VALUE_PARAM)[0];
+                                 get(XhtmlConstants.MULTIPLE_VALUE_PARAM)[0];
                                  
-      if (!decodedParamMap.containsKey(TrinidadRenderingConstants.SOURCE_PARAM)) 
+      if (!decodedParamMap.containsKey(XhtmlConstants.SOURCE_PARAM)) 
       {
-        decodedParamMap.put(TrinidadRenderingConstants.SOURCE_PARAM, 
+        decodedParamMap.put(XhtmlConstants.SOURCE_PARAM, 
                           new String[]{ super.getParameter(paramName)} );
       }
       else 
       {
-        decodedParamMap.put(TrinidadRenderingConstants.VALUE_PARAM,
+        decodedParamMap.put(XhtmlConstants.VALUE_PARAM,
                             new String[]{ super.getParameter(paramName)} );
       }
     }

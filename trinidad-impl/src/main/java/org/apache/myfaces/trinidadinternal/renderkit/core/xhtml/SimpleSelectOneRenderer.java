@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,34 +27,33 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-
 import org.apache.myfaces.trinidad.component.UIXSelectOne;
-
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
+
 
 /**
  */
 abstract public class SimpleSelectOneRenderer extends FormInputRenderer
 {
-  public SimpleSelectOneRenderer(FacesBean.Type type)
+  public SimpleSelectOneRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _valuePassThruKey = type.findKey("valuePassThru");
@@ -69,7 +68,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     Object submittedValue = super.getSubmittedValue(context,
                                                     component,
                                                     clientId);
-    boolean valuePassThru = getValuePassThru(getFacesBean(component));
+    boolean valuePassThru = getValuePassThru(component, getFacesBean(component));
 
     if (submittedValue == null && valuePassThru)
       submittedValue = "";
@@ -110,21 +109,22 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
    * @todo Move to utility class?
    */
   static public boolean encodeOption(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    SelectItem          item,
-    Converter           converter,
-    boolean             valuePassThru,
-    int                 index,
-    boolean             isSelected) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    SelectItem       item,
+    Converter        converter,
+    boolean          valuePassThru,
+    int              index,
+    boolean          isSelected
+    ) throws IOException
   {
     if (item == null)
       return false;
 
     if (item.isDisabled())
     {
-      if (!Boolean.TRUE.equals(arc.getAgent().getCapabilities().get(
+      if (!Boolean.TRUE.equals(rc.getAgent().getCapabilities().get(
                           TrinidadAgent.CAP_SUPPORTS_DISABLED_OPTIONS)))
         return false;
     }
@@ -172,9 +172,10 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   public Object getConvertedValue(
     FacesContext context,
     UIComponent  component,
-    Object       submittedValue) throws ConverterException
+    Object       submittedValue
+    ) throws ConverterException
   {
-    boolean valuePassThru = getValuePassThru(getFacesBean(component));
+    boolean valuePassThru = getValuePassThru(component, getFacesBean(component));
 
     if (!valuePassThru)
     {
@@ -185,7 +186,6 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
       return super.getConvertedValue(context, component, submittedValue);
     }
   }
-
 
   /**
    * Call this method only when the valuePassThru attribute on the selectOne
@@ -202,15 +202,16 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   private Object _convertIndexedSubmittedValue(
     FacesContext context,
     UIComponent  component,
-    Object       submittedValue) throws ConverterException
+    Object       submittedValue
+    ) throws ConverterException
   {
     FacesBean bean = getFacesBean(component);
-    Converter converter = getConverter(bean);
+    Converter converter = getConverter(component, bean);
     if ( converter == null)
-      converter = getDefaultConverter(context, bean);
+      converter = getDefaultConverter(context, component, bean);
 
     List<SelectItem> selectItems = getSelectItems(component, converter, true);
-    
+
     int index = __getIndex(submittedValue, selectItems);
     if (index < 0)
       return null;
@@ -231,7 +232,6 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     }
   }
 
-
   //
   // ENCODE BEHAVIOR
   //
@@ -239,35 +239,36 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
    */
   @Override
   protected void encodeAllAsElement(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    Converter converter = getConverter(bean);
+    Converter converter = getConverter(component, bean);
     if ( converter == null)
-      converter = getDefaultConverter(context, bean);
-    boolean valuePassThru = getValuePassThru(bean);
+      converter = getDefaultConverter(context, component, bean);
+    boolean valuePassThru = getValuePassThru(component, bean);
 
-    if (isAutoSubmit(bean))
-      AutoSubmitUtils.writeDependencies(context, arc);
+    if (isAutoSubmit(component, bean))
+      AutoSubmitUtils.writeDependencies(context, rc);
 
     // Only add in validators and converters when we're in valuePassThru
     // mode; otherwise, there's not enough on the client to even consider
-    FormData fData = arc.getFormData();
+    FormData fData = rc.getFormData();
     if (fData != null)
     {
       ((CoreFormData) fData).addOnSubmitConverterValidators(component,
                       valuePassThru ? converter : null,
-                      valuePassThru ? getValidators(bean) : null,
+                      valuePassThru ? getValidators(component, bean) : null,
                       getClientId(context, component),
-                      isImmediate(bean),
-                      getRequired(bean),
+                      isImmediate(component, bean),
+                      getRequired(component, bean),
                       getRequiredMessageKey());
     }
 
     List<SelectItem> selectItems = getSelectItems(component, converter, false);
-    
+
     int selectedIndex = _getSelectedIndex(context,
                                           component,
                                           bean,
@@ -276,17 +277,17 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
                                           valuePassThru);
 
     ResponseWriter writer = context.getResponseWriter();
-    boolean simple = getSimple(bean);
+    boolean simple = getSimple(component, bean);
     if (simple)
     {
       writer.startElement("span", component);
       // put the outer style class here, like af_selectOneRadio, styleClass,
       // inlineStyle, 'state' styles like p_AFDisabled, etc.
-      renderRootDomElementStyles(context, arc, component, bean);
+      renderRootDomElementStyles(context, rc, component, bean);
     }
 
     encodeElementContent(context,
-                         arc,
+                         rc,
                          component,
                          bean,
                          selectItems,
@@ -296,8 +297,8 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
 
 
 
-    if (isHiddenLabelRequired(arc))
-      renderShortDescAsHiddenLabel(context, arc, component, bean);
+    if (isHiddenLabelRequired(rc))
+      renderShortDescAsHiddenLabel(context, rc, component, bean);
 
     if (simple)
     {
@@ -305,40 +306,42 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     }
   }
 
-  abstract   protected void encodeElementContent(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean,
-    List<SelectItem>    selectItems,
-    int                 selectedIndex,
-    Converter           converter,
-    boolean             valuePassThru) throws IOException;
+  abstract protected void encodeElementContent(
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    List<SelectItem> selectItems,
+    int              selectedIndex,
+    Converter        converter,
+    boolean          valuePassThru
+    ) throws IOException;
 
   @Override
   protected void renderNonElementContent(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     // http://issues.apache.org/jira/browse/ADFFACES-151
     // Getting default converter for null value leads to exception but
     // if value of component is null than there is no need to perform
     // this method
-    if (getValue(bean) == null)
+    if (getValue(component, bean) == null)
       return;
 
-    Converter converter = getConverter(bean);
+    Converter converter = getConverter(component, bean);
     if ( converter == null)
-      converter = getDefaultConverter(context, bean);
-    boolean valuePassThru = getValuePassThru(bean);
+      converter = getDefaultConverter(context, component, bean);
+    boolean valuePassThru = getValuePassThru(component, bean);
 
     // =-=AEW If needed, this could be made more efficient
     // by iterating through the list instead of getting
     // all the items
     List<SelectItem> selectItems = getSelectItems(component, converter, false);
-    
+
     int selectedIndex = _getSelectedIndex(context,
                                           component,
                                           bean,
@@ -355,7 +358,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     }
     else
     {
-      text = getUnselectedLabel(bean);
+      text = getUnselectedLabel(component, bean);
     }
 
     context.getResponseWriter().writeText(text, null);
@@ -369,20 +372,22 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
 
   protected List<SelectItem> getSelectItems(
     UIComponent component,
-    Converter converter)
+    Converter   converter)
   {
     return getSelectItems(component, converter, false);
   }
 
   protected List<SelectItem> getSelectItems(
     UIComponent component,
-    Converter converter,
-    boolean filteredItems)
+    Converter   converter,
+    boolean     filteredItems)
   {
     return SelectItemSupport.getSelectItems(component, converter, filteredItems);
   }
 
-  protected boolean getValuePassThru(FacesBean bean)
+  protected boolean getValuePassThru(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_valuePassThruKey);
     if (o == null)
@@ -394,7 +399,9 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   /**
    * @todo Move up to all SelectOnes?
    */
-  protected String getUnselectedLabel(FacesBean bean)
+  protected String getUnselectedLabel(
+    UIComponent component,
+    FacesBean   bean)
   {
     return null;
   }
@@ -403,8 +410,8 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
    * Convert a stringified index into an index, with range-checking.
    */
   static int __getIndex(
-      Object submittedValue, 
-      List<SelectItem> selectItems)
+    Object submittedValue,
+    List<SelectItem> selectItems)
   {
     if ("".equals(submittedValue))
       return -1;
@@ -432,7 +439,8 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     }
   }
 
-  private static int countSelectItems(List<SelectItem> selectItems)
+  private static int countSelectItems(
+    List<SelectItem> selectItems)
   {
     int count = 0;
     for(SelectItem item : selectItems)
@@ -443,7 +451,8 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     return count;
   }
 
-  private static int calcItems(SelectItem item)
+  private static int calcItems(
+    SelectItem item)
   {
     if(item instanceof SelectItemGroup)
     {
@@ -466,8 +475,8 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   // Find the selected item in the list
   //
   private int _findIndex(
-      Object value, 
-      List<SelectItem> selectItems)
+    Object           value,
+    List<SelectItem> selectItems)
   {
     int size = selectItems.size();
     int result;
@@ -487,7 +496,10 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     return -1;
   }
 
-  private int resolveIndex(SelectItem item, Object value, int index)
+  private int resolveIndex(
+    SelectItem item,
+    Object     value,
+    int        index)
   {
     if(item instanceof SelectItemGroup)
     {
@@ -522,25 +534,24 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   }
 
   protected String getAutoSubmitScript(
-    RenderingContext arc,
-    FacesBean           bean)
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean)
   {
-    String source = LabelAndMessageRenderer.__getCachedClientId(arc);
-    boolean immediate = isImmediate(bean);
-    return AutoSubmitUtils.getSubmitScript(arc, source, TrinidadRenderingConstants.AUTOSUBMIT_EVENT, immediate);
+    String source = LabelAndMessageRenderer.__getCachedClientId(rc);
+    boolean immediate = isImmediate(component, bean);
+    return AutoSubmitUtils.getSubmitScript(rc, source, XhtmlConstants.AUTOSUBMIT_EVENT, immediate);
   }
 
-
-
   private int _getSelectedIndex(
-    FacesContext        context,
-    UIComponent         component,
-    FacesBean           bean,
-    List<SelectItem>    selectItems,
-    Converter           converter,
-    boolean             valuePassThru)
+    FacesContext     context,
+    UIComponent      component,
+    FacesBean        bean,
+    List<SelectItem> selectItems,
+    Converter        converter,
+    boolean          valuePassThru)
   {
-    Object submittedValue = getSubmittedValue(bean);
+    Object submittedValue = getSubmittedValue(component, bean);
     // In passthru mode, if there's a submitted value, we just
     // have to turn it into an int and range-check it
     if ((submittedValue != null) && !valuePassThru)
@@ -553,7 +564,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
       Object value;
       if (submittedValue == null)
       {
-        value = getValue(bean);
+        value = getValue(component, bean);
       }
       else
       {

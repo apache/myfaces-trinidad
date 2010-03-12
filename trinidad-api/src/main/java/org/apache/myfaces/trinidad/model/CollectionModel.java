@@ -452,7 +452,7 @@ public abstract class CollectionModel extends DataModel
 
   /**
    * Clears the row with the given index from local cache.
-   * This is a do nothing implementaion§
+   * This is a do nothing implementaion.
    * @see #clearCachedRows(int, int)
    * @param index row index for the row to remove from cache
    */

@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.component.core.CoreDocument;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
 /**
@@ -55,7 +55,7 @@ class InlineDatePickerJSP
 
     RenderingContext arc = RenderingContext.getCurrentInstance();
     arc.getPartialPageContext().addPartialTarget(
-              requestParams.get(TrinidadRenderingConstants.SOURCE_PARAM));
+              requestParams.get(XhtmlConstants.SOURCE_PARAM));
 
     CoreDocument doc = new CoreDocument();
     context.getViewRoot().getChildren().add(doc);

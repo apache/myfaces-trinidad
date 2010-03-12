@@ -24,6 +24,9 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
+import org.apache.myfaces.trinidadinternal.config.xmlHttp.XmlHttpConfigurator;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
+
 /**
  * Performs some trinidad logic and provides some hooks.
  *

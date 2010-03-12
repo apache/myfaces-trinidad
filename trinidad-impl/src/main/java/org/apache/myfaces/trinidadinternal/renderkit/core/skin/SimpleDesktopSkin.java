@@ -18,7 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
 /**
@@ -70,6 +70,6 @@ public class SimpleDesktopSkin extends BaseDesktopSkin
   @Override
   public String getRenderKitId()
   {
-    return TrinidadRenderingConstants.APACHE_TRINIDAD_DESKTOP;
+    return XhtmlConstants.APACHE_TRINIDAD_DESKTOP;
   }
 }

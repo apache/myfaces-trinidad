@@ -753,18 +753,6 @@
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[id,dateid]-->
 
       <table
@@ -1521,18 +1509,6 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[inlineStyle,null]-->
 
       <table
@@ -2290,18 +2266,6 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[shortDesc,null]-->
 
       <table
@@ -3059,18 +3023,6 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[styleClass,null]-->
 
       <table
@@ -3828,18 +3780,6 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[onclick,null]-->
 
       <table
@@ -4597,18 +4537,6 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[ondblclick,null]-->
 
       <table
@@ -5366,18 +5294,6 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[onkeydown,null]-->
 
       <table
@@ -6135,18 +6051,6 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[onkeypress,null]-->
 
       <table
@@ -6904,18 +6808,6 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[onkeyup,null]-->
 
       <table
@@ -7673,18 +7565,6 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[onmousedown,null]-->
 
       <table
@@ -8442,18 +8322,6 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[onmousemove,null]-->
 
       <table
@@ -9211,18 +9079,6 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[onmouseout,null]-->
 
       <table
@@ -9980,18 +9836,6 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[onmouseover,null]-->
 
       <table
@@ -10749,18 +10593,6 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 <!--AttributeTest[onmouseup,null]-->
 
       <table
@@ -11518,16 +11350,4 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
           </td>
         </tr>
       </table>
-      <script
-           type="text/javascript"
-          >
-        window.onload=showCombo; 
-function showCombo() { 
-_checkLoad(); 
-document.getElementById('month').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-if (document.getElementById('year') != null) {document.getElementById('year').style.cssText = 'display: inline !important; visibility: visible !important;'; 
-}return true; 
-} 
-
-      </script>
 </results>

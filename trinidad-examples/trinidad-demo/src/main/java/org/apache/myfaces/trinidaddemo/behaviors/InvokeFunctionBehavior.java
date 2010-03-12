@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -16,33 +16,30 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+package org.apache.myfaces.trinidaddemo.behaviors;
 
+import javax.faces.component.behavior.ClientBehaviorBase;
 
-package org.apache.myfaces.trinidad.component.visit;
-
-/**
- *
- * <p>An enum that specifies hints that impact
- * the behavior of a component tree visit.</p>
- *
- * @see VisitContext#getHints VisitContext.getHints()
- */
-public enum VisitHint
+// Not using annotation so that Jetty can be used un-exploded
+//@FacesBehavior("invoke-function")
+public class InvokeFunctionBehavior
+  extends ClientBehaviorBase
 {
-  /** 
-   * Hint that indicates that only the rendered subtree should be visited.
-   */
-  SKIP_UNRENDERED,
+  @Override
+  public String getRendererType()
+  {
+    return "invoke-function";
+  }
 
-  /** 
-   * Hint that indicates that only non-transient subtrees should be visited.
-   */
-  SKIP_TRANSIENT,
-  
-  /**
-   * Hint that indicates that the visit is being performed as part of
-   * lifecycle phase execution and as such phase-specific actions
-   * (initialization) may be taken.
-   */
-  EXECUTE_LIFECYCLE
+  public String getFunction()
+  {
+    return _function;
+  }
+
+  public void setFunction(String function)
+  {
+    this._function = function;
+  }
+
+  private String _function;
 }

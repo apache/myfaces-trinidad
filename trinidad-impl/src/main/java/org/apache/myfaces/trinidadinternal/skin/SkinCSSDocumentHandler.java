@@ -319,6 +319,7 @@ public class SkinCSSDocumentHandler
       {
         SkinStyleSheetNode ssNode = skinStyleSheetNodes.get(i);
         match = ssNode.matches(direction, agentMatcher, platforms, locales, accProperties);
+
         if (match)
           ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
       }
@@ -524,7 +525,7 @@ public class SkinCSSDocumentHandler
     public CompleteSelectorNode(
       String                     selectorName,
       List<PropertyNode>         propertyNodes,
-      Set<Locale>                locales,            
+      Set<Locale>                locales,
       int                        direction,
       AgentAtRuleMatcher         agentMatcher,
       int[]                      platforms,

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -55,7 +56,6 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.SortCriterion;
 import org.apache.myfaces.trinidad.render.ClientRowKeyManager;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
-import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
@@ -68,16 +68,19 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableSelec
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableSelectOneRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
 
+
 abstract public class TableRenderer extends XhtmlRenderer
 {
-  public TableRenderer(FacesBean.Type type)
+  public TableRenderer(
+    FacesBean.Type type)
   {
     super(type);
     _resourceKeyMap = createResourceKeyMap();
   }
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _widthKey  = type.findKey("width");
@@ -96,30 +99,35 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(FacesContext context, UIComponent component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
-    decodeSelection(context, component);
+    decodeSelection(facesContext, component);
 
-    Map<String, String> parameters =  
-      context.getExternalContext().getRequestParameterMap();
-    
-    String source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
-    String id = component.getClientId(context);
+    Map<String, String> parameters =
+      facesContext.getExternalContext().getRequestParameterMap();
+
+    String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+    String id = clientId == null ? component.getClientId(facesContext) : clientId;
     if (!id.equals(source))
       return;
 
     UIXTable table = (UIXTable) component;
-    Object eventParam = parameters.get(TrinidadRenderingConstants.EVENT_PARAM);
-    if (TrinidadRenderingConstants.GOTO_EVENT.equals(eventParam))
+    Object eventParam = parameters.get(XhtmlConstants.EVENT_PARAM);
+    if (XhtmlConstants.GOTO_EVENT.equals(eventParam))
     {
       _decodeGoto(table, parameters);
     }
-    else if (TrinidadRenderingConstants.HIDE_EVENT.equals(eventParam) ||
-        TrinidadRenderingConstants.SHOW_EVENT.equals(eventParam))
+    else if (XhtmlConstants.HIDE_EVENT.equals(eventParam) ||
+             XhtmlConstants.SHOW_EVENT.equals(eventParam))
     {
       _decodeHideShow(table, parameters, eventParam);
     }
-    else if (TrinidadRenderingConstants.SORT_EVENT.equals(eventParam))
+    else if (XhtmlConstants.SORT_EVENT.equals(eventParam))
     {
       _decodeSort(table, parameters);
     }
@@ -127,7 +135,9 @@ abstract public class TableRenderer extends XhtmlRenderer
     RequestContext.getCurrentInstance().addPartialTarget(table);
   }
 
-  protected final void decodeSelection(FacesContext context, UIComponent treeTable)
+  protected final void decodeSelection(
+    FacesContext context,
+    UIComponent  treeTable)
   {
     String selection = (String)
       treeTable.getAttributes().get(CoreTable.ROW_SELECTION_KEY.getName());
@@ -137,8 +147,9 @@ abstract public class TableRenderer extends XhtmlRenderer
       _selectMany.decode(context, treeTable);
   }
 
-  public static RangeChangeEvent createRangeChangeEvent(CollectionComponent table,
-                                                        int newStart)
+  public static RangeChangeEvent createRangeChangeEvent(
+    CollectionComponent table,
+    int                 newStart)
   {
     int newEnd = TableUtils.getLast(table, newStart);
 
@@ -153,18 +164,18 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   static public Set<Object> getPartialRowKeys(
     FacesContext     context,
-    RenderingContext arc, 
+    RenderingContext rc,
     UIComponent      component,
     String           clientId)
   {
     ClientRowKeyManager rowKeyManager = null;
     if (component instanceof UIXCollection)
       rowKeyManager = ((UIXCollection) component).getClientRowKeyManager();
-    
+
     Set<Object> rowKeys = null;
     String tablePrefix = clientId + NamingContainer.SEPARATOR_CHAR;
     // Search for any PPR targets that start with "<tableClientId>:"
-    PartialPageContext ppc = arc.getPartialPageContext();
+    PartialPageContext ppc = rc.getPartialPageContext();
     Iterator<String> targets = ppc.getPartialTargets();
     while (targets.hasNext())
     {
@@ -177,26 +188,26 @@ abstract public class TableRenderer extends XhtmlRenderer
         // has partial targets, but we can't process the rows individually
         if (rowKeyManager == null)
           return null;
-        
+
         // Extract the client rowkey from the clientId
         String clientRowKey = target.substring(tablePrefix.length());
         int ncIndex = clientRowKey.indexOf(NamingContainer.SEPARATOR_CHAR);
-        // If we have a target that is in the table, but is not in a 
+        // If we have a target that is in the table, but is not in a
         // particular row, just repaint the whole table
         if (ncIndex < 0)
           return null;
-        
+
         clientRowKey = clientRowKey.substring(0, ncIndex);
-        
+
         // Try to turn it into a server rowkey
         Object rowKey = rowKeyManager.getRowKey(context, component, clientRowKey);
         // if this fails, we have to process the whole table
         if (rowKey == null)
           return null;
-        
+
         // We know this row exists, and needs to be processed
         if (rowKeys == null)
-          rowKeys = new HashSet<Object>();        
+          rowKeys = new HashSet<Object>();
         rowKeys.add(rowKey);
       }
     }
@@ -210,21 +221,22 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   private static RangeChangeEvent _createRangeChangeEvent(
     CollectionComponent table,
-    int newStart,
-    int newEnd)
+    int                 newStart,
+    int                 newEnd)
   {
     int oldStart = table.getFirst();
     int oldEnd = TableUtils.getLast(table) + 1;
     return
       new RangeChangeEvent((UIComponent) table, oldStart, oldEnd, newStart, newEnd);
   }
+
    private void _decodeSort(
-    UIXTable table,
+    UIXTable            table,
     Map<String, String> parameters)
   {
-    String property = parameters.get(TrinidadRenderingConstants.VALUE_PARAM);
-    Object state = parameters.get(TrinidadRenderingConstants.STATE_PARAM);
-    boolean sortOrder = !TrinidadRenderingConstants.SORTABLE_ASCENDING.equals(state);
+    String property = parameters.get(XhtmlConstants.VALUE_PARAM);
+    Object state = parameters.get(XhtmlConstants.STATE_PARAM);
+    boolean sortOrder = !XhtmlConstants.SORTABLE_ASCENDING.equals(state);
     SortCriterion criterion = new SortCriterion(property, sortOrder);
 
     SortEvent event =
@@ -233,14 +245,14 @@ abstract public class TableRenderer extends XhtmlRenderer
   }
 
   private void _decodeGoto(
-    UIXTable table,
+    UIXTable            table,
     Map<String, String> parameters)
   {
-    String value = parameters.get(TrinidadRenderingConstants.VALUE_PARAM);
+    String value = parameters.get(XhtmlConstants.VALUE_PARAM);
     if (value != null)
     {
       final FacesEvent event;
-      if (TrinidadRenderingConstants.VALUE_SHOW_ALL.equals(value))
+      if (XhtmlConstants.VALUE_SHOW_ALL.equals(value))
       {
         int newEnd = table.getRowCount();
         if (newEnd >= 0)
@@ -271,12 +283,12 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   private void _decodeHideShow(
-    UIXTable table,
+    UIXTable            table,
     Map<String, String> parameters,
-    Object eventParam)
+    Object              eventParam)
   {
-    boolean doExpand = TrinidadRenderingConstants.SHOW_EVENT.equals(eventParam);
-    Object value = parameters.get(TrinidadRenderingConstants.VALUE_PARAM);
+    boolean doExpand = XhtmlConstants.SHOW_EVENT.equals(eventParam);
+    Object value = parameters.get(XhtmlConstants.VALUE_PARAM);
     if (value != null)
     {
       RowKeySet old = table.getDisclosedRowKeys();
@@ -305,19 +317,20 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     Set<Object> keysToRender = null;
     // See if we can skip rendering altogether
-    if (canSkipRendering(context, arc, component))
+    if (canSkipRendering(context, rc, component))
     {
       // If we're in here, then the table itself as a whole doesn't
       // need to be re-rendered - but the contents might need to be!
       keysToRender = getPartialRowKeys(context,
-                                       arc,
+                                       rc,
                                        component,
                                        getClientId(context, component));
       // getPartialRowKeys() has a weird API.  null means there are contents
@@ -333,14 +346,14 @@ abstract public class TableRenderer extends XhtmlRenderer
     }
 
     // save current skin resource map, if any, on the local property
-    Map<String, String> oldSkinResourceMap = arc.getSkinResourceKeyMap();
+    Map<String, String> oldSkinResourceMap = rc.getSkinResourceKeyMap();
 
     // store TableRenderer's skin resource map, so that called to
     // context.getTranslatedValue will get the correct key.
-    arc.setSkinResourceKeyMap(_resourceKeyMap);
+    rc.setSkinResourceKeyMap(_resourceKeyMap);
 
     TableRenderingContext tContext = createRenderingContext(context,
-                                        arc,
+                                        rc,
                                         component);
 
     try
@@ -351,27 +364,27 @@ abstract public class TableRenderer extends XhtmlRenderer
 
       rw.startElement("div", component);
       renderId(context, component);
-      renderAllAttributes(context, arc, bean);
+      renderAllAttributes(context, rc, component, bean);
 
       // If we need to render a "special" empty table, then bail.
-      if (renderTableWithoutColumns(context, arc, tContext, component))
+      if (renderTableWithoutColumns(context, rc, tContext, component))
           return;
 
       // start the outer table:
       rw.startElement(XhtmlConstants.TABLE_ELEMENT, null);
-      renderTableAttributes(context, arc, component, bean, "0", "0");
+      renderTableAttributes(context, rc, component, bean, "0", "0");
 
       RenderStage renderStage = tContext.getRenderStage();
       assert (renderStage.getStage()==RenderStage.INITIAL_STAGE);
 
       // give the table's columns a chance to initialize:
-      renderSingleRow(context, arc, tContext, component);
+      renderSingleRow(context, rc, tContext, component);
 
       // 1. render the header bars (title, controlbar and subcontrolbar)
-      renderNavigationHeaderBars(context, arc, tContext, component, bean);
+      renderNavigationHeaderBars(context, rc, tContext, component, bean);
 
       // 2. render the table content
-      renderTableContent(context, arc, tContext, component);
+      renderTableContent(context, rc, tContext, component);
 
       // end the outertable:
       rw.endElement(XhtmlConstants.TABLE_ELEMENT);
@@ -379,25 +392,25 @@ abstract public class TableRenderer extends XhtmlRenderer
 
       // gives some beans the chance to cleanup:
       renderStage.setStage(RenderStage.END_STAGE);
-      renderSingleRow(context, arc, tContext, component);
+      renderSingleRow(context, rc, tContext, component);
 
       String tid = tContext.getTableId();
-      FormData formData = arc.getFormData();
+      FormData formData = rc.getFormData();
       if (formData != null)
       {
         // Add sorting parameters.
         // =-=AdamWiner FIXME: only really needed with sorting.
-        formData.addNeededValue(TrinidadRenderingConstants.STATE_PARAM);
-        formData.addNeededValue(TrinidadRenderingConstants.VALUE_PARAM);
+        formData.addNeededValue(XhtmlConstants.STATE_PARAM);
+        formData.addNeededValue(XhtmlConstants.VALUE_PARAM);
 
         //HKuhn - no need for scripts in printable mode
-        if (supportsScripting(arc))
+        if (supportsScripting(rc))
         {
           rw.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
-          renderScriptDeferAttribute(context, arc);
+          renderScriptDeferAttribute(context, rc);
           // Bug #3426092:
           // render the type="text/javascript" attribute in accessibility mode
-          renderScriptTypeAttribute(context, arc);
+          renderScriptTypeAttribute(context, rc);
 
           String formName = formData.getName();
 
@@ -409,9 +422,9 @@ abstract public class TableRenderer extends XhtmlRenderer
 
       int first = tContext.getCollectionComponent().getFirst();
 
-      if (supportsScripting(arc))
+      if (supportsScripting(rc))
       {
-        XhtmlUtils.addLib(context, arc, "TableProxy()");
+        XhtmlUtils.addLib(context, rc, "TableProxy()");
 
         // Bug #2378405: Add a javascript variable giving the row number of
         // the first row in the displayed rowset.
@@ -434,10 +447,10 @@ abstract public class TableRenderer extends XhtmlRenderer
         if (value != 1)
         {
           rw.startElement(XhtmlConstants.SCRIPT_NAME, null);
-          renderScriptDeferAttribute(context, arc);
+          renderScriptDeferAttribute(context, rc);
           // Bug #3426092:
           // render the type="text/javascript" attribute in accessibility mode
-          renderScriptTypeAttribute(context, arc);
+          renderScriptTypeAttribute(context, rc);
           rw.writeText("window[\"_", null);
           rw.writeText(tContext.getTableId(), null);
           rw.writeText(_VALUE_FIELD_NAME, null);
@@ -456,7 +469,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     finally
     {
       // restore current skin resource map. Most likely there won't be one.
-      arc.setSkinResourceKeyMap(oldSkinResourceMap);
+      rc.setSkinResourceKeyMap(oldSkinResourceMap);
 
       if (tContext != null)
         tContext.release();
@@ -465,7 +478,10 @@ abstract public class TableRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected String getDefaultStyleClass(FacesBean bean) {
+  protected String getDefaultStyleClass(
+    UIComponent component,
+    FacesBean   bean)
+  {
     return SkinSelectors.AF_TABLE_STYLE;
   }
 
@@ -474,18 +490,18 @@ abstract public class TableRenderer extends XhtmlRenderer
    * this includes width, cellpadding, cellspacing, border.
    */
   protected void renderTableAttributes(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent  component,
-    FacesBean    bean,
-    Object       cellPadding,
-    Object       border
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    Object           cellPadding,
+    Object           border
     ) throws IOException
   {
-    Object width = getWidth(bean);
+    Object width = getWidth(component, bean);
 
     OutputUtils.renderLayoutTableAttributes(context,
-                                            arc,
+                                            rc,
                                             cellPadding,
                                             "0",    // cell spacing
                                             border,
@@ -497,20 +513,20 @@ abstract public class TableRenderer extends XhtmlRenderer
    * use for this Renderer.
    */
   protected TableRenderingContext createRenderingContext(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component
     )
   {
-    return new TableRenderingContext(context, arc, component);
+    return new TableRenderingContext(context, rc, component);
   }
 
   protected abstract void renderSingleRow(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
-    UIComponent           component) throws IOException;
-
+    UIComponent           component
+    ) throws IOException;
 
   /**
    * Render an empty table, if necessary.
@@ -520,9 +536,10 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   protected boolean renderTableWithoutColumns(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
-    UIComponent           component) throws IOException
+    UIComponent           component
+    ) throws IOException
   {
     ColumnData colData = tContext.getColumnData();
     if (colData.getColumnCount() <= 0)
@@ -539,7 +556,7 @@ abstract public class TableRenderer extends XhtmlRenderer
       writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
       writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
       writer.writeAttribute(XhtmlConstants.WIDTH_ATTRIBUTE, "30", null);
-      renderStyleClasses(context, arc,
+      renderStyleClasses(context, rc,
                          new String[]{
                            SkinSelectors.AF_COLUMN_CELL_TEXT_STYLE,
                            CellUtils.getBorderClass(
@@ -548,7 +565,7 @@ abstract public class TableRenderer extends XhtmlRenderer
                                true,
                                true)});
 
-      renderSpacer(context, arc, "30", "30");
+      renderSpacer(context, rc, "30", "30");
       writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
       writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
       writer.endElement(XhtmlConstants.TABLE_ELEMENT);
@@ -565,11 +582,11 @@ abstract public class TableRenderer extends XhtmlRenderer
   @SuppressWarnings("unchecked")
   protected int renderSpecialColumns(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
     UIComponent           treeTable,
-    int                   physicalColumnIndex)
-    throws IOException
+    int                   physicalColumnIndex
+    ) throws IOException
   {
     // renders a whole bunch of <TH>...</TH> elements, or <TD>..</TD> elements
     // depending on the RenderStage
@@ -581,7 +598,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     {
       if (hidden[i] != TableRenderingContext.NORMAL_COLUMN)
         continue;
-      
+
       UIComponent child = children.get(i);
       if (!(child instanceof UIXColumn))
         continue;
@@ -608,7 +625,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     {
       colData.setColumnIndex(physicalColumnIndex, ColumnData.SPECIAL_COLUMN_INDEX);
 
-      _renderSelectionColumn(context, arc, tContext);
+      _renderSelectionColumn(context, rc, tContext);
       physicalColumnIndex++;
     }
     // special case... render the detail column
@@ -616,7 +633,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     if (detail != null)
     {
       colData.setColumnIndex(physicalColumnIndex, ColumnData.SPECIAL_COLUMN_INDEX);
-      _renderDetailColumn(context, arc);
+      _renderDetailColumn(context, rc);
 
       physicalColumnIndex++;
     }
@@ -625,30 +642,32 @@ abstract public class TableRenderer extends XhtmlRenderer
   }
 
   private void _renderDetailColumn(
-    FacesContext          context,
-    RenderingContext   arc) throws IOException
+    FacesContext     context,
+    RenderingContext rc
+    ) throws IOException
   {
     UIComponent column = _detailRenderer.getSpecialColumn();
-    delegateRenderer(context, arc, column,
+    delegateRenderer(context, rc, column,
                      getFacesBean(column), _detailRenderer);
   }
 
   private void _renderSelectionColumn(
     FacesContext          context,
-    RenderingContext   arc,
-    TableRenderingContext tContext) throws IOException
+    RenderingContext      rc,
+    TableRenderingContext tContext
+    ) throws IOException
   {
-    Map<String, String> originalResourceKeyMap = arc.getSkinResourceKeyMap();
-    setSelectionResourceKeyMap(arc, tContext);
+    Map<String, String> originalResourceKeyMap = rc.getSkinResourceKeyMap();
+    setSelectionResourceKeyMap(rc, tContext);
     try
     {
       UIComponent column = _selectRenderer.getSpecialColumn();
-      delegateRenderer(context, arc, column,
+      delegateRenderer(context, rc, column,
                        getFacesBean(column), _selectRenderer);
     }
     finally
     {
-      arc.setSkinResourceKeyMap(originalResourceKeyMap);
+      rc.setSkinResourceKeyMap(originalResourceKeyMap);
     }
   }
 
@@ -658,19 +677,20 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   protected void renderNavigationHeaderBars(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
     UIComponent           component,
-    FacesBean           bean) throws IOException
+    FacesBean             bean
+    ) throws IOException
   {
 
     // 2. render the upper control bar - must render tableActions even
     // if table is empty
-    _renderControlBar(context, arc, tContext, component, true); //isUpper
+    _renderControlBar(context, rc, tContext, component, true); //isUpper
 
     //   render the sub control bar. we need to to this even if the table is empty
     // because we need to render the filter area. bug 3757395
-    renderSubControlBar(context, arc, tContext, component, true);
+    renderSubControlBar(context, rc, tContext, component, true);
   }
 
   /**
@@ -678,14 +698,15 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   private void _renderControlBar(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
     UIComponent           component,
-    boolean isUpper) throws IOException
+    boolean               isUpper
+    ) throws IOException
   {
     // indicate that this is a repeating region, so that beans like the
     // choiceBean can stay synchronized
-    arc.getProperties().put(TrinidadRenderingConstants.REPEAT_PROPERTY,
+    rc.getProperties().put(XhtmlConstants.REPEAT_PROPERTY,
                          Boolean.TRUE);
 
     RenderStage rs = tContext.getRenderStage();
@@ -707,68 +728,67 @@ abstract public class TableRenderer extends XhtmlRenderer
       // We only generate the navigation bar ID if the agent is IE
       // and partial rendering is enabled.
       Object id = tContext.getTableId();
-      Agent agent = arc.getAgent();
+      Agent agent = rc.getAgent();
 
       if ((agent.getAgentName() == Agent.AGENT_IE) &&
           PartialPageUtils.isPPRActive(context))
       {
         String navBarID = id.toString() + "-nb";
-        setRenderingProperty(arc, _UPPER_NAV_BAR_ID_PROPERTY, navBarID);
+        setRenderingProperty(rc, _UPPER_NAV_BAR_ID_PROPERTY, navBarID);
       }
     }
 
 
-    renderControlBar(context, arc, tContext, component);
+    renderControlBar(context, rc, tContext, component);
 
     // no longer a repeating region
-    arc.getProperties().remove(TrinidadRenderingConstants.REPEAT_PROPERTY);
+    rc.getProperties().remove(XhtmlConstants.REPEAT_PROPERTY);
 
     if (isUpper)
-      setRenderingProperty(arc, _UPPER_NAV_BAR_ID_PROPERTY, null);
+      setRenderingProperty(rc, _UPPER_NAV_BAR_ID_PROPERTY, null);
   }
-
 
   /**
    * Renders the control bar
    */
   protected abstract void renderControlBar(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
-    UIComponent           component)
-    throws IOException;
-
-
+    UIComponent           component
+    ) throws IOException;
 
   /**
    * Render sthe area with the filter and links, if necessary
    */
   protected abstract void renderSubControlBar(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
     UIComponent           component,
-    boolean isUpper) throws IOException;
-
-
-
-
+    boolean               isUpper
+    ) throws IOException;
 
   /**
    * Renders the actual table content, with headers
    */
   protected abstract void renderTableContent(
     FacesContext          context,
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext,
-    UIComponent           component) throws IOException;
+    UIComponent           component
+    ) throws IOException;
 
-  protected String getEmptyText(FacesBean bean)
+  protected String getEmptyText(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_emptyTextKey));
   }
 
-  protected Object getWidth(FacesBean bean)
+  protected Object getWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_widthKey);
   }
@@ -803,8 +823,9 @@ abstract public class TableRenderer extends XhtmlRenderer
    *   and column headers should just call
    *     ColumnGroupRenderer.getHeaderStyleClass()
    */
-  public static String getHeaderFormatClass(TableRenderingContext tContext,
-                                            boolean isColumnHeader)
+  public static String getHeaderFormatClass(
+    TableRenderingContext tContext,
+    boolean               isColumnHeader)
   {
     if (isColumnHeader)
       throw new IllegalStateException(_LOG.getMessage(
@@ -822,14 +843,14 @@ abstract public class TableRenderer extends XhtmlRenderer
    * @todo reuse these Maps!
    */
   public static void setSelectionResourceKeyMap(
-    RenderingContext   arc,
+    RenderingContext      rc,
     TableRenderingContext tContext)
   {
     if (tContext.hasSelection())
     {
-      Map<String, String> selectionColumnStylesMap = 
+      Map<String, String> selectionColumnStylesMap =
         new HashMap<String, String>();
-      
+
       // if selection is multiple-selection:
       if (tContext.hasSelectAll())
       {
@@ -845,13 +866,15 @@ abstract public class TableRenderer extends XhtmlRenderer
         selectionColumnStylesMap.put(SkinSelectors.AF_COLUMN_CELL_ICON_BAND_STYLE,
                                 SkinSelectors.AF_TABLE_SELECT_ONE_CELL_ICON_BAND_STYLE);
       }
-      arc.setSkinResourceKeyMap(selectionColumnStylesMap);
+      rc.setSkinResourceKeyMap(selectionColumnStylesMap);
     }
 
   }
 
   @Override
-  protected boolean shouldRenderId(FacesContext context, UIComponent component)
+  protected boolean shouldRenderId(
+    FacesContext context,
+    UIComponent  component)
   {
     return true;
   }
@@ -894,26 +917,32 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   static private class NavBar extends SelectRangeChoiceBarRenderer
   {
-    public NavBar(FacesBean.Type type)
+    public NavBar(
+      FacesBean.Type type)
     {
       super(type);
     }
 
     @Override
     protected void renderAllAttributes(
-      FacesContext context, RenderingContext arc, FacesBean bean)
+      FacesContext     context,
+      RenderingContext rc,
+      UIComponent      component,
+      FacesBean        bean)
     {
     }
 
     @Override
-    protected boolean getShowAll(FacesBean bean)
+    protected boolean getShowAll(
+      UIComponent component,
+      FacesBean   bean)
     {
       TableRenderingContext tContext =
         TableRenderingContext.getCurrentInstance();
-      UIComponent component = tContext.getTable();
-      if (component instanceof UIXTable)
+      UIComponent c = tContext.getTable();
+      if (c instanceof UIXTable)
       {
-        UIXTable table = (UIXTable) component;
+        UIXTable table = (UIXTable)c;
         return table.isShowAll();
       }
 
@@ -928,8 +957,7 @@ abstract public class TableRenderer extends XhtmlRenderer
         TableRenderingContext.getCurrentInstance();
       UIComponent component = tContext.getTable();
       return (component instanceof UIXTable);
-      }
-
+    }
 
     @Override
     protected String getSource()
@@ -943,7 +971,9 @@ abstract public class TableRenderer extends XhtmlRenderer
      * @todo Deal with repeating!
      */
     @Override
-    protected String getClientId(FacesContext context, UIComponent component)
+    protected String getClientId(
+      FacesContext context,
+      UIComponent  component)
     {
       TableRenderingContext tContext =
         TableRenderingContext.getCurrentInstance();
@@ -951,66 +981,80 @@ abstract public class TableRenderer extends XhtmlRenderer
     }
 
     @Override
-    protected String getVar(FacesBean bean)
+    protected String getVar(
+      UIComponent component,
+      FacesBean   bean)
     {
       return null;
     }
 
     // No support for range labels
     @Override
-    protected UIComponent getRangeLabel(UIComponent component)
+    protected UIComponent getRangeLabel(
+      UIComponent component)
     {
       return null;
     }
 
     @Override
-    protected int getRowCount(UIComponent component)
+    protected int getRowCount(
+      UIComponent component)
     {
       return ((CollectionComponent) component).getRowCount();
     }
 
     @Override
-    protected int getRowIndex(UIComponent component)
+    protected int getRowIndex(
+      UIComponent component)
     {
       return ((CollectionComponent) component).getRowIndex();
     }
 
     @Override
-    protected void setRowIndex(UIComponent component, int index)
+    protected void setRowIndex(
+      UIComponent component,
+      int         index)
     {
       ((CollectionComponent) component).setRowIndex(index);
     }
 
     @Override
-    protected boolean isRowAvailable(UIComponent component)
+    protected boolean isRowAvailable(
+      UIComponent component)
     {
       return ((CollectionComponent) component).isRowAvailable();
     }
 
     @Override
-    protected boolean isRowAvailable(UIComponent component, int rowIndex)
+    protected boolean isRowAvailable(
+      UIComponent component,
+      int         rowIndex)
     {
       return ((UIXCollection) component).isRowAvailable(rowIndex);
     }
 
     @Override
-    protected Object getRowData(UIComponent component)
+    protected Object getRowData(
+      UIComponent component)
     {
       return ((CollectionComponent) component).getRowData();
     }
 
     @Override
-    protected int getRows(UIComponent component, FacesBean bean)
+    protected int getRows(
+      UIComponent component,
+      FacesBean   bean)
     {
       return ((CollectionComponent) component).getRows();
     }
 
     @Override
-    protected int getFirst(UIComponent component, FacesBean bean)
+    protected int getFirst(
+      UIComponent component,
+      FacesBean   bean)
     {
       return ((CollectionComponent) component).getFirst();
     }
-
   }
 
   private PropertyKey _widthKey;

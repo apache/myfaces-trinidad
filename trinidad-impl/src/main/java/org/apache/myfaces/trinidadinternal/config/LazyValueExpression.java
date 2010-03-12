@@ -20,25 +20,26 @@ package org.apache.myfaces.trinidadinternal.config;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
+import javax.el.ExpressionFactory;
 import javax.el.FunctionMapper;
+import javax.el.ValueExpression;
+import javax.el.VariableMapper;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.application.ApplicationFactory;
 import javax.faces.context.FacesContext;
-import javax.el.ValueExpression;
-
-import javax.el.VariableMapper;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
- /**
-  * A ValueExpression class that lazily parses the underlying EL expression
-  * (in case the Application object is not yet available).  Unfortunately,
-  * this implementation means that errors in the syntax of the EL
-  * expression won't get detected until use.
-  *
-  */
+
+/**
+ * A ValueExpression class that lazily parses the underlying EL expression
+ * (in case the Application object is not yet available).  Unfortunately,
+ * this implementation means that errors in the syntax of the EL
+ * expression won't get detected until use.
+ *
+ */
 public class LazyValueExpression extends ValueExpression
 {
 
@@ -175,10 +176,11 @@ public class LazyValueExpression extends ValueExpression
       {
         ELContext elContext = _getELContext(application);
 
-        return
-          application.getExpressionFactory().
-            createValueExpression(elContext, expression, expectedType);
-
+        ExpressionFactory expressionFactory = application.getExpressionFactory();
+        if (expressionFactory != null)
+        {
+          return expressionFactory.createValueExpression(elContext, expression, expectedType);
+        }
       }
     }
 

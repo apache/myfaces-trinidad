@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,17 +26,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
-
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectOneListbox;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
+
 
 /**
  */
@@ -46,15 +44,16 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
   {
     this(CoreSelectOneListbox.TYPE);
   }
-  
-  public SimpleSelectOneListboxRenderer(FacesBean.Type type)
+
+  public SimpleSelectOneListboxRenderer(
+    FacesBean.Type type)
   {
     super(type);
   }
-  
 
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _sizeKey = type.findKey("size");
@@ -62,16 +61,16 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
   }
 
   static public int getListSize(
-    int     sizeAttr, 
-    int     itemCount,  
-    boolean addOne)  
+    int     sizeAttr,
+    int     itemCount,
+    boolean addOne)
   {
-   
+
     // Must have size > 1 or we'd render a choice!
     if (sizeAttr < 2)
     {
       sizeAttr = Math.min(8, Math.max(2, itemCount));
-      
+
       if (addOne)
         sizeAttr++;
     }
@@ -81,28 +80,29 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
 
   //
   // ENCODE BEHAVIOR
-  // 
+  //
   @Override
   protected void encodeElementContent(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean,
-    List<SelectItem>    selectItems,
-    int                 selectedIndex,
-    Converter           converter,
-    boolean             valuePassThru) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean,
+    List<SelectItem> selectItems,
+    int              selectedIndex,
+    Converter        converter,
+    boolean          valuePassThru
+    ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("select", component);
     renderId(context, component);
-    renderAllAttributes(context, arc, bean, false);
-    
+    renderAllAttributes(context, rc, component, bean, false);
+
     int count = (selectItems == null) ? 0 : selectItems.size();
-    String unselectedLabel = getUnselectedLabel(bean);
+    String unselectedLabel = getUnselectedLabel(component, bean);
     boolean hasUnselectedLabel = (unselectedLabel != null);
-    
-    int size = getListSize(getSize(bean), count, hasUnselectedLabel);    
+
+    int size = getListSize(getSize(component, bean), count, hasUnselectedLabel);
 
     writer.writeAttribute("size", IntegerUtils.getString(size), "size");
 
@@ -110,7 +110,7 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
     {
       SelectItem item = new SelectItem("", unselectedLabel, "", false);
       // @todo Restore the logic below
-      encodeOption(context, arc, component, item, null, true, -1, 
+      encodeOption(context, rc, component, item, null, true, -1,
                    (selectedIndex < 0));
     }
 
@@ -127,7 +127,7 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
 
           for(int j = 0; j < items.length; j++)
           {
-             encodeOption(context, arc, component, items[j], converter,
+             encodeOption(context, rc, component, items[j], converter,
                           valuePassThru, counter, selectedIndex == counter);
              counter++;
 
@@ -136,17 +136,19 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
        }
        else
        {
-          encodeOption(context, arc, component, item, converter,
+          encodeOption(context, rc, component, item, converter,
                        valuePassThru, counter, selectedIndex == counter);
           counter++;
        }
     }
-    
+
     writer.endElement("select");
   }
 
   @Override
-  protected String getUnselectedLabel(FacesBean bean)
+  protected String getUnselectedLabel(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_unselectedLabelKey));
   }
@@ -156,43 +158,49 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
    */
   @Override
   protected String getOnchange(
-    FacesBean bean
-    )
+    UIComponent component,
+    FacesBean   bean)
   {
-    String onchange = super.getOnchange(bean);
-    if (isAutoSubmit(bean))
+    String onchange = super.getOnchange(component, bean);
+    if (isAutoSubmit(component, bean))
     {
-      RenderingContext arc = RenderingContext.getCurrentInstance();
-      String auto = getAutoSubmitScript(arc, bean);
+      RenderingContext rc = RenderingContext.getCurrentInstance();
+      String auto = getAutoSubmitScript(rc, component, bean);
       return XhtmlUtils.getChainedJS(onchange, auto, true);
     }
 
     return onchange;
   }
 
-  protected int getSize(FacesBean bean)
+  protected int getSize(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_sizeKey);
     if (o == null)
       o = _sizeKey.getDefault();
     if (o == null)
       return -1;
-   
+
     return toInt(o);
   }
-  
+
   @Override
-  protected String getContentStyleClass(FacesBean bean)
+  protected String getContentStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|selectOneListbox::content";
   }
-  
+
   @Override
-  protected String getRootStyleClass(FacesBean bean)  
+  protected String getRootStyleClass(
+    UIComponent component,
+    FacesBean   bean)
   {
     return "af|selectOneListbox";
   }
-  
+
   private PropertyKey _sizeKey;
   private PropertyKey _unselectedLabelKey;
 }

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,8 +20,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.html;
 
 import java.io.IOException;
 
-import java.util.List;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -29,11 +27,9 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.html.HtmlCellFormat;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
-
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
+
 
 public class CellFormatRenderer extends XhtmlRenderer
 {
@@ -41,9 +37,10 @@ public class CellFormatRenderer extends XhtmlRenderer
   {
     super(HtmlCellFormat.TYPE);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _widthKey = type.findKey("width");
@@ -66,34 +63,35 @@ public class CellFormatRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
-    String element = isHeader(bean) ? "th" : "td";
+    String element = isHeader(component, bean) ? "th" : "td";
 
     rw.startElement(element, component);
     renderId(context, component);
-    renderAllAttributes(context, arc, bean);
-    renderHAlign(context, arc, getHalign(bean));
-    rw.writeAttribute("valign", getValign(bean), "valign");
-    rw.writeAttribute("abbr", getShortText(bean), "shortText");
-    rw.writeAttribute("headers", getHeaders(bean), "headers");
-    rw.writeAttribute("width", getWidth(bean), "width");
-    rw.writeAttribute("height", getHeight(bean), "height");
-    
-    int colspan = getColumnSpan(bean);
+    renderAllAttributes(context, rc, component, bean);
+    renderHAlign(context, rc, getHalign(component, bean));
+    rw.writeAttribute("valign", getValign(component, bean), "valign");
+    rw.writeAttribute("abbr", getShortText(component, bean), "shortText");
+    rw.writeAttribute("headers", getHeaders(component, bean), "headers");
+    rw.writeAttribute("width", getWidth(component, bean), "width");
+    rw.writeAttribute("height", getHeight(component, bean), "height");
+
+    int colspan = getColumnSpan(component, bean);
     if (colspan > 1)
       rw.writeAttribute("colspan", colspan, "columnSpan");
-    int rowspan = getRowSpan(bean);
+    int rowspan = getRowSpan(component, bean);
     if (rowspan > 1)
       rw.writeAttribute("rowspan", rowspan, "rowSpan");
-    if (isWrappingDisabled(bean))
+    if (isWrappingDisabled(component, bean))
     {
       // On PDA browser where the width is limited, nowrap will not be set.
-      if (isDesktop(arc))
+      if (isDesktop(rc))
       {
         rw.writeAttribute("nowrap", Boolean.TRUE, "wrappingDisabled");
       }
@@ -104,37 +102,51 @@ public class CellFormatRenderer extends XhtmlRenderer
     rw.endElement(element);
   }
 
-  protected Object getWidth(FacesBean bean)
+  protected Object getWidth(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_widthKey);
   }
 
-  protected Object getHeight(FacesBean bean)
+  protected Object getHeight(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_heightKey);
   }
 
-  protected Object getHalign(FacesBean bean)
+  protected Object getHalign(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_halignKey);
   }
 
-  protected Object getValign(FacesBean bean)
+  protected Object getValign(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_valignKey);
   }
 
-  protected boolean isWrappingDisabled(FacesBean bean)
+  protected boolean isWrappingDisabled(
+    UIComponent component,
+    FacesBean   bean)
   {
     return Boolean.TRUE.equals(bean.getProperty(_wrappingDisabledKey));
   }
 
-  protected Object getShortText(FacesBean bean)
+  protected Object getShortText(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_shortTextKey);
   }
 
-  protected int getColumnSpan(FacesBean bean)
+  protected int getColumnSpan(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_columnSpanKey);
     if (o == null)
@@ -143,7 +155,9 @@ public class CellFormatRenderer extends XhtmlRenderer
     return toInt(o);
   }
 
-  protected int getRowSpan(FacesBean bean)
+  protected int getRowSpan(
+    UIComponent component,
+    FacesBean   bean)
   {
     Object o = bean.getProperty(_rowSpanKey);
     if (o == null)
@@ -152,16 +166,19 @@ public class CellFormatRenderer extends XhtmlRenderer
     return toInt(o);
   }
 
-  protected Object getHeaders(FacesBean bean)
+  protected Object getHeaders(
+    UIComponent component,
+    FacesBean   bean)
   {
     return bean.getProperty(_headersKey);
   }
 
-  protected boolean isHeader(FacesBean bean)
+  protected boolean isHeader(
+    UIComponent component,
+    FacesBean   bean)
   {
     return Boolean.TRUE.equals(bean.getProperty(_headerKey));
   }
-
 
   private PropertyKey _widthKey;
   private PropertyKey _heightKey;

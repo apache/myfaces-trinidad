@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,9 +27,9 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreImage;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
+
 
 public class ImageRenderer extends XhtmlRenderer
 {
@@ -37,9 +37,10 @@ public class ImageRenderer extends XhtmlRenderer
   {
     super(CoreImage.TYPE);
   }
-  
+
   @Override
-  protected void findTypeConstants(FacesBean.Type type)
+  protected void findTypeConstants(
+    FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _imageMapTypeKey = type.findKey("imageMapType");
@@ -55,78 +56,89 @@ public class ImageRenderer extends XhtmlRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext    arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    FacesBean        bean
+    ) throws IOException
   {
-    if (canSkipRendering(context, arc, comp))
+    if (canSkipRendering(context, rc, comp))
       return;
 
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("img", comp);
-    renderId(context, arc, comp, rw);
-    renderAllAttributes(context, arc, bean);
+    renderId(context, rc, comp, rw);
+    renderAllAttributes(context, rc, comp, bean);
     rw.endElement("img");
   }
 
   @Override
   protected void renderAllAttributes(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
 
-    super.renderAllAttributes(context, arc, bean);
+    super.renderAllAttributes(context, rc, component, bean);
 
-    renderEncodedResourceURI(context, "src", getSource(bean));
-    renderEncodedActionURI(context, "longdesc", getLongDescURL(bean));
+    renderEncodedResourceURI(context, "src", getSource(component, bean));
+    renderEncodedActionURI(context, "longdesc", getLongDescURL(component, bean));
 
-    _renderImageMap(bean, rw);
+    _renderImageMap(component, bean, rw);
   }
 
   @Override
   protected void renderShortDescAttribute(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    FacesBean        bean
+    ) throws IOException
   {
-    String shortDesc = getShortDesc(bean);
+    String shortDesc = getShortDesc(component, bean);
     if (shortDesc != null)
     {
-      OutputUtils.renderAltAndTooltipForImage(context, arc,
+      OutputUtils.renderAltAndTooltipForImage(context, rc,
                                               shortDesc);
     }
   }
 
-  protected String getImageMapType(FacesBean bean)
+  protected String getImageMapType(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toString(bean.getProperty(_imageMapTypeKey));
   }
 
-  protected String getLongDescURL(FacesBean bean)
+  protected String getLongDescURL(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toActionUri(FacesContext.getCurrentInstance(),bean.getProperty(_longDescURLKey));
   }
 
-  protected String getSource(FacesBean bean)
+  protected String getSource(
+    UIComponent component,
+    FacesBean   bean)
   {
     return toResourceUri(FacesContext.getCurrentInstance(),bean.getProperty(_sourceKey));
   }
 
   protected void renderId(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    ResponseWriter      writer
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      comp,
+    ResponseWriter   writer
     ) throws IOException
   {
     super.renderId(context, comp);
 
     // only output the name if the agent supports it
     if (shouldRenderId(context, comp)
-        && CoreRendererUtils.supportsNameIdentification(arc))
+        && CoreRendererUtils.supportsNameIdentification(rc))
     {
       String clientId = getClientId(context, comp);
       writer.writeAttribute("name", clientId, null);
@@ -134,10 +146,12 @@ public class ImageRenderer extends XhtmlRenderer
   }
 
   private void _renderImageMap(
-    FacesBean           bean,
-    ResponseWriter      writer) throws IOException
+    UIComponent    component,
+    FacesBean      bean,
+    ResponseWriter writer
+    ) throws IOException
   {
-    String mType = getImageMapType(bean);
+    String mType = getImageMapType(component, bean);
     if (CoreImage.IMAGE_MAP_TYPE_SERVER.equals(mType))
       writer.writeAttribute("ismap", Boolean.TRUE, "imageMapType");
   }
