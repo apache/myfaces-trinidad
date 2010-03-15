@@ -139,7 +139,7 @@ TrRequestQueue.prototype.sendFormPost = function(
   //expando property encoded as a ResourceUrl.  As such, if the expando is available, use it
   //for PPR
   var pprURL;
-  // In mobile browsers like windows mobile ie, getAttribute funtion throws an exception if 
+  // In mobile browsers like windows mobile ie, getAttribute funtion throws an exception if
   // actionForm doesn't contain the attribute "_trinPPRAction".
   try
   {
@@ -149,7 +149,7 @@ TrRequestQueue.prototype.sendFormPost = function(
   {
   }
   var action = pprURL?pprURL:actionForm.action;
-  
+
   if (this._isMultipartForm(actionForm))
   {
     // TODO: log a warning if we're dropping any headers?  Or
@@ -587,6 +587,14 @@ TrRequestQueue.prototype._clearParamNodes = function()
   }
 }
 
+TrRequestQueue.prototype._isIFrameBlankHTML = function(iframeDoc)
+{
+  // In webkit browsers, the iframe load first with blank.html and will cause the
+  // code to incorrectly think the document is loaded when it is just the blank.html and
+  // the IFrame is still loading
+  return (_agent.isSafari && iframeDoc.documentURI == "about:blank");
+}
+
 TrRequestQueue.prototype._handleIFrameLoad = function()
 {
   var domDocument = this._getDomDocument();
@@ -607,7 +615,8 @@ TrRequestQueue.prototype._handleIFrameLoad = function()
   try
   {
     if(!iframeDoc.documentElement || !iframeDoc.documentElement.firstChild
-      || (agentIsIE && iframeDoc.readyState != "complete"))
+      || (agentIsIE && iframeDoc.readyState != "complete") ||
+      this._isIFrameBlankHTML(iframeDoc))
     {
       this._window.setTimeout(this._iframeLoadCallback, 50);
     }

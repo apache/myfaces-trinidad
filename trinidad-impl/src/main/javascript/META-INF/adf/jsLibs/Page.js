@@ -455,15 +455,16 @@ TrPage.prototype._getFirstElementFromFragment = function(fragmentNode)
 {
   // Fragment nodes contain a single CDATA section
   var fragmentChildNodes = fragmentNode.childNodes;
-  // assert((fragmentChildNodes.length == 1), "invalid fragment child count");
-
-  var cdataNode = fragmentNode.childNodes[0];
-  // assert((cdataNode.nodeType == 4), "invalid fragment content");
-  // assert(cdataNode.data, "null fragment content");
-
+  // assert((fragmentChildNodes.length == 0), "invalid fragment child count");
+  var outerHTML = "";
+  for (var i = 0, size = fragmentChildNodes.length; i < size; ++i)
+  {
   // The new HTML content is in the CDATA section.
-  // TODO: Is CDATA content ever split across multiple nodes?
-  var outerHTML = cdataNode.data;
+    if (fragmentChildNodes[i].nodeType == 4)
+    {
+      outerHTML += fragmentChildNodes[i].data;
+    }
+  }
 
   // We get our html node by slamming the fragment contents into a div.
   var doc = window.document;  
@@ -473,7 +474,6 @@ TrPage.prototype._getFirstElementFromFragment = function(fragmentNode)
   div.innerHTML = outerHTML;
   
   return TrPage._getFirstElementWithId(div);
-  
 }
 
 // Returns the first element underneath the specified dom node
