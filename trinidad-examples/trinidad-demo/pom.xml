@@ -155,7 +155,8 @@
         <plugins>
           <plugin>
             <groupId>org.mortbay.jetty</groupId>
-            <artifactId>maven-jetty-plugin</artifactId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            
             <configuration>
               <scanIntervalSeconds>10</scanIntervalSeconds>
             </configuration>
@@ -264,7 +265,7 @@
         <plugins>
           <plugin>
             <groupId>org.mortbay.jetty</groupId>
-            <artifactId>maven-jetty-plugin</artifactId>
+            <artifactId>jetty-maven-plugin</artifactId>
             <configuration>
               <webXml>${project.build.directory}/pluto-resources/web.xml</webXml>
               <webDefaultXml>src/main/webapp/WEB-INF/jetty-pluto-web-default.xml</webDefaultXml>
