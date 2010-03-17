@@ -25,6 +25,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
@@ -59,10 +62,32 @@ public class PropertyKey
 
   /**
    * Create a named PropertyKey, not attached to any type.
+   * @see #getDefaultPropertyKey
    */
   static public PropertyKey createPropertyKey(String name)
   {
     return new PropertyKey(name);
+  }
+  
+  private static final ConcurrentMap<String, PropertyKey> _sDefaultKeyCache = 
+                                            new ConcurrentHashMap<String, PropertyKey>();
+                             
+  /**
+   * Returns a named PropertyKey of type Object
+   */
+  public static PropertyKey getDefaultPropertyKey(String name)
+  {
+    PropertyKey cachedKey = _sDefaultKeyCache.get(name);
+    
+    if (cachedKey == null)
+    {
+      cachedKey = new PropertyKey(name);
+      
+      // we don't need putIfAbsent because we don't care about identity
+      _sDefaultKeyCache.put(name, cachedKey);
+    }
+    
+    return cachedKey;
   }
   
   //

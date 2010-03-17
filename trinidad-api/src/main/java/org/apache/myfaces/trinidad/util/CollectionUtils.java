@@ -44,6 +44,8 @@ import java.util.Queue;
 import java.util.RandomAccess;
 import java.util.Set;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import org.apache.myfaces.trinidad.component.CompositeIterator;
 import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -214,17 +216,43 @@ public final class CollectionUtils
    * the disjoint invariant.  If both Sets are Serializable, the returned
    * implementation will be Serializable as well.  The returned Set implementation is
    * not thread safe.
-   * @param primarySet The Set that adds will be applied to
-   * @param secondarySet The other Set
+   * @param primarySet The Set that modifications will be applied to
+   * @param secondarySet The other Set.  Modifications will be applied in response to changes
+   * to the primary set to ensure that the disjoint invariant is maintained
    * @return The composition of the two disjoint Sets
    * @throws NullPointerException of primarySet or secondarySet are <code>null</code>
+   * @see #overlappingCompositeSet
    */
   public static <T> Set<T> compositeSet(Set<T> primarySet, Set<T> secondarySet)
   {
     if ((primarySet instanceof Serializable) && (secondarySet instanceof Serializable))
-      return new SerializableFixedCompositeSet(primarySet, secondarySet);
+      return new SerializableFixedCompositeSet<T>(primarySet, secondarySet);
     else
-      return new FixedCompositeSet(primarySet, secondarySet);
+      return new FixedCompositeSet<T>(primarySet, secondarySet);
+  }
+
+  /**
+   * Given two possibly overlapping sets, returns a live composition of the two Sets.
+   * If both Sets are Serializable, the returned
+   * implementation will be Serializable as well.  The lack of the disjoint invariant makes
+   * operations such as calculating the size of the Set expensive.  If the disjoint invariant
+   * can be guaranteed, <code>compositeSet</code> should be used instead.
+   * The returned Set implementation is
+   * not thread safe.
+   * @param primarySet The Set that modifications will be applied to
+   * @param secondarySet The other Set.  If a removal is performed on the primarySet, it will
+   * also be applied to the secondarySet to ensure that the element is logically removed from the
+   * Set.
+   * @return The composition of the two possibly overallping Sets
+   * @throws NullPointerException of primarySet or secondarySet are <code>null</code>
+   * @see #compositeSet
+   */
+  public static <T> Set<T> overlappingCompositeSet(Set<T> primarySet, Set<T> secondarySet)
+  {
+    if ((primarySet instanceof Serializable) && (secondarySet instanceof Serializable))
+      return new SerializableLenientFixedCompositeSet<T>(primarySet, secondarySet);
+    else
+      return new LenientFixedCompositeSet<T>(primarySet, secondarySet);
   }
 
   /**
@@ -349,6 +377,60 @@ public final class CollectionUtils
     else
       return new CheckedSerializationMap<K,V>(map);
   }
+
+  /**
+   * Given two Collections, return the size of their union
+   * @param firstCollection The first collection.  <code>null</code> is allowed.
+   * @param secondCollection The second collection.  <code>null</code> is allowed.
+   * @return
+   */
+  public static <E> int getUnionSize(
+    Collection<? extends E> firstCollection,
+    Collection<? extends E> secondCollection)
+  {    
+    int firstSize = (firstCollection != null)
+                        ? firstCollection.size()
+                        : 0;
+    
+    int secondSize = (secondCollection != null)
+                        ? secondCollection.size()
+                        : 0;
+    
+    if (firstSize == 0)
+      return secondSize;
+    
+    if (secondSize == 0)
+      return firstSize;
+    
+    // determine the size of the union by iterating over the smaller collection
+    int size;
+    Collection<? extends E> iteratingCollection;
+    Collection<? extends E> baseCollection;
+    
+    if (firstSize >= secondSize)
+    {
+      baseCollection      = firstCollection;
+      iteratingCollection = secondCollection;
+      size                = firstSize;
+    }
+    else
+    {
+      baseCollection      = secondCollection;
+      iteratingCollection = firstCollection;
+      size                = secondSize;
+    }
+    
+    for (E currValue : iteratingCollection)
+    {
+      if (!baseCollection.contains(currValue))
+      {
+        size++;
+      }
+    }
+    
+    return size; 
+  }
+  
   
   protected static <T> T[] copyOf(T[] original, int newLength)
   {
@@ -471,7 +553,7 @@ public final class CollectionUtils
 
     public boolean isEmpty()
     {
-      return getPrimaryDelegate().isEmpty() || getSecondaryDelegate().isEmpty();
+      return getPrimaryDelegate().isEmpty() && getSecondaryDelegate().isEmpty();
     }
 
     public boolean contains(Object o)
@@ -481,8 +563,8 @@ public final class CollectionUtils
 
     public Iterator<E> iterator()
     {
-      return new CompositeIterator(getPrimaryDelegate().iterator(),
-                                   getSecondaryDelegate().iterator());
+      return new CompositeIterator<E>(getPrimaryDelegate().iterator(),
+                                      getSecondaryDelegate().iterator());
     }
 
     public Object[] toArray()
@@ -532,7 +614,16 @@ public final class CollectionUtils
 
     public boolean add(E e)
     {
-      return getPrimaryDelegate().add(e);
+      boolean modified = getPrimaryDelegate().add(e);
+      
+      if (modified)
+      {
+        // maintain disjointness.  If the secondary delegate already contained this element
+        // then we didn't really change
+        modified = !getSecondaryDelegate().remove(e);
+      }
+      
+      return modified;
     }
 
     public boolean remove(Object o)
@@ -606,6 +697,124 @@ public final class CollectionUtils
              getSecondaryDelegate() +
              "]";
     }
+  }
+  
+  /**
+   * Iterator that guarantees that removals are also performed on the non-disjoint Collection
+   * @param <E>
+   */
+  private static class RemovingIterator<E> implements Iterator<E>
+  {    
+    public RemovingIterator(Iterator<E> baseIterator, Collection<E> disjointCollection)
+    {
+      _baseIterator = baseIterator;
+      _disjointCollection = disjointCollection;
+    }
+
+    public boolean hasNext()
+    {
+      return _baseIterator.hasNext();
+    }
+    
+    public E next()
+    {
+      _last = _baseIterator.next();
+      
+      return _last;
+    }
+ 
+    public void remove()
+    {
+      _baseIterator.remove();
+      
+      // ensure that the removed element is also removed from the disjoint collection
+      // so that removing the element from the primary collection doesn't accidentally
+      // expose it in the secondary collection
+      _disjointCollection.remove(_last);
+      _last = null;
+    }
+    
+    private final Iterator<E> _baseIterator;
+    private final Collection<E> _disjointCollection;
+    private E _last;
+  }
+  
+  
+  /**
+   * Iterator returning only the elements in the disjoint Collection that aren't in the
+   * checked Collection
+   */
+  private static class DisjointIterator<E> implements Iterator<E>
+  {    
+    public DisjointIterator(Collection<E> checkedCollection, Collection<E> disjointCollection)
+    {
+      _checkedCollection = checkedCollection;
+      _disjointIterator = disjointCollection.iterator();
+    }
+
+    public boolean hasNext()
+    {
+      if (_nextHolder == null)
+      {
+        do
+        {
+          if (_disjointIterator.hasNext())
+          {
+            E next = _disjointIterator.next();
+            
+            if (!_checkedCollection.contains(next))
+            {
+              // found it
+              _nextHolder = new AtomicReference<E>(next);
+              break;
+            }
+          }
+          else
+          {
+            return false;
+          }
+        }
+        while (true);
+      }
+      
+      return true;
+    }
+
+    public E next()
+    {
+      // check if we have another value and if we do, populate _nextHolder
+      if (hasNext())
+      {
+        E value = _nextHolder.get();
+        
+        // clear so we know that we need to recalculate next time
+        _nextHolder = null;
+        return value;
+      }
+      else
+      {
+        throw new NoSuchElementException();
+      }
+    }
+
+    public void remove()
+    {
+      // make sure that have have called next() before removing.  In the case where
+      // next() has never been called, the _disjointIterator should blow up on its own.
+      // one problem we have is that this code won't work correctly if the call order
+      // is next(), hasNext(), remove(), since hasNext() calls next() as a side-effect.
+      // In this case we will throw an IllegalStateException(), which is probably
+      // preferable to removing the wrong element, which is what would happen if we
+      // didn't have the (_nextHolder == null) check.
+      if (_nextHolder == null)
+        _disjointIterator.remove();
+      else
+        throw new IllegalStateException();
+    }
+
+    private final Collection<E> _checkedCollection;
+    private final Iterator<E> _disjointIterator;
+    private AtomicReference<E> _nextHolder;
   }
   
   /**
@@ -720,6 +929,170 @@ public final class CollectionUtils
 
     private static final long serialVersionUID = 0L;
   }
+
+  /**
+   * Live composite set where both sets are allowed to be disjoint.
+   * @param <E>
+   */
+  protected abstract static class LenientCompositeSet<E> extends CompositeSet<E>
+  {
+    @Override
+    public int size()
+    {
+      return CollectionUtils.getUnionSize(getPrimaryDelegate(), getSecondaryDelegate());
+    }
+
+    @Override
+    public Iterator<E> iterator()
+    {
+      // create a CompositeIterator of the primary and secondary Sets such that all of the
+      // elements of the bigger Set are returned directly and the smaller Collection returns
+      // only the elements not present in the larger Collection
+      Set<E> primaryDelegate = getPrimaryDelegate();
+      Set<E> secondaryDelegate = getSecondaryDelegate();
+      
+      if (primaryDelegate.size() >= secondaryDelegate.size())
+      {
+        return new CompositeIterator<E>(
+                        new RemovingIterator<E>(primaryDelegate.iterator(), secondaryDelegate),
+                        new DisjointIterator<E>(primaryDelegate, secondaryDelegate));
+      }
+      else
+      {
+        return new CompositeIterator<E>(
+                        new RemovingIterator<E>(secondaryDelegate.iterator(), primaryDelegate),
+                        new DisjointIterator<E>(secondaryDelegate, primaryDelegate));
+      }
+    }
+
+    @Override
+    public boolean add(E e)
+    {
+      boolean modified = getPrimaryDelegate().add(e);
+      
+      if (modified)
+      {
+        // If the secondary delegate already contained this element
+        // then we didn't really change.  Since we don't need to maintain the disjoint
+        // property, we don't have to remove the item from the secondaryDelegate.
+        modified = !getSecondaryDelegate().contains(e);
+      }
+      
+      return modified;
+    }
+
+    @Override
+    public boolean remove(Object o)
+    {
+      // override to remove from both Sets to ensure that removing from the first
+      // doesn't cause the same value to no longer be eclipsed in the second
+      boolean removed = getPrimaryDelegate().remove(0);
+      removed |= getSecondaryDelegate().remove(0);
+      
+      return removed;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends E> c)
+    {
+      // determine the result ahead of time
+      boolean changed = !containsAll(c);
+      
+      // We don't need to remove the items from the secondaryDelegate because we don't
+      // need to maintain disjointness
+      getPrimaryDelegate().addAll(c);
+      
+      return changed;
+    }
+
+    /**
+     * Implement Set-defined equals behavior 
+     */
+    @Override
+    public int hashCode()
+    {
+      // Set defines hashCode() as additive based on the contents
+      
+      // create a CompositeIterator of the primary and secondary Sets such that all of the
+      // elements of the bigger Set are returned directly and the smaller Collection returns
+      // only the elements not present in the larger Collection
+      Set<E> primaryDelegate = getPrimaryDelegate();
+      Set<E> secondaryDelegate = getSecondaryDelegate();
+      
+      int hashCode;
+      Iterator<E> disjointElements;
+      
+      if (primaryDelegate.size() >= secondaryDelegate.size())
+      {
+        hashCode = primaryDelegate.hashCode();
+        disjointElements = new DisjointIterator<E>(primaryDelegate, secondaryDelegate);
+      }
+      else
+      {
+        hashCode = secondaryDelegate.hashCode();
+        disjointElements = new DisjointIterator<E>(secondaryDelegate, primaryDelegate);
+      }
+      
+      while (disjointElements.hasNext())
+      {
+        E currElement = disjointElements.next();
+        
+        if (currElement != null)
+          hashCode += currElement.hashCode();
+      }
+      
+      return hashCode;
+    }
+  }
+  
+  /**
+   * Concrete Composite Set that takes the two sets to compose
+   */
+  private static class LenientFixedCompositeSet<E> extends LenientCompositeSet<E>
+  {
+    LenientFixedCompositeSet(Set<E> primarySet, Set<E> secondarySet)
+    {
+      if (primarySet == null)
+        throw new NullPointerException();
+
+      if (secondarySet == null)
+        throw new NullPointerException();
+            
+      _primarySet   = primarySet;
+      _secondarySet = secondarySet;
+    }
+
+    @Override
+    protected Set<E> getPrimaryDelegate()
+    {
+      return _primarySet;
+    }
+    
+    @Override
+    protected Set<E> getSecondaryDelegate()
+    {
+      return _secondarySet;
+    }
+    
+    private final Set<E> _primarySet;
+    private final Set<E> _secondarySet;
+  }
+
+  /**
+   * Serializable version of LenientFixedCompositeSet
+   * @param <E>
+   */
+  private static final class SerializableLenientFixedCompositeSet<E> extends
+     LenientFixedCompositeSet<E> implements Serializable
+  {
+    SerializableLenientFixedCompositeSet(Set<E> primarySet, Set<E> secondarySet)
+    {
+      super(primarySet, secondarySet);
+    }
+
+    private static final long serialVersionUID = 0L;
+  }
+
 
   private static class SerializableCollection<E> extends DelegatingCollection<E>
                                                  implements Serializable
