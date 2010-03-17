@@ -110,6 +110,12 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
 
+    if (userAgent == null)
+    {
+      _populateUnknownAgentImpl(null, agent);
+      return;
+    }
+
     //the useragent string for telnet and PDA design time will start with
     //OracleJDevMobile because in each of these cases we know we have an
     //exact match in the device repository for the agent name.  This is
