@@ -71,16 +71,16 @@ public class AgentFactoryImpl implements AgentFactory
   // consulted to correctly populate the agent
   private void _populateAgentImpl(
     FacesContext facesContext,
-    Map<String, String> headerMap, 
+    Map<String, String> headerMap,
     AgentImpl agent)
   {
-  
+
     String userAgent = headerMap.get("User-Agent");
     String isEmail = null;
     if (facesContext != null)
       isEmail = facesContext.getExternalContext().getRequestParameterMap().
                         get(_EMAIL_PARAM);
- 
+
     if ("true".equals(isEmail))
     {
       _populateEmailAgentImpl(agent);
@@ -101,6 +101,12 @@ public class AgentFactoryImpl implements AgentFactory
         accept.regionMatches(true, 0, "vnd.wap.wml", 0, 11))
     {
       _populateWAPAgentImpl(agent);
+      return;
+    }
+
+    if (userAgent == null)
+    {
+      _populateUnknownAgentImpl(null, agent);
       return;
     }
 
@@ -387,7 +393,7 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setAgent(Agent.AGENT_IE);
     agentObj.setAgentVersion(version);
     agentObj.setPlatform(Agent.PLATFORM_PPC);
-    
+
     boolean narrowScreenDevice = false;
 
     if(uaPixels != null && uaPixels.length() > 0)
@@ -418,7 +424,7 @@ public class AgentFactoryImpl implements AgentFactory
       {
         agentObj.__addRequestCapability(TrinidadAgent.CAP_WIDTH,width);
         agentObj.__addRequestCapability(TrinidadAgent.CAP_HEIGHT,height);
-        
+
         if (width.intValue() < TrinidadRenderingConstants.NARROW_SCREEN_PDA_MAX_WIDTH)
         {
           narrowScreenDevice = true;
@@ -433,15 +439,15 @@ public class AgentFactoryImpl implements AgentFactory
     {
       narrowScreenDevice = true;
     }
-         
+
     if (narrowScreenDevice)
     {
-      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN, 
+      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN,
                                                                  Boolean.TRUE);
     }
     else
     {
-      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN, 
+      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN,
                                                                  Boolean.FALSE);
     }
   }
@@ -488,9 +494,9 @@ public class AgentFactoryImpl implements AgentFactory
       agentObj.setAgentVersion(version);
       agentObj.setPlatform(Agent.PLATFORM_BLACKBERRY);
       agentObj.setMakeModel(makeModel);
-      // Most of BlackBerry devices' widths are more than 240px, so 
+      // Most of BlackBerry devices' widths are more than 240px, so
       // don't consider BlackBerry as a narrow-screen PDA.
-      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN, 
+      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN,
                                                             Boolean.FALSE);
   }
 
@@ -700,7 +706,7 @@ public class AgentFactoryImpl implements AgentFactory
     // so just return. It will be handle by _populateGenricPDAImpl().
     else if (agent.indexOf("MOT-") != -1 || agent.indexOf("Nokia") != -1)
     {
-      return; 
+      return;
     }
     else
     {
@@ -897,14 +903,14 @@ public class AgentFactoryImpl implements AgentFactory
       }
     }
   }
-  
+
   /**
    * Returns an AgentEntry for the email agents like Outlook 2007 and
    * Thunderbird
    */
   private void _populateEmailAgentImpl(AgentImpl agentObj)
   {
-   
+
     agentObj.setType(Agent.TYPE_DESKTOP);
 
     agentObj.setAgent(Agent.AGENT_EMAIL);
@@ -913,7 +919,7 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
     agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
 
-  }  
+  }
 
 
   /**
