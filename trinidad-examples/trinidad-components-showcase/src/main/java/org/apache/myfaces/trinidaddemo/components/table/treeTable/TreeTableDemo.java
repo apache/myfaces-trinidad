@@ -35,7 +35,8 @@ public class TreeTableDemo extends AbstractComponentDemo {
         SingleRowSelection,
         MultipleRowSelection,
         Simple,
-        Detailed
+        Detailed,
+        PathStamp
 	}
 
 	/**
@@ -60,6 +61,11 @@ public class TreeTableDemo extends AbstractComponentDemo {
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MultipleRowSelection, "Multiple selection", this,
                 new String[]{
                         "/components/table/treeTable/treeTableMultipleRowSelection.xhtml"
+                }, getSummaryResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.PathStamp, "Path Stamp", this,
+                new String[]{
+                        "/components/table/treeTable/treeTablePathStamp.xhtml"
                 }, getSummaryResourcePath()));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
