@@ -19,8 +19,10 @@
 package org.apache.myfaces.trinidadinternal.application;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
@@ -28,6 +30,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -48,6 +53,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.Window;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.TransientHolder;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
@@ -87,6 +93,14 @@ public class StateManagerImpl extends StateManagerWrapper
    */
   static public final String CLIENT_STATE_MAX_TOKENS_PARAM_NAME =
     "org.apache.myfaces.trinidad.CLIENT_STATE_MAX_TOKENS";
+ 
+  /**
+   * Servlet context initialization parameter used by
+   * StateManagerImpl to decide whether to zip state.
+   * Valid values are true and false
+   */
+  static public final String COMPRESS_VIEW_STATE_PARAM_NAME =
+    "org.apache.myfaces.trinidadinternal.COMPRESS_VIEW_STATE";
 
   /**
    * Value indicating that only a simple token will be stored
@@ -955,7 +969,7 @@ public class StateManagerImpl extends StateManagerWrapper
   {
     private static final long serialVersionUID = 1L;
 
-    private final Object _viewState;
+    private Object _viewState;
     
     // use transient since UIViewRoots are not Serializable.
     private transient ViewRootState _cachedState;
@@ -963,19 +977,30 @@ public class StateManagerImpl extends StateManagerWrapper
     public PageState(FacesContext fc, Object viewState, UIViewRoot root)
     {
       _viewState = viewState;
-      
-      // if component tree serialization checking is on (in order to validate
-      // fail over support, attempt to Serialize all of the component state
-      //  immediately
-      if (StateUtils.checkComponentTreeStateSerialization(fc))
+     
+      boolean zipState = _zipState(fc);
+
+      if (zipState || StateUtils.checkComponentTreeStateSerialization(fc))
       {
-        try
+
+        if (zipState)
         {
-          new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(viewState);
+          // zip the page state. This will also catch any serialization problems.
+          _zipToBytes(viewState);
         }
-        catch (IOException e)
-        {          
-          throw new RuntimeException(_LOG.getMessage("COMPONENT_TREE_SERIALIZATION_FAILED"), e);
+        else
+        {
+          // if component tree serialization checking is on (in order to validate
+          // fail over support, attempt to Serialize all of the component state
+          //  immediately
+          try
+          {
+            new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(viewState);
+          }
+          catch (IOException e)
+          {          
+            throw new RuntimeException(_LOG.getMessage("COMPONENT_TREE_SERIALIZATION_FAILED"), e);
+          }
         }
       }
                   
@@ -988,6 +1013,11 @@ public class StateManagerImpl extends StateManagerWrapper
 
     public Object getViewState()
     {
+      if (_zipState(FacesContext.getCurrentInstance()))
+      {
+        return _unzipBytes((byte[])_viewState);
+      }
+      
       return _viewState;
     }
 
@@ -1062,6 +1092,146 @@ public class StateManagerImpl extends StateManagerWrapper
       
       return null;
     }    
+    
+
+    private boolean _zipState(FacesContext fc)
+    {
+      // default is false
+      Object zipStateObject = 
+                           fc.getExternalContext().getInitParameter(COMPRESS_VIEW_STATE_PARAM_NAME);
+
+      if (zipStateObject == null)
+        return false;
+
+      return zipStateObject.toString().equalsIgnoreCase("true");
+    }
+
+    private Object _unzipBytes(byte[] zippedBytes)
+    {
+      Inflater decompressor = null;
+      ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+      Map<String,Object> sessionMap  = externalContext.getSessionMap();
+        
+      try
+      {
+        //Get inflater from session cope
+        TransientHolder<Inflater> th = 
+                              (TransientHolder<Inflater>)sessionMap.remove("PAGE_STATE_INFLATER");
+        
+        if (th != null)
+        {
+          decompressor = th.getValue();
+        }
+        
+        if(decompressor == null) 
+        {
+          decompressor = new Inflater();
+        }
+        
+        decompressor.setInput(zippedBytes);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(zippedBytes.length);
+        byte[] buf = new byte[zippedBytes.length*5];
+
+        while (!decompressor.finished())
+        {
+          try
+          {
+            int count = decompressor.inflate(buf);
+            bos.write(buf, 0, count);
+          }
+          catch (DataFormatException e)
+          {
+            throw new RuntimeException(_LOG.getMessage("UNZIP_STATE_FAILED"), e); 
+          }
+        }
+
+        ByteArrayInputStream baos = new ByteArrayInputStream(bos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(baos);
+        Object unzippedState = ois.readObject();
+        ois.close();
+        return unzippedState;
+      }
+      catch(ClassNotFoundException cnfe)
+      {
+        throw new RuntimeException(_LOG.getMessage("UNZIP_STATE_FAILED"), cnfe);
+      }
+      catch(IOException ioe)
+      {
+        throw new RuntimeException(_LOG.getMessage("UNZIP_STATE_FAILED"), ioe);
+      }
+      finally 
+      {
+        //Reset and put back
+        if(decompressor != null)
+        {
+          decompressor.reset();
+          TransientHolder<Inflater> th = TransientHolder.newTransientHolder(decompressor);
+          sessionMap.put("PAGE_STATE_INFLATER", th);
+        }
+      }
+    }
+
+    private void _zipToBytes(Object state)
+    {
+      Deflater compresser = null;
+      ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+      Map<String,Object> sessionMap  = externalContext.getSessionMap();
+      
+      try
+      {
+        //Get deflater from session cope
+        TransientHolder<Deflater> th = 
+                              (TransientHolder<Deflater>)sessionMap.remove("PAGE_STATE_DEFLATER");
+        
+        if (th != null)
+        {
+          compresser = th.getValue();
+        }
+        
+        if(compresser == null) 
+        {
+          compresser = new Deflater(Deflater.BEST_SPEED);
+        }
+        
+        //Serialize state
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        
+        oos.writeObject(state);
+        oos.flush();
+        oos.close();
+
+        byte[] ret =  baos.toByteArray();
+        compresser.setInput(ret);
+        compresser.finish();
+
+        baos.reset();
+        byte[] buf = new byte[ret.length/5];
+
+        while (!compresser.finished())
+        {
+          int count = compresser.deflate(buf);
+          baos.write(buf, 0, count);
+        }
+
+        _viewState = baos.toByteArray();
+
+      }
+      catch (IOException e)
+      {
+        throw new RuntimeException(_LOG.getMessage("ZIP_STATE_FAILED"), e);
+      }
+      finally 
+      {
+        //Reset and put back
+        if(compresser != null)
+        {
+          compresser.reset();
+          TransientHolder<Deflater> th = TransientHolder.newTransientHolder(compresser);
+          sessionMap.put("PAGE_STATE_DEFLATER", th);
+        }
+      }
+    }
   }
 
   // TODO - we used to delegate to the RI when the stateManagement method was server,

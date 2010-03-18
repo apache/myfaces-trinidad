@@ -453,4 +453,11 @@
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH">The type for "{0}" prevents it from being compared to "{1}".</resource>
 
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED">Failed to zip the page state.</resource>
+
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED">Failed to unzip the page state.</resource>
+
+
 </resources>
