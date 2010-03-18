@@ -173,13 +173,13 @@ public class MessageRenderer extends ValueRenderer
             forId + "::msg", null);
 
       renderAllAttributes(context, arc, bean, false);
-      renderStyleAttributes(context, arc, bean, isError ?
-          SkinSelectors.INLINE_ERROR_TEXT_STYLE_CLASS :
-            SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS);
 
       if (hasMessage)
       {
-        // Output the server-side message
+        // Output the server-side message and it's style attributes
+        renderStyleAttributes(context, arc, bean, isError ?
+            SkinSelectors.INLINE_ERROR_TEXT_STYLE_CLASS :
+                SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS);          
         renderPossiblyFormattedText(context, message);
       }
       else
