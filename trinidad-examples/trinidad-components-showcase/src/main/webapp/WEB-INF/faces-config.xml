@@ -118,33 +118,12 @@
         <managed-bean-scope>none</managed-bean-scope>
     </managed-bean>
 
-
     <managed-bean>
         <managed-bean-name>tableColumn</managed-bean-name>
         <managed-bean-class>
-            java.util.ArrayList
-        </managed-bean-class>
-        <managed-bean-scope>
-            application
-        </managed-bean-scope>
-        <list-entries>
-            <value-class>
-                org.apache.myfaces.trinidaddemo.components.table.column.TableColumnBean
-            </value-class>
-            <value>#{tableColumnRowBean}</value>
-            <value>#{tableColumnRowBean}</value>
-            <value>#{tableColumnRowBean}</value>
-            <value>#{tableColumnRowBean}</value>
-            <value>#{tableColumnRowBean}</value>
-        </list-entries>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>tableColumnRowBean</managed-bean-name>
-        <managed-bean-class>
             org.apache.myfaces.trinidaddemo.components.table.column.TableColumnBean
         </managed-bean-class>
-        <managed-bean-scope>none</managed-bean-scope>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
@@ -218,7 +197,6 @@
             <renderer-type>org.apache.myfaces.trinidad.OutputSource</renderer-type>
             <renderer-class>org.apache.myfaces.trinidaddemo.support.jsf.OutputSourceRenderer</renderer-class>
         </renderer>
-
     </render-kit>
 
     <navigation-rule>

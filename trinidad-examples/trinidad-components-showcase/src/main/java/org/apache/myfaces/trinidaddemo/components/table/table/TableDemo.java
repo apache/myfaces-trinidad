@@ -34,6 +34,7 @@ public class TableDemo extends AbstractComponentDemo {
 		NoGridLines,
         SingleRowSelection,
         MultipleRowSelection,
+        ShowHide,
         Pagination
 	}
 
@@ -49,22 +50,27 @@ public class TableDemo extends AbstractComponentDemo {
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoGridLines, "No grid lines", this,
                 new String[]{
                         "/components/table/table/tableNoGridLines.xhtml"
-                }, getSummaryResourcePath()));
+                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.SingleRowSelection, "Single Row Selection", this,
                 new String[]{
                         "/components/table/table/tableSingleRowSelection.xhtml"
-                }, getSummaryResourcePath()));
+                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MultipleRowSelection, "Multiple Row Selection", this,
                 new String[]{
                         "/components/table/table/tableMultipleRowSelection.xhtml"
-                }, getSummaryResourcePath()));
+                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ShowHide, "Show / Hide", this,
+                new String[]{
+                        "/components/table/table/tableShowHide.xhtml"
+                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Pagination, this,
                 new String[]{
                         "/components/table/table/tablePaginated.xhtml"
-                }, getSummaryResourcePath()));
+                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
 	}
 
     public String getSummaryResourcePath() {
