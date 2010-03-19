@@ -28,31 +28,36 @@
         <tr:outputText value="The monarchs of England, from House of Stuart(restored) are:"/>
         <tr:spacer height="15px"/>
         <tr:table width="100%" emptyText="No data available." value="#{tableColumn.monarchs}" var="row">
-            <tr:column align="center">
+            <f:facet name="detailStamp">
+                <tr:panelHorizontalLayout>
+                    <tr:spacer width="55" height="5"/>
+                    <tr:outputText value="#{row.details}" inlineStyle="color:#A49B90"/>
+                </tr:panelHorizontalLayout>
+            </f:facet>
+            <tr:column >
                 <f:facet name="header">
                     <tr:outputText value="Id"/>
                 </f:facet>
                 <tr:outputText value="#{row.id}"/>
             </tr:column>
-            <tr:column align="center">
+            <tr:column>
                 <f:facet name="header">
                     <tr:outputText value="Name"/>
                 </f:facet>
                 <tr:outputText value="#{row.name}"/>
             </tr:column>
-            <tr:column align="center">
+            <tr:column>
                 <f:facet name="header">
                     <tr:outputText value="Birth"/>
                 </f:facet>
                 <tr:outputText value="#{row.birth}"/>
             </tr:column>
-            <tr:column align="center">
+            <tr:column>
                 <f:facet name="header">
                     <tr:outputText value="Death"/>
                 </f:facet>
                 <tr:outputText value="#{row.death}"/>
             </tr:column>
         </tr:table>
-
     </ui:define>
 </ui:composition>
