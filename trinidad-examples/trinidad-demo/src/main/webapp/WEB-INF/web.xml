@@ -29,13 +29,6 @@
     <param-value>Development</param-value>
   </context-param>
 
-  <!-- *IF* we execute this demo in JSF2 / JavaEE 6 env, we want to use
-       the "OLD" Facelet version -->
-  <context-param>
-    <param-name>javax.faces.DISABLE_FACELET_JSF_VIEWHANDLER</param-name>
-    <param-value>true</param-value>
-  </context-param>
-
   <context-param>
     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
     <param-value>.jspx</param-value>
@@ -74,10 +67,10 @@
 
   <!-- Trinidad by default uses an optimized client-side state saving
        mechanism. To disable that, uncomment the following -->
-  <!--context-param>
+  <context-param>
     <param-name>org.apache.myfaces.trinidad.CLIENT_STATE_METHOD</param-name>
-    <param-value>all</param-value>
-  </context-param-->
+    <param-value>token</param-value>
+  </context-param>
 <!-- When token client-side state saving is enabled, MyFaces Trinidad can apply an additional
      optimization by caching an entire UIViewRoot tree with each token. 
      (Note that this does not affect thread safety or session failover.) 
@@ -107,9 +100,8 @@
 
   <context-param>
     <param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
-    <param-value>*.xhtml</param-value>
     <!-- to run facelets for jspx files comment the line above and uncomment line below-->
-    <!--param-value>*.xhtml;*.jspx</param-value-->
+    <param-value>*.xhtml;*.jspx</param-value>
   </context-param>
 
   <context-param>

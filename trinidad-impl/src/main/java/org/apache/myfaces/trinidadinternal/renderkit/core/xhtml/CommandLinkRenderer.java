@@ -77,7 +77,7 @@ public class CommandLinkRenderer extends GoLinkRenderer
       Map<String, String> parameterMap =
         facesContext.getExternalContext().getRequestParameterMap();
 
-      Object source = parameterMap.get("source");
+      Object source = parameterMap.get("javax.faces.source");
       if (clientId == null)
       {
         clientId = component.getClientId(facesContext);
