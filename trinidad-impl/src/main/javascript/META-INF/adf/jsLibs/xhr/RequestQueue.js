@@ -61,7 +61,9 @@ TrRequestQueue._RequestItem = function(
   headerParams,
   content,
   method,
-  event
+  event,
+  source,
+  formId
   )
 {
   this._type = type;
@@ -71,6 +73,8 @@ TrRequestQueue._RequestItem = function(
   this._content = content;
   this._method = method;
   this._event = event;
+  this._source = source;
+  this._formId = formId;
 }
 
 TrRequestQueue.prototype._broadcastRequestStatusChanged = function(
@@ -98,11 +102,14 @@ TrRequestQueue.prototype._addRequestToQueue = function(
   actionURL,
   content,
   headerParams,
-  event
+  event,
+  source,
+  formId
   )
 {
   var newRequest = new TrRequestQueue._RequestItem(
-                          type, context, actionURL, headerParams, content, listener, event);
+                          type, context, actionURL, headerParams, content,
+                          listener, event, source, formId);
 
   if (this._useJsfBuiltInAjaxForXhr && type == TrRequestQueue._XMLHTTP_TYPE)
   {
@@ -120,7 +127,8 @@ TrRequestQueue.prototype._addRequestToQueue = function(
   {
     var dtsRequestEvent = new TrXMLRequestEvent(
                     TrXMLRequestEvent.STATUS_QUEUED,
-                    null); // no xmlhttp object at this time
+                    null, // no xmlhttp object at this time
+                    source);
 
     this._broadcastRequestStatusChanged(context, listener, dtsRequestEvent);
   }
@@ -163,10 +171,8 @@ TrRequestQueue.prototype.sendFormPost = function(
   {
     pprURL = actionForm.getAttribute("_trinPPRAction");
   }
-  catch (e)
-  {
-  }
-  var action = pprURL?pprURL:actionForm.action;
+  catch (e) { ; }
+  var action = pprURL ? pprURL : actionForm.action;
 
   if (this._isMultipartForm(actionForm))
   {
@@ -187,12 +193,14 @@ TrRequestQueue.prototype.sendFormPost = function(
       // gather the form values
       // TODO: log a warning if we're dropping any headers?  Or
       // come up with a hack to send "headers" via a multipart request?
-      this.sendRequest(context, method, action, params, headerParams, event);
+      this.sendRequest(context, method, action, params, headerParams, event,
+        params ? params.source : null, actionForm.id);
     }
     else
     {
       var content = this._getPostbackContent(actionForm, params);
-      this.sendRequest(context, method, action, content, headerParams, event);
+      this.sendRequest(context, method, action, content, headerParams, event,
+        params ? params.source : null, actionForm.id);
     }
   }
 }
@@ -385,6 +393,8 @@ TrRequestQueue._appendUrlFormEncoded = function(
 * @param headerParams Option HTTP header parameters to attach to the request
 * @param content The content of the Asynchronous XML HTTP Post
 * @param event The browser event that triggered the request, if any
+* @param source The ID of the source element for the request
+* @param formId The ID of the form element
 */
 TrRequestQueue.prototype.sendRequest = function(
   context,
@@ -392,11 +402,13 @@ TrRequestQueue.prototype.sendRequest = function(
   actionURL,
   content,
   headerParams,
-  event
+  event,
+  source,
+  formId
   )
 {
   this._addRequestToQueue(TrRequestQueue._XMLHTTP_TYPE, context, method, actionURL, content,
-    headerParams, event);
+    headerParams, event, source, formId);
 }
 
 /**
@@ -420,9 +432,9 @@ TrRequestQueue.prototype.sendMultipartRequest = function(
   var privateContext =
      {"htmlForm":htmlForm, "params": params, "context": context, "method": method};
 
-  this._addRequestToQueue(TrRequestQueue._MULTIPART_TYPE, privateContext, null, actionURL);
+  this._addRequestToQueue(TrRequestQueue._MULTIPART_TYPE, privateContext, null, actionURL,
+    params ? params.source : null, htmlForm.id);
 }
-
 
 TrRequestQueue.prototype._doRequest = function()
 {
@@ -455,6 +467,9 @@ TrRequestQueue.prototype._doXmlHttpRequest = function(requestItem)
 
   xmlHttp.__dtsRequestContext = requestItem._context;
   xmlHttp.__dtsRequestMethod = requestItem._method;
+  xmlHttp.__dtsRequestSource = requestItem._source;
+  xmlHttp.__dtsRequestFormId = requestItem._formId;
+
   var callback = TrUIUtils.createCallback(this, this._handleRequestCallback);
   xmlHttp.setCallback(callback);
 
@@ -532,9 +547,12 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
     iframeDoc.removeChild(iframeDoc.firstChild);
 
   // store our context variables for later use
+  this._source = requestItem.params ?
+    requestItem.params["javax.faces.source"] : null;
   this._dtsContext = requestItem._context.context;
   this._dtsRequestMethod = requestItem._context.method;
   this._htmlForm = htmlForm;
+  this._dtsSource = requestItem._source;
   this._savedActionUrl = htmlForm.action;
   this._savedTarget = htmlForm.target;
 
@@ -547,14 +565,20 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
   htmlForm.target = frameName;
 
   this._appendParamNode(domDocument, htmlForm, "Tr-XHR-Message", "true");
-  // FIXME: the "partial" parameter is unnecessary
-  this._appendParamNode(domDocument, htmlForm, "partial", "true");
+  this._appendParamNode(domDocument, htmlForm, "javax.faces.partial.ajax", "true");
 
   if(params)
   {
+    if (params.source)
+    {
+      // Translate to JSF 2 payload
+      params["javax.faces.source"] = params.source;
+      delete params.source;
+    }
     for (var key in params)
     {
-      this._appendParamNode(domDocument, htmlForm, key, params[key]);
+      var paramValue = params[key];
+      this._appendParamNode(domDocument, htmlForm, key, paramValue);
     }
   }
 
@@ -631,6 +655,14 @@ TrRequestQueue.prototype._clearParamNodes = function()
   }
 }
 
+TrRequestQueue.prototype._isIFrameBlankHTML = function(iframeDoc)
+{
+  // In webkit browsers, the iframe load first with blank.html and will cause the
+  // code to incorrectly think the document is loaded when it is just the blank.html and
+  // the IFrame is still loading
+  return (_agent.isSafari && iframeDoc.documentURI == "about:blank");
+}
+
 TrRequestQueue.prototype._handleIFrameLoad = function()
 {
   var domDocument = this._getDomDocument();
@@ -651,7 +683,8 @@ TrRequestQueue.prototype._handleIFrameLoad = function()
   try
   {
     if(!iframeDoc.documentElement || !iframeDoc.documentElement.firstChild
-      || (agentIsIE && iframeDoc.readyState != "complete"))
+      || (agentIsIE && iframeDoc.readyState != "complete") ||
+      this._isIFrameBlankHTML(iframeDoc))
     {
       this._window.setTimeout(this._iframeLoadCallback, 50);
     }
@@ -679,7 +712,9 @@ TrRequestQueue.prototype._onIFrameLoadComplete = function(
   try
   {
     var dtsRequestEvent = new TrIFrameXMLRequestEvent(
-                              iframeDoc);
+                              iframeDoc,
+                              this._dtsSource,
+                              this._htmlForm.id);
 
     this._broadcastRequestStatusChanged(context, requestMethod,dtsRequestEvent);
   }
@@ -690,6 +725,7 @@ TrRequestQueue.prototype._onIFrameLoadComplete = function(
       iframeDoc.removeChild(iframeDoc.firstChild);
     this._htmlForm.action = this._savedActionUrl;
     this._htmlForm.target = this._savedTarget;
+    delete this._dtsSource;
     //clear the parameter nodes
     this._clearParamNodes();
     this._requestDone();
@@ -719,7 +755,7 @@ TrRequestQueue.prototype._handleRequestCallback = function(
     // the Http connection  has been closed
   }
 
-  if ((status < 200 || status >= 300) && (statusCode != 0))
+  if ((statusCode < 200 || statusCode >= 300) && (statusCode != 0))
   {
     TrRequestQueue._alertError();
     TrRequestQueue._logError("Error StatusCode(",
@@ -734,7 +770,9 @@ TrRequestQueue.prototype._handleRequestCallback = function(
     {
       var dtsRequestEvent = new TrXMLRequestEvent(
                   TrXMLRequestEvent.STATUS_COMPLETE,
-                  xmlHttp);
+                  xmlHttp,
+                  xmlHttp.__dtsRequestSource,
+                  xmlHttp.__dtsRequestFormId);
       this._broadcastRequestStatusChanged(
         xmlHttp.__dtsRequestContext,
         xmlHttp.__dtsRequestMethod,
@@ -840,6 +878,11 @@ TrRequestQueue.prototype.getDTSState = function()
   return this._state;
 }
 
+TrRequestQueue.prototype.__useJsfBuiltInAjaxForXhr = function()
+{
+  return this._useJsfBuiltInAjaxForXhr;
+}
+
 /**
  * broadcast the state change of the request queue to its listeners
  */
@@ -905,6 +948,9 @@ TrRequestQueue._logWarning = function(varArgs)
 TrRequestQueue._logError = function(varArgs)
 {
   if (window.console && console.error)
+  {
     console.error(arguments);
+  }
+
   // else???
 }

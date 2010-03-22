@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,6 +27,8 @@ import javax.faces.event.ValueChangeEvent;
 
 import org.apache.myfaces.trinidad.component.UIXOutput;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.model.UploadedFile;
+
 
 public class PartialDemoUtilBean
 {
@@ -114,11 +116,36 @@ public class PartialDemoUtilBean
     Object newValue = vce.getNewValue();
     if ((newValue != null) && !"".equals(newValue))
     {
-      FacesContext fContext = FacesContext.getCurrentInstance(); 
-      ViewHandler vh = fContext.getApplication().getViewHandler(); 
-      UIViewRoot root = vh.createView(fContext, newValue.toString()); 
-      fContext.setViewRoot(root); 
+      FacesContext fContext = FacesContext.getCurrentInstance();
+      ViewHandler vh = fContext.getApplication().getViewHandler();
+      UIViewRoot root = vh.createView(fContext, newValue.toString());
+      fContext.setViewRoot(root);
     }
+  }
+
+  public void setRenderInputFile(boolean renderInputFile)
+  {
+    this._renderInputFileTemp = renderInputFile;
+  }
+
+  public boolean isRenderInputFile()
+  {
+    Boolean value = (Boolean)
+      FacesContext.getCurrentInstance().getViewRoot().getViewMap().get(
+        _RENDER_INPUT_FILE_KEY);
+    return value != null && value;
+  }
+
+  public void fileUploaded(ValueChangeEvent event)
+  {
+    _status.setUploadFile((UploadedFile) event.getNewValue());
+  }
+
+  public void updateRenderInputFileState(ActionEvent event)
+  {
+    FacesContext.getCurrentInstance().getViewRoot().getViewMap().put(
+      _RENDER_INPUT_FILE_KEY, _renderInputFileTemp);
+    _renderInputFileTemp = null;
   }
 
   private void _resetList()
@@ -135,4 +162,7 @@ public class PartialDemoUtilBean
 
   private PartialDemoStatusBean _status;
   private UIXOutput _listUpdate;
+  private Boolean _renderInputFileTemp;
+  private final static String _RENDER_INPUT_FILE_KEY = PartialDemoUtilBean.class.getName() +
+                                                       ".renderInputFile";
 }

@@ -18,13 +18,13 @@
  */
 function TrPage()
 {
-  if (typeof jsf != "undefined")
+  this._loadedLibraries = TrPage._collectLoadedLibraries();
+  this._requestQueue = new TrRequestQueue(window);
+
+  if (this._requestQueue.__useJsfBuiltInAjaxForXhr())
   {
     jsf.ajax.addOnEvent(TrUIUtils.createCallback(this, this._jsfAjaxCallback));
   }
-
-  this._loadedLibraries = TrPage._collectLoadedLibraries();
-  this._requestQueue = new TrRequestQueue(window);
 }
 
 /**
@@ -37,6 +37,38 @@ TrPage.getInstance = function()
 
   return TrPage._INSTANCE;
 }
+
+TrPage._MockXHR = function(requestEvent)
+{
+  this.UNSENT = 0;
+  this.OPENED = 1;
+  this.HEADERS_RECEIVED = 2;
+  this.LOADING = 3;
+  this.DONE = 4;
+  this.readyState = this.DONE;
+  this.status = requestEvent.getResponseStatusCode();
+  this.statusText = "";
+  this._requestEvent = requestEvent;
+  this.responseText = requestEvent.getResponseText();
+  this.responseXML = requestEvent.getResponseXML();
+}
+
+// Unsupported API methods that require a return value:
+TrPage._MockXHR.prototype.getResponseHeader = function(header)
+{
+  return this._requestEvent.getResponseHeader(header);
+}
+
+TrPage._MockXHR.prototype.getAllResponseHeaders = function()
+{
+  return this._requestEvent._getAllResponseHeaders();
+}
+
+// No-op API methods:
+TrPage._MockXHR.prototype.open =
+TrPage._MockXHR.prototype.setRequestHeader =
+TrPage._MockXHR.prototype.send =
+TrPage._MockXHR.prototype.abort = function () {};
 
 /**
  * Return the shared request queue for the page.
@@ -97,7 +129,7 @@ TrPage.prototype._requestStatusChanged = function(requestEvent)
           }
           else
           {
-            this._handlePprResponse(responseDocument.documentElement);
+            this._handlePprResponse(requestEvent, responseDocument);
           }
         }
       }
@@ -169,11 +201,50 @@ TrPage.prototype._handleJsfAjaxResponse = function(requestEvent)
   }
 }
 
-TrPage.prototype._handlePprResponse = function(documentElement)
+/**
+ * Method to bridge compatibility between the Trinidad IFrame-PPR implementation
+ * an the JSF 2 AJAX javascript API
+ */
+TrPage.prototype._delegateResponseToJsfAjax = function(requestEvent, document)
 {
-  var rootNodeName = TrPage._getNodeName(documentElement);
+console.log("_delegateResponseToJsfAjax");
+  // We wish to have JSF 2 handle the response. In order to do that we need to
+  // construct the necessary parameters for the jsf.ajax.response method.
+  //
+  // The first parameter is the XHR object, so we must wrap the response in such
+  // a way that JSF 2 believes the data to be coming from an XHR object
+  //
+  var request = new TrPage._MockXHR(requestEvent);
 
-  if (rootNodeName == "content")
+  // The second parameter is the context object which is the request context object
+  // containing the source element, onerror callback, and onevent callback.
+  var source = requestEvent.getSource();
+  if (source)
+  {
+    source = document.getElementById(source);
+  }
+  var context =
+  {
+    "onevent": null,
+    "onerror": null,
+    "source": source,
+    "formid": requestEvent.getFormId(),
+    "render": null
+  };
+
+  jsf.ajax.response(request, context);
+}
+
+TrPage.prototype._handlePprResponse = function(requestEvent, document)
+{
+  if (this._requestQueue.__useJsfBuiltInAjaxForXhr())
+  {
+    return this._delegateResponseToJsfAjax(requestEvent, document);
+  }
+console.log("_handlePprResponse");
+  var documentElement = document.documentElement;
+  var rootNodeName = TrPage._getNodeName(documentElement);
+  if (rootNodeName == "partial-response")
   {
     // Update the form action
     this._handlePprResponseAction(documentElement);
@@ -184,40 +255,51 @@ TrPage.prototype._handlePprResponse = function(documentElement)
     for (var i = 0; i < length; i++)
     {
       var childNode = childNodes[i];
-      var childNodeName = TrPage._getNodeName(childNode);
 
-      if (childNodeName == "fragment")
+      switch (TrPage._getNodeName(childNode))
       {
-        this._handlePprResponseFragment(childNode);
-      }
-      else if (childNodeName == "script")
-      {
-        this._handlePprResponseScript(childNode);
-      }
-      else if (childNodeName == "script-library")
-      {
-        this._handlePprResponseLibrary(childNode);
+        case "changes":
+          for (var j = 0, size = childNode.childNodes.length; j < size; ++j)
+          {
+            var changeNode = childNode.childNodes[j];
+            switch (TrPage._getNodeName(changeNode))
+            {
+              case "update":
+                this._handlePprResponseFragment(changeNode);
+                break;
+
+              case "eval":
+                this._handlePprResponseScript(changeNode);
+                break;
+
+              case "extension":
+                for (var k = 0, extsize = changeNode.childNodes.length; k < extsize; ++k)
+                {
+                  if (changeNode.childNodes[k].nodeName == "script-library")
+                  {
+                    this._handlePprResponseLibrary(changeNode.childNodes[k]);
+                  }
+                }
+                break;
+
+              // Do not support the new updates with the Trinidad legacy fallback code:
+              default: break;
+            }
+          }
+          break;
+        case "error":
+          var nodeText = TrPage._getTextContent(childNode.nextSibling.firstChild);
+          // This should not happen - there should always be an error message
+          if (nodeText == null)
+            nodeText = "Unknown error during PPR";
+          alert(nodeText);
+          return;
+        case "redirect":
+          var url = TrPage._getTextContent(childNode);
+          // TODO: fix for portlets???
+          window.location.href = url;
       }
     }
-  }
-  else if (rootNodeName == "redirect")
-  {
-    var url = TrPage._getTextContent(documentElement);
-    // TODO: fix for portlets???
-    window.location.href = url;
-  }
-  else if (rootNodeName == "error")
-  {
-    var nodeText = TrPage._getTextContent(documentElement);
-    // This should not happen - there should always be an error
-    // message
-    if (nodeText == null)
-      nodeText = "Unknown error during PPR";
-    alert(nodeText);
-  }
-  else if (rootNodeName == "noop")
-  {
-    // No op
   }
   else
   {
@@ -380,7 +462,11 @@ TrPage.prototype._handlePprResponseFragment = function(fragmentNode)
     if (!firstFragmenChildNode)
        return;
 
-    var outerHTML = firstFragmenChildNode.data;
+    var outerHTML = "";
+    for (var i = 0, size = fragmentNode.childNodes.length; i < size; ++i)
+    {
+      outerHTML += fragmentNode.childNodes[i].data;
+    }
 
     // Windows Mobile 6 requires the element to be a child of
     // document.body to allow setting its innerHTML property.
@@ -519,15 +605,17 @@ TrPage.prototype._getFirstElementFromFragment = function(fragmentNode)
 {
   // Fragment nodes contain a single CDATA section
   var fragmentChildNodes = fragmentNode.childNodes;
-  // assert((fragmentChildNodes.length == 1), "invalid fragment child count");
 
-  var cdataNode = fragmentNode.childNodes[0];
-  // assert((cdataNode.nodeType == 4), "invalid fragment content");
-  // assert(cdataNode.data, "null fragment content");
-
-  // The new HTML content is in the CDATA section.
-  // TODO: Is CDATA content ever split across multiple nodes?
-  var outerHTML = cdataNode.data;
+  // assert((fragmentChildNodes.length == 0), "invalid fragment child count");
+  var outerHTML = "";
+  for (var i = 0, size = fragmentChildNodes.length; i < size; ++i)
+  {
+    // The new HTML content is in the CDATA section.
+    if (fragmentChildNodes[i].nodeType == 4)
+    {
+      outerHTML += fragmentChildNodes[i].data;
+    }
+  }
 
   // We get our html node by slamming the fragment contents into a div.
   var doc = window.document;
@@ -537,14 +625,12 @@ TrPage.prototype._getFirstElementFromFragment = function(fragmentNode)
   div.innerHTML = outerHTML;
 
   return TrPage._getFirstElementWithId(div);
-
 }
 
 // Returns the first element underneath the specified dom node
 // which has an id.
 TrPage._getFirstElementWithId = function(domNode)
 {
-
   var childNodes = domNode.childNodes;
   var length = childNodes.length;
 

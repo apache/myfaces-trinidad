@@ -69,7 +69,7 @@ function setFocus(event)
         </trh:script>
       </tr:group>
     </f:facet>
-    <tr:form>
+    <tr:form usesUpload="#{partialDemoUtil.renderInputFile}" partialTriggers="ifsbc1">
       <tr:panelPage>
         <f:facet name="navigationGlobal">
           <tr:panelGroupLayout id="pgl1" layout="horizontal">
@@ -228,6 +228,31 @@ function setFocus(event)
                   <trd:invokeFunctionBehavior function="setFocus" event="mousedown" />
                 </tr:commandButton>
                 <tr:statusIndicator id="si5" />
+              </tr:panelGroupLayout>
+            </tr:panelHeader>
+            <tr:panelHeader text="Input File / Multi-part form demonstration">
+              <tr:outputFormatted styleUsage="instruction"
+                                  value="This section will add a input file to the page so that a multi-part submission is made which will bypass the JSF 2 AJAX and fall back on Trinidad PPR code." />
+              <tr:panelGroupLayout id="ifpgl1" layout="horizontal">
+                <f:facet name="separator">
+                  <tr:spacer width="10" id="ifsp1"/>
+                </f:facet>
+                <tr:selectBooleanCheckbox id="ifsbc1" value="#{partialDemoUtil.renderInputFile}" />
+                <tr:commandButton id="ifcb1" text="Update the visibile status"
+                                  partialSubmit="true"
+                                  actionListener="#{partialDemoUtil.updateRenderInputFileState}" />
+                <tr:statusIndicator id="ifsi1" />
+              </tr:panelGroupLayout>
+
+              <tr:panelGroupLayout id="ifpgl2" layout="horizontal"
+                                   rendered="#{partialDemoUtil.renderInputFile}">
+                <tr:inputFile id="ifif1" valueChangeListener="#{partialDemoUtil.fileUploaded}"
+                              label="inputFile" />
+                <tr:commandButton id="ifcb2" text="Submit the file"
+                                  partialSubmit="true" />
+                <tr:outputFormatted id="ifof1" styleUsage="instruction"
+                                    value="#{partialDemoUtil.status.uploadFileState}"
+                                    partialTriggers="ifcb2" />
               </tr:panelGroupLayout>
             </tr:panelHeader>
           </tr:panelGroupLayout>
