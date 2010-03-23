@@ -34,7 +34,6 @@ function TrXMLRequest()
   this.xmlhttp = TrXMLRequest._createXmlHttpRequest();
 }
 
-
 /**
 * Request state constants. See getCompletionState()
 **/
@@ -206,4 +205,117 @@ TrXMLRequest.prototype.cleanup =function()
   delete this.xmlhttp;
 }
 
+/**
+ * Wrapper for the JSF AJAX callback data that provides the same
+ * interface as TrXMLRequest to maintain a compatible API to ease
+ * the support of both the legacy code as well as code to integrate
+ * with JSF 2 AJAX
+ */
+function TrXMLJsfAjaxRequest(
+  event,
+  params)
+{
+  this.isSynchronous = false;
+  this.callback = null;
+  this._event = event;
+  this._params = params || new Object();
+  this._status = 0;
+  this._state = TrXMLRequest.UNINITIALIZED;
+}
+TrXMLJsfAjaxRequest.prototype.setCallback = function(value)
+{
+  this.callback = value;
+}
+TrXMLJsfAjaxRequest.prototype.getCompletionState = function()
+{
+  return this._state;
+}
+TrXMLJsfAjaxRequest.prototype.getStatus = function()
+{
+  return this._status;
+}
+TrXMLJsfAjaxRequest.prototype.getResponseXML = function()
+{
+  return this._responseXML;
+}
+TrXMLJsfAjaxRequest.prototype.getResponseText = function()
+{
+  return this._responseText;
+}
+TrXMLJsfAjaxRequest.prototype.cleanup = function()
+{
+  this.callback = null;
+}
+TrXMLJsfAjaxRequest.prototype._ajaxCallback = function(
+  data
+  )
+{
+  switch (data.status)
+  {
+    case "begin":
+      this._state = TrXMLRequest.LOADING;
+      break;
+    case "complete":
+      this._state = TrXMLRequest.LOADED;
+      break;
+    case "success":
+    default:
+      this._state = TrXMLRequest.COMPLETED;
+      break;
+  }
 
+  if (data.status != "begin")
+  {
+    this._status = data.responseCode;
+    this._responseXML = data.responseXML;
+    this._responseText = data.responseText;
+  }
+
+  if (this.callback)
+  {
+    this.callback(this);
+  }
+}
+TrXMLJsfAjaxRequest.prototype.__onerror = function(
+  data
+  )
+{
+  this._state = TrXMLRequest.COMPLETED;
+  this._status = data.responseCode;
+  this._responseXML = data.responseXML;
+  this._responseText = data.responseText;
+  if (this.callback)
+  {
+    this.callback(this);
+  }
+}
+TrXMLJsfAjaxRequest.prototype.send = function()
+{
+  var source = this._params.source ?
+    _getElementById(window.document, this._params.source) : null;
+
+  var ajaxCallback = TrUIUtils.createCallback(this, this._ajaxCallback);
+
+  jsf.ajax.request(
+    source,
+    this._event,
+    {
+      "onevent": ajaxCallback,
+      "onerror": ajaxCallback,
+      "params": this._params
+    });
+
+  // No need for the event anymore, release the resource
+  delete this._event;
+}
+// No-op functions:
+TrXMLJsfAjaxRequest.prototype.setSynchronous =
+TrXMLJsfAjaxRequest.prototype.setRequestHeader = function() {}
+TrXMLJsfAjaxRequest.prototype.getAllResponseHeaders = function()
+{
+  return new Object();
+};
+TrXMLJsfAjaxRequest.prototype.getResponseHeader = function()
+{
+  return null;
+};

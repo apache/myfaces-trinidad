@@ -1701,7 +1701,8 @@ function submitForm(
   form,
   doValidate,
   parameters,
-  isPartial
+  isPartial,
+  event
   )
 {
   // If we've delayed any sort of event submission, we won't want to do it at
@@ -1862,7 +1863,7 @@ function submitForm(
       }
       else
       {
-        TrPage.getInstance().sendPartialFormPost(form, parameters);
+        TrPage.getInstance().sendPartialFormPost(form, parameters, null, event);
       }
     }
     else
@@ -3636,7 +3637,6 @@ function _doPprStartBlocking (win)
 //
 function _pprStopBlocking(win)
 {
-
   // No blocking is performed on Nokia, PPC and BlackBerry devices
   if (_agent.isPIE || _agent.isNokiaPhone || _agent.isBlackBerry)
     return;
@@ -3868,7 +3868,8 @@ function _firePartialChange(url)
 function _submitPartialChange(
   form,
   doValidate,
-  parameters)
+  parameters,
+  event)
 {
   // If there's no PPR iframe, then just perform a normal,
   // full-page submission.
@@ -3889,7 +3890,7 @@ function _submitPartialChange(
     _pprStartBlocking(window);
 
   // Submit the form
-  var submitted = submitForm(form, doValidate, parameters, true);
+  var submitted = submitForm(form, doValidate, parameters, true, event);
 
   // If the form wasn't actually submitted, update the ref count
   if (!submitted)

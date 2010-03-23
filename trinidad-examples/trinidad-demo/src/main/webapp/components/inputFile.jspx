@@ -30,7 +30,7 @@
           <f:facet name="separator">
             <tr:separator/>
           </f:facet>
-          <tr:panelGroupLayout layout="horizontal">
+          <tr:panelGroupLayout layout="horizontal" partialTriggers="cb1">
             <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
             <tr:spacer width="10"/>
             <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_inputFile.html"
@@ -39,7 +39,7 @@
           <tr:outputFormatted styleUsage="instruction" value="&lt;b>inputFile&lt;/b>"/>
           <tr:inputFile binding="#{editor.component}" label="Label"
                         valueChangeListener="#{ui.fileUploaded}"/>
-          <tr:commandButton text="Submit"/>
+          <tr:commandButton text="Submit" id="cb1" partialSubmit="true" />
           <jsp:directive.include file="editor.jspf"/>
         </tr:panelGroupLayout>
       </tr:form>

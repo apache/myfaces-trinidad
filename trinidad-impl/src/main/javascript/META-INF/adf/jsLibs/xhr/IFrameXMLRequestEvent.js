@@ -24,11 +24,24 @@
  * @ see TrXMLRequestEvent
  */
 function TrIFrameXMLRequestEvent(
-  iframeDoc)
+  iframeDoc,
+  source,
+  formId)
 {
   this._iframeDoc = iframeDoc;
+  this._source = source;
+  this._formId = formId;
 }
 
+TrIFrameXMLRequestEvent.prototype.getSource = function()
+{
+  return this._source;
+}
+
+TrIFrameXMLRequestEvent.prototype.getFormId = function()
+{
+  return this._formId;
+}
 
 TrIFrameXMLRequestEvent.prototype.getStatus = function()
 {
@@ -124,13 +137,14 @@ TrIFrameXMLRequestEvent.prototype.isPprResponse = function()
   if (agentIsIE && iframeDoc.XMLDocument)
   {
     var xmlDocument = iframeDoc.XMLDocument, childNodes = xmlDocument.childNodes;
+    console.log(xmlDocument);
     // In IE the xml PI is the first node
-    if(childNodes.length >= 2 && childNodes[1].nodeName ==  "Tr-XHR-Response-Type")
+    if(childNodes.length >= 2 && childNodes[1].nodeName ==  "partial-response")
       pprResponse = true;
   }
   else
   {
-    if(iframeDoc.firstChild && iframeDoc.firstChild.nodeName ==  "Tr-XHR-Response-Type")
+    if(iframeDoc.firstChild && iframeDoc.firstChild.nodeName ==  "partial-response")
       pprResponse = true;
   }
 
@@ -148,3 +162,11 @@ TrIFrameXMLRequestEvent.prototype.getResponseContentType = function()
 
   return "text/html";
 }
+
+/**
+ * Returns if the request was made by the built in JSF AJAX APIs
+ */
+TrIFrameXMLRequestEvent.prototype.isJsfAjaxRequest = function()
+{
+  return false;
+};
