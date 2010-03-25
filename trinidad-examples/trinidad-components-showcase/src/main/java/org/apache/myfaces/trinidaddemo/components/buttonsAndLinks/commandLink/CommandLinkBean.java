@@ -22,31 +22,31 @@ package org.apache.myfaces.trinidaddemo.components.buttonsAndLinks.commandLink;
  *
  */
 public class CommandLinkBean {
-    private String text;
-    private String message;
+    private float celsiusDegrees;
+    private float fahrenheitDegrees;
 
     public CommandLinkBean() {
-        this.text = "Input text";
+        this.celsiusDegrees = 0;
+        this.fahrenheitDegrees = 32;
     }
 
-    public String getText() {
-        return text;
+    public float getCelsiusDegrees() {
+        return celsiusDegrees;
     }
 
-    public String getMessage() {
-        return message;
+    public float getFahrenheitDegrees() {
+        return fahrenheitDegrees;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setCelsiusDegrees(float celsiusDegrees) {
+        this.celsiusDegrees = celsiusDegrees;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setFahrenheitDegrees(float fahrenheitDegrees) {
+        this.fahrenheitDegrees = fahrenheitDegrees;
     }
 
-    public void showMessage() {
-        this.message="Input text: "+text;
+    public void convertToFahrenheit(){
+         fahrenheitDegrees = (9*celsiusDegrees)/5+32;
     }
-
 }
