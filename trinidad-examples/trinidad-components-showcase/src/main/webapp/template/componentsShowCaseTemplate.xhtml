@@ -29,32 +29,36 @@
          <h:panelGrid columns="2" columnClasses="column25percent,column75percent" cellpadding="0"
                       cellspacing="0" style="width: 100%;" width="100%">
 
-            <tr:panelGroupLayout layout="vertical">
-            
-                <tr:outputText value="Browse Components" styleClass="head"/>
+            <tr:subform>
+                <tr:panelGroupLayout layout="vertical">
 
-                <tr:panelAccordion discloseNone="true" inlineStyle="width: 100%;" styleClass="components_accordion">
-                	<c:forEach items="#{navigationHandler.demoCategories}" var="aCategory">
-                		<tr:showDetailItem text="#{aCategory.name}" immediate="true" 
-                						   disclosed="#{navigationHandler.categoryDisclosed[aCategory]}">
-	                        <tr:navigationPane hint="list" var="aComponent" value="#{aCategory.componentDemos}" styleClass="components_list">
-	                        	<f:facet name="nodeStamp">
+                    <tr:outputText value="Browse Components" styleClass="head"/>
 
-							    	<tr:commandNavigationItem text="#{aComponent.displayName}"
-							    							  selected="#{navigationHandler.componentDemoSelected[aComponent]}"
-                                                              destination="#{aComponent.destination}">
-		                            </tr:commandNavigationItem>
-							  	</f:facet>
-	                        </tr:navigationPane>                                                              
-	                    </tr:showDetailItem>
-                	</c:forEach>
-                </tr:panelAccordion>
-                
-            </tr:panelGroupLayout>
+                    <tr:panelAccordion discloseNone="true" inlineStyle="width: 100%;" styleClass="components_accordion">
+                        <c:forEach items="#{navigationHandler.demoCategories}" var="aCategory">
+                            <tr:showDetailItem text="#{aCategory.name}" immediate="true"
+                                               disclosed="#{navigationHandler.categoryDisclosed[aCategory]}">
+                                <tr:navigationPane hint="list" var="aComponent" value="#{aCategory.componentDemos}" styleClass="components_list">
+                                    <f:facet name="nodeStamp">
 
-            <tr:panelGroupLayout layout="vertical">            
-				 <ui:insert name="componentContent"/>            
-            </tr:panelGroupLayout>
+                                        <tr:commandNavigationItem text="#{aComponent.displayName}"
+                                                                  selected="#{navigationHandler.componentDemoSelected[aComponent]}"
+                                                                  destination="#{aComponent.destination}">
+                                        </tr:commandNavigationItem>
+                                    </f:facet>
+                                </tr:navigationPane>
+                            </tr:showDetailItem>
+                        </c:forEach>
+                    </tr:panelAccordion>
+
+                </tr:panelGroupLayout>
+            </tr:subform>
+
+            <tr:subform>
+                <tr:panelGroupLayout layout="vertical">
+                     <ui:insert name="componentContent"/>
+                </tr:panelGroupLayout>
+            </tr:subform>
 
         </h:panelGrid>
 

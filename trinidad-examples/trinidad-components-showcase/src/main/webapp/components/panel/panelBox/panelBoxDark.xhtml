@@ -24,22 +24,20 @@
 
     <ui:define name="demoContent">
 
-        <tr:panelBox text="Header"
-                     inlineStyle="width: 25%;"
-                     background="dark">
-            <tr:panelList rows="10" inlineStyle="width: 100px;">
-                <tr:goLink text="point 1"
-                           destination="http://myfaces.apache.org"/>
-                <tr:goLink text="point 2"
-                           destination="http://myfaces.apache.org"/>
-                <tr:goLink text="point 3"
-                           destination="http://myfaces.apache.org"/>
-                <tr:goLink text="point 4"
-                           destination="http://myfaces.apache.org"/>
-                <tr:goLink text="point 5"
-                           destination="http://myfaces.apache.org"/>
-            </tr:panelList>
-        </tr:panelBox>
+        <tr:panelFormLayout inlineStyle="padding-bottom:4px; position:relative;">
+            <tr:outputText value="The Web is like a dominatrix.  Everywhere you turn, you see little buttons ordering you to Submit."
+                           inlineStyle="font-size:2.6em; color:#E8E2D7; line-height:1.1em;"/>
+            <tr:panelBox text="To do list:"
+                         background="dark"
+                         inlineStyle="position:absolute; top:0px; left:100px;">
+                <tr:selectManyCheckbox inlineStyle="text-align:left; font-weight:bold;">
+                    <tr:selectItem label="Change car oil"/>
+                    <tr:selectItem label="Pick up laundry"/>
+                    <tr:selectItem label="Walk dog"/>
+                    <tr:selectItem label="Repair patio deck"/>
+                </tr:selectManyCheckbox>
+            </tr:panelBox>
+        </tr:panelFormLayout>
 
     </ui:define>
 </ui:composition>

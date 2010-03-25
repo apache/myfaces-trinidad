@@ -24,10 +24,9 @@
 
     <ui:define name="demoContent">
 
-        <tr:panelFormLayout rows="4" labelAlignment="start">
-            <tr:goButton text="Go"
-                         destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_goButton.html"/>
-        </tr:panelFormLayout>
+        <tr:outputFormatted value="Navigate to the &lt;i&gt;Go Link&lt;/i&gt; component demo"/>
+        <tr:spacer height="15px"/>
+        <tr:goButton text="Navigate" destination="/component-demo/goLink-Default"/>
 
     </ui:define>
 </ui:composition>

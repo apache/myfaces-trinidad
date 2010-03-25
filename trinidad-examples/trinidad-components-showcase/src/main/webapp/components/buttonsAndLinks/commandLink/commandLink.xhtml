@@ -24,10 +24,18 @@
 
     <ui:define name="demoContent">
 
-        <tr:panelFormLayout rows="4" labelAlignment="start">
-            <tr:inputText value="#{commandLinkBean.text}"/>
-            <tr:commandLink text="Submit" action="#{commandLinkBean.showMessage}"/>
-            <tr:outputText value="#{commandLinkBean.message}"/>
+        <tr:panelFormLayout rows="5" labelAlignment="start">
+            <tr:outputFormatted value="&lt;b&gt;Temperature converter&lt;b&gt;"/>
+            <tr:spacer height="5px"/>
+            <tr:panelHorizontalLayout>
+                <tr:inputText value="#{commandLinkBean.celsiusDegrees}" onclick="this.value='';"/>
+                <tr:outputText value="C"/>
+            </tr:panelHorizontalLayout>
+            <tr:commandLink text="Convert" action="#{commandLinkBean.convertToFahrenheit}"/>
+            <tr:panelHorizontalLayout>
+                <tr:inputText value="#{commandLinkBean.fahrenheitDegrees}" disabled="true"/>
+                <tr:outputText value="F"/>
+            </tr:panelHorizontalLayout>
         </tr:panelFormLayout>
 
     </ui:define>
