@@ -221,21 +221,21 @@
     border-width: 1px ! important;
     border-style: solid ! important;
 }
-.CBTopBoderLook:alias {
-    border-top-width: 1px;
-    border-top-style: solid;
+.CBTopBorderLook:alias {
+    border-top-width: 1px ! important;
+    border-top-style: solid ! important;
 }
-.CBRightBoderLook:alias {
-    border-right-width: 1px;
-    border-right-style: solid;
+.CBRightBorderLook:alias {
+    border-right-width: 1px ! important;
+    border-right-style: solid ! important;
 }
 .CBBottomBorderLook:alias {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
+    border-bottom-width: 1px ! important;
+    border-bottom-style: solid ! important;
 }
 .CBLeftBorderLook:alias {
-    border-left-width: 1px;
-    border-left-style: solid;
+    border-left-width: 1px ! important;
+    border-left-style: solid ! important;
 }
 
 /* Borders Styles --------------------------------------------------------------------------------------------------- */
@@ -1096,21 +1096,21 @@
 }
 .CBTableCellTopLine:alias {
     -tr-rule-ref: selector(".CBClearBordersLook:alias");
-    -tr-rule-ref: selector(".CBTopBoderLook:alias");
+    -tr-rule-ref: selector(".CBTopBorderLook:alias");
 }
 .CBTableCellTopRighCorner:alias {
     -tr-rule-ref: selector(".CBClearBordersLook:alias");
-    -tr-rule-ref: selector(".CBTopBoderLook:alias ");
-    -tr-rule-ref: selector(".CBRightBoderLook:alias");
+    -tr-rule-ref: selector(".CBTopBorderLook:alias ");
+    -tr-rule-ref: selector(".CBRightBorderLook:alias");
 }
 .CBTableCellRightLine:alias {
     -tr-rule-ref: selector(".CBClearBordersLook:alias");
-    -tr-rule-ref: selector(".CBRightBoderLook:alias");
+    -tr-rule-ref: selector(".CBRightBorderLook:alias");
 }
 .CBTableCellBottomRightCorner:alias {
     -tr-rule-ref: selector(".CBClearBordersLook:alias");
     -tr-rule-ref: selector(".CBBottomBorderLook:alias");
-    -tr-rule-ref: selector(".CBRightBoderLook:alias");
+    -tr-rule-ref: selector(".CBRightBorderLook:alias");
 }
 .CBTableCellBottomLine:alias {
     -tr-rule-ref: selector(".CBClearBordersLook:alias");
@@ -1127,7 +1127,17 @@
 }
 .CBTableCellTopLeftCorner:alias {
     -tr-rule-ref: selector(".CBClearBordersLook:alias");
-    -tr-rule-ref: selector(".CBTopBoderLook:alias");
+    -tr-rule-ref: selector(".CBTopBorderLook:alias");
+    -tr-rule-ref: selector(".CBLeftBorderLook:alias");
+}
+.CBTableCellHorizontalLines:alias {
+    -tr-rule-ref: selector(".CBClearBordersLook:alias");
+    -tr-rule-ref: selector(".CBTopBorderLook:alias");
+    -tr-rule-ref: selector(".CBBottomBorderLook:alias");
+}
+.CBTableCellVerticalLines:alias {
+    -tr-rule-ref: selector(".CBClearBordersLook:alias");
+    -tr-rule-ref: selector(".CBRightBorderLook:alias");
     -tr-rule-ref: selector(".CBLeftBorderLook:alias");
 }
 .CBTableCellHover:alias {
@@ -3487,6 +3497,12 @@ af|train::stop {
 .CBTableCellTopLeftCorner {
     -tr-rule-ref: selector(".CBTableCellTopLeftCorner:alias");
 }
+.CBTableCellHorizontalLines {
+    -tr-rule-ref: selector(".CBTableCellHorizontalLines:alias");
+}
+.CBTableCellVerticalLines {
+    -tr-rule-ref: selector(".CBTableCellVerticalLines:alias");
+}
 .CBTableHeadCell {
     -tr-rule-ref: selector(".CBTableHeadCell:alias");
 }
@@ -3581,13 +3597,19 @@ af|table::content .OraTableBorder1111 {
     -tr-rule-ref: selector(".CBTableCellAll");    
 }
 af|table::content .OraTableBorder1000 {
-    -tr-rule-ref: selector(".CBTableCellTopLine");    
+    -tr-rule-ref: selector(".CBTableCellTopLine");
+}
+af|table::content .OraTableBorder1010 {
+    -tr-rule-ref: selector(".CBTableCellHorizontalLines");    
 }
 af|table::content .OraTableBorder1100 {
     -tr-rule-ref: selector(".CBTableCellTopRighCorner");
 }
 af|table::content .OraTableBorder0100 {
-    -tr-rule-ref: selector(".CBTableCellRightLine");    
+    -tr-rule-ref: selector(".CBTableCellRightLine");
+}
+af|table::content .OraTableBorder0101 {
+    -tr-rule-ref: selector(".CBTableCellVerticalLines");
 }
 af|table::content .OraTableBorder0110 {
     -tr-rule-ref: selector(".CBTableCellBottomRightCorner");
@@ -3604,7 +3626,10 @@ af|table::content .OraTableBorder0001 {
 af|table::content .OraTableBorder1001 {
     -tr-rule-ref: selector(".CBTableCellTopLeftCorner");
 }
-
+/* Force bottom line for headers */
+af|table::content af|column::header-text {
+    -tr-rule-ref: selector(".CBTableCellBottomLine");    
+}
 /* footer cells */
 af|table::content af|table::column-footer, af|table::content af|column::total-text {
     display: table-cell;
@@ -3645,6 +3670,12 @@ af|table::content af|table::column-footer, af|table::content af|column::total-te
 }
 .CBTreeTableCellTopLeftCorner {
     -tr-rule-ref: selector(".CBTableCellTopLeftCorner:alias");
+}
+.CBTreeTableCellHorizontalLines {
+    -tr-rule-ref: selector(".CBTableCellHorizontalLines:alias");
+}
+.CBTreeTableCellVerticalLines {
+    -tr-rule-ref: selector(".CBTableCellVerticalLines:alias");
 }
 .CBTreeTableHeadCell {
     -tr-rule-ref: selector(".CBTableHeadCell:alias");
@@ -3721,11 +3752,17 @@ af|treeTable::content .OraTableBorder1111 {
 af|treeTable::content .OraTableBorder1000 {
     -tr-rule-ref: selector(".CBTreeTableCellTopLine");
 }
+af|treeTable::content .OraTableBorder1010 {
+    -tr-rule-ref: selector(".CBTreeTableCellHorizontalLines");
+}
 af|treeTable::content .OraTableBorder1100 {
     -tr-rule-ref: selector(".CBTreeTableCellTopRighCorner");
 }
 af|treeTable::content .OraTableBorder0100 {
     -tr-rule-ref: selector(".CBTreeTableCellRightLine");
+}
+af|treeTable::content .OraTableBorder0101 {
+    -tr-rule-ref: selector(".CBTreeTableCellVerticalLines");
 }
 af|treeTable::content .OraTableBorder0110 {
     -tr-rule-ref: selector(".CBTreeTableCellBottomRightCorner");
@@ -3741,6 +3778,10 @@ af|treeTable::content .OraTableBorder0001 {
 }
 af|treeTable::content .OraTableBorder1001 {
     -tr-rule-ref: selector(".CBTreeTableCellTopLeftCorner");
+}
+/* Force bottom line for headers */
+af|treeTable::content af|column::header-text {
+    -tr-rule-ref: selector(".CBTreeTableCellBottomLine");
 }
 /* footer cells */
 af|treeTable::content af|treeTable::column-footer, af|treeTable::content af|column::total-text {
