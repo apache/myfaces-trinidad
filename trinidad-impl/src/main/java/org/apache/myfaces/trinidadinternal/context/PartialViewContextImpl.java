@@ -20,15 +20,17 @@ package org.apache.myfaces.trinidadinternal.context;
 
 import java.io.IOException;
 
-import java.util.ArrayList;
+import java.io.Writer;
+
 import java.util.Collection;
 import java.util.Collections;
 
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 
 import java.util.Set;
+
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
@@ -41,6 +43,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.component.UIXComponent;
+
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
@@ -49,15 +52,34 @@ import javax.faces.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.component.visit.VisitTreeUtils;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 
-public class PartialViewContextImpl extends PartialViewContext
+public class PartialViewContextImpl
+  extends PartialViewContext
 {
-  public PartialViewContextImpl(FacesContext context) 
+  public PartialViewContextImpl(FacesContext context)
   {
     _context = context;
+
+    ExternalContext extContext = context.getExternalContext();
+
+    _requestType = ReqType.FULL;
+
+    if (_PARTIAL_AJAX.equals(extContext.getRequestHeaderMap().get(_FACES_REQUEST)))
+    {
+      // This request was sent with jsf.ajax.request()
+      if (extContext.getRequestParameterMap().get(_TRINIDAD_PPR) != null)
+        _requestType = ReqType.AJAX_LEGACY;
+      else
+        _requestType = ReqType.AJAX;
+    }
+    else if (CoreRenderKit.isPartialRequest(extContext))
+    {
+      _requestType = ReqType.AJAX_LEGACY;
+    }
   }
 
   /**
@@ -66,86 +88,154 @@ public class PartialViewContextImpl extends PartialViewContext
    */
   public Collection<String> getExecuteIds()
   {
-    /*
-    if (_executeIds == null) 
+    _assertNotReleased();
+    if (_executeIds == null)
     {
-      String executeStr = _facesContext.getExternalContext().getRequestParameterMap().get(
-        PartialViewContext.PARTIAL_EXECUTE_PARAM_NAME);
+      _executeIds = _getIds(PARTIAL_EXECUTE_PARAM_NAME);
+
+      // force view parameter facet ID to be executed if we are executing anything else
+      if (!_executeIds.isEmpty())
+      {
+        UIViewRoot root = _context.getViewRoot();
+        if (root.getFacetCount() > 0)
+        {
+          UIComponent facet =
+            root.getFacet(UIViewRoot.METADATA_FACET_NAME);
+          if (facet != null)
+          {
+            _executeIds.add(facet.getClientId(_context));
+          }
+        }
+      }
     }
-    else
-    {
-      _executeIds = new ArrayList<String>();
-    }
-    */ 
-    _executeIds = new ArrayList<String>();
+
     return _executeIds;
   }
 
   public Collection<String> getRenderIds()
   {
-    return Collections.emptySet();
+    _assertNotReleased();
+    if (_renderIds == null)
+    {
+      _renderIds = _getIds(PARTIAL_RENDER_PARAM_NAME);
+    }
+    return _renderIds;
   }
 
-  /**
-   * Return a PartialResponseWriter that consumes the Trinidad PprResponseWriter. 
-   * @return
-   */
-  public PartialResponseWriter getPartialResponseWriter()
-  {
-    if (_partialResponseWriter == null) 
-    {
-      _partialResponseWriter = new PPRPartialResponseWriter(_context.getResponseWriter());
-    }
-    return _partialResponseWriter;
-  }
 
   public boolean isAjaxRequest()
   {
     _assertNotReleased();
-    if (_ajaxRequest == null) 
-    {
-        _ajaxRequest = _PARTIAL_AJAX.equals(_context.
-            getExternalContext().getRequestHeaderMap().get(_FACES_REQUEST));
-    }
-    return _ajaxRequest;
+    return (_requestType != ReqType.FULL);
   }
 
   public boolean isPartialRequest()
   {
     _assertNotReleased();
-    if (_partialRequest == null) {
-        _partialRequest = isAjaxRequest() ||
-                _PARTIAL_PROCESS.equals(_context.
-                getExternalContext().getRequestHeaderMap().get(_FACES_REQUEST));
+    if (_partialRequest == null)
+    {
+      _partialRequest =
+          isAjaxRequest() || _PARTIAL_PROCESS.equals(_context.getExternalContext().getRequestHeaderMap().get(_FACES_REQUEST));
     }
-    return _partialRequest;  
+    return _partialRequest;
   }
 
-  /**
-   * Trinidad PPR currently does a full decode/validate/update. So we return 'false' here, but in 
-   * processPartial, turn into a 'full tree visit'.
-   * @return true as the default executeList is set to be '@all'.
-   */
+  @Override
   public boolean isExecuteAll()
   {
     _assertNotReleased();
-    /*String execute = _context.getExternalContext().getRequestParameterMap()
-      .get(PARTIAL_EXECUTE_PARAM_NAME);
-    
-    return execute.equals(this.ALL_PARTIAL_PHASE_CLIENT_IDS);*/
-    return true;
+    if (_requestType == ReqType.AJAX_LEGACY ||
+        _requestType == ReqType.LEGACY)
+    {
+      // We are preserving old behavior (execute everything) for the legacy 'partialSubmit=true'
+      // Trinidad requests
+      return true;
+    }
+
+    String execute =
+      _context.getExternalContext().getRequestParameterMap().get(PARTIAL_EXECUTE_PARAM_NAME);
+
+    return execute.equals(ALL_PARTIAL_PHASE_CLIENT_IDS);
   }
 
   public boolean isRenderAll()
   {
     _assertNotReleased();
-    if (_renderAll == null) {
-        String render = _context.getExternalContext().getRequestParameterMap()
-                .get(PARTIAL_RENDER_PARAM_NAME);
-        _renderAll = (ALL_PARTIAL_PHASE_CLIENT_IDS.equals(render));
+    if (_renderAll == null)
+    {
+      String render =
+        _context.getExternalContext().getRequestParameterMap().get(PARTIAL_RENDER_PARAM_NAME);
+      _renderAll = ALL_PARTIAL_PHASE_CLIENT_IDS.equals(render);
     }
 
-    return _renderAll;  
+    return _renderAll;
+  }
+
+  @Override
+  public void processPartial(PhaseId phaseId)
+  {
+    UIViewRoot viewRoot = _context.getViewRoot();
+    if (phaseId == PhaseId.APPLY_REQUEST_VALUES ||
+        phaseId == PhaseId.PROCESS_VALIDATIONS ||
+        phaseId == PhaseId.UPDATE_MODEL_VALUES)
+    {
+      _processExecute(viewRoot, phaseId);
+    }
+    else if (phaseId == PhaseId.RENDER_RESPONSE)
+    {
+      _processRender(viewRoot, phaseId);
+    }
+
+  }
+
+  @Override
+  public PartialResponseWriter getPartialResponseWriter()
+  {
+    ResponseWriter current = _context.getResponseWriter();
+    if (current != null && current instanceof PartialResponseWriter)
+    {
+      return (PartialResponseWriter)current;
+    }
+    
+    if (_context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE)
+    { 
+      _LOG.warning("getPartialResponseWriter() called during render_reponse. " +
+                   "The returned writer is not integrated with PPRResponseWriter");
+      ResponseWriter rw = _context.getResponseWriter();
+
+      return new PartialResponseWriter(rw);
+    }
+
+    // Create PartialResponseWriter for sending errors, redirects, etc. outside
+    // of the render phase
+    
+    if (current != null)
+    {
+      return new PartialResponseWriter(current);
+    }
+    
+    ExternalContext extContext = _context.getExternalContext();
+    String encoding = "UTF-8";
+    extContext.setResponseCharacterEncoding(encoding);
+    Writer out = null;
+    try
+    {
+      out = extContext.getResponseOutputWriter();
+    }
+    catch (IOException ioe)
+    {
+      _LOG.severe(ioe.toString(), ioe);
+    }
+
+    if (out != null)
+    {
+      ResponseWriter responseWriter =
+        _context.getRenderKit().createResponseWriter(out, "text/xml",
+                                                     encoding);
+      return new PartialResponseWriter(responseWriter);
+    }
+
+    return null;
   }
 
   public void setRenderAll(boolean renderAll)
@@ -160,298 +250,255 @@ public class PartialViewContextImpl extends PartialViewContext
 
   public void release()
   {
-    _ajaxRequest = null;
     _executeIds = null;
     _context = null;
     _partialRequest = null;
-    _partialResponseWriter = null;
     _released = true;
     _renderAll = null;
     _renderIds = null;
   }
 
-  /**
-   * Handles the render phase alone as we perform a full 'execute' always.
-   * 
-   * @param phaseId
-   */
-  public void processPartial(PhaseId phaseId)
+  private void _processExecute(UIViewRoot component, PhaseId phaseId)
   {
-    UIViewRoot viewRoot = _context.getViewRoot();
-    if (phaseId == PhaseId.APPLY_REQUEST_VALUES ||
-        phaseId == PhaseId.PROCESS_VALIDATIONS ||
-        phaseId == PhaseId.UPDATE_MODEL_VALUES)
-    {
-      // Assume the executeIds is set to @all to mimic a full tree visit. 
-      // Create a FullVisitContext
-      Collection <String> executeIds = getExecuteIds();
-
-      try 
-      {
-        _processExecute(viewRoot, phaseId, executeIds);
-      } 
-      catch (Exception e) 
-      {
-          // RELEASE_PENDING LOG EXCEPTION
-      }
-      
-    }
-    else if (phaseId == PhaseId.RENDER_RESPONSE)
-    {
-      _processRender(viewRoot, phaseId);
-    }
-
-  }
-
-  /**
-   * Performs a 'full' execute if executeIds is empty, in order to build the partialTrigger 
-   * listeners. Later, support for an 'optimized execute' will be added that 'visits' the executeId 
-   * components using the Trinidad visitTree implementation (that accounts for setup/teardown of 
-   * contexts.)
-   * @param component the UIViewRoot
-   * @param phaseId
-   * @param executeIds the Collection of ids to execute
-   */
-  private void _processExecute(
-    UIViewRoot component, 
-    PhaseId phaseId,
-    Collection<String> executeIds)
-  {
+    // We are only handling visit-based (partial) execution here.
+    // Full execution (isExecuteAll() == true) is handled by the UIViewRoot
+    // Note that this is different from the render phase
+    
+    Collection<String> executeIds = getExecuteIds();
     if (executeIds == null || executeIds.isEmpty())
     {
-      // We use the tree visitor mechanism to locate the components to process. For now we ignore the 
-      // executeIds as we always want to perform a full decode. So a FullVisitContext is created and 
-      // the VisitCallback invoked for every component in the tree. 
-      VisitContext visitContext = 
-                              VisitTreeUtils.createVisitContext(_context, 
-                                                               executeIds, 
-                                                               _EXECUTE_VISIT_HINTS);
-      VisitCallback visitCallback = new ExecuteAllCallback(_context, phaseId);
-      UIXComponent.visitTree(visitContext, component, visitCallback);
+      _LOG.warning("No execute Ids were supplied for the Ajax request");
+      return;
     }
-    else
-    {
-      // TODO: optimized decode??  
-    }
+      
+    VisitContext visitContext = VisitTreeUtils.createVisitContext(_context, executeIds,
+                        EnumSet.of(VisitHint.SKIP_UNRENDERED, VisitHint.EXECUTE_LIFECYCLE));
+    VisitCallback visitCallback = new ProcessPhaseCallback(_context, phaseId);
+      
+    component.visitTree(visitContext, visitCallback);
   }
 
-  /**
-   * Performs a partial optimized rendering, if PPROptimization is enabled, otherwise defaults to a 
-   * full render. 
-   * 
-   * @param viewRoot
-   * @param phaseId
-   */
+  
   private void _processRender(UIComponent viewRoot, PhaseId phaseId)
   {
-    boolean documentStarted = false;
-    
-    PartialResponseWriter partialResponseWriter = getPartialResponseWriter();
-    // Hold onto the original writer for later
-    ResponseWriter origResponseWriter = _context.getResponseWriter();
-    _context.setResponseWriter(partialResponseWriter);
-
     ExternalContext extContext = _context.getExternalContext();
     extContext.setResponseContentType(_RESPONSE_CONTENT_TYPE);
     extContext.addResponseHeader("Pragma", "no-cache");
     extContext.addResponseHeader("Cache-control", "no-cache");
 
+    if (isRenderAll())
+    {
+      _renderAll(_context, viewRoot);
+      return;
+    }
+
+    ResponseWriter origResponseWriter = _context.getResponseWriter();
+
+    RenderingContext rc = RenderingContext.getCurrentInstance();
+    assert (rc != null);
+    
+    boolean bufferScripts = _requestType == ReqType.LEGACY;
+    PPRResponseWriter pprWriter =
+      new PPRResponseWriter(origResponseWriter, rc, bufferScripts);
+
+    _context.setResponseWriter(pprWriter);
+    
+    if (_requestType == ReqType.AJAX)
+    {
+      // Add render Ids as partial targets for the request from <f:ajax>
+      _addRenderIdsAsPartialTargets(rc);
+      
+      // Force visit-based rendering for the <f:ajax> requests
+      PartialPageUtils.forceOptimizedPPR(_context);
+    }
+
     try
     {
-      partialResponseWriter.startDocument();
-      documentStarted = true;
-    
-      // determine whether we should try and optimize the PPR rendering
-      boolean encodeAllChildren = !PartialPageUtils.isOptimizedPPREnabled(_context, true);
+      pprWriter.startDocument();
+
+      // Note that PanelPartialRootRenderer will perform partial visit for the optimized PPR
+      // if it is enabled
+      _renderChildren(_context, viewRoot);
       
-      if (encodeAllChildren)
-      {
-        // We are guaranteed to be called on UIViewRoot. 
-        if (!viewRoot.isRendered()) 
-        {
-          return;
-        }
+      // Always write out ViewState as a separate update element.
+      String state =
+        _context.getApplication().getStateManager().getViewState(_context);
+      pprWriter.writeViewState(state);
       
-        // No PPR optimization, so encode all children
-        Iterator<UIComponent> children = viewRoot.getFacetsAndChildren();
-        while (children.hasNext()) 
-        {
-          children.next().encodeAll(_context);
-        }
-        
-        // TODO: Explcitly render out the view state as an update element.
-        _renderViewState(partialResponseWriter);
-      }
-      else
-      {
-        // TODO 
-        // HINT: PartialPageContext already creates a partial visit context. Reuse it??
-        
-        // Only visit tree if renderIds exist
-        Collection <String> renderIds = getRenderIds();
-        if (renderIds != null && !renderIds.isEmpty())
-        {
-          // perform an optimized partial visit of the children
-          RenderingContext rContext = RenderingContext.getCurrentInstance();
-          PartialPageContext pprContext = rContext.getPartialPageContext();
-         
-          VisitContext visitContext = pprContext.getVisitContext();
-          // component.visitTree(visitContext, new PhaseAwareVisitCallback(_context, phaseId));
-        }
-      }
+      pprWriter.endDocument();
     }
     catch (IOException e)
     {
       // launder the IOException as a FacesException, we'll unwrap this later
-      throw new FacesException(e);        
+      throw new FacesException(e);
     }
     finally
     {
-      try
-      {
-        if (documentStarted)
-        {
-          partialResponseWriter.endDocument();
-          documentStarted = false;
-        }
-      }
-      catch (IOException ioe2)
-      {
-        // TODO log exception
-      }
       _context.setResponseWriter(origResponseWriter);
     }
   }
   
-  private void _renderViewState(PartialResponseWriter writer)
-    throws IOException
+  private void _renderAll(FacesContext context, UIComponent viewRoot)
   {
-    // Get the view state and write it to the response..
-    writer.startUpdate(PartialResponseWriter.VIEW_STATE_MARKER);
-    String state = _context.getApplication().getStateManager().getViewState(_context);
-    writer.write(state);
-    writer.endUpdate();    
-  }
-  
-  @SuppressWarnings({"FinalPrivateMethod"})
-  private final void _assertNotReleased() 
-  {
-    if (_released) {
-        throw new IllegalStateException();
-    }
-  }
-
-
-
-
-  /**
-   * A simple PartialRepsonseWriter implementation that delegates most of its calls to the
-   * PPRResponseWriter as it already has the smarts to generate XML partial Ajax responses using the
-   * Trinidad partialTriggers mechanism.
-   */
-  private static final class PPRPartialResponseWriter extends PartialResponseWriter 
-  {
-    public PPRPartialResponseWriter(ResponseWriter writer)
-    {
-      super(null);
-      assert(writer instanceof PPRResponseWriter);
-      _pprWriter = (PPRResponseWriter) writer;
-    }
-
-    @Override
-    public void endDocument() throws IOException
-    {
-      getWrapped().endDocument();
-    }
-
-    @Override
-    public ResponseWriter getWrapped()
-    {
-      return _pprWriter;
-    }
-
-    @Override
-    public void startDocument() throws IOException
-    {
-      getWrapped().startDocument();
-    }
-
-
-    @Override
-    public void endUpdate()
-      throws IOException
-    {
-      _pprWriter.endUpdate();
-    }
+    ResponseWriter origResponseWriter = context.getResponseWriter();
     
-    @Override
-    public void startUpdate(String string) throws IOException 
+    // Use JSF-supplied PartialResponseWriter, since we are rendering the full page
+    PartialResponseWriter rw = new PartialResponseWriter(origResponseWriter);
+    
+    context.setResponseWriter(rw);
+    
+    try
     {
-      _pprWriter.startUpdate(string);
+      rw.startDocument();
+      
+      rw.startUpdate(PartialResponseWriter.RENDER_ALL_MARKER);
+      _renderChildren(context, viewRoot);
+      rw.endUpdate();
+      
+      //write out JSF state
+      rw.startUpdate(PartialResponseWriter.VIEW_STATE_MARKER);
+      String state = context.getApplication().getStateManager().getViewState(context);
+      rw.write(state);
+      rw.endUpdate();
+      
+      rw.endDocument();
     }
-
-    private PPRResponseWriter _pprWriter;
+    catch(IOException e)
+    {
+      throw new FacesException(e);
+    }
+    finally
+    {
+      context.setResponseWriter(origResponseWriter);
+    }
   }
   
-  /**
-   * Callback for encoding subtrees during optimized PPR tree visits
-   */
-  private static final class ExecuteAllCallback implements VisitCallback
+  private void _addRenderIdsAsPartialTargets(RenderingContext rc)
   {
-    public ExecuteAllCallback(
-      FacesContext context, 
-      PhaseId phaseId)
+    Collection<String> renderIds = getRenderIds();
+    PartialPageContext pc = rc.getPartialPageContext();
+    for (String id: renderIds)
     {
-      _context= context;
+      pc.addPartialTarget(id);
+    }
+  }
+  
+  
+  private static void _renderChildren(FacesContext context, UIComponent root) throws IOException
+  {
+    Iterator<UIComponent> iterator = root.getFacetsAndChildren();
+    while (iterator.hasNext()) 
+    {
+      UIComponent child = iterator.next();
+      if (child.isRendered())
+        child.encodeAll(context);
+    }
+  }
+  
+
+
+  @SuppressWarnings(
+    { "FinalPrivateMethod" })
+  private final void _assertNotReleased()
+  {
+    if (_released)
+    {
+      throw new IllegalStateException();
+    }
+  }
+
+  private Set<String> _getIds(String parameter)
+  {
+    String param =
+      _context.getExternalContext().getRequestParameterMap().get(parameter);
+    if (param != null)
+    {
+      String ids[] = param.split("[ \t]+");
+      if (ids != null && ids.length > 0)
+      {
+        HashSet<String> idSet = new HashSet<String>(ids.length);
+        for (int i = 0; i < ids.length; i++)
+        {
+          idSet.add(ids[i]);
+        }
+        return idSet;
+      }
+    }
+
+    return Collections.emptySet();
+  }
+
+
+  
+  private static final class ProcessPhaseCallback
+    implements VisitCallback
+  {
+    ProcessPhaseCallback(FacesContext context, PhaseId phaseId)
+    {
+      _context = context;
       _phaseId = phaseId;
     }
-    
+
     public VisitResult visit(VisitContext context, UIComponent target)
     {
-
-      // For UIViewRoot it's important to return VisitResult.ACCEPT to indicate that the tree 
-      // visit start processing its children. This is also required to not get into a recursive 
-      // hell as we got here to begin from UIViewRoot.processDecodes()
-      if (target instanceof UIViewRoot)
-        return VisitResult.ACCEPT;
-
-      // we have the subtree we want, execute it
-      if (_phaseId == PhaseId.APPLY_REQUEST_VALUES) 
+      if (_phaseId == PhaseId.RENDER_RESPONSE)
+      {
+        try
+        {
+          target.encodeAll(_context);
+        }
+        catch(IOException e)
+        {
+          throw new FacesException(e);
+        }
+      }
+      else if (_phaseId == PhaseId.APPLY_REQUEST_VALUES)
       {
         target.processDecodes(_context);
-      } 
-      else if (_phaseId == PhaseId.PROCESS_VALIDATIONS) 
+      }
+      else if (_phaseId == PhaseId.PROCESS_VALIDATIONS)
       {
         target.processValidators(_context);
-      } 
-      else if (_phaseId == PhaseId.UPDATE_MODEL_VALUES) 
+      }
+      else if (_phaseId == PhaseId.UPDATE_MODEL_VALUES)
       {
         target.processUpdates(_context);
-      }        
+      }
+      
 
-      // we have finished processing desired target
+      // No need to visit children, since they will be executed/rendred by their parents
       return VisitResult.REJECT;
     }
-    
+
     private FacesContext _context;
-    private PhaseId      _phaseId;
-  }  
-  
-  private Boolean _ajaxRequest;
-  private List<String> _executeIds;
-  private FacesContext _context = null; 
+    private PhaseId _phaseId;
+  }
+
+  private ReqType _requestType;
+  private Set<String> _executeIds;
+  private Set<String> _renderIds;
+  private FacesContext _context = null;
   private Boolean _partialRequest;
-  private PartialResponseWriter _partialResponseWriter;
   private boolean _released;
   private Boolean _renderAll;
-  private Collection<String> _renderIds;
 
-  private static final Set<VisitHint> _EXECUTE_VISIT_HINTS = EnumSet.of(VisitHint.SKIP_UNRENDERED,
-                                                                        VisitHint.EXECUTE_LIFECYCLE);  
-  
+
   private static final String _RESPONSE_CONTENT_TYPE = "text/xml";
   private static final String _FACES_REQUEST = "Faces-Request";
   private static final String _PARTIAL_AJAX = "partial/ajax";
   private static final String _PARTIAL_PROCESS = "partial/process";
+  private static final String _TRINIDAD_PPR = "Tr-PPR-Message";
+
+
+  private static enum ReqType
+  {
+    FULL,
+    AJAX,
+    AJAX_LEGACY,
+    LEGACY;
+  }
+
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(PartialViewContextImpl.class);
 
 }

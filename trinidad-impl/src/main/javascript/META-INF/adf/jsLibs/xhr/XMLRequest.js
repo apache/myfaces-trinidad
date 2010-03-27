@@ -296,14 +296,21 @@ TrXMLJsfAjaxRequest.prototype.send = function()
 
   var ajaxCallback = TrUIUtils.createCallback(this, this._ajaxCallback);
 
+  var payload = {
+      "onevent": ajaxCallback,
+      "onerror": ajaxCallback,
+      "Tr-PPR-Message": true // Indicate that this a "legacy" PPR request sent over jsf.ajax
+    };
+    
+  for (var p in this._params)
+  {
+    payload[p] = this._params[p];
+  }
+
   jsf.ajax.request(
     source,
     this._event,
-    {
-      "onevent": ajaxCallback,
-      "onerror": ajaxCallback,
-      "params": this._params
-    });
+    payload);
 
   // No need for the event anymore, release the resource
   delete this._event;

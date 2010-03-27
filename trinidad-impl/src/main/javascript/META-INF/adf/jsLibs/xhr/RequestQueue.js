@@ -88,6 +88,7 @@ TrRequestQueue.prototype._broadcastRequestStatusChanged = function(
     }
     catch (e)
     {
+      alert(e);
       TrRequestQueue._logError(
          "Error ", e, " delivering XML request status changed to ",
           currMethod);
@@ -565,7 +566,10 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
   htmlForm.target = frameName;
 
   this._appendParamNode(domDocument, htmlForm, "Tr-XHR-Message", "true");
-  this._appendParamNode(domDocument, htmlForm, "javax.faces.partial.ajax", "true");
+  
+  // mstarets - not including jsf ajax parameter will let the server know that
+  // this is a 'legacy' PPR request
+  // this._appendParamNode(domDocument, htmlForm, "javax.faces.partial.ajax", "true");
 
   if(params)
   {

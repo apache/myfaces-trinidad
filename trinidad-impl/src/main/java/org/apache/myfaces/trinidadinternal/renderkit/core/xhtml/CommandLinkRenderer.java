@@ -78,6 +78,13 @@ public class CommandLinkRenderer extends GoLinkRenderer
         facesContext.getExternalContext().getRequestParameterMap();
 
       Object source = parameterMap.get("javax.faces.source");
+      
+      // Support the legacy as well as JSF2 parameter name
+      if (source == null) 
+      {
+        source = parameterMap.get("source");  
+      }
+      
       if (clientId == null)
       {
         clientId = component.getClientId(facesContext);

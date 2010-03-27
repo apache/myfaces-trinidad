@@ -143,23 +143,11 @@ public class CoreRenderKit extends RenderKitDecorator
     return "org.apache.myfaces.trinidad.core.desktop";
   }
 
-  /**
-   * Return <code>true</code> if the request header <code>Faces-Request</code> is present with the 
-   * value <code>partial/ajax</code>. Otherwise, return <code>false</code>.
-   * 
-   * @param ec the ExternalContext instance.
-   * @return
-   */
   static public boolean isAjaxRequest(ExternalContext ec)
   {
-    return _PARTIAL_AJAX.equals(ec.getRequestHeaderMap().get(_FACES_REQUEST_HEADER));
+    return "true".equals(ec.getRequestHeaderMap().get(_PPR_REQUEST_HEADER));
   }
 
-  /**
-   * TODO: Use JSF2.0 <code>Faces-Request</code> parameter.
-   * @param parameters
-   * @return
-   */
   static public boolean isPartialRequest(Map<String, String[]> parameters)
   {
     String[] array = parameters.get(_PPR_REQUEST_HEADER);
@@ -168,11 +156,6 @@ public class CoreRenderKit extends RenderKitDecorator
     return "true".equals(array[0]);
   }
 
-  /**
-   * TODO: Use JSF2.0 <code>Faces-Request</code> parameter.
-   * @param ec
-   * @return
-   */
   static public boolean isPartialRequest(ExternalContext ec)
   {
     // A partial request could be an AJAX request, or it could
@@ -614,7 +597,10 @@ public class CoreRenderKit extends RenderKitDecorator
         rw = new HtmlResponseWriter(writer, characterEncoding);
       }
       
-      RenderingContext rc = RenderingContext.getCurrentInstance();
+      // mstarets - PPRResponseWriter will be created in the PartialViewContextImpl
+      // for both the JSF2-style ajax requests and legacy requests
+      
+      /*RenderingContext rc = RenderingContext.getCurrentInstance();
       if (rc == null)
       {
         // TODO: is this always indicative of something being very wrong?
@@ -624,7 +610,7 @@ public class CoreRenderKit extends RenderKitDecorator
       {
         if (isPartialRequest(fContext.getExternalContext()))
           rw = new PPRResponseWriter(rw, rc);
-      }
+      }*/
       
       return _addDebugResponseWriters(rw);
     }
@@ -820,9 +806,6 @@ public class CoreRenderKit extends RenderKitDecorator
   static private final String _SCRIPT_LIST_KEY =
     "org.apache.myfaces.trinidadinternal.renderkit.ScriptList";
   static private final String _PPR_REQUEST_HEADER = "Tr-XHR-Message";
-  private static final String _FACES_REQUEST_HEADER = "Faces-Request";
-  private static final String _PARTIAL_AJAX = "partial/ajax";
-
 
   static private final String _USE_DIALOG_POPUP_INIT_PARAM =
     "org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS";

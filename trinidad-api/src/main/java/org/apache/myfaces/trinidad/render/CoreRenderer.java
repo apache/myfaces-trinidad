@@ -944,7 +944,7 @@ public class CoreRenderer extends Renderer
 
     // Does the component have behaviors for this event type?
     List<ClientBehavior> behaviors = bean.getClientBehaviors().get(event);
-    if (behaviors.isEmpty())
+    if (behaviors == null || behaviors.isEmpty())
     {
       return null;
     }
