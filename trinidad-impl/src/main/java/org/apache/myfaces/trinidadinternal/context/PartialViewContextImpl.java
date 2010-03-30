@@ -80,7 +80,7 @@ public class PartialViewContextImpl
     }
     else if (CoreRenderKit.isLegacyPartialRequest(extContext))
     {
-      _requestType = ReqType.AJAX_LEGACY;
+      _requestType = ReqType.LEGACY;
     }
   }
 
