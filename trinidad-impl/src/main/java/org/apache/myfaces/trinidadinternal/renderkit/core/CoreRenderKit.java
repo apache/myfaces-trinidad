@@ -350,7 +350,7 @@ public class CoreRenderKit extends RenderKitDecorator
     FacesContext context) throws IOException
   {
     ExternalContext ec = context.getExternalContext();
-    if (isPartialRequest(ec))
+    if (context.getPartialViewContext().isAjaxRequest())
     {
       Map<String, Object> requestMap = ec.getRequestMap();
 
