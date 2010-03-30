@@ -46,7 +46,7 @@
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>2.0</jsf-spec.version>
     <jsf-ri.version>2.0.1</jsf-ri.version>
-    <jsf-myfaces.version>2.0.0-beta-2</jsf-myfaces.version>
+    <jsf-myfaces.version>2.0.0-beta-3</jsf-myfaces.version>
     <!--jsf-ri.version>2.0.3-SNAPSHOT</jsf-ri.version-->
     <!--jsf-facelets.version>1.1.14</jsf-facelets.version-->
     <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
