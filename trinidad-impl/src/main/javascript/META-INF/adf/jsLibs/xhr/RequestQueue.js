@@ -503,8 +503,7 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
   htmlForm.target = frameName;
 
   this._appendParamNode(domDocument, htmlForm, "Tr-XHR-Message", "true");
-  // FIXME: the "partial" parameter is unnecessary
-  this._appendParamNode(domDocument, htmlForm, "partial", "true");
+  //this._appendParamNode(domDocument, htmlForm, "partial", "true");
 
   if(params)
   {
@@ -559,6 +558,25 @@ TrRequestQueue.prototype._appendParamNode = function(domDocument, form, name, va
   {
     nodes = new Array();
     this._paramNodes = nodes;
+  }
+
+  if (name == "source")
+  {
+    // The FormRenderer adds a source to the postscript element. As a result, the
+    // value needs to be set, not appended
+    var sourceElements = domDocument.getElementsByName("source");
+    if (sourceElements.length > 0)
+    {
+      for (var i = 0, size = sourceElements.length; i < size; ++i)
+      {
+        var element = sourceElements[i];
+        if (element.tagName == "INPUT")
+        {
+          element.value = value;
+          return;
+        }
+      }
+    }
   }
 
   var node = domDocument.createElement("input");
