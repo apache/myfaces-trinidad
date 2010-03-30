@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.context;
 
 import java.io.IOException;
 
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
 import java.util.Collection;
@@ -49,10 +50,13 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 
+import javax.faces.render.RenderKit;
+
 import org.apache.myfaces.trinidad.component.visit.VisitTreeUtils;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
@@ -197,20 +201,13 @@ public class PartialViewContextImpl
       return (PartialResponseWriter)current;
     }
     
-    if (_context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE)
-    { 
-      _LOG.warning("getPartialResponseWriter() called during render_reponse. " +
-                   "The returned writer is not integrated with PPRResponseWriter");
-      ResponseWriter rw = _context.getResponseWriter();
-
-      return new PartialResponseWriter(rw);
-    }
-
-    // Create PartialResponseWriter for sending errors, redirects, etc. outside
-    // of the render phase
-    
     if (current != null)
     {
+      if (_context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE)
+      { 
+        _LOG.warning("getPartialResponseWriter() called during render_reponse. " +
+                     "The returned writer is not integrated with PPRResponseWriter");
+      }
       return new PartialResponseWriter(current);
     }
     
@@ -229,9 +226,24 @@ public class PartialViewContextImpl
 
     if (out != null)
     {
-      ResponseWriter responseWriter =
-        _context.getRenderKit().createResponseWriter(out, "text/xml",
-                                                     encoding);
+      ResponseWriter responseWriter = null;
+      RenderKit kit = _context.getRenderKit();
+      if (kit != null)
+      {
+        responseWriter = kit.createResponseWriter(out, "text/xml", encoding);
+      }
+      else
+      {
+        try
+        {
+          responseWriter = new XhtmlResponseWriter(out, "text/xml", encoding);
+        }
+        catch(UnsupportedEncodingException e)
+        {
+          _LOG.severe(e);
+        }
+      }
+      
       return new PartialResponseWriter(responseWriter);
     }
 
