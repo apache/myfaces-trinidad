@@ -118,6 +118,12 @@ public final class PartialPageUtils
     return false;
   }
 
+  /**
+   * This method delegates to the RequestContext.isPartialRequest() with the 
+   * exception that JSF Ajax render="@all" requests are reported as non-partial
+   * @param context
+   * @return
+   */
   public static boolean isPartialRequest(FacesContext context)
   {
     RequestContext rc = RequestContext.getCurrentInstance();

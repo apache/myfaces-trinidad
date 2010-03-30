@@ -20,7 +20,6 @@ package org.apache.myfaces.trinidadinternal.context;
 
 import java.io.IOException;
 
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
 import java.util.Collection;
@@ -43,7 +42,6 @@ import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.PhaseId;
 
-import org.apache.myfaces.trinidad.component.UIXComponent;
 
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
@@ -56,10 +54,10 @@ import org.apache.myfaces.trinidad.component.visit.VisitTreeUtils;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.XmlResponseWriter;
 
 public class PartialViewContextImpl
   extends PartialViewContext
@@ -80,7 +78,7 @@ public class PartialViewContextImpl
       else
         _requestType = ReqType.AJAX;
     }
-    else if (CoreRenderKit.isPartialRequest(extContext))
+    else if (CoreRenderKit.isLegacyPartialRequest(extContext))
     {
       _requestType = ReqType.AJAX_LEGACY;
     }
@@ -234,14 +232,7 @@ public class PartialViewContextImpl
       }
       else
       {
-        try
-        {
-          responseWriter = new XhtmlResponseWriter(out, "text/xml", encoding);
-        }
-        catch(UnsupportedEncodingException e)
-        {
-          _LOG.severe(e);
-        }
+        responseWriter = new XmlResponseWriter(out, encoding); 
       }
       
       return new PartialResponseWriter(responseWriter);

@@ -272,7 +272,7 @@ TrPage.prototype._handlePprResponse = function (requestEvent, document)
           }
           break;
         case "error":
-          var nodeText = TrPage._getTextContent(childNode.nextSibling.firstChild);
+          var nodeText = TrPage._getTextContent(childNode.firstChild.nextSibling);
           // This should not happen - there should always be an error message
           if (nodeText == null)
             nodeText = "Unknown error during PPR";
