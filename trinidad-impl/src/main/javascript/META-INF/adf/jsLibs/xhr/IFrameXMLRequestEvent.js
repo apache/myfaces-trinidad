@@ -58,12 +58,11 @@ TrIFrameXMLRequestEvent.prototype.getResponseXML = function()
 {
   var agentIsIE = _agent.isIE;
   var iframeDoc = this._iframeDoc;
-  if(agentIsIE && iframeDoc.XMLDocument)
+  if (agentIsIE && iframeDoc.XMLDocument)
     return iframeDoc.XMLDocument;
   else
     return iframeDoc;
 }
-
 
 /**
 * Returns the response of the Data Transfer Request as text.
@@ -103,9 +102,9 @@ TrIFrameXMLRequestEvent.prototype._isResponseValidXML = function()
   var agentIsIE = _agent.isIE;
   var iframeDoc = this._iframeDoc;
 
-  if(agentIsIE && iframeDoc.XMLDocument)
+  if (agentIsIE && iframeDoc.XMLDocument)
     return true;
-  else if(window.XMLDocument && (iframeDoc instanceof XMLDocument))
+  else if (window.XMLDocument && (iframeDoc instanceof XMLDocument))
     return true;
   else if (_agent.isSafari && iframeDoc.xmlVersion != null)
     return true;
@@ -137,14 +136,13 @@ TrIFrameXMLRequestEvent.prototype.isPprResponse = function()
   if (agentIsIE && iframeDoc.XMLDocument)
   {
     var xmlDocument = iframeDoc.XMLDocument, childNodes = xmlDocument.childNodes;
-    console.log(xmlDocument);
     // In IE the xml PI is the first node
     if(childNodes.length >= 2 && childNodes[1].nodeName ==  "partial-response")
       pprResponse = true;
   }
   else
   {
-    if(iframeDoc.firstChild && iframeDoc.firstChild.nodeName ==  "partial-response")
+    if (iframeDoc.firstChild && iframeDoc.firstChild.nodeName ==  "partial-response")
       pprResponse = true;
   }
 

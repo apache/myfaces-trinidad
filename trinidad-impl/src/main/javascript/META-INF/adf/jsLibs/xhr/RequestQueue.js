@@ -549,7 +549,7 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
 
   // store our context variables for later use
   this._source = requestItem.params ?
-    requestItem.params["javax.faces.source"] : null;
+    requestItem.params["javax.faces.source"] || requestItem.params["source"] : null;
   this._dtsContext = requestItem._context.context;
   this._dtsRequestMethod = requestItem._context.method;
   this._htmlForm = htmlForm;
@@ -566,7 +566,7 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
   htmlForm.target = frameName;
 
   this._appendParamNode(domDocument, htmlForm, "Tr-XHR-Message", "true");
-  
+
   // mstarets - not including jsf ajax parameter will let the server know that
   // this is a 'legacy' PPR request
   // this._appendParamNode(domDocument, htmlForm, "javax.faces.partial.ajax", "true");
@@ -576,8 +576,8 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
     if (params.source)
     {
       // Translate to JSF 2 payload
-      params["javax.faces.source"] = params.source;
-      delete params.source;
+      //params["javax.faces.source"] = params.source;
+      //delete params.source;
     }
     for (var key in params)
     {
@@ -631,6 +631,25 @@ TrRequestQueue.prototype._appendParamNode = function(domDocument, form, name, va
   {
     nodes = new Array();
     this._paramNodes = nodes;
+  }
+
+  if (name == "source")
+  {
+    // The FormRenderer adds a source to the postscript element. As a result, the
+    // value needs to be set, not appended
+    var sourceElements = domDocument.getElementsByName("source");
+    if (sourceElements.length > 0)
+    {
+      for (var i = 0, size = sourceElements.length; i < size; ++i)
+      {
+        var element = sourceElements[i];
+        if (element.tagName == "INPUT")
+        {
+          element.value = value;
+          return;
+        }
+      }
+    }
   }
 
   var node = domDocument.createElement("input");

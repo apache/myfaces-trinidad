@@ -120,13 +120,13 @@ TrPage.prototype._requestStatusChanged = function (requestEvent)
           {
             this._handleJsfAjaxResponse(requestEvent);
           }
-          else 
+          else
           {
             this._handlePprResponse(requestEvent, responseDocument);
           }
         }
       }
-      else 
+      else
       {
         // Should log some warning that we got an invalid response
       }
@@ -147,7 +147,7 @@ TrPage.prototype._requestStatusChanged = function (requestEvent)
 
 TrPage.prototype._handleJsfAjaxResponse = function (requestEvent)
 {
-  try 
+  try
   {
     var statusCode = requestEvent.getResponseStatusCode();
     if (statusCode >= 200 && statusCode < 300)
@@ -187,7 +187,7 @@ TrPage.prototype._handleJsfAjaxResponse = function (requestEvent)
     // TODO: do we need to do any additional processing here, for instance,
     // error processing?
   }
-  finally 
+  finally
   {
     delete this._ajaxOldDomElements;
     delete this._activeNode;
@@ -200,7 +200,6 @@ TrPage.prototype._handleJsfAjaxResponse = function (requestEvent)
  */
 TrPage.prototype._delegateResponseToJsfAjax = function (requestEvent, document)
 {
-  console.log("_delegateResponseToJsfAjax");
   // We wish to have JSF 2 handle the response. In order to do that we need to
   // construct the necessary parameters for the jsf.ajax.response method.
   //
@@ -216,9 +215,13 @@ TrPage.prototype._delegateResponseToJsfAjax = function (requestEvent, document)
   {
     source = document.getElementById(source);
   }
-  var context = 
+  var context =
   {
-    "onevent" : null, "onerror" : null, "source" : source, "formid" : requestEvent.getFormId(), "render" : null
+    "onevent" : null,
+    "onerror" : null,
+    "source" : source,
+    "formid" : requestEvent.getFormId(),
+    "render" : null
   };
 
   jsf.ajax.response(request, context);
@@ -230,7 +233,6 @@ TrPage.prototype._handlePprResponse = function (requestEvent, document)
   {
     return this._delegateResponseToJsfAjax(requestEvent, document);
   }
-  console.log("_handlePprResponse");
   var documentElement = document.documentElement;
   var rootNodeName = TrPage._getNodeName(documentElement);
   if (rootNodeName == "partial-response")
@@ -285,7 +287,7 @@ TrPage.prototype._handlePprResponse = function (requestEvent, document)
       }
     }
   }
-  else 
+  else
   {
     // FIXME: log an error
     window.location.reload(true);
@@ -482,7 +484,7 @@ TrPage.prototype._handlePprResponseFragment = function (fragmentNode)
     tempDiv.innerHTML = "";
     bodyElement.removeChild(tempDiv);
   }
-  else 
+  else
   {
     // Convert the content of the fragment node into an HTML node that
     // we can insert into the document
@@ -525,7 +527,7 @@ TrPage.prototype._handlePprResponseFragment = function (fragmentNode)
       var currInstance = listeners[i + 1];
       if (currInstance != null)
         currListener.call(currInstance, targetNode, sourceNode);
-      else 
+      else
         currListener(targetNode, sourceNode);
     }
   }
@@ -648,7 +650,7 @@ TrPage.prototype._loadScript = function (source)
     {
       if (_agent.isIE)
         window.execScript(responseText);
-      else 
+      else
         window.eval(responseText);
     }
   }
@@ -665,14 +667,14 @@ TrPage.prototype._handlePprResponseScript = function (scriptNode)
   {
     this._loadScript(source);
   }
-  else 
+  else
   {
     var nodeText = TrPage._getTextContent(scriptNode);
     if (nodeText)
     {
       if (_agent.isIE)
         window.execScript(nodeText);
-      else 
+      else
         window.eval(nodeText);
     }
   }
@@ -726,7 +728,7 @@ TrPage._collectLoadedLibraries = function ()
     // and firstChild) and it is not possible to implement this function.
     return null;
   }
-  else 
+  else
   {
     var loadedLibraries = new Object();
 
@@ -921,7 +923,7 @@ TrPage.prototype._notifyDomReplacementListeners = function (dataArray)
       {
         currListener.call(currInstance, oldElem, newElem);
       }
-      else 
+      else
       {
         currListener(oldElem, newElem);
       }
@@ -968,7 +970,7 @@ TrPage.prototype._getDomToBeUpdated = function (status, responseXML)
         "id" : null, "element" : document.body
       });
     }
-    else 
+    else
     {
       oldElements.push(
       {
