@@ -27,6 +27,8 @@ function TrPage()
   }
 }
 
+TrPage._VIEW_STATE_ID = "javax.faces.ViewState";
+
 /**
  * Get the shared instance of the page object.
  */
@@ -253,7 +255,7 @@ TrPage.prototype._handlePprResponse = function (requestEvent, document)
             switch (TrPage._getNodeName(changeNode))
             {
               case "update":
-                this._handlePprResponseFragment(changeNode);
+                this._handlePprResponseFragment(changeNode, requestEvent.getFormId());
                 break;
 
               case "eval":
@@ -422,9 +424,21 @@ TrPage.prototype.__handlePprResponseAction = function (actionURL)
 }
 
 // Handles a single fragment node in a ppr response.
-TrPage.prototype._handlePprResponseFragment = function (fragmentNode)
+TrPage.prototype._handlePprResponseFragment = function (fragmentNode, formId)
 {
   var doc = window.document;
+  
+  if (fragmentNode.getAttribute("id") == TrPage._VIEW_STATE_ID)
+  {
+    // JSF2 short-circuits writeState() during partial requets. The state
+    // is always written out as a special "update" element
+    // Perform special handling for the javax.faces.ViewState Id here just
+    // like jsf.ajax.request() does
+    this._updateViewState(doc, fragmentNode, formId);
+    
+    return;
+  }
+  
   var targetNode;
   var activeNode;
   var refocusId = null;
@@ -461,7 +475,7 @@ TrPage.prototype._handlePprResponseFragment = function (fragmentNode)
 
     var sourceNode = TrPage._getFirstElementWithId(tempDiv);
 
-    var targetNode = _getElementById(doc, sourceNode.id);
+    targetNode = _getElementById(doc, sourceNode.id);
     if (!targetNode)
     {
       return;
@@ -509,7 +523,7 @@ TrPage.prototype._handlePprResponseFragment = function (fragmentNode)
       return;
 
     // Find the target node
-    targetNode = _getElementById(doc, id);
+    targetNode = _getElementById(doc, id);   
     activeNode = _getActiveElement();
     if (activeNode && TrPage._isDomAncestorOf(activeNode, targetNode))
       refocusId = activeNode.id;
@@ -542,6 +556,32 @@ TrPage.prototype._handlePprResponseFragment = function (fragmentNode)
       window._trActiveElement = activeNode;
     }
   }
+}
+
+TrPage.prototype._updateViewState = function(doc, sourceNode, formId)
+{  
+  var form  = null;
+  
+  if (formId)
+    form = doc.getElementById(formId);
+  
+  if (!form)
+    form = doc.forms[0];
+  
+  if (!form)
+    return;
+  
+  var input = form[TrPage._VIEW_STATE_ID];
+  
+  if (!input)
+  {
+    input = doc.createElement("input");
+    input.type = 'hidden';
+    input.name = TrPage._VIEW_STATE_ID;
+    form.appendChild(input);
+  }
+  
+  input.value = TrPage._getTextContent(sourceNode);
 }
 
 /**
@@ -959,7 +999,7 @@ TrPage.prototype._getDomToBeUpdated = function (status, responseXML)
     }
 
     var id = node.getAttribute("id");
-    if (id == "javax.faces.ViewState")
+    if (id == TrPage._VIEW_STATE_ID)
     {
       continue;
     }
