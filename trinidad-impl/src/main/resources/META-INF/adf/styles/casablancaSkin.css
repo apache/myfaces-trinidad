@@ -1187,12 +1187,37 @@
     -tr-rule-ref: selector(".CBTableCellCommon:alias");
     padding: 4px;
 }
+.CBTableControlBarTop:alias {
+    -tr-rule-ref: selector(".CBTableControlBar:alias");
+    border-width: 1px 1px 0 1px;
+}
+/* fix a Webkit problem */
+@agent webkit {
+    .CBTableControlBarTop:alias {
+        width: auto;
+    }
+}
+.CBTableControlBarBottom:alias {
+    -tr-rule-ref: selector(".CBTableControlBar:alias");
+    border-width: 0 1px 1px 1px;
+}
 .CBTableSubControlBar:alias {
     -tr-rule-ref: selector(".CBTableControlBar:alias");
+    border-width: 1px 1px 0 1px;
 }
 /* fix a Webkit problem */
 @agent webkit {
     .CBTableSubControlBar:alias {
+        width: auto;
+    }
+}
+.CBTablePathBar:alias {
+    -tr-rule-ref: selector(".CBTableControlBar:alias");
+    border-width: 1px 1px 0 1px;
+}
+/* Fix a Firefox3 problem */
+@agent mozilla {
+    .CBTablePathBar:alias {
         width: auto;
     }
 }
@@ -3543,17 +3568,17 @@ af|train table {
     -tr-rule-ref: selector(".CBTableFooterCell:alias");
 }
 .CBTableControlBarTop {
-    -tr-rule-ref: selector(".CBTableControlBar:alias");
-    border-width: 1px 1px 0 1px;
+    -tr-rule-ref: selector(".CBTableControlBarTop:alias");
 }
 .CBTableControlBarBottom {
-    -tr-rule-ref: selector(".CBTableControlBar:alias");
-    border-width: 0 1px 1px 1px;
+    -tr-rule-ref: selector(".CBTableControlBarBottom:alias");
 }
 .CBTableSubControlBar {
     -tr-rule-ref: selector(".CBTableSubControlBar:alias");
-    border-width: 1px 1px 0 1px;
 }
+.CBTablePathBar {
+    -tr-rule-ref: selector(".CBTablePathBar:alias");
+}                                                   
 .CBTableBody {
     -tr-rule-ref: selector(".CBTableBody:alias");
 }
@@ -3576,14 +3601,13 @@ af|table::control-bar-top {
 af|table::control-bar-bottom {
     -tr-rule-ref: selector(".CBTableControlBarBottom");
 }
-af|table::sub-control-bar, .OraHGridLocatorHeader {
+af|table::sub-control-bar {
     -tr-rule-ref: selector(".CBTableSubControlBar");
+    padding: 8px 3px;
 }
 .OraHGridLocatorHeader {
+    -tr-rule-ref: selector(".CBTablePathBar");
     padding: 0;
-}
-af|table::sub-control-bar {
-    padding: 8px 3px;
 }
 /* active navigation buttons */
 af|table::sub-control-bar .OraLink,                                                     
@@ -3717,17 +3741,17 @@ af|table::content af|table::column-footer, af|table::content af|column::total-te
     -tr-rule-ref: selector(".CBTableFooterCell:alias");
 }
 .CBTreeTableControlBarTop {
-    -tr-rule-ref: selector(".CBTableControlBar:alias");
-    border-width: 1px 1px 0 1px;
+    -tr-rule-ref: selector(".CBTableControlBarTop:alias");
 }
 .CBTreeTableControlBarBottom {
-    -tr-rule-ref: selector(".CBTableControlBar:alias");
-    border-width: 0 1px 1px 1px;
+    -tr-rule-ref: selector(".CBTableControlBarBottom:alias");
 }
 .CBTreeTableSubControlBar {
     -tr-rule-ref: selector(".CBTableSubControlBar:alias");
-    border-width: 1px 1px 0 1px;
     padding: 8px 3px;
+}
+.CBTreeTablePathBar {
+    -tr-rule-ref: selector(".CBTablePathBar:alias");
 }
 .CBTreeTableBody {
     -tr-rule-ref: selector(".CBTableBody:alias");
