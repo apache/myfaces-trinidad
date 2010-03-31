@@ -30,6 +30,11 @@ public class TrainDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982060956387098910L;
 
+    static enum VARIANTS implements IComponentDemoVariantId {
+		PlusOne,
+        MaxVisited
+	}
+
 	/**
 	 * Constructor.
 	 */
@@ -42,6 +47,24 @@ public class TrainDemo extends AbstractComponentDemo {
                 "/components/navigation/train/trinidadSurvey.xhtml",
                 "/components/navigation/train/youAreDone.xhtml"
             });
+        
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.PlusOne, "Plus One", this,
+                new String[]{
+                    "/components/navigation/train/generalInfo.xhtml",
+                    "/components/navigation/train/companyInfo.xhtml",
+                    "/components/navigation/train/jsfSurvey.xhtml",
+                    "/components/navigation/train/trinidadSurvey.xhtml",
+                    "/components/navigation/train/youAreDone.xhtml"
+                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MaxVisited, "Max Visited", this,
+                new String[]{
+                    "/components/navigation/train/generalInfo.xhtml",
+                    "/components/navigation/train/companyInfo.xhtml",
+                    "/components/navigation/train/jsfSurvey.xhtml",
+                    "/components/navigation/train/trinidadSurvey.xhtml",
+                    "/components/navigation/train/youAreDone.xhtml"
+                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
 	}
 
     public String getSummaryResourcePath() {
