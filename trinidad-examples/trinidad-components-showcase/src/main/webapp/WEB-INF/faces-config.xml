@@ -152,7 +152,7 @@
     <managed-bean>
         <managed-bean-name>trainBean</managed-bean-name>
         <managed-bean-class>org.apache.myfaces.trinidaddemo.components.navigation.train.TrainBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
@@ -237,26 +237,31 @@
         <navigation-case>
             <from-outcome>trainGeneralInfo</from-outcome>
             <to-view-id>/components/navigation/train/generalInfo.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
 
         <navigation-case>
             <from-outcome>trainCompanyInfo</from-outcome>
             <to-view-id>/components/navigation/train/companyInfo.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
 
         <navigation-case>
             <from-outcome>trainJsfSurvey</from-outcome>
             <to-view-id>/components/navigation/train/jsfSurvey.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
 
         <navigation-case>
             <from-outcome>trainTrinidadSurvey</from-outcome>
             <to-view-id>/components/navigation/train/trinidadSurvey.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
 
         <navigation-case>
             <from-outcome>trainYouAreDone</from-outcome>
             <to-view-id>/components/navigation/train/youAreDone.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
 
         <navigation-case>
