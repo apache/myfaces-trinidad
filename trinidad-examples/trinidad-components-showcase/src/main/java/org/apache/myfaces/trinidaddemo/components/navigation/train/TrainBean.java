@@ -52,15 +52,15 @@ public class TrainBean extends ProcessMenuModel /*implements java.io.Serializabl
     }
 
     public void addList() {
-        TrainNavigationItem page1 = new TrainNavigationItem("General info", "trainGeneralInfo");
+        TrainNavigationItem page1 = new TrainNavigationItem("1.  General info", "trainGeneralInfo");
         page1.setViewId("/components/navigation/train/generalInfo.xhtml");
-        TrainNavigationItem page2 = new TrainNavigationItem("Company info", "trainCompanyInfo");
+        TrainNavigationItem page2 = new TrainNavigationItem("2.  Company info", "trainCompanyInfo");
         page2.setViewId("/components/navigation/train/companyInfo.xhtml");
-        TrainNavigationItem page3 = new TrainNavigationItem("JSF survey", "trainJsfSurvey");
+        TrainNavigationItem page3 = new TrainNavigationItem("3.  JSF survey", "trainJsfSurvey");
         page3.setViewId("/components/navigation/train/jsfSurvey.xhtml");
-        TrainNavigationItem page4 = new TrainNavigationItem("Trinidad survey", "trainTrinidadSurvey");
+        TrainNavigationItem page4 = new TrainNavigationItem("4.  Trinidad survey", "trainTrinidadSurvey");
         page4.setViewId("/components/navigation/train/trinidadSurvey.xhtml");
-        TrainNavigationItem page5 = new TrainNavigationItem("You are done!", "trainYouAreDone");
+        TrainNavigationItem page5 = new TrainNavigationItem("5.  You are done!", "trainYouAreDone");
         page5.setViewId("/components/navigation/train/youAreDone.xhtml");
 
         arrayList.add(page1);

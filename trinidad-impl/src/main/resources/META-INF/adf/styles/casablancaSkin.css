@@ -290,6 +290,14 @@
     -tr-rule-ref: selector(".CBBorderSolidLook:alias");
     border-color: #699ABB;
 }
+.CBBorderAccentedSolidLookVisited:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+    border-color: #B5ABA2;
+}
+.CBBorderAccentedSolidLookVisitedHover:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+    border-color: #9A8D84;
+}
 
 /* Strong borders -------------------------------------- */
 .CBBorderStrongSolidLook:alias {
@@ -457,6 +465,16 @@
     -tr-rule-ref: selector(".CBButtonLookCommon:alias");
     -tr-rule-ref: selector(".CBBorderAccentedSolidLookSelectedHover:alias");
     background: white url(/adf/images/casablanca/backgrounds/buttonLikeHeadSelectedHover.png) repeat-x top left;
+}
+.CBButtonLookVisited:alias {
+    -tr-rule-ref: selector(".CBButtonLookCommon:alias");
+    -tr-rule-ref: selector(".CBBorderAccentedSolidLookVisited:alias");
+    background: white url(/adf/images/casablanca/backgrounds/buttonLikeHeadVisited.png) repeat-x top left;
+}
+.CBButtonLookVisitedHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookCommon:alias");
+    -tr-rule-ref: selector(".CBBorderAccentedSolidLookVisitedHover:alias");
+    background: white url(/adf/images/casablanca/backgrounds/buttonLikeHeadVisitedHover.png) repeat-x top left;
 }
 .CBButtonLookDisabled:alias {
     -tr-rule-ref: selector(".CBButtonLookCommon:alias");
@@ -759,7 +777,7 @@
 .CBButtonCommon:alias {
     -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
 }
-@agent ie and (version: 5), ie and (version: 6), ie and (version: 7) {
+@agent ie and (version: 5), ie and (version: 6) {
     .CBButtonCommon:alias {
         width: 1%;
         overflow: visible;
@@ -1191,10 +1209,12 @@
 
 /* Train Control ---------------------------------------------------------------------------------------------------- */
 .CBTrain:alias {
-    
+    background: white url(/adf/images/casablanca/backgrounds/trainConnector.png) repeat-x center left;    
 }
 .CBTrainStopCommon:alias {
     -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+    padding: 8px 8px;
+    white-space: nowrap;
 }
 .CBTrainStopUnvisited:alias {
     -tr-rule-ref: selector(".CBButtonLook:alias");
@@ -1205,11 +1225,11 @@
     -tr-rule-ref: selector(".CBTrainStopCommon:alias");
 }
 .CBTrainStopVisited:alias {
-    -tr-rule-ref: selector(".CBButtonLookSelected:alias");
+    -tr-rule-ref: selector(".CBButtonLookVisited:alias");
     -tr-rule-ref: selector(".CBTrainStopCommon:alias");
 }
 .CBTrainStopVisitedHover:alias {
-    -tr-rule-ref: selector(".CBButtonLookSelectedHover:alias");
+    -tr-rule-ref: selector(".CBButtonLookVisitedHover:alias");
     -tr-rule-ref: selector(".CBTrainStopCommon:alias");
 }
 .CBTrainStopSelected:alias {
@@ -3440,8 +3460,11 @@ af|singleStepButtonBar af|singleStepButtonBar::label {
     -tr-rule-ref: selector(".CBTrainStopSelectedHover:alias");
 }
 /* Inject CasaBlanca styles */
+af|train {
+    -tr-rule-ref: selector(".CBTrain");
+}
 af|train::stop {
-    -tr-rule-ref: selector(".CBTrainStop");    
+    -tr-rule-ref: selector(".CBTrainStop");
 }
 .p_AFSelected af|train::link {
     -tr-rule-ref: selector(".CBTrainStopSelected");
@@ -3460,6 +3483,16 @@ af|train::stop {
 }
 .p_AFUnvisited af|train::link:hover {
     -tr-rule-ref: selector(".CBTrainStopUnvisitedHover");
+}
+/* Clear some legacy stuff */
+af|train::join {
+    display: none ! important;
+}
+af|train::stop-icon-cell {
+    display: none ! important;
+}
+af|train table {
+    width: auto ! important;
 }
 
 /* Table component -------------------------------------------------------------------------------------------------- */
