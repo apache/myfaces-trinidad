@@ -39,6 +39,7 @@ import javax.faces.render.RenderKitFactory;
 import javax.faces.render.ResponseStateManager;
 
 import org.apache.myfaces.trinidad.component.UIXComponentBase;
+import org.apache.myfaces.trinidad.component.core.CoreDocument;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
@@ -676,6 +677,26 @@ public class StateManagerImpl extends StateManagerWrapper
     return null;
   }
 
+  /**
+   * The given parameter (<code>perViewStateSaving</code>) indicates
+   * if we need to enable client- OR server-side state-saving
+   * for the current VIEW.
+   * 
+   * <p>
+   * <b>This is an internal method, that is ONLY called by the
+   * Trinidad Document</b>
+   * </p>
+   * 
+   * @param perViewStateSaving <code>default</code>, <code>server</code> or <code>client</code> for stateSaving
+   */
+  public void setPerViewStateSaving(String perViewStateSaving)
+  {
+    // tweak the given value into one of the three possible enums
+    // TODO: catch wrong/invalid values (aka baby sitting)
+    Map<String, Object> attrs = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+    attrs.put(_PER_PAGE_STATE_SAVING, StateSaving.valueOf(perViewStateSaving.toUpperCase()));
+  }
+
   @Override
   public boolean isSavingStateInClient(FacesContext context)
   {
@@ -829,13 +850,74 @@ public class StateManagerImpl extends StateManagerWrapper
    */
   private boolean _saveAsToken(FacesContext context)
   {
+    // the setPerViewStateSaving() method stores the PER_PAGE_STATE_SAVING value on the
+    // request attribute map, during rendering
+    Map<String, Object> attrMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+    StateSaving stateSaving = (StateSaving) attrMap.get(_PER_PAGE_STATE_SAVING);
+
+    // if the <document> 'stateSaving' attribute said "client" we need to return FALSE
+    // in order to do "full" client-side-state saving.
+    Boolean forceStateSavingPerView = null;
+
+    if (StateSaving.CLIENT.equals(stateSaving))
+    {
+     forceStateSavingPerView = Boolean.FALSE;
+    }
+    // for "server" we return TRUE here, as we want client-side
+    // state-saving to be turned OFF, regardless of the configuration
+    // settings.
+    else if (StateSaving.SERVER.equals(stateSaving))
+    {
+      forceStateSavingPerView = Boolean.TRUE;
+    }
+
+    // for the stateSaving "defaul" we just let go and do what it
+    // normally would do...
+    if (forceStateSavingPerView != null)
+    {
+      return forceStateSavingPerView.booleanValue();
+    }
+
     ExternalContext external = context.getExternalContext();
+    Object stateSavingMethod =
+      external.getInitParameterMap().get(StateManager.STATE_SAVING_METHOD_PARAM_NAME);    
+
+    // on "SERVER" state-saving we return TRUE, since we want send down a token string.
+    if ((stateSavingMethod == null) ||
+        StateManager.STATE_SAVING_METHOD_SERVER.equalsIgnoreCase((String) stateSavingMethod))
+    {
+      return true;
+    }
+
+    // if the user set state-saving to "CLIENT" *and* the client-state-method to "ALL"
+    // we return FALSE, since we want to save the ENTIRE state on the client...
     Object clientMethod =
       external.getInitParameterMap().get(CLIENT_STATE_METHOD_PARAM_NAME);
     if ((clientMethod != null) &&
         CLIENT_STATE_METHOD_ALL.equalsIgnoreCase((String) clientMethod))
+    {
       return false;
+    }
 
+    // if the user has used the <document> 'stateSaving' attribute to specify 
+    // client, we force the state mananger (see above) to render the entire
+    // state on the client. The indicator is stashed on the FacesContext and
+    // is therefore NOT visible during "restoreView" phase. So if we reach this point
+    // here AND we are using "full" client-side-state-saving, this has been tweaked
+    // on the previous page rendering phase...
+    // In this case we return FALSE to indicate to restore the entire (serialized)
+    // state from the client!
+    //
+    // @see setPerViewStateSaving()
+    String viewStateValue =
+      external.getRequestParameterMap().get(ResponseStateManager.VIEW_STATE_PARAM);
+    if (viewStateValue != null && !viewStateValue.startsWith("!"))
+    {
+      return false;
+    }
+
+    // Last missing option: state-saving is "CLIENT" and the client-state-method uses
+    // its default (token), so we return TRUE to send down a token string.
     return true;
   }
 
@@ -1221,6 +1303,24 @@ public class StateManagerImpl extends StateManagerWrapper
     }    
   }
 
+  /**
+   * Static ENUM to capture the values of the <document>'s 
+   * 'stateSaving' attribute
+   */
+  static private enum StateSaving
+  {
+    DEFAULT(CoreDocument.STATE_SAVING_DEFAULT),
+    CLIENT(CoreDocument.STATE_SAVING_CLIENT),
+    SERVER(CoreDocument.STATE_SAVING_SERVER);
+     StateSaving(String stateSaving)
+    {
+      _stateSaving = stateSaving;
+    }
+
+    private String _stateSaving;
+  }
+
+
   private final StateManager _delegate;
   private       Boolean      _useViewRootCache;
   private       Boolean      _useApplicationViewCache;
@@ -1238,6 +1338,10 @@ public class StateManagerImpl extends StateManagerWrapper
 
   private static final String _APPLICATION_VIEW_CACHE_KEY =
     "org.apache.myfaces.trinidadinternal.application.APPLICATION_VIEW_CACHE";
+
+  // key to stash the per_page_state_saving during rendering
+  private static final String _PER_PAGE_STATE_SAVING = 
+    "org.apache.myfaces.trinidadimpl.PER_PAGE_STATE_SAVING";
 
   private static final String _CACHED_SERIALIZED_VIEW =
     "org.apache.myfaces.trinidadinternal.application.CachedSerializedView";
