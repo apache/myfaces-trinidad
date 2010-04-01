@@ -51,6 +51,21 @@
       </property-extension>
     </property>
 
+    <property>
+      <description><![CDATA[Specify the state saving behavior for this page. client=force to be (full) client;
+             server=force to be server-side; default=follows the settings of the web.xml]]></description>
+      <property-name>stateSaving</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>default</default-value>
+      <property-extension>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+          <fmd:property-values>default client server</fmd:property-values>
+        </fmd:property-metadata>
+      </property-extension>
+    </property>
+
     <xi:include href="includes/CommonDocumentAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
