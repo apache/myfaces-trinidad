@@ -33,6 +33,9 @@
   <skin-family>#{prefs.proxy.skinFamily}</skin-family>  
 
 
+  <uploaded-file-processor>org.apache.myfaces.trinidaddemo.ProfanityScanner org.apache.myfaces.trinidaddemo.ProfanityScanner</uploaded-file-processor>
+
+  <!--uploaded-file-processor>org.apache.myfaces.trinidaddemo.ProfanityScanner</uploaded-file-processor-->
 
   <!--
   <output-mode>portlet</output-mode>
