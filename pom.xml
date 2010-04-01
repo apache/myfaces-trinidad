@@ -870,46 +870,5 @@
   </profiles>
 </settings>
       -->
-    <profile>
-      <id>java5compilerFor6</id>
-      <activation>
-        <jdk>1.6</jdk>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <inherited>true</inherited>
-            <configuration>
-              <fork>true</fork>
-              <executable>${jdk5.home}/bin/javac</executable>
-              <compilerVersion>${jdk.version}</compilerVersion>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <!-- repeat for JDK 1.7 -->
-    <profile>
-      <id>java5compilerFor7</id>
-      <activation>
-        <jdk>1.7</jdk>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <inherited>true</inherited>
-            <configuration>
-              <fork>true</fork>
-              <executable>${jdk5.home}/bin/javac</executable>
-              <compilerVersion>${jdk.version}</compilerVersion>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
   </profiles>
 </project>

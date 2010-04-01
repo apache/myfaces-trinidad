@@ -18,9 +18,14 @@
  */
 package org.apache.myfaces.trinidadinternal.config.upload;
 
+
 import java.io.File;
 import java.io.IOException;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
 import java.util.Map;
 
 import javax.portlet.ActionRequest;
@@ -42,17 +47,147 @@ import org.apache.myfaces.trinidadinternal.context.external.ServletInitParameter
 import org.apache.myfaces.trinidadinternal.context.external.ServletRequestMap;
 
 /**
- * @deprecated This implementation is merged to CompositeUploadedFileProcessorImpl.
- * This class will be removed in the next release.
- * 
- */
-public class UploadedFileProcessorImpl implements UploadedFileProcessor
+ * This is the default implementaion of UploadedFileProcessor. It works with
+ * multiple ChainedUploadedFileProcessor declared in trinidad-config.xml by dispatching
+ * the lifecycle calls to them in the order of declaration.
+ **/
+public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
 {
-  public UploadedFileProcessorImpl()
+
+  public CompositeUploadedFileProcessorImpl()
   {
+    chainedProcessors = Collections.emptyList();
   }
 
+  public CompositeUploadedFileProcessorImpl(
+          List<? extends UploadedFileProcessor> chainedProcessors)
+  {
+    this.chainedProcessors = chainedProcessors;
+  }
+
+  @Override
   public void init(Object context)
+  {
+    _init(context);
+    for(UploadedFileProcessor processor: chainedProcessors)
+    {
+      //call other chained processor's init
+      processor.init(context);
+    }
+
+  }
+
+  @Override
+  public UploadedFile processFile(Object request, UploadedFile tempFile) throws IOException
+  {
+    //NOTE: The following optimization was suggested at one point:
+    // Check if there are any processors in the list. If yes then call _processFile
+    // else just return tempFile we got. Calling _processFile buffers the entire
+    // file content. tempFile arg however is not buffered. If there are no
+    // ChainedUploadedFileProcessor in the list, then there is no need to buffer.
+    // BUT, the call to getLength() and dispose() on tempFile fails.
+    // This is becasue, the impl of these 2 methods are not complete -
+    // Bug - https://issues.apache.org/jira/browse/TRINIDAD-1765
+    // This bug could not be fixed due to the explanatio in the bug.
+
+    //call _processFile first. This will create the auto buffer that we want.
+    UploadedFile original = _processFile(request, tempFile);
+    if(chainedProcessors.isEmpty())
+    {
+      return original;
+    }
+    else
+    {
+      List<UploadedFile> files = new ArrayList<UploadedFile>(chainedProcessors.size()+1);
+      files.add(original);
+      for(UploadedFileProcessor processor: chainedProcessors)
+      {
+        original = processor.processFile(request, original);
+        files.add(original);
+      }
+      //the dispose order should be reverse!
+      Collections.reverse(files);
+      return new WrappedUploadedFileImpl(original, files);
+    }
+  }
+
+
+  /**
+   * Wrapper around UploadedFileImpl to listen for dispose() call and dispatch to
+   * other UploadedFileImpls returned by other chained processors
+   */
+  private static class WrappedUploadedFileImpl implements UploadedFile{
+
+    public WrappedUploadedFileImpl(UploadedFile original, List<UploadedFile> files)
+    {
+      this.original = original;
+      this.files = files;
+    }
+
+    public void dispose()
+    {
+      try
+      {
+        original.dispose();
+      }
+      catch(Exception e)
+      {
+        _LOG.warning("Exception while disposing!", e);
+        //log and continue disposing the rest.
+      }
+      if(!files.isEmpty())
+      {
+        List<UploadedFile> disposed = new ArrayList<UploadedFile>();
+        disposed.add(original);
+        for(UploadedFile file: files)
+        {
+          if(!disposed.contains(file))
+          {
+            try
+            {
+              file.dispose();
+            }
+            catch(Exception e)
+            {
+              _LOG.warning("Exception while disposing!", e);
+              //log and continue disposing the rest.
+            }
+            disposed.add(file);
+          }
+        }
+      }
+    }
+
+    public String getFilename()
+    {
+      return original.getFilename();
+    }
+
+    public String getContentType()
+    {
+      return original.getContentType();
+    }
+
+    public long getLength()
+    {
+      return original.getLength();
+    }
+
+    public Object getOpaqueData()
+    {
+      return original.getOpaqueData();
+    }
+
+    public InputStream getInputStream() throws IOException
+    {
+      return original.getInputStream();
+    }
+
+    private final UploadedFile original;
+    private final List<UploadedFile> files;
+  }
+
+  private void _init(Object context)
   {
     ContextInfo info;
     if(_PORTLET_CONTEXT_CLASS != null && _PORTLET_CONTEXT_CLASS.isInstance(context))
@@ -122,13 +257,13 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     }
   }
 
-  public UploadedFile processFile(
+  private UploadedFile _processFile(
       Object request, UploadedFile tempFile) throws IOException
   {
     RequestInfo info = _getRequestInfo(request);
     int contentLength = getContentLength(request);
     Map<String, Object> requestMap;
-    
+
     if (_isPortletRequestClass(request))
       requestMap = _getPortletRequestMap(request);
     else
@@ -137,20 +272,20 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     Long maxMemory = (Long)requestMap.get(MAX_MEMORY_PARAM_NAME);
     Long maxDiskSpace = (Long)requestMap.get(MAX_DISK_SPACE_PARAM_NAME);
     String tempDir = (String)requestMap.get(TEMP_DIR_PARAM_NAME);
-    
+
     if (maxMemory != null)
     {
       _maxMemory = maxMemory;
     }
-      
+
     if (maxDiskSpace != null)
     {
       _maxDiskSpace = maxDiskSpace;
     }
- 
+
     if (tempDir != null)
       _tempDir = tempDir;
-    
+
     if(contentLength>_maxDiskSpace)
     {
       return new ErrorFile();
@@ -199,7 +334,7 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
 
     return length;
   }
-  
+
   private RequestInfo _getRequestInfo(Object request)
   {
     Map<String, Object> attributes;
@@ -223,7 +358,7 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
 
     return info;
   }
-  
+
   private boolean _isPortletRequestClass(Object request)
   {
     return (_PORTLET_REQUEST_CLASS != null && _PORTLET_REQUEST_CLASS.isInstance(request));
@@ -303,11 +438,11 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
   private static final long _DEFAULT_MAX_MEMORY = 102400;
   private static final long _DEFAULT_MAX_DISK_SPACE = 2048000;
 
-  private static final String _REQUEST_INFO_KEY = UploadedFileProcessorImpl.class.getName()+
+  private static final String _REQUEST_INFO_KEY = CompositeUploadedFileProcessorImpl.class.getName()+
     ".UploadedFilesInfo";
 
   private static final TrinidadLogger _LOG =
-    TrinidadLogger.createTrinidadLogger(UploadedFileProcessorImpl.class);
+    TrinidadLogger.createTrinidadLogger(CompositeUploadedFileProcessorImpl.class);
 
   private static final Class<?>        _PORTLET_CONTEXT_CLASS;
   private static final Class<?>       _PORTLET_REQUEST_CLASS;
@@ -332,4 +467,8 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     _PORTLET_CONTEXT_CLASS = context;
     _PORTLET_REQUEST_CLASS = request;
   }
+
+
+  private final List<? extends UploadedFileProcessor> chainedProcessors;
+ 
 }
