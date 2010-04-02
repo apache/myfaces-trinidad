@@ -65,7 +65,6 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
     this.chainedProcessors = chainedProcessors;
   }
 
-  @Override
   public void init(Object context)
   {
     _init(context);
@@ -77,7 +76,6 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
 
   }
 
-  @Override
   public UploadedFile processFile(Object request, UploadedFile tempFile) throws IOException
   {
     //NOTE: The following optimization was suggested at one point:
