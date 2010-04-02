@@ -79,6 +79,25 @@ final class ValueMap<K, V> extends AbstractMap<K, V> implements Externalizable
     return old;
   }
     
+  /**
+   * Removes the mapping for the specified key. Also
+   * removes the corresponding value mapping.
+   * @param key
+   * @return
+   */
+  @Override
+  public V remove(Object key) 
+  {
+    V value = _cache.remove(key);
+    
+    if (value != null)
+    {
+      K oldKey = _valueMap.remove(value);
+      assert oldKey != null : "missing key in value map for value "+value;
+    }
+    return value;
+  }
+    
   @Override
   public void clear()
   {
