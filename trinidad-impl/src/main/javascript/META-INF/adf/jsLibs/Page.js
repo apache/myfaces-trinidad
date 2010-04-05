@@ -40,37 +40,6 @@ TrPage.getInstance = function ()
   return TrPage._INSTANCE;
 }
 
-TrPage._MockXHR = function (requestEvent)
-{
-  this.UNSENT = 0;
-  this.OPENED = 1;
-  this.HEADERS_RECEIVED = 2;
-  this.LOADING = 3;
-  this.DONE = 4;
-  this.readyState = this.DONE;
-  this.status = requestEvent.getResponseStatusCode();
-  this.statusText = "";
-  this._requestEvent = requestEvent;
-  this.responseText = requestEvent.getResponseText();
-  this.responseXML = requestEvent.getResponseXML();
-}
-
-// Unsupported API methods that require a return value:
-TrPage._MockXHR.prototype.getResponseHeader = function (header)
-{
-  return this._requestEvent.getResponseHeader(header);
-}
-
-TrPage._MockXHR.prototype.getAllResponseHeaders = function ()
-{
-  return this._requestEvent._getAllResponseHeaders();
-}
-
-// No-op API methods:
-TrPage._MockXHR.prototype.open = TrPage._MockXHR.prototype.setRequestHeader = TrPage._MockXHR.prototype.send = TrPage._MockXHR.prototype.abort = function ()
-{
-};
-
 /**
  * Return the shared request queue for the page.
  */
@@ -196,45 +165,17 @@ TrPage.prototype._handleJsfAjaxResponse = function (requestEvent)
   }
 }
 
-/**
- * Method to bridge compatibility between the Trinidad IFrame-PPR implementation
- * an the JSF 2 AJAX javascript API
- */
-TrPage.prototype._delegateResponseToJsfAjax = function (requestEvent, document)
-{
-  // We wish to have JSF 2 handle the response. In order to do that we need to
-  // construct the necessary parameters for the jsf.ajax.response method.
-  //
-  // The first parameter is the XHR object, so we must wrap the response in such
-  // a way that JSF 2 believes the data to be coming from an XHR object
-  //
-  var request = new TrPage._MockXHR(requestEvent);
-
-  // The second parameter is the context object which is the request context object
-  // containing the source element, onerror callback, and onevent callback.
-  var source = requestEvent.getSource();
-  if (source)
-  {
-    source = document.getElementById(source);
-  }
-  var context =
-  {
-    "onevent" : null,
-    "onerror" : null,
-    "source" : source,
-    "formid" : requestEvent.getFormId(),
-    "render" : null
-  };
-
-  jsf.ajax.response(request, context);
-}
-
 TrPage.prototype._handlePprResponse = function (requestEvent, document)
 {
-  if (this._requestQueue.__useJsfBuiltInAjaxForXhr())
-  {
-    return this._delegateResponseToJsfAjax(requestEvent, document);
-  }
+  // -- This is only called for iFrame cases --
+  // Note that at first, it was attempted to delegate the response to
+  // the jsf.ajax.response method using a mock-XHR object
+  // The problem with this approach is that we have no way to fire the
+  // JSF AJAX events. If we only call jsf.ajax.response, we'll only get a
+  // success event, but no complete event and there is no public API to
+  // fire these events. So instead, let the iframe use all legacy code
+  // and only fire Trinidad events and not jsf.ajax events.
+
   var documentElement = document.documentElement;
   var rootNodeName = TrPage._getNodeName(documentElement);
   if (rootNodeName == "partial-response")
@@ -269,7 +210,8 @@ TrPage.prototype._handlePprResponse = function (requestEvent, document)
                 }
                 break;
 
-              // Do not support the new updates with the Trinidad legacy fallback code:
+              // Do not support the new updates with the Trinidad legacy fallback code
+              // for now
               default:
                 break;
             }
@@ -427,7 +369,7 @@ TrPage.prototype.__handlePprResponseAction = function (actionURL)
 TrPage.prototype._handlePprResponseFragment = function (fragmentNode, formId)
 {
   var doc = window.document;
-  
+
   if (fragmentNode.getAttribute("id") == TrPage._VIEW_STATE_ID)
   {
     // JSF2 short-circuits writeState() during partial requets. The state
@@ -435,10 +377,10 @@ TrPage.prototype._handlePprResponseFragment = function (fragmentNode, formId)
     // Perform special handling for the javax.faces.ViewState Id here just
     // like jsf.ajax.request() does
     this._updateViewState(doc, fragmentNode, formId);
-    
+
     return;
   }
-  
+
   var targetNode;
   var activeNode;
   var refocusId = null;
@@ -523,7 +465,7 @@ TrPage.prototype._handlePprResponseFragment = function (fragmentNode, formId)
       return;
 
     // Find the target node
-    targetNode = _getElementById(doc, id);   
+    targetNode = _getElementById(doc, id);
     activeNode = _getActiveElement();
     if (activeNode && TrPage._isDomAncestorOf(activeNode, targetNode))
       refocusId = activeNode.id;
@@ -559,20 +501,20 @@ TrPage.prototype._handlePprResponseFragment = function (fragmentNode, formId)
 }
 
 TrPage.prototype._updateViewState = function(doc, sourceNode, formId)
-{  
+{
   var form  = null;
-  
+
   if (formId)
     form = doc.getElementById(formId);
-  
+
   if (!form)
     form = doc.forms[0];
-  
+
   if (!form)
     return;
-  
+
   var input = form[TrPage._VIEW_STATE_ID];
-  
+
   if (!input)
   {
     input = doc.createElement("input");
@@ -580,7 +522,7 @@ TrPage.prototype._updateViewState = function(doc, sourceNode, formId)
     input.name = TrPage._VIEW_STATE_ID;
     form.appendChild(input);
   }
-  
+
   input.value = TrPage._getTextContent(sourceNode);
 }
 
