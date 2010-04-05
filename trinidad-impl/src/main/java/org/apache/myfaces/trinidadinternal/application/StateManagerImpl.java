@@ -1134,7 +1134,7 @@ public class StateManagerImpl extends StateManagerWrapper
 
       boolean zipState = _zipState(fc);
 
-   //   if (zipState || StateUtils.checkComponentTreeStateSerialization(fc))
+      if (zipState || StateUtils.checkComponentTreeStateSerialization(fc))
       {
 
         if (zipState)
