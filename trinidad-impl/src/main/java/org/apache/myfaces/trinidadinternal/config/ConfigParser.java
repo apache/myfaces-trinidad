@@ -20,6 +20,9 @@ package org.apache.myfaces.trinidadinternal.config;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -36,8 +39,9 @@ import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.webapp.ChainedUploadedFileProcessor;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
-import org.apache.myfaces.trinidadinternal.config.upload.UploadedFileProcessorImpl;
+import org.apache.myfaces.trinidadinternal.config.upload.CompositeUploadedFileProcessorImpl;
 import org.apache.myfaces.trinidadinternal.context.RequestContextBean;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidadinternal.util.DateUtils;
@@ -102,29 +106,78 @@ public class ConfigParser
       }
     }
 
-    String className = (String)
+    String classNameString = (String)
       bean.getProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY);
-    if (className != null)
+    if (classNameString != null)
     {
-      className = className.trim();
+      classNameString = classNameString.trim();
 
+      //check if this contains multiple class names for chained processors usecase.
+      // Usually the class named are separated by space char.
+      String classNames[] = classNameString.split("[ ]+");
+      if(classNames.length == 1)
+      {
+        //This could be a single processor full override usecase or a chained
+        //processor usecase that has only one processor.
       try
       {
-        Class<?> clazz = ClassLoaderUtils.loadClass(className);
+          Class<UploadedFileProcessor> clazz = (Class<UploadedFileProcessor>)
+                  ClassLoaderUtils.loadClass(classNames[0]);
+          if(ChainedUploadedFileProcessor.class.isAssignableFrom(clazz))
+          {
+            //this single chained processor case
+            ChainedUploadedFileProcessor cufp[] =
+            {
+              (ChainedUploadedFileProcessor) clazz.newInstance()
+            };
         bean.setProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY,
+                  new CompositeUploadedFileProcessorImpl(Arrays.asList(cufp)));
+          }
+          else
+          {
+            //this is full override usecase
+            bean.setProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY,
                          clazz.newInstance());
       }
+          
+
+        }
       catch (Exception e)
       {
         _LOG.severe("CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR", e);
         bean.setProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY,
-                         new UploadedFileProcessorImpl());
+                  new CompositeUploadedFileProcessorImpl());
       }
     }
     else
     {
+        try
+        {
+          //chained processors usecase, Multiple processors
+          List<ChainedUploadedFileProcessor> processors =
+                  new ArrayList<ChainedUploadedFileProcessor>(classNames.length);
+          for (String className : classNames)
+          {
+            Class<ChainedUploadedFileProcessor> clazz =
+                    (Class<ChainedUploadedFileProcessor>) ClassLoaderUtils.loadClass(className);
+            processors.add(clazz.newInstance());
+          }
       bean.setProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY,
-                       new UploadedFileProcessorImpl());
+                  new CompositeUploadedFileProcessorImpl(processors));
+    }
+        catch(Exception e)
+        {
+          _LOG.severe("CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR", e);
+          bean.setProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY,
+                  new CompositeUploadedFileProcessorImpl());
+        }
+      }
+    }
+    else
+    {
+      //nothing specified, hence use default.
+      bean.setProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY,
+              new CompositeUploadedFileProcessorImpl());
     }
 
     UploadedFileProcessor ufp = (UploadedFileProcessor)
