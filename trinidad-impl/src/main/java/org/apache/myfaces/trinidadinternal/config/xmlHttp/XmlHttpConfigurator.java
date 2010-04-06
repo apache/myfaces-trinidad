@@ -90,9 +90,11 @@ public class XmlHttpConfigurator extends Configurator
   {
     XmlResponseWriter rw = new XmlResponseWriter(writer, "UTF-8");
     rw.startDocument();
+    rw.startElement("partial-response", null);
     rw.startElement("redirect", null);
     rw.writeText(url, null);
     rw.endElement("redirect");
+    rw.endElement("partial-response");
     rw.endDocument();
     rw.close();
   }
@@ -112,6 +114,7 @@ public class XmlHttpConfigurator extends Configurator
     PrintWriter writer = response.getWriter();
     XmlResponseWriter rw = new XmlResponseWriter(writer, "UTF-8");
     rw.startDocument();
+    rw.startElement("partial-response", null);
     rw.startElement("error", null);
     rw.startElement("error-name", null);
     rw.writeText(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null);
@@ -122,6 +125,7 @@ public class XmlHttpConfigurator extends Configurator
     rw.endCDATA();
     rw.endElement("error-message");
     rw.endElement("error");
+    rw.endElement("partial-response");
     rw.endDocument();
     rw.close();
   }
