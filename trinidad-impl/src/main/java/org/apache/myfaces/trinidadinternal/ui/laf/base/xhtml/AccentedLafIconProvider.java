@@ -25,6 +25,8 @@ import java.awt.Color;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.share.io.NameResolver;
+
 
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
@@ -39,8 +41,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.ColorizedLafIconProvider;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.IconKey;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.Icon;
-
-import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 
 /**
  * Abstracts out the retrieval of ImageProviderResponses for

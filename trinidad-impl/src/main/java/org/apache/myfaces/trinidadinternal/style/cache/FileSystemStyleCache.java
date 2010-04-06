@@ -45,6 +45,8 @@ import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidad.share.io.NameResolver;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.style.Selector;
@@ -56,8 +58,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
-import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
@@ -451,7 +451,7 @@ public class FileSystemStyleCache implements StyleProvider
                         entryCache,
                         shortStyleClassMap,
                         namespacePrefixes,
-                        checkModified, 
+                        checkModified,
                         isDirty);
   }
 
@@ -492,7 +492,7 @@ public class FileSystemStyleCache implements StyleProvider
       if (!valid)
       {
         _deleteAll(existing);
-        
+
         // atomically remove the key from the cache if it currently points to the entry
         cache.remove(key, entry);
 
@@ -567,7 +567,7 @@ public class FileSystemStyleCache implements StyleProvider
     // Also, cache the new entry in the entry cache
     DerivationKey derivationKey = _getDerivationKey(context, document);
     entryCache.put(derivationKey, entry);
-    
+
     // just in case, clear the dirty flag.
     RenderingContext arc = RenderingContext.getCurrentInstance();
     Skin skin = arc.getSkin();
@@ -614,7 +614,7 @@ public class FileSystemStyleCache implements StyleProvider
     Iterator<StyleSheetNode> e = document.getStyleSheets(context);
 
     StyleSheetNode[] styleSheets;
-    
+
     if (e.hasNext())
     {
       styleSheets = CollectionUtils.toArray(e, StyleSheetNode.class);
@@ -953,7 +953,7 @@ public class FileSystemStyleCache implements StyleProvider
     }
     catch (IOException e)
     {
-      // This might happen if we couldn't delete the css file that was already there, so we 
+      // This might happen if we couldn't delete the css file that was already there, so we
       // are unable to recreate it.
       if (_LOG.isWarning())
         _LOG.warning("IOEXCEPTION_OPENNING_FILE", file);
@@ -1235,7 +1235,7 @@ public class FileSystemStyleCache implements StyleProvider
       if ((o.hashCode() == hashCode()) &&  (o instanceof Key))
       {
         Key key = (Key)o;
-        
+
         // Check the easy stuff first
         if  ((_short == key._short)             &&
              (_portlet == key._portlet)         &&
@@ -1541,8 +1541,8 @@ public class FileSystemStyleCache implements StyleProvider
         if (name != null && value != null)
           styleProperties.put(name, value);
       }
-      
-      // To save memory, we reuse CSSStyle objects if 
+
+      // To save memory, we reuse CSSStyle objects if
       // they have the same list of style property names and values.
       // StyleKey is the key into the StyleKey, CSSStyle map.
       StyleKey key = new StyleKey(styleProperties);
@@ -1552,14 +1552,14 @@ public class FileSystemStyleCache implements StyleProvider
         // no match is cached yet, so create a new CSSStyle and cache in the map.
         Style style = new CSSStyle(styleProperties);
         _styleNodeToStyleMap.put(key, style);
-        return style;         
+        return style;
       }
       else
       {
         return cachedStyle;
       }
     }
-    
+
     /**
      * A StyleKey object is used as a key into a map so that we can share CSSStyle objects
      * if they are equal and they have the same hashCode.
@@ -1570,7 +1570,7 @@ public class FileSystemStyleCache implements StyleProvider
       {
         _styleProperties = styleProperties;
       }
-      
+
       @Override
       public int hashCode()
       {
@@ -1587,19 +1587,19 @@ public class FileSystemStyleCache implements StyleProvider
         }
         return hash;
       }
-      @Override  
+      @Override
       public boolean equals(Object obj)
       {
         if (this == obj)
           return true;
         if (!(obj instanceof StyleKey))
           return false;
-          
+
         // obj at this point must be a StyleKey
         StyleKey test = (StyleKey)obj;
         return test._styleProperties.equals(this._styleProperties);
       }
-      
+
       Map<String, String> _styleProperties;
 
     }

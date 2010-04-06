@@ -24,6 +24,10 @@ import java.util.Map;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidad.share.io.NameResolver;
+
+
 /**
  * NameResolver that adds caching support.  Providers
  * that receive cached results (via setCachedResult) will

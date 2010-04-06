@@ -32,14 +32,14 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidad.share.io.NameResolver;
 
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.config.ConfigurationImpl;
 
 import org.apache.myfaces.trinidadinternal.share.io.CachingInputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
-import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 
 import org.apache.myfaces.trinidadinternal.share.expl.JavaMethod;
 

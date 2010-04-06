@@ -26,8 +26,7 @@ import java.util.Map;
 
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
-import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
 
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
