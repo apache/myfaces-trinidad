@@ -304,6 +304,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
   
   public void writeViewState(String state) throws IOException
   {
+    _startChanges();
     _xml.startElement(_ELEMENT_CHANGES_UPDATE, null);
     _xml.writeAttribute(_ATTRIBUTE_ID, PartialResponseWriter.VIEW_STATE_MARKER, null);
     _xml.startCDATA();
