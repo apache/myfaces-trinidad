@@ -120,9 +120,7 @@ public class XmlHttpConfigurator extends Configurator
     rw.writeText(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null);
     rw.endElement("error-name");
     rw.startElement("error-message", null);
-    rw.startCDATA();
     rw.writeText(_getExceptionString(t) + _PLEASE_SEE_ERROR_LOG + error, null);
-    rw.endCDATA();
     rw.endElement("error-message");
     rw.endElement("error");
     rw.endElement("partial-response");
