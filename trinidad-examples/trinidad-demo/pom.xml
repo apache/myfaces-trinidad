@@ -157,6 +157,12 @@
     </profile>
     
     <!-- To run jetty, issue "mvn clean -PjettyConfig jetty:run" -->
+    <!-- To Debug using a remote debugger, issue
+	    "export MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=8000"
+	    and then issue
+	    "mvn clean -PjettyConfig jetty:run"
+	    Then connect the remote debugger to localhost:8000 -->
+
     <profile>
       <id>pluto-embedded</id>
       <dependencyManagement>
