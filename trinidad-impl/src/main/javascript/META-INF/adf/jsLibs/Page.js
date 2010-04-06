@@ -204,7 +204,7 @@ TrPage.prototype._handlePprResponse = function (requestEvent, document)
                 break;
 
               case "extension":
-                if (changeNode.id == "tr-script-library")
+                if (changeNode.getAttribute("id") == "tr-script-library")
                 {
                   this._handlePprResponseLibrary(changeNode);
                 }
