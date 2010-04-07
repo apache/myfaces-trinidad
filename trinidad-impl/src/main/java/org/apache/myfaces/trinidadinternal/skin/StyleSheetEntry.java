@@ -89,16 +89,16 @@ class StyleSheetEntry
       if (skinStyleSheet == null)
         return null;
 
-      // We either create a plain old StyleSheetEntry or a special
-      // subclass of StyleSheetEntry that will recalculate the StyleSheetEntry
-      // if the skin is dirty or if there are file modifications
-      // and the Configuration settings say to check for file modifications.
-      if (context.checkStylesModified() || context.isDirty())
-        return new CheckModifiedEntry(styleSheetName,
-                                      skinStyleSheet.getDocument(),
-                                      resolver);
+      // We either a special subclass of StyleSheetEntry that will recalculate 
+      // the StyleSheetEntry if the skin is dirty or if the web.xml's 
+      // CHECK_FILE_MODIFICATION flag is set and there are file modifications.
+      boolean checkStylesModified = context.checkStylesModified();
+      return new CheckModifiedEntry(styleSheetName,
+                                    skinStyleSheet.getDocument(),
+                                    resolver,
+                                    checkStylesModified);
 
-      return skinStyleSheet;
+
 
 
 
@@ -441,13 +441,16 @@ class StyleSheetEntry
 
 
   // Subclass of StyleSheetEntry which recreates the StyleSheetEntry
-  // if the skin is marked dirty (skin.isDirty()) or if the underlying source files have been modified.
+  // if the skin is marked dirty (skin.isDirty()) or if the underlying 
+  // source files have been modified and CHECK_FILE_MODIFICATION flag is set
+  // in web.xml.
   private static class CheckModifiedEntry extends StyleSheetEntry
   {
     public CheckModifiedEntry(
       String                 styleSheetName,
       StyleSheetDocument     document,
-      NameResolver           resolver
+      NameResolver           resolver,
+      boolean                checkFileModifiedFlagSet
       )
     {
       super(styleSheetName, document);
@@ -455,17 +458,23 @@ class StyleSheetEntry
       // We need the InputStreamProvider in order to check
       // for modifications.  Get it from the NameResolver.
       _provider = _getInputStreamProvider(resolver);
+      _checkFileModifiedFlagSet = checkFileModifiedFlagSet;
     }
 
-    // Override of checkModified() which uses the
-    // InputStreamProvider to check for changes to the
-    // style sheet source files.
+    // Override of checkModified() which first checks if the file
+    // needs to be reparsed and a new CSS file generated.
+    // The conditions are if the skin is marked dirty, or if the 
+    // web.xml's CHECK_FILE_MODIFICATION flag is set and the source
+    // has changed. The InputStreamProvider's hasSourceChanged method
+    // is called to see if the source has changed.
     @Override
     public boolean checkModified(StyleContext context)
     {
       // We would synchronize here, but at the moment synchronization
       // is provided by Skin.getStyleSheetDocument().
-      if (context.isDirty() || ((_provider != null) && (_provider.hasSourceChanged())))
+      if (context.isDirty() || 
+          (_checkFileModifiedFlagSet && 
+           ((_provider != null) && (_provider.hasSourceChanged())))  )
       {
         // Throw away the old InputStreamProvider and StyleSheetDocument
         _provider = null;
@@ -529,6 +538,7 @@ class StyleSheetEntry
     }
 
     private InputStreamProvider _provider;
+    private boolean _checkFileModifiedFlagSet;
   }
   
 
