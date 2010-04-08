@@ -146,18 +146,25 @@ public class PartialViewContextImpl
   public boolean isExecuteAll()
   {
     _assertNotReleased();
-    if (_requestType == ReqType.AJAX_LEGACY ||
-        _requestType == ReqType.LEGACY)
+    if (_executeAll == null)
     {
-      // We are preserving old behavior (execute everything) for the legacy 'partialSubmit=true'
-      // Trinidad requests
-      return true;
+      if (_requestType == ReqType.AJAX_LEGACY ||
+          _requestType == ReqType.LEGACY)
+      {
+        // We are preserving old behavior (execute everything) for the legacy 'partialSubmit=true'
+        // Trinidad requests
+        _executeAll = true;
+      }
+      else
+      {
+  
+        String execute =
+          _context.getExternalContext().getRequestParameterMap().get(PARTIAL_EXECUTE_PARAM_NAME);
+    
+        _executeAll = execute.equals(ALL_PARTIAL_PHASE_CLIENT_IDS);
+      }
     }
-
-    String execute =
-      _context.getExternalContext().getRequestParameterMap().get(PARTIAL_EXECUTE_PARAM_NAME);
-
-    return execute.equals(ALL_PARTIAL_PHASE_CLIENT_IDS);
+    return _executeAll;
   }
 
   public boolean isRenderAll()
@@ -185,7 +192,7 @@ public class PartialViewContextImpl
     }
     else if (phaseId == PhaseId.RENDER_RESPONSE)
     {
-      _processRender(viewRoot, phaseId);
+      _processRender(viewRoot);
     }
 
   }
@@ -282,7 +289,7 @@ public class PartialViewContextImpl
   }
 
   
-  private void _processRender(UIComponent viewRoot, PhaseId phaseId)
+  private void _processRender(UIComponent viewRoot)
   {
     ExternalContext extContext = _context.getExternalContext();
     extContext.setResponseContentType(_RESPONSE_CONTENT_TYPE);
@@ -444,18 +451,7 @@ public class PartialViewContextImpl
 
     public VisitResult visit(VisitContext context, UIComponent target)
     {
-      if (_phaseId == PhaseId.RENDER_RESPONSE)
-      {
-        try
-        {
-          target.encodeAll(_context);
-        }
-        catch(IOException e)
-        {
-          throw new FacesException(e);
-        }
-      }
-      else if (_phaseId == PhaseId.APPLY_REQUEST_VALUES)
+      if (_phaseId == PhaseId.APPLY_REQUEST_VALUES)
       {
         target.processDecodes(_context);
       }
@@ -483,7 +479,8 @@ public class PartialViewContextImpl
   private FacesContext _context = null;
   private Boolean _partialRequest;
   private boolean _released;
-  private Boolean _renderAll;
+  private Boolean _renderAll = null;
+  private Boolean _executeAll = null;
 
 
   private static final String _RESPONSE_CONTENT_TYPE = "text/xml";
