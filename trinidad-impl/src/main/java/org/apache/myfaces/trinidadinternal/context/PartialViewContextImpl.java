@@ -250,7 +250,9 @@ public class PartialViewContextImpl
 
   public void setRenderAll(boolean renderAll)
   {
-    _renderAll = renderAll;
+    // Ignore setRenderAll() from  Mojarra's NavigationHandler
+    // to preserve old (redirect) behavior
+    //_renderAll = renderAll;
   }
 
   public void setPartialRequest(boolean isPartialRequest)
