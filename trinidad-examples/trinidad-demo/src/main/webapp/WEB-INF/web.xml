@@ -101,7 +101,7 @@
   <context-param>
     <param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
     <!-- to run facelets for jspx files comment the line above and uncomment line below-->
-    <param-value>*.xhtml;*.jspx</param-value>
+    <param-value>*.xhtml</param-value>
   </context-param>
 
   <context-param>
