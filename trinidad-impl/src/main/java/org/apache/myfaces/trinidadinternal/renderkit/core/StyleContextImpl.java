@@ -130,16 +130,15 @@ class StyleContextImpl implements StyleContext
   {
     if (Beans.isDesignTime())
     {
-      // In Design Time mode, if we have a skin-id on the request scope,
+      // In Design Time mode, if we have a skin dirty flag on the request scope,
       // then this means the Design Time wants the skin to regenerate. To do this,
-      // we say the skin is dirtys
+      // we call the skin.setDirty API.
       FacesContext context = FacesContext.getCurrentInstance();
-      Object requestSkinId = 
-        ((CoreRenderingContext) _arc).getRequestMapSkinId(context);
-      if (requestSkinId != null)
+      Object requestSkinDirty = _getRequestMapSkinDirty(context);
+      if (Boolean.TRUE.equals(requestSkinDirty))
       {
-        // set the skin to dirty as well for double insurance, like if someone checks the 
-        // skin directly to see if it is dirty.
+
+        // set the skin to dirty
         _arc.getSkin().setDirty(true); 
         return true;
       }
@@ -174,6 +173,25 @@ class StyleContextImpl implements StyleContext
 
     // Return a non-null StyleProvider instance
     return NullStyleProvider.getInstance();
+  }
+  
+  /**
+   * Look on the requestMap for "org.apache.myfaces.trinidad.skin.dirty", and return
+   * the Object (true/false/null).
+   * This is for clients who want to send to the server that the skin is dirty rather
+   * than using the skin.setDirty API. The design time client cannot call the APIs, so this
+   * is for anyone that cannot call the APIs.
+   * @param facesContext
+   * @return the skin dirty Object that is on the request map.
+   */
+  private Object _getRequestMapSkinDirty(FacesContext facesContext)
+  {
+    Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+
+    // Get the requested Skin Dirty flag from the request Map
+    Object requestedSkinDirty = requestMap.get(_SKIN_DIRTY_PARAM);
+
+    return requestedSkinDirty;
   }
 
   public boolean isPortletMode()
@@ -315,6 +333,8 @@ class StyleContextImpl implements StyleContext
   private StyleProvider _styleProvider;
   private Styles _styles;
   private Boolean  _isDisableStyleCompression;
+  static private final String _SKIN_DIRTY_PARAM =
+    "org.apache.myfaces.trinidad.skin.dirty";
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(StyleContextImpl.class);
