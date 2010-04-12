@@ -694,11 +694,6 @@ public class XhtmlUtils
     else if (!hasUserHandler && !hasHandler && hasBehaviors && data.behaviorScripts.size() == 1)
     {
       script = data.behaviorScripts.get(0);
-      if ("action".equals(secondaryEventName) && data.submitting)
-      {
-        // prevent the default click action if submitting
-        script += ";return false;";
-      }
     }
     else
     {
@@ -709,7 +704,6 @@ public class XhtmlUtils
       if (hasUserHandler) { ++length; }
       String[] scripts = new String[length];
       int index = 0;
-      boolean submitting = false;
       if (hasUserHandler)
       {
         scripts[0] = userHandlerScript;
@@ -728,11 +722,6 @@ public class XhtmlUtils
       }
 
       script = getChainedJS(true, scripts);
-      if (submitting && "click".equals(eventName))
-      {
-        // prevent the default click action if submitting
-        script += ";return false;";
-      }
     }
 
     return script;
@@ -762,8 +751,7 @@ public class XhtmlUtils
     {
       // if params are not null, a submitting behavior was found in a previous call to this
       // function, so we do not need to check for submitting here
-      data.submitting = data.submitting || _hasSubmittingBehavior(behaviors);
-      if (data.params == null && data.submitting)
+      if (data.params == null && _hasSubmittingBehavior(behaviors))
       {
         // We only need to gather the parameters if there is a submitting behavior, so do
         // not incur the performance overhead if not needed
@@ -780,7 +768,15 @@ public class XhtmlUtils
 
       for (ClientBehavior behavior : behaviors)
       {
-        data.behaviorScripts.add(behavior.getScript(behaviorContext));
+        String behaviorScript = behavior.getScript(behaviorContext);
+        if (data.params != null && // if there are no params, there are no submitting behaviors,
+          // so do not check
+          behavior.getHints().contains(ClientBehaviorHint.SUBMITTING)
+          && ("action".equals(eventName) || "click".equals(eventName)))
+        {
+          behaviorScript += ";return false"; // prevent any further JS execution
+        }
+        data.behaviorScripts.add(behaviorScript);
       }
     }
   }
@@ -802,7 +798,6 @@ public class XhtmlUtils
   {
     Collection<ClientBehaviorContext.Parameter> params;
     List<String>                                behaviorScripts;
-    boolean                                     submitting;
   }
 
   private static final Object _CLIENT_BEHAVIORS_KEY = new Object();
