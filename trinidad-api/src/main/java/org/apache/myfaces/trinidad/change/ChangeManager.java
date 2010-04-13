@@ -145,6 +145,22 @@ public abstract class ChangeManager
     FacesContext facesContext,
     UIComponent uiComponent,
     ComponentChange change);
+  
+  /**
+   * Replace an AttributeComponentChange if it's present. 
+   * 
+   * @param facesContext
+   * @param uiComponent
+   * @param attributeComponentChange
+   * @return the old change instance
+   */
+  public AttributeComponentChange replaceAttributeChangeIfPresent(FacesContext facesContext,
+    UIComponent uiComponent,
+    AttributeComponentChange attributeComponentChange)
+  {    
+    _LOG.warning("Must be implemented by subclass");
+    return null;
+  }  
 
   /**
    * Add a DocumentChange to this current request for a specified component.

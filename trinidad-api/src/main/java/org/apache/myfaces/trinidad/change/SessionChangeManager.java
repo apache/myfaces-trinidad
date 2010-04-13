@@ -100,93 +100,52 @@ public class SessionChangeManager extends BaseChangeManager
     UIComponent targetComponent,
     ComponentChange componentChange)
   {
-    String viewId = facesContext.getViewRoot().getViewId();
-    
-    // get the ComponentChanges for the current viewId
-    ChangesForView changesForView = _getChangesForView(facesContext, viewId, true);
-
     // get the absolute scopedId for the target component so that we have a unique identifier
     // to compare
     String scopedIdForTargetComponent = 
-                                     ComponentUtils.getScopedIdForComponent(targetComponent, null);
-
+      ComponentUtils.getScopedIdForComponent(targetComponent, null);
+    
     // try to collapse AttributeComponentChanges, handling component movement so that
     // we can collapse any attribute change on the same component
     if (componentChange instanceof AttributeComponentChange)
     {
       AttributeComponentChange attributeChange = (AttributeComponentChange)componentChange;
-      String attributeName = attributeChange.getAttributeName();
- 
-      // would really rather use a Deque here and iterate backwards, which would also make
-      // handling the rename changes easier
-      Iterator<QualifiedComponentChange> changes =
-                                            changesForView.getComponentChangesForView().iterator();
-      
-      // list of changes that have renamed the scoped id of this component.  We need to
-      // handle this aliasing when traversing through the changes looking for matches
-      Iterator<MoveChildComponentChange> renameChanges =
-                                       changesForView.getRenameChanges(scopedIdForTargetComponent);
-      
-      // we need to look through the rename list to map from the current names to
-      // the new names
-      MoveChildComponentChange nextRenameChange;
-      String currTargetScopedId;
-      
-      if (renameChanges.hasNext())
-      {
-        // we have at least one rename change, so get it and find the name that this
-        // component was originally known by
-        nextRenameChange = renameChanges.next();
-        currTargetScopedId = nextRenameChange.getSourceScopedId();
-      }
-      else
-      {
-        nextRenameChange = null;
-        currTargetScopedId = scopedIdForTargetComponent;
-      }
-      
-      // loop forward through the changes looking for AttributeChanges to collapse
-      while (changes.hasNext())
-      {
-        QualifiedComponentChange currQualifiedChange = changes.next();
-        
-        if (currQualifiedChange.getComponentChange() == nextRenameChange)
-        {
-          // we got a match, so update the scoped id we should be looking for
-          currTargetScopedId = nextRenameChange.getDestinationScopedId();
-          
-          nextRenameChange = (renameChanges.hasNext())
-                               ? renameChanges.next()
-                               : null;
-        }
-        else if (currQualifiedChange.getTargetComponentScopedId().equals(currTargetScopedId))
-        {
-          // found a change on the same component.  Check if it's an AttributeChange
-          ComponentChange currChange = currQualifiedChange.getComponentChange();
-          
-          if (currChange instanceof AttributeComponentChange)
-          {
-            AttributeComponentChange currAttributeChange = (AttributeComponentChange)currChange;
-            
-            // Check if the AttributeChange is for the same attribute
-            if (attributeName.equals(currAttributeChange.getAttributeName()))
-            {
-              // the old AttributeChange is for the same attribute, so remove it since the
-              // new AttributeChange would eclipse it anyway.
-              changes.remove();
-              break;
-            }
-          }
-        }
-      }
+      _extractAttributeChange(facesContext, 
+                              scopedIdForTargetComponent, 
+                              attributeChange);
     }
 
-    QualifiedComponentChange newQualifiedChange = new QualifiedComponentChange(
-                                                                      scopedIdForTargetComponent,
-                                                                      componentChange);
-    
-    changesForView.addChange(newQualifiedChange);
+    _insertComponentChange(facesContext, scopedIdForTargetComponent, componentChange);
   }
+  
+  /**
+   * @inheritDoc
+   */
+  @Override
+  public AttributeComponentChange replaceAttributeChangeIfPresent(FacesContext facesContext,
+    UIComponent uiComponent,
+    AttributeComponentChange attributeComponentChange)
+  {    
+    // get the absolute scopedId for the target component so that we have a unique identifier
+    // to compare
+    String scopedIdForTargetComponent = 
+      ComponentUtils.getScopedIdForComponent(uiComponent, null);
+    
+    // check if we have an existing attribute change for the same attribute name, 
+    // if found, remove it
+    AttributeComponentChange replaced = 
+      _extractAttributeChange(facesContext, 
+                              scopedIdForTargetComponent, 
+                              attributeComponentChange);
+    
+    // if found, we insert the new change instance
+    if (replaced != null)
+    {
+      _insertComponentChange(facesContext, scopedIdForTargetComponent, attributeComponentChange);
+    }
+    
+    return replaced;
+  }  
 
   /** 
    * We don't support DocumentChange persistence
@@ -195,6 +154,120 @@ public class SessionChangeManager extends BaseChangeManager
   protected Document getDocument(FacesContext context)
   {
     return null;
+  }
+
+  /**
+   * Check if we have an existing attribute change for the same attribute name: 
+   * - if not found, return null
+   * - if found, remove and return the old change instance
+   * 
+   * @param facesContext
+   * @param uiComponent
+   * @param attributeChange
+   * @return the old change instance, null if not found
+   */
+  private AttributeComponentChange _extractAttributeChange(
+    FacesContext facesContext,
+    String scopedIdForTargetComponent,
+    AttributeComponentChange attributeChange)
+  {
+    AttributeComponentChange extracted = null;
+    
+    String viewId = facesContext.getViewRoot().getViewId();
+    
+    // get the ComponentChanges for the current viewId
+    ChangesForView changesForView = _getChangesForView(facesContext, viewId, true);
+
+    String attributeName = attributeChange.getAttributeName();
+
+    // would really rather use a Deque here and iterate backwards, which would also make
+    // handling the rename changes easier
+    Iterator<QualifiedComponentChange> changes =
+                                          changesForView.getComponentChangesForView().iterator();
+    
+    // list of changes that have renamed the scoped id of this component.  We need to
+    // handle this aliasing when traversing through the changes looking for matches
+    Iterator<MoveChildComponentChange> renameChanges =
+                                     changesForView.getRenameChanges(scopedIdForTargetComponent);
+    
+    // we need to look through the rename list to map from the current names to
+    // the new names
+    MoveChildComponentChange nextRenameChange;
+    String currTargetScopedId;
+    
+    if (renameChanges.hasNext())
+    {
+      // we have at least one rename change, so get it and find the name that this
+      // component was originally known by
+      nextRenameChange = renameChanges.next();
+      currTargetScopedId = nextRenameChange.getSourceScopedId();
+    }
+    else
+    {
+      nextRenameChange = null;
+      currTargetScopedId = scopedIdForTargetComponent;
+    }
+    
+    // loop forward through the changes looking for AttributeChanges to collapse
+    while (changes.hasNext())
+    {
+      QualifiedComponentChange currQualifiedChange = changes.next();
+      
+      if (currQualifiedChange.getComponentChange() == nextRenameChange)
+      {
+        // we got a match, so update the scoped id we should be looking for
+        currTargetScopedId = nextRenameChange.getDestinationScopedId();
+        
+        nextRenameChange = (renameChanges.hasNext())
+                             ? renameChanges.next()
+                             : null;
+      }
+      else if (currQualifiedChange.getTargetComponentScopedId().equals(currTargetScopedId))
+      {
+        // found a change on the same component.  Check if it's an AttributeChange
+        ComponentChange currChange = currQualifiedChange.getComponentChange();
+        
+        if (currChange instanceof AttributeComponentChange)
+        {
+          AttributeComponentChange currAttributeChange = (AttributeComponentChange)currChange;
+          
+          // Check if the AttributeChange is for the same attribute
+          if (attributeName.equals(currAttributeChange.getAttributeName()))
+          {
+            // the old AttributeChange is for the same attribute, so remove it since the
+            // new AttributeChange would eclipse it anyway.
+            changes.remove();
+            extracted = currAttributeChange;
+            break;
+          }
+        }
+      }
+    }
+
+    return extracted;    
+  }
+
+  /**
+   * insert a component change for a specific component
+   * 
+   * @param facesContext
+   * @param scopedIdForTargetComponent
+   * @param componentChange
+   */
+  private void _insertComponentChange(FacesContext facesContext,
+                                      String scopedIdForTargetComponent,
+                                      ComponentChange componentChange) 
+  {
+    String viewId = facesContext.getViewRoot().getViewId();
+    
+    // get the ComponentChanges for the current viewId
+    ChangesForView changesForView = _getChangesForView(facesContext, viewId, true);
+
+    QualifiedComponentChange newQualifiedChange = 
+      new QualifiedComponentChange(scopedIdForTargetComponent,
+                                   componentChange);
+    
+    changesForView.addChange(newQualifiedChange);
   }
   
   /**
