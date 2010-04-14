@@ -378,14 +378,12 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
           if ("script".equalsIgnoreCase(name))
           {
             _xml.startElement(_ELEMENT_EVAL, null);
-            _xml.startCDATA();
           }
         }
         public void endElement(String name) throws IOException
         {
           if ("script".equalsIgnoreCase(name))
           {
-            _xml.endCDATA();
             _xml.endElement(_ELEMENT_EVAL);
           }
         }
