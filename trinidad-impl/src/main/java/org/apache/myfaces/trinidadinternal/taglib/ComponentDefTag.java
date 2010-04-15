@@ -25,7 +25,6 @@ import javax.servlet.jsp.tagext.TagSupport;
 import org.apache.myfaces.trinidad.component.UIXComponentRef;
 
 import javax.servlet.jsp.JspException;
-import org.apache.myfaces.trinidadinternal.taglib.util.TagUtils;
 import javax.faces.webapp.UIComponentClassicTagBase;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -79,4 +78,5 @@ public class ComponentDefTag extends TagSupport
   }
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     ComponentDefTag.class);
+  private static final long serialVersionUID = 1L;
 }

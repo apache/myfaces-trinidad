@@ -416,6 +416,7 @@ class PageFlowScopeMap implements Map<String, Object>, Serializable
     // =-=AEW Make transient for efficiency
     private PageFlowScopeMap _parent;
     private TokenCache      _children;
+    private static final long serialVersionUID = 1L;
   }
 
   // DELETE AFTER DIALOG SERVICE IS CLEANED UP
@@ -428,4 +429,5 @@ class PageFlowScopeMap implements Map<String, Object>, Serializable
   static private final String _PAGE_FLOW_SCOPE_CACHE =
     "org.apache.myfaces.trinidadinternal.application.PageFlowScope";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PageFlowScopeMap.class);
+  private static final long serialVersionUID = 1L;
 }

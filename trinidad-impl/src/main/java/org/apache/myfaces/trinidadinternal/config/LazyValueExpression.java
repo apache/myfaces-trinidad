@@ -21,16 +21,12 @@ package org.apache.myfaces.trinidadinternal.config;
 import javax.el.ELContext;
 import javax.el.ELResolver;
 import javax.el.FunctionMapper;
-
+import javax.el.ValueExpression;
+import javax.el.VariableMapper;
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.application.ApplicationFactory;
 import javax.faces.context.FacesContext;
-import javax.el.ValueExpression;
-
-import javax.el.VariableMapper;
-
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
  /**
   * A ValueExpression class that lazily parses the underlying EL expression
@@ -220,6 +216,5 @@ public class LazyValueExpression extends ValueExpression
   private final String    _expression;
   private final Class<?>  _expectedType;
 
-
-  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(LazyValueExpression.class);
+  private static final long serialVersionUID = 1L;
 }

@@ -141,4 +141,5 @@ public class FacetRefTag extends TagSupport
   }
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FacetRefTag.class);
+  private static final long serialVersionUID = 1L;
 }
