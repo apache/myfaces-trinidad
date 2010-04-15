@@ -119,7 +119,7 @@
 <!-- KEY_IS_LIST_KEY -->
 <resource key="KEY_IS_LIST_KEY" dnt="false">索引鍵 {0} 是一個清單索引鍵</resource>
 <!-- DEFAULT_VALUE_IS_NOT_ASSIGNED_TO_TYPE -->
-<resource key="DEFAULT_VALUE_IS_NOT_ASSIGNED_TO_TYPE" dnt="false">預設值 {0} 無法指派給類型 {1}</resource>
+<resource key="DEFAULT_VALUE_IS_NOT_ASSIGNED_TO_TYPE" dnt="false">預設值 {0} 無法指定給類型 {1}</resource>
 <!-- CAPABILITY_MASK_NOT_UNDERSTOOD -->
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">無法理解功能遮罩 {0}</resource>
 <!-- INVALID_INDEX -->

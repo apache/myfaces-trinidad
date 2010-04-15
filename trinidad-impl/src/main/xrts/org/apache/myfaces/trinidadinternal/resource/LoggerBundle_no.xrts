@@ -298,7 +298,7 @@
 <!-- ERR_PARSING_SKIN_CSS_FILE -->
 <resource key="ERR_PARSING_SKIN_CSS_FILE" dnt="false">Feil ved analyse av CSS-skallfilen. Navnet på egenskapen kan ikke være null og strengen kan ikke være tom. Analysatoren vil ignorere den. Navnet er {0} og verdien er {1}</resource>
 <!-- IGNORING_PROPERTIES_WITHOUT_SELECTOR -->
-<resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ignorerer egenskapene {0} fordi det ikke finnes noen tilsvarende velger.</resource>
+<resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ignorerer egenskapene {0} fordi det ikke finnes noen tilsvarende utvelger.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Feil ved lesing fra CSS-skallfilen</resource>
 <!-- CANNOT_ADD_SKIN -->
@@ -330,9 +330,9 @@
 <!-- IOEXCEPTION_OPENNING_FILE -->
 <resource key="IOEXCEPTION_OPENNING_FILE" dnt="false">IOException ved åpning av filen for skriving: {0}</resource>
 <!-- CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR -->
-<resource key="CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR" dnt="false">CSS-filen har nådd Internet Explorers grense på 4095 CSS-velgere. Den har {0} velgere. Velgerne etter dette vil bli ignorert.</resource>
+<resource key="CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR" dnt="false">CSS-filen har nådd Internet Explorers grense på 4095 CSS-utvelgere. Den har {0} utvelgere. Utvelgerne etter dette vil bli ignorert.</resource>
 <!-- UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX -->
-<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX" dnt="false">Syntaks for etterfølgende underelement (::) er brukt i velgeren {0}. Dette støttes ikke.</resource>
+<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX" dnt="false">Syntaks for etterfølgende underelement (::) er brukt i utvelgeren {0}. Dette støttes ikke.</resource>
 <!-- URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET -->
 <resource key="URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET" dnt="false">En URL-verdi avgrenset av url() er forventet for egenskapen {0} i stilarket {1}. Fant: {2}.</resource>
 <!-- INVALID_IMAGE_URI_IN_STYLE_SHEET -->
@@ -340,7 +340,7 @@
 <!-- EMPTY_URL_IN_STYLE_SHEET -->
 <resource key="EMPTY_URL_IN_STYLE_SHEET" dnt="false">Fant en tom URL i stilarket {0}</resource>
 <!-- ELEMENT_MUST_HAVE_NAME_ATTRIBUTE -->
-<resource key="ELEMENT_MUST_HAVE_NAME_ATTRIBUTE" dnt="false">&lt;style&gt;-elementer må enten ha et navn- eller velgerattributt</resource>
+<resource key="ELEMENT_MUST_HAVE_NAME_ATTRIBUTE" dnt="false">&lt;style&gt;-elementer må enten ha et navn- eller utvelgerattributt</resource>
 <!-- CANNOT_PARSE_IMPORT -->
 <resource key="CANNOT_PARSE_IMPORT" dnt="false">Kan ikke analysere importen: {0}</resource>
 <!-- MISSING_REQUIRED_HREF -->
@@ -704,7 +704,7 @@
 <!-- COMPONENT_REQUIRES_FORM -->
 <resource key="COMPONENT_REQUIRES_FORM" dnt="false">{0}-komponenten må være i et skjema for å fungere på riktig måte.</resource>
 <!-- CANNOT_FIND_TIMEZONE -->
-<resource key="CANNOT_FIND_TIMEZONE" dnt="false">Tidssonen med ID-en {0} ble forespurt, men er ikke tilgjengelig via API-en TimeZone.getTimeZone(String id). Kontroller at ID-en, også med hensyn til store og små bokstaver, samsvarer med en ID som blir returnert av TimeZone.getAvailableIDs()</resource>
+<resource key="CANNOT_FIND_TIMEZONE" dnt="false">Tidssonen med ID-en {0} ble forespurt, men er ikke tilgjengelig via API-et TimeZone.getTimeZone(String id). Kontroller at ID-en, også med hensyn til store og små bokstaver, samsvarer med en ID som blir returnert av TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">Filen trinidad-config.xml inneholder en ugyldig verdi for tidssone ({0}). Standardtidssonen vil bli brukt i stedet.</resource>
 <!-- DEPRECATED_TRIGGER_SYNTAX -->
@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ugyldig land for identifikatoren {0} for regional innstilling. Landskoden må bestå av store bokstaver. Du finner riktig format i javadoc for regional innstilling. Bruker en tom streng for landet</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ugyldig variant for identifikatoren {0} for regional innstilling. Kan ikke inneholde skråstreker for å unngå XSS-angrep. Bruker en tom streng for varianten.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Kan ikke slette filen {0}</resource>
 </resources>

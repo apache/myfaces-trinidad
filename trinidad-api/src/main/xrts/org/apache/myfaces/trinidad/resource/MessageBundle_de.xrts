@@ -247,6 +247,10 @@
 <!-- {2} an example of the format the converter is expecting -->
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">Das Datum und die Uhrzeit weisen nicht das richtige Format auf.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">Geben Sie ein Datum und eine Uhrzeit im gleichen Format ein wie in diesem Beispiel: {2}</resource>
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE" dnt="false">Eingegebenes Datum oder eingegebene Uhrzeit ist ungültig.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE_detail" dnt="false">Geben Sie ein Datum und/oder eine Uhrzeit ein.</resource>
 <!-- {0} the label that identifies the component    -->
 <!-- {1} value entered by the user                  -->
 <!-- {2} the pattern the converter is expecting     -->

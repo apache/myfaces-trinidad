@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Paese non valido per l&apos;&apos;ID impostazioni nazionali {0}. Il codice paese deve essere in lettere maiuscole. Vedere il documento Java delle impostazioni nazionali per il formato corretto. Verrà utilizzata una stringa vuota per il paese.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante non valida per l&apos;&apos;ID impostazioni nazionali {0}. Non può contenere barre per evitare attacchi XSS. Verrà utilizzata una stringa vuota per la variante.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Impossibile eliminare il file {0}</resource>
 </resources>

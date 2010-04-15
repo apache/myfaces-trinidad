@@ -45,7 +45,7 @@
 <!-- UNABLE_PARSE_MODEL_STRING -->
 <resource key="UNABLE_PARSE_MODEL_STRING" dnt="false">אי אפשר לנתח מחרוזת מודל</resource>
 <!-- INVALID_CAPABILITY_DATA_URL -->
-<resource key="INVALID_CAPABILITY_DATA_URL" dnt="false"> url {0} של נתוני יכולות בלתי תקף</resource>
+<resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">url {0} של נתוני יכולות בלתי תקף</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">לא נמצא מצב view שמור לאסימון {0}</resource>
 <!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
@@ -87,7 +87,7 @@
 <!-- CANNOT_QUEUE_RETURN_EVENT -->
 <resource key="CANNOT_QUEUE_RETURN_EVENT" dnt="false">אי אפשר להציב את אירוע החזרה בתור: אין מקור הפעלה</resource>
 <!-- RENDERKIT_NOT_SUPPORT_DIALOGRENDERKITSERVICE -->
-<resource key="RENDERKIT_NOT_SUPPORT_DIALOGRENDERKITSERVICE" dnt="false">RenderKit {0} לא תומך ב-DialogRenderKitService ולא יכול לשמש להפעלת דו-שיח;  במקום זאת ייעשה שימוש בחלון יחיד.</resource>
+<resource key="RENDERKIT_NOT_SUPPORT_DIALOGRENDERKITSERVICE" dnt="false">RenderKit {0} לא תומך ב-DialogRenderKitService ולא יכול לשמש להפעלת דו-שיח; במקום זאת ייעשה שימוש בחלון יחיד.</resource>
 <!-- HTTPSESSION_USED_FOR_CHANGE_PERSISTENCE -->
 <resource key="HTTPSESSION_USED_FOR_CHANGE_PERSISTENCE" dnt="false">Apache Trinidad משתמש ב-HTTPSession להתמדת שינויים</resource>
 <!-- CHANGE_MANAGER_CREATION_FAILED -->
@@ -138,7 +138,7 @@
 <!-- ATTRIBUTE_OUTSIDE_ELEMENT -->
 <resource key="ATTRIBUTE_OUTSIDE_ELEMENT" dnt="false">כתיבת תכונה מחוץ לאלמנט</resource>
 <!-- DUPLICATE_ATTRIBUTE_OUTPUT -->
-<resource key="DUPLICATE_ATTRIBUTE_OUTPUT" dnt="false">תכונה &quot;{0}&quot; נפלטה פעמיים;  התכונה תיכתב במקום זאת כ- &quot;duplicate_{1}&quot;.</resource>
+<resource key="DUPLICATE_ATTRIBUTE_OUTPUT" dnt="false">תכונה &quot;{0}&quot; נפלטה פעמיים. התכונה תיכתב במקום זאת כ-&quot;duplicate_{1}&quot;.</resource>
 <!-- ELEMENT_END_NAME_NOT_MATCH_START_NAME -->
 <resource key="ELEMENT_END_NAME_NOT_MATCH_START_NAME" dnt="false">שם סוף אלמנט:{0} לא מתאים לשם התחלה:{1}</resource>
 <!-- GROUPNODE_REFER_INVALID_GROUP_NODE -->
@@ -366,7 +366,7 @@
 <!-- MISSING_VALIDATORID -->
 <resource key="MISSING_VALIDATORID" dnt="false">התכונה &apos;validatorId&apos; חסרה</resource>
 <!-- CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN -->
-<resource key="CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN" dnt="false">אי אפשר לנתח ערך {0} לתאריך באמצעות תבנית &quot;yyyy-MM-dd&quot;;  המערכת מתעלמת.</resource>
+<resource key="CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN" dnt="false">אי אפשר לנתח ערך {0} לתאריך באמצעות תבנית &quot;yyyy-MM-dd&quot;; המערכת מתעלמת.</resource>
 <!-- NO_RENDERERFACTORY_REGISTERED_COMPONENT -->
 <resource key="NO_RENDERERFACTORY_REGISTERED_COMPONENT" dnt="false">אין RendererFactory רשום לרכיבים ב-namespace {0}</resource>
 <!-- NO_RENDERER_REGISTERED -->
@@ -594,7 +594,7 @@
 <!-- NO_COMPONENT_ASSOCIATED_WITH_UICOMPONENTTAG -->
 <resource key="NO_COMPONENT_ASSOCIATED_WITH_UICOMPONENTTAG" dnt="false">אין רכיב מקושר עם UIComponentTag</resource>
 <!-- NAME_ATTRIBUTE_CANNOT_BE_EL_BOUND -->
-<resource key="NAME_ATTRIBUTE_CANNOT_BE_EL_BOUND" dnt="false">תכונת השם לא יכולה להיות כרוכת  EL</resource>
+<resource key="NAME_ATTRIBUTE_CANNOT_BE_EL_BOUND" dnt="false">תכונת השם לא יכולה להיות כרוכת EL</resource>
 <!-- COMPOENENTDEF_CANNOT_RUN_AS_STANDALONE -->
 <resource key="COMPOENENTDEF_CANNOT_RUN_AS_STANDALONE" dnt="false">אי אפשר להריץ את componentDef באופן אוטונומי. עליו להיות כלול בתוך עץ רכיבי JSF.</resource>
 <!-- COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF -->
@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">שפה בלתי תקפה למזהה האזור {0} - קוד הארץ צריך להיות באותיות רישיות. לקבלת מידע על התבנית הנכונה, עיין ב-Locale javadoc. ייעשה שימוש במחרוזת ריקה לארץ</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">משתנה בלתי תקף למזהה האזור {0} - אינו יכול להכיל קווים נטויים למניעת התקפות XSS. ייעשה שימוש במחרוזת ריקה למשתנה.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">אי אפשר למחוק את הקובץ {0}</resource>
 </resources>

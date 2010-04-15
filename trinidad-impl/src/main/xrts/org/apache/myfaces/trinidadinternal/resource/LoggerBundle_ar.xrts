@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">بلد معرف المنطقة اللغوية {0} غير صالحة - يجب أن تكون أحرف رمز البلد أحرفًا كبيرة، راجع javadoc للمنطقة اللغوية لمعرفة الصيغة الصحيحة. سيتم استخدام سلسلة فارغة للبلد</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">متغير معرف المنطقة اللغوية {0} غير صالح - لا يمكن أن يشتمل المعرف على شُرط مائلة وذلك لتجنب هجوم XSS. سيتم استخدام سلسلة فارغة للمتغير.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">تعذر حذف الملف {0}</resource>
 </resources>

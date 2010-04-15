@@ -113,7 +113,7 @@
 <!-- TYPE_ALREADY_LOCKED -->
 <resource key="TYPE_ALREADY_LOCKED" dnt="false">Het type is al vergrendeld.</resource>
 <!-- CANNOT_FIND_PROPERTY -->
-<resource key="CANNOT_FIND_PROPERTY" dnt="false">Eigenschap &quot;{0&quot;} kan niet worden gebonden.</resource>
+<resource key="CANNOT_FIND_PROPERTY" dnt="false">Eigenschap &quot;{0}&quot; kan niet worden gebonden.</resource>
 <!-- >KEY_CANNOT_BE_USED_FOR_LISTS -->
 <resource key=">KEY_CANNOT_BE_USED_FOR_LISTS" dnt="false">Sleutel {0} kan niet worden gebruikt voor lijsten.</resource>
 <!-- KEY_IS_LIST_KEY -->
