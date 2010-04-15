@@ -256,4 +256,5 @@ class TreeState implements Externalizable
   private Object[] _children;
   private Object _state;
   private boolean _empty;
+  private static final long serialVersionUID = 1L;
 }

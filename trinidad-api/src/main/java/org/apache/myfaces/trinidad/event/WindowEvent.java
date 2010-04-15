@@ -60,4 +60,5 @@ public abstract class WindowEvent extends EventObject
   {
     return getSource().equals(e.getSource());
   }
+  private static final long serialVersionUID = 1L;
 }

@@ -114,4 +114,5 @@ public abstract class RowKeySetChangeEvent extends FacesEvent
   private RowKeySet _oldRemoved;
   private RowKeySet _newAdded;
   private boolean _needsDiff;
+  private static final long serialVersionUID = 1L;
 }
