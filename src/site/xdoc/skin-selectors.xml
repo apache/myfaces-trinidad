@@ -3692,6 +3692,14 @@
             <td>af|table::next-disabled-icon</td>
             <td>The next icon disabled.</td>
           </tr>
+          <tr>
+            <td>af|table::select-all-icon</td>
+            <td>The select-all link icon.</td>
+          </tr>
+          <tr>
+            <td>af|table::select-none-icon</td>
+            <td>The select-none link icon.</td>
+          </tr>
         </table>
       </subsection>
       <a name="train"></a>
@@ -4165,6 +4173,14 @@
             <td>af|treeTable::collapse-all-icon</td>
             <td>The collapse-all link icon.</td>
           </tr>
+          <tr>
+            <td>af|treeTable::select-all-icon</td>
+            <td>The select-all link icon.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::select-none-icon</td>
+            <td>The select-none link icon.</td>
+          </tr>            
           <tr>
             <td>af|treeTable::node-icon</td>
             <td>This icon selector is used in the case the Node class has a getNodeType()

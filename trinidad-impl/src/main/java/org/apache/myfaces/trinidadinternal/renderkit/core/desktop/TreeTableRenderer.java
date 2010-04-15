@@ -394,6 +394,16 @@ public class TreeTableRenderer extends DesktopTableRenderer
     //rowData.setRowCount(rows);
   }
 
+  protected String getControlLinkIconName(String translationKey)
+  {
+    if (translationKey == null)
+      return null;
+
+    return translationKey.equals(_SELECT_ALL_TEXT_KEY) ? SkinSelectors.AF_TREE_TABLE_SELECT_ALL_ICON_NAME
+                                                       : SkinSelectors.AF_TREE_TABLE_SELECT_NONE_ICON_NAME;
+  }
+
+
   protected SpecialColumnRenderer getFocusColumnRenderer()
   {
     return _FOCUS;

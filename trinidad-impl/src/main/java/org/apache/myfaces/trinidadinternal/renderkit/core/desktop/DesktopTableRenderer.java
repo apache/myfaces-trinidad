@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.render.XhtmlConstants;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.io.RepeatIdResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
@@ -226,7 +227,16 @@ public class DesktopTableRenderer extends TableRenderer
     renderStyleClass(context, arc, SkinSelectors.NAV_BAR_ALINK_STYLE_CLASS);
     writer.writeAttribute("onclick", onclick, null);
     writer.writeURIAttribute("href", "#", null);
-    writer.writeText(arc.getTranslatedString(translationKey), null);
+
+    Icon icon = arc.getIcon(getControlLinkIconName(translationKey));
+    if (icon != null)
+    {
+      OutputUtils.renderIcon(context, arc, icon, arc.getTranslatedString(translationKey),
+                             null);
+    } else
+    {
+      writer.writeText(arc.getTranslatedString(translationKey), null);
+    }
     writer.endElement("a");
 
     if (hasDivider)
@@ -1100,6 +1110,15 @@ public class DesktopTableRenderer extends TableRenderer
     }
   }
 
+  protected String getControlLinkIconName(String translationKey)
+  {
+    if (translationKey == null)
+      return null;
+
+    return translationKey.equals(_SELECT_ALL_TEXT_KEY) ? SkinSelectors.AF_TABLE_SELECT_ALL_ICON_NAME
+                                                       : SkinSelectors.AF_TABLE_SELECT_NONE_ICON_NAME;
+  }
+
   protected String getSummary(FacesBean bean)
   {
     return toString(bean.getProperty(_summaryKey));
@@ -1216,9 +1235,9 @@ public class DesktopTableRenderer extends TableRenderer
 
   private static final String _HIDE_ALL_DETAILS_TEXT_KEY = "af_table.HIDE_ALL_DETAILS";
 
-  private static final String _SELECT_ALL_TEXT_KEY = "af_tableSelectMany.SELECT_ALL";
+  protected static final String _SELECT_ALL_TEXT_KEY = "af_tableSelectMany.SELECT_ALL";
 
-  private static final String _SELECT_NONE_TEXT_KEY = "af_tableSelectMany.SELECT_NONE";
+  protected static final String _SELECT_NONE_TEXT_KEY = "af_tableSelectMany.SELECT_NONE";
 
   public static final String LINKS_DIVIDER_TEXT = "\u00a0|\u00a0";
 
