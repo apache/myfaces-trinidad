@@ -225,7 +225,7 @@ TrPage.prototype._handlePprResponse = function (requestEvent, document)
           alert(nodeText);
           return;
         case "redirect":
-          var url = TrPage._getTextContent(childNode);
+          var url = childNode.getAttribute("url");
           // TODO: fix for portlets???
           window.location.href = url;
       }

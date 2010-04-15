@@ -92,7 +92,7 @@ public class XmlHttpConfigurator extends Configurator
     rw.startDocument();
     rw.startElement("partial-response", null);
     rw.startElement("redirect", null);
-    rw.writeText(url, null);
+    rw.writeAttribute("url", url, null);
     rw.endElement("redirect");
     rw.endElement("partial-response");
     rw.endDocument();
