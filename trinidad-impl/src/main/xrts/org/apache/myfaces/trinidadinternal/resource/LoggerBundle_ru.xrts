@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Недопустимая страна для идентификатора национальных настроек {0} - код страны должен быть задан в верхнем регистре, верный формат см. в javadoc национальных настроек. Для страны будет использована пустая строка</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Недопустимая разновидность для идентификатора национальных настроек {0} - во избежание атак XSS он не может содержать символов косой черты. Для разновидности будет использована пустая строка.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Невозможно удалить файл {0}</resource>
 </resources>

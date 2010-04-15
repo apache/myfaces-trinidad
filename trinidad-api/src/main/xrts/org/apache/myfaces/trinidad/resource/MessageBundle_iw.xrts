@@ -247,6 +247,10 @@
 <!-- {2} an example of the format the converter is expecting -->
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">התאריך והשעה אינם בתבנית הנכונה.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">הזן תאריך ושעה בתבנית כמו בדוגמה: {2}</resource>
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE" dnt="false">התאריך או השעה שהוזנו אינם תקפים.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE_detail" dnt="false">הזן תאריך או שעה תקפים.</resource>
 <!-- {0} the label that identifies the component    -->
 <!-- {1} value entered by the user                  -->
 <!-- {2} the pattern the converter is expecting     -->

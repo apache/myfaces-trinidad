@@ -57,7 +57,7 @@
 <resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Réorganiser...</resource>
 <resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Barres d&apos;outils</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Valeur par défaut</resource>
-<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">QBE (Query By Example)</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Interrogation par l&apos;exemple</resource>
 <resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Format</resource>
 <resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Redimensionner les colonnes...</resource>
 <resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Réinitialiser...</resource>
@@ -496,8 +496,8 @@
 <resource key="RTE_HR_BUTTON_TEXT" dnt="false">Règle horizontale</resource>
 <resource key="RTE_NUMBERING_BUTTON_TEXT" dnt="false">Liste numérotée</resource>
 <resource key="RTE_BULLETS_BUTTON_TEXT" dnt="false">Liste à puces</resource>
-<resource key="RTE_DECREASE_INDENT_BUTTON_TEXT" dnt="false">Diminuer le retrait</resource>
-<resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">Augmenter le retrait</resource>
+<resource key="RTE_DECREASE_INDENT_BUTTON_TEXT" dnt="false">Réduire l&apos;indentation</resource>
+<resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">Augmenter l&apos;indentation</resource>
 <resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">Créer un lien hypertexte</resource>
 <resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Saisir l&apos;emplacement du lien (ex. : http://www.oracle.com)</resource>
 <resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">URL de destination des clics</resource>

@@ -450,7 +450,7 @@
 <!-- INVALID_SAVED_STATE_OBJECT -->
 <resource key="INVALID_SAVED_STATE_OBJECT" dnt="false">Ungültiges gespeichertes Statusobjekt</resource>
 <!-- PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED -->
-<resource key="PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED" dnt="false">Grenzwerte für Plattenspeicherplatz pro Anforderung überschritten.</resource>
+<resource key="PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED" dnt="false">Grenzwerte für Datenträgerspeicherplatz pro Anforderung überschritten.</resource>
 <!-- POPVIEW_NO_VIEW_PUSHED -->
 <resource key="POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): Es wurde keine View weitergereicht.</resource>
 <!-- POPVIEW_NO_VIEW_PUSHED -->
@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ungültiges Land für Gebietsschemabezeichner {0} - Landescode muss in Großbuchstaben angegeben werden. In der Javadoc für das Gebietsschema wird das richtige Format angegeben. Leere Zeichenfolge wird für Land verwendet.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ungültige Variante für den Gebietsschemabezeichner {0} - Sie darf keine  Schrägstriche enthalten, um XSS-Angriffe zu vermeiden. Leere Zeichenfolge wird für Variante verwendet.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Die Datei {0} konnte nicht gelöscht werden</resource>
 </resources>
