@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Pays non valide pour l&apos;&apos;identificateur de paramètres locaux {0} : le code pays doit être en majuscules. Consultez le fichier javadoc des paramètres locaux pour connaître le format correct. Une chaîne vide sera utilisée pour le pays</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante non valide pour l&apos;&apos;identificateur de paramètres locaux {0} : il ne peut pas contenir de barre oblique pour éviter les attaques XSS. Une chaîne vide sera utilisée comme variante.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Impossible de supprimer le fichier {0}</resource>
 </resources>

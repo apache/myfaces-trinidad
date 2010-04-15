@@ -101,7 +101,7 @@
 <!-- CANNOT_CONVERT_INTO_INT_ARRAY -->
 <resource key="CANNOT_CONVERT_INTO_INT_ARRAY" dnt="false">אי אפשר להמיר:{0} ל-int[]</resource>
 <!-- CANNOT_PARSE_VALUE_INTO_DATE -->
-<resource key="CANNOT_PARSE_VALUE_INTO_DATE" dnt="false">אי אפשר לנתח ערך {0} לתאריך באמצעות תבנית &quot;yyyy-MM-dd&quot;;  המערכת מתעלמת.</resource>
+<resource key="CANNOT_PARSE_VALUE_INTO_DATE" dnt="false">אי אפשר לנתח ערך {0} לתאריך באמצעות תבנית &quot;yyyy-MM-dd&quot;; המערכת מתעלמת.</resource>
 <!-- NO_PARENT_COMPONENTREF_FOUND -->
 <resource key="NO_PARENT_COMPONENTREF_FOUND" dnt="false">לא נמצא &lt;tr:componentRef&gt; אב!</resource>
 <!-- EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE -->
@@ -227,7 +227,7 @@
 <!-- CANNOT_EXIT_ROOT_CONTAINER -->
 <resource key="CANNOT_EXIT_ROOT_CONTAINER" dnt="false">אי אפשר לצאת מאובייקט מכיל שורש</resource>
 <!-- SETTING_ILLEGAL_VALUE -->
-<resource key="SETTING_ILLEGAL_VALUE" dnt="false">מוגדר ערך בלתי  חוקי - עליו להיות בין -1 וערך מרבי</resource>
+<resource key="SETTING_ILLEGAL_VALUE" dnt="false">מוגדר ערך בלתי חוקי - עליו להיות בין -1 וערך מרבי</resource>
 <!-- CANNOT_CONVERT_INTO_MENUMODEL -->
 <resource key="CANNOT_CONVERT_INTO_MENUMODEL" dnt="false">אי אפשר להמיר את {0} ל-MenuModel</resource>
 <!-- ROWKEY -->
@@ -263,7 +263,7 @@
 <!-- NULL_RESOURCEID -->
 <resource key="NULL_RESOURCEID" dnt="false">resourceId הוא null</resource>
 <!-- CANNOT_FIND_DEFAULT_FACESMESSAGE -->
-<resource key="CANNOT_FIND_DEFAULT_FACESMESSAGE" dnt="false"> FacesMessage.FACES_MESSAGES של ברירת מחדל לא נמצא</resource>
+<resource key="CANNOT_FIND_DEFAULT_FACESMESSAGE" dnt="false">FacesMessage.FACES_MESSAGES של ברירת מחדל לא נמצא</resource>
 <!-- NULL_FACESCONTEXT -->
 <resource key="NULL_FACESCONTEXT" dnt="false">FacesContext הוא null</resource>
 <!-- CUSTOM_MESSAGE_SHOULD_BE_VALUEBINDING_OR_STRING_TYPE -->
@@ -283,7 +283,7 @@
 <!-- RESOURCE_PATH_OUTSIDE_ROOT -->
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">נתיב המשאב {0} מכיל &quot;..&quot; והוא מפוענח כנמצא מחוץ לספריית השורש, ולכן כנתיב לא מאובטח. לפיכך, המערכת מתעלמת מהנתיב.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
-<resource key="RESOURCE_PATH_DOTS" dnt="false">נתיב המשאב {0} מכיל &quot;..&quot;. דפדפנים מפענחים את  &quot;..&quot; כנתיב חשוד.</resource>
+<resource key="RESOURCE_PATH_DOTS" dnt="false">נתיב המשאב {0} מכיל &quot;..&quot;. דפדפנים מפענחים את &quot;..&quot; כנתיב חשוד.</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">לא נמצא רכיב עם scopedId {0} מ-{1} בתחביר הנתמך. נמצא שתחביר הרכיב הוא תחביר שנדחה. השתמש בתחביר הנתמך.</resource>
 <!-- UNSERIALIZABLE_VALUE -->

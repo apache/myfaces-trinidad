@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">ประเทศไม่ถูกต้องสำหรับตัวระบุโลแคล {0} - รหัสประเทศต้องเป็นตัวพิมพ์ใหญ่ โปรดดูเอกสารจาวาของโลแคลสำหรับรูปแบบที่ถูกต้อง ระบบจะใช้สตริงว่างเปล่าสำหรับประเทศ</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">ค่าแปรปรวนไม่ถูกต้องสำหรับตัวระบุโลแคล {0} - ต้องไม่มีเครื่องหมายทับเพื่อหลีกเลี่ยงการโจมตี XSS ระบบจะใช้สตริงว่างเปล่าสำหรับค่าแปรปรวน</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">ไม่สามารถลบไฟล์ {0}</resource>
 </resources>

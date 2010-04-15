@@ -172,7 +172,7 @@
 <!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
 <resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> requestMap&apos;&apos;te belirtilen {0} dış görünümü, requestMap&apos;&apos;teki tüketici dış görünümünün styleSheetDocumentId değeri yerel dış görünümün styleSheetDocument no&apos;&apos;suyla eşleşmese bile kullanılacak. Stil tabloları tüketici ve üretici arasında paylaşılamayacağından, bu durum performansı etkileyecektir. Çakışmaları önlemek için, üretici stil sınıfları sıkıştırılmayacaktır. No&apos;&apos;ların eşleşmeme nedenlerinden biri jar dosyalarının üretici ve tüketicide aynı olmamasıdır. Örneğin, birinde sınıf dizin yolundaki jar dosyasında trinidad-skins.xml skin-additions varken diğerinde olmayabilir.</resource>
 <!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> requestMap&apos;&apos;te belirtilen {0} dış görünümü, tüketici dış görünümünün styleSheetDocumentId değeri requestMap&apos;&apos;te olmasa bile kullanılacak. Stil tabloları tüketici ve üretici arasında paylaşılamayacağından, bu durum performansı etkileyecektir. </resource>
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> requestMap&apos;&apos;te belirtilen {0} dış görünümü, tüketici dış görünümünün styleSheetDocumentId değeri requestMap&apos;&apos;te olmasa bile kullanılacak. Stil tabloları tüketici ve üretici arasında paylaşılamayacağından, bu durum performansı etkileyecektir.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Mevcut olmadığından, requestMap&apos;&apos;te belirtilen {0} dış görünümü kullanılmayacak.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">{0} Yerel ayar tanımlayıcısı için geçersiz ülke - ülke kodu büyük harf olmalıdır, Doğru format için yerel ayar javadoc&apos;&apos;a bakın. Ülke için boş dize kullanılacak.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">{0} Yerel ayar tanımlayıcısı için geçersiz varyant - XSS saldırısından kaçınmak için eğik çizgi içeremez. Varyant için boş dize kullanılacak.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">{0} dosyası silinemedi</resource>
 </resources>

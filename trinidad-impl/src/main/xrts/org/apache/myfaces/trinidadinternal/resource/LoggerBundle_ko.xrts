@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">로케일 식별자 {0}에 대한 부적합한 국가 - 국가 코드는 대문자로 구성되어야 합니다. 올바른 형식은 Locale javadoc를 참조하십시오. 국가에 대해 빈 문자열이 사용됩니다.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">로케일 식별자 {0}에 대한 부적합한 변형 - XSS 공격을 받지 않도록 슬래시를 포함하지 않아야 합니다. 변형에 대해 빈 문자열이 사용됩니다.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">{0} 파일을 삭제할 수 없습니다.</resource>
 </resources>
