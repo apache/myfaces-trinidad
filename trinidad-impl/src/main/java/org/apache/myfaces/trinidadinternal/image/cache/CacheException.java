@@ -43,5 +43,5 @@ class CacheException extends Exception
   {
     super(message,rootCause);
   }
-
+  private static final long serialVersionUID = 1L;
 }

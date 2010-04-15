@@ -24,20 +24,12 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
-import org.apache.myfaces.trinidadinternal.config.xmlHttp.XmlHttpConfigurator;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
-
 /**
  * Performs some trinidad logic and provides some hooks.
  *
  */
 public class TrinidadPhaseListener implements PhaseListener
 {
-  /**
-   * 
-   */
-  private static final long serialVersionUID = -1249678874100309402L;
-
   /**
    * Returns true if the request might be a postback request.
    */
@@ -106,4 +98,5 @@ public class TrinidadPhaseListener implements PhaseListener
   static private final String _POSTBACK_KEY =
     "org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener.POSTBACK";
   
+  private static final long serialVersionUID = 1234567L;
 }

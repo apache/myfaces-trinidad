@@ -423,6 +423,7 @@ public class ForEachTag extends TagSupport
     }
 
     private Object _o;
+    private static final long serialVersionUID = 1L;
   }
 
   private int _currentBegin;
@@ -456,5 +457,5 @@ public class ForEachTag extends TagSupport
   private Map<String, Object> _propertyReplacementMap;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ForEachTag.class);
-
+  private static final long serialVersionUID = 1L;
 }

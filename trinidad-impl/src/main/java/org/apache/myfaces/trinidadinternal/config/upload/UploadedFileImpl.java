@@ -41,11 +41,6 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
  */
 public class UploadedFileImpl implements UploadedFile, Serializable
 {
-  /**
-   *
-   */
-  private static final long serialVersionUID = 1592383482116327497L;
-
   UploadedFileImpl()
   {
   }
@@ -453,4 +448,5 @@ public class UploadedFileImpl implements UploadedFile, Serializable
   // use a larger buffer.
   static private final int _MEMORY_BUFFER_SIZE = 2048;
   static private final int _DISK_BUFFER_SIZE   = 8192;
+  static private final long serialVersionUID = 1592383482116327478L;
 }

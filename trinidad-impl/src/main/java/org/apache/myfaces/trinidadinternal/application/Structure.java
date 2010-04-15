@@ -277,5 +277,6 @@ final class Structure implements Externalizable
     "org.apache.myfaces.trinidad.component";
   static private final int _COMMON_CLASS_PREFIX_LENGTH =
     _COMMON_CLASS_PREFIX.length();
+  private static final long serialVersionUID = 1L;
 }
 

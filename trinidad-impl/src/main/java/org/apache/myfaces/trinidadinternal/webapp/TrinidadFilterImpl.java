@@ -384,6 +384,7 @@ public class TrinidadFilterImpl implements Filter
     {
       return _launchParam;
     }
+    private static final long serialVersionUID = 1L;
   }
 
   private static final class FilterListChain implements FilterChain

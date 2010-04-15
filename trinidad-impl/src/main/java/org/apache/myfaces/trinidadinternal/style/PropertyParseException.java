@@ -40,4 +40,5 @@ public class PropertyParseException extends IllegalArgumentException
   {
     super(message);
   }
+  private static final long serialVersionUID = 1L;
 }
