@@ -1352,6 +1352,10 @@ public final class SkinSelectors
      "af|table::disclosed-icon";
    public static final String AF_TABLE_SD_UNDISCLOSED_ICON_NAME =
      "af|table::undisclosed-icon";
+   public static final String AF_TABLE_SELECT_ALL_ICON_NAME =
+     "af|table::select-all-icon";
+   public static final String AF_TABLE_SELECT_NONE_ICON_NAME =
+     "af|table::select-none-icon";
 
    //                                                                         //
    //                                                                         //
@@ -1542,6 +1546,10 @@ public final class SkinSelectors
      "af|treeTable::expand-all-icon";
    public static final String AF_TREE_TABLE_COLLAPSE_ALL_ICON_NAME =
      "af|treeTable::collapse-all-icon";
+   public static final String AF_TREE_TABLE_SELECT_ALL_ICON_NAME =
+     "af|treeTable::select-all-icon";
+   public static final String AF_TREE_TABLE_SELECT_NONE_ICON_NAME =
+     "af|treeTable::select-none-icon";    
    public static final String AF_TREE_TABLE_NODE_ICON =
      "af|treeTable::node-icon";
 

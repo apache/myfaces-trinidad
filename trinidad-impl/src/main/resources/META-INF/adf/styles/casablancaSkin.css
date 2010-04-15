@@ -591,6 +591,8 @@
     width: 20px;
     height: 20px;
     font-size: 0;
+    line-height: 0;
+    color: transparent;
     overflow: hidden;
 }
 
@@ -601,7 +603,7 @@
 }
 @agent ie and (version: 5), ie and (version: 6) {
     .CBIconLook:alias {
-        background: transparent url(/skins/casablanca/images/icons/iconsNormal_8bit.png) no-repeat top left;
+        background: transparent url(/adf/images/casablanca/icons/iconsNormal_8bit.png) no-repeat top left;
     }
 }
 .CBIconLookHover:alias {
@@ -1204,6 +1206,7 @@
 .CBTableSubControlBar:alias {
     -tr-rule-ref: selector(".CBTableControlBar:alias");
     border-width: 1px 1px 0 1px;
+    padding: 4px;
 }
 /* fix a Webkit problem */
 @agent webkit {
@@ -1231,7 +1234,40 @@
 .CBTableBody:alias {
     -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
 }
-
+/* Table icons */
+/* We don't use ":alias" sufix because didn't work, probably its a bug */
+.CBTableSelectAllIcon{
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconSelectAll:alias");
+}
+.CBTableSelectAllIconHover {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconSelectAll:alias");
+}
+.CBTableSelectNoneIcon {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconSelectNone:alias");
+}
+.CBTableSelectNoneIconHover {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconSelectNone:alias");
+}
+.CBTableSelectExpandAllIcon {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconExpandAll:alias");
+}
+.CBTableSelectExpandAllIconHover {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconExpandAll:alias");
+}
+.CBTableSelectCollapseAllIcon {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconCollapseAll:alias");
+}
+.CBTableSelectCollapseAllIconHover {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconCollapseAll:alias");
+}
 /* Train Control ---------------------------------------------------------------------------------------------------- */
 .CBTrain:alias {
     background: white url(/adf/images/casablanca/backgrounds/trainConnector.png) repeat-x center left;    
@@ -3603,7 +3639,6 @@ af|table::control-bar-bottom {
 }
 af|table::sub-control-bar {
     -tr-rule-ref: selector(".CBTableSubControlBar");
-    padding: 8px 3px;
 }
 .OraHGridLocatorHeader {
     -tr-rule-ref: selector(".CBTablePathBar");
@@ -3612,12 +3647,12 @@ af|table::sub-control-bar {
 /* active navigation buttons */
 af|table::sub-control-bar .OraLink,                                                     
 af|table::sub-control-bar af|showDetail::prompt-link {
-   -tr-rule-ref: selector(".CBTableBarButton") ;
+    -tr-rule-ref: selector(".CBTableBarButton") ;
 }
 /* active hover navigation buttons */
 af|table::sub-control-bar .OraLink:hover,
 af|table::sub-control-bar af|showDetail::prompt-link:hover {
-   -tr-rule-ref: selector(".CBTableBarButtonHover");
+    -tr-rule-ref: selector(".CBTableBarButtonHover");
 }
 /* inactive navigation buttons */
 af|table::control-bar-top table td span,
@@ -3633,11 +3668,22 @@ af|column::header-text {
 /* sub control bar link like buttons */
 af|table::sub-control-bar .OraNavBarActiveLink,
 af|table::sub-control-bar af|showDetail::prompt-link {
-   -tr-rule-ref: selector(".CBTableBarButton");
+    -tr-rule-ref: selector(".CBTableBarButton");
+}
+af|table::sub-control-bar .OraNavBarActiveLink {
+    float: left;
+    display: block;
+    margin-right: 2px;
 }
 af|table::sub-control-bar .OraNavBarActiveLink:hover,
 af|table::sub-control-bar af|showDetail::prompt-link:hover {
-   -tr-rule-ref: selector(".CBTableBarButtonHover");
+    -tr-rule-ref: selector(".CBTableBarButtonHover");
+}
+af|table::select-all-icon {
+    content:url(/adf/images/casablanca/icons/selectAll.png);
+}
+af|table::select-none-icon {
+    content:url(/adf/images/casablanca/icons/selectNone.png);
 }
 .AFTableCellDataBorderColor:alias, TableCellHeaderBorderColor, af|column::header-text,
 af|table::content {
@@ -3691,6 +3737,14 @@ af|table::content af|column::header-text {
 af|table::content af|table::column-footer, af|table::content af|column::total-text {
     display: table-cell;
     -tr-rule-ref: selector(".CBTableFooterCell");
+}
+/* Clear some legacy stuff */
+af|table::control-bar-top tbody tr td,
+af|table::control-bar-bottom tbody tr td,
+af|table::sub-control-bar tbody tr td {
+    font-size: 0px;
+    line-height: 0px;
+    color: transparent; /* Fix a WebKit problem */
 }
 
 /* Tree table component --------------------------------------------------------------------------------------------- */
@@ -3748,13 +3802,15 @@ af|table::content af|table::column-footer, af|table::content af|column::total-te
 }
 .CBTreeTableSubControlBar {
     -tr-rule-ref: selector(".CBTableSubControlBar:alias");
-    padding: 8px 3px;
 }
 .CBTreeTablePathBar {
     -tr-rule-ref: selector(".CBTablePathBar:alias");
 }
 .CBTreeTableBody {
     -tr-rule-ref: selector(".CBTableBody:alias");
+}
+.CBTreeTableExpansionButton {
+    top: -2px; /* overwrite the default position */
 }
 .CBTreeTableBarButton {
     -tr-rule-ref: selector(".CBButton:alias") ;
@@ -3777,6 +3833,7 @@ af|treeTable::control-bar-bottom {
 }
 af|treeTable::sub-control-bar {
     -tr-rule-ref: selector(".CBTreeTableSubControlBar");
+    padding: 4px;
 }
 /* inactive navigation like buttons */
 af|treeTable::control-bar-top table td span,
@@ -3787,14 +3844,40 @@ af|treeTable::sub-control-bar table td span {
 /* sub control bar link like buttons */
 af|treeTable::sub-control-bar .OraNavBarActiveLink,
 af|treeTable::sub-control-bar af|showDetail::prompt-link {
-   -tr-rule-ref: selector(".CBTreeTableBarButton");
+    -tr-rule-ref: selector(".CBTreeTableBarButton");
+}
+af|treeTable::sub-control-bar .OraNavBarActiveLink {
+    float: left;
+    display: block;
+    margin-right: 2px;
 }
 af|treeTable::sub-control-bar .OraNavBarActiveLink:hover,
 af|treeTable::sub-control-bar af|showDetail::prompt-link:hover {
-   -tr-rule-ref: selector(".CBTreeTableBarButtonHover");
+    -tr-rule-ref: selector(".CBTreeTableBarButtonHover");
+}
+af|treeTable::select-all-icon {
+    content:url(/adf/images/casablanca/icons/selectAll.png);
+}
+af|treeTable::select-none-icon {
+    content:url(/adf/images/casablanca/icons/selectNone.png);
+}
+af|treeTable::collapse-all-icon {
+    content:url(/adf/images/casablanca/icons/collapseAll.png);
+}
+af|treeTable::expand-all-icon {
+    content:url(/adf/images/casablanca/icons/expandAll.png);
+}
+af|treeTable::expanded-icon {
+    content:url(/adf/images/casablanca/icons/nav-minus.png);
+}
+af|treeTable::collapsed-icon {
+    content:url(/adf/images/casablanca/icons/nav-plus.png);
 }
 af|treeTable::content {
     -tr-rule-ref: selector(".CBTreeTableBody");
+}
+af|treeTable::expansion {       
+    -tr-rule-ref: selector(".CBTreeTableExpansionButton");
 }
 af|treeTable::content af|column::cell-text, af|treeTable::content af|column::cell-number,
 af|treeTable::content af|column::cell-icon-format, af|treeTable::content af|tableSelectOne::cell-icon-format,
@@ -3845,11 +3928,25 @@ af|treeTable::content af|treeTable::column-footer, af|treeTable::content af|colu
     display: table-cell;
     -tr-rule-ref: selector(".CBTreeTableFooterCell");
 }
+/* Clear some legacy stuff */
+af|treeTable::control-bar-top tbody tr td,
+af|treeTable::control-bar-bottom tbody tr td,
+af|treeTable::sub-control-bar tbody tr td {
+    font-size: 0px;
+    line-height: 0px;
+    color: transparent; /* Fix a WebKit problem */
+}
 
 /* Tree component --------------------------------------------------------------------------------------------------- */
 /* No any class hooks for some particular overwritings.
 /* We will go on the Navigation Tree component styles
  */
+af|tree::expanded-icon {
+    content:url(/adf/images/casablanca/icons/nav-minus.png);
+}
+af|tree::collapsed-icon {
+    content:url(/adf/images/casablanca/icons/nav-plus.png);
+}
 
 /* Layouts ---------------------------------------------------------------------------------------------------------- */
 /* Define styles used in:
