@@ -175,6 +175,7 @@ class ValueBindingValueExpression extends ValueExpression
     {
       super(binding);
     }
+    private static final long serialVersionUID = 1L;
   }
   
   private static class StateHolderValueBindingValueExpression extends ValueBindingValueExpression

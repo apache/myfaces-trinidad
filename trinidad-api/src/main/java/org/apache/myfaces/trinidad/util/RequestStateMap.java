@@ -108,4 +108,5 @@ import javax.servlet.ServletRequest;
    }
    
    private static final String _STATE_MAP = RequestStateMap.class.getName();
+   private static final long serialVersionUID = 1L;
  }

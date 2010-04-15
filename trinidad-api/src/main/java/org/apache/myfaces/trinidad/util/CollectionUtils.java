@@ -790,6 +790,7 @@ public final class CollectionUtils
     }
 
     private final Map<K, V> _delegate;
+    private static final long serialVersionUID = 1L;
   }
 
   private static class EmptyIterator implements Iterator

@@ -92,4 +92,5 @@ class MethodBindingMethodExpression
   }
 
   private final MethodBinding _binding;
+  private static final long serialVersionUID = 1L;
 }
