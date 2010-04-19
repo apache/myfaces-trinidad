@@ -100,18 +100,28 @@ function setFocus(event)
                     <tr:spacer height="6" id="sp11"/>
                   </f:facet>
                   <tr:outputFormatted styleUsage="instruction"
-                                      value="tr:commandButton using jsf.ajax.request and partialSubmit=true."
+                                      value="tr:commandButton using f:ajax and partialSubmit=true."
                                       id="of11"/>
                   <tr:commandButton id="axBtn1" partialSubmit="true" text="Partial Submit"
                                     shortDesc="partialSubmit"
-                                    actionListener="#{partialDemoUtil.action}"/>
-                  <!--f:ajax event="action" render=""/-->
+                                    actionListener="#{partialDemoUtil.action}">
+                    <f:ajax event="action" render="btnTarget" />
+                  </tr:commandButton>
                   <tr:outputFormatted styleUsage="instruction"
-                                      value="tr:commandButton using jsf.ajax.request." id="of12"/>
-                  <tr:commandButton id="axBtn2" partialTriggers="axBtn1" text="Full Submit" shortDesc="fullSubmit"
-                                    actionListener="#{partialDemoUtil.action}"/>
+                                      value="tr:commandButton using f:ajax." id="of12"/>
+
+                  <tr:commandButton id="axBtn2" text="Full Submit"
+                                    shortDesc="fullSubmit"
+                                    actionListener="#{partialDemoUtil.action}">
+                    <f:ajax event="action" render="btnTarget" />
+                  </tr:commandButton>
+
                   <tr:outputFormatted styleUsage="instruction"
-                                      value="h:commandButton using jsf.ajax.request." id="of13"/>
+                                      value="h:commandButton using f:ajax." id="of13"/>
+                  <h:commandButton id="axBtn3" text="Submit"
+                                    actionListener="#{partialDemoUtil.action}">
+                    <f:ajax event="action" render="btnTarget" />
+                  </h:commandButton>
                 </tr:panelGroupLayout>
                 <tr:spacer width="30" height="10" id="sp12"/>
                 <tr:panelGroupLayout id="pgl12" layout="vertical">
@@ -120,7 +130,7 @@ function setFocus(event)
                   </f:facet>
                   <tr:statusIndicator id="si2" />
                   <tr:panelLabelAndMessage label="Button Clicked: " id="plm10">
-                    <tr:outputFormatted id="btnTarget" partialTriggers="axBtn1 axBtn2"
+                    <tr:outputFormatted id="btnTarget"
                                         styleUsage="instruction"
                                         value="#{partialDemoUtil.status.linkUpdate}">
                       <f:convertDateTime pattern="HH:mm:ss"/>
