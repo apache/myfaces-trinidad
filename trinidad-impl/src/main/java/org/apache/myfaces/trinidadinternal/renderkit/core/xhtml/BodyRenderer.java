@@ -23,6 +23,7 @@ import java.beans.Beans;
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
@@ -98,6 +99,8 @@ public class BodyRenderer extends PanelPartialRootRenderer
     context.getResponseWriter().endElement("body");
 
     _renderInitialFocusScript(context, rc);
+    
+    _renderDisableJsfAjaxScript(context, rc);
   }
 
   @Override
@@ -379,6 +382,27 @@ public class BodyRenderer extends PanelPartialRootRenderer
       writer.endElement("script");
     }
   }
+  
+  // Reverts to the legacy PPR channel (disables PPR over JSF Ajax)
+  // if teh conetxt parameter is set
+  private void _renderDisableJsfAjaxScript(
+    FacesContext     context,
+    RenderingContext rc
+    ) throws IOException 
+  {
+    if (!supportsScripting(rc))
+    {
+      return;
+    }
+    ExternalContext extContext = context.getExternalContext();
+    if ("off".equalsIgnoreCase(extContext.getInitParameter(_PPR_OVER_JSF_AJAX)))
+    {
+      ResponseWriter writer = context.getResponseWriter();
+      writer.startElement("script", null);
+      writer.write("TrPage.getInstance().__disablePprOverJsfAjax()");
+      writer.endElement("script");
+    }
+  }
 
   // If partial back is supported,
   // render a span with the _PPR_BACK_CONTENT_ID id.
@@ -577,4 +601,6 @@ public class BodyRenderer extends PanelPartialRootRenderer
   static private final String _PPR_BACK_SAVE_CONTENT_ID = "_pprSavePage";
   static private final String _PPR_BACK_SAVE_SCRIPT_ID = "_pprSaveScript";
   static private final String _PPR_BACK_SAVE_LIBRARY_ID = "_pprSaveLib";
+  
+  static private final String _PPR_OVER_JSF_AJAX = "org.apache.myfaces.trinidadinternal.PPR_OVER_JSF_AJAX";
 }

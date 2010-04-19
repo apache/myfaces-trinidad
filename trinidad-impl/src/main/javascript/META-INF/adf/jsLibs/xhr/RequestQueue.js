@@ -33,7 +33,7 @@ function TrRequestQueue(domWindow)
   this._window = domWindow;
   // TODO: set this via a web.xml configuration parameter as well as checking for presense of the
   // JSF library
-  this._useJsfBuiltInAjaxForXhr = (typeof jsf != "undefined");
+  this._useJsfBuiltInAjaxForXhr = (_agent.useJsfAjax && typeof jsf != "undefined");
 }
 
 // Class constants
@@ -904,6 +904,11 @@ TrRequestQueue.prototype.getDTSState = function()
 TrRequestQueue.prototype.__useJsfBuiltInAjaxForXhr = function()
 {
   return this._useJsfBuiltInAjaxForXhr;
+}
+
+TrRequestQueue.prototype.__disableJsfBuiltInAjaxForXhr = function()
+{
+  this._useJsfBuiltInAjaxForXhr = false;
 }
 
 /**

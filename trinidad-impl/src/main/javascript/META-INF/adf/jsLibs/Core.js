@@ -228,6 +228,10 @@ function _agentInit()
 
   // Indicate browser's PPR capability support
   var pprUnsupported    = false;
+  
+  // Indicate whether the browser and platform are capable of
+  // sending PPR requests via JSF Ajax
+  var useJsfAjax = true;
 
   // Flag to indicate that document object is sufficiently implemented to
   // provide good level of access to HTML, XHTML and XML document.
@@ -390,6 +394,7 @@ function _agentInit()
   _agent.isWindowsMobile6       = isWindowsMobile6;
   _agent.kind                   = kind;
   _agent.pprUnsupported         = pprUnsupported;
+  _agent.useJsfAjax             = useJsfAjax;
   _agent.supportsDomDocument    = supportsDomDocument;
   _agent.supportsNodeType       = supportsNodeType;
   _agent.supportsValidation     = supportsValidation;

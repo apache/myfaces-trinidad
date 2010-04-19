@@ -18,13 +18,8 @@
  */
 function TrPage()
 {
-  this._loadedLibraries = TrPage._collectLoadedLibraries();
   this._requestQueue = new TrRequestQueue(window);
-
-  if (this._requestQueue.__useJsfBuiltInAjaxForXhr())
-  {
-    jsf.ajax.addOnEvent(TrUIUtils.createCallback(this, this._jsfAjaxCallback));
-  }
+  this._loadedLibraries = TrPage._collectLoadedLibraries();
 }
 
 TrPage._VIEW_STATE_ID = "javax.faces.ViewState";
@@ -58,7 +53,20 @@ TrPage.prototype.getRequestQueue = function ()
  */
 TrPage.prototype.sendPartialFormPost = function (actionForm, params, headerParams, event)
 {
-  this.getRequestQueue().sendFormPost(this, this._requestStatusChanged, actionForm, params, headerParams, event);
+  var queue =this.getRequestQueue();
+  if (!this._xhrInited)
+  {
+    this._xhrInited = true;
+    if (this._noPprOverJsfAjax)
+    {
+      queue.__disableJsfBuiltInAjaxForXhr();
+    }
+    else if (queue.__useJsfBuiltInAjaxForXhr())
+    {
+      jsf.ajax.addOnEvent(TrUIUtils.createCallback(this, this._jsfAjaxCallback));
+    }
+  }
+  queue.sendFormPost(this, this._requestStatusChanged, actionForm, params, headerParams, event);
 }
 
 TrPage.prototype._requestStatusChanged = function (requestEvent)
@@ -236,6 +244,11 @@ TrPage.prototype._handlePprResponse = function (requestEvent, document)
     // FIXME: log an error
     window.location.reload(true);
   }
+}
+
+TrPage.prototype.__disablePprOverJsfAjax = function()
+{
+  this._noPprOverJsfAjax = true;
 }
 
 TrPage.prototype._addResetFields = function (formName, resetNames)
