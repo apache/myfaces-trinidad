@@ -3858,20 +3858,50 @@ af|treeTable::sub-control-bar af|showDetail::prompt-link:hover {
 af|treeTable::select-all-icon {
     content:url(/adf/images/casablanca/icons/selectAll.png);
 }
+@agent ie and (version: 5), ie and (version: 6) {
+    af|treeTable::select-all-icon {
+        content:url(/adf/images/casablanca/icons/selectAll_8bit.png);
+    }
+}
 af|treeTable::select-none-icon {
     content:url(/adf/images/casablanca/icons/selectNone.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|treeTable::select-none-icon {
+        content:url(/adf/images/casablanca/icons/selectNone_8bit.png);
+    }
 }
 af|treeTable::collapse-all-icon {
     content:url(/adf/images/casablanca/icons/collapseAll.png);
 }
+@agent ie and (version: 5), ie and (version: 6) {
+    af|treeTable::collapse-all-icon {
+        content:url(/adf/images/casablanca/icons/collapseAll_8bit.png);
+    }
+}
 af|treeTable::expand-all-icon {
     content:url(/adf/images/casablanca/icons/expandAll.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|treeTable::expand-all-icon {
+        content:url(/adf/images/casablanca/icons/expandAll_8bit.png);
+    }
 }
 af|treeTable::expanded-icon {
     content:url(/adf/images/casablanca/icons/nav-minus.png);
 }
+@agent ie and (version: 5), ie and (version: 6) {
+    af|treeTable::expanded-icon {
+        content:url(/adf/images/casablanca/icons/nav-minus_8bit.png);
+    }
+}
 af|treeTable::collapsed-icon {
     content:url(/adf/images/casablanca/icons/nav-plus.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|treeTable::collapsed-icon {
+        content:url(/adf/images/casablanca/icons/nav-plus_8bit.png);
+    }
 }
 af|treeTable::content {
     -tr-rule-ref: selector(".CBTreeTableBody");
