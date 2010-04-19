@@ -34,6 +34,20 @@ af|foo af|bar {color: purple; background-color: green; border-color: pink}
   font-size: medium;
 }
 
+
+af|foo {font-style:italic; font-size: large;}
+af|commandButton
+{
+  max-width: 100px;
+  background-color: -tr-property-ref(".AFTestBackgroundColor:alias"); 
+  font-style: -tr-property-ref("af|foo");
+}
+
+/* test the new include property functionality */
+.AFTestForegroundColor:alias {color: yellow; font-style:italic}
+.AFTestBackgroundColor:alias {background-color: -tr-property-ref(".AFTestForegroundColor:alias","color")}
+
+
 .AFDarkForeground:alias {color:#035D5C;}
 .AFDarkBackground:alias {background-color:Purple;}
 /** In the base styles, AFDarkBorder uses the background-color of 
