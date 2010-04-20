@@ -57,15 +57,22 @@ public final class PartialPageUtils
     if (!checkIsPPR ||
         (PartialPageUtils.isPartialRequest(context) && PartialPageUtils.isPPRActive(context)))
     {
-      ExternalContext external = context.getExternalContext();
-    
-      // see if PPR optimization is enabled for the servlet (the default is off)
-      if ("true".equalsIgnoreCase(external.getInitParameter(_INIT_PROP_PPR_OPTIMIZATION_ENABLED)))
+      if (Boolean.TRUE.equals(context.getAttributes().get(_FORCE_OPTIMIZED_PPR)))
       {
-        // see if PPR optimization is enabled for the application (the default is on)
-        optimizedPPREnabled = !Boolean.TRUE.equals(
-                          external.getApplicationMap().get(_APP_PROP_PPR_OPTIMIZATION_DISABLED));
-      } 
+        optimizedPPREnabled = true;
+      }
+      else
+      {
+        ExternalContext external = context.getExternalContext();
+      
+        // see if PPR optimization is enabled for the servlet (the default is off)
+        if ("true".equalsIgnoreCase(external.getInitParameter(_INIT_PROP_PPR_OPTIMIZATION_ENABLED)))
+        {
+          // see if PPR optimization is enabled for the application (the default is on)
+          optimizedPPREnabled = !Boolean.TRUE.equals(
+                            external.getApplicationMap().get(_APP_PROP_PPR_OPTIMIZATION_DISABLED));
+        }
+      }
     }
     
     return optimizedPPREnabled;
@@ -111,12 +118,27 @@ public final class PartialPageUtils
     return false;
   }
 
+  /**
+   * This method delegates to the RequestContext.isPartialRequest() with the 
+   * exception that JSF Ajax render="@all" requests are reported as non-partial
+   * @param context
+   * @return
+   */
   public static boolean isPartialRequest(FacesContext context)
   {
     RequestContext rc = RequestContext.getCurrentInstance();
     if (rc == null)
       return false;
-    return rc.isPartialRequest(context);
+    boolean isPartial = rc.isPartialRequest(context);
+    
+    if (isPartial && context.getPartialViewContext().isRenderAll())
+    {
+      // We do not want to create PartialPageContext and use the tree visit (if enabled)
+      // for the 'render all' <f:ajax> case
+      isPartial = false;
+    }
+    
+    return isPartial;
   }
 
 
@@ -217,6 +239,15 @@ public final class PartialPageUtils
     
     requestScope.put(_PPR_ACTIVE_FLAG_NAME, Boolean.TRUE);
   }
+  
+  /**
+   * Forces optimized PPR (using tree visit to render components)
+   * @param context
+   */
+  public static void forceOptimizedPPR(FacesContext context)
+  {
+    context.getAttributes().put(_FORCE_OPTIMIZED_PPR, Boolean.TRUE);
+  }
 
   // temporary servlet initialization flag controlling whether PPR optimization is enabled for the servlet
   private static final String _INIT_PROP_PPR_OPTIMIZATION_ENABLED = 
@@ -230,4 +261,7 @@ public final class PartialPageUtils
   // an iFrame is built yet.
   private static final String _PPR_ACTIVE_FLAG_NAME =
           "org.apache.myfaces.trinidadinternal.renderkit._pprActiveOnPage";
+  
+  
+  private static final Object _FORCE_OPTIMIZED_PPR = new Object();
 }

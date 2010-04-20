@@ -27,6 +27,8 @@ import javax.faces.event.ValueChangeEvent;
 
 import org.apache.myfaces.trinidad.component.UIXOutput;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.model.UploadedFile;
+
 
 public class PartialDemoUtilBean
 {
@@ -121,6 +123,31 @@ public class PartialDemoUtilBean
     }
   }
 
+  public void setRenderInputFile(boolean renderInputFile)
+  {
+    this._renderInputFileTemp = renderInputFile;
+  }
+
+  public boolean isRenderInputFile()
+  {
+    Boolean value = (Boolean)
+      FacesContext.getCurrentInstance().getViewRoot().getViewMap().get(
+        _RENDER_INPUT_FILE_KEY);
+    return value != null && value;
+  }
+
+  public void fileUploaded(ValueChangeEvent event)
+  {
+    _status.setUploadFile((UploadedFile) event.getNewValue());
+  }
+
+  public void updateRenderInputFileState(ActionEvent event)
+  {
+    FacesContext.getCurrentInstance().getViewRoot().getViewMap().put(
+      _RENDER_INPUT_FILE_KEY, _renderInputFileTemp);
+    _renderInputFileTemp = null;
+  }
+
   private void _resetList()
   {
     _listUpdate.setValue("nothing yet.");
@@ -135,4 +162,7 @@ public class PartialDemoUtilBean
 
   private PartialDemoStatusBean _status;
   private UIXOutput _listUpdate;
+  private Boolean _renderInputFileTemp;
+  private final static String _RENDER_INPUT_FILE_KEY = PartialDemoUtilBean.class.getName() +
+                                                       ".renderInputFile";
 }

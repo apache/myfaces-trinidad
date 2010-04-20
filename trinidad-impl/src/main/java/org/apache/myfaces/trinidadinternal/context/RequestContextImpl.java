@@ -218,7 +218,7 @@ public class RequestContextImpl extends RequestContext
   @Override
   public boolean isPartialRequest(FacesContext context)
   {
-    return CoreRenderKit.isPartialRequest(context.getExternalContext());
+    return context.getPartialViewContext().isAjaxRequest();
   }
 
 

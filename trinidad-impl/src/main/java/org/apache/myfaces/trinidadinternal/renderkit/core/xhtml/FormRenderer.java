@@ -407,6 +407,9 @@ public class FormRenderer extends XhtmlRenderer
     }
 
     // Include JSF state.
+    // Note that MultiViewHandler in JSF RI will not write the state
+    // for any AJAX requests. PartialViewContextImpl will write out the state
+    // for these requets
     context.getApplication().getViewHandler().writeState(context);
 
     // Include the Window state, if any

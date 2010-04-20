@@ -31,6 +31,7 @@ function TrRequestQueue(domWindow)
 
   // Stash away the DOM window for later reference.
   this._window = domWindow;
+  this._useJsfBuiltInAjaxForXhr = (_agent.useJsfAjax && typeof jsf != "undefined");
 }
 
 // Class constants
@@ -57,7 +58,10 @@ TrRequestQueue._RequestItem = function(
   actionURL,
   headerParams,
   content,
-  method
+  method,
+  event,
+  source,
+  formId
   )
 {
   this._type = type;
@@ -66,6 +70,9 @@ TrRequestQueue._RequestItem = function(
   this._headerParams = headerParams;
   this._content = content;
   this._method = method;
+  this._event = event;
+  this._source = source;
+  this._formId = formId;
 }
 
 TrRequestQueue.prototype._broadcastRequestStatusChanged = function(
@@ -92,18 +99,34 @@ TrRequestQueue.prototype._addRequestToQueue = function(
   listener,
   actionURL,
   content,
-  headerParams
+  headerParams,
+  event,
+  source,
+  formId
   )
 {
   var newRequest = new TrRequestQueue._RequestItem(
-                          type, context, actionURL, headerParams, content, listener);
+                          type, context, actionURL, headerParams, content,
+                          listener, event, source, formId);
+
+  if (this._useJsfBuiltInAjaxForXhr && type == TrRequestQueue._XMLHTTP_TYPE)
+  {
+    // Since JSF 2 already has a queue, we need not queue the request here, instead we should
+    // immediately process the request
+    this._state = TrRequestQueue.STATE_BUSY;
+    this._broadcastStateChangeEvent(TrRequestQueue.STATE_BUSY);
+    this._doXmlHttpRequest(newRequest);
+    return;
+  }
+
   this._requestQueue.push(newRequest);
 
   try
   {
     var dtsRequestEvent = new TrXMLRequestEvent(
                     TrXMLRequestEvent.STATUS_QUEUED,
-                    null); // no xmlhttp object at this time
+                    null, // no xmlhttp object at this time
+                    source);
 
     this._broadcastRequestStatusChanged(context, listener, dtsRequestEvent);
   }
@@ -131,7 +154,8 @@ TrRequestQueue.prototype.sendFormPost = function(
   method,
   actionForm,
   params,
-  headerParams
+  headerParams,
+  event
   )
 {
   //this retrieves the action url for PPR.  Generally this will be the action property on
@@ -145,9 +169,7 @@ TrRequestQueue.prototype.sendFormPost = function(
   {
     pprURL = actionForm.getAttribute("_trinPPRAction");
   }
-  catch (e)
-  {
-  }
+  catch (e) { ; }
   var action = pprURL?pprURL:actionForm.action;
 
   if (this._isMultipartForm(actionForm))
@@ -158,13 +180,26 @@ TrRequestQueue.prototype.sendFormPost = function(
   }
   else
   {
-    var content = this._getPostbackContent(actionForm, params);
-
     // IE BUG, see TRINIDAD-704
     if(_agent.isIE)
       this._autoCompleteForm(actionForm);
 
-    this.sendRequest(context, method, action, content, headerParams);
+    if (this._useJsfBuiltInAjaxForXhr)
+    {
+      // JSF 2 AJAX will take the parameters and it will determine the form
+      // content itself, so we should not convert the data to a string or
+      // gather the form values
+      // TODO: log a warning if we're dropping any headers?  Or
+      // come up with a hack to send "headers" via a multipart request?
+      this.sendRequest(context, method, action, params, headerParams, event,
+        params ? params.source : null, actionForm.id);
+  }
+    else
+    {
+      var content = this._getPostbackContent(actionForm, params);
+      this.sendRequest(context, method, action, content, headerParams, event,
+        params ? params.source : null, actionForm.id);
+}
   }
 }
 
@@ -349,22 +384,29 @@ TrRequestQueue._appendUrlFormEncoded = function(
 
 /**
 * Performs Asynchronous XML HTTP Request with the Server
-* @param context    any object that is sent back to the callback when the request
+* @param context Any object that is sent back to the callback when the request
 *  is complete. This object can be null.
 * @param method   Javascript method
-* @param actionURL   the url to send the request to
+* @param actionURL The url to send the request to
 * @param headerParams  Option HTTP header parameters to attach to the request
-* @param content     the content of the Asynchronous XML HTTP Post
+* @param content The content of the Asynchronous XML HTTP Post
+* @param event The browser event that triggered the request, if any
+* @param source The ID of the source element for the request
+* @param formId The ID of the form element
 */
 TrRequestQueue.prototype.sendRequest = function(
   context,
   method,
   actionURL,
   content,
-  headerParams
+  headerParams,
+  event,
+  source,
+  formId
   )
 {
-  this._addRequestToQueue(TrRequestQueue._XMLHTTP_TYPE, context, method, actionURL, content, headerParams);
+  this._addRequestToQueue(TrRequestQueue._XMLHTTP_TYPE, context, method, actionURL, content,
+    headerParams, event, source, formId);
 }
 
 /**
@@ -388,9 +430,9 @@ TrRequestQueue.prototype.sendMultipartRequest = function(
   var privateContext =
      {"htmlForm":htmlForm, "params": params, "context": context, "method": method};
 
-  this._addRequestToQueue(TrRequestQueue._MULTIPART_TYPE, privateContext, null, actionURL);
+  this._addRequestToQueue(TrRequestQueue._MULTIPART_TYPE, privateContext, null, actionURL,
+    params ? params.source : null, htmlForm.id);
 }
-
 
 TrRequestQueue.prototype._doRequest = function()
 {
@@ -411,12 +453,26 @@ TrRequestQueue.prototype._doRequest = function()
 
 TrRequestQueue.prototype._doXmlHttpRequest = function(requestItem)
 {
-  var xmlHttp = new TrXMLRequest();
+  var xmlHttp;
+  if (this._useJsfBuiltInAjaxForXhr)
+  {
+    xmlHttp = new TrXMLJsfAjaxRequest(requestItem._event, requestItem._content);
+  }
+  else
+  {
+    xmlHttp = new TrXMLRequest();
+  }
+
   xmlHttp.__dtsRequestContext = requestItem._context;
   xmlHttp.__dtsRequestMethod = requestItem._method;
+  xmlHttp.__dtsRequestSource = requestItem._source;
+  xmlHttp.__dtsRequestFormId = requestItem._formId;
+
   var callback = TrUIUtils.createCallback(this, this._handleRequestCallback);
   xmlHttp.setCallback(callback);
 
+  if (!this._useJsfBuiltInAjaxForXhr)
+  {
   // xmlhttp request uses the same charset as its parent document's charset.
   // There is no need to set the charset.
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -436,6 +492,7 @@ TrRequestQueue.prototype._doXmlHttpRequest = function(requestItem)
 
       xmlHttp.setRequestHeader(headerName, currHeader);
     }
+  }
   }
 
   xmlHttp.send(requestItem._actionURL, requestItem._content);
@@ -488,9 +545,12 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
     iframeDoc.removeChild(iframeDoc.firstChild);
 
   // store our context variables for later use
+  this._source = requestItem.params ?
+    requestItem.params["javax.faces.source"] || requestItem.params["source"] : null;
   this._dtsContext = requestItem._context.context;
   this._dtsRequestMethod = requestItem._context.method;
   this._htmlForm = htmlForm;
+  this._dtsSource = requestItem._source;
   this._savedActionUrl = htmlForm.action;
   this._savedTarget = htmlForm.target;
 
@@ -503,13 +563,17 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
   htmlForm.target = frameName;
 
   this._appendParamNode(domDocument, htmlForm, "Tr-XHR-Message", "true");
-  //this._appendParamNode(domDocument, htmlForm, "partial", "true");
+
+  // mstarets - not including jsf ajax parameter will let the server know that
+  // this is a 'legacy' PPR request
+  // this._appendParamNode(domDocument, htmlForm, "javax.faces.partial.ajax", "true");
 
   if(params)
   {
     for (var key in params)
     {
-      this._appendParamNode(domDocument, htmlForm, key, params[key]);
+      var paramValue = params[key];
+      this._appendParamNode(domDocument, htmlForm, key, paramValue);
     }
   }
 
@@ -662,7 +726,9 @@ TrRequestQueue.prototype._onIFrameLoadComplete = function(
   try
   {
     var dtsRequestEvent = new TrIFrameXMLRequestEvent(
-                              iframeDoc);
+                              iframeDoc,
+                              this._dtsSource,
+                              this._htmlForm.id);
 
     this._broadcastRequestStatusChanged(context, requestMethod,dtsRequestEvent);
   }
@@ -673,6 +739,7 @@ TrRequestQueue.prototype._onIFrameLoadComplete = function(
       iframeDoc.removeChild(iframeDoc.firstChild);
     this._htmlForm.action = this._savedActionUrl;
     this._htmlForm.target = this._savedTarget;
+    delete this._dtsSource;
     //clear the parameter nodes
     this._clearParamNodes();
     this._requestDone();
@@ -702,7 +769,7 @@ TrRequestQueue.prototype._handleRequestCallback = function(
     // the Http connection  has been closed
   }
 
-  if ((statusCode != 200) && (statusCode != 0))
+  if ((statusCode < 200 || statusCode >= 300) && (statusCode != 0))
   {
     TrRequestQueue._alertError();
     TrRequestQueue._logError("Error StatusCode(",
@@ -717,7 +784,9 @@ TrRequestQueue.prototype._handleRequestCallback = function(
     {
       var dtsRequestEvent = new TrXMLRequestEvent(
                   TrXMLRequestEvent.STATUS_COMPLETE,
-                  xmlHttp);
+                  xmlHttp,
+                  xmlHttp.__dtsRequestSource,
+                  xmlHttp.__dtsRequestFormId);
       this._broadcastRequestStatusChanged(
         xmlHttp.__dtsRequestContext,
         xmlHttp.__dtsRequestMethod,
@@ -823,6 +892,16 @@ TrRequestQueue.prototype.getDTSState = function()
   return this._state;
 }
 
+TrRequestQueue.prototype.__useJsfBuiltInAjaxForXhr = function()
+{
+  return this._useJsfBuiltInAjaxForXhr;
+}
+
+TrRequestQueue.prototype.__disableJsfBuiltInAjaxForXhr = function()
+{
+  this._useJsfBuiltInAjaxForXhr = false;
+}
+
 /**
  * broadcast the state change of the request queue to its listeners
  */
@@ -888,6 +967,9 @@ TrRequestQueue._logWarning = function(varArgs)
 TrRequestQueue._logError = function(varArgs)
 {
   if (window.console && console.error)
+  {
     console.error(arguments);
+  }
+
   // else???
 }

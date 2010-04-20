@@ -24,11 +24,24 @@
  * @ see TrXMLRequestEvent
  */
 function TrIFrameXMLRequestEvent(
-  iframeDoc)
+  iframeDoc,
+  source,
+  formId)
 {
   this._iframeDoc = iframeDoc;
+  this._source = source;
+  this._formId = formId;
 }
 
+TrIFrameXMLRequestEvent.prototype.getSource = function()
+{
+  return this._source;
+}
+
+TrIFrameXMLRequestEvent.prototype.getFormId = function()
+{
+  return this._formId;
+}
 
 TrIFrameXMLRequestEvent.prototype.getStatus = function()
 {
@@ -45,12 +58,11 @@ TrIFrameXMLRequestEvent.prototype.getResponseXML = function()
 {
   var agentIsIE = _agent.isIE;
   var iframeDoc = this._iframeDoc;
-  if(agentIsIE && iframeDoc.XMLDocument)
+  if (agentIsIE && iframeDoc.XMLDocument)
     return iframeDoc.XMLDocument;
   else
     return iframeDoc;
 }
-
 
 /**
 * Returns the response of the Data Transfer Request as text.
@@ -90,9 +102,9 @@ TrIFrameXMLRequestEvent.prototype._isResponseValidXML = function()
   var agentIsIE = _agent.isIE;
   var iframeDoc = this._iframeDoc;
 
-  if(agentIsIE && iframeDoc.XMLDocument)
+  if (agentIsIE && iframeDoc.XMLDocument)
     return true;
-  else if(window.XMLDocument && (iframeDoc instanceof XMLDocument))
+  else if (window.XMLDocument && (iframeDoc instanceof XMLDocument))
     return true;
   else if (_agent.isSafari && iframeDoc.xmlVersion != null)
     return true;
@@ -125,12 +137,12 @@ TrIFrameXMLRequestEvent.prototype.isPprResponse = function()
   {
     var xmlDocument = iframeDoc.XMLDocument, childNodes = xmlDocument.childNodes;
     // In IE the xml PI is the first node
-    if(childNodes.length >= 2 && childNodes[1].nodeName ==  "Tr-XHR-Response-Type")
+    if(childNodes.length >= 2 && childNodes[1].nodeName ==  "partial-response")
       pprResponse = true;
   }
   else
   {
-    if(iframeDoc.firstChild && iframeDoc.firstChild.nodeName ==  "Tr-XHR-Response-Type")
+    if (iframeDoc.firstChild && iframeDoc.firstChild.nodeName ==  "partial-response")
       pprResponse = true;
   }
 
@@ -148,3 +160,11 @@ TrIFrameXMLRequestEvent.prototype.getResponseContentType = function()
 
   return "text/html";
 }
+
+/**
+ * Returns if the request was made by the built in JSF AJAX APIs
+ */
+TrIFrameXMLRequestEvent.prototype.isJsfAjaxRequest = function()
+{
+  return false;
+};

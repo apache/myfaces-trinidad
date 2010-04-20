@@ -143,25 +143,41 @@ public class CoreRenderKit extends RenderKitDecorator
     return "org.apache.myfaces.trinidad.core.desktop";
   }
 
-  static public boolean isAjaxRequest(ExternalContext ec)
+  static public boolean isLegacyAjaxRequest(ExternalContext ec)
   {
     return "true".equals(ec.getRequestHeaderMap().get(_PPR_REQUEST_HEADER));
   }
 
-  static public boolean isPartialRequest(Map<String, String[]> parameters)
+  static public boolean isLegacyPartialRequest(Map<String, String[]> parameters)
   {
-    String[] array = parameters.get(_PPR_REQUEST_HEADER);
-    if ((array == null) || (array.length != 1))
-      return false;
-    return "true".equals(array[0]);
+    return _checkParameter(parameters, _PPR_REQUEST_HEADER, "true");
   }
 
-  static public boolean isPartialRequest(ExternalContext ec)
+  static public boolean isLegacyPartialRequest(ExternalContext ec)
   {
     // A partial request could be an AJAX request, or it could
     // be an IFRAME-postback to handle file upload
-    return isAjaxRequest(ec) ||
+    return isLegacyAjaxRequest(ec) ||
            "true".equals(ec.getRequestParameterMap().get(_PPR_REQUEST_HEADER));    
+  }
+  
+  static public boolean isPartialRequest(Map<String, String[]> parameters)
+  {
+    if (isLegacyPartialRequest(parameters))
+    {
+      return true;
+    }
+    // Check for the jsf:ajax requests too
+    return _checkParameter(parameters, _FACES_REQUEST, _PARTIAL_AJAX);
+  }
+  
+  static public boolean isPartialRequest(ExternalContext ec)
+  {
+    if (isLegacyPartialRequest(ec))
+    {
+      return true;
+    }
+    return _PARTIAL_AJAX.equals(ec.getRequestHeaderMap().get(_FACES_REQUEST));
   }
   
   public CoreRenderKit()
@@ -597,7 +613,10 @@ public class CoreRenderKit extends RenderKitDecorator
         rw = new HtmlResponseWriter(writer, characterEncoding);
       }
       
-      RenderingContext rc = RenderingContext.getCurrentInstance();
+      // mstarets - PPRResponseWriter will be created in the PartialViewContextImpl
+      // for both the JSF2-style ajax requests and legacy requests
+      
+      /*RenderingContext rc = RenderingContext.getCurrentInstance();
       if (rc == null)
       {
         // TODO: is this always indicative of something being very wrong?
@@ -607,7 +626,7 @@ public class CoreRenderKit extends RenderKitDecorator
       {
         if (isPartialRequest(fContext.getExternalContext()))
           rw = new PPRResponseWriter(rw, rc);
-      }
+      }*/
       
       return _addDebugResponseWriters(rw);
     }
@@ -791,6 +810,14 @@ public class CoreRenderKit extends RenderKitDecorator
     // Default to HTML if we couldn't find anything directly applicable
     return _HTML_MIME_TYPE;
   }
+  
+  private static boolean _checkParameter(Map<String, String[]> parameters, String name, String value)
+  {
+    String[] array = parameters.get(name);
+    if ((array == null) || (array.length != 1))
+      return false;
+    return value.equals(array[0]);
+  }
 
   private static final String _XHTML_MIME_TYPE = "application/xhtml+xml";
   private static final String _APPLICATION_XML_MIME_TYPE = "application/xml";
@@ -803,6 +830,8 @@ public class CoreRenderKit extends RenderKitDecorator
   static private final String _SCRIPT_LIST_KEY =
     "org.apache.myfaces.trinidadinternal.renderkit.ScriptList";
   static private final String _PPR_REQUEST_HEADER = "Tr-XHR-Message";
+  private static final String _FACES_REQUEST = "Faces-Request";
+  private static final String _PARTIAL_AJAX = "partial/ajax";
 
   static private final String _USE_DIALOG_POPUP_INIT_PARAM =
     "org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS";

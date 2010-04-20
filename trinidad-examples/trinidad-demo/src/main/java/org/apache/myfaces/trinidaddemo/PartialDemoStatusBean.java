@@ -22,6 +22,9 @@ import java.text.SimpleDateFormat;
 
 import java.util.Date;
 
+import org.apache.myfaces.trinidad.model.UploadedFile;
+
+
 public class PartialDemoStatusBean implements java.io.Serializable
 {
   public PartialDemoStatusBean()
@@ -144,6 +147,24 @@ public class PartialDemoStatusBean implements java.io.Serializable
     _checkBoxUpdateCount++;
   }
 
+  public String getUploadFileState()
+  {
+    return this._uploadFileState;
+  }
+
+  public void setUploadFile(UploadedFile file)
+  {
+    if (file == null)
+    {
+      this._uploadFileState = _DEFAULT_UPLOAD_FILE;
+    }
+    else
+    {
+      this._uploadFileState = String.format(
+        "Uploaded file %s (%d bytes)", file.getFilename(), file.getLength());
+    }
+  }
+
   public void reset()
   {
     resetCheckBox();
@@ -151,6 +172,7 @@ public class PartialDemoStatusBean implements java.io.Serializable
     _linkUpdate = _DEFAULT_LINK_UPDATE;
     _radioState = _DEFAULT_RADIO_STATE;
     _textValue = _DEFAULT_TEXT_VALUE;
+    _uploadFileState = _DEFAULT_UPLOAD_FILE;
   }
 
   private int     _checkBoxUpdateCount;
@@ -160,6 +182,7 @@ public class PartialDemoStatusBean implements java.io.Serializable
   private String  _linkUpdate;
   private String  _radioState;
   private String  _textValue;
+  private String  _uploadFileState;
 
   private static String _NOTHING              = "nothing yet.";
   private static String _DEFAULT_CHECK_STATE  = "updates this text.";
@@ -170,4 +193,5 @@ public class PartialDemoStatusBean implements java.io.Serializable
   private static String _DEFAULT_RADIO_STATE  = "no selection yet.";
   private static String _DEFAULT_TEXT_STATE   = _NOTHING;
   private static String _DEFAULT_TEXT_VALUE   = "Change this text";
+  private static String _DEFAULT_UPLOAD_FILE  = "No file was uploaded";
 }

@@ -23,11 +23,13 @@ import java.io.IOException;
 import java.io.Writer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.context.PartialPageContext;
@@ -36,6 +38,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.util.Service;
 
+import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 
 /**
@@ -51,15 +54,17 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 public class PPRResponseWriter extends ScriptBufferingResponseWriter
 {
   public PPRResponseWriter(ResponseWriter     out,
-                           RenderingContext   rc)
+                           RenderingContext   rc,
+                           boolean            bufferScripts)
   {
-    super(out);
+    super(out, bufferScripts);
     PartialPageContext pprContext = rc.getPartialPageContext();
     if (!(pprContext instanceof PartialPageContextImpl))
         throw new IllegalArgumentException();
 
     _state = new State((PartialPageContextImpl) pprContext);
     _xml        = new XmlResponseWriter(out, out.getCharacterEncoding());
+    _bufferScripts = bufferScripts;
   }
 
   /**
@@ -68,11 +73,12 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
   PPRResponseWriter(ResponseWriter out,
                     PPRResponseWriter base)
   {
-    super(out, base);
+    super(out, base._bufferScripts);
     // New XmlResponseWriter
     _xml        = new XmlResponseWriter(out, out.getCharacterEncoding());
     // But the rest of the state is shared
     _state = base._state;
+    _bufferScripts = base._bufferScripts;
   }
   
   
@@ -116,37 +122,32 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     // Stick another PI indicating that this is a rich reponse
     // Used for an Iframe based communication channel, since it cannot 
     // read response headers
-    _xml.write("<?Tr-XHR-Response-Type ?>\n");
+    // TODO: Do we need this?
+    // _xml.write("<?Tr-XHR-Response-Type ?>\n");
 
-    _xml.startElement("content", null);
-    String viewId = _facesContext.getViewRoot().getViewId();
-    // HACK: don't write out an "action" for PPR on a GenericEntry page
-    // (basically entirely for the InlineDatePicker case)
-    if (!GenericEntry.getViewId().equals(viewId))
-    {
-      String actionURL = _facesContext.getApplication().
-        getViewHandler().getActionURL(_facesContext, viewId);
-      ExternalContext external = _facesContext.getExternalContext();
-      
-      _xml.writeURIAttribute("action", external.encodeActionURL(actionURL), null);
-    }
+    _xml.startElement(_ELEMENT_PARTIAL_RESPONSE, null);
 
     // TODO: Portlet support for PPR?
-
-    _xml.writeText(" ", null);
+    // TODO: PS - Not sure why this extra space is being written out, but this causes an 'malformed 
+    // XML error to be thrown by JSF 2 Ajax. Commented out the line.
+    // _xml.writeText(" ", null);
 
     _state.documentStarting = false;
   }
 
   public void endDocument() throws IOException
   {
+    _writeFormActionScript();
+      
     // Write out any buffered <script src=""> or inline scripts
-    writeBufferedScripts();
+    if (_bufferScripts)
+      writeBufferedScripts();
     
     // Write out all of the framework-level scripts
     writeFrameworkScripts();
     
-    _xml.endElement("content");
+    _endChanges();
+    _xml.endElement(_ELEMENT_PARTIAL_RESPONSE);
     _xml.endDocument();
 
     // Force "inside target mode" - this is for Facelets,
@@ -301,6 +302,18 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     }
   }
   
+  public void writeViewState(String state) throws IOException
+  {
+    _startChanges();
+    _xml.startElement(_ELEMENT_CHANGES_UPDATE, null);
+    _xml.writeAttribute(_ATTRIBUTE_ID, PartialResponseWriter.VIEW_STATE_MARKER, null);
+    _xml.startCDATA();
+    _xml.write(state);
+    _xml.endCDATA();
+    _xml.endElement(_ELEMENT_CHANGES_UPDATE);
+    _xml.flush();
+  }
+  
   /*
    * Allows subclasses to retrieve the underlying response writer and bypass PPR logic
    * allowing content to be written only by partial targets
@@ -311,9 +324,12 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     return _xml;
   }
   
+  
+  
   /*
    * Writes out buffered inline scripts and script libraries
    */
+    
   protected void writeBufferedScripts() throws IOException
   {
     List<String> libraries = getBufferedLibraries();
@@ -321,9 +337,10 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     {
       for (String library : libraries)
       {
-        _xml.startElement("script-library", null);
+        _xml.startElement(_ELEMENT_EXTENSION, null);
+        _xml.writeAttribute(_ATTRIBUTE_ID, "tr-script-library", null);
         _xml.writeText(library, null);
-        _xml.endElement("script-library");
+        _xml.endElement(_ELEMENT_EXTENSION);
       }
     }
 
@@ -332,17 +349,17 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     {
       for (String script : scripts)
       {
-        _xml.startElement("script", null);
-        _xml.write("<![CDATA[");
+        _xml.startElement(_ELEMENT_EVAL, null);
+        _xml.startCDATA();
         _xml.write(script);
-        _xml.write("]]>");
-        _xml.endElement("script");
+        _xml.endCDATA();
+        _xml.endElement(_ELEMENT_EVAL);
       }
     }
 
     // Clear out any buffered scripts/libraries
     clearBufferedContents();
-  }
+  } 
   
   /*
    * Writes out framework-level scripts
@@ -350,7 +367,32 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
   protected void writeFrameworkScripts() throws IOException
   {
     ResponseWriter old = _facesContext.getResponseWriter();
-    _facesContext.setResponseWriter(_xml);
+    
+    // ExtendedRenderKitService will write out a <script> element.
+    // We want to replace it with <eval> and surround the script with CDATA
+    // All attributes will be ignored
+    ResponseWriter xml = new ResponseWriterDecorator(_xml)
+      {
+        public void startElement(String name, UIComponent component) throws IOException
+        {
+          if ("script".equalsIgnoreCase(name))
+          {
+            _xml.startElement(_ELEMENT_EVAL, null);
+          }
+        }
+        public void endElement(String name) throws IOException
+        {
+          if ("script".equalsIgnoreCase(name))
+          {
+            _xml.endElement(_ELEMENT_EVAL);
+          }
+        }
+        public void writeAttribute(String name, Object value, String attrName) throws IOException
+        {
+        }
+      };
+    
+    _facesContext.setResponseWriter(xml);
     try
     {
       // And also encode ExtendedRenderKitService scripts.  (ERKS
@@ -364,6 +406,36 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     finally
     {
       _facesContext.setResponseWriter(old);
+    }
+  }
+  
+  // We need to set form action URL by writing out a JS call because the response
+  // may be processed by jsf.ajax
+  private void _writeFormActionScript() throws IOException
+  {
+    String viewId = _facesContext.getViewRoot().getViewId();
+    // HACK: don't write out an "action" for PPR on a GenericEntry page
+    // (basically entirely for the InlineDatePicker case)
+    if (!GenericEntry.getViewId().equals(viewId))
+    {
+      _xml.startElement(_ELEMENT_EVAL, null);
+      _xml.startCDATA();
+      
+    
+      StringBuilder script = new StringBuilder(128);
+      script.append("TrPage.getInstance().__handlePprResponseAction('");
+      
+      String actionURL = _facesContext.getApplication().
+        getViewHandler().getActionURL(_facesContext, viewId);
+      ExternalContext external = _facesContext.getExternalContext();
+      
+      script.append(external.encodeActionURL(actionURL));
+      script.append("');");
+      
+      _xml.write(script.toString());
+      
+      _xml.endCDATA();
+      _xml.endElement(_ELEMENT_EVAL);
     }
   }
 
@@ -391,7 +463,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     if (tag != null)
     {
       super.flush();
-      tag.start(_state.pprContext, elementName);
+      tag.startUpdate(_state.pprContext, elementName);
     }
 
     _state.componentStack.add(tag);
@@ -405,7 +477,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     componentStack.remove(pos);
 
     if (tag != null)
-      tag.finish(_state.pprContext, elementName);
+      tag.finishUpdate(_state.pprContext, elementName);
   }
 
   private boolean _isInsideTarget()
@@ -415,7 +487,6 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     // output.
     return _state.forceInsideTarget ||
            _state.pprContext.isInsidePartialTarget();
-           
   }
 
   
@@ -468,7 +539,24 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     }
   }
 
+  private void _startChanges() throws IOException
+  {
+    if (!_state.changesStarted)
+    {
+      _xml.startElement(_ELEMENT_CHANGES, null);
+      _state.changesStarted = true;
+    }
+  }
 
+  private void _endChanges()
+    throws IOException
+  {
+    if (_state.changesStarted)
+    {
+      _xml.endElement("changes");
+      _state.changesStarted = false;
+    }
+  }
   //
   // Class representing PPR behavior associated with a tag.  The
   // base class simply tells PPR when it's working with a partial target
@@ -480,14 +568,16 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
       _id = id;
     }
 
-    public void start(
+    public void startUpdate(
       PartialPageContextImpl pprContext,
       String             elementName) throws IOException
     {
       if (_id != null)
       {
+        _startChanges();
         pprContext.pushRenderedPartialTarget(_id);
-        _xml.startElement("fragment",null);
+        _xml.startElement(_ELEMENT_CHANGES_UPDATE, null);
+        _xml.writeAttribute(_ATTRIBUTE_ID, _id, null);
         _xml.write("<![CDATA[");
         _xml.flush(); // NEW
 
@@ -501,7 +591,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
       }
     }
 
-    public void finish(
+    public void finishUpdate(
       PartialPageContextImpl pprContext,
       String             elementName) throws IOException
     {
@@ -520,7 +610,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
         PPRResponseWriter.super.flush();
       
         _xml.write("]]>");
-        _xml.endElement("fragment");
+        _xml.endElement(_ELEMENT_CHANGES_UPDATE);
         _xml.flush();
         
         pprContext.popRenderedPartialTarget();
@@ -568,11 +658,6 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
   }
 
   
-  private State _state;
-  private ResponseWriter _xml;
-  private final FacesContext _facesContext =
-   FacesContext.getCurrentInstance();
-
   static private class State
   {
     public State(PartialPageContextImpl pprContext)
@@ -585,9 +670,23 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     public int           elementDepth;
     public boolean       documentStarted;
     public boolean       documentStarting;
+    public boolean       changesStarted;
     public final List<PPRTag> componentStack = new ArrayList<PPRTag>(50);
     public final PartialPageContextImpl pprContext;
   }
 
+  private State _state;
+  private ResponseWriter _xml;
+  private boolean _bufferScripts;
+  private final FacesContext _facesContext = FacesContext.getCurrentInstance();
+  
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PPRResponseWriter.class);
+  private static final String _ELEMENT_PARTIAL_RESPONSE = "partial-response";
+  private static final String _ELEMENT_CHANGES = "changes";
+  private static final String _ELEMENT_CHANGES_UPDATE = "update";
+  private static final String _ELEMENT_EVAL = "eval";
+  private static final String _ELEMENT_EXTENSION = "extension";
+  private static final String _ATTRIBUTE_ID = "id";
+  private static final List<String> _allowedIds = Arrays.asList(PartialResponseWriter.VIEW_STATE_MARKER);
+
 }
