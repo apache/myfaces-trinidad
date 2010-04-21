@@ -3682,8 +3682,18 @@ af|table::sub-control-bar af|showDetail::prompt-link:hover {
 af|table::select-all-icon {
     content:url(/adf/images/casablanca/icons/selectAll.png);
 }
+@agent ie and (version: 5), ie and (version: 6) {
+    af|table::select-all-icon {
+        content:url(/adf/images/casablanca/icons/selectAll_8bit.png);
+    }
+}
 af|table::select-none-icon {
     content:url(/adf/images/casablanca/icons/selectNone.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|table::select-none-icon {
+        content:url(/adf/images/casablanca/icons/selectNone_8bit.png);
+    }
 }
 .AFTableCellDataBorderColor:alias, TableCellHeaderBorderColor, af|column::header-text,
 af|table::content {
@@ -3974,8 +3984,18 @@ af|treeTable::sub-control-bar tbody tr td {
 af|tree::expanded-icon {
     content:url(/adf/images/casablanca/icons/nav-minus.png);
 }
+@agent ie and (version: 5), ie and (version: 6) {
+    af|tree::expanded-icon {
+        content:url(/adf/images/casablanca/icons/nav-minus_8bit.png);
+    }
+}
 af|tree::collapsed-icon {
     content:url(/adf/images/casablanca/icons/nav-plus.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|tree::collapsed-icon {
+        content:url(/adf/images/casablanca/icons/nav-plus_8bit.png);
+    }
 }
 
 /* Layouts ---------------------------------------------------------------------------------------------------------- */
