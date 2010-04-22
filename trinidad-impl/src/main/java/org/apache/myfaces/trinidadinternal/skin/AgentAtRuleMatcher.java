@@ -120,6 +120,7 @@ public final class AgentAtRuleMatcher
     }
     
     _selectorAgents = browserMap;
+    _hashCode = _calculateStableHashCode(browserMap);
   }
 
   /**
@@ -263,6 +264,33 @@ public final class AgentAtRuleMatcher
     }
     
     _selectorAgents = selectorAgents;
+    _hashCode = _calculateStableHashCode(selectorAgents);
+  }
+  
+  /**
+   * Because Enums don't have stable hash codes, we can't use their hash code directly.  Instead
+   * we want to use the has code of the enum's name, which should be stable.  Here we essentially
+   * duplicate the hash code calculation of Map, using the stable hash code instead
+   * @return stable hash code
+   */
+  private static int _calculateStableHashCode(
+    Map<TrinidadAgent.Application, Set<AgentMatcher>> selectorAgents)
+  {
+    int hashCode = 0;
+    
+    // Map hash code is defined as the additive hash code of the entries
+    for (Map.Entry<TrinidadAgent.Application, Set<AgentMatcher>> entry : selectorAgents.entrySet())
+    {
+      // use the enum's name to have a stable hash code
+      int stableKeyHashCode = entry.getKey().name().hashCode();
+      
+      // entry hash code is defined as the XOR of the key and value.
+      int entryHashCode = stableKeyHashCode ^ entry.getValue().hashCode();
+      
+      hashCode += entryHashCode;
+    }
+    
+    return hashCode;
   }
   
   /**
@@ -369,9 +397,9 @@ public final class AgentAtRuleMatcher
   }
   
   @Override
-  public int hashCode()
+  public final int hashCode()
   {
-    return _selectorAgents.hashCode();
+    return _hashCode;
   }
   
   @Override
@@ -425,7 +453,7 @@ public final class AgentAtRuleMatcher
    * Immutable and thread-safe AgentMatcher that matches the supplied Version against the
    * version of a TrinidadAgent using the supplied, MAX, MIN, or EQUALS Comparison
    */
-  private static class VersionMatcher extends AgentMatcher
+  private static final class VersionMatcher extends AgentMatcher
   {
     /**
      * Creates a VersionMatcher
@@ -436,6 +464,10 @@ public final class AgentAtRuleMatcher
     {
       _version = version;
       _comparison = comparison;
+      
+      // cache the hash code.  Because enums don't have stable hash codes,
+      // we use the hash code of the name of the enum, which is stable
+      _hashCode = _version.hashCode() * 37 + _comparison.name().hashCode();
     }
     
     /**
@@ -475,9 +507,9 @@ public final class AgentAtRuleMatcher
     }
  
     @Override
-    public int hashCode()
+    public final int hashCode()
     {
-      return _version.hashCode() * 37 + _comparison.hashCode();
+      return _hashCode;
     }
     
     @Override
@@ -509,6 +541,7 @@ public final class AgentAtRuleMatcher
    
     private final Version _version;
     private final Comparison _comparison;
+    private final int _hashCode;
   }
   
   /**
@@ -638,4 +671,7 @@ public final class AgentAtRuleMatcher
   // @agent ie and (version:5), ie and (version:6), gecko. 
   // We store a map of agents and their version sets
   private final Map<TrinidadAgent.Application, Set<AgentMatcher>> _selectorAgents;
+  
+  // cached hash code
+  private final int _hashCode;
 }
