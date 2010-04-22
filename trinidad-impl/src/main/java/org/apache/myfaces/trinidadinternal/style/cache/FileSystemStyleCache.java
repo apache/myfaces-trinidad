@@ -360,7 +360,7 @@ public class FileSystemStyleCache implements StyleProvider
                         entryCache,
                         shortStyleClassMap,
                         namespacePrefixes,
-                        checkModified, 
+                        checkModified,
                         isDirty);
   }
 
@@ -401,7 +401,7 @@ public class FileSystemStyleCache implements StyleProvider
       if (!valid)
       {
         _deleteAll(existing);
-        
+
         // atomically remove the key from the cache if it currently points to the entry
         cache.remove(key, entry);
 
@@ -476,7 +476,7 @@ public class FileSystemStyleCache implements StyleProvider
     // Also, cache the new entry in the entry cache
     DerivationKey derivationKey = _getDerivationKey(context, document);
     entryCache.put(derivationKey, entry);
-    
+
     // just in case, clear the dirty flag.
     RenderingContext arc = RenderingContext.getCurrentInstance();
     Skin skin = arc.getSkin();
@@ -523,7 +523,7 @@ public class FileSystemStyleCache implements StyleProvider
     Iterator<StyleSheetNode> e = document.getStyleSheets(context);
 
     StyleSheetNode[] styleSheets;
-    
+
     if (e.hasNext())
     {
       styleSheets = CollectionUtils.toArray(e, StyleSheetNode.class);
@@ -862,7 +862,7 @@ public class FileSystemStyleCache implements StyleProvider
     }
     catch (IOException e)
     {
-      // This might happen if we couldn't delete the css file that was already there, so we 
+      // This might happen if we couldn't delete the css file that was already there, so we
       // are unable to recreate it.
       if (_LOG.isWarning())
         _LOG.warning("IOEXCEPTION_OPENNING_FILE", file);
@@ -1118,7 +1118,7 @@ public class FileSystemStyleCache implements StyleProvider
       if ((o.hashCode() == hashCode()) &&  (o instanceof Key))
       {
         Key key = (Key)o;
-        
+
         // Check the easy stuff first
         if  ((_short == key._short)             &&
              (_portlet == key._portlet)         &&
@@ -1310,7 +1310,9 @@ public class FileSystemStyleCache implements StyleProvider
       _compress = compress;
       // create a Selector->Style map right here (aggressively versus lazily)
       ConcurrentMap<Selector, Style> resolvedSelectorStyleMap = null;
-
+      /* This is used so that we can re-use Style objects if the property name and value
+       * is the same. */
+      Map<StyleKey, Style> styleNodeToStyleMap = new ConcurrentHashMap<StyleKey, Style>();
 
       // Loop through each StyleNode and use it to add to the StyleMap.
       for (int i=0; i < resolvedStyles.length; i++)
@@ -1318,7 +1320,7 @@ public class FileSystemStyleCache implements StyleProvider
         String selector = resolvedStyles[i].getSelector();
         if (selector != null)
         {
-          Style style = _convertStyleNodeToStyle(resolvedStyles[i]);
+          Style style = _convertStyleNodeToStyle(resolvedStyles[i], styleNodeToStyleMap);
           if (resolvedSelectorStyleMap == null)
             resolvedSelectorStyleMap = new ConcurrentHashMap<Selector, Style>();
           resolvedSelectorStyleMap.put(Selector.createSelector(selector), style);
@@ -1408,9 +1410,15 @@ public class FileSystemStyleCache implements StyleProvider
      * should already be resolved (included selectors have been merged in)
      * so that all the css properties are there.
      * @param styleNode
-     * @return A Style object created from the information in the styleNode.
+     * @param styleNodeToStyleMap A Map holding StyleKey objects to Style objects. This is
+     *  used so that we can reuse CSSStyle objects if they have the same list of style property
+     *  names and values.
+     * @return A Style object created from the information in the styleNode. We reuse
+     *  Style objects if the properties are the same.
      */
-    public Style _convertStyleNodeToStyle(StyleNode styleNode)
+    public Style _convertStyleNodeToStyle(
+      StyleNode            styleNode,
+      Map<StyleKey, Style> styleNodeToStyleMap)
     {
       Map<String, String> styleProperties = new ConcurrentHashMap<String, String>();
       // Add in the properties for the style
@@ -1424,25 +1432,25 @@ public class FileSystemStyleCache implements StyleProvider
         if (name != null && value != null)
           styleProperties.put(name, value);
       }
-      
-      // To save memory, we reuse CSSStyle objects if 
+
+      // To save memory, we reuse CSSStyle objects if
       // they have the same list of style property names and values.
       // StyleKey is the key into the StyleKey, CSSStyle map.
       StyleKey key = new StyleKey(styleProperties);
-      Style cachedStyle = _styleNodeToStyleMap.get(key);
+      Style cachedStyle = styleNodeToStyleMap.get(key);
       if (cachedStyle == null)
       {
         // no match is cached yet, so create a new CSSStyle and cache in the map.
         Style style = new CSSStyle(styleProperties);
-        _styleNodeToStyleMap.put(key, style);
-        return style;         
+        styleNodeToStyleMap.put(key, style);
+        return style;
       }
       else
       {
         return cachedStyle;
       }
     }
-    
+
     /**
      * A StyleKey object is used as a key into a map so that we can share CSSStyle objects
      * if they are equal and they have the same hashCode.
@@ -1452,10 +1460,33 @@ public class FileSystemStyleCache implements StyleProvider
       public StyleKey(Map<String, String> styleProperties)
       {
         _styleProperties = styleProperties;
+        _hashCode = _hashCode();
       }
-      
+
       @Override
       public int hashCode()
+      {
+        return _hashCode;
+      }
+
+      @Override
+      public boolean equals(Object obj)
+      {
+        if (this == obj)
+          return true;
+        if (!(obj instanceof StyleKey))
+          return false;
+
+        // obj at this point must be a StyleKey
+        StyleKey test = (StyleKey)obj;
+        return test._styleProperties.equals(this._styleProperties);
+      }
+
+      /**
+       * Private implementation of hashCode. This way we can cache the hashcode.
+       * @return
+       */
+      private int _hashCode()
       {
         int hash = 17;
         // take each style property name and value and create a hashCode from it.
@@ -1470,20 +1501,10 @@ public class FileSystemStyleCache implements StyleProvider
         }
         return hash;
       }
-      @Override  
-      public boolean equals(Object obj)
-      {
-        if (this == obj)
-          return true;
-        if (!(obj instanceof StyleKey))
-          return false;
-          
-        // obj at this point must be a StyleKey
-        StyleKey test = (StyleKey)obj;
-        return test._styleProperties.equals(this._styleProperties);
-      }
-      
-      Map<String, String> _styleProperties;
+
+      private final Map<String, String> _styleProperties;
+      private final int _hashCode;
+
 
     }
 
@@ -1492,7 +1513,6 @@ public class FileSystemStyleCache implements StyleProvider
     private final String[]             _namespacePrefixArray;
     private final Map<String, String>  _shortStyleClassMap;
     private final boolean              _compress;
-    private Map<StyleKey, Style> _styleNodeToStyleMap = new ConcurrentHashMap<StyleKey, Style>();
   }
 
   private class StyleWriterFactoryImpl
