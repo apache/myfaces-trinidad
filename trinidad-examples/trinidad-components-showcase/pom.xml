@@ -105,7 +105,7 @@
          </build>
        </profile>
 
-        <profile>
+       <profile>
             <id>includeSources</id>
             <activation>
               <property>
@@ -130,7 +130,34 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
+       </profile>
+
+       <profile>
+            <id>generateSitemap</id>                                 
+            <build>                
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <phase>compile</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <mainClass>org.apache.myfaces.trinidaddemo.support.util.SitemapGenerator</mainClass>
+                            <arguments>
+                                <argument>${project.build.directory}/${project.build.finalName}</argument>
+                                <argument>${sitemapUrlBasePath}</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+       </profile>
 
     </profiles>
 
