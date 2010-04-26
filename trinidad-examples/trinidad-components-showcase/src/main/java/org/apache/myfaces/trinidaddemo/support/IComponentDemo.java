@@ -68,6 +68,20 @@ public interface IComponentDemo extends IComponentVariantDemo {
 	 */
 	String getColumnStyleClassNames();    
 
+    /**
+     * Returns the MyFaces tag documentation link of this component demo.
+     *
+     * @return the MyFaces tag documentation link
+     */
+    String getTagDocumentationLink();
+
+    /**
+     * Returns the MyFaces skining key documentation link of this component demo.
+     *
+     * @return the MyFaces skining key documentation link
+     */
+    String getSkinDocumentationLink();
+
 	/**
 	 * Returns true if this component supports more than one variant, otherwise returns false.
 	 * 

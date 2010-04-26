@@ -40,5 +40,9 @@ public class SingleStepButtonBarDemo extends AbstractComponentDemo {
 
     public String getSummaryResourcePath() {
         return "/components/navigation/singleStepButtonBar/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }    
 }

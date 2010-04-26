@@ -46,4 +46,8 @@ public class OutputTextDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/output/outputText/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

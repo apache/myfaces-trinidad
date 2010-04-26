@@ -16,33 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.trinidaddemo.components.output.outputLabel;
-
-import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
-import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+package org.apache.myfaces.trinidaddemo.support.util;
 
 /**
  *
  */
-public class OutputLabelDemo extends AbstractComponentDemo {
+public class SkinFamilySelection {
 
-    private static final long serialVersionUID = -1982371956886492710L;
+    private String skinFamily = "Casablanca";
 
-	/**
-	 * Constructor.
-	 */
-	public OutputLabelDemo() {
-		super(ComponentDemoId.outputLabel, "Output Label",
-            new String[]{
-                "/components/output/outputLabel/outputLabel.xhtml"
-            });
-	}
-
-    public String getSummaryResourcePath() {
-        return "/components/output/outputLabel/summary.xhtml";
+    public String getSkinFamily(){
+        return skinFamily;
     }
 
-    public String getSkinDocumentationLink(){
-        return null;
+    public void setSkinFamily(String skinFamily){
+        this.skinFamily = skinFamily;
     }
+
 }

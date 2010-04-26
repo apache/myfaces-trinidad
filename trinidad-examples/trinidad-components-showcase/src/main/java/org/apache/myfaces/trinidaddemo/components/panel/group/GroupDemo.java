@@ -41,4 +41,8 @@ public class GroupDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/panel/group/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

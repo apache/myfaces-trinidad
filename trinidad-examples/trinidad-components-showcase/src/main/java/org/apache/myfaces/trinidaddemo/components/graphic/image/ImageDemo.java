@@ -41,4 +41,8 @@ public class ImageDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/graphic/image/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

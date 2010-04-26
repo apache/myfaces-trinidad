@@ -58,4 +58,8 @@ public class PanelPageHeaderDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/panel/panelPageHeader/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

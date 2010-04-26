@@ -41,4 +41,8 @@ public class SpacerDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/layout/spacer/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

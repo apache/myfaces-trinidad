@@ -77,4 +77,8 @@ public class PanelButtonBarDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/panel/panelButtonBar/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

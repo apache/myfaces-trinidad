@@ -42,6 +42,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>skinFamilySelection</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.support.util.SkinFamilySelection</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>groupLayoutDynamicBean</managed-bean-name>
         <managed-bean-class>org.apache.myfaces.trinidaddemo.components.layout.panelGroupLayout.GroupLayoutDynamicBean
         </managed-bean-class>

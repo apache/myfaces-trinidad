@@ -41,4 +41,8 @@ public class ChooseColorDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/select/chooseColor/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

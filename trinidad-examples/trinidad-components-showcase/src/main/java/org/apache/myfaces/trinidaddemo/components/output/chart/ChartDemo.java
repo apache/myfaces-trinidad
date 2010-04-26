@@ -92,4 +92,8 @@ public class ChartDemo extends AbstractComponentDemo {
     public String getBackingBeanResourcePath() {
         return "/org/apache/myfaces/trinidaddemo/components/output/chart/ChartBean.java";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

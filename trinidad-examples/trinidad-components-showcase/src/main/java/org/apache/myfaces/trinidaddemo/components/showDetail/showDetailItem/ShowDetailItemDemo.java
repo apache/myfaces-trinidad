@@ -46,4 +46,8 @@ public class ShowDetailItemDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/showDetail/showDetailItem/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

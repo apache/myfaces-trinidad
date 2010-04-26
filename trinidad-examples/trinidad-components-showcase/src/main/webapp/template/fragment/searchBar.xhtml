@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    <div class="search_bar">
+        <div class="right_side">
+            <div class="left_side">
+                <div class="search_field">
+                    <tr:panelHorizontalLayout>
+                        <f:facet name="separator">
+                            <tr:spacer width="8" height="1"/>
+                        </f:facet>
+
+                        <tr:inputText id="searchInput" label="Search" value="#{navigationHandler.searchText}"/>
+                        <tr:commandLink id="searchCommand" text="Go" action="#{navigationHandler.validateSearch}"/>
+
+                    </tr:panelHorizontalLayout>
+                </div>
+            </div><!-- close search left side -->
+        </div><!-- close search right side -->
+    </div><!-- close search bar -->
+
+</ui:composition>

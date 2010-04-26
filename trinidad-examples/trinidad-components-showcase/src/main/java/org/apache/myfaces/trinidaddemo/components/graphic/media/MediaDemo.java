@@ -81,4 +81,8 @@ public class MediaDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/graphic/media/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

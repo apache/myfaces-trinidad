@@ -46,4 +46,8 @@ public class LegendDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/output/legend/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }    
 }

@@ -40,4 +40,8 @@ public class GoLinkDemo extends AbstractComponentDemo{
     public String getSummaryResourcePath() {
         return "/components/buttonsAndLinks/goLink/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

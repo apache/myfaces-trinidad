@@ -57,4 +57,8 @@ public class InputFileDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/input/inputFile/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

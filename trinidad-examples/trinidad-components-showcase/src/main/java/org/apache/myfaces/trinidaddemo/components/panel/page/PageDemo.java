@@ -64,4 +64,8 @@ public class PageDemo extends AbstractComponentDemo {
     public String getBackingBeanResourcePath() {
         return "/org/apache/myfaces/trinidaddemo/components/panel/page/PageBean.java";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }
