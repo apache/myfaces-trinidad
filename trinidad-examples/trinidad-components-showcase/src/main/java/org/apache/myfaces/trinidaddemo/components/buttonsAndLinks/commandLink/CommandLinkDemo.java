@@ -48,4 +48,8 @@ public class CommandLinkDemo extends AbstractComponentDemo {
     public String getBackingBeanResourcePath() {
 		return "/org/apache/myfaces/trinidaddemo/components/buttonsAndLinks/commandLink/CommandLinkBean.java";
 	}
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

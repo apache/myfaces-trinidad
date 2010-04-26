@@ -45,4 +45,8 @@ public class ProcessChoiceBarDemo extends AbstractComponentDemo {
     public String getBackingBeanResourcePath() {
 		return "/org/apache/myfaces/trinidaddemo/components/navigation/processChoiceBar/ProcessChoiceBarBean.java";
 	}
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

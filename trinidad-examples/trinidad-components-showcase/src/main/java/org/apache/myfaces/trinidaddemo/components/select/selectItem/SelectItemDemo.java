@@ -41,4 +41,8 @@ public class SelectItemDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/select/selectItem/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

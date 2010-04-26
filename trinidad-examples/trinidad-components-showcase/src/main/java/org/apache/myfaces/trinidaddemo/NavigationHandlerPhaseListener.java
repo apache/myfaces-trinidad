@@ -50,8 +50,9 @@ public class NavigationHandlerPhaseListener implements PhaseListener {
         //ignore request to pages that don't require URL parameters
         if (fc.getViewRoot().getViewId().startsWith("/feature") ||
             fc.getViewRoot().getViewId().equals("/pages/demoStart.xhtml") ||
-            fc.getViewRoot().getViewId().equals("/pages/demoSearch.xhtml")) {
-                _LOG.log(Level.INFO, "Ignore request to demoStart or demoSearch pages.");
+            fc.getViewRoot().getViewId().equals("/pages/demoSearch.xhtml") ||
+            fc.getViewRoot().getViewId().equals("/pages/notImplemented.xhtml")) {
+                _LOG.log(Level.INFO, "Ignore request to demoStart, demoSearch or notImplemented pages.");
                 return;
         }
 

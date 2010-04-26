@@ -65,4 +65,8 @@ public class OutputFormatedDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/output/outputFormated/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }    
 }

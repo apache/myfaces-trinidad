@@ -70,4 +70,8 @@ public class PanelChoiceDemo extends AbstractComponentDemo {
     public String getSummaryResourcePath() {
         return "/components/panel/panelChoice/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }
 }

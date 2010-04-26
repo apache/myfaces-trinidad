@@ -80,6 +80,19 @@
             <tr:subform>
                 <h2 class="page">Sumary</h2>
                 <ui:include src="#{navigationHandler.currentComponentVariantDemo.summaryResourcePath}"/>
+                <tr:spacer height="10px"/>
+                <tr:panelGroupLayout rendered="#{navigationHandler.currentComponentDemo.tagDocumentationLink != null ||
+                                                    navigationHandler.currentComponentDemo.skinDocumentationLink != null}">
+                    <div style="background:#F6F4F0; border: 1px solid #BBB1AA; padding:5px;">
+                        <tr:outputText value="Read more on MyFaces: "/>
+                        <tr:goLink text="Tag Documentation" destination="#{navigationHandler.currentComponentDemo.tagDocumentationLink}"
+                                   targetFrame="_blank" rendered="#{navigationHandler.currentComponentDemo.tagDocumentationLink != null}"/>
+                        <tr:outputText value=" | " rendered="#{(navigationHandler.currentComponentDemo.tagDocumentationLink != null) and
+                                                             (navigationHandler.currentComponentDemo.skinDocumentationLink != null)}"/>
+                        <tr:goLink text="Skinning Key Documentation" destination="#{navigationHandler.currentComponentDemo.skinDocumentationLink}"
+                                   targetFrame="_blank" rendered="#{navigationHandler.currentComponentDemo.skinDocumentationLink != null}"/>
+                    </div>
+                </tr:panelGroupLayout>
             </tr:subform>
 
             <tr:subform>

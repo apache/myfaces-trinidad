@@ -45,6 +45,8 @@ public abstract class AbstractComponentDemo implements IComponentDemo {
     private String variantDisplayName;
     private String[] jsfResourcePaths;
     private String title;
+    private static final String tagDocPrefix = "http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_";
+    private static final String skinDocPrefix = "http://myfaces.apache.org/trinidad/skin-selectors.html#";
 
     private enum VARIANTS implements IComponentDemoVariantId {
         Default
@@ -203,7 +205,15 @@ public abstract class AbstractComponentDemo implements IComponentDemo {
 		
 		return "column100percent";
 	}
-	
+
+    public String getTagDocumentationLink(){
+        return tagDocPrefix + this.getId().toString() + ".html";
+    }
+
+    public String getSkinDocumentationLink(){
+        return skinDocPrefix + this.getId().toString();
+    }
+
 	public String getBackingBeanResourcePath() {
 		return null;
 	}
