@@ -291,20 +291,17 @@ public class StateManagerImpl extends StateManagerWrapper
 
   private Object _saveStateToCache(FacesContext context, Object viewState, UIViewRoot root)
   {
-    String token;
-    ExternalContext extContext = context.getExternalContext();
-
-
     TokenCache cache = _getViewCache(context);
     assert(cache != null);
 
-    Map<String, Object> sessionMap = extContext.getSessionMap();
-
     RequestContext trinContext = RequestContext.getCurrentInstance();
+
+    ExternalContext extContext = context.getExternalContext();
     
     // get per window view cache key with "." separator suffix to separate the SubKeyMap keys
     String subkey = _getViewCacheKey(extContext, trinContext, _SUBKEY_SEPARATOR);
     
+    Map<String, Object> sessionMap = extContext.getSessionMap();
     Map<String, PageState> stateMap = new SubKeyMap<PageState>(sessionMap, subkey);
 
     // Sadly, we can't save just a SerializedView, because we should
@@ -316,23 +313,10 @@ public class StateManagerImpl extends StateManagerWrapper
         // Save the view root into the page state as a transient
         // if this feature has not been disabled
         _useViewRootCache(context) ? root : null);
-
-    // clear out all of the previous PageStates' UIViewRoots and add this page
-    // state as an active page state.  This is necessary to avoid UIViewRoots
-    // laying around if the user navigates off of a page using a GET
-    synchronized(extContext.getSession(true))
-    {
-      // get the per-window key for the active page state
-      String activePageStateKey = _getActivePageStateKey(extContext, trinContext);
-      PageState activePageState = (PageState)sessionMap.get(activePageStateKey);
-
-      if (activePageState != null)
-        activePageState.clearViewRootState();
-
-      sessionMap.put(activePageStateKey, pageState);
-    }
     
     String requestToken = _getRequestTokenForResponse(context);
+    String token;
+
     // If we have a cached token that we want to reuse,
     // and that token hasn't disappeared from the cache already
     // (unlikely, but not impossible), use the stateMap directly
@@ -364,6 +348,29 @@ public class StateManagerImpl extends StateManagerWrapper
     
     // And store the token for this request
     extContext.getRequestMap().put(_REQUEST_STATE_TOKEN_KEY, token);
+
+    // clear out all of the previous PageStates' UIViewRoots and add this page
+    // state as an active page state.  This is necessary to avoid UIViewRoots
+    // laying around if the user navigates off of a page using a GET
+    synchronized(extContext.getSession(true))
+    {
+      // get the per-window key for the active page state.  We only store the token rather than
+      // the view state itself here in order to keep fail-over Serialization from Serializing this
+      // state twice, once where it appears here and the second time in the token map itself
+      // See Trinidad-1779
+      String activePageStateKey = _getActivePageTokenKey(extContext, trinContext);
+      String activeToken = (String)sessionMap.get(activePageStateKey);
+      
+      if (activeToken != null)
+      {
+        PageState activePageState = stateMap.get(activeToken);
+  
+        if (activePageState != null)
+          activePageState.clearViewRootState();
+      }
+      
+      sessionMap.put(activePageStateKey, token);
+    }
 
     // Create a "tokenView" which abuses state to store
     // our token only
@@ -697,11 +704,11 @@ public class StateManagerImpl extends StateManagerWrapper
    * @param trinContext
    * @return
    */
-  static private String _getActivePageStateKey(
+  static private String _getActivePageTokenKey(
     ExternalContext extContext,
     RequestContext trinContext)
   {
-    return _getPerWindowCacheKey(extContext, trinContext, _ACTIVE_PAGE_STATE_SESSION_KEY, null);
+    return _getPerWindowCacheKey(extContext, trinContext, _ACTIVE_PAGE_TOKEN_SESSION_KEY, null);
   }
   
   /**
@@ -1355,11 +1362,9 @@ public class StateManagerImpl extends StateManagerWrapper
   private static final String _REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY =
     "org.apache.myfaces.trinidadinternal.application.REUSE_REQUEST_TOKEN_FOR_RESPONSE";
 
-  // key for saving the PageState for the last accessed view in this Session
-  private static final String _ACTIVE_PAGE_STATE_SESSION_KEY =
+  // key for saving the toekn to the PageState for the last accessed view in this Session
+  private static final String _ACTIVE_PAGE_TOKEN_SESSION_KEY =
               "org.apache.myfaces.trinidadinternal.application.StateManagerImp.ACTIVE_PAGE_STATE";  
-
-  private static final long serialVersionUID = 1L;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StateManagerImpl.class);
 }
