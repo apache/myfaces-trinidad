@@ -352,16 +352,22 @@ public class StateManagerImpl extends StateManagerWrapper
         // laying around if the user navigates off of a page using a GET
         synchronized(extContext.getSession(true))
         {
-          // get the per-window key for the active page state
-          String activePageStateKey = _getActivePageStateKey(extContext, trinContext);
-          PageState activePageState = (PageState)sessionMap.get(activePageStateKey);
-
-          if (activePageState != null)
-            activePageState.clearViewRootState();
-
-          sessionMap.put(activePageStateKey, pageState);
+         // get the per-window key for the active page state.  We only store the token rather than
+         // the view state itself here in order to keep fail-over Serialization from Serializing this
+         // state twice, once where it appears here and the second time in the token map itself
+         // See Trinidad-1779
+         String activePageStateKey = _getActivePageTokenKey(extContext, trinContext);
+         String activeToken = (String)sessionMap.get(activePageStateKey);
+         
+         if (activeToken != null)
+         {
+           PageState activePageState = stateMap.get(activeToken);
+        
+           if (activePageState != null)
+             activePageState.clearViewRootState();
+         }
         }
-
+        
         String requestToken = _getRequestTokenForResponse(context);
         // If we have a cached token that we want to reuse,
         // and that token hasn't disappeared from the cache already
@@ -749,11 +755,11 @@ public class StateManagerImpl extends StateManagerWrapper
    * @param trinContext
    * @return
    */
-  static private String _getActivePageStateKey(
+  static private String _getActivePageTokenKey(
     ExternalContext extContext,
     RequestContext trinContext)
   {
-    return _getPerWindowCacheKey(extContext, trinContext, _ACTIVE_PAGE_STATE_SESSION_KEY, null);
+    return _getPerWindowCacheKey(extContext, trinContext, _ACTIVE_PAGE_TOKEN_SESSION_KEY, null);
   }
 
   /**
@@ -1449,8 +1455,8 @@ public class StateManagerImpl extends StateManagerWrapper
   private static final String _REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY =
     "org.apache.myfaces.trinidadinternal.application.REUSE_REQUEST_TOKEN_FOR_RESPONSE";
 
-  // key for saving the PageState for the last accessed view in this Session
-  private static final String _ACTIVE_PAGE_STATE_SESSION_KEY =
+  // key for saving the token to the PageState for the last accessed view in this Session
+  private static final String _ACTIVE_PAGE_TOKEN_SESSION_KEY =
               "org.apache.myfaces.trinidadinternal.application.StateManagerImp.ACTIVE_PAGE_STATE";
 
   private static final String _APPLICATION_CACHE_TOKEN = "_a_";
