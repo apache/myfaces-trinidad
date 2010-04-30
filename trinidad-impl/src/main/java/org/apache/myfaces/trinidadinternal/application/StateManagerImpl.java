@@ -320,16 +320,14 @@ public class StateManagerImpl extends StateManagerWrapper
       String token;
       ExternalContext extContext = context.getExternalContext();
 
-
       if (applicationViewCache == null)
       {
         assert(!dontSave);
         TokenCache cache = _getViewCache(context);
         assert(cache != null);
 
-        Map<String, Object> sessionMap = extContext.getSessionMap();
-
-        RequestContext trinContext = RequestContext.getCurrentInstance();
+        Map<String, Object> sessionMap  = extContext.getSessionMap();
+        RequestContext      trinContext = RequestContext.getCurrentInstance();
 
         // get view cache key with "." separator suffix to separate the SubKeyMap keys
         String subkey = _getViewCacheKey(extContext, trinContext, _SUBKEY_SEPARATOR);
@@ -346,29 +344,9 @@ public class StateManagerImpl extends StateManagerWrapper
             // Save the view root into the page state as a transient
             // if this feature has not been disabled
             _useViewRootCache(context) ? root : null);
-
-        // clear out all of the previous PageStates' UIViewRoots and add this page
-        // state as an active page state.  This is necessary to avoid UIViewRoots
-        // laying around if the user navigates off of a page using a GET
-        synchronized(extContext.getSession(true))
-        {
-         // get the per-window key for the active page state.  We only store the token rather than
-         // the view state itself here in order to keep fail-over Serialization from Serializing this
-         // state twice, once where it appears here and the second time in the token map itself
-         // See Trinidad-1779
-         String activePageStateKey = _getActivePageTokenKey(extContext, trinContext);
-         String activeToken = (String)sessionMap.get(activePageStateKey);
-         
-         if (activeToken != null)
-         {
-           PageState activePageState = stateMap.get(activeToken);
-        
-           if (activePageState != null)
-             activePageState.clearViewRootState();
-         }
-        }
         
         String requestToken = _getRequestTokenForResponse(context);
+        
         // If we have a cached token that we want to reuse,
         // and that token hasn't disappeared from the cache already
         // (unlikely, but not impossible), use the stateMap directly
@@ -393,6 +371,34 @@ public class StateManagerImpl extends StateManagerWrapper
           token = cache.addNewEntry(pageState,
                                     stateMap,
                                     pinnedToken);
+        }
+
+        // clear out all of the previous PageStates' UIViewRoots and add this page
+        // state as an active page state.  This is necessary to avoid UIViewRoots
+        // laying around if the user navigates off of a page using a GET
+        synchronized(extContext.getSession(true))
+        {
+          // get the per-window key for the active page state.  We only store the token rather than
+          // the view state itself here in order to keep fail-over Serialization from Serializing this
+          // state twice, once where it appears here and the second time in the token map itself
+          // See Trinidad-1779
+          String activePageStateKey = _getActivePageTokenKey(extContext, trinContext);
+          String activeToken = (String)sessionMap.get(activePageStateKey);
+          
+          // we only need to clear out the state if we're actually changing pages and thus tokens.
+          // Since we have already updated the state for 
+          if (!token.equals(activeToken))
+          {
+            if (activeToken != null)
+            {
+              PageState activePageState = stateMap.get(activeToken);
+        
+              if (activePageState != null)
+                activePageState.clearViewRootState();
+            }
+
+            sessionMap.put(activePageStateKey, token);
+          }
         }
       }
       // If we got the "applicationViewCache", we're using it.
