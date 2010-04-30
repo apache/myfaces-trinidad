@@ -361,15 +361,20 @@ public class StateManagerImpl extends StateManagerWrapper
       String activePageStateKey = _getActivePageTokenKey(extContext, trinContext);
       String activeToken = (String)sessionMap.get(activePageStateKey);
       
-      if (activeToken != null)
+      // we only need to clear out the state if we're actually changing pages and thus tokens.
+      // Since we have already updated the state for 
+      if (!token.equals(activeToken))
       {
-        PageState activePageState = stateMap.get(activeToken);
-  
-        if (activePageState != null)
-          activePageState.clearViewRootState();
+        if (activeToken != null)
+        {
+          PageState activePageState = stateMap.get(activeToken);
+    
+          if (activePageState != null)
+            activePageState.clearViewRootState();
+        }
+
+        sessionMap.put(activePageStateKey, token);
       }
-      
-      sessionMap.put(activePageStateKey, token);
     }
 
     // Create a "tokenView" which abuses state to store
