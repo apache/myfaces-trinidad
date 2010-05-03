@@ -22,4 +22,5 @@ package org.apache.myfaces.trinidaddemo.support;
  *
  */
 public interface IComponentDemoVariantId {
+    //marker interface
 }

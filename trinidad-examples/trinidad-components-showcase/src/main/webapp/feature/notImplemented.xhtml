@@ -16,27 +16,19 @@
     specific language governing permissions and limitations
     under the License.
 -->
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:tr="http://myfaces.apache.org/trinidad">
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/template/featureDemosTemplate.xhtml">
 
-    <div class="search_bar">
-        <div class="right_side">
-            <div class="left_side">
-                <div class="search_field">
-                    <tr:panelHorizontalLayout>
-                        <f:facet name="separator">
-                            <tr:spacer width="8" height="1"/>
-                        </f:facet>
-
-                        <tr:inputText id="searchInput" label="Search" value="#{navigationHandler.searchText}"/>
-                        <tr:commandLink id="searchCommand" text="Go" action="#{navigationHandler.validateSearch}"/>
-
-                    </tr:panelHorizontalLayout>
-                </div>
-            </div><!-- close search left side -->
-        </div><!-- close search right side -->
-    </div><!-- close search bar -->
-
+    <ui:define name="featureContent">
+        <div style="padding: 20px 24px 5px;">
+            <tr:panelGroupLayout inlineStyle="background: #F6F4F0; border: 1px solid #E0DCD5; padding: 20px 30px;
+                                 text-align: left;" layout="vertical">
+                <tr:outputText value="Not yet implemented"
+                          inlineStyle="font-size: 1.8em; color: #444444; line-height: 1.2em; font-weight: bold;"/>
+            </tr:panelGroupLayout>
+        </div>
+    </ui:define>
 </ui:composition>

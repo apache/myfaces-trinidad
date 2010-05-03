@@ -139,7 +139,12 @@
         <filter-name>prettyUrl</filter-name>
         <url-pattern>/component-demo/*</url-pattern>
     </filter-mapping>
-  
+
+    <filter-mapping>
+        <filter-name>prettyUrl</filter-name>
+        <url-pattern>/feature-demo/*</url-pattern>
+    </filter-mapping>
+
     <filter-mapping>
         <filter-name>trinidad</filter-name>
         <servlet-name>faces</servlet-name>

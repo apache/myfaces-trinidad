@@ -16,21 +16,38 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.trinidaddemo;
-
-import javax.servlet.ServletContextListener;
-import javax.servlet.ServletContextEvent;
+package org.apache.myfaces.trinidaddemo.support;
 
 /**
- * Custom {@link javax.servlet.ServletContextListener} implementation that registers all available component demos into the 
- * current {@link ComponentDemoRegistry} once the web application was successfully started.
+ *
  */
-public class ComponentShowcaseContextListener implements ServletContextListener {
-    
-    public void contextInitialized(ServletContextEvent sce) {
-        ComponentDemoInitializer.getInstance().init();
-        FeatureDemoInitializer.getInstance().init();
-    }
+public enum FeatureDemoId {
 
-    public void contextDestroyed(ServletContextEvent sce) {}
+    //Converters and Validators category demos
+    clientSideConverters,
+    clientSideValidators,
+    clientSideDateRestriction,
+    serverSideConverters,
+    serverSideValidators,
+    serverSideDateRestrictions,
+    messageCustomization,
+
+    //Change Persistence category demos
+    implicitAttributeChange,
+    explicitAttributeChange,
+    addRemoveReorderChildren,
+    addRemoveFacets,
+
+    //Table category demos
+    addRow,
+    totalRow,
+    exportToCSV,
+
+    //Others category demos
+    partialPageRendering,
+    dialogFramework,
+    progressSteps,
+    accessibilityProfile,
+    showDetailDisclosure,
+    fileDownload;
 }

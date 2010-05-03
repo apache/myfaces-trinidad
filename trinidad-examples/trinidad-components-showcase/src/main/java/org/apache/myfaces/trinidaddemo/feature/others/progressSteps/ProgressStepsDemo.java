@@ -16,21 +16,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.trinidaddemo;
+package org.apache.myfaces.trinidaddemo.feature.others.progressSteps;
 
-import javax.servlet.ServletContextListener;
-import javax.servlet.ServletContextEvent;
+import org.apache.myfaces.trinidaddemo.support.impl.AbstractFeatureDemo;
+import org.apache.myfaces.trinidaddemo.support.FeatureDemoId;
 
 /**
- * Custom {@link javax.servlet.ServletContextListener} implementation that registers all available component demos into the 
- * current {@link ComponentDemoRegistry} once the web application was successfully started.
+ *
  */
-public class ComponentShowcaseContextListener implements ServletContextListener {
-    
-    public void contextInitialized(ServletContextEvent sce) {
-        ComponentDemoInitializer.getInstance().init();
-        FeatureDemoInitializer.getInstance().init();
-    }
+public class ProgressStepsDemo extends AbstractFeatureDemo {
 
-    public void contextDestroyed(ServletContextEvent sce) {}
+    private static final long serialVersionUID = 7311021119808215193L;
+
+    public ProgressStepsDemo() {
+        super(FeatureDemoId.progressSteps, "Progress steps", "/feature/notImplemented.xhtml");
+    }
 }

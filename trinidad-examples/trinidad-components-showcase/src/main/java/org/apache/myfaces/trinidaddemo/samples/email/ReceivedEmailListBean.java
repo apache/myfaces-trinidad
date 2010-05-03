@@ -16,7 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.trinidaddemo.feature;
+package org.apache.myfaces.trinidaddemo.samples.email;
+
+import org.apache.myfaces.trinidaddemo.samples.email.Email;
+import org.apache.myfaces.trinidaddemo.samples.email.TableBean;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -85,7 +88,7 @@ public class ReceivedEmailListBean {
         tableBean = new TableBean();
     }
 
-    public static class ReceivedEmail extends Email{
+    public static class ReceivedEmail extends Email {
         public ReceivedEmail(String from, String subject, String date, String content) {
             super(from, "Yourself", subject, date, content);
         }

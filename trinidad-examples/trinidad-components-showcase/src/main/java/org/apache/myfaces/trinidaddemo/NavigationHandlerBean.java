@@ -26,6 +26,9 @@ import org.apache.myfaces.trinidaddemo.support.ComponentDemoCategoryId;
 import org.apache.myfaces.trinidaddemo.support.IComponentVariantDemo;
 import org.apache.myfaces.trinidaddemo.support.IComponentDemo;
 import org.apache.myfaces.trinidaddemo.support.IComponentDemoCategory;
+import org.apache.myfaces.trinidaddemo.support.IFeatureDemoCategory;
+import org.apache.myfaces.trinidaddemo.support.FeatureDemoCategoryId;
+import org.apache.myfaces.trinidaddemo.support.IFeatureDemo;
 
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
@@ -39,8 +42,10 @@ public class NavigationHandlerBean {
     private String searchText;
 
     private ComponentDemoCategoryId defaultDisclosedCategoryId = ComponentDemoCategoryId.layout;
+    private FeatureDemoCategoryId defaultFeatureDisclosedCategoryId = FeatureDemoCategoryId.changePersistence;
 
     private IComponentVariantDemo currentComponentVariantDemo;
+    private IFeatureDemo currentFeatureDemo;
 
     /**
      * @return
@@ -94,8 +99,22 @@ public class NavigationHandlerBean {
     /**
      * @return
      */
+    public Map<String, Object> getFeatureCategoryDisclosed() {
+        return new FeatureCategoryDisclosedStateEvalMap();
+    }
+
+    /**
+     * @return
+     */
     public Map<String, Object> getComponentDemoSelected() {
         return new ComponentDemoSelectedEvalMap();
+    }
+
+    /**
+     * @return
+     */
+    public Map<String, Object> getFeatureDemoSelected() {
+        return new FeatureDemoSelectedEvalMap();
     }
 
     /**
@@ -112,6 +131,17 @@ public class NavigationHandlerBean {
         return getCurrentComponentVariantDemo() != null ?
                 ComponentDemoRegistry.getInstance().getComponentDemo(getCurrentComponentVariantDemo().getId()) :
                 null;
+    }
+
+    /**
+     * @return
+     */
+    public IFeatureDemo getCurrentFeatureDemo() {
+        return currentFeatureDemo;
+    }
+
+    public void setCurrentFeatureDemo(IFeatureDemo featureDemo){
+        this.currentFeatureDemo = featureDemo;    
     }
 
     /**
@@ -140,6 +170,13 @@ public class NavigationHandlerBean {
      */
     public Collection<IComponentDemoCategory> getDemoCategories() {
         return ComponentDemoRegistry.getInstance().getDemoCategories();
+    }
+
+    /**
+     * @return
+     */
+    public Collection<IFeatureDemoCategory> getFeatureDemoCategories() {
+        return FeatureDemoRegistry.getInstance().getDemoCategories();
     }
 
     /**
@@ -206,6 +243,27 @@ public class NavigationHandlerBean {
     /**
      *
      */
+    class FeatureCategoryDisclosedStateEvalMap extends EvalMapAdapter {
+
+        @Override
+        public Object get(Object key) {
+            IFeatureDemoCategory category = (IFeatureDemoCategory) key;
+
+            //if there is no concrete component demo selected yet, disclose the default category
+            if (currentFeatureDemo == null &&
+                defaultFeatureDisclosedCategoryId.equals(category.getId())) {
+                    return true;
+            }
+
+            return category != null &&
+                   currentFeatureDemo != null &&
+                   category.equals(currentFeatureDemo.getCategory());
+        }
+    }
+
+    /**
+     *
+     */
     class ComponentVariantDemoSelectedEvalMap extends EvalMapAdapter {
 
         @Override
@@ -230,6 +288,18 @@ public class NavigationHandlerBean {
             return componentDemo != null &&
                     getCurrentComponentDemo() != null &&
                     componentDemo.equals(getCurrentComponentDemo());
+        }
+    }
+
+    class FeatureDemoSelectedEvalMap extends EvalMapAdapter {
+
+        @Override
+        public Object get(Object key) {
+            IFeatureDemo featureDemo = (IFeatureDemo) key;
+
+            return featureDemo != null &&
+                    getCurrentFeatureDemo() != null &&
+                    featureDemo.equals(getCurrentFeatureDemo());
         }
     }
 }

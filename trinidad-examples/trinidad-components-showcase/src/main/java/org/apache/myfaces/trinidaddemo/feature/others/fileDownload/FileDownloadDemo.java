@@ -16,21 +16,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.trinidaddemo;
+package org.apache.myfaces.trinidaddemo.feature.others.fileDownload;
 
-import javax.servlet.ServletContextListener;
-import javax.servlet.ServletContextEvent;
+import org.apache.myfaces.trinidaddemo.support.impl.AbstractFeatureDemo;
+import org.apache.myfaces.trinidaddemo.support.FeatureDemoId;
 
 /**
- * Custom {@link javax.servlet.ServletContextListener} implementation that registers all available component demos into the 
- * current {@link ComponentDemoRegistry} once the web application was successfully started.
+ * 
  */
-public class ComponentShowcaseContextListener implements ServletContextListener {
+public class FileDownloadDemo extends AbstractFeatureDemo {
     
-    public void contextInitialized(ServletContextEvent sce) {
-        ComponentDemoInitializer.getInstance().init();
-        FeatureDemoInitializer.getInstance().init();
-    }
+    private static final long serialVersionUID = -5348384539310849382L;
 
-    public void contextDestroyed(ServletContextEvent sce) {}
+    public FileDownloadDemo() {
+        super(FeatureDemoId.fileDownload, "File download", "/feature/notImplemented.xhtml");
+    }
 }

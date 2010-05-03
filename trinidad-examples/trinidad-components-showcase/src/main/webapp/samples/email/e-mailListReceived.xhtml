@@ -1,0 +1,118 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/samples/email/e-mailTemplate.xhtml">
+
+    <ui:define name="componentContent">
+        <tr:panelHorizontalLayout styleClass="fit_to_parrent">
+            <h2>
+                Inbox
+            </h2>
+            <tr:spacer width="30px"/>
+            <tr:panelHorizontalLayout halign="end">
+                <tr:panelGroupLayout layout="horizontal">
+                    <tr:commandLink id="newEmailImg"
+                                    partialSubmit="true"
+                                    styleClass="newContact" action="#{sentEmailListBean.newEmail}"
+                                    inlineStyle="width:16px;height:16px;"/>
+                    <tr:commandLink id="newEmailLink"
+                                    partialSubmit="true"
+                                    text="New" action="#{sentEmailListBean.newEmail}"/>
+                </tr:panelGroupLayout>
+
+                <tr:spacer width="10px"/>
+                <tr:panelGroupLayout layout="horizontal">
+                    <tr:commandLink styleClass="deleteContact" action="#{receivedEmailListBean.deleteInboxEmail}"
+                                    inlineStyle="width:16px;height:16px;"/>
+                    <tr:commandLink text="Delete" action="#{receivedEmailListBean.deleteInboxEmail}"/>
+                </tr:panelGroupLayout>
+            </tr:panelHorizontalLayout>
+        </tr:panelHorizontalLayout>
+
+        <tr:panelGroupLayout layout="vertical" inlineStyle="margin-top: 22px;" styleClass="rightColumn">
+
+            <tr:panelBox text="Inbox" inlineStyle="width: 100%" styleClass="mail_list"
+                         partialTriggers="saveEmail">
+                <tr:table id="receivedEmailList"
+                          binding="#{receivedEmailListBean.tableBean.table}"
+                          value="#{receivedEmailListBean.list}" var="row" rowSelection="multiple"
+                          verticalGridVisible="false" styleClass="fit_to_parrent">
+                    <tr:column align="center">
+                        <f:facet name="header">
+                            <tr:outputText value="From"/>
+                        </f:facet>
+                        <tr:outputText value="#{row.from}"/>
+                    </tr:column>
+                    <tr:column align="center">
+                        <f:facet name="header">
+                            <tr:outputText value="Subject"/>
+                        </f:facet>
+                        <tr:outputText value="#{row.subject}"/>
+                    </tr:column>
+                    <tr:column align="center">
+                        <f:facet name="header">
+                            <tr:outputText value="Date"/>
+                        </f:facet>
+                        <tr:outputText value="#{row.date}"/>
+                    </tr:column>
+                </tr:table>
+
+                <tr:commandButton id="openMail"
+                                  partialSubmit="true"
+                                  action="#{receivedEmailListBean.openMail}"
+                                  text="Open Mail"/>
+            </tr:panelBox>
+
+            <tr:spacer height="10px"/>
+
+            <tr:panelGroupLayout layout="vertical"
+                                 partialTriggers="newEmailImg newEmailLink openMail receivedEmailList">
+                <tr:panelBox inlineStyle="width: 97%" rendered="#{receivedEmailListBean.receivedEmail != null}">
+                    <h:panelGrid columns="2" width="100%" style="width: 100%;" cellpadding="0" cellspacing="2px">
+                        <tr:outputLabel value="From:" for="from"/>
+                        <tr:outputText id="from" value="#{receivedEmailListBean.receivedEmail.from}"/>
+
+                        <tr:outputLabel value="Subject:" for="subject"/>
+                        <tr:outputText id="Subject" value="#{receivedEmailListBean.receivedEmail.subject}"/>
+
+                        <tr:outputLabel value="Date:" for="date"/>
+                        <tr:outputText value="#{receivedEmailListBean.receivedEmail.date}"/>
+                    </h:panelGrid>
+
+                    <tr:spacer height="20px"/>
+                    <tr:panelGroupLayout layout="vertical">
+                        <tr:outputLabel value="Content:" for="content"/>
+                        <tr:spacer height="10px"/>
+                        <tr:outputText id="content" value="#{receivedEmailListBean.receivedEmail.content}"/>
+                    </tr:panelGroupLayout>
+                </tr:panelBox>
+
+            </tr:panelGroupLayout>
+
+
+        </tr:panelGroupLayout>
+
+
+    </ui:define>
+</ui:composition>
