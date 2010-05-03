@@ -16,21 +16,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.trinidaddemo;
+package org.apache.myfaces.trinidaddemo.feature.changePersistence.implicitAttributeChange;
 
-import javax.servlet.ServletContextListener;
-import javax.servlet.ServletContextEvent;
+import org.apache.myfaces.trinidaddemo.support.impl.AbstractFeatureDemo;
+import org.apache.myfaces.trinidaddemo.support.FeatureDemoId;
 
 /**
- * Custom {@link javax.servlet.ServletContextListener} implementation that registers all available component demos into the 
- * current {@link ComponentDemoRegistry} once the web application was successfully started.
+ *
  */
-public class ComponentShowcaseContextListener implements ServletContextListener {
-    
-    public void contextInitialized(ServletContextEvent sce) {
-        ComponentDemoInitializer.getInstance().init();
-        FeatureDemoInitializer.getInstance().init();
-    }
+public class ImplicitAttributeChangeDemo extends AbstractFeatureDemo {
 
-    public void contextDestroyed(ServletContextEvent sce) {}
+    private static final long serialVersionUID = -1949652999271582013L;
+
+    public ImplicitAttributeChangeDemo() {
+        super(FeatureDemoId.implicitAttributeChange, "Implicit attribute change", "/feature/notImplemented.xhtml");
+    }
 }

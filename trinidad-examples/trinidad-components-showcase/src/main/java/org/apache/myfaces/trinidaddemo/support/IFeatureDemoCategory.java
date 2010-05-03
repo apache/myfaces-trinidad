@@ -16,21 +16,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.trinidaddemo;
+package org.apache.myfaces.trinidaddemo.support;
 
-import javax.servlet.ServletContextListener;
-import javax.servlet.ServletContextEvent;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- * Custom {@link javax.servlet.ServletContextListener} implementation that registers all available component demos into the 
- * current {@link ComponentDemoRegistry} once the web application was successfully started.
+ *
  */
-public class ComponentShowcaseContextListener implements ServletContextListener {
-    
-    public void contextInitialized(ServletContextEvent sce) {
-        ComponentDemoInitializer.getInstance().init();
-        FeatureDemoInitializer.getInstance().init();
-    }
+public interface IFeatureDemoCategory extends Serializable {
 
-    public void contextDestroyed(ServletContextEvent sce) {}
+	/**
+	 * @return the name of this category.
+	 */
+	String getName();
+
+	/**
+	 * @return the unique identifier of this category, unique across the whole application.
+	 */
+	FeatureDemoCategoryId getId();
+
+	/**
+	 * Adds the specified feature demo to this category.
+	 */
+	void addFeatureDemo(IFeatureDemo featureDemo);
+
+	/**
+	 * Returns a list containing the feature demos part of this category.
+	 *
+	 * @return a list containing the feature demos part of this category.
+	 */
+	List<IFeatureDemo> getFeatureDemos();
 }
