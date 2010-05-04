@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidad.component;
 
 import javax.el.MethodExpression;
 
+import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.context.FacesContext;
@@ -137,11 +138,13 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
   }
 
   @Override
-  protected boolean isVisitable(VisitContext visitContext)
+  protected boolean visitChildren(VisitContext visitContext,
+    VisitCallback callback)
   {
-    return super.isVisitable(visitContext) &&
-      (!visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED) ||
-        this.isDisclosed());
+    return
+      (visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED) == false ||
+        this.isDisclosed()) &&
+      super.visitChildren(visitContext, callback);
   }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXShowDetail.class);
