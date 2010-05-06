@@ -132,7 +132,7 @@ public class NavigationHandlerImpl extends ConfigurableNavigationHandler
   public Map<String, Set<NavigationCase>> getNavigationCases()
   {
     if (!(_delegate instanceof ConfigurableNavigationHandler))
-      return null;
+      return _emptyCaces;
     
     return ((ConfigurableNavigationHandler)_delegate).getNavigationCases();
   }
@@ -170,6 +170,7 @@ public class NavigationHandlerImpl extends ConfigurableNavigationHandler
 
   private Boolean _disabled;
   private NavigationHandler _delegate;
+  private final Map<String, Set<NavigationCase>> _emptyCaces = new HashMap<String, Set<NavigationCase>>();
   
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(NavigationHandlerImpl.class);
 }
