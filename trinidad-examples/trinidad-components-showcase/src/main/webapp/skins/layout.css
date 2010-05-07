@@ -699,10 +699,12 @@ code {
 }
 #page_bar ul {
     margin: 0;
+    padding: 0;
 }
 #page_bar a {
 	display: block;
 	color: #E4E3E2;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 	background: #8B8580 url("/skins/slices/menu.png") no-repeat bottom right;
 }
 @agent ie and (version: 5), ie and (version: 6), ie and (version: 7) {
@@ -727,6 +729,8 @@ code {
 	border-bottom: 1px solid #7B7773;
 	padding: 7px 12px;
 	white-space: nowrap;
+    line-height: 1em;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 #page_bar a:hover span {
 	border-top: 1px solid #88847F;
@@ -984,7 +988,7 @@ code {
     height: 50px;
     width: 150px;
     overflow: hidden;
-    background: url("/components/panel/panelPageHeader/corporateBrand.gif") no-repeat top left;
+    background: url("/resources/corporateBrand.gif") no-repeat top left;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------ */

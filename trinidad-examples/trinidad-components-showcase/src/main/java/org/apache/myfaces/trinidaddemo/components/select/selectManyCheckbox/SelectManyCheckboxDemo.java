@@ -33,7 +33,6 @@ public class SelectManyCheckboxDemo extends AbstractComponentDemo {
     private enum VARIANTS implements IComponentDemoVariantId {
 		Simple,
         Detailed,
-        Vertical,
         Horizontal
 	}
 
@@ -41,30 +40,22 @@ public class SelectManyCheckboxDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SelectManyCheckboxDemo() {
-		super(ComponentDemoId.selectManyCheckbox, "Select Many Checkbox",
-            new String[]{
-                "/components/select/selectManyCheckbox/selectManyCheckbox.xhtml"
-            });
+		super(ComponentDemoId.selectManyCheckbox, "Select Many Checkbox");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
                         "/components/select/selectManyCheckbox/selectManyCheckboxSimple.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
                 new String[]{
                         "/components/select/selectManyCheckbox/selectManyCheckboxDetailed.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Horizontal, this,
                 new String[]{
                         "/components/select/selectManyCheckbox/selectManyCheckboxHorizontal.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Vertical, this,
-                new String[]{
-                        "/components/select/selectManyCheckbox/selectManyCheckboxVertical.xhtml"
-                }, getSummaryResourcePath()));
+        setDefaultVariant(VARIANTS.Detailed);
 	}
 
     public String getSummaryResourcePath() {

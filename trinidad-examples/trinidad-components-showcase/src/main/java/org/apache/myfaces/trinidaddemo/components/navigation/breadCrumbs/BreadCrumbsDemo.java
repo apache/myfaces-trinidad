@@ -38,15 +38,18 @@ public class BreadCrumbsDemo extends AbstractComponentDemo{
 	 * Constructor.
 	 */
 	public BreadCrumbsDemo() {
-		super(ComponentDemoId.breadCrumbs, "Bread Crumbs", VARIANTS.Horizontal,
-            new String[]{
-                "/components/navigation/breadCrumbs/breadCrumbsHorizontal.xhtml"
-            });
+		super(ComponentDemoId.breadCrumbs, "Bread Crumbs");
 
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Horizontal, this,
+                new String[]{
+                        "/components/navigation/breadCrumbs/breadCrumbsHorizontal.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Vertical, this,
                 new String[]{
                         "/components/navigation/breadCrumbs/breadCrumbsVertical.xhtml"
-                }, "/components/navigation/breadCrumbs/summary.xhtml"));
+                }));
+
+        setDefaultVariant(VARIANTS.Horizontal);
 	}
 
     public String getSummaryResourcePath() {

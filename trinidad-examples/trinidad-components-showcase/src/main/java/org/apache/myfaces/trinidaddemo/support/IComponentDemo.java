@@ -19,12 +19,48 @@
 package org.apache.myfaces.trinidaddemo.support;
 
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * Defines a component demo; a component demo groups together at least one or more variants of the same component.
  */
-public interface IComponentDemo extends IComponentVariantDemo {
-	
+public interface IComponentDemo extends Serializable {
+
+	/**
+	 * Returns the unique identifier of this component demo, unique across the whole application.
+	 *
+	 * @return the unique identifier of this component demo.
+	 */
+	ComponentDemoId getId();
+
+    /**
+     * Returns the path which can be used to navigate to this component variant demo.
+     *
+     * @return the path.
+     */
+    String getDestination();
+
+	/**
+	 * Returns the category this component demo belongs to.
+	 *
+	 * @return the category or null if none is available.
+	 */
+	IComponentDemoCategory getCategory();    
+
+    /**
+     * Returns the path to the corresponding JSF fragment which represents the summary of this demo.
+     *
+     * @return the resource path, or null if none exists
+     */
+    String getSummaryResourcePath();
+
+	/**
+	 * If this component demo is a dynamic one, this method returns the path to the backing bean's java source file.
+	 *
+	 * @return the path to the backing bean's java source file.
+	 */
+	String getBackingBeanResourcePath();
+
 	/**
 	 * Returns the display name of this component demo.
 	 * 

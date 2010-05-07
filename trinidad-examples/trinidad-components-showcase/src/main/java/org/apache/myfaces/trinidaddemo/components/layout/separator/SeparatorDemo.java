@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.layout.separator;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,14 +30,22 @@ public class SeparatorDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982071956883498710L;
 
+    private enum VARIANTS implements IComponentDemoVariantId {
+		Default
+	}
+
 	/**
 	 * Constructor.
 	 */
 	public SeparatorDemo() {
-		super(ComponentDemoId.separator, "Separator",
+		super(ComponentDemoId.separator, "Separator");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/layout/separator/separator.xhtml"
-            });
+                    "/components/layout/separator/separator.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
 	}
 
     public String getSummaryResourcePath() {

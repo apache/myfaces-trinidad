@@ -30,10 +30,12 @@ import javax.faces.context.FacesContext;
  * component variant demos.
  */
 public abstract class AbstractComponentVariantDemo implements IComponentVariantDemo {
-	
+
+    private final static String DEFAULT = "default";
+
 	private IComponentDemoVariantId variantId;
     private String variantDisplayName;
-	
+
 	private AbstractComponentDemo componentDemo;
 	
 	/**
@@ -60,18 +62,24 @@ public abstract class AbstractComponentVariantDemo implements IComponentVariantD
 	}
 
     public String getVariantDisplayName() {
-        return variantDisplayName;
+        return variantDisplayName + getDefault();
     }
 
     public IComponentDemoCategory getCategory() {
 		return componentDemo.getCategory();
 	}
 
+    public AbstractComponentDemo getComponentDemo(){
+        return componentDemo;
+    }
+
     public String getTitle() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(componentDemo.getTitle());
-		builder.append(" - ");
-		builder.append(getVariantDisplayName());
+		builder.append(componentDemo.getDisplayName());
+        if (componentDemo.getVariants().size() > 1){
+		    builder.append(" - ");
+		    builder.append(getVariantDisplayName());
+        }
 		
 		return builder.toString();
 	}
@@ -97,4 +105,11 @@ public abstract class AbstractComponentVariantDemo implements IComponentVariantD
 	public boolean isStatic() {
 		return getBackingBeanResourcePath() == null;
 	}
+
+    private String getDefault() {
+        if (componentDemo.getDefaultVariant().equals(this))
+            return " ("+DEFAULT+")";
+        else
+            return "";
+    }
 }

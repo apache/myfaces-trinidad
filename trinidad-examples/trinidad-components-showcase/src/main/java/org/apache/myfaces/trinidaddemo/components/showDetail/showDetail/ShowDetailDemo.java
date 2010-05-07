@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.showDetail.showDetail;
 
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 
 /**
  *
@@ -28,14 +30,22 @@ public class ShowDetailDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1989061456014398510L;
 
+    private enum VARIANTS implements IComponentDemoVariantId {
+		Default
+	}
+
 	/**
 	 * Constructor.
 	 */
 	public ShowDetailDemo() {
-		super(ComponentDemoId.showDetail, "Show Detail",
+		super(ComponentDemoId.showDetail, "Show Detail");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/showDetail/showDetail/showDetail.xhtml"
-            });
+                    "/components/showDetail/showDetail/showDetail.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
 	}
 
     public String getSummaryResourcePath() {

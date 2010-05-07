@@ -31,7 +31,7 @@ public class SelectOrderShuttleDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1989061956813498310L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-        Default,
+        HideDescription,
         ShowDescription
     }
 
@@ -39,15 +39,18 @@ public class SelectOrderShuttleDemo extends AbstractComponentDemo {
      * Constructor.
      */
     public SelectOrderShuttleDemo() {
-        super(ComponentDemoId.selectOrderShuttle, "Select Order Shuttle", VARIANTS.Default, "Default",
-            new String[]{
-                "/components/select/selectOrderShuttle/selectOrderShuttle.xhtml"
-            });
+        super(ComponentDemoId.selectOrderShuttle, "Select Order Shuttle");
 
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.HideDescription, "Hide Description", this,
+                new String[]{
+                        "/components/select/selectOrderShuttle/selectOrderShuttleHideDescription.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ShowDescription, "Show Description", this,
                 new String[]{
                         "/components/select/selectOrderShuttle/selectOrderShuttleShowDescription.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+
+        setDefaultVariant(VARIANTS.HideDescription);
     }
 
     public String getSummaryResourcePath() {

@@ -39,19 +39,18 @@ public class FormLayoutDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public FormLayoutDemo() {
-		super(ComponentDemoId.panelFormLayout, "Form Layout",
-            new String[]{
-                "/components/layout/formLayout/panelFormLayout.xhtml"
-            });
+		super(ComponentDemoId.panelFormLayout, "Form Layout");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.LabelLeft, "Label left", this,
                 new String[]{
                         "/components/layout/formLayout/panelFormLayoutLabelLeft.xhtml"
-                }, getSummaryResourcePath()));
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.LabelTop, "Label top", this,
                 new String[]{
                         "/components/layout/formLayout/panelFormLayoutLabelTop.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+
+        setDefaultVariant(VARIANTS.LabelLeft);
 	}
 
     public String getSummaryResourcePath() {

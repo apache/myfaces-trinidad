@@ -39,14 +39,7 @@ public class TrainDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public TrainDemo() {
-		super(ComponentDemoId.train, "Train",
-            new String[]{
-                "/components/navigation/train/generalInfo.xhtml",
-                "/components/navigation/train/companyInfo.xhtml",
-                "/components/navigation/train/jsfSurvey.xhtml",
-                "/components/navigation/train/trinidadSurvey.xhtml",
-                "/components/navigation/train/youAreDone.xhtml"
-            });
+		super(ComponentDemoId.train, "Train");
         
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.PlusOne, "Plus One", this,
                 new String[]{
@@ -55,8 +48,7 @@ public class TrainDemo extends AbstractComponentDemo {
                     "/components/navigation/train/jsfSurvey.xhtml",
                     "/components/navigation/train/trinidadSurvey.xhtml",
                     "/components/navigation/train/youAreDone.xhtml"
-                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MaxVisited, "Max Visited", this,
                 new String[]{
                     "/components/navigation/train/generalInfo.xhtml",
@@ -64,7 +56,9 @@ public class TrainDemo extends AbstractComponentDemo {
                     "/components/navigation/train/jsfSurvey.xhtml",
                     "/components/navigation/train/trinidadSurvey.xhtml",
                     "/components/navigation/train/youAreDone.xhtml"
-                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
+                }));
+
+        setDefaultVariant(VARIANTS.PlusOne);
 	}
 
     public String getSummaryResourcePath() {

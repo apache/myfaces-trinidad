@@ -42,35 +42,30 @@ public class PanelHeaderDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public PanelHeaderDemo() {
-		super(ComponentDemoId.panelHeader, "Panel Header",
-            new String[]{
-                "/components/panel/panelHeader/panelHeader.xhtml"
-            });
+		super(ComponentDemoId.panelHeader, "Panel Header");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ConfirmationMessage, this,
                 new String[]{
                         "/components/panel/panelHeader/panelHeaderConfirmationMessage.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ErrorMessage, this,
                 new String[]{
                         "/components/panel/panelHeader/panelHeaderErrorMessage.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.InfoMessage, this,
                 new String[]{
                         "/components/panel/panelHeader/panelHeaderInfoMessage.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.None, this,
                 new String[]{
                         "/components/panel/panelHeader/panelHeaderNone.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.WarningMessage, this,
                 new String[]{
                         "/components/panel/panelHeader/panelHeaderWarningMessage.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+
+        setDefaultVariant(VARIANTS.None);
 	}
 
     public String getSummaryResourcePath() {

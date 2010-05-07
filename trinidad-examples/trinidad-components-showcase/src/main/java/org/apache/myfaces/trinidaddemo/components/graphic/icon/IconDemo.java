@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.graphic.icon;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,14 +30,22 @@ public class IconDemo extends AbstractComponentDemo {
     
     private static final long serialVersionUID = -1982061956893498710L;
 
+    private enum VARIANTS implements IComponentDemoVariantId {
+		Default
+	}
+    
 	/**
 	 * Constructor.
 	 */
 	public IconDemo() {
-		super(ComponentDemoId.icon, "Icon",
-            new String[]{
-                "/components/graphic/icon/icon.xhtml"
-            });
+		super(ComponentDemoId.icon, "Icon");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
+                new String[]{
+                        "/components/graphic/icon/icon.xhtml"
+                }));
+
+        setDefaultVariant(VARIANTS.Default);
 	}
 
     public String getSummaryResourcePath() {

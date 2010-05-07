@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.panel.panelLabelAndMessage;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,14 +30,22 @@ public class PanelLabelAndMessageDemo extends AbstractComponentDemo {
     
     private static final long serialVersionUID = -1982061356882438720L;
 
+    private enum VARIANTS implements IComponentDemoVariantId {
+		Default
+	}
+    
 	/**
 	 * Constructor.
 	 */
 	public PanelLabelAndMessageDemo() {
-		super(ComponentDemoId.panelLabelAndMessage, "Panel Label And Message",
+		super(ComponentDemoId.panelLabelAndMessage, "Panel Label And Message");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/panel/panelLabelAndMessage/panelLabelAndMessage.xhtml"
-            });
+                    "/components/panel/panelLabelAndMessage/panelLabelAndMessage.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
 	}
 
     public String getSummaryResourcePath() {

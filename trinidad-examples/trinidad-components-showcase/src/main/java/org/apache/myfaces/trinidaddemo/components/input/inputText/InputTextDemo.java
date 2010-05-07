@@ -39,19 +39,18 @@ public class InputTextDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public InputTextDemo() {
-		super(ComponentDemoId.inputText, "Input Text",
-            new String[]{
-                "/components/input/inputText/inputText.xhtml"
-            });
+		super(ComponentDemoId.inputText, "Input Text");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
                         "/components/input/inputText/inputTextSimple.xhtml"
-                }, getSummaryResourcePath()));
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
                 new String[]{
                         "/components/input/inputText/inputTextDetailed.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+
+        setDefaultVariant(VARIANTS.Detailed);        
 	}
 
     public String getSummaryResourcePath() {

@@ -34,38 +34,38 @@ public class MessageDemo extends AbstractComponentDemo {
 		None,
         Warning,
         Info,
-        Error       
+        Error,
+        Help
 	}
 
 	/**
 	 * Constructor.
 	 */
 	public MessageDemo() {
-		super(ComponentDemoId.message, "Message",
-            new String[]{
-                "/components/output/message/message.xhtml"
-            });
+		super(ComponentDemoId.message, "Message");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.None, this,
                 new String[]{
                         "/components/output/message/messageNone.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Warning, this,
                 new String[]{
                         "/components/output/message/messageWarning.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Info, this,
                 new String[]{
                         "/components/output/message/messageInfo.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Error, this,
                 new String[]{
                         "/components/output/message/messageError.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Help, this,
+                new String[]{
+                        "/components/output/message/messageHelp.xhtml"
+                }));
 
+        setDefaultVariant(VARIANTS.None);
 	}
 
     public String getSummaryResourcePath() {

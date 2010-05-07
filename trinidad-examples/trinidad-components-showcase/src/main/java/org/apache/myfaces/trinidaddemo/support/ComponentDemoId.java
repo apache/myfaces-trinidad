@@ -67,14 +67,14 @@ public enum ComponentDemoId {
     message,
     messages,
     outputDocument,
-    outputFormated,
+    outputFormatted,
     outputLabel,
     outputText,
     progressIndicator,
     statusIndicator,
 
     //  Buttons & Links cathegory components
-    commnandButton,
+    commandButton,
     commandLink,
     goButton,
     goLink,

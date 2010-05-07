@@ -41,30 +41,26 @@ public class PanelRadioDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public PanelRadioDemo() {
-		super(ComponentDemoId.panelRadio, "Panel Radio",
-            new String[]{
-                "/components/panel/panelRadio/panelRadio.xhtml"
-            });
+		super(ComponentDemoId.panelRadio, "Panel Radio");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Center, this,
                 new String[]{
                         "/components/panel/panelRadio/panelRadioCenter.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.End, this,
                 new String[]{
                         "/components/panel/panelRadio/panelRadioEnd.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Start, this,
                 new String[]{
                         "/components/panel/panelRadio/panelRadioStart.xhtml"
-                }, getSummaryResourcePath()));
-        
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Top, this,
                 new String[]{
                         "/components/panel/panelRadio/panelRadioTop.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+
+        setDefaultVariant(VARIANTS.Center);
 	}
 
     public String getSummaryResourcePath() {

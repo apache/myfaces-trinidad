@@ -39,10 +39,7 @@ public class SelectOneListboxDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public SelectOneListboxDemo() {
-		super(ComponentDemoId.selectOneListbox, "Select One Listbox",
-            new String[]{
-                "/components/select/selectOneListbox/selectOneListbox.xhtml"
-            });
+		super(ComponentDemoId.selectOneListbox, "Select One Listbox");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
@@ -52,6 +49,8 @@ public class SelectOneListboxDemo extends AbstractComponentDemo {
                 new String[]{
                         "/components/select/selectOneListbox/selectOneListboxDetailed.xhtml"
                 }, getSummaryResourcePath()));
+
+        setDefaultVariant(VARIANTS.Detailed);
 	}
 
     public String getSummaryResourcePath() {

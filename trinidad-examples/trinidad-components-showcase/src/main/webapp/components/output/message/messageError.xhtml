@@ -28,20 +28,14 @@
         <tr:outputText value="Type 'cat' to see an error message"/>
         <tr:spacer height="10"/>
 
-        <tr:panelGroupLayout layout="vertical">
-            <tr:outputLabel for="foo" value="Label"/>
-            <tr:message for="foo" messageType="error"
-                        inlineStyle="background-color:#BBB1AA">
-                <f:facet name="help">
-                    <tr:outputText value="Help facet text"/>
-                </f:facet>
-            </tr:message>
-
-            <tr:inputText id="foo" simple="true" label="BigInteger field">
+        <tr:panelFormLayout rows="8" labelAlignment="top">
+            <tr:outputLabel for="luky_no" value="Luky number"/>
+            <tr:message for="luky_no" messageType="error"
+                        inlineStyle="background-color:#F6F4F0; border: 1px solid #BBB1AA"/>
+            <tr:inputText id="luky_no" simple="true" label="Luky No">
                 <f:converter converterId="javax.faces.BigInteger"/>
             </tr:inputText>
             <tr:commandButton text="Submit"/>
-        </tr:panelGroupLayout>
-
+        </tr:panelFormLayout>
     </ui:define>
 </ui:composition>

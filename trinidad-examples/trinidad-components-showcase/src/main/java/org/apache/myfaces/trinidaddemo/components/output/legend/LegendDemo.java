@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidaddemo.components.output.legend;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
 import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
@@ -37,10 +38,14 @@ public class LegendDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public LegendDemo() {
-		super(ComponentDemoId.legend, "Legend", VARIANTS.Default, "Default",
+		super(ComponentDemoId.legend, "Legend");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/output/legend/legend.xhtml"
-            });
+                    "/components/output/legend/legend.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
 	}
 
     public String getSummaryResourcePath() {
