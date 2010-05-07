@@ -31,24 +31,28 @@ public class AccordionPanelDemo extends AbstractComponentDemo {
 	private static final long serialVersionUID = -4995780657798809893L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		DiscloseMany,
+		DiscloseOne,
+        DiscloseMany,
         DiscloseNone
 	}
 
 	public AccordionPanelDemo() {
-		super(ComponentDemoId.panelAccordion, "Accordion Panel",
-            new String[]{
-                "/components/panel/panelAccordion/panelAccordion.xhtml"
-            });
+		super(ComponentDemoId.panelAccordion, "Accordion Panel");
 
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.DiscloseOne, "Disclose One", this,
+                new String[]{
+                        "/components/panel/panelAccordion/panelAccordionDiscloseOne.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.DiscloseMany, "Disclose Many", this,
                 new String[]{
                         "/components/panel/panelAccordion/panelAccordionDiscloseMany.xhtml"
-                }, getSummaryResourcePath()));
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.DiscloseNone, "Disclose None", this,
                 new String[]{
                         "/components/panel/panelAccordion/panelAccordionDiscloseNone.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+
+        setDefaultVariant(VARIANTS.DiscloseOne);
 	}
 
     public String getSummaryResourcePath() {

@@ -25,9 +25,24 @@ import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
  */
 public class ComponentVariantDemoImpl extends AbstractComponentVariantDemo {
 
+    private static final long serialVersionUID = 4811148098018680201L;    
+
     private String[] jsfResourcePaths;
     private String summaryResourcePath;
     private String backingBeanResourcePath;
+
+    /**
+     * Constructor.
+     *
+     * @param variantId
+     * @param componentDemo
+     * @param jsfResourcePaths
+     */
+    public ComponentVariantDemoImpl(IComponentDemoVariantId variantId,
+            AbstractComponentDemo componentDemo,
+            String[] jsfResourcePaths) {
+        this(variantId, variantId.toString(), componentDemo, jsfResourcePaths, null);
+    }
 
     /**
      * Constructor.
@@ -56,6 +71,20 @@ public class ComponentVariantDemoImpl extends AbstractComponentVariantDemo {
             AbstractComponentDemo componentDemo,
             String[] jsfResourcePaths, String summaryResourcePath, String backingBeanResourcePath) {
         this(variantId, variantId.toString(), componentDemo, jsfResourcePaths, summaryResourcePath, backingBeanResourcePath);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param variantId
+     * @param variantDisplayName
+     * @param componentDemo
+     * @param jsfResourcePaths
+     */
+    public ComponentVariantDemoImpl(IComponentDemoVariantId variantId, String variantDisplayName,
+            AbstractComponentDemo componentDemo,
+            String[] jsfResourcePaths) {
+        this(variantId, variantDisplayName, componentDemo, jsfResourcePaths, null);
     }
 
     /**
@@ -104,11 +133,17 @@ public class ComponentVariantDemoImpl extends AbstractComponentVariantDemo {
     }
 
     public String getSummaryResourcePath() {
-        return summaryResourcePath;
+        if (summaryResourcePath != null)
+            return summaryResourcePath;
+        else
+            return super.getComponentDemo().getSummaryResourcePath();
     }
 
     @Override
     public String getBackingBeanResourcePath() {
-        return backingBeanResourcePath;
+        if (backingBeanResourcePath != null)
+            return backingBeanResourcePath;
+        else
+            return super.getComponentDemo().getBackingBeanResourcePath();
     }
 }

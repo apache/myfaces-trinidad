@@ -39,15 +39,18 @@ public class BorderLayoutDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public BorderLayoutDemo() {
-		super(ComponentDemoId.panelBorderLayout, "Border Layout", VARIANTS.Expanded,
-            new String[]{
-                "/components/layout/borderLayout/panelBorderLayout.xhtml"
-            });
+		super(ComponentDemoId.panelBorderLayout, "Border Layout");
 
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Expanded, this,
+                new String[]{
+                        "/components/layout/borderLayout/panelBorderLayout.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Positioned, this,
                 new String[]{
                         "/components/layout/borderLayout/panelBorderLayoutPositioned.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+
+        setDefaultVariant(VARIANTS.Expanded);
 	}    
 
     public String getSummaryResourcePath() {

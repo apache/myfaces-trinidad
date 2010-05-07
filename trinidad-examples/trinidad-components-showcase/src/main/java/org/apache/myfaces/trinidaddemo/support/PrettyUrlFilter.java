@@ -58,12 +58,12 @@ public class PrettyUrlFilter implements Filter {
         NavigationHandlerBean navigationHandler = (NavigationHandlerBean) fc.getApplication().getELResolver().getValue(fc.getELContext(), null, "navigationHandler");
 
         if (getDemoType(requestURI).equals(TYPES.component)){
-            IComponentVariantDemo componentDemo = getComponentVariantDemo(requestURI);
-            navigationHandler.setCurrentComponentVariantDemo(componentDemo);
+            IComponentVariantDemo componentVariantDemo = getComponentVariantDemo(requestURI);
+            navigationHandler.setCurrentComponentVariantDemo(componentVariantDemo);
 
-            _LOG.log(Level.INFO,"Forwarding request [" + requestURI + "] to view [" + componentDemo.getEntryPagePath()+"]");
+            _LOG.log(Level.INFO,"Forwarding request [" + requestURI + "] to view [" + componentVariantDemo.getEntryPagePath()+"]");
             if (!response.isCommitted()) {
-                request.getRequestDispatcher("/faces"+componentDemo.getEntryPagePath()).forward(request, response);
+                request.getRequestDispatcher("/faces"+componentVariantDemo.getEntryPagePath()).forward(request, response);
             }
         }
 

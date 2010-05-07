@@ -40,25 +40,24 @@ public class InputColorDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public InputColorDemo() {
-		super(ComponentDemoId.inputColor, "Input Color",
-            new String[]{
-                "/components/input/inputColor/inputColor.xhtml"
-            });
+		super(ComponentDemoId.inputColor, "Input Color");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Compact, this,
                 new String[]{
                         "/components/input/inputColor/inputColorCompact.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
                 new String[]{
                         "/components/input/inputColor/inputColorDetailed.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
                         "/components/input/inputColor/inputColorSimple.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+
+        setDefaultVariant(VARIANTS.Detailed);
 	}
 
     public String getSummaryResourcePath() {

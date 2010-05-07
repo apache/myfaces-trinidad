@@ -25,28 +25,23 @@
 
     <ui:define name="demoContent">
 
-        <tr:page var="foo" value="#{pageBean.model}" styleClass="page_page" chromeType="compact">
+        <tr:page styleClass="page_page" chromeType="compact">
 
-            <f:facet name="nodeStamp">
-            <tr:navigationPane hint="bar">
-                <!--<tr:commandNavigationItem text="#{foo.label}" action="#{foo.doAction}"/>-->
-                <tr:commandNavigationItem text="Apps" action="#{foo.doAction}"/>
-                <tr:commandNavigationItem text="Support" action="#{foo.doAction}"/>
-                <tr:commandNavigationItem text="About Us" action="#{foo.doAction}"/>
-                <tr:commandNavigationItem text="Contact" action="#{foo.doAction}"/>
-            </tr:navigationPane>
+           <f:facet name="menuSwitch">
+                <tr:navigationPane hint="bar">
+                    <tr:commandNavigationItem text="Apps"/>
+                    <tr:commandNavigationItem text="Support"/>
+                    <tr:commandNavigationItem text="About Us"/>
+                    <tr:commandNavigationItem text="Contact"/>
+                </tr:navigationPane>
             </f:facet>
 
             <f:facet name="appCopyright">
-                <tr:panelGroupLayout>
-                    <tr:outputText value="Copyright info"/>
-                </tr:panelGroupLayout>
+                <tr:outputText value="Copyright info"/>
             </f:facet>
 
             <f:facet name="branding">
-                <tr:panelGroupLayout>
-                    <tr:outputFormatted styleUsage="instruction" value=""/>
-                </tr:panelGroupLayout>
+                <tr:outputFormatted styleUsage="instruction" value=""/>
             </f:facet>
 
             <tr:separator/>

@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.navigation.processChoiceBar;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,14 +30,22 @@ public class ProcessChoiceBarDemo extends AbstractComponentDemo {
     
     private static final long serialVersionUID = -1982060956387498310L;
 
+    private enum VARIANTS implements IComponentDemoVariantId {
+		Default
+	}
+
 	/**
 	 * Constructor.
 	 */
 	public ProcessChoiceBarDemo() {
-		super(ComponentDemoId.processChoiceBar, "Process Choice Bar",
+		super(ComponentDemoId.processChoiceBar, "Process Choice Bar");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/navigation/processChoiceBar/processChoiceBar.xhtml"
-            });
+                    "/components/navigation/processChoiceBar/processChoiceBar.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
 	}
 
     public String getSummaryResourcePath() {

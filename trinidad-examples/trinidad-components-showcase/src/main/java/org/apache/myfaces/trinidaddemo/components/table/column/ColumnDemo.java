@@ -31,9 +31,8 @@ public class ColumnDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982064956683398710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
+        Start,
         Center,
-        End,
-        Left,
         Right
     }
 
@@ -41,33 +40,22 @@ public class ColumnDemo extends AbstractComponentDemo {
      * Constructor.
      */
     public ColumnDemo() {
-        super(ComponentDemoId.column, "Column",
-            new String[]{
-                "/components/table/column/column.xhtml"
-            });
+        super(ComponentDemoId.column, "Column");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Start, this,
+                new String[]{
+                        "/components/table/column/columnStart.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Center, this,
                 new String[]{
                         "/components/table/column/columnCenter.xhtml"
-                }, getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java"));
-
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.End, this,
-                new String[]{
-                        "/components/table/column/columnEnd.xhtml"
-                }, getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java"));
-
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Left, this,
-                new String[]{
-                        "/components/table/column/columnLeft.xhtml"
-                }, getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java"));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Right, this,
                 new String[]{
                         "/components/table/column/columnRight.xhtml"
-                }, getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java"));
+                }));
+
+        setDefaultVariant(VARIANTS.Start);
     }
 
     public String getSummaryResourcePath() {

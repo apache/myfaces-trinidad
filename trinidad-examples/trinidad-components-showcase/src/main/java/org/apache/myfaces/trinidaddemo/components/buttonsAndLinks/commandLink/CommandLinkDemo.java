@@ -19,10 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.buttonsAndLinks.commandLink;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
-
-import java.util.List;
-import java.util.ArrayList;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -31,14 +30,22 @@ public class CommandLinkDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982061956883408710L;
 
+    private enum VARIANTS implements IComponentDemoVariantId {
+		Default
+	}    
+
 	/**
 	 * Constructor.
 	 */
 	public CommandLinkDemo() {
-		super(ComponentDemoId.commandLink , "Command Link",
+		super(ComponentDemoId.commandLink , "Command Link");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "DefaultR", this,
             new String[]{
-                "/components/buttonsAndLinks/commandLink/commandLink.xhtml"
-            });
+                    "/components/buttonsAndLinks/commandLink/commandLink.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
 	}
 
     public String getSummaryResourcePath() {

@@ -1,0 +1,70 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/pages/componentDemo.xhtml">
+
+    <ui:define name="demoContent">
+
+        <tr:panelAccordion>
+            <tr:showDetailItem text="Apache Trinidad Components">
+                <tr:panelFormLayout rows="6" labelWidth="40%" inlineStyle="width: 200px;">
+                    <tr:inputText label="Text1"/>
+                    <tr:inputText label="Text2"/>
+                    <tr:inputText label="Text3"/>
+
+                    <f:facet name="footer">
+                        <tr:panelButtonBar>
+                            <tr:commandButton text="Button 1"/>
+                            <tr:commandButton text="Button 2"/>
+                        </tr:panelButtonBar>
+                    </f:facet>
+                </tr:panelFormLayout>
+            </tr:showDetailItem>
+            <tr:showDetailItem text="Architecture" disabled="true">
+                <tr:panelHeader text="Architecture First Child"/>
+                <tr:panelHeader text="Architecture Second Child"/>
+            </tr:showDetailItem>
+            <tr:showDetailItem text="Release">
+                <tr:panelList rows="2" inlineStyle="width: 200px;">
+                    <tr:goLink text="link 1"
+                               destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelList.html"/>
+                    <tr:goLink text="link 2"
+                               destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelList.html"/>
+                    <tr:goLink text="link 3"
+                               destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelList.html"/>
+                    <tr:goLink text="link 4"
+                               destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelList.html"/>
+                    <tr:goLink text="link 5"
+                               destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelList.html"/>
+                    <tr:goLink text="link 6"
+                               destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelList.html"/>
+                    <tr:goLink text="link 7"
+                               destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelList.html"/>
+                    <tr:goLink text="link 8"
+                               destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelList.html"/>
+                </tr:panelList>
+            </tr:showDetailItem>
+        </tr:panelAccordion>
+
+    </ui:define>
+</ui:composition>

@@ -31,6 +31,7 @@ public class TableDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982064950883398710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
+        GridLines,
 		NoGridLines,
         SingleRowSelection,
         MultipleRowSelection,
@@ -42,35 +43,34 @@ public class TableDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public TableDemo() {
-		super(ComponentDemoId.table, "Table",
-            new String[]{
-                "/components/table/table/table.xhtml"
-            });
+		super(ComponentDemoId.table, "Table");
 
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.GridLines, "Grid lines", this,
+                new String[]{
+                        "/components/table/table/tableGridLines.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoGridLines, "No grid lines", this,
                 new String[]{
                         "/components/table/table/tableNoGridLines.xhtml"
-                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.SingleRowSelection, "Single Row Selection", this,
                 new String[]{
                         "/components/table/table/tableSingleRowSelection.xhtml"
-                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MultipleRowSelection, "Multiple Row Selection", this,
                 new String[]{
                         "/components/table/table/tableMultipleRowSelection.xhtml"
-                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ShowHide, "Show / Hide", this,
                 new String[]{
                         "/components/table/table/tableShowHide.xhtml"
-                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Pagination, this,
                 new String[]{
                         "/components/table/table/tablePaginated.xhtml"
-                }, getSummaryResourcePath(), getBackingBeanResourcePath()));
+                }));
+
+        setDefaultVariant(VARIANTS.GridLines);
 	}
 
     public String getSummaryResourcePath() {

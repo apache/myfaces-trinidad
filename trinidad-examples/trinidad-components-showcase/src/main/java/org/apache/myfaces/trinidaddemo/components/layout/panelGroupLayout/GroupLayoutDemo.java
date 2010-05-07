@@ -40,20 +40,23 @@ public class GroupLayoutDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public GroupLayoutDemo() {
-		super(ComponentDemoId.panelGroupLayout, "Group Layout",
-            new String[]{
-                "/components/layout/groupLayout/panelGroupLayout.xhtml"
-            });
+		super(ComponentDemoId.panelGroupLayout, "Group Layout");
 
 		addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Horizontal, this,
                 new String[]{
                         "/components/layout/groupLayout/panelGroupLayoutHorizontal.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+		addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Vertical, this,
+                new String[]{
+                        "/components/layout/groupLayout/panelGroupLayoutVertical.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Dynamic,this,
                 new String[]{
                         "/components/layout/groupLayout/panelGroupLayoutDynamic.xhtml"
                 }, getSummaryResourcePath(),
                 "/org/apache/myfaces/trinidaddemo/components/layout/panelGroupLayout/GroupLayoutDynamicBean.java"));
+
+        setDefaultVariant(VARIANTS.Vertical);
 	}
 
     public String getSummaryResourcePath() {

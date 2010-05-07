@@ -31,6 +31,7 @@ public class ShowDetailHeaderDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1989461456014395510L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
+        NoneMessage,
 		ConfirmationMessage,
         InfoMessage,
         ErrorMessage,
@@ -41,30 +42,30 @@ public class ShowDetailHeaderDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public ShowDetailHeaderDemo(){
-		super(ComponentDemoId.showDetailHeader, "Show Detail Header",
-            new String[]{
-                "/components/showDetail/showDetailHeader/showDetailHeader.xhtml"
-            });
+		super(ComponentDemoId.showDetailHeader, "Show Detail Header");
 
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoneMessage, "None Message", this,
+                new String[]{
+                        "/components/showDetail/showDetailHeader/showDetailHeaderNoneMessage.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.InfoMessage, "Info Message", this,
                 new String[]{
                         "/components/showDetail/showDetailHeader/showDetailHeaderInfoMessage.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ConfirmationMessage, "Confirmation Message", this,
                 new String[]{
                         "/components/showDetail/showDetailHeader/showDetailHeaderConfirmationMessage.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ErrorMessage, "Error message", this,
                 new String[]{
                         "/components/showDetail/showDetailHeader/showDetailHeaderErrorMessage.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.WarningMessage, "Warning message", this,
                 new String[]{
                         "/components/showDetail/showDetailHeader/showDetailHeaderWarningMessage.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+
+        setDefaultVariant(VARIANTS.NoneMessage);
 	}
 
     public String getSummaryResourcePath() {

@@ -147,11 +147,6 @@ public class SitemapGenerator {
                     variantsAdded.put(aComponentDemo.getId(), alreadyAddedVariants);
                 }
 
-                if (!alreadyAddedVariants.contains(aComponentDemo.getVariantId())) {
-                    list.add(getSitemapUrl(getUrl(aComponentDemo)));
-                    alreadyAddedVariants.add(aComponentDemo.getVariantId());
-                }
-
                 Iterator<IComponentVariantDemo> variants = aComponentDemo.getVariants().iterator();
                 while (variants.hasNext()) {
                     IComponentVariantDemo aVariantDemo = variants.next();

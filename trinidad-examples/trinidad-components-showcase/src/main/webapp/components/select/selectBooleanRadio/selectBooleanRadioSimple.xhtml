@@ -32,8 +32,12 @@
             </f:facet>
         </tr:outputDocument>
         <tr:spacer height="15px"/>
-        <tr:selectBooleanRadio group="LicenseAgreement" text="I accept the terms in the license agreement"/>
-        <tr:selectBooleanRadio group="LicenseAgreement" text="I do not accept the terms in the license agreement"/>
+        <tr:panelGroupLayout layout="vertical">
+            <tr:selectBooleanRadio group="LicenseAgreement" simple="true" label="Yes"
+                                   text="I accept the terms in the license agreement"/>
+            <tr:selectBooleanRadio group="LicenseAgreement" simple="true" label="No"
+                                   text="I do not accept the terms in the license agreement"/>
+        </tr:panelGroupLayout>
 
     </ui:define>
 </ui:composition>

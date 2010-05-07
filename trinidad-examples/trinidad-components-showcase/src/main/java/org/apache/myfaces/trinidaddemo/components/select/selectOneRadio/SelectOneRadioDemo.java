@@ -34,37 +34,28 @@ public class SelectOneRadioDemo extends AbstractComponentDemo {
 		Simple,
         Detailed,
         Horizontal,
-        Vertical
 	}
 
 	/**
 	 * Constructor.
 	 */
 	public SelectOneRadioDemo() {
-		super(ComponentDemoId.selectOneRadio, "Select One Radio",
-            new String[]{
-                "/components/select/selectOneRadio/selectOneRadio.xhtml"
-            });
+		super(ComponentDemoId.selectOneRadio, "Select One Radio");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
                         "/components/select/selectOneRadio/selectOneRadioSimple.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
                 new String[]{
                         "/components/select/selectOneRadio/selectOneRadioDetailed.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Horizontal, this,
                 new String[]{
                         "/components/select/selectOneRadio/selectOneRadioHorizontal.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Vertical, this,
-                new String[]{
-                        "/components/select/selectOneRadio/selectOneRadioVertical.xhtml"
-                }, getSummaryResourcePath()));
+        setDefaultVariant(VARIANTS.Detailed);
 	}
 
     public String getSummaryResourcePath() {

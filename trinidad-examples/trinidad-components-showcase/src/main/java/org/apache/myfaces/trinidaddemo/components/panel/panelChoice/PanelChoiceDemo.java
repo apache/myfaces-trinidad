@@ -41,30 +41,26 @@ public class PanelChoiceDemo extends AbstractComponentDemo {
 	 * Constructor.
 	 */
 	public PanelChoiceDemo() {
-		super(ComponentDemoId.panelChoice, "Panel Choice",
-            new String[]{
-                "/components/panel/panelChoice/panelChoice.xhtml"
-            });
+		super(ComponentDemoId.panelChoice, "Panel Choice");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Buttom, this,
                 new String[]{
                         "/components/panel/panelChoice/panelChoiceButtom.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Center, this,
                 new String[]{
                         "/components/panel/panelChoice/panelChoiceCenter.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Start, this,
                 new String[]{
                         "/components/panel/panelChoice/panelChoiceStart.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Top, this,
                 new String[]{
                         "/components/panel/panelChoice/panelChoiceTop.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+
+        setDefaultVariant(VARIANTS.Center);
 	}
 
     public String getSummaryResourcePath() {
