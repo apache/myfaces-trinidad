@@ -354,11 +354,11 @@ abstract public class UIXComponentBase extends UIXComponent
     if (_isClientIdCachingEnabled(context))
     {
       String clientId = _clientId;
-      
+
       if (clientId == null)
       {
         clientId = _calculateClientId(context);
-        
+
         if (_usesFacesBeanImpl)
         {
           _clientId = clientId;
@@ -369,12 +369,13 @@ abstract public class UIXComponentBase extends UIXComponent
         // for now validate success by checking the cached result against the dynamically
         // generated result
         String realID = _calculateClientId(context);
-        
+
         if (!clientId.equals(realID))
           throw new IllegalStateException(
-        "cached client id " + clientId + " for " + this + " doesn't match client id:" + realID);
+            String.format("Cached client id %s for %s doesn't match client id: %s",
+              clientId, this, realID));
       }
-    
+
       return clientId;
     }
     else
@@ -398,7 +399,7 @@ abstract public class UIXComponentBase extends UIXComponent
       // make sure that we always have an id
       if (_id == null)
       {
-        _id = FacesContext.getCurrentInstance().getViewRoot().createUniqueId();        
+        _id = FacesContext.getCurrentInstance().getViewRoot().createUniqueId();
       }
 
       return _id;
@@ -454,12 +455,12 @@ abstract public class UIXComponentBase extends UIXComponent
         {
           clearCachedClientIds(this);
         }
-      }      
+      }
     }
     else
     {
       _validateId(id);
-      facesBean.setProperty(ID_KEY, id);      
+      facesBean.setProperty(ID_KEY, id);
     }
 
     _clientId = null;
@@ -496,8 +497,8 @@ abstract public class UIXComponentBase extends UIXComponent
         {
           // trigger the ADD_EVENT and call setInView(true)
           // recursive for all kids/facets...
-          // Application.publishEvent(java.lang.Class, java.lang.Object)  must be called, passing 
-          // PostAddToViewEvent.class as the first argument and the newly added component as the second 
+          // Application.publishEvent(java.lang.Class, java.lang.Object)  must be called, passing
+          // PostAddToViewEvent.class as the first argument and the newly added component as the second
           // argument.
           _publishPostAddToViewEvent(getFacesContext(), this);
         }
@@ -520,7 +521,7 @@ abstract public class UIXComponentBase extends UIXComponent
       if (_clientId != null)
       {
         String newClientId = _calculateClientId(FacesContext.getCurrentInstance());
-        
+
         // if our clientId changed as a result of being reparented (because we moved
         // between NamingContainers for instance) then we need to clear out
         // all of the cached client ids for our subtree
@@ -1301,7 +1302,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
   /**
    * Publish PostAddToViewEvent to the component and all facets and children.
-   * 
+   *
    * @param context the current FacesContext
    * @param component the current UIComponent
    */
@@ -1324,7 +1325,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
         // Iterate over the same index if the component was removed
         // This prevents skip components when processing
-        do 
+        do
         {
           _publishPostAddToViewEvent(context, child);
           currentChild = child;
@@ -1342,11 +1343,11 @@ abstract public class UIXComponentBase extends UIXComponent
         _publishPostAddToViewEvent(context, child);
       }
     }
-  } 
+  }
 
   /**
    * Publish PreRemoveFromViewEvent to the component and all facets and children.
-   * 
+   *
    * @param context the current FacesContext
    * @param component the current UIComponent
    */
@@ -1595,7 +1596,7 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       tearDownChildrenVisitingContext(context);
     }
-    
+
     return found;
   }
 
@@ -1619,15 +1620,15 @@ abstract public class UIXComponentBase extends UIXComponent
     boolean invokedComponent;
 
     setupVisitingContext(context);
-    
+
     try
     {
       String thisClientId = getClientId(context);
-  
+
       if (clientId.equals(thisClientId))
       {
         pushComponentToEL(context, null);
-        
+
         try
         {
           // this is the component we want, so invoke the callback
@@ -1637,7 +1638,7 @@ abstract public class UIXComponentBase extends UIXComponent
         {
           popComponentFromEL(context);
         }
-  
+
         invokedComponent = true;
       }
       else
@@ -1680,7 +1681,7 @@ abstract public class UIXComponentBase extends UIXComponent
     throws FacesException
   {
     boolean invokedComponent;
-    
+
     // set up the context for visiting the children
     setupVisitingContext(context);
 
@@ -1716,7 +1717,7 @@ abstract public class UIXComponentBase extends UIXComponent
     finally
     {
       // teardown the context now that we have visited the component
-      tearDownVisitingContext(context);      
+      tearDownVisitingContext(context);
     }
 
     return invokedComponent;
@@ -2068,13 +2069,13 @@ abstract public class UIXComponentBase extends UIXComponent
       throw new IllegalArgumentException("FacesContext is null");
 
     Boolean cacheClientIds = _sClientIdCachingEnabled.get();
-    
+
     if (cacheClientIds == null)
     {
       // get the servlet initialization parameter
       String cachingParam = context.getExternalContext().getInitParameter(
                                                              _INIT_PROP_CLIENT_ID_CACHING_ENABLED);
-      
+
       Boolean cachingEnabled  = (cachingParam != null)
                                   ? Boolean.valueOf(cachingParam)
                                   : Boolean.FALSE;  // default to false
@@ -2089,12 +2090,12 @@ abstract public class UIXComponentBase extends UIXComponent
       return cacheClientIds.booleanValue();
     }
   }
-  
-  private static AtomicReference<Boolean> _sClientIdCachingEnabled = 
+
+  private static AtomicReference<Boolean> _sClientIdCachingEnabled =
                                                                  new AtomicReference<Boolean>(null);
-  
+
   // temporary servlet initialization flag controlling whether client ID caching is enabled
-  private static final String _INIT_PROP_CLIENT_ID_CACHING_ENABLED = 
+  private static final String _INIT_PROP_CLIENT_ID_CACHING_ENABLED =
                                       "org.apache.myfaces.trinidadinternal.ENABLE_CLIENT_ID_CACHING";
 
   static private final LifecycleRenderer _UNDEFINED_LIFECYCLE_RENDERER =
