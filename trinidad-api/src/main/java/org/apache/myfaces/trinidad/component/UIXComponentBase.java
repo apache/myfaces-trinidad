@@ -357,6 +357,16 @@ abstract public class UIXComponentBase extends UIXComponent
 
       if (clientId == null)
       {
+        // This should not be called when the parent has not been set. Should it be
+        // called, the value will not be re-calculated correctly. This will be the case
+        // if someone attempts to invoke this function during facelets view construction.
+        if (_parent == null)
+        {
+          _LOG.warning("INVALID_CALL_TO_GETCLIENTID", getId());
+          // Return the value, even if not valid, for backward compatibility
+          return _calculateClientId(context);
+        }
+
         clientId = _calculateClientId(context);
 
         if (_usesFacesBeanImpl)
