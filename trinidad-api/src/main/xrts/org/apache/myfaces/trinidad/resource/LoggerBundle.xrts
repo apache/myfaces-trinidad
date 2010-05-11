@@ -178,7 +178,7 @@
  <resource key="INVALID_INDEX">Invalid index</resource>
  
  <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
- <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID">Adding a child when a child with same ID already exists. Old child will be removed and new child added. {0}</resource>
+ <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID">Change manager failed to apply AddChildComponentChange because a child component with the same id already exists. {0}</resource>
  
  <!-- NO_NODE_SPECIFIED -->
  <resource key="NO_NODE_SPECIFIED">No node specified</resource>
@@ -225,6 +225,9 @@
  <!-- FACET_NAME_MUST_SPECIFIED -->
  <resource key="FACET_NAME_MUST_SPECIFIED">Facet name must be specified</resource>
  
+ <!-- FACET_ALREADY_PRESENT -->
+ <resource key="FACET_ALREADY_PRESENT">Change manager failed to apply SetFacetChildComponentChange because a facet with the same name already exists. {0}</resource>
+
  <!-- MOVABLE_CHILD_REQUIRED -->
  <resource key="MOVABLE_CHILD_REQUIRED">Child component to be moved is required.</resource>
 
@@ -242,6 +245,9 @@
 
  <!-- DESTINATION_CONTAINER_NOT_FOUND -->
  <resource key="DESTINATION_CONTAINER_NOT_FOUND">Destination container could not be found: {0}.</resource>
+
+ <!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+ <resource key="MOVABLE_CHILD_SAME_ID_FOUND">A different component with same id was found in the destination container. Move operation aborted: {0}.</resource>
 
  <!-- INSERT_BEFORE_NOT_FOUND -->
  <resource key="INSERT_BEFORE_NOT_FOUND">Insert before component or node could not be found: {0}.</resource>
