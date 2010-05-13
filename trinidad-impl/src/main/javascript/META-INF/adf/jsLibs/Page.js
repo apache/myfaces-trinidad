@@ -526,7 +526,7 @@ TrPage.prototype._updateViewState = function(doc, sourceNode, formId)
   if (!form)
     return;
 
-  var input = form[TrPage._VIEW_STATE_ID];
+  var input = form.elements[TrPage._VIEW_STATE_ID];
 
   if (!input)
   {
