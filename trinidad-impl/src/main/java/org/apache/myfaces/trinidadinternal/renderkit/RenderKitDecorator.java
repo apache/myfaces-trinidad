@@ -141,7 +141,7 @@ abstract public class RenderKitDecorator extends RenderKitBase
     {
       // In JSF 2, this method may be called be before the global configurator has been initialized and if that
       // is the case, then the request context needs to be built
-      ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+      ExternalContext externalContext = context.getExternalContext();
       GlobalConfiguratorImpl.getInstance().init(externalContext);
       requestContext = RequestContextFactory.getFactory().createContext(externalContext);
     }
