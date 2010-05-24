@@ -9,7 +9,12 @@
       <span
            id="mainId"
           >
-        This is some &lt;Text&gt;
+        
+        <span
+             class="p_OraHiddenLabel"
+            >
+          test-description
+        </span>This is some &lt;Text&gt;
       </span>
 <!--AttributeTest[escape,false]-->
 This is some <Text>

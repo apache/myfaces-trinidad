@@ -297,6 +297,12 @@
             >
           
         </input>
+        <label
+             class="p_OraHiddenLabel"
+             for="mainId"
+            >
+          test-label
+        </label>
         <img
              alt=""
              height="1"
@@ -547,6 +553,12 @@
             >
           
         </input>
+        <label
+             class="p_OraHiddenLabel"
+             for="mainId"
+            >
+          test-shortDesc
+        </label>
         <img
              alt=""
              height="1"
