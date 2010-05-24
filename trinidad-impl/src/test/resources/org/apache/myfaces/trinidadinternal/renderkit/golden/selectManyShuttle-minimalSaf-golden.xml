@@ -2248,6 +2248,12 @@
                                 >
                               
                             </textarea>
+                            <label
+                                 class="p_OraHiddenLabel"
+                                 for="mainId:leading:desc"
+                                >
+                              Description
+                            </label>
                           </td>
                           <td
                               >
@@ -2552,6 +2558,12 @@
                                 >
                               
                             </textarea>
+                            <label
+                                 class="p_OraHiddenLabel"
+                                 for="mainId:trailing:desc"
+                                >
+                              Description
+                            </label>
                           </td>
                           <td
                               >
@@ -2834,6 +2846,12 @@
                                   _______________
                                 </option>
                               </select>
+                              <label
+                                   class="p_OraHiddenLabel"
+                                   for="mainId:leading"
+                                  >
+                                test-leadingHeader
+                              </label>
                             </span>
                           </td>
                         </tr>
@@ -6465,6 +6483,12 @@
                                 >
                               
                             </textarea>
+                            <label
+                                 class="p_OraHiddenLabel"
+                                 for="mainId:leading:desc"
+                                >
+                              Description
+                            </label>
                           </td>
                           <td
                               >
@@ -6770,6 +6794,12 @@
                                 >
                               
                             </textarea>
+                            <label
+                                 class="p_OraHiddenLabel"
+                                 for="mainId:trailing:desc"
+                                >
+                              Description
+                            </label>
                           </td>
                           <td
                               >
@@ -7292,6 +7322,12 @@
                                   _______________
                                 </option>
                               </select>
+                              <label
+                                   class="p_OraHiddenLabel"
+                                   for="mainId:trailing"
+                                  >
+                                test-trailingHeader
+                              </label>
                             </span>
                           </td>
                         </tr>
@@ -8931,6 +8967,12 @@
           </td>
         </tr>
       </table>
+      <label
+           class="p_OraHiddenLabel"
+           for="mainId"
+          >
+        test-shortDesc
+      </label>
 <!--AttributeTest[styleClass,null]-->
 
       <table

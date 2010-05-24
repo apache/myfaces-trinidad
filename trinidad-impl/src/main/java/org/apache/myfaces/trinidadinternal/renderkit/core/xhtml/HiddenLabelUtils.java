@@ -66,6 +66,10 @@ public class HiddenLabelUtils
       case GECKO:
         return true;
 
+      // Safari does support the label hack
+      case SAFARI:
+        return true;
+
       // Assume everyone else doesn't.
       case NETSCAPE:
       default:

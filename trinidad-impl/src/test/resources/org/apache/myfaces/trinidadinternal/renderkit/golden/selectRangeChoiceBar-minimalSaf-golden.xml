@@ -147,6 +147,12 @@
                 2-4 of 4
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainId__xc_c"
+                >
+              Select record set
+            </label>
             <script
                  type="text/javascript"
                 >
