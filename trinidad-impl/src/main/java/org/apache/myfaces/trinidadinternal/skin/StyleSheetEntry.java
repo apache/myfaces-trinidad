@@ -638,10 +638,10 @@ class StyleSheetEntry
         if (_LOG.isFine())
           _LOG.fine(_SERVICES_RESOLVER_IOEXCEPTION_MSG);       
       }
-      // Found a provider. So store it away and return it from the method.
+      // Found a customNameResolver with a provider. So store it away and return it from the method.
       if (provider != null)
       {
-        appMap.put(_SERVICES_RESOLVER_KEY, provider);
+        appMap.put(_SERVICES_RESOLVER_KEY, customNameResolver);
         return customNameResolver;
       }
     }
