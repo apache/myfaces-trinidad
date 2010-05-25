@@ -34,6 +34,7 @@ import java.util.LinkedList;
 import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
@@ -117,7 +118,8 @@ public class SkinCSSDocumentHandler
                                      _locales,
                                      _agentAtRuleMatcher,
                                      _selectorPlatforms,
-                                     _getSelectorAccProperties());
+                                     _getSelectorAccProperties(),
+                                     _mode);
        _completeSelectorNodeList.add(node);
     }
     // reset flags
@@ -200,6 +202,10 @@ public class SkinCSSDocumentHandler
       {
         _parseCustomAtRule(_AT_ACC_PROFILE, atRule);
       }
+      else if (atRule.startsWith(_AT_MODE))
+      {
+        _parseCustomAtRule(_AT_MODE, atRule);
+      }
       // for now, ignore other atRules in a skinning css file
       
     }
@@ -244,6 +250,10 @@ public class SkinCSSDocumentHandler
       if (!_selectorAccPropertiesStack.isEmpty())
         _selectorAccPropertiesStack.removeLast();
     }
+    else if (_AT_MODE.equals(type))
+    {
+      _mode = ModeUtils.MODE_DEFAULT;
+    }
   }
   
    // create a CompleteSelectorNode (this is the selector, properties, and
@@ -254,7 +264,8 @@ public class SkinCSSDocumentHandler
     Set<Locale>                locales,
     AgentAtRuleMatcher         agentMatcher,
     int[]                      selectorPlatforms,
-    Set<String>                selectorAccProperties)
+    Set<String>                selectorAccProperties,
+    int                        mode)
   {
     // parse the selector to see if there is a :rtl or :ltr ending.
     // if so, then set the reading direction.
@@ -282,7 +293,8 @@ public class SkinCSSDocumentHandler
         direction,
         agentMatcher,
         selectorPlatforms,
-        selectorAccProperties);
+        selectorAccProperties,
+        mode);
   }
 
   /**
@@ -308,6 +320,7 @@ public class SkinCSSDocumentHandler
       int[] platforms = completeSelectorNode.getPlatforms();
       Set<Locale> locales = completeSelectorNode.getLocales();
       Set<String> accProperties = completeSelectorNode.getAccessibilityProperties();
+      int mode = completeSelectorNode.getMode();
 
       // loop through the skinStyleSheetNodeList to find a match
       // of direction, agents, platforms, etc.
@@ -318,7 +331,7 @@ public class SkinCSSDocumentHandler
       for (int i = skinStyleSheetNodes.size() - 1; i >= 0 && !match; --i)
       {
         SkinStyleSheetNode ssNode = skinStyleSheetNodes.get(i);
-        match = ssNode.matches(direction, agentMatcher, platforms, locales, accProperties);
+        match = ssNode.matches(direction, agentMatcher, platforms, locales, accProperties, mode);
 
         if (match)
           ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
@@ -328,7 +341,7 @@ public class SkinCSSDocumentHandler
       {
         // no matching stylesheet node found, so create a new one
         SkinStyleSheetNode ssNode =
-         new SkinStyleSheetNode(namespaceMap, direction, locales, agentMatcher, platforms, accProperties);
+         new SkinStyleSheetNode(namespaceMap, direction, locales, agentMatcher, platforms, accProperties, mode);
         ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
         skinStyleSheetNodes.add(ssNode);
       }
@@ -412,6 +425,10 @@ public class SkinCSSDocumentHandler
           set = _mergeAccProperties(_selectorAccPropertiesStack.getLast(), set);
 
         _selectorAccPropertiesStack.add(set);
+      }
+      else if (_AT_MODE.equals(type))
+      {
+        _mode = NameUtils.getMode(typeArray[0].trim());
       }
     }
   }
@@ -529,7 +546,8 @@ public class SkinCSSDocumentHandler
       int                        direction,
       AgentAtRuleMatcher         agentMatcher,
       int[]                      platforms,
-      Set<String>                accProperties
+      Set<String>                accProperties,
+      int                        mode
       )
     {
       _node = new SkinSelectorPropertiesNode(selectorName, propertyNodes);
@@ -553,6 +571,7 @@ public class SkinCSSDocumentHandler
       {
         _accProperties = null;
       }
+      _mode = mode;
     }
     
     public SkinSelectorPropertiesNode getSkinSelectorPropertiesNode()
@@ -588,6 +607,11 @@ public class SkinCSSDocumentHandler
       return _accProperties;
     }
 
+    public int getMode()
+    {
+      return _mode;
+    }
+
     // Returns a copy of the int array
     private static int[] _copyIntArray(int[] array)
     {
@@ -606,12 +630,14 @@ public class SkinCSSDocumentHandler
     private final int[] _platforms;
     private final Set<Locale> _locales; 
     private final Set<String> _accProperties;
+    private int _mode;
   }
 
   private static final String _AT_AGENT = "@agent";
   private static final String _AT_PLATFORM = "@platform";
   private static final String _AT_LOCALE = "@locale";
   private static final String _AT_ACC_PROFILE = "@accessibility-profile";
+  private static final String _AT_MODE = "@mode";
 
   // below are properties that we set and reset
   // as the methods of this documentHandler get called.
@@ -630,6 +656,9 @@ public class SkinCSSDocumentHandler
 
   // the locales of the selectors parsed in this document.
   private Set<Locale> _locales = null;
+
+  //the mode for which the parsed selectors are valid.
+  private int _mode = ModeUtils.MODE_DEFAULT;
 
   // Stack of accessibility property sets.  While java.util.Stack has the
   // push/pop API that we want, we don't need the synchronization, so we

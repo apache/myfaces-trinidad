@@ -34,13 +34,18 @@ af|foo af|bar {color: purple; background-color: green; border-color: pink}
   font-size: medium;
 }
 
-
-af|foo {font-style:italic; font-size: large;}
-af|commandButton
+@mode quirks
 {
-  max-width: 100px;
-  background-color: -tr-property-ref(".AFTestBackgroundColor:alias"); 
-  font-style: -tr-property-ref("af|foo");
+  af|foo {font-style:italic; font-size: large;}
+}
+@mode standards
+{
+  af|commandButton
+  {
+    max-width: 100px;
+    background-color: -tr-property-ref(".AFTestBackgroundColor:alias");
+    font-style: -tr-property-ref("af|foo");
+  }
 }
 
 /* test the new include property functionality */

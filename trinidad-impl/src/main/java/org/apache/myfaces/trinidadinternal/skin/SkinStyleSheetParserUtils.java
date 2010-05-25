@@ -277,7 +277,7 @@ class SkinStyleSheetParserUtils
                              skinSSNode.getDirection(),
                              skinSSNode.getAgentMatcher(),
                              skinSSNode.getPlatforms(),
-                             0,
+                             skinSSNode.getMode(),
                              skinSSNode.getAcessibilityProperties());
         ssNodeList.add(ssNode);
       }
