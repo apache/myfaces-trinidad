@@ -3590,6 +3590,22 @@
         <table>
           <tr>
             <th colspan="2">
+              <i>Properties</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>-tr-repeat-control-bar</td>
+            <td>Boolean value that specifies whether the the table navigation bar appears on
+                both the bottom and top of the table.</td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th colspan="2">
               <i>Style Selectors</i>
             </th>
           </tr>
