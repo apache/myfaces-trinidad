@@ -538,12 +538,8 @@ TrPage.prototype._updateViewState = function(doc, sourceNode, formId)
     if (_agent.isIE && _agent.version < 8)
     {
       input.id = TrPage._VIEW_STATE_ID;
-      input.name = TrPage._VIEW_STATE_ID;
     }
-    else
-    {
-      input.name = TrPage._VIEW_STATE_ID;
-    }
+    input.name = TrPage._VIEW_STATE_ID;
     form.appendChild(input);
   }
 
