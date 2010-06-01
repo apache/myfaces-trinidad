@@ -532,7 +532,18 @@ TrPage.prototype._updateViewState = function(doc, sourceNode, formId)
   {
     input = doc.createElement("input");
     input.type = 'hidden';
-    input.name = TrPage._VIEW_STATE_ID;
+    
+    // TRINIDAD-1820 - work around for IE7 bug with specifying
+    // the name attribute programmatically
+    if (_agent.isIE && _agent.version < 8)
+    {
+      input.id = TrPage._VIEW_STATE_ID;
+      input.name = TrPage._VIEW_STATE_ID;
+    }
+    else
+    {
+      input.name = TrPage._VIEW_STATE_ID;
+    }
     form.appendChild(input);
   }
 
