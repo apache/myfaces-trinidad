@@ -568,12 +568,17 @@ TrLengthValidator.prototype.validate  = function(
 }
 
 function TrDateTimeRangeValidator(
-  maxValue,
-  minValue,
-  messages)
+  maxValueString,
+  minValueString,
+  messages,
+  maxValueObject,
+  minValueObject
+  )
 {
-  this._maxValue = maxValue;
-  this._minValue = minValue;
+  this._maxValue = maxValueString;
+  this._minValue = minValueString;
+  this._maxValueObject = maxValueObject;
+  this._minValueObject = minValueObject;
   this._messages = messages;
   // for debugging
   this._class = "TrDateTimeRangeValidator";
@@ -612,12 +617,15 @@ TrDateTimeRangeValidator.prototype.validate  = function(
   dateTime = value.getTime();
   var facesMessage;
   //range
-  if(this._minValue && this._maxValue)
+  if (this._minValue && this._maxValue)
   {
     try
     {
-      minDate = (converter.getAsObject (this._minValue)).getTime();
-      maxDate = (converter.getAsObject (this._maxValue)).getTime();
+      minDate = this._minValueObject ? this._minValueObject.getTime() : 
+        converter.getAsObject(this._minValue).getTime();
+        
+      maxDate = this._maxValueObject ? this._maxValueObject.getTime() : 
+        converter.getAsObject(this._maxValue).getTime();
     }
     catch (e)
     {
@@ -658,7 +666,8 @@ TrDateTimeRangeValidator.prototype.validate  = function(
     {
       try
       {
-        minDate = (converter.getAsObject (this._minValue)).getTime();
+        minDate = this._minValueObject ? this._minValueObject.getTime() : 
+          converter.getAsObject(this._minValue).getTime();
       }
       catch (e)
       {
@@ -696,8 +705,8 @@ TrDateTimeRangeValidator.prototype.validate  = function(
     {
       try
       {
-      maxDate = (converter.getAsObject (this._maxValue)).getTime();
-        
+        maxDate = this._maxValueObject ? this._maxValueObject.getTime() : 
+          converter.getAsObject(this._maxValue).getTime();
       }
       catch (e)
       {
