@@ -1,2286 +1,2426 @@
 <results>
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[value,4]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   selected="selected"
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     selected="selected"
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[valuePassThru,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[valuePassThru,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="2"
-                  >
-                item2
-              </option>
-              <option
-                   value="4"
-                  >
-                item4
-              </option>
-              <option
-                   value="8"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="2"
+                    >
+                  item2
+                </option>
+                <option
+                     value="4"
+                    >
+                  item4
+                </option>
+                <option
+                     value="8"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[autoSubmit,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[autoSubmit,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <script
-                 type="text/javascript"
-                >
-              var _pprUpDatemode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();if(e)o.event=e;if(s)o.source=s;_submitPartialChange(f,v,o);}
-            </script>
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 onchange="TrPage._autoSubmit('formId','mainId',null,1);return true;"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <script
+                   type="text/javascript"
+                  >
+                var _pprUpDatemode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();if(e)o.event=e;if(s)o.source=s;_submitPartialChange(f,v,o);}
+              </script>
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   onchange="TrPage._autoSubmit('formId','mainId',null,1);return true;"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[disabled,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[disabled,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox p_AFDisabled"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox p_AFDisabled"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 disabled="disabled"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   disabled="disabled"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[label,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-            <label
-                 for="mainId"
-                >
-              test-label
-            </label>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
+              <label
+                   for="mainId"
                   >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+                test-label
+              </label>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[unselectedLabel,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="4"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   selected="selected"
-                   value=""
-                  >
-                test-unselectedLabel
-              </option>
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="4"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     selected="selected"
+                     value=""
+                    >
+                  test-unselectedLabel
+                </option>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[readOnly,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[readOnly,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox p_AFReadOnly"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox p_AFReadOnly"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <span
-                 class="AFFieldText"
-                 id="mainId"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-            </span>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <span
+                   class="AFFieldText"
+                   id="mainId"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              </span>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[required,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[required,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox p_AFRequired"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox p_AFRequired"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-            <span
-                 class="AFRequiredIconStyle"
-                 title="Required"
-                >
-              *
-            </span>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
+              <span
+                   class="AFRequiredIconStyle"
+                   title="Required"
                   >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+                *
+              </span>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[size,10]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="10"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="10"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[id,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="test-id__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="test-id"
-                 name="test-id"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="test-id"
+                   name="test-id"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[showRequired,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[required,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[required,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox p_AFRequired"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox p_AFRequired"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-            <span
-                 class="AFRequiredIconStyle"
-                 title="Required"
-                >
-              *
-            </span>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
+              <span
+                   class="AFRequiredIconStyle"
+                   title="Required"
                   >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+                *
+              </span>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[showRequired,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox p_AFRequired"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox p_AFRequired"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-            <span
-                 class="AFRequiredIconStyle"
-                 title="Required"
-                >
-              *
-            </span>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
+              <span
+                   class="AFRequiredIconStyle"
+                   title="Required"
                   >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+                *
+              </span>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[showRequired,true,AttributeTest[required,false]]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox p_AFRequired"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox p_AFRequired"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-            <span
-                 class="AFRequiredIconStyle"
-                 title="Required"
-                >
-              *
-            </span>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
+              <span
+                   class="AFRequiredIconStyle"
+                   title="Required"
                   >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+                *
+              </span>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[showRequired,true,AttributeTest[required,true]]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox p_AFRequired"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox p_AFRequired"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-            <span
-                 class="AFRequiredIconStyle"
-                 title="Required"
-                >
-              *
-            </span>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
+              <span
+                   class="AFRequiredIconStyle"
+                   title="Required"
                   >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+                *
+              </span>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[inlineStyle,background-color:red]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           style="background-color:red"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             style="background-color:red"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[shortDesc,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           title="test-shortDesc"
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             title="test-shortDesc"
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 size="3"
-                 title="test-shortDesc"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   size="3"
+                   title="test-shortDesc"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onblur,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="test-onblur"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="test-onblur"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[ondblclick,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 ondblclick="test-ondblclick"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   ondblclick="test-ondblclick"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onclick,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 onclick="test-onclick"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   onclick="test-onclick"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onfocus,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 onfocus="test-onfocus"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   onfocus="test-onfocus"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onkeydown,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 onkeydown="test-onkeydown"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   onkeydown="test-onkeydown"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onkeypress,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 onkeypress="test-onkeypress"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   onkeypress="test-onkeypress"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmousedown,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 onmousedown="test-onmousedown"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   onmousedown="test-onmousedown"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmousemove,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 onmousemove="test-onmousemove"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   onmousemove="test-onmousemove"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmouseout,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 onmouseout="test-onmouseout"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   onmouseout="test-onmouseout"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmouseover,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 onmouseover="test-onmouseover"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   onmouseover="test-onmouseover"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmouseup,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_selectOneListbox"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_selectOneListbox"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_selectOneListbox_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <select
-                 class="af_selectOneListbox_content"
-                 id="mainId"
-                 name="mainId"
-                 onmouseup="test-onmouseup"
-                 size="3"
+            <td
+                 class="af_selectOneListbox_label"
+                 valign="top"
                 >
               
-              <option
-                   value="0"
-                  >
-                item2
-              </option>
-              <option
-                   value="1"
-                  >
-                item4
-              </option>
-              <option
-                   value="2"
-                  >
-                item8
-              </option>
-            </select>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <select
+                   class="af_selectOneListbox_content"
+                   id="mainId"
+                   name="mainId"
+                   onmouseup="test-onmouseup"
+                   size="3"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <option
+                     value="0"
+                    >
+                  item2
+                </option>
+                <option
+                     value="1"
+                    >
+                  item4
+                </option>
+                <option
+                     value="2"
+                    >
+                  item8
+                </option>
+              </select>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 </results>

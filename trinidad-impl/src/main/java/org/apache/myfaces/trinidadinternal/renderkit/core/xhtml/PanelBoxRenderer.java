@@ -27,6 +27,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelBox;
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
 public class PanelBoxRenderer
@@ -102,8 +103,26 @@ public class PanelBoxRenderer
     String text = getText(bean);
     
     ResponseWriter writer = context.getResponseWriter();
-    writer.startElement(XhtmlConstants.TABLE_ELEMENT, component); // The frame table
-    renderId(context, component);
+    
+    boolean isPIE = Agent.PLATFORM_PPC.equalsIgnoreCase(
+                               arc.getAgent().getPlatformName());
+                               
+    // While handling a PPR response, Windows Mobile cannot DOM replace
+    // a table element. Wrapping a table element with a div element fixes
+    // the problem.
+    if (isPIE)
+    {  
+      writer.startElement("div", component);
+      renderId(context, component);
+      // The frame table
+      writer.startElement(XhtmlConstants.TABLE_ELEMENT, null);
+    }
+    else
+    {
+      writer.startElement(XhtmlConstants.TABLE_ELEMENT, component);
+      renderId(context, component);
+    }
+    
     renderAllAttributes(context, arc, bean);
     writer.startElement(XhtmlConstants.TABLE_BODY_ELEMENT, null);
     
@@ -119,6 +138,9 @@ public class PanelBoxRenderer
 
     writer.endElement(XhtmlConstants.TABLE_BODY_ELEMENT);
     writer.endElement(XhtmlConstants.TABLE_ELEMENT);
+    
+    if (isPIE)
+      writer.endElement("div");
   }
   
   @Override

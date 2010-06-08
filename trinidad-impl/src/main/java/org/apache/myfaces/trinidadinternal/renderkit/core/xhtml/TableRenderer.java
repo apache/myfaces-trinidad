@@ -405,6 +405,37 @@ abstract public class TableRenderer extends XhtmlRenderer
           rw.writeText(tContext.getJSVarName()+"="+
                  TreeUtils.createNewJSCollectionComponentState(formName, tid)+";", null);
           rw.endElement(XhtmlConstants.SCRIPT_ELEMENT);
+          
+          // Incases where we partial refresh an empty table, Windows Mobile 
+          // ignore the JS which is sent as a PPR response to handle page 
+          // navigation and show/hide functions. To fix this problem, lets 
+          // render the JS here
+          if (Agent.PLATFORM_PPC.equalsIgnoreCase(
+                               arc.getAgent().getPlatformName()) 
+               && tContext.getRowData().isEmptyTable())
+          {
+            // Script for show/hide funtionality in detailStamp facet
+            rw.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
+            renderScriptDeferAttribute(context, arc);
+            renderScriptTypeAttribute(context, arc);
+            
+            String js =  "function _submitHideShow(a,v,b,c,l,d) {" +
+                      "var o = {"+
+                             XhtmlConstants.EVENT_PARAM + ":b," +
+                             XhtmlConstants.SOURCE_PARAM + ":c};" +
+                       "if (d!=(void 0)) o." +
+                             XhtmlConstants.VALUE_PARAM + "=d;" +
+                       "_setRequestedFocusNode(document,l,false,window);" +
+                       "_submitPartialChange(a,v,o);" +
+                       "return false;}";
+            
+            rw.writeText(js, null);
+            rw.endElement(XhtmlConstants.SCRIPT_ELEMENT);
+            
+            // Script for pagination
+            ProcessUtils.renderNavSubmitScript(context, arc);
+            ProcessUtils.renderNavChoiceSubmitScript(context, arc);
+          }
         }
       }
 
