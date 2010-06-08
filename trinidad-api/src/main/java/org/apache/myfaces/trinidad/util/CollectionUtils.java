@@ -1377,7 +1377,7 @@ public final class CollectionUtils
         throw new ClassCastException(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_KEY",
                                                      new Object[]{key, this}));
 
-      if (!(value instanceof Serializable))
+      if (!(value == null || value instanceof Serializable))
         throw new ClassCastException(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_VALUE",
                                                      new Object[]{value, key, this}));
 
@@ -1398,16 +1398,19 @@ public final class CollectionUtils
         }
       }
       
-      // verify that the contents of the value are in fact Serializable
-      try
+      if (value != null)
       {
-        new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(value);
-      }
-      catch (IOException e)
-      {          
-        throw new IllegalArgumentException(_LOG.getMessage("FAILED_SERIALIZATION_PROPERTY_VALUE",
-                                                   new Object[]{value, key, this}),
-                                                   e);
+        // verify that the contents of the value are in fact Serializable
+        try
+        {
+          new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(value);
+        }
+        catch (IOException e)
+        {          
+          throw new IllegalArgumentException(_LOG.getMessage("FAILED_SERIALIZATION_PROPERTY_VALUE",
+                                                     new Object[]{value, key, this}),
+                                                     e);
+        }
       }
     }
 
