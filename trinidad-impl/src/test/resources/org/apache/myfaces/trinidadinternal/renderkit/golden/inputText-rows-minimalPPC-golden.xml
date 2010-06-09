@@ -1,2249 +1,2425 @@
 <results>
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[value,value_val]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              value_val
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                value_val
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[accessKey,a,AttributeTest[label,label_val]]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-            <label
-                 for="mainId"
-                >
-              label_val
-            </label>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <label
+                   for="mainId"
+                  >
+                label_val
+              </label>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[columns,3]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="3"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="3"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[maximumLength,4]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onchange="return _checkLength(this,4,event)"
-                 onkeyup="return _checkLength(this,4,event)"
-                 onpaste="return _checkLength(this,4,event)"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onchange="return _checkLength(this,4,event)"
+                   onkeyup="return _checkLength(this,4,event)"
+                   onpaste="return _checkLength(this,4,event)"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[id,id_val]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="id_val__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="id_val"
-                 name="id_val"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="id_val"
+                   name="id_val"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[inlineStyle,background-color:red]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           style="background-color:red"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             style="background-color:red"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[label,label_val]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-            <label
-                 for="mainId"
-                >
-              label_val
-            </label>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <label
+                   for="mainId"
+                  >
+                label_val
+              </label>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[shortDesc,shortDesc_val]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           title="shortDesc_val"
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             title="shortDesc_val"
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                 title="shortDesc_val"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                   title="shortDesc_val"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[styleClass,styleClass_val]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="styleClass_val af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="styleClass_val af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[autoSubmit,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[autoSubmit,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <script
-                 type="text/javascript"
-                >
-              var _pprUpDatemode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();if(e)o.event=e;if(s)o.source=s;_submitPartialChange(f,v,o);}
-            </script>
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onchange="TrPage._autoSubmit('formId','mainId',null,1);return true;"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <script
+                   type="text/javascript"
+                  >
+                var _pprUpDatemode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();if(e)o.event=e;if(s)o.source=s;_submitPartialChange(f,v,o);}
+              </script>
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onchange="TrPage._autoSubmit('formId','mainId',null,1);return true;"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[disabled,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[disabled,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText p_AFDisabled"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText p_AFDisabled"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 disabled="disabled"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   disabled="disabled"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[readOnly,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[readOnly,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText p_AFReadOnly"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText p_AFReadOnly"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <pre
-                 class="af_inputText_content"
-                 id="mainId"
-                >
-              Text
-            </pre>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <pre
+                   class="af_inputText_content"
+                   id="mainId"
+                  >
+                Text
+              </pre>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[wrap,soft]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                 wrap="soft"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                   wrap="soft"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[wrap,hard]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                 wrap="hard"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                   wrap="hard"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[wrap,off]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                 wrap="off"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                   wrap="off"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[required,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[required,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText p_AFRequired"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText p_AFRequired"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-            <span
-                 class="AFRequiredIconStyle"
-                 title="Required"
-                >
-              *
-            </span>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <span
+                   class="AFRequiredIconStyle"
+                   title="Required"
+                  >
+                *
+              </span>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[showRequired,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[showRequired,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText p_AFRequired"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText p_AFRequired"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-            <span
-                 class="AFRequiredIconStyle"
-                 title="Required"
-                >
-              *
-            </span>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <span
+                   class="AFRequiredIconStyle"
+                   title="Required"
+                  >
+                *
+              </span>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[simple,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onblur,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onblur="test-onblur"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onblur="test-onblur"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onchange,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onchange="test-onchange"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onchange="test-onchange"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onclick,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onclick="test-onclick"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onclick="test-onclick"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[ondblclick,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 ondblclick="test-ondblclick"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   ondblclick="test-ondblclick"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onfocus,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onfocus="test-onfocus"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onfocus="test-onfocus"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onkeydown,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onkeydown="test-onkeydown"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onkeydown="test-onkeydown"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onkeypress,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onkeypress="test-onkeypress"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onkeypress="test-onkeypress"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onkeyup,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onkeyup="test-onkeyup"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onkeyup="test-onkeyup"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmousedown,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onmousedown="test-onmousedown"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onmousedown="test-onmousedown"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmousemove,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onmousemove="test-onmousemove"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onmousemove="test-onmousemove"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmouseout,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onmouseout="test-onmouseout"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onmouseout="test-onmouseout"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmouseover,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onmouseover="test-onmouseover"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onmouseover="test-onmouseover"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmouseup,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onmouseup="test-onmouseup"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onmouseup="test-onmouseup"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onselect,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 onselect="test-onselect"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   onselect="test-onselect"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[styleClass,OraErrorText]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="OraErrorText af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="OraErrorText af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[fooBar,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[disabled,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[disabled,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText p_AFDisabled"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText p_AFDisabled"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 disabled="disabled"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   disabled="disabled"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[readOnly,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <textarea
-                 class="af_inputText_content"
-                 cols="11"
-                 id="mainId"
-                 name="mainId"
-                 rows="5"
-                >
-              Text
-            </textarea>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <textarea
+                   class="af_inputText_content"
+                   cols="11"
+                   id="mainId"
+                   name="mainId"
+                   rows="5"
+                  >
+                Text
+              </textarea>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[readOnly,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputText p_AFReadOnly"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputText p_AFReadOnly"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputText_label"
-               valign="top"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <pre
-                 class="af_inputText_content"
-                 id="mainId"
-                >
-              Text
-            </pre>
-            <div
+            <td
+                 class="af_inputText_label"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
+                >
+              
+              <pre
+                   class="af_inputText_content"
+                   id="mainId"
+                  >
+                Text
+              </pre>
+              <div
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[simple,true]-->
 
       <span
