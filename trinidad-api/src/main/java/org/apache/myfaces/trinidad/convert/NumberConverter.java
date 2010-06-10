@@ -1294,23 +1294,39 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       throw new IllegalArgumentException(_LOG.getMessage(
         "NOT_VALID_TYPE", type));
   }
-
-  protected boolean isMaximumFractionDigitsSet()
+ 
+ /**
+   * Return true if the maximum fraction digits have been set. If not set, return false;
+   * @return true, if the maximum fraction digits have been set. 
+   */
+  public boolean isMaximumFractionDigitsSet()
   {
     return _facesBean.getProperty(_MAX_FRACTION_DIGITS_KEY) != null;
   }
 
-  protected boolean isMinimumFractionDigitsSet()
+ /**
+   * Return true if the minimum fraction digits have been set. If not set, return false;
+   * @return true, if the minimum fraction digits have been set. 
+   */
+  public boolean isMinimumFractionDigitsSet()
   {
     return _facesBean.getProperty(_MIN_FRACTION_DIGITS_KEY) != null;
   }
 
-  protected boolean isMaximumIntegerDigitsSet()
+ /**
+   * Return true if the maximum integer digits have been set. If not set, return false;
+   * @return true, if the maximum integer digits have been set. 
+   */
+  public boolean isMaximumIntegerDigitsSet()
   {
     return _facesBean.getProperty(_MAX_INTEGER_DIGITS_KEY) != null;
   }
 
-  protected boolean isMinimumIntegerDigitsSet()
+ /**
+   * Return true if the minimum integer digits have been set. If not set, return false;
+   * @return true, if the minimum integer digits have been set. 
+   */
+  public boolean isMinimumIntegerDigitsSet()
   {
     return _facesBean.getProperty(_MIN_INTEGER_DIGITS_KEY) != null;
   }
