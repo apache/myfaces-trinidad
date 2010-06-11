@@ -1295,38 +1295,22 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
         "NOT_VALID_TYPE", type));
   }
 
- /**
-   * Return true if the maximum fraction digits have been set. If not set, return false;
-   * @return true, if the maximum fraction digits have been set. 
-   */
-  public boolean isMaximumFractionDigitsSet()
+  protected boolean isMaximumFractionDigitsSet()
   {
     return _facesBean.getProperty(_MAX_FRACTION_DIGITS_KEY) != null;
   }
 
- /**
-   * Return true if the minimum fraction digits have been set. If not set, return false;
-   * @return true, if the minimum fraction digits have been set. 
-   */
-  public boolean isMinimumFractionDigitsSet()
+  protected boolean isMinimumFractionDigitsSet()
   {
     return _facesBean.getProperty(_MIN_FRACTION_DIGITS_KEY) != null;
   }
 
- /**
-   * Return true if the maximum integer digits have been set. If not set, return false;
-   * @return true, if the maximum integer digits have been set. 
-   */
-  public boolean isMaximumIntegerDigitsSet()
+  protected boolean isMaximumIntegerDigitsSet()
   {
     return _facesBean.getProperty(_MAX_INTEGER_DIGITS_KEY) != null;
   }
 
- /**
-   * Return true if the minimum integer digits have been set. If not set, return false;
-   * @return true, if the minimum integer digits have been set. 
-   */
-  public boolean isMinimumIntegerDigitsSet()
+  protected boolean isMinimumIntegerDigitsSet()
   {
     return _facesBean.getProperty(_MIN_INTEGER_DIGITS_KEY) != null;
   }
