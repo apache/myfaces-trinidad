@@ -460,7 +460,7 @@
 <resource key="COMPARETO_TYPE_MISMATCH">The type for "{0}" prevents it from being compared to "{1}".</resource>
 
 <!-- ZIP_STATE_FAILED -->
-<resource key="ZIP_STATE_FAILED">Failed to zip the page state. The state must be serializable to be zipped, so a common reason the page state fails to zip is that the page state is not serializable.  You can turn off zipping by setting org.apache.myfaces.trinidadinternal.COMPRESS_VIEW_STATE to false. See the doc about system property org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION for how to test various aspects of serialization.</resource>
+<resource key="ZIP_STATE_FAILED">Failed to zip the page state. The state must be serializable to be zipped, so a common reason the page state fails to zip is that the page state is not serializable.  You can turn off zipping by setting org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE to false. See the doc about system property org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION for how to test various aspects of serialization.</resource>
 
 <!-- UNZIP_STATE_FAILED -->
 <resource key="UNZIP_STATE_FAILED">Failed to unzip the page state.</resource>
