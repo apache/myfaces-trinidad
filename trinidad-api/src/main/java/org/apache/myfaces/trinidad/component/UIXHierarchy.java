@@ -355,7 +355,7 @@ public abstract class UIXHierarchy extends UIXCollection implements CollectionCo
           try
           {
             // visit this container.  If we have visited all of the visit targets then return early
-            if (visitHierarchy(visitContext, callback, stamps, disclosedRowKeys));
+            if (visitHierarchy(visitContext, callback, stamps, disclosedRowKeys))
               return true;
           }
           finally
