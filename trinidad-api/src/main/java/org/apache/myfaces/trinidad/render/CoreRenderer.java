@@ -26,7 +26,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
 import java.util.Map;
 
 import javax.faces.application.ResourceHandler;
@@ -36,15 +35,14 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.ExternalContext;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -184,6 +182,36 @@ public class CoreRenderer extends Renderer
     // TODO Remove after one release
     if (component instanceof UIXComponent)
       tearDownEncodingContext(context, rc, (UIXComponent)component);
+  }
+
+  /**
+   * Hook to allow the renderer to customize the visitation of the children components
+   * of a component during the visitation of a component during rendering.
+   *
+   * @param component the component which owns the children to visit
+   * @param visitContext the visitation context
+   * @param callback the visit callback
+   * @return <code>true</code> if the visit is complete.
+   * @see UIXComponent#visitChildren(VisitContext, VisitCallback)
+   */
+  public boolean visitChildrenForEncoding(
+    UIXComponent  component,
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // visit the children of the component
+    Iterator<UIComponent> kids = component.getFacetsAndChildren();
+
+    while (kids.hasNext())
+    {
+      // If any kid visit returns true, we are done.
+      if (kids.next().visitTree(visitContext, callback))
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   // TODO Remove after one release

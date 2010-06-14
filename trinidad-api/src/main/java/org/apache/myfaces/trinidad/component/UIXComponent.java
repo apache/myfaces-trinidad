@@ -28,15 +28,15 @@ import javax.el.MethodExpression;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
-import javax.faces.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
@@ -166,7 +166,7 @@ abstract public class UIXComponent extends UIComponent
       {
         // not a FlattenedComponent, pass the component directly to the ComponentProcessor
         child.pushComponentToEL(context, null);
-        
+
         try
         {
           childProcessor.processComponent(context, cpContext, child, callbackContext);
@@ -258,7 +258,7 @@ abstract public class UIXComponent extends UIComponent
   {
     ComponentProcessingContext processingContext = new ComponentProcessingContext();
     processingContext.__setIsRendering();
-    
+
     return processFlattenedChildren(context,
                                     processingContext,
                                     childProcessor,
@@ -354,10 +354,23 @@ abstract public class UIXComponent extends UIComponent
     VisitContext visitContext,
     VisitCallback callback)
   {
-    // visit all of the chikldren of the component
+    // See if this is during encoding, if so, allow the renderer to control the visitation of
+    // the children so that any special encoding context may be applied around the visitation
+    // of each child.
+    if (_isEncodingVisit(visitContext))
+    {
+      Renderer renderer = getRenderer(visitContext.getFacesContext());
+      if (renderer instanceof CoreRenderer)
+      {
+        CoreRenderer coreRenderer = (CoreRenderer)renderer;
+        return coreRenderer.visitChildrenForEncoding(this, visitContext, callback);
+      }
+    }
+
+    // visit all of the children of the component
     return _visitAllChildren(visitContext, callback);
   }
- 
+
   /**
    * Default implementation of visiting children that visits all children without iterating
    * @param visitContext the <code>VisitContext</code> for this visit
@@ -370,7 +383,7 @@ abstract public class UIXComponent extends UIComponent
   {
     // visit the children of the component
     Iterator<UIComponent> kids = getFacetsAndChildren();
-  
+
     while(kids.hasNext())
     {
       // If any kid visit returns true, we are done.
@@ -379,10 +392,10 @@ abstract public class UIXComponent extends UIComponent
         return true;
       }
     }
-    
+
     return false;
   }
-   
+
   /**
    * Returns <code>true</code> if the components are being visited
    * for the purpose of encoding.
@@ -392,7 +405,7 @@ abstract public class UIXComponent extends UIComponent
     return(visitContext.getHints().contains(VisitHint.EXECUTE_LIFECYCLE) &&
            FacesContext.getCurrentInstance().getCurrentPhaseId() == PhaseId.RENDER_RESPONSE);
   }
-  
+
   /**
    * <p>Perform a tree visit starting at the specified node in the tree.</p>
    *
@@ -431,26 +444,26 @@ abstract public class UIXComponent extends UIComponent
       UIXComponent uixComponent = (UIXComponent)component;
 
       FacesContext context = visitContext.getFacesContext();
-  
+
       // delegate to the UIXComponent
       if (!uixComponent.isVisitable(visitContext))
         return false;
-  
+
       // set up the EL Context with the component.  Note that since we do this after call
       // isVisitable, any attributes retrieved (liek rendered) that are bound with EL referring
       // to the current component will be evaluated correctly, however, in the specific case
-      // of rendered, rendered already has this problem in normal JSF traversal since it 
+      // of rendered, rendered already has this problem in normal JSF traversal since it
       // is evaluated by the parent component
       component.pushComponentToEL(context, null);
 
       boolean doneVisiting = false;
-      
+
       try
       {
         RenderingContext rc = (_isEncodingVisit(visitContext))
                                 ? RenderingContext.getCurrentInstance()
                                 : null;
-    
+
         // UIXComponents are allowed to set up their context differently for encoding
         // than normal processing, so behave differently if this is the RenderResponse
         // phase
@@ -462,27 +475,27 @@ abstract public class UIXComponent extends UIComponent
         {
           uixComponent.setupVisitingContext(context);
         }
-    
+
         VisitResult visitResult = VisitResult.REJECT;
-        
+
         try
         {
           // invoke the callback for this component
           visitResult = visitContext.invokeVisitCallback(component, callback);
-    
+
           if (visitResult == VisitResult.COMPLETE)
             doneVisiting = true;
           else if (visitResult == VisitResult.ACCEPT)
           {
-            // now determine whether we need to visit the children      
-  
+            // now determine whether we need to visit the children
+
             // assume that all UIXComponent NamingContainers always act as NamingContainers,
             // (unlike <h:form>) and this it is OK to put the optimization where we
             // don't visit the children if we know that we don't have any ids in this
             // subtree to visit
             boolean skipChildren = (uixComponent instanceof NamingContainer) &&
                                    visitContext.getSubtreeIdsToVisit(uixComponent).isEmpty();
-                
+
             // visit the children of the component if we aren't supposed to skip them
             if (!skipChildren)
             {
@@ -496,8 +509,8 @@ abstract public class UIXComponent extends UIComponent
               {
                 uixComponent.setupChildrenVisitingContext(context);
               }
-              
-              
+
+
               try
               {
                 // determine whether this visit should be iterating.  If it shouldn't, don't
@@ -505,7 +518,7 @@ abstract public class UIXComponent extends UIComponent
                 // restore view phase when we are visiting all of the components.
                 boolean noIterate = (visitContext.getIdsToVisit() == VisitContext.ALL_IDS) &&
                                     (context.getCurrentPhaseId() == PhaseId.RESTORE_VIEW);
-                  
+
                 doneVisiting =  (noIterate)
                                   ? uixComponent._visitAllChildren(visitContext, callback)
                                   : uixComponent.visitChildren(visitContext, callback);
@@ -531,7 +544,7 @@ abstract public class UIXComponent extends UIComponent
           }
         }
         finally
-        {  
+        {
          // tear down the context we set up in order to visit our component
           if (rc != null)
           {
@@ -545,9 +558,9 @@ abstract public class UIXComponent extends UIComponent
       }
       finally
       {
-        component.popComponentFromEL(context);        
+        component.popComponentFromEL(context);
       }
-      
+
       // if we got this far, we're not done
       return doneVisiting;
     }
@@ -598,9 +611,9 @@ abstract public class UIXComponent extends UIComponent
   {
     String id = component.getId();
     component.setId(id);
-    
+
     Iterator<UIComponent> allChildren = component.getFacetsAndChildren();
-    
+
     while (allChildren.hasNext())
       clearCachedClientIds(allChildren.next());
   }
@@ -858,7 +871,7 @@ abstract public class UIXComponent extends UIComponent
       CoreRenderer coreRenderer = (CoreRenderer)renderer;
 
       coreRenderer.setupChildrenEncodingContext(context, rc, this);
-    }    
+    }
   }
 
   /**
@@ -995,7 +1008,7 @@ abstract public class UIXComponent extends UIComponent
   {
     throw new UnsupportedOperationException();
   }
-  
+
   /**
    * We are using FacesBean to save state, which does not implement StateHelper, so
    * calling this method will call UnsupportedOperationException
