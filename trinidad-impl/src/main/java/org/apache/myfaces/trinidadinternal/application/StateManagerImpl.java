@@ -127,7 +127,7 @@ public class StateManagerImpl extends StateManagerWrapper
      * Valid values are true and false
      */
     static public final String COMPRESS_VIEW_STATE_PARAM_NAME =
-      "org.apache.myfaces.trinidadinternal.COMPRESS_VIEW_STATE";
+      "org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE";
 
 
   /**
@@ -345,9 +345,9 @@ public class StateManagerImpl extends StateManagerWrapper
             // Save the view root into the page state as a transient
             // if this feature has not been disabled
             _useViewRootCache(context) ? root : null);
-        
+
         String requestToken = _getRequestTokenForResponse(context);
-        
+
         // If we have a cached token that we want to reuse,
         // and that token hasn't disappeared from the cache already
         // (unlikely, but not impossible), use the stateMap directly
@@ -385,15 +385,15 @@ public class StateManagerImpl extends StateManagerWrapper
           // See Trinidad-1779
           String activePageStateKey = _getActivePageTokenKey(extContext, trinContext);
           String activeToken = (String)sessionMap.get(activePageStateKey);
-          
+
           // we only need to clear out the state if we're actually changing pages and thus tokens.
-          // Since we have already updated the state for 
+          // Since we have already updated the state for
           if (!token.equals(activeToken))
           {
             if (activeToken != null)
             {
               PageState activePageState = stateMap.get(activeToken);
-        
+
               if (activePageState != null)
                 activePageState.clearViewRootState();
             }
@@ -709,12 +709,12 @@ public class StateManagerImpl extends StateManagerWrapper
    * The given parameter (<code>perViewStateSaving</code>) indicates
    * if we need to enable client- OR server-side state-saving
    * for the current VIEW.
-   * 
+   *
    * <p>
    * <b>This is an internal method, that is ONLY called by the
    * Trinidad Document</b>
    * </p>
-   * 
+   *
    * @param perViewStateSaving <code>default</code>, <code>server</code> or <code>client</code> for stateSaving
    */
   public void setPerViewStateSaving(String perViewStateSaving)
@@ -908,7 +908,7 @@ public class StateManagerImpl extends StateManagerWrapper
 
     ExternalContext external = context.getExternalContext();
     Object stateSavingMethod =
-      external.getInitParameterMap().get(StateManager.STATE_SAVING_METHOD_PARAM_NAME);    
+      external.getInitParameterMap().get(StateManager.STATE_SAVING_METHOD_PARAM_NAME);
 
     // on "SERVER" state-saving we return TRUE, since we want send down a token string.
     if ((stateSavingMethod == null) ||
@@ -927,7 +927,7 @@ public class StateManagerImpl extends StateManagerWrapper
       return false;
     }
 
-    // if the user has used the <document> 'stateSaving' attribute to specify 
+    // if the user has used the <document> 'stateSaving' attribute to specify
     // client, we force the state mananger (see above) to render the entire
     // state on the client. The indicator is stashed on the FacesContext and
     // is therefore NOT visible during "restoreView" phase. So if we reach this point
@@ -1514,7 +1514,7 @@ public class StateManagerImpl extends StateManagerWrapper
   }
 
   /**
-   * Static ENUM to capture the values of the <document>'s 
+   * Static ENUM to capture the values of the <document>'s
    * 'stateSaving' attribute
    */
   static private enum StateSaving
@@ -1550,7 +1550,7 @@ public class StateManagerImpl extends StateManagerWrapper
     "org.apache.myfaces.trinidadinternal.application.APPLICATION_VIEW_CACHE";
 
   // key to stash the per_page_state_saving during rendering
-  private static final String _PER_PAGE_STATE_SAVING = 
+  private static final String _PER_PAGE_STATE_SAVING =
     "org.apache.myfaces.trinidadimpl.PER_PAGE_STATE_SAVING";
 
   private static final String _CACHED_SERIALIZED_VIEW =
