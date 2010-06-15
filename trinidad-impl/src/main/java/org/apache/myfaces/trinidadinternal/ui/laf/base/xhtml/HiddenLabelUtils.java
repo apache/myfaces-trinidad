@@ -75,6 +75,10 @@ public class HiddenLabelUtils
         // Make sure we don't change the VE to Gecko
         assert(agent.getCapability(TrinidadAgent.CAP_IS_JDEV_VE) == null);
         return true;
+       
+      // Safari does support the label hack
+      case TrinidadAgent.APPLICATION_SAFARI:
+        return true;
 
       // Assume everyone else doesn't.
       case TrinidadAgent.APPLICATION_NETSCAPE:

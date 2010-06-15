@@ -65,6 +65,10 @@ public class HiddenLabelUtils
       // Mozilla does support the label hack
       case TrinidadAgent.APPLICATION_GECKO:
         return true;
+       
+      // Safari does support the label hack
+      case TrinidadAgent.APPLICATION_SAFARI:
+        return true;
 
       // Assume everyone else doesn't.
       case TrinidadAgent.APPLICATION_NETSCAPE:
