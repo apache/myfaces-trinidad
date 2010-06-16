@@ -28,7 +28,8 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Change specialization for adding a child component.
  * While applying this Change, the child component is re-created and added to
- *  the list of children.
+ *  the list of children. If a child component with an id same as the new child being added is 
+ *  already present in the parent container, the new child is not added.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/AddChildComponentChange.java#0 $) $Date: 10-nov-2005.19:09:54 $
  */
 public class AddChildComponentChange extends AddComponentChange 
@@ -86,17 +87,15 @@ public class AddChildComponentChange extends AddComponentChange
     String newChildId = child.getId();
     List<UIComponent> children = uiComponent.getChildren();
     
-    //pu: If there were to be a child already with the ID same as the
-    //  to-be-added child, remove it and get the new one added.
-    UIComponent removableChild = ChangeUtils.getChildForId(uiComponent, newChildId);
+    // If there were to be a child already with the ID same as the to-be-added child, it might have
+    //  been added from previous change application, and further customizations might have happened
+    //  on them. We just want to warn, abort the child addition, and not alter the component tree.
+    UIComponent duplicateChild = ChangeUtils.getChildForId(uiComponent, newChildId);
   
-    // Users can add component themselves in addition to adding a ComponentChange
-    //  This could cause duplicates, which is fine. Handle this gracefully with 
-    //  a info log and replacement
-    if (removableChild != null)
+    if (duplicateChild != null)
     {
       _LOG.info("ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID", newChildId);
-      children.remove(removableChild);
+      return;
     }
     
     if (_insertBeforeId == null)

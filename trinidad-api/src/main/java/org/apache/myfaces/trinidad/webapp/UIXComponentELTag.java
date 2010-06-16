@@ -35,6 +35,7 @@ import javax.el.ValueExpression;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentELTag;
 
@@ -86,6 +87,12 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     //  created. End of document tag is a best bet.
     if (component instanceof UIXDocument)
     {
+      if (getCreated()) 
+      {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        // Used by SessionChangeManager to confirm that the state was not restored.
+        ec.getRequestMap().put(DOCUMENT_CREATED_KEY, Boolean.TRUE);
+      }
       ChangeManager cm = RequestContext.getCurrentInstance().getChangeManager();
       cm.applyComponentChangesForCurrentView(FacesContext.getCurrentInstance());
     }
@@ -488,6 +495,9 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     return sdf;
   }
 
+  public static final String DOCUMENT_CREATED_KEY = "org.apache.myfaces.trinidad.DOCUMENTCREATED";
+
   private MethodExpression  _attributeChangeListener;
   private String            _validationError;
+  
 }

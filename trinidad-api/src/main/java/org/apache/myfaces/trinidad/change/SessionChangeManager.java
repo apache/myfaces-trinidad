@@ -36,19 +36,25 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.CollectionUtils;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
+
+import org.apache.myfaces.trinidad.webapp.UIXComponentELTag;
 
 import org.w3c.dom.Document;
 
 
 /**
- * A ChangeManager implementation that manages
- *  persisting the added Changes at the session. This means
- *  the lifetime of Changes added such is within the session scope.
+ * A ChangeManager implementation that manages persisting the added Changes at the session. 
+ * This means the lifetime of Changes added such is within the session scope. If any of the changes
+ * are managed as state changes and restored by JSF state saving mechanism, the SessionChangeManager
+ * will not re-apply such changes. For example: AttributeComponentChanges are not applied during
+ * a postback unless its target component happened to be a result of any move/add operation, this is
+ * because attribute changes are handled by state manager during postback for common cases.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/change/SessionChangeManager.java#0 $) $Date: 10-nov-2005.19:06:35 $
- */
+*/
 public class SessionChangeManager extends BaseChangeManager
 {
   /**
@@ -80,7 +86,7 @@ public class SessionChangeManager extends BaseChangeManager
           "INVALID_TYPE", root));
       }
       
-      rootId = ComponentUtils.getScopedIdForComponent((UIComponent)root, null);
+      rootId = ComponentUtils.getScopedIdForComponent((UIComponent)root, facesContext.getViewRoot());
     }
 
     _applyComponentChanges(facesContext, rootId);
@@ -108,7 +114,7 @@ public class SessionChangeManager extends BaseChangeManager
     // get the absolute scopedId for the target component so that we have a unique identifier
     // to compare
     String scopedIdForTargetComponent = 
-                                     ComponentUtils.getScopedIdForComponent(targetComponent, null);
+        ComponentUtils.getScopedIdForComponent(targetComponent, facesContext.getViewRoot());
 
     // try to collapse AttributeComponentChanges, handling component movement so that
     // we can collapse any attribute change on the same component
@@ -221,23 +227,134 @@ public class SessionChangeManager extends BaseChangeManager
       if (!_acceptChange(qualifiedChange, rootId))
         continue;
 
-      UIComponent targetComponent = 
-        viewRoot.findComponent(qualifiedChange.getTargetComponentScopedId());
+      String targetComponentScopedId = qualifiedChange.getTargetComponentScopedId();
+
+      UIComponent targetComponent = viewRoot.findComponent(targetComponentScopedId);
       
-      // Possible that the target component no more exists in the view
-      if (targetComponent != null)
-      {
-        ComponentChange componentChange = qualifiedChange.getComponentChange();
-        componentChange.changeComponent(targetComponent);
-      }
-      else
+      // Possible that the target component no more exists in the view, if yes, skip
+      if (targetComponent == null)
       {
         _LOG.info(this.getClass().getName(),
                   "applyComponentChangesForCurrentView",
                   "TARGET_COMPONENT_MISSING_CHANGE_FAILED",
-                  qualifiedChange.getTargetComponentScopedId());
+                  targetComponentScopedId);
+        continue;
+      }
+
+      ComponentChange componentChange = qualifiedChange.getComponentChange();
+
+      // We do not apply attribute changes if it is a postback, because we expect that
+      // 1. Users calling ChangeManager.addComponentChange() would also apply the change right at
+      //  that point in time (maybe by calling ComponentChange.changeComponent() method).
+      // 2. If #1 was done, JSF state manager will consider this a state change and will store and
+      //  restore it during subsequent postbacks, so there is no need for applying attribute changes
+      //  for postback cases. There are few exceptions where the state management will not help, for
+      //  which we force the attribute changes even when it is a postback.
+      if ( componentChange instanceof AttributeComponentChange &&
+           _isStateRestored(facesContext) &&
+           !_isAttributeChangeForced(facesContext, targetComponentScopedId) )
+            continue;
+
+      // Apply the change
+      componentChange.changeComponent(targetComponent);
+      
+      // Now that the change is applied, we can identify if the components altered by the currently
+      //  applied change needs forced application of any further changes regardless of request 
+      //  being a postback.
+      if (componentChange instanceof MoveChildComponentChange)
+      {
+        String destinationScopedId = 
+          ((MoveChildComponentChange)componentChange).getDestinationScopedId();
+        _addAttributeChangeForced(facesContext, destinationScopedId);
+      }
+      else if (componentChange instanceof SetFacetChildComponentChange)
+      {
+        String facetName = ((SetFacetChildComponentChange)componentChange).getFacetName();
+        UIComponent facetComponent = targetComponent.getFacet(facetName);
+        String facetScopedId = 
+          ComponentUtils.getScopedIdForComponent(facetComponent, facesContext.getViewRoot());
+        if (facetComponent != null)
+          _addAttributeChangeForced(facesContext, facetScopedId);
+      }
+      else if (componentChange instanceof AddChildComponentChange)
+      {
+        // Get the added component from AddComponentChange, this component is actually re-created 
+        //  from the proxy, and not the actual added component. 
+        //  Bit hacky but this is only way to get Id.
+        String addedComponentId = ((AddChildComponentChange)componentChange).getComponent().getId();
+        // Now get the actual added component finding from the parent to which it was added to
+        UIComponent addedComponent = 
+          ComponentUtils.findRelativeComponent(targetComponent, addedComponentId);
+        String addedChildComponentScopedId = 
+          ComponentUtils.getScopedIdForComponent(addedComponent, facesContext.getViewRoot());
+        if (addedComponent != null)
+          _addAttributeChangeForced(facesContext, addedChildComponentScopedId);
       }
     }    
+  }
+
+  /**
+   * Is the state restored by JSF state manager in this request. This is usually true if this is a
+   *  postback request. Additionally check if the document tag created a document component, because
+   *  if this is the case, we are sure that there was no state restoration.
+   */
+  private boolean _isStateRestored(FacesContext facesContext)
+  {
+    boolean docCompCreated = Boolean.TRUE.equals(facesContext.getExternalContext().
+                                   getRequestMap().get(UIXComponentELTag.DOCUMENT_CREATED_KEY));
+    return (docCompCreated) ? false : RequestContext.getCurrentInstance().isPostback();
+  }
+
+  /**
+   * For a given scopedId records that any further AttributeComponentChanges must be applied always.
+   */
+  private void _addAttributeChangeForced(FacesContext facesContext, String targetScopedId)
+  {
+    if (targetScopedId == null)
+      return;
+    
+    Object session = facesContext.getExternalContext().getSession(true);
+    
+    synchronized(session)
+    {
+      Map<String, Object> sessMap = facesContext.getExternalContext().getSessionMap();
+      
+      CopyOnWriteArrayList<String> forceChangesTargetList = (CopyOnWriteArrayList<String>)
+                                       sessMap.get(_ATTRIBUTE_CHANGE_FORCED_COMPONENTS);
+      
+      if (forceChangesTargetList == null)
+      {
+        forceChangesTargetList = new CopyOnWriteArrayList<String>();
+        sessMap.put(_ATTRIBUTE_CHANGE_FORCED_COMPONENTS, forceChangesTargetList);
+      }
+      
+      forceChangesTargetList.addIfAbsent(targetScopedId);
+    }
+  }
+  
+  /**
+   * Given a scopedId for the component, returns whether all AttributeComponentChange should be 
+   * forced on this component.
+   */
+  private boolean _isAttributeChangeForced(FacesContext facesContext, String targetScopedId)
+  {
+    if (targetScopedId == null)
+      return false;
+    
+    Object session = facesContext.getExternalContext().getSession(true);
+    
+    synchronized(session)
+    {
+      Map<String, Object> sessMap = facesContext.getExternalContext().getSessionMap();
+      
+      List<String> forceChangesTargetList = (List<String>)
+                                       sessMap.get(_ATTRIBUTE_CHANGE_FORCED_COMPONENTS);
+      
+      if (forceChangesTargetList == null || forceChangesTargetList.isEmpty())
+        return false;
+
+      return forceChangesTargetList.contains(targetScopedId);
+    }
   }
 
   /**
@@ -460,6 +577,9 @@ public class SessionChangeManager extends BaseChangeManager
   
   private static final String _COMPONENT_CHANGES_MAP_FOR_SESSION_KEY =
     "org.apache.myfaces.trinidadinternal.ComponentChangesMapForSession";
+    
+  private static final String _ATTRIBUTE_CHANGE_FORCED_COMPONENTS =
+    "org.apache.myfaces.trinidadinternal.AttributeChangeForcedComponents";
     
   private static final TrinidadLogger _LOG = 
     TrinidadLogger.createTrinidadLogger(SessionChangeManager.class);
