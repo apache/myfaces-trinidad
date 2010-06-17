@@ -3575,7 +3575,10 @@ function _doPprStartBlocking (win)
 {
   // Clean up timeout set in _pprStartBlocking()
   if (win._pprTimeoutFunc)
+  {
     win.clearTimeout(win._pprTimeoutFunc);
+    win._pprTimeoutFunc = null;
+  }
 
   // In order to force the user to allow a PPR update to complete, we
   // block all mouse clicks between the start of a PPR update, and the end.
@@ -3618,6 +3621,14 @@ function _doPprStartBlocking (win)
 //
 function _pprStopBlocking(win)
 {
+  // see TRINIDAD-1833. If _pprStartBlocking() was delayed with setTimeout(),
+  // we need to clear it here. Otherwise _pprStartBlocking() will be called later,
+  // and will end up winning
+  if (win._pprTimeoutFunc)
+  {
+    win.clearTimeout(win._pprTimeoutFunc);
+    win._pprTimeoutFunc = null;
+  }
 
   // No blocking is performed on Nokia, PPC and BlackBerry devices
   if (_agent.isPIE || _agent.isNokiaPhone || _agent.isBlackBerry)
