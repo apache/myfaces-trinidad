@@ -376,7 +376,7 @@ public interface TrinidadAgent extends Agent
   static public final int OS_BLACKBERRY = 7;
 
   /**
-   * OS constant for iPhone
+   * OS constant for all Safari browsers running in the iOS platform (iPhones/iPod/iPad)
    */
   static public final int OS_IPHONE   = 8;
 

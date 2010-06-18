@@ -84,7 +84,7 @@ public interface Agent
   public static final String  PLATFORM_MAC = PLATFORM_MACOS;
 
   /**
-   * Constant for iPhone platform
+   * Constant for the iOS (iPhone/iPod touch/iPad) platform
    */
   public static final String  PLATFORM_IPHONE = "iphone";
 
