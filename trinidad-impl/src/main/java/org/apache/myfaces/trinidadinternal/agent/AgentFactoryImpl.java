@@ -779,11 +779,17 @@ public class AgentFactoryImpl implements AgentFactory
 
     if (agent.indexOf("iPhone") > 0)
     {
+      // iPhone is a member of the iOS platform:
+      agentObj.setPlatform(Agent.PLATFORM_IPHONE);
+    }
+    else if (agent.indexOf("iPad") > 0)
+    {
+      // iPad is a member of the iOS platform:
       agentObj.setPlatform(Agent.PLATFORM_IPHONE);
     }
     else if (agent.indexOf("iPod") > 0)
     {
-      // At the moment, the iPod touch version of this browser matches iPhone's
+      // iPod is a member of the iOS platform:
       agentObj.setPlatform(Agent.PLATFORM_IPHONE);
     }
     else if (agent.indexOf("Win") > 0)
