@@ -474,7 +474,7 @@ public interface TrinidadAgent extends Agent
   public static final String SKIN_GENERIC_PDA = "genericpda";
   
   /* 
-   * Skin family for all Safari browsers running in iPhones/iPod
+   * Skin family for all Safari browsers running in the iOS platform (iPhones/iPod/iPad)
    */
   public static final String SKIN_WEBKIT_IPHONE = "iPhonewebkit";
   
