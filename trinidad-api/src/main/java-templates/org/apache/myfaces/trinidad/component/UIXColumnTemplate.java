@@ -20,8 +20,6 @@ package org.apache.myfaces.trinidad.component;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.context.PartialPageContext;
-
 /**
  * Base class for UIXColumns.
  * The facets of this component are not processed during decode,validate and
@@ -72,17 +70,5 @@ public abstract class UIXColumnTemplate extends UIXComponentBase
 
     // Process all the children of this component
     new ChildLoop.Update().runAlways(context, this);
-  }
-  
-  /**
-   * When the column is being PPR-ed, we have to PPR the entire table
-   * Note that this will work for the nested columns too because the parent column's 
-   * setPartialTarget() will in turn delegate to the table
-   */
-  @Override
-  protected void setPartialTarget(FacesContext facesContext,
-    PartialPageContext partialContext)
-  {
-    UIXComponent.addPartialTarget(facesContext, partialContext, getParent());
   }
 }
