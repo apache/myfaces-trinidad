@@ -37,7 +37,9 @@
       <property-class>java.lang.String</property-class>
       <suggested-value>{localName} {0}</suggested-value>
       <property-extension>
-        <mfp:property-metadata/>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
         <fmd:property-metadata>
           <fmd:preferred>true</fmd:preferred>
         </fmd:property-metadata>

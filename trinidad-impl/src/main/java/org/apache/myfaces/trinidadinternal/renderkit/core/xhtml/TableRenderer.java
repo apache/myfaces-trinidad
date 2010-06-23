@@ -406,13 +406,16 @@ abstract public class TableRenderer extends XhtmlRenderer
                  TreeUtils.createNewJSCollectionComponentState(formName, tid)+";", null);
           rw.endElement(XhtmlConstants.SCRIPT_ELEMENT);
           
-          // Incases where we partial refresh an empty table, Windows Mobile 
-          // ignore the JS which is sent as a PPR response to handle page 
-          // navigation and show/hide functions. To fix this problem, lets 
+          // Incases where we partial refresh an empty table, Windows Mobile/ 
+          // BlackBerry ignore the JS which is sent as a PPR response to handle 
+          // page navigation and show/hide functions. To fix this problem, lets 
           // render the JS here
-          if (Agent.PLATFORM_PPC.equalsIgnoreCase(
+          if ((Agent.PLATFORM_PPC.equalsIgnoreCase(
                                arc.getAgent().getPlatformName()) 
-               && tContext.getRowData().isEmptyTable())
+              || Agent.PLATFORM_BLACKBERRY.equalsIgnoreCase(
+                               arc.getAgent().getPlatformName()))
+              && supportsScripting(arc) 
+              && tContext.getRowData().isEmptyTable())
           {
             // Script for show/hide funtionality in detailStamp facet
             rw.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
