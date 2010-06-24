@@ -1556,9 +1556,6 @@ public abstract class UIXCollection extends UIXComponentBase
     @Override
     public Object getRowKey(FacesContext context, UIComponent component, String clientRowKey)
     {
-      if (_isOptimizedKey(clientRowKey))
-        return clientRowKey;
-
       ValueMap<Object,String> currencyCache = _currencyCache;
       Object rowkey = currencyCache.getKey(clientRowKey);
       return rowkey;
@@ -1578,20 +1575,6 @@ public abstract class UIXCollection extends UIXComponentBase
       if (key == null)
       {
         // we don't have a string-key, so create a new one.
-
-        // first check to see if the rowkey itself can be used as the string-key:
-        if (rowKey instanceof String)
-        {
-          // TODO: make sure that this string is suitable for use as
-          // NamingContainer ids:
-          key = rowKey.toString();
-          if (_isOptimizedKey(key))
-          {
-            // no need to add to the token map:
-            return key;
-          }
-        }
-
         key = _createToken(currencyCache);
 
         if (_LOG.isFiner())
@@ -1601,17 +1584,6 @@ public abstract class UIXCollection extends UIXComponentBase
         currencyCache.put(rowKey, key);
       }
       return key;
-    }
-
-    private static boolean _isOptimizedKey(String key)
-    {
-      // if a key could be a number, then it might conflict with our
-      // internal representation of tokens. Therefore, if a key could be
-      // a number, then use the token cache.
-      // if there is no way this key can be a number, then it can
-      // be treated as an optimized key and can bypass the token cache
-      // system:
-      return ((key.length() > 0) && (!Character.isDigit(key.charAt(0))));
     }
 
     private static String _createToken(ValueMap<Object,String> currencyCache)
