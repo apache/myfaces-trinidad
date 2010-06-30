@@ -79,4 +79,5 @@ public class ComponentDefTag extends TagSupport
   }
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     ComponentDefTag.class);
+  private static final long serialVersionUID = 1L;
 }
