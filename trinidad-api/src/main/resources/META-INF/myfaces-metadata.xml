@@ -21608,6 +21608,18 @@ To go into naming containers, you separate the naming containers with ':', e.g.,
       <longDesc>Gets an onkeyup Javascript handler.</longDesc>
     </property>
     <property>
+      <name>onblur</name>
+      <className>java.lang.String</className>
+      <desc>Gets the event handler for the component losing the focus</desc>
+      <longDesc>Gets the event handler for the component losing the focus.</longDesc>
+    </property>
+    <property>
+      <name>onfocus</name>
+      <className>java.lang.String</className>
+      <desc>Gets the event handler for the component gaining the focus</desc>
+      <longDesc>Gets the event handler for the component gaining the focus.</longDesc>
+    </property>        
+    <property>
       <name>useWindow</name>
       <className>boolean</className>
       <desc>Gets Indicates whether processes launched by this command should be
