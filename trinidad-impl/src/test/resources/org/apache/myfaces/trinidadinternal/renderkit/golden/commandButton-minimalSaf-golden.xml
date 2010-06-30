@@ -180,6 +180,18 @@
           
         </img>
       </button>
+<!--AttributeTest[onblur,null]-->
+
+      <button
+           class="af_commandButton"
+           onblur="test-onblur"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           type="button"
+           id="uri-attr:mainId"
+           name="uri-attr:mainId"
+          >
+        ButtonText
+      </button>
 <!--AttributeTest[onclick,null]-->
 
       <button
@@ -197,6 +209,18 @@
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            ondblclick="test-ondblclick"
+           type="button"
+           id="uri-attr:mainId"
+           name="uri-attr:mainId"
+          >
+        ButtonText
+      </button>
+<!--AttributeTest[onfocus,null]-->
+
+      <button
+           class="af_commandButton"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           onfocus="test-onfocus"
            type="button"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
