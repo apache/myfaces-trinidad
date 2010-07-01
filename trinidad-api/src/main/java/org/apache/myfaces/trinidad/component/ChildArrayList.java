@@ -197,5 +197,5 @@ class ChildArrayList extends ArrayList<UIComponent>
   private final UIComponent _parent;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     ChildArrayList.class);
-  private static final long serialVersionUID = 8586863522864515171L;
+  private static final long serialVersionUID = 1L;
 }

@@ -325,7 +325,7 @@ final class StampState implements Externalizable
 
     abstract public boolean isNull();
     
-    private static final long serialVersionUID = 8634916495453219932L;
+    private static final long serialVersionUID = 1L;
   }
 
   static private final class SDState extends RowState
