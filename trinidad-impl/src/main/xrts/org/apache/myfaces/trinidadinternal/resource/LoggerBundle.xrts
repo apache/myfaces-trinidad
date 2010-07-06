@@ -90,6 +90,9 @@
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR">Could not instantiate UploadedFileProcessor</resource>
 
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE">The file could not be uploaded because it is too large.</resource>
+
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE">Trinidad is running in debug mode. Do not use in a production environment. See:{0}</resource>
 
