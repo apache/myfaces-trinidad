@@ -16,15 +16,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <capabilityData xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
-  <capability name="dom" value="level2"/>
-  <capability name="-adfinternal-cssSelectors" value="multiple"/>
-  <capability name="partialRendering" value="true"/>  
-  <capability name="-adfinternal-imageStretch" value="true"/>
-  <capability name="-adfinternal-pngImage" value="true"/>  
-  <capability name="-adfinternal-transparentPngImage" value="true"/>     
-  <capability name="-adfinternal-autoCompleteFormElements" value="true"/>
-  <capability name="-adfinternal-fieldset" value="true"/>
+  <capability name="-adfinternal-altRendersTooltipOnImage" value="false"/>
 </capabilityData>

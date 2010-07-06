@@ -54,11 +54,20 @@
       <include src="ie55win.xml"/>
     </capabilities>
 
+    <capabilities id="ie7win" agents="ie/7+" platforms="windows">
+      <include refid="ie55win"/>
+      <include src="ie7win.xml"/>
+    </capabilities>
+
+    <capabilities id="ie8win" agents="ie/8+" platforms="windows">
+      <include refid="ie55win"/>
+      <include src="ie8win.xml"/>
+    </capabilities>
+
     <capabilities id="gecko" agents="gecko">
       <include refid="html" />
       <include src="gecko.xml" />
     </capabilities>
-    
     
     <capabilities id="email" agents="email">
       <include refid="html" />
