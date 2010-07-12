@@ -95,6 +95,20 @@ public interface ChainedUploadedFileProcessor extends UploadedFileProcessor
    *  on it. Any exception that happenes during dispose() call will be logged
    *  as warning and the processing continues with the rest of the UploadedFile(s).
    *  </p>
+   *  <p>
+   *  If one of chained file processor throws an IOException in this method, it is considered that
+   *  there is a error in processing the uploaded file, the chain is broken hence, the file upload
+   *  process stops, and the message contained in the IOException is shown to the user as a value 
+   *  conversion warning.
+   *  If the processing failure is less severe, and if the failure need to be meaningfully reported 
+   *  to the end users, the length of the returned UploadedFile should be set to -1, and its 
+   *  getOpaqueData() should provide the error details. The object returned by getOpaqueData() 
+   *  should implement a toString() that returns a detailed error message. During the JSF life cycle 
+   *  later, the input file component would show this message as value conversion warning to the 
+   *  user.
+   *  @see UploadedFile#getLength()
+   *  @see UploadedFile#getOpaqueData()
+   *  </p>
    * @param request the current servlet or portlet request
    * @param file a temporary file object
    * @return a new instance of UploadedFile.  It is legal to return null,

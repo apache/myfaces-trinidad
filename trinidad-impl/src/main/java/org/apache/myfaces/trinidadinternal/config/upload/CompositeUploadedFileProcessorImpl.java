@@ -65,6 +65,7 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
     this.chainedProcessors = chainedProcessors;
   }
 
+  @Override
   public void init(Object context)
   {
     _init(context);
@@ -76,6 +77,7 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
 
   }
 
+  @Override
   public UploadedFile processFile(Object request, UploadedFile tempFile) throws IOException
   {
     //NOTE: The following optimization was suggested at one point:
@@ -100,7 +102,20 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
       files.add(original);
       for(UploadedFileProcessor processor: chainedProcessors)
       {
-        original = processor.processFile(request, original);
+        try
+        {
+          original = processor.processFile(request, original);
+        }
+        catch (IOException ioe)
+        {
+          _LOG.severe(ioe);
+          String test = ioe.getLocalizedMessage();
+          original = new ErrorFile(ioe.getLocalizedMessage());
+          // The chain breaks if one of the chained processor throws an IOException, if the intent
+          //  is to allow rest of the processors in chain to process, they could return custom 
+          //  UploadedFile instance with length -1 and opaqueData having the failure details.
+          break;
+        }
         files.add(original);
       }
       //the dispose order should be reverse!
@@ -256,7 +271,7 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
   }
 
   private UploadedFile _processFile(
-      Object request, UploadedFile tempFile) throws IOException
+      Object request, UploadedFile tempFile)
   {
     RequestInfo info = _getRequestInfo(request);
     int contentLength = getContentLength(request);
@@ -286,7 +301,7 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
 
     if(contentLength>_maxDiskSpace)
     {
-      return new ErrorFile();
+      return new ErrorFile(_LOG.getMessage("UPLOADED_FILE_LARGE"));
     }
     // Process one new file, loading only as much as can fit
     // in the remaining memory and disk space.
@@ -301,7 +316,7 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
     catch(IOException ioe)
     {
       _LOG.severe(ioe);
-      return new ErrorFile();
+      return new ErrorFile(ioe.getLocalizedMessage());
     }
 
     // Keep a tally of how much we've stored in memory and on disk.
