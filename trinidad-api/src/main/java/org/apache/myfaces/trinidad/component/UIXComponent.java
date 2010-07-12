@@ -28,6 +28,8 @@ import javax.el.MethodExpression;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.component.UIPanel;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
@@ -164,21 +166,45 @@ abstract public class UIXComponent extends UIComponent
       }
       else
       {
-        // not a FlattenedComponent, pass the component directly to the ComponentProcessor
+        boolean processed = true;
         child.pushComponentToEL(context, null);
 
         try
         {
-          childProcessor.processComponent(context, cpContext, child, callbackContext);
+          // Optimize the cases of UINamingContainer (<f:subview>) and UIPanel -
+          // we will treat these components as FlattenedComponents because they do not render
+          // any DOM
+          // Note that JSF 2.0 creates UIPanel wrappers around multiple components
+          // inside of <f:facet>
+          if (UINamingContainer.class == child.getClass() ||
+              UIPanel.class == child.getClass())
+          {
+            processed =
+                processFlattenedChildren(context, cpContext, childProcessor,
+                                         child.getChildren(),
+                                         callbackContext);
+          }
+          else
+          {
+            try
+            {
+              // not a FlattenedComponent, pass the component directly to the ComponentProcessor
+              childProcessor.processComponent(context, cpContext, child,
+                                              callbackContext);
+            }
+            finally
+            {
+              // if startDepth is > 0, only the first visible child will be marked as starting a group
+              cpContext.resetStartDepth();
+            }
+          }
         }
         finally
         {
-          // if startDepth is > 0, only the first visible child will be marked as starting a group
-          cpContext.resetStartDepth();
           child.popComponentFromEL(context);
         }
 
-        return true;
+        return processed;
       }
     }
     else
