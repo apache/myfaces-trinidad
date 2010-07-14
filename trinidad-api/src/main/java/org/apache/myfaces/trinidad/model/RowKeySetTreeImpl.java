@@ -79,8 +79,13 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   public boolean isContainedByDefault()
   {
     TreeModel model = getCollectionModel();
-    Object rowkey = model.getRowKey();
-    return new Search().find(rowkey).isDefaultContained;
+    
+    if (model != null)
+    {
+      Object rowkey = model.getRowKey();
+      return new Search().find(rowkey).isDefaultContained;
+    }
+    return false;
   }
 
   @Override
@@ -387,7 +392,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     int sz = ((rowkey != null) && (set.isDefaultContained ^ set.isDifferent)) ? 1 : 0;
     if (set.isDefaultContained)
     {
-      if (!fetchall)
+      if (!fetchall || model == null)
         return -1;
 
       Object old = model.getRowKey();
@@ -704,7 +709,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   {
     PathIterator()
     {
-      _value = isEmpty() ? null : nextItem(); // initialize;
+      _value = (getCollectionModel() == null || isEmpty()) ? null : nextItem(); // initialize;
     }
 
     PathIterator(Object noop)
@@ -793,7 +798,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     {
       super(null);
       _currIterator = _root.entrySet().iterator();
-      _value = isEmpty() ? null : nextItem(); // initialize;
+      _value = (getCollectionModel() == null || isEmpty()) ? null : nextItem(); // initialize;
     }
 
     protected Object nextItem()
