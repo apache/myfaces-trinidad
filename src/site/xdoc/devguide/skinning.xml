@@ -768,7 +768,7 @@ public class SkinTranslationMapDemo
         
         <P>
         You can do things in a skin css file beyond what you can do in a regular css file. 
-        At runtime the skin framework processes the skin's css file and 
+        At runtime the skin framework processes the skin's css file and the
         skin framework pulls out skinning properties and icons and registers them with the Skin object. 
         The skinning framework merges styles together that use the -tr-rule-ref property. 
         The skinning framework picks the styles based on the HTTP request information, like agent
@@ -812,6 +812,40 @@ public class SkinTranslationMapDemo
         can also be used: background-color: -tr-property-ref("af|foo") instead of: background-color: -tr-property-ref("af|foo",
         "background-color"). This is useful when only some properties from another style are needed to be included.
         In this case, we won't need to include the entire style via a -tr-rule-ref rule, but only the needed property.
+        </li>
+        <li>
+        <strong>+/-</strong> - > This feature of the skinning framework allows you to set
+        a selector's color or font that is relative to another selector's color or font. 
+        This is useful if you have color ramps. You can change the color in one place. An example
+        for the color is:
+        <source>
+          <![CDATA[
+          .BaseBG:alias { background-color: #0099ff; }
+          .fooColorTest {
+             -tr-rule-ref: selector(".BaseBG:alias");
+             background-color: +#333333;}
+          .fooColorTestMinus {
+            -tr-rule-ref: selector(".BaseBG:alias");
+            background-color: -#333333;
+          }
+
+this resolves to
+
+          .fooColorTest {background-color:#33ccff}
+          .fooColorTestMinus {background-color:#0066cc}
+          ]]>
+        </source>
+        The same thing works for fonts.
+        <source>
+          <![CDATA[    
+            .FontSizeTest:alias {font-size: 12pt;}
+
+            .fooFontTest {
+              -tr-rule-ref: selector(".FontSizeTest:alias");
+              font-size:+1pt;
+            }
+          ]]>
+        </source>        
         </li>
         </ul>
         <P>
