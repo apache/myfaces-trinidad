@@ -609,7 +609,8 @@ so the medium panelBox's body will be pink, not yellow */
             icon when it is rendering. It will use your skinned icon if you have skinned it. Otherwise,
             it will use the base skin's icon. Note that CSS-syntax like pseudo-classes (:hover, etc)
             and descendent selectors and composite class selectors do not work with 
-            icon selectors.
+            icon selectors. Remember, if you create your own skin selectors, do not end with the name with
+            -icon or 'Icon:alias' if it is for a css style; it will get created as an Icon object.
             </P> 
             <source>
               af|inputDate::launch-icon {
