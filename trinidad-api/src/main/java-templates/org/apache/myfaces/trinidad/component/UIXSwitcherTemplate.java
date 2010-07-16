@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -22,6 +22,10 @@ import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitHint;
 
 
 /**
@@ -57,7 +61,6 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
       facet.processValidators(context);
   }
 
-
   /**
    * Only process updates on the currently active facet.
    */
@@ -79,7 +82,7 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
     final S callbackContext) throws IOException
   {
     UIComponent facet = _getFacet();
-    
+
     if (facet != null)
       return UIXComponent.processFlattenedChildren(context,
                                                    cpContext,
@@ -112,7 +115,6 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
       __encodeRecursive(context, facet);
   }
 
-
   /**
    * Override to return true.
    */
@@ -120,6 +122,26 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
   public boolean getRendersChildren()
   {
     return true;
+  }
+
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    if (visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED))
+    {
+      UIComponent facet = _getFacet();
+      if (facet != null)
+      {
+        return UIXComponent.visitTree(visitContext, facet, callback);
+      }
+      return false;
+    }
+    else
+    {
+      return super.visitChildren(visitContext, callback);
+    }
   }
 
   private UIComponent _getFacet()
@@ -141,7 +163,6 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
 
     return null;
   }
-
 }
 
 

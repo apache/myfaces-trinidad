@@ -29,6 +29,9 @@ import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetTreeImpl;
@@ -100,6 +103,43 @@ abstract public class UIXNavigationTreeTemplate extends UIXNavigationHierarchy
                                       getDisclosedRowKeys(),
                                       true);
     setRowKey(oldPath);
+  }
+
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    return visitData(visitContext, callback);
+  }
+
+  @Override
+  protected boolean visitData(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    Object oldRowKey = getRowKey();
+
+    // if we are only visiting rendered stamps, then pass in the disclosed row keys, otherwise
+    // pass in null, indicating that all row keys should be visited
+    RowKeySet disclosedRowKeys = (visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED))
+                                   ? getDisclosedRowKeys()
+                                   : null;
+
+    boolean done;
+
+    HierarchyUtils.__setStartDepthPath(this, getStartLevel());
+
+    try
+    {
+      done = visitHierarchy(visitContext, callback, getStamps(), disclosedRowKeys);
+    }
+    finally
+    {
+      setRowKey(oldRowKey);
+    }
+
+    return done;
   }
 
   @Override

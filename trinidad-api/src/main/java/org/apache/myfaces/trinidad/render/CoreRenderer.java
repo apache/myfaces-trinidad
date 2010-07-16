@@ -161,6 +161,46 @@ public class CoreRenderer extends Renderer
       tearDownEncodingContext(context, rc, (UIXComponent)component);
   }
 
+  /**
+   * Hook to allow the renderer to customize the visitation of the children components
+   * of a component during the visitation of a component during rendering.
+   *
+   * @param component the component which owns the children to visit
+   * @param visitContext the visitation context
+   * @param callback the visit callback
+   * @return <code>true</code> if the visit is complete.
+   * @see UIXComponent#visitChildren(VisitContext, VisitCallback)
+   */
+  public boolean visitChildrenForEncoding(
+    UIXComponent  component,
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // visit the children of the component
+    Iterator<UIComponent> kids = component.getFacetsAndChildren();
+
+    while (kids.hasNext())
+    {
+      // If any kid visit returns true, we are done.
+      UIComponent kid = kids.next();
+      if (kid instanceof UIXComponent)
+      {
+        if (((UIXComponent)kid).visitTree(visitContext, callback))
+        {
+          return true;
+        }
+      }
+      else
+      {
+        if (UIXComponent.visitTree(visitContext, kid, callback))
+        {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
 
   //
   // COERCION HELPERS
@@ -684,9 +724,9 @@ public class CoreRenderer extends Renderer
   {
     return (Agent.PLATFORM_GENERICPDA.equals(rc.getAgent().getPlatformName()));
   }
-  
+
   /**
-   * This method returns true if a user-agent's platform is NokiaS60 
+   * This method returns true if a user-agent's platform is NokiaS60
    * @param arc - RenderingContext of a request
    * @return boolean
    */
