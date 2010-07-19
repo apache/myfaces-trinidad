@@ -120,7 +120,7 @@ public final class HierarchyUtils
     {
       comp.setRowIndex(i);
       if (processChildrenAsStamps)
-        TableUtils.__processStampedChildren(context, comp, phaseId);
+        TableUtils.processStampedChildren(context, comp, phaseId);
       comp.processComponent(context, nodeStamp, phaseId);
       if (comp.isContainer() && (state.isContained()))
       {
