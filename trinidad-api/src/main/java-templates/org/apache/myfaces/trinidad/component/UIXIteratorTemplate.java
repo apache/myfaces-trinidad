@@ -84,25 +84,37 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       // Mimic what would normally happen in the non-flattening case for encodeBegin():
       __processFlattenedChildrenBegin();
 
-      Runner runner = new IndexedRunner(cpContext)
+      setupChildrenVisitingContext(context);
+
+      try
       {
-        @Override
-        protected void process(UIComponent kid, ComponentProcessingContext cpContext) throws IOException
+        Runner runner = new IndexedRunner(cpContext)
         {
-          childProcessor.processComponent(context, cpContext, kid, callbackContext);
+          @Override
+          protected void process(
+            UIComponent                kid,
+            ComponentProcessingContext cpContext
+            ) throws IOException
+          {
+            childProcessor.processComponent(context, cpContext, kid, callbackContext);
+          }
+        };
+
+        processedChildren = runner.run();
+        Exception exp = runner.getException();
+        if (exp != null)
+        {
+          if (exp instanceof RuntimeException)
+            throw (RuntimeException) exp;
+
+          if (exp instanceof IOException)
+            throw (IOException) exp;
+          throw new IllegalStateException(exp);
         }
-      };
-
-      processedChildren = runner.run();
-      Exception exp = runner.getException();
-      if (exp != null)
+      }
+      finally
       {
-        if (exp instanceof RuntimeException)
-          throw (RuntimeException) exp;
-
-        if (exp instanceof IOException)
-          throw (IOException) exp;
-        throw new IllegalStateException(exp);
+        tearDownChildrenVisitingContext(context);
       }
     }
     finally

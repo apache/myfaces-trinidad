@@ -129,6 +129,27 @@ public class CoreRenderer extends Renderer
 
   /**
    * <p>
+   * Called before rendering the current component's children in order to set
+   * up any special context.
+   * </p>
+   * <p>If <code>setupChildrenEncodingContext</code> succeeds then
+   * <code>tearDownChildrenEncodingContext</code> will be called for the same component.
+   * </p>
+   * <p>The default implementation does nothing</p>
+   * @param context FacesContext for this request
+   * @param rc RenderingContext for this encoding pass
+   * @param component Component to encode using this Renderer
+   * @see #tearDownChildrenEncodingContext
+   */
+  public void setupChildrenEncodingContext(
+    @SuppressWarnings("unused") FacesContext context,
+    @SuppressWarnings("unused") RenderingContext rc,
+    @SuppressWarnings("unused") UIComponent component)
+  {
+  }
+
+  /**
+   * <p>
    * Called after rendering the current component's children in order to tear
    * down any special context.
    * </p>
@@ -159,6 +180,28 @@ public class CoreRenderer extends Renderer
     // We need to support UIComponents so that we can use CoreRenderers against non-UIXComponents
     if (component instanceof UIXComponent)
       tearDownEncodingContext(context, rc, (UIXComponent)component);
+  }
+
+  /**
+   * <p>
+   * Called after rendering the current component's children in order to tear
+   * down any special context.
+   * </p>
+   * <p>
+   * <code>tearDownChildrenEncodingContext</code> will be called on the component if
+   * <code>setupChildrenEncodingContext</code> succeeded.
+   * </p>
+   * <p>The default implementation does nothing</p>
+   * @param context FacesContext for this request
+   * @param rc RenderingContext for this encoding pass
+   * @param component Component to encode using this Renderer
+   * @see #setupChildrenEncodingContext
+   */
+  public void tearDownChildrenEncodingContext(
+    @SuppressWarnings("unused") FacesContext context,
+    @SuppressWarnings("unused") RenderingContext rc,
+    @SuppressWarnings("unused") UIComponent component)
+  {
   }
 
   /**

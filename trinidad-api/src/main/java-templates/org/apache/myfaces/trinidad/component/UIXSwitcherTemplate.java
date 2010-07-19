@@ -81,16 +81,36 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
     final ComponentProcessor<S> childProcessor,
     final S callbackContext) throws IOException
   {
+    setupVisitingContext(context);
+
     UIComponent facet = _getFacet();
 
-    if (facet != null)
-      return UIXComponent.processFlattenedChildren(context,
-                                                   cpContext,
-                                                   childProcessor,
-                                                   facet,
-                                                   callbackContext);
-    else
-      return false;
+    try
+    {
+      if (facet != null)
+      {
+        setupChildrenVisitingContext(context);
+        
+        try
+        {
+          return UIXComponent.processFlattenedChildren(context,
+                                                       cpContext,
+                                                       childProcessor,
+                                                       facet,
+                                                       callbackContext);
+        }
+        finally
+        {
+          tearDownChildrenVisitingContext(context);
+        }
+      }      
+      else
+        return false;
+    }
+    finally
+    {
+      tearDownChildrenVisitingContext(context);
+    }
   }
 
   /**

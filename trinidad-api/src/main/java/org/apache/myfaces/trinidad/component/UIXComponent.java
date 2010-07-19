@@ -505,7 +505,33 @@ abstract public class UIXComponent extends UIComponent
 
         if (uixComponent != null)
         {
-          return uixComponent.visitChildren(visitContext, callback);
+          // setup any context needed for visiting the children of the component as opposed
+          // to the component itself
+          if (rc != null)
+          {
+            uixComponent.setupChildrenEncodingContext(facesContext, rc);
+          }
+          else
+          {
+            uixComponent.setupChildrenVisitingContext(facesContext);
+          }
+
+          try
+          {
+            return uixComponent.visitChildren(visitContext, callback);
+          }
+          finally
+          {
+            // teardown any context initialized above
+            if (rc != null)
+            {
+              uixComponent.tearDownChildrenEncodingContext(facesContext, rc);
+            }
+            else
+            {
+              uixComponent.tearDownChildrenVisitingContext(facesContext);
+            }
+          }
         }
         else
         {
@@ -722,6 +748,23 @@ abstract public class UIXComponent extends UIComponent
   }
 
   /**
+   * <p>Sets up the context necessary to visit or invoke the children of a component for all phases.
+   * </p>
+   * <p>The default implementation does nothing.</p>
+   * <p>If a subclass overrides this method, it should override
+   * <code>tearDownChildrenVisitingContext</code> as well.</p>
+   * <p>It is guaranteed that if <code>setupChildrenVisitingContext</code> completes
+   * <code>tearDownChildrenVisitingContext</code> will be called for this component</p>
+   * @param context FacesContext
+   * @see #visitChildren
+   * @see #tearDownChildrenVisitingContext
+   */
+  protected void setupChildrenVisitingContext(@SuppressWarnings("unused") FacesContext context)
+  {
+    // do nothing
+  }
+
+  /**
    * <p>Tears down context created in order to visit or invoke the component
    * for all phases.</p>
    * <p>The default implementation does nothing.</p>
@@ -734,6 +777,23 @@ abstract public class UIXComponent extends UIComponent
    * @see #tearDownEncodingContext
    */
   protected void tearDownVisitingContext(FacesContext context)
+  {
+    // do nothing
+  }
+
+  /**
+   * <p>Tears down context created in order to visit or invoke the children of a component
+   * for all phases.</p>
+   * <p>The default implementation does nothing.</p>
+   * <p>A subclass should only override this method if it overrode
+   * <code>setupChildrenVisitingContext</code> as well</p>
+   * <p>It is guaranteed that <code>tearDownChildrenVisitingContext</code> will be called only after
+   * <code>setupChildrenVisitingContext</code> has been called for this component</p>
+   * @param context FacesContext
+   * @see #setupChildrenVisitingContext
+   * @see #visitChildren
+   */
+  protected void tearDownChildrenVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
     // do nothing
   }
@@ -763,6 +823,28 @@ abstract public class UIXComponent extends UIComponent
       CoreRenderer coreRenderer = (CoreRenderer)renderer;
 
       coreRenderer.setupEncodingContext(context, rc, this);
+    }
+  }
+
+  /**
+   * Sets the context necessary to encode the children of a component.
+   * @param context The FacesContext
+   * @param rc      RenderingContext to use for encoding
+   * @see #setupChildrenVisitingContext
+   * @see #tearDownChildrenEncodingContext
+   * @see org.apache.myfaces.trinidad.render.CoreRenderer#setupChildrenEncodingContext
+   */
+  public void setupChildrenEncodingContext(FacesContext context, RenderingContext rc)
+  {
+    setupChildrenVisitingContext(context);
+
+    Renderer renderer = getRenderer(context);
+
+    if (renderer instanceof CoreRenderer)
+    {
+      CoreRenderer coreRenderer = (CoreRenderer)renderer;
+
+      coreRenderer.setupChildrenEncodingContext(context, rc, this);
     }
   }
 
@@ -798,6 +880,35 @@ abstract public class UIXComponent extends UIComponent
     finally
     {
       tearDownVisitingContext(context);
+    }
+  }
+
+  /**
+   * Tears down the context necessary to encode the children of a component.
+   * @param context The FacesContext
+   * @param rc      RenderingContext to use for encoding
+   * @see #setupChildrenVisitingContext
+   * @see #tearDownChildrenEncodingContext
+   * @see org.apache.myfaces.trinidad.render.CoreRenderer#setupChildrenEncodingContext
+   */
+  public void tearDownChildrenEncodingContext(
+    FacesContext context,
+    RenderingContext rc)
+  {
+    Renderer renderer = getRenderer(context);
+
+    try
+    {
+      if (renderer instanceof CoreRenderer)
+      {
+        CoreRenderer coreRenderer = (CoreRenderer)renderer;
+
+        coreRenderer.tearDownChildrenEncodingContext(context, rc, this);
+      }
+    }
+    finally
+    {
+      tearDownChildrenVisitingContext(context);
     }
   }
 
