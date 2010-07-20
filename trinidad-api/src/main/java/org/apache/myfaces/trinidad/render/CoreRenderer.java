@@ -129,6 +129,27 @@ public class CoreRenderer extends Renderer
 
   /**
    * <p>
+   * Called before rendering the current component's children in order to set
+   * up any special context.
+   * </p>
+   * <p>If <code>setupChildrenEncodingContext</code> succeeds then
+   * <code>tearDownChildrenEncodingContext</code> will be called for the same component.
+   * </p>
+   * <p>The default implementation does nothing</p>
+   * @param context FacesContext for this request
+   * @param rc RenderingContext for this encoding pass
+   * @param component Component to encode using this Renderer
+   * @see #tearDownChildrenEncodingContext
+   */
+  public void setupChildrenEncodingContext(
+    @SuppressWarnings("unused") FacesContext context,
+    @SuppressWarnings("unused") RenderingContext rc,
+    @SuppressWarnings("unused") UIComponent component)
+  {
+  }
+
+  /**
+   * <p>
    * Called after rendering the current component's children in order to tear
    * down any special context.
    * </p>
@@ -161,6 +182,68 @@ public class CoreRenderer extends Renderer
       tearDownEncodingContext(context, rc, (UIXComponent)component);
   }
 
+  /**
+   * <p>
+   * Called after rendering the current component's children in order to tear
+   * down any special context.
+   * </p>
+   * <p>
+   * <code>tearDownChildrenEncodingContext</code> will be called on the component if
+   * <code>setupChildrenEncodingContext</code> succeeded.
+   * </p>
+   * <p>The default implementation does nothing</p>
+   * @param context FacesContext for this request
+   * @param rc RenderingContext for this encoding pass
+   * @param component Component to encode using this Renderer
+   * @see #setupChildrenEncodingContext
+   */
+  public void tearDownChildrenEncodingContext(
+    @SuppressWarnings("unused") FacesContext context,
+    @SuppressWarnings("unused") RenderingContext rc,
+    @SuppressWarnings("unused") UIComponent component)
+  {
+  }
+
+  /**
+   * Hook to allow the renderer to customize the visitation of the children components
+   * of a component during the visitation of a component during rendering.
+   *
+   * @param component the component which owns the children to visit
+   * @param visitContext the visitation context
+   * @param callback the visit callback
+   * @return <code>true</code> if the visit is complete.
+   * @see UIXComponent#visitChildren(VisitContext, VisitCallback)
+   */
+  public boolean visitChildrenForEncoding(
+    UIXComponent  component,
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // visit the children of the component
+    Iterator<UIComponent> kids = component.getFacetsAndChildren();
+
+    while (kids.hasNext())
+    {
+      // If any kid visit returns true, we are done.
+      UIComponent kid = kids.next();
+      if (kid instanceof UIXComponent)
+      {
+        if (((UIXComponent)kid).visitTree(visitContext, callback))
+        {
+          return true;
+        }
+      }
+      else
+      {
+        if (UIXComponent.visitTree(visitContext, kid, callback))
+        {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
 
   //
   // COERCION HELPERS
@@ -684,9 +767,9 @@ public class CoreRenderer extends Renderer
   {
     return (Agent.PLATFORM_GENERICPDA.equals(rc.getAgent().getPlatformName()));
   }
-  
+
   /**
-   * This method returns true if a user-agent's platform is NokiaS60 
+   * This method returns true if a user-agent's platform is NokiaS60
    * @param arc - RenderingContext of a request
    * @return boolean
    */

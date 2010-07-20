@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -25,6 +25,9 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.event.DisclosureEvent;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -85,12 +88,12 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
     {
       // Do not update the disclosed if "transient"
       if (!isDisclosedTransient())
-      {      
+      {
         // Expand or collapse this showDetail
         boolean isDisclosed = ((DisclosureEvent) event).isExpanded();
-        // If the component is already in that disclosure state, we 
+        // If the component is already in that disclosure state, we
         // have a renderer bug.  Either it delivered an unnecessary event,
-        // or even worse it set disclosed on its own instead of waiting 
+        // or even worse it set disclosed on its own instead of waiting
         // for the disclosure event to do that, which will lead to lifecycle
         // problems.  So in either case, warn the developer.
         if (isDisclosed == isDisclosed())
@@ -101,12 +104,12 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
         {
           setDisclosed(isDisclosed);
         }
-  
+
         //pu: Implicitly record a Change for 'disclosed' attribute
         addAttributeChange("disclosed",
                            isDisclosed ? Boolean.TRUE : Boolean.FALSE);
       }
-      
+
       if (isImmediate())
         getFacesContext().renderResponse();
 
@@ -131,6 +134,17 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
     }
 
     super.queueEvent(e);
+  }
+
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    return
+      (visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED) == false ||
+        this.isDisclosed()) &&
+      super.visitChildren(visitContext, callback);
   }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXShowDetail.class);

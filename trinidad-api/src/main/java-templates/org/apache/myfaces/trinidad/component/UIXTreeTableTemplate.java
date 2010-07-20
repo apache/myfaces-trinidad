@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -36,6 +36,8 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
 import org.apache.myfaces.trinidad.event.FocusEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeListener;
@@ -59,9 +61,9 @@ abstract public class UIXTreeTableTemplate extends UIXTree
   public void decode(FacesContext context)
   {
     _resetContainerClientIdCache();
-    super.decode(context);    
+    super.decode(context);
   }
-  
+
   /**
    * Override to update the container client id cache before validations
    */
@@ -71,16 +73,16 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     _resetContainerClientIdCache();
     super.processValidators(context);
   }
-  
+
   /**
    * Override to update the container client id cache before updates
-   */  
+   */
   @Override
   public void processUpdates(FacesContext context)
   {
     _resetContainerClientIdCache();
     super.processUpdates(context);
-  }  
+  }
 
   /**
    * Override to update the container client id cache before encode
@@ -101,7 +103,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
   {
     String id;
     if (_containerClientIdCache == null || _isStampedChild(child))
-    {   
+    {
       // call the UIXCollection getContainerClientId, which attaches currency string to the client id
       id = getContainerClientId(context);
     }
@@ -358,14 +360,14 @@ abstract public class UIXTreeTableTemplate extends UIXTree
                                          phaseId,
                                          this,
                                          state,
-                                         true);        
+                                         true);
 
       }
       else
       {
         TableUtils.processStampedChildren(context, this, phaseId);
         processComponent(context, nodeStamp, phaseId); // bug 4688568
-  
+
         if (state.isContained())
         {
           enterContainer();
@@ -381,6 +383,81 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     {
       setRowKey(oldPath);
     }
+  }
+
+
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // need to override to do the default since our superclass
+    // UIXTree does stuff here we don't want
+    return defaultVisitChildren(visitContext, callback);
+  }
+
+  @Override
+  protected boolean visitUnstampedFacets(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // Visit the facets except for the node stamp
+    int facetCount = getFacetCount();
+
+    if (facetCount > 0)
+    {
+      UIComponent nodeStamp = getNodeStamp();
+
+      // if our only facet is the node stamp, we don't need to do this
+      if ((facetCount > 1) || (nodeStamp == null))
+      {
+        for (UIComponent facet : getFacets().values())
+        {
+          // ignore the nodeStamp facet, since it is stamped
+          if (facet != nodeStamp)
+          {
+            if (UIXComponent.visitTree(visitContext, facet, callback))
+            {
+              return true;
+            }
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
+  @Override
+  protected boolean visitData(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    Object focusedPath = getFocusRowKey();
+    Object oldRowKey = null;
+
+    // start from the focused area
+    if (focusedPath != null)
+    {
+      oldRowKey = getRowKey();
+      setRowKey(focusedPath);
+    }
+
+    boolean done;
+
+    try
+    {
+      done = super.visitData(new NoColumnFacetsVisitContext(visitContext), callback);
+    }
+    finally
+    {
+      if (focusedPath != null)
+      {
+        setRowKey(oldRowKey);
+      }
+    }
+
+    return done;
   }
 
   /**
@@ -422,7 +499,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
       // cache nodeStamp header/footer items
       TableUtils.cacheHeaderFooterFacets(nodeStamp, _containerClientIdCache);
       // cache any nested columns in nodeStamp facet
-      TableUtils.cacheColumnHeaderFooterFacets(nodeStamp, _containerClientIdCache);      
+      TableUtils.cacheColumnHeaderFooterFacets(nodeStamp, _containerClientIdCache);
     }
   }
 
@@ -438,7 +515,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
 
     return state;
   }
-  
+
   /**
    * Sets the internal state of this component.
    * @param stampState the internal state is obtained from this object.
