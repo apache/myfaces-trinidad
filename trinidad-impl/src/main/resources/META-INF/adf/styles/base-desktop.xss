@@ -697,7 +697,8 @@
     <property name="white-space">nowrap</property>
     <property name="overflow">hidden</property>
   </style>
-
+  <!-- The following selector should have been called ::close-icon-style, since it is a style,
+  not an Icon. It's too late to change since it is public. -->
   <style selector="af|dialog::close-icon">
     <includeStyle name="AFDefaultFont"/>
     <includeStyle name="AFMediumFont"/>
@@ -1962,7 +1963,8 @@
     <property name="white-space">nowrap</property>
     <property name="overflow">hidden</property>
   </style>
-
+  <!-- The following selector should have been called ::close-icon-style, since it is a style,
+  not an Icon. It's too late to change since it is public. -->
   <style selector="af|panelPopup::close-icon">
     <includeStyle name="AFDefaultFont"/>
     <includeStyle name="AFMediumFont"/>

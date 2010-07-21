@@ -1236,6 +1236,9 @@
 }
 /* Table icons */
 /* We don't use ":alias" sufix because didn't work, probably its a bug */
+/* No, it's not a bug. Selectors that need to be generated into the CSS file should not end in 
+Icon:alias or -icon. Those are considered Icon Objects and are not generated into the CSS.
+The fact that these selectors work is a bug. */
 .CBTableSelectAllIcon{
     -tr-rule-ref: selector(".CBIconLook:alias");
     -tr-rule-ref: selector(".CBIconSelectAll:alias");
