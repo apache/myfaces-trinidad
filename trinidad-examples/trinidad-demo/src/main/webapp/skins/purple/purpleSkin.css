@@ -914,7 +914,7 @@ af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-content {
 }
 
 .AFFooIcon:alias {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
-.AFBarIcon {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
+.AFBarIcon:alias {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
 
 @agent ie
 {
@@ -946,4 +946,15 @@ af|tree {
 @agent gecko and (min-version:0.8.1.*)  and (max-version:0.9.1.*), gecko and (version:5), ie and (min-version:5.*) and (max-version:8), gecko and (version: 2.9.1.*){
   af|selectBooleanCheckbox::label {color: fuschia}
 }
+
+/* This tests the ordering of includes */
+/* includes happen first no matter where they are, then the local properties get applied. 
+.second and .third resolve both resolve to color:red; background-coor:green} */
+.first {color: blue; background-color: green}
+.second {-tr-rule-ref:selector(".first"); color: red}
+.third {color: red; -tr-rule-ref:selector(".first");}
+
+
+
+
 

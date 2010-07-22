@@ -630,31 +630,24 @@ public class FileSystemStyleCache implements StyleProvider
 
   /**
    * Returns a Map of icon names to Icons for the specified
-   * styleSheetNodes that have been filtered from the StyleContext and StyleSheetDocument.
+   * styleSheetNodes that have been filtered from the StyleContext and StyleSheetDocument
+   * and everything merged together.
    */
   private ConcurrentMap<String, Icon> _getStyleContextResolvedIcons(
     StyleContext       context,
     StyleSheetDocument document
     )
   {
-    Iterator<StyleSheetNode> styleSheetNodes = document.getStyleSheets(context);
 
-    ConcurrentMap<String, Icon> icons = new ConcurrentHashMap<String, Icon>();
-    while (styleSheetNodes.hasNext())
+    Iterator<IconNode> iconNodeIterator = document.getIcons(context);
+    ConcurrentMap<String, Icon> iconMap = new ConcurrentHashMap<String, Icon>();
+    while (iconNodeIterator.hasNext())
     {
-      StyleSheetNode styleSheetNode = styleSheetNodes.next();
-      Collection<IconNode> iconNodes = styleSheetNode.getIcons();
-
-      if (iconNodes != null)
-      {
-        for (IconNode iconNode : iconNodes)
-        {
-          icons.put(iconNode.getIconName(), iconNode.getIcon());
-        }
-      }
+      IconNode iconNode = iconNodeIterator.next();
+      iconMap.put(iconNode.getIconName(), iconNode.getIcon());
     }
 
-    return icons;
+    return iconMap;
   }
 
   /**

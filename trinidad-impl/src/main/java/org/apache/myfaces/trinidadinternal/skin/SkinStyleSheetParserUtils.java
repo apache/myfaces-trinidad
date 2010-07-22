@@ -37,17 +37,11 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidad.share.io.NameResolver;
 
-import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.URLUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
-import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
-import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
-import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
-import org.apache.myfaces.trinidadinternal.skin.icon.URIImageIcon;
-import org.apache.myfaces.trinidadinternal.style.CSSStyle;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
@@ -164,7 +158,7 @@ class SkinStyleSheetParserUtils
    * A StyleSheetEntry is an object that contains:
    * styleSheetName, StyleSheetDocument
    * A StyleSheetDocument contains StyleSheetNodes. A StyleSheetNode contains
-   * a list style selectors and their properties and additional info like
+   * StyleNodes, IconNodes, and SkinPropertyNodes and additional info like
    * the direction, locale, etc. for this list of selectors.
    * @param context
    * @param sourceName
@@ -177,8 +171,6 @@ class SkinStyleSheetParserUtils
     List <SkinStyleSheetNode> skinSSNodeList
     )
   {
-
-
     // Get each SkinStyleSheetNode, and for each SkinStyleSheetNode get a
     // styleNodeList. Also, build one iconNodeList and one skinPropertyNodeList.
 
@@ -231,13 +223,20 @@ class SkinStyleSheetParserUtils
           if (direction == LocaleUtils.DIRECTION_RIGHTTOLEFT)
             selectorName = selectorName.concat(StyleUtils.RTL_CSS_SUFFIX);
 
-          // create an IconNode object and add it ot the iconNodeList
-          boolean addStyleNode = _addIconNode(sourceName,
+          // create an IconNode object and add it to the iconNodeList
+          // This method returns hasContentProperty=false if there isn't a content attribute.
+          boolean hasContentProperty = _addIconNode(sourceName,
                                               baseSourceURI,
                                               selectorName,
                                               noTrPropertyList,
+                                              resolvedProperties.getTrRuleRefList(),
                                               iconNodeList);
-          if (addStyleNode)
+          // TODO
+          // Log a warning that you should not have your style
+          // selectors end in 'icon' or 'Icon:alias" because in the skinning framework this denotes
+          // icons. We really should have used an @icon {} or somehow change icons... put it in a 
+          // different file or something.
+          if (!hasContentProperty)
           {
             _addStyleNode(selectorName,
                           noTrPropertyList,
@@ -250,7 +249,7 @@ class SkinStyleSheetParserUtils
         }
         else
         {
-          // create a StyleNode object and add it to the styleNodeList.
+
           _addStyleNode(selectorName,
                         noTrPropertyList,
                         resolvedProperties.getTrRuleRefList(),
@@ -404,16 +403,22 @@ class SkinStyleSheetParserUtils
    * @param sourceName
    * @param baseSourceURI
    * @param selectorName
-   * @param noTrPropertyNodeList
-   * @param iconNodeList
-   * @return boolean true if this "icon" does not contain an image url or text icon as the
-   * property value of 'content:'. That means it is only css styles.
+   * @param trRuleRefList -> This is -tr-rule-ref: selector(). 
+   * Currently not supported for icons. See https://issues.apache.org/jira/browse/TRINIDAD-17
+   * @param noTrPropertyNodeList -> these are properties, like width: 100px.
+   * @param iconNodeList Once the IconNode is created, it is added to the iconNodeList to be
+   * used outside this method.
+   * @return boolean Returns true if an IconNode was created and added to iconNodeList. 
+   * If false, then it means that the properties did not contain 'content', 
+   * so it only had css styles. It could have a -tr-rule-ref that includes a 'content'.
+   * TODO what to do about that???
    */
   private static boolean _addIconNode(
     String             sourceName,
     String             baseSourceURI,
     String             selectorName,
     List<PropertyNode> noTrPropertyNodeList,
+    List<String>       trRuleRefList,
     List<IconNode>     iconNodeList)
   {
 
@@ -438,162 +443,104 @@ class SkinStyleSheetParserUtils
     // depending upon the DIRECTION that is set on the context.
     // The current Icon classes code will not have to change.
 
+    boolean hasContentProperty = false;
+    
+    // Create the propertyNode array now.
+    PropertyNode[] propertyNodeArray = new PropertyNode[noTrPropertyNodeList.size()];
+    int i = 0;
 
-    Integer width = null;
-    String  widthValue = null;
-    Integer height = null;
-    String  heightValue = null;
-    //String  styleClass = null;
-    String  uri = null;
-    String  text = null;
-    boolean isNullIcon = false;
-    boolean createStyleNode = false;
-    // append all the styles that are not content, width or height into
-    // inline style
-    CSSStyle inlineStyle = null;
-
+    // Loop through each property until we find the 'content' property, then change the url to
+    // something we can use in StyleSheetDocument.
     for(PropertyNode propertyNode : noTrPropertyNodeList)
     {
       String propertyName = propertyNode.getName();
       String propertyValue = propertyNode.getValue();
-      if (propertyName.equals("width"))
+      
+      // fix up the url
+      if (propertyName.equals("content") && propertyValue != null)
       {
-        // save original width value
-        // strip off px from the string and return an Integer
-        if (_INTEGER_PATTERN.matcher(propertyValue).matches())
-        {
-          widthValue = propertyValue;
-          width = _convertPxDimensionStringToInteger(widthValue);
-        }
-        else
-        {
-          widthValue = null;
-          // use inlineStyle for non-integer width values;
-          if (inlineStyle == null)
-          {
-            inlineStyle = new CSSStyle();
-          }
-          inlineStyle.setProperty(propertyName, propertyValue);
-        }
-      }
-      else if (propertyName.equals("height"))
-      {
-        // save original height value
-        // strip off px from the string and return an Integer
-        if (_INTEGER_PATTERN.matcher(propertyValue).matches())
-        {
-          heightValue = propertyValue;
-          height = _convertPxDimensionStringToInteger(heightValue);
-        }
-        else
-        {
-          // use inlineStyle for non-integer height values;
-          heightValue = null;
-          if (inlineStyle == null)
-          {
-            inlineStyle = new CSSStyle();
-          }
-          inlineStyle.setProperty(propertyName, propertyValue);
-        }
-      }
-      else if (propertyName.equals("content"))
-      {
+        hasContentProperty = true;
         // is it a text or uri
         if (_isURLValue(propertyValue))
         {
-          uri = _getURIString(propertyValue);
-        }
+          
+          // get the string that is inside of the 'url()'
+          String uriString = _getURIString(propertyValue);
+          
+          // a leading / indicates context-relative
+          //      (auto-prefix the servlet context)
+          // a leading // indicates server-relative
+          //      (don't auto-prefix the servlet context).
+
+          boolean startsWithTwoSlashes = uriString.startsWith("//");
+          if (!startsWithTwoSlashes && uriString.startsWith("/"))
+          {
+            uriString = uriString.substring(1);
+          }
+          else
+          {
+            // a. if it has two slashes, strip off one.
+            // b. if it starts with http: don't do anything to the uri
+            // c. if it an absolute url, then it should be relative to
+            // the skin file since they wrote the absolute url in the skin file.
+            if (startsWithTwoSlashes)
+              uriString = uriString.substring(1);
+            else if (!(uriString.startsWith("http:")))
+              uriString = CSSUtils.getAbsoluteURIValue(sourceName, baseSourceURI, uriString);
+
+          }
+          // At this point, URIImageIcons start with '/' or 'http:',
+          // whereas ContextImageIcons uri do not. This is how we will know which type of 
+          // Icon to create in StyleSheetDocument. Wrap back up with the 'url()' string so that
+          // we will know this is not a TextIcon.
+          propertyNodeArray[i] = new PropertyNode(propertyName, _wrapWithURLString(uriString));
+        }      
         else if (propertyValue.startsWith("inhibit"))
         {
-          isNullIcon = true;
+          propertyNodeArray[i] = new PropertyNode(propertyName, propertyValue);
         }
         else
         {
-          text = trimQuotes(propertyValue);
+          String text = trimQuotes(propertyValue);
+          propertyNodeArray[i] = new PropertyNode(propertyName, text);
         }
+        
 
-      }
+      } // end if 'content'
       else
-      {
-        // create an inlineStyle with all the extraneous style properties
-        if (inlineStyle == null)
-          inlineStyle = new CSSStyle();
-        inlineStyle.setProperty(propertyName, propertyValue);
-      }
-
+        propertyNodeArray[i] = new PropertyNode(propertyName, propertyValue);
+      i++;
     }
-    // now I need to create the icon.
-    // do not create an icon if isNullIcon is true.
-    Icon icon = null;
-
-    if (!isNullIcon)
+ 
+    // TODO - Add -tr-rule-ref capability for icons.
+    // I purposely do not include the -tr-rule-ref at this time.
+    // See TRINIDAD-17 for details why. There is a hitch. Even though we treat selectors 
+    // with -icon as Icon objects, if there is no content attribute, we also treat them as styles.
+    // Well, if they use -tr-rule-ref to import 'content', then we will think it is a style, 
+    // and we'll have extra styles. Yet we don't want to resolve selectors just to see if it is
+    // really an icon. But we don't want to hurt the person that didn't abide by the -icon rule
+    // because this wasn't an enforced rule.
+    //
+    if (selectorName != null)
     {
-      if (text != null)
-      {
-        // don't allow styleClass from the css parsing file. We can handle
-        // this when we have style includes
-        // put back the width/height properties if there were some
-        if ((heightValue != null || widthValue != null) && inlineStyle == null)
-          inlineStyle = new CSSStyle();
-        if (heightValue != null)
-          inlineStyle.setProperty("height", heightValue);
-        if (widthValue != null)
-          inlineStyle.setProperty("width", widthValue);
-        icon = new TextIcon(text, text, null, inlineStyle);
-      }
-      else if (uri != null)
-      {
-
-
-        // a leading / indicates context-relative
-        //      (auto-prefix the servlet context)
-        // a leading // indicates server-relative
-        //      (don't auto-prefix the servlet context).
-
-        boolean startsWithTwoSlashes = uri.startsWith("//");
-        if (!startsWithTwoSlashes && uri.startsWith("/"))
-        {
-
-          uri = uri.substring(1);
-
-          icon =
-            new ContextImageIcon(uri, uri, width, height, null, inlineStyle);
-        }
-        else
-        {
-          // a. if it has two slashes, strip off one.
-          // b. if it starts with http: don't do anything to the uri
-          // c. if it an absolute url, then it should be relative to
-          // the skin file since they wrote the absolute url in the skin file.
-          if (startsWithTwoSlashes)
-            uri = uri.substring(1);
-          else if (!(uri.startsWith("http:")))
-            uri = CSSUtils.getAbsoluteURIValue(sourceName, baseSourceURI, uri);
-          icon =
-            new URIImageIcon(uri, uri, width, height, null, inlineStyle);
-        }
-      }
-      else
-      {
-        /// neither text or image icon.
-        if (inlineStyle != null)
-        {
-          // create a styleNode, too with the inlineStyles.
-          createStyleNode = true;
-        }
-      }
-    }
-    else
-    {
-      icon = NullIcon.sharedInstance();
+      // Create a styleNode that we will add to the IconNode.
+      StyleNode styleNode =
+        new StyleNode(null,
+                      selectorName,
+                      propertyNodeArray,
+                      null, // TODO includeStyleNodes.toArray(new IncludeStyleNode[0]), TRINIDAD-17
+                      null, //TODO jmw includePropertyNodes
+                      null // TODO jmw inhibitedProperties
+                      );
+      
+      // Create a new IconNode.
+      // don't bother creating the Icon object now (the second property to new IconNode()); 
+      // we create the Icon object when we resolve IconNodes in StyleSheetDocument
+      // See StyleSheetDocument#getIcons(StyleContext context).      
+      iconNodeList.add(new IconNode(selectorName, null, styleNode));
     }
 
-    // if icon is not null, create an IconNode
-
-    if (icon != null)
-      iconNodeList.add(new IconNode(selectorName, icon));
-
-    return createStyleNode;
+    return hasContentProperty;
 
   }
 
@@ -602,7 +549,12 @@ class SkinStyleSheetParserUtils
    * @param selectorName
    * @param propertyNodeList
    * @param trRuleRefList
-   * @param styleNodeList
+   * @param includePropertyNodes
+   * @param inhibitedProperties
+   * @param trTextAntialias
+   * @param styleNodeList Once the StyleNode is created, it is added to the iconNodeList to be
+   * used outside this method.
+   *
    */
   private static void _addStyleNode(
     String                    selectorName,
@@ -614,6 +566,22 @@ class SkinStyleSheetParserUtils
     List<StyleNode>           styleNodeList)
   {
 
+    StyleNode styleNode = _createStyleNode(selectorName, propertyNodeList, trRuleRefList, 
+                                           includePropertyNodes, inhibitedProperties, 
+                                           trTextAntialias);
+
+    styleNodeList.add(styleNode);
+
+  }
+
+  private static StyleNode _createStyleNode(
+    String                    selectorName,
+    List<PropertyNode>        propertyNodeList,
+    List<String>              trRuleRefList,
+    List<IncludePropertyNode> includePropertyNodes,
+    Set<String>               inhibitedProperties,
+    boolean                   trTextAntialias)
+  {
     // these are the styles.
     // At this point I have a selector name and the properties.
     // create a StyleNode based on this information.
@@ -666,11 +634,10 @@ class SkinStyleSheetParserUtils
                     selector,
                     propertyArray,
                     includeStyleNodes.toArray(new IncludeStyleNode[0]),
-                    includePropertyNodes.isEmpty() ? null : includePropertyNodes.toArray(new IncludePropertyNode[0]),
+                    includePropertyNodes.isEmpty() ? 
+                    null : includePropertyNodes.toArray(new IncludePropertyNode[0]),
                     inhibitedProperties);
-
-    styleNodeList.add(styleNode);
-
+    return styleNode;
   }
 
   /**
@@ -766,7 +733,7 @@ class SkinStyleSheetParserUtils
 
     if (value != null)
     {
-      // parse string and create styleNode for each selector value
+      // parse string and create IncludeStyleNode for each selector value.
       // the string will be of this form:
       // selector(".AFBaseFont:alias") selector(".MyDarkBackground")
       // or a single selector:
@@ -775,24 +742,11 @@ class SkinStyleSheetParserUtils
 
       List<String> selectors = new ArrayList<String>();
 
-      String[] test = _SELECTOR_PATTERN.split(value);
-      for (int i=0; i < test.length; i++)
-      {
-        int endIndex = test[i].indexOf(")");
-        if (endIndex > -1)
-        {
-          String selectorValue = test[i].substring(0, endIndex);
-          selectorValue = trimQuotes(selectorValue);
-          selectors.add(selectorValue);
-        }
-      }
+      _parseValueIntoSelectors(value, selectors);
 
       // now take the selector List and convert it to IncludeStyleNodes.
-      int size = selectors.size();
-
-      for (int i=0; i < size; i++)
+      for (String includeStyle : selectors)
       {
-        String includeStyle = selectors.get(i);
         // if it has :alias at the end it is a named style
         if (includeStyle.endsWith(":alias"))
         {
@@ -810,6 +764,30 @@ class SkinStyleSheetParserUtils
           includeStyleNodes.add(new IncludeStyleNode(null, includeStyle));
       }
 
+    }
+  }
+
+  /**
+   * Parse the value into a List<String> of selector names.
+   * @param value - String of the form: selector(".AFBaseFont:alias") selector(".MyDarkBackground")
+   * or a single selector: selector(".AFBaseFont:alias")
+   * @param selectors a List<String> of selector names. This will be filled in during this method
+   * call.
+   */
+  private static void _parseValueIntoSelectors(
+    String value, 
+    List<String> selectors)
+  {
+    String[] test = _SELECTOR_PATTERN.split(value);
+    for (int i=0; i < test.length; i++)
+    {
+      int endIndex = test[i].indexOf(")");
+      if (endIndex > -1)
+      {
+        String selectorValue = test[i].substring(0, endIndex);
+        selectorValue = trimQuotes(selectorValue);
+        selectors.add(selectorValue);
+      }
     }
   }
 
@@ -914,11 +892,23 @@ class SkinStyleSheetParserUtils
 
     return trimQuotes(uri);
   }
-
+  
+  // wraps the uri in 'url( )' and returns the new String.
+  private static String _wrapWithURLString(String uri)
+  {
+    StringBuilder builder = new StringBuilder(5 + uri.length());
+    builder.append("url(");
+    builder.append(uri);
+    builder.append(")");
+    return builder.toString();
+    
+  }
 
   // returns true if the selectorName indicates that it is an icon.
   private static boolean _isIcon(String selectorName)
   {
+    if (selectorName == null)
+      return false;
     // =-=jmw There is no good way to tell if this is an icon.
     // for now, I look at the selector name.
     // we do have some styles that have -icon- in the name, but it's
@@ -932,24 +922,7 @@ class SkinStyleSheetParserUtils
             (selectorName.indexOf("-icon:") > -1) ||
             selectorName.indexOf("Icon:alias") > -1);
   }
-
-  /**
-   * Given a String that denotes a width or height css style
-   * property, return an Integer. This will strip off 'px' from
-   * the string if there is one.
-   * e.g., if propertyValue is '7px', the Integer 7 will be returned.
-   * @param propertyValue - this is a string that indicates width
-   * or height.
-   * @return Integer
-   */
-  private static Integer _convertPxDimensionStringToInteger(
-    String propertyValue)
-  {
-    int pxPosition = propertyValue.indexOf("px");
-    if (pxPosition > -1)
-      propertyValue = propertyValue.substring(0, pxPosition);
-    return Integer.valueOf(propertyValue);
-  }
+  
   private static class ResolvedSkinProperties
   {
 
@@ -1018,7 +991,6 @@ class SkinStyleSheetParserUtils
   private static final String _PROPERTY_INHIBIT = "inhibit";
   private static final String _INCLUDE_PROPERTY = "-tr-property-ref";
   private static final String _PROPERTY_TEXT_ANTIALIAS = "text-antialias";
-  private static final Pattern _INTEGER_PATTERN = Pattern.compile("\\d+(px)?");
 
   private static final Pattern _SPACE_PATTERN = Pattern.compile("\\s");
   private static final Pattern _SELECTOR_PATTERN = Pattern.compile("selector\\(");

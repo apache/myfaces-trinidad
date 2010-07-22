@@ -22,6 +22,7 @@ import java.awt.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -30,16 +31,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.Stack;
+
+import java.util.regex.Pattern;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.URIImageIcon;
+import org.apache.myfaces.trinidadinternal.style.CSSStyle;
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
@@ -50,7 +58,7 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * Parsed representation of a Trinidad style sheet document.
- * 
+ *
  * The StyleSheetDocument provides access to both style as well as icons
  * information, but not to skin properties.
  *
@@ -181,6 +189,238 @@ public class StyleSheetDocument
     StyleSheetList styleSheets = _getStyleSheets(context);
     return styleSheets.styleSheets().iterator();
   }
+  
+  /**
+   * Returns an Iterator of StyleNode objects for the specified context.
+   */
+   @SuppressWarnings("unchecked")
+  public Iterator<IconNode> getIcons(StyleContext context)
+  {
+    // document.getStyleSheets sorts by lowest to highest precedence
+    StyleSheetList styleSheets = _getStyleSheets(context);
+    if (styleSheets.isEmpty())
+    {
+      List<IconNode> emptyList = Collections.emptyList();
+      return emptyList.iterator();
+    }
+    
+    // We also need to provide a Map for storing selector-based
+    // styles and another for storing name-based styles, used by
+    // _resolveStyle() to store results
+    HashMap<String, StyleNode> resolvedStyles = 
+      new HashMap<String, StyleNode>();
+    HashMap<String, StyleNode> resolvedNamedStyles = 
+      new HashMap<String, StyleNode>();
+
+    // Keep track of all selectors and names that we've already
+    // found, so that we don't bother re-resolving them
+    // These differ from the above Maps in that the Maps are
+    // mutated by _resolveStyle - so an included selector, for
+    // instance, might already be present in _resolveStyle but
+    // not yet have been encountered by this top loop.  We
+    // could eliminate the need for this if we were willing
+    // to give up the ordering of the list
+    Set<String> foundNames = new HashSet<String>();
+    List<IconNode> iconNodes = new ArrayList<IconNode>();
+
+    // We want to cache IDs in this use of StyleSheetList. We'll use the cache
+    // when we resolve styles.
+    styleSheets.cacheIconIds();
+    styleSheets.cacheStyleIds();
+    
+    for (StyleSheetNode styleSheet : styleSheets.styleSheets())
+    {
+      Iterable<IconNode> iconNodeList = styleSheet.getIcons();
+      // iterate through each one and add to the list.
+      for (IconNode iconNodeFromStyleSheet : iconNodeList)
+      {
+            String id;
+            boolean isFound;
+
+
+            id = iconNodeFromStyleSheet.getIconName();
+            isFound = foundNames.contains(id);
+            
+
+            // If we've already seen that node/selector, no need to look
+            // for it again
+            if (!isFound)
+            {
+              StyleNode resolvedNode = _resolveStyleNode(context, true,
+                                                         styleSheets,
+                                                         resolvedStyles,
+                                                         resolvedNamedStyles,
+                                                         null,
+                                                         null,
+                                                         id,
+                                                         false);
+
+              // Create the Icon
+              
+              if (resolvedNode != null)        
+              {
+ 
+                Icon icon = _createIconFromNode(resolvedNode);
+ 
+                if (icon != null)
+                {
+                  iconNodes.add(new IconNode(id, icon, resolvedNode));
+
+                  foundNames.add(id);
+                }
+
+              }
+       
+
+        }
+      }
+    }
+
+    return iconNodes.iterator();
+  
+  }
+
+  /**
+   * From each property in the resolvedNode, create an Icon object.
+   * @param resolvedNode StyleNode that contains all the resolved css properties
+   * @return an Icon object that was created from the information in the resolvedNode.
+   */
+  private Icon _createIconFromNode(StyleNode resolvedNode)
+  {    
+    Integer width = null;
+    String  widthValue = null;
+    Integer height = null;
+    String  heightValue = null;
+    String  uri = null;
+    String  text = null;
+    boolean isNullIcon = false;
+    CSSStyle  inlineStyle = null;
+
+    // loop through each property in the StyleNode.
+    // If 'content', then get the url and the type of icon: 
+    // Context, Image, Null, or Text
+    // If 'width', then get the width
+    // If 'height', then get the height
+    // Build up all the rest of the properties as a CSSStyle object.
+    // Then create an Icon object. 
+    Collection<PropertyNode> properties = resolvedNode.getProperties();
+    for (PropertyNode propertyNode : properties)
+    {
+      String propertyName = propertyNode.getName();
+      String propertyValue = propertyNode.getValue();
+     
+      
+      if (propertyName != null)
+      {
+        if (propertyName.equals("width"))
+        {
+          // save the original propertyValue for the 'width' property in widthValue.
+          // Then strip off px from the string and return an Integer and store in width.
+          if (_INTEGER_PATTERN.matcher(propertyValue).matches())
+          {
+            widthValue = propertyValue;
+            width = _convertPxDimensionStringToInteger(widthValue);
+          }
+          else
+          {
+            widthValue = null;
+            // use inlineStyle for non-integer width values;
+            if (inlineStyle == null)
+              inlineStyle = new CSSStyle();
+            inlineStyle.setProperty(propertyName, propertyValue);
+          }
+        }
+        else if (propertyName.equals("height"))
+        {
+          // save original height value
+          // strip off px from the string and return an Integer
+          if (_INTEGER_PATTERN.matcher(propertyValue).matches())
+          {
+            heightValue = propertyValue;
+            height = _convertPxDimensionStringToInteger(heightValue);
+          }
+          else
+          {
+            // use inlineStyle for non-integer height values;
+            heightValue = null;
+            if (inlineStyle == null)
+              inlineStyle = new CSSStyle();
+            inlineStyle.setProperty(propertyName, propertyValue);
+          }
+        }
+        else if (propertyName.equals("content"))
+        {
+          // is it a text or uri
+          if (_isURLValue(propertyValue))
+          {
+            uri = _getURIString(propertyValue);
+          }
+          else if (propertyValue.startsWith("inhibit"))
+          {
+            isNullIcon = true;
+          }
+          else
+          {
+            text = _trimQuotes(propertyValue);
+          }
+        }
+        else
+        {
+          // create an inlineStyle with all the extraneous style properties
+          if (inlineStyle == null)
+            inlineStyle = new CSSStyle();
+          inlineStyle.setProperty(propertyName, propertyValue);
+        }
+      }
+    }
+     
+
+    // now I need to create the icon.
+    // do not create an icon if isNullIcon is true.
+    Icon icon = null;
+
+    if (!isNullIcon)
+    {
+     if (text != null)
+     {
+       // don't allow styleClass from the css parsing file. We can handle
+       // this when we have style includes
+       // put back the width/height properties if there were some
+       if ((heightValue != null || widthValue != null) && inlineStyle == null)
+         inlineStyle = new CSSStyle();
+       if (heightValue != null)
+         inlineStyle.setProperty("height", heightValue);
+       if (widthValue != null)
+         inlineStyle.setProperty("width", widthValue);
+       icon = new TextIcon(text, text, null, inlineStyle);
+     }
+     else if (uri != null)
+     {
+       // A URIImageIcon url starts with '/' or 'http:',
+       // whereas a ContextImageIcons uri does not. 
+       boolean startsWithASlash = uri.startsWith("/");
+       if (!startsWithASlash)
+       {
+         icon =
+           new ContextImageIcon(uri, uri, width, height, null, inlineStyle);
+       }
+       else
+       {
+         icon =
+           new URIImageIcon(uri, uri, width, height, null, inlineStyle);  
+
+
+       }
+      }
+    }
+    else
+    {
+      icon = NullIcon.sharedInstance();
+    }
+
+    
+    return icon;
+  }
 
   /**
    * Returns an Iterator of StyleNode objects for the specified context.
@@ -222,8 +462,9 @@ public class StyleSheetDocument
 
     // Now, loop through all StyleNodes in all StyleSheetNodes
     
-    // We want to cache IDs in this use of StyleSheetList
-    styleSheets.cacheIds();
+    // We want to cache IDs in this use of StyleSheetList. We'll use the cache
+    // when we resolve styles.
+    styleSheets.cacheStyleIds();
 
     for (StyleSheetNode styleSheet : styleSheets.styleSheets())
     {
@@ -253,7 +494,7 @@ public class StyleSheetDocument
         // for it again
         if (!isFound)
         {
-          StyleNode resolvedNode = _resolveStyle(context,
+          StyleNode resolvedNode = _resolveStyleNode(context, false,
                                                  styleSheets,
                                                  resolvedStyles,
                                                  resolvedNamedStyles,
@@ -357,7 +598,7 @@ public class StyleSheetDocument
     if (styleSheets.isEmpty())
       return null;
 
-    return _resolveStyle(context,
+    return _resolveStyleNode(context, false,
                          styleSheets,
                          new HashMap<String, StyleNode>(19),  // Resolved styles
                          new HashMap<String, StyleNode>(19),  // Resolved named styles
@@ -370,6 +611,7 @@ public class StyleSheetDocument
   /**
    * Resolves the (named or selector-based) style with the specified id.
    * @param context The StyleContext
+   * @param forIconNode if you are resolving the styles for an IconNode, this is true.
    * @param styleSheets The StyleSheetNodes to use for resolving the style,
    *          sorted from lowest to highest precedence.
    * @param resolvedStyles The set of already resolved styles, hashed by
@@ -387,8 +629,9 @@ public class StyleSheetDocument
    *           resolved style is stored in the appropriate resolved style
    *           Map.
    */
-  private StyleNode _resolveStyle(
+  private StyleNode _resolveStyleNode(
     StyleContext           context,
+    boolean                forIconNode,
     StyleSheetList         styleSheets,
     Map<String, StyleNode> resolvedStyles,
     Map<String, StyleNode> resolvedNamedStyles,
@@ -466,116 +709,39 @@ public class StyleSheetDocument
       includesStack.push(id);
     }
 
+    // styleSheets.styleNodes(id, isNamed) returns a List of StyleNodes that match the StyleContext
+    // and have the same selector name. For example, if the css files contains 
+    // .someStyle {color: red} .someStyle {font-size: 11px}
+    // you will get two StyleNodes, and the properties will get merged together.
     List<StyleNode> nodeList = styleSheets.styleNodes(id, isNamed);
-    if (nodeList != null)
+    // get the StyleNodes from each iconNodeList and add it to the StyleNode list
+    if (forIconNode)
     {
-      for (StyleNode node : nodeList)
+      List<IconNode> iconNodeList = styleSheets.iconNodes(id);
+
+      // protect against null - 
+      // iconNodeList could be null if in SkinStyleSheetParserUtils 
+      // we thought a selector was an icon because it ended in -icon and we created an IconNode.
+      // But we also saw that it had no 'content', so we created a StyleNode.
+      // Really this is a mis-named style selector (should have ended with -icon-style),
+      // and this resolving work is wasted cycles.
+      if (iconNodeList != null)
       {
-        // We've got a match!  We need to do the following:
-        // 0. Check to see whether we need to reset our properties.
-        // 1. Resolve any included styles, and shove those properties
-        //    into our StyleEntry.
-        // 2. Resolve any included properties, and shove those properties
-        //    into our StyleEntry.
-        // 3. Remove all properties that were inhibited.
-        // 4. Shove all properties from the matching StyleNode into our
-        //    StyleEntry, overwriting included values
-        // -= Simon Lessard =-
-        // FIXME: That sequence looks buggy. If more than 1 matching node 
-        //        is found, then the included properties of the second will
-        //        have priority over the properties found at step 5 on the
-        //        first node, which is most likely incorrect.
-        //
-        //        A possible fix would be to put entries from the 5 steps 
-        //        into 5 different lists then resolve all priorities at the 
-        //        end.
-        
-        // 0. Reset properties?
-        if (node.__getResetProperties() || node.isInhibitingAll())
-          entry.resetProperties();
-  
-        // 1. Resolve included styles
-        Iterable<IncludeStyleNode> includedStyles = node.getIncludedStyles();
-        for (IncludeStyleNode includeStyle : includedStyles)
+        for (IconNode iconNode: iconNodeList)
         {
-          String includeID = null;
-          boolean includeIsNamed = false;
+          StyleNode sNode = iconNode.getStyleNode();
 
-          if (includeStyle.getName() != null)
+          if (sNode != null)
           {
-            includeID = includeStyle.getName();
-            includeIsNamed = true;
-          }
-          else
-          {
-            includeID = includeStyle.getSelector();
-          }
-
-          StyleNode resolvedNode = _resolveStyle(context,
-                                                 styleSheets,
-                                                 resolvedStyles,
-                                                 resolvedNamedStyles,
-                                                 includesStack,
-                                                 namedIncludesStack,
-                                                 includeID,
-                                                 includeIsNamed);
-
-          if (resolvedNode != null)
-            _addIncludedProperties(entry, resolvedNode);
-        }
-  
-  
-        // 2. Resolve included properties
-        Iterable<IncludePropertyNode> includedProperties = node.getIncludedProperties();
-        for (IncludePropertyNode includeProperty : includedProperties)
-        {
-          String includeID = null;
-          boolean includeIsNamed = false;
-  
-          if (includeProperty.getName() != null)
-          {
-            includeID = includeProperty.getName();
-            includeIsNamed = true;
-          }
-          else
-          {
-            includeID = includeProperty.getSelector();
-          }
-  
-          StyleNode resolvedNode = _resolveStyle(context,
-                                                 styleSheets,
-                                                 resolvedStyles,
-                                                 resolvedNamedStyles,
-                                                 includesStack,
-                                                 namedIncludesStack,
-                                                 includeID,
-                                                 includeIsNamed);
-  
-          if (resolvedNode != null)
-          {
-            _addIncludedProperty(entry,
-                                 resolvedNode,
-                                 includeProperty.getPropertyName(),
-                                 includeProperty.getLocalPropertyName());
+            if (nodeList == null)
+              nodeList = new ArrayList<StyleNode>(iconNodeList.size());
+            nodeList.add(sNode);
           }
         }
-  
-        // 3. Check inhibited properties
-        Iterable<String> inhibitedProperties = node.getInhibitedProperties();
-        for (String inhibitedPropertyName : inhibitedProperties)
-        {
-          entry.removeProperty(inhibitedPropertyName);
-        }
-        
-  
-        // 4. Add non-included properties
-        Iterable<PropertyNode> properties = node.getProperties();
-        for (PropertyNode propertyNode : properties)
-        {
-          entry.addProperty(propertyNode);
-        }
-      }
+      }        
     }
+    _resolveStyleWork(context, forIconNode, styleSheets, resolvedStyles, resolvedNamedStyles,  
+                      includesStack, namedIncludesStack, entry, nodeList);
     
     // Pop the include stack
     if (isNamed)
@@ -618,8 +784,132 @@ public class StyleSheetDocument
     return resolvedNode;
   }
 
-  // Adds all of the properties from the StyleNode into the StyleEntry
-  // as included properties.
+  private void _resolveStyleWork(
+    StyleContext context,
+    boolean      forIconNode,
+    StyleSheetList styleSheets,
+    Map<String, StyleNode> resolvedStyles,
+    Map<String, StyleNode> resolvedNamedStyles,
+    Stack<String> includesStack,
+    Stack<String> namedIncludesStack,
+    StyleEntry entry,
+    List<StyleNode> nodeList)
+  {
+    if (nodeList != null)
+    {
+      for (StyleNode node : nodeList)
+      {
+        // We've got a match!  We need to do the following:
+        // 0. Check to see whether we need to reset our properties.
+        // 1. Resolve any included styles, and shove those properties
+        //    into our StyleEntry.
+        // 2. Resolve any included properties, and shove those properties
+        //    into our StyleEntry.
+        // 3. Remove all properties that were inhibited.
+        // 4. Shove all properties from the matching StyleNode into our
+        //    StyleEntry, overwriting included values
+        // -= Simon Lessard =-
+        // FIXME: That sequence looks buggy. If more than 1 matching node 
+        //        is found, then the included properties of the second will
+        //        have priority over the properties found at step 5 on the
+        //        first node, which is most likely incorrect.
+        //
+        //        A possible fix would be to put entries from the 5 steps 
+        //        into 5 different lists then resolve all priorities at the 
+        //        end.
+        
+        // 0. Reset properties?
+        if (node.__getResetProperties() || node.isInhibitingAll())
+          entry.resetProperties();
+    
+        // 1. Resolve included styles
+        Iterable<IncludeStyleNode> includedStyles = node.getIncludedStyles();
+        for (IncludeStyleNode includeStyle : includedStyles)
+        {
+          String includeID = null;
+          boolean includeIsNamed = false;
+
+          if (includeStyle.getName() != null)
+          {
+            includeID = includeStyle.getName();
+            includeIsNamed = true;
+          }
+          else
+          {
+            includeID = includeStyle.getSelector();
+          }
+        
+          StyleNode resolvedNode = _resolveStyleNode(context, forIconNode,
+                                                 styleSheets,
+                                                 resolvedStyles,
+                                                 resolvedNamedStyles,
+                                                 includesStack,
+                                                 namedIncludesStack,
+                                                 includeID,
+                                                 includeIsNamed);
+
+          if (resolvedNode != null)
+            _addIncludedProperties(entry, resolvedNode);
+        }
+    
+    
+        // 2. Resolve included properties
+        Iterable<IncludePropertyNode> includedProperties = node.getIncludedProperties();
+        for (IncludePropertyNode includeProperty : includedProperties)
+        {
+          String includeID = null;
+          boolean includeIsNamed = false;
+    
+          if (includeProperty.getName() != null)
+          {
+            includeID = includeProperty.getName();
+            includeIsNamed = true;
+          }
+          else
+          {
+            includeID = includeProperty.getSelector();
+          }
+    
+          StyleNode resolvedNode = _resolveStyleNode(context, forIconNode,
+                                                 styleSheets,
+                                                 resolvedStyles,
+                                                 resolvedNamedStyles,
+                                                 includesStack,
+                                                 namedIncludesStack,
+                                                 includeID,
+                                                 includeIsNamed);
+    
+          if (resolvedNode != null)
+          {
+            _addIncludedProperty(entry,
+                                 resolvedNode,
+                                 includeProperty.getPropertyName(),
+                                 includeProperty.getLocalPropertyName());
+          }
+        }
+    
+        // 3. Check inhibited properties
+        Iterable<String> inhibitedProperties = node.getInhibitedProperties();
+        for (String inhibitedPropertyName : inhibitedProperties)
+        {
+          entry.removeProperty(inhibitedPropertyName);
+        }
+        
+    
+        // 4. Add non-included properties
+        Iterable<PropertyNode> properties = node.getProperties();
+        for (PropertyNode propertyNode : properties)
+        {
+          entry.addProperty(propertyNode);
+          
+        }
+        
+
+      }
+    }
+  }
+  
+
   private void _addIncludedProperties(
     StyleEntry entry,
     StyleNode  node
@@ -724,7 +1014,63 @@ public class StyleSheetDocument
     return new PropertyNode(_FONT_SIZE_NAME, newValue);
   }
 
+  /**
+   * Given a String that denotes a width or height css style
+   * property, return an Integer. This will strip off 'px' from
+   * the string if there is one.
+   * e.g., if propertyValue is '7px', the Integer 7 will be returned.
+   * @param propertyValue - this is a string that indicates width
+   * or height.
+   * @return Integer
+   */
+  private static Integer _convertPxDimensionStringToInteger(
+    String propertyValue)
+  {
+    int pxPosition = propertyValue.indexOf("px");
+    if (pxPosition > -1)
+      propertyValue = propertyValue.substring(0, pxPosition);
+    return Integer.valueOf(propertyValue);
+  }
+  
+  // Tests whether the specified property value is an "url" property.
+  private static boolean _isURLValue(String propertyValue)
+  {
+    // URL property values start with "url("
+    return propertyValue.startsWith("url(");
+  }
+  
+  /**
+   * Trim the leading/ending quotes, if any.
+   */
+  private static String _trimQuotes(String in)
+  {
+    int length = in.length();
+    if (length <= 1)
+      return in;
+    // strip off the starting/ending quotes if there are any
+    char firstChar = in.charAt(0);
+    int firstCharIndex = 0;
+    if ((firstChar == '\'') || (firstChar == '"'))
+      firstCharIndex = 1;
 
+    char lastChar = in.charAt(length-1);
+    if ((lastChar == '\'') || (lastChar == '"'))
+      length--;
+
+    return in.substring(firstCharIndex, length);
+  }
+  
+  // Returns the uri portion of the url property value
+  private static String _getURIString(String propertyValue)
+  {
+    assert(_isURLValue(propertyValue));
+
+    int uriEnd = propertyValue.indexOf(')');
+    String uri = propertyValue.substring(4, uriEnd);
+
+    return _trimQuotes(uri);
+  }
+  
   // Tests whether the value is present in the (possibly null) stack.
   private static boolean _stackContains(Stack<?> stack, Object value)
   {
@@ -758,14 +1104,14 @@ public class StyleSheetDocument
      * we're going to be retrieving a lot (generally, all)
      * of the nodes at some point.
      */
-    public void cacheIds()
+    public void cacheStyleIds()
     {
       // Typically, there are a lot more selector nodes than
       // name nodes.  These numbers come from some statistics gathered
       // on Trinidad and other libraries
-      _nameNodes = new HashMap<String, List<StyleNode>>(256);
-      _selectorNodes = new HashMap<String, List<StyleNode>>(1024);
-      
+      _nameNodes = new HashMap<String, List<StyleNode>>(512);
+      _selectorNodes = new HashMap<String, List<StyleNode>>(4096);
+            
       for (int i = 0; i < _styleSheets.length; i++)
       {
         StyleSheetNode styleSheet = _styleSheets[i];
@@ -773,17 +1119,53 @@ public class StyleSheetDocument
 
         for (StyleNode node : styleNodeList)
         {
+          // Add to the map where the key is the 'name' or 'selector name', and the value
+          // is a List of StyleNodes that have that same 'name' or 'selector name'. This 
+          // is in case someone created the same selector more than once, or overrode a selector.
           if (node.getName() != null)
-            _addToMap(_nameNodes, node, node.getName());
+          {
+            _addToStyleMap(_nameNodes, node, node.getName());
+          }
           else
-            _addToMap(_selectorNodes, node, node.getSelector());
+          {
+            _addToStyleMap(_selectorNodes, node, node.getSelector());
+          }
+         
+        }
+      }
+
+    }
+    
+
+    /**
+     * Forcibly caches IDs.  Caching IDs is only useful if
+     * we're going to be retrieving a lot (generally, all)
+     * of the nodes at some point.
+     */
+    public void cacheIconIds()
+    {
+      _iconNodes = new HashMap<String, List<IconNode>>(1024);
+      
+      
+      for (int i = 0; i < _styleSheets.length; i++)
+      {
+        StyleSheetNode styleSheet = _styleSheets[i];
+        Iterable<IconNode> iconNodeList = styleSheet.getIcons();
+        for (IconNode node : iconNodeList)
+        {
+          // Add to the map where the key is the 'icon name', and the value
+          // is a List of StyleNodes that have that same 'icon name'. This 
+          // is in case someone created the same selector more than once, or overrode a selector.
+          if (node.getIconName() != null)
+            _addToIconMap(_iconNodes, node, node.getIconName()); 
         }
       }
     }
     
     /**
      * Return a List of StyleNodes based on the "id" (either
-     * a selector or name)
+     * a selector or name).
+     * Call cacheStyleIds first if you want everything to be cached.
      * @param id the selector or name
      * @param isNamed if true, interpret "id" as a name, otherwise
      *   as a selector
@@ -793,13 +1175,15 @@ public class StyleSheetDocument
     {
       if (_styleSheets == null)
         return Collections.emptyList();
+      // _nameNodes and _selectorNodes are initialized in cacheStyleIds
       Map<String, List<StyleNode>> m = isNamed ? _nameNodes : _selectorNodes;
       // Cached version - go to the Map
       if (m != null)
         return m.get(id);
       
       // Uncached version - iterate through everything and build up
-      // the List
+      // the List, but do not cache it.
+      // This gets called if you do not call cacheStyleIds() first.
       List<StyleNode> l = new ArrayList<StyleNode>();
       for (int i = 0; i < _styleSheets.length; i++)
       {
@@ -823,7 +1207,41 @@ public class StyleSheetDocument
       
       return l;
     }
-    
+   
+    /**
+     * Return a List of IconNodes based on the "id"
+     * @param id the icon selector name
+     * @return the list of IconNodes (potentially null)
+     */
+    public List<IconNode> iconNodes(String id)
+    {
+      if (_styleSheets == null)
+        return Collections.emptyList();
+      Map<String, List<IconNode>> m = _iconNodes;
+      // Cached version - go to the Map
+      if (m != null)
+        return m.get(id);
+      
+      // Uncached version - iterate through everything and build up
+      // the List, but do not cache it.
+      // This gets called if you do not call cacheIconIds() first.
+      List<IconNode> l = new ArrayList<IconNode>();
+      for (int i = 0; i < _styleSheets.length; i++)
+      {
+        StyleSheetNode styleSheet = _styleSheets[i];
+        Iterable<IconNode> iconNodeList = styleSheet.getIcons();
+
+        for (IconNode node : iconNodeList)
+        {
+
+            if (id.equals(node.getIconName()))
+              l.add(node);
+          
+        }
+      }
+      
+      return l;
+    } 
     /**
      * @return an unmodifiable list of all StyleSheetNodes
      */
@@ -839,7 +1257,7 @@ public class StyleSheetDocument
       }
     }
 
-    static private void _addToMap(
+    static private void _addToStyleMap(
       Map<String, List<StyleNode>> m, 
       StyleNode                    node,
       String                       id)
@@ -847,19 +1265,42 @@ public class StyleSheetDocument
       List<StyleNode> l = m.get(id);
       if (l == null)
       {
-        // Most properties, in fact, have only one entry
-        // The most I've seen is 8.  This could probably
-        // be reduced to 2
-        l = new ArrayList<StyleNode>(4);
+        // you may see this id (aka selector) multiple times in the resolved skin.
+        // The reasons could be: duplicated in the css file due to @rules, in one css file then 
+        // another that extends that one.
+        // the most I've seen is 6. But as new skins are created that extend old skins,
+        // this number could increase.
+        l = new ArrayList<StyleNode>(6);
         m.put(id, l);
       }
       
       l.add(node);
     }
 
+
+    static private void _addToIconMap(
+      Map<String, List<IconNode>> m, 
+      IconNode                    node,
+      String                      id)
+    {
+      List<IconNode> l = m.get(id);
+      if (l == null)
+      {
+        // you may see this id (aka selector) multiple times in the resolved skin.
+        // The reasons could be: duplicated in the css file due to @rules, in one css file then 
+        // another that extends that one.
+        // The most I've seen is 6. But as new skins are created that extend old skins,
+        // this number could increase.
+        l = new ArrayList<IconNode>(6);
+        m.put(id, l);
+      }
+      
+      l.add(node);
+    }
     
     private Map<String, List<StyleNode>> _nameNodes;
     private Map<String, List<StyleNode>> _selectorNodes;
+    private Map<String, List<IconNode>>  _iconNodes;
     
     private final StyleSheetNode[] _styleSheets;
   }
@@ -1425,5 +1866,6 @@ public class StyleSheetDocument
   // Error messages
   private static final String _CIRCULAR_INCLUDE_ERROR =
     "Circular dependency detected in style ";
+  private static final Pattern _INTEGER_PATTERN = Pattern.compile("\\d+(px)?");
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StyleSheetDocument.class);
 }

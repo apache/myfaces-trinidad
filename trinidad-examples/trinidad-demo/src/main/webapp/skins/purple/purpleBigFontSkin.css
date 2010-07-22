@@ -23,3 +23,11 @@
 .AFDefaultFont:alias {
 	font-size: 18pt;
 }
+
+/* This tests that the other css properties are picked up from the base skin, in this case purple */
+/* This tests that the -tr-rule-ref does not yet work for icons. See TRINIDAD-17 */
+af|selectOrderShuttle::reorder-up-icon {
+  content: url(/skins/purple/images/prev.png);
+  -tr-rule-ref: selector(".AFDefaultFont:alias");
+   border: 2px solid purple;
+}
