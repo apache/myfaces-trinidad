@@ -538,7 +538,7 @@ function _subparse(
         {
           if (eraIndex == 0)
           {
-            parseContext.isBC = true;
+            parseContext.parsedBC = true;
           }
         }
         else
