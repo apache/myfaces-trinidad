@@ -108,7 +108,8 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
     String hintRange = this.getHintNotInRange();
     
     Map<String, String> cMessages = null;
-    if(messageDetailMax != null || messageDetailMin != null || messageDetailRange != null || hintMax != null || hintMin != null|| hintRange != null)
+    if (messageDetailMax != null || messageDetailMin != null || messageDetailRange != null || 
+        hintMax != null || hintMin != null || hintRange != null)
     {
       cMessages = new HashMap<String, String>();
       cMessages.put("max", messageDetailMax);
@@ -119,7 +120,10 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
       cMessages.put("hintRange", hintRange);
     }
     
-    return _getTrDateTimeRangeValidator(context, component, maxStr, minStr, cMessages);
+    return _getTrDateTimeRangeValidator(context, component, maxStr, minStr, 
+                                        max != null ? Long.toString(max.getTime()) : "null", 
+                                        min != null ? Long.toString(min.getTime()) : "null", 
+                                        cMessages);
   }
   
   public String getClientLibrarySource(
@@ -133,6 +137,8 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
       UIComponent component,
       String max,
       String min,
+      String maxMilli,
+      String minMilli,
       Map<String, String> messages)
   {
     StringBuilder outBuffer = new StringBuilder(31 + min.length() + max.length());
@@ -156,6 +162,10 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
         outBuffer.append("null");
       }
     }
+    outBuffer.append(',');
+    outBuffer.append(maxMilli);
+    outBuffer.append(',');
+    outBuffer.append(minMilli);
     outBuffer.append(')');
 
     return outBuffer.toString();

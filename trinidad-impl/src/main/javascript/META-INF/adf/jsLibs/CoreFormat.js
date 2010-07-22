@@ -568,17 +568,17 @@ TrLengthValidator.prototype.validate  = function(
 }
 
 function TrDateTimeRangeValidator(
-  maxValueString,
-  minValueString,
+  maxDateString,
+  minDateString,
   messages,
-  maxValueObject,
-  minValueObject
+  maxDateMilliseconds,
+  minDateMilliseconds
   )
 {
-  this._maxValue = maxValueString;
-  this._minValue = minValueString;
-  this._maxValueObject = maxValueObject;
-  this._minValueObject = minValueObject;
+  this._maxDateString = maxDateString;
+  this._minDateString = minDateString;
+  this._maxDateMilliseconds = maxDateMilliseconds;
+  this._minDateMilliseconds = minDateMilliseconds;
   this._messages = messages;
   // for debugging
   this._class = "TrDateTimeRangeValidator";
@@ -589,12 +589,14 @@ TrDateTimeRangeValidator.prototype.getHints = function(
   converter
   )
 {
-  var max = null;
-  var min = null;
-  if (this._maxValue)
-    max = this._maxValue;
-  if (this._minValue)
-    min = this._minValue;
+  if (this._maxDateString == null && this._maxDateMilliseconds != null)
+    this._maxDateString = converter.getAsString(new Date(this._maxDateMilliseconds));
+  
+  if (this._minDateString == null && this._minDateMilliseconds != null)
+    this._minDateString = converter.getAsString(new Date(this._minDateMilliseconds));
+    
+  var max = this._maxDateString ? this._maxDateString : null;
+  var min = this._minDateString ? this._minDateString : null;
 
   return _returnRangeHints(
     this._messages,
@@ -608,24 +610,31 @@ TrDateTimeRangeValidator.prototype.getHints = function(
     "hintRange"
   );
 }
+
 TrDateTimeRangeValidator.prototype.validate  = function(
   value,
   label,
   converter
 )
 {
+  if (this._maxDateString == null && this._maxDateMilliseconds != null)
+    this._maxDateString = converter.getAsString(new Date(this._maxDateMilliseconds));
+  
+  if (this._minDateString == null && this._minDateMilliseconds != null)
+    this._minDateString = converter.getAsString(new Date(this._minDateMilliseconds));
+    
   dateTime = value.getTime();
   var facesMessage;
   //range
-  if (this._minValue && this._maxValue)
+  if (this._minDateString && this._maxDateString)
   {
     try
     {
-      minDate = this._minValueObject ? this._minValueObject.getTime() : 
-        converter.getAsObject(this._minValue).getTime();
+      minDate = (this._minDateMilliseconds != null) ? this._minDateMilliseconds : 
+        converter.getAsObject(this._minDateString).getTime();
         
-      maxDate = this._maxValueObject ? this._maxValueObject.getTime() : 
-        converter.getAsObject(this._maxValue).getTime();
+      maxDate = (this._maxDateMilliseconds != null) ? this._maxDateMilliseconds : 
+        converter.getAsObject(this._maxDateString).getTime();
     }
     catch (e)
     {
@@ -633,41 +642,42 @@ TrDateTimeRangeValidator.prototype.validate  = function(
       // client conversion fails
       return value;
     }
-    if(dateTime >= minDate && dateTime <= maxDate)
+    
+    if (dateTime >= minDate && dateTime <= maxDate)
     {
       return value;
     }
     else
     {
       var key = "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE";
-      if(this._messages && this._messages["range"])
-        {
+      if (this._messages && this._messages["range"])
+      {
           facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
                                         this._messages["range"],
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+this._minValue,
-                                        ""+this._maxValue);
-        }
+                                        ""+this._minDateString,
+                                        ""+this._maxDateString);
+      }
       else
       {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+this._minValue,
-                                        ""+this._maxValue);
+                                        ""+this._minDateString,
+                                        ""+this._maxDateString);
       }
     }
   }
   else
   {
     //only min
-    if(this._minValue)
+    if (this._minDateString)
     {
       try
       {
-        minDate = this._minValueObject ? this._minValueObject.getTime() : 
-          converter.getAsObject(this._minValue).getTime();
+        minDate = (this._minDateMilliseconds != null) ? this._minDateMilliseconds : 
+          converter.getAsObject(this._minDateString).getTime();
       }
       catch (e)
       {
@@ -676,37 +686,37 @@ TrDateTimeRangeValidator.prototype.validate  = function(
         return value;
       }
 
-      if(dateTime >= minDate)
+      if (dateTime >= minDate)
       {
         return value;
       }
       else
       {
         var key = "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM";
-      if(this._messages && this._messages["min"])
+        if (this._messages && this._messages["min"])
         {
           facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
                                         this._messages["min"],
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+this._minValue);
+                                        ""+this._minDateString);
         }
-      else
-      {
+        else
+        {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+this._minValue);
-      }
+                                        ""+this._minDateString);
+        }
       }
     }
     //max only
-    else if(this._maxValue)
+    else if (this._maxDateString)
     {
       try
       {
-        maxDate = this._maxValueObject ? this._maxValueObject.getTime() : 
-          converter.getAsObject(this._maxValue).getTime();
+        maxDate = (this._maxDateMilliseconds != null) ? this._maxDateMilliseconds : 
+          converter.getAsObject(this._maxDateString).getTime();
       }
       catch (e)
       {
@@ -714,27 +724,28 @@ TrDateTimeRangeValidator.prototype.validate  = function(
         // client conversion fails
         return value;
       }
-      if(dateTime <= maxDate)
+      
+      if (dateTime <= maxDate)
       {
         return value;
       }
       else
       {
         var key = "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM";
-        if(this._messages && this._messages["max"])
+        if (this._messages && this._messages["max"])
         {
           facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
                                         this._messages["max"],
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+this._maxValue);
+                                        ""+this._maxDateString);
         }
         else
         {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+this._maxValue);
+                                        ""+this._maxDateString);
         }
       }
     }
