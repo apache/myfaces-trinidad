@@ -1617,7 +1617,7 @@ abstract public class UIXComponentBase extends UIXComponent
    * NamingContainer's children is skipped.
    * </p>
    * <p>Subclasses implementing NamingContainer should override
-   * <code>invokeOnComponent</code> and delegate to this method.
+   * <code>invokeOnComponent</code> and delegate to this method.</p>
    */
   protected final boolean invokeOnNamingContainerComponent(
     FacesContext context,
@@ -1662,7 +1662,7 @@ abstract public class UIXComponentBase extends UIXComponent
         }
         else
         {
-          // setup the children visiting context and iterate through children.
+          // iterate through children.
           // We inline this code instead of calling super in order
           // to avoid making an extra call to getClientId().
           invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
@@ -1671,6 +1671,7 @@ abstract public class UIXComponentBase extends UIXComponent
     }
     finally
     {
+      // teardown the context now that we have visited the children
       tearDownVisitingContext(context);
     }
 
