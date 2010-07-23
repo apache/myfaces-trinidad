@@ -954,6 +954,9 @@ af|tree {
 .second {-tr-rule-ref:selector(".first"); color: red}
 .third {color: red; -tr-rule-ref:selector(".first");}
 
+/* test what happens if someone screw ups and creates a style selector 
+with a name that ends in 'icon'. Should see a warning logged. */
+af|style-not-icon {color: red; background-color:Lime;}
 
 
 

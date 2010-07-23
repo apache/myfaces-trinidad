@@ -231,13 +231,19 @@ class SkinStyleSheetParserUtils
                                               noTrPropertyList,
                                               resolvedProperties.getTrRuleRefList(),
                                               iconNodeList);
-          // TODO
-          // Log a warning that you should not have your style
-          // selectors end in 'icon' or 'Icon:alias" because in the skinning framework this denotes
-          // icons. We really should have used an @icon {} or somehow change icons... put it in a 
-          // different file or something.
+
           if (!hasContentProperty)
           {
+            // if it doesn't have any includes AND it doesn't have properties, it shouldn't pass
+            // the _isIcon test, so log a warning. This means the developer used the wrong 
+            // selector name. It should end in 'icon-style' instead of 'icon', for example.
+            
+            if (resolvedProperties.getTrRuleRefList() == null || 
+                resolvedProperties.getTrRuleRefList().isEmpty())
+            {
+              if (_LOG.isWarning())
+                _LOG.warning("SELECTOR_SHOULD_NOT_END_IN_ICON", selectorName);
+            }
             _addStyleNode(selectorName,
                           noTrPropertyList,
                           resolvedProperties.getTrRuleRefList(),
