@@ -42,10 +42,6 @@ import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
 import org.apache.myfaces.trinidad.model.TreeModel;
 import org.apache.myfaces.trinidad.model.XMLMenuModel;
 import org.apache.myfaces.trinidad.model.XMLMenuModel.MenuContentHandler;
-import org.apache.myfaces.trinidad.menu.MenuNode;
-import org.apache.myfaces.trinidad.menu.ItemNode;
-import org.apache.myfaces.trinidad.menu.GroupNode;
-import org.apache.myfaces.trinidad.menu.MenuUtils;
 
 import org.xml.sax.helpers.DefaultHandler;
 
