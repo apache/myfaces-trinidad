@@ -230,6 +230,7 @@ class SkinStyleSheetParserUtils
                                               selectorName,
                                               noTrPropertyList,
                                               resolvedProperties.getTrRuleRefList(),
+                                              resolvedProperties.getInhibitedProperties(),    
                                               iconNodeList);
 
           if (!hasContentProperty)
@@ -425,6 +426,7 @@ class SkinStyleSheetParserUtils
     String             selectorName,
     List<PropertyNode> noTrPropertyNodeList,
     List<String>       trRuleRefList,
+    Set<String>        inhibitedProperties,
     List<IconNode>     iconNodeList)
   {
 
@@ -536,7 +538,7 @@ class SkinStyleSheetParserUtils
                       propertyNodeArray,
                       null, // TODO includeStyleNodes.toArray(new IncludeStyleNode[0]), TRINIDAD-17
                       null, //TODO jmw includePropertyNodes
-                      null // TODO jmw inhibitedProperties
+                      inhibitedProperties
                       );
       
       // Create a new IconNode.

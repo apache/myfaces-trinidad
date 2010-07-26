@@ -29,5 +29,5 @@
 af|selectOrderShuttle::reorder-up-icon {
   content: url(/skins/purple/images/prev.png);
   -tr-rule-ref: selector(".AFDefaultFont:alias");
-   border: 2px solid purple;
+  -tr-inhibit: border;
 }
