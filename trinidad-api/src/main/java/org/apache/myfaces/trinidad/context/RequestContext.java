@@ -606,50 +606,55 @@ abstract public class RequestContext
     // get instance using the WindowManagerFactory
     if (windowManager == null)
     {
-      // check if we have cached it per session
-      ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
-
-      // create a new instance using the WindowManagerFactory
-      ConcurrentMap<String, Object> concurrentAppMap =
-                                         getCurrentInstance().getApplicationScopedConcurrentMap();
-
-      WindowManagerFactory windowManagerFactory = (WindowManagerFactory)concurrentAppMap.get(
-                                                            _WINDOW_MANAGER_FACTORY_CLASS_NAME);
-
-      if (windowManagerFactory == null)
+      FacesContext context = FacesContext.getCurrentInstance();
+      
+      // just in case we're called before the real JSF lifecycle starts
+      if (context != null)
       {
-        // we haven't registered a WindowManagerFactory yet, so use the services api to see
-        // if a factory has been registered
-        List<WindowManagerFactory> windowManagerFactories =
-                                ClassLoaderUtils.getServices(_WINDOW_MANAGER_FACTORY_CLASS_NAME);
-
-        if (windowManagerFactories.isEmpty())
+        // check if we have cached it per session
+        ExternalContext extContext = context.getExternalContext();
+  
+        // create a new instance using the WindowManagerFactory
+        ConcurrentMap<String, Object> concurrentAppMap = getApplicationScopedConcurrentMap();
+  
+        WindowManagerFactory windowManagerFactory = (WindowManagerFactory)concurrentAppMap.get(
+                                                              _WINDOW_MANAGER_FACTORY_CLASS_NAME);
+  
+        if (windowManagerFactory == null)
         {
-          // no factory registered so use the factory that returns dummy stub WindowManagers
-          windowManagerFactory = _STUB_WINDOW_MANAGER_FACTORY;
-        }
-        else
-        {
-          // only one WindowManager is allowed, use it
-          windowManagerFactory = windowManagerFactories.get(0);
-        }
-
-        // save the WindowManagerFactory to the application if it hasn't already been saved
-        // if it has been saved, use the previously registered WindowManagerFactory
-        WindowManagerFactory oldWindowManagerFactory = (WindowManagerFactory)
-                            concurrentAppMap.putIfAbsent(_WINDOW_MANAGER_FACTORY_CLASS_NAME,
-                                                         windowManagerFactory);
-
-        if (oldWindowManagerFactory != null)
-          windowManagerFactory = oldWindowManagerFactory;
-      } // create WindowManagerFactory
-
-      // get the WindowManager from the factory.  The factory will create a new instance
-      // for this session if necessary
-      windowManager = windowManagerFactory.getWindowManager(extContext);
-
-      // remember for the next call on this thread
-      _windowManager = windowManager;
+          // we haven't registered a WindowManagerFactory yet, so use the services api to see
+          // if a factory has been registered
+          List<WindowManagerFactory> windowManagerFactories =
+                                  ClassLoaderUtils.getServices(_WINDOW_MANAGER_FACTORY_CLASS_NAME);
+  
+          if (windowManagerFactories.isEmpty())
+          {
+            // no factory registered so use the factory that returns dummy stub WindowManagers
+            windowManagerFactory = _STUB_WINDOW_MANAGER_FACTORY;
+          }
+          else
+          {
+            // only one WindowManager is allowed, use it
+            windowManagerFactory = windowManagerFactories.get(0);
+          }
+  
+          // save the WindowManagerFactory to the application if it hasn't already been saved
+          // if it has been saved, use the previously registered WindowManagerFactory
+          WindowManagerFactory oldWindowManagerFactory = (WindowManagerFactory)
+                              concurrentAppMap.putIfAbsent(_WINDOW_MANAGER_FACTORY_CLASS_NAME,
+                                                           windowManagerFactory);
+  
+          if (oldWindowManagerFactory != null)
+            windowManagerFactory = oldWindowManagerFactory;
+        } // create WindowManagerFactory
+  
+        // get the WindowManager from the factory.  The factory will create a new instance
+        // for this session if necessary
+        windowManager = windowManagerFactory.getWindowManager(extContext);
+  
+        // remember for the next call on this thread
+        _windowManager = windowManager;
+      }
     }
 
     return windowManager;
