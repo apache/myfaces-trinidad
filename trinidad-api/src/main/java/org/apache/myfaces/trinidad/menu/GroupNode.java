@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.menu;
+package org.apache.myfaces.trinidad.menu;
 
 import java.lang.reflect.Array;
 
@@ -27,10 +27,9 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Code specific to a Menu Model's GroupNode.
- * @deprecated Use org.apache.myfaces.trinidad.menu.GroupNode instead of this one
+ *
  */
 
-@Deprecated
 public class GroupNode extends MenuNode
 {
   /**
@@ -199,7 +198,7 @@ public class GroupNode extends MenuNode
   }
 
   @Override
-  protected MenuNode getThreadSafeCopy()
+  public MenuNode getThreadSafeCopy()
   {
     return new ImmutableGroupNode(this);
   }

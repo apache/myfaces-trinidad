@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.menu;
+package org.apache.myfaces.trinidad.menu;
 
 import java.util.List;
 
@@ -32,10 +32,9 @@ import org.apache.myfaces.trinidad.util.ContainerUtils;
  *
  * IMPORTANT NOTE: even internally, values that support EL expressions
  * should use the "get" methods to obtain values.
- * @deprecated Use org.apache.myfaces.trinidad.menu.MenuNode instead of this one
+ *
  */
 
-@Deprecated
 public class MenuNode
 {
   /**
@@ -227,6 +226,7 @@ public class MenuNode
   {
     _children = children;
   }
+  
 
   /**
     * Gets the readOnly state of the node.
@@ -687,7 +687,7 @@ public class MenuNode
    *
    * @param bundleKey - String name of the resource bundle.
    */
-  protected void setResBundleKey(String bundleKey)
+  public void setResBundleKey(String bundleKey)
   {
     _bundleKey = bundleKey;
   }
@@ -699,7 +699,7 @@ public class MenuNode
    *
    * @param bundleName - String name of the resource bundle.
    */
-  protected void setResBundleName(String bundleName)
+  public void setResBundleName(String bundleName)
   {
     _bundleName = bundleName;
   }
@@ -712,7 +712,7 @@ public class MenuNode
    * @param handlerId String uniquely identifying the specific
    *        MenuContentHandlerImpl that created this node.
    */
-  protected void setHandlerId(String handlerId)
+  public void setHandlerId(String handlerId)
   {
     _handlerId = handlerId;
   }
@@ -732,7 +732,7 @@ public class MenuNode
    *
    * @return - String identifier for the node component.
    */
-  protected String getUniqueId()
+  public String getUniqueId()
   {
     // This must be made unique so that we do not have duplicates
     // in the idNodeMap on the menu's tree.
@@ -772,7 +772,7 @@ public class MenuNode
    * of this object and return it.
    * @return a thread safe copy of this object. 
    */
-  protected MenuNode getThreadSafeCopy()
+  public MenuNode getThreadSafeCopy()
   {
     return null;
   }

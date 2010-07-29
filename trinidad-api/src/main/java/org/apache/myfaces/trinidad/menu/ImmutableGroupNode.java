@@ -16,8 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-
-package org.apache.myfaces.trinidadinternal.menu;
+package org.apache.myfaces.trinidad.menu;
 
 import java.lang.reflect.Array;
 import java.util.Iterator;
@@ -38,10 +37,8 @@ import org.apache.myfaces.trinidad.util.ContainerUtils;
  * Please note that setters should not be called on objects
  * of this class.Objects of this class are fully initialized
  * on construction.
- * @deprecated Use org.apache.myfaces.trinidad.menu.ImmutableGroupNode instead of this one
+ *
  */
- 
-@Deprecated
 public class ImmutableGroupNode extends GroupNode
 {
   

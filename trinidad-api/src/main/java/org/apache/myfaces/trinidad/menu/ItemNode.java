@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.menu;
+package org.apache.myfaces.trinidad.menu;
 
 import java.util.Map;
 
@@ -30,10 +30,9 @@ import org.apache.myfaces.trinidad.util.ContainerUtils;
 
 /**
  * Code specific to a Menu Model's ItemNode.
- * @deprecated Please use org.apache.myfaces.trinidad.menu.ItemNode instead of this one    
+ *     
  */
 
-@Deprecated
 public class ItemNode extends MenuNode
 {
   /**
@@ -516,12 +515,12 @@ public class ItemNode extends MenuNode
    * @param attrMap Map of attibute name/values for this node
    * from MenuContentHandlerImpl
    */
-  protected void setCustomPropList(Map<String, String> attrMap)
+  public void setCustomPropList(Map<String, String> attrMap)
   {
     _customPropList = attrMap;
   }
   
-  protected MenuNode getThreadSafeCopy()
+  public MenuNode getThreadSafeCopy()
   {
     return new ImmutableItemNode(this);
   }

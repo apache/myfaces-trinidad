@@ -16,19 +16,22 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+package org.apache.myfaces.trinidad.menu;
 
-package org.apache.myfaces.trinidadinternal.menu;
-
-import java.lang.reflect.Array;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.MethodExpression;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+
 import org.apache.myfaces.trinidad.util.ContainerUtils;
 
 /**
- * This class is a thread safe version of GroupNode class.
- * It replicates most of the code in GroupNode but makes
+ * This class is a thread safe version of ItemNode class.
+ * It replicates most of the code in ItemNode but makes
  * sure it does not modify state of the object.
  * 
  * Therefore multiple request threads can access the
@@ -38,14 +41,12 @@ import org.apache.myfaces.trinidad.util.ContainerUtils;
  * Please note that setters should not be called on objects
  * of this class.Objects of this class are fully initialized
  * on construction.
- * @deprecated Use org.apache.myfaces.trinidad.menu.ImmutableGroupNode instead of this one
+ *
  */
- 
-@Deprecated
-public class ImmutableGroupNode extends GroupNode
+public class ImmutableItemNode extends ItemNode
 {
   
-  public ImmutableGroupNode(GroupNode node)
+  public ImmutableItemNode(ItemNode node)
   {
     _icon = node.getIconProperty();
     _focusViewId = node.getFocusViewIdProperty();
@@ -67,92 +68,131 @@ public class ImmutableGroupNode extends GroupNode
     _rootModelKey = node.getRootModelKeyProperty();
 
     _rootId = node.getRootIdProperty();
+
+    _customPropList = node.getCustomPropListProperty();
+
+    _destination = node.getDestinationProperty();
+    _targetFrame = node.getTargetFrameProperty();
+    _action = node.getActionProperty();
+    _actionListener = node.getActionListenerProperty();
+    _launchListener = node.getLaunchListenerProperty();
+    _returnListener = node.getReturnListenerProperty();
+    _immediateStr = node.getImmediateProperty();
+    _useWindowStr = node.getUseWindowProperty();
+    _windowHeightStr = node.getWindowHeightProperty();
+    _windowWidthStr = node.getWindowWidthProperty();
+
     _label = node.getLabelProperty();
-    _idref = node.getIdRef();
-    _idrefList = node.getIdRefListProperty();
   }
-  
-  
-  public String getIdRef()
+
+  public final Map<String, String> getCustomPropList()
   {
-    return _idref;
+    return _customPropList;
   }
-  
-  public MenuNode getRefNode()
+
+  public final String getDestination()
   {
-    MenuNode refNode = null;
 
-    
-    // Get idrefList
-    String[] idrefList = _idrefList;
+    String value = _destination;
 
-    // get group node's children
-    List<MenuNode> children = getChildren();
-
-    // Traverse the list. Do the following:
-    //    o get Node from Model's hashMap of nodes and ids
-    //    o check attributes (rendered, disabled, readOnly)
-    //    o if they are ok, return the node
-    for (int i=0; i < Array.getLength(idrefList); i++)
+    // Could be EL expression
+    if (value != null && ContainerUtils.isValueReference(value))
     {
-      Iterator<MenuNode> childIter = children.iterator();
-
-      // All node "id" attribute values had the node's
-      // system hashcode id appended to the id when
-      // placed in the model's idNodeMap.
-      //
-      // Each id in the idreflist of a group node does
-      // NOT have this node sys id appended it to it
-      // and needs to or we won't find the group's
-      // ref node.
-      //
-      // Since group nodes can only point to one of
-      // its children, we iterate through them, get
-      // their sys id and append it to idref until
-      // we find a match (or not).
-      while (childIter.hasNext())
-      {
-        MenuNode childNode = childIter.next();
-        String modelId = childNode.getModelId();
-
-        // Need to append mode's sys id here to create a
-        // unique id.
-        String refNodeId = idrefList[i] + modelId;
-
-        refNode = (MenuNode) getRootModel().getNode(refNodeId);
-
-        // if nothing found, move on to the next child
-        if (refNode != null)
-         break;
-      }
-
-      if (refNode == null)
-        continue;
-
-      // Check the attributes of the found node
-      if (   !refNode.getRendered()
-          ||  refNode.getDisabled()
-          ||  refNode.getReadOnly()
-          || !refNode.getVisible()
-         )
-      {
-        refNode = null;
-        continue;
-      }
-
-      // Ok, we have a valid RefNode
-      break;
+      // Value of action is EL method binding, so we
+      // need to evaluate it
+      value = MenuUtils.getBoundValue(value, String.class);
     }
 
-    // If no valid node is found,
-    // log an error
-    if (refNode == null)
+    // Appending nodeId to URL so that we can identify the node
+    // when getFocusRowKey() is called on the model.
+    return value != null ? value + "?nodeId=" + getUniqueId() : value;
+
+  }
+
+  public final String getTargetFrame()
+  {
+    String value = _targetFrame;
+
+    // Could be EL expression
+    if (value != null && ContainerUtils.isValueReference(value))
     {
-        _LOG.severe("GroupNode " + getLabel() + " refers to no valid node.\n");
-        return null;
+      // Value of destination is EL value binding, so we
+      // need to evaluate it
+      value = MenuUtils.getBoundValue(value, String.class);
     }
 
-    return refNode;
+    return value;
+  }
+
+  public final String getActionListener()
+  {
+    String value = _actionListener;
+
+    // Could be EL expression
+    if (value != null && ContainerUtils.isValueReference(value))
+    {
+      // Value of action is EL method binding, so we
+      // need to evaluate it
+      value = MenuUtils.getBoundValue(value, String.class);
+    }
+
+    return value;
+  }
+
+  public final String getLaunchListener()
+  {
+
+    String value = _launchListener;
+
+    // Could be EL expression
+    if (value != null && ContainerUtils.isValueReference(value))
+    {
+      // Value of action is EL method binding, so we
+      // need to evaluate it
+      value = MenuUtils.getBoundValue(value, String.class);
+    }
+
+    return value;
+  }
+
+  public final String getReturnListener()
+  {
+    String value = _returnListener;
+
+    // Could be EL expression
+    if (value != null && ContainerUtils.isValueReference(value))
+    {
+      // Value of action is EL method binding, so we
+      // need to evaluate it
+      value = MenuUtils.getBoundValue(value, String.class);
+    }
+
+    return value;
+
+  }
+
+  public final boolean getImmediate()
+  {
+    boolean immediate = MenuUtils.evalBoolean(_immediateStr, false);
+    return immediate;
+  }
+
+  public final boolean getUseWindow()
+  {
+    boolean useWindow = MenuUtils.evalBoolean(_useWindowStr, false);
+    return useWindow;
+  }
+
+  public final int getWindowHeight()
+  {
+    int windowHeight = MenuUtils.evalInt(_windowHeightStr);
+    return windowHeight;
+  }
+
+  public final int getWindowWidth()
+  {
+    int windowWidth = MenuUtils.evalInt(_windowWidthStr);
+    return windowWidth;
   }
 
   public final String getLabel()
@@ -289,9 +329,48 @@ public class ImmutableGroupNode extends GroupNode
     return _bundleName;
   }
 
-  
+  public void actionListener(ActionEvent event)
+  {
+    String value = _actionListener;
+    if (value != null)
+    {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      ExpressionFactory expressionFactory =
+          facesContext.getApplication().getExpressionFactory();
+      ELContext context = facesContext.getELContext();
 
-  
+      MethodExpression methodExpression =
+          expressionFactory.createMethodExpression(context, value, Void.TYPE,
+              new Class<?>[]
+              { ActionEvent.class });
+      methodExpression.invoke(context, new Object[]
+      { event });
+    }
+
+  }
+
+  public String doAction()
+  {
+    String value = _action;
+
+    if (value != null)
+    {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      ExpressionFactory expressionFactory =
+          facesContext.getApplication().getExpressionFactory();
+      ELContext context = facesContext.getELContext();
+      MethodExpression methodExpression =
+          expressionFactory.createMethodExpression(context, value,
+              String.class, new Class<?>[]
+              {});
+      value = (String) methodExpression.invoke(context, null);
+    }
+
+    // Post me as the selected Node for the request
+    postSelectedNode(this);
+
+    return value;
+  }
 
   public final char getAccessKey()
   {
@@ -362,8 +441,24 @@ public class ImmutableGroupNode extends GroupNode
     
   }
 
+  public final String getId()
+  {
+    return _id;
+  }
+
+  public final String getModelId()
+  {
+    return _modelId;
+  }
+
+  public final String getUniqueId()
+  {
+    return _uniqueId;
+  }
+  
   public final String getLabelAndAccessKey()
   {
+    String labelAndAcessKeyEval;
     if (_labelAndAccessKey != null)
     {
       int ampIdx = 0;
@@ -424,45 +519,14 @@ public class ImmutableGroupNode extends GroupNode
         String label1 = new String(keyArray2, 0, j);
         label = label1;
       }
-      if(accessKey == null)
-        return label;
-      
+      // https://issues.apache.org/jira/browse/TRINIDAD-1588
+      if (accessKey == null) {
+          return label;
+      }
       return _joinLabelAndAccessKey(label, accessKey);
     }
     return null;
   }
-  public final String getId()
-  {
-    return _id;
-  }
-
-  public final String getModelId()
-  {
-    return _modelId;
-  }
-
-  public final String getUniqueId()
-  {
-    return _uniqueId;
-  }
-  
-  //TODO make this work
-//  public final String getLabelAndAccessKey()
-//  {
-//    String labelAndAcessKeyEval;
-//    if ( _labelAndAccessKey != null
-//        && ContainerUtils.isValueReference(_labelAndAccessKey)
-//       )
-//    {
-//       labelAndAcessKeyEval= _evalElStr(_labelAndAccessKey);
-//    }
-//    else
-//    {
-//      labelAndAcessKeyEval = _labelAndAccessKey;
-//    }
-//    
-//    
-//  }
 
   public final boolean getDefaultFocusPath()
   {
@@ -492,7 +556,7 @@ public class ImmutableGroupNode extends GroupNode
     String elVal = MenuUtils.getBoundValue(keystr, String.class);
     return elVal;
   }
-  
+
   private String _joinLabelAndAccessKey(String label, String accessKey)
   {
     char[] keyArray = label.toCharArray();
@@ -550,14 +614,19 @@ public class ImmutableGroupNode extends GroupNode
 
   private final int _rootId;
 
-  
+  private final Map<String, String> _customPropList;
+
+  private final String _destination;
+  private final String _targetFrame;
+  private final String _action;
+  private final String _actionListener;
+  private final String _launchListener;
+  private final String _returnListener;
+  private final String _immediateStr;
+  private final String _useWindowStr;
+  private final String _windowHeightStr;
+  private final String _windowWidthStr;
 
   private final String _label;
-  
-  
-  private final String   _idref ;
-  private final String[] _idrefList ;
 
-  private final static TrinidadLogger _LOG =
-    TrinidadLogger.createTrinidadLogger(ImmutableGroupNode.class);
 }

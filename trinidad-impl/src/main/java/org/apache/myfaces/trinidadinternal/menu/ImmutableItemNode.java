@@ -41,8 +41,10 @@ import org.apache.myfaces.trinidad.util.ContainerUtils;
  * Please note that setters should not be called on objects
  * of this class.Objects of this class are fully initialized
  * on construction.
- *
+ * @deprecated Use org.apache.myfaces.trinidad.menu.ImmutableItemNode instead of this one
  */
+ 
+@Deprecated
 public class ImmutableItemNode extends ItemNode
 {
   
