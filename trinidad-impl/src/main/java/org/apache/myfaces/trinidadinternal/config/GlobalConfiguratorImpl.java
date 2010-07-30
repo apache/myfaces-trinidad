@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.trinidadinternal.config;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +26,6 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletRequestWrapper;
@@ -53,7 +51,6 @@ import org.apache.myfaces.trinidadinternal.context.external.ServletRequestParame
 import org.apache.myfaces.trinidadinternal.context.external.ServletRequestParameterValuesMap;
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
-
 
 /**
  * This is the implementation of the Trinidad's Global configurator. It provides the entry point for

@@ -356,7 +356,62 @@ public final class CollectionUtils
       return newSerializableList(l);
     }
   }
-  
+
+  /**
+   * Interface for trapping mutations to a Map.
+   * @param <K> the type of the keys of the Map that MapMutationHooks are associated with
+   * @param <V> the type of the values of the Map that MapMutationHooks are associated with
+   * @see #newMutationHookedMap
+   */
+  public interface MapMutationHooks<K, V>
+  {
+    /**
+     * Called when the associated Map of the MapMutationHooks is written to
+     * @param map   Map the write occurred on
+     * @param key   key of entry that has changed
+     * @param value value of entry that has changed
+     */
+    public void writeNotify(Map<K,V> map, K key, V value);
+
+    /**
+     * Called when an entry is removed from the associated Map of the MapMutationHooks
+     * @param map   Map the removal occurred on
+     * @param key   key of entry that has been removed
+     */
+    public void removeNotify(Map<K,V> map, Object key);
+    
+    /**
+     * Called when all entries are removed from the Map associated with the MapMutationHooks
+     * @param map   Map the clear occurred on
+     */
+    public void clearNotify(Map<K,V> map);
+  }
+
+  /**
+   * Creates a new Map that informs the MapMutationHooks of any direct mutations.  Mutations to
+   * the underlying Map will not be caught.
+   * If the base map is Serializable, the returned Map will be Serializable
+   * @param <K> type of the keys of the Map
+   * @param <V> type of the values of the Map
+   * @param map Underlying map to trap mutations of
+   * @param hooks MapMutationHooks to inform of mutations to the returned Map
+   * @return a new Map that traps the mutations to the underlying Map
+   * @throws NullPointerException if map or hooks are null
+   */
+  public static <K,V> Map<K, V> newMutationHookedMap(Map<K, V> map, MapMutationHooks<K, V> hooks)
+  {
+    if (map == null)
+      throw new NullPointerException();
+    
+    if (hooks == null)
+      throw new NullPointerException();
+    
+    if (map instanceof Serializable)
+      return new SerializableExternalAccessHookMap<K, V>(map, hooks);
+    else
+      return new ExternalAccessHookMap<K, V>(map, hooks);
+  }
+
   /**
    * Creates a Map that dynamically verifies that all keys and values added to it will
    * succeed Serialization.  The validations checks not only that the keys and values added
@@ -368,14 +423,36 @@ public final class CollectionUtils
    * </p>
    * @param map Map to wrap for Serialization validation
    * @return Map where all modifications are checked to ensure that they will succeeed if
-   * Serialized
+   * serialized
    */
   public static <K,V> Map<K, V> getCheckedSerializationMap(Map<K, V> map)
+  {
+    return getCheckedSerializationMap(map, true);
+  }
+
+  /**
+   * Creates a Map that dynamically verifies that all keys and values added to it will
+   * succeed Serialization.  The validations checks not only that the keys and values added
+   * to the Map implement Serializable, but that these instances will actually succeed
+   * Serialization.
+   * <p>
+   * This checking can be defeated by either modifying the backing map directly or by modifying
+   * an object added to the checked Map after adding it.
+   * </p>
+   * @param map Map to wrap for Serialization validation
+   * @param requireSerializable if <code>true</code>, require that all values in the map implement
+   *                            Serializable.
+   * @return Map where  modifications are checked to ensure that they will succeeed if
+   * serialized
+   */
+  public static <K,V> Map<K, V> getCheckedSerializationMap(
+    Map<K, V> map,
+    boolean   requireSerializable)
   {
     if (map instanceof CheckedSerializationMap)
       return map;
     else
-      return new CheckedSerializationMap<K,V>(map);
+      return new CheckedSerializationMap<K,V>(map, requireSerializable);
   }
 
   /**
@@ -1309,121 +1386,68 @@ public final class CollectionUtils
       return getDelegate().hashCode();
     }
   }
+  
+  protected static abstract class AccessHookMap<K,V> extends DelegatingMap<K, V>
+  {     
+    protected abstract void writeNotify(K key, V value);
 
-  // Map that validates that the keys and values added to the map are Serializable
-  private final static class CheckedSerializationMap<K, V> extends DelegatingMap<K,V>
-                                                           implements Serializable
-  {
+    protected abstract void removeNotify(Object key);
 
-    public CheckedSerializationMap(Map<K, V> delegate)
-    {
-      if (delegate == null)
-        throw new NullPointerException();
-      
-      if (delegate instanceof Serializable)
-        throw new IllegalArgumentException("Unserializable delegate");
-      
-      _delegate = delegate;
-    }
+    protected abstract void clearNotify();
 
-    protected Map<K, V> getDelegate()
-    {
-      return _delegate;
-    }
-
+    @Override
     public V put(K key, V value)
     {
-      _checkSerialization(key, value);
+      writeNotify(key, value);
       
       return super.put(key, value);
     }
 
-    public void putAll(Map<? extends K, ? extends V> m)
+    @Override
+    public V remove(Object key)
     {
+      removeNotify(key);
       
-      Object[] keys = m.keySet().toArray();
-      Object[] values = m.values().toArray();
-      
-      int keyCount = keys.length;
-      
-      // in case an entry was added or removed between to tow toArray calls above
-      if (keyCount != values.length)
-        throw new ConcurrentModificationException();
-      
-      // atomically check for serializability before adding
-      for (int k = 0; k < keyCount; k++)
-      {
-        _checkSerialization(keys[k], values[k]);        
-      }
-
-      // add the contents we checked rather that calling super.putAll(m), in case
-      // the map changed after we checked its contents above
-      Map<K, V> delegate = getDelegate();
-      
-      for (int k = 0; k < keyCount; k++)
-      {
-        delegate.put((K)keys[k], (V)values[k]);
-      }
+      return super.remove(key);
     }
 
-    public Set<Map.Entry<K, V>> entrySet()
-    {
-      return new CheckedSerializationEntrySet(getDelegate().entrySet());      
+    @Override
+    public void putAll(Map<? extends K, ? extends V> m)
+    {      
+      for (Map.Entry<? extends K, ? extends V> entry : m.entrySet())
+      {        
+        K key   = entry.getKey();
+        V value = entry.getValue();
+        
+        writeNotify(key, value);
+        super.put(key, value);
+      }
     }
     
-    private void _checkSerialization(Object key, Object value)
+    @Override
+    public void clear()
     {
-      if (!(key instanceof Serializable))
-        throw new ClassCastException(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_KEY",
-                                                     new Object[]{key, this}));
-
-      if (!(value == null || value instanceof Serializable))
-        throw new ClassCastException(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_VALUE",
-                                                     new Object[]{value, key, this}));
-
+      clearNotify();
+      super.clear();
+    }
  
-      // don't bother checking common case of String
-      if (!(key instanceof String))
-      {
-        // verify that the contents of the key are in fact Serializable
-        try
-        {
-          new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(key);
-        }
-        catch (IOException e)
-        {          
-          throw new IllegalArgumentException(_LOG.getMessage("FAILED_SERIALIZATION_PROPERTY_KEY",
-                                                     new Object[]{key, this}),
-                                                     e);
-        }
-      }
-      
-      if (value != null)
-      {
-        // verify that the contents of the value are in fact Serializable
-        try
-        {
-          new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(value);
-        }
-        catch (IOException e)
-        {          
-          throw new IllegalArgumentException(_LOG.getMessage("FAILED_SERIALIZATION_PROPERTY_VALUE",
-                                                     new Object[]{value, key, this}),
-                                                     e);
-        }
-      }
+    public Set<Map.Entry<K, V>> entrySet()
+    {
+      return new MutationHookedEntrySet<K, V>(this);      
     }
 
+
     // Entry Set returns CheckedSerializationEntry Objects
-    private class CheckedSerializationEntrySet extends DelegatingCollection<Entry<K,V>>
-                                                            implements Set<Entry<K, V>>
+    private static class MutationHookedEntrySet<K, V> extends DelegatingCollection<Entry<K,V>>
+                                         implements Set<Entry<K, V>>
     {
-      private CheckedSerializationEntrySet(Set<Entry<K, V>> delegate)
+      private MutationHookedEntrySet(AccessHookMap<K, V> accessHookMap)
       {
-        if (delegate == null)
+        if (accessHookMap == null)
           throw new NullPointerException();
         
-        _delegate = delegate;
+        _accessHookMap = accessHookMap;
+        _delegate = accessHookMap.getDelegate().entrySet();
       }
 
       protected Set<Entry<K, V>> getDelegate()
@@ -1433,7 +1457,7 @@ public final class CollectionUtils
 
       public Iterator<Entry<K,V>> iterator()
       {
-        return new CheckedSerializationEntrySetIterator(super.iterator());
+        return new MutationHookedEntrySetIterator<K, V>(super.iterator(), _accessHookMap);
       }
       
       public Object[] toArray()
@@ -1450,7 +1474,7 @@ public final class CollectionUtils
                          : new Entry[entryCount];
                         
         for (int i = 0; i < entryCount; i++)
-          entries[i] = new CheckedSerializationEntry((Entry<K,V>)delegateEntries[i]);
+          entries[i] = new MutationHookedEntry((Entry<K,V>)delegateEntries[i], _accessHookMap);
         
         return entries;
       }
@@ -1472,7 +1496,8 @@ public final class CollectionUtils
         int entryCount = delegateEntries.length;
         
         for (int i = 0; i < entryCount; i++)
-          delegateEntries[i] = new CheckedSerializationEntry((Entry<K,V>)delegateEntries[i]);
+          delegateEntries[i] = new MutationHookedEntry<K, V>((Entry<K,V>)delegateEntries[i],
+                                                             _accessHookMap);
         
         // now figure out whether we have to copy the entries into the passed in array or not
         if (entryCount > inputSize)
@@ -1488,12 +1513,14 @@ public final class CollectionUtils
         return a;
       }
 
-      // Iterator for CheckedSerializationEntrySet that returns CheckedSerializationEntry
-      private class CheckedSerializationEntrySetIterator implements Iterator<Entry<K,V>>
+      // Iterator for MutationHookedEntrySet that returns MutationHookedEntry
+      private static final class MutationHookedEntrySetIterator<K, V> implements Iterator<Entry<K,V>>
       {
-        private CheckedSerializationEntrySetIterator(Iterator<Entry<K, V>> delegate)
+        private MutationHookedEntrySetIterator(Iterator<Entry<K, V>> delegate,
+                                               AccessHookMap<K, V>   accessHookMap)
         {
-          _delegate = delegate;
+          _delegate      = delegate;
+          _accessHookMap = accessHookMap;
         }
 
         public boolean hasNext()
@@ -1503,26 +1530,50 @@ public final class CollectionUtils
 
         public Map.Entry<K,V> next()
         {
-          return new CheckedSerializationEntry<K,V>(_delegate.next());
+          Map.Entry<K,V> nextEntry = _delegate.next();
+          
+          // update the current key
+          _currKey = nextEntry.getKey();
+          
+          // return wrapped entry
+          return new MutationHookedEntry<K,V>(nextEntry, _accessHookMap);
         }
 
         public void remove()
         {
+          if (_currKey == _NO_KEY)
+            throw new IllegalStateException();
+          
+          // notify listener of removal
+          _accessHookMap.removeNotify(_currKey);
+          
+          // let the delegate remove the entry
           _delegate.remove();
+          
+          // no more entry to remove until next call to next()
+          _currKey = _NO_KEY;
         }
-
+ 
+        private static final Object _NO_KEY = new Object();
+       
+        // either _NO_KEY or the current key.  We use volatile to ensure safe publication for
+        // thread use
+        private volatile Object _currKey = _NO_KEY;
+        
         private final Iterator<Entry<K, V>> _delegate;
+        private final AccessHookMap<K, V> _accessHookMap;
       }
 
-      // Entry implementation that checks calls to setValue
-      private class CheckedSerializationEntry<K, V> extends DelegatingEntry<K, V>
+      // Entry implementation that hooks calls to setValue
+      private static class MutationHookedEntry<K, V> extends DelegatingEntry<K, V>
       {
-        private CheckedSerializationEntry(Entry<K, V> delegate)
+        private MutationHookedEntry(Entry<K, V> delegate, AccessHookMap<K, V> accessHookMap)
         {
           if (delegate == null)
             throw new NullPointerException();
           
           _delegate = delegate;
+          _accessHookMap = accessHookMap;
         }
         
         protected Entry<K, V> getDelegate()
@@ -1532,18 +1583,204 @@ public final class CollectionUtils
         
         public V setValue(V value)
         {
-          _checkSerialization(getKey(), value);
+          _accessHookMap.writeNotify(getKey(), value);
           return super.setValue(value);
         }
       
         private final Entry<K, V> _delegate;
-      }
+        private final AccessHookMap<K, V> _accessHookMap;
+     }
 
+      private final AccessHookMap<K, V> _accessHookMap;
       private final Set<Entry<K, V>> _delegate;
     }
+  }
+
+  protected static class ExternalAccessHookMap<K,V> extends AccessHookMap<K, V>
+  {
+    protected ExternalAccessHookMap(Map<K, V> delegate, MapMutationHooks<K, V> mutationHooks)
+    {
+      if (delegate == null)
+        throw new NullPointerException("delegate is null");
+      
+      if (mutationHooks == null)
+        throw new NullPointerException("accessHooks is null");
+      
+      _delegate = delegate;
+      _mutationHooks = mutationHooks;
+    }
+    
+    protected final Map<K, V> getDelegate()
+    {
+      return _delegate;
+    }
+    
+    protected final void writeNotify(K key, V value)
+    {
+      _mutationHooks.writeNotify(this, key, value);      
+    }
+  
+    protected final void removeNotify(Object key)
+    {
+      _mutationHooks.removeNotify(this, key);      
+    }
+
+    protected final void clearNotify()
+    {
+      _mutationHooks.clearNotify(this);      
+    }
+
+    private static final long serialVersionUID = 1L;
 
     private final Map<K, V> _delegate;
+    private final MapMutationHooks<K, V> _mutationHooks;
+  }
+
+  private static final class SerializableExternalAccessHookMap<K, V> 
+                                                     extends ExternalAccessHookMap<K, V>
+                                                     implements Serializable
+  {
+    private SerializableExternalAccessHookMap(
+      Map<K, V> delegate,
+      MapMutationHooks<K, V> mutationHooks)
+    {
+      super(delegate, mutationHooks); 
+
+      if (!(delegate instanceof Serializable))
+        throw new IllegalArgumentException("Delegate must be Serializable");
+  
+      if (!(mutationHooks instanceof Serializable))
+        throw new IllegalArgumentException("mutation hooka must be Serializable");
+    }
+    
     private static final long serialVersionUID = 1L;
+  }
+
+
+  // Map that validates that the keys and values added to the map are Serializable
+  private final static class CheckedSerializationMap<K, V> extends AccessHookMap<K,V>
+                                                           implements Serializable
+  {
+    /**
+     * @param requireSerializable if <code>true</code>, require that all values in the map implement
+     *                            Serializable.
+     * @param delegate
+     */
+    public CheckedSerializationMap(
+      Map<K, V> delegate,
+      boolean   requireSerializable)
+    {
+      if (delegate == null)
+        throw new NullPointerException();
+      
+      if (!(delegate instanceof Serializable))
+        throw new IllegalArgumentException("Unserializable delegate");
+      
+      _delegate = delegate;
+      _requireSerializable = requireSerializable;
+    }
+
+    protected Map<K, V> getDelegate()
+    {
+      return _delegate;
+    }
+
+    protected void writeNotify(K key, V value)
+    {
+      // don't bother checking common case of String
+      if (!(key instanceof String))
+      {
+        if (key instanceof Serializable)
+        {
+          // verify that the contents of the key are in fact Serializable
+          try
+          {
+            new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(key);
+          }
+          catch (IOException e)
+          {          
+            throw new IllegalArgumentException(_LOG.getMessage("FAILED_SERIALIZATION_PROPERTY_KEY",
+                                                       new Object[]{key, this}),
+                                                       e);
+          }
+        }
+        else
+        {
+          if (_requireSerializable)
+          {
+            throw new ClassCastException(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_KEY",
+                                                         new Object[]{key, this}));
+          }
+        }
+      }
+      
+      if (value instanceof Serializable)
+      {
+        // verify that the contents of the value are in fact Serializable
+        try
+        {
+          new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(value);
+        }
+        catch (IOException e)
+        {          
+          throw new IllegalArgumentException(_LOG.getMessage("FAILED_SERIALIZATION_PROPERTY_VALUE",
+                                                     new Object[]{value, key, this}),
+                                                     e);
+        }
+      }
+      else
+      {
+        if (_requireSerializable)
+        {
+          throw new ClassCastException(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_VALUE",
+                                                       new Object[]{value, key, this}));
+        }
+      }
+    }
+
+    protected void removeNotify(Object key)
+    {
+      // do nothing
+    }
+    
+    protected void clearNotify()
+    {
+      // do nothing
+    }
+
+    @Override
+    public void putAll(Map<? extends K, ? extends V> m)
+    {
+      
+      Object[] keys = m.keySet().toArray();
+      Object[] values = m.values().toArray();
+      
+      int keyCount = keys.length;
+      
+      // in case an entry was added or removed between to tow toArray calls above
+      if (keyCount != values.length)
+        throw new ConcurrentModificationException();
+      
+      // atomically check for serializability before adding
+      for (int k = 0; k < keyCount; k++)
+      {
+        writeNotify((K)keys[k], (V)values[k]);        
+      }
+
+      // add the contents we checked rather that calling super.putAll(m), in case
+      // the map changed after we checked its contents above
+      Map<K, V> delegate = getDelegate();
+      
+      for (int k = 0; k < keyCount; k++)
+      {
+        delegate.put((K)keys[k], (V)values[k]);
+      }
+    }
+
+    private static final long serialVersionUID = 1L;
+
+    private final Map<K, V> _delegate;
+    private final boolean   _requireSerializable;
   }
 
   private static class EmptyIterator implements Iterator

@@ -368,7 +368,7 @@ class PageFlowScopeMap implements Map<String, Object>, Serializable
   static private TokenCache _getRootTokenCache(FacesContext context,
                                                int lifetime)
   {
-    return TokenCache.getTokenCacheFromSession(context,
+    return TokenCache.getTokenCacheFromSession(context.getExternalContext(),
                                                _PAGE_FLOW_SCOPE_CACHE,
                                                true,
                                                lifetime);

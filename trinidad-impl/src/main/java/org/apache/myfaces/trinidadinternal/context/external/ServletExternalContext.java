@@ -20,7 +20,9 @@ package org.apache.myfaces.trinidadinternal.context.external;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -389,6 +391,19 @@ public class ServletExternalContext extends ExternalContext
   {
     return _servletResponse;
   }
+  
+  @Override
+  public Writer getResponseOutputWriter() throws IOException
+  {
+    return _servletResponse.getWriter();
+  }
+
+  @Override
+  public OutputStream getResponseOutputStream() throws IOException
+  {
+    return _servletResponse.getOutputStream();
+  }
+
 
   @Override
   public Object getSession(final boolean create)
