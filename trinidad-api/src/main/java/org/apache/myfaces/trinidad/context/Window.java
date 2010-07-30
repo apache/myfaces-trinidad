@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidad.context;
 
 import java.io.Serializable;
 
-import javax.faces.context.ExternalContext;
+import java.util.Map;
 
 /**
  * Represents a Window in the current user's Session.  Windows are created and vended
@@ -88,6 +88,13 @@ public abstract class Window implements Serializable
    * was created.
    */
   public abstract boolean isNew();
+
+  /**
+   * Returns the Map for storing data associated with this Window object.  If the environment is
+   * configured for fail-over, the contents of this Map must be Serializable.
+   * @return The client data storage Map.
+   */
+  public abstract Map<String, Object> getWindowMap();
 
   private static final long serialVersionUID = 1L;
 }

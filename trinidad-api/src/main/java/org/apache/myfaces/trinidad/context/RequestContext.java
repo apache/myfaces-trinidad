@@ -143,6 +143,31 @@ abstract public class RequestContext
    */
   public abstract Map<String, Object> getViewMap(boolean create);
 
+  /**
+   * Returns a Map of objects associated with the current window if any.  If there is no
+   * current window, the Session Map is returned.
+   * @return Map for storing objects associated with the current window.
+   * @see org.apache.myfaces.trinidad.context.Window#getWindowMap
+   */
+  public Map<String, Object> getWindowMap()
+  {
+    WindowManager wm = getWindowManager();
+    
+    ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
+    
+    Window window = wm.getCurrentWindow(extContext);
+
+    if (window != null)
+    {
+      
+      return window.getWindowMap();
+    }
+    else
+    {
+      return extContext.getSessionMap();
+    }
+  }
+
   //
   // Dialog APIs
   //
