@@ -63,6 +63,9 @@
             <a href="#Skinning_CSS_features">Skinning CSS features</a>
           </li>
           <li>
+            <a href="#Package_Skin_In_JAR">Package your Skin in a JAR file</a>
+          </li>        
+          <li>
             <a href="#Tips_and_Tricks">Tips and Tricks</a>
           </li>
           <li>
@@ -1045,7 +1048,76 @@ this resolves to
         </source>
         </P>
       </section>
+      <a name="Package_Skin_In_JAR"></a>
+      <section name="Package your Skin in a JAR file">
+      <P>
+      If you want another application to be able to use your skin, you can package it up into 
+      a JAR file, and include the JAR on the application's classpath. The Skinning Framework
+      finds all META-INF/trinidad-skins.xml files on the classpath.
+      </P><P>
+      To package up your skin into a JAR file, you need this directory structure:
+      <ul>
+      <li>META-INF/trinidad-skins.xml</li>
+      <li>META-INF/skins/yourSkin.css</li>
+      <li>META-INF/adf/yourImages</li>
+      </ul>
+      </P>
+      <P>
+      The trinidad-skins.xml file needs to be in META-INF for the Skinning Framework to find it.
+      The .css file needs to be somewhere within the META-INF directory; it doesn't have to be in a /skins directory.
+      The images need to be in a META-INF/adf directory in order to kick in the resource servlet that will in turn
+      serve up the images to the browser.
+      </P>
+      <P>
+      Here's an example:
+      <ul>
+      <li>META-INF/trinidad-skins.xml</li>
+      <li>META-INF/skins/purpleSkin.css</li>
+      <li>META-INF/adf/images/*.png</li>
+      </ul>
+      </P>
+      <P>
+      In trinidad-skins.xml, you reference the css file like this:
+      <source>
+      <![CDATA[
+      <style-sheet-name>
+        skins/purpleSkin.css
+      </style-sheet-name> 
+      ]]>
+      </source>
+      </P>
+      <P>
+      In purpleSkin.css, you reference your images relative to the skin css file like this:
+      <source>
+      background-image: url(../adf/images/progressbar_empty.png)
+      </source>
+      or you can make it relative to the servlet context like this:
+      <source>
+      background-image: url(/adf/images/progressbar_empty.png)
+      </source>
+      In the generated css file, you should see the /adf immediately after the context root for
+      the servlet resource to kick in.
+      <source>
+      background-image:url(/trinidad-demo-context-root/adf/images/progressbar_empty.png);
+      </source>
+      </P>
+      <P>
+        In Trinidad the web.xml file has a servlet mapping to the resources servlet to serve up the images from the css file to the browser. 
+        The url-pattern is /adf/*, which is why you need to have your images in a META-INF/adf directory. 
+        Alternatively, you can put your images in a directory that does not have 'adf', but you will
+	need to write your own ResourceServlet and add the mapping to web.xml.
+	<source>
+	<![CDATA[
+	<servlet-mapping>
+	<servlet-name>resources</servlet-name>
+	<url-pattern>/adf/*</url-pattern>
+	</servlet-mapping>
+	]]>
+	</source>
 
+      </P>
+      
+      </section>
       <a name="Tips_and_Tricks"></a>
       <section name="Tips and Tricks">
         <P></P>
