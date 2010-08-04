@@ -75,6 +75,17 @@ abstract public class UIXEditableValueTemplate
   static public final String VALIDATE_EMPTY_FIELDS_PARAM_NAME =
     "org.apache.myfaces.trinidad.UIXEditableValue.VALIDATE_EMPTY_FIELDS";
 
+  /** -=matzew=- According to http://wiki.java.net/bin/view/Projects/Jsf2MR1ChangeLog 
+   * this constant will be made public on UIInput with JSF 2.1. For now we have to have
+   * it here as a private one...
+   **/
+  static private final String JSF_SPEC_EMPTY_VALUES_AS_NULL_PARAM_NAME =
+    "javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL";
+
+  // our own cache key...
+  static private final String TRINIDAD_EMPTY_VALUES_AS_NULL_PARAM_NAME =
+    "org.apache.myfaces.trinidad.UIXEditableValue.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL";
+
   /**
    * Convenience method to reset this component's value to an
    * uninitialized state, by resetting the local value and
@@ -129,6 +140,17 @@ abstract public class UIXEditableValueTemplate
     if (submittedValue == null)
       return;
 
+    // From the SPEC:
+    // If the javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL context parameter value is
+    // true (ignoring case), and getSubmittedValue() returns a zero-length String call
+    // setSubmittedValue(null) and continue processing using null as the current submitted value
+    //
+    // TODO: -> SPEC ISSUE (matzew)  setSubmittedValue(null) is wrong, so we do not follow the spec here...
+    if (_shouldInterpretEmptyStringSubmittedValuesAsNull(context) && _isEmptyString(submittedValue))
+    {
+      submittedValue = null;
+    }
+    
     Object newValue = null;
     try
     {
@@ -463,6 +485,41 @@ abstract public class UIXEditableValueTemplate
   }
 
   /**
+   * <p>Return <code>true</code> if the value is an empty <code>String</code>.</p>
+   */
+  private boolean _isEmptyString(Object value)
+  {
+    return ((value instanceof String) && (((String) value).length() == 0));
+  }
+
+  /**
+   * Checks if the <code>validate()</code> should interpret an empty
+   * submitted value should be handle as <code>NULL</code>
+   * 
+   * @return a (cached) boolean to identify the interpretation as null
+   */
+  private boolean _shouldInterpretEmptyStringSubmittedValuesAsNull(FacesContext context)
+  {
+    ExternalContext ec = context.getExternalContext();
+    Boolean interpretEmptyStringAsNull = (Boolean)ec.getApplicationMap().get(TRINIDAD_EMPTY_VALUES_AS_NULL_PARAM_NAME);
+
+    // not yet cached...
+    if (interpretEmptyStringAsNull == null)
+    {
+      // parses the web.xml to get the "javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL" value
+      String param = ec.getInitParameter(JSF_SPEC_EMPTY_VALUES_AS_NULL_PARAM_NAME);
+
+      // evaluate the context parameter
+      interpretEmptyStringAsNull = "true".equalsIgnoreCase(param);
+
+      // cache the parsed value
+      ec.getApplicationMap().put(TRINIDAD_EMPTY_VALUES_AS_NULL_PARAM_NAME, interpretEmptyStringAsNull);
+    }
+
+    return interpretEmptyStringAsNull;
+  }
+
+  /**
    * Checks if the <code>validateValue()</code> should handle
    * empty field validation (part of BeanValidation and JSF 2.0).
    * 
@@ -473,6 +530,7 @@ abstract public class UIXEditableValueTemplate
     ExternalContext ec = context.getExternalContext();
     Boolean shouldValidateEmptyFields = (Boolean)ec.getApplicationMap().get(VALIDATE_EMPTY_FIELDS_PARAM_NAME);
 
+    // not yet cached...
     if (shouldValidateEmptyFields == null)
     {
       // From the JSF 2.0 specification:
@@ -504,9 +562,11 @@ abstract public class UIXEditableValueTemplate
       }
       else
       {  
-        shouldValidateEmptyFields = Boolean.valueOf(param);
+        // "true".equalsIgnoreCase(param) is faster than Boolean.valueOf()
+        shouldValidateEmptyFields = "true".equalsIgnoreCase(param);
       }
 
+      // cache the parsed value
       ec.getApplicationMap().put(VALIDATE_EMPTY_FIELDS_PARAM_NAME, shouldValidateEmptyFields);
     }
 
@@ -523,6 +583,7 @@ abstract public class UIXEditableValueTemplate
     ExternalContext ec = context.getExternalContext();
     Boolean couldLoadBeanValidationAPI = (Boolean) ec.getApplicationMap().get(TRINIDAD_BEAN_VALIDATION_AVAILABLE);
 
+    // not yet cached...
     if (couldLoadBeanValidationAPI == null)
     {
       try
@@ -553,6 +614,7 @@ abstract public class UIXEditableValueTemplate
         couldLoadBeanValidationAPI = Boolean.FALSE;
       }
 
+      // cache the parsed value
       ec.getApplicationMap().put(TRINIDAD_BEAN_VALIDATION_AVAILABLE, couldLoadBeanValidationAPI);
     }
 
