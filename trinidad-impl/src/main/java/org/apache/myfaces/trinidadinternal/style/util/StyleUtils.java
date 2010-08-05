@@ -50,6 +50,26 @@ public class StyleUtils
 
     return selector;
   }
+  
+  
+  // returns true if the selectorName indicates that it is an icon.
+  public static boolean isIcon(String selectorName)
+  {
+    if (selectorName == null)
+      return false;
+    // =-=jmw There is no good way to tell if this is an icon.
+    // for now, I look at the selector name.
+    // we do have some styles that have -icon- in the name, but it's
+    // not at the end which is how icons are determined.
+    // our icon names look like .AFWarningIcon:alias
+    // AFErrorIconStyle is a style.
+    // This supports pseudo-classes on icon definitions (e.g.,
+    // foo-icon:hover- or FooIcon:alias:hover)
+    // -icon: is a condition because it could be -icon:hover.
+    return  (selectorName.endsWith("-icon")  ||
+            (selectorName.indexOf("-icon:") > -1) ||
+            selectorName.indexOf("Icon:alias") > -1);
+  }
 
   static private final String _DOUBLE_COLON = "::";
 }

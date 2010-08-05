@@ -53,6 +53,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
+import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 
@@ -740,7 +741,7 @@ public class StyleSheetDocument
         }
       }        
     }
-    _resolveStyleWork(context, forIconNode, styleSheets, resolvedStyles, resolvedNamedStyles,  
+    _resolveStyleWork(context, id, forIconNode, styleSheets, resolvedStyles, resolvedNamedStyles,  
                       includesStack, namedIncludesStack, entry, nodeList);
     
     // Pop the include stack
@@ -786,6 +787,7 @@ public class StyleSheetDocument
 
   private void _resolveStyleWork(
     StyleContext context,
+    String       id,
     boolean      forIconNode,
     StyleSheetList styleSheets,
     Map<String, StyleNode> resolvedStyles,
@@ -850,6 +852,22 @@ public class StyleSheetDocument
 
           if (resolvedNode != null)
             _addIncludedProperties(entry, resolvedNode);
+          else 
+          {
+            // Fortunately this is an uncommon usecase
+            // af|foo::some-icon {content: url(); width:16px; height:16px} 
+            // // In SkinStyleSheetParserUtils, we are not sure if this is an icon or style 
+            // // since there is no explicit 'content' attr. So we create both an Icon and a Style.
+            // af|bar::some-icon {-tr-rule-ref: selector("af|foo");} 
+            if (_LOG.isFinest() && !forIconNode && StyleUtils.isIcon(includeID) && 
+                StyleUtils.isIcon(id))
+            {
+                _LOG.finest(id + " is being written to the CSS file " +
+                  "even though it is likely a Skin Icon Object, not a style.");
+  
+
+            }
+          }
         }
     
     
