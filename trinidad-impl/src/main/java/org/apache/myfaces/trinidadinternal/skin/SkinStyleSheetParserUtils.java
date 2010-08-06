@@ -153,7 +153,6 @@ class SkinStyleSheetParserUtils
     return in.substring(firstCharIndex, length);
   }
 
-
   /**
    * Given a List of SkinStyleSheetNode, create StyleSheetEntry.
    * A StyleSheetEntry is an object that contains:
@@ -213,7 +212,7 @@ class SkinStyleSheetParserUtils
         List<PropertyNode> noTrPropertyList =
           resolvedProperties.getNoTrPropertyList();
 
-        if (StyleUtils.isIcon(selectorName))
+        if (_isIcon(selectorName))
         {
           // knock off the '.' if it is the first character.
           if (selectorName.charAt(0) == '.')
@@ -530,22 +529,6 @@ class SkinStyleSheetParserUtils
     // really an icon. But we don't want to hurt the person that didn't abide by the -icon rule
     // because this wasn't an enforced rule.
     //
-    // if the trRuleRefList is not empty, create IncludeStyleNodes.
-    List<IncludeStyleNode> includeStyleNodes = new ArrayList<IncludeStyleNode>();
-
-    for(String value : trRuleRefList)
-    {
-      // parse the value, which will be of this form:
-      // -tr-rule-ref: selector(".AFBaseFont:alias") selector(".Foo")
-      // where you have more than one selector in an -tr-rule-ref definition
-      // or -tr-rule-ref: selector(".AFBaseFont:alias")
-      // where you have only one selector in an -tr-rule-ref definition.
-      // I want each selector value to be an IncludeStyleNode.
-
-      _addIncludeStyleNodes(value, includeStyleNodes);
-
-    }
-
     if (selectorName != null)
     {
       // Create a styleNode that we will add to the IconNode.
@@ -553,7 +536,7 @@ class SkinStyleSheetParserUtils
         new StyleNode(null,
                       selectorName,
                       propertyNodeArray,
-                      includeStyleNodes.toArray(new IncludeStyleNode[0]),
+                      null, // TODO includeStyleNodes.toArray(new IncludeStyleNode[0]), TRINIDAD-17
                       null, //TODO jmw includePropertyNodes
                       inhibitedProperties
                       );
@@ -927,6 +910,25 @@ class SkinStyleSheetParserUtils
     builder.append(")");
     return builder.toString();
     
+  }
+
+  // returns true if the selectorName indicates that it is an icon.
+  private static boolean _isIcon(String selectorName)
+  {
+    if (selectorName == null)
+      return false;
+    // =-=jmw There is no good way to tell if this is an icon.
+    // for now, I look at the selector name.
+    // we do have some styles that have -icon- in the name, but it's
+    // not at the end which is how icons are determined.
+    // our icon names look like .AFWarningIcon:alias
+    // AFErrorIconStyle is a style.
+    // This supports pseudo-classes on icon definitions (e.g.,
+    // foo-icon:hover- or FooIcon:alias:hover)
+    // -icon: is a condition because it could be -icon:hover.
+    return  (selectorName.endsWith("-icon")  ||
+            (selectorName.indexOf("-icon:") > -1) ||
+            selectorName.indexOf("Icon:alias") > -1);
   }
   
   private static class ResolvedSkinProperties
