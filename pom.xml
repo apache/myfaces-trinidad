@@ -44,8 +44,8 @@
     <jsp.version>2.1</jsp.version>
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>1.2</jsf-spec.version>
-    <jsf-ri.version>1.2_09</jsf-ri.version>
-    <jsf-myfaces.version>1.2.4</jsf-myfaces.version>
+    <jsf-ri.version>1.2_15</jsf-ri.version>
+    <jsf-myfaces.version>1.2.9</jsf-myfaces.version>
     <sunjsf.ri.version>2.0.2</sunjsf.ri.version>
     <myfaces2.version>2.0.0-SNAPSHOT</myfaces2.version>
     <jsf-facelets.version>1.1.14</jsf-facelets.version>
