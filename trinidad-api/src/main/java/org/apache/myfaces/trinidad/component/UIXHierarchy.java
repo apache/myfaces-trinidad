@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,11 +19,12 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.util.Collections;
-
 import java.util.List;
 
 import javax.faces.component.UIComponent;
 
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.LocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.ModelUtils;
@@ -37,7 +38,7 @@ import org.apache.myfaces.trinidad.model.TreeModel;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/UIXHierarchy.java#0 $) $Date: 10-nov-2005.19:09:52 $
  */
-abstract public class UIXHierarchy extends UIXCollection implements CollectionComponent, LocalRowKeyIndex, 
+abstract public class UIXHierarchy extends UIXCollection implements CollectionComponent, LocalRowKeyIndex,
              TreeLocalRowKeyIndex
 {
   /**
@@ -58,7 +59,7 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
   public CollectionModel createCollectionModel(CollectionModel current, Object value)
   {
     TreeModel model = ModelUtils.toTreeModel(value);
-    model.setRowKey(null);    
+    model.setRowKey(null);
     return model;
   }
 
@@ -80,8 +81,8 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
   public int getRows()
   {
     return 0;
-  }  
-  
+  }
+
   /**
   * Treats the current element as a parent element and steps into the children.
   * A new path is constructed by appending the null value to the old path.
@@ -128,7 +129,7 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
    */
   public boolean isContainerEmpty()
   {
-    
+
     return getTreeModel().isContainerEmpty();
   }
 
@@ -169,7 +170,7 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
   {
     return getTreeModel().getContainerRowKey(childKey);
   }
-  
+
   /**
    * Gets the all the rowKeys of the ancestors of the given child row.
    * @see TreeModel#getAllAncestorContainerRowKeys(Object)
@@ -184,8 +185,8 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
   //
 
   /**
-   * Indicates whether data for a child model (children of the current node) is 
-   * locally available. 
+   * Indicates whether data for a child model (children of the current node) is
+   * locally available.
    * @see TreeModel#isChildCollectionLocallyAvailable()
    * @return true if child data is locally available
    */
@@ -196,7 +197,7 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
 
   /**
    * Indicates whether child data for the node with the given index is
-   * locally available.   
+   * locally available.
    * @see TreeModel#isChildCollectionLocallyAvailable(int)
    * @param index row index to check
    * @return true if child data is available, false otherwise
@@ -208,7 +209,7 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
 
   /**
    * Indicates whether child data for the node with the given row key is
-   * locally available.   
+   * locally available.
    * @see TreeModel#isChildCollectionLocallyAvailable(Object)
    * @param rowKey row key to check
    * @return true if child data is available, false otherwise
@@ -221,7 +222,7 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
   /**
    * Check if a range of rows is locally available starting from a row index.  The range
    * can include child nodes in any expanded nodes within the range.
-   * @param startIndex staring index for the range  
+   * @param startIndex staring index for the range
    * @param rowCount number of rows in the range
    * @param disclosedRowKeys set of expanded nodes which may fall within the range to check for
    * availability
@@ -237,7 +238,7 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
   /**
    * Check if a range of rows is locally available starting from a row key.   The range
    * can include child nodes in any expanded nodes within the range.
-   * @param startRowKey staring row key for the range  
+   * @param startRowKey staring row key for the range
    * @param rowCount number of rows in the range
    * @param disclosedRowKeys set of expanded nodes which may fall within the range to check for
    * availability
@@ -273,8 +274,8 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
   {
     TreeModel model = (TreeModel) getCollectionModel();
     return model;
-  } 
-  
+  }
+
   @Override
   protected List<UIComponent> getStamps()
   {
@@ -283,7 +284,94 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
       return Collections.singletonList(nodeStamp);
     else
       return Collections.emptyList();
-  }  
+  }
 
   abstract public Object getFocusRowKey();
+
+  protected final boolean visitLevel(
+    VisitContext      visitContext,
+    VisitCallback     callback,
+    List<UIComponent> stamps)
+  {
+    if (getRowCount() != 0)
+    {
+      if (!stamps.isEmpty())
+      {
+        int oldRow = getRowIndex();
+        int first = getFirst();
+        int last = TableUtils.getLast(this, first);
+
+        try
+        {
+          for (int i = first; i <= last; i++)
+          {
+            setRowIndex(i);
+
+            for (UIComponent currStamp : stamps)
+            {
+              // visit the stamps.  If we have visited all of the visit targets then return early
+              if (UIXComponent.visitTree(visitContext, currStamp, callback))
+                return true;
+            }
+          }
+        }
+        finally
+        {
+          setRowIndex(oldRow);
+        }
+      }
+    }
+
+    return false;
+  }
+
+  protected final boolean visitHierarchy(
+    VisitContext      visitContext,
+    VisitCallback     callback,
+    List<UIComponent> stamps,
+    RowKeySet         disclosedRowKeys)
+  {
+    int oldRow = getRowIndex();
+    int first = getFirst();
+    int last = TableUtils.getLast(this, first);
+
+    try
+    {
+      for(int i = first; i <= last; i++)
+      {
+        setRowIndex(i);
+        if (!stamps.isEmpty())
+        {
+          for (UIComponent currStamp : stamps)
+          {
+            // visit the stamps.  If we have visited all of the visit targets then return early
+            if (UIXComponent.visitTree(visitContext, currStamp, callback))
+              return true;
+          }
+        }
+
+        if (isContainer() && ((disclosedRowKeys == null) || disclosedRowKeys.isContained()))
+        {
+          enterContainer();
+
+          try
+          {
+            // visit this container.  If we have visited all of the visit targets then return early
+            if (visitHierarchy(visitContext, callback, stamps, disclosedRowKeys))
+              return true;
+          }
+          finally
+          {
+            exitContainer();
+          }
+        }
+      }
+    }
+    finally
+    {
+      setRowIndex(oldRow);
+    }
+
+    return false;
+  }
 }

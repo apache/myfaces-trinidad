@@ -40,6 +40,10 @@ import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitContextWrapper;
+import org.apache.myfaces.trinidad.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.CollectionModel;
@@ -1092,6 +1096,240 @@ public abstract class UIXCollection extends UIXComponentBase
   }
 
   /**
+   * <p>
+   * Override default children visiting code to visit the facets and facets of the columns
+   * before delegating to the <code>visitData</code> to visit the individual rows of data.
+   * </p><p>
+   * Subclasses should override this method if they wish to change the way in which the non-stamped
+   * children are visited.  If they wish to change the wash the the stamped children are visited,
+   * they should override <code>visitData</code> instead.
+   * </p>
+   * @param visitContext
+   * @param callback
+   * @return <code>true</code> if all of the children to visit have been visited
+   * @see #visitData
+   */
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    return defaultVisitChildren(visitContext, callback);
+  }
+
+  protected final boolean defaultVisitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    boolean doneVisiting;
+
+    // Clear out the row index if one is set so that
+    // we start from a clean slate.
+    int oldRowIndex = getRowIndex();
+    setRowIndex(-1);
+
+    try
+    {
+      // visit the unstamped children
+      doneVisiting = visitUnstampedFacets(visitContext, callback);
+
+      if (!doneVisiting)
+      {
+        doneVisiting = _visitStampedColumnFacets(visitContext, callback);
+
+        // visit the stamped children
+        if (!doneVisiting)
+        {
+          doneVisiting = visitData(visitContext, callback);
+        }
+      }
+    }
+    finally
+    {
+      // restore the original rowIndex
+      setRowIndex(oldRowIndex);
+    }
+
+    return doneVisiting;
+  }
+
+  /**
+   * Hook method for subclasses to override to change the behavior
+   * of how unstamped facets of the UIXCollection are visited.  The
+   * Default implementation visits all of the facets of the
+   * UIXCollection.
+   */
+  protected boolean visitUnstampedFacets(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // Visit the facets with no row
+    if (getFacetCount() > 0)
+    {
+      for (UIComponent facet : getFacets().values())
+      {
+        if (UIXComponent.visitTree(visitContext, facet, callback))
+        {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+
+  /**
+   * VistiContext that visits the facets of the UIXColumn children, including
+   * nested UIXColumn childrem
+   */
+  private static class ColumnFacetsOnlyVisitContext
+    extends VisitContextWrapper
+  {
+    public ColumnFacetsOnlyVisitContext(VisitContext wrappedContext)
+    {
+      _wrapped = wrappedContext;
+    }
+
+    @Override
+    public VisitContext getWrapped()
+    {
+      return _wrapped;
+    }
+
+    @Override
+    public VisitResult invokeVisitCallback(
+      UIComponent   component,
+      VisitCallback callback)
+    {
+      if (component instanceof UIXColumn)
+      {
+        if (component.getFacetCount() > 0)
+        {
+          // visit the facet children without filtering for just UIXColumn children
+          for (UIComponent facetChild : component.getFacets().values())
+          {
+            if (UIXComponent.visitTree(getWrapped(), facetChild, callback))
+              return VisitResult.COMPLETE;
+          }
+
+          // visit the indexed children, recursively looking for more columns
+          for (UIComponent child : component.getChildren())
+          {
+            if (UIXComponent.visitTree(this, child, callback))
+              return VisitResult.COMPLETE;
+          }
+        }
+      }
+
+      // at this point, we either have already manually processed the UIXColumn's children, or
+      // the component wasn't a UIXColumn and shouldn't be processed
+      return VisitResult.REJECT;
+    }
+
+    private final VisitContext _wrapped;
+  }
+
+  /**
+   * VisitContext implementation that doesn't visit any of the Facets of
+   * UIXColumn children.  This is used when stamping children
+   */
+  protected static final class NoColumnFacetsVisitContext extends VisitContextWrapper
+  {
+    NoColumnFacetsVisitContext(VisitContext wrapped)
+    {
+      _wrapped = wrapped;
+    }
+
+    @Override
+    public VisitContext getWrapped()
+    {
+      return _wrapped;
+    }
+
+    @Override
+    public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callback)
+    {
+      if (component instanceof UIXColumn)
+      {
+        if (component.getChildCount() > 0)
+        {
+          // visit only the indexed children of the columns
+          for (UIComponent child : component.getChildren())
+          {
+            if (UIXComponent.visitTree(this, child, callback))
+              return VisitResult.COMPLETE;
+          }
+        }
+
+        return VisitResult.REJECT;
+      }
+      else
+      {
+        if (UIXComponent.visitTree(getWrapped(), component, callback))
+          return VisitResult.COMPLETE;
+        else
+          return VisitResult.REJECT;
+      }
+    }
+
+    private final VisitContext _wrapped;
+  }
+
+  /**
+   * Implementation used to visit each stamped row
+   */
+  private boolean _visitStampedColumnFacets(
+    VisitContext      visitContext,
+    VisitCallback     callback)
+  {
+    // visit the facets of the stamped columns
+    List<UIComponent> stamps = getStamps();
+
+    if (!stamps.isEmpty())
+    {
+      VisitContext columnVisitingContext = new ColumnFacetsOnlyVisitContext(visitContext);
+
+      for (UIComponent stamp : stamps)
+      {
+        if (UIXComponent.visitTree(columnVisitingContext, stamp, callback))
+        {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+
+  /**
+   * Visit the rows and children of the columns of the collection per row-index. This should
+   * not visit row index -1 (it will be perfomed in the visitTree method). The columns
+   * themselves should not be visited, only their children in this function.
+   * <p>
+   * Note that in Trinidad 1.2 this method does nothing, but it must be overridden. It is
+   * only being made empty in order to avoid an API change of forcing subclasses to implement
+   * this function, but visiting will not work without it being implemented. In Trinidad 2
+   * this method is abstract.
+   * </p>
+   *
+   * @param visitContext The visiting context
+   * @param callback The visit callback
+   * @return true if the visiting should stop
+   * @see #visitChildren(VisitContext, VisitCallback)
+   */
+  /*protected boolean visitData(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    return false;
+  }*/
+  protected abstract boolean visitData(
+      VisitContext  visitContext,
+      VisitCallback callback);
+
+  /**
    * Gets the CollectionModel to use with this component.
    *
    * @param createIfNull  creates the collection model if necessary
@@ -1179,14 +1417,14 @@ public abstract class UIXCollection extends UIXComponentBase
     };
   }
 
-  
+
   //
   // LocalRowKeyIndex implementation
   //
 
   /**
    * Given a row index, check if a row is locally available
-   * @param rowIndex index of row to check 
+   * @param rowIndex index of row to check
    * @return true if row is locally available
    */
   public boolean isRowLocallyAvailable(int rowIndex)
@@ -1196,7 +1434,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Given a row key, check if a row is locally available
-   * @param rowKey row key for the row to check 
+   * @param rowKey row key for the row to check
    * @return true if row is locally available
    */
   public boolean isRowLocallyAvailable(Object rowKey)
@@ -1216,7 +1454,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Check if a range of rows is locally available starting from a row index
-   * @param startIndex staring index for the range  
+   * @param startIndex staring index for the range
    * @param rowCount number of rows in the range
    * @return true if range of rows is locally available
    */
@@ -1227,7 +1465,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Check if a range of rows is locally available starting from a row key
-   * @param startRowKey staring row key for the range  
+   * @param startRowKey staring row key for the range
    * @param rowCount number of rows in the range
    * @return true if range of rows is locally available
    */
@@ -1235,9 +1473,9 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     return getCollectionModel().areRowsLocallyAvailable(startRowKey, rowCount);
   }
-  
+
   /**
-   * Convenient API to return a row count estimate.  This method can be optimized 
+   * Convenient API to return a row count estimate.  This method can be optimized
    * to avoid a data fetch which may be required to return an exact row count
    * @return estimated row count
    */
@@ -1248,14 +1486,14 @@ public abstract class UIXCollection extends UIXComponentBase
 
 
   /**
-   * Helper API to determine if the row count returned from {@link #getEstimatedRowCount} 
+   * Helper API to determine if the row count returned from {@link #getEstimatedRowCount}
    * is EXACT, or an ESTIMATE
    */
   public LocalRowKeyIndex.Confidence getEstimatedRowCountConfidence()
   {
     return getCollectionModel().getEstimatedRowCountConfidence();
   }
-  
+
   /**
    * clear all rows from the local cache
    */
@@ -1263,7 +1501,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     getCollectionModel().clearLocalCache();
   }
-  
+
   /**
    * Clear the requested range of rows from the local cache
    * @param startingIndex starting row index for the range to clear
@@ -1273,7 +1511,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     getCollectionModel().clearCachedRows(startingIndex, rowsToClear);
   }
-  
+
   /**
    * Clear the requested range of rows from the local cache
    * @param startingRowKey starting row key for the range to clear
@@ -1283,7 +1521,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     getCollectionModel().clearCachedRows(startingRowKey, rowsToClear);
   }
-  
+
   /**
    * Clear a row from the local cache by row index
    * @param index row index for the row to clear from the cache
@@ -1292,16 +1530,16 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     getCollectionModel().clearCachedRow(index);
   }
-  
+
   /**
    * Clear a row from the local cache by row key
    * @param rowKey row key for the row to clear from the cache
    */
   public void clearCachedRow(Object rowKey)
   {
-    getCollectionModel().clearCachedRow(rowKey);    
+    getCollectionModel().clearCachedRow(rowKey);
   }
-  
+
   /**
    * Indicates the caching strategy supported by the model
    * @see LocalCachingStrategy
@@ -1311,7 +1549,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     return getCollectionModel().getCachingStrategy();
   }
-  
+
 
   /**
    * override this method to place initialization code that must run

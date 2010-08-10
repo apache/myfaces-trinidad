@@ -32,6 +32,9 @@ import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetTreeImpl;
@@ -49,6 +52,7 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
 /**/  public abstract void setDisclosedRowKeys(RowKeySet state);
 /**/  public abstract MethodBinding getRowDisclosureListener();
 /**/  static public final PropertyKey DISCLOSED_ROW_KEYS_KEY = null;
+/**/  public abstract UIComponent getNodeStamp();
 
   /**
    * Sets the phaseID of UI events depending on the "immediate" property.
@@ -118,6 +122,89 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
 
   }
 
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    boolean done = visitData(visitContext, callback);
+
+    if (!done)
+    {
+      // process the children
+      int childCount = getChildCount();
+      if (childCount > 0)
+      {
+        for (UIComponent child : getChildren())
+        {
+          done = UIXComponent.visitTree(visitContext, child, callback);
+
+          if (done)
+            break;
+        }
+      }
+
+      // process the non-stamp facet children
+      if (!done)
+      {
+        // Visit the facets except for the node stamp
+        int facetCount = getFacetCount();
+
+        if (facetCount > 0)
+        {
+          UIComponent nodeStamp = getNodeStamp();
+
+          // if our only facet is the node stamp, we don't need to do this
+          if ((facetCount > 1) || (nodeStamp == null))
+          {
+            for (UIComponent facet : getFacets().values())
+            {
+              // ignore the nodeStamp facet, since it is stamped
+              if (facet != nodeStamp)
+              {
+                if (UIXComponent.visitTree(visitContext, facet, callback))
+                {
+                  done = true;
+                  break;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return done;
+  }
+
+  @Override
+  protected boolean visitData(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    Object oldPath = getRowKey();
+
+    // if we are only visiting rendered stamps, then pass in the disclosed row keys, otherwise
+    // pass in null, indicating that all row keys should be visited
+    RowKeySet disclosedRowKeys = (visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED))
+                                   ? getDisclosedRowKeys()
+                                   : null;
+
+    setRowKey(null);
+
+    boolean done;
+
+    try
+    {
+      done = visitHierarchy(visitContext, callback, getStamps(), disclosedRowKeys);
+    }
+    finally
+    {
+      setRowKey(oldPath);
+    }
+
+    return done;
+  }
   @Override
   void __encodeBegin(FacesContext context) throws IOException
   {

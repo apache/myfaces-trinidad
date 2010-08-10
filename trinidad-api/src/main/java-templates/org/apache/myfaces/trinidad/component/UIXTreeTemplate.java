@@ -31,6 +31,9 @@ import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.model.CollectionModel;
@@ -149,6 +152,29 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
   }
 
   @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    return visitData(visitContext, callback);
+  }
+
+  @Override
+  protected boolean visitData(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // if we are only visiting rendered stamps, then pass in the disclosed row keys, otherwise
+    // pass in null, indicating that all row keys should be visited
+    RowKeySet disclosedRowKeys = (visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED))
+                                   ? getDisclosedRowKeys()
+                                   : null;
+
+    return visitHierarchy(visitContext, callback, getStamps(), disclosedRowKeys);
+  }
+
+
+  @Override
   void __init()
   {
     super.__init();
@@ -157,7 +183,6 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
     if (getSelectedRowKeys() == null)
       setSelectedRowKeys(new RowKeySetTreeImpl());
   }
-
 
   /**
    * Gets the internal state of this component.
