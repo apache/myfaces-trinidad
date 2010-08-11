@@ -261,8 +261,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
-
   /**
    */
   @Override
@@ -282,7 +280,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return getFacesBean().getValueBinding(key);
   }
 
-
   @Override
   public void setValueBinding(String name, ValueBinding binding)
   {
@@ -292,7 +289,6 @@ abstract public class UIXComponentBase extends UIXComponent
     PropertyKey key = getPropertyKey(name);
     getFacesBean().setValueBinding(key, binding);
   }
-
 
   @Override
   public Map<String, Object> getAttributes()
@@ -388,18 +384,14 @@ abstract public class UIXComponentBase extends UIXComponent
     setProperty(ID_KEY, id);
   }
 
-
-
   @Override
   abstract public String getFamily();
-
 
   @Override
   public UIComponent getParent()
   {
     return _parent;
   }
-
 
   /**
    * <p>Set the parent <code>UIComponent</code> of this
@@ -414,13 +406,11 @@ abstract public class UIXComponentBase extends UIXComponent
     _parent = parent;
   }
 
-
   @Override
   public boolean isRendered()
   {
     return getBooleanProperty(RENDERED_KEY, true);
   }
-
 
   @Override
   public void setRendered(boolean rendered)
@@ -470,7 +460,6 @@ abstract public class UIXComponentBase extends UIXComponent
     setProperty(RENDERER_TYPE_KEY, rendererType);
   }
 
-
   @Override
   public boolean getRendersChildren()
   {
@@ -481,12 +470,7 @@ abstract public class UIXComponentBase extends UIXComponent
     return renderer.getRendersChildren();
   }
 
-
-
-
   // ------------------------------------------------ Tree Management Methods
-
-
 
   @Override
   public UIComponent findComponent(String id)
@@ -558,8 +542,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
-
   /**
    * <p>Create (if necessary) and return a List of the children associated
    * with this component.</p>
@@ -581,7 +563,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return getChildren().size();
   }
 
-
   /**
    * <p>Create (if necessary) and return a Map of the facets associated
    * with this component.</p>
@@ -596,12 +577,12 @@ abstract public class UIXComponentBase extends UIXComponent
     return _facets;
   }
 
-
   @Override
   public UIComponent getFacet(String facetName)
   {
     if (facetName == null)
       throw new NullPointerException();
+
     if (_facets == null)
       return null;
     return getFacets().get(facetName);
@@ -638,7 +619,7 @@ abstract public class UIXComponentBase extends UIXComponent
       if (_children == null)
         return _facets.values().iterator();
     }
-    
+
     return new CompositeIterator<UIComponent>(_children.iterator(), _facets.values().iterator());
   }
 
@@ -694,7 +675,6 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
   // ------------------------------------------- Lifecycle Processing Methods
-
 
   @Override
   public void decode(FacesContext context)
@@ -851,9 +831,9 @@ abstract public class UIXComponentBase extends UIXComponent
 
     if (_LOG.isFiner())
       _LOG.finer("processSaveState() on " + this);
-    
+
     Object state = null;
-    
+
     try
     {
       if (((_children == null) || _children.isEmpty()) &&
@@ -867,17 +847,17 @@ abstract public class UIXComponentBase extends UIXComponent
         treeState.saveState(context, this);
         if (treeState.isEmpty())
           state = null;
-  
+
         state = treeState;
       }
     }
     catch (RuntimeException e)
     {
       _LOG.warning(_LOG.getMessage("COMPONENT_CHILDREN_SAVED_STATE_FAILED", this));
-      
+
       throw e;
     }
-    
+
     // if component state serialization checking is on, attempt to Serialize the
     // component state immediately in order to determine which component's state
     // failed state saving.  Note that since our parent will attempt this same
@@ -888,7 +868,7 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       try
       {
-        new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(state);  
+        new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(state);
       }
       catch (IOException e)
       {
@@ -939,11 +919,12 @@ abstract public class UIXComponentBase extends UIXComponent
     return getFacesBean().saveState(context);
   }
 
-  public void restoreState(FacesContext context, Object stateObj)
+  public void restoreState(
+    FacesContext facesContext,
+    Object       stateObj)
   {
-    getFacesBean().restoreState(context, stateObj);
+    getFacesBean().restoreState(facesContext, stateObj);
   }
-
 
   @Override
   public String toString()
@@ -967,7 +948,6 @@ abstract public class UIXComponentBase extends UIXComponent
     // we could cache this as an instance variable.
     return FacesContext.getCurrentInstance();
   }
-
 
   /**
    * Delegates to LifecycleRenderer, if present,
@@ -1003,7 +983,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
   /**
    * Delegates to LifecycleRenderer, if present,
    * otherwise calls validateChildrenImpl.
@@ -1038,7 +1017,6 @@ abstract public class UIXComponentBase extends UIXComponent
       kid.processValidators(context);
     }
   }
-
 
   /**
    * Delegates to LifecycleRenderer, if present,
@@ -1225,7 +1203,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return n.intValue();
   }
 
-
   /**
    * Return the number of facets.  This is more efficient than
    * calling getFacets().size();
@@ -1238,7 +1215,6 @@ abstract public class UIXComponentBase extends UIXComponent
 
     return _facets.size();
   }
-
 
   /**
    * Broadcast an event to a MethodBinding.
@@ -1315,8 +1291,12 @@ abstract public class UIXComponentBase extends UIXComponent
 
   /**
    * Convenience method to call <code>invokeOnComponent</code> on all of the
-   * children of a component.  This is useful when a component sometimes optimizes
-   * away calling <code>invokeOnComponent</code> on its children
+   * children of a component, surrounding the invocation with calls to
+   * <code>setup/tearDownChildrenVisitingContext</code>.
+   * This is useful when a component sometimes optimizes
+   * away calling <code>invokeOnComponent</code> on its children.
+   * @see UIXComponent#setupChildrenVisitingContext
+   * @see UIXComponent#tearDownChildrenVisitingContext
    */
   protected final boolean invokeOnChildrenComponents(
     FacesContext context,
@@ -1324,15 +1304,24 @@ abstract public class UIXComponentBase extends UIXComponent
     ContextCallback callback)
     throws FacesException
   {
-    Iterator<UIComponent> children = getFacetsAndChildren();
-    
+    setupChildrenVisitingContext(context);
+
     boolean found = false;
-    
-    while (children.hasNext() && !found)
+
+    try
     {
-      found = children.next().invokeOnComponent(context, clientId, callback);
+      Iterator<UIComponent> children = getFacetsAndChildren();
+
+      while (children.hasNext() && !found)
+      {
+        found = children.next().invokeOnComponent(context, clientId, callback);
+      }
     }
-    
+    finally
+    {
+      tearDownChildrenVisitingContext(context);
+    }
+
     return found;
   }
 
@@ -1352,46 +1341,47 @@ abstract public class UIXComponentBase extends UIXComponent
     throws FacesException
   {
     assert this instanceof NamingContainer : "Only use invokeOnNamingContainerComponent on NamingContainers";
-    
-    String thisClientId = getClientId(context);
 
-    if (clientId.equals(thisClientId))
-    {
-      // this is the component we want, so invoke the callback
-      callback.invokeContextCallback(context, this);
-      return true;
-    }
-    else
-    {
-      // if this is a NamingContainer, only traverse into it if the clientId we are looking for
-      // is inside of it
-      if ((!clientId.startsWith(thisClientId) ||
-          (clientId.charAt(thisClientId.length()) != NamingContainer.SEPARATOR_CHAR)))
-      {
-        return false;
-      }
+    boolean invokedComponent;
 
-      boolean invokedComponent = false;
-      
-      // set up the context for visiting the children
-      setupVisitingContext(context);
-            
-      try
+    setupVisitingContext(context);
+
+    try
+    {
+      String thisClientId = getClientId(context);
+
+      if (clientId.equals(thisClientId))
       {
-        // iterate through children. We inline this code instead of calling super in order
-        // to avoid making an extra call to getClientId().
-        invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
+        // this is the component we want, so invoke the callback
+        callback.invokeContextCallback(context, this);
+        return true;
       }
-      finally
+      else
       {
-        // teardown the context now that we have visited the children
-        tearDownVisitingContext(context);
+        // if this is a NamingContainer, only traverse into it if the clientId we are looking for
+        // is inside of it
+        if ((!clientId.startsWith(thisClientId) ||
+            (clientId.charAt(thisClientId.length()) != NamingContainer.SEPARATOR_CHAR)))
+        {
+          invokedComponent = false;
+        }
+        else
+        {
+          // iterate through children.
+          // We inline this code instead of calling super in order
+          // to avoid making an extra call to getClientId().
+          invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
+        }
       }
-      
-      return invokedComponent;
     }
+    finally
+    {
+      // teardown the context now that we have visited the children
+      tearDownVisitingContext(context);
+    }
+
+    return invokedComponent;
   }
-  
 
   /**
    * Override to calls the hooks for setting up and tearing down the
@@ -1405,34 +1395,32 @@ abstract public class UIXComponentBase extends UIXComponent
     String clientId,
     ContextCallback callback)
     throws FacesException
-  {    
-    String thisClientId = getClientId(context);
+  {
+    boolean invokedComponent;
 
-    if (clientId.equals(thisClientId))
+    // set up the context for visiting the children
+    setupVisitingContext(context);
+
+    try
     {
-      callback.invokeContextCallback(context, this);
-      return true;
-    }
-    else
-    {
-      boolean invokedComponent = false;
-      
-      // set up the context for visiting the children
-      setupVisitingContext(context);
-            
-      try
+      String thisClientId = getClientId(context);
+
+      if (clientId.equals(thisClientId))
+      {
+        callback.invokeContextCallback(context, this);
+        return true;
+      }
+      else
       {
         // iterate through children. We inline this code instead of calling super in order
         // to avoid making an extra call to getClientId().
-        invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
+        return invokeOnChildrenComponents(context, clientId, callback);
       }
-      finally
-      {
-        // teardown the context now that we have visited the children
-        tearDownVisitingContext(context);
-      }
-      
-      return invokedComponent;
+    }
+    finally
+    {
+      // teardown the context now that we have visited the children
+      tearDownVisitingContext(context);
     }
   }
 
@@ -1515,7 +1503,6 @@ abstract public class UIXComponentBase extends UIXComponent
       component.encodeEnd(context);
     }
   }
-
 
   static private UIComponent _findInsideOf(
     UIComponent from,
