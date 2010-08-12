@@ -60,7 +60,7 @@ import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
 import org.apache.myfaces.trinidadinternal.util.TokenCache;
-
+import org.apache.myfaces.trinidadinternal.util.ObjectInputStreamResolveClass;
 
 /**
  * StateManager that handles a hybrid client/server strategy:  the state
@@ -1359,7 +1359,7 @@ public class StateManagerImpl extends StateManagerWrapper
         }
 
         ByteArrayInputStream baos = new ByteArrayInputStream(bos.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(baos);
+        ObjectInputStream ois = new ObjectInputStreamResolveClass(baos);
         Object unzippedState = ois.readObject();
         ois.close();
         return unzippedState;
