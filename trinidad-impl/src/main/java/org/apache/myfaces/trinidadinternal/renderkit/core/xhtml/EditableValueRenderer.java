@@ -130,7 +130,7 @@ abstract public class EditableValueRenderer extends ValueRenderer
     {
       return converter.getAsObject(context,
                                    component,
-                                   submittedValue.toString());
+                                   (submittedValue != null) ? submittedValue.toString() : null);
     }
 
     return submittedValue;
