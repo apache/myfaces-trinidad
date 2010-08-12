@@ -500,9 +500,12 @@ TrPage._getFirstElementWithId = function(domNode)
         return childNode;
       }
     }
-    return TrPage._getFirstElementWithId(childNode);
+    var recCallResult = TrPage._getFirstElementWithId(childNode);
+    if (recCallResult != null)
+    {
+     return recCallResult;
+    } 
   }
-
   return null;
 }
 
