@@ -130,6 +130,8 @@ abstract public class EditableValueRenderer extends ValueRenderer
     {
       return converter.getAsObject(context,
                                    component,
+                                   // due to the new "JSF2 empty value" parameters it can be the
+                                   // case the we actually have a NULL value here.
                                    (submittedValue != null) ? submittedValue.toString() : null);
     }
 
