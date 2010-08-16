@@ -51,6 +51,7 @@ import org.apache.myfaces.trinidadinternal.style.CSSStyle;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludePropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludeStyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.SkinPropertyNode;
@@ -61,16 +62,19 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 
 /**
+ * Utility class for creating a StyleSheetDocument.
+ * The main method is parseCSSSource which creates a StyleSheetEntry.
+ * The interim object is SkinStyleSheetNode
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinStyleSheetParserUtils.java#0 $) $Date: 10-nov-2005.18:59:00 $
  */
 class SkinStyleSheetParserUtils
 {
   /**
    * Parses a Skin style-sheet that is in the CSS-3 format.
-   * @param context the current ParseContext
-   * @param resolver a NameResolver to locate the target
-   *                ( Given a name, returns an InputStreamProvider.)
-   * @param sourceName the name of the target, relative to the current file
+   * @param context      the current ParseContext
+   * @param resolver     a NameResolver to locate the target
+   *                     ( Given a name, returns an InputStreamProvider.)
+   * @param sourceName   the name of the target, relative to the current file
    * @param expectedType the expected Java type of the target.
    */
   static public Object parseCSSSource(
@@ -238,6 +242,7 @@ class SkinStyleSheetParserUtils
             _addStyleNode(selectorName,
                           noTrPropertyList,
                           resolvedProperties.getTrRuleRefList(),
+                          resolvedProperties.getIncludedPropertiesList(),
                           resolvedProperties.getInhibitedProperties(),
                           resolvedProperties.isTrTextAntialias(),
                           styleNodeList);
@@ -249,6 +254,7 @@ class SkinStyleSheetParserUtils
           _addStyleNode(selectorName,
                         noTrPropertyList,
                         resolvedProperties.getTrRuleRefList(),
+                        resolvedProperties.getIncludedPropertiesList(),
                         resolvedProperties.getInhibitedProperties(),
                         resolvedProperties.isTrTextAntialias(),
                         styleNodeList);
@@ -256,8 +262,8 @@ class SkinStyleSheetParserUtils
         }
       }
 
-      if ((styleNodeList.size() > 0) || (iconNodeList.size() > 0)
-          || (trSkinPropertyNodeList.size() > 0))
+      if ((styleNodeList.size() > 0) || (iconNodeList.size() > 0) ||
+          (trSkinPropertyNodeList.size() > 0))
       {
         // we need to deal with the styleNodeList by building a StyleSheetNode
         // with this information.
@@ -287,7 +293,6 @@ class SkinStyleSheetParserUtils
                                ssDocument);
 
 
-
   }
 
   /**
@@ -305,6 +310,8 @@ class SkinStyleSheetParserUtils
     List<PropertyNode> noTrPropertyList = new ArrayList<PropertyNode>();
     List<String> trRuleRefList = new ArrayList<String>();
     Set<String> inhibitedPropertySet = new TreeSet<String>();
+    List<IncludePropertyNode> includedPropertiesList =
+      new ArrayList<IncludePropertyNode>();
     List<SkinPropertyNode> skinPropertyNodeList =
       new ArrayList<SkinPropertyNode>();
 
@@ -320,6 +327,7 @@ class SkinStyleSheetParserUtils
     //                      (or -ora-text-antialias for backwards compatibility)
     // skinPropertyNodeList (all other properties that start with -tr-
     //                       (or -ora- for backwards compatibility))
+    // includedPropertiesList (all the included property 'values')
     // These properties are stored in the ResolvedSkinProperties inner class.
 
     for(PropertyNode propertyNode : propertyNodeList)
@@ -329,13 +337,23 @@ class SkinStyleSheetParserUtils
 
       if(propertyName != null && propertyValue != null)
       {
+        // Check for special propertyNames (-tr-rule-ref, -tr- skin properties)
+        // or propertyValue (-tr-property-ref)
+
+        boolean includedProperty = propertyValue.startsWith(_INCLUDE_PROPERTY);
+        if (includedProperty)
+        {
+          IncludePropertyNode node = _createIncludePropertyNode(
+            propertyName, propertyValue.substring(_INCLUDE_PROPERTY.length()));
+          includedPropertiesList.add(node);
+        }
+        else
+        {
         boolean oraProperty = propertyName.startsWith(_ORA_PROPERTY_PREFIX);
         boolean trProperty = propertyName.startsWith(_TR_PROPERTY_PREFIX);
         if( oraProperty || trProperty)
         {
-          int suffixIndex = (oraProperty) ?
-                              _ORA_PROPERTY_PREFIX.length() :
-                              _TR_PROPERTY_PREFIX.length();
+            int suffixIndex = (oraProperty)?_ORA_PROPERTY_PREFIX.length(): _TR_PROPERTY_PREFIX.length();
           String propertyNameSuffix = propertyName.substring(suffixIndex);
           if (propertyNameSuffix.equals(_PROPERTY_RULE_REF))
           {
@@ -370,10 +388,12 @@ class SkinStyleSheetParserUtils
         }
       }
     }
+    }
 
     return new ResolvedSkinProperties(
       noTrPropertyList,
       trRuleRefList,
+      includedPropertiesList,
       inhibitedPropertySet,
       skinPropertyNodeList,
       trTextAntialias);
@@ -585,12 +605,13 @@ class SkinStyleSheetParserUtils
    * @param styleNodeList
    */
   private static void _addStyleNode(
-    String             selectorName,
-    List<PropertyNode> propertyNodeList,
-    List<String>       trRuleRefList,
-    Set<String>        inhibitedProperties,
-    boolean            trTextAntialias,
-    List<StyleNode>    styleNodeList)
+    String                    selectorName,
+    List<PropertyNode>        propertyNodeList,
+    List<String>              trRuleRefList,
+    List<IncludePropertyNode> includePropertyNodes,
+    Set<String>               inhibitedProperties,
+    boolean                   trTextAntialias,
+    List<StyleNode>           styleNodeList)
   {
 
     // these are the styles.
@@ -645,11 +666,62 @@ class SkinStyleSheetParserUtils
                     selector,
                     propertyArray,
                     includeStyleNodes.toArray(new IncludeStyleNode[0]),
-                    null,
+                    includePropertyNodes.isEmpty() ? null : includePropertyNodes.toArray(new IncludePropertyNode[0]),
                     inhibitedProperties);
 
     styleNodeList.add(styleNode);
 
+  }
+
+  /**
+   * Create an IncludePropertyNode.
+   * The syntax for including a property from another selector is
+   * af|commandButton { background-color: -tr-property-ref(".AFTestBackgroundColor:alias"); }
+   * .AFTestForegroundColor:alias {color: yellow; font-style:italic}
+   * .AFTestBackgroundColor:alias {background-color: -tr-property-ref(".AFTestForegroundColor:alias","color")}
+   * @param propertyName name of the property like background-color, color
+   * @param propertyValue value that want to include. This is stripped of the
+   * -tr-property-ref, so it is of the form ("...")
+   */
+  private static IncludePropertyNode _createIncludePropertyNode(
+    String propertyName, 
+    String propertyValue)
+  {
+    // do a quick sanity check
+    if (propertyValue == null || propertyValue.length() < 2)
+      return null;
+    if (propertyValue.startsWith("(") && propertyValue.endsWith(")"))
+    {
+      String valueString = propertyValue.substring(1, propertyValue.length() - 1);
+      String values[] = valueString.split(",");
+      String selectorValue = trimQuotes(values[0]);
+      String includedProperty;
+      if (values.length == 1)
+      {
+        includedProperty = propertyName;
+      }
+      else
+      {
+        includedProperty = trimQuotes(values[1]);
+      }
+
+      String selector = null;
+      String name = null;
+      if (selectorValue.endsWith(":alias"))
+      {
+        int aliasEndIndex = selectorValue.indexOf(":alias");
+        int aliasStartIndex = 0;
+        if (selectorValue.startsWith("."))
+          aliasStartIndex = 1;
+        name = selectorValue.substring(aliasStartIndex, aliasEndIndex);
+      }
+      else
+      {
+        selector = selectorValue;
+      }
+      return new IncludePropertyNode(name, selector, includedProperty, propertyName);
+    }
+    return null;
   }
 
   private static SkinPropertyNode _createSkinPropertyNode(
@@ -742,8 +814,8 @@ class SkinStyleSheetParserUtils
   }
 
   private static StyleSheetDocument _createStyleSheetDocument(
-    ParseContext       context,
-    List <StyleSheetNode> ssNodeList)
+    ParseContext context,
+    List<StyleSheetNode> ssNodeList)
   {
 
     long timestamp = _getDocumentTimestamp(context);
@@ -788,34 +860,35 @@ class SkinStyleSheetParserUtils
     return timestamp;
   }
 
-/** unused for now. we want to do this for icons, properties and styles at once
-  // substitute the prefix (the part that comes before the |) with
-  // its namespace
-  // e.g., selectorName = af|breadCrumbs
-  // af maps to http://myfaces.apache.org/adf/faces
-  // return
-  // http://myfaces.apache.org/adf/faces|navigationPath
-  private static String _getNamespacedSelector(
-    Map    namespaceMap,
-    String selectorName)
-  {
+  /**
+   * unused for now. we want to do this for icons, properties and styles at once
+   * // substitute the prefix (the part that comes before the |) with
+   * // its namespace
+   * // e.g., selectorName = af|breadCrumbs
+   * // af maps to http://myfaces.apache.org/adf/faces
+   * // return
+   * // http://myfaces.apache.org/adf/faces|navigationPath
+   * private static String _getNamespacedSelector(
+   * Map    namespaceMap,
+   * String selectorName)
+   * {
+   * <p/>
+   * int barIndex = selectorName.indexOf("|");
+   * <p/>
+   * if (barIndex <= 0)
+   * return selectorName;
+   * else
+   * {
+   * String namespace =
+   * (String)namespaceMap.get(selectorName.substring(0, barIndex));
+   * if (namespace == null)
+   * return selectorName;
+   * return namespace.concat(selectorName.substring(barIndex));
+   * }
+   * }
+   */
 
-    int barIndex = selectorName.indexOf("|");
-
-    if (barIndex <= 0)
-      return selectorName;
-    else
-    {
-      String namespace =
-        (String)namespaceMap.get(selectorName.substring(0, barIndex));
-      if (namespace == null)
-        return selectorName;
-      return namespace.concat(selectorName.substring(barIndex));
-    }
-  }
-  **/
-
-  private static List <SkinStyleSheetNode> _parseCSSStyleSheet(Reader reader)
+  private static List<SkinStyleSheetNode> _parseCSSStyleSheet(Reader reader)
   {
     SkinCSSParser parser = new SkinCSSParser();
     SkinCSSDocumentHandler documentHandler = new SkinCSSDocumentHandler();
@@ -884,12 +957,14 @@ class SkinStyleSheetParserUtils
     ResolvedSkinProperties(
       List<PropertyNode> noTrPropertyList,
       List<String> trRuleRefList,
+      List<IncludePropertyNode> includedPropertiesList,
       Set<String> inhibitedPropertySet,
       List<SkinPropertyNode> skinPropertyNodeList,
       boolean trTextAntialias)
     {
       _noTrPropertyList = noTrPropertyList;
       _trRuleRefList = trRuleRefList;
+      _includedPropertiesList = includedPropertiesList;
       _inhibitedPropertySet = inhibitedPropertySet;
       _skinPropertyNodeList = skinPropertyNodeList;
       _trTextAntialias = trTextAntialias;
@@ -903,6 +978,11 @@ class SkinStyleSheetParserUtils
     public List<String> getTrRuleRefList()
     {
       return _trRuleRefList;
+    }
+
+    public List<IncludePropertyNode> getIncludedPropertiesList()
+    {
+      return _includedPropertiesList;
     }
 
     public List<SkinPropertyNode> getSkinPropertyNodeList()
@@ -920,11 +1000,12 @@ class SkinStyleSheetParserUtils
       return _trTextAntialias;
     }
 
-    private Set<String>            _inhibitedPropertySet;
-    private List<PropertyNode>     _noTrPropertyList;
-    private List<String>           _trRuleRefList;
-    private List<SkinPropertyNode> _skinPropertyNodeList;
-    private boolean                _trTextAntialias;
+    private Set<String>               _inhibitedPropertySet;
+    private List<PropertyNode>        _noTrPropertyList;
+    private List<String>              _trRuleRefList;
+    private List<IncludePropertyNode> _includedPropertiesList;
+    private List<SkinPropertyNode>    _skinPropertyNodeList;
+    private boolean                   _trTextAntialias;
   }
 
   // Custom Trinidad css properties:
@@ -935,6 +1016,7 @@ class SkinStyleSheetParserUtils
   private static final String _ORA_PROPERTY_PREFIX = "-ora-";
   private static final String _PROPERTY_RULE_REF = "rule-ref";
   private static final String _PROPERTY_INHIBIT = "inhibit";
+  private static final String _INCLUDE_PROPERTY = "-tr-property-ref";
   private static final String _PROPERTY_TEXT_ANTIALIAS = "text-antialias";
   private static final Pattern _INTEGER_PATTERN = Pattern.compile("\\d+(px)?");
 
