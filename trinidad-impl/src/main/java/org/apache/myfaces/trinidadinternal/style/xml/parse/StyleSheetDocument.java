@@ -309,9 +309,8 @@ public class StyleSheetDocument
     {
       String propertyName = propertyNode.getName();
       String propertyValue = propertyNode.getValue();
-     
       
-      if (propertyName != null)
+      if (propertyName != null && propertyValue != null)
       {
         if (propertyName.equals("width"))
         {
