@@ -90,6 +90,8 @@ without stopping/starting the server.
 many portions of the page that are not being rerendered can be
 skipped entirely.
 </li>
+<li>UIXComponentBase.getClientId() now implements the same caching behavior that is provided by UIComponentBase.  The client id is computed and cached the first time that getClientId() is called.  The cached value is retained until any subsequent call to setId().  This caching behavior can result in a significant performance boost, particularly for views with large/deep component trees.  (See the <a href="devguide/configuration.html#org.apache.myfaces.trinidad.CLIENT_ID_CACHING">org.apache.myfaces.trinidad.CLIENT_ID_CACHING</a> system property for more information.)
+</li>
 </ul>
 </subsection>
     

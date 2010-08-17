@@ -31,20 +31,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 
 import javax.faces.FacesException;
+import javax.faces.application.ProjectStage;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
@@ -351,7 +351,7 @@ abstract public class UIXComponentBase extends UIXComponent
   @Override
   public String getClientId(FacesContext context)
   {
-    if (_isClientIdCachingEnabled(context))
+    if (_isClientIdCachingEnabled())
     {
       String clientId = _clientId;
 
@@ -374,8 +374,10 @@ abstract public class UIXComponentBase extends UIXComponent
           _clientId = clientId;
         }
       }
-      else
+      else if (_isClientIdDebuggingEnabled())
       {
+        _warnClientIdCachingConfig(context);
+
         // for now validate success by checking the cached result against the dynamically
         // generated result
         String realID = _calculateClientId(context);
@@ -390,6 +392,8 @@ abstract public class UIXComponentBase extends UIXComponent
     }
     else
     {
+      _warnClientIdCachingConfig(context);
+
       return _calculateClientId(context);
     }
   }
@@ -2071,43 +2075,118 @@ abstract public class UIXComponentBase extends UIXComponent
   {
   }
 
-  /**
-   * Temporary function controlling whether clientId caching is enabled
-   */
-  private static boolean _isClientIdCachingEnabled(FacesContext context)
+  private static boolean _isClientIdCachingEnabled()
   {
-    if (context == null)
-      throw new IllegalArgumentException("FacesContext is null");
+    return (_CLIENT_ID_CACHING != ClientIdCaching.OFF);
+  }
 
-    Boolean cacheClientIds = _sClientIdCachingEnabled.get();
+  private static boolean _isClientIdDebuggingEnabled()
+  {
+    return (_CLIENT_ID_CACHING == ClientIdCaching.DEBUG);
+  }
 
-    if (cacheClientIds == null)
+  // Warn if caching is disabled + production environment since this is 
+  // undesirable from a performance perspective.
+  private static void _warnClientIdCachingConfig(FacesContext context)
+  {
+    if (_CLIENT_ID_CACHING != ClientIdCaching.ON &&
+         context.isProjectStage(ProjectStage.Production) &&
+         !_warnedClientIdCachingConfig(context))
     {
-      // get the servlet initialization parameter
-      String cachingParam = context.getExternalContext().getInitParameter(
-                                                             _INIT_PROP_CLIENT_ID_CACHING_ENABLED);
+      _LOG.warning(
+        "The org.apache.myfaces.trinidad.CLIENT_ID_CACHING system property is set to: " +
+         _CLIENT_ID_CACHING +
+        ".  For best performance, client id caching should be ON in production environments.");
 
-      Boolean cachingEnabled  = (cachingParam != null)
-                                  ? Boolean.valueOf(cachingParam)
-                                  : Boolean.FALSE;  // default to false
-
-      // cache the servlet initialization value
-      _sClientIdCachingEnabled.set(cachingEnabled ? Boolean.TRUE : Boolean.FALSE);
-
-      return cachingEnabled;
-    }
-    else
-    {
-      return cacheClientIds.booleanValue();
+      _clientIdCachingConfigWarned(context);
     }
   }
 
-  private static AtomicReference<Boolean> _sClientIdCachingEnabled =
-                                                                 new AtomicReference<Boolean>(null);
+  // Tests whether we have already warned about the caching config.
+  // We only want to warn once per run.
+  private static boolean _warnedClientIdCachingConfig(FacesContext context)
+  {
+    ExternalContext external = context.getExternalContext();
+    Map<String, Object> appMap = external.getApplicationMap();
 
-  // temporary servlet initialization flag controlling whether client ID caching is enabled
-  private static final String _INIT_PROP_CLIENT_ID_CACHING_ENABLED =
-                                      "org.apache.myfaces.trinidadinternal.ENABLE_CLIENT_ID_CACHING";
+    return Boolean.TRUE.equals(appMap.get(_WARNED_CLIENT_ID_CACHING_KEY));
+  }
+
+  // Marks the fact that we have now warned about the caching config.
+  private static void _clientIdCachingConfigWarned(FacesContext context)
+  {
+    ExternalContext external = context.getExternalContext();
+    Map<String, Object> appMap = external.getApplicationMap();
+
+    appMap.put(_WARNED_CLIENT_ID_CACHING_KEY, Boolean.TRUE);
+  }
+
+  // Utility for deriving initial CLIENT_ID_CACHING value.
+  private static ClientIdCaching _initClientIdCaching()
+  {
+    String cachingProperty = _getClientIdCachingSystemProperty();
+    ClientIdCaching caching = _toClientIdCachingEnum(cachingProperty);
+
+    _LOG.config("Client id caching configuration: " + caching);
+
+    return caching;
+  }
+
+  private static String _getClientIdCachingSystemProperty()
+  {
+    try
+    {
+      return System.getProperty(_SYSTEM_PROP_CLIENT_ID_CACHING);
+    }
+    catch (Throwable t)
+    {
+      _LOG.warning(t);
+    }
+
+    return null;
+  }
+  
+  private static ClientIdCaching _toClientIdCachingEnum(String cachingProperty)
+  {
+    try
+    {
+      return Enum.valueOf(ClientIdCaching.class, 
+                           (cachingProperty == null) ? 
+                             "ON" :
+                             cachingProperty.toUpperCase());
+    }
+    catch (IllegalArgumentException e)
+    {
+      _LOG.warning("Invalid value specified for " +
+                   _SYSTEM_PROP_CLIENT_ID_CACHING +
+                   " system property: " +
+                   cachingProperty +
+                   ". Valid values are: on | off | debug.");
+
+    }
+
+    return ClientIdCaching.ON;
+  }
+
+  // Little enum for tracking the client id caching behavior.
+  private enum ClientIdCaching
+  {
+    ON,
+    OFF,
+    DEBUG
+  }
+
+  private static final ClientIdCaching _CLIENT_ID_CACHING = _initClientIdCaching();
+
+  // System property controlling whether client ID caching is enabled
+  private static final String _SYSTEM_PROP_CLIENT_ID_CACHING =
+    "org.apache.myfaces.trinidad.CLIENT_ID_CACHING";
+
+  // Application map key indicating that we've already warned once
+  // that the client id caching configuration is not optimized for
+  // production mode.
+  private static final String _WARNED_CLIENT_ID_CACHING_KEY =
+    "org.apache.myfaces.trinidad.WARNED_CLIENT_ID_CACHING";
 
   static private final LifecycleRenderer _UNDEFINED_LIFECYCLE_RENDERER =
                                                 new ExtendedRendererImpl();
