@@ -1,3 +1,4 @@
+
 /*
  *  Licensed to the Apache Software Foundation (ASF) under one
  *  or more contributor license agreements.  See the NOTICE file
@@ -66,6 +67,7 @@ import javax.servlet.ServletRequest;
           if(map == null)
           {
             map = myMap;
+            reqMap.put(_STATE_MAP, map);
           }
           else
           {
@@ -97,7 +99,7 @@ import javax.servlet.ServletRequest;
          Method m = actionResp.getClass().getMethod("setRenderParameter", String.class, String.class);
          String uuid = UUID.randomUUID().toString();
 
-         ec.getRequestMap().put(_STATE_MAP+"."+uuid, this);
+         ec.getSessionMap().put(_STATE_MAP+"."+uuid, this);
          m.invoke(actionResp, _STATE_MAP, uuid);
        }
        catch(Throwable t)
@@ -109,5 +111,7 @@ import javax.servlet.ServletRequest;
    }
    
    private static final String _STATE_MAP = RequestStateMap.class.getName();
+    
+   @SuppressWarnings("compatibility:-6292931291923989771")
    private static final long serialVersionUID = 1L;
  }
