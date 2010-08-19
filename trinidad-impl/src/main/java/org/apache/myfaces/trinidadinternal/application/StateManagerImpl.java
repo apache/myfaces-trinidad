@@ -188,7 +188,7 @@ public class StateManagerImpl extends StateManagerWrapper
     // Don't remove transient components...
     Object structure = new Structure(component);
     Object state = component.processSaveState(context);
-    return new PageState(context, structure, state, null);
+    return new PageState(context, new Object[]{structure, state}, null);
   }
   
   /**
@@ -210,8 +210,9 @@ public class StateManagerImpl extends StateManagerWrapper
 
     PageState viewState = (PageState) savedState;
 
-    Object structure = viewState.getStructure();
-    Object state = viewState.getState();
+    Object[] stateArray = (Object[])viewState.getViewState(context);
+    Object structure = stateArray[0];
+    Object state = stateArray[1];
 
     UIComponent component =
       ((Structure) structure).createComponent();
@@ -236,7 +237,7 @@ public class StateManagerImpl extends StateManagerWrapper
 
     Object structure = new Structure(root);
     Object state = root.processSaveState(context);
-    return new PageState(context, structure, state, root);
+    return new PageState(context, new Object[]{structure, state}, root);
   }
 
   static public UIViewRoot restoreViewRoot(
@@ -256,8 +257,9 @@ public class StateManagerImpl extends StateManagerWrapper
       return root; // bug 4712492
     }
 
-    Object structure = viewState.getStructure();
-    Object state = viewState.getState();
+    Object[] stateArray = (Object[])viewState.getViewState(context);
+    Object structure = stateArray[0];
+    Object state = stateArray[1];
 
     root = (UIViewRoot)
       ((Structure) structure).createComponent();
@@ -337,8 +339,7 @@ public class StateManagerImpl extends StateManagerWrapper
         // inner class of StateManager
         PageState pageState = new PageState(
             context,
-            structure,
-            state,
+            new Object[]{structure, state},
             // Save the view root into the page state as a transient
             // if this feature has not been disabled
             _useViewRootCache(context) ? root : null);
@@ -403,7 +404,7 @@ public class StateManagerImpl extends StateManagerWrapper
       else
       {
         // use null viewRoot since this state is shared across users:
-        PageState applicationState = new PageState(context, structure, state, null);
+        PageState applicationState = new PageState(context, new Object[]{structure, state}, null);
         
         // If we need to, stash the state off in our cache
         if (!dontSave)
@@ -635,8 +636,9 @@ public class StateManagerImpl extends StateManagerWrapper
         return root;
       }
 
-      structure = viewState.getStructure();
-      state = viewState.getState();
+      Object[] stateArray = (Object[])viewState.getViewState(context);
+      structure = stateArray[0];
+      state = stateArray[1];
     }
     else
     {
@@ -1213,15 +1215,14 @@ public class StateManagerImpl extends StateManagerWrapper
   {
     private static final long serialVersionUID = 1L;
 
-    private Object _structure, _state;
+    private Object _viewState;
     
     // use transient since UIViewRoots are not Serializable.
     private transient ViewRootState _cachedState;
 
-    public PageState(FacesContext fc, Object structure, Object state, UIViewRoot root)
+    public PageState(FacesContext fc, Object viewState, UIViewRoot root)
     {
-      _structure = structure;
-      _state = state;
+      _viewState = viewState;
 
       boolean zipState = _zipState(fc);
 
@@ -1231,7 +1232,7 @@ public class StateManagerImpl extends StateManagerWrapper
         if (zipState)
         {
           // zip the page state. This will also catch any serialization problems.
-          _zipToBytes(state, structure);
+          _zipToBytes(fc, viewState);
         }
         else
         {
@@ -1240,7 +1241,7 @@ public class StateManagerImpl extends StateManagerWrapper
       //  immediately
         try
         {
-          new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(state);
+          new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(viewState);
         }
         catch (IOException e)
         {          
@@ -1255,24 +1256,14 @@ public class StateManagerImpl extends StateManagerWrapper
                        : null;
     }
 
-    public Object getStructure()
+    public Object getViewState(FacesContext context)
     {
-      if (_zipState(FacesContext.getCurrentInstance()))
+      if (_zipState(context))
       {
-        return _unzipBytes((byte[])_structure);
+        return _unzipBytes(context, (byte[])_viewState);
       }
 
-      return _structure;
-    }
-
-    public Object getState()
-    {
-      if (_zipState(FacesContext.getCurrentInstance()))
-      {
-        return _unzipBytes((byte[])_state);
-      }
-
-      return _state;
+      return _viewState;
     }
 
     public void clearViewRootState()
@@ -1358,10 +1349,10 @@ public class StateManagerImpl extends StateManagerWrapper
       return zipStateObject.toString().equalsIgnoreCase("true");
     }
 
-    private Object _unzipBytes(byte[] zippedBytes)
+    private Object _unzipBytes(FacesContext context, byte[] zippedBytes)
     {
       Inflater decompressor = null;
-      ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+      ExternalContext externalContext = context.getExternalContext();
       Map<String,Object> sessionMap  = externalContext.getSessionMap();
 
       try
@@ -1423,10 +1414,10 @@ public class StateManagerImpl extends StateManagerWrapper
       }
     }
 
-    private void _zipToBytes(Object state, Object structure)
+    private void _zipToBytes(FacesContext context, Object viewState)
     {
       Deflater compresser = null;
-      ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+      ExternalContext externalContext = context.getExternalContext();
       Map<String,Object> sessionMap  = externalContext.getSessionMap();
 
       try
@@ -1449,7 +1440,7 @@ public class StateManagerImpl extends StateManagerWrapper
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
 
-        oos.writeObject(state);
+        oos.writeObject(viewState);
         oos.flush();
         oos.close();
 
@@ -1464,32 +1455,9 @@ public class StateManagerImpl extends StateManagerWrapper
         {
           int count = compresser.deflate(buf);
           baos.write(buf, 0, count);
-        }
+	}
 
-        _state = baos.toByteArray();
-
-        //Serialize structure
-        baos.reset();
-        oos = new ObjectOutputStream(baos);
-        compresser.reset();
-
-        oos.writeObject(structure);
-        oos.flush();
-        oos.close();
-
-        ret =  baos.toByteArray();
-        compresser.setInput(ret);
-        compresser.finish();
-
-        baos.reset();
-
-        while (!compresser.finished())
-        {
-          int count = compresser.deflate(buf);
-          baos.write(buf, 0, count);
-        }
-
-        _structure = baos.toByteArray();
+        _viewState = baos.toByteArray();
       }
       catch (IOException e)
       {
