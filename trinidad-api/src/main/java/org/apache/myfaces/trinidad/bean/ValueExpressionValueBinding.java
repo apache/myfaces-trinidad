@@ -207,5 +207,4 @@ public class ValueExpressionValueBinding extends ValueBinding
   }
 
   private final ValueExpression _ve;
-  private static final long serialVersionUID = 1L;
 }
