@@ -602,7 +602,7 @@ public class RequestContextImpl extends RequestContext
 
       if (master == null)
       {
-        _LOG.warning("CANNOT_FIND_PARTIAL_TRIGGER", new Object[] {trigger, listener});
+        _LOG.fine("CANNOT_FIND_PARTIAL_TRIGGER", new Object[] {trigger, listener});
       }
       else
       {
