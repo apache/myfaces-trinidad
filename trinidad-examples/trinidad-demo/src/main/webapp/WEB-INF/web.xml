@@ -58,10 +58,10 @@
 
   <!-- Trinidad by default uses an optimized client-side state saving
        mechanism. To disable that, uncomment the following -->
-  <!--context-param>
+  <context-param>
     <param-name>org.apache.myfaces.trinidad.CLIENT_STATE_METHOD</param-name>
     <param-value>all</param-value>
-  </context-param-->
+  </context-param>
 
   <!-- Trinidad also supports an optimized strategy for caching some
    view state at an application level, which significantly improves
