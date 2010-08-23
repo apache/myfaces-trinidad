@@ -31,6 +31,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.validator.Validator;
@@ -405,13 +406,31 @@ public class FormRenderer extends XhtmlRenderer
       });
       rw.writeAttribute("id", postscriptId, null);
     }
-
-    // Include JSF state.
-    // Note that MultiViewHandler in JSF RI will not write the state
-    // for any AJAX requests. PartialViewContextImpl will write out the state
-    // for these requets
-    context.getApplication().getViewHandler().writeState(context);
-
+     
+    // PDA's JavaScript-DOM is not capable of updating the ViewState just by 
+    // using ViewState's value, so for PDAs, FormRenderer will again render 
+    // the ViewState as a hidden element
+    if (isPDA(rc) &&
+          RequestContext.getCurrentInstance().isPartialRequest(context))
+    {
+      String state = 
+            context.getApplication().getStateManager().getViewState(context);
+      rw.startElement("input", null);
+      rw.writeAttribute("type", "hidden", null);
+      rw.writeAttribute("name", 
+          PartialResponseWriter.VIEW_STATE_MARKER , null);
+      rw.writeAttribute("value", state, null);
+      rw.endElement("input");
+    }
+    else
+    {
+      // Include JSF state.
+      // Note that MultiViewHandler in JSF RI will not write the state
+      // for any AJAX requests. PartialViewContextImpl will write out the state
+      // for these requets
+      context.getApplication().getViewHandler().writeState(context);
+    }
+    
     // Include the Window state, if any
     RequestContext.getCurrentInstance().getWindowManager().writeState(context);
 

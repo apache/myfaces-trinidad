@@ -54,6 +54,7 @@ import org.apache.myfaces.trinidad.component.visit.VisitTreeUtils;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
@@ -332,10 +333,16 @@ public class PartialViewContextImpl
       // if it is enabled
       _renderChildren(_context, viewRoot);
       
-      // Always write out ViewState as a separate update element.
-      String state =
-        _context.getApplication().getStateManager().getViewState(_context);
-      pprWriter.writeViewState(state);
+      // PDA's JavaScript DOM is not capable of updating the ViewState just by 
+      // using ViewState's value, so for PDAs, FormRenderer will again render 
+      // the ViewState as a hidden element during its postscript element rendering
+      if (!CoreRenderer.isPDA(rc))
+      {    
+        // Always write out ViewState as a separate update element.
+        String state =
+                _context.getApplication().getStateManager().getViewState(_context);
+        pprWriter.writeViewState(state);
+      }
       
       pprWriter.endDocument();
     }

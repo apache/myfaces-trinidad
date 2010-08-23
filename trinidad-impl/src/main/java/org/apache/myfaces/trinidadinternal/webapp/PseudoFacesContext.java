@@ -20,11 +20,14 @@ package org.apache.myfaces.trinidadinternal.webapp;
 
 import java.util.Iterator;
 
+import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.PartialViewContextFactory;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
@@ -158,6 +161,19 @@ class PseudoFacesContext extends FacesContext
     throw new UnsupportedOperationException();
   }
 
+  @Override
+  public PartialViewContext getPartialViewContext() 
+  {
 
+    if (_partialViewContext == null) 
+    {
+      PartialViewContextFactory f = (PartialViewContextFactory)
+                      FactoryFinder.getFactory(FactoryFinder.PARTIAL_VIEW_CONTEXT_FACTORY);
+      _partialViewContext = f.getPartialViewContext(this);
+    }
+    return _partialViewContext;      
+  }
+
+  private PartialViewContext _partialViewContext;
   private final ExternalContext _external;
 }

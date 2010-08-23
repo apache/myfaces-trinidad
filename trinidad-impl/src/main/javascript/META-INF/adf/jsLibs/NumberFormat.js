@@ -468,18 +468,18 @@ TrNumberFormat.scientificToExpanded = function(numberString)
 TrNumberFormat.trimLeadingZeroes = function(numberString)
 {
   var strbuf = [];
-  var i, char;
+  var i, ch;
   for (i = 0; i < numberString.length; ++i)
   {
-    char = numberString.charAt(i);
+    ch = numberString.charAt(i);
     
-    if ((char >= '1' && char <= '9') || char == '.')
+    if ((ch >= '1' && ch <= '9') || ch == '.')
       break;
       
-    if (char == '0' && i+1 < numberString.length && numberString.charAt(i+1) != '.')
+    if (ch == '0' && i+1 < numberString.length && numberString.charAt(i+1) != '.')
       continue;
       
-    strbuf.push(char);
+    strbuf.push(ch);
   }
   
   return strbuf.join('') + numberString.substring(i);
