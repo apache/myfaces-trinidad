@@ -1311,11 +1311,19 @@ public class StateManagerImpl extends StateManagerWrapper
         {
           //IMPORTANT: To avoid introducing a runtime dependency on the bridge,
           //this method should only be executed when we have a portlet
-          //request.  If we do have a portlet request then the bridge
-          //should be available anyway. Trinidad has a compile-time dependency
-          //on the PortletBridge API but DOES NOT have a runtime dependency on
-          //those clases.  It is very important to keep this seperation.
-          newRoot = PortletUtils.getPortletViewRoot(newRoot);
+          //request.
+          try
+          {
+            newRoot = (UIViewRoot) root.getClass().newInstance();
+          }
+          catch (InstantiationException e)
+          {
+            _LOG.finest("Unable to instantiate new root of type class \"{0}\".", root.getClass());
+          }
+          catch (IllegalAccessException e)
+          {
+            _LOG.finest("IllegalAccessException on new root of type class \"{0}\".", root.getClass());
+          }
         }
 
         
