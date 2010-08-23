@@ -379,8 +379,12 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     CollectionModel current,
     Object value)
   {
-    CollectionModel model = super.createCollectionModel(current, value);
-
+    return super.createCollectionModel(current, value);
+  }
+  
+  @Override
+  protected void postCreateCollectionModel(CollectionModel model)
+  {
     RowKeySet selectedRowKeys = getSelectedRowKeys();
 
     if (selectedRowKeys == null)
@@ -404,9 +408,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     if (_sortCriteria != null)
     {
       model.setSortCriteria(_sortCriteria);
-    }
-
-    return model;
+    }    
   }
 
   /**

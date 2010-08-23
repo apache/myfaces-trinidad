@@ -108,12 +108,8 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
   }
 
   @Override
-  public CollectionModel createCollectionModel(CollectionModel current, Object value)
+  protected void postCreateCollectionModel(CollectionModel model)
   {
-
-    TreeModel model = ModelUtils.toTreeModel(value);
-    model.setRowKey(null);
-
     RowKeySet selectedRowKeys = getSelectedRowKeys();
 
     if (selectedRowKeys == null)
@@ -131,8 +127,14 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
     }
 
     selectedRowKeys.setCollectionModel(model);
-    disclosedRowKeys.setCollectionModel(model);
+    disclosedRowKeys.setCollectionModel(model);    
+  }
 
+  @Override
+  public CollectionModel createCollectionModel(CollectionModel current, Object value)
+  {
+    TreeModel model = ModelUtils.toTreeModel(value);
+    model.setRowKey(null);
     return model;
   }
 

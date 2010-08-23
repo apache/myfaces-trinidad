@@ -1418,6 +1418,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
       iState._value = getValue();
       iState._model = createCollectionModel(null, iState._value);
+      postCreateCollectionModel(iState._model);
       assert iState._model != null;
     }
     // model might not have been created if createIfNull is false:
@@ -1436,12 +1437,32 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Creates the CollectionModel to use with this component.
+   * The state of the UIComponent with the new model instance is not fully initialized until
+   * after this method returns. As a result,  other component attributes that need
+   * a fully initialized model should not be initialized in this method.  Instead,
+   * model-dependent initialization should be done in <code>postCreateCollectionModel</code>
+   * @see #postCreateCollectionModel
    * @param current the current CollectionModel, or null if there is none.
    * @param value this is the value returned from {@link #getValue()}
    */
   protected abstract CollectionModel createCollectionModel(
     CollectionModel current,
     Object value);
+  
+  /**
+    * Hook called with the result of <code>createCollectionModel</code>.
+    * Subclasses can use this method to perform initialization after the CollectionModel
+    * is fully initialized.
+    * Subclassers should call super before accessing any component state to ensure
+    * that superclass initialization has been performed.
+    * @see #createCollectionModel
+    * @param model The model instance returned by<code><createCollectionModel</code>
+    */
+  protected void postCreateCollectionModel(CollectionModel model)
+  {
+    // do nothing
+  }
+ 
 
   /**
    * Gets the value that must be converted into a CollectionModel
@@ -1673,6 +1694,7 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       iState._value = value;
       iState._model = createCollectionModel(iState._model, value);
+      postCreateCollectionModel(iState._model);
     }
   }
 
