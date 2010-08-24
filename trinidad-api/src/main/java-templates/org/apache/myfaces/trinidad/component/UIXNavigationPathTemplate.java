@@ -34,9 +34,9 @@ import org.apache.myfaces.trinidad.component.visit.VisitContext;
  *
  * @version $Name:  $ ($Revision$) $Date$
  */
-abstract public class UIXNavigationPathTemplate extends UIXNavigationHierarchy
+abstract public class UIXNavigationPathTemplate
+  extends UIXNavigationHierarchy
 {
-	
   @Override
   protected void processFacetsAndChildren(
     FacesContext context,

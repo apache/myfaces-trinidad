@@ -1014,11 +1014,12 @@ abstract public class UIXComponentBase extends UIXComponent
     return getFacesBean().saveState(context);
   }
 
-  public void restoreState(FacesContext context, Object stateObj)
+  public void restoreState(
+    FacesContext facesContext,
+    Object       stateObj)
   {
-    getFacesBean().restoreState(context, stateObj);
+    getFacesBean().restoreState(facesContext, stateObj);
   }
-
 
   @Override
   public String toString()
@@ -1385,8 +1386,12 @@ abstract public class UIXComponentBase extends UIXComponent
 
   /**
    * Convenience method to call <code>invokeOnComponent</code> on all of the
-   * children of a component.  This is useful when a component sometimes optimizes
-   * away calling <code>invokeOnComponent</code> on its children
+   * children of a component, surrounding the invocation with calls to
+   * <code>setup/tearDownChildrenVisitingContext</code>.
+   * This is useful when a component sometimes optimizes
+   * away calling <code>invokeOnComponent</code> on its children.
+   * @see UIXComponent#setupChildrenVisitingContext
+   * @see UIXComponent#tearDownChildrenVisitingContext
    */
   protected final boolean invokeOnChildrenComponents(
     FacesContext context,
@@ -1394,13 +1399,22 @@ abstract public class UIXComponentBase extends UIXComponent
     ContextCallback callback)
     throws FacesException
   {
-    Iterator<UIComponent> children = getFacetsAndChildren();
+    setupChildrenVisitingContext(context);
     
     boolean found = false;
     
-    while (children.hasNext() && !found)
+    try
     {
-      found = children.next().invokeOnComponent(context, clientId, callback);
+      Iterator<UIComponent> children = getFacetsAndChildren();
+
+      while (children.hasNext() && !found)
+      {
+        found = children.next().invokeOnComponent(context, clientId, callback);
+      }
+    }
+    finally
+    {
+      tearDownChildrenVisitingContext(context);
     }
     
     return found;
@@ -1423,43 +1437,45 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     assert this instanceof NamingContainer : "Only use invokeOnNamingContainerComponent on NamingContainers";
     
-    String thisClientId = getClientId(context);
+    boolean invokedComponent;
 
-    if (clientId.equals(thisClientId))
-    {
-      // this is the component we want, so invoke the callback
-      callback.invokeContextCallback(context, this);
-      return true;
-    }
-    else
-    {
-      // if this is a NamingContainer, only traverse into it if the clientId we are looking for
-      // is inside of it
-      if ((!clientId.startsWith(thisClientId) ||
-          (clientId.charAt(thisClientId.length()) != NamingContainer.SEPARATOR_CHAR)))
-      {
-        return false;
-      }
+    setupVisitingContext(context);
 
-      boolean invokedComponent = false;
-      
-      // set up the context for visiting the children
-      setupVisitingContext(context);
-            
-      try
+    try
+    {
+      String thisClientId = getClientId(context);
+
+      if (clientId.equals(thisClientId))
       {
-        // iterate through children. We inline this code instead of calling super in order
-        // to avoid making an extra call to getClientId().
-        invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
+        // this is the component we want, so invoke the callback
+        callback.invokeContextCallback(context, this);
+        return true;
       }
-      finally
+      else
       {
-        // teardown the context now that we have visited the children
-        tearDownVisitingContext(context);
+        // if this is a NamingContainer, only traverse into it if the clientId we are looking for
+        // is inside of it
+        if ((!clientId.startsWith(thisClientId) ||
+            (clientId.charAt(thisClientId.length()) != NamingContainer.SEPARATOR_CHAR)))
+        {
+            invokedComponent = false;
+        }
+        else
+        {
+            // iterate through children.
+            // We inline this code instead of calling super in order
+          // to avoid making an extra call to getClientId().
+          invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
+        }
       }
-      
-      return invokedComponent;
     }
+    finally
+    {
+      // teardown the context now that we have visited the children
+      tearDownVisitingContext(context);
+    }
+      
+    return invokedComponent;
   }
   
   /**
@@ -1475,37 +1491,31 @@ abstract public class UIXComponentBase extends UIXComponent
     ContextCallback callback)
     throws FacesException
   {
-    String thisClientId = getClientId(context);
+    // set up the context for visiting the children
+    setupVisitingContext(context);
 
-    if (clientId.equals(thisClientId))
+    try
     {
-      callback.invokeContextCallback(context, this);
-      return true;
+      String thisClientId = getClientId(context);
+
+      if (clientId.equals(thisClientId))
+      {
+        callback.invokeContextCallback(context, this);
+        return true;
+      }
+      else
+      {
+          // iterate through children. We inline this code instead of calling super in order
+          // to avoid making an extra call to getClientId().
+          return invokeOnChildrenComponents(context, clientId, callback);
+      }
     }
-    else
+    finally
     {
-      boolean invokedComponent = false;
-      
-      // set up the context for visiting the children
-      setupVisitingContext(context);
-            
-      try
-      {
-        // iterate through children. We inline this code instead of calling super in order
-        // to avoid making an extra call to getClientId().
-        invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
-      }
-      finally
-      {
-        // teardown the context now that we have visited the children
-        tearDownVisitingContext(context);
-      }
-      
-      return invokedComponent;
+      // teardown the context now that we have visited the children
+      tearDownVisitingContext(context);
     }
   }
-
-
 
   /**
    * <p>
