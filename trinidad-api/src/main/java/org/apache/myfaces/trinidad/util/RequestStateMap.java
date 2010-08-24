@@ -111,7 +111,5 @@ import javax.servlet.ServletRequest;
    }
    
    private static final String _STATE_MAP = RequestStateMap.class.getName();
-    
-   @SuppressWarnings("compatibility:-6292931291923989771")
    private static final long serialVersionUID = 1L;
  }
