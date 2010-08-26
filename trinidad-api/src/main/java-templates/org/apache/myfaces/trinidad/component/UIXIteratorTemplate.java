@@ -308,15 +308,9 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
         @Override
         protected void process(UIComponent kid, ComponentProcessingContext cpContext)
         {
-          if (kid.getChildCount() > 0)
+          if (UIXComponent.visitTree(noColumnFacetContext, kid, visitCallback))
           {
-            for (UIComponent grandKid : kid.getChildren())
-            {
-              if (UIXComponent.visitTree(noColumnFacetContext, grandKid, visitCallback))
-              {
-                throw new AbortProcessingException();
-              }
-            }
+            throw new AbortProcessingException();
           }
         }
       };
@@ -375,15 +369,9 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
           ComponentProcessingContext cpContext
           ) throws IOException
         {
-          if (kid.getChildCount() > 0)
+          if (UIXComponent.visitTree(noColumnFacetContext, kid, visitCallback))
           {
-            for (UIComponent grandKid : kid.getChildren())
-            {
-              if (UIXComponent.visitTree(noColumnFacetContext, grandKid, visitCallback))
-              {
-                throw new AbortProcessingException();
-              }
-            }
+            throw new AbortProcessingException();
           }
         }
       };
