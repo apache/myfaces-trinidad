@@ -28,7 +28,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>6</version>
+    <version>9</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
@@ -184,12 +184,6 @@
       <name>Apache Website</name>
       <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
     </site>
-    <snapshotRepository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>apache-maven-snapshots</id>
-      <name>Apache Maven Snapshot Repository</name>
-      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
-    </snapshotRepository>
   </distributionManagement>
 
   <dependencyManagement>
