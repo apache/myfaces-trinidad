@@ -130,6 +130,24 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
     return null;
   }
   
+  private String _getPattern(FacesContext context, Object value)
+  {
+    boolean isConvertibleType = _isTypeClientConvertible(value);
+    
+    if (!isConvertibleType)
+    {
+      // whenever you have a pattern we don't attempt to do conversion on the client, 
+      // so if this is not a convertible type, return a bogus pattern so 
+      // that the client converter won't attempt to convert,
+      // but the custom hints will still be sent down.
+      return "0";
+    }
+      
+    // We call this since the pattern may contain the generic currency sign, which we don't 
+    // want to display to the user.
+    return getLocalizedPattern(context, getPattern(), null);
+  }
+  
   /**
    * Helper method, that creates an Object array, which contains all
    * required constructor parameters for the TrNumberConverter class.
@@ -139,7 +157,7 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
    * formatted numbers, like currencyCode or maximumIntegerDigits.
    * 
    */
-  private Object[] _getClientConstructorParams(FacesContext context, Map<?, ?> messages)
+  private Object[] _getClientConstructorParams(FacesContext context, Object value, Map<?, ?> messages)
   {
     Object[] params;
     boolean formating = _formatingAttributesSet();
@@ -149,9 +167,7 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
     else
       params = new Object[4];
 
-    // We call this since the pattern may contain the generic currency sign, which we don't 
-    // want to display to the user.
-    params[0] = getLocalizedPattern(context, getPattern(), null);
+    params[0] = _getPattern(context, value);
 
     params[1] = this.getType();
     params[2] = this.getLocale() != null ? this.getLocale().toString() : null;
@@ -222,22 +238,12 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
             }
           }
         }
-      }
-      
-      // Only render a client converter if the input value is bound to a supported type 
-      // (Float, Double, Integer, Short, Byte). The JavaScript number is a 64-bit floating type and 
-      // has enough precision to represent any of these supported types.
-      if (!(value instanceof Float || value instanceof Double || value instanceof Integer 
-            || value instanceof Short || value instanceof Byte))
-      {
-        _LOG.warning("UNSUPPORTED_NUMBERCONVERTER_TYPE");
-        return null;
-      }
+      }      
       
       StringBuilder outBuffer = new StringBuilder(250);
       outBuffer.append("new TrNumberConverter(");
 
-      Object[] params = _getClientConstructorParams(context, messages);
+      Object[] params = _getClientConstructorParams(context, value, messages);
       for (int i = 0; i < params.length; i++)
       {
         try
@@ -254,6 +260,21 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
       outBuffer.append(')');
       return outBuffer.toString();
     }
+  
+  private boolean _isTypeClientConvertible(Object value)
+  {
+    // Only render a client converter if the input value is bound to a supported type 
+    // (Float, Double, Integer, Short, Byte). The JavaScript number is a 64-bit floating type and 
+    // has enough precision to represent any of these supported types.
+    if (value instanceof Float || value instanceof Double || value instanceof Integer 
+          || value instanceof Short || value instanceof Byte)
+    {
+      return true;
+    }    
+  
+    _LOG.warning("UNSUPPORTED_NUMBERCONVERTER_TYPE");
+    return false;
+  }
   
   /*
    * This method returns true if the locale specified for NumberConverter is
