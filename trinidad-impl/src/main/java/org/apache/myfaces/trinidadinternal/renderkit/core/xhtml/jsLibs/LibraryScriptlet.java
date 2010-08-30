@@ -205,6 +205,10 @@ public class LibraryScriptlet extends Scriptlet
             _LOG.info("RUNNING_DEBUG_JAVASCRIPT"); 
           }
         }
+        else
+        {
+          _debugJavascript = Boolean.FALSE; 
+        }
       }
       else
       {
