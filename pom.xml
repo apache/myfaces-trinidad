@@ -28,7 +28,8 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>9</version>
+    <!--update to version 9-->
+    <version>6</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
