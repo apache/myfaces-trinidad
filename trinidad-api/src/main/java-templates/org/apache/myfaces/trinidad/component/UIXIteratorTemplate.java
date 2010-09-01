@@ -21,18 +21,30 @@ package org.apache.myfaces.trinidad.component;
 import java.io.IOException;
 
 import java.util.AbstractMap;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import java.util.Map;
 import java.util.Set;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
 import javax.faces.render.Renderer;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitResult;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.LocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.ModelUtils;
+import org.apache.myfaces.trinidad.render.ClientRowKeyManager;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
+
 
 /**
  * This component iterates over some given data.
@@ -146,6 +158,121 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
         throw new IllegalStateException(exp);
       }
     }
+  }
+
+  /**
+   * Override of UIXComponent visitTree to visit the stamped children of the UIXIterator
+   * with correct currency
+   */
+  @Override
+  public boolean visitTree(
+    VisitContext visitContext,
+    VisitCallback callback)
+  {    
+    
+    if (!isVisitable(visitContext))
+      return false;
+    
+    // invoke the callback for this component
+    VisitResult result = visitContext.invokeVisitCallback(this, callback);
+
+    if (result == VisitResult.COMPLETE)
+      return true;
+    else if (result == VisitResult.ACCEPT)
+    {
+      FacesContext context = visitContext.getFacesContext();
+      PhaseId phaseId = visitContext.getPhaseId();
+      RenderingContext rc = (PhaseId.RENDER_RESPONSE == phaseId)
+                              ? RenderingContext.getCurrentInstance()
+                              : null;
+      Collection<String> idsToVisit = visitContext.getSubtreeIdsToVisit(this);
+      if (idsToVisit.isEmpty())
+        return false;
+      
+      String thisClientId = getClientId(context);
+      Object oldKey = getRowKey();
+      try
+      {
+        if (PhaseId.RENDER_RESPONSE == phaseId)
+        {
+          setUpEncodingContext(context, rc);
+        }
+        else
+        {
+          setupVisitingContext(context);
+        }      
+        
+        ClientRowKeyManager keyMgr = this.getClientRowKeyManager();
+
+        for (String clientId : idsToVisit)
+        {
+          Object rowKey = null;
+          
+          // look for row key in client ids to visit and set currency before visiting children
+          int index = clientId.indexOf(thisClientId);
+          
+          if (index >= 0)
+          {
+            index += thisClientId.length();
+            if (index < clientId.length() && clientId.charAt(index) == UINamingContainer.SEPARATOR_CHAR)
+            {
+              int endIndex = clientId.indexOf(UINamingContainer.SEPARATOR_CHAR, index + 1);
+              
+              if (endIndex >= 0 && endIndex > index)
+              {
+                String clientRowKey = clientId.substring(index + 1, endIndex);
+                rowKey = keyMgr.getRowKey(context, this, clientRowKey);
+              }
+            }
+          }
+              
+          // visit the children with correct currency
+          setRowKey(rowKey);                    
+
+          Iterator<UIComponent> kids = getFacetsAndChildren();          
+          while(kids.hasNext())
+          {
+            boolean done;            
+            UIComponent currChild = kids.next();
+            
+            if (currChild instanceof UIXComponent)
+            {
+              UIXComponent uixChild = (UIXComponent)currChild;
+
+              // delegate to UIXComponent's visitTree implementation to allow
+              // subclassses to modify the behavior
+              done = uixChild.visitTree(visitContext, callback);
+            }
+            else
+            {
+              // use generic visit implementation
+              done = visitTree(visitContext, currChild, callback);
+            }
+
+            // If any kid visit returns true, we are done.
+            if (done)
+            {
+              return true;
+            }                    
+          }
+        }                
+      }
+      finally
+      {
+        setRowKey(oldKey);
+        // tear down the context we set up in order to visit our children
+        if (PhaseId.RENDER_RESPONSE == phaseId)
+        {
+          tearDownEncodingContext(context, rc);
+        }
+        else
+        {
+          tearDownVisitingContext(context);
+        }
+      }      
+    }
+    // if we got this far, we're not done
+    return false;    
   }
 
   /**
