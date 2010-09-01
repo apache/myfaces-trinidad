@@ -21,20 +21,18 @@ package org.apache.myfaces.trinidadinternal.taglib;
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.FacetTag;
 import javax.faces.webapp.UIComponentClassicTagBase;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
-import javax.servlet.jsp.tagext.TagSupport;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXComponentRef;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
  * Use this tag to copy children or facets from a declarative component
  * on to a component within the corresponding definition.
  */
-public class FacetRefTag extends TagSupport
+public class FacetRefTag extends TrinidadTagSupport
 {
   public FacetRefTag()
   {

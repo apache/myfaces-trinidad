@@ -19,9 +19,7 @@
 package org.apache.myfaces.trinidadinternal.taglib;
 
 import java.io.Serializable;
-
 import java.lang.reflect.Array;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,12 +28,9 @@ import javax.el.ELContext;
 import javax.el.PropertyNotWritableException;
 import javax.el.ValueExpression;
 import javax.el.VariableMapper;
-
 import javax.faces.context.FacesContext;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.TagSupport;
 import javax.servlet.jsp.jstl.core.IndexedValueExpression;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -61,7 +56,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  *
  */
-public class ForEachTag extends TagSupport
+public class ForEachTag extends TrinidadTagSupport
 {
   public void setItems(ValueExpression items)
   {

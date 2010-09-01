@@ -19,17 +19,13 @@
 package org.apache.myfaces.trinidadinternal.taglib;
 
 import javax.faces.component.UIComponent;
-
-import javax.servlet.jsp.tagext.TagSupport;
+import javax.faces.webapp.UIComponentClassicTagBase;
+import javax.servlet.jsp.JspException;
 
 import org.apache.myfaces.trinidad.component.UIXComponentRef;
-
-import javax.servlet.jsp.JspException;
-import org.apache.myfaces.trinidadinternal.taglib.util.TagUtils;
-import javax.faces.webapp.UIComponentClassicTagBase;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-public class ComponentDefTag extends TagSupport
+public class ComponentDefTag extends TrinidadTagSupport
 {
   public ComponentDefTag()
   {
