@@ -31,6 +31,7 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.faces.component.NamingContainer;
@@ -94,6 +95,26 @@ public class SessionChangeManager extends BaseChangeManager
     }
 
     _applyComponentChanges(context, rootId);
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void applySimpleComponentChanges(FacesContext context, UIComponent component)
+  {
+    // we don't need to apply the component changes if we restored the state, since the
+    // attributes will be up-to-date
+    if (!_isStateRestored(context))
+    {
+      String         sessionKey     = _getSessionKey(context);
+      ChangesForView changesForView = _getChangesForView(context, sessionKey, false);
+      
+      if (changesForView != null)
+      {
+        changesForView.applyComponentChanges(context, component);
+      }
+    }
   }
 
   /**
@@ -173,7 +194,9 @@ public class SessionChangeManager extends BaseChangeManager
   {    
     // get the absolute scopedId for the target component so that we have a unique identifier
     // to compare
-    String scopedIdForTargetComponent = ComponentUtils.getScopedIdForComponent(component, null);
+    String scopedIdForTargetComponent = ComponentUtils.getScopedIdForComponent(
+                                                                            component,
+                                                                            context.getViewRoot());
     
     // check if we have an existing attribute change for the same attribute name, 
     // if found, remove it
@@ -529,7 +552,6 @@ public class SessionChangeManager extends BaseChangeManager
     return builder.append(_COMPONENT_CHANGES_MAP_FOR_SESSION_KEY).append(viewId).toString();
   }
 
-  
   /**
    * Tracks the component changes for a particular view as well as all the movement
    * changes so that component aliasing can be tracked
@@ -593,23 +615,40 @@ public class SessionChangeManager extends BaseChangeManager
      */
     protected void addChange(QualifiedComponentChange qualifiedChange)
     {
-      _componentChangesForView.add(qualifiedChange);
-      
-      ComponentChange componentChange = qualifiedChange.getComponentChange();
-      
-      if (componentChange instanceof MoveChildComponentChange)
+      // make sure that we don't add changes while getAttrChanges() is rebuilding the
+      // per-component changes
+      synchronized(_attrRebuildLock)
       {
-        // we only need to remove moves that actually changed the absolute scoped id of the
-        // component
-        MoveChildComponentChange moveComponentChange = (MoveChildComponentChange)componentChange;
+        _componentChangesForView.add(qualifiedChange);
         
-        if (!moveComponentChange.getSourceScopedId().equals(moveComponentChange.getDestinationScopedId()))
+        ComponentChange componentChange = qualifiedChange.getComponentChange();
+
+        // make sure that the attr change and rename maps are up-to-date
+        ConcurrentMap<String, ConcurrentMap<String, ComponentChange>> attrChanges=_getAttrChanges();
+        
+        if (componentChange instanceof AttributeComponentChange)
         {
-          _renameChanges.add(moveComponentChange);
+          // update the attribute changes with the current change
+          _updateAttributeChange(attrChanges, _renameMap, qualifiedChange);
+        }
+        else if (componentChange instanceof MoveChildComponentChange)
+        {
+          // we only need to remove moves that actually changed the absolute scoped id of the
+          // component
+          MoveChildComponentChange moveComponentChange = (MoveChildComponentChange)componentChange;
+          
+          if (!moveComponentChange.getSourceScopedId().equals(moveComponentChange.getDestinationScopedId()))
+          {
+            _renameChanges.add(moveComponentChange);
+            
+            // update the rename map to account for this change
+            
+            _updateRenameMap(_renameMap, moveComponentChange);
+          }
         }
       }
     }
-
+      
     /**
      * Returns the Iterator of rename changes that affect the current scoped id in ComponentChange order
      * @return
@@ -658,9 +697,156 @@ public class SessionChangeManager extends BaseChangeManager
       
       return CollectionUtils.emptyIterator();
     }
+
+    /**
+     * Apply the attribute changes for this component
+     * @param context
+     * @param component
+     */
+    protected void applyComponentChanges(FacesContext context, UIComponent component)
+    {
+      String scopedId = ComponentUtils.getScopedIdForComponent(component, context.getViewRoot());
+      
+      ConcurrentMap<String, ComponentChange> componentChanges = _getAttrChanges().get(scopedId);
+      
+      if (componentChanges != null)
+      {
+        for (ComponentChange change : componentChanges.values())
+        {
+          change.changeComponent(component);
+        }
+      }
+    }
+
+    /**
+     * Return the Map of original component scopedIds to the Map of their attribute names to
+     * AttributeComponentChanges, building the mapping if necessary
+     * @return
+     */
+    private ConcurrentMap<String, ConcurrentMap<String, ComponentChange>> _getAttrChanges()
+    {
+      // if we don't have a map of scopedId to attribute changes then it is because this is
+      // either the first request for this session or we failed over.  In either case, build
+      // the list (which will essentially be fast in the first case.
+      if (_attrChanges == null)
+      {
+        synchronized(_attrRebuildLock)
+        {
+          // double check that no one else has completed our request
+          if (_attrChanges == null)
+          {
+            ConcurrentMap<String, String> renameMap = new ConcurrentHashMap<String, String>();
+            
+            ConcurrentMap<String, ConcurrentMap<String, ComponentChange>> attrChanges = new
+              ConcurrentHashMap<String, ConcurrentMap<String, ComponentChange>>();
+            
+            for (QualifiedComponentChange currQChange: getComponentChangesForView())
+            {
+              ComponentChange currComponentChange = currQChange.getComponentChange();
+              
+              if (currComponentChange instanceof AttributeComponentChange)
+              {
+                // update the attribute changes with the current change
+                _updateAttributeChange(attrChanges, renameMap, currQChange);
+              }
+              else if (currComponentChange instanceof MoveChildComponentChange)
+              {
+                // update the rename list from the new name back to the original scoped name
+                _updateRenameMap(renameMap, (MoveChildComponentChange)currComponentChange);
+              }
+            }
+           
+            _renameMap   = renameMap;
+            _attrChanges = attrChanges;
+          }
+        }
+      }
+      
+      return _attrChanges;
+    }
+
+    private void _updateAttributeChange(
+      ConcurrentMap<String, ConcurrentMap<String, ComponentChange>> attrChanges,
+      ConcurrentMap<String, String>                                 renameMap,
+      QualifiedComponentChange                                      qAttrChange)
+    {
+      // update the current attribute values for the scoped id
+      String currScopedId = qAttrChange.getTargetComponentScopedId();
+      
+      // apply any move rename
+      String originalScopedId = renameMap.get(currScopedId);
+      
+      // we don't add rename mapping until a move, so if there is no entry, the origina
+      // value is good
+      if (originalScopedId == null)
+        originalScopedId = currScopedId;
+      
+      // get the map for this component, creating one if necessary
+      ConcurrentMap<String, ComponentChange> changesForComponent = 
+                                                           attrChanges.get(originalScopedId);
+      
+      // if we haven't registered a Map yet, create one and register it
+      if (changesForComponent == null)
+      {
+        // =-= bts There probably aren't that many different changes per component.  Maybe
+        //         we need something smaller and more efficient here
+        changesForComponent = new ConcurrentHashMap<String, ComponentChange>();
+        attrChanges.put(originalScopedId, changesForComponent);
+      }
+      
+      AttributeComponentChange attrChange = (AttributeComponentChange)
+                                            qAttrChange.getComponentChange();
+      
+      // update the current AttributeComponentChange for this attribute
+      String attrName = attrChange.getAttributeName();
+      
+      changesForComponent.put(attrName, attrChange);
+      
+    }
+    
+    /**
+     * Update the renamemap with a change
+     * @param renameMap
+     * @param moveChange
+     */
+    private void _updateRenameMap(
+      ConcurrentMap<String, String> renameMap,
+      MoveChildComponentChange      moveChange)
+    {
+      String sourceScopedId      = moveChange.getSourceScopedId();
+      String destinationScopedId = moveChange.getDestinationScopedId();
+      
+      // we only need to update the map if we actually changed scoped ids
+      if (!(sourceScopedId.equals(destinationScopedId)))
+      {
+        // remove the old mapping for source
+        String originalScodeId = renameMap.remove(sourceScopedId);
         
+        // we don't bother adding mappings if there has been no rename, plus there might
+        // not be any attribute changes yet.  In this case, the source scoped id must
+        // be the original id
+        if (originalScodeId == null)
+          originalScodeId = sourceScopedId;
+        
+        // add the new, updated mapping to account for the move
+        renameMap.put(destinationScopedId, originalScodeId);
+      }
+    }
+     
     private final Queue<QualifiedComponentChange> _componentChangesForView;
     private final List<MoveChildComponentChange> _renameChanges;
+    
+    // Lock used to synchronize rebuilding of the _attrChanges and _renameMap
+    private transient final Object _attrRebuildLock = new Object();
+    
+    // map of original scopedIds to Map of attribute names and their new values.  This allows
+    // us to apply all of attribute changes efficiently
+    private transient volatile ConcurrentMap<String,
+                                             ConcurrentMap<String, ComponentChange>> _attrChanges;
+    
+    // map of current scoped ids to original scoped ids.  This enables us to correctly update
+    // the attributes for the original scoped ids even after the component has moved
+    private transient volatile ConcurrentMap<String, String> _renameMap;
 
     private static final long serialVersionUID = 1L;
   }
@@ -727,10 +913,7 @@ public class SessionChangeManager extends BaseChangeManager
   
   private static final String _COMPONENT_CHANGES_MAP_FOR_SESSION_KEY =
     "org.apache.myfaces.trinidadinternal.ComponentChangesMapForSession";
-  
-  private static final String _ATTRIBUTE_CHANGE_FORCED_COMPONENTS =
-    "org.apache.myfaces.trinidadinternal.AttributeChangeForcedComponents";
-    
+      
   private static final TrinidadLogger _LOG = 
     TrinidadLogger.createTrinidadLogger(SessionChangeManager.class);
 }

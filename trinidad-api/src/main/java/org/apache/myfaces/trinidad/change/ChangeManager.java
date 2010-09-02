@@ -207,6 +207,18 @@ public abstract class ChangeManager
   {
     throw new UnsupportedOperationException("Subclassers must implement");
   }
+
+  /**
+   * Apply non-cross-component changes to a component in its original location.  This is typically
+   * only called by tags that need to ensure that a newly created component instance is
+   * as up-to-date as possible.
+   * @param context
+   * @param component Component to apply the simple changes to
+   */
+  public void applySimpleComponentChanges(FacesContext context, UIComponent component)
+  {
+    throw new UnsupportedOperationException("Subclassers must implement");    
+  }
   
   private static class AttributeConverter extends DocumentChangeFactory
   {
