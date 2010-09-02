@@ -25,8 +25,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.el.ValueExpression;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
@@ -195,45 +193,6 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
       UIComponent  component,
       Map<?, ?>    messages)
     {
-      Object value = component.getAttributes().get("value");
-      if (value == null)
-      {
-        ValueExpression expression = component.getValueExpression("value");
-        if (expression != null)
-        {
-          value = expression.getValue(context.getELContext());
-        
-          // If value is bound to an Object that is initially null, then we must devise another way 
-          // to determine the type of the Object we are bound to, as there's no way for null to be 
-          // interpreted as any type other than Object; thus, we determine the type then instantiate 
-          // an Object of that type, initializing it to an arbitrarily chosen value. 
-          // Specifically, it is assumed that value is bound to a numeric type that provides a one 
-          // argument constructor that takes a String, so we instantiate an object of that type with 
-          // an arbitrarily chosen value of "0".
-          if (value == null)
-          {
-            try
-            {
-              value = expression.getType(context.getELContext()).getConstructor(String.class).newInstance("0");
-            }
-            catch (Exception e)
-            {
-              _LOG.warning(e.getLocalizedMessage());
-            }
-          }
-        }
-      }
-      
-      // Only render a client converter if the input value is bound to a supported type 
-      // (Float, Double, Integer, Short, Byte). The JavaScript number is a 64-bit floating type and 
-      // has enough precision to represent any of these supported types.
-      if (!(value instanceof Float || value instanceof Double || value instanceof Integer 
-            || value instanceof Short || value instanceof Byte))
-      {
-        _LOG.warning("UNSUPPORTED_NUMBERCONVERTER_TYPE");
-        return null;
-      }
-      
       StringBuilder outBuffer = new StringBuilder(250);
       outBuffer.append("new TrNumberConverter(");
 
