@@ -20,8 +20,13 @@ package org.apache.myfaces.trinidadinternal.webapp;
 
 import java.util.Iterator;
 
+import javax.el.ELContext;
+import javax.el.ELResolver;
+import javax.el.FunctionMapper;
+import javax.el.VariableMapper;
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
+import javax.faces.application.ApplicationFactory;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
@@ -45,6 +50,17 @@ class PseudoFacesContext extends FacesContext
   {
     assert ec!= null;
     _external = ec;
+  }
+
+  public void setAsCurrentInstance()
+  {
+      FacesContext.setCurrentInstance(this);
+  }
+
+  @Override
+  public void release()
+  {
+    FacesContext.setCurrentInstance(null);
   }
 
   @Override
@@ -90,12 +106,6 @@ class PseudoFacesContext extends FacesContext
   }
 
   @Override
-  public Application getApplication()
-  {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
   public UIViewRoot getViewRoot()
   {
     throw new UnsupportedOperationException();
@@ -105,12 +115,6 @@ class PseudoFacesContext extends FacesContext
   public void setViewRoot(UIViewRoot viewRoot)
   {
      throw new UnsupportedOperationException();
-  }
-
-  @Override
-  public ExternalContext getExternalContext()
-  {
-    return _external;
   }
 
   @Override
@@ -144,12 +148,6 @@ class PseudoFacesContext extends FacesContext
   }
 
   @Override
-  public void release()
-  {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
   public void renderResponse()
   {
     throw new UnsupportedOperationException();
@@ -159,6 +157,35 @@ class PseudoFacesContext extends FacesContext
   public void responseComplete()
   {
     throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public Application getApplication()
+  {
+    if (_application == null)
+    {
+        _application = ((ApplicationFactory) FactoryFinder.getFactory(
+                FactoryFinder.APPLICATION_FACTORY)).getApplication();
+    }
+
+    return _application;
+  }
+
+  @Override
+  public ELContext getELContext()
+  {
+    if (_elContext == null)
+    {
+      _elContext = new MockELContext(getApplication());
+    }
+
+    return _elContext;
+  }
+
+  @Override
+  public ExternalContext getExternalContext()
+  {
+    return _external;
   }
 
   @Override
@@ -176,4 +203,38 @@ class PseudoFacesContext extends FacesContext
 
   private PartialViewContext _partialViewContext;
   private final ExternalContext _external;
+  private ELContext _elContext;
+  private Application _application;
+
+
+  // This is used to mock up a dummy ELContext to pass into createValueExpression
+  // if the FacesContext is null and we can't get FacesContext.getELContext.
+  private static class MockELContext extends ELContext
+  {
+    public MockELContext(Application application)
+    {
+      _resolver = application.getELResolver();
+    }
+
+    @Override
+    public ELResolver getELResolver()
+    {
+      return _resolver;
+    }
+
+    @Override
+    public FunctionMapper getFunctionMapper()
+    {
+      return null;
+    }
+
+    @Override
+    public VariableMapper getVariableMapper()
+    {
+      return null;
+    }
+
+    private final ELResolver _resolver;
+  }
+
 }

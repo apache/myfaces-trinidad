@@ -26,9 +26,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.faces.FactoryFinder;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.FacesContextFactory;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -151,6 +153,10 @@ public class TrinidadFilterImpl implements Filter
                                         request,
                                         response);
 
+    // provide a (Pseudo-)FacesContext for configuration tasks
+    PseudoFacesContext facesContext = new PseudoFacesContext(externalContext);
+    facesContext.setAsCurrentInstance();
+    
     GlobalConfiguratorImpl config = GlobalConfiguratorImpl.getInstance();
     config.beginRequest(externalContext);
     
@@ -171,6 +177,9 @@ public class TrinidadFilterImpl implements Filter
       FileUploadConfiguratorImpl.apply(externalContext);
       request = new UploadRequestWrapper((HttpServletRequest)request, addedParams);
     }
+
+    // release the PseudoFacesContext, since _doFilterImpl() has its own FacesContext
+    facesContext.release();
 
     try
     {
