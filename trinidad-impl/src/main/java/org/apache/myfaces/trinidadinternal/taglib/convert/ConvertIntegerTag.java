@@ -19,27 +19,20 @@
 package org.apache.myfaces.trinidadinternal.taglib.convert;
 
 import javax.faces.application.Application;
-import javax.faces.convert.Converter;
 import javax.faces.context.FacesContext;
-import javax.faces.webapp.ConverterELTag;
-
+import javax.faces.convert.Converter;
 import javax.servlet.jsp.JspException;
+
+import org.apache.myfaces.trinidad.webapp.TrinidadConverterELTag;
 import org.apache.myfaces.trinidadinternal.convert.IntegerConverter;
 
-/**
-
- * @version 2.0 (1.0) 2000/03/16 23:23:33
- */
-public class ConvertIntegerTag extends ConverterELTag
+// is this class really needed ?
+public class ConvertIntegerTag extends TrinidadConverterELTag
 {
-
   public ConvertIntegerTag()
   {
   }
 
-  /**
-   * 
-   */
   @Override
   protected Converter createConverter() throws JspException
   {
