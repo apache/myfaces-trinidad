@@ -29,7 +29,7 @@ import javax.servlet.jsp.JspException;
 import org.apache.myfaces.trinidad.event.SetActionListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.webapp.ELContextTag;
-import org.apache.myfaces.trinidadinternal.taglib.TrinidadTagSupport;
+import org.apache.myfaces.trinidad.webapp.TrinidadTagSupport;
 
 /**
  * JavaServer Faces version 1.2 a <code>setPropertyActionListener</code>, which provides the 

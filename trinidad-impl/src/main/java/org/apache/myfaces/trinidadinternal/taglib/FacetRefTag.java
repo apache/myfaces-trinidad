@@ -26,7 +26,7 @@ import javax.servlet.jsp.tagext.Tag;
 
 import org.apache.myfaces.trinidad.component.UIXComponentRef;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
+import org.apache.myfaces.trinidad.webapp.TrinidadTagSupport;
 
 /**
  * Use this tag to copy children or facets from a declarative component

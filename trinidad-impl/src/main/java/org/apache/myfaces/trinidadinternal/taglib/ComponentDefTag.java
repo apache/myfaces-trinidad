@@ -24,6 +24,7 @@ import javax.servlet.jsp.JspException;
 
 import org.apache.myfaces.trinidad.component.UIXComponentRef;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.webapp.TrinidadTagSupport;
 
 public class ComponentDefTag extends TrinidadTagSupport
 {

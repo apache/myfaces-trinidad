@@ -34,6 +34,7 @@ import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.jstl.core.IndexedValueExpression;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.webapp.TrinidadTagSupport;
 
 //JSTL Core Library - <c:forEach> Tag
 //===================================

@@ -24,7 +24,7 @@ import javax.faces.webapp.UIComponentClassicTagBase;
 import javax.servlet.jsp.JspException;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.taglib.TrinidadTagSupport;
+import org.apache.myfaces.trinidad.webapp.TrinidadTagSupport;
 
 /**
  *
