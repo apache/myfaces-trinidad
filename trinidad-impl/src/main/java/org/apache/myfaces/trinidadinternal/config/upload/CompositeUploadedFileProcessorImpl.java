@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.config.upload;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -129,7 +130,8 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
    * Wrapper around UploadedFileImpl to listen for dispose() call and dispatch to
    * other UploadedFileImpls returned by other chained processors
    */
-  private static class WrappedUploadedFileImpl implements UploadedFile{
+  private static class WrappedUploadedFileImpl implements UploadedFile, Serializable
+  {
 
     public WrappedUploadedFileImpl(UploadedFile original, List<UploadedFile> files)
     {
@@ -198,6 +200,7 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
 
     private final UploadedFile original;
     private final List<UploadedFile> files;
+    private static final long serialVersionUID = 1L;
   }
 
   private void _init(Object context)
