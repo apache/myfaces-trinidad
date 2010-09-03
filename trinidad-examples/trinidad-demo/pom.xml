@@ -319,5 +319,51 @@
         <pluto.package>org.apache.portals.pluto</pluto.package>
       </properties>
     </profile>
+
+    <profile>
+      <id>glassfish</id>
+      <!--
+      NOTE: Execute this profile like
+            mvn package embedded-glassfish:run -Pglassfish
+       -->
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>runtime</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.glassfish</groupId>
+            <artifactId>maven-embedded-glassfish-plugin</artifactId>
+            <version>3.0.1</version>
+            <configuration>
+              <port>9090</port>
+              <contextRoot>/</contextRoot>
+             <autoDelete>true</autoDelete>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <pluginRepositories>
+      <!-- Repository for Embedded Glassfish plugin -->
+      <pluginRepository>
+        <id>glassfish-repository</id>
+        <url>http://download.java.net/maven/glassfish/</url>
+      </pluginRepository>
+    </pluginRepositories>
+  </profile>
   </profiles>
 </project>
