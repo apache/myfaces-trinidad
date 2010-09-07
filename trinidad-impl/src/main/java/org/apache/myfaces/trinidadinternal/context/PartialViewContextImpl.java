@@ -414,11 +414,7 @@ public class PartialViewContextImpl
     }
   }
   
-
-
-  @SuppressWarnings(
-    { "FinalPrivateMethod" })
-  private final void _assertNotReleased()
+  private void _assertNotReleased()
   {
     if (_released)
     {
@@ -446,8 +442,6 @@ public class PartialViewContextImpl
 
     return Collections.emptySet();
   }
-
-
   
   private static final class ProcessPhaseCallback
     implements VisitCallback
