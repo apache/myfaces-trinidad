@@ -545,7 +545,7 @@
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
           <preparationGoals>clean verify install</preparationGoals>
-          <tagBase>https://svn.apache.org//repos/asf/myfaces/trinidad/tags</tagBase>
+          <tagBase>https://svn.apache.org/repos/asf/myfaces/trinidad/tags</tagBase>
         </configuration>
       </plugin>
 
