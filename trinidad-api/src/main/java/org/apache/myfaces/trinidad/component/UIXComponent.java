@@ -42,6 +42,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 
 
@@ -483,6 +484,7 @@ abstract public class UIXComponent extends UIComponent
       component.pushComponentToEL(context, null);
 
       boolean doneVisiting = false;
+      RuntimeException re = null;
 
       try
       {
@@ -536,7 +538,6 @@ abstract public class UIXComponent extends UIComponent
                 uixComponent.setupChildrenVisitingContext(context);
               }
 
-
               try
               {
                 // determine whether this visit should be iterating.  If it shouldn't, don't
@@ -549,16 +550,34 @@ abstract public class UIXComponent extends UIComponent
                                   ? uixComponent._visitAllChildren(visitContext, callback)
                                   : uixComponent.visitChildren(visitContext, callback);
               }
+              catch (RuntimeException ex)
+              {
+                re = ex;
+              }
               finally
               {
-                // teardown any context initialized above
-                if (rc != null)
+                try
                 {
-                  uixComponent.tearDownChildrenEncodingContext(context, rc);
+                  // teardown any context initialized above
+                  if (rc != null)
+                  {
+                    uixComponent.tearDownChildrenEncodingContext(context, rc);
+                  }
+                  else
+                  {
+                    uixComponent.tearDownChildrenVisitingContext(context);
+                  }
                 }
-                else
+                catch (RuntimeException ex)
                 {
-                  uixComponent.tearDownChildrenVisitingContext(context);
+                  if (re == null)
+                  {
+                    throw ex;
+                  }
+                  else
+                  {
+                    _LOG.warning(ex);
+                  }
                 }
               }
             }
@@ -569,22 +588,45 @@ abstract public class UIXComponent extends UIComponent
             assert(visitResult == VisitResult.REJECT);
           }
         }
+        catch (RuntimeException ex)
+        {
+          re = ex;
+        }
         finally
         {
-         // tear down the context we set up in order to visit our component
-          if (rc != null)
+          try
           {
-            uixComponent.tearDownEncodingContext(context, rc);
+            // tear down the context we set up in order to visit our component
+            if (rc != null)
+            {
+              uixComponent.tearDownEncodingContext(context, rc);
+            }
+            else
+            {
+              uixComponent.tearDownVisitingContext(context);
+            }
           }
-          else
+          catch (RuntimeException ex)
           {
-            uixComponent.tearDownVisitingContext(context);
+            if (re == null)
+            {
+              throw ex;
+            }
+            else
+            {
+              _LOG.warning(ex);
+            }
           }
         }
       }
       finally
       {
         component.popComponentFromEL(context);
+
+        if (re != null)
+        {
+          throw re;
+        }
       }
 
       // if we got this far, we're not done
@@ -1044,4 +1086,7 @@ abstract public class UIXComponent extends UIComponent
   {
     throw new UnsupportedOperationException();
   }
+
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(UIXComponent.class);
 }
