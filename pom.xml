@@ -656,13 +656,6 @@
       </modules>
     </profile>
 
-    <profile>
-      <id>partial-lifecycle</id>
-      <modules>
-        <module>trinidad-partial-lifecycle</module>
-      </modules>
-    </profile>
-
    <!--
      To create a new branch, use the following command:
      mvn release:branch -DprepareRelease=true -DbranchName=my-branch -DupdateBranchVersions=true -DupdateWorkingCopyVersions=false
