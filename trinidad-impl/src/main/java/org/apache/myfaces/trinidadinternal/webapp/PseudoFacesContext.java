@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,12 +18,14 @@
  */
 package org.apache.myfaces.trinidadinternal.webapp;
 
+import java.util.Collections;
 import java.util.Iterator;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
 import javax.el.FunctionMapper;
 import javax.el.VariableMapper;
+
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.application.ApplicationFactory;
@@ -37,24 +39,25 @@ import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 
+
 /**
- * Pseudo FacesContext, vended by the filter for code that 
+ * Pseudo FacesContext, vended by the filter for code that
  * needs to run before (or after) the FacesServlet, but needs
  * access to servlet objects.  This object is only available
  * inside the filter.
- * 
+ *
  */
 class PseudoFacesContext extends FacesContext
 {
   public PseudoFacesContext(ExternalContext ec)
   {
-    assert ec!= null;
+    assert ec != null : "External context must not be null";
     _external = ec;
   }
 
   public void setAsCurrentInstance()
   {
-      FacesContext.setCurrentInstance(this);
+    FacesContext.setCurrentInstance(this);
   }
 
   @Override
@@ -78,13 +81,13 @@ class PseudoFacesContext extends FacesContext
   @Override
   public Iterator<FacesMessage> getMessages()
   {
-    throw new UnsupportedOperationException();
+    return Collections.<FacesMessage>emptyList().iterator();
   }
 
   @Override
   public Iterator<FacesMessage> getMessages(String id)
   {
-    throw new UnsupportedOperationException();
+    return Collections.<FacesMessage>emptyList().iterator();
   }
 
   @Override
@@ -96,43 +99,43 @@ class PseudoFacesContext extends FacesContext
   @Override
   public FacesMessage.Severity getMaximumSeverity()
   {
-    throw new UnsupportedOperationException();
+    return null;
   }
 
   @Override
   public Iterator<String> getClientIdsWithMessages()
   {
-    throw new UnsupportedOperationException();
+    return Collections.<String>emptyList().iterator();
   }
 
   @Override
   public UIViewRoot getViewRoot()
   {
-    throw new UnsupportedOperationException();
+    return null;
   }
 
   @Override
   public void setViewRoot(UIViewRoot viewRoot)
   {
-     throw new UnsupportedOperationException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public RenderKit getRenderKit()
   {
-     throw new UnsupportedOperationException();
+    return null;
   }
 
   @Override
   public boolean getRenderResponse()
   {
-    throw new UnsupportedOperationException();
+    return false;
   }
 
   @Override
   public boolean getResponseComplete()
   {
-    throw new UnsupportedOperationException();
+    return false;
   }
 
   @Override
@@ -140,7 +143,7 @@ class PseudoFacesContext extends FacesContext
   {
     throw new UnsupportedOperationException();
   }
-  
+
   @Override
   public void setResponseStream(ResponseStream responseStream)
   {
@@ -152,7 +155,7 @@ class PseudoFacesContext extends FacesContext
   {
     throw new UnsupportedOperationException();
   }
-  
+
   @Override
   public void responseComplete()
   {
@@ -189,23 +192,17 @@ class PseudoFacesContext extends FacesContext
   }
 
   @Override
-  public PartialViewContext getPartialViewContext() 
+  public PartialViewContext getPartialViewContext()
   {
-
-    if (_partialViewContext == null) 
+    if (_partialViewContext == null)
     {
       PartialViewContextFactory f = (PartialViewContextFactory)
                       FactoryFinder.getFactory(FactoryFinder.PARTIAL_VIEW_CONTEXT_FACTORY);
       _partialViewContext = f.getPartialViewContext(this);
     }
-    return _partialViewContext;      
+
+    return _partialViewContext;
   }
-
-  private PartialViewContext _partialViewContext;
-  private final ExternalContext _external;
-  private ELContext _elContext;
-  private Application _application;
-
 
   // This is used to mock up a dummy ELContext to pass into createValueExpression
   // if the FacesContext is null and we can't get FacesContext.getELContext.
@@ -237,4 +234,8 @@ class PseudoFacesContext extends FacesContext
     private final ELResolver _resolver;
   }
 
+  private PartialViewContext _partialViewContext;
+  private final ExternalContext _external;
+  private ELContext _elContext;
+  private Application _application;
 }
