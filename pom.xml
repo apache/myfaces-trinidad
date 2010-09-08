@@ -492,14 +492,14 @@
 
   <reporting>
     <plugins>
-      <plugin>
+      <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
         <version>2.3.1</version>
         <configuration>
           <threshold>Low</threshold>
         </configuration>
-      </plugin>
+      </plugin-->
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
