@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.pages;
 
+import java.util.Map;
+
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
@@ -61,7 +63,7 @@ class JspUtils
    */
   static public String getEncoding(FacesContext context)
   {
-    String encoding = (String)context.getExternalContext().getRequestParameterMap().get("enc");
+    String encoding = context.getExternalContext().getRequestParameterMap().get("enc");
     
     // verify that the encoding doesn't contain CRLF header delimiters as this could
     // allow additional headers to per attached to a request on Servlet Engines
@@ -74,6 +76,64 @@ class JspUtils
     }
     
     return encoding;
+  }
+
+  /**
+   * Return the Integer version of the key in the requestParams map or null if the key doesn't
+   * exist or there was an error parsing the value.  By converting the String to its parsed type
+   * and then only working with the parsed type, we help avoid cross site scripting attacks.
+   * @param requestParams Parameter map to loof for key in
+   * @param key Key of String to parse into integer
+   * @return The key value as an Integer or null if it doesn't exist or there was a parsing error
+   */
+  public static Integer integerValueOfParam(Map<String, String> requestParams, String key)
+  {
+    String value = requestParams.get(key);
+    
+    if (value != null)
+    {
+      try
+      {
+        return Integer.valueOf(value);
+      }
+      catch (NumberFormatException e)
+      {
+        return null;
+      }
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  /**
+   * Return the Long version of the key in the requestParams map or null if the key doesn't
+   * exist or there was an error parsing the value.  By converting the String to its parsed type
+   * and then only working with the parsed type, we help avoid cross site scripting attacks.
+   * @param requestParams Parameter map to loof for key in
+   * @param key Key of String to parse into integer
+   * @return The key value as a Long or null if it doesn't exist or there was a parsing error
+   */
+  public static Long longValueOfParam(Map<String, String> requestParams, String key)
+  {
+    String value = requestParams.get(key);
+    
+    if (value != null)
+    {
+      try
+      {
+        return Long.valueOf(value);
+      }
+      catch (NumberFormatException e)
+      {
+        return null;
+      }
+    }
+    else
+    {
+      return null;
+    }
   }
 
   static private char _getMnemonic(String text)
