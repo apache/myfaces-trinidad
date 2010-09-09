@@ -19,6 +19,8 @@
 package org.apache.myfaces.trinidad.render;
 
 
+import java.beans.Beans;
+
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -1065,8 +1067,11 @@ public class CoreRenderer extends Renderer
   {
     if (styleClass != null)
     {
-      styleClass = rc.getStyleClass(styleClass);
-      context.getResponseWriter().writeAttribute("class", styleClass, null);
+      String compressedStyleClass = rc.getStyleClass(styleClass);
+      context.getResponseWriter().writeAttribute("class", compressedStyleClass, null);
+      
+      if (Beans.isDesignTime())
+        context.getResponseWriter().writeAttribute("rawClass", styleClass, null);              
     }
   }
 
@@ -1120,6 +1125,28 @@ public class CoreRenderer extends Renderer
     }
 
     context.getResponseWriter().writeAttribute("class", value, null);
+    
+    if (Beans.isDesignTime())
+    {   
+      StringBuilder builder = new StringBuilder();
+      for (int i = 0; i < length; i++)
+      {
+        if (styleClasses[i] != null)
+        {
+          String styleClass = styleClasses[i];
+          if (styleClass != null)
+          {
+            if (builder.length() != 0)
+              builder.append(' ');
+            builder.append(styleClass);
+          }
+        }
+      }
+
+      if (builder.length() > 0)
+        context.getResponseWriter().writeAttribute("rawClass", builder.toString(), null);              
+    }
+    
   }
 
   // Heuristic guess of the maximum length of a typical compressed style
