@@ -53,7 +53,7 @@ public interface LocalRowKeyIndex
    * <p>
    * This method can return -1 or a row count estimate if determining
    * exact row count requires a data fetch.  When dealing with estimated row counts,
-   * the model user needs to gracefully handle the case where isRowAvailable
+   * the caller needs to gracefully handle the case where <code>isRowAvailable</code>
    * returns <code>false</code> for a row index or a row key.
    * @return estimated row count
    */
@@ -81,7 +81,12 @@ public interface LocalRowKeyIndex
     /**
      * The row count returned by {@link #getEstimatedRowCount} is an estimate
      */
-    ESTIMATE
+    ESTIMATE,
+        
+    /**
+     * The row count returned by {@link #getEstimatedRowCount} is unknown (-1)
+     */
+    UNKNOWN    
   }
   
   
