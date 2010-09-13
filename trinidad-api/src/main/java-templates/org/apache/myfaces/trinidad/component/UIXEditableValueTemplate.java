@@ -83,7 +83,7 @@ abstract public class UIXEditableValueTemplate
     "javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL";
 
   // our own cache key...
-  static private final String TRINIDAD_EMPTY_VALUES_AS_NULL_PARAM_NAME =
+  static public final String TRINIDAD_EMPTY_VALUES_AS_NULL_PARAM_NAME =
     "org.apache.myfaces.trinidad.UIXEditableValue.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL";
 
   /**
