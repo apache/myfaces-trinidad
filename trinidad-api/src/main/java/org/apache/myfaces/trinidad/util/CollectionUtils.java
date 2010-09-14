@@ -24,11 +24,8 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.reflect.Array;
-
 import java.util.AbstractQueue;
-import java.util.AbstractSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -43,11 +40,9 @@ import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.RandomAccess;
 import java.util.Set;
-
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.myfaces.trinidad.component.CompositeIterator;
-import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -1664,7 +1659,7 @@ public final class CollectionUtils
     /**
      * @param requireSerializable if <code>true</code>, require that all values in the map implement
      *                            Serializable.
-     * @param delegate
+     * @param delegate we do not check whether the delegate itself is Serializable. We just check its contents.
      */
     public CheckedSerializationMap(
       Map<K, V> delegate,
@@ -1672,10 +1667,7 @@ public final class CollectionUtils
     {
       if (delegate == null)
         throw new NullPointerException();
-      
-      if (!(delegate instanceof Serializable))
-        throw new IllegalArgumentException("Unserializable delegate");
-      
+
       _delegate = delegate;
       _requireSerializable = requireSerializable;
     }
