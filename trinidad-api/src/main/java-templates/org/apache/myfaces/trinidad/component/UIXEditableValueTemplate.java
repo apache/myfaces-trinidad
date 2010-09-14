@@ -146,7 +146,7 @@ abstract public class UIXEditableValueTemplate
     // setSubmittedValue(null) and continue processing using null as the current submitted value
     //
     // TODO: -> SPEC ISSUE (matzew)  setSubmittedValue(null) is wrong, so we do not follow the spec here...
-    if (_shouldInterpretEmptyStringSubmittedValuesAsNull(context) && _isEmptyString(submittedValue))
+    if (shouldInterpretEmptyStringSubmittedValuesAsNull(context) && _isEmptyString(submittedValue))
     {
       submittedValue = null;
     }
@@ -326,7 +326,7 @@ abstract public class UIXEditableValueTemplate
     }
     
     // If our value is not empty, OR we should do empty field validation, call all validators
-    if (!isEmpty || _shouldValidateEmptyFields(context)) 
+    if (!isEmpty || shouldValidateEmptyFields(context)) 
     {
       Iterator<Validator> validators = (Iterator<Validator>)getFacesBean().entries(VALIDATORS_KEY);
       while (validators.hasNext())
@@ -498,7 +498,7 @@ abstract public class UIXEditableValueTemplate
    * 
    * @return a (cached) boolean to identify the interpretation as null
    */
-  private boolean _shouldInterpretEmptyStringSubmittedValuesAsNull(FacesContext context)
+  public static boolean shouldInterpretEmptyStringSubmittedValuesAsNull(FacesContext context)
   {
     ExternalContext ec = context.getExternalContext();
     Boolean interpretEmptyStringAsNull = (Boolean)ec.getApplicationMap().get(TRINIDAD_EMPTY_VALUES_AS_NULL_PARAM_NAME);
@@ -525,7 +525,7 @@ abstract public class UIXEditableValueTemplate
    * 
    * @return a (cached) boolean to identify empty field validation
    */
-  private boolean _shouldValidateEmptyFields(FacesContext context)
+  public static boolean shouldValidateEmptyFields(FacesContext context)
   {
     ExternalContext ec = context.getExternalContext();
     Boolean shouldValidateEmptyFields = (Boolean)ec.getApplicationMap().get(VALIDATE_EMPTY_FIELDS_PARAM_NAME);
@@ -578,7 +578,7 @@ abstract public class UIXEditableValueTemplate
    *
    * @return a (cached) boolean to identify if bean validation is present
    */
-  private boolean _isBeanValidationAvailable(FacesContext context)
+  private static boolean _isBeanValidationAvailable(FacesContext context)
   {
     ExternalContext ec = context.getExternalContext();
     Boolean couldLoadBeanValidationAPI = (Boolean) ec.getApplicationMap().get(TRINIDAD_BEAN_VALIDATION_AVAILABLE);
