@@ -431,29 +431,41 @@ public class SkinUtils
       _registerSkinAdditions(fContext, skinFactory, skinAdditionNodeList, false);    
     }
     
+    _registerTrinidadSkinsFromSkinResourceLoaderServices(context, skinFactory);
     
+    
+  }
+
+  // this finds the trinidad-skins.xml files by calling findResource on any SkinResourceLoader
+  // services. This is used by the DT to find trinidad-skins.xml files that are not in META-INF
+  // or WEB-INF. See TRINIDAD-1914
+  private static void _registerTrinidadSkinsFromSkinResourceLoaderServices(
+    ExternalContext context,
+    SkinFactory skinFactory)
+  {
     // register skins found in DT using the META-INF/services
     List<SkinResourceLoader> urlProviders = ClassLoaderUtils.getServices(
                                       "org.apache.myfaces.trinidad.resource.SkinResourceLoader");
-    List<SkinsNode> additionalSkins = _getAdditionalTrinidadSkins(context, urlProviders);
-    
-    // Go through each SkinsNode object 
-    // (contains List of SkinNodes and List of SkinAdditionNodes)
-    // and return a List of the SkinNodes.
-    List<SkinNode> additionalSkinNodeList = new ArrayList<SkinNode>();
-    for (SkinsNode skinsNode : additionalSkins)
+    if (urlProviders != null && !urlProviders.isEmpty())
     {
-      additionalSkinNodeList.addAll(skinsNode.getSkinNodes());
-    }    
-    
-    List<SkinNode> sortedAdditionalSkinNodes = _sortSkinNodes(skinFactory, additionalSkinNodeList);
-    
-    for (SkinNode skinNode : sortedAdditionalSkinNodes)
-    {
-      _addSkinToFactory(skinFactory, skinNode, false);
+      List<SkinsNode> additionalSkins = _getAdditionalTrinidadSkins(context, urlProviders);
+      
+      // Go through each SkinsNode object 
+      // (contains List of SkinNodes and List of SkinAdditionNodes)
+      // and return a List of the SkinNodes.
+      List<SkinNode> additionalSkinNodeList = new ArrayList<SkinNode>();
+      for (SkinsNode skinsNode : additionalSkins)
+      {
+        additionalSkinNodeList.addAll(skinsNode.getSkinNodes());
+      }    
+      
+      List<SkinNode> sortedAdditionalSkinNodes = _sortSkinNodes(skinFactory, additionalSkinNodeList);
+      
+      for (SkinNode skinNode : sortedAdditionalSkinNodes)
+      {
+        _addSkinToFactory(skinFactory, skinNode, false);
+      }   
     }
-    
-    
   }
   
   /**
@@ -920,57 +932,63 @@ public class SkinUtils
     for (SkinResourceLoader urlProvider : providers )
     {
       Iterator<URL> urlIterator = urlProvider.findResources(context, _TRINIDAD_SKINS_XML);
-      try
+
+      if (urlIterator != null)
       {
-        while (urlIterator.hasNext())
+        try
         {
-          URL url = urlIterator.next();
-          // if url matches one we've already processed, skip it
-          boolean successfullyAdded = urlPaths.add(url.getPath());
-  
-          if (!successfullyAdded)
+          while (urlIterator.hasNext())
           {
-            if (_LOG.isFinest())
+            URL url = urlIterator.next();
+            // if url matches one we've already processed, skip it
+            boolean successfullyAdded = urlPaths.add(url.getPath());
+
+            if (!successfullyAdded)
             {
-              _LOG.finest("Skipping skin URL:{0} because it was already processed. " +
-                "It was on the classpath more than once.", url);
-            }
-            // continue to the next url
-          }
-          else
-          {
-            _LOG.finest("Processing skin URL:{0}", url);
-            InputStream in = url.openStream();
-            try
-            {
-              // parse the config file and register the skin's additional stylesheets.
-          
-              if (in != null)
+              if (_LOG.isFinest())
               {
-                SkinsNode  metaInfSkinsNode = 
-                  _getSkinsNodeFromInputStream(null, null, in, _getDefaultManager(), 
-                                               _META_INF_CONFIG_FILE);
-                
-                allSkinsNodes.add(metaInfSkinsNode);
+                _LOG.finest("Skipping skin URL:{0} because it was already processed. " +
+                            "It was on the classpath more than once.",
+                            url);
+              }
+              // continue to the next url
+            }
+            else
+            {
+              _LOG.finest("Processing skin URL:{0}", url);
+              InputStream in = url.openStream();
+              try
+              {
+                // parse the config file and register the skin's additional stylesheets.
+
+                if (in != null)
+                {
+                  SkinsNode metaInfSkinsNode =
+                    _getSkinsNodeFromInputStream(null, null, in,
+                                                 _getDefaultManager(),
+                                                 _META_INF_CONFIG_FILE);
+
+                  allSkinsNodes.add(metaInfSkinsNode);
+                }
+              }
+              catch (Exception e)
+              {
+                _LOG.warning("ERR_PARSING", url);
+                _LOG.warning(e);
+              }
+              finally
+              {
+                in.close();
               }
             }
-            catch (Exception e)
-            {
-             _LOG.warning("ERR_PARSING", url);
-             _LOG.warning(e);
-            }
-            finally
-            {
-              in.close();
-            }     
           }
+
         }
-      
-      }    
-      catch (IOException e)
-      {
-        _LOG.severe("ERR_LOADING_FILE", _META_INF_CONFIG_FILE);
-        _LOG.severe(e);
+        catch (IOException e)
+        {
+          _LOG.severe("ERR_LOADING_FILE", _META_INF_CONFIG_FILE);
+          _LOG.severe(e);
+        }
       }
     }
     
