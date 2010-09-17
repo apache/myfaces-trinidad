@@ -43,10 +43,12 @@ import javax.el.ValueExpression;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
+import org.apache.myfaces.trinidad.resource.SkinResourceLoader;
 import org.apache.myfaces.trinidad.share.io.NameResolver;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.config.LazyValueExpression;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimpleDesktopSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimplePdaSkin;
@@ -428,6 +430,29 @@ public class SkinUtils
       List<SkinAdditionNode> skinAdditionNodeList = webInfSkinsNode.getSkinAdditionNodes();
       _registerSkinAdditions(fContext, skinFactory, skinAdditionNodeList, false);    
     }
+    
+    
+    // register skins found in DT using the META-INF/services
+    List<SkinResourceLoader> urlProviders = ClassLoaderUtils.getServices(
+                                      "org.apache.myfaces.trinidad.resource.SkinResourceLoader");
+    List<SkinsNode> additionalSkins = _getAdditionalTrinidadSkins(context, urlProviders);
+    
+    // Go through each SkinsNode object 
+    // (contains List of SkinNodes and List of SkinAdditionNodes)
+    // and return a List of the SkinNodes.
+    List<SkinNode> additionalSkinNodeList = new ArrayList<SkinNode>();
+    for (SkinsNode skinsNode : additionalSkins)
+    {
+      additionalSkinNodeList.addAll(skinsNode.getSkinNodes());
+    }    
+    
+    List<SkinNode> sortedAdditionalSkinNodes = _sortSkinNodes(skinFactory, additionalSkinNodeList);
+    
+    for (SkinNode skinNode : sortedAdditionalSkinNodes)
+    {
+      _addSkinToFactory(skinFactory, skinNode, false);
+    }
+    
     
   }
   
@@ -876,6 +901,84 @@ public class SkinUtils
       return styleSheetName;
   }
   
+  private static List<SkinsNode> _getAdditionalTrinidadSkins(
+    ExternalContext context,
+    List<SkinResourceLoader> providers)
+  {
+    // TODO - the ClassLoader's getResources returns an Enumeration (Enumeration<URL> urls = loader.getResources(_META_INF_CONFIG_FILE);). 
+    // If I also returned an Enumeration, I could share code a little better with  _getMetaInfSkinsNodeList.
+    // Pros/Cons of Enumeration
+    // Pros/Cons of Iterator
+    
+    // Iterator will not allow modification while it is being traversed.
+    // This blog http://darkray1982.blogspot.com/2010/02/iterator-vs-enumeration.html says that Enumeration is preferred if you are read-only, which we are.
+    // Iterator is a newer API
+    Set<String> urlPaths = new HashSet<String>(16);
+    List<SkinsNode> allSkinsNodes = new ArrayList<SkinsNode>(); 
+    
+
+    for (SkinResourceLoader urlProvider : providers )
+    {
+      Iterator<URL> urlIterator = urlProvider.findResources(context, _TRINIDAD_SKINS_XML);
+      try
+      {
+        while (urlIterator.hasNext())
+        {
+          URL url = urlIterator.next();
+          // if url matches one we've already processed, skip it
+          boolean successfullyAdded = urlPaths.add(url.getPath());
+  
+          if (!successfullyAdded)
+          {
+            if (_LOG.isFinest())
+            {
+              _LOG.finest("Skipping skin URL:{0} because it was already processed. " +
+                "It was on the classpath more than once.", url);
+            }
+            // continue to the next url
+          }
+          else
+          {
+            _LOG.finest("Processing skin URL:{0}", url);
+            InputStream in = url.openStream();
+            try
+            {
+              // parse the config file and register the skin's additional stylesheets.
+          
+              if (in != null)
+              {
+                SkinsNode  metaInfSkinsNode = 
+                  _getSkinsNodeFromInputStream(null, null, in, _getDefaultManager(), 
+                                               _META_INF_CONFIG_FILE);
+                
+                allSkinsNodes.add(metaInfSkinsNode);
+              }
+            }
+            catch (Exception e)
+            {
+             _LOG.warning("ERR_PARSING", url);
+             _LOG.warning(e);
+            }
+            finally
+            {
+              in.close();
+            }     
+          }
+        }
+      
+      }    
+      catch (IOException e)
+      {
+        _LOG.severe("ERR_LOADING_FILE", _META_INF_CONFIG_FILE);
+        _LOG.severe(e);
+      }
+    }
+    
+
+    return allSkinsNodes;
+  }
+  
+  
   private SkinUtils() {}
 
   // The default ParserManager
@@ -890,6 +993,7 @@ public class SkinUtils
 
   static private final String _CONFIG_FILE = "/WEB-INF/trinidad-skins.xml";
   static private final String _META_INF_CONFIG_FILE = "META-INF/trinidad-skins.xml";
+  static private final String _TRINIDAD_SKINS_XML = "trinidad-skins.xml";
   static private final String _META_INF_DIR = "META-INF/";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinUtils.class);
 
