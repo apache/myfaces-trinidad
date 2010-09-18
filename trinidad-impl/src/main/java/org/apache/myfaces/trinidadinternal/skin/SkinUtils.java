@@ -739,43 +739,9 @@ public class SkinUtils
         // if url matches one we've already processed, skip it
         boolean successfullyAdded = urlPaths.add(url.getPath());
 
-        if (!successfullyAdded)
-        {
-          if (_LOG.isFinest())
-          {
-            _LOG.finest("Skipping skin URL:{0} because it was already processed. " +
-              "It was on the classpath more than once.", url);
-          }
-          // continue to the next url
-        }
-        else
-        {
-          _LOG.finest("Processing skin URL:{0}", url);
-          InputStream in = url.openStream();
-          try
-          {
-            // parse the config file and register the skin's additional stylesheets.
-  
-            if (in != null)
-            {
-              SkinsNode  metaInfSkinsNode = 
-                _getSkinsNodeFromInputStream(null, null, in, _getDefaultManager(), 
-                                             _META_INF_CONFIG_FILE);
-  
-              allSkinsNodes.add(metaInfSkinsNode);
-              
-            }
-          }
-          catch (Exception e)
-          {
-           _LOG.warning("ERR_PARSING", url);
-           _LOG.warning(e);
-          }
-          finally
-          {
-            in.close();
-          }     
-        }
+        _processTrinidadSkinsURL(allSkinsNodes, url, successfullyAdded);
+    
+        
       }
     }
     catch (IOException e)
@@ -917,14 +883,6 @@ public class SkinUtils
     ExternalContext context,
     List<SkinResourceLoader> providers)
   {
-    // TODO - the ClassLoader's getResources returns an Enumeration (Enumeration<URL> urls = loader.getResources(_META_INF_CONFIG_FILE);). 
-    // If I also returned an Enumeration, I could share code a little better with  _getMetaInfSkinsNodeList.
-    // Pros/Cons of Enumeration
-    // Pros/Cons of Iterator
-    
-    // Iterator will not allow modification while it is being traversed.
-    // This blog http://darkray1982.blogspot.com/2010/02/iterator-vs-enumeration.html says that Enumeration is preferred if you are read-only, which we are.
-    // Iterator is a newer API
     Set<String> urlPaths = new HashSet<String>(16);
     List<SkinsNode> allSkinsNodes = new ArrayList<SkinsNode>(); 
     
@@ -943,44 +901,7 @@ public class SkinUtils
             // if url matches one we've already processed, skip it
             boolean successfullyAdded = urlPaths.add(url.getPath());
 
-            if (!successfullyAdded)
-            {
-              if (_LOG.isFinest())
-              {
-                _LOG.finest("Skipping skin URL:{0} because it was already processed. " +
-                            "It was on the classpath more than once.",
-                            url);
-              }
-              // continue to the next url
-            }
-            else
-            {
-              _LOG.finest("Processing skin URL:{0}", url);
-              InputStream in = url.openStream();
-              try
-              {
-                // parse the config file and register the skin's additional stylesheets.
-
-                if (in != null)
-                {
-                  SkinsNode metaInfSkinsNode =
-                    _getSkinsNodeFromInputStream(null, null, in,
-                                                 _getDefaultManager(),
-                                                 _META_INF_CONFIG_FILE);
-
-                  allSkinsNodes.add(metaInfSkinsNode);
-                }
-              }
-              catch (Exception e)
-              {
-                _LOG.warning("ERR_PARSING", url);
-                _LOG.warning(e);
-              }
-              finally
-              {
-                in.close();
-              }
-            }
+            _processTrinidadSkinsURL(allSkinsNodes, url, successfullyAdded);
           }
 
         }
@@ -994,6 +915,52 @@ public class SkinUtils
     
 
     return allSkinsNodes;
+  }
+
+  private static void _processTrinidadSkinsURL(
+    List<SkinsNode> allSkinsNodes,
+    URL url,
+    boolean successfullyAdded)
+    throws IOException
+  {
+    if (!successfullyAdded)
+    {
+      if (_LOG.isFinest())
+      {
+        _LOG.finest("Skipping skin URL:{0} because it was already processed. " +
+                    "It was on the classpath more than once.",
+                    url);
+      }
+      // continue to the next url
+    }
+    else
+    {
+      _LOG.finest("Processing skin URL:{0}", url);
+      InputStream in = url.openStream();
+      try
+      {
+        // parse the config file and register the skin's additional stylesheets.
+
+        if (in != null)
+        {
+          SkinsNode metaInfSkinsNode =
+            _getSkinsNodeFromInputStream(null, null, in,
+                                         _getDefaultManager(),
+                                         _META_INF_CONFIG_FILE);
+
+          allSkinsNodes.add(metaInfSkinsNode);
+        }
+      }
+      catch (Exception e)
+      {
+        _LOG.warning("ERR_PARSING", url);
+        _LOG.warning(e);
+      }
+      finally
+      {
+        in.close();
+      }
+    }
   }
   
   
