@@ -882,6 +882,15 @@ this resolves to
         </P>
         <ul>
         <li>
+        <strong>@import</strong>
+        Use @import to import style rules from other skinning css files. The URL of the file you
+        are importing is relative to the skin file you are importing into. The following syntax
+        is supported:
+        @import "purpleBigFont.css";
+        @import url("purpleBigFont.css");
+        @import url(purpleBigFont.css);
+        </li>
+        <li>
         <strong>@platform</strong> {/skin definitions go here/} - > 
         Possible values are: windows, macos, linux, solaris, ppc. 
         This is to define styles only for a particular platform.

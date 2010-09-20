@@ -276,6 +276,8 @@ class StyleSheetEntry
 
      try
      {
+        // We simply use a ParseContext as a place to store parameters like
+       // inputStreamProviders and nameResolvers that will be reused when parsing
         ParseContextImpl parseContext = new ParseContextImpl();
         // if this is a utility that isn't in this file, then I can't return a SkinStyleSheet.
         // I think instead this parseCSSSource should return a new instance of StyleSheetEntry.

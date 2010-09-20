@@ -65,7 +65,7 @@ class SkinStyleSheetParserUtils
 {
   /**
    * Parses a Skin style-sheet that is in the CSS-3 format.
-   * @param context      the current ParseContext
+   * @param context      the current ParseContext. Simply a place to set/get properties
    * @param resolver     a NameResolver to locate the target
    *                     ( Given a name, returns an InputStreamProvider.)
    * @param sourceName   the name of the target, relative to the current file
@@ -96,7 +96,7 @@ class SkinStyleSheetParserUtils
 
     try
     {
-      // Store a resolver relative to the file we're about to parse
+      // Store a resolver relative to the file we're about to parse. This will be used for imports.
       // Store the inputStreamProvider on the context;
       // this will be used to get the document's timestamp later on
       XMLUtils.setResolver(context, resolver.getResolver(sourceName));
@@ -107,9 +107,14 @@ class SkinStyleSheetParserUtils
       // (contains a namespaceMap and a List of SkinSelectorPropertiesNodes
       // and additional information like direction, locale, etc.)
       // (selectorName + a css propertyList))
-      BufferedReader in = new BufferedReader(new InputStreamReader(stream));
-      List <SkinStyleSheetNode> skinSSNodeList = _parseCSSStyleSheet(in);
-      in.close();
+      BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+      SkinCSSParser parser = new SkinCSSParser();
+      // Send over the ParseContext so that we can get the resolver from it in case we encounter 
+      // an @import in the CSS file.
+      SkinCSSDocumentHandler documentHandler = new SkinCSSDocumentHandler(context);
+      parser.parseCSSDocument(reader, documentHandler);
+      List <SkinStyleSheetNode> skinSSNodeList = documentHandler.getSkinStyleSheetNodes();
+      reader.close();
 
       // process the SkinStyleSheetNodes to create a StyleSheetEntry object
       StyleSheetEntry styleSheetEntry =
@@ -863,41 +868,7 @@ class SkinStyleSheetParserUtils
     return timestamp;
   }
 
-  /**
-   * unused for now. we want to do this for icons, properties and styles at once
-   * // substitute the prefix (the part that comes before the |) with
-   * // its namespace
-   * // e.g., selectorName = af|breadCrumbs
-   * // af maps to http://myfaces.apache.org/adf/faces
-   * // return
-   * // http://myfaces.apache.org/adf/faces|navigationPath
-   * private static String _getNamespacedSelector(
-   * Map    namespaceMap,
-   * String selectorName)
-   * {
-   * <p/>
-   * int barIndex = selectorName.indexOf("|");
-   * <p/>
-   * if (barIndex <= 0)
-   * return selectorName;
-   * else
-   * {
-   * String namespace =
-   * (String)namespaceMap.get(selectorName.substring(0, barIndex));
-   * if (namespace == null)
-   * return selectorName;
-   * return namespace.concat(selectorName.substring(barIndex));
-   * }
-   * }
-   */
 
-  private static List<SkinStyleSheetNode> _parseCSSStyleSheet(Reader reader)
-  {
-    SkinCSSParser parser = new SkinCSSParser();
-    SkinCSSDocumentHandler documentHandler = new SkinCSSDocumentHandler();
-    parser.parseCSSDocument(reader, documentHandler);
-    return documentHandler.getSkinStyleSheetNodes();
-  }
 
 
   // Tests whether the specified property value is an "url" property.
