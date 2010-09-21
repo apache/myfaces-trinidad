@@ -807,6 +807,11 @@ public class AgentFactoryImpl implements AgentFactory
       // At the moment, this includes Safari
       agentObj.setPlatform(Agent.PLATFORM_MACOS);
     }
+    else if (agent.indexOf("BlackBerry") > 0)
+    {
+      //Includes Blackberry Webkit browsers
+      agentObj.setPlatform(Agent.PLATFORM_BLACKBERRY);
+    }    
 
     String version = _getVersion(agent, start);
     agentObj.setType(Agent.TYPE_DESKTOP);
