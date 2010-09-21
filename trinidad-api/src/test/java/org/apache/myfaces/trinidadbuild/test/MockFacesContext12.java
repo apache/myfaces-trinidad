@@ -58,6 +58,16 @@ public class MockFacesContext12 extends MockFacesContext
     elContext.putContext(FacesContext.class, this);
     _app = application;
   }
+  
+  public PhaseId getCurrentPhaseId() 
+  {
+    return _currentPhaseId;
+  }
+  
+  public void setCurrentPhaseId(PhaseId phaseId)
+  {
+    this._currentPhaseId = phaseId;
+  }
 
   public ELContext getELContext()
   {
@@ -106,7 +116,8 @@ public class MockFacesContext12 extends MockFacesContext
 
   protected MockELContext elContext;
   
-  
+  private PhaseId _currentPhaseId;
+
   private final PartialViewContext _mockPartialContext = new MockPartialViewContext();
   private final Map<Object, Object> _attrs = new HashMap<Object, Object>();
   private Application _app;
