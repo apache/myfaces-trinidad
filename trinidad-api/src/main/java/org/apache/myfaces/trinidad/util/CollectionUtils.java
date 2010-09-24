@@ -1664,7 +1664,7 @@ public final class CollectionUtils
     /**
      * @param requireSerializable if <code>true</code>, require that all values in the map implement
      *                            Serializable.
-     * @param delegate
+     * @param delegate we do not check whether the delegate itself is Serializable. We just check its contents.
      */
     public CheckedSerializationMap(
       Map<K, V> delegate,
@@ -1672,9 +1672,6 @@ public final class CollectionUtils
     {
       if (delegate == null)
         throw new NullPointerException();
-      
-      if (!(delegate instanceof Serializable))
-        throw new IllegalArgumentException("Unserializable delegate");
       
       _delegate = delegate;
       _requireSerializable = requireSerializable;
