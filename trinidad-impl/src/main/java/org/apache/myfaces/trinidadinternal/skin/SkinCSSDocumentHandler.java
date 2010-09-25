@@ -77,7 +77,11 @@ public class SkinCSSDocumentHandler
     // Then we create a list of SkinStyleSheetNodes.
     List <SkinStyleSheetNode> skinStyleSheetNodes = 
       _createSkinStyleSheetNodes(_completeSelectorNodeList, _namespaceMap);
+    
+    
+    List<SkinStyleSheetNode> allSkinStyleSheetNodes = new ArrayList<SkinStyleSheetNode>();
 
+    // TODO Do we need to protect against concurrent access?
     if (_imports != null && !_imports.isEmpty())
     {
       // _imports is a List<List<SkinStyleSheetNode>>();;
@@ -85,15 +89,18 @@ public class SkinCSSDocumentHandler
       {
         for (SkinStyleSheetNode node : nodeList)
         {
-          skinStyleSheetNodes.add(node);
+          allSkinStyleSheetNodes.add(node);
         }
       }
 
     }
+    
+    allSkinStyleSheetNodes.addAll(skinStyleSheetNodes);
 
     return
-      skinStyleSheetNodes;
+      allSkinStyleSheetNodes;
   }
+  
    
   /**
   * Call this at the start of parsing the skin css file.
