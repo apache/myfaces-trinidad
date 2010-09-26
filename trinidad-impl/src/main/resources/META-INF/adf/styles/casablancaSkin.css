@@ -362,7 +362,7 @@
     -tr-rule-ref: selector(".CBDefaultFontLook:alias");
 }
 .AFDefaultBoldFont:alias {
-    f-tr-rule-ref: selector(".CBDefaultStrongFontLook:alias");
+    -tr-rule-ref: selector(".CBDefaultStrongFontLook:alias");
 }
 
 /* Header Font Styles ------------------------------------------------------------------------------------------------------ */

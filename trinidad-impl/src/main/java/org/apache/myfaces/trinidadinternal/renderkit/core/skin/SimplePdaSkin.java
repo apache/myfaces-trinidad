@@ -35,7 +35,7 @@ public class SimplePdaSkin extends PdaHtmlSkin
   @Override
   public String getStyleSheetName()
   {
-    return "META-INF/adf/styles/simple-pda.xss";
+    return "META-INF/adf/styles/simple-pda.css";
   }
 
   /**
