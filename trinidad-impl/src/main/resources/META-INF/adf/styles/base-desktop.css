@@ -4169,69 +4169,6 @@
 } } } 
 /* end stylesheet */
 
-@platform windows, ppc {
-  @agent ie and (version: 4), ie and (version: 5) {
-
-  /** Override the default font sizes to use "scalable" size units **/
-  /** The default font **/
-  .AFDefaultFont:alias {
-    font-size: x-small;
-  }
-
-  /** A very small font **/
-  .AFVerySmallFont:alias {
-    font-size: 67%;
-  }
-
-  /** Very small font for text links.  The VerySmallLinkFont needs to use
-       a larger font size than the AFVerySmallFont style, because the
-       percentage size is resolved relative to the link's font size (10pt),
-       instead of relative to the browser's default font size (12pt) **/
-  .VerySmallLinkFont:alias {
-    font-size: 80%;
-  }
-
-  /** A small font **/
-  .AFSmallFont:alias {
-    font-size: 75%;
-  }
-
-  /** Small font for text links.  The SmallLinkFont needs to use
-       a larger font size than the AFSmallFont style, because the
-       percentage size is resolved relative to the link's font size (10pt),
-       instead of relative to the browser's default font size (12pt) **/
-  .SmallLinkFont:alias {
-    font-size: 90%;
-  }
-
-  /** A medium font - just slightly bigger than default **/
-  .AFMediumFont:alias {
-    font-size: 92%;
-  }
-
-  /** A large font **/
-  .AFLargeFont:alias {
-    font-size: small;
-  }
-
-  /** A very large font **/
-  .AFVeryLargeFont:alias {
-    font-size: 133%;
-  }
-
-  .p_OraHeaderNest {
-    margin: 5px 0px 0px 0px;
-    width: 97%;
-    clear: both;
-    -tr-rule-ref: selector(".AFFloatEnd:alias");
-  }
-
-  af|column::sortable-header-text {
-    /** Use IE's proprietary hand cursor **/
-    cursor: hand;
-  }
-  } }
-/* end stylesheet */
 
 /** The base derivation for ICE-based browsers **/
 @agent ice {
@@ -4283,25 +4220,6 @@
   }
 }
 /* end stylesheet */
-
-@platform macos {
-  @agent ie and (version: 5) {
-  /** Override on mac as it doesn't show up.**/
-  .MediumExtraAccentForeground:alias {
-    -tr-inhibit: color;
-  }
-
-  af|selectinputDate::content {
-    line-height: 1.8;
-  }
-
-  /** Style for alignment in table cells **/
-  .AFTableCellDataVerticalAlign:alias {
-    -tr-inhibit: vertical-align;
-  }
-
-
-} }
 
 /** CJK style sheet for all **/
 @locale ja, zh, ko {
@@ -4362,37 +4280,6 @@
     font-family: Albany WT SC, Dialog;
   }
 }
-
-/** Bug 1687431:  Netscape 4 does a very, very poor job dealing
-    with Unicode characters outside the range of the default font.
-    Consequently, on Windows only for the CJK languages, set
-    the default font explicitly to the default Windows font **/
-@agent netscape {
-  @platform windows {
-    @locale ja {
-  .AFDefaultFontFamily:alias {
-    font-family: MS Gothic;
-  }
-    }
-
-    @locale zh_CN{
-  .AFDefaultFontFamily:alias {
-    font-family: MingLiU;
-  }
-    }
-
-    @locale zh_TW  {
-  .AFDefaultFontFamily:alias {
-    font-family: SimHei;
-  }
-    }
-
-    @locale ko {
-    .AFDefaultFontFamily:alias {
-      font-family: Gulim;
-    }
-    }
-  }}
 
 
 /** But: in CJK, IE is having some bad problems with sizing lists
