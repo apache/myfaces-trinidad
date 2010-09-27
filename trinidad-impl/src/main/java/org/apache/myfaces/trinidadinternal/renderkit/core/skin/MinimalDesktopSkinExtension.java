@@ -51,5 +51,5 @@ public class MinimalDesktopSkinExtension extends SkinExtension
 
   // Minimal skin style sheet name
   private static final String _MINIMAL_STYLE_SHEET_NAME =
-    "META-INF/adf/styles/minimal-desktop.xss";
+    "META-INF/adf/styles/minimal-desktop.css";
 }
