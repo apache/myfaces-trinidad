@@ -481,24 +481,8 @@ public class CoreRenderer extends Renderer
     UIComponent  child) throws IOException
   {
     assert(child.isRendered());
-    child.encodeBegin(context);
-    if (child.getRendersChildren())
-    {
-      child.encodeChildren(context);
+    child.encodeAll(context);
     }
-    else
-    {
-      if (child.getChildCount() > 0)
-      {
-        for(UIComponent subChild : (List<UIComponent>)child.getChildren())
-        {
-          RenderUtils.encodeRecursive(context, subChild);
-        }
-      }
-    }
-
-    child.encodeEnd(context);
-  }
 
 
   @SuppressWarnings("unchecked")

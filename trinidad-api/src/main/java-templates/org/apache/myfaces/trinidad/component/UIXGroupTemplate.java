@@ -120,7 +120,7 @@ abstract public class UIXGroupTemplate extends UIXComponentBase implements Flatt
     {
       for(UIComponent child : (List<UIComponent>)getChildren())
       {
-        __encodeRecursive(context, child);
+        child.encodeAll(context);
       }
     }
   }

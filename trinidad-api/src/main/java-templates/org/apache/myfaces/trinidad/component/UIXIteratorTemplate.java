@@ -163,10 +163,12 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       Runner runner = new IndexedRunner()
       {
         @Override
-        protected void process(UIComponent kid,
-                               ComponentProcessingContext cpContext) throws IOException
+        protected void process(
+          UIComponent                kid,
+          ComponentProcessingContext cpContext
+          ) throws IOException
         {
-          __encodeRecursive(context, kid);
+          kid.encodeAll(context);
         }
       };
       runner.run();
