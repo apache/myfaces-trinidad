@@ -576,23 +576,7 @@ public class CoreRenderer extends Renderer
     ) throws IOException
   {
     assert(child.isRendered());
-    child.encodeBegin(context);
-    if (child.getRendersChildren())
-    {
-      child.encodeChildren(context);
-    }
-    else
-    {
-      if (child.getChildCount() > 0)
-      {
-        for(UIComponent subChild : (List<UIComponent>)child.getChildren())
-        {
-          RenderUtils.encodeRecursive(context, subChild);
-        }
-      }
-    }
-
-    child.encodeEnd(context);
+    child.encodeAll(context);
   }
 
   @SuppressWarnings("unchecked")
@@ -1069,9 +1053,9 @@ public class CoreRenderer extends Renderer
     {
       String compressedStyleClass = rc.getStyleClass(styleClass);
       context.getResponseWriter().writeAttribute("class", compressedStyleClass, null);
-      
+
       if (Beans.isDesignTime())
-        context.getResponseWriter().writeAttribute("rawClass", styleClass, null);              
+        context.getResponseWriter().writeAttribute("rawClass", styleClass, null);
     }
   }
 
@@ -1125,9 +1109,9 @@ public class CoreRenderer extends Renderer
     }
 
     context.getResponseWriter().writeAttribute("class", value, null);
-    
+
     if (Beans.isDesignTime())
-    {   
+    {
       StringBuilder builder = new StringBuilder();
       for (int i = 0; i < length; i++)
       {
@@ -1144,9 +1128,9 @@ public class CoreRenderer extends Renderer
       }
 
       if (builder.length() > 0)
-        context.getResponseWriter().writeAttribute("rawClass", builder.toString(), null);              
+        context.getResponseWriter().writeAttribute("rawClass", builder.toString(), null);
     }
-    
+
   }
 
   // Heuristic guess of the maximum length of a typical compressed style
