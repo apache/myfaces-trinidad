@@ -499,7 +499,7 @@ public class HTMLEscapes
     "&frac14;",
     "&frac12;",
     "&frac34;",
-    "&iquest",
+    "&iquest;",
     "&Agrave;",
     "&Aacute;",
     "&Acirc;",
