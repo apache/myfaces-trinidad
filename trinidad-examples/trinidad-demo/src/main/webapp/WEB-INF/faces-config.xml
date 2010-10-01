@@ -2224,6 +2224,12 @@
     </navigation-case>
 
     <navigation-case>
+      <from-outcome>guide.meta</from-outcome>
+      <to-view-id>/components/html/meta.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
       <from-outcome>guide.navigationTree</from-outcome>
       <to-view-id>/components/navigationTree.jspx</to-view-id>
       <redirect/>
