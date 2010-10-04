@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,9 +27,12 @@ import java.util.List;
 
 import java.util.Map;
 import java.util.Set;
+
+import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
 import javax.faces.event.PhaseId;
 
 import javax.faces.render.Renderer;
@@ -51,7 +54,7 @@ import org.apache.myfaces.trinidad.util.ComponentUtils;
  * Each child is repeatedly stamped as many times as necessary.
  * Iteration is done starting at the index given by {@link #getFirst()}
  * for as many indices as specified by {@link #getRows()}.
- * If {@link #getRows()} returns 0, then the iteration continues until 
+ * If {@link #getRows()} returns 0, then the iteration continues until
  * there are no more elements in the underlying data.
  */
 public abstract class UIXIteratorTemplate extends UIXCollection implements FlattenedComponent, LocalRowKeyIndex
@@ -101,7 +104,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
         throw (IOException) exp;
       throw new IllegalStateException(exp);
     }
-    
+
     return processedChildren;
   }
 
@@ -140,10 +143,12 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       Runner runner = new Runner()
       {
         @Override
-        protected void process(UIComponent kid,
-                               ComponentProcessingContext cpContext) throws IOException
+        protected void process(
+          UIComponent                kid,
+          ComponentProcessingContext cpContext
+          ) throws IOException
         {
-          __encodeRecursive(context, kid);
+          kid.encodeAll(context);
         }
       };
       runner.run();
@@ -166,13 +171,12 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
    */
   @Override
   public boolean visitTree(
-    VisitContext visitContext,
-    VisitCallback callback)
-  {    
-    
+    final VisitContext visitContext,
+    final VisitCallback callback)
+  {
     if (!isVisitable(visitContext))
       return false;
-    
+
     // invoke the callback for this component
     VisitResult result = visitContext.invokeVisitCallback(this, callback);
 
@@ -186,11 +190,10 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
                               ? RenderingContext.getCurrentInstance()
                               : null;
       Collection<String> idsToVisit = visitContext.getSubtreeIdsToVisit(this);
+      boolean visitAllIds = idsToVisit == VisitContext.ALL_IDS;
       if (idsToVisit.isEmpty())
         return false;
-      
-      String thisClientId = getClientId(context);
-      Object oldKey = getRowKey();
+
       try
       {
         if (PhaseId.RENDER_RESPONSE == phaseId)
@@ -200,66 +203,25 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
         else
         {
           setupVisitingContext(context);
-        }      
-        
-        ClientRowKeyManager keyMgr = this.getClientRowKeyManager();
+        }
 
-        for (String clientId : idsToVisit)
+        if (visitAllIds)
         {
-          Object rowKey = null;
-          
-          // look for row key in client ids to visit and set currency before visiting children
-          int index = clientId.indexOf(thisClientId);
-          
-          if (index >= 0)
+          if (_visitAllChildren(visitContext, callback))
           {
-            index += thisClientId.length();
-            if (index < clientId.length() && clientId.charAt(index) == UINamingContainer.SEPARATOR_CHAR)
-            {
-              int endIndex = clientId.indexOf(UINamingContainer.SEPARATOR_CHAR, index + 1);
-              
-              if (endIndex >= 0 && endIndex > index)
-              {
-                String clientRowKey = clientId.substring(index + 1, endIndex);
-                rowKey = keyMgr.getRowKey(context, this, clientRowKey);
-              }
-            }
+            return true;
           }
-              
-          // visit the children with correct currency
-          setRowKey(rowKey);                    
-
-          Iterator<UIComponent> kids = getFacetsAndChildren();          
-          while(kids.hasNext())
+        }
+        else
+        {
+          if (_visitSubIds(context, visitContext, idsToVisit, callback))
           {
-            boolean done;            
-            UIComponent currChild = kids.next();
-            
-            if (currChild instanceof UIXComponent)
-            {
-              UIXComponent uixChild = (UIXComponent)currChild;
-
-              // delegate to UIXComponent's visitTree implementation to allow
-              // subclassses to modify the behavior
-              done = uixChild.visitTree(visitContext, callback);
-            }
-            else
-            {
-              // use generic visit implementation
-              done = visitTree(visitContext, currChild, callback);
-            }
-
-            // If any kid visit returns true, we are done.
-            if (done)
-            {
-              return true;
-            }                    
+            return true;
           }
-        }                
+        }
       }
       finally
       {
-        setRowKey(oldKey);
         // tear down the context we set up in order to visit our children
         if (PhaseId.RENDER_RESPONSE == phaseId)
         {
@@ -269,10 +231,10 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
         {
           tearDownVisitingContext(context);
         }
-      }      
+      }
     }
     // if we got this far, we're not done
-    return false;    
+    return false;
   }
 
   /**
@@ -294,7 +256,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       public Object get(Object key)
       {
         // some of these keys are from <c:forEach>, ie:
-        // javax.servlet.jsp.jstl.core.LoopTagStatus 
+        // javax.servlet.jsp.jstl.core.LoopTagStatus
         if ("begin".equals(key)) // from jstl
         {
           return Integer.valueOf(getFirst());
@@ -315,7 +277,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
         }
         return map.get(key);
       }
-    
+
       @Override
       public Set<Map.Entry<String, Object>> entrySet()
       {
@@ -329,7 +291,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     CollectionModel current,
     Object value)
   {
-    CollectionModel model = ModelUtils.toCollectionModel(value); 
+    CollectionModel model = ModelUtils.toCollectionModel(value);
     // initialize to -1. we need to do this incase some application logic
     // changed this index. Also, some JSF1.0 RI classes were initially starting
     // with a rowIndex of 0.
@@ -354,7 +316,118 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     };
     runner.run();
   }
-  
+
+  private boolean _visitAllChildren(
+    final VisitContext  visitContext,
+    final VisitCallback visitCallback)
+  {
+    Runner runner = new Runner()
+    {
+      @Override
+      protected void process(
+        UIComponent                kid,
+        ComponentProcessingContext cpContext
+        ) throws Exception
+      {
+        if (UIXComponent.visitTree(visitContext, kid, visitCallback))
+        {
+          throw new VisitingCompleteException();
+        }
+      }
+    };
+    runner.run();
+
+    if (runner.exception != null)
+    {
+      if (runner.exception instanceof VisitingCompleteException)
+      {
+        return true;
+      }
+      else if (runner.exception instanceof RuntimeException)
+      {
+        throw (RuntimeException)runner.exception;
+      }
+      else
+      {
+        throw new FacesException(runner.exception);
+      }
+    }
+
+    return false;
+  }
+
+  private boolean _visitSubIds(
+    FacesContext       facesContext,
+    VisitContext       visitContext,
+    Collection<String> idsToVisit,
+    VisitCallback      callback)
+  {
+    Object oldKey = getRowKey();
+    try
+    {
+      ClientRowKeyManager keyMgr = this.getClientRowKeyManager();
+      String thisClientId = getClientId(facesContext);
+      for (String clientId : idsToVisit)
+      {
+        Object rowKey = null;
+
+        // look for row key in client ids to visit and set currency before visiting children
+        int index = clientId.indexOf(thisClientId);
+
+        if (index >= 0)
+        {
+          index += thisClientId.length();
+          if (index < clientId.length() && clientId.charAt(index) == UINamingContainer.SEPARATOR_CHAR)
+          {
+            int endIndex = clientId.indexOf(UINamingContainer.SEPARATOR_CHAR, index + 1);
+
+            if (endIndex >= 0 && endIndex > index)
+            {
+              String clientRowKey = clientId.substring(index + 1, endIndex);
+              rowKey = keyMgr.getRowKey(facesContext, this, clientRowKey);
+            }
+          }
+        }
+
+        // visit the children with correct currency
+        setRowKey(rowKey);
+
+        Iterator<UIComponent> kids = getFacetsAndChildren();
+        while(kids.hasNext())
+        {
+          boolean done;
+          UIComponent currChild = kids.next();
+
+          if (currChild instanceof UIXComponent)
+          {
+            UIXComponent uixChild = (UIXComponent)currChild;
+
+            // delegate to UIXComponent's visitTree implementation to allow
+            // subclassses to modify the behavior
+            done = uixChild.visitTree(visitContext, callback);
+          }
+          else
+          {
+            // use generic visit implementation
+            done = visitTree(visitContext, currChild, callback);
+          }
+
+          // If any kid visit returns true, we are done.
+          if (done)
+          {
+            return true;
+          }
+        }
+      }
+
+      return false;
+    }
+    finally
+    {
+      setRowKey(oldKey);
+    }
+  }
+
   private abstract class Runner implements ComponentProcessor<Object>
   {
     public Runner()
@@ -366,11 +439,11 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     {
       _cpContext = cpContext;
     }
-    
+
     public final boolean run()
     {
       FacesContext context = FacesContext.getCurrentInstance();
-      
+
       List<UIComponent> stamps = getStamps();
       int oldIndex = getRowIndex();
       int first = getFirst();
@@ -378,9 +451,9 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       int end = (rows <= 0) //show everything
         ? Integer.MAX_VALUE
         : first + rows;
-      
+
       boolean processedChild = false;
-      
+
       try
       {
         for(int i=first; i<end; i++)
@@ -405,7 +478,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       {
         setRowIndex(oldIndex);
       }
-      
+
       return processedChild;
     }
 
@@ -438,6 +511,12 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     public Exception exception = null;
 
     private final ComponentProcessingContext _cpContext;
+  }
+
+  private static class VisitingCompleteException
+    extends RuntimeException
+  {
+
   }
 
   @Override
@@ -482,7 +561,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
           first = 0;
         else
         {
-          // scroll to the last page: 
+          // scroll to the last page:
           first = size - rows;
           model.setRowIndex(first);
           // make sure the row is indeed available:
@@ -502,5 +581,4 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       model.setRowIndex(oldIndex);
     }
   }
-
 }
