@@ -362,7 +362,7 @@ public class ConfigParser
       {
         if (_LOG.isWarning())
         {
-          _LOG.warning("ELEMENT_ONLY_ACCEPT_INTEGER", qName);
+          _LOG.warning("ELEMENT_ONLY_ACCEPT_LONG", qName);
         }
       }
       return value;
