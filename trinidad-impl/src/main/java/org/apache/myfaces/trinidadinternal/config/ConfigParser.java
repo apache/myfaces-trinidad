@@ -267,6 +267,10 @@ public class ConfigParser
             {
               value = _getIntegerValue(currentText, qName);
             }
+            else if (key.getType() == Long.class)
+            {
+              value = _getLongValue(currentText, qName);
+            }
             else if (key.getType() == Boolean.class)
             {
               value = ("true".equalsIgnoreCase(currentText)
@@ -336,6 +340,23 @@ public class ConfigParser
       try
       {
         value = Integer.valueOf(text);
+      }
+      catch (NumberFormatException nfe)
+      {
+        if (_LOG.isWarning())
+        {
+          _LOG.warning("ELEMENT_ONLY_ACCEPT_INTEGER", qName);
+        }
+      }
+      return value;
+    }
+
+    private static Long _getLongValue(String text, String qName)
+    {
+      Long value = null;
+      try
+      {
+        value = Long.valueOf(text);
       }
       catch (NumberFormatException nfe)
       {
