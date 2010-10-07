@@ -23,6 +23,8 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
+import org.apache.myfaces.trinidad.util.ComponentUtils;
+
 import org.w3c.dom.Document;
 
 
@@ -46,6 +48,12 @@ abstract class BaseChangeManager extends ChangeManager
     UIComponent uiComponent,
     ComponentChange change)
   {
+    if (ComponentUtils.isStampedComponent(facesContext, uiComponent)) 
+    {
+      _LOG.info("DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR");      
+      return;
+    }
+        
     if (facesContext == null || uiComponent == null || change == null)
       throw new IllegalArgumentException(_LOG.getMessage(
         "CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL"));
