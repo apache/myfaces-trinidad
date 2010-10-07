@@ -27,9 +27,6 @@ import javax.faces.component.UIComponent;
 
 import javax.faces.component.UIViewRoot;
 
-import javax.faces.context.FacesContext;
-
-import org.apache.myfaces.trinidad.component.UIXIterator;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -451,29 +448,6 @@ public final class ComponentUtils
     return builder.toString();
   }
   
-  /**
-   * Checks if the component is a stamped component inside a UIXIterator. 
-   * 
-   * @param context FacesContext
-   * @param component 
-   * @return True if the component is inside a UIXIterator
-   */
-  public static boolean isStampedComponent(FacesContext context, UIComponent component) 
-  {
-    UIComponent parent = component.getParent();
-    UIComponent root = context.getViewRoot();
-    while (parent != root) 
-    {
-      if (parent instanceof UIXIterator) 
-      {
-        return true;
-      }
-      parent = parent.getParent();      
-    }
-
-    return false;
-  }
-
   /**
    * Builds the scoped id. Adds the naming container's id and the separator char
    * in a recursive fashion.

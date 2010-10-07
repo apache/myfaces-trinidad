@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidad.change;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.component.UIXIterator;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.util.ComponentUtils;
@@ -48,10 +49,18 @@ abstract class BaseChangeManager extends ChangeManager
     UIComponent uiComponent,
     ComponentChange change)
   {
-    if (ComponentUtils.isStampedComponent(facesContext, uiComponent)) 
+    // if our component is a stamped component by UIXIterator, we 
+    // don't want to persist the changes 
+    UIComponent parent = uiComponent.getParent();
+    UIComponent root = facesContext.getViewRoot();
+    while (parent != root) 
     {
-      _LOG.info("DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR");      
-      return;
+      if (parent instanceof UIXIterator) 
+      {
+        _LOG.info("DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR");      
+        return;
+      }
+      parent = parent.getParent();      
     }
         
     if (facesContext == null || uiComponent == null || change == null)
