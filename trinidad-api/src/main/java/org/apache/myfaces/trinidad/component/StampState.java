@@ -325,7 +325,7 @@ final class StampState implements Externalizable
 
     abstract public boolean isNull();
     
-    private static final long serialVersionUID = 8634916495453219932L;
+    private static final long serialVersionUID = 1L;
   }
 
   static private final class SDState extends RowState
@@ -389,7 +389,7 @@ final class StampState implements Externalizable
     /**
      *
      */
-    private static final long serialVersionUID = -8434916495453217932L;
+    private static final long serialVersionUID = -8605916495935317932L;
 
     private Boolean _disclosed;
   }
@@ -420,7 +420,7 @@ final class StampState implements Externalizable
 
     private Object _state = null;
 
-    private static final long serialVersionUID = 8634916495453217934L;
+    private static final long serialVersionUID = 1L;
   }
 
   static private class EVHState extends RowState
@@ -507,7 +507,7 @@ final class StampState implements Externalizable
     private boolean _valid;
     private transient UIComponent _assertStamp = null;
 
-    private static final long serialVersionUID = 8634916495432157932L;
+    private static final long serialVersionUID = 1L;
   }
 
   private static final class DualKey implements Serializable
@@ -556,7 +556,7 @@ final class StampState implements Externalizable
     private final Object _key1, _key2;
     private final int _hash;
 
-    private static final long serialVersionUID = 8634916494563217932L;
+    private static final long serialVersionUID = 1L;
   }
 
   private static final TrinidadLogger _LOG =
@@ -564,5 +564,5 @@ final class StampState implements Externalizable
 
   private Map<DualKey, Object> _rows;
   private static final Object[] _EMPTY_ARRAY = new Object[0];
-  private static final long serialVersionUID = 8634988494563217932L;
+  private static final long serialVersionUID = 1L;
 }

@@ -33,7 +33,7 @@ public class TrinidadPhaseListener implements PhaseListener
   /**
    * 
    */
-  private static final long serialVersionUID = -1249678874100309402L;
+  private static final long serialVersionUID = 1234567L;
 
   /**
    * Returns true if the request might be a postback request.
