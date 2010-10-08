@@ -755,6 +755,7 @@ abstract public class FacesBeanImpl implements FacesBean
 
     private boolean _transient;
     private boolean _initialStateMarked;
+    private static final long serialVersionUID = 1L;
   }
 
   private PropertyMap _properties;
