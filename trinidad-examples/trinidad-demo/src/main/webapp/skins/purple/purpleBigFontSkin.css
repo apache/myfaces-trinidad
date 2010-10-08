@@ -36,3 +36,11 @@ af|selectOrderShuttle::reorder-up-icon {
 
 af|someRandomStyle { color: red;}
 
+
+af|breadCrumbs {
+  border: 1px solid green;
+}
+
+af|someNewStyle {
+border: 1px solid green;  
+}

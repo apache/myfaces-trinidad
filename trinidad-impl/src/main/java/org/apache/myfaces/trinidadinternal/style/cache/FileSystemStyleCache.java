@@ -53,7 +53,9 @@ import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidad.util.CollectionUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
+import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
@@ -62,7 +64,6 @@ import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleWriterFactory;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
-import org.apache.myfaces.trinidadinternal.style.xml.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
@@ -463,7 +464,7 @@ public class FileSystemStyleCache implements StyleProvider
     ConcurrentMap<String, Icon> icons =
       _getStyleContextResolvedIcons(context, document);
     ConcurrentMap<Object, Object> skinProperties =
-      _getStyleContextResolvedSkinProperties(context, document);
+      _getStyleContextResolvedSkinProperties(styleNodes);
 
     // Create a new entry and cache it in the "normal" cache. The "normal" cache is one
     // where the key is the Key object which is built based on information from the StyleContext,
@@ -604,28 +605,55 @@ public class FileSystemStyleCache implements StyleProvider
    * styleSheetNodes that have been filtered from the StyleContext and StyleSheetDocument.
    */
   private ConcurrentMap<Object, Object> _getStyleContextResolvedSkinProperties(
-    StyleContext       context,
-    StyleSheetDocument document
+    StyleNode[] styleNodes
     )
   {
-    Iterator<StyleSheetNode> styleSheetNodes = document.getStyleSheets(context);
-
-    ConcurrentMap<Object, Object> skinProperties = new ConcurrentHashMap<Object, Object>();
-    while (styleSheetNodes.hasNext())
+    // Use the resolved StyleNode[] to get the skinProperties from them.
+    ConcurrentMap<Object, Object> skinPropertiesMap = new ConcurrentHashMap<Object, Object>();
+    for (StyleNode styleNode : styleNodes)
     {
-      StyleSheetNode styleSheetNode = styleSheetNodes.next();
-      Collection<SkinPropertyNode> skinPropertyNodes = styleSheetNode.getSkinProperties();
-
-      if (skinPropertyNodes != null)
+      Collection<PropertyNode> skinPropertyNodes = styleNode.getSkinProperties();
+      for (PropertyNode node : skinPropertyNodes)
       {
-        for (SkinPropertyNode skinPropertyNode : skinPropertyNodes)
+        // create SkinProperty key and SkinProperty value
+        String selectorName = styleNode.getSelector();
+        if (selectorName == null)
         {
-          skinProperties.put(skinPropertyNode.getKey(), skinPropertyNode.getValue());
+          selectorName = "." + styleNode.getName() + ":alias";
         }
+        String name = node.getName();
+
+        // Store the property selector + property Name as the Skin Property Key.
+        // e.g., use af|breadCrumbs-tr-show-last-item
+        StringBuilder keyBuilder = new StringBuilder(selectorName.length() + name.length());
+        keyBuilder.append(selectorName);
+        keyBuilder.append(name);
+        String key = keyBuilder.toString();
+
+        // look up in map to get conversion
+        Class<?> type = SkinProperties.PROPERTY_CLASS_TYPE_MAP.get(key);
+        Object propValueObj = null;
+        String value = node.getValue();
+        if (type != null)
+        {
+          try
+          {
+            // coerce the value to the type
+            propValueObj = Coercions.coerce(null, value, type);
+          }
+          catch (IllegalArgumentException ex)
+          {
+            if (_LOG.isWarning())
+              _LOG.warning(ex);
+          }
+        }
+        
+        skinPropertiesMap.put(key, (propValueObj != null ? propValueObj : value));
+
       }
     }
-
-    return skinProperties;
+    return skinPropertiesMap;
+    
   }
 
   /**

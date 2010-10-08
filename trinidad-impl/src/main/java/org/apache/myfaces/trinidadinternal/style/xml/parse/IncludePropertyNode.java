@@ -20,22 +20,27 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
- * IncludePropertyNode is used to represent a single &lt;includeProperty%gt; element
- * in a parsed XML Style Sheet Language document.
+ * An IncludePropertyNode is a data structure to store this syntax:
+ * color: -tr-property-ref(".AFDarkColor:alias",color);
  * The includeProperty element is used to include a single property of one style 
- * within another style. Thus, the includeProperty element is very similar to the 
- * includeStyle element. The only difference is that includeStyle includes all properties 
- * of the referenced style, whereas includeProperty includes only a single property.
- * Currently, the includeProperty element is not yet ported to the skin's CSS syntax.
- * It exists only in the XSS syntax.
+ * within another style. Thus, the -tr-property-ref element is very similar to the 
+ * -tr-rule-ref element, which is stored in IncludeStyleNode. 
+ * The only difference is that -tr-rule-ref includes all properties 
+ * of the referenced style, whereas -tr-property-ref includes only a single property.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/IncludePropertyNode.java#0 $) $Date: 10-nov-2005.18:58:07 $
  */
 public class IncludePropertyNode
 {
   /**
-   * Creates an IncludePropertyNode.  In general, either the name or
-   * selector of the included style is specified.
+   * Creates an IncludePropertyNode. In general, either the name (selector that does not
+   * get written to the css file, like an :alias) or the selector of the included style is
+   * specified.
+   * @param name name of the included style if it is a namedStyle 
+   * @param selector name of the included style selector if it is a selector and not a namedStyle
+   * @param propertyName propertyName of the included style you want to get the value of
+   * @param localPropertyName if the css is color: 1px solid -tr-property-ref(...), the 
+   *  localPropertyName is 'color'.
    */
   public IncludePropertyNode(
     String name,

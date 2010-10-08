@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 
 import java.net.URL;
 
@@ -38,17 +37,15 @@ import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidad.share.io.NameResolver;
 
 import org.apache.myfaces.trinidad.util.URLUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
-import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludeCompactPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludePropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludeStyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
-import org.apache.myfaces.trinidadinternal.style.xml.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
@@ -196,8 +193,7 @@ class SkinStyleSheetParserUtils
       // initialize
       List <StyleNode> styleNodeList = new ArrayList<StyleNode>();
       List<IconNode> iconNodeList = new ArrayList<IconNode>();
-      // trSkinPropertyNodeList, e.g., af|foo {-tr-show-last-item: true}
-      List<SkinPropertyNode> trSkinPropertyNodeList = new ArrayList<SkinPropertyNode>();
+
 
       // process each selector and all its name+values
       for (SkinSelectorPropertiesNode cssSelector : selectorNodeList)
@@ -209,11 +205,12 @@ class SkinStyleSheetParserUtils
         int direction     = skinSSNode.getDirection();
 
         ResolvedSkinProperties resolvedProperties =
-          _resolveProperties(selectorName,
-                             propertyList);
+          _resolveProperties(propertyList);
 
-
-        trSkinPropertyNodeList.addAll(resolvedProperties.getSkinPropertyNodeList());
+        // trSkinPropertyNodeList, e.g., af|foo {-tr-show-last-item: true}
+        // PropertyNode(-tr-show-last-item, true)
+        List<PropertyNode> trSkinPropertyNodeList = new ArrayList<PropertyNode>();
+        trSkinPropertyNodeList = resolvedProperties.getSkinPropertyNodeList();
 
         List<PropertyNode> noTrPropertyList =
           resolvedProperties.getNoTrPropertyList();
@@ -253,8 +250,10 @@ class SkinStyleSheetParserUtils
             }
             _addStyleNode(selectorName,
                           noTrPropertyList,
+                          trSkinPropertyNodeList,
                           resolvedProperties.getTrRuleRefList(),
                           resolvedProperties.getIncludedPropertiesList(),
+                          resolvedProperties.getIncludedCompactPropertiesList(),
                           resolvedProperties.getInhibitedProperties(),
                           resolvedProperties.isTrTextAntialias(),
                           styleNodeList);
@@ -265,8 +264,10 @@ class SkinStyleSheetParserUtils
 
           _addStyleNode(selectorName,
                         noTrPropertyList,
+                        trSkinPropertyNodeList,
                         resolvedProperties.getTrRuleRefList(),
                         resolvedProperties.getIncludedPropertiesList(),
+                        resolvedProperties.getIncludedCompactPropertiesList(),
                         resolvedProperties.getInhibitedProperties(),
                         resolvedProperties.isTrTextAntialias(),
                         styleNodeList);
@@ -274,8 +275,7 @@ class SkinStyleSheetParserUtils
         }
       }
 
-      if ((styleNodeList.size() > 0) || (iconNodeList.size() > 0) ||
-          (trSkinPropertyNodeList.size() > 0))
+      if ((styleNodeList.size() > 0) || (iconNodeList.size() > 0))
       {
         // we need to deal with the styleNodeList by building a StyleSheetNode
         // with this information.
@@ -284,7 +284,6 @@ class SkinStyleSheetParserUtils
         StyleSheetNode ssNode =
           new StyleSheetNode(styleNodeArray,
                              iconNodeList,
-                             trSkinPropertyNodeList,
                              skinSSNode.getLocales(),
                              skinSSNode.getDirection(),
                              skinSSNode.getAgentMatcher(),
@@ -310,12 +309,10 @@ class SkinStyleSheetParserUtils
   /**
    * Loop thru every property in the propertyList and store them in
    * the ResolvedSkinProperties inner class.
-   * @param selectorName
    * @param propertyNodeList
    * @return
    */
   private static ResolvedSkinProperties _resolveProperties(
-    String selectorName,
     List<PropertyNode> propertyNodeList)
   {
 
@@ -324,8 +321,10 @@ class SkinStyleSheetParserUtils
     Set<String> inhibitedPropertySet = new TreeSet<String>();
     List<IncludePropertyNode> includedPropertiesList =
       new ArrayList<IncludePropertyNode>();
-    List<SkinPropertyNode> skinPropertyNodeList =
-      new ArrayList<SkinPropertyNode>();
+    List<IncludeCompactPropertyNode> includedCompactPropertiesList =
+      new ArrayList<IncludeCompactPropertyNode>();
+    List<PropertyNode> skinPropertyNodeList =
+      new ArrayList<PropertyNode>();
 
     boolean trTextAntialias = false;
 
@@ -351,13 +350,44 @@ class SkinStyleSheetParserUtils
       {
         // Check for special propertyNames (-tr-rule-ref, -tr- skin properties)
         // or propertyValue (-tr-property-ref)
-
-        boolean includedProperty = propertyValue.startsWith(_INCLUDE_PROPERTY);
-        if (includedProperty)
+        
+        // Check for -tr-property-ref first, either regular or compact
+        if(propertyValue.indexOf(_INCLUDE_PROPERTY) != -1)
         {
-          IncludePropertyNode node = _createIncludePropertyNode(
-            propertyName, propertyValue.substring(_INCLUDE_PROPERTY.length()));
-          includedPropertiesList.add(node);
+          List<String> values = separateCompactValues(propertyValue);
+          // border-color: -tr-property-ref(...) versus border: 1px solid -tr-property-ref();
+          if (values.size() == 1)
+          {
+            // include property
+            IncludePropertyNode node = _createIncludePropertyNode(
+              propertyName, propertyValue.substring(_INCLUDE_PROPERTY.length()));
+            includedPropertiesList.add(node);
+          }
+          else
+          {
+            // include compact property
+            List<IncludePropertyNode> compactIncludePropNodes = new ArrayList<IncludePropertyNode>();
+            StringBuilder builder = new StringBuilder();
+            for (String value : values)
+            {
+              if (value.startsWith(_INCLUDE_PROPERTY))
+              {
+                IncludePropertyNode node = _createIncludePropertyNode(
+                  propertyName, value.substring(_INCLUDE_PROPERTY.length()));
+                compactIncludePropNodes.add(node);
+              }
+              else
+              {
+                builder.append(value);
+                builder.append(" ");
+              }
+            }
+            IncludeCompactPropertyNode iCPNode = 
+              new IncludeCompactPropertyNode(builder.toString(), 
+                                             compactIncludePropNodes, propertyName);
+            includedCompactPropertiesList.add(iCPNode);
+                        
+          }
         }
         else
         {
@@ -387,10 +417,8 @@ class SkinStyleSheetParserUtils
             }
             else
             {
-              // create the SkinPropertyNode
-              SkinPropertyNode node =
-                _createSkinPropertyNode(selectorName, propertyName, propertyValue);
-
+              // create the PropertyNode for skin properties (e.g., -tr-show-last-item: true)
+              PropertyNode node = new PropertyNode(propertyName, propertyValue);
               skinPropertyNodeList.add(node);
             }
           }
@@ -406,9 +434,47 @@ class SkinStyleSheetParserUtils
       noTrPropertyList,
       trRuleRefList,
       includedPropertiesList,
+      includedCompactPropertiesList,      
       inhibitedPropertySet,
       skinPropertyNodeList,
       trTextAntialias);
+  }
+  
+  private static List<String> separateCompactValues(String propertyValue)
+  {
+     String[] test = _SPACE_PATTERN.split(propertyValue);
+     List<String> propertyValueNoSpaces = new ArrayList<String>();
+     boolean inTr = false;
+     int inTrIndex = 0;
+     for (int i=0; i < test.length; i++)
+     {
+        String string = test[i];
+        if (string.startsWith(_INCLUDE_PROPERTY) && !string.endsWith(")"))
+        {
+           // keep looping through the pieces 
+           // until we get to a string that endsWith ")".
+           inTr = true;
+           inTrIndex = i;            
+        }
+        else if (inTr)
+        {
+           if (string.endsWith(")"))
+           {
+              StringBuilder builder = new StringBuilder();
+              for (int j=inTrIndex; j <= i; j++)
+              {
+                 builder.append(test[j]);
+              }
+              inTr = false;
+              propertyValueNoSpaces.add(builder.toString());
+           }
+        }
+        else
+        {
+           propertyValueNoSpaces.add(string);
+        } 
+     }
+     return propertyValueNoSpaces;
   }
 
   /**
@@ -555,11 +621,13 @@ class SkinStyleSheetParserUtils
     {
       // Create a styleNode that we will add to the IconNode.
       StyleNode styleNode =
-        new StyleNode(null,
+        new StyleNode(null, // name
                       selectorName,
                       propertyNodeArray,
+                      null, //TODO jmw trSkinPropertyNodes for icons
                       includeStyleNodes.toArray(new IncludeStyleNode[0]),
-                      null, //TODO jmw includePropertyNodes
+                      null, //TODO jmw includePropertyNodes for icons
+                      null, //TODO jmw includeCompactPropertyNodes for icons
                       inhibitedProperties
                       );
       
@@ -575,11 +643,16 @@ class SkinStyleSheetParserUtils
   }
 
   /**
-   * Creates a StyleNode object and adds it to the styleNodeList
+   * Creates a StyleNode object and adds it to the styleNodeList.
+   * The StyleNode object gets completely resolved (the trRuleRefList, includeProperyNodes, etc.,
+   * get resolved in StyleSheetDocument#_resolveStyleNode). The StyleNode here is the unresolved
+   * StyleNode - basically what we have in the skin css file.
    * @param selectorName
    * @param propertyNodeList
+   * @param skinPropertyNodeList
    * @param trRuleRefList
    * @param includePropertyNodes
+   * @param includeCompactPropertyNodes
    * @param inhibitedProperties
    * @param trTextAntialias
    * @param styleNodeList Once the StyleNode is created, it is added to the iconNodeList to be
@@ -589,15 +662,20 @@ class SkinStyleSheetParserUtils
   private static void _addStyleNode(
     String                    selectorName,
     List<PropertyNode>        propertyNodeList,
+    List<PropertyNode>        skinPropertyNodeList,
     List<String>              trRuleRefList,
     List<IncludePropertyNode> includePropertyNodes,
+    List<IncludeCompactPropertyNode> includeCompactPropertyNodes,
     Set<String>               inhibitedProperties,
     boolean                   trTextAntialias,
     List<StyleNode>           styleNodeList)
   {
 
-    StyleNode styleNode = _createStyleNode(selectorName, propertyNodeList, trRuleRefList, 
-                                           includePropertyNodes, inhibitedProperties, 
+    StyleNode styleNode = _createStyleNode(selectorName, propertyNodeList, skinPropertyNodeList,
+                                           trRuleRefList, 
+                                           includePropertyNodes,
+                                           includeCompactPropertyNodes,
+                                           inhibitedProperties, 
                                            trTextAntialias);
 
     styleNodeList.add(styleNode);
@@ -607,8 +685,10 @@ class SkinStyleSheetParserUtils
   private static StyleNode _createStyleNode(
     String                    selectorName,
     List<PropertyNode>        propertyNodeList,
+    List<PropertyNode>        skinPropertyNodeList,
     List<String>              trRuleRefList,
     List<IncludePropertyNode> includePropertyNodes,
+    List<IncludeCompactPropertyNode> includeCompactPropertyNodes,
     Set<String>               inhibitedProperties,
     boolean                   trTextAntialias)
   {
@@ -663,10 +743,16 @@ class SkinStyleSheetParserUtils
       new StyleNode(name,
                     selector,
                     propertyArray,
+                    skinPropertyNodeList.isEmpty() ?
+                      null : skinPropertyNodeList.toArray(new PropertyNode[0]),
                     includeStyleNodes.toArray(new IncludeStyleNode[0]),
                     includePropertyNodes.isEmpty() ? 
-                    null : includePropertyNodes.toArray(new IncludePropertyNode[0]),
-                    inhibitedProperties);
+                      null : includePropertyNodes.toArray(new IncludePropertyNode[0]),
+                    includeCompactPropertyNodes.isEmpty() ? 
+                      null : includeCompactPropertyNodes.toArray(new IncludeCompactPropertyNode[0]),
+                    inhibitedProperties,
+                    false);
+    
     return styleNode;
   }
 
@@ -719,40 +805,6 @@ class SkinStyleSheetParserUtils
       return new IncludePropertyNode(name, selector, includedProperty, propertyName);
     }
     return null;
-  }
-
-  private static SkinPropertyNode _createSkinPropertyNode(
-    String selector,
-    String name,
-    String value)
-  {
-    // Store the property selector + property Name as the Skin Property Key.
-    // e.g., use af|breadCrumbs-tr-show-last-item
-    StringBuilder keyBuilder = new StringBuilder(selector.length() + name.length());
-    keyBuilder.append(selector);
-    keyBuilder.append(name);
-    String key = keyBuilder.toString();
-
-    // look up in map to get conversion
-    Class<?> type = SkinProperties.PROPERTY_CLASS_TYPE_MAP.get(key);
-    Object propValueObj = null;
-    if (type != null)
-    {
-      try
-      {
-        // coerce the value to the type
-        propValueObj = Coercions.coerce(null, value, type);
-      }
-      catch (IllegalArgumentException ex)
-      {
-        if (_LOG.isWarning())
-          _LOG.warning(ex);
-      }
-    }
-
-    SkinPropertyNode node = new SkinPropertyNode(key,
-                                                 propValueObj != null ? propValueObj : value);
-    return node;
   }
 
   // This is for -tr-rule-ref properties on styles.
@@ -905,16 +957,18 @@ class SkinStyleSheetParserUtils
 
 
     ResolvedSkinProperties(
-      List<PropertyNode> noTrPropertyList,
-      List<String> trRuleRefList,
-      List<IncludePropertyNode> includedPropertiesList,
-      Set<String> inhibitedPropertySet,
-      List<SkinPropertyNode> skinPropertyNodeList,
+      List<PropertyNode>               noTrPropertyList,
+      List<String>                     trRuleRefList,
+      List<IncludePropertyNode>        includedPropertiesList,
+      List<IncludeCompactPropertyNode> includedCompactPropertiesList,
+      Set<String>                      inhibitedPropertySet,
+      List<PropertyNode>               skinPropertyNodeList,
       boolean trTextAntialias)
     {
       _noTrPropertyList = noTrPropertyList;
       _trRuleRefList = trRuleRefList;
       _includedPropertiesList = includedPropertiesList;
+      _includedCompactPropertiesList = includedCompactPropertiesList;
       _inhibitedPropertySet = inhibitedPropertySet;
       _skinPropertyNodeList = skinPropertyNodeList;
       _trTextAntialias = trTextAntialias;
@@ -935,7 +989,12 @@ class SkinStyleSheetParserUtils
       return _includedPropertiesList;
     }
 
-    public List<SkinPropertyNode> getSkinPropertyNodeList()
+    public List<IncludeCompactPropertyNode> getIncludedCompactPropertiesList()
+    {
+      return _includedCompactPropertiesList;
+    }
+
+    public List<PropertyNode> getSkinPropertyNodeList()
     {
       return _skinPropertyNodeList;
     }
@@ -954,7 +1013,8 @@ class SkinStyleSheetParserUtils
     private List<PropertyNode>        _noTrPropertyList;
     private List<String>              _trRuleRefList;
     private List<IncludePropertyNode> _includedPropertiesList;
-    private List<SkinPropertyNode>    _skinPropertyNodeList;
+    private List<IncludeCompactPropertyNode> _includedCompactPropertiesList;
+    private List<PropertyNode>        _skinPropertyNodeList;
     private boolean                   _trTextAntialias;
   }
 
