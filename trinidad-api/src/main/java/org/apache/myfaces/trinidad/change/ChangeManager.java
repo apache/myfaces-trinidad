@@ -138,6 +138,9 @@ public abstract class ChangeManager
 
   /**
    * Add a ComponentChange to this current request for a specified component.
+   * When called we will disallow changes if the component or its any ancestor 
+   * is a stamped component by UIXIterator. 
+   * 
    * @throws IllegalArgumentException if any of the supplied parameters were to
    *          be null.
    */
@@ -148,6 +151,9 @@ public abstract class ChangeManager
 
   /**
    * Add a DocumentChange to this current request for a specified component.
+   * When called we will allow changes even if the component or its any ancestor 
+   * is a stamped component by UIXIterator.
+   * 
    * @throws IllegalArgumentException if any of the supplied parameters were to
    *          be null.
    */
