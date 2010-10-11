@@ -160,8 +160,7 @@
  <resource key="TYPE_ALREADY_LOCKED">Type is already locked</resource>
  
  <!-- CANNOT_FIND_PROPERTY -->
- <resource key="CANNOT_FIND_PROPERTY">Property "{0}" cannot be bound.</resource>
- 
+ <resource key="CANNOT_FIND_PROPERTY">Property "{0}" cannot be bound.</resource> 
  <!-- >KEY_CANNOT_BE_USED_FOR_LISTS -->
  <resource key=">KEY_CANNOT_BE_USED_FOR_LISTS">Key {0} cannot be used for lists</resource>
  
@@ -182,6 +181,9 @@
  
  <!-- NO_NODE_SPECIFIED -->
  <resource key="NO_NODE_SPECIFIED">No node specified</resource>
+ 
+ <!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+ <resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR">We don't want to persist stamped component inside an iterator</resource>
  
  <!-- COMPONENT_REQUIRED -->
  <resource key="COMPONENT_REQUIRED">Component required</resource>
