@@ -106,7 +106,6 @@ public class StyleSheetNodeParser extends BaseNodeParser
     return new StyleSheetNode(
         styles,
         null,      // icons only supported in skin CSS - not XSS
-        null,      // properties only supported in skin CSS - not XSS
         _locales,
         _direction,
         browsers,

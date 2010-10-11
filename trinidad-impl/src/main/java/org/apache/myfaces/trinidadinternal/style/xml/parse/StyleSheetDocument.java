@@ -45,6 +45,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
+import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 
@@ -203,7 +204,7 @@ public class StyleSheetDocument
 
     // We also need to provide a Map for storing selector-based
     // styles and another for storing name-based styles, used by
-    // _resolveStyle() to store results
+    // _resolveStyleNode() to store results
     HashMap<String, StyleNode> resolvedStyles = 
       new HashMap<String, StyleNode>();
     HashMap<String, StyleNode> resolvedNamedStyles = 
@@ -212,8 +213,8 @@ public class StyleSheetDocument
     // Keep track of all selectors and names that we've already
     // found, so that we don't bother re-resolving them
     // These differ from the above Maps in that the Maps are
-    // mutated by _resolveStyle - so an included selector, for
-    // instance, might already be present in _resolveStyle but
+    // mutated by _resolveStyleNode - so an included selector, for
+    // instance, might already be present in _resolveStyleNode but
     // not yet have been encountered by this top loop.  We
     // could eliminate the need for this if we were willing
     // to give up the ordering of the list
@@ -253,14 +254,14 @@ public class StyleSheetDocument
         // for it again
         if (!isFound)
         {
-          StyleNode resolvedNode = _resolveStyle(context,
-                                                 styleSheets,
-                                                 resolvedStyles,
-                                                 resolvedNamedStyles,
-                                                 null,
-                                                 null,
-                                                 id,
-                                                 isNamed);
+          StyleNode resolvedNode = _resolveStyleNode(context,
+                                                     styleSheets,
+                                                     resolvedStyles,
+                                                     resolvedNamedStyles,
+                                                     null,
+                                                     null,
+                                                     id,
+                                                     isNamed);
 
           // If we got a node, add it in to our list
           if (resolvedNode != null)        
@@ -357,18 +358,23 @@ public class StyleSheetDocument
     if (styleSheets.isEmpty())
       return null;
 
-    return _resolveStyle(context,
-                         styleSheets,
-                         new HashMap<String, StyleNode>(19),  // Resolved styles
-                         new HashMap<String, StyleNode>(19),  // Resolved named styles
-                         null,               // Include stack
-                         null,               // Named include stack
-                         id,
-                         isNamed);
+    return _resolveStyleNode(context,
+                             styleSheets,
+                             new HashMap<String, StyleNode>(19),  // Resolved styles
+                             new HashMap<String, StyleNode>(19),  // Resolved named styles
+                             null,               // Include stack
+                             null,               // Named include stack
+                             id,
+                             isNamed);
   }
 
   /**
    * Resolves the (named or selector-based) style with the specified id.
+   * In SkinStyleSheetParserUtils we parse the CSS file and create a raw StyleNode, one
+   * where all the PropertyNodes/SkinPropertyNodes have not been completely resolved. A
+   * raw StyleNode has trRuleRef properties, trPropertyRef property values, etc. A fully
+   * resolved StyleNode only has propertyNodes and skinPropertyNodes, because everything 
+   * else has been resolved into those two things.
    * @param context The StyleContext
    * @param styleSheets The StyleSheetNodes to use for resolving the style,
    *          sorted from lowest to highest precedence.
@@ -387,7 +393,7 @@ public class StyleSheetDocument
    *           resolved style is stored in the appropriate resolved style
    *           Map.
    */
-  private StyleNode _resolveStyle(
+  private StyleNode _resolveStyleNode(
     StyleContext           context,
     StyleSheetList         styleSheets,
     Map<String, StyleNode> resolvedStyles,
@@ -466,116 +472,14 @@ public class StyleSheetDocument
       includesStack.push(id);
     }
 
+    // styleSheets.styleNodes(id, isNamed) returns a List of StyleNodes that match the StyleContext
+    // and have the same selector name. For example, if the css files contains 
+    // .someStyle {color: red} .someStyle {font-size: 11px}
+    // you will get two StyleNodes, and the properties will get merged together.
     List<StyleNode> nodeList = styleSheets.styleNodes(id, isNamed);
-    if (nodeList != null)
-    {
-      for (StyleNode node : nodeList)
-      {
-        // We've got a match!  We need to do the following:
-        // 0. Check to see whether we need to reset our properties.
-        // 1. Resolve any included styles, and shove those properties
-        //    into our StyleEntry.
-        // 2. Resolve any included properties, and shove those properties
-        //    into our StyleEntry.
-        // 3. Remove all properties that were inhibited.
-        // 4. Shove all properties from the matching StyleNode into our
-        //    StyleEntry, overwriting included values
-        // -= Simon Lessard =-
-        // FIXME: That sequence looks buggy. If more than 1 matching node 
-        //        is found, then the included properties of the second will
-        //        have priority over the properties found at step 5 on the
-        //        first node, which is most likely incorrect.
-        //
-        //        A possible fix would be to put entries from the 5 steps 
-        //        into 5 different lists then resolve all priorities at the 
-        //        end.
-        
-        // 0. Reset properties?
-        if (node.__getResetProperties() || node.isInhibitingAll())
-          entry.resetProperties();
-  
-        // 1. Resolve included styles
-        Iterable<IncludeStyleNode> includedStyles = node.getIncludedStyles();
-        for (IncludeStyleNode includeStyle : includedStyles)
-        {
-          String includeID = null;
-          boolean includeIsNamed = false;
 
-          if (includeStyle.getName() != null)
-          {
-            includeID = includeStyle.getName();
-            includeIsNamed = true;
-          }
-          else
-          {
-            includeID = includeStyle.getSelector();
-          }
-
-          StyleNode resolvedNode = _resolveStyle(context,
-                                                 styleSheets,
-                                                 resolvedStyles,
-                                                 resolvedNamedStyles,
-                                                 includesStack,
-                                                 namedIncludesStack,
-                                                 includeID,
-                                                 includeIsNamed);
-
-          if (resolvedNode != null)
-            _addIncludedProperties(entry, resolvedNode);
-        }
-  
-  
-        // 2. Resolve included properties
-        Iterable<IncludePropertyNode> includedProperties = node.getIncludedProperties();
-        for (IncludePropertyNode includeProperty : includedProperties)
-        {
-          String includeID = null;
-          boolean includeIsNamed = false;
-  
-          if (includeProperty.getName() != null)
-          {
-            includeID = includeProperty.getName();
-            includeIsNamed = true;
-          }
-          else
-          {
-            includeID = includeProperty.getSelector();
-          }
-  
-          StyleNode resolvedNode = _resolveStyle(context,
-                                                 styleSheets,
-                                                 resolvedStyles,
-                                                 resolvedNamedStyles,
-                                                 includesStack,
-                                                 namedIncludesStack,
-                                                 includeID,
-                                                 includeIsNamed);
-  
-          if (resolvedNode != null)
-          {
-            _addIncludedProperty(entry,
-                                 resolvedNode,
-                                 includeProperty.getPropertyName(),
-                                 includeProperty.getLocalPropertyName());
-          }
-        }
-  
-        // 3. Check inhibited properties
-        Iterable<String> inhibitedProperties = node.getInhibitedProperties();
-        for (String inhibitedPropertyName : inhibitedProperties)
-        {
-          entry.removeProperty(inhibitedPropertyName);
-        }
-        
-  
-        // 4. Add non-included properties
-        Iterable<PropertyNode> properties = node.getProperties();
-        for (PropertyNode propertyNode : properties)
-        {
-          entry.addProperty(propertyNode);
-        }
-      }
-    }
+    _resolveStyleWork(context, id, styleSheets, resolvedStyles, resolvedNamedStyles,  
+                      includesStack, namedIncludesStack, entry, nodeList);
     
     // Pop the include stack
     if (isNamed)
@@ -618,6 +522,215 @@ public class StyleSheetDocument
     return resolvedNode;
   }
 
+  private void _resolveStyleWork(
+    StyleContext           context,
+    String                 id,
+    StyleSheetList         styleSheets,
+    Map<String, StyleNode> resolvedStyles,
+    Map<String, StyleNode> resolvedNamedStyles,
+    Stack<String>          includesStack,
+    Stack<String>          namedIncludesStack,
+    StyleEntry             entry,
+    List<StyleNode>        nodeList)
+  {
+    if (nodeList != null)
+    {
+      for (StyleNode node : nodeList)
+      {
+        // We've got a match!  We need to do the following:
+        // 0. Check to see whether we need to reset our properties.
+        // 1. Resolve any included styles, and shove those properties
+        //    into our StyleEntry.
+        // 2. Resolve any included properties, and shove those properties
+        //    into our StyleEntry.
+        // 3. Remove all properties that were inhibited.
+        // 4. Shove all properties from the matching StyleNode into our
+        //    StyleEntry, overwriting included values
+        // 5. Shove all skin properties from the matching StyleNode into our
+        //     StyleEntry, overwriting included values
+        // -= Simon Lessard =-
+        // FIXME: That sequence looks buggy. If more than 1 matching node 
+        //        is found, then the included properties of the second will
+        //        have priority over the properties found at step 5 on the
+        //        first node, which is most likely incorrect.
+        //
+        //        A possible fix would be to put entries from the 5 steps 
+        //        into 5 different lists then resolve all priorities at the 
+        //        end.
+        
+        // 0. Reset properties?
+        if (node.__getResetProperties() || node.isInhibitingAll())
+          entry.resetProperties();
+    
+        // 1. Resolve included styles
+        Iterable<IncludeStyleNode> includedStyles = node.getIncludedStyles();
+        for (IncludeStyleNode includeStyle : includedStyles)
+        {
+          String includeID = null;
+          boolean includeIsNamed = false;
+
+          if (includeStyle.getName() != null)
+          {
+            includeID = includeStyle.getName();
+            includeIsNamed = true;
+          }
+          else
+          {
+            includeID = includeStyle.getSelector();
+          }
+        
+          StyleNode resolvedNode = _resolveStyleNode(context,
+                                                 styleSheets,
+                                                 resolvedStyles,
+                                                 resolvedNamedStyles,
+                                                 includesStack,
+                                                 namedIncludesStack,
+                                                 includeID,
+                                                 includeIsNamed);
+
+          if (resolvedNode != null)
+            _addIncludedProperties(entry, resolvedNode);
+        }
+    
+    
+        // 2. Resolve included properties
+        // color: -tr-property-ref(".AFDefaultFont:alias","background-color");
+        Iterable<IncludePropertyNode> includedProperties = node.getIncludedProperties();
+        for (IncludePropertyNode includeProperty : includedProperties)
+        {
+          StyleNode resolvedNode = 
+            _resolveIncludedProperties(context, styleSheets, resolvedStyles, 
+                                       resolvedNamedStyles, includesStack, namedIncludesStack, 
+                                       includeProperty);
+          if (resolvedNode != null)
+          {
+            _addIncludedProperty(entry,
+                                 resolvedNode,
+                                 includeProperty.getPropertyName(),
+                                 includeProperty.getLocalPropertyName());
+          }
+        }
+        
+        // 2'. Resolve included properties in a compact selector.
+        // e.g., border: 1px solid -tr-property-ref(".AFDarkColor:alias",color);
+        Iterable<IncludeCompactPropertyNode> includedCompactProperties = 
+          node.getIncludedCompactProperties();
+        for (IncludeCompactPropertyNode includeCompact : includedCompactProperties)
+        {
+          // get each IncludePropertyNode, and resolve it.        
+          Iterable<IncludePropertyNode> iPNodeIter = includeCompact.getIncludedProperties();
+          List<String> resolvedValues = new ArrayList<String>();
+          for (IncludePropertyNode includeProperty : iPNodeIter)
+          {
+            StyleNode resolvedNode = 
+              _resolveIncludedProperties(context, styleSheets, resolvedStyles, 
+                                         resolvedNamedStyles, includesStack, namedIncludesStack, 
+                                         includeProperty);
+ 
+            if (resolvedNode != null)
+            {
+              List<PropertyNode> pNodes = _getIncludedPropertyNodes(
+                                            resolvedNode,
+                                            includeProperty.getPropertyName(),
+                                            includeProperty.getLocalPropertyName());
+              // stores all the resolved 'values'. we will concat these values when we
+              // create the PropertyNode because these are compact values, like "1px solid red"
+              if (pNodes != null && !pNodes.isEmpty())
+                resolvedValues.add(pNodes.get(0).getValue());
+            }
+          }
+          
+          // here we are. We have processed one IncludeCompactPropertyNode's includePropertyNodes.
+          // now we need to add to the entry: 
+          String compactValue = _createCompactValue(includeCompact, resolvedValues);
+          String localName = includeCompact.getLocalPropertyName();
+          PropertyNode propertyNode = new PropertyNode(localName,
+                                                       compactValue);
+          
+          if (!(localName.startsWith(_TR_PROPERTY_PREFIX)))
+            entry.addProperty(propertyNode);
+          else
+            entry.addSkinProperty(propertyNode);
+
+        }
+    
+        // 3. Check inhibited properties
+        Iterable<String> inhibitedProperties = node.getInhibitedProperties();
+        for (String inhibitedPropertyName : inhibitedProperties)
+        {
+          entry.removeProperty(inhibitedPropertyName);
+          entry.removeSkinProperty(inhibitedPropertyName);
+        }
+        
+    
+        // 4. Add non-included properties
+        Iterable<PropertyNode> properties = node.getProperties();
+        for (PropertyNode propertyNode : properties)
+        {
+          entry.addProperty(propertyNode);
+          
+        }
+        
+        // 5. Add non-included skin property node properties
+        Iterable<PropertyNode> skinProperties = node.getSkinProperties();
+        for (PropertyNode skinPropNode : skinProperties)
+        {
+          entry.addSkinProperty(skinPropNode);
+        }
+
+      }
+    }
+  }
+
+  
+  private String _createCompactValue(
+    IncludeCompactPropertyNode node, 
+    List<String> values)
+  {
+    StringBuilder builder = new StringBuilder();
+    builder.append(node.getPropertyValues());
+    for(String value : values)
+    {
+      builder.append(value);
+      builder.append(" ");
+    }
+    return builder.toString();
+  }
+
+  private StyleNode _resolveIncludedProperties(
+    StyleContext           context,
+    StyleSheetList         styleSheets,
+    Map<String, StyleNode> resolvedStyles,
+    Map<String, StyleNode> resolvedNamedStyles,
+    Stack<String>          includesStack, 
+    Stack<String>          namedIncludesStack,
+    IncludePropertyNode    includeProperty)
+  {
+    String includeID = null;
+    boolean includeIsNamed = false;
+    
+    if (includeProperty.getName() != null)
+    {
+      includeID = includeProperty.getName();
+      includeIsNamed = true;
+    }
+    else
+    {
+      includeID = includeProperty.getSelector();
+    }
+    
+    StyleNode resolvedNode = _resolveStyleNode(context, 
+                                           styleSheets,
+                                           resolvedStyles,
+                                           resolvedNamedStyles,
+                                           includesStack,
+                                           namedIncludesStack,
+                                           includeID,
+                                           includeIsNamed);
+    return resolvedNode;
+  }
+
+  
   // Adds all of the properties from the StyleNode into the StyleEntry
   // as included properties.
   private void _addIncludedProperties(
@@ -633,9 +746,16 @@ public class StyleSheetDocument
     {
       entry.addIncludedProperty(propertyNode);
     }
+    
+    // server-side skin properties
+    Iterable<PropertyNode> skinProperties = node.getSkinProperties();
+    for (PropertyNode skinPropertyNode : skinProperties)
+    {
+      entry.addIncludedSkinProperty(skinPropertyNode);
+    }
   }
 
-  // Adds the specified property from the StyleNode into the StyleEntry.
+  // resolves -tr-property-ref, and adds the resolved PropertyNode to the StyleEntry.
   private void _addIncludedProperty(
     StyleEntry entry,
     StyleNode  node,
@@ -646,21 +766,135 @@ public class StyleSheetDocument
     if (node == null)
       return;
 
-    Iterable<PropertyNode> properties = node.getProperties();
+    
+    // localPropertyName is the value we are setting.
+    // if we have color: -tr-property-ref(".AFFoo:alias","background-color"), then 
+    // localPropertyName is color.
+    if (localPropertyName != null)
+    {
+      // check to see if localPropertyName is a skin property like '-tr-show-last-item',
+      // as opposed to a regular css property like 'color' or 'font-size'.
+      if (localPropertyName.startsWith(_TR_PROPERTY_PREFIX))
+      {
+        // these are currently StyleNode propertyNodes, but they may actually be skin properties.
+        // if we have af|breadCrumbs {-tr-show-last-item: -tr-property-ref(".AFFoo:alias")},
+        // and .AFFoo:alias contains only property nodes, like color: red.
+        // this gets parsed and set on StyleNode as a IncludePropertyNode, not a SkinStyleNode,
+        // then it gets resolved as properties.
+        Iterable<PropertyNode> properties = node.getProperties();
+        List<PropertyNode> includedProperties = 
+          _getIncludedProperties(propertyName, localPropertyName, properties);
+        for (PropertyNode propertyToAdd : includedProperties)
+        {
+          entry.addIncludedSkinProperty(propertyToAdd);
+        }
+        
+        // most likely this block of code will run instead of the above code
+        // .AFFoo:alias {-tr-show-last-item: true;} 
+        // af|breadCrumbs{-tr-show=last-item: -tr-property-ref(".AFFoo:alias"); 
+        // .AFFoo:alias's -tr-show-last-item is in a SkinPropertyNode, not a PropertyNode
+        Iterable<PropertyNode> skinProperties = node.getSkinProperties();
+        List<PropertyNode> includedSkinProperties = 
+          _getIncludedProperties(propertyName, localPropertyName, skinProperties);
+        for (PropertyNode propertyToAdd : includedSkinProperties)
+        {
+          entry.addIncludedSkinProperty(propertyToAdd);
+        }
+       
+      }
+      else
+      {
+        // regular css properties (not skin server-side properties)...
+        // loop through all the properties and find a match. then merge.
+        Iterable<PropertyNode> properties = node.getProperties();
+        List<PropertyNode> includedProperties = 
+          _getIncludedProperties(propertyName, localPropertyName, properties);
+        for (PropertyNode propertyToAdd : includedProperties)
+        {
+          entry.addIncludedProperty(propertyToAdd);
+        }
+      }
+
+    }
+
+  }
+
+  // resolves -tr-property-ref, and returns the resolved PropertyNodes
+  private List<PropertyNode> _getIncludedPropertyNodes(
+    StyleNode  node,
+    String     propertyName,
+    String     localPropertyName
+    )
+  {
+    if (node == null || localPropertyName == null)
+      return Collections.emptyList();
+    
+
+    // check to see if localPropertyName is a skin property like '-tr-show-last-item',
+    // as opposed to a regular css property like 'color' or 'font-size'.
+    if (localPropertyName.startsWith(_TR_PROPERTY_PREFIX))
+    {
+      Iterable<PropertyNode> properties = node.getProperties();
+      List<PropertyNode> includedProperties = 
+        _getIncludedProperties(propertyName, localPropertyName, properties);
+
+      
+      // most likely this block of code will run instead of the above code
+      // .AFFoo:alias {-tr-show-last-item: true;} 
+      // af|breadCrumbs{-tr-show=last-item: -tr-property-ref(".AFFoo:alias"); 
+      // .AFFoo:alias's -tr-show-last-item is in a SkinPropertyNode, not a PropertyNode
+      Iterable<PropertyNode> skinProperties = node.getSkinProperties();
+      List<PropertyNode> pNodes = _getIncludedProperties(propertyName, localPropertyName, skinProperties);
+      includedProperties.addAll(pNodes);
+      return includedProperties;
+     
+    }
+    else
+    {
+      // regular css properties (not skin server-side properties)...
+      // loop through all the properties and find a match. then merge.
+      Iterable<PropertyNode> properties = node.getProperties();
+      List<PropertyNode> includedProperties = 
+        _getIncludedProperties(propertyName, localPropertyName, properties);
+      return includedProperties;
+    }
+
+   
+
+  }
+
+  // used when resolving -tr-property-ref
+  // given a list of PropertyNodes to traverse, find the one whose name matches the propertyName.
+  // then we assign the value to the localPropertyName.
+  // .AFFoo:alias {color: red} af|test {background-color: -tr-property-ref(".AFFoo:alias", "color");
+  // localPropertyName is background-color
+  // propertyName is color
+  // properties is .AFFoo:alias's properties
+  private List<PropertyNode> _getIncludedProperties(
+    String propertyName,
+    String localPropertyName,
+    Iterable<PropertyNode> properties)
+  {
+    List<PropertyNode> propertyNodesToAdd = new ArrayList<PropertyNode>();
+
     for (PropertyNode property : properties)
     {
+      // must first find a match of the includeProperty's propertyName 
+      // and the property node's name
       if (propertyName.equals(property.getName()))
       {
         if (!propertyName.equals(localPropertyName))
         {
-          property = new PropertyNode(localPropertyName,
-                                      property.getValue());
+          property = new PropertyNode(localPropertyName, property.getValue());
         }
-
-        entry.addIncludedProperty(property);
+        // if propertyName is equal to localPropertyName, we can simply reuse the 
+        // property node instead of creating a new PropertyNode.        
+        // since we found a match, we include this PropertyNode into the entry.    
+        //entry.addIncludedSkinProperty(property);
+        propertyNodesToAdd.add(property);
       }
     }
-
+    return propertyNodesToAdd;
   }
 
   // Returns a count of the non-null items in the List
@@ -969,6 +1203,19 @@ public class StyleSheetDocument
       this.name = name;
     }
 
+    public void addSkinProperty(PropertyNode property)
+    {
+      if (_skinProperties == null)
+        _skinProperties = new ArrayList<PropertyNode>(2);  
+      
+      // remove property if it already exists. 
+      // We could just use a Set instead of an ArrayList, right?
+      String name = property.getName();
+      removeSkinProperty(name);
+      
+      _skinProperties.add(property);
+    }
+
     // Add the specified property.
     // If we already have a PropertyNode with the same name as the
     // property, we remove the old value, as newly added properties
@@ -1012,9 +1259,18 @@ public class StyleSheetDocument
         _propertyCount--;
     }
 
+    // Removes the skin property with the specified name
+    public void removeSkinProperty(String name)
+    {
+      if (_removeSkinProperty(_skinProperties, name))
+        _skinPropertyCount--;
+    }
+
     // Clears out all properties
     public void resetProperties()
     {
+      _skinProperties = null;
+      _skinPropertyCount = 0;
       _properties = null;
       _propertyCount = 0;
       _relativeFontSize = 0;
@@ -1042,6 +1298,7 @@ public class StyleSheetDocument
     // Adds an "included" property.  Include propreties are
     // properties which are indirectly included in the style
     // via an <includeStyle> element.
+    // TODO jmw Since we no longer track included properties separately, we should delete.
     public void addIncludedProperty(PropertyNode property)
     {
       // We no longer track included properties separately.
@@ -1053,21 +1310,30 @@ public class StyleSheetDocument
       addProperty(property);
     }
 
+    public void addIncludedSkinProperty(PropertyNode skinProperty)
+    {
+      addSkinProperty(skinProperty);
+    }
+
     // Converts this StyleEntry to a StyleNode
     public StyleNode toStyleNode()
     {
       // Create an PropertyNode array to pass to the new StyleNode.
       // The PropertyNode array includes both the included properties
       // and the properties defined directly within this style.
-      int count = _getNonNullCount(_properties);
+      int propertyCount = _getNonNullCount(_properties);
+      int skinPropertyCount = _getNonNullCount(_skinProperties);
+                                                          
 
-      if (count == 0)
+      if (propertyCount + skinPropertyCount == 0)
         return null;
 
-      PropertyNode[] properties = new PropertyNode[count];
+      PropertyNode[] properties = new PropertyNode[propertyCount];
+      PropertyNode[] skinProperties = new PropertyNode[skinPropertyCount];
 
       // Copy in the properties
       _nonNullCopyInto(_properties, properties, 0);
+      _nonNullCopyInto(_skinProperties, skinProperties, 0);
 
       // Adjust the font size based for relative font
       if (_relativeFontSize != 0)
@@ -1085,7 +1351,8 @@ public class StyleSheetDocument
 
       // Create and return our StyleNode.  We don't need to specify
       // a name or included styles, as they have already been resolved.
-      return new StyleNode(name, selector, properties, null, null, null);
+      // StyleNode(name, selector, properties, skinProperties, includedStyles, includedProperties, inhibitedProperties)
+      return new StyleNode(name, selector, properties, skinProperties, null, null,null, null);
     }
 
     // Removes the PropertyNode with the specified name from the
@@ -1094,6 +1361,37 @@ public class StyleSheetDocument
     // name.  Returns a boolean indicating whether the specified
     // property was found (and thus removed).
     private boolean _removeProperty(
+        ArrayList<PropertyNode> properties, 
+        String name)
+    {
+      if (properties == null)
+        return false;
+
+      for (int i = 0; i < properties.size(); i++)
+      {
+        PropertyNode property = properties.get(i);
+
+        if ((property != null) && property.getName().equals(name))
+        {
+          // We don't actually remove the old value, just
+          // null it out.  We do this to avoid the calls
+          // to System.arraycopy() that would occur if we
+          // actually removed the property.  For us, time
+          // is more important than memory usage.
+          properties.set(i, null);
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    // Removes the SkinPropertyNode with the specified name from the
+    // List of properties.  Note - we assume that the properties
+    // List will contain at most one property with the specified
+    // name.  Returns a boolean indicating whether the specified
+    // property was found (and thus removed).
+    private boolean _removeSkinProperty(
         ArrayList<PropertyNode> properties, 
         String name)
     {
@@ -1301,8 +1599,14 @@ public class StyleSheetDocument
     // The set of properties (PropertyNodes) defined by this style
     private ArrayList<PropertyNode> _properties;
 
+    
+    // The set of skinProperties defined by this style. These are server-side properties,
+    // like -tr-show-last-item
+    private ArrayList<PropertyNode> _skinProperties;
+
     // We keep count of the number of non-null values in each vector
     private int _propertyCount;
+    private int _skinPropertyCount;
 
     // _relativeFontSize accumulates the total relative font size
     // from any "font-size" properties with relative values.
@@ -1420,10 +1724,13 @@ public class StyleSheetDocument
                                                                    null,
                                                                    null,
                                                                    null,
+                                                                   null,
+                                                                   null,
                                                                    null);
 
   // Error messages
   private static final String _CIRCULAR_INCLUDE_ERROR =
     "Circular dependency detected in style ";
+  private static final String _TR_PROPERTY_PREFIX = "-tr-";
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StyleSheetDocument.class);
 }

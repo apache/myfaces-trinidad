@@ -493,13 +493,6 @@ af|inputDate::launch-icon:rtl
   height:24px
 }
 
-/* use special properties to change the ui **/
-/* don't show the last item in breadCrumbs (the default is to show it)*/
-@agent gecko
-{
-af|breadCrumbs {-tr-show-last-item:false}
-}
-
 af|breadCrumbs::step {color: purple;}
 af|breadCrumbs::step:hover {color: green}
 af|breadCrumbs::selected-step:hover {color: green;}
@@ -911,6 +904,51 @@ af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-content {
 .AFFooIcon:alias {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
 .AFBarIcon {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
 
+@agent email
+{
+  af|selectBooleanCheckbox::label {color: red}
+}
+
+
+/* test -tr-rule-ref for skin properties */
+/* works
+.AFShowLastItem:alias {-tr-show-last-item: false;}
+af|breadCrumbs {-tr-rule-ref: selector(".AFShowLastItem:alias");}
+*/
+/* works
+.AFFoo:alias {-tr-show-last-item: false;}
+.AFBar:alias {color: red; background-color: blue}
+.AFCombined:alias {
+-tr-rule-ref: selector(".AFFoo:alias");
+-tr-rule-ref: selector(".AFBar:alias");
+}
+
+af|breadCrumbs {
+-tr-rule-ref: selector(".AFCombined:alias");
+}
+*/
+/* works
+.AFFoo:alias {color: red;}
+af|breadCrumbs {
+-tr-show-last-item: -tr-property-ref(".AFFoo:alias","color");
+}
+*/
+
+.AFFoo:alias {-tr-show-last-item: true;}
+af|breadCrumbs {
+-tr-show-last-item: -tr-property-ref(".AFFoo:alias"); 
+}
+
+/*
+.AFFoo:alias {-tr-show-last-item: true;color: red; background-color: pink;}
+
+af|breadCrumbs {
+-tr-rule-ref: selector(".AFFoo:alias"); 
+}
+
+*/
+/* af|tree -tr-show-lines */
+
 @agent ie
 {
 af|tree {
@@ -924,7 +962,6 @@ af|tree {
 }
 }
 
-@agent email
-{
-  af|selectBooleanCheckbox::label {color: red}
+af|testCompactInclude {
+  border: 1px solid -tr-property-ref(".AFTestForegroundColor:alias","color");
 }

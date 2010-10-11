@@ -165,7 +165,6 @@ public class StyleSheetNodeEqualsTest extends TestCase
     StyleSheetNode styleSheetNode =
       new StyleSheetNode(styleSheetOneNodes,
                          iconNodes,
-                         null,
                          localesArray,
                          0,
                          browsers,
@@ -175,7 +174,6 @@ public class StyleSheetNodeEqualsTest extends TestCase
     StyleSheetNode anotherStyleSheetNode =
       new StyleSheetNode(anotherStyleSheetOneNodes,
                          anotherIconNodes,
-                         null,
                          anotherLocalesArray,
                          0,
                          anotherBrowsersDiffOrder,
@@ -185,7 +183,6 @@ public class StyleSheetNodeEqualsTest extends TestCase
     StyleSheetNode sameDiffOrderStyleSheetNode =
       new StyleSheetNode(anotherStyleSheetOneNodes,
                          anotherIconNodes,
-                         null,
                          diffOrderLocalesArray,
                          0,
                          anotherBrowsersDiffOrder,
@@ -231,10 +228,11 @@ public class StyleSheetNodeEqualsTest extends TestCase
       
     IncludePropertyNode[] defaultFontIncludeProperty =
       { new IncludePropertyNode("AFVeryDarkBackground", null, "background-color", "color") };
+    PropertyNode[] emptyNode = new PropertyNode[0];
 
     return
-      new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes,
-                    defaultFontIncludeStyles, defaultFontIncludeProperty, null, false);
+        new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes, null, 
+                    defaultFontIncludeStyles, defaultFontIncludeProperty, null, null, false);
     
   }
   
@@ -252,8 +250,8 @@ public class StyleSheetNodeEqualsTest extends TestCase
       { new IncludePropertyNode("AFVeryDarkBackground", null, "background-color", "color") };
 
     return
-      new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes,
-                    defaultFontIncludeStyles, defaultFontIncludeProperty, null, true);
+      new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes, null, 
+                    defaultFontIncludeStyles, defaultFontIncludeProperty, null, null, true);
     
   }
   
@@ -270,8 +268,8 @@ public class StyleSheetNodeEqualsTest extends TestCase
 
       
     return
-        new StyleNode(null, "af|outputLabel:error", labelPropertyNodes, labelIncludeStyles,
-                      null, labelInhibitedProperties, false);
+        new StyleNode(null, "af|outputLabel:error", labelPropertyNodes,  null, labelIncludeStyles,
+                      null, null, labelInhibitedProperties, false);
   }
   
   // returns a StyleNode that matches the outputLabelStyleNode
@@ -284,8 +282,8 @@ public class StyleSheetNodeEqualsTest extends TestCase
     anotherInhibitedProperties.add("background-color");
     anotherInhibitedProperties.add("font-size");
     
-    return  new StyleNode(null, "af|outputLabel:error", anotherPropertyNodes, anotherIncludeStyles,
-                          null, anotherInhibitedProperties, false);
+    return  new StyleNode(null, "af|outputLabel:error", anotherPropertyNodes,  null, anotherIncludeStyles,
+                          null, null, anotherInhibitedProperties, false);
   }
   
   private Set<Locale> getLocalesSet()
