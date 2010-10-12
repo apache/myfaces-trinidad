@@ -22,7 +22,6 @@ import java.awt.Color;
 
 import java.io.Serializable;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,16 +36,15 @@ import javax.faces.application.ProjectStage;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.visit.VisitContext;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewDeclarationLanguage;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.change.NullChangeManager;
 import org.apache.myfaces.trinidad.change.SessionChangeManager;
 import org.apache.myfaces.trinidad.component.UIXComponent;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.view.ViewDeclarationLanguage;
-
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.Agent;
@@ -68,7 +66,6 @@ import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
 import org.apache.myfaces.trinidadinternal.application.InternalViewHandlingStrategy;
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
-import org.apache.myfaces.trinidadinternal.application.ViewHandlerImpl;
 import org.apache.myfaces.trinidadinternal.el.FormatterMap;
 import org.apache.myfaces.trinidadinternal.el.HelpProvider;
 import org.apache.myfaces.trinidadinternal.el.OracleHelpProvider;
@@ -230,11 +227,11 @@ public class RequestContextImpl extends RequestContext
       _bean.getProperty(RequestContextBean.DEBUG_OUTPUT_KEY));
 
     FacesContext fc = FacesContext.getCurrentInstance();
-    
+
     if (fc.isProjectStage(ProjectStage.Production))
     {
-      // on production we always want FALSE, unless the 
-      // user explicitly set the config to TRUE, but 
+      // on production we always want FALSE, unless the
+      // user explicitly set the config to TRUE, but
       // generate a WARNING message for that.
       if (debugOutput)
       {
@@ -727,8 +724,8 @@ public class RequestContextImpl extends RequestContext
       return false;
 
     ViewDeclarationLanguage strategy = context.getApplication().
-                          getViewHandler().getViewDeclarationLanguage(context, root.getViewId()); 
-    
+                          getViewHandler().getViewDeclarationLanguage(context, root.getViewId());
+
     return (strategy instanceof InternalViewHandlingStrategy);
   }
 

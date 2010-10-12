@@ -484,16 +484,43 @@ public class CoreRenderer extends Renderer
         "NO_RENDERINGCONTEXT"));
 
     FacesBean bean = getFacesBean(component);
-    if (getRendersChildren())
+    RuntimeException re = null;
+    try
     {
-      beforeEncode(context, rc, component, bean);
-      encodeAll(context, rc, component, bean);
+      if (getRendersChildren())
+      {
+        beforeEncode(context, rc, component, bean);
+        encodeAll(context, rc, component, bean);
+      }
+      else
+      {
+        encodeEnd(context, rc, component, bean);
+      }
     }
-    else
+    catch (RuntimeException ex)
     {
-      encodeEnd(context, rc, component, bean);
+      re = ex;
     }
-    afterEncode(context, rc, component, bean);
+    finally
+    {
+      try
+      {
+        afterEncode(context, rc, component, bean);
+      }
+      catch (RuntimeException ex)
+      {
+        if (re == null)
+        {
+          throw ex;
+        }
+        _LOG.warning(ex);
+      }
+
+      if (re != null)
+      {
+        throw re;
+      }
+    }
   }
 
   /**
