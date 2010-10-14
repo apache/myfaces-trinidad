@@ -388,12 +388,31 @@ public class AgentFactoryImpl implements AgentFactory
    */
   private void _populatePocketPCAgentImpl(String agent,String uaPixels,AgentImpl agentObj)
   {
-    int start = agent.indexOf("MSIE");
+
+    // The latest Windows-Mobile user-agents have different formats, so we
+    // need to have two difference logics to handle both older and newer 
+    // WM browsers.    
+    // Latest WM browsers have version detail assiciated with "IEMobile"
+    int start = agent.indexOf("IEMobile");
+    
+    int length;
+    
+    // If "IEMobile" not present, use the legacy "MSIE"
+    if (start < 0)
+    {
+      start = agent.indexOf("MSIE");
+      length = "MSIE".length();
+    }
+    else
+    {
+      length = "IEMobile".length();
+    }
+    
     String version = null;
 
     if (start > -1)
     {
-      version = _getVersion(agent, start + "MSIE".length());
+      version = _getVersion(agent, start + length);
     }
     agentObj.setType(Agent.TYPE_PDA);
     agentObj.setAgent(Agent.AGENT_IE);
