@@ -19,6 +19,9 @@
 package org.apache.myfaces.trinidadinternal.validator;
 
 import java.io.IOException;
+
+import java.text.SimpleDateFormat;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -108,8 +111,8 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
     String hintRange = this.getHintNotInRange();
     
     Map<String, String> cMessages = null;
-    if (messageDetailMax != null || messageDetailMin != null || messageDetailRange != null || 
-        hintMax != null || hintMin != null || hintRange != null)
+    if(messageDetailMax != null || messageDetailMin != null || messageDetailRange != null || 
+       hintMax != null || hintMin != null|| hintRange != null)
     {
       cMessages = new HashMap<String, String>();
       cMessages.put("max", messageDetailMax);
@@ -120,10 +123,13 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
       cMessages.put("hintRange", hintRange);
     }
     
-    return _getTrDateTimeRangeValidator(context, component, maxStr, minStr, 
-                                        max != null ? Long.toString(max.getTime()) : "null", 
-                                        min != null ? Long.toString(min.getTime()) : "null", 
-                                        cMessages);
+    // Trinidad-1818: Send min/max in two formats: one parseable by the converter (for hints),
+    // one in an ISO-like format that doesn't lose information if the converter has
+    // a pattern that loses information. 
+    String maxISOStr = (max == null)  ? "null" : "'" +  _ISO_FORMAT.format(max) + "'" ;
+    String minISOStr = (min == null)  ? "null" : "'" +  _ISO_FORMAT.format(min) + "'" ;
+    return _getTrDateTimeRangeValidator(context, component, maxStr, maxISOStr, 
+                                        minStr, minISOStr, cMessages);
   }
   
   public String getClientLibrarySource(
@@ -136,9 +142,9 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
       FacesContext context,
       UIComponent component,
       String max,
+      String maxISOStr,
       String min,
-      String maxMilli,
-      String minMilli,
+      String minISOStr,
       Map<String, String> messages)
   {
     StringBuilder outBuffer = new StringBuilder(31 + min.length() + max.length());
@@ -162,12 +168,11 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
         outBuffer.append("null");
       }
     }
+    outBuffer.append(maxISOStr);
     outBuffer.append(',');
-    outBuffer.append(maxMilli);
+    outBuffer.append(minISOStr);
     outBuffer.append(',');
-    outBuffer.append(minMilli);
     outBuffer.append(')');
-
     return outBuffer.toString();
   }
 
@@ -175,6 +180,8 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
   private static final TrinidadLogger _LOG = TrinidadLogger
       .createTrinidadLogger(DateTimeRangeValidator.class);
  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
+
+  private static final SimpleDateFormat _ISO_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
   
   
 }

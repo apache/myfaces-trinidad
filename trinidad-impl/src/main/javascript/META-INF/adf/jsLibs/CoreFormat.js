@@ -567,18 +567,24 @@ TrLengthValidator.prototype.validate  = function(
   }
 }
 
+// Trinidad-1818: When min/max is specified, use two pieces of information
+// min/maxValue         : The date as a string parseable by the converter (for hints)
+// minISODate/maxISODate: The date as an ISO-like string to correctly recreate the Date object.
+//                        This is because the converter pattern could lose information, e.g. with a
+//                        Date of 4712-12-31 and converter with YY, min/maxValue would be "12-12-31"
+//                        and the converter would parse that into 2012-12-31. See Trinidad-1920
 function TrDateTimeRangeValidator(
-  maxDateString,
-  minDateString,
+  maxValue,
+  minValue,
   messages,
-  maxDateMilliseconds,
-  minDateMilliseconds
+  maxISODate,
+  minISODate  
   )
 {
-  this._maxDateString = maxDateString;
-  this._minDateString = minDateString;
-  this._maxDateMilliseconds = maxDateMilliseconds;
-  this._minDateMilliseconds = minDateMilliseconds;
+  this._maxValue = maxValue;
+  this._maxISODate = maxISODate;
+  this._minValue = minValue;
+  this._minISODate = minISODate;
   this._messages = messages;
   // for debugging
   this._class = "TrDateTimeRangeValidator";
@@ -589,9 +595,15 @@ TrDateTimeRangeValidator.prototype.getHints = function(
   converter
   )
 {
-  var max = this._maxDateString ? this._maxDateString : null;
-  var min = this._minDateString ? this._minDateString : null;
+ var max = null;
+ var min = null;
 
+  if (this._maxValue)
+    max = this._maxValue;
+
+  if (this._minValue)
+    min = this._minValue;
+    
   return _returnRangeHints(
     this._messages,
     max,
@@ -605,6 +617,14 @@ TrDateTimeRangeValidator.prototype.getHints = function(
   );
 }
 
+TrDateTimeRangeValidator.prototype.getISOConverter = function ()
+{
+  // This pattern must be kept in sync with DateTimeRangeValidator#_ISO_FORMAT
+ if (this._ISO_CONVERTER == null)
+   this._ISO_CONVERTER = new TrDateTimeConverter("yyyy-MM-dd HH:mm:ss",  null, null, null, null);
+ return this._ISO_CONVERTER;
+}
+
 TrDateTimeRangeValidator.prototype.validate  = function(
   value,
   label,
@@ -613,16 +633,23 @@ TrDateTimeRangeValidator.prototype.validate  = function(
 {
   dateTime = value.getTime();
   var facesMessage;
-  //range
-  if (this._minDateString && this._maxDateString)
+  var isoConverter = this.getISOConverter ();
+ 
+ //range
+  if (this._minValue && this._maxValue)
   {
     try
     {
-      minDate = (this._minDateMilliseconds != null) ? this._minDateMilliseconds : 
-        converter.getAsObject(this._minDateString).getTime();
-        
-      maxDate = (this._maxDateMilliseconds != null) ? this._maxDateMilliseconds : 
-        converter.getAsObject(this._maxDateString).getTime();
+       // min/maxISODate were introduced in TRINIDAD-1920, pre-existing callers may have them null.
+       // If so, revert to previous  behavior where we just parse the min/maxValue string, though
+       // that may have less information than the ISO version. 
+        minDate = (this._minISODate == null) ? 
+                    converter.getAsObject (this._minValue):
+                    isoConverter.getAsObject (this._minISODate);
+
+        maxDate = (this._maxISODate == null) ? 
+                    converter.getAsObject (this._maxValue):
+                    isoConverter.getAsObject (this._maxISODate);
     }
     catch (e)
     {
@@ -644,28 +671,29 @@ TrDateTimeRangeValidator.prototype.validate  = function(
                                         this._messages["range"],
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+this._minDateString,
-                                        ""+this._maxDateString);
+                                        ""+this._minValue,
+                                        ""+this._maxValue);
       }
       else
       {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+this._minDateString,
-                                        ""+this._maxDateString);
+                                        ""+this._minValue,
+                                        ""+this._maxValue);
       }
     }
   }
   else
   {
     //only min
-    if (this._minDateString)
+    if (this._minValue)
     {
       try
       {
-        minDate = (this._minDateMilliseconds != null) ? this._minDateMilliseconds : 
-          converter.getAsObject(this._minDateString).getTime();
+        minDate = (this._minISODate == null) ? 
+                    converter.getAsObject (this._minValue):
+                    isoConverter.getAsObject (this._minISODate);
       }
       catch (e)
       {
@@ -687,24 +715,25 @@ TrDateTimeRangeValidator.prototype.validate  = function(
                                         this._messages["min"],
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+this._minDateString);
+                                        ""+this._minValue);
         }
         else
         {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+this._minDateString);
+                                        ""+this._minValue);
         }
       }
     }
     //max only
-    else if (this._maxDateString)
+    else if (this._maxValue)
     {
       try
       {
-        maxDate = (this._maxDateMilliseconds != null) ? this._maxDateMilliseconds : 
-          converter.getAsObject(this._maxDateString).getTime();
+        maxDate = (this._maxISODate == null) ? 
+                    converter.getAsObject (this._maxValue):
+                    isoConverter.getAsObject (this._maxISODate);
       }
       catch (e)
       {
@@ -726,14 +755,14 @@ TrDateTimeRangeValidator.prototype.validate  = function(
                                         this._messages["max"],
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+this._maxDateString);
+                                        ""+this._maxValue);
         }
         else
         {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+this._maxDateString);
+                                        ""+this._maxValue);
         }
       }
     }
