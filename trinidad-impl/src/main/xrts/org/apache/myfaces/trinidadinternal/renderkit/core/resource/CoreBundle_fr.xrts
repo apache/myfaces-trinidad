@@ -369,9 +369,9 @@
 <!-- alt text for the icon that indicates a readOnly checkbox in the unchecked state -->
 <resource key="af_selectBooleanCheckbox.READONLY_NOT_CHECKED_TIP" dnt="false">Case Lecture seule désélectionnée</resource>
 <!-- alt text for the icon that indicates a readOnly radioButton in the selected state -->
-<resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Bouton d&apos;option Lecture seule sélectionné</resource>
+<resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Bouton radio Lecture seule sélectionné</resource>
 <!-- alt text for the icon that indicates a readOnly radioButton in the unselected state -->
-<resource key="af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP" dnt="false">Bouton d&apos;option Lecture seule non sélectionné</resource>
+<resource key="af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP" dnt="false">Bouton radio Lecture seule non sélectionné</resource>
 <!-- This is the title of the link at the top of a page that a screen-reader
        user would use to skip all the navigation links and jump to the
        content -->

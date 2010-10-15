@@ -47,20 +47,20 @@
 <resource key="afr_compositeTable.MENU_VIEW" dnt="false">Bekijken</resource>
 <resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">Kolommen</resource>
 <resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">Alles tonen</resource>
-<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Meer kolommen tonen...</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Meer kolommen tonen..</resource>
 <resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">Blokkeren</resource>
 <resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">Maximaliseren</resource>
 <resource key="afr_compositeTable.MENU_SORT" dnt="false">Sorteren</resource>
 <resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">Oplopend</resource>
 <resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">Aflopend</resource>
-<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Uitgebreid...</resource>
-<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Herordenen...</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Uitgebreid..</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Herordenen..</resource>
 <resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Werkbalken</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Standaard</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Zoeken volgens voorbeeld</resource>
 <resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Opmaak</resource>
-<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Formaat van kolommen wijzigen...</resource>
-<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Opnieuw instellen...</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Formaat van kolommen wijzigen..</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Opnieuw instellen..</resource>
 <resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">Terugloop</resource>
 <resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Geselecteerde rijen:</resource>
 <resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">Alle</resource>

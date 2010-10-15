@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Nie można było załadować {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Nie można było utworzyć instancji obiektu UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Nie można było wysłać pliku, ponieważ jest on zbyt duży.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad działa w trybie wykrywania błędów. Nie należy tego używać w środowisku produkcyjnym. Zob. {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->

@@ -125,7 +125,7 @@
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">אינדקס בלתי תקף</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">מוסיף בן כאשר בן עם אותו זיהוי כבר קיים. הבן הישן יוסר והבן החדש יתווסף. {0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Change manager נכשל בהחלת AddChildComponentChange כיוון שכבר קיים רכיב בן עם אותו זיהוי. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">לא צוין צומת</resource>
 <!-- COMPONENT_REQUIRED -->
@@ -156,6 +156,8 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">אי אפשר לבנות AddFacetChange אם אחד מבין facetName ו-facetComponent הוא null.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">יש לציין שם היבט</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">Change manager נכשל בהחלת SetFacetChildComponentChange כיוון שכבר קיים היבט בשם זה. {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">נדרש רכיב בן להעברה.</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -168,6 +170,8 @@
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">הבן המיועד להעברה לא נמצא: {0}.</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
 <resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">האובייקט המכיל היעד לא נמצא: {0}.</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">נמצא רכיב אחר עם אותו זיהוי, באובייקט המכיל היעד. פעולת ההעברה בוטלה: {0}.</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">הרכיב או הצומת שלפניו יש לבצע הוספה לא נמצא: {0}.</resource>
 <!-- INDEX_SIZE -->
@@ -308,4 +312,8 @@
 <resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">אי אפשר להגדיר פרמטרים לתצוגת פורטלט בגלל השתקפות שנכשלה</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">הסוג של &quot;{0}&quot; מונע את השוואתו ל-&quot;{1}&quot;.</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">נכשלה יצירת zip של מצב הדף. המצב חייב להיות serializable כדי ליצור zip. סיבה נפוצה לכישלון ביצירת zip היא שמצב הדף אינו serializable. אפשר להפסיק את יצירת ה-zip על ידי הגדרת org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE כ-false. כדי ללמוד על בדיקת היבטים שונים של serialization, עיין בתיעוד על מאפיין המערכת org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION.</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">נכשלה פעולת unzip של מצב הדף.</resource>
 </resources>

@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Nelze načíst {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Není možné vytvořit instanci UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Soubor nebylo možné odeslat na server, protože je příliš velký.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Modul Trinidad je spuštěn v režimu ladění. Nepoužívejte jej ve výrobním prostředí. Viz:{0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->

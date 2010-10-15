@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">無法載入 {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">無法建立 UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">檔案太大, 無法上傳.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad 正在除錯模式下執行. 請勿用於實際執行環境. 請參閱:{0}.</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -536,7 +538,7 @@
 <!-- FORMAT_PARSEOBJECT_FAIL -->
 <resource key="FORMAT_PARSEOBJECT_FAIL" dnt="false">Format.parseObject(String) 失敗</resource>
 <!-- CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR -->
-<resource key="CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR" dnt="false">無法將提供的「物件」格式化為「顏色」</resource>
+<resource key="CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR" dnt="false">無法將指定的「物件」格式化為「顏色」</resource>
 <!-- ILLEGAL_PATTERN_CHARACTER -->
 <resource key="ILLEGAL_PATTERN_CHARACTER" dnt="false">無效的樣式字元 &apos;&apos;{0}&apos;&apos;</resource>
 <!-- >ILLEGAL_PATTERN_CHARACTER -->
