@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">{0}을(를) 로드할 수 없습니다.</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">UploadedFileProcessor를 인스턴스화할 수 없습니다.</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">파일이 너무 커서 업로드할 수 없습니다.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad가 디버그 모드로 실행되고 있습니다. 운용 환경에서는 사용하지 마십시오. 참조: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->

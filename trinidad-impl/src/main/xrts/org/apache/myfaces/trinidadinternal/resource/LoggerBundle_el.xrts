@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Δεν ήταν δυνατή η φόρτωση του &quot;{0}&quot;</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Δεν ήταν δυνατή η δημιουργία στιγμιότυπου για UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Δεν ήταν δυνατή η αποστολή του αρχείου επειδή έχει υπερβολικά μεγάλο μέγεθος.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Το Trinidad εκτελείται σε κατάσταση εντοπισμού σφαλμάτων. Μην το χρησιμοποιείτε σε περιβάλλον παραγωγής. Δείτε: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->

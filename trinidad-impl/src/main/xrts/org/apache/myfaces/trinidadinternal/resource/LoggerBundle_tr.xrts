@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">{0} yüklenemedi</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">UploadedFileProcessor başlatılamadı.</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Dosya çok büyük olduğundan karşıya yüklenemedi.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad hata ayıklama modunda çalışıyor. Üretim ortamında kullanmayın. Bkz:{0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->

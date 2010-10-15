@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Impossible de charger {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Impossible d&apos;instancier UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Le fichier n&apos;a pas pu être téléchargé car il est trop volumineux.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad est en cours d&apos;&apos;exécution en mode de débogage. A ne pas utiliser en environnement de production. Consultez : {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -148,7 +150,7 @@
 <!-- INVALID_EL_EXPRESSION -->
 <resource key="INVALID_EL_EXPRESSION" dnt="false">L&apos;&apos;expression EL {0} est non valide ou a renvoyé une valeur incorrecte.</resource>
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
-<resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Groupe de ressources {0} introuvable.</resource>
+<resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Regroupement de ressources {0} introuvable.</resource>
 <!-- ERR_CLOSING_FILE -->
 <resource key="ERR_CLOSING_FILE" dnt="false">erreur lors de la fermeture du fichier : {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->

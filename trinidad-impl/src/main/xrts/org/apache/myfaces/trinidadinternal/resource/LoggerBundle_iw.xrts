@@ -47,7 +47,7 @@
 <!-- INVALID_CAPABILITY_DATA_URL -->
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">url {0} של נתוני יכולות בלתי תקף</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
-<resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">לא נמצא מצב view שמור לאסימון {0}</resource>
+<resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">לא נמצא מצב תצוגה שמור לאסימון {0}</resource>
 <!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
 <resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE אינו נתמך ואין להשתמש בו כיוון שברוב המקרים הוא לא פועל.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">אי אפשר לטעון את {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">לא ניתן ליצור מופע של UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">אי אפשר לטעון את הקובץ כיוון שהוא גדול מדי.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad רץ במצב ניפוי באגים. לא לשימוש בסביבת ייצור. ראה:{0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -452,9 +454,9 @@
 <!-- PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED -->
 <resource key="PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED" dnt="false">חריגה מגבולות שטח דיסק לבקשה.</resource>
 <!-- POPVIEW_NO_VIEW_PUSHED -->
-<resource key="POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): לא נדחף כל view.</resource>
+<resource key="POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): לא נדחף כל מבט.</resource>
 <!-- POPVIEW_NO_VIEW_PUSHED -->
-<resource key=">POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): לא נדחף כל view.</resource>
+<resource key=">POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): לא נדחף כל מבט.</resource>
 <!-- ONLY_HTTPSERVLETREQUEST_SUPPORTED -->
 <resource key="ONLY_HTTPSERVLETREQUEST_SUPPORTED" dnt="false">רק HttpServletRequest נתמך</resource>
 <!-- ONLY_HTTPSERVLETRESPONSE_SUPPORTED -->

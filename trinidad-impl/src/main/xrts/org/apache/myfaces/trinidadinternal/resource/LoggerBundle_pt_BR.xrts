@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Não foi possível carregar {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Não foi possível instanciar UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Não foi possível fazer upload do arquivo porque ele é muito grande.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad está executando em modo de depuração. Não use em um ambiente de produção. Consulte:{0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->

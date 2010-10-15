@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Kunne ikke indlæse {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Kunne ikke instantiere UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Filen kunne ikke uploades, fordi den er for stor.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad kører i debug-tilstand. Må ikke bruges i et produktionsmiljø. Se: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->

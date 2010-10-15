@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">URL-osoitetta {0} ei voi ladata</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">UploadedFileProcessor-instanssia ei voi luoda</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Tiedostoa ei voi avata, koska se on liian suuri.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad on käynnissä virheenetsintätilassa. Ei saa käyttää tuotantoympäristössä. Katso: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->

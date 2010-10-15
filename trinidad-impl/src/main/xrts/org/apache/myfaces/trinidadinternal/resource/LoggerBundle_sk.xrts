@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Nepodarilo sa zaviesť {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Nepodarilo sa vytvoriť inštanciu UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Súbor sa nepodarilo odovzdať, pretože je príliš veľký.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Aplikácia Trinidad je spustená v režime ladenia. Túto funkciu nepoužívajte v produkčnom prostredí. Pozrite si: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -478,9 +480,9 @@
 <!-- PROBLEM_LOADING -->
 <resource key="PROBLEM_LOADING" dnt="false">Problém pri zavádzaní...</resource>
 <!-- GRABBING_PIXELS -->
-<resource key="GRABBING_PIXELS" dnt="false">Počas obsadzovania zobrazovacích bodov:</resource>
+<resource key="GRABBING_PIXELS" dnt="false">Počas obsadzovania pixelov:</resource>
 <!-- ERROR_FETCHING_IMAGE -->
-<resource key="ERROR_FETCHING_IMAGE" dnt="false">Chyba pri vyvolávaní obrázka. Obsadili sa {0} hodnoty zobrazovacích bodov obrázka {1} x {2}.</resource>
+<resource key="ERROR_FETCHING_IMAGE" dnt="false">Chyba pri vyvolávaní obrázka. Obsadili sa {0} hodnoty pixelov obrázka {1} x {2}.</resource>
 <!-- EXCEEDED_GIF_COLOR_LIMIT -->
 <resource key="EXCEEDED_GIF_COLOR_LIMIT" dnt="false">Obmedzenie počtu farieb obrázka gif bolo prekročené.</resource>
 <!-- NO_SPACE_LEFT_FOR_TRANSPARENCY -->

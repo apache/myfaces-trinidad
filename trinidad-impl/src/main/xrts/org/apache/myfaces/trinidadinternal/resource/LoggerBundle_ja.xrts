@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">{0}をロードできませんでした</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">UploadedFileProcessorをインスタンス化できませんでした</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">ファイルが大きすぎるためアップロードできませんでした。</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidadがデバッグ・モードで実行中です。本番環境では使用しないでください。参照:{0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -198,7 +200,7 @@
 <!-- CANNOT_GET_STYLESHEET_CACHE -->
 <resource key="CANNOT_GET_STYLESHEET_CACHE" dnt="false">スタイルシート・キャッシュを取得できませんでした</resource>
 <!-- MODEL_NOT_SPECIFIED_FOR_CHART_COMPONENT -->
-<resource key="MODEL_NOT_SPECIFIED_FOR_CHART_COMPONENT" dnt="false">グラフ・コンポーネント用のモデルが指定されていません。</resource>
+<resource key="MODEL_NOT_SPECIFIED_FOR_CHART_COMPONENT" dnt="false">チャート・コンポーネント用のモデルが指定されていません。</resource>
 <!-- TRAIN_MUST_INSIDE_FORM -->
 <resource key="TRAIN_MUST_INSIDE_FORM" dnt="false">トレインはフォーム内で使用する必要があります</resource>
 <!-- NODESTAMP_FACET_NOT_FOUND_FOR_TRAIN -->
