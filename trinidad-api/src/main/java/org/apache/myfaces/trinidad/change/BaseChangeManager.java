@@ -55,7 +55,7 @@ abstract class BaseChangeManager extends ChangeManager
     UIComponent root = facesContext.getViewRoot();
     while (parent != root) 
     {
-      if (parent instanceof UIXIterator) 
+      if (parent.getClass() == UIXIterator.class) 
       {
         _LOG.info("DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR");      
         return;
