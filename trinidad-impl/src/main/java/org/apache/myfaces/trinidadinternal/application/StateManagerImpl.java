@@ -326,11 +326,13 @@ public class StateManagerImpl extends StateManagerWrapper
       if (applicationViewCache == null)
       {
         assert(!dontSave);
-        TokenCache cache = _getViewCache(context);
+        
+        RequestContext trinContext = RequestContext.getCurrentInstance();
+
+        TokenCache cache = _getViewCache(trinContext, extContext);
         assert(cache != null);
 
         Map<String, Object> sessionMap  = extContext.getSessionMap();
-        RequestContext      trinContext = RequestContext.getCurrentInstance();
 
         // get view cache key with "." separator suffix to separate the SubKeyMap keys
         String subkey = _getViewCacheKey(extContext, trinContext, _SUBKEY_SEPARATOR);
@@ -599,10 +601,10 @@ public class StateManagerImpl extends StateManagerWrapper
       }
       else
       {
+        RequestContext trinContext = RequestContext.getCurrentInstance();
+
         // get view cache key with "." separator suffix to separate the SubKeyMap keys
-        String subkey = _getViewCacheKey(extContext,
-                                         RequestContext.getCurrentInstance(),
-                                         _SUBKEY_SEPARATOR);
+        String subkey = _getViewCacheKey(extContext, trinContext, _SUBKEY_SEPARATOR);
 
         Map<String, PageState> stateMap = new SubKeyMap<PageState>(
                          extContext.getSessionMap(),
@@ -619,8 +621,7 @@ public class StateManagerImpl extends StateManagerWrapper
         // token cache here, not just inside the assert.  If we don't,
         // then we don't actually access the token, so it doesn't
         // get bumped up to the front in the LRU Cache!
-        boolean isAvailable =
-          _getViewCache(context).isAvailable((String) token);
+        boolean isAvailable = _getViewCache(trinContext, extContext).isAvailable((String) token);
         assert ((viewState != null) == isAvailable);
       }
 
@@ -763,20 +764,18 @@ public class StateManagerImpl extends StateManagerWrapper
     throw new UnsupportedOperationException();
   }
 
-
-  private TokenCache _getViewCache(FacesContext context)
+  /**
+   * Returns the TokenCache for the current window
+   * @param trinContext
+   * @param extContext
+   * @return
+   */
+  private TokenCache _getViewCache(RequestContext trinContext, ExternalContext extContext)
   {
-    ExternalContext extContext = context.getExternalContext();
-
-    return TokenCache.getTokenCacheFromSession(context,
-                                               _getViewCacheKey(extContext,
-                                                                RequestContext.getCurrentInstance(),
-                                                                null),
-                                               true,
-                                               _getCacheSize(extContext));
+    String cacheKey = _getViewCacheKey(extContext, trinContext, null);
+    
+    return TokenCache.getTokenCacheFromSession(extContext,cacheKey, true,_getCacheSize(extContext));
   }
-
-
 
   /**
    * Returns a key suitable for finding the per-window active page state key
