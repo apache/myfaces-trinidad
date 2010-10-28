@@ -57,6 +57,7 @@ public final class StateUtils
     boolean checkComponentTreeStateSerialization = false;
     boolean checkSessionSerialization = false;
     boolean checkApplicationSerialization = false;
+    boolean checkMangedBeanMutation = false;
 
     String checkSerializationProperty;
 
@@ -90,6 +91,7 @@ public final class StateUtils
           checkComponentTreeStateSerialization = true;
           checkSessionSerialization = true;
           checkApplicationSerialization = true;
+          checkMangedBeanMutation = true;
         }
         else
         {
@@ -98,6 +100,7 @@ public final class StateUtils
           checkComponentTreeStateSerialization = serializationFlags.contains("TREE");       
           checkSessionSerialization = serializationFlags.contains("SESSION");
           checkApplicationSerialization = serializationFlags.contains("APPLICATION");
+          checkMangedBeanMutation = serializationFlags.contains("BEANS");
         }
       }
     }
@@ -107,6 +110,7 @@ public final class StateUtils
     _CHECK_COMPONENT_TREE_STATE_SERIALIZATION = checkComponentTreeStateSerialization;
     _CHECK_SESSION_SERIALIZATION = checkSessionSerialization;
     _CHECK_APPLICATION_SERIALIZATION = checkApplicationSerialization;
+    _CHECK_MANAGED_BEAN_MUTATATION = checkMangedBeanMutation;
   }
 
   private static final boolean _CHECK_COMPONENT_TREE_STATE_SERIALIZATION;
@@ -114,6 +118,7 @@ public final class StateUtils
   private static final boolean _CHECK_PROPERTY_STATE_SERIALIZATION;
   private static final boolean _CHECK_SESSION_SERIALIZATION;
   private static final boolean _CHECK_APPLICATION_SERIALIZATION;
+  private static final boolean _CHECK_MANAGED_BEAN_MUTATATION;
 
   /**
    * Returns <code>true</code> if properties should be checked for
@@ -200,6 +205,7 @@ public final class StateUtils
    * @see #checkComponentStateSerialization
    * @see #checkComponentTreeStateSerialization
    * @see #checkApplicationSerialization
+   * @see #checkManagedBeanMutation
    */
   public static boolean checkSessionSerialization(ExternalContext extContext)
   {
@@ -222,12 +228,29 @@ public final class StateUtils
    * @see #checkComponentStateSerialization
    * @see #checkComponentTreeStateSerialization
    * @see #checkSessionSerialization
+   * @see #checkManagedBeanMutation
    */
   public static boolean checkApplicationSerialization(ExternalContext extContext)
   {
     return _CHECK_APPLICATION_SERIALIZATION;
   }
 
+  /**
+   * Returns <code>true</code> if the attributes of the session and application Maps should be
+   * checked for cases where the attribute was mutated but not dirtied for failover.  If
+   * <code>checkSessionSerialization</code> returns <code>true</code>, the contents of the
+   * Session should be checked.  If <code>checkApplicationSerialization</code> returns
+   * <code>true</code>, the Serializable content of the Application should be checked.
+   * @return true if the contents of scopes should be checked for mutation without dirtying.
+   * @see #checkApplicationSerialization
+   * @see #checkSessionSerialization
+   */
+  public static boolean checkManagedBeanMutation(ExternalContext extContext)
+  {
+    return _CHECK_MANAGED_BEAN_MUTATATION;
+  }
+  
+    
   /**
    * Persists a property key.
    */
@@ -590,7 +613,4 @@ public final class StateUtils
 
 
 }
-
-
-
 

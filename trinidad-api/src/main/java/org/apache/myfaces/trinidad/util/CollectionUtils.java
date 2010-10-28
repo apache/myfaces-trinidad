@@ -1720,7 +1720,7 @@ public final class CollectionUtils
                                                      e);
         }
       }
-      else
+      else if (value != null)
       {
         if (_requireSerializable)
         {
