@@ -60,6 +60,11 @@ public interface Agent
    * Constant for Phone sized devices
    */
   public static final Object TYPE_PHONE = "phone";
+  
+  /**
+   * Constant for Web Crawlers
+   */
+  public static final Object TYPE_WEBCRAWLER = "webcrawler";
 
   /**
    * Constant for unknown platform
@@ -183,6 +188,16 @@ public interface Agent
    * Constant for basic HTML (without JavaScript) Browser agent.
    */
   public static final String AGENT_GENERICPDA = "genericpda";
+  
+  /**
+   * Constant for MSN web crawler (currently used by Bing and Yahoo)
+   */
+  public static final String AGENT_MSNBOT = "msnbot";
+  
+  /**
+   * Constant for Google web crawler
+   */
+  public static final String AGENT_GOOGLEBOT = "googlebot";
 
   /**
    * Constant for unknown Agent version
