@@ -115,6 +115,28 @@ public class AgentFactoryImpl implements AgentFactory
       _populateUnknownAgentImpl(null, agent);
       return;
     }
+    
+    // Temporary for testing !!!
+    if (facesContext != null && facesContext.getExternalContext().getRequestParameterMap().
+                        get("googlebot") != null)
+    {
+      _populateGoogleCrawlerAgentImpl("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)", agent, 25);
+      return;
+    }
+    
+    int googlebotIndex = userAgent.indexOf(_GOOGLEBOT_ID);
+    if (googlebotIndex >= 0)
+    {
+      _populateGoogleCrawlerAgentImpl(userAgent, agent, googlebotIndex);
+      return;
+    }
+    
+    if (userAgent.startsWith(_MSNBOT_ID))
+    {
+      _populateMsnCrawlerAgentImpl(userAgent, agent);
+      return;
+    }
+    
 
     //the useragent string for telnet and PDA design time will start with
     //OracleJDevMobile because in each of these cases we know we have an
@@ -932,6 +954,37 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
 
   }
+  
+  /**
+   * Returns an AgentEntry for the Google web crawler
+   */
+  private void _populateGoogleCrawlerAgentImpl(String userAgent, AgentImpl agentObj, int idIndex)
+  {
+    agentObj.setType(Agent.TYPE_WEBCRAWLER);
+
+    agentObj.setAgent(Agent.AGENT_GOOGLEBOT);
+    agentObj.setAgentVersion(_getVersion(userAgent, idIndex + _GOOGLEBOT_ID.length()));
+    agentObj.setPlatform(Agent.PLATFORM_UNKNOWN);
+    agentObj.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
+    agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
+
+  }
+  
+  
+  /**
+   * Returns an AgentEntry for the msnbot (Bing, Yahoo) web crawler
+   */
+  private void _populateMsnCrawlerAgentImpl(String userAgent, AgentImpl agentObj)
+  {
+    agentObj.setType(Agent.TYPE_WEBCRAWLER);
+
+    agentObj.setAgent(Agent.AGENT_MSNBOT);
+    agentObj.setAgentVersion(_getVersion(userAgent, userAgent.indexOf('/')));
+    agentObj.setPlatform(Agent.PLATFORM_UNKNOWN);
+    agentObj.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
+    agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
+
+  }
 
 
   /**
@@ -995,4 +1048,6 @@ public class AgentFactoryImpl implements AgentFactory
   static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";
   static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentFactoryImpl.class);
 
+  static final private String _GOOGLEBOT_ID = "Googlebot";
+  static final private String _MSNBOT_ID = "msnbot";
 }
