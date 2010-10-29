@@ -106,6 +106,11 @@ public class AgentNameUtil
     {
       return TrinidadAgent.TYPE_PHONE;
     }
+    
+    if (otype == Agent.TYPE_WEBCRAWLER)
+    {
+      return TrinidadAgent.TYPE_WEBCRAWLER;
+    }
 
     //Default to desktop (This is UIX 2.2 logic)
     return TrinidadAgent.TYPE_DESKTOP;

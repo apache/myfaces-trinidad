@@ -82,8 +82,8 @@ public class PdaHtmlLafUtils extends XhtmlLafUtils
 
   private static final NameAndAgentScorer _SCORER =
     new NameAndAgentScorer(null,
-                           TrinidadAgent.TYPE_PDA,
                            null,
                            null,
-                           null);
+                           null,
+                           TrinidadAgent.TYPE_PDA);
 }
