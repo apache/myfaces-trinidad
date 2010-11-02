@@ -424,13 +424,18 @@ public class SessionChangeManager extends BaseChangeManager
   /**
    * Is the state restored by JSF state manager in this request. This is usually true if this is a
    *  postback request. Additionally check if the document tag created a document component, because
-   *  if this is the case, we are sure that there was no state restoration.
+   *  if this is the case, we are sure that there was no state restoration. 
    */
   private boolean _isStateRestored(FacesContext facesContext)
   {
-    boolean docCompCreated = Boolean.TRUE.equals(facesContext.getExternalContext().
-                                   getRequestMap().get(UIXComponentELTag.DOCUMENT_CREATED_KEY));
-    return (docCompCreated) ? false : RequestContext.getCurrentInstance().isPostback();
+    /*
+     * We will always return false for now. The reason is, if the page has a included fragment,
+     * and the fragment gets replaced during ppr, the changes inside the region will be lost.
+     */
+    return false;
+    //boolean docCompCreated = Boolean.TRUE.equals(facesContext.getExternalContext().
+    //                               getRequestMap().get(UIXComponentELTag.DOCUMENT_CREATED_KEY));
+    //return (docCompCreated) ? false : RequestContext.getCurrentInstance().isPostback();
   }  
 
   /**
