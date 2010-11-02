@@ -52,6 +52,7 @@
     <!--jsf-facelets.version>1.1.14</jsf-facelets.version-->
     <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
+    <commons-io.version>2.0</commons-io.version>
     <pluto-embedded.version>1.0.1</pluto-embedded.version>
     
     <!-- Testing -->
@@ -279,6 +280,12 @@
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
         <version>${commons-lang.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
       </dependency>
 
       <dependency>
