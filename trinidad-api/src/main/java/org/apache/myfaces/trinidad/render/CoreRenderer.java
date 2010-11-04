@@ -396,25 +396,8 @@ public class CoreRenderer extends Renderer
     UIComponent  child) throws IOException
   {
     assert(child.isRendered());
-    child.encodeBegin(context);
-    if (child.getRendersChildren())
-    {
-      child.encodeChildren(context);
-    }
-    else
-    {
-      if (child.getChildCount() > 0)
-      {
-        for(UIComponent subChild : (List<UIComponent>)child.getChildren())
-        {
-          RenderUtils.encodeRecursive(context, subChild);
-        }
-      }
-    }
-
-    child.encodeEnd(context);
+    child.encodeAll(context);
   }
-
 
   @SuppressWarnings("unchecked")
   protected void encodeAllChildren(
@@ -684,9 +667,9 @@ public class CoreRenderer extends Renderer
   {
     return (Agent.PLATFORM_GENERICPDA.equals(rc.getAgent().getPlatformName()));
   }
-  
+
   /**
-   * This method returns true if a user-agent's platform is NokiaS60 
+   * This method returns true if a user-agent's platform is NokiaS60
    * @param arc - RenderingContext of a request
    * @return boolean
    */

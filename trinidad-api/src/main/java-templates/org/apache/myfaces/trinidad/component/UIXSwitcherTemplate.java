@@ -109,7 +109,9 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
   {
     UIComponent facet = _getFacet();
     if (facet != null)
-      __encodeRecursive(context, facet);
+    {
+      facet.encodeAll(context);
+  }
   }
 
 

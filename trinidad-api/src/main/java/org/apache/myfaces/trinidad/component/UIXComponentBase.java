@@ -767,24 +767,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-  /**
-   * Encodes a component and all of its children, whether
-   * getRendersChildren() is true or false.  When rendersChildren
-   * is false, each child whose "rendered" property is true
-   * will be sequentially rendered;  facets will be ignored.
-   */
-  @Override
-  public void encodeAll(FacesContext context) throws IOException
-  {
-    if (context == null)
-      throw new NullPointerException();
-
-    // This code ends up calling isRendered() once overall,
-    // plus up to three times more for encodeBegin(),
-    // encodeChildren(), and encodeEnd().
-    __encodeRecursive(context, this);
-  }
-
   @Override
   public void queueEvent(FacesEvent event)
   {
@@ -1490,30 +1472,13 @@ abstract public class UIXComponentBase extends UIXComponent
   /**
    * render a component. this is called by renderers whose
    * getRendersChildren() return true.
+   * @deprecated {@link UIComponent#encodeAll(FacesContext)} should be used instead of this method
    */
+  @Deprecated
   void __encodeRecursive(FacesContext context, UIComponent component)
     throws IOException
   {
-    if (component.isRendered())
-    {
-      component.encodeBegin(context);
-      if (component.getRendersChildren())
-      {
-        component.encodeChildren(context);
-      }
-      else
-      {
-        if (component.getChildCount() > 0)
-        {
-          for(UIComponent child : component.getChildren())
-          {
-            __encodeRecursive(context, child);
-          }
-        }
-      }
-
-      component.encodeEnd(context);
-    }
+    component.encodeAll(context);
   }
 
 
