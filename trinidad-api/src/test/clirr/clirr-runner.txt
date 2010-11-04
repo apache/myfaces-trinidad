@@ -15,7 +15,6 @@ INFO: 7011: org.apache.myfaces.trinidad.bean.util.PropertyArrayMap: Method 'publ
 INFO: 7011: org.apache.myfaces.trinidad.bean.util.PropertyArrayMap: Method 'public boolean initialStateMarked()' has been added
 INFO: 7011: org.apache.myfaces.trinidad.bean.util.PropertyHashMap: Method 'public void clearInitialState()' has been added
 INFO: 7011: org.apache.myfaces.trinidad.bean.util.PropertyHashMap: Method 'public boolean initialStateMarked()' has been added
-INFO: 7011: org.apache.myfaces.trinidad.bean.util.StateUtils: Method 'public boolean checkManagedBeanMutation(javax.faces.context.ExternalContext)' has been added
 INFO: 7011: org.apache.myfaces.trinidad.bean.util.ValueMap: Method 'public boolean containsKey(java.lang.Object)' has been added
 INFO: 7011: org.apache.myfaces.trinidad.change.AttributeComponentChange: Method 'public boolean equals(java.lang.Object)' has been added
 INFO: 7011: org.apache.myfaces.trinidad.change.AttributeComponentChange: Method 'public int hashCode()' has been added
