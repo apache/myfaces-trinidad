@@ -30,7 +30,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.component.StateHolder;
@@ -65,7 +64,7 @@ public final class StateUtils
     // we wrap the check in a try/catch in case of weird ecurity managers
     try
     {
-      checkSerializationProperty = 
+      checkSerializationProperty =
                        System.getProperty("org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION");
     }
     catch (Throwable t)
@@ -76,12 +75,12 @@ public final class StateUtils
     if (checkSerializationProperty != null)
     {
       checkSerializationProperty = checkSerializationProperty.toUpperCase();
-      
+
       // comma-separated list with allowed whitespace
       String[] paramArray = checkSerializationProperty.split(",");
-      
+
       Set<String> serializationFlags = new HashSet<String>(Arrays.asList(paramArray));
-      
+
       if (!serializationFlags.contains("NONE"))
       {
         if (serializationFlags.contains("ALL"))
@@ -97,7 +96,7 @@ public final class StateUtils
         {
           checkPropertyStateSerialization = serializationFlags.contains("PROPERTY");
           checkComponentStateSerialization = serializationFlags.contains("COMPONENT");
-          checkComponentTreeStateSerialization = serializationFlags.contains("TREE");       
+          checkComponentTreeStateSerialization = serializationFlags.contains("TREE");
           checkSessionSerialization = serializationFlags.contains("SESSION");
           checkApplicationSerialization = serializationFlags.contains("APPLICATION");
           checkMangedBeanMutation = serializationFlags.contains("BEANS");
@@ -179,7 +178,7 @@ public final class StateUtils
    * check for serializability when testing applications.  While component
    * tree state serializability checking isn't cheap, it is much faster to
    * initially only enable checking of the component tree and then switch
-   * to <code>all</code> testing to determine the problem component and 
+   * to <code>all</code> testing to determine the problem component and
    * property when the component tree testing determines a problem.
    * @return
    * @see #checkComponentStateSerialization
@@ -249,8 +248,8 @@ public final class StateUtils
   {
     return _CHECK_MANAGED_BEAN_MUTATATION;
   }
-  
-    
+
+
   /**
    * Persists a property key.
    */
@@ -308,7 +307,13 @@ public final class StateUtils
     {
       PropertyKey key = entry.getKey();
       if (key.isTransient())
+      {
+        // TRINIDAD-1956: due to the view root caching functionality, the transient properties
+        // may be retained too long. By removing the value here we can ensure that the next
+        // request will not have the transient values.
+        entry.setValue(null);
         continue;
+      }
 
       Object value = entry.getValue();
 
@@ -319,7 +324,7 @@ public final class StateUtils
       }
 
       Object saveValue;
-      
+
       if (useStateHolder)
         saveValue = saveStateHolder(context, value);
       else
@@ -333,15 +338,15 @@ public final class StateUtils
           new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(saveValue);
         }
         catch (IOException e)
-        {          
+        {
           throw new RuntimeException(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_VALUE",
                                                      new Object[]{saveValue, key, map}),
                                      e);
         }
       }
-      
+
       values[i + 1] = saveValue;
-      
+
       i+=2;
     }
 
@@ -514,26 +519,26 @@ public final class StateUtils
       // we don't need to use concurrent map methods like putIfAbsent. If someone happens to
       // add a name/value pair again it's fine because as the doc for put in HashMap says
       // "If the map previously contained a mapping for this key, the old value is replaced."
-      ConcurrentMap<String, Object> appMap = 
+      ConcurrentMap<String, Object> appMap =
                            RequestContext.getCurrentInstance().getApplicationScopedConcurrentMap();
-      
+
 
       Map<String, Class> classMap = (Map<String, Class>) appMap.get(_CLASS_MAP_KEY);
-      
+
       if (classMap == null)
-      {    
-        // the classMap doesn't need to worry about synchronization, 
-        // if the Class is loaded twice that's fine. 
+      {
+        // the classMap doesn't need to worry about synchronization,
+        // if the Class is loaded twice that's fine.
         Map<String, Class> newClassMap = new HashMap<String, Class>();
-        Map<String, Class> oldClassMap = 
+        Map<String, Class> oldClassMap =
                               (Map<String, Class>) appMap.putIfAbsent(_CLASS_MAP_KEY, newClassMap);
-        
+
         if (oldClassMap != null)
           classMap = oldClassMap;
         else
           classMap = newClassMap;
       }
-            
+
       Class clazz = classMap.get(_name);
 
       if (clazz == null)
@@ -608,7 +613,7 @@ public final class StateUtils
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StateUtils.class);
 
-  private static final String _CLASS_MAP_KEY = 
+  private static final String _CLASS_MAP_KEY =
                                            "org.apache.myfaces.trinidad.bean.util.CLASS_MAP_KEY";
 
 
