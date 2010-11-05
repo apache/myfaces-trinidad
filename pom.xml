@@ -160,6 +160,10 @@
   </repositories>
 
   <pluginRepositories>
+    <!--
+        We need this in HERE, since our plugins are a separate project.
+        It would be awful to have that setting in the myfaces-pom.
+    -->
     <pluginRepository>
       <id>apache.snapshots</id>
       <name>Apache Snapshot Repository</name>
