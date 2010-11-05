@@ -144,30 +144,32 @@
   </scm>
 
   <repositories>
-    <!--Fixme: This repository is pretty bad.  We should move require artifacts to repo1. -->
+    <!-- needed for Bean Validation API -->
     <repository>
-      <id>java.net</id>
-      <url>http://download.java.net/maven/1</url>
-      <layout>legacy</layout>
+      <id>jboss</id>
+      <name>jboss nexus</name>
+      <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
     </repository>
+    <!-- Needed for Mojarra -->
     <repository>
       <id>maven2-repository.dev.java.net</id>
       <name>Java.net Repository for Maven</name>
       <url>http://download.java.net/maven/2/</url>
-      <layout>default</layout>
-    </repository>
-    <repository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
     </repository>
   </repositories>
 
   <pluginRepositories>
+    <!--
+        We need this in HERE, since our plugins are a separate project.
+        It would be awful to have that setting in the myfaces-pom.
+    -->
     <pluginRepository>
       <id>apache.snapshots</id>
       <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+      <url>http://repository.apache.org/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
     </pluginRepository>
   </pluginRepositories>
 
