@@ -1027,6 +1027,12 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
       return null;
     }
 
+    @Override
+    protected boolean getRequired(FacesBean bean) {
+        // Required has already been handled in parent component.
+        return false;
+    }
+
     private boolean _isLeading;
   }
   
