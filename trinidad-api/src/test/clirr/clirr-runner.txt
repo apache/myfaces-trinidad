@@ -1282,6 +1282,7 @@ ERROR: 7006: org.apache.myfaces.trinidad.context.RequestContext: Return type of 
 INFO: 7007: org.apache.myfaces.trinidad.context.RequestContext: Method 'public org.apache.myfaces.trinidad.component.visit.VisitContext createVisitContext(javax.faces.context.FacesContext, java.util.Collection, java.util.Set, javax.faces.event.PhaseId)' has been deprecated
 ERROR: 7014: org.apache.myfaces.trinidad.context.RequestContext: Method 'public org.apache.myfaces.trinidad.component.visit.VisitContext createVisitContext(javax.faces.context.FacesContext, java.util.Collection, java.util.Set, javax.faces.event.PhaseId)' is now final
 INFO: 7011: org.apache.myfaces.trinidad.context.RequestContext: Method 'public org.apache.myfaces.trinidad.context.ComponentContextManager getComponentContextManager()' has been added
+INFO: 7011: org.apache.myfaces.trinidad.context.RequestContext: Method 'public java.lang.String getSkinVersion()' has been added
 INFO: 7011: org.apache.myfaces.trinidad.context.RequestContext: Method 'public java.util.Map getWindowMap()' has been added
 INFO: 8000: org.apache.myfaces.trinidad.context.SuspendCallback: Class org.apache.myfaces.trinidad.context.SuspendCallback added
 INFO: 8000: org.apache.myfaces.trinidad.context.SuspendCallback$SuspendResult: Class org.apache.myfaces.trinidad.context.SuspendCallback$SuspendResult added
@@ -1327,6 +1328,9 @@ ERROR: 7006: org.apache.myfaces.trinidad.render.CoreRenderer: Return type of met
 ERROR: 7005: org.apache.myfaces.trinidad.render.CoreRenderer: Parameter 2 of 'public boolean visitChildrenForEncoding(org.apache.myfaces.trinidad.component.UIXComponent, org.apache.myfaces.trinidad.component.visit.VisitContext, org.apache.myfaces.trinidad.component.visit.VisitCallback)' has changed its type to javax.faces.component.visit.VisitContext
 ERROR: 7005: org.apache.myfaces.trinidad.render.CoreRenderer: Parameter 3 of 'public boolean visitChildrenForEncoding(org.apache.myfaces.trinidad.component.UIXComponent, org.apache.myfaces.trinidad.component.visit.VisitContext, org.apache.myfaces.trinidad.component.visit.VisitCallback)' has changed its type to javax.faces.component.visit.VisitCallback
 INFO: 8000: org.apache.myfaces.trinidad.resource.SkinResourceLoader: Class org.apache.myfaces.trinidad.resource.SkinResourceLoader added
+INFO: 7011: org.apache.myfaces.trinidad.skin.Skin: Method 'public org.apache.myfaces.trinidad.skin.SkinVersion getVersion()' has been added
+ERROR: 7013: org.apache.myfaces.trinidad.skin.SkinFactory: Abstract method 'public org.apache.myfaces.trinidad.skin.Skin getSkin(javax.faces.context.FacesContext, java.lang.String, java.lang.String, java.lang.String)' has been added
+INFO: 8000: org.apache.myfaces.trinidad.skin.SkinVersion: Class org.apache.myfaces.trinidad.skin.SkinVersion added
 INFO: 4000: org.apache.myfaces.trinidad.validator.DoubleRangeValidator: Added javax.faces.component.PartialStateHolder to the set of implemented interfaces
 INFO: 4000: org.apache.myfaces.trinidad.validator.LengthValidator: Added javax.faces.component.PartialStateHolder to the set of implemented interfaces
 INFO: 4000: org.apache.myfaces.trinidad.validator.LongRangeValidator: Added javax.faces.component.PartialStateHolder to the set of implemented interfaces

@@ -48,6 +48,7 @@ import org.apache.myfaces.trinidad.share.io.NameResolver;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
+import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.config.LazyValueExpression;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimpleDesktopSkin;
@@ -75,6 +76,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.parse.XMLConstants;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinAdditionNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinNode;
+import org.apache.myfaces.trinidadinternal.skin.parse.SkinVersionNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinsNode;
 
 /**
@@ -289,6 +291,7 @@ public class SkinUtils
     // Register skin node factory and skin addition node factory
     _registerFactory(manager, SkinNode.class, "SkinNode");
     _registerFactory(manager, SkinAdditionNode.class, "SkinAdditionNode");
+    _registerFactory(manager, SkinVersionNode.class, "SkinVersionNode");
 
     return manager;
   }
@@ -592,6 +595,9 @@ public class SkinUtils
     String bundleName = skinNode.getBundleName();
     String translationSourceExpression = 
       skinNode.getTranslationSourceExpression();
+    SkinVersionNode skinVersionNode = skinNode.getSkinVersionNode();
+    
+    SkinVersion skinVersion = _createSkinVersion(skinVersionNode);
     
     if (renderKitId == null)
       renderKitId = _RENDER_KIT_ID_DESKTOP;
@@ -639,7 +645,8 @@ public class SkinUtils
                                family,
                                renderKitId,
                                styleSheetName,
-                               bundleName);    
+                               bundleName,
+                               skinVersion);    
     }
     else
     {
@@ -657,7 +664,8 @@ public class SkinUtils
                                  family,
                                  renderKitId,
                                  styleSheetName,
-                                 translationSourceVE);         
+                                 translationSourceVE,
+                                 skinVersion);         
       }
       else
       {
@@ -665,7 +673,8 @@ public class SkinUtils
                                  id,
                                  family,
                                  renderKitId,
-                                 styleSheetName);         
+                                 styleSheetName,
+                                 skinVersion);         
       }
 
     }
@@ -689,6 +698,18 @@ public class SkinUtils
       else
         return null;
 
+  }
+  
+  private static SkinVersion _createSkinVersion(SkinVersionNode skinVersionNode)
+  {
+    if (skinVersionNode != null)
+    {
+      String name = skinVersionNode.getName();
+      boolean isDefault = skinVersionNode.isDefault();
+      return new SkinVersionImpl(name, isDefault);
+    }
+    else
+      return null;
   }
   
   /**

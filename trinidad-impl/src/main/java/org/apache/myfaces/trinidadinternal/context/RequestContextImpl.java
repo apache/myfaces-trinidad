@@ -275,6 +275,12 @@ public class RequestContextImpl extends RequestContext
   {
     return (String) _bean.getProperty(RequestContextBean.SKIN_FAMILY_KEY);
   }
+  
+  @Override
+  public String getSkinVersion()
+  {
+    return (String) _bean.getProperty(RequestContextBean.SKIN_VERSION_KEY);
+  } 
 
   @Override
   public Accessibility getAccessibilityMode()

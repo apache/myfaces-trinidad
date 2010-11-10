@@ -87,11 +87,28 @@ output mode used by Apache MyFaces Trinidad.
         <element name="skin-family" minOccurs="0" maxOccurs="1"
                  type="config:stringExpressionType">
           <annotation>
-            <documentation>The &lt;skin-family&gt; element controls the skin used for output.
+            <documentation>The &lt;skin-family&gt; element is used to pick a skin during render.
+            The skin picking logic looks at the skin-family and finds a skin that matches that
+            skin-family. This element is required to get a skin that isn't the simple skin.
+            You can optionally add the skin-version to pick a particular version of a skin
+            with the same skin-family.
             </documentation>
           </annotation>
         </element>
 
+        <element name="skin-version" minOccurs="0" maxOccurs="1"
+                 type="config:stringExpressionType">
+          <annotation>
+            <documentation>The &lt;skin-version&gt; element is used to pick a skin during render.
+            A skin is picked by matching the skin-family (required), and if specified here, the
+            skin-version. If you want the skin that is marked default, you set the skin-version to
+            "default". If you want a skin with a specific version, then you set the version here. 
+            If you don't care about the version, or if your skin does not have a version, you leave
+            this blank.
+            </documentation>
+          </annotation>
+        </element>
+        
         <element name="accessibility-mode" minOccurs="0" maxOccurs="1"
                  type="config:accessibilityModeExpressionType">
           <annotation>
