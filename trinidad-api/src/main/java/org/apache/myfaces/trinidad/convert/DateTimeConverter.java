@@ -1736,43 +1736,52 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
         format = _getSimpleDateFormat(pattern, locale);
       }
 
-      if (format instanceof SimpleDateFormat && !forParsing)
+      if (format instanceof SimpleDateFormat)
       {
         SimpleDateFormat simpleFormat = (SimpleDateFormat)format;
-
-        // make sure that we have a 4 digit year for "shortish"
-        // dates
-        // DO NOT CHANGE THE FOLLOWING LINE to "dateStyle";  this
-        // must be retrieved from the instance variable!  (See above)
-        // and we need to apply shortish only if it is of date type or
-        // type is date and time.
-        if (null == pattern && "shortish".equals(getDateStyle()) )
-        {
-          int type = _getType(getType());
-          if (type == _TYPE_DATE || type == _TYPE_BOTH )
+        
+        if (!forParsing)
+        {  
+          // make sure that we have a 4 digit year for "shortish"
+          // dates
+          // DO NOT CHANGE THE FOLLOWING LINE to "dateStyle";  this
+          // must be retrieved from the instance variable!  (See above)
+          // and we need to apply shortish only if it is of date type or
+          // type is date and time.
+          if (null == pattern && "shortish".equals(getDateStyle()) )
           {
-            simpleFormat = _get4YearFormat(simpleFormat, locale);
-            format = simpleFormat;
+            int type = _getType(getType());
+        
+            if (type == _TYPE_DATE || type == _TYPE_BOTH )
+            {
+              simpleFormat = _get4YearFormat(simpleFormat, locale);
+              format = simpleFormat;
+            }
           }
-        }
-
-        Calendar cal;
-        RequestContext reqContext = RequestContext.getCurrentInstance();
-        if (reqContext == null)
-        {
-          cal = null;
-          if(_LOG.isWarning())
-          {
-            _LOG.warning("NO_REQUESTCONTEXT_TWO_DIGIT_YEAR_START_DEFAULT");
-          }
-        }
+        }//end-if for formatting
         else
         {
-          cal = new GregorianCalendar(reqContext.getTwoDigitYearStart(), 0, 0);
-        }
-        if (cal != null)
-          simpleFormat.set2DigitYearStart(cal.getTime());
-      }
+          Calendar cal;
+          RequestContext reqContext = RequestContext.getCurrentInstance();
+          
+          if (reqContext == null)
+          {
+            cal = null;
+        
+            if(_LOG.isWarning())
+            {
+              _LOG.warning("NO_REQUESTCONTEXT_TWO_DIGIT_YEAR_START_DEFAULT");
+            }
+          }
+          else
+          {
+            cal = new GregorianCalendar(reqContext.getTwoDigitYearStart(), 0, 0);
+          }
+          
+          if (cal != null)
+            simpleFormat.set2DigitYearStart(cal.getTime());
+        }//end-if for parsing
+      }//end-if using SimpleDateFormat
 
       // Bug 2002065
       format.setLenient(false);
