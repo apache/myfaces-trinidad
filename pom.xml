@@ -28,7 +28,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>9</version>
+    <version>6</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
@@ -147,6 +147,11 @@
   <repositories>
     <!-- needed for Bean Validation API -->
     <repository>
+      <id>apache.snapshots</id>
+      <name>Apache Snapshots</name>
+      <url>http://repository.apache.org/snapshots</url>
+    </repository>
+    <repository>
       <id>jboss</id>
       <name>jboss nexus</name>
       <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
@@ -156,6 +161,19 @@
       <id>maven2-repository.dev.java.net</id>
       <name>Java.net Repository for Maven</name>
       <url>http://download.java.net/maven/2/</url>
+    </repository>
+    <repository>
+      <!-- apache snapshot repository should be disabled... -->
+      <id>apache.snapshots.old</id>
+      <name>Apache Snapshot Repository</name>
+      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+        <updatePolicy>never</updatePolicy>
+      </snapshots>
     </repository>
   </repositories>
 
