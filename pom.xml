@@ -28,7 +28,6 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <!--update to version 9-->
     <version>6</version>
   </parent>
 
@@ -52,6 +51,7 @@
     <!--jsf-facelets.version>1.1.14</jsf-facelets.version-->
     <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
+    <commons-io.version>2.0</commons-io.version>
     <pluto-embedded.version>1.0.1</pluto-embedded.version>
     
     <!-- Testing -->
@@ -145,37 +145,50 @@
   </scm>
 
   <repositories>
-    <!--Fixme: This repository is pretty bad.  We should move require artifacts to repo1. -->
-    <repository>
-      <id>java.net</id>
-      <url>http://download.java.net/maven/1</url>
-      <layout>legacy</layout>
-    </repository>
-    <repository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-    </repository>
     <!-- needed for Bean Validation API -->
     <repository>
-      <id>jboss releases</id>
-      <name>JBoss Releases</name>
-      <url>http://repository.jboss.org/maven2/</url>
-      <layout>default</layout>
+      <id>apache.snapshots</id>
+      <name>Apache Snapshots</name>
+      <url>http://repository.apache.org/snapshots</url>
     </repository>
+    <repository>
+      <id>jboss</id>
+      <name>jboss nexus</name>
+      <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+    </repository>
+    <!-- Needed for Mojarra -->
     <repository>
       <id>maven2-repository.dev.java.net</id>
       <name>Java.net Repository for Maven</name>
       <url>http://download.java.net/maven/2/</url>
-      <layout>default</layout>
+    </repository>
+    <repository>
+      <!-- apache snapshot repository should be disabled... -->
+      <id>apache.snapshots.old</id>
+      <name>Apache Snapshot Repository</name>
+      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+        <updatePolicy>never</updatePolicy>
+      </snapshots>
     </repository>
   </repositories>
 
   <pluginRepositories>
+    <!--
+        We need this in HERE, since our plugins are a separate project.
+        It would be awful to have that setting in the myfaces-pom.
+    -->
     <pluginRepository>
       <id>apache.snapshots</id>
       <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+      <url>http://repository.apache.org/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
     </pluginRepository>
   </pluginRepositories>
 
@@ -279,6 +292,12 @@
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
         <version>${commons-lang.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
       </dependency>
 
       <dependency>

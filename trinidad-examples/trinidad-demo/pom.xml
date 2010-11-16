@@ -34,21 +34,21 @@
   <packaging>war</packaging>
   
   <dependencies>
-          <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>4.0.0.GA</version>
-          </dependency>
-          <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.4.2</version>
-          </dependency>
-          <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.4.2</version>
-          </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>4.0.0.GA</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.4.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.4.2</version>
+    </dependency>
 
     <dependency>
       <groupId>javax.mail</groupId>
@@ -101,17 +101,6 @@
   </dependencies>
 
 
-  <repositories>
-    <repository>
-      <id>Leo-stage</id>
-      <name>Apache Leo Incubator</name>
-      <url>http://people.apache.org/~lu4242/myfaces200beta/</url>
-      <layout>default</layout>
-    </repository>
-
-  </repositories>
-
-  
   <build>
     <plugins>
       <plugin>
@@ -343,15 +332,15 @@
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
             <version>${jsf-ri.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
           </dependency>
 
-          <dependency>
+          <!--dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <version>${jsf-ri.version}</version>
             <scope>runtime</scope>
-          </dependency>
+          </dependency-->
         </dependencies>
       </dependencyManagement>
       <build>
@@ -359,7 +348,7 @@
           <plugin>
             <groupId>org.glassfish</groupId>
             <artifactId>maven-embedded-glassfish-plugin</artifactId>
-            <version>3.0.1</version>
+            <version>3.1-SNAPSHOT</version>
             <configuration>
               <port>9090</port>
               <contextRoot>/</contextRoot>
@@ -375,6 +364,13 @@
         <url>http://download.java.net/maven/glassfish/</url>
       </pluginRepository>
     </pluginRepositories>
+      <repositories>
+      <!-- Repository for Embedded Glassfish plugin -->
+      <repository>
+        <id>glassfish-repository</id>
+        <url>http://download.java.net/maven/glassfish/</url>
+      </repository>
+    </repositories>
   </profile>
   </profiles>
 </project>

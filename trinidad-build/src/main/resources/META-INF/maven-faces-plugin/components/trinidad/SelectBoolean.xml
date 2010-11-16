@@ -33,7 +33,7 @@
     <property>
       <description><![CDATA[whether or not the component is
               currently selected.  This is a typesafe alias for the "value"
-              attribute.]]>
+              attribute. Note that "selected" and "value" attributes should not be used at the same time to avoid conflict.]]>
       </description>
       <property-name>selected</property-name>
       <property-class>boolean</property-class>

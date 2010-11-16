@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.Icon;
-
+import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
@@ -83,6 +83,19 @@ public class SkinExtension extends SkinImpl
     String resourceBundleName
     )
   {
+    this(baseSkin, id, family, renderKitId, styleSheetName, resourceBundleName, null);
+  }
+  
+  public SkinExtension(
+    Skin baseSkin,
+    String id,
+    String family,
+    String renderKitId,
+    String styleSheetName,
+    String resourceBundleName,
+    SkinVersion version
+    )
+  {
     if (baseSkin == null)
       throw new NullPointerException("Null baseSkin");
     if (id == null)
@@ -101,6 +114,7 @@ public class SkinExtension extends SkinImpl
     _styleSheetName = styleSheetName;
     _bundleName = resourceBundleName;
     _translationSourceVE = null;
+    _version = version;    
   }
   
   /**
@@ -144,6 +158,19 @@ public class SkinExtension extends SkinImpl
     ValueExpression translationSourceValueExpression
     )
   {
+    this(baseSkin, id, family, renderKitId, styleSheetName, translationSourceValueExpression, null);
+  }
+  
+  public SkinExtension(
+    Skin   baseSkin,
+    String id,
+    String family,
+    String renderKitId,
+    String styleSheetName,
+    ValueExpression translationSourceValueExpression,
+    SkinVersion version
+    )
+  {
     if (baseSkin == null)
       throw new NullPointerException("Null baseSkin");
     if (id == null)
@@ -161,7 +188,8 @@ public class SkinExtension extends SkinImpl
     _styleSheetName = styleSheetName;
     _bundleName = null;
     _translationSourceVE = translationSourceValueExpression;
-  }
+    _version = version;
+  }  
 
   
   /**
@@ -201,6 +229,21 @@ public class SkinExtension extends SkinImpl
     String styleSheetName
     )
   {
+    this(baseSkin, id, family, renderKitId, styleSheetName, (SkinVersion)null);
+  }
+  
+  /*
+   * SkinExtension without the resource bundle information, but with the version information.
+   */
+  public SkinExtension(
+    Skin baseSkin,
+    String id,
+    String family,
+    String renderKitId,
+    String styleSheetName,
+    SkinVersion version
+    )
+  {
     if (baseSkin == null)
       throw new NullPointerException("Null baseSkin");
     if (id == null)
@@ -218,7 +261,9 @@ public class SkinExtension extends SkinImpl
     _styleSheetName = styleSheetName;
     _bundleName = null;
     _translationSourceVE = null;
+    _version = version;
   }
+  
   /**
    * Creates a Skin which extends the specified base
    * Skin.
@@ -286,6 +331,15 @@ public class SkinExtension extends SkinImpl
     return _family;
   }
 
+  /**
+   * Returns the SkinVersion object
+   */
+  @Override
+  public SkinVersion getVersion()
+  {
+    return _version;
+  }
+  
   /**
    * Returns the name of the style sheet for this Skin if
    * one has been set
@@ -666,6 +720,7 @@ public class SkinExtension extends SkinImpl
   private String          _styleSheetName;
   private String          _bundleName;
   private ValueExpression _translationSourceVE;
+  private SkinVersion     _version;
 
 
 

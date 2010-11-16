@@ -258,6 +258,11 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    * Application constant for voice
    */
   static public final int TYPE_VOICE = 3;
+  
+  /**
+   * Application constant for web crawlers
+   */
+  static public final int TYPE_WEBCRAWLER = 4;
 
   /**
    * Enumeration representing an Application
@@ -336,7 +341,15 @@ public abstract class TrinidadAgent implements Agent, Cloneable
     /**
      * Application enum for opera.
      */
-    OPERA("opera", AGENT_OPERA);
+    OPERA("opera", AGENT_OPERA),
+    /**
+     * Application enum for Google web crawler.
+     */
+    GOOGLEBOT("googlebot", AGENT_GOOGLEBOT),
+    /**
+     * Application enum for Bing web crawler.
+     */
+    MSNBOT("msnbot", AGENT_MSNBOT);
 
     /**
      * Return the appropriate Application instance given the name of an Application
@@ -523,6 +536,16 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    * Application constant for opera.
    */
   static public final int APPLICATION_OPERA = Application.OPERA.ordinal();
+  
+  /**
+   * Application constant for Google web crawler.
+   */
+  static public final int APPLICATION_GOOGLEBOT = Application.GOOGLEBOT.ordinal();
+  
+  /**
+   * Application constant for Bing web crawler.
+   */
+  static public final int APPLICATION_MSNBOT = Application.MSNBOT.ordinal();
   
   /**
    * OS constant for an unknown operating system.

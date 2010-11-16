@@ -440,9 +440,14 @@ public class SessionChangeManager extends BaseChangeManager
    */
   private boolean _isStateRestored(FacesContext facesContext)
   {
-    boolean docCompCreated = Boolean.TRUE.equals(facesContext.getExternalContext().
-                                   getRequestMap().get(UIXComponentELTag.DOCUMENT_CREATED_KEY));
-    return (docCompCreated) ? false : RequestContext.getCurrentInstance().isPostback();
+    /*
+     * We will always return false for now. The reason is, if the page has a included fragment,
+     * and the fragment gets replaced during ppr, the changes inside the region will be lost.
+     */
+    return false;
+    //boolean docCompCreated = Boolean.TRUE.equals(facesContext.getExternalContext().
+    //                               getRequestMap().get(UIXComponentELTag.DOCUMENT_CREATED_KEY));
+    //return (docCompCreated) ? false : RequestContext.getCurrentInstance().isPostback();
   }  
 
   /**
