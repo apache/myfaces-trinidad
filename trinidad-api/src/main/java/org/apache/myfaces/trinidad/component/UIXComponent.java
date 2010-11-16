@@ -172,13 +172,7 @@ abstract public class UIXComponent extends UIComponent
 
         try
         {
-          // Optimize the cases of UINamingContainer (<f:subview>) and UIPanel -
-          // we will treat these components as FlattenedComponents because they do not render
-          // any DOM
-          // Note that JSF 2.0 creates UIPanel wrappers around multiple components
-          // inside of <f:facet>
-          if (UINamingContainer.class == child.getClass() ||
-              UIPanel.class == child.getClass())
+          if (isFlattenableCoreComponent(child))
           {
             processed =
                 processFlattenedChildren(context, cpContext, childProcessor,
@@ -1085,6 +1079,33 @@ abstract public class UIXComponent extends UIComponent
   protected StateHelper getStateHelper(boolean create)
   {
     throw new UnsupportedOperationException();
+  }
+
+  /**
+   * Determine if we can flatten a core JSF component.
+   * @param component The component
+   * @return true if the component is a core JSF component and we can
+   * flatten it successfully.
+   */
+  private static boolean isFlattenableCoreComponent(UIComponent component)
+  {
+    // Optimize the cases of UINamingContainer (<f:subview>) and UIPanel -
+    // we will treat these components as FlattenedComponents because they do not render
+    // any DOM.
+    // Also note that as of JSF 2.0, UINamingContainer components are built
+    // by f:subview, as well as composite components.
+    Class<? extends UIComponent> componentClass = component.getClass();
+
+    if (UINamingContainer.class == componentClass)
+    {
+      // Check to see if this component was created as a composite
+      // component, which we cannot flatten
+      return component.getFacet(UIComponent.COMPOSITE_FACET_NAME) == null;
+    }
+
+    // Note that JSF 2.0 creates UIPanel wrappers around multiple components
+    // inside of <f:facet>
+    return UIPanel.class == componentClass;
   }
 
   private static final TrinidadLogger _LOG =
