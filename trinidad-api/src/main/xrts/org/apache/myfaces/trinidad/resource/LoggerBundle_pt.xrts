@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">O gestor de alterações não conseguiu aplicar AddChildComponentChange, porque já existe um componente filho com a mesma ID. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Não foi especificado nenhum nó</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">O componente com indicação não será tornado persistente dentro de um iterador</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Componente obrigatório</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->

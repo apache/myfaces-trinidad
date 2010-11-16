@@ -568,7 +568,7 @@
 <!-- NULL_SKIN_ID -->
 <resource key="NULL_SKIN_ID" dnt="false">זיהוי Null</resource>
 <!-- NULL_LOCALE_CONTEXT -->
-<resource key="NULL_LOCALE_CONTEXT" dnt="false">הקשר מקום Null</resource>
+<resource key="NULL_LOCALE_CONTEXT" dnt="false">הקשר Null להגדרות אזור</resource>
 <!-- NULL_ICONNAME -->
 <resource key="NULL_ICONNAME" dnt="false">Null iconName</resource>
 <!-- NULL_STYLESHEETNAME -->
@@ -714,9 +714,9 @@
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator דורש שהרכיב יהיה EditableValueHolder כדי שאימות הלקוח יפעל. אימות הלקוח ייחסם לרכיב {0}.</resource>
 <!-- INVALID_LOCALE_LANG_LENGTH  -->
-<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">שפה בלתי תקפה למזהה האזור {0} - קוד השפה צריך להיות בן שתי ספרות. לקבלת מידע על התבנית הנכונה, עיין ב-Locale javadoc. ייעשה שימוש באזור הדף הנוכחי.</resource>
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">שפה בלתי תקפה למזהה האזור {0} - קוד השפה צריך להיות בן שתי ספרות. לקבלת מידע על התבנית הנכונה, עיין ב-Locale javadoc. ייעשה שימוש בהגדרות האזור של הדף הנוכחי.</resource>
 <!-- INVALID_LOCALE_LANG_CASE  -->
-<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">שפה בלתי תקפה למזהה האזור {0} - קוד השפה צריך להיות באותיות קטנות. לקבלת מידע על התבנית הנכונה, עיין ב-Locale javadoc. ייעשה שימוש באזור הדף הנוכחי.</resource>
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">שפה בלתי תקפה למזהה האזור {0} - קוד השפה צריך להיות באותיות קטנות. לקבלת מידע על התבנית הנכונה, עיין ב-Locale javadoc. ייעשה שימוש בהגדרות האזור של הדף הנוכחי.</resource>
 <!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
 <resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">שפה בלתי תקפה למזהה האזור {0} - קוד הארץ צריך להיות בן שני תווים. לקבלת מידע על התבנית הנכונה, עיין ב-Locale javadoc. ייעשה שימוש במחרוזת ריקה לארץ</resource>
 <!-- INVALID_LOCALE_COUNTRY_CASE  -->

@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Echec de la modification du gestionnaire pour appliquer AddChildComponentChange, car un composant enfant portant le même ID existe déjà. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Aucun noeud indiqué</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Le composant horodaté ne doit pas être rendu persistant dans l&apos;itérateur</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Composant obligatoire</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->

@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Managerul de modificări a eşuat la aplicarea AddChildComponentChange, deoarece există deja o componentă fiu cu acelaşi ID. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Nu a fost specificat nici un nod</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Nu dorim să persistăm componenta ştampilată în interiorul unui iterator</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Componentă obligatorie</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->

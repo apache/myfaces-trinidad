@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Değişiklik yöneticisi AddChildComponentChange uygulamayamadı, çünkü aynı kimliğe sahip bir bağımlı öğe bileşen zaten var. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Hiçbir düğüm belirlenmedi</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Tekrarlayıcı içinde damgalı bileşeni sürdürmek istemeyiz.</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Bileşen gerekli</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->

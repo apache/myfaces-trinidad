@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Správci změny se nepodařilo použít AddChildComponentChange, protože podřízená komponenta se stejným ID již existuje. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Není zadán žádný uzel</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Nechceme zachovat označkovanou součást uvnitř iterátoru</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Je třeba zadat komponentu</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->

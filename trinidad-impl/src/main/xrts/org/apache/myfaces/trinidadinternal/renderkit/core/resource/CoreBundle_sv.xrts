@@ -522,7 +522,7 @@
 <!--Text for search category choice in  LOV Window Header-->
 <resource key="SEARCH_BY_TEXT" dnt="false">Sök per</resource>
 <!--Text for search text field ALT tag in LOV Window-->
-<resource key="SEARCH_FIELD_SHORT_DESC_TEXT" dnt="false">Sökbegrepp</resource>
+<resource key="SEARCH_FIELD_SHORT_DESC_TEXT" dnt="false">Sökord</resource>
 <!--Text for results table header in LOV window-->
 <resource key="RESULTS_TEXT" dnt="false">Resultat</resource>
 <!--navigation bar format mask for a range of strings;  for -->

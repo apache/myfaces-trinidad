@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Muutoshallintaohjelma ei onnistunut käyttämään AddChildComponentChange-kohdetta, koska samalla tunnuksella on jo olemassa alikomponentti. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Solmua ei ole määritetty</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Iteroijan sisältämää leimattua komponenttia ei pitäisi tehdä pysyväksi.</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Komponentti tarvitaan</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->

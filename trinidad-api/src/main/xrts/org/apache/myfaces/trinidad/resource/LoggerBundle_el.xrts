@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Ο διαχειριστής αλλαγών δεν μπόρεσε να εφαρμόσει το AddChildComponentChange επειδή υπάρχει ήδη θυγατρικό συστατικό με το ίδιο αναγνωριστικό. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Δεν έχει καθοριστεί κόμβος</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Δεν επιτρέπεται η διατήρηση συστατικού στοιχείου με χρονοσήμανση εντός μιας λειτουργίας επανάληψης</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Απαιτείται συστατικό στοιχείο</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->

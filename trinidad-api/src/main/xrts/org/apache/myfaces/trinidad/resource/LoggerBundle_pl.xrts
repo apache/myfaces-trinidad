@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Menedżerowi zmian nie udało się zastosować metody AddChildComponentChange, ponieważ już istnieje składnik podrzędny o tym samym identyfikatorze. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Nie określono żadnego węzła</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Stemplowany składnik nie jest utrwalany w obrębie iteratora</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Wymagany składnik</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->

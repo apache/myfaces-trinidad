@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">De wijzigingsmanager kan AddChildComponentChange niet toepassen omdat er al een onderliggende component bestaat met dezelfde ID. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Er is geen node opgegeven.</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Wij willen een component met een stempel niet persistent maken binnen een iterator.</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Component is verplicht.</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->

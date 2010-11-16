@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">فشل مدير التغيير في تطبيق AddChildComponentChange نظرًا لوجود مكون فرعي يحمل نفس المعرف بالفعل. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">لم يتم تحديد نقطة توصيل</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">ليست هناك رغبة للاحتفاظ بالمكون ذي الطابع في مكرر iterator</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">المكون مطلوب</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->

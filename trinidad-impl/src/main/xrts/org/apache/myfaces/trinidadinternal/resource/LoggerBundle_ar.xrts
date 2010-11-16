@@ -482,7 +482,7 @@
 <!-- GRABBING_PIXELS -->
 <resource key="GRABBING_PIXELS" dnt="false">أثناء إحضار وحدات البكسل:</resource>
 <!-- ERROR_FETCHING_IMAGE -->
-<resource key="ERROR_FETCHING_IMAGE" dnt="false">حدث خطأ أثناء سحب الصورة. تم إحضار {0} قيم بكسل من الصورة {1} × {2}.</resource>
+<resource key="ERROR_FETCHING_IMAGE" dnt="false">حدث خطأ أثناء سحب الصورة. تم إحضار {0} قيم بكسل من الصورة {1} x {2}.</resource>
 <!-- EXCEEDED_GIF_COLOR_LIMIT -->
 <resource key="EXCEEDED_GIF_COLOR_LIMIT" dnt="false">تم تجاوز حد لون gif.</resource>
 <!-- NO_SPACE_LEFT_FOR_TRANSPARENCY -->

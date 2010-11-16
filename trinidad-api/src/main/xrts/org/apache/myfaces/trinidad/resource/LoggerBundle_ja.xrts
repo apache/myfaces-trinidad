@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">同じIDの子コンポーネントがすでに存在するため、変更マネージャはAddChildComponentChangeの適用に失敗しました。{0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">ノードが指定されていません</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">イテレータ内でスタンプ済コンポーネントを永続化しません</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">コンポーネントが必要</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->

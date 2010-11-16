@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Styreprogrammet til ændring kunne ikke anvende AddChildComponentChange, fordi der allerede findes en underordnet komponent med samme ID. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Ingen node er angivet</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Vi vil ikke beholde en stemplet komponent i en iterator</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Komponent er påkrævet</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->

@@ -259,11 +259,11 @@
 <resource key="af_selectManyShuttle.DESCRIPTION_LABEL" dnt="false">Description</resource>
 <resource key="af_selectOrderShuttle.DESCRIPTION_LABEL" dnt="false">Description</resource>
 <!--Alt tag for moving all the items-->
-<resource key="af_selectManyShuttle.MOVE_ALL_TIP" dnt="false">Déplacer tous les éléments vers une autre liste</resource>
-<resource key="af_selectOrderShuttle.MOVE_ALL_TIP" dnt="false">Déplacer tous les éléments vers une autre liste</resource>
+<resource key="af_selectManyShuttle.MOVE_ALL_TIP" dnt="false">Déplacer tous les éléments vers l&apos;autre liste</resource>
+<resource key="af_selectOrderShuttle.MOVE_ALL_TIP" dnt="false">Déplacer tous les éléments vers l&apos;autre liste</resource>
 <!--Alt tag for moving selected items-->
-<resource key="af_selectManyShuttle.MOVE_TIP" dnt="false">Déplacer les éléments sélectionnés vers une autre liste</resource>
-<resource key="af_selectOrderShuttle.MOVE_TIP" dnt="false">Déplacer les éléments sélectionnés vers une autre liste</resource>
+<resource key="af_selectManyShuttle.MOVE_TIP" dnt="false">Déplacer les éléments sélectionnés vers l&apos;autre liste</resource>
+<resource key="af_selectOrderShuttle.MOVE_TIP" dnt="false">Déplacer les éléments sélectionnés vers l&apos;autre liste</resource>
 <!--Alt tag for removing all the items-->
 <resource key="af_selectManyShuttle.REMOVE_ALL_TIP" dnt="false">Enlever tous les éléments de la liste</resource>
 <resource key="af_selectOrderShuttle.REMOVE_ALL_TIP" dnt="false">Enlever tous les éléments de la liste</resource>
