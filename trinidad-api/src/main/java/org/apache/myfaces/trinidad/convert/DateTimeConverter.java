@@ -828,8 +828,15 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   @Override
   public String getPattern()
   {
-    Object pattern = _facesBean.getProperty(_PATTERN_KEY);
-    return ComponentUtils.resolveString(pattern);
+    Object patternObj = _facesBean.getProperty(_PATTERN_KEY);
+    String pattern = ComponentUtils.resolveString(patternObj);
+
+    if (pattern != null && pattern.trim().isEmpty())
+    {
+      return null;
+    }
+
+    return pattern;
   }
 
   /**
