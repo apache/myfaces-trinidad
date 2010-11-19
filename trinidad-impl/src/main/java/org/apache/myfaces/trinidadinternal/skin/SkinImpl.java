@@ -103,7 +103,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   @Override
   public SkinVersion getVersion()
   {
-    return null;
+    return SkinVersion.EMPTY_SKIN_VERSION;
   }  
 
   /**

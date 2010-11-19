@@ -60,10 +60,11 @@ abstract public class Skin
    * When a Skin instance is created, a SkinVersion instance can be a part of it.
    * In trinidad-skins.xml this is the version element. In the trinidad-config.xml, 
    * the application developer can set the skin-version to a skin version, or to 'default'.
+   * This returns SkinVersion.EMPTY_SKIN_VERSION if no version is set.
    */
   public SkinVersion getVersion()
   {
-    return null;
+    return SkinVersion.EMPTY_SKIN_VERSION;
   }
 
   /**

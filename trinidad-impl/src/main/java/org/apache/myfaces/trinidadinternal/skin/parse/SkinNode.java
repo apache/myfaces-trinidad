@@ -130,14 +130,14 @@ public class SkinNode
   }   
 
   
-  private String          _id;
-  private String          _family;
-  private SkinVersionNode _skinVersionNode;
-  private String          _renderKitId;
-  private String          _skinExtends;
-  private String          _styleSheetName;
-  private String          _bundleName;
-  private String          _translationSourceExpression;
+  private final String          _id;
+  private final String          _family;
+  private final SkinVersionNode _skinVersionNode;
+  private final String          _renderKitId;
+  private final String          _skinExtends;
+  private final String          _styleSheetName;
+  private final String          _bundleName;
+  private final String          _translationSourceExpression;
 
 
   private static final TrinidadLogger _LOG =

@@ -120,17 +120,17 @@ public class SkinFactoryImpl extends SkinFactory
   /**
    * Given the skin family, renderKitId, and version, return the best matched skin.
    * The skin picking logic is:
-   * If an exact family, renderKitId, and version is found, return that skin
+   * If an exact family, renderKitId, and version (including null or "") is found, return that skin
    * If version is "default", return the skin with family and renderKitId with version marked
    * default. If version does not match any version for the skins with family and renderKitId, 
-   * then return the 'default' if there is one marked or the last entry in the list.
-   * If version is null, then find a skin with family and renderKitId that has no version set.
-   * Otherwise, find the best match (default skin or the last skin in the list of matching
-   * family/renderKitId skins.
+   * then return the 'default' skin if there is one marked or return the last entry in the list
+   * of matching family/renderKitId skins.
    * @param context
    * @param family
    * @param renderKitId
-   * @param version "default", or a version name, or null it you want the skin without a version set.
+   * @param version The version of the skin you want to return. This can be 
+   *                "default", or a version name (e.g., "v1"), or null or "" 
+   *                (if you want the skin without a version set).
    * @return the best matched Skin given the family, renderKitId, and version.
    */
   @Override
@@ -140,6 +140,12 @@ public class SkinFactoryImpl extends SkinFactory
     String       renderKitId,
     String       version)
   {
+    // By setting the version to the empty string if version is null, we can
+    // get the skin that has a matching family and renderkit and has no skin version.
+    // (A Skin with no version returns SkinVersion.EMPTY_SKIN_VERSION for skin.getVersion(),
+    // and getName will be "")
+    if (version == null)
+        version = "";
   
     // given a skinFamily and a renderKitId, figure out the skinId.
     // If we don't have an exact match, use the simple skin that matches the
@@ -187,96 +193,68 @@ public class SkinFactoryImpl extends SkinFactory
     else
     {
       // at this point we know we have something in the matchingSkinList
-      if (version != null)
+      // which is a list of matching family and renderKitId skins. Now match the version
+      // to find the best matched skin.
+      boolean foundMatchingSkin = false;
+      boolean versionIsDefault = (_DEFAULT.compareToIgnoreCase(version) == 0);
+      if (!versionIsDefault)
       {
-        boolean foundMatchingSkin = false;
-        boolean versionIsDefault = (_DEFAULT.compareToIgnoreCase(version) == 0);
-        if (!versionIsDefault)
-        {
-          for (Skin skin : matchingSkinList)
-          {
-            SkinVersion skinVersion = skin.getVersion();
-            if (skinVersion != null)
-            {
-              String name = skinVersion.getName(); 
-              if (version.equals(name))
-              {
-                matchingSkin = skin;
-                break;
-              }
-            }
-          }          
-        }
-        // matchingSkin will be null if an exact version match was not found
-        if (matchingSkin == null || versionIsDefault)
-        {
-          // find skin with version= default
-          matchingSkin = _getDefaultVersionSkin(matchingSkinList);
-
-          if (matchingSkin == null)
-          {
-            // get the last skin in the matchingSkinList if there is no skin marked default.
-            matchingSkin = matchingSkinList.get(matchingSkinList.size() -1);
-          }
-          else if ((matchingSkin != null) && versionIsDefault)
-          {
-            // found the default skin the user wanted
-            foundMatchingSkin = true;
-          }
-        } // end matchingSkin == null || versionIsDefault 
-        else
-        {
-          foundMatchingSkin = true;
-        }
-        // log messages
-        if (foundMatchingSkin)
-        {
-          if (_LOG.isFine())
-            _LOG.fine("GET_SKIN_FOUND_SKIN_VERSION", 
-                      new Object[]{family, version, matchingSkin.getId()}); 
-        }
-        else
-        {
-          if(_LOG.isWarning())
-            _LOG.warning("GET_SKIN_CANNOT_FIND_SKIN_VERSION", 
-                         new Object[]{family, version, matchingSkin.getId()}); 
-        }
-      } // end if version != null
-      else
-      {
-        // the caller of this method did not set version
         for (Skin skin : matchingSkinList)
         {
           SkinVersion skinVersion = skin.getVersion();
-          if (skinVersion == null)
+          if (skinVersion != null)
           {
-            matchingSkin = skin;
-            break;
+            String name = skinVersion.getName(); 
+            if (version.equals(name))
+            {
+              matchingSkin = skin;
+              break;
+            }
           }
-        }        
+        }          
+      }
+      // matchingSkin will be null if an exact version match was not found
+      if (matchingSkin == null || versionIsDefault)
+      {
+        // find skin with version= default
+        matchingSkin = _getDefaultVersionSkin(matchingSkinList);
+
         if (matchingSkin == null)
         {
-          // if can't get an exact match, find one marked 'default'
-          matchingSkin = _getDefaultVersionSkin(matchingSkinList);
-          if (matchingSkin == null)
+          // get the last skin in the matchingSkinList if there is no skin marked default.
+          matchingSkin = matchingSkinList.get(matchingSkinList.size() -1);
+        }
+        else if ((matchingSkin != null) && versionIsDefault)
+        {
+          // found the default skin the user wanted
+          foundMatchingSkin = true;
+        }
+      } // end matchingSkin == null || versionIsDefault 
+      else
+      {
+        foundMatchingSkin = true;
+      }
+      // log messages
+      if (foundMatchingSkin)
+      {
+        if (_LOG.isFine())
+          _LOG.fine("GET_SKIN_FOUND_SKIN_VERSION", 
+                    new Object[]{family, version, matchingSkin.getId()}); 
+      }
+      else
+      {        
+        if(_LOG.isWarning())
+        {
+          if ("".equals(version))
           {
-            // still can't find a match, so get latest registered.
-            matchingSkin = matchingSkinList.get(matchingSkinList.size() -1);
-            if (_LOG.isWarning())
-              _LOG.warning("GET_SKIN_CANNOT_FIND_NO_VERSION", 
-                           new Object[]{family, matchingSkin.getId()});  
+            _LOG.warning("GET_SKIN_CANNOT_FIND_NO_VERSION", 
+                         new Object[]{family, matchingSkin.getId()});
           }
           else
-          { 
-            if (_LOG.isWarning())
-              _LOG.warning("GET_SKIN_CANNOT_FIND_SKIN_DEFAULT", 
-                           new Object[]{family, matchingSkin.getId()});
+          {    
+            _LOG.warning("GET_SKIN_CANNOT_FIND_SKIN_VERSION", 
+                         new Object[]{family, version, matchingSkin.getId()}); 
           }
-        }
-        else
-        {
-          if (_LOG.isFine())
-            _LOG.fine("GET_SKIN_FOUND_SKIN", new Object[]{family, matchingSkin.getId()});         
         }
       }
     }

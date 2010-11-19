@@ -83,7 +83,8 @@ public class SkinExtension extends SkinImpl
     String resourceBundleName
     )
   {
-    this(baseSkin, id, family, renderKitId, styleSheetName, resourceBundleName, null);
+    this(baseSkin, id, family, renderKitId, styleSheetName, 
+         resourceBundleName, SkinVersion.EMPTY_SKIN_VERSION);
   }
   
   public SkinExtension(
@@ -105,7 +106,8 @@ public class SkinExtension extends SkinImpl
       throw new NullPointerException("Null family");
     if (renderKitId == null)
       renderKitId = _DEFAULT_RENDERKIT;
-
+    if (version == null)
+      version = SkinVersion.EMPTY_SKIN_VERSION;
 
     _baseSkin = (SkinImpl)baseSkin;
     _id = id;
@@ -158,7 +160,8 @@ public class SkinExtension extends SkinImpl
     ValueExpression translationSourceValueExpression
     )
   {
-    this(baseSkin, id, family, renderKitId, styleSheetName, translationSourceValueExpression, null);
+    this(baseSkin, id, family, renderKitId, styleSheetName, 
+         translationSourceValueExpression, SkinVersion.EMPTY_SKIN_VERSION);
   }
   
   public SkinExtension(
@@ -180,6 +183,8 @@ public class SkinExtension extends SkinImpl
       throw new NullPointerException("Null family");
     if (renderKitId == null)
       renderKitId = _DEFAULT_RENDERKIT;
+    if (version == null)
+      version = SkinVersion.EMPTY_SKIN_VERSION;
 
     _baseSkin = (SkinImpl)baseSkin;
     _id = id;
@@ -229,7 +234,7 @@ public class SkinExtension extends SkinImpl
     String styleSheetName
     )
   {
-    this(baseSkin, id, family, renderKitId, styleSheetName, (SkinVersion)null);
+    this(baseSkin, id, family, renderKitId, styleSheetName, SkinVersion.EMPTY_SKIN_VERSION);
   }
   
   /*
@@ -253,6 +258,8 @@ public class SkinExtension extends SkinImpl
       throw new NullPointerException("Null family");
     if (renderKitId == null)
       renderKitId = _DEFAULT_RENDERKIT;
+    if (version == null)
+      version = SkinVersion.EMPTY_SKIN_VERSION;
 
     _baseSkin = (SkinImpl)baseSkin;
     _id = id;
@@ -332,7 +339,9 @@ public class SkinExtension extends SkinImpl
   }
 
   /**
-   * Returns the SkinVersion object
+   * Returns the SkinVersion object. 
+   * If version was not set when creating the SkinExtension, 
+   * this returns SkinVersion.EMPTY_SKIN_VERSION.
    */
   @Override
   public SkinVersion getVersion()
@@ -718,11 +727,9 @@ public class SkinExtension extends SkinImpl
   private String          _renderKitId;
   private SkinImpl        _baseSkin;
   private String          _styleSheetName;
-  private String          _bundleName;
   private ValueExpression _translationSourceVE;
+  private String          _bundleName;
   private SkinVersion     _version;
-
-
 
   // The StyleSheetDocument for the base LookAndFeel's style sheet
   private StyleSheetDocument _baseStyleSheetDocument;

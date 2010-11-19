@@ -635,7 +635,7 @@ public class CoreRenderingContext extends RenderingContext
       return;
     }
 
-    Skin skin = factory.getSkin(null, skinFamily, renderKitId, skinVersionString);
+    Skin skin = factory.getSkin(context, skinFamily, renderKitId, skinVersionString);
 
     if (skin == null)
     {

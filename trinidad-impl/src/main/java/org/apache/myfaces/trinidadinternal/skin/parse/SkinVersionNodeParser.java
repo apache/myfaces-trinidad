@@ -56,10 +56,9 @@ public class SkinVersionNodeParser  extends BaseNodeParser
     String       localName
     ) throws SAXParseException
   {
-
-    // name is required for SkinVersion. log a severe error if it is null.
+    // allow no name in version.
     if (_name == null)
-      _LOG.severe("REQUIRED_ELEMENT_SKINVERSION_NAME_NOT_FOUND");
+      _name = "";
 
     return new SkinVersionNode(_name, "true".equals(_default));
   }
@@ -95,7 +94,12 @@ public class SkinVersionNodeParser  extends BaseNodeParser
     if ("name".equals(localName))
       _name = (String) child;
     else if ("default".equals(localName))
+    {
       _default = (String) child;
+      // <default/> means true
+      if (_default == null || "".equals(_default))
+        _default = "true";
+    }
   }
 
   private String _name;

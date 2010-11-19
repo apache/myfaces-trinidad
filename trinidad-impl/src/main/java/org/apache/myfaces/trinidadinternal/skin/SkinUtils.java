@@ -71,7 +71,6 @@ import org.apache.myfaces.trinidadinternal.share.xml.ParserManager;
 import org.apache.myfaces.trinidadinternal.share.xml.TreeBuilder;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
-
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.parse.XMLConstants;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinAdditionNode;
@@ -700,16 +699,20 @@ public class SkinUtils
 
   }
   
+  // Create a SkinVersion object from the SkinVersionNode object.
   private static SkinVersion _createSkinVersion(SkinVersionNode skinVersionNode)
   {
     if (skinVersionNode != null)
     {
       String name = skinVersionNode.getName();
       boolean isDefault = skinVersionNode.isDefault();
-      return new SkinVersionImpl(name, isDefault);
+      if ("".equals(name) && !isDefault)
+         return SkinVersion.EMPTY_SKIN_VERSION;
+      else
+        return new SkinVersion(name, isDefault);
     }
     else
-      return null;
+      return SkinVersion.EMPTY_SKIN_VERSION;
   }
   
   /**

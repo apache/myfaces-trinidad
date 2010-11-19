@@ -52,7 +52,7 @@ public class SkinVersionNode
     return _default;
   } 
    
-  private String _name;
-  private boolean _default;
+  private final String  _name;
+  private final boolean _default;
 
 }
