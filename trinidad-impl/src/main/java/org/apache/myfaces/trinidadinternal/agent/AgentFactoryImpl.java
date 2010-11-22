@@ -127,13 +127,21 @@ public class AgentFactoryImpl implements AgentFactory
     int googlebotIndex = userAgent.indexOf(_GOOGLEBOT_ID);
     if (googlebotIndex >= 0)
     {
-      _populateGoogleCrawlerAgentImpl(userAgent, agent, googlebotIndex);
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_GOOGLEBOT, _GOOGLEBOT_ID, googlebotIndex);
       return;
     }
     
-    if (userAgent.startsWith(_MSNBOT_ID))
+    int bingIndex = userAgent.indexOf(_BINGBOT_ID);
+    if (bingIndex >= 0)
     {
-      _populateMsnCrawlerAgentImpl(userAgent, agent);
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_MSNBOT, _BINGBOT_ID, bingIndex);
+      return;
+    }
+    
+    bingIndex = userAgent.indexOf(_MSNBOT_ID);
+    if (bingIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_MSNBOT, _MSNBOT_ID, bingIndex);
       return;
     }
     
@@ -980,36 +988,23 @@ public class AgentFactoryImpl implements AgentFactory
   }
   
   /**
-   * Returns an AgentEntry for the Google web crawler
+   * Returns an AgentEntry for a web crawler
    */
-  private void _populateGoogleCrawlerAgentImpl(String userAgent, AgentImpl agentObj, int idIndex)
+  private void _populateCrawlerAgentImpl(String userAgent, 
+                                         AgentImpl agentObj,
+                                         String agent,
+                                         String agentId,
+                                         int idIndex)
   {
     agentObj.setType(Agent.TYPE_WEBCRAWLER);
 
-    agentObj.setAgent(Agent.AGENT_GOOGLEBOT);
-    agentObj.setAgentVersion(_getVersion(userAgent, idIndex + _GOOGLEBOT_ID.length()));
+    agentObj.setAgent(agent);
+    agentObj.setAgentVersion(_getVersion(userAgent, idIndex + agentId.length()));
     agentObj.setPlatform(Agent.PLATFORM_UNKNOWN);
     agentObj.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
     agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
 
   }
-  
-  
-  /**
-   * Returns an AgentEntry for the msnbot (Bing, Yahoo) web crawler
-   */
-  private void _populateMsnCrawlerAgentImpl(String userAgent, AgentImpl agentObj)
-  {
-    agentObj.setType(Agent.TYPE_WEBCRAWLER);
-
-    agentObj.setAgent(Agent.AGENT_MSNBOT);
-    agentObj.setAgentVersion(_getVersion(userAgent, userAgent.indexOf('/')));
-    agentObj.setPlatform(Agent.PLATFORM_UNKNOWN);
-    agentObj.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
-    agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
-
-  }
-
 
   /**
    * Returns the version contained within a string starting
@@ -1074,4 +1069,5 @@ public class AgentFactoryImpl implements AgentFactory
 
   static final private String _GOOGLEBOT_ID = "Googlebot";
   static final private String _MSNBOT_ID = "msnbot";
+  static final private String _BINGBOT_ID = "bingbot";
 }
