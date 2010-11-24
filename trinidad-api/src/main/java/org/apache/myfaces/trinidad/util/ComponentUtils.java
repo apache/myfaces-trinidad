@@ -213,11 +213,31 @@ public final class ComponentUtils
     Object  value
     )
   {
-    return (value != null)
-             ? value.toString()
-             : null;
+    return resolveString(value, false);
   }
 
+  /**
+   * Utility method for component code that transforms Object->String.
+   * If treatEmptyStringAsNull is true, null is returned for empty string.
+   */
+  public static String resolveString(
+    Object  value,
+    boolean treatEmptyStringAsNull
+    )
+  {
+    if (value == null)
+    {
+      return null;
+    }
+
+    String strValue = value.toString();
+    if (treatEmptyStringAsNull && strValue.trim().isEmpty())
+    {
+      return null;
+    }
+
+    return strValue;
+  }
 
   /**
    * Utility method for component code that transforms Object->String.
