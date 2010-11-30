@@ -1331,6 +1331,7 @@ INFO: 8000: org.apache.myfaces.trinidad.resource.SkinResourceLoader: Class org.a
 INFO: 7011: org.apache.myfaces.trinidad.skin.Skin: Method 'public org.apache.myfaces.trinidad.skin.SkinVersion getVersion()' has been added
 ERROR: 7013: org.apache.myfaces.trinidad.skin.SkinFactory: Abstract method 'public org.apache.myfaces.trinidad.skin.Skin getSkin(javax.faces.context.FacesContext, java.lang.String, java.lang.String, java.lang.String)' has been added
 INFO: 8000: org.apache.myfaces.trinidad.skin.SkinVersion: Class org.apache.myfaces.trinidad.skin.SkinVersion added
+INFO: 7011: org.apache.myfaces.trinidad.util.ComponentUtils: Method 'public java.lang.String resolveString(java.lang.Object, boolean)' has been added
 INFO: 4000: org.apache.myfaces.trinidad.validator.DoubleRangeValidator: Added javax.faces.component.PartialStateHolder to the set of implemented interfaces
 INFO: 4000: org.apache.myfaces.trinidad.validator.LengthValidator: Added javax.faces.component.PartialStateHolder to the set of implemented interfaces
 INFO: 4000: org.apache.myfaces.trinidad.validator.LongRangeValidator: Added javax.faces.component.PartialStateHolder to the set of implemented interfaces

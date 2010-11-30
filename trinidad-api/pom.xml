@@ -98,11 +98,47 @@
       <groupId>jmock</groupId>
       <artifactId>jmock-cglib</artifactId>
     </dependency>
+     <dependency> 	 
+       <groupId>commons-lang</groupId> 	 
+       <artifactId>commons-lang</artifactId> 	 
+       <scope>test</scope> 	 
+     </dependency> 	 
+
+     <dependency> 	 
+       <groupId>commons-io</groupId> 	 
+       <artifactId>commons-io</artifactId> 	 
+       <scope>test</scope> 	 
+     </dependency> 
 
   </dependencies>
 
   <build>
     <plugins>
+      <plugin>
+         <groupId>org.codehaus.mojo</groupId> 	 
+         <artifactId>clirr-maven-plugin</artifactId> 	 
+         <version>2.2.2</version> 	 
+         <configuration> 	 
+           <textOutputFile>${project.basedir}/target/clirr-runner.txt</textOutputFile> 	 
+           <failOnError>false</failOnError> 	 
+           <comparisonArtifacts> 	 
+             <comparisonArtifact> 	 
+               <groupId>org.apache.myfaces.trinidad</groupId> 	 
+               <artifactId>trinidad-api</artifactId> 	 
+               <version>1.2.15-SNAPSHOT</version> 	 
+             </comparisonArtifact> 	 
+           </comparisonArtifacts> 	 
+         </configuration> 	 
+         <executions> 	 
+           <execution> 	 
+             <goals> 	 
+               <goal>check</goal> 	 
+             </goals> 	 
+             <phase>test-compile</phase> 	 
+           </execution> 	 
+         </executions> 	 
+       </plugin>
+
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
@@ -157,6 +193,16 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
+          <systemProperties> 	 
+            <property> 	 
+              <name>trinidad.clirr.golden</name> 	 
+              <value>${project.basedir}/src/test/clirr/clirr-runner.txt</value> 	 
+            </property> 	 
+            <property> 	 
+              <name>trinidad.clirr.compare</name> 	 
+              <value>${project.basedir}/target/clirr-runner.txt</value> 	 
+            </property> 	 
+          </systemProperties>
           <includes implementation="java.util.ArrayList">
             <include implementation="java.lang.String">**/*Test.java</include>
           </includes>
