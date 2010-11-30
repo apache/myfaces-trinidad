@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Érvénytelen változó a(z) {0} nyelvi-területi azonosító számára. A változó nem tartalmazhat törtvonalat az XSS-támadás elkerülésére. A rendszer üres karakterláncot használ változóként.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Nem törölhető ez a fájl: {0}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Hiba a(z) {0} sorba rendezésekor attribútum:{1} érték:{2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Az átállási {0} hiba {2} típusú {1} attribútuma nem alakítható soros adattá</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Átállási hiba: Az {1} attribútumhoz tartozó {0} soros adattá alakítása megváltozott, {2} helyett {3} lett, az attribútum szennyeződése nélkül</resource>
 </resources>

@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">متغير معرف المنطقة اللغوية {0} غير صالح - لا يمكن أن يشتمل المعرف على شُرط مائلة وذلك لتجنب هجوم XSS. سيتم استخدام سلسلة فارغة للمتغير.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">تعذر حذف الملف {0}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">خطأ في تسلسل {0} السمة: {1} القيمة: {2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">خطأ في الانتقال عقب الفشل: {0} السمة:{1} من النوع {2} غير قابلة للتسلسل</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">خطأ في الانتقال عقب الفشل: تم تغيير {0} السمة:{1} من {2} إلى {3} دون تجاهل السمة</resource>
 </resources>

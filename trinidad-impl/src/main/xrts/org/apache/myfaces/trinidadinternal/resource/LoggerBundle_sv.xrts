@@ -292,11 +292,11 @@
 <!-- CANNOT_PARSE_ATTRIBUTE_VALUE -->
 <resource key="CANNOT_PARSE_ATTRIBUTE_VALUE" dnt="false">Kunde inte tolka värdet i attributet: {0}</resource>
 <!-- CANNOT_PARSE_ATTRIBUTE_VALUE_NAMESPACE -->
-<resource key="CANNOT_PARSE_ATTRIBUTE_VALUE_NAMESPACE" dnt="false">Kunde inte tolka värdet i attributet: {0}, namnutrymme={1}</resource>
+<resource key="CANNOT_PARSE_ATTRIBUTE_VALUE_NAMESPACE" dnt="false">Kunde inte tolka värdet i attributet: {0}, namnrymd={1}</resource>
 <!-- UNKNOWN_ATTRIBUTE -->
 <resource key="UNKNOWN_ATTRIBUTE" dnt="false">Okänt attribut: {0}</resource>
 <!-- UNKNOWN_ATTRIBUTE_NAMESPACE -->
-<resource key="UNKNOWN_ATTRIBUTE_NAMESPACE" dnt="false">Okänt attribut: {0}, namnutrymme={1}</resource>
+<resource key="UNKNOWN_ATTRIBUTE_NAMESPACE" dnt="false">Okänt attribut: {0}, namnrymd={1}</resource>
 <!-- ERR_PARSING_SKIN_CSS_FILE -->
 <resource key="ERR_PARSING_SKIN_CSS_FILE" dnt="false">Fel vid tolkning av skalets css-fil. Egenskapsnamnet får inte vara null eller en tom sträng, parser ignoreras. Namnet är &apos;&apos;{0}&apos;&apos; och värdet är &apos;&apos;{1}&apos;&apos;</resource>
 <!-- IGNORING_PROPERTIES_WITHOUT_SELECTOR -->
@@ -308,13 +308,13 @@
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Kan inte hämta Skin med null i skinId</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
-<resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Kan inte hitta ett skal som matchar familjen {0} och renderkit {1} så det enkla skalet används</resource>
+<resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Hittar inte ett skal som matchar familjen {0} och renderkit {1} så det enkla skalet används</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Kunde inte hämta formatmallsdokumentets tidsstämpel eftersom anslutningen inte kunde öppnas.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Följande skal utökar varandra på ett cykliskt sätt eller så finns inte skalet de utökar:{0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
-<resource key="UNABLE_LOCATE_BASE_SKIN" dnt="false">Kan inte hitta basskalet &quot;{0}&quot; för användning vid definition av skal med id:t &quot;{1}&quot;, familjen &quot;{2}&quot;, renderkit-id &quot;{3}&quot;. Använder standardbasskalet &quot;{4}&quot;.</resource>
+<resource key="UNABLE_LOCATE_BASE_SKIN" dnt="false">Hittar inte basskalet &quot;{0}&quot; för användning vid definition av skal med id:t &quot;{1}&quot;, familjen &quot;{2}&quot;, renderkit-id &quot;{3}&quot;. Använder standardbasskalet &quot;{4}&quot;.</resource>
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Fel vid tolkning av:{0}</resource>
 <!-- ERR_LOADING_FILE -->
@@ -358,7 +358,7 @@
 <!-- FACETREF_MUST_INSIDE_UICOMPONENT -->
 <resource key="FACETREF_MUST_INSIDE_UICOMPONENT" dnt="false">facetRef måste finnas inuti en UIComponent-tagg.</resource>
 <!-- CANNOT_FIND_PARENT_COMPONENTREF -->
-<resource key="CANNOT_FIND_PARENT_COMPONENTREF" dnt="false">Kan inte hitta överordnad &lt;tr:componentRef&gt;</resource>
+<resource key="CANNOT_FIND_PARENT_COMPONENTREF" dnt="false">Hittar inte överordnad &lt;tr:componentRef&gt;</resource>
 <!-- FACETNAME_REQUIRED -->
 <resource key="FACETNAME_REQUIRED" dnt="false">facetName måste anges i facetRef</resource>
 <!-- VALIDATOR_NOT_INSIDE_UICOMPONENT -->
@@ -370,7 +370,7 @@
 <!-- CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN -->
 <resource key="CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN" dnt="false">Kunde inte tolka värdet {0} till ett datum med mönstret &quot;åååå-MM-dd&quot;; ignorerar.</resource>
 <!-- NO_RENDERERFACTORY_REGISTERED_COMPONENT -->
-<resource key="NO_RENDERERFACTORY_REGISTERED_COMPONENT" dnt="false">Ingen RendererFactory har registrerats för komponenten i namnutrymmet {0}</resource>
+<resource key="NO_RENDERERFACTORY_REGISTERED_COMPONENT" dnt="false">Ingen RendererFactory har registrerats för komponenten i namnrymden {0}</resource>
 <!-- NO_RENDERER_REGISTERED -->
 <resource key="NO_RENDERER_REGISTERED" dnt="false">Ingen renderare har registrerats för {0}</resource>
 <!-- CANNOT_GET_IMAGE_CACHE -->
@@ -434,7 +434,7 @@
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() kan bara användas med agenter som skapats av den här klassen.</resource>
 <!-- INVALID_NAMESPACE -->
-<resource key="INVALID_NAMESPACE" dnt="false">Ogiltigt namnutrymme: {0}</resource>
+<resource key="INVALID_NAMESPACE" dnt="false">Ogiltig namnrymd: {0}</resource>
 <!-- INVALID_ROOT_ELEMENT -->
 <resource key="INVALID_ROOT_ELEMENT" dnt="false">Ogiltigt rotelement: {0} {1}</resource>
 <!-- UNEXPECTED -->
@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ogiltig variant för språkidentifierare {0} - får inte innehålla snedstreck för att undvika XSS-attack. Använder tom sträng för variant.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Kunde inte ta bort filen {0}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Fel vid serialisering av {0} attribut: {1} värde: {2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failoverfel: {0} attribut: {1} av typen {2} är inte serialiserbart</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failoverfel: serialisering av {0} attribut: {1} har ändrats från {2} till {3} utan att attributet har smutsats</resource>
 </resources>

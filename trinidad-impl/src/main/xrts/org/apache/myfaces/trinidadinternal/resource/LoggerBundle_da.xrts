@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ugyldig variant for identifikator for landestandard {0} - må ikke indeholde skråstreger, hvis XSS-angreb skal undgås. Vil bruge en tom streng til variant.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Kunne ikke slette filen {0}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Fejl under serialisering af {0}-attributten: {1}, værdien: {2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failover-fejl: {0}, attributten: {1} af typen {2} kan ikke serialiseres</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failover-fejl: Serialisering af {0}-attributten: {1} er ændret fra {2} til {3}, uden at attributten er beskadiget</resource>
 </resources>

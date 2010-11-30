@@ -68,7 +68,7 @@
 <resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">Colunas Congeladas:</resource>
 <!-- Resource for Composite Tree Table -->
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">Expandir</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Contrair</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Recolher</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">Expandir Todos os Itens a Seguir</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Recolher Todos os Itens a Seguir</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">Expandir Tudo</resource>

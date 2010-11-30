@@ -434,7 +434,7 @@
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">Atribut mergeCapabilities() může být použit pouze u agentů vytvořených touto třídou.</resource>
 <!-- INVALID_NAMESPACE -->
-<resource key="INVALID_NAMESPACE" dnt="false">Neplatný obor názvů: {0}</resource>
+<resource key="INVALID_NAMESPACE" dnt="false">Neplatný prostor názvů: {0}</resource>
 <!-- INVALID_ROOT_ELEMENT -->
 <resource key="INVALID_ROOT_ELEMENT" dnt="false">Neplatný kořenový prvek: {0} {1}</resource>
 <!-- UNEXPECTED -->
@@ -524,9 +524,9 @@
 <!-- NULL_TYPE -->
 <resource key="NULL_TYPE" dnt="false">typ má hodnotu null</resource>
 <!-- CANNOT_COERCE_VALUE_OF_TYPE -->
-<resource key="CANNOT_COERCE_VALUE_OF_TYPE" dnt="false">Nelze vynutit hodnotu typu {0} do typu {1}</resource>
+<resource key="CANNOT_COERCE_VALUE_OF_TYPE" dnt="false">Nelze nuceně převést hodnotu typu {0} do typu {1}</resource>
 <!-- CANNOT_BE_COERCED -->
-<resource key="CANNOT_BE_COERCED" dnt="false">{0} nelze vynutit do souboru java.awt.Color</resource>
+<resource key="CANNOT_BE_COERCED" dnt="false">{0} nelze nuceně převést do souboru java.awt.Color</resource>
 <!-- CANNOT_FIND_FILE -->
 <resource key="CANNOT_FIND_FILE" dnt="false">Nelze nalézt {1}</resource>
 <!-- DECIMALFORMATCONTEXT_NOT_CLONEABLE -->
@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Neplatná varianta ID místního nastavení {0} - kvůli ochraně proti XSS nesmí obsahovat lomítka. Pro variantu bude použit prázdný řetězec.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Nelze odstranit soubor {0}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Chyba při serializaci atributu {0}:{1} hodnota:{2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Chyba zotavení: {0} atribut:{1} typu {2} není serializovatelný</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Chyba zotavení: Serializace atributu {0}:{1} se změnila z {2} na {3} bez modifikace atributu</resource>
 </resources>

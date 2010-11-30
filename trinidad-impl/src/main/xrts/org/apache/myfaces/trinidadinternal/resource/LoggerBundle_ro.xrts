@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variantă nevalidă pentru identificatorul variabilei locale {0} - nu poate să conţină caractere slash pentru a evita atacul XSS. Se va utiliza un şir gol pentru variantă.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Nu s-a putut şterge fişierul {0}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Eroare la serializarea {0}, atribut: {1} valoare:{2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Eroare de failover: {0}, atributul: {1} de tipul {2} nu este serializabil</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Eroare failover: Serializarea {0} atribut: {1} s-a schimbat de la {2} la {3} fără ca atributul să fie corupt.</resource>
 </resources>

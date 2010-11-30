@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Virheellinen aluetunnuksen {0} muuttuja - se ei voi sisältää vinoviivaa, jotta XSS-hyökkäykset voidaan välttää. Muuttujana käytetään tyhjää merkkijonoa.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Tiedostoa {0} ei voi poistaa</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Virhe sarjoitettaessa {0}-määritettä: {1}; arvo:{2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Virhe vikatilannevaihdossa: {0}-määritettä {1}, jonka tyyppi on {2}, ei voi sarjoittaa</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Virhe vikatilannevaihdossa: {0}-määritteen {1} sarjoitus muuttui kohteesta {2} kohteeseen {3}, mutta määrite ei muuttunut</resource>
 </resources>

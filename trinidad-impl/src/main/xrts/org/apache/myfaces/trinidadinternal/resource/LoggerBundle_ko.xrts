@@ -544,7 +544,7 @@
 <!-- >ILLEGAL_PATTERN_CHARACTER -->
 <resource key=">ILLEGAL_PATTERN_CHARACTER" dnt="false">&apos;&apos;{0}&apos;&apos;은(는) 잘못된 패턴 문자입니다.</resource>
 <!-- CONTENT_NOT_MULTIPART_FORM_DATA -->
-<resource key="CONTENT_NOT_MULTIPART_FORM_DATA" dnt="false">컨텐트가 여러 부분으로 된 폼 데이터가 아닙니다.</resource>
+<resource key="CONTENT_NOT_MULTIPART_FORM_DATA" dnt="false">콘텐츠가 여러 부분으로 된 폼 데이터가 아닙니다.</resource>
 <!-- ITEM_NOT_A_FILE -->
 <resource key="ITEM_NOT_A_FILE" dnt="false">항목이 파일이 아닙니다.</resource>
 <!-- ITEM_ALREADY_BEEN_READ_PAST -->
@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">로케일 식별자 {0}에 대한 부적합한 변형 - XSS 공격을 받지 않도록 슬래시를 포함하지 않아야 합니다. 변형에 대해 빈 문자열이 사용됩니다.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">{0} 파일을 삭제할 수 없습니다.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">{0} 속성 {1}의 {2} 값을 직렬화하는 중 오류가 발생했습니다.</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">복구 오류: {2} 유형의 {0} 속성 {1}을(를) 직렬화할 수 없습니다.</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">복구 오류: {0} 속성 {1}의 직렬화가 속성 변경 없이 {2}에서 {3}(으)로 변경되었습니다.</resource>
 </resources>

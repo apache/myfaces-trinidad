@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">ロケール識別子{0}のバリアントが無効です - XSS攻撃を回避するために、スラッシュを含めることはできません。バリアントには空の文字列が使用されます。</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">ファイル{0}を削除できませんでした</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">{0}の属性: {1} 値: {2}のシリアライズ化中にエラーが発生しました</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">フェイルオーバー・エラー: {0}のタイプ{2}の属性: {1}はシリアライズ化できません</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">フェイルオーバー・エラー: {0}の属性: {1}のシリアライズ化により、属性がダーティにされずに{2}から{3}に変更されました</resource>
 </resources>

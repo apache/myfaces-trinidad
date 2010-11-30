@@ -429,7 +429,7 @@
 <resource key="CLIENT_SIDE_ENCODING_NOT_SUPPORTED" dnt="false">Kodowanie {0} nie jest obsługiwane po stronie klienta. Nastąpi pominięcie weryfikacji po stronie klienta.</resource>
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">TrinidadFilter nie został zainstalowany. Apache Trinidad wymaga tego filtra do poprawnego działania.</resource>
-<resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Wartość &quot;{0}&quot; nie jest dozwoloną wartością dla &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
+<resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Wartość &quot;{0}&quot; nie jest dozwoloną wartością dla &lt;&quot;{1}&quot;&gt;</resource>
 <resource key="INVALID_ACC_PROFILE" dnt="false">Wartość &quot;{0}&quot; nie jest poprawną właściwością profilu dostępności</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() może być użyte tylko z agentami utworzonymi przez tę klasę.</resource>
@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Niepoprawna odmiana (variant) identyfikatora {0} ustawień narodowych - nie może zawierać ukośników (w celu uniknięcia ataków XSS). Zostanie użyta pusta wartość napisowa.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Nie udało się usunąć pliku {0}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Błąd podczas serializowania atrybutu {0}:{1} wartość:{2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Błąd podczas przejmowania awaryjnego: {0} atrybut:{1} typu {2} nie jest serializowalny</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Błąd podczas przejmowania awaryjnego: serializacja atrybutu {0}:{1} zmieniła z {2} na {3} bez zmiany wartości atrybutu</resource>
 </resources>

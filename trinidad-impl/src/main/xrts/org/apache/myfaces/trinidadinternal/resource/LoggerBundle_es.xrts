@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante no válida para el identificador de configuración regional {0}: No puede contener barras para evitar el ataque de XSS. Se utilizará una cadena vacía para la variante.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">No se ha podido suprimir el archivo {0}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Error al serializar {0} atributo:{1} valor:{2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Error de failover: {0} atributo: {1} de tipo {2} no serializable</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Error de failover: La serialización de {0} atributo: {1} ha cambiado de {2} a {3} sin que se haya ensuciado el atributo.</resource>
 </resources>

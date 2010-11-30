@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">ค่าแปรปรวนไม่ถูกต้องสำหรับตัวระบุโลแคล {0} - ต้องไม่มีเครื่องหมายทับเพื่อหลีกเลี่ยงการโจมตี XSS ระบบจะใช้สตริงว่างเปล่าสำหรับค่าแปรปรวน</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">ไม่สามารถลบไฟล์ {0}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">เกิดข้อผิดพลาดขณะซีเรียลไลซ์ {0} แอททริบิว: {1} ค่า: {2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">ข้อผิดพลาดในการเฟลโอเวอร์: {0} แอททริบิว: {1} ประเภท {2} ไม่สามารถซีเรียลไลซ์</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">ข้อผิดพลาดในการเฟลโอเวอร์: การซีเรียลไลซ์ {0} แอททริบิว: {1} มีการเปลี่ยนแปลงจาก {2} เป็น {3} โดยไม่มีผลกับแอททริบิว</resource>
 </resources>

@@ -200,7 +200,7 @@
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
 <resource key="af_chooseDate.CANCEL" dnt="false">&amp;Avbryt</resource>
 <!--Tooltip on the date picker button that launches the calendar dialog-->
-<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Välj för tillgång till datumval</resource>
+<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Öppna datumväljare</resource>
 <!--Title of ColorPicker Dialog-->
 <resource key="af_inputColor.PICKER_TITLE" dnt="false">Välj en färg</resource>
 <!--Text for transparent colors-->
@@ -208,7 +208,7 @@
 <!-- Prompt for color field in color picker dialog -->
 <resource key="af_inputColor.PICKER_PROMPT" dnt="false">Färg</resource>
 <!--Tooltip on the color picker button that launches the color palette dialog-->
-<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Välj för att få tillgång till färgväljare</resource>
+<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Öppna färgväljare</resource>
 <!-- Text on the Apply/Cancel buttons on the selectInputColor dialog -->
 <resource key="af_inputColor.APPLY" dnt="false">Använd</resource>
 <resource key="af_inputColor.CANCEL" dnt="false">Avbryt</resource>
@@ -283,7 +283,7 @@
 <resource key="af_selectManyShuttle.REMOVE" dnt="false">Ta bort</resource>
 <resource key="af_selectOrderShuttle.REMOVE" dnt="false">Ta bort</resource>
 <!--Poll. The button text that the user presses to manually ask for a poll of the server -->
-<resource key="af_poll.MANUAL" dnt="false">Omröstningsserver</resource>
+<resource key="af_poll.MANUAL" dnt="false">Avfrågningsserver</resource>
 <!--Progress-->
 <!--Format for the determinate progress icon's alt tag -->
 <resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">{0}% slutfört</resource>

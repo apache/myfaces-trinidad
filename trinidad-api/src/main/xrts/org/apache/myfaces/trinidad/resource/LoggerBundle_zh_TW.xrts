@@ -263,7 +263,7 @@
 <!-- END_OF_PATTERN_NOT_FOUND -->
 <resource key="END_OF_PATTERN_NOT_FOUND" dnt="false">找不到樣式結尾</resource>
 <!-- FASTMESSAGEFORMAT_FIND_EMPTY_ARGUMENT -->
-<resource key="FASTMESSAGEFORMAT_FIND_EMPTY_ARGUMENT" dnt="false">FastMessageFormat: 發現空的引數 - {} - </resource>
+<resource key="FASTMESSAGEFORMAT_FIND_EMPTY_ARGUMENT" dnt="false">FastMessageFormat: 發現空引數 - {} - </resource>
 <!-- BUNDLE_NOT_FOUND -->
 <resource key="BUNDLE_NOT_FOUND" dnt="false">找不到組合</resource>
 <!-- NULL_RESOURCEID -->
@@ -311,7 +311,7 @@
 <!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
 <resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">無法序列化元件樹狀結構狀態</resource>
 <!-- UNABLE_TO_SET_RENDER_PARAMETERS -->
-<resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">因為反映失敗, 無法設定入口網站應用程式顯示參數</resource>
+<resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">無法設定 Portlet 顯示參數, 因為反映失敗</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">&quot;{0}&quot; 的類型使它無法與 &quot;{1}&quot; 比較.</resource>
 <!-- ZIP_STATE_FAILED -->

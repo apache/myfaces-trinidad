@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">「地區設定」ID {0} 的變異無效 - 不得包含斜線以避免 XSS 攻擊. 將會使用空白的變異字串.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">無法刪除檔案 {0}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">將 {0} 屬性序列化時發生錯誤:{1} 值:{2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">容錯移轉錯誤: {0} 屬性:{1} (類型 {2}) 不可序列化</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">容錯移轉錯誤: {0} 屬性的序列化:{1} 已在未變動屬性的情況下從 {2} 變更為 {3}</resource>
 </resources>

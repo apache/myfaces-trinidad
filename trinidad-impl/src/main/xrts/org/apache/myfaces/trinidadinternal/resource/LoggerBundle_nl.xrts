@@ -712,7 +712,7 @@
 <!-- DEPRECATED_TRIGGER_SYNTAX -->
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Kan gedeeltelijke trigger {0} van {1} niet vinden met de ondersteunde partialTriggers-syntaxis. De gedeeltelijke trigger is gevonden met de afgekeurde syntaxis. Gebruik de ondersteunde syntaxis.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
-<resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Voor de DateTimeRangeValidator moet de component een EditableValueHolder zijn om clientvalidatie te laten werken. Clientvalidatie wordt uitgeschakeld voor component {0}.</resource>
+<resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Voor de DateTimeRangeValidator moet de component een EditableValueHolder zijn om clientvalidatie te laten werken. Clientvalidatie wordt gedeactiveerd voor component {0}.</resource>
 <!-- INVALID_LOCALE_LANG_LENGTH  -->
 <resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Ongeldige taal voor locale-ID {0}. De taalcode moet uit 2 tekens bestaan. Zie javadoc over locale voor de juiste notatie. De huidige paginalocale wordt gebruikt.</resource>
 <!-- INVALID_LOCALE_LANG_CASE  -->
@@ -724,4 +724,10 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ongeldige variant voor locale-ID {0}. De variant mag geen slashes bevatten. Dit om XSS-aanvallen te voorkomen. Er wordt een lege string gebruikt voor de variant.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Het volgende bestand kan niet worden verwijderd: {0}.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Fout bij serialiseren van {0} attribuut: {1} waarde: {2}.</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failover-fout: {0} attribuut: {1} van het type {2} is niet serialiseerbaar.</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failover-fout: serialisatie van {0} attribuut: {1} is gewijzigd van {2} in {3} zonder dat het attribuut is vervuild.</resource>
 </resources>
