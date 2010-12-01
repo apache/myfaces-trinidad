@@ -281,6 +281,9 @@ function _agentInit()
         // A new kind string was given to WM6 browser as the
         // capability is significantly different from predecessors.
         kind = "iemobile";
+        // Switch off JSF ajax for time being. There are still unresolved 
+        // issues with Mojarra in supporting mobile-browsers
+        useJsfAjax = false;
       }
     }
     else
@@ -343,6 +346,9 @@ function _agentInit()
 
     isBlackBerry = true;
     kind = "blackberry";
+    // Switch off the JSF ajax for time being. There are still unresolved 
+    // issues with Mojarra in supporting mobile browsers
+    useJsfAjax = false;
   }
   else if ((agentString.indexOf('mozilla')    != -1) &&
            (agentString.indexOf('spoofer')    == -1) &&
