@@ -635,12 +635,12 @@ TrDateTimeRangeValidator.prototype.validate  = function(
        // If so, revert to previous  behavior where we just parse the min/maxValue string, though
        // that may have less information than the ISO version. 
         minDate = (this._minISODate == null) ? 
-                    converter.getAsObject (this._minValue):
-                    isoConverter.getAsObject (this._minISODate);
+                    converter.getAsObject (this._minValue).getTime() :
+                    isoConverter.getAsObject (this._minISODate).getTime ();
 
         maxDate = (this._maxISODate == null) ? 
-                    converter.getAsObject (this._maxValue):
-                    isoConverter.getAsObject (this._maxISODate);
+                    converter.getAsObject (this._maxValue).getTime () :
+                    isoConverter.getAsObject (this._maxISODate).getTime ();
     }
     catch (e)
     {
@@ -683,8 +683,8 @@ TrDateTimeRangeValidator.prototype.validate  = function(
       try
       {
         minDate = (this._minISODate == null) ? 
-                    converter.getAsObject (this._minValue):
-                    isoConverter.getAsObject (this._minISODate);
+                    converter.getAsObject (this._minValue).getTime ():
+                    isoConverter.getAsObject (this._minISODate).getTime ();
       }
       catch (e)
       {
@@ -723,8 +723,8 @@ TrDateTimeRangeValidator.prototype.validate  = function(
       try
       {
         maxDate = (this._maxISODate == null) ? 
-                    converter.getAsObject (this._maxValue):
-                    isoConverter.getAsObject (this._maxISODate);
+                    converter.getAsObject (this._maxValue).getTime ():
+                    isoConverter.getAsObject (this._maxISODate).getTime ();
       }
       catch (e)
       {
