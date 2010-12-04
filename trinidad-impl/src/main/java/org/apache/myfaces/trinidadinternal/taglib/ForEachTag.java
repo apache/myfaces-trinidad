@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,8 +19,11 @@
 package org.apache.myfaces.trinidadinternal.taglib;
 
 import java.io.Serializable;
+
 import java.lang.reflect.Array;
+
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -28,13 +31,20 @@ import javax.el.ELContext;
 import javax.el.PropertyNotWritableException;
 import javax.el.ValueExpression;
 import javax.el.VariableMapper;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.webapp.UIComponentClassicTagBase;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.jstl.core.IndexedValueExpression;
+import javax.servlet.jsp.tagext.JspIdConsumer;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.webapp.TrinidadTagSupport;
+import org.apache.myfaces.trinidad.model.CollectionModel;
+import org.apache.myfaces.trinidad.webapp.TrinidadIterationTag;
+
 
 //JSTL Core Library - <c:forEach> Tag
 //===================================
@@ -55,10 +65,18 @@ import org.apache.myfaces.trinidad.webapp.TrinidadTagSupport;
 //</c:forEach>
 
 /**
- *
+ * Trinidad JSP for each tag that is based on the JSTL c:forEach tag
+ * but provides additinal functionality.
  */
-public class ForEachTag extends TrinidadTagSupport
+public class ForEachTag
+  extends TrinidadIterationTag
+  implements JspIdConsumer
 {
+  public ForEachTag()
+  {
+    System.out.println("ForEachTag created");
+  }
+
   public void setItems(ValueExpression items)
   {
     if (items.isLiteralText())
@@ -93,14 +111,51 @@ public class ForEachTag extends TrinidadTagSupport
   }
 
   @Override
-  public int doStartTag() throws JspException
+  public void setJspId(String id)
   {
+    System.out.println("setJspId: " + id);
+    // If the view attributes are null, then this is the first time this method has been called
+    // for this request.
+    if (_viewAttributes == null)
+    {
+      // The iteration map key is a key that will allow us to get the map for this tag instance,
+      // separated from other ForEachTags, that will map an iteration ID to the IterationMetaData
+      // instances. EL will use this map to get to the IterationMetaData and the indirection will
+      // allow the IterationMetaData to be updated without having to update the EL expressions.
+      _iterationMapKey = new StringBuilder(_VIEW_ATTR_KEY_LENGTH + id.length())
+        .append(_VIEW_ATTR_KEY)
+        .append(id)
+        .toString();
+
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+
+      // store the map into the view attributes to put it in a location that the EL expressions
+      // can access for not only the remainder of this request, but also the next request.
+      UIViewRoot viewRoot = facesContext.getViewRoot();
+
+      // We can cache the view attributes in the tag as a JSP tag marked with JspIdConsumer
+      // is never reused.
+      _viewAttributes = viewRoot.getAttributes();
+
+      // Create a new iteration map per-request. This will ensure that values from the previous
+      // request are not kept.
+      _iterationMap = new HashMap<Integer, IterationMetaData>();
+      _viewAttributes.put(_iterationMapKey, _iterationMap);
+    }
+  }
+
+  @Override
+  protected int doStartTagImpl()
+    throws JspException
+  {
+    System.out.println("doStartTagImpl");
     _validateAttributes();
 
-    FacesContext context = FacesContext.getCurrentInstance();
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    int          length;
+
     _currentBegin = (_begin == null) ? 0 : _begin.intValue();
     _isFirst = true;
-    int length;
 
     if (null != _items)
     {
@@ -110,39 +165,32 @@ public class ForEachTag extends TrinidadTagSupport
       // to the JSF ELContext seems to resolve that.  We certainly
       // have to use the JSPs ELResolver for calling through
       // to the VariableMapper
-      Object items = _items.getValue(context.getELContext());//pageContext.getELContext());
+      Object items = _items.getValue(facesContext.getELContext());//pageContext.getELContext());
 
       //pu: If items is specified and resolves to null, it is treated as an
       //  empty collection, i.e., no iteration is performed.
       if (items == null)
       {
-        if (_LOG.isFine())
-          _LOG.fine("Items expression " + _items + " resolved to null.");
+        _LOG.fine("Items expression {0} resolved to null.", _items);
         return SKIP_BODY;
       }
 
-      _itemsValue = items;
-      // =-=AEW <c:forEach> supports arbitrary collections;  but
-      // JSF only supports List in its EL.
-      if (items instanceof List)
-        length = ((List) items).size();
-      else if (items.getClass().isArray())
-        length = Array.getLength(items);
-      else
-        throw new JspException(_LOG.getMessage(
-          "MUST_POINT_TO_LIST_OR_ARRAY"));
+      // Build a wrapper around the items so that a common API can be used to interact with
+      // the items regardless of the type.
+      _itemsWrapper = _buildItemsWrapper(items);
+      length = _itemsWrapper.getSize();
+
       if (length == 0)
       {
-        if (_LOG.isFine())
-          _LOG.fine("Items found at " + _items + " is empty.");
+        _LOG.fine("Items found at {0} is empty.", _items);
         return SKIP_BODY;
       }
+
       //pu: If valid 'items' was specified, and so was 'begin', get out if size
       //  of collection were to be less than the begin. A mimic of c:forEach.
       if (length < _currentBegin)
       {
-        if (_LOG.isFine())
-          _LOG.fine("Size of 'items' is less than 'begin'");
+        _LOG.fine("Size of 'items' is less than 'begin'");
         return SKIP_BODY;
       }
 
@@ -151,57 +199,49 @@ public class ForEachTag extends TrinidadTagSupport
       //  the iteration to where the collection ends. A mimic of c:forEach and
       //  fix for bug 4029853.
       if (length < _currentEnd)
+      {
         _currentEnd = length - 1;
+      }
     }
     else
     {
       _currentEnd = (_end == null) ? 0 : _end.intValue();
     }
+
     _currentIndex = _currentBegin;
     _currentCount = 1;
     _currentStep = (_step == null) ? 1 : _step.intValue();
+
     //pu: Now check the valid relation between 'begin','end' and validity of 'step'
     _validateRangeAndStep();
-    
+
     // If we can bail, do it now
     if (_currentEnd < _currentIndex)
+    {
       return SKIP_BODY;
+    }
 
     _isLast = _currentIndex == _currentEnd;
 
     // Save off the previous deferred variables
-    VariableMapper vm = 
+    VariableMapper vm =
       pageContext.getELContext().getVariableMapper();
-    if (_var != null)
-      _previousDeferredVar = vm.resolveVariable(_var);
 
-    if (null != _varStatus)
+    if (_var != null)
     {
-      _previousDeferredVarStatus = vm.resolveVariable(_varStatus);
-      _propertyReplacementMap = new HashMap<String, Object>(9, 1);
-      _propertyReplacementMap.put("begin", Integer.valueOf(_currentBegin));
-      _propertyReplacementMap.put("end", Integer.valueOf(_currentEnd));
-      _propertyReplacementMap.put("step", Integer.valueOf(_currentStep));
-      _propertyReplacementMap.put("count", Integer.valueOf(_currentCount));
-      _propertyReplacementMap.put("index", Integer.valueOf(_currentIndex));
-      // FIXME: Can we support "current" efficiently?
-      //      _propertyReplacementMap.put("current", _varReplacement);
-      _propertyReplacementMap.put(
-        "first",
-        (_isFirst)? Boolean.TRUE:Boolean.FALSE);
-      _propertyReplacementMap.put(
-        "last",
-        (_isLast)? Boolean.TRUE:Boolean.FALSE);
+      // Store off the current variable so that it may be restored after tag processing
+      _previousDeferredVar = vm.resolveVariable(_var);
     }
 
     if (_LOG.isFiner())
     {
-      _LOG.finer("Iterating from " + _currentIndex + " to " + _currentEnd +
-                 " by " + _currentStep);
+      _LOG.finer("Iterating from {0} to {1} by {2}",
+        new Object[] { _currentIndex, _currentEnd, _currentStep });
     }
 
-    // Update the variables
-    _updateVars();
+    _parentComponent = _getParentComponent();
+
+    _updateVars(true);
 
     return EVAL_BODY_INCLUDE;
   }
@@ -209,46 +249,34 @@ public class ForEachTag extends TrinidadTagSupport
   @Override
   public int doAfterBody()
   {
+    System.out.println("doAfterBody");
     _currentIndex += _currentStep;
-    _currentCount += 1;
-
-    //pu: if there is no varStatus set, no point in keeping loop status
-    //  variables updated.
-    if (null != _varStatus)
-    {
-      if (_isFirst)
-      {
-        _propertyReplacementMap.put("first", Boolean.FALSE);
-        _isFirst = false;
-      }
-
-      _isLast = (_currentIndex == _currentEnd);
-      if (_isLast)
-      {
-        _propertyReplacementMap.put("last", _isLast);
-      }
-      _propertyReplacementMap.put("count", Integer.valueOf(_currentCount));
-      _propertyReplacementMap.put("index", Integer.valueOf(_currentIndex));
-      // FIXME: Can we support "current" efficiently?
-      //      _propertyReplacementMap.put("current", _varReplacement);
-    }
+    ++_currentCount;
+    _isFirst = false;
+    _isLast = _currentIndex == _currentEnd;
 
     // If we're at the end, bail
     if (_currentEnd < _currentIndex)
     {
       // Restore EL state
-      VariableMapper vm = 
+      VariableMapper vm =
         pageContext.getELContext().getVariableMapper();
       if (_var != null)
         vm.setVariable(_var, _previousDeferredVar);
       if (_varStatus != null)
         vm.setVariable(_varStatus, _previousDeferredVarStatus);
 
+      if (_suffixPushed)
+      {
+        popComponentSuffix();
+        _suffixPushed = false;
+      }
+
       return SKIP_BODY;
     }
-    
+
     // Otherwise, update the variables and go again
-    _updateVars();
+    _updateVars(true);
 
     return EVAL_BODY_AGAIN;
   }
@@ -264,52 +292,166 @@ public class ForEachTag extends TrinidadTagSupport
     _end = null;
     _step = null;
     _items = null;
-    _itemsValue = null;
     _var = null;
     _varStatus = null;
-    _propertyReplacementMap = null;
     _previousDeferredVar = null;
     _previousDeferredVarStatus = null;
+
+    System.out.println("release called");
+    _iterationId = null;
+    _iterationData = null;
+    _viewAttributes = null;
+    _iterationMapKey = null;
+    _iterationMap = null;
+    _itemsWrapper = null;
+
+    _parentComponent = null;
+
+    _suffixPushed = false;
+}
+
+  @Override
+  public final void childComponentProcessed(
+    UIComponent component)
+  {
+    // This code is called when a component is created or found, see which it is.
+    // We are only interested in components that are directly under our parent.
+    if (component.getParent() == _parentComponent)
+    {
+      Map<String, Object> compAttrs = component.getAttributes();
+      Integer iterationId = (Integer)compAttrs.get(_ITERATION_ID_KEY);
+      System.out.println("childComponentProcessed: " + component +
+                         " Previous component iteration ID: " + iterationId);
+
+      if (iterationId == null)
+      {
+        // This is a new component, use the current iteration ID
+        compAttrs.put(_ITERATION_ID_KEY, _iterationId);
+
+        // Remember that the iteration ID was used
+        _iterationIdRequiresIncrement = true;
+      }
+      else
+      {
+        // This component has been seen before, register the old iteration ID with the iteration
+        // map so that the EL may look up the iteration data.
+        _iterationMap.put(iterationId, _iterationData);
+      }
+    }
+  }
+
+  @Override
+  public void afterChildComponentProcessed(
+    UIComponent component)
+  {
+    // This code is called when a component is created or found, see which it is.
+    // We are only interested in components that are directly under our parent.
+    if (component.getParent() == _parentComponent)
+    {
+      System.out.println("afterChildComponentProcessed: " + component);
+      // Store a unique iteration ID in each component. That way, if a component is ever moved
+      // from one iteration to another between requests, but not all the components, no problems
+      // will ensue. The use case is that ${} is used in the ID of one or more child components
+      // of a for each loop to pin the component to the item in the collection rather than the
+      // for each index.
+      if (_iterationIdRequiresIncrement)
+      {
+        _updateVars(false);
+        _iterationIdRequiresIncrement = false;
+      }
+    }
+  }
+
+  private UIComponent _getParentComponent()
+  {
+    UIComponentClassicTagBase tag = UIComponentClassicTagBase.getParentUIComponentClassicTagBase(
+                                      pageContext);
+    return tag == null ? null : tag.getComponentInstance();
   }
 
   // Push new values into the VariableMapper and the pageContext
-  private void _updateVars()
+  private void _updateVars(
+    boolean createNewIterationData)
   {
-    VariableMapper vm = 
+    VariableMapper vm =
       pageContext.getELContext().getVariableMapper();
+
+    // Generate a new iteration ID
+    _updateIterationId();
+
     if (_var != null)
     {
       // Catch programmer error where _var has been set but
       // _items has not
       if (_items != null)
       {
-        ValueExpression iterated = new IndexedValueExpression(_items,
-                                                              _currentIndex);
-        vm.setVariable(_var, iterated);
+        // Determine if we need to use a key or an index based value expression
+        // for the current items.
+        ValueExpression expr;
+        if (_itemsWrapper.isKeyBased())
+        {
+          // Use a key to get the value
+          Serializable key = _asSerializable(_itemsWrapper.getKey(_currentIndex));
+          expr = new KeyedValueExpression(_items, key);
+        }
+        else
+        {
+          // Use indirection to get the index from the iteration data using the iteration ID
+          // so that the expression is not hard-coded to one index
+          expr = new IndexedValueExpression(_iterationId, _iterationMapKey, _items);
+        }
+
+        vm.setVariable(_var, expr);
       }
-      
+
       // Ditto (though, technically, one check for
       // _items is sufficient, because if _items evaluated
       // to null, we'd skip the whole loop)
-      Object items = _itemsValue;
-      if (items != null)
+      if (_itemsWrapper != null)
       {
-        Object item;
-        if (items instanceof List)
-          item = ((List) items).get(_currentIndex);
-        else
-          item = Array.get(items, _currentIndex);
-
+        Object item = _itemsWrapper.getValue(_currentIndex);
         pageContext.setAttribute(_var, item);
       }
     }
-    
+
+    Object key = _itemsWrapper == null ?
+      _currentIndex : _itemsWrapper.getKey(_currentIndex);
+
+    if (!(key instanceof Serializable))
+    {
+      throw new IllegalStateException("For each loop keys must be serializable");
+    }
+
+    if (createNewIterationData || _iterationData == null)
+    {
+      _iterationData = new IterationMetaData((Serializable)key, _isFirst, _isLast,
+                         _currentBegin, _currentCount, _currentIndex, _currentEnd);
+    }
+
+    // Store the iteration data into the view attributes to allow the EL expressions
+    // gain access to it
+    _iterationMap.put(_iterationId, _iterationData);
+
     if (_varStatus != null)
     {
-      pageContext.setAttribute(_varStatus, _propertyReplacementMap);
-      ValueExpression constant = new Constants(
-                                      new HashMap(_propertyReplacementMap));
-      vm.setVariable(_varStatus, constant);
+      _previousDeferredVarStatus = vm.resolveVariable(_varStatus);
+
+
+      // Store a new var status value expression into the variable mapper
+      vm.setVariable(_varStatus, new VarStatusValueExpression(_iterationId, _iterationMapKey));
+    }
+
+    if (_suffixPushed)
+    {
+      popComponentSuffix();
+      _suffixPushed = false;
+    }
+
+    // To do, support non-key pass-through
+    if (_itemsWrapper != null && _itemsWrapper.isIdSuffixSupported())
+    {
+      pushComponentSuffix("_" + key.toString());
+      _suffixPushed = true;
     }
   }
 
@@ -364,21 +506,84 @@ public class ForEachTag extends TrinidadTagSupport
       throw new JspTagException("'step' < 1");
   }
 
-  // Basic ValueExpression that always returns a constant object
-  static private class Constants extends ValueExpression
-                                 implements Serializable
+  private void _updateIterationId()
   {
-    public Constants(Object o)
+    Integer intObj = (Integer)_viewAttributes.get(_ITERATION_ID_KEY);
+
+    if (intObj == null)
     {
-      _o = o;
+      // By using MIN_VALUE, we can achive 4.2E9 requests for the current view (should
+      // be way more than we need)
+      _iterationId = new Integer(Integer.MIN_VALUE);
+    }
+    else
+    {
+      _iterationId = intObj + 1;
     }
 
-    public Object getValue(ELContext context)
+    System.out.println("Iteration ID is now " + _iterationId);
+    _viewAttributes.put(_ITERATION_ID_KEY, _iterationId);
+
+    if (_iterationData != null)
     {
-      return _o;
+      _iterationMap.put(_iterationId, _iterationData);
+    }
+  }
+
+  private Serializable _asSerializable(Object key)
+  {
+    if (key instanceof Serializable)
+    {
+      return (Serializable)key;
+    }
+    else
+    {
+      throw new IllegalStateException("The forEach tag only supports serializable keys for " +
+        "maps and collection models");
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  private static ItemsWrapper _buildItemsWrapper(
+    Object items)
+  {
+    if (items instanceof Array)
+    {
+      return new ArrayWrapper(items);
+    }
+    else if (items instanceof List)
+    {
+      return new ListWrapper((List<?>)items);
+    }
+    else if (items instanceof CollectionModel)
+    {
+      return new CollectionModelWrapper((CollectionModel)items);
+    }
+    else if (items instanceof Map)
+    {
+      return new MapWrapper((Map<?, ?>)items);
+    }
+    else
+    {
+      throw new IllegalArgumentException("Illegal items type: " + items.getClass());
+    }
+  }
+
+  private static abstract class ForEachBaseValueExpression
+    extends ValueExpression
+    implements Serializable
+  {
+    protected ForEachBaseValueExpression(
+      Integer iterationId,
+      String  mapKey)
+    {
+      _iterationId = iterationId;
+      _mapKey      = mapKey;
     }
 
-    public void setValue(ELContext context, Object value)
+    public void setValue(
+      ELContext context,
+      Object    value)
     {
       throw new PropertyNotWritableException();
     }
@@ -390,12 +595,7 @@ public class ForEachTag extends TrinidadTagSupport
 
     public Class getType(ELContext context)
     {
-      return _o.getClass();
-    }
-
-    public Class getExpectedType()
-    {
-      return _o.getClass();
+      return getExpectedType();
     }
 
     public String getExpressionString()
@@ -410,7 +610,7 @@ public class ForEachTag extends TrinidadTagSupport
 
     public int hashCode()
     {
-      return _o.hashCode();
+      return _iterationId.hashCode() | _mapKey.hashCode();
     }
 
     public boolean isLiteralText()
@@ -418,8 +618,486 @@ public class ForEachTag extends TrinidadTagSupport
       return true;
     }
 
-    private Object _o;    
+    protected IterationMetaData getIterationMetaData()
+    {
+      // A value expression should ever only be used for one view root,
+      // so keep a transient reference to the view to increase performance
+      if (_viewAttributes == null)
+      {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        UIViewRoot view = facesContext.getViewRoot();
+        _viewAttributes = view.getAttributes();
+      }
+
+      // Get the map from the view attributes created by the tag:
+      @SuppressWarnings("unchecked")
+      Map<Integer, IterationMetaData> map = (Map<Integer, IterationMetaData>)
+        _viewAttributes.get(_mapKey);
+
+      // The map will be null if, somehow, the component for a given for each loop execution
+      // is still around, but the for each loop did not match the component during this request
+      // (probably a temporary state until the unmatched component is removed).
+      return map == null ? null : map.get(_iterationId);
+    }
+
+    private final Integer _iterationId;
+    private final String  _mapKey;
+    private transient Map<String, Object> _viewAttributes;
+
+    @SuppressWarnings("compatibility:29745293788177755")
     private static final long serialVersionUID = 1L;
+  }
+
+  private static class KeyedValueExpression
+    extends ValueExpression
+  {
+    private KeyedValueExpression(
+      ValueExpression itemsExpression,
+      Serializable    key)
+    {
+      _itemsExpression = itemsExpression;
+      _key = key;
+    }
+
+    public Object getValue(ELContext context)
+    {
+      Object items = _itemsExpression.getValue(context);
+
+      if (items == null)
+      {
+        return null;
+      }
+
+      context.setPropertyResolved(false);
+      return context.getELResolver().getValue(context, items, _key);
+    }
+
+    public void setValue(ELContext context, Object value)
+    {
+      Object items = _itemsExpression.getValue(context);
+
+      if (items != null)
+      {
+        context.setPropertyResolved(false);
+        context.getELResolver().setValue(context, items, _key, value);
+      }
+    }
+
+    public boolean isReadOnly(ELContext context)
+    {
+      Object items = _itemsExpression.getValue(context);
+      if (items == null)
+      {
+        return true;
+      }
+
+      return context.getELResolver().isReadOnly(context, items, _key);
+    }
+
+    public Class<?> getType(ELContext context)
+    {
+      return null;
+    }
+
+    public Class<?> getExpectedType()
+    {
+      return Object.class;
+    }
+
+    public String getExpressionString()
+    {
+      return _itemsExpression.getExpressionString();
+    }
+
+    public boolean isLiteralText()
+    {
+      return false;
+    }
+
+    @Override
+    public int hashCode()
+    {
+      return _itemsExpression.hashCode();
+    }
+
+    public boolean equals(Object obj)
+    {
+      return _itemsExpression.equals(obj);
+    }
+
+    private final ValueExpression _itemsExpression;
+    private final Serializable    _key;
+
+    @SuppressWarnings("compatibility:-8374272730669095059")
+    private static final long serialVersionUID = 1L;
+  }
+
+  /**
+   * Value expression that looks up the var value using an index.
+   * This class is written in such a way that the index is dynamic, so that if a component is
+   * used in different iterations of the for each loop across requests, the correct variable
+   * is returned.
+   */
+  private static class IndexedValueExpression
+    extends ForEachBaseValueExpression
+    implements Serializable
+  {
+    private IndexedValueExpression(
+      Integer         iterationId,
+      String          mapKey,
+      ValueExpression itemsExpression)
+    {
+      super(iterationId, mapKey);
+      _itemsExpression = itemsExpression;
+    }
+
+    public Object getValue(ELContext context)
+    {
+      // By using a layer of indirection, we can ensure that the correct value is returned for
+      // users who pin their component ID to the varStatus so that the component is processed
+      // during a different index across requests. We can use the index from the varStatus
+      // to determine the correct index to use in the items collection.
+      IterationMetaData data = getIterationMetaData();
+      if (data == null)
+      {
+        return null;
+      }
+
+      Object items = _itemsExpression.getValue(context);
+      if (items == null)
+      {
+        return null;
+      }
+
+      context.setPropertyResolved(false);
+      return context.getELResolver().getValue(context, items, data.getIndex());
+    }
+
+    public Class<?> getExpectedType()
+    {
+      return Object.class;
+    }
+
+    @Override
+    public int hashCode()
+    {
+      return _itemsExpression.hashCode();
+    }
+
+    public boolean equals(Object obj)
+    {
+      return _itemsExpression.equals(obj);
+    }
+
+    private final ValueExpression _itemsExpression;
+
+    @SuppressWarnings("compatibility:1734834404228501647")
+    private static final long serialVersionUID = 1L;
+  }
+
+  /**
+   * Value Expression instance used to get an object containing the var status properties.
+   */
+  static private class VarStatusValueExpression
+    extends ForEachBaseValueExpression
+    implements Serializable
+  {
+    private VarStatusValueExpression(
+      Integer iterationId,
+      String  mapKey)
+    {
+      super(iterationId, mapKey);
+    }
+
+    public Object getValue(ELContext context)
+    {
+      return super.getIterationMetaData();
+    }
+
+    public Class getExpectedType()
+    {
+      return IterationMetaData.class;
+    }
+
+    @SuppressWarnings("compatibility:-3014844132563306923")
+    private static final long serialVersionUID = 1L;
+  }
+
+  private abstract static class ItemsWrapper
+  {
+    public abstract Object getKey(int index);
+    public abstract Object getValue(int index);
+    public abstract int getSize();
+    public abstract boolean isIdSuffixSupported();
+    public abstract boolean isKeyBased();
+  }
+
+  private static class CollectionModelWrapper
+    extends ItemsWrapper
+  {
+    private CollectionModelWrapper(
+      CollectionModel collectionModel)
+    {
+      _collectionModel = collectionModel;
+    }
+
+    @Override
+    public Object getKey(int index)
+    {
+      Object oldRowKey = _collectionModel.getRowKey();
+      try
+      {
+        _collectionModel.setRowIndex(index);
+        return _collectionModel.getRowKey();
+      }
+      finally
+      {
+        _collectionModel.setRowKey(oldRowKey);
+      }
+    }
+
+    @Override
+    public Object getValue(int index)
+    {
+      return _collectionModel.getRowData(index);
+    }
+
+    @Override
+    public int getSize()
+    {
+      return _collectionModel.getRowCount();
+    }
+
+    public boolean isIdSuffixSupported()
+    {
+      return true;
+    }
+
+    public boolean isKeyBased()
+    {
+      return true;
+    }
+
+    private CollectionModel _collectionModel;
+  }
+
+  private static class MapWrapper
+    extends ItemsWrapper
+  {
+    private MapWrapper(
+      Map<?, ?> map)
+    {
+      _map = map;
+    }
+
+    @Override
+    public Object getKey(int index)
+    {
+      _moveToIndex(index);
+      return _currentEntry.getKey();
+    }
+
+    @Override
+    public Object getValue(int index)
+    {
+      _moveToIndex(index);
+      return _currentEntry.getValue();
+    }
+
+    @Override
+    public int getSize()
+    {
+      return _map.size();
+    }
+
+    private void _moveToIndex(int index)
+    {
+      if (index == _currentIndex)
+      {
+        return;
+      }
+
+      if (index < _currentIndex)
+      {
+        // Need to re-create the iterator
+        _iter = _map.entrySet().iterator();
+        _currentIndex = -1;
+      }
+
+      for (int i = _currentIndex; i < index; ++i)
+      {
+        _currentEntry = _iter.next();
+      }
+
+      _currentIndex = index;
+    }
+
+    public boolean isIdSuffixSupported()
+    {
+      return true;
+    }
+
+    public boolean isKeyBased()
+    {
+      return true;
+    }
+
+    private final Map<?, ?>                     _map;
+    private Iterator<? extends Map.Entry<?, ?>> _iter;
+    private Map.Entry<?, ?>                     _currentEntry;
+    private int                                 _currentIndex = -1;
+  }
+
+  private static class ListWrapper
+    extends ItemsWrapper
+  {
+    private ListWrapper(
+      List<?>  list)
+    {
+      _list = list;
+    }
+
+    @Override
+    public Object getKey(int index)
+    {
+      return index;
+    }
+
+    @Override
+    public Object getValue(int index)
+    {
+      return _list.get(index);
+    }
+
+    @Override
+    public int getSize()
+    {
+      return _list.size();
+    }
+
+    public boolean isIdSuffixSupported()
+    {
+      return false;
+    }
+
+    public boolean isKeyBased()
+    {
+      return false;
+    }
+
+    private final List<?> _list;
+  }
+
+  private static class ArrayWrapper
+    extends ItemsWrapper
+  {
+    private ArrayWrapper(
+      Object      array)
+    {
+      _array = array;
+    }
+
+    @Override
+    public Object getKey(int index)
+    {
+      return index;
+    }
+
+    @Override
+    public Object getValue(int index)
+    {
+      return Array.get(_array, index);
+    }
+
+    @Override
+    public int getSize()
+    {
+      return Array.getLength(_array);
+    }
+
+    public boolean isIdSuffixSupported()
+    {
+      return false;
+    }
+
+    public boolean isKeyBased()
+    {
+      return false;
+    }
+
+    private final Object _array;
+  }
+
+  /**
+   * Data that is used for the children content of the tag. This contains
+   * the var status information.
+   */
+  public static class IterationMetaData
+    implements Serializable
+  {
+    private IterationMetaData(
+      Serializable key,
+      boolean      first,
+      boolean      last,
+      int          begin,
+      int          count,
+      int          index,
+      int          end)
+    {
+      super();
+      this._key = key;
+      this._first = first;
+      this._last = last;
+      this._begin = begin;
+      this._count = count;
+      this._index = index;
+      this._end = end;
+    }
+
+    public final boolean isLast()
+    {
+      return _last;
+    }
+
+    public final boolean isFirst()
+    {
+      return _first;
+    }
+
+    public final int getIndex()
+    {
+      return _index;
+    }
+
+    public final int getCount()
+    {
+      return _count;
+    }
+
+    public final int getBegin()
+    {
+      return _begin;
+    }
+
+    public final int getEnd()
+    {
+      return _end;
+    }
+
+    public final Serializable getKey()
+    {
+      return _key;
+    }
+
+    private boolean _last;
+    private boolean _first;
+    private int _begin;
+    private int _count;
+    private int _index;
+    private int _end;
+    private Serializable _key;
+
+    private static final long serialVersionUID = 0L;
   }
 
   private int _currentBegin;
@@ -429,11 +1107,9 @@ public class ForEachTag extends TrinidadTagSupport
   private int _currentCount;
   private boolean _isFirst;
   private boolean _isLast;
-
+  private boolean _iterationIdRequiresIncrement;
 
   private ValueExpression _items;
-  private Object          _itemsValue;
-
   private ValueExpression _beginVE;
   private ValueExpression _endVE;
   private ValueExpression _stepVE;
@@ -442,16 +1118,29 @@ public class ForEachTag extends TrinidadTagSupport
   private Integer _end;
   private Integer _step;
 
+  private boolean _suffixPushed = false;
+
+  private UIComponent _parentComponent;
+
+  private Integer _iterationId;
+  private IterationMetaData _iterationData;
+  private Map<String, Object> _viewAttributes;
+
+  private String _iterationMapKey;
+  private Map<Integer, IterationMetaData> _iterationMap;
+  private ItemsWrapper _itemsWrapper;
+
   private String _var;
   private String _varStatus;
-  
+
   // Saved values on the VariableMapper
   private ValueExpression _previousDeferredVar;
   private ValueExpression _previousDeferredVarStatus;
 
-  // Map for properties referred off from 'varStatus' and their replacements
-  private Map<String, Object> _propertyReplacementMap;
-
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ForEachTag.class);
+  private static final String _VIEW_ATTR_KEY = ForEachTag.class.getName() + ".";
+  private static final int _VIEW_ATTR_KEY_LENGTH = _VIEW_ATTR_KEY.length();
+  private static final String _ITERATION_ID_KEY =
+    ForEachTag.class.getName() + ".ITER";
   private static final long serialVersionUID = 1L;
 }
