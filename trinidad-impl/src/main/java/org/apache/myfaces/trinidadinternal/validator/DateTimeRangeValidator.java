@@ -27,13 +27,14 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.TimeZone;
 import javax.faces.component.UIComponent;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.validator.ValidatorException;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.convert.DateTimeConverter;
@@ -126,8 +127,10 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
     // Trinidad-1818: Send min/max in two formats: one parseable by the converter (for hints),
     // one in an ISO-like format that doesn't lose information if the converter has
     // a pattern that loses information.
-    String maxISOStr = (max == null)  ? "null" : "'" +  _ISO_FORMAT.format(max) + "'" ;
-    String minISOStr = (min == null)  ? "null" : "'" +  _ISO_FORMAT.format(min) + "'" ;
+   // Trinidad-1967: Ensure the isoFormat uses the same timezone as the converter
+    SimpleDateFormat isoFormat = _getISOFormat (conv);
+    String maxISOStr = (max == null)  ? "null" : "'" +  isoFormat.format(max) + "'" ;
+    String minISOStr = (min == null)  ? "null" : "'" +  isoFormat.format(min) + "'" ;
     return _getTrDateTimeRangeValidator(context, component, maxStr, maxISOStr,
                                         minStr, minISOStr, cMessages);
   }
@@ -178,12 +181,45 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
     return outBuffer.toString();
   }
 
+ 
+   private SimpleDateFormat _getISOFormat (Converter conv)
+   {
+     SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+     // Trinidad-1967: ISOFormat should use the same timezone as the converter's
+     // Make sure this matches DateTimeConverter's#_getTimeZone
+     TimeZone tZone = null;
+
+     if (conv instanceof javax.faces.convert.DateTimeConverter)
+       tZone = ((javax.faces.convert.DateTimeConverter)conv).getTimeZone();
+
+     if (tZone == null)
+     {
+       RequestContext context = RequestContext.getCurrentInstance();
+       if (context == null)
+       {
+         _LOG.warning("NO_REQUESTCONTEXT_TIMEZONE_DEFAULT");
+       }
+       else
+       {
+         tZone = context.getTimeZone();
+       }
+
+       // If RequestContext is null or if it returns a null,
+       // then set it to the default time zone which is GMT time zone
+       if (tZone == null)
+       {
+         tZone = _DEFAULT_TIME_ZONE;
+       }
+     }
+     isoFormat.setTimeZone(tZone);
+     return isoFormat;    
+   }
 
   private static final TrinidadLogger _LOG = TrinidadLogger
       .createTrinidadLogger(DateTimeRangeValidator.class);
  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
 
-  private static final SimpleDateFormat _ISO_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+  private static final TimeZone _DEFAULT_TIME_ZONE = TimeZone.getTimeZone("GMT");
+  
 
 }
