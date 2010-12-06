@@ -253,6 +253,7 @@ public class SkinCSSDocumentHandler
   private String _extractUrl(String urlString)
   {
 
+    urlString = urlString.trim();
      
     // first, strip off the url( and );
     if (urlString.startsWith("url("))
@@ -276,7 +277,7 @@ public class SkinCSSDocumentHandler
     //@import url("mystyle.css");
     //@import url(mystyle.css);
 
-    // strip out @import and the space, then get the url
+    // strip out @import any spaces, then get the url
     String styleSheetName = _extractUrl(type.substring(8));
 
     try
@@ -352,11 +353,11 @@ public class SkinCSSDocumentHandler
     if (list == null)
       list = new ArrayList<Object>();
     else
-      list = (ArrayList<Object>)list.clone();
+      list = new ArrayList<Object>(list);
     list.add(identifier);
     newContext.setProperty(_SHARE_NAMESPACE, _INCLUDE_STACK, list);
     
-    List<List<SkinStyleSheetNode>> imports = new ArrayList<List<SkinStyleSheetNode>>();;
+    List<List<SkinStyleSheetNode>> imports = new ArrayList<List<SkinStyleSheetNode>>();
 
     InputStream stream = importProvider.openInputStream();
     try
@@ -388,7 +389,7 @@ public class SkinCSSDocumentHandler
       reader.close();
       
       // Step 7. Store the cached result (if successful)
-      if (imports != null)
+      if (!imports.isEmpty())
       {
         importProvider.setCachedResult(imports);
       }
