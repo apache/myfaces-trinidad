@@ -282,7 +282,9 @@ public class SkinCSSDocumentHandler
 
     try
     {
-      _imports = _parseImportStyleSheetFile(_parseContext, styleSheetName, List.class);
+      if (_imports == null)
+        _imports = new ArrayList<List<SkinStyleSheetNode>>();
+      _imports.add(_parseImportStyleSheetFile(_parseContext, styleSheetName, List.class));
     }
     catch (IOException e)
     {
@@ -297,7 +299,7 @@ public class SkinCSSDocumentHandler
 
   }
   
-  private List<List<SkinStyleSheetNode>> _parseImportStyleSheetFile(
+  private List<SkinStyleSheetNode> _parseImportStyleSheetFile(
     ParseContext  context,
     String        sourceName,
     Class<?>      expectedType)
@@ -339,11 +341,12 @@ public class SkinCSSDocumentHandler
     // Step 4. Try to get a cached version
     // =-=jmw  I don't know when the cached returns non-null other than when
     // the same import is included twice. This step (and Step 7) might not be worth it.
-    Object cached = importProvider.getCachedResult();
-    if ((cached != null) && expectedType.isInstance(cached))
-    {
-     return (List<List<SkinStyleSheetNode>>)cached;
-    }
+    // comment out caching code
+    //Object cached = importProvider.getCachedResult();
+    //if ((cached != null) && expectedType.isInstance(cached))
+    //{
+     //return (List<List<SkinStyleSheetNode>>)cached;
+    //}
     
     // Step 5. Set up the new context; first, clone the original
     ParseContext newContext = (ParseContext)context.clone();
@@ -357,8 +360,6 @@ public class SkinCSSDocumentHandler
     list.add(identifier);
     newContext.setProperty(_SHARE_NAMESPACE, _INCLUDE_STACK, list);
     
-    List<List<SkinStyleSheetNode>> imports = new ArrayList<List<SkinStyleSheetNode>>();
-
     InputStream stream = importProvider.openInputStream();
     try
     {
@@ -380,20 +381,18 @@ public class SkinCSSDocumentHandler
       // an @import in the CSS file.
       SkinCSSDocumentHandler documentHandler = new SkinCSSDocumentHandler(newContext);
       parser.parseCSSDocument(reader, documentHandler);
-      List <SkinStyleSheetNode> importSkinSSNodeList = documentHandler.getSkinStyleSheetNodes();
-      if (importSkinSSNodeList != null && !importSkinSSNodeList.isEmpty())
-      {
-        imports.add(importSkinSSNodeList);       
-      }
+      // If the imported css has an import of its own, this list will contain all the
+      // imported nodes.
+      List <SkinStyleSheetNode> importSkinSSNodeList = documentHandler.getSkinStyleSheetNodes();      
 
       reader.close();
       
       // Step 7. Store the cached result (if successful)
-      if (!imports.isEmpty())
-      {
-        importProvider.setCachedResult(imports);
-      }
-      return imports;
+      //if (!_imports.isEmpty())
+      //{
+      //  importProvider.setCachedResult(_imports);
+      //}
+      return importSkinSSNodeList;
 
     }
     finally
