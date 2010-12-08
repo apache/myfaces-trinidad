@@ -136,24 +136,33 @@ class SkinStyleSheetParserUtils
 
   /**
    * Trim the leading/ending quotes, if any.
+   * We trim only matching quotes, as opposed to trimQuotes which trims any quotes.
    */
   public static String trimQuotes(String in)
   {
-    int length = in.length();
-    if (length <= 1)
+    if ( in == null )
       return in;
-    // strip off the starting/ending quotes if there are any
-    char firstChar = in.charAt(0);
-    int firstCharIndex = 0;
-    if ((firstChar == '\'') || (firstChar == '"'))
-      firstCharIndex = 1;
 
-    char lastChar = in.charAt(length-1);
-    if ((lastChar == '\'') || (lastChar == '"'))
-      length--;
-
-    return in.substring(firstCharIndex, length);
-  }
+    in = in.trim();
+    boolean startsWithDoubleQuote = in.startsWith( "\"" );
+    boolean startsWithSingleQuote = in.startsWith( "\'" );
+    boolean endsWithDoubleQuote = in.endsWith( "\"" );
+    boolean endsWithSingleQuote = in.endsWith( "\'" );
+    
+    if (( startsWithDoubleQuote && endsWithSingleQuote ) ||
+       ( startsWithSingleQuote && endsWithDoubleQuote ))
+    {
+      if (_LOG.isWarning())
+        _LOG.warning("ERR_PARSING", in);
+    }
+                                                          
+    if ( startsWithDoubleQuote && endsWithDoubleQuote )
+      return in.substring( 1, in.length() - 1 );
+    if ( startsWithSingleQuote && endsWithSingleQuote )
+      return in.substring( 1, in.length() - 1 );
+    
+    return in;
+  }  
 
 
   /**
