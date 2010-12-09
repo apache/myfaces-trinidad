@@ -42,14 +42,16 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.render.Renderer;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+
 import javax.validation.Validation;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
-import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
+import org.apache.myfaces.trinidad.util.MessageFactory;
+
 
 /**
  * Base class for components that have a value.
@@ -75,7 +77,7 @@ abstract public class UIXEditableValueTemplate
   static public final String VALIDATE_EMPTY_FIELDS_PARAM_NAME =
     "org.apache.myfaces.trinidad.UIXEditableValue.VALIDATE_EMPTY_FIELDS";
 
-  /** -=matzew=- According to http://wiki.java.net/bin/view/Projects/Jsf2MR1ChangeLog 
+  /** -=matzew=- According to http://wiki.java.net/bin/view/Projects/Jsf2MR1ChangeLog
    * this constant will be made public on UIInput with JSF 2.1. For now we have to have
    * it here as a private one...
    **/
@@ -150,7 +152,7 @@ abstract public class UIXEditableValueTemplate
     {
       submittedValue = null;
     }
-    
+
     Object newValue = null;
     try
     {
@@ -226,23 +228,39 @@ abstract public class UIXEditableValueTemplate
     if (!isRendered())
       return;
 
-    super.processDecodes(context);
+    pushComponentToEL(context, this);
+    try
+    {
+      super.processDecodes(context);
 
-    if (isImmediate())
-      _executeValidate(context);
+      if (isImmediate())
+        _executeValidate(context);
+    }
+    finally
+    {
+      popComponentFromEL(context);
+    }
   }
 
   @Override
   public void processUpdates(FacesContext context)
   {
-    super.processUpdates(context);
-
     // Skip processing if our rendered flag is false
     if (!isRendered())
       return;
 
-    // Process this component itself
-    updateModel(context);
+    pushComponentToEL(context, this);
+    try
+    {
+      super.processUpdates(context);
+
+      // Process this component itself
+      updateModel(context);
+    }
+    finally
+    {
+      popComponentFromEL(context);
+    }
 
     if (!isValid())
     {
@@ -253,14 +271,22 @@ abstract public class UIXEditableValueTemplate
   @Override
   public void processValidators(FacesContext context)
   {
-    super.processValidators(context);
-
     // Skip processing if our rendered flag is false
     if (!isRendered())
       return;
 
-    if (!isImmediate())
-      _executeValidate(context);
+    pushComponentToEL(context, this);
+    try
+    {
+      super.processValidators(context);
+
+      if (!isImmediate())
+        _executeValidate(context);
+    }
+    finally
+    {
+      popComponentFromEL(context);
+    }
   }
 
   // TODO Better error messages when update model fails.
@@ -317,16 +343,16 @@ abstract public class UIXEditableValueTemplate
       return;
 
     // If our value is empty, check the required property
-    boolean isEmpty = isEmpty(newValue); 
+    boolean isEmpty = isEmpty(newValue);
     if (isEmpty && isRequired())
     {
       FacesMessage message = _getRequiredFacesMessage(context);
       context.addMessage(getClientId(context), message);
       setValid(false);
     }
-    
+
     // If our value is not empty, OR we should do empty field validation, call all validators
-    if (!isEmpty || shouldValidateEmptyFields(context)) 
+    if (!isEmpty || shouldValidateEmptyFields(context))
     {
       Iterator<Validator> validators = (Iterator<Validator>)getFacesBean().entries(VALIDATORS_KEY);
       while (validators.hasNext())
@@ -495,7 +521,7 @@ abstract public class UIXEditableValueTemplate
   /**
    * Checks if the <code>validate()</code> should interpret an empty
    * submitted value should be handle as <code>NULL</code>
-   * 
+   *
    * @return a (cached) boolean to identify the interpretation as null
    */
   public static boolean shouldInterpretEmptyStringSubmittedValuesAsNull(FacesContext context)
@@ -522,7 +548,7 @@ abstract public class UIXEditableValueTemplate
   /**
    * Checks if the <code>validateValue()</code> should handle
    * empty field validation (part of BeanValidation and JSF 2.0).
-   * 
+   *
    * @return a (cached) boolean to identify empty field validation
    */
   public static boolean shouldValidateEmptyFields(FacesContext context)
@@ -539,7 +565,7 @@ abstract public class UIXEditableValueTemplate
       String param = ec.getInitParameter(UIInput.VALIDATE_EMPTY_FIELDS_PARAM_NAME);
 
       // If there is no value under that key, use the same key and look in the
-      // application map from the ExternalContext. 
+      // application map from the ExternalContext.
       if (param == null)
       {
         param = (String) ec.getApplicationMap().get(UIInput.VALIDATE_EMPTY_FIELDS_PARAM_NAME);
@@ -561,7 +587,7 @@ abstract public class UIXEditableValueTemplate
         shouldValidateEmptyFields = Boolean.TRUE;
       }
       else
-      {  
+      {
         // "true".equalsIgnoreCase(param) is faster than Boolean.valueOf()
         shouldValidateEmptyFields = "true".equalsIgnoreCase(param);
       }
@@ -572,7 +598,7 @@ abstract public class UIXEditableValueTemplate
 
     return shouldValidateEmptyFields;
   }
-  
+
   /**
    * This boolean indicates if Bean Validation is present.
    *
