@@ -77,8 +77,7 @@ public class SkinCSSDocumentHandler
     // Then we create a list of SkinStyleSheetNodes.
     List <SkinStyleSheetNode> skinStyleSheetNodes = 
       _createSkinStyleSheetNodes(_completeSelectorNodeList, _namespaceMap);
-    
-    
+     
     List<SkinStyleSheetNode> allSkinStyleSheetNodes = new ArrayList<SkinStyleSheetNode>();
 
     // TODO Do we need to protect against concurrent access?
@@ -131,6 +130,8 @@ public class SkinCSSDocumentHandler
   public void startSelector()
   {
     _inStyleRule = true;
+    // CSS spec says to ignore all @import rules after any other rules are processed.
+    _ignoreImports = true;
     _propertyNodeList = new ArrayList<PropertyNode>();
   }
    
@@ -204,11 +205,21 @@ public class SkinCSSDocumentHandler
   public void atRule(String atRule)
   {
     // parse the atRule further here.
+   boolean importRule = atRule.startsWith(_AT_IMPORT);
+   boolean charsetRule = atRule.startsWith(_AT_CHARSET);
+   
     if (atRule != null)
     {
-      if (atRule.startsWith(_AT_IMPORT))
+      if (importRule)
       {
-        _parseImport(atRule);
+        if (_ignoreImports)
+        {
+          // according to the css spec, @imports must come before all other rules (except @charset).
+          if (_LOG.isWarning())
+             _LOG.warning("AT_IMPORT_NOT_FIRST", atRule);
+        }
+        else
+          _parseImport(atRule);
       }
       else if (atRule.startsWith(_AT_NAMESPACE))
       {
@@ -235,6 +246,13 @@ public class SkinCSSDocumentHandler
         _parseCustomAtRule(_AT_MODE, atRule);
       }
       // for now, ignore other atRules in a skinning css file
+      
+      // CSS spec says you ignore all @import rules after any other rules are processed
+      // (except for @charset).
+      if(!importRule && !charsetRule)
+      {
+        _ignoreImports = true;
+      }
       
     }
   }
@@ -830,6 +848,7 @@ public class SkinCSSDocumentHandler
   private static final String _AT_MODE = "@mode";
   private static final String _AT_IMPORT = "@import";
   private static final String _AT_NAMESPACE = "@namespace";
+  private static final String _AT_CHARSET = "@charset";
 
 
   // below are properties that we set and reset
@@ -862,6 +881,7 @@ public class SkinCSSDocumentHandler
   private Map<String, String> _namespaceMap = new HashMap<String, String>();
   private ParseContext _parseContext;
   private List<List <SkinStyleSheetNode>> _imports;
+  private boolean _ignoreImports = false;
 
   // Perhaps move to ShareConstants
   static private final String _SHARE_NAMESPACE  =
