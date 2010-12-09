@@ -110,32 +110,7 @@ public class AttributeComponentChange extends ComponentChange
     }
     else
     {
-      boolean putValue = true;
-      
-      // Specially handle RowKeySet case by replacing the contents of the RowKeySet in-place
-      // rather than replacing the entire object.  This keeps the mutable object instance from
-      // changing
-      if (_attributeValue instanceof RowKeySet)
-      {
-        Object oldValue = attributeMap.get(_attributeName);
-        
-        if (oldValue instanceof RowKeySet)
-        {
-          RowKeySet oldKeySet = (RowKeySet)oldValue;
-          
-          oldKeySet.clear();
-          oldKeySet.addAll((RowKeySet)_attributeValue);
-          
-          // don't replace the RowKeySet
-          putValue = false;
-        }
-      }
-      
-      
-      if (putValue)
-      {
-        attributeMap.put(_attributeName, _attributeValue);
-      }
+      attributeMap.put(_attributeName, _attributeValue);
     }
   }
 
