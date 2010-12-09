@@ -143,7 +143,6 @@ class SkinStyleSheetParserUtils
     if ( in == null )
       return in;
 
-    in = in.trim();
     boolean startsWithDoubleQuote = in.startsWith( "\"" );
     boolean startsWithSingleQuote = in.startsWith( "\'" );
     boolean endsWithDoubleQuote = in.endsWith( "\"" );
