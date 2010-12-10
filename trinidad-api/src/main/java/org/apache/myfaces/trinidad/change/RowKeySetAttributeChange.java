@@ -65,9 +65,9 @@ public class RowKeySetAttributeChange extends AttributeComponentChange
           
           RowKeySet[] outHolder = new RowKeySet[1];
           
-          uiComponent.invokeOnComponent(context,
-                                        _clientId,
-                                        new ExpressionEvaluator(expression, outHolder));
+          context.getViewRoot().invokeOnComponent(context,
+                                                 _clientId,
+                                                 new ExpressionEvaluator(expression, outHolder));
           
           oldValue = outHolder[0];
         }
