@@ -1091,9 +1091,13 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     AttributeComponentChange aa;
     
+    FacesContext context = getFacesContext();
+    
     if (attributeValue instanceof RowKeySet)
     {
-      aa = new RowKeySetAttributeChange(getClientId(), attributeName, attributeValue);
+      aa = new RowKeySetAttributeChange(getClientId(context),
+                                        attributeName,
+                                        attributeValue);
     }
     else
     {
@@ -1101,7 +1105,7 @@ abstract public class UIXComponentBase extends UIXComponent
     }
     
     RequestContext adfContext = RequestContext.getCurrentInstance();
-    adfContext.getChangeManager().addComponentChange(getFacesContext(), this, aa);
+    adfContext.getChangeManager().addComponentChange(context, this, aa);
   }
 
   void __rendererDecode(FacesContext context)
