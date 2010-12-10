@@ -80,8 +80,12 @@ public class RowKeySetAttributeChange extends AttributeComponentChange
         {
           RowKeySet oldKeySet = (RowKeySet)oldValue;
           
-          oldKeySet.clear();
-          oldKeySet.addAll((RowKeySet)attributeValue);
+          // check for equality because otherwise we would clear ourselves and end up empty
+          if (oldKeySet != attributeValue)
+          {
+            oldKeySet.clear();
+            oldKeySet.addAll((RowKeySet)attributeValue);
+          }
           
           // don't replace the RowKeySet
           putValue = false;
