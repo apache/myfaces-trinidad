@@ -147,6 +147,8 @@
           </ul>
             <li>Turn off styleclass name compression in web.xml (while creating the skin only then
                 turn it back on for performance sake)</li>
+            <li>Turn on check file modification in web.xml (while creating the skin only then
+                turn it back off for performance sake)</li>
             <li>Install Firebug to help look at the DOM and the styleclasses</li>
             <li>Run a component or application to see the default mode. Your skin will extend the
                 default skin, unless you specify otherwise (because you can extend any skin you
@@ -1170,6 +1172,21 @@ this resolves to
         </source>
         Note: Trinidad releases prior to 1.0.3/1.2.4 used an 'internal' key, 
         org.apache.myfaces.trinidadimpl.DISABLE_CONTENT_COMPRESSION
+        </subsection>
+        <subsection name="See your skin changes with refresh of browser">
+      When you change your skin css file, you will need to stop/restart the server to see your
+      changes unless you set the check file modification flag in your web.xml file. If that flag
+      is set, then you can refresh your browser to see your css changes, though currently
+      you will not see your server-side changes which are 'icon' and 'server-side skin properties'.
+      Remember to set this back to false when you are done for performance sake.
+        <source>
+                  <![CDATA[
+        <context-param>
+         <param-name>org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION</param-name>
+         <param-value>true</param-value>
+        </context-param>
+                    ]]>
+        </source>
         </subsection>
         <subsection name="Firebug">
         <P>
