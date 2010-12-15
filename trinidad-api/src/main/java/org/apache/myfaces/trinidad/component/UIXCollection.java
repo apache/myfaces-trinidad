@@ -770,14 +770,17 @@ public abstract class UIXCollection extends UIXComponentBase
                   " and currencyKey:"+getRowKey());
     }
 
-    ComponentContextManager compCtxMgr =
-      RequestContext.getCurrentInstance().getComponentContextManager();
-    ComponentContextChange change = compCtxMgr.peekChange();
-    if (change instanceof CollectionComponentChange &&
-        ((CollectionComponentChange)change)._component == this)
+    ComponentContextManager compCtxMgr = null;
+    if (!_inSuspendOrResume)
     {
-      // Remove the component context change if one was added
-      compCtxMgr.popChange();
+      compCtxMgr = RequestContext.getCurrentInstance().getComponentContextManager();
+      ComponentContextChange change = compCtxMgr.peekChange();
+      if (change instanceof CollectionComponentChange &&
+          ((CollectionComponentChange)change)._component == this)
+      {
+        // Remove the component context change if one was added
+        compCtxMgr.popChange();
+      }
     }
 
     InternalState iState = _getInternalState(true);
@@ -816,7 +819,10 @@ public abstract class UIXCollection extends UIXComponentBase
 
       // If there is a current row, push a component change so that we may clear the
       // var and var status should a visit tree occur
-      compCtxMgr.pushChange(new CollectionComponentChange(this));
+      if (!_inSuspendOrResume)
+      {
+        compCtxMgr.pushChange(new CollectionComponentChange(this));
+      }
     }
 
     _restoreStampState();
@@ -828,7 +834,6 @@ public abstract class UIXCollection extends UIXComponentBase
 
     for (UIComponent stamp : stamps)
       UIXComponent.clearCachedClientIds(stamp);
-
   }
 
   /**
@@ -2004,38 +2009,29 @@ public abstract class UIXCollection extends UIXComponentBase
     public void suspend(
       FacesContext facesContext)
     {
-      InternalState iState = _component._getInternalState(false);
-
-      if (iState != null)
+      _oldRowIndex = _component.getRowIndex();
+      _component._inSuspendOrResume = true;
+      try
       {
-        if (iState._var != null)
-        {
-          _var = _component._setELVar(iState._var, _NULL);
-        }
-        if (iState._varStatus != null)
-        {
-          _varStatus = _component._setELVar(iState._varStatus, _NULL);
-        }
+        _component.setRowIndex(-1);
+      }
+      finally
+      {
+        _component._inSuspendOrResume = false;
       }
     }
 
     public void resume(
       FacesContext facesContext)
     {
-      InternalState iState = _component._getInternalState(false);
-
-      if (iState != null)
+      _component._inSuspendOrResume = true;
+      try
       {
-        if (iState._var != null)
-        {
-          _component._setELVar(iState._var, _var);
-          _var = null;
-        }
-        if (iState._varStatus != null)
-        {
-          _varStatus = _component._setELVar(iState._varStatus, _varStatus);
-          _varStatus = null;
-        }
+        _component.setRowIndex(_oldRowIndex);
+      }
+      finally
+      {
+        _component._inSuspendOrResume = false;
       }
     }
 
@@ -2054,8 +2050,7 @@ public abstract class UIXCollection extends UIXComponentBase
     }
 
     private final UIXCollection _component;
-    private Object _var;
-    private Object _varStatus;
+    private int _oldRowIndex;
   }
 
   // do not assign a non-null value. values should be assigned lazily. this is
@@ -2063,6 +2058,7 @@ public abstract class UIXCollection extends UIXComponentBase
   // is used. And if a non-null value is used, then all nested tables will
   // end up sharing this stampState. see bug 4279735:
   private InternalState _state = null;
+  private boolean _inSuspendOrResume = false;
 
   // use this key to indicate uninitialized state.
   // all the variables that use this are transient so this object need not
