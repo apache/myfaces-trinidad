@@ -78,7 +78,8 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
       file = files.getUploadedFile(clientId);
     }
 
-    // If we couldn't find a file (or the file is empty), return "FALSE" to indicate that
+    // If we couldn't find a file (e.g. does not exist OR the file is empty),
+    // return "FALSE" to indicate that...
     // the file upload *was* available, but didn't upload a file
     // this time.
     if (file == null || file.getLength() == 0)
