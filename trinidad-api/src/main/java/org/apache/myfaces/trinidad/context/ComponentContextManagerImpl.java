@@ -61,16 +61,17 @@ final class ComponentContextManagerImpl
     }
 
     ComponentContextChange change = _stack.poll();
-    if (_stack.isEmpty())
-    {
-      _stack = null;
-    }
 
     if (_LOG.isFine())
     {
       _LOG.fine("Component context change popped from the stack. Popped change: {0}. " +
                 "New head of stack: {1}. New stack size: {2}",
-        new Object[] { change, _stack.peek(), _stack == null ? 0 : _stack.size() });
+        new Object[] { change, _stack.peek(), _stack.size() });
+    }
+
+    if (_stack.isEmpty())
+    {
+      _stack = null;
     }
 
     return change;
