@@ -24,6 +24,9 @@ import javax.faces.context.FacesContext;
  * Class that represents a change that is tied to a component in the component tree.
  * This class is used by {@link ComponentContextManager} to be able to suspend and resume
  * the context of a component during an invoke on component or visit tree call.
+ * <p>Note that implementing classes are encouraged to override the to string function
+ * to describe the change. This enhances the ability to debug should the stack ever become
+ * out of sync.</p>
  */
 public abstract class ComponentContextChange
 {

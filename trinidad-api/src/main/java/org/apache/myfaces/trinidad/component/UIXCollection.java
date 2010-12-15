@@ -1998,7 +1998,7 @@ public abstract class UIXCollection extends UIXComponentBase
     private CollectionComponentChange(
       UIXCollection component)
     {
-      this._component = component;
+      _component = component;
     }
 
     public void suspend(
@@ -2037,6 +2037,20 @@ public abstract class UIXCollection extends UIXComponentBase
           _varStatus = null;
         }
       }
+    }
+
+    @Override
+    public String toString()
+    {
+      String className = _component.getClass().getName();
+      String componentId = _component.getId();
+      return new StringBuilder(58 + className.length() + componentId.length())
+        .append("UIXCollection.CollectionComponentChange[Component class: ")
+        .append(className)
+        .append(", component ID: ")
+        .append(componentId)
+        .append("]")
+        .toString();
     }
 
     private final UIXCollection _component;

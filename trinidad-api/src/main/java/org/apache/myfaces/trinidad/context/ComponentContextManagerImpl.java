@@ -26,6 +26,8 @@ import java.util.Queue;
 
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 
 /**
  * Default, internal, implementation of the {@link ComponentContextManager} for use from the
@@ -42,6 +44,12 @@ final class ComponentContextManagerImpl
     }
 
     _stack.offer(change);
+
+    if (_LOG.isFine())
+    {
+      _LOG.fine("Component context change pushed onto the stack. Change: {0}. New stack size: {1}",
+        new Object[] { change, _stack.size() });
+    }
   }
 
   public ComponentContextChange popChange()
@@ -58,6 +66,13 @@ final class ComponentContextManagerImpl
       _stack = null;
     }
 
+    if (_LOG.isFine())
+    {
+      _LOG.fine("Component context change popped from the stack. Popped change: {0}. " +
+                "New head of stack: {1}. New stack size: {2}",
+        new Object[] { change, _stack.peek(), _stack == null ? 0 : _stack.size() });
+    }
+
     return change;
   }
 
@@ -70,6 +85,7 @@ final class ComponentContextManagerImpl
   {
     if (_stack == null)
     {
+      _LOG.fine("Stack with no changes has been suspended");
       return new SuspendedContextChangesImpl(new ArrayDeque<ComponentContextChange>(0));
     }
 
@@ -82,6 +98,12 @@ final class ComponentContextManagerImpl
 
     _stack = null;
 
+    if (_LOG.isFine())
+    {
+      _LOG.fine("Component change stack has been suspended. Number of suspended changes: {0}",
+        new Object[] { q.size() });
+    }
+
     return new SuspendedContextChangesImpl(q);
   }
 
@@ -91,6 +113,7 @@ final class ComponentContextManagerImpl
   {
     if (_stack == null)
     {
+      _LOG.fine("Stack with no changes has been partially suspended");
       return new SuspendedContextChangesImpl(new ArrayDeque<ComponentContextChange>(0));
     }
 
@@ -114,6 +137,13 @@ final class ComponentContextManagerImpl
       {
         break;
       }
+    }
+
+    if (_LOG.isFine())
+    {
+      _LOG.fine("Component change stack has been partially suspended. " +
+                "Number of suspended changes: {0}. New stack size: {1}",
+        new Object[] { q.size(), _stack.size() });
     }
 
     if (_stack.isEmpty())
@@ -148,6 +178,13 @@ final class ComponentContextManagerImpl
       _stack.offer(change);
     }
 
+    if (_LOG.isFine())
+    {
+      _LOG.fine("Component change stack has been resumed. " +
+                "Number of resumed changes: {0}. New stack size: {1}",
+        new Object[] { suspendedChangesImpl._suspendedStack.size(), _stack.size() });
+    }
+
     return suspendedChangesImpl._suspendedStack.descendingIterator();
   }
 
@@ -164,4 +201,7 @@ final class ComponentContextManagerImpl
   }
 
   private Queue<ComponentContextChange> _stack;
+
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+                                               ComponentContextManagerImpl.class);
 }
