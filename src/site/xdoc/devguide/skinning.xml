@@ -715,9 +715,10 @@ so the medium panelBox's body will be pink, not yellow */
         <P>Let's go through an example. Let's say you want to skin the ShowDetail disclosed tip.
         Let's say the 'key' is af_showDetail.DISCLOSED_TIP. You would:
         <ul>
-        <li> Create a ResouceBundle file that sets your new value for this key and any other
-        keys you want to change the value for.</li>
+        <li> Create a ResourceBundle file(s) that sets your new value for this key and any other
+        keys you want to change the value for, one file per language.</li>
         <li> Set bundle-name in the trinidad-skins.xml file for your custom skin.</li>
+        <li> Package your skin and resource bundle classes together in the jar.</li>
         </ul>
         </P>
 
@@ -755,6 +756,12 @@ so the medium panelBox's body will be pink, not yellow */
             org.apache.myfaces.trinidaddemo.resource.SkinBundle
         </bundle-name>
     </skin>]]></source>
+        <source><![CDATA[  
+        The directory structure of your skin jar would look like:
+        META-INF
+        META-INF/trinidad-skins.xml
+        META-INF/org/apache/myfaces/trinidaddemo/resource/SkinBundle.class & SkinBundle_fr.class
+        ]]></source>
         <P>Then when the renderer renders the text, it will look in your resource bundle first for the key's value.   
         It is highly recommended if you do skin text that you provide all the translated bundles
         for the key you are skinning. Therefore you will have many other files, like SkinBundle_fr, etc.,
