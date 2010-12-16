@@ -53,6 +53,7 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /** As the Skin css file is parsed, methods in this class are called to
  * build up a SkinStyleSheetNode.
+ * TODO figure out if this is thread-safe
  *
  */
 public class SkinCSSDocumentHandler
@@ -80,7 +81,6 @@ public class SkinCSSDocumentHandler
      
     List<SkinStyleSheetNode> allSkinStyleSheetNodes = new ArrayList<SkinStyleSheetNode>();
 
-    // TODO Do we need to protect against concurrent access?
     if (_imports != null && !_imports.isEmpty())
     {
       // _imports is a List<List<SkinStyleSheetNode>>();;
@@ -371,6 +371,7 @@ public class SkinCSSDocumentHandler
     
     // Add the current identifier to the stack (used for detecting circular includes) 
     // placed on the ParseContext
+    // cloning ParseContext does a shallow copy. It doesn't copy this list.
     if (list == null)
       list = new ArrayList<Object>();
     else
