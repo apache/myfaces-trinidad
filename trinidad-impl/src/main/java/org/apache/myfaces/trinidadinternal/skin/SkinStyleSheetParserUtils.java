@@ -793,7 +793,7 @@ class SkinStyleSheetParserUtils
       }
       else
       {
-        includedProperty = trimQuotes(values[1]);
+        includedProperty = trimQuotes(values[1].trim());
       }
 
       String selector = null;
