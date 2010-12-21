@@ -128,6 +128,11 @@ public interface Agent
    * Constant for generic PDA device browser
    */
   public static final String PLATFORM_GENERICPDA = "genericpda";
+  
+  /**
+   * Constant for android device browsers
+   */
+  public static final String PLATFORM_ANDROID = "android";
 
   /**
    * Constant for unknown platform version
