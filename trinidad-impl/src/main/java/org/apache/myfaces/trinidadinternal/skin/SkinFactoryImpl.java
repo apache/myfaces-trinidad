@@ -121,8 +121,8 @@ public class SkinFactoryImpl extends SkinFactory
    * Given the skin family, renderKitId, and version, return the best matched skin.
    * The skin picking logic is:
    * If an exact family, renderKitId, and version (including null or "") is found, return that skin
-   * If version is "default", return the skin with family and renderKitId with version marked
-   * default. If version does not match any version for the skins with family and renderKitId, 
+   * Else if the user asks for version "default", return the skin with family and renderKitId with version marked
+   * default. If version wasn't default and does not match any version for the skins with family and renderKitId, 
    * then return the 'default' skin if there is one marked or return the last entry in the list
    * of matching family/renderKitId skins.
    * @param context
@@ -130,7 +130,7 @@ public class SkinFactoryImpl extends SkinFactory
    * @param renderKitId
    * @param version The version of the skin you want to return. This can be 
    *                "default", or a version name (e.g., "v1"), or null or "" 
-   *                (if you want the skin without a version set).
+   *                (if you want the skin that does not have a version set).
    * @return the best matched Skin given the family, renderKitId, and version.
    */
   @Override
@@ -197,6 +197,7 @@ public class SkinFactoryImpl extends SkinFactory
       // to find the best matched skin.
       boolean foundMatchingSkin = false;
       boolean versionIsDefault = (_DEFAULT.compareToIgnoreCase(version) == 0);
+      // if the user didn't ask for the 'default' version, then look for the exact match
       if (!versionIsDefault)
       {
         for (Skin skin : matchingSkinList)
@@ -213,7 +214,9 @@ public class SkinFactoryImpl extends SkinFactory
           }
         }          
       }
-      // matchingSkin will be null if an exact version match was not found
+      // matchingSkin will be null if an exact version match (family+renderKitId+exact version) was not found;
+      // we can have an exact version match if the user asks for null version, and we find a skin with no
+      // version set.
       if (matchingSkin == null || versionIsDefault)
       {
         // find skin with version= default
