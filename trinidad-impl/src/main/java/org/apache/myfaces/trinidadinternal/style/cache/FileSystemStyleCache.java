@@ -782,9 +782,9 @@ public class FileSystemStyleCache implements StyleProvider
         // I've seen the delete fail when we try to delete right after the file was created -
         // like if the skin css file is modified and the page refreshed immediately after the
         // app was initially run.
-        if (!success && _LOG.isWarning())
+        if (!success && _LOG.isInfo())
         {
-          _LOG.warning("COULD_NOT_DELETE_FILE", file.getName());
+          _LOG.info("COULD_NOT_DELETE_FILE", file.getName());
         }
       }
     }
@@ -885,9 +885,8 @@ public class FileSystemStyleCache implements StyleProvider
     {
       // This might happen if we couldn't delete the css file that was already there, so we 
       // are unable to recreate it.
-      if (_LOG.isWarning())
-        _LOG.warning("IOEXCEPTION_OPENNING_FILE", file);
-        _LOG.warning(e);
+      if (_LOG.isInfo())
+        _LOG.info("IOEXCEPTION_OPENNING_FILE", file);
     }
 
     return out;
