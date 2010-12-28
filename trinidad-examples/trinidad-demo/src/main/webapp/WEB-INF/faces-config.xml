@@ -150,7 +150,7 @@
        request
     </managed-bean-scope>
   </managed-bean>
-  
+
   <managed-bean>
     <managed-bean-name>dateRestrictionValidator</managed-bean-name>
     <managed-bean-class>
@@ -231,7 +231,7 @@
     <managed-bean-scope>
        session
     </managed-bean-scope>
-  </managed-bean>  
+  </managed-bean>
 
   <managed-bean>
     <managed-bean-name>messages</managed-bean-name>
@@ -932,6 +932,7 @@
         <value>table_selection.jspx</value>
         <value>table_dynamic.jspx</value>
         <value>table_nested.jspx</value>
+        <value>table_sorting.jspx</value>
         <value>tree.jspx</value>
         <value>treeTable.jspx</value>
         <value>treeTable_selection.jspx</value>
@@ -2561,6 +2562,12 @@
     </navigation-case>
 
     <navigation-case>
+      <from-outcome>guide.table_sorting</from-outcome>
+      <to-view-id>/components/table_sorting.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
       <from-outcome>guide.panelTip</from-outcome>
       <to-view-id>/components/panelTip.jspx</to-view-id>
       <redirect/>
@@ -2933,6 +2940,12 @@
   <managed-bean>
     <managed-bean-name>dynamicTable</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.trinidaddemo.table.DynamicModel</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>sortableTable</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.table.SortableModelBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
