@@ -156,7 +156,14 @@ function setFocus(event)
                   <tr:inputText id="itxt1" autoSubmit="true"
                                 value="#{partialDemoUtil.status.textValue}"
                                 label="Enter text and tab out: "
-                                valueChangeListener="#{partialDemoUtil.valueChanged}"/>
+                                valueChangeListener="#{partialDemoUtil.valueChanged}">
+                      <f:event type="preValidate" listener="#{partialDemoUtil.prevalidateField}"/>
+                  </tr:inputText>
+                  <tr:panelLabelAndMessage label="Prevalidate event count: ">
+                    <tr:outputFormatted id="preval1" partialTriggers="itxt1"
+                                          styleUsage="instruction"
+                                          value="#{partialDemoUtil.status.prevalidateEventCount}"/>
+                  </tr:panelLabelAndMessage>
                   <tr:outputFormatted styleUsage="instruction"
                                       value="tr:inputText with autoSubmit=true inside a subform"
                                       id="of21"/>

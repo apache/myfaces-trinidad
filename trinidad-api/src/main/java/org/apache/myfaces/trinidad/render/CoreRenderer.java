@@ -969,7 +969,7 @@ public class CoreRenderer extends Renderer
 
     // Check if there are client behaviors first as it should be faster to access then
     // getting the behavior event from the request parameter map (fewer method calls)
-    Map<String, List<ClientBehavior>> behaviorsMap = bean.getClientBehaviors();
+    Map<String, List<ClientBehavior>> behaviorsMap = ((ClientBehaviorHolder)component).getClientBehaviors();
     if (behaviorsMap.isEmpty())
     {
       return null;
@@ -984,7 +984,7 @@ public class CoreRenderer extends Renderer
     }
 
     // Does the component have behaviors for this event type?
-    List<ClientBehavior> behaviors = bean.getClientBehaviors().get(event);
+    List<ClientBehavior> behaviors = behaviorsMap.get(event);
     if (behaviors == null || behaviors.isEmpty())
     {
       return null;

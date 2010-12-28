@@ -26,6 +26,7 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,7 @@ import javax.faces.FacesException;
 import javax.faces.application.ProjectStage;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
+import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
@@ -49,14 +51,19 @@ import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRemoveFromViewEvent;
 import javax.faces.event.PreRenderComponentEvent;
+import javax.faces.event.SystemEvent;
+import javax.faces.event.SystemEventListener;
 import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 
+import org.apache.myfaces.trinidad.bean.AttachedObjects;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.FacesBeanFactory;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -125,6 +132,12 @@ abstract public class UIXComponentBase extends UIXComponent
     TYPE.registerKey("listeners", FacesListener[].class, PropertyKey.CAP_LIST);
   static private final PropertyKey _ATTRIBUTE_CHANGE_LISTENER_KEY =
     TYPE.registerKey("attributeChangeListener", MethodExpression.class);
+  static private final PropertyKey _CLIENT_BEHAVIORS_KEY = 
+    TYPE.registerKey("clientBehaviors", AttachedObjects.class, 
+                     PropertyKey.CAP_NOT_BOUND|PropertyKey.CAP_PARTIAL_STATE_HOLDER|PropertyKey.CAP_STATE_HOLDER);
+  static private final PropertyKey _SYSTEM_EVENT_LISTENERS_KEY = 
+    TYPE.registerKey("systemEventListeners", AttachedObjects.class, 
+                     PropertyKey.CAP_NOT_BOUND|PropertyKey.CAP_PARTIAL_STATE_HOLDER|PropertyKey.CAP_STATE_HOLDER);
   // =-=AEW "parent", "rendersChildren", "childCount", "children",
   // "facets", "facetsAndChildren", "family" all are technically
   // bean properties, but they aren't exposed here...
@@ -1718,6 +1731,76 @@ abstract public class UIXComponentBase extends UIXComponent
 
     return invokedComponent;
   }
+  
+ 
+  @Override
+  public void subscribeToEvent(Class<? extends SystemEvent> eventClass, ComponentSystemEventListener componentListener)
+  {
+    if (eventClass == null)
+    {
+        throw new NullPointerException("eventClass required");
+    }
+    if (componentListener == null)
+    {
+        throw new NullPointerException("componentListener required");
+    }
+    
+    FacesBean bean = getFacesBean();
+    
+    AttachedObjects<Class<? extends SystemEvent>, SystemEventListener> eventStorage = 
+      (AttachedObjects<Class<? extends SystemEvent>, SystemEventListener>)bean.getProperty(_SYSTEM_EVENT_LISTENERS_KEY);
+    
+    if (eventStorage == null)
+    {
+      eventStorage = new AttachedObjects<Class<? extends SystemEvent>, SystemEventListener>();
+      bean.setProperty(_SYSTEM_EVENT_LISTENERS_KEY, eventStorage);
+    }
+    
+    eventStorage.addAttachedObject(eventClass, new ComponentSystemEventListenerWrapper(componentListener, this));
+  }
+  
+  @Override
+  public void unsubscribeFromEvent(Class<? extends SystemEvent> eventClass,
+                                   ComponentSystemEventListener componentListener) 
+  {
+    if (eventClass == null)
+    {
+        throw new NullPointerException("eventClass required");
+    }
+    if (componentListener == null)
+    {
+        throw new NullPointerException("componentListener required");
+    }
+    
+    FacesBean bean = getFacesBean();
+    
+    AttachedObjects<Class<? extends SystemEvent>, SystemEventListener> eventStorage = 
+      (AttachedObjects<Class<? extends SystemEvent>, SystemEventListener>)bean.getProperty(_SYSTEM_EVENT_LISTENERS_KEY);
+    
+    if (eventStorage == null)
+    {
+      return;
+    }
+    
+    // ComponentSystemEventListenerWrapper implements equals() to compare listener and component
+    eventStorage.removeAttachedObject(eventClass, new ComponentSystemEventListenerWrapper(componentListener, this));
+  }
+  
+  @Override
+  public List<SystemEventListener> getListenersForEventClass(Class<? extends SystemEvent> eventClass)
+  {
+    FacesBean bean = getFacesBean();
+    
+    AttachedObjects<Class<? extends SystemEvent>, SystemEventListener> eventStorage = 
+      (AttachedObjects<Class<? extends SystemEvent>, SystemEventListener>)bean.getProperty(_SYSTEM_EVENT_LISTENERS_KEY);
+    
+    if (eventStorage == null)
+    {
+      return Collections.emptyList();
+    }
+    
+    return eventStorage.getAttachedObjectList(eventClass);
+  }
 
   // ------------------------- Client behavior holder methods -------------------------
 
@@ -1747,7 +1830,18 @@ abstract public class UIXComponentBase extends UIXComponent
       return;
     }
 
-    getFacesBean().addClientBehavior(eventName, behavior);
+    FacesBean bean = getFacesBean();
+    
+    AttachedObjects<String, ClientBehavior> behaviors = (
+            AttachedObjects<String, ClientBehavior>)bean.getProperty(_CLIENT_BEHAVIORS_KEY);
+    
+    if (behaviors == null)
+    {
+      behaviors = new AttachedObjects<String, ClientBehavior>();
+      bean.setProperty(_CLIENT_BEHAVIORS_KEY, behaviors);
+    }
+    
+    behaviors.addAttachedObject(eventName, behavior);
   }
 
   // Note, we do not need to provide a default implementation for the event names, as client
@@ -1768,7 +1862,15 @@ abstract public class UIXComponentBase extends UIXComponent
    */
   protected Map<String, List<ClientBehavior>> getClientBehaviors()
   {
-    return getFacesBean().getClientBehaviors();
+    AttachedObjects<String, ClientBehavior> behaviors = (
+            AttachedObjects<String, ClientBehavior>)getFacesBean().getProperty(_CLIENT_BEHAVIORS_KEY);
+    
+    if (behaviors == null)
+    {
+      return Collections.emptyMap();
+    }
+    
+    return behaviors.getAttachedObjectMap();
   }
 
   /**
@@ -2138,6 +2240,121 @@ abstract public class UIXComponentBase extends UIXComponent
     ON,
     OFF,
     DEBUG
+  }
+  
+  
+  private static class ComponentSystemEventListenerWrapper implements SystemEventListener, StateHolder
+  {
+    ComponentSystemEventListenerWrapper(ComponentSystemEventListener listener, UIComponent component)
+    {
+      _delegate = listener;
+      _componentClass = component.getClass();
+    }
+    
+    // Default constructor for state restoration
+    public ComponentSystemEventListenerWrapper()
+    {
+    }
+    
+    @Override
+    public boolean equals(Object o) 
+    {
+      if (o == this)
+      {
+        return true;
+      }
+      else if (o instanceof ComponentSystemEventListenerWrapper)
+      {
+        ComponentSystemEventListenerWrapper other = (ComponentSystemEventListenerWrapper) o;
+        return _componentClass.equals(other._componentClass) && _delegate.equals(other._delegate);
+      }
+      
+      return false;
+    }
+
+    @Override
+    public int hashCode() 
+    {
+      return _componentClass.hashCode() + _delegate.hashCode();
+    }
+    
+    // SystemEventListener implementation
+    
+    @Override
+    public void processEvent(SystemEvent event) throws AbortProcessingException
+    {
+      assert (event instanceof ComponentSystemEvent);
+      _delegate.processEvent((ComponentSystemEvent)event);
+    }
+    
+    @Override
+    public boolean isListenerForSource(Object source)
+    {
+      if (_delegate instanceof SystemEventListener)
+      {
+        return ((SystemEventListener)_delegate).isListenerForSource(source);
+      }
+      
+      // From the spec: and its implementation of SystemEventListener.isListenerForSource(java.lang.Object) must return true
+      // if the instance class of this UIComponent is assignable from the argument to isListenerForSource.
+      return _componentClass.isAssignableFrom(source.getClass());
+    }
+    
+    // StateHolder Implementation
+    
+    @Override
+    public Object saveState(FacesContext context) 
+    {
+      if (_delegate instanceof UIComponent)
+      {
+        return null;
+      }
+      
+      Object[] state = new Object[2];
+      state[0] = StateUtils.saveStateHolder(context, _delegate);
+      state[1] = _componentClass;
+      
+      return state;
+    }
+
+    @Override
+    public void restoreState(FacesContext context, Object state) 
+    {
+      if (state == null) 
+      {
+        return;
+      }
+      
+      Object[] stateArr = (Object[]) state;
+      Object saved = stateArr[0];
+      
+      _delegate = (ComponentSystemEventListener) ((saved == null) ? UIComponent .getCurrentComponent(context)
+                                                : StateUtils.restoreStateHolder(context, saved));
+      _componentClass = (Class<?>)stateArr[1];
+    }
+
+    @Override
+    public boolean isTransient() 
+    {
+      if (_delegate instanceof StateHolder) 
+      {
+          return ((StateHolder)_delegate).isTransient();
+      }
+      return false;
+    }
+
+    @Override
+    public void setTransient(boolean isTransient) 
+    {
+      if (_delegate instanceof StateHolder)
+      {
+        ((StateHolder)_delegate).setTransient(isTransient);
+      }
+    }
+
+    
+    private ComponentSystemEventListener _delegate;
+    private Class<?> _componentClass;
   }
 
   private static final ClientIdCaching _CLIENT_ID_CACHING = _initClientIdCaching();

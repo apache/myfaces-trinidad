@@ -1,29 +1,31 @@
-ERROR: 7012: org.apache.myfaces.trinidad.bean.FacesBean: Method 'public void addClientBehavior(java.lang.String, javax.faces.component.behavior.ClientBehavior)' has been added to an interface
+INFO: 8000: org.apache.myfaces.trinidad.bean.AttachedObjects: Class org.apache.myfaces.trinidad.bean.AttachedObjects added
 ERROR: 7012: org.apache.myfaces.trinidad.bean.FacesBean: Method 'public void clearInitialState()' has been added to an interface
-ERROR: 7012: org.apache.myfaces.trinidad.bean.FacesBean: Method 'public java.util.Map getClientBehaviors()' has been added to an interface
 ERROR: 7012: org.apache.myfaces.trinidad.bean.FacesBean: Method 'public boolean initialStateMarked()' has been added to an interface
-INFO: 7011: org.apache.myfaces.trinidad.bean.FacesBeanImpl: Method 'public void addClientBehavior(java.lang.String, javax.faces.component.behavior.ClientBehavior)' has been added
 INFO: 7011: org.apache.myfaces.trinidad.bean.FacesBeanImpl: Method 'public void clearInitialState()' has been added
-INFO: 7011: org.apache.myfaces.trinidad.bean.FacesBeanImpl: Method 'public java.util.Map getClientBehaviors()' has been added
 INFO: 7011: org.apache.myfaces.trinidad.bean.FacesBeanImpl: Method 'public boolean initialStateMarked()' has been added
+INFO: 6000: org.apache.myfaces.trinidad.bean.PropertyKey: Added public field CAP_PARTIAL_STATE_HOLDER
 INFO: 7011: org.apache.myfaces.trinidad.bean.PropertyKey: Method 'public org.apache.myfaces.trinidad.bean.PropertyKey getDefaultPropertyKey(java.lang.String)' has been added
+INFO: 7011: org.apache.myfaces.trinidad.bean.PropertyKey: Method 'public boolean isPartialStateHolder()' has been added
 ERROR: 7012: org.apache.myfaces.trinidad.bean.PropertyMap: Method 'public void clearInitialState()' has been added to an interface
 ERROR: 7012: org.apache.myfaces.trinidad.bean.PropertyMap: Method 'public boolean initialStateMarked()' has been added to an interface
 INFO: 7011: org.apache.myfaces.trinidad.bean.util.FlaggedPropertyMap: Method 'public void clearInitialState()' has been added
+INFO: 7011: org.apache.myfaces.trinidad.bean.util.FlaggedPropertyMap: Method 'protected org.apache.myfaces.trinidad.bean.FacesBean$Type getType()' has been added
 INFO: 7011: org.apache.myfaces.trinidad.bean.util.FlaggedPropertyMap: Method 'public boolean initialStateMarked()' has been added
+INFO: 7011: org.apache.myfaces.trinidad.bean.util.FlaggedPropertyMap: Method 'public void setType(org.apache.myfaces.trinidad.bean.FacesBean$Type)' has been added
 INFO: 7011: org.apache.myfaces.trinidad.bean.util.PropertyArrayMap: Method 'public void clearInitialState()' has been added
 INFO: 7011: org.apache.myfaces.trinidad.bean.util.PropertyArrayMap: Method 'public boolean initialStateMarked()' has been added
+INFO: 7011: org.apache.myfaces.trinidad.bean.util.PropertyArrayMap: Method 'public void setType(org.apache.myfaces.trinidad.bean.FacesBean$Type)' has been added
 INFO: 7011: org.apache.myfaces.trinidad.bean.util.PropertyHashMap: Method 'public void clearInitialState()' has been added
 INFO: 7011: org.apache.myfaces.trinidad.bean.util.PropertyHashMap: Method 'public boolean initialStateMarked()' has been added
+INFO: 7011: org.apache.myfaces.trinidad.bean.util.PropertyHashMap: Method 'public void setType(org.apache.myfaces.trinidad.bean.FacesBean$Type)' has been added
+INFO: 8000: org.apache.myfaces.trinidad.bean.util.PropertyTracker: Class org.apache.myfaces.trinidad.bean.util.PropertyTracker added
 INFO: 7011: org.apache.myfaces.trinidad.bean.util.ValueMap: Method 'public boolean containsKey(java.lang.Object)' has been added
 INFO: 7011: org.apache.myfaces.trinidad.change.AttributeComponentChange: Method 'public boolean equals(java.lang.Object)' has been added
 INFO: 7011: org.apache.myfaces.trinidad.change.AttributeComponentChange: Method 'public int hashCode()' has been added
 INFO: 7011: org.apache.myfaces.trinidad.change.AttributeComponentChange: Method 'public java.lang.String toString()' has been added
 INFO: 7011: org.apache.myfaces.trinidad.change.ChangeManager: Method 'public org.apache.myfaces.trinidad.change.AttributeComponentChange replaceAttributeChangeIfPresent(javax.faces.context.FacesContext, javax.faces.component.UIComponent, org.apache.myfaces.trinidad.change.AttributeComponentChange)' has been added
 INFO: 7011: org.apache.myfaces.trinidad.change.SessionChangeManager: Method 'public org.apache.myfaces.trinidad.change.AttributeComponentChange replaceAttributeChangeIfPresent(javax.faces.context.FacesContext, javax.faces.component.UIComponent, org.apache.myfaces.trinidad.change.AttributeComponentChange)' has been added
-INFO: 7011: org.apache.myfaces.trinidad.component.FacesBeanWrapper: Method 'public void addClientBehavior(java.lang.String, javax.faces.component.behavior.ClientBehavior)' has been added
 INFO: 7011: org.apache.myfaces.trinidad.component.FacesBeanWrapper: Method 'public void clearInitialState()' has been added
-INFO: 7011: org.apache.myfaces.trinidad.component.FacesBeanWrapper: Method 'public java.util.Map getClientBehaviors()' has been added
 INFO: 7011: org.apache.myfaces.trinidad.component.FacesBeanWrapper: Method 'public boolean initialStateMarked()' has been added
 INFO: 4000: org.apache.myfaces.trinidad.component.UIXChart: Added java.util.EventListener to the set of implemented interfaces
 INFO: 4000: org.apache.myfaces.trinidad.component.UIXChart: Added javax.faces.component.PartialStateHolder to the set of implemented interfaces
@@ -97,7 +99,10 @@ INFO: 7011: org.apache.myfaces.trinidad.component.UIXComponentBase: Method 'prot
 INFO: 7011: org.apache.myfaces.trinidad.component.UIXComponentBase: Method 'public void clearInitialState()' has been added
 INFO: 7011: org.apache.myfaces.trinidad.component.UIXComponentBase: Method 'protected java.util.Map getClientBehaviors()' has been added
 INFO: 7011: org.apache.myfaces.trinidad.component.UIXComponentBase: Method 'protected java.lang.String getDefaultEventName()' has been added
+INFO: 7011: org.apache.myfaces.trinidad.component.UIXComponentBase: Method 'public java.util.List getListenersForEventClass(java.lang.Class)' has been added
 INFO: 7011: org.apache.myfaces.trinidad.component.UIXComponentBase: Method 'public boolean initialStateMarked()' has been added
+INFO: 7011: org.apache.myfaces.trinidad.component.UIXComponentBase: Method 'public void subscribeToEvent(java.lang.Class, javax.faces.event.ComponentSystemEventListener)' has been added
+INFO: 7011: org.apache.myfaces.trinidad.component.UIXComponentBase: Method 'public void unsubscribeFromEvent(java.lang.Class, javax.faces.event.ComponentSystemEventListener)' has been added
 INFO: 4000: org.apache.myfaces.trinidad.component.UIXComponentRef: Added java.util.EventListener to the set of implemented interfaces
 INFO: 4000: org.apache.myfaces.trinidad.component.UIXComponentRef: Added javax.faces.component.PartialStateHolder to the set of implemented interfaces
 INFO: 4000: org.apache.myfaces.trinidad.component.UIXComponentRef: Added javax.faces.event.ComponentSystemEventListener to the set of implemented interfaces
