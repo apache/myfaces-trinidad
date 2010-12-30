@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
+import org.apache.myfaces.trinidad.render.RenderUtils;
 import org.apache.myfaces.trinidad.util.Service;
 
 import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
@@ -452,9 +453,10 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
       if (component != null)
       {
         String clientId = component.getClientId(_facesContext);
+        String renderedClientId = RenderUtils.getRendererClientId(_facesContext, component);
         if (_state.pprContext.isPartialTarget(clientId))
         {
-          tag = new PPRTag(clientId);
+          tag = new PPRTag(clientId, renderedClientId);
           _state.enteringPPR = component;
         }
       }
@@ -563,9 +565,10 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
   //
   private class PPRTag
   {
-    public PPRTag(String id)
+    private PPRTag(String id, String renderedId)
     {
       _id = id;
+      _renderedId = renderedId != null ? renderedId : id;
     }
 
     public void startUpdate(
@@ -577,7 +580,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
         _startChanges();
         pprContext.pushRenderedPartialTarget(_id);
         _xml.startElement(_ELEMENT_CHANGES_UPDATE, null);
-        _xml.writeAttribute(_ATTRIBUTE_ID, _id, null);
+        _xml.writeAttribute(_ATTRIBUTE_ID, _renderedId, null);
         _xml.write("<![CDATA[");
         _xml.flush(); // NEW
 
@@ -655,6 +658,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     }
     
     private String _id;
+    private String _renderedId;
   }
 
   

@@ -139,17 +139,20 @@ function setFocus(event)
                 </tr:panelGroupLayout>
               </tr:panelGroupLayout>
             </tr:panelHeader>
+            
             <tr:panelHeader text="InputText Component using JSF 2.0 Ajax" id="phInput">
-              <tr:outputFormatted styleUsage="instruction"
-                                  value="Tests autoSubmitting text fields which is also wired to use JSF 2.0 Ajax."/>
               <tr:panelGroupLayout layout="horizontal" id="pgl20">
                 <f:facet name="separator">
-                  <tr:spacer height="10" id="sp20"/>
+                  <tr:spacer width="10" id="sp20"/>
                 </f:facet>
+
                 <tr:panelGroupLayout layout="vertical" id="pgl21">
                   <f:facet name="separator">
-                    <tr:spacer height="6" id="sp21"/>
+                    <tr:spacer height="10" id="sp21"/>
                   </f:facet>
+                  <tr:outputFormatted styleUsage="instruction"
+                                      value="Tests autoSubmitting text fields which is also wired to use JSF 2.0 Ajax."/>
+
                   <tr:outputFormatted styleUsage="instruction"
                                       value="tr:inputText with autoSubmit=true."
                                       id="of20"/>
@@ -173,10 +176,30 @@ function setFocus(event)
                                   value="#{partialDemoUtil.status.textValue}"
                                   valueChangeListener="#{partialDemoUtil.valueChanged}"/>
                   </tr:subform>
+                  
+                  <tr:outputFormatted styleUsage="instruction" 
+                                      value="tr:inputText with value set when button is clicked. (There are no updates 
+                                      shown on the right side panel.)"
+                                      id="of22"/>
+                  <tr:inputText label="Press button to partial refresh" value="#{requestScope.status}" partialTriggers="icb1 icb2"/>
+                  
+                  <tr:panelGroupLayout id="pgl22" layout="horizontal">
+                    <f:facet name="separator">
+                      <tr:spacer width="10" id="sp22"/>
+                    </f:facet>
+                    <tr:commandButton text="Refresh Input" partialSubmit="true" id="icb1">
+                      <tr:setActionListener from="Success" to="#{requestScope.status}"/>
+                    </tr:commandButton>
+                    <tr:commandButton text="Reset Input" partialSubmit="true" id="icb2">
+                      <tr:setActionListener from="" to="#{requestScope.status}"/>
+                    </tr:commandButton>
+                  </tr:panelGroupLayout>
+                  
                 </tr:panelGroupLayout>
-                <tr:panelGroupLayout id="pgl21" layout="vertical">
+                
+                <tr:panelGroupLayout id="pgl23" layout="vertical">
                   <f:facet name="separator">
-                    <tr:spacer height="6" id="sp22"/>
+                    <tr:spacer height="10" id="sp23"/>
                   </f:facet>
                   <tr:statusIndicator id="si3" />
                   <tr:panelLabelAndMessage label="Input entered: ">
@@ -187,6 +210,7 @@ function setFocus(event)
                 </tr:panelGroupLayout>
               </tr:panelGroupLayout>
             </tr:panelHeader>
+            
             <tr:panelHeader text="Radio Buttons">
               <tr:outputFormatted styleUsage="instruction"
                                   value="This demo shows a two sets of radio buttons which use autoSubmit. There is also an output component which is listening on updates to the radio buttons and displaying status text accordingly."/>
