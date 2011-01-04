@@ -118,7 +118,8 @@
          <groupId>org.codehaus.mojo</groupId> 	 
          <artifactId>clirr-maven-plugin</artifactId> 	 
          <version>2.2.2</version> 	 
-         <configuration> 	 
+         <configuration>
+           <minSeverity>ERROR</minSeverity> 	 
            <textOutputFile>${project.basedir}/target/clirr-runner.txt</textOutputFile> 	 
            <failOnError>false</failOnError> 	 
            <comparisonArtifacts> 	 
