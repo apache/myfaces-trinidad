@@ -4289,7 +4289,7 @@
   container, but it seems to work well in practice. **/
 @platform windows, ppc {
   @agent ie {
-    @locales ja, zh, ko {
+    @locale ja, zh, ko {
   .AFFieldText {
     font-size: 100%;
   }
@@ -4303,7 +4303,7 @@
 /** And on Thai Gecko - see bug 3897341 - bump the font size up **/
 @platform windows, linux {
   @agent gecko {
-    @locales th {
+    @locale th {
   .AFDefaultFontFamily:alias {
     font-family: Browallia New,Arial,Helvetica,Geneva,sans-serif;
     font-size: 16pt;
