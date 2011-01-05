@@ -521,59 +521,7 @@ abstract public class UIXComponent extends UIComponent
             // visit the children of the component if we aren't supposed to skip them
             if (!skipChildren)
             {
-              // setup any context needed for visiting the children of the component as opposed
-              // to the component itself
-              if (rc != null)
-              {
-                uixComponent.setupChildrenEncodingContext(context, rc);
-              }
-              else
-              {
-                uixComponent.setupChildrenVisitingContext(context);
-              }
-
-              try
-              {
-                // determine whether this visit should be iterating.  If it shouldn't, don't
-                // even call the protected hook.  We currently don't iterate during the
-                // restore view phase when we are visiting all of the components.
-                boolean noIterate = (visitContext.getIdsToVisit() == VisitContext.ALL_IDS) &&
-                                    (context.getCurrentPhaseId() == PhaseId.RESTORE_VIEW);
-
-                doneVisiting =  (noIterate)
-                                  ? uixComponent._visitAllChildren(visitContext, callback)
-                                  : uixComponent.visitChildren(visitContext, callback);
-              }
-              catch (RuntimeException ex)
-              {
-                re = ex;
-              }
-              finally
-              {
-                try
-                {
-                  // teardown any context initialized above
-                  if (rc != null)
-                  {
-                    uixComponent.tearDownChildrenEncodingContext(context, rc);
-                  }
-                  else
-                  {
-                    uixComponent.tearDownChildrenVisitingContext(context);
-                  }
-                }
-                catch (RuntimeException ex)
-                {
-                  if (re == null)
-                  {
-                    throw ex;
-                  }
-                  else
-                  {
-                    _LOG.warning(ex);
-                  }
-                }
-              }
+              doneVisiting = visitChildren(visitContext, uixComponent, callback);
             }
           }
           else
@@ -626,6 +574,127 @@ abstract public class UIXComponent extends UIComponent
       // if we got this far, we're not done
       return doneVisiting;
     }
+  }
+
+  /**
+   * Utility method to allow the visiting of children components while visiting a parent using
+   * a new visit callback or visit context. The method may only be called when the parent is
+   * is the target of a visitation to ensure that it is properly in context.
+   * <p>Example usage:</p>
+   * <pre>@Override
+   * public VisitResult visit(
+   *   VisitContext visitContext,
+   *   UIComponent  target)
+   * {
+   *   if (someCondition)
+   *   {
+   *     UIXComponent.visitChildren(target, visitContext, new VisitCallback() {...});
+   *     return VisitResult.COMPLETE;
+   *   }
+   *   ...
+   * }</pre>
+   *
+   * @param visitContext the <code>VisitContext</code> for this visit
+   * @param parentComponent the <code>UIComponent</code> to visit the children. The parent component
+   * must be actively being visited in order to call this method.
+   * @param callback the <code>VisitCallback</code> instance
+   * whose <code>visit</code> method will be called
+   * for each node visited.
+   * @return component implementations may return <code>true</code>
+   * to indicate that the tree visit is complete (eg. all components
+   * that need to be visited have been visited).  This results in
+   * the tree visit being short-circuited such that no more components
+   * are visited.
+   */
+  public static boolean visitChildren(
+    VisitContext  visitContext,
+    UIComponent   parentComponent,
+    VisitCallback callback)
+  {
+    if (!(parentComponent instanceof UIXComponent))
+    {
+      // Not a UIXComponent, there is no extra functionality necessary in order to visit the
+      // children.
+      for (Iterator<UIComponent> iter = parentComponent.getFacetsAndChildren(); iter.hasNext();)
+      {
+        UIComponent child = iter.next();
+
+        if (child.visitTree(visitContext, callback))
+        {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    UIXComponent uixParentComponent = (UIXComponent)parentComponent;
+    FacesContext context = visitContext.getFacesContext();
+    RenderingContext rc = (_isEncodingVisit(visitContext))
+                            ? RenderingContext.getCurrentInstance()
+                            : null;
+    boolean doneVisiting = false;
+    RuntimeException re = null;
+
+    // setup any context needed for visiting the children of the component as opposed
+    // to the component itself
+
+    if (parentComponent instanceof UIXComponent)
+    {
+      if (rc != null)
+      {
+        uixParentComponent.setupChildrenEncodingContext(context, rc);
+      }
+      else
+      {
+        uixParentComponent.setupChildrenVisitingContext(context);
+      }
+    }
+
+    try
+    {
+      // determine whether this visit should be iterating.  If it shouldn't, don't
+      // even call the protected hook.  We currently don't iterate during the
+      // restore view phase when we are visiting all of the components.
+      boolean noIterate = (visitContext.getIdsToVisit() == VisitContext.ALL_IDS) &&
+                          (context.getCurrentPhaseId() == PhaseId.RESTORE_VIEW);
+
+      doneVisiting =  (noIterate)
+                        ? uixParentComponent._visitAllChildren(visitContext, callback)
+                        : uixParentComponent.visitChildren(visitContext, callback);
+    }
+    catch (RuntimeException ex)
+    {
+      re = ex;
+    }
+    finally
+    {
+      try
+      {
+        // teardown any context initialized above
+        if (rc != null)
+        {
+          uixParentComponent.tearDownChildrenEncodingContext(context, rc);
+        }
+        else
+        {
+          uixParentComponent.tearDownChildrenVisitingContext(context);
+        }
+      }
+      catch (RuntimeException ex)
+      {
+        if (re == null)
+        {
+          throw ex;
+        }
+        else
+        {
+          _LOG.warning(ex);
+        }
+      }
+    }
+
+    return doneVisiting;
   }
 
   /**
