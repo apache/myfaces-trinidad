@@ -19,46 +19,39 @@
 package org.apache.myfaces.trinidadinternal.context;
 
 import java.io.IOException;
-
 import java.io.Writer;
 
 import java.util.Collection;
 import java.util.Collections;
-
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Iterator;
-
 import java.util.Set;
-
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.PhaseId;
-
-
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
-import javax.faces.component.visit.VisitResult;
-
 import javax.faces.render.RenderKit;
 
-import org.apache.myfaces.trinidad.component.visit.VisitTreeUtils;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.XmlResponseWriter;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
+
 
 public class PartialViewContextImpl
   extends PartialViewContext
@@ -158,10 +151,10 @@ public class PartialViewContextImpl
       }
       else
       {
-  
+
         String execute =
           _context.getExternalContext().getRequestParameterMap().get(PARTIAL_EXECUTE_PARAM_NAME);
-    
+
         _executeAll = execute.equals(ALL_PARTIAL_PHASE_CLIENT_IDS);
       }
     }
@@ -206,17 +199,17 @@ public class PartialViewContextImpl
     {
       return (PartialResponseWriter)current;
     }
-    
+
     if (current != null)
     {
       if (_context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE)
-      { 
+      {
         _LOG.warning("getPartialResponseWriter() called during render_reponse. " +
                      "The returned writer is not integrated with PPRResponseWriter");
       }
       return new PartialResponseWriter(current);
     }
-    
+
     ExternalContext extContext = _context.getExternalContext();
     String encoding = "UTF-8";
     extContext.setResponseCharacterEncoding(encoding);
@@ -240,9 +233,9 @@ public class PartialViewContextImpl
       }
       else
       {
-        responseWriter = new XmlResponseWriter(out, encoding); 
+        responseWriter = new XmlResponseWriter(out, encoding);
       }
-      
+
       return new PartialResponseWriter(responseWriter);
     }
 
@@ -276,22 +269,22 @@ public class PartialViewContextImpl
     // We are only handling visit-based (partial) execution here.
     // Full execution (isExecuteAll() == true) is handled by the UIViewRoot
     // Note that this is different from the render phase
-    
+
     Collection<String> executeIds = getExecuteIds();
     if (executeIds == null || executeIds.isEmpty())
     {
       _LOG.warning("No execute Ids were supplied for the Ajax request");
       return;
     }
-      
-    VisitContext visitContext = VisitTreeUtils.createVisitContext(_context, executeIds,
+
+    VisitContext visitContext = VisitContext.createVisitContext(_context, executeIds,
                         EnumSet.of(VisitHint.SKIP_UNRENDERED, VisitHint.EXECUTE_LIFECYCLE));
     VisitCallback visitCallback = new ProcessPhaseCallback(_context, phaseId);
-      
+
     component.visitTree(visitContext, visitCallback);
   }
 
-  
+
   private void _processRender(UIComponent viewRoot)
   {
     ExternalContext extContext = _context.getExternalContext();
@@ -309,18 +302,18 @@ public class PartialViewContextImpl
 
     RenderingContext rc = RenderingContext.getCurrentInstance();
     assert (rc != null);
-    
+
     boolean bufferScripts = _requestType == ReqType.LEGACY;
     PPRResponseWriter pprWriter =
       new PPRResponseWriter(origResponseWriter, rc, bufferScripts);
 
     _context.setResponseWriter(pprWriter);
-    
+
     if (_requestType == ReqType.AJAX)
     {
       // Add render Ids as partial targets for the request from <f:ajax>
       _addRenderIdsAsPartialTargets(rc);
-      
+
       // Force visit-based rendering for the <f:ajax> requests
       PartialPageUtils.forceOptimizedPPR(_context);
     }
@@ -332,18 +325,18 @@ public class PartialViewContextImpl
       // Note that PanelPartialRootRenderer will perform partial visit for the optimized PPR
       // if it is enabled
       _renderChildren(_context, viewRoot);
-      
-      // PDA's JavaScript DOM is not capable of updating the ViewState just by 
-      // using ViewState's value, so for PDAs, FormRenderer will again render 
+
+      // PDA's JavaScript DOM is not capable of updating the ViewState just by
+      // using ViewState's value, so for PDAs, FormRenderer will again render
       // the ViewState as a hidden element during its postscript element rendering
       if (!CoreRenderer.isPDA(rc))
-      {    
+      {
         // Always write out ViewState as a separate update element.
         String state =
                 _context.getApplication().getStateManager().getViewState(_context);
         pprWriter.writeViewState(state);
       }
-      
+
       pprWriter.endDocument();
     }
     catch (IOException e)
@@ -356,30 +349,30 @@ public class PartialViewContextImpl
       _context.setResponseWriter(origResponseWriter);
     }
   }
-  
+
   private void _renderAll(FacesContext context, UIComponent viewRoot)
   {
     ResponseWriter origResponseWriter = context.getResponseWriter();
-    
+
     // Use JSF-supplied PartialResponseWriter, since we are rendering the full page
     PartialResponseWriter rw = new PartialResponseWriter(origResponseWriter);
-    
+
     context.setResponseWriter(rw);
-    
+
     try
     {
       rw.startDocument();
-      
+
       rw.startUpdate(PartialResponseWriter.RENDER_ALL_MARKER);
       _renderChildren(context, viewRoot);
       rw.endUpdate();
-      
+
       //write out JSF state
       rw.startUpdate(PartialResponseWriter.VIEW_STATE_MARKER);
       String state = context.getApplication().getStateManager().getViewState(context);
       rw.write(state);
       rw.endUpdate();
-      
+
       rw.endDocument();
     }
     catch(IOException e)
@@ -391,7 +384,7 @@ public class PartialViewContextImpl
       context.setResponseWriter(origResponseWriter);
     }
   }
-  
+
   private void _addRenderIdsAsPartialTargets(RenderingContext rc)
   {
     Collection<String> renderIds = getRenderIds();
@@ -401,19 +394,19 @@ public class PartialViewContextImpl
       pc.addPartialTarget(id);
     }
   }
-  
-  
+
+
   private static void _renderChildren(FacesContext context, UIComponent root) throws IOException
   {
     Iterator<UIComponent> iterator = root.getFacetsAndChildren();
-    while (iterator.hasNext()) 
+    while (iterator.hasNext())
     {
       UIComponent child = iterator.next();
       if (child.isRendered())
         child.encodeAll(context);
     }
   }
-  
+
   private void _assertNotReleased()
   {
     if (_released)
@@ -442,7 +435,7 @@ public class PartialViewContextImpl
 
     return Collections.emptySet();
   }
-  
+
   private static final class ProcessPhaseCallback
     implements VisitCallback
   {
@@ -466,7 +459,7 @@ public class PartialViewContextImpl
       {
         target.processUpdates(_context);
       }
-      
+
 
       // No need to visit children, since they will be executed/rendred by their parents
       return VisitResult.REJECT;
