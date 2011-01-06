@@ -3635,21 +3635,6 @@
        the necessary fonts have been installed.
   **/
 
-  /** This named style defines the font families to use when generating
-       images on the server-side.  Note, the UIX will try to locate fonts
-       for any of the families listed here, so the list should contain
-       valid font family names for the server environment. **/
-  .DefaultServerFontFamily:alias {
-    font-family: Albany WT J,Dialog;
-  }
-
-  /** A named style for the default server-side font definition **/
-  .DefaultServerFont:alias {
-    -tr-rule-ref: selector("DefaultServerFontFamily:alias");
-    font-size: 13pt;
-    text-antialias: true;
-  }
-
   .p_OraOnePixelLine {
     -tr-rule-ref: selector(".AFDarkAccentBackground:alias");
     font-size: 0pt;
@@ -3860,24 +3845,6 @@
   For now, we only use Dialog for English - other locales can be added
   here as desired.
 **/
-@locale en {
-
-  /** Use native fonts **/
-  .DefaultServerFontFamily:alias {
-    font-family: Dialog;
-  }
-
-
-  .DefaultServerFont:alias {
-    /** Turn off antialiasing **/
-    text-antialias: false;
-
-    /** We can also use a slightly smaller font, since non-antialiased
-         text is legible at smaller font sizes **/
-    font-size: -1pt;
-  }
-
-}
 
 /* start ltr */
   .AFPanelBorderLayoutStart:alias:ltr {
@@ -4228,59 +4195,13 @@
     We don't specify a font family for CJK languages, since most browsers
     (Netscape, ICE, IE) seem to have problems displaying CJK text with
     our default font-family list (Arial, Helvetica, etc...).  We're better
-    off letting the font-family default.  (However - that just causes
-    still more problems on Windows Netscape 4 - so we've got more overrides
-    below for that specific case.
+    off letting the font-family default.
   **/
   .AFDefaultFontFamily:alias {
     -tr-inhibit: font-family;
   }
 
-  /** In order for CJK glyphs rendered on the server to be
-       appear readable, we need to crank up the font size and
-       turn on antialiasing **/
-  .DefaultServerFont:alias {
-    font-size: +1pt;
-    text-antialias: true;
-  }
-
 }
-
-/** Style sheet just for Japanese-specific styles **/
-@locale ja {
-
-  .DefaultServerFontFamily:alias {
-    font-family: Albany WT J, Dialog;
-  }
-
-}
-
-/** Style sheet just for Korean-specific styles **/
-@locale ko {
-
-  .DefaultServerFontFamily:alias {
-    font-family: Albany WT K, Dialog;
-  }
-
-}
-
-/** Style sheet just for Traditional Chinese specific styles **/
-@locale zh_TW {
-
-  .DefaultServerFontFamily:alias {
-    font-family: Albany WT TC, Dialog;
-  }
-
-}
-
-/** Style sheet just for Simplified Chinese specific styles **/
-@locale zh_CN {
-
-  .DefaultServerFontFamily:alias {
-    font-family: Albany WT SC, Dialog;
-  }
-}
-
 
 /** But: in CJK, IE is having some bad problems with sizing lists
   and choices correctly - this is bug 2440402.  For the two styles

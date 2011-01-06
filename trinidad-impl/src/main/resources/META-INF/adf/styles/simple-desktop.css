@@ -99,34 +99,6 @@ af|treeTable::content
   -tr-rule-ref: selector(".AFVeryDarkAccentBorder:alias");
   -tr-rule-ref: selector(".OraTableBorder1111");
 }
-/** 
-    Styles for dynamically generated images 
-   **/
-/** The style for dynamically generated button images **/
-.AFButtonServerText:alias
-{
-  -tr-rule-ref: selector(".DefaultServerFont:alias");
-  -tr-rule-ref: selector(".AFLightAccentBackground:alias");
-  -tr-rule-ref: selector(".AFTextForeground:alias");
-}
-/** The style for dynamically generated disabled button images **/
-.AFButtonServerTextDisabled:alias
-{
-  -tr-rule-ref: selector(".DefaultServerFont:alias");
-  -tr-rule-ref: selector(".AFLightAccentBackground:alias");
-  -tr-rule-ref: selector(".AFVeryDarkAccentForeground:alias");
-}
-/** Button padding for Albany WT J **/
-.AlbanyButtonPadding:alias
-{
-  padding-top: -3px;
-  padding-bottom: -2px;
-}
-
-.ButtonServerPaddingAlbany WT J:alias
-{
-  -tr-rule-ref: selector(".AlbanyButtonPadding:alias");
-}
 
 .AFLogo
 {
@@ -142,34 +114,4 @@ af|treeTable::content
   .AFLogo {
     background-image: url('../../images/logo-dark.gif');
   }
-}
-
-/** Style sheet just for Korean-specific styles **/
-@locale ko{
-
-  /** Button padding for Albany WT K **/
-  .ButtonServerPaddingAlbany WT K:alias {
-    -tr-rule-ref: selector(".AlbanyButtonPadding:alias");
-  }
-
-}
-
-/** Style sheet just for Traditional Chinese specific styles **/
-@locale zh_TW{
-
-  /** Button padding for Albany WT TC **/
-  .ButtonServerPaddingAlbany WT TC:alias {
-    -tr-rule-ref: selector(".AlbanyButtonPadding:alias");
-  }
-
-}
-
-/** Style sheet just for Simplified Chinese specific styles **/
-@locale zh_CN{
-
-  /** Button padding for Albany WT SC **/
-  .ButtonServerPaddingAlbany WT SC:alias {
-    -tr-rule-ref: selector(".AlbanyButtonPadding:alias");
-  }
-
 }
