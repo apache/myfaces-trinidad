@@ -1235,6 +1235,7 @@ INFO: 7011: org.apache.myfaces.trinidad.component.visit.VisitTreeUtils: Method '
 ERROR: 7005: org.apache.myfaces.trinidad.component.visit.VisitTreeUtils: Parameter 3 of 'public boolean visitSingleComponent(javax.faces.context.FacesContext, java.lang.String, org.apache.myfaces.trinidad.component.visit.VisitCallback)' has changed its type to javax.faces.component.visit.VisitCallback
 INFO: 6000: org.apache.myfaces.trinidad.context.Agent: Added public field AGENT_GOOGLEBOT
 INFO: 6000: org.apache.myfaces.trinidad.context.Agent: Added public field AGENT_MSNBOT
+INFO: 6000: org.apache.myfaces.trinidad.context.Agent: Added public field PLATFORM_ANDROID
 INFO: 6000: org.apache.myfaces.trinidad.context.Agent: Added public field TYPE_WEBCRAWLER
 INFO: 8000: org.apache.myfaces.trinidad.context.ComponentContextChange: Class org.apache.myfaces.trinidad.context.ComponentContextChange added
 INFO: 8000: org.apache.myfaces.trinidad.context.ComponentContextManager: Class org.apache.myfaces.trinidad.context.ComponentContextManager added

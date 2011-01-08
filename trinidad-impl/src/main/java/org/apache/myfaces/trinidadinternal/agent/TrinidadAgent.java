@@ -601,8 +601,12 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    * OS constant for generic PDA
    */
   static public final int OS_GENERICPDA   = 10;
-
-
+  
+  /**
+   * OS constant for Android
+   */
+  static public final int OS_ANDROID  = 11;
+  
   /**
    * Name Constant for Netfront agent
    */
