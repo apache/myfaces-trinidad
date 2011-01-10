@@ -22,11 +22,13 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
 import javax.el.MethodExpression;
+import javax.faces.FacesException;
 import javax.faces.FactoryFinder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ContextCallback;
@@ -41,9 +43,9 @@ import javax.faces.lifecycle.LifecycleFactory;
 import javax.faces.webapp.FacesServlet;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 import java.util.Set;
 import java.io.IOException;
 
@@ -232,29 +234,50 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot
   }
 
   private void storePartialTargets(FacesContext context) {
-      // after a normal decode check for partialTargets
-      final RequestContext requestContext = RequestContext.getCurrentInstance();
-      if (!(context.getResponseComplete() || context.getRenderResponse())
-          && requestContext.isPartialRequest(context))
-      {
-        String sourceId = context.getExternalContext().getRequestParameterMap().get("source");
-        UIComponent source = findComponent(sourceId);
-        if (source != null)
-        {
-          List<String> list = new ArrayList<String>();
-          Set<UIComponent> components = requestContext.getPartialTargets(source);
-          for (UIComponent component : components)
-          {
-            list.add(component.getClientId(context));
+    // after a normal decode check for partialTargets
+    final RequestContext requestContext = RequestContext.getCurrentInstance();
+    if (!(context.getResponseComplete() || context.getRenderResponse())
+        && requestContext.isPartialRequest(context)) {
+      String sourceId = context.getExternalContext().getRequestParameterMap().get("source");
+      UIComponent source = findComponent(sourceId);
+      if (source != null) {
+        List<String> list = new ArrayList<String>();
+        Set<UIComponent> components = requestContext.getPartialTargets(source);
+        for (UIComponent component : components) {
+          list.add(component.getClientId(context));
+        }
+        if (list.size() > 0) {
+          // check if source is a child of the partialTargets or a partialTarget
+          if (!list.contains(sourceId)) {
+            UIComponent component = source;
+            while ((component = component.getParent()) != null) {
+              if (list.contains(component.getClientId(context))) {
+                break;
+              } else if (component instanceof UIViewRoot) {
+                // source is not inside partialTargets
+                list.add(0, sourceId);
+                break;
+              }
+            }
           }
-          if (list.size() > 0)
-          {
-            PartialLifecycleUtils.setPartialTargets(context, list.toArray(new String[list.size()]));
-          } else {
-            PartialLifecycleUtils.setPartialTargets(context, sourceId);
-          }
+          PartialLifecycleUtils.setPartialTargets(context, list.toArray(new String[list.size()]));
+        } else {
+          PartialLifecycleUtils.setPartialTargets(context, sourceId);
         }
       }
+    }
+  }
+
+  @Override
+  // skip invokeOnComponent on UIViewRoot to avoid warning message in myfaces about missing id
+  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+      throws FacesException {
+    boolean found = false;
+    for (Iterator<UIComponent> it = getFacetsAndChildren(); !found && it.hasNext();)
+    {
+      found = it.next().invokeOnComponent(context, clientId, callback);
+    }
+    return found;
   }
 
   void clearEvents(FacesContext context)
@@ -356,7 +379,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot
 
   @Override
   public void encodeAll(FacesContext facesContext) throws IOException {
-    String[] partialTargets = PartialLifecycleUtils.getPartialTargets(facesContext);
+    /*String[] partialTargets = PartialLifecycleUtils.getPartialTargets(facesContext);
     if (partialTargets != null)
     {
 
@@ -405,10 +428,10 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot
       if (form != null)
       {
         form.encodeEnd(facesContext);
-      }
-    } else {
+      }  */
+   /* } else {  */
       super.encodeAll(facesContext);
-    }
+    //}
   }
 
   public Object saveState(FacesContext facesContext)

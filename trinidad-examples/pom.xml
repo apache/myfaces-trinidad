@@ -33,19 +33,6 @@
   <artifactId>trinidad-example</artifactId>
   <packaging>pom</packaging>
 
-  <repositories>
-    <repository>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>apache-maven-snapshots</id>
-      <url>http://people.apache.org/repo/m2-snapshot-repository/</url>
-    </repository>
-  </repositories>
-
   <properties>
     <portlet.version>1.0</portlet.version>
   </properties>

@@ -40,6 +40,7 @@ import org.apache.myfaces.trinidad.component.visit.VisitContext;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.LocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.ModelUtils;
+import org.apache.myfaces.trinidad.render.ClientRowKeyManager;
 
 import org.apache.myfaces.trinidad.render.ClientRowKeyManager;
 
@@ -76,27 +77,52 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     final ComponentProcessor<S> childProcessor,
     final S callbackContext) throws IOException
   {
-    // Mimic what would normally happen in the non-flattening case for encodeBegin():
-    __processFlattenedChildrenBegin();
+    boolean processedChildren;
 
-    Runner runner = new IndexedRunner(cpContext)
+    setupVisitingContext(context);
+
+    try
     {
-      @Override
-      protected void process(UIComponent kid, ComponentProcessingContext cpContext) throws IOException
+      // Mimic what would normally happen in the non-flattening case for encodeBegin():
+      __processFlattenedChildrenBegin();
+
+      setupChildrenVisitingContext(context);
+
+      try
       {
-        childProcessor.processComponent(context, cpContext, kid, callbackContext);
-      }
-    };
-    boolean processedChildren = runner.run();
-    Exception exp = runner.getException();
-    if (exp != null)
-    {
-      if (exp instanceof RuntimeException)
-        throw (RuntimeException) exp;
+        Runner runner = new IndexedRunner(cpContext)
+        {
+          @Override
+          protected void process(
+            UIComponent                kid,
+            ComponentProcessingContext cpContext
+            ) throws IOException
+            {
+              childProcessor.processComponent(context, cpContext, kid, callbackContext);
+            }
+        };
 
-      if (exp instanceof IOException)
-        throw (IOException) exp;
-      throw new IllegalStateException(exp);
+        processedChildren = runner.run();
+        Exception exp = runner.getException();
+        
+        if (exp != null)
+        {
+          if (exp instanceof RuntimeException)
+            throw (RuntimeException) exp;
+
+          if (exp instanceof IOException)
+            throw (IOException) exp;
+          throw new IllegalStateException(exp);
+        }
+      }
+      finally
+      {
+        tearDownChildrenVisitingContext(context);
+      }
+    }
+    finally
+    {
+      tearDownVisitingContext(context);
     }
     
     return processedChildren;
@@ -137,10 +163,12 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       Runner runner = new IndexedRunner()
       {
         @Override
-        protected void process(UIComponent kid,
-                               ComponentProcessingContext cpContext) throws IOException
+        protected void process(
+          UIComponent                kid,
+          ComponentProcessingContext cpContext
+          ) throws IOException
         {
-          __encodeRecursive(context, kid);
+          kid.encodeAll(context);
         }
       };
       runner.run();

@@ -17,11 +17,9 @@ package org.apache.myfaces.trinidadinternal.lifecycle;
  * limitations under the License.
  */
 
-import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import javax.faces.context.FacesContext;
-import java.util.Map;
 import java.util.Arrays;
 
 public final class PartialLifecycleUtils
@@ -43,7 +41,9 @@ public final class PartialLifecycleUtils
 
   public static void setPartialTargets(FacesContext facesContext, String... partialTargets)
   {
-    LOG.info("Found Partial Targets {0}", Arrays.asList(partialTargets));
+    if (LOG.isFine()) {
+      LOG.fine("Found Partial Targets {0}", Arrays.asList(partialTargets));
+    }
     facesContext.getExternalContext().getRequestMap().put(PartialLifecycleUtils.class.getName(), partialTargets);
   }
 }

@@ -31,7 +31,8 @@ import org.apache.myfaces.trinidad.component.visit.VisitContext;
  *
  * @version $Name:  $ ($Revision$) $Date$
  */
-abstract public class UIXNavigationLevelTemplate extends UIXNavigationHierarchy
+abstract public class UIXNavigationLevelTemplate
+  extends UIXNavigationHierarchy
 {
 /**/ // Abstract methods implemented by code gen
 /**/  abstract public int getLevel();

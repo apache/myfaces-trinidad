@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import javax.faces.component.UIComponent;
@@ -58,12 +59,30 @@ abstract public class UIXGroupTemplate extends UIXComponentBase implements Flatt
     
     try
     {
+      setupVisitingContext(context);
+
+      try
+      {
+        setupChildrenVisitingContext(context);
+
+        try
+        {
       // bump up the group depth and render all of the children
       return UIXComponent.processFlattenedChildren(context,
                                                    cpContext,
                                                    childProcessor,
                                                    this.getChildren(),
                                                    callBackContext);
+    }
+    finally
+    {
+          tearDownChildrenVisitingContext(context);
+        }
+      }
+      finally
+      {
+        tearDownVisitingContext(context);
+      }
     }
     finally
     {
@@ -101,7 +120,7 @@ abstract public class UIXGroupTemplate extends UIXComponentBase implements Flatt
     {
       for(UIComponent child : (List<UIComponent>)getChildren())
       {
-        __encodeRecursive(context, child);
+        child.encodeAll(context);
       }
     }
   }

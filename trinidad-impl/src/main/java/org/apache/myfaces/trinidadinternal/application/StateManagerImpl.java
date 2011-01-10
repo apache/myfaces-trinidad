@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,14 +18,24 @@
  */
 package org.apache.myfaces.trinidadinternal.application;
 
+import com.sun.facelets.FaceletViewHandler;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -38,24 +48,21 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.ResponseStateManager;
 
+import org.apache.myfaces.trinidad.bean.util.StateUtils;
 import org.apache.myfaces.trinidad.component.UIXComponentBase;
 import org.apache.myfaces.trinidad.component.core.CoreDocument;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.context.Window;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.TransientHolder;
+import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
+import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 import org.apache.myfaces.trinidadinternal.util.LRUCache;
+import org.apache.myfaces.trinidadinternal.util.ObjectInputStreamResolveClass;
 import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
 import org.apache.myfaces.trinidadinternal.util.TokenCache;
 
-import com.sun.facelets.FaceletViewHandler;
-
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
-
-import org.apache.myfaces.trinidad.bean.util.StateUtils;
-import org.apache.myfaces.trinidad.context.Window;
-import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
-import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 
 /**
  * StateManager that handles a hybrid client/server strategy:  a
@@ -115,6 +122,15 @@ public class StateManagerImpl extends StateManagerWrapper
     "org.apache.myfaces.trinidad.CLIENT_STATE_MAX_TOKENS";
 
   /**
+     * Servlet context initialization parameter used by
+     * StateManagerImpl to decide whether to zip state.
+     * Valid values are true and false
+     */
+    static public final String COMPRESS_VIEW_STATE_PARAM_NAME =
+      "org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE";
+
+
+  /**
    * Value indicating that only a simple token will be stored
    * on the client.
    */
@@ -131,7 +147,7 @@ public class StateManagerImpl extends StateManagerWrapper
   {
     _delegate = delegate;
   }
-  
+
   @Override
   protected StateManager getWrapped()
   {
@@ -143,13 +159,13 @@ public class StateManagerImpl extends StateManagerWrapper
   public Object saveView(FacesContext context)
   {
     assert(context != null);
-    
+
     if(isSavingStateInClient(context))
     {
       SerializedView view = _saveSerializedView(context);
       return new Object[]{view.getStructure(), view.getState()};
     }
-    
+
     return super.saveView(context);
   }
 
@@ -157,12 +173,12 @@ public class StateManagerImpl extends StateManagerWrapper
   public SerializedView saveSerializedView(FacesContext context)
   {
     assert(context != null);
-    
+
     if(isSavingStateInClient(context))
     {
       return _saveSerializedView(context);
     }
-    
+
     return _delegate.saveSerializedView(context);
   }
 
@@ -176,9 +192,9 @@ public class StateManagerImpl extends StateManagerWrapper
     // Don't remove transient components...
     Object structure = new Structure(component);
     Object state = component.processSaveState(context);
-    return new PageState(context, structure, state, null);
+    return new PageState(context, new Object[]{structure, state}, null);
   }
-  
+
   /**
    * Take an object created by saveComponentTree()
    * and instantiate it as a UIComponent.
@@ -198,8 +214,9 @@ public class StateManagerImpl extends StateManagerWrapper
 
     PageState viewState = (PageState) savedState;
 
-    Object structure = viewState.getStructure();
-    Object state = viewState.getState();
+    Object[] stateArray = (Object[])viewState.getViewState(context);
+    Object structure = stateArray[0];
+    Object state = stateArray[1];
 
     UIComponent component =
       ((Structure) structure).createComponent();
@@ -224,7 +241,7 @@ public class StateManagerImpl extends StateManagerWrapper
 
     Object structure = new Structure(root);
     Object state = root.processSaveState(context);
-    return new PageState(context, structure, state, root);
+    return new PageState(context, new Object[]{structure, state}, root);
   }
 
   static public UIViewRoot restoreViewRoot(
@@ -244,8 +261,9 @@ public class StateManagerImpl extends StateManagerWrapper
       return root; // bug 4712492
     }
 
-    Object structure = viewState.getStructure();
-    Object state = viewState.getState();
+    Object[] stateArray = (Object[])viewState.getViewState(context);
+    Object structure = stateArray[0];
+    Object state = stateArray[1];
 
     root = (UIViewRoot)
       ((Structure) structure).createComponent();
@@ -254,7 +272,7 @@ public class StateManagerImpl extends StateManagerWrapper
       root.processRestoreState(context, state);
 
     return root;
-  }  
+  }
 
   @SuppressWarnings({"unchecked", "deprecation"})
   private SerializedView _saveSerializedView(FacesContext context)
@@ -305,19 +323,20 @@ public class StateManagerImpl extends StateManagerWrapper
       String token;
       ExternalContext extContext = context.getExternalContext();
 
-
       if (applicationViewCache == null)
       {
         assert(!dontSave);
-        TokenCache cache = _getViewCache(context);
+        
+        RequestContext trinContext = RequestContext.getCurrentInstance();
+
+        TokenCache cache = _getViewCache(trinContext, extContext);
         assert(cache != null);
 
-        Map<String, Object> sessionMap = extContext.getSessionMap();
-        RequestContext trinContext     = RequestContext.getCurrentInstance();
-        
+        Map<String, Object> sessionMap  = extContext.getSessionMap();
+
         // get view cache key with "." separator suffix to separate the SubKeyMap keys
         String subkey = _getViewCacheKey(extContext, trinContext, _SUBKEY_SEPARATOR);
-        
+
         Map<String, PageState> stateMap = new SubKeyMap<PageState>(sessionMap, subkey);
 
         // Sadly, we can't save just a SerializedView, because we should
@@ -325,14 +344,13 @@ public class StateManagerImpl extends StateManagerWrapper
         // inner class of StateManager
         PageState pageState = new PageState(
             context,
-            structure,
-            state,
+            new Object[]{structure, state},
             // Save the view root into the page state as a transient
             // if this feature has not been disabled
             _useViewRootCache(context) ? root : null);
-        
+
         String requestToken = _getRequestTokenForResponse(context);
-        
+
         // If we have a cached token that we want to reuse,
         // and that token hasn't disappeared from the cache already
         // (unlikely, but not impossible), use the stateMap directly
@@ -370,15 +388,15 @@ public class StateManagerImpl extends StateManagerWrapper
           // See Trinidad-1779
           String activePageStateKey = _getActivePageTokenKey(extContext, trinContext);
           String activeToken = (String)sessionMap.get(activePageStateKey);
-          
+
           // we only need to clear out the state if we're actually changing pages and thus tokens.
-          // Since we have already updated the state for 
+          // Since we have already updated the state for
           if (!token.equals(activeToken))
           {
             if (activeToken != null)
             {
               PageState activePageState = stateMap.get(activeToken);
-        
+
               if (activePageState != null)
                 activePageState.clearViewRootState();
             }
@@ -391,8 +409,8 @@ public class StateManagerImpl extends StateManagerWrapper
       else
       {
         // use null viewRoot since this state is shared across users:
-        PageState applicationState = new PageState(context, structure, state, null);
-        
+        PageState applicationState = new PageState(context, new Object[]{structure, state}, null);
+
         // If we need to, stash the state off in our cache
         if (!dontSave)
         {
@@ -413,7 +431,7 @@ public class StateManagerImpl extends StateManagerWrapper
       // Create a "tokenView" which abuses SerializedView to store
       // our token only
       view = new SerializedView(token, null);
-      
+
       // And store the token for this request
       extContext.getRequestMap().put(_REQUEST_STATE_TOKEN_KEY, token);
     }
@@ -439,9 +457,9 @@ public class StateManagerImpl extends StateManagerWrapper
   {
     context.getExternalContext().getRequestMap().put(
             _PINNED_STATE_TOKEN_KEY, stateToken);
-    
+
   }
-  
+
   /**
    * @return the state token for the current request
    */
@@ -450,24 +468,24 @@ public class StateManagerImpl extends StateManagerWrapper
     return (String) context.getExternalContext().getRequestMap().get(
             _REQUEST_STATE_TOKEN_KEY);
   }
-  
-  
+
+
   /**
    * Mark the the incoming request token should be used for the response
    */
   @SuppressWarnings("unchecked")
   static public void reuseRequestTokenForResponse(ExternalContext ec)
   {
-    ec.getRequestMap().put(_REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY, Boolean.TRUE);    
+    ec.getRequestMap().put(_REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY, Boolean.TRUE);
   }
-  
+
   /**
    * Clears the flag indicating that the old request token should be used for the response.
    */
   @SuppressWarnings("unchecked")
   static public void clearReuseRequestTokenForResponse(ExternalContext ec)
   {
-    ec.getRequestMap().remove(_REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY);    
+    ec.getRequestMap().remove(_REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY);
   }
 
   /**
@@ -503,8 +521,8 @@ public class StateManagerImpl extends StateManagerWrapper
 
     return (String) token;
   }
-    
-  
+
+
   @Override @SuppressWarnings("deprecation")
   public void writeState(FacesContext context,
                          SerializedView state) throws IOException
@@ -518,8 +536,8 @@ public class StateManagerImpl extends StateManagerWrapper
                                 String renderKitId)
   {
     final ExternalContext extContext = context.getExternalContext();
-    
-    // If we're being asked to execute a "return" event from, say, a dialog, always 
+
+    // If we're being asked to execute a "return" event from, say, a dialog, always
     // restore the "launch view", which was set over in the TrinidadFilter.
     UIViewRoot launchView = (UIViewRoot)
                             extContext.getRequestMap().remove(RequestContextImpl.LAUNCH_VIEW);
@@ -528,7 +546,7 @@ public class StateManagerImpl extends StateManagerWrapper
       TrinidadPhaseListener.markPostback(context);
       return launchView;
     }
-    
+
     if (!isSavingStateInClient(context))
       return _delegate.restoreView(context, viewId, renderKitId);
 
@@ -573,21 +591,21 @@ public class StateManagerImpl extends StateManagerWrapper
             if (viewState != null)
               perSessionCache.put(viewId, viewState);
           }
-          
+
           // If the view was found in the application cache then we
           // know it would be unsafe to use its locale for this session.
-          // Same conclusion, however, even if found in the per-session 
+          // Same conclusion, however, even if found in the per-session
           // cache, since the latter is just a mirror of the former.
           recalculateLocale = true;
         }
       }
       else
       {
+        RequestContext trinContext = RequestContext.getCurrentInstance();
+
         // get view cache key with "." separator suffix to separate the SubKeyMap keys
-        String subkey = _getViewCacheKey(extContext,
-                                         RequestContext.getCurrentInstance(),
-                                         _SUBKEY_SEPARATOR);
-        
+        String subkey = _getViewCacheKey(extContext, trinContext, _SUBKEY_SEPARATOR);
+
         Map<String, PageState> stateMap = new SubKeyMap<PageState>(
                          extContext.getSessionMap(),
                          subkey);
@@ -603,8 +621,7 @@ public class StateManagerImpl extends StateManagerWrapper
         // token cache here, not just inside the assert.  If we don't,
         // then we don't actually access the token, so it doesn't
         // get bumped up to the front in the LRU Cache!
-        boolean isAvailable =
-          _getViewCache(context).isAvailable((String) token);
+        boolean isAvailable = _getViewCache(trinContext, extContext).isAvailable((String) token);
         assert ((viewState != null) == isAvailable);
       }
 
@@ -623,8 +640,9 @@ public class StateManagerImpl extends StateManagerWrapper
         return root;
       }
 
-      structure = viewState.getStructure();
-      state = viewState.getState();
+      Object[] stateArray = (Object[])viewState.getViewState(context);
+      structure = stateArray[0];
+      state = stateArray[1];
     }
     else
     {
@@ -663,7 +681,7 @@ public class StateManagerImpl extends StateManagerWrapper
 
         if (state != null)
           root.processRestoreState(context, state);
-        
+
         if (recalculateLocale)
         {
           // Ensure that locale gets re-calculated when next fetched.
@@ -694,12 +712,12 @@ public class StateManagerImpl extends StateManagerWrapper
    * The given parameter (<code>perViewStateSaving</code>) indicates
    * if we need to enable client- OR server-side state-saving
    * for the current VIEW.
-   * 
+   *
    * <p>
    * <b>This is an internal method, that is ONLY called by the
    * Trinidad Document</b>
    * </p>
-   * 
+   *
    * @param perViewStateSaving <code>default</code>, <code>server</code> or <code>client</code> for stateSaving
    */
   public void setPerViewStateSaving(String perViewStateSaving)
@@ -746,20 +764,18 @@ public class StateManagerImpl extends StateManagerWrapper
     throw new UnsupportedOperationException();
   }
 
-
-  private TokenCache _getViewCache(FacesContext context)
+  /**
+   * Returns the TokenCache for the current window
+   * @param trinContext
+   * @param extContext
+   * @return
+   */
+  private TokenCache _getViewCache(RequestContext trinContext, ExternalContext extContext)
   {
-    ExternalContext extContext = context.getExternalContext();
+    String cacheKey = _getViewCacheKey(extContext, trinContext, null);
     
-    return TokenCache.getTokenCacheFromSession(context,
-                                               _getViewCacheKey(extContext,
-                                                                RequestContext.getCurrentInstance(),
-                                                                null),
-                                               true,
-                                               _getCacheSize(extContext));
+    return TokenCache.getTokenCacheFromSession(extContext,cacheKey, true,_getCacheSize(extContext));
   }
-
-  
 
   /**
    * Returns a key suitable for finding the per-window active page state key
@@ -771,9 +787,9 @@ public class StateManagerImpl extends StateManagerWrapper
     ExternalContext extContext,
     RequestContext trinContext)
   {
-    return _getPerWindowCacheKey(extContext, trinContext, _ACTIVE_PAGE_STATE_SESSION_KEY, null);
+    return _getPerWindowCacheKey(extContext, trinContext, _ACTIVE_PAGE_TOKEN_SESSION_KEY, null);
   }
-  
+
   /**
    * Returns a key suitable for finding the per-window cache key
    * @param extContext
@@ -788,7 +804,7 @@ public class StateManagerImpl extends StateManagerWrapper
   {
     return _getPerWindowCacheKey(extContext, trinContext, _VIEW_CACHE_KEY, suffix);
   }
-  
+
   /**
    * Returns a key of the form <prefix>.<windowid><suffix> if a window and a suffix are available
    *                           <prefix>.<window> if just a window is available
@@ -806,18 +822,18 @@ public class StateManagerImpl extends StateManagerWrapper
     Character suffix)
   {
     Window currWindow = trinContext.getWindowManager().getCurrentWindow(eContext);
-    
+
     // if we have a current window or a suffix, we need a StringBuilder to calculate the cache key
     if ((currWindow != null) || (suffix != null))
     {
       // get the window id and the extra size neeeded to store it and its separator
       String windowId;
       int windowPartSize;
-    
+
       if (currWindow != null)
       {
         windowId = currWindow.getId();
-        
+
         // add 1 for separator
         windowPartSize = windowId.length() + 1;
       }
@@ -826,28 +842,28 @@ public class StateManagerImpl extends StateManagerWrapper
         windowId = null;
         windowPartSize = 0;
       }
-      
+
       int builderSize =  prefix.length() + windowPartSize;
-      
+
       // add extra space for the suffix Character
       if (suffix != null)
         builderSize += 1;
-      
+
       // add the constant part to the StringBuilder
       StringBuilder keyBuilder = new StringBuilder(builderSize);
       keyBuilder.append(prefix);
-      
+
       // add the windowId and its separator
       if (currWindow != null)
       {
         keyBuilder.append('.');
         keyBuilder.append(windowId);
       }
-      
+
       // add the suffix if any
       if (suffix != null)
         keyBuilder.append(suffix);
-      
+
       return keyBuilder.toString();
     }
     else
@@ -893,7 +909,7 @@ public class StateManagerImpl extends StateManagerWrapper
 
     ExternalContext external = context.getExternalContext();
     Object stateSavingMethod =
-      external.getInitParameterMap().get(StateManager.STATE_SAVING_METHOD_PARAM_NAME);    
+      external.getInitParameterMap().get(StateManager.STATE_SAVING_METHOD_PARAM_NAME);
 
     // on "SERVER" state-saving we return TRUE, since we want send down a token string.
     if ((stateSavingMethod == null) ||
@@ -912,7 +928,7 @@ public class StateManagerImpl extends StateManagerWrapper
       return false;
     }
 
-    // if the user has used the <document> 'stateSaving' attribute to specify 
+    // if the user has used the <document> 'stateSaving' attribute to specify
     // client, we force the state mananger (see above) to render the entire
     // state on the client. The indicator is stashed on the FacesContext and
     // is therefore NOT visible during "restoreView" phase. So if we reach this point
@@ -975,7 +991,7 @@ public class StateManagerImpl extends StateManagerWrapper
       return cache;
     }
   }
-  
+
   @SuppressWarnings("unchecked")
   static private Map<String, PageState> _getPerSessionApplicationViewCache(FacesContext context)
   {
@@ -1038,7 +1054,7 @@ public class StateManagerImpl extends StateManagerWrapper
       }
       if (Boolean.TRUE.equals(_useApplicationViewCache))
       {
-         _LOG.severe("USE_APPLICATION_VIEW_CACHE_UNSUPPORTED");        
+         _LOG.severe("USE_APPLICATION_VIEW_CACHE_UNSUPPORTED");
       }
       return _useApplicationViewCache.booleanValue();
     }
@@ -1111,18 +1127,18 @@ public class StateManagerImpl extends StateManagerWrapper
       // Nope, guess it's a facet
       // 2006-08-02: -= Simon Lessard
       //             Not 1.5 structure and inefficient loop
-      //             values() is more efficient as you don't have 
+      //             values() is more efficient as you don't have
       //             to do a second lookup for the value.
       Map<String, UIComponent> facets = parent.getFacets();
-      for(Iterator<UIComponent> facetIter = facets.values().iterator(); 
+      for(Iterator<UIComponent> facetIter = facets.values().iterator();
           facetIter.hasNext();)
       {
         if(facetIter.next() == kid)
         {
           facetIter.remove();
           // FIXME: -= Simon Lessard
-          //        Is that continue need to labeled to go all the way up to 
-          //        the first while? Currently it won't cause any problem, but 
+          //        Is that continue need to labeled to go all the way up to
+          //        the first while? Currently it won't cause any problem, but
           //        it's a performance loss.
           continue;
         }
@@ -1178,11 +1194,11 @@ public class StateManagerImpl extends StateManagerWrapper
     {
       if (viewRoot == null)
         throw new NullPointerException();
-      
+
       _viewRoot = viewRoot;
       _viewRootState = viewRoot.saveState(context);
     }
-    
+
     public UIViewRoot getViewRoot()
     {
       return _viewRoot;
@@ -1192,7 +1208,7 @@ public class StateManagerImpl extends StateManagerWrapper
     {
       return _viewRootState;
     }
-   
+
     private final UIViewRoot _viewRoot;
     private final Object _viewRootState;
   }
@@ -1201,31 +1217,41 @@ public class StateManagerImpl extends StateManagerWrapper
   {
     private static final long serialVersionUID = 1L;
 
-    private final Object _structure, _state;
-    
+    private Object _viewState;
+
     // use transient since UIViewRoots are not Serializable.
     private transient ViewRootState _cachedState;
 
-    public PageState(FacesContext fc, Object structure, Object state, UIViewRoot root)
+    public PageState(FacesContext fc, Object viewState, UIViewRoot root)
     {
-      _structure = structure;
-      _state = state;
-      
-      // if component tree serialization checking is on (in order to validate
-      // fail over support, attempt to Serialize all of the component state
-      //  immediately
-      if (StateUtils.checkComponentTreeStateSerialization(fc))
+      _viewState = viewState;
+
+      boolean zipState = _zipState(fc);
+
+      if (zipState || StateUtils.checkComponentTreeStateSerialization(fc))
       {
-        try
+
+        if (zipState)
         {
-          new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(state);
+          // zip the page state. This will also catch any serialization problems.
+          _zipToBytes(fc, viewState);
         }
-        catch (IOException e)
-        {          
-          throw new RuntimeException(_LOG.getMessage("COMPONENT_TREE_SERIALIZATION_FAILED"), e);
+        else
+        {
+          // if component tree serialization checking is on (in order to validate
+          // fail over support, attempt to Serialize all of the component state
+          //  immediately
+          try
+          {
+            new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(viewState);
+          }
+          catch (IOException e)
+          {
+            throw new RuntimeException(_LOG.getMessage("COMPONENT_TREE_SERIALIZATION_FAILED"), e);
+          }
         }
       }
-                  
+
       // we need this state, as we are going to recreate the UIViewRoot later. see
       // the popRoot() method:
       _cachedState = (root != null)
@@ -1233,14 +1259,14 @@ public class StateManagerImpl extends StateManagerWrapper
                        : null;
     }
 
-    public Object getStructure()
+    public Object getViewState(FacesContext context)
     {
-      return _structure;
-    }
+      if (_zipState(context))
+      {
+        return _unzipBytes(context, (byte[])_viewState);
+      }
 
-    public Object getState()
-    {
-      return _state;
+      return _viewState;
     }
 
     public void clearViewRootState()
@@ -1250,7 +1276,7 @@ public class StateManagerImpl extends StateManagerWrapper
         _cachedState = null;
       }
     }
-    
+
     @SuppressWarnings("unchecked")
     public UIViewRoot popRoot(FacesContext fc)
     {
@@ -1271,7 +1297,7 @@ public class StateManagerImpl extends StateManagerWrapper
           _cachedState = null;
         }
       }
-      
+
       if (root != null)
       {
         // If an error happens during updateModel, JSF 1.1 does not
@@ -1280,22 +1306,30 @@ public class StateManagerImpl extends StateManagerWrapper
         // so to clear the events, we create a new UIViewRoot.
         // must get the UIViewRoot from the application so that
         // we pick up any custom ViewRoot defined in faces-config.xml:
-        UIViewRoot newRoot = (UIViewRoot) 
+        UIViewRoot newRoot = (UIViewRoot)
           fc.getApplication().createComponent(UIViewRoot.COMPONENT_TYPE);
-        
+
         //This code handles automatic namespacing in a JSR-301 environment
-        if(ExternalContextUtils.isPortlet(fc.getExternalContext())) 
+        if(ExternalContextUtils.isPortlet(fc.getExternalContext()))
         {
           //IMPORTANT: To avoid introducing a runtime dependency on the bridge,
           //this method should only be executed when we have a portlet
-          //request.  If we do have a portlet request then the bridge
-          //should be available anyway. Trinidad has a compile-time dependency
-          //on the PortletBridge API but DOES NOT have a runtime dependency on
-          //those clases.  It is very important to keep this seperation.
-          newRoot = PortletUtils.getPortletViewRoot(newRoot);
+          //request.
+          try
+          {
+            newRoot = (UIViewRoot) root.getClass().newInstance();
+          }
+          catch (InstantiationException e)
+          {
+            _LOG.finest("Unable to instantiate new root of type class \"{0}\".", root.getClass());
+          }
+          catch (IllegalAccessException e)
+          {
+            _LOG.finest("IllegalAccessException on new root of type class \"{0}\".", root.getClass());
+          }
         }
 
-        
+
         // must call restoreState so that we setup attributes, listeners,
         // uniqueIds, etc ...
         newRoot.restoreState(fc, viewRootState);
@@ -1311,13 +1345,151 @@ public class StateManagerImpl extends StateManagerWrapper
         newRoot.getChildren().addAll(temp);
         return newRoot;
       }
-      
+
       return null;
-    }    
+    }
+
+    private boolean _zipState(FacesContext fc)
+    {
+      // default is false
+      Object zipStateObject =
+                           fc.getExternalContext().getInitParameter(COMPRESS_VIEW_STATE_PARAM_NAME);
+
+      if (zipStateObject == null)
+        return false;
+
+      return zipStateObject.toString().equalsIgnoreCase("true");
+    }
+
+    private Object _unzipBytes(FacesContext context, byte[] zippedBytes)
+    {
+      Inflater decompressor = null;
+      ExternalContext externalContext = context.getExternalContext();
+      Map<String,Object> sessionMap  = externalContext.getSessionMap();
+
+      try
+      {
+        //Get inflater from session cope
+        TransientHolder<Inflater> th =
+                              (TransientHolder<Inflater>)sessionMap.remove("PAGE_STATE_INFLATER");
+
+        if (th != null)
+        {
+          decompressor = th.getValue();
+        }
+
+        if(decompressor == null)
+        {
+          decompressor = new Inflater();
+        }
+
+		    decompressor.setInput(zippedBytes);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(zippedBytes.length);
+        byte[] buf = new byte[zippedBytes.length*5];
+
+        while (!decompressor.finished())
+        {
+	        try
+		      {
+		        int count = decompressor.inflate(buf);
+		        bos.write(buf, 0, count);
+		      }
+		      catch (DataFormatException e)
+		      {
+            throw new RuntimeException(_LOG.getMessage("UNZIP_STATE_FAILED"), e);
+          }
+		    }
+
+        ByteArrayInputStream baos = new ByteArrayInputStream(bos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStreamResolveClass(baos);
+        Object unzippedState = ois.readObject();
+        ois.close();
+        return unzippedState;
+      }
+      catch(ClassNotFoundException cnfe)
+      {
+        throw new RuntimeException(_LOG.getMessage("UNZIP_STATE_FAILED"), cnfe);
+      }
+      catch(IOException ioe)
+      {
+        throw new RuntimeException(_LOG.getMessage("UNZIP_STATE_FAILED"), ioe);
+      }
+      finally
+      {
+        //Reset and put back
+        if(decompressor != null)
+        {
+          decompressor.reset();
+          TransientHolder<Inflater> th = TransientHolder.newTransientHolder(decompressor);
+          sessionMap.put("PAGE_STATE_INFLATER", th);
+        }
+      }
+    }
+
+    private void _zipToBytes(FacesContext context, Object viewState)
+    {
+      Deflater compresser = null;
+      ExternalContext externalContext = context.getExternalContext();
+      Map<String,Object> sessionMap  = externalContext.getSessionMap();
+
+      try
+      {
+        //Get deflater from session cope
+        TransientHolder<Deflater> th =
+                              (TransientHolder<Deflater>)sessionMap.remove("PAGE_STATE_DEFLATER");
+
+        if (th != null)
+        {
+          compresser = th.getValue();
+        }
+
+        if(compresser == null)
+        {
+          compresser = new Deflater(Deflater.BEST_SPEED);
+        }
+
+        //Serialize state
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+
+        oos.writeObject(viewState);
+        oos.flush();
+        oos.close();
+
+        byte[] ret =  baos.toByteArray();
+        compresser.setInput(ret);
+		    compresser.finish();
+
+        baos.reset();
+        byte[] buf = new byte[ret.length/5];
+
+        while (!compresser.finished())
+        {
+          int count = compresser.deflate(buf);
+          baos.write(buf, 0, count);
+	}
+
+        _viewState = baos.toByteArray();
+      }
+      catch (IOException e)
+      {
+        throw new RuntimeException(_LOG.getMessage("ZIP_STATE_FAILED"), e);
+      }
+      finally
+      {
+        //Reset and put back
+        if(compresser != null)
+        {
+          compresser.reset();
+          TransientHolder<Deflater> th = TransientHolder.newTransientHolder(compresser);
+          sessionMap.put("PAGE_STATE_DEFLATER", th);
+        }
+      }
+    }
   }
 
   /**
-   * Static ENUM to capture the values of the <document>'s 
+   * Static ENUM to capture the values of the <document>'s
    * 'stateSaving' attribute
    */
   static private enum StateSaving
@@ -1340,11 +1512,11 @@ public class StateManagerImpl extends StateManagerWrapper
   private       Boolean      _structureGeneratedByTemplate;
 
   private static final Character _SUBKEY_SEPARATOR = new Character('.');
-  
+
   private static final int _DEFAULT_CACHE_SIZE = 15;
 
   private static final Object _APPLICATION_VIEW_CACHE_LOCK = new Object();
-  
+
   // base key used to identify the view cache.  The window name, if any, is appended to this
   private static final String _VIEW_CACHE_KEY =
     "org.apache.myfaces.trinidadinternal.application.VIEW_CACHE";
@@ -1353,7 +1525,7 @@ public class StateManagerImpl extends StateManagerWrapper
     "org.apache.myfaces.trinidadinternal.application.APPLICATION_VIEW_CACHE";
 
   // key to stash the per_page_state_saving during rendering
-  private static final String _PER_PAGE_STATE_SAVING = 
+  private static final String _PER_PAGE_STATE_SAVING =
     "org.apache.myfaces.trinidadimpl.PER_PAGE_STATE_SAVING";
 
   private static final String _CACHED_SERIALIZED_VIEW =
@@ -1368,8 +1540,8 @@ public class StateManagerImpl extends StateManagerWrapper
   private static final String _REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY =
     "org.apache.myfaces.trinidadinternal.application.REUSE_REQUEST_TOKEN_FOR_RESPONSE";
 
-  // key for saving the PageState for the last accessed view in this Session
-  private static final String _ACTIVE_PAGE_STATE_SESSION_KEY =
+  // key for saving the token to the PageState for the last accessed view in this Session
+  private static final String _ACTIVE_PAGE_TOKEN_SESSION_KEY =
               "org.apache.myfaces.trinidadinternal.application.StateManagerImp.ACTIVE_PAGE_STATE";
 
   private static final String _APPLICATION_CACHE_TOKEN = "_a_";

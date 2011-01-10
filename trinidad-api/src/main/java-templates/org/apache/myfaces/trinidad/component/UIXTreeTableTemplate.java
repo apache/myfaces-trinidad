@@ -344,25 +344,25 @@ abstract public class UIXTreeTableTemplate extends UIXTree
 
   @SuppressWarnings("unchecked")
   @Override
-  protected final void processFacetsAndChildren(
+  protected void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)
   {
     // process all the facets of this hgrid just once
     // (except for the "nodeStamp" facet which must be processed once
     // per row):
-    TableUtils.__processFacets(context, this, this, phaseId,
+    TableUtils.processFacets(context, this, this, phaseId,
       UIXTreeTable.NODE_STAMP_FACET);
 
     UIComponent nodeStamp = getNodeStamp();
     // process any facets of the nodeStamp column:
-    TableUtils.__processFacets(context, this, nodeStamp, phaseId, null);
+    TableUtils.processFacets(context, this, nodeStamp, phaseId, null);
 
     // process all the facets of this table's column children:
-    TableUtils.__processColumnFacets(context, this, this, phaseId);
+    TableUtils.processColumnFacets(context, this, this, phaseId);
 
     // recursively process any grandchild columns of the nodeStamp column:
-    TableUtils.__processColumnFacets(context, this, nodeStamp, phaseId);
+    TableUtils.processColumnFacets(context, this, nodeStamp, phaseId);
 
     Object oldPath = getRowKey();
     RowKeySet state = getDisclosedRowKeys();
@@ -381,7 +381,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
       }
       else
       {
-        TableUtils.__processStampedChildren(context, this, phaseId);
+        TableUtils.processStampedChildren(context, this, phaseId);
         processComponent(context, nodeStamp, phaseId); // bug 4688568
   
         if (state.isContained())

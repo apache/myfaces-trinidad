@@ -217,7 +217,7 @@ public final class TableUtils
    * at this time.
    */
   @SuppressWarnings("unchecked")
-  static void __processFacets(
+  public static void processFacets(
     FacesContext context,
     final UIXCollection table,
     UIComponent  component,
@@ -244,7 +244,7 @@ public final class TableUtils
    * Process all the facets of any children that are columns; these are
    * generally not processed once per row.
    */
-  static void __processColumnFacets(
+  public static void processColumnFacets(
     FacesContext context,
     final UIXCollection table,
     UIComponent  column,
@@ -258,9 +258,9 @@ public final class TableUtils
         if (child instanceof UIXColumn && child.isRendered())
         {
           // process any facets of the child column:
-          __processFacets(context, table, child, phaseId, null);
+          processFacets(context, table, child, phaseId, null);
           // recursively process the facets of any grandchild columns:
-          __processColumnFacets(context, table, child, phaseId);
+          processColumnFacets(context, table, child, phaseId);
         }
       }
     }.runAlways(context, column);
@@ -269,7 +269,7 @@ public final class TableUtils
   /**
    * Process all the children of the given table
    */
-  static void __processStampedChildren(
+  public static void processStampedChildren(
     FacesContext context,
     final UIXCollection table,
     final PhaseId phaseId)

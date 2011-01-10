@@ -61,4 +61,13 @@ public class NullChangeManager extends ChangeManager
   {
     //no-op
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void applySimpleComponentChanges(FacesContext context, UIComponent component)
+  {
+    //no-op
+  }
 }

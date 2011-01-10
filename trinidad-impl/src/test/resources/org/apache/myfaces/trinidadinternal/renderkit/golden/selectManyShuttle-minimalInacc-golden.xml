@@ -4741,7 +4741,7 @@
                               >
                             
                             <span
-                                 class="af_selectManyListbox p_AFRequired"
+                                 class="af_selectManyListbox"
                                 >
                               
                               <select
@@ -4992,7 +4992,7 @@
                               >
                             
                             <span
-                                 class="af_selectManyListbox p_AFRequired"
+                                 class="af_selectManyListbox"
                                 >
                               
                               <select

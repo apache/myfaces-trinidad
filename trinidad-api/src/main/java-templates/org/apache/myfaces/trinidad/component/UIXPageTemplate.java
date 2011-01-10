@@ -51,6 +51,7 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
 /**/  public abstract void setDisclosedRowKeys(RowKeySet state);
 /**/  public abstract MethodBinding getRowDisclosureListener();
 /**/  static public final PropertyKey DISCLOSED_ROW_KEYS_KEY = null;
+/**/  public abstract UIComponent getNodeStamp();
 
   /**
    * Sets the phaseID of UI events depending on the "immediate" property.

@@ -25,6 +25,9 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.event.DisclosureEvent;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -131,6 +134,17 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
     }
 
     super.queueEvent(e);
+  }
+
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    return
+      (visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED) == false ||
+        this.isDisclosed()) &&
+      super.visitChildren(visitContext, callback);
   }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXShowDetail.class);

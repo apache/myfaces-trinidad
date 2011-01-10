@@ -28,7 +28,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>6</version>
+    <version>9</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
@@ -44,7 +44,7 @@
     <jsp.version>2.1</jsp.version>
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>1.2</jsf-spec.version>
-    <jsf-ri.version>1.2_14</jsf-ri.version>
+    <jsf-ri.version>1.2_15</jsf-ri.version>
     <jsf-myfaces.version>1.2.9</jsf-myfaces.version>
     <sunjsf.ri.version>2.0.2</sunjsf.ri.version>
     <myfaces2.version>2.0.0-SNAPSHOT</myfaces2.version>
@@ -144,45 +144,36 @@
   </scm>
 
   <repositories>
-    <!--Fixme: This repository is pretty bad.  We should move require artifacts to repo1. -->
+    <!-- needed for Bean Validation API -->
     <repository>
-      <id>java.net</id>
-      <url>http://download.java.net/maven/1</url>
-      <layout>legacy</layout>
+      <id>jboss</id>
+      <name>jboss nexus</name>
+      <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
     </repository>
+    <!-- Needed for Mojarra -->
     <repository>
       <id>maven2-repository.dev.java.net</id>
       <name>Java.net Repository for Maven</name>
       <url>http://download.java.net/maven/2/</url>
-      <layout>default</layout>
-    </repository>
-    <repository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
     </repository>
   </repositories>
 
   <pluginRepositories>
+    <!--
+        We need this in HERE, since our plugins are a separate project.
+        It would be awful to have that setting in the myfaces-pom.
+    -->
     <pluginRepository>
       <id>apache.snapshots</id>
       <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+      <url>http://repository.apache.org/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
     </pluginRepository>
   </pluginRepositories>
 
   <distributionManagement>
-    <repository>
-      <id>apache-maven</id>
-      <name>Apache Maven Repository</name>
-      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-ibiblio-rsync-repository</url>
-    </repository>
-    <snapshotRepository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>apache-maven-snapshots</id>
-      <name>Apache Maven Snapshot Repository</name>
-      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
-    </snapshotRepository>
     <site>
       <id>apache-site</id>
       <name>Apache Website</name>

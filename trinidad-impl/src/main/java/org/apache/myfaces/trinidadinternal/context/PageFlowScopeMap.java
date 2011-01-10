@@ -368,7 +368,7 @@ class PageFlowScopeMap implements Map<String, Object>, Serializable
   static private TokenCache _getRootTokenCache(FacesContext context,
                                                int lifetime)
   {
-    return TokenCache.getTokenCacheFromSession(context,
+    return TokenCache.getTokenCacheFromSession(context.getExternalContext(),
                                                _PAGE_FLOW_SCOPE_CACHE,
                                                true,
                                                lifetime);
@@ -416,6 +416,7 @@ class PageFlowScopeMap implements Map<String, Object>, Serializable
     // =-=AEW Make transient for efficiency
     private PageFlowScopeMap _parent;
     private TokenCache      _children;
+    private static final long serialVersionUID = 1L;
   }
 
   // DELETE AFTER DIALOG SERVICE IS CLEANED UP
@@ -425,7 +426,8 @@ class PageFlowScopeMap implements Map<String, Object>, Serializable
   private String     _token;
   private HashMap<String, Object> _map;
 
-  static private final String _PAGE_FLOW_SCOPE_CACHE =
+  private static final String _PAGE_FLOW_SCOPE_CACHE =
     "org.apache.myfaces.trinidadinternal.application.PageFlowScope";
-  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PageFlowScopeMap.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PageFlowScopeMap.class);
+  private static final long serialVersionUID = 1L;
 }

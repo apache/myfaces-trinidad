@@ -151,7 +151,7 @@ public class CoreRenderer extends Renderer
 
   /**
    * <p>
-   * Called after rendering the current component in order to tear
+   * Called after rendering the current component's children in order to tear
    * down any special context.
    * </p>
    * <p>
@@ -203,6 +203,47 @@ public class CoreRenderer extends Renderer
     @SuppressWarnings("unused") RenderingContext rc,
     @SuppressWarnings("unused") UIComponent component)
   {
+  }
+
+  /**
+   * Hook to allow the renderer to customize the visitation of the children components
+   * of a component during the visitation of a component during rendering.
+   *
+   * @param component the component which owns the children to visit
+   * @param visitContext the visitation context
+   * @param callback the visit callback
+   * @return <code>true</code> if the visit is complete.
+   * @see UIXComponent#visitChildren(VisitContext, VisitCallback)
+   */
+  public boolean visitChildrenForEncoding(
+    UIXComponent  component,
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // visit the children of the component
+    Iterator<UIComponent> kids = component.getFacetsAndChildren();
+
+    while (kids.hasNext())
+    {
+      // If any kid visit returns true, we are done.
+      UIComponent kid = kids.next();
+      if (kid instanceof UIXComponent)
+      {
+        if (((UIXComponent)kid).visitTree(visitContext, callback))
+        {
+          return true;
+        }
+      }
+      else
+      {
+        if (UIXComponent.visitTree(visitContext, kid, callback))
+        {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   //
@@ -440,24 +481,8 @@ public class CoreRenderer extends Renderer
     UIComponent  child) throws IOException
   {
     assert(child.isRendered());
-    child.encodeBegin(context);
-    if (child.getRendersChildren())
-    {
-      child.encodeChildren(context);
+    child.encodeAll(context);
     }
-    else
-    {
-      if (child.getChildCount() > 0)
-      {
-        for(UIComponent subChild : (List<UIComponent>)child.getChildren())
-        {
-          RenderUtils.encodeRecursive(context, subChild);
-        }
-      }
-    }
-
-    child.encodeEnd(context);
-  }
 
 
   @SuppressWarnings("unchecked")
