@@ -35,7 +35,14 @@
   //default values, similar to JDK (values from Apache Harmony)
   this._maxFractionDigits = 3;
   this._maxIntegerDigits  = 40;
-  this._minFractionDigits = 0;
+  if(this._type=="currency")
+  {
+    this._minFractionDigits = 2;
+  }
+  else
+  {
+    this._minFractionDigits = 0;
+  }
   this._minIntegerDigits  = 1;
   this._groupingUsed = true;
   
