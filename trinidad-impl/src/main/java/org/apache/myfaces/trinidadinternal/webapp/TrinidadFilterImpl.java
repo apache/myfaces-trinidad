@@ -106,10 +106,23 @@ public class TrinidadFilterImpl implements Filter
             
     //There is some functionality that still might require servlet-only filter services.
     _filters = ClassLoaderUtils.getServices(TrinidadFilterImpl.class.getName());
-    
-    for(Filter f:_filters)
+
+    ExternalContext externalContext = new ServletExternalContext(
+                                        _servletContext, null, null);
+
+    PseudoFacesContext facesContext = new PseudoFacesContext(externalContext);
+    facesContext.setAsCurrentInstance();
+
+    try
     {
-      f.init(filterConfig);
+      for(Filter f:_filters)
+      {
+        f.init(filterConfig);
+      }
+    }
+    finally
+    {
+      facesContext.release();
     }
   }
 
