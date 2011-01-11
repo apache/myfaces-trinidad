@@ -101,16 +101,24 @@ TrLongConverter.prototype.getAsObject = function(
   label
   )
 {
-  return _decimalParse(numberString, 
-                       this._message,
-                       "org.apache.myfaces.trinidad.convert.LongConverter",
-                       this._maxPrecision,
-                       this._maxScale,
-                       this._maxValue,
-                       this._minValue,
-                       label,
-                       null);
+  if(TrUIUtils.isNumberConvertible(numberString))
+  {
+    return _decimalParse(numberString, 
+                         this._message,
+                         "org.apache.myfaces.trinidad.convert.LongConverter",
+                         this._maxPrecision,
+                         this._maxScale,
+                         this._maxValue,
+                         this._minValue,
+                         label,
+                         null);
+  }
+  else
+  {
+    return undefined;
+  }
 }
+
 function TrShortConverter(
   message,
   maxPrecision,

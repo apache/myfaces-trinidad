@@ -331,37 +331,10 @@ TrNumberConverter.prototype._isConvertible = function(numberString)
   // The locale attribute is now supported on convertNumber.
   if (this._pattern != null)
     return false;
-    
-  // javascript numbers are really doubles, and as such can accurately support 15 digits, see
-  //    http://en.wikipedia.org/wiki/Double_precision
-  //
-  // this means in certain cases a long value that will be fine on the server will be
-  // rounded by the client converter. To avoid this parse the number string, and don't 
-  // try to convert on the client if the number of digits is greater than 15. 
-  // 
-  // Of course this is an imperfect fix, but since the vast majority of 
-  // numbers entered are less than 15 digits numbers are still converted on the client most 
-  // of the time.
-  if (numberString != null)
-  {
-    var nums = 0;
-    
-    for (var i = 0; i < numberString.length; i++)
-    {
-      var charCode = numberString.charCodeAt(i);
-      // the charcode for "0" is 48, the charcode for "9" is 57, so count anything between these 
-      // as a number
-      if (charCode > 47 && charCode < 58)
-      {
-        nums++;
-      }
-    }
-    
-    if (nums > 15)
-      return false;    
-  }
-    
-  return true;
+
+  // check other common criteria as well.
+  return TrUIUtils.isNumberConvertible(numberString);   
+
 }
 
 /**
