@@ -47,8 +47,6 @@
     <jsf-spec.version>2.0</jsf-spec.version>
     <jsf-ri.version>2.0.3</jsf-ri.version>
     <jsf-myfaces.version>2.0.3</jsf-myfaces.version>
-    <!--jsf-ri.version>2.0.3-SNAPSHOT</jsf-ri.version-->
-    <!--jsf-facelets.version>1.1.14</jsf-facelets.version-->
     <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
     <commons-io.version>2.0</commons-io.version>
@@ -281,13 +279,6 @@
         <scope>provided</scope>
       </dependency>
       
-      <!--dependency>
-        <groupId>com.sun.facelets</groupId>
-        <artifactId>jsf-facelets</artifactId>
-        <version>${jsf-facelets.version}</version>
-        <scope>provided</scope>
-      </dependency-->
-
       <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
