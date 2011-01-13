@@ -325,8 +325,6 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     return _xml;
   }
   
-  
-  
   /*
    * Writes out buffered inline scripts and script libraries
    */
@@ -475,7 +473,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
   {
     List<PPRTag> componentStack = _state.componentStack;
     int pos = componentStack.size() - 1;
-    PPRTag tag = (PPRTag) componentStack.get(pos);
+    PPRTag tag = componentStack.get(pos);
     componentStack.remove(pos);
 
     if (tag != null)
@@ -559,6 +557,21 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
       _state.changesStarted = false;
     }
   }
+
+  @Override
+  public void startCDATA()
+    throws IOException
+  {
+    _xml.startCDATA();
+  }
+
+  @Override
+  public void endCDATA()
+    throws IOException
+  {
+    _xml.endCDATA();
+  }
+
   //
   // Class representing PPR behavior associated with a tag.  The
   // base class simply tells PPR when it's working with a partial target
@@ -581,7 +594,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
         pprContext.pushRenderedPartialTarget(_id);
         _xml.startElement(_ELEMENT_CHANGES_UPDATE, null);
         _xml.writeAttribute(_ATTRIBUTE_ID, _renderedId, null);
-        _xml.write("<![CDATA[");
+        _xml.startCDATA();
         _xml.flush(); // NEW
 
         if (_LOG.isFine())
@@ -612,7 +625,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
         
         PPRResponseWriter.super.flush();
       
-        _xml.write("]]>");
+        _xml.endCDATA();
         _xml.endElement(_ELEMENT_CHANGES_UPDATE);
         _xml.flush();
         

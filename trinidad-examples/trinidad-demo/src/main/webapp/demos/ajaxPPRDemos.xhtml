@@ -118,9 +118,8 @@ function setFocus(event)
 
                   <tr:outputFormatted styleUsage="instruction"
                                       value="h:commandButton using f:ajax." id="of13"/>
-                  <h:commandButton id="axBtn3" text="Submit"
-                                    actionListener="#{partialDemoUtil.action}">
-                    <f:ajax event="action" render="btnTarget" />
+                  <h:commandButton id="axBtn3" value="Submit" actionListener="#{partialDemoUtil.action}">
+                    <f:ajax event="click" render="btnTarget" />
                   </h:commandButton>
                 </tr:panelGroupLayout>
                 <tr:spacer width="30" height="10" id="sp12"/>
