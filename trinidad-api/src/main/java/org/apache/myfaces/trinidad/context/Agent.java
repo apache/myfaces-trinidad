@@ -203,6 +203,11 @@ public interface Agent
    * Constant for Google web crawler
    */
   public static final String AGENT_GOOGLEBOT = "googlebot";
+  
+  /**
+   * Constant for Oracle SES web crawler
+   */
+  public static final String AGENT_ORACLE_SES = "oracle_ses";
 
   /**
    * Constant for unknown Agent version
