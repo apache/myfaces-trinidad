@@ -145,6 +145,13 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
     
+    int oracleSesIndex = userAgent.indexOf(_ORACLE_SES_ID);
+    if (oracleSesIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_ORACLE_SES, _ORACLE_SES_ID, oracleSesIndex);
+      return;
+    }
+    
 
     //the useragent string for telnet and PDA design time will start with
     //OracleJDevMobile because in each of these cases we know we have an
@@ -1007,7 +1014,11 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setType(Agent.TYPE_WEBCRAWLER);
 
     agentObj.setAgent(agent);
-    agentObj.setAgentVersion(_getVersion(userAgent, idIndex + agentId.length()));
+    String version = _getVersion(userAgent, idIndex + agentId.length());
+    if (version != null && version.length() > 0)
+    {
+      agentObj.setAgentVersion(version);
+    }
     agentObj.setPlatform(Agent.PLATFORM_UNKNOWN);
     agentObj.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
     agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
@@ -1078,4 +1089,5 @@ public class AgentFactoryImpl implements AgentFactory
   static final private String _GOOGLEBOT_ID = "Googlebot";
   static final private String _MSNBOT_ID = "msnbot";
   static final private String _BINGBOT_ID = "bingbot";
+  static final private String _ORACLE_SES_ID = "Oracle Secure Enterprise Search";
 }
