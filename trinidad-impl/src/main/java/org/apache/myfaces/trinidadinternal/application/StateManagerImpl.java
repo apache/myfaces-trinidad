@@ -294,7 +294,7 @@ public class StateManagerImpl extends StateManagerWrapper
   {
     ExternalContext extContext = context.getExternalContext();
     RequestContext trinContext = RequestContext.getCurrentInstance();
-    
+
     TokenCache cache = _getViewCache(trinContext, extContext);
     assert(cache != null);
 
@@ -361,7 +361,7 @@ public class StateManagerImpl extends StateManagerWrapper
       // See Trinidad-1779
       String activePageStateKey = _getActivePageTokenKey(extContext, trinContext);
       String activeToken = (String)sessionMap.get(activePageStateKey);
-      
+
       // we only need to clear out the state if we're actually changing pages and thus tokens.
       // Since we have already updated the state for
       if (!token.equals(activeToken))
@@ -382,16 +382,16 @@ public class StateManagerImpl extends StateManagerWrapper
     // our token only
     return new Object[]{token, null};
   }
-  
+
   public static String getActivePageToken(RequestContext trinContext, ExternalContext external)
   {
     String activePageStateKey = _getActivePageTokenKey(external, trinContext);
-    
+
     if (activePageStateKey != null)
     {
       String tokenPrefix = _getViewCacheKey(external, trinContext, _SUBKEY_SEPARATOR);
       String tokenSuffix = (String)external.getSessionMap().get(activePageStateKey);
-      
+
       return tokenPrefix + tokenSuffix;
     }
     else
@@ -475,7 +475,7 @@ public class StateManagerImpl extends StateManagerWrapper
 
     return (String) token;
   }
-  
+
   /**
    * Returns whether a token is a currently valid View State Token
    * @param external The ExternalContext
@@ -507,19 +507,19 @@ public class StateManagerImpl extends StateManagerWrapper
     String oldSubkey = _getViewCacheKey(external, null, _SUBKEY_SEPARATOR);
 
     Map<String, Object> sessionMap = external.getSessionMap();
-      
+
     Map<String, PageState> oldStateMap = new SubKeyMap<PageState>(sessionMap, oldSubkey);
-    
+
     PageState viewState = oldStateMap.remove(token);
 
     if (viewState == null)
       throw new IllegalArgumentException();
-    
+
     // store it under the windowId
     String windowSubkey = _getPerWindowCacheKey(windowId, _VIEW_CACHE_KEY, _SUBKEY_SEPARATOR);
 
     Map<String, PageState> newStateMap = new SubKeyMap<PageState>(sessionMap, windowSubkey);
-    
+
     newStateMap.put(token, viewState);
   }
 
@@ -539,7 +539,7 @@ public class StateManagerImpl extends StateManagerWrapper
     Map<String, PageState> stateMap = new SubKeyMap<PageState>(
                      external.getSessionMap(),
                      subkey);
-    
+
     return stateMap.get(token);
   }
 
@@ -768,7 +768,7 @@ public class StateManagerImpl extends StateManagerWrapper
   }
 
   /**
-   * Returns the key that the TokenCache 
+   * Returns the key that the TokenCache
    * @param extContext
    * @return
    */
@@ -786,7 +786,7 @@ public class StateManagerImpl extends StateManagerWrapper
   private TokenCache _getViewCache(RequestContext trinContext, ExternalContext extContext)
   {
     String cacheKey = _getTokenCacheKey(trinContext, extContext);
-    
+
     return TokenCache.getTokenCacheFromSession(extContext,cacheKey, true,_getCacheSize(extContext));
   }
 
@@ -835,18 +835,18 @@ public class StateManagerImpl extends StateManagerWrapper
     if (trinContext != null)
     {
       WindowManager wm = trinContext.getWindowManager();
-      
+
       if (wm != null)
       {
         Window currWindow = wm.getCurrentWindow(external);
-      
+
         if (currWindow != null)
         {
           return currWindow.getId();
         }
       }
     }
-    
+
     return null;
   }
 
@@ -920,7 +920,7 @@ public class StateManagerImpl extends StateManagerWrapper
   private static boolean _calculateTokenStateSaving(ExternalContext external)
   {
     Map initParameters = external.getInitParameterMap();
-    
+
     Object stateSavingMethod = initParameters.get(StateManager.STATE_SAVING_METHOD_PARAM_NAME);
 
     // on "SERVER" state-saving we return TRUE, since we want send down a token string.
@@ -933,7 +933,7 @@ public class StateManagerImpl extends StateManagerWrapper
     // if the user set state-saving to "CLIENT" *and* the client-state-method to "ALL"
     // we return FALSE, since we want to save the ENTIRE state on the client...
     Object clientMethod = initParameters.get(CLIENT_STATE_METHOD_PARAM_NAME);
-    
+
     if ((clientMethod != null) &&
         CLIENT_STATE_METHOD_ALL.equalsIgnoreCase((String) clientMethod))
     {
@@ -952,7 +952,7 @@ public class StateManagerImpl extends StateManagerWrapper
     // @see setPerViewStateSaving()
     String viewStateValue =
                       external.getRequestParameterMap().get(ResponseStateManager.VIEW_STATE_PARAM);
-    
+
     if (viewStateValue != null && !viewStateValue.startsWith("!"))
     {
       return false;
@@ -960,9 +960,9 @@ public class StateManagerImpl extends StateManagerWrapper
 
     // Last missing option: state-saving is "CLIENT" and the client-state-method uses
     // its default (token), so we return TRUE to send down a token string.
-    return true;    
+    return true;
   }
-  
+
   /**
    * Tests whether to send a small string token, or the entire
    * serialized component state to the client-side.
@@ -998,7 +998,7 @@ public class StateManagerImpl extends StateManagerWrapper
     {
       return forceStateSavingPerView.booleanValue();
     }
-    
+
     return _calculateTokenStateSaving(context.getExternalContext());
   }
 
@@ -1386,6 +1386,7 @@ public class StateManagerImpl extends StateManagerWrapper
         if(decompressor != null)
         {
           decompressor.reset();
+          decompressor.setInput(_EMPTY);
           TransientHolder<Inflater> th = TransientHolder.newTransientHolder(decompressor);
           sessionMap.put("PAGE_STATE_INFLATER", th);
         }
@@ -1400,7 +1401,7 @@ public class StateManagerImpl extends StateManagerWrapper
 
       try
       {
-        //Get deflater from session cope
+        //Get deflater from session scope
         TransientHolder<Deflater> th =
                               (TransientHolder<Deflater>)sessionMap.remove("PAGE_STATE_DEFLATER");
 
@@ -1448,6 +1449,7 @@ public class StateManagerImpl extends StateManagerWrapper
         if(compresser != null)
         {
           compresser.reset();
+          compresser.setInput(_EMPTY);
           TransientHolder<Deflater> th = TransientHolder.newTransientHolder(compresser);
           sessionMap.put("PAGE_STATE_DEFLATER", th);
         }
@@ -1504,6 +1506,8 @@ public class StateManagerImpl extends StateManagerWrapper
   // key for saving the toekn to the PageState for the last accessed view in this Session
   private static final String _ACTIVE_PAGE_TOKEN_SESSION_KEY =
               "org.apache.myfaces.trinidadinternal.application.StateManagerImp.ACTIVE_PAGE_STATE";
+
+  private static final byte[] _EMPTY = new byte[0];
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StateManagerImpl.class);
 }
