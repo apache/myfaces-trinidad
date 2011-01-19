@@ -70,10 +70,12 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
 import org.apache.myfaces.trinidad.bean.util.ValueMap;
 import org.apache.myfaces.trinidad.change.AttributeComponentChange;
+import org.apache.myfaces.trinidad.change.RowKeySetAttributeChange;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.render.ExtendedRenderer;
 import org.apache.myfaces.trinidad.render.LifecycleRenderer;
 import org.apache.myfaces.trinidad.util.CollectionUtils;
@@ -1291,10 +1293,23 @@ abstract public class UIXComponentBase extends UIXComponent
     String attributeName,
     Object attributeValue)
   {
-    AttributeComponentChange aa =
-      new AttributeComponentChange(attributeName, attributeValue);
+    AttributeComponentChange aa;
+    
+    FacesContext context = getFacesContext();
+    
+    if (attributeValue instanceof RowKeySet)
+    {
+      aa = new RowKeySetAttributeChange(getClientId(context),
+                                        attributeName,
+                                        attributeValue);
+    }
+    else
+    {
+      aa = new AttributeComponentChange(attributeName, attributeValue);
+    }
+    
     RequestContext adfContext = RequestContext.getCurrentInstance();
-    adfContext.getChangeManager().addComponentChange(getFacesContext(), this, aa);
+    adfContext.getChangeManager().addComponentChange(context, this, aa);
   }
 
   void __rendererDecode(FacesContext context)
