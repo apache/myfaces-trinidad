@@ -458,6 +458,9 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE">Error reading from the skin css file</resource>
 
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR">Error reading from the skin css file. There is an extra comma in selector: {0}</resource>
+
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN">Can't add Skin with null skinId or null skin</resource>
 

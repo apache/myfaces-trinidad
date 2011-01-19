@@ -121,8 +121,14 @@ public class SkinCSSParser
       {
         trimmedSelector = selector[i].trim();
       }
-
-      selectorList.add(trimmedSelector);
+      // skip the selector if it is empty
+      if ("".equals(trimmedSelector))
+      {
+        if (_LOG.isWarning())
+        _LOG.warning("ERR_PARSING_SKIN_SELECTOR", selectors);
+      }
+      else
+        selectorList.add(trimmedSelector);
     }
     
     return selectorList;
