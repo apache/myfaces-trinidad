@@ -462,6 +462,7 @@ public final class GlobalConfiguratorImpl
     if (cachedRequestContext instanceof RequestContext)
     {
       context = (RequestContext) cachedRequestContext;
+      context.attach();
     }
     else
     {
@@ -470,7 +471,6 @@ public final class GlobalConfiguratorImpl
       context = factory.createContext(ec);
       RequestStateMap.getInstance(ec).put(_REQUEST_CONTEXT, context);
     }
-    assert RequestContext.getCurrentInstance() == context;
   }
 
   private void _releaseRequestContext(ExternalContext ec)
