@@ -28,7 +28,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>6</version>
+    <version>9</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
@@ -144,11 +144,11 @@
 
   <repositories>
     <!-- needed for Bean Validation API -->
-    <repository>
+    <!--repository>
       <id>apache.snapshots</id>
       <name>Apache Snapshots</name>
       <url>http://repository.apache.org/snapshots</url>
-    </repository>
+    </repository-->
     <repository>
       <id>jboss</id>
       <name>jboss nexus</name>
@@ -161,7 +161,7 @@
       <url>http://download.java.net/maven/2/</url>
     </repository>
       <!-- apache snapshot repository should be disabled... -->
-    <repository>
+    <!--repository>
       <id>apache.snapshots.old</id>
       <name>Apache Snapshot Repository</name>
       <url>http://people.apache.org/repo/m2-snapshot-repository</url>
@@ -172,7 +172,7 @@
         <enabled>false</enabled>
         <updatePolicy>never</updatePolicy>
       </snapshots>
-    </repository>
+    </repository-->
   </repositories>
 
   <pluginRepositories>
@@ -673,72 +673,21 @@
    -->
 
     <!-- 
-      This profile is for preparing a release.  Execute this profile like this:
+      Add the assembly module when performing an apache-release
       
-      mvn release:prepare -DprepareRelease=true
+      USAGE:
+       - mvn release:prepare -Papache-release
+       - mvn release:perform -Papache-release
+
+      NOTE that for the maven lifecycle invoked by the release plugin, -Papache-release will
+      be added automatically because of the config in apache-parent-7.
     -->
     <profile>
-      <id>prepare-release</id>
+      <id>apache-release</id>
 
-      <activation>
-        <property>
-          <name>prepareRelease</name>
-        </property>
-      </activation>
-           
       <modules>
         <module>trinidad-assembly</module>
       </modules>
-    </profile>
-
-    <!-- 
-      This profile is for building the release artifacts for review.  Execute this profile 
-      like this:
-      
-      mvn clean source:jar install deploy -DaltDeploymentRepository=matzew::default::file://FOLDER -DperformRelease=true
-      
-      Issuing this command will also perform the "sign-artifacts" profile from the master pom.
-    -->
-    <profile>
-      <id>release</id>
-      <activation>
-        <property>
-          <name>performRelease</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <configuration>
-              <excludePackageNames>org.apache.myfaces.trinidadinternal.*</excludePackageNames>
-            </configuration>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-scm-plugin</artifactId>
-            <executions>
-              <execution>
-                <phase>validate</phase>
-                <id>getting-scm.revision</id>
-                <goals>
-                  <goal>update</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
 
     <!--
