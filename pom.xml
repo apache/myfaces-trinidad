@@ -180,14 +180,14 @@
         We need this in HERE, since our plugins are a separate project.
         It would be awful to have that setting in the myfaces-pom.
     -->
-    <pluginRepository>
+    <!--pluginRepository>
       <id>apache.snapshots</id>
       <name>Apache Snapshot Repository</name>
       <url>http://repository.apache.org/snapshots</url>
       <releases>
         <enabled>false</enabled>
       </releases>
-    </pluginRepository>
+    </pluginRepository-->
   </pluginRepositories>
 
   <distributionManagement>
