@@ -28,7 +28,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>9</version>
+    <version>6</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
@@ -144,11 +144,11 @@
 
   <repositories>
     <!-- needed for Bean Validation API -->
-    <!--repository>
+    <repository>
       <id>apache.snapshots</id>
       <name>Apache Snapshots</name>
       <url>http://repository.apache.org/snapshots</url>
-    </repository-->
+    </repository>
     <repository>
       <id>jboss</id>
       <name>jboss nexus</name>
@@ -161,7 +161,7 @@
       <url>http://download.java.net/maven/2/</url>
     </repository>
       <!-- apache snapshot repository should be disabled... -->
-    <!--repository>
+    <repository>
       <id>apache.snapshots.old</id>
       <name>Apache Snapshot Repository</name>
       <url>http://people.apache.org/repo/m2-snapshot-repository</url>
@@ -172,7 +172,7 @@
         <enabled>false</enabled>
         <updatePolicy>never</updatePolicy>
       </snapshots>
-    </repository-->
+    </repository>
   </repositories>
 
   <pluginRepositories>
@@ -196,6 +196,18 @@
       <name>Apache Website</name>
       <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
     </site>
+
+    <!-- this is defined in a 'good' root pom, but not for ours... -->
+    <repository>
+      <id>apache.releases.https</id>
+      <name>Apache Release Distribution Repository</name>
+      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>apache.snapshots.https</id>
+      <name>Apache Development Snapshot Repository</name>
+      <url>https://repository.apache.org/content/repositories/snapshots</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <dependencyManagement>
