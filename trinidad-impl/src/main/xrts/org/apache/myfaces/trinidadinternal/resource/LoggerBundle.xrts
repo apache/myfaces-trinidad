@@ -390,7 +390,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE">Your environment is configured as production and Apache Trinidad is running with debug javascript. See the "org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT" parameter in /WEB-INF/web.xml</resource>
 
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE">Your environment is configured as production and Apache Trinidad is running with debug javascript. See the "org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT" parameter in /WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE">Your environment is configured as production and Apache Trinidad is running with uncompressed CSS. See the "org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION" parameter in /WEB-INF/web.xml</resource>
 
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE">Your environment is configured as production and Apache Trinidad is running with debug-output TRUE. See the "debug-output" element in trinidad-config.xml file.</resource>
