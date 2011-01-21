@@ -168,8 +168,7 @@ class FacesConfigParser extends BaseNodeParser
       String       localName,
       Attributes   attrs) throws SAXParseException
     {
-      // For now, let's just parse renderkit factories
-      if ("render-kit-factory".equals(localName))
+      if (FacesConfigInfo.isFactorySupported(localName))
         return new StringParser();
 
       return BaseNodeParser.getIgnoreParser();
@@ -182,21 +181,20 @@ class FacesConfigParser extends BaseNodeParser
       String       localName,
       Object       child) throws SAXParseException
     {
-      if ("render-kit-factory".equals(localName))
+      if (FacesConfigInfo.isFactorySupported(localName))
       {
         String factoryName = (String) child;
         if (factoryName != null)
         {
           factoryName = factoryName.trim();
           if (!"".equals(factoryName))
-            _info.getRenderKitFactories().add(factoryName);
+            _info.getFactoriesByName(localName).add(factoryName);
         }
       }
     }
     
     private FacesConfigInfo _info;
   }
-
 
 
   private class ComponentParser extends BaseNodeParser

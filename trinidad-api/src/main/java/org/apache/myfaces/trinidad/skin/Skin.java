@@ -53,6 +53,19 @@ abstract public class Skin
    * current render-kit-id.
    */
   abstract public String getFamily();
+  
+
+  /**
+   * Returns the (@link SkinVersion} instance of the "version" for this skin.
+   * When a Skin instance is created, a SkinVersion instance can be a part of it.
+   * In trinidad-skins.xml this is the version element. In the trinidad-config.xml, 
+   * the application developer can set the skin-version to a skin version, or to 'default'.
+   * This returns SkinVersion.EMPTY_SKIN_VERSION if no version is set.
+   */
+  public SkinVersion getVersion()
+  {
+    return SkinVersion.EMPTY_SKIN_VERSION;
+  }
 
   /**
    * Returns the renderKitId for the Skin.
@@ -202,5 +215,5 @@ abstract public class Skin
    * The Skinning Framework calls setDirty(false) after the skin has been reprocessed.
    */
   abstract public void setDirty(boolean dirty);
-    
+  
 }

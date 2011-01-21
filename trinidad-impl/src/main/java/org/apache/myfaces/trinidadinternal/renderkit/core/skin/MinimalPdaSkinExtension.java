@@ -48,5 +48,5 @@ public class MinimalPdaSkinExtension extends SkinExtension
   private static final String _MINIMAL_PDA_ID = "minimal.pda";
   // Minimal skin style sheet name
   private static final String _MINIMAL_STYLE_SHEET_NAME =
-    "META-INF/adf/styles/minimal-pda.xss";
+    "META-INF/adf/styles/minimal-pda.css";
 }

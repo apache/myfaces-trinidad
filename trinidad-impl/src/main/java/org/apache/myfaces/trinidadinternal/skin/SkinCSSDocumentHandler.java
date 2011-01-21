@@ -18,9 +18,14 @@
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import java.text.ParseException;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -31,22 +36,36 @@ import java.util.HashSet;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidad.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.share.io.CachingInputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseErrorUtils;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
- /** As the Skin css file is parsed, methods in this class are called to
-  * build up a SkinStyleSheetNode.
-  */
+
+/** As the Skin css file is parsed, methods in this class are called to
+ * build up a SkinStyleSheetNode.
+ * TODO figure out if this is thread-safe
+ *
+ */
 public class SkinCSSDocumentHandler
 {
+  /* ParseContext is useful for parsing CSS files only because we use it to set/get properties,
+   * like the current NameResolver and InputStreamProvider.
+   */
+   public SkinCSSDocumentHandler(ParseContext pContext)  
+   {
+    _parseContext = pContext;     
+   }
 
-  
   /**
    * Return the List of SkinStyleSheetNodes that was created
    *  at the end of parsing the skin css file (endDocument).
@@ -57,9 +76,30 @@ public class SkinCSSDocumentHandler
     // We need to group this list into stylesheet nodes by matching
     // the additional information, like direction.
     // Then we create a list of SkinStyleSheetNodes.
-    return
+    List <SkinStyleSheetNode> skinStyleSheetNodes = 
       _createSkinStyleSheetNodes(_completeSelectorNodeList, _namespaceMap);
+     
+    List<SkinStyleSheetNode> allSkinStyleSheetNodes = new ArrayList<SkinStyleSheetNode>();
+
+    if (_imports != null && !_imports.isEmpty())
+    {
+      // _imports is a List<List<SkinStyleSheetNode>>();;
+      for (List <SkinStyleSheetNode> nodeList : _imports)
+      {
+        for (SkinStyleSheetNode node : nodeList)
+        {
+          allSkinStyleSheetNodes.add(node);
+        }
+      }
+
+    }
+    
+    allSkinStyleSheetNodes.addAll(skinStyleSheetNodes);
+
+    return
+      allSkinStyleSheetNodes;
   }
+  
    
   /**
   * Call this at the start of parsing the skin css file.
@@ -90,6 +130,8 @@ public class SkinCSSDocumentHandler
   public void startSelector()
   {
     _inStyleRule = true;
+    // CSS spec says to ignore all @import rules after any other rules are processed.
+    _ignoreImports = true;
     _propertyNodeList = new ArrayList<PropertyNode>();
   }
    
@@ -163,28 +205,25 @@ public class SkinCSSDocumentHandler
   public void atRule(String atRule)
   {
     // parse the atRule further here.
+   boolean importRule = atRule.startsWith(_AT_IMPORT);
+   boolean charsetRule = atRule.startsWith(_AT_CHARSET);
+   
     if (atRule != null)
     {
-      if (atRule.startsWith("@namespace"))
+      if (importRule)
       {
-        // TODO deal with default namespaces that don't have prefixes??
-        String[] namespaceParts = atRule.split("\\s+");
-        if (namespaceParts.length > 2)
+        if (_ignoreImports)
         {
-          String url = namespaceParts[2];
-           
-          // first, strip off the url( and );
-          if (url.startsWith("url("))
-            url = url.substring(4);
-          if (url.endsWith(");"))
-            url = url.substring(0, url.length() - 2);
-          else if (url.endsWith(";"))
-            url = url.substring(0, url.length() - 1);
-             
-          // second, strip off the starting/ending quotes if there are any
-          url = SkinStyleSheetParserUtils.trimQuotes(url);
-          _namespaceMap.put(namespaceParts[1], url);
+          // according to the css spec, @imports must come before all other rules (except @charset).
+          if (_LOG.isWarning())
+             _LOG.warning("AT_IMPORT_NOT_FIRST", atRule);
         }
+        else
+          _parseImport(atRule);
+      }
+      else if (atRule.startsWith(_AT_NAMESPACE))
+      {
+        _parseNamespace(_namespaceMap, atRule);
       }
       else if (atRule.startsWith(_AT_AGENT))
       {
@@ -208,9 +247,179 @@ public class SkinCSSDocumentHandler
       }
       // for now, ignore other atRules in a skinning css file
       
+      // CSS spec says you ignore all @import rules after any other rules are processed
+      // (except for @charset).
+      if(!importRule && !charsetRule)
+      {
+        _ignoreImports = true;
+      }
+      
     }
   }
 
+  private void _parseNamespace(Map<String, String> namespaceMap, String atRule)
+  {
+   // TODO deal with default namespaces that don't have prefixes??
+   String[] namespaceParts = atRule.split("\\s+");
+   if (namespaceParts.length > 2)
+   {
+     String url = _extractUrl(namespaceParts[2]);
+     namespaceMap.put(namespaceParts[1], url);
+   }
+  }
+
+  private String _extractUrl(String urlString)
+  {
+
+    urlString = urlString.trim();
+     
+    // first, strip off the url( and );
+    if (urlString.startsWith("url("))
+      urlString = urlString.substring(4);
+    if (urlString.endsWith(");"))
+      urlString = urlString.substring(0, urlString.length() - 2);
+    else if (urlString.endsWith(";"))
+      urlString = urlString.substring(0, urlString.length() - 1);
+       
+    // second, strip off the starting/ending quotes if there are any
+    urlString = SkinStyleSheetParserUtils.trimQuotes(urlString);
+    return urlString;
+  }
+  
+  
+  private void _parseImport(String type)
+  {
+
+    // parse any of these
+    //@import "mystyle.css";
+    //@import url("mystyle.css");
+    //@import url(mystyle.css);
+
+    // strip out @import any spaces, then get the url
+    String styleSheetName = _extractUrl(type.substring(8));
+
+    try
+    {
+      if (_imports == null)
+        _imports = new ArrayList<List<SkinStyleSheetNode>>();
+      _imports.add(_parseImportStyleSheetFile(_parseContext, styleSheetName, List.class));
+    }
+    catch (IOException e)
+    {
+      if (_LOG.isSevere())
+        _LOG.severe("CANNOT_LOAD_STYLESHEET", styleSheetName);
+        _LOG.severe(e);
+    }
+    catch (ParseException e)
+    {
+      _LOG.severe(e);
+    }
+
+  }
+  
+  private List<SkinStyleSheetNode> _parseImportStyleSheetFile(
+    ParseContext  context,
+    String        sourceName,
+    Class<?>      expectedType)
+    throws IOException, ParseException
+  {
+    // Step 1. Find the name resolver  
+    NameResolver resolver = XMLUtils.getResolver(context);
+    if (resolver == null)
+    {
+      if (_LOG.isWarning())
+         _LOG.warning("Internal error: couldn't find NameResolver");
+      
+      return Collections.emptyList();
+    }
+    
+    // Step 2. Find an InputStreamProvider. Mark a dependency on the base provider (if necessary)
+    InputStreamProvider importProvider = resolver.getProvider(sourceName);
+    InputStreamProvider baseProvider = XMLUtils.getInputStreamProvider(context);
+    if (baseProvider instanceof CachingInputStreamProvider)
+    {
+      // important: hasSourceChanged takes into account this dependency
+      ((CachingInputStreamProvider)baseProvider).addCacheDependency(importProvider);
+    }
+    
+    // Step 3. Detect if this will be a circular include
+    ArrayList<Object> list = (ArrayList<Object>) context.getProperty(_SHARE_NAMESPACE, 
+                                                                     _INCLUDE_STACK);
+    Object identifier = importProvider.getIdentifier();
+    
+    if ((list != null) && (list.contains(identifier)))
+    {
+      // Just logging an error isn't really enough - the include
+      // will fail, but parsing continues and you'll get a stack overflow.  So, instead, we throw
+      // an exception...
+     throw new ParseException(_LOG.getMessage(
+      "CIRCULAR_INCLUDE_DETECTED", sourceName), 0);
+    }
+
+    // Step 4. Try to get a cached version
+    // =-=jmw  I don't know when the cached returns non-null other than when
+    // the same import is included twice. This step (and Step 7) might not be worth it.
+    // comment out caching code
+    //Object cached = importProvider.getCachedResult();
+    //if ((cached != null) && expectedType.isInstance(cached))
+    //{
+     //return (List<List<SkinStyleSheetNode>>)cached;
+    //}
+    
+    // Step 5. Set up the new context; first, clone the original
+    ParseContext newContext = (ParseContext)context.clone();
+    
+    // Add the current identifier to the stack (used for detecting circular includes) 
+    // placed on the ParseContext
+    // cloning ParseContext does a shallow copy. It doesn't copy this list.
+    if (list == null)
+      list = new ArrayList<Object>();
+    else
+      list = new ArrayList<Object>(list);
+    list.add(identifier);
+    newContext.setProperty(_SHARE_NAMESPACE, _INCLUDE_STACK, list);
+    
+    InputStream stream = importProvider.openInputStream();
+    try
+    {
+
+      // Store a resolver relative to the file we're about to parse. This will be used for imports.
+      // Store the inputStreamProvider on the context;
+      // this will be used to get the document's timestamp later on
+      XMLUtils.setResolver(newContext, resolver.getResolver(sourceName));
+      XMLUtils.setInputStreamProvider(newContext, importProvider);
+
+      // PARSE!
+      // create a SkinStyleSheetNode
+      // (contains a namespaceMap and a List of SkinSelectorPropertiesNodes
+      // and additional information like direction, locale, etc.)
+      // (selectorName + a css propertyList))
+      BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+      SkinCSSParser parser = new SkinCSSParser();
+      // Send over the ParseContext so that we can get the resolver from it in case we encounter 
+      // an @import in the CSS file.
+      SkinCSSDocumentHandler documentHandler = new SkinCSSDocumentHandler(newContext);
+      parser.parseCSSDocument(reader, documentHandler);
+      // If the imported css has an import of its own, this list will contain all the
+      // imported nodes.
+      List <SkinStyleSheetNode> importSkinSSNodeList = documentHandler.getSkinStyleSheetNodes();      
+
+      reader.close();
+      
+      // Step 7. Store the cached result (if successful)
+      //if (!_imports.isEmpty())
+      //{
+      //  importProvider.setCachedResult(_imports);
+      //}
+      return importSkinSSNodeList;
+
+    }
+    finally
+    {
+      stream.close();
+    }
+  }
+  
   /** Get the atRule, and send its contents through the SkinCSSParser
    * again, using the current DocumentHandler object. The start/end
    * callbacks will be called again, but in the context of the atRule.
@@ -532,7 +741,7 @@ public class SkinCSSDocumentHandler
 
     return mergedProperties;
   }
-
+  
    /**
     * This Class contains a SkinSelectorPropertiesNode and a rtl direction.
     * We will use this information when creating a SkinStyleSheetNode.
@@ -638,6 +847,10 @@ public class SkinCSSDocumentHandler
   private static final String _AT_LOCALE = "@locale";
   private static final String _AT_ACC_PROFILE = "@accessibility-profile";
   private static final String _AT_MODE = "@mode";
+  private static final String _AT_IMPORT = "@import";
+  private static final String _AT_NAMESPACE = "@namespace";
+  private static final String _AT_CHARSET = "@charset";
+
 
   // below are properties that we set and reset
   // as the methods of this documentHandler get called.
@@ -667,6 +880,15 @@ public class SkinCSSDocumentHandler
     new LinkedList<Set<String>>();
 
   private Map<String, String> _namespaceMap = new HashMap<String, String>();
+  private ParseContext _parseContext;
+  private List<List <SkinStyleSheetNode>> _imports;
+  private boolean _ignoreImports = false;
+
+  // Perhaps move to ShareConstants
+  static private final String _SHARE_NAMESPACE  =
+    "org.apache.myfaces.trinidadinternal.skin.SkinCSSDocumentHandler";
+  static private final String _INCLUDE_STACK = "_includeStack";
+
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(SkinCSSDocumentHandler.class);
 }

@@ -746,7 +746,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   public String getPattern()
   {
     Object pattern = _facesBean.getProperty(_PATTERN_KEY);
-    return ComponentUtils.resolveString(pattern);
+    return ComponentUtils.resolveString(pattern, true);
   }
 
   /**

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -18,7 +18,17 @@
     under the License.
 	   
 -->
-<styleSheetDocument xmlns="http://myfaces.apache.org/uix/style">
-
-  <import href="oracle-pda.xss"/>
-</styleSheetDocument>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
+  <render-kit>
+    <render-kit-id>org.apache.myfaces.trinidadinternal.core</render-kit-id>
+    <renderer>
+      <component-family>org.apache.myfaces.trinidad.Meta</component-family>
+      <renderer-type>org.apache.myfaces.trinidad.Meta</renderer-type>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.html.MetaRenderer</renderer-class>
+      <renderer-extension>
+        <mfp:component-type>org.apache.myfaces.trinidad.HtmlMeta</mfp:component-type>
+      </renderer-extension>
+    </renderer>
+  </render-kit>
+</faces-config>

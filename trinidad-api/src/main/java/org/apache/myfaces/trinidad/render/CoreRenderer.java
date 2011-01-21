@@ -19,6 +19,8 @@
 package org.apache.myfaces.trinidad.render;
 
 
+import java.beans.Beans;
+
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -482,16 +484,43 @@ public class CoreRenderer extends Renderer
         "NO_RENDERINGCONTEXT"));
 
     FacesBean bean = getFacesBean(component);
-    if (getRendersChildren())
+    RuntimeException re = null;
+    try
     {
-      beforeEncode(context, rc, component, bean);
-      encodeAll(context, rc, component, bean);
+      if (getRendersChildren())
+      {
+        beforeEncode(context, rc, component, bean);
+        encodeAll(context, rc, component, bean);
+      }
+      else
+      {
+        encodeEnd(context, rc, component, bean);
+      }
     }
-    else
+    catch (RuntimeException ex)
     {
-      encodeEnd(context, rc, component, bean);
+      re = ex;
     }
-    afterEncode(context, rc, component, bean);
+    finally
+    {
+      try
+      {
+        afterEncode(context, rc, component, bean);
+      }
+      catch (RuntimeException ex)
+      {
+        if (re == null)
+        {
+          throw ex;
+        }
+        _LOG.warning(ex);
+      }
+
+      if (re != null)
+      {
+        throw re;
+      }
+    }
   }
 
   /**
@@ -574,23 +603,7 @@ public class CoreRenderer extends Renderer
     ) throws IOException
   {
     assert(child.isRendered());
-    child.encodeBegin(context);
-    if (child.getRendersChildren())
-    {
-      child.encodeChildren(context);
-    }
-    else
-    {
-      if (child.getChildCount() > 0)
-      {
-        for(UIComponent subChild : (List<UIComponent>)child.getChildren())
-        {
-          RenderUtils.encodeRecursive(context, subChild);
-        }
-      }
-    }
-
-    child.encodeEnd(context);
+    child.encodeAll(context);
   }
 
   @SuppressWarnings("unchecked")
@@ -956,7 +969,7 @@ public class CoreRenderer extends Renderer
 
     // Check if there are client behaviors first as it should be faster to access then
     // getting the behavior event from the request parameter map (fewer method calls)
-    Map<String, List<ClientBehavior>> behaviorsMap = bean.getClientBehaviors();
+    Map<String, List<ClientBehavior>> behaviorsMap = ((ClientBehaviorHolder)component).getClientBehaviors();
     if (behaviorsMap.isEmpty())
     {
       return null;
@@ -971,7 +984,7 @@ public class CoreRenderer extends Renderer
     }
 
     // Does the component have behaviors for this event type?
-    List<ClientBehavior> behaviors = bean.getClientBehaviors().get(event);
+    List<ClientBehavior> behaviors = behaviorsMap.get(event);
     if (behaviors == null || behaviors.isEmpty())
     {
       return null;
@@ -1065,8 +1078,11 @@ public class CoreRenderer extends Renderer
   {
     if (styleClass != null)
     {
-      styleClass = rc.getStyleClass(styleClass);
-      context.getResponseWriter().writeAttribute("class", styleClass, null);
+      String compressedStyleClass = rc.getStyleClass(styleClass);
+      context.getResponseWriter().writeAttribute("class", compressedStyleClass, null);
+
+      if (Beans.isDesignTime())
+        context.getResponseWriter().writeAttribute("rawClass", styleClass, null);
     }
   }
 
@@ -1120,6 +1136,28 @@ public class CoreRenderer extends Renderer
     }
 
     context.getResponseWriter().writeAttribute("class", value, null);
+
+    if (Beans.isDesignTime())
+    {
+      StringBuilder builder = new StringBuilder();
+      for (int i = 0; i < length; i++)
+      {
+        if (styleClasses[i] != null)
+        {
+          String styleClass = styleClasses[i];
+          if (styleClass != null)
+          {
+            if (builder.length() != 0)
+              builder.append(' ');
+            builder.append(styleClass);
+          }
+        }
+      }
+
+      if (builder.length() > 0)
+        context.getResponseWriter().writeAttribute("rawClass", builder.toString(), null);
+    }
+
   }
 
   // Heuristic guess of the maximum length of a typical compressed style

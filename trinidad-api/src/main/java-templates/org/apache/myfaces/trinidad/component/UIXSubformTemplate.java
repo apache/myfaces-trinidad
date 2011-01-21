@@ -66,7 +66,10 @@ abstract public class UIXSubformTemplate extends UIXComponentBase
     boolean submitted = isSubmitted();
 
     if (!submitted && isDefault() && !_isSomethingSubmitted(context))
+    {
+	  submitted = true;
       setSubmitted(true);
+    }
 
     if (submitted)
       super.processValidators(context);

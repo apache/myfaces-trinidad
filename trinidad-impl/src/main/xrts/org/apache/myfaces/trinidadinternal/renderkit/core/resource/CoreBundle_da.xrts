@@ -502,8 +502,8 @@
 <resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Indtast linklokation (f.eks. http://www.oracle.com)</resource>
 <resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">Destinations-URL for click-through</resource>
 <resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">Upload billede</resource>
-<resource key="RTE_FONT_CHOICE_TEXT" dnt="false">Skrifttype</resource>
-<resource key="RTE_FONT_SIZE_CHOICE_TEXT" dnt="false">Skrifttypestørrelse</resource>
+<resource key="RTE_FONT_CHOICE_TEXT" dnt="false">Skrift</resource>
+<resource key="RTE_FONT_SIZE_CHOICE_TEXT" dnt="false">Skriftstørrelse</resource>
 <resource key="RTE_FONT_COLOR_CHOICE_TEXT" dnt="false">Skriftfarve</resource>
 <resource key="RTE_CHANGE_TO_RICH_TEXT_MODE" dnt="false">Skift til RTF-tilstand</resource>
 <resource key="RTE_CHANGE_TO_TEXT_MODE" dnt="false">Skift til Almindelig tekst-tilstand</resource>

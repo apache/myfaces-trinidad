@@ -221,6 +221,24 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
   {
     _useStateHolder = useStateHolder;
   }
+  
+  /**
+   * Sets the the FacesBean type used by this map's owner bean
+   * @param type FacesBean type
+   */
+  public void setType(FacesBean.Type type)
+  {
+    _type = type;
+  }
+  
+  /**
+   * Retrieves FacesBean type used by this map's owner bean
+   * @return FacesBean type
+   */
+  protected FacesBean.Type getType()
+  {
+    return _type;
+  }
 
   protected PropertyMap getPropertyMap(
     boolean createIfNull)
@@ -239,10 +257,12 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
   {
     PropertyHashMap map = new PropertyHashMap();
     map.setUseStateHolder(getUseStateHolder());
+    map.setType(_type);
     return map;
   }
 
-  private PropertyMap  _map;
-  private long         _flags;
-  private boolean      _useStateHolder;
+  private PropertyMap    _map;
+  private long           _flags;
+  private boolean        _useStateHolder;
+  private FacesBean.Type _type;
 }

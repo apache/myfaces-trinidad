@@ -33,6 +33,7 @@ import java.util.Properties;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewDeclarationLanguage;
@@ -67,12 +68,13 @@ public class ViewDeclarationLanguageFactoryImpl
   @Override
   public ViewDeclarationLanguage getViewDeclarationLanguage(String viewId)
   {
-    if (_getInternalView(FacesContext.getCurrentInstance(), viewId) != null)
+    FacesContext context = FacesContext.getCurrentInstance();
+    if (_getInternalView(context, viewId) != null)
       return _internalViewStrategy;
     
     // TRINIDAD-1703 - use physical URI (retrieved from the PageResolver) before calling the delegate's 
     // implementation
-    viewId = _getPath(viewId);
+    viewId = _getPath(context, viewId);
     
     return getWrapped().getViewDeclarationLanguage(viewId);
   }
@@ -220,12 +222,39 @@ public class ViewDeclarationLanguageFactoryImpl
   /**
    * Return the physical path of a particular URI
    */
-  static private String _getPath(String uri)
+  static private String _getPath(FacesContext context, String uri)
   {
+    UIViewRoot viewRoot = context.getViewRoot();
+    boolean viewMatch = false;
+    Map<String, String> viewIdMap = (Map<String, String>)context.getAttributes().get(_VIEWID_MAPPING);
+    if (viewRoot != null && viewRoot.getViewId().equals(uri))
+    {
+      viewMatch = true;
+      // Only return from cache if requested for the current viewRoot and it matches the arg. 
+      // Same rule applies when storing into viewMap
+      if (viewIdMap != null)
+      {
+        String cachedPhysicalURI = viewIdMap.get(uri);
+        if (cachedPhysicalURI != null)
+          return cachedPhysicalURI;
+      }
+    }
+    
     RequestContext afc = RequestContext.getCurrentInstance();
     if (afc != null)
     {
-      return afc.getPageResolver().getPhysicalURI(uri);
+      String physicalURI = afc.getPageResolver().getPhysicalURI(uri);
+      if (viewMatch)
+      {
+        // Store the viewId 
+        if (viewIdMap == null)
+        {
+          viewIdMap = new HashMap<String, String>();
+          context.getAttributes().put(_VIEWID_MAPPING, viewIdMap);
+        }
+        viewIdMap.put(uri, physicalURI);
+      }
+      return physicalURI;
     }
 
     // No RequestContext?  Just return the URI
@@ -237,6 +266,7 @@ public class ViewDeclarationLanguageFactoryImpl
   private Map<String, InternalView> _internalViews;
   
   private final static Object _NOT_FOUND = new Object();
+  private final static String _VIEWID_MAPPING = "org.apache.myfaces.trinidadinternal.application.viewIdMapping";
   private final Map<String, Object> _internalViewCache = 
                               new ConcurrentHashMap<String, Object>();
   

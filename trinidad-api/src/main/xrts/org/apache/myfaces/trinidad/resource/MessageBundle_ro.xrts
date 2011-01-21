@@ -59,8 +59,8 @@
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">Valoarea nu are formatul corect.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">Introduceţi o valoare care să corespundă acestui model: {2}</resource>
 <!-- Upload ConversionException messages -->
-<resource key="org.apache.myfaces.trinidad.UPLOAD" dnt="false">Fişierul este prea mare.</resource>
-<resource key="org.apache.myfaces.trinidad.UPLOAD_detail" dnt="false">Fişierul nu a putut fi încărcat deoarece este prea mare.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">Încărcarea fişierului a eşuat.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}.</resource>
 <!-- hints for validators -->
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">Introduceţi un număr mai mic decât sau egal cu {0}.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">Introduceţi un număr mai mare decât sau egal cu {0}.</resource>

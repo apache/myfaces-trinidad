@@ -98,17 +98,7 @@ public class FacesBeanWrapper
   {
     _wrapped.setValueBinding(key, binding);
   }
-
-  public void addClientBehavior(String eventName, ClientBehavior behavior)
-  {
-    _wrapped.addClientBehavior(eventName, behavior);
-  }
-
-  public Map<String, List<ClientBehavior>> getClientBehaviors()
-  {
-    return _wrapped.getClientBehaviors();
-  }
-
+  
   public void addEntry(PropertyKey listKey, Object value)
   {
     _wrapped.addEntry(listKey, value);

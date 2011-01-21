@@ -86,6 +86,11 @@ public class AgentNameUtil
         return TrinidadAgent.OS_GENERICPDA;
     }
 
+    if (TrinidadAgent.PLATFORM_ANDROID.equals(platformName))
+    {
+      return TrinidadAgent.OS_ANDROID;
+    }    
+
     return TrinidadAgent.OS_UNKNOWN;
   }
 
@@ -105,6 +110,11 @@ public class AgentNameUtil
     if (otype == Agent.TYPE_PHONE)
     {
       return TrinidadAgent.TYPE_PHONE;
+    }
+    
+    if (otype == Agent.TYPE_WEBCRAWLER)
+    {
+      return TrinidadAgent.TYPE_WEBCRAWLER;
     }
 
     //Default to desktop (This is UIX 2.2 logic)
@@ -142,6 +152,8 @@ public class AgentNameUtil
         return TrinidadAgent.PLATFORM_NOKIA_S60;
       case TrinidadAgent.OS_GENERICPDA:
         return TrinidadAgent.PLATFORM_GENERICPDA;
+      case TrinidadAgent.OS_ANDROID:
+        return TrinidadAgent.PLATFORM_ANDROID;
       default:
         return null;
     }

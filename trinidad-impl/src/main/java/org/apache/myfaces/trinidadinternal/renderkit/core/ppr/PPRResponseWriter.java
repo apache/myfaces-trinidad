@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
+import org.apache.myfaces.trinidad.render.RenderUtils;
 import org.apache.myfaces.trinidad.util.Service;
 
 import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
@@ -324,8 +325,6 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     return _xml;
   }
   
-  
-  
   /*
    * Writes out buffered inline scripts and script libraries
    */
@@ -452,9 +451,10 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
       if (component != null)
       {
         String clientId = component.getClientId(_facesContext);
+        String renderedClientId = RenderUtils.getRendererClientId(_facesContext, component);
         if (_state.pprContext.isPartialTarget(clientId))
         {
-          tag = new PPRTag(clientId);
+          tag = new PPRTag(clientId, renderedClientId);
           _state.enteringPPR = component;
         }
       }
@@ -473,7 +473,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
   {
     List<PPRTag> componentStack = _state.componentStack;
     int pos = componentStack.size() - 1;
-    PPRTag tag = (PPRTag) componentStack.get(pos);
+    PPRTag tag = componentStack.get(pos);
     componentStack.remove(pos);
 
     if (tag != null)
@@ -557,15 +557,31 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
       _state.changesStarted = false;
     }
   }
+
+  @Override
+  public void startCDATA()
+    throws IOException
+  {
+    _xml.startCDATA();
+  }
+
+  @Override
+  public void endCDATA()
+    throws IOException
+  {
+    _xml.endCDATA();
+  }
+
   //
   // Class representing PPR behavior associated with a tag.  The
   // base class simply tells PPR when it's working with a partial target
   //
   private class PPRTag
   {
-    public PPRTag(String id)
+    private PPRTag(String id, String renderedId)
     {
       _id = id;
+      _renderedId = renderedId != null ? renderedId : id;
     }
 
     public void startUpdate(
@@ -577,8 +593,8 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
         _startChanges();
         pprContext.pushRenderedPartialTarget(_id);
         _xml.startElement(_ELEMENT_CHANGES_UPDATE, null);
-        _xml.writeAttribute(_ATTRIBUTE_ID, _id, null);
-        _xml.write("<![CDATA[");
+        _xml.writeAttribute(_ATTRIBUTE_ID, _renderedId, null);
+        _xml.startCDATA();
         _xml.flush(); // NEW
 
         if (_LOG.isFine())
@@ -609,7 +625,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
         
         PPRResponseWriter.super.flush();
       
-        _xml.write("]]>");
+        _xml.endCDATA();
         _xml.endElement(_ELEMENT_CHANGES_UPDATE);
         _xml.flush();
         
@@ -655,6 +671,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     }
     
     private String _id;
+    private String _renderedId;
   }
 
   

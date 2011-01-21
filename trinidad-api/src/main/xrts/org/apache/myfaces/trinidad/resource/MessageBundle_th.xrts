@@ -59,8 +59,8 @@
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">ค่ามีรูปแบบไม่ถูกต้อง</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">ป้อนค่าที่ตรงกับรูปแบบนี้: {2}</resource>
 <!-- Upload ConversionException messages -->
-<resource key="org.apache.myfaces.trinidad.UPLOAD" dnt="false">ไฟล์ใหญ่เกินไป</resource>
-<resource key="org.apache.myfaces.trinidad.UPLOAD_detail" dnt="false">ไม่สามารถอัปโหลดไฟล์ เนื่องจากมีขนาดใหญ่เกินไป</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">การอัปโหลดไฟล์ล้มเหลว</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}.</resource>
 <!-- hints for validators -->
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">ป้อนตัวเลขที่น้อยกว่าหรือเท่ากับ {0}</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">ป้อนตัวเลขที่มากกว่าหรือเท่ากับ {0}</resource>

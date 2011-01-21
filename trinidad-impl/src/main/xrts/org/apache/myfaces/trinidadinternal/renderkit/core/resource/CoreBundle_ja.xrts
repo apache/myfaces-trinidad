@@ -67,12 +67,12 @@
 <resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">非表示列:</resource>
 <resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">固定列:</resource>
 <!-- Resource for Composite Tree Table -->
-<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">開く</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">閉じる</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">下をすべて開く</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">下をすべて閉じる</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">すべて開く</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">すべて閉じる</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">展開</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">縮小</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">下をすべて展開</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">下をすべて縮小</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">すべて展開</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">すべて縮小</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">上に移動</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">先頭として表示</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">先頭に移動</resource>
@@ -191,10 +191,10 @@
 <resource key="af_chooseDate.DIALOG_TITLE" dnt="false">日付の選択</resource>
 <!-- Choice text for picking earlier years than choice can show -->
 <!--{0} - The minimum year displayed in the choice -->
-<resource key="af_chooseDate.DIALOG_EARLIER" dnt="false">{0}の前</resource>
+<resource key="af_chooseDate.DIALOG_EARLIER" dnt="false">{0}より前</resource>
 <!-- Choice text for picking later years than choice can show -->
 <!--{0} - The maximum year displayed in the choice -->
-<resource key="af_chooseDate.DIALOG_LATER" dnt="false">{0}の後</resource>
+<resource key="af_chooseDate.DIALOG_LATER" dnt="false">{0}より後</resource>
 <!--Label for cancel button on Choose Date dialog -->
 <!--the ampersand is used to make the 'l' an accelerator key as described at -->
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
@@ -283,7 +283,7 @@
 <resource key="af_selectManyShuttle.REMOVE" dnt="false">削除</resource>
 <resource key="af_selectOrderShuttle.REMOVE" dnt="false">削除</resource>
 <!--Poll. The button text that the user presses to manually ask for a poll of the server -->
-<resource key="af_poll.MANUAL" dnt="false">投票サーバー</resource>
+<resource key="af_poll.MANUAL" dnt="false">ポーリング・サーバー</resource>
 <!--Progress-->
 <!--Format for the determinate progress icon's alt tag -->
 <resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">{0}%完了</resource>
@@ -331,9 +331,9 @@
 <!--Link text for deselecting all rows-->
 <resource key="af_tableSelectMany.SELECT_NONE" dnt="false">選択解除</resource>
 <!--Link text for expanding all rows-->
-<resource key="af_treeTable.EXPAND_ALL" dnt="false">すべて開く</resource>
+<resource key="af_treeTable.EXPAND_ALL" dnt="false">すべて展開</resource>
 <!--Link text for collapsing all rows-->
-<resource key="af_treeTable.COLLAPSE_ALL" dnt="false">すべて閉じる</resource>
+<resource key="af_treeTable.COLLAPSE_ALL" dnt="false">すべて縮小</resource>
 <!--Link text for showing all details-->
 <resource key="af_table.SHOW_ALL_DETAILS" dnt="false">すべての詳細を表示</resource>
 <!--Link text for hiding all details-->
@@ -512,7 +512,7 @@
 <!--ListOfValues Template-->
 <!--Text for main header LOV Window Header-->
 <!--{0}: The label for the search (the title attribute of the template) -->
-<resource key="SEARCH_AND_SELECT_FORMAT" dnt="false">検索および選択: {0}</resource>
+<resource key="SEARCH_AND_SELECT_FORMAT" dnt="false">検索と選択: {0}</resource>
 <!--Text for sub header in LOV Window-->
 <resource key="SEARCH_TEXT" dnt="false">検索</resource>
 <!--Text for simple search half of the search area toggle button -->
@@ -567,7 +567,7 @@
 <resource key="af_treeTable.NAV_CELL_FORMAT_T_C_private" dnt="false">{0}: {1} {2} / {3}</resource>
 <!-- NT_C: No Title but Complete: 0=Direction, 1=Range, 2=Size      -->
 <!-- e.g. Next 6 - 10 of 27                                         -->
-<resource key="af_treeTable.NAV_CELL_FORMAT_NT_C_private" dnt="false">{0} {1} / {2}</resource>
+<resource key="af_treeTable.NAV_CELL_FORMAT_NT_C_private" dnt="false">{0} {1}/{2}</resource>
 <!-- T_NC: Title but inComplete: 0=Title, 1=Direction, 2=View Size  -->
 <!-- e.g. Car Division/Brands: Next 10                              -->
 <resource key="af_treeTable.NAV_CELL_FORMAT_T_NC_private" dnt="false">{0}: {1} {2}</resource>

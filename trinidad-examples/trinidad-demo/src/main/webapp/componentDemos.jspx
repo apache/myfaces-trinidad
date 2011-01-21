@@ -56,6 +56,7 @@
                 <tr:commandLink text="cellFormat" action="guide.cellFormat"/>
                 <tr:outputFormatted value="frame - see FrameBorderLayout" styleUsage="instruction"/>
                 <tr:commandLink text="frameBorderLayout" action="guide.frameBorderLayout"/>
+                <tr:commandLink text="meta" action="guide.meta"/>
                 <tr:commandLink text="html" action="guide.html"/>
                 <tr:commandLink text="rowLayout" action="guide.rowLayout"/>
                 <tr:commandLink text="tableLayout" action="guide.tableLayout"/>

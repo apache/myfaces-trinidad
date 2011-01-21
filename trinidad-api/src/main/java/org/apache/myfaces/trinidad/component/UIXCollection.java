@@ -23,7 +23,6 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 import java.util.AbstractMap;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +32,10 @@ import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitContextWrapper;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
@@ -41,11 +44,9 @@ import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitContextWrapper;
-import javax.faces.component.visit.VisitHint;
-import javax.faces.component.visit.VisitResult;
+import org.apache.myfaces.trinidad.context.ComponentContextChange;
+import org.apache.myfaces.trinidad.context.ComponentContextManager;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.CollectionModel;
@@ -337,27 +338,27 @@ public abstract class UIXCollection extends UIXComponentBase
   }
 
   /**
-   * Check for an available row by row key. 
+   * Check for an available row by row key.
    * @param rowKey the row key for the row to check.
    * @return true if a value exists; false otherwise.
    */
   public final boolean isRowAvailable(Object rowKey)
   {
-    return getCollectionModel().isRowAvailable(rowKey);    
+    return getCollectionModel().isRowAvailable(rowKey);
   }
-  
+
   /**
-   * Get row data by row key. 
+   * Get row data by row key.
    * @param rowKey the row key for the row to get data.
    * @return row data
    */
   public final Object getRowData(Object rowKey)
   {
-    return getCollectionModel().getRowData(rowKey);        
+    return getCollectionModel().getRowData(rowKey);
   }
-  
+
   /**
-   * Check if a range of rows is available starting from the current position 
+   * Check if a range of rows is available starting from the current position
    * @param rowCount number of rows to check
    * @return true if all rows in range are available
    */
@@ -365,21 +366,21 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     return getCollectionModel().areRowsAvailable(rowCount);
   }
-  
+
   /**
-   * Check if a range of rows is available from a starting index without 
+   * Check if a range of rows is available from a starting index without
    * requiring the client to iterate over the rows
    * @param startIndex the starting index for the range
    * @param rowCount number of rows to check
    * @return true if all rows in range are available
    */
-  public final boolean areRowsAvailable(int startIndex, int rowCount) 
+  public final boolean areRowsAvailable(int startIndex, int rowCount)
   {
     return getCollectionModel().areRowsAvailable(startIndex, rowCount);
   }
-  
+
   /**
-   * Check if a range of rows is available from a starting row key without 
+   * Check if a range of rows is available from a starting row key without
    * requiring the client to iterate over the rows
    * @param startRowKey the starting row key for the range
    * @param rowCount number of rows to check
@@ -389,8 +390,8 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     return getCollectionModel().areRowsAvailable(startRowKey, rowCount);
   }
-  
-  
+
+
 
   /**
    * Gets the total number of rows in this table.
@@ -669,9 +670,6 @@ public abstract class UIXCollection extends UIXComponentBase
     return key;
   }
 
-
-
-
   /**
    * This is a safe way of getting currency keys and not accidentally forcing
    * the model to execute. When rendered="false" we should never execute the model.
@@ -772,6 +770,19 @@ public abstract class UIXCollection extends UIXComponentBase
                   " and currencyKey:"+getRowKey());
     }
 
+    ComponentContextManager compCtxMgr = null;
+    if (!_inSuspendOrResume)
+    {
+      compCtxMgr = RequestContext.getCurrentInstance().getComponentContextManager();
+      ComponentContextChange change = compCtxMgr.peekChange();
+      if (change instanceof CollectionComponentChange &&
+          ((CollectionComponentChange)change)._component == this)
+      {
+        // Remove the component context change if one was added
+        compCtxMgr.popChange();
+      }
+    }
+
     InternalState iState = _getInternalState(true);
     if (rowData == null)
     {
@@ -805,6 +816,13 @@ public abstract class UIXCollection extends UIXComponentBase
         Map<String, Object> varStatusMap = createVarStatusMap();
         iState._prevVarStatus = _setELVar(iState._varStatus, varStatusMap);
       }
+
+      // If there is a current row, push a component change so that we may clear the
+      // var and var status should a visit tree occur
+      if (!_inSuspendOrResume)
+      {
+        compCtxMgr.pushChange(new CollectionComponentChange(this));
+      }
     }
 
     _restoreStampState();
@@ -813,7 +831,7 @@ public abstract class UIXCollection extends UIXComponentBase
     // proper stamped IDs. This mirrors the behavior in UIData and follows the JSF specification
     // on when client IDs are allowed to be cached and when they must be reset
     List<UIComponent> stamps = getStamps();
-    
+
     for (UIComponent stamp : stamps)
       UIXComponent.clearCachedClientIds(stamp);
   }
@@ -1101,7 +1119,7 @@ public abstract class UIXCollection extends UIXComponentBase
         }
 
         pushComponentToEL(context, null);
-        
+
         try
         {
           callback.invokeContextCallback(context, this);
@@ -1110,7 +1128,7 @@ public abstract class UIXCollection extends UIXComponentBase
         {
           popComponentFromEL(context);
         }
-        
+
         invokedComponent = true;
       }
       else
@@ -1120,16 +1138,16 @@ public abstract class UIXCollection extends UIXComponentBase
         int thisClientIdLength = thisClientId.length();
         if (clientId.startsWith(thisClientId) &&
             (clientId.charAt(thisClientIdLength) == NamingContainer.SEPARATOR_CHAR))
-        {    
+        {
           if (!_getAndMarkFirstInvokeForRequest(context, thisClientId))
           {
             // Call _init() since _flushCachedModel() assumes that
             // selectedRowKeys and disclosedRowKeys are initialized to be non-null
             _init();
-  
+
             _flushCachedModel();
           }
-  
+
           String postId = clientId.substring(thisClientIdLength + 1);
           int sepIndex = postId.indexOf(NamingContainer.SEPARATOR_CHAR);
           // If there's no separator character afterwards, then this
@@ -1140,7 +1158,7 @@ public abstract class UIXCollection extends UIXComponentBase
           {
             String currencyString = postId.substring(0, sepIndex);
             Object rowKey = getClientRowKeyManager().getRowKey(context, this, currencyString);
-  
+
             // A non-null rowKey here means we are on a row and we should set currency,  otherwise
             // the client id is for a non-stamped child component in the table/column header/footer.
             if (rowKey != null)
@@ -1174,7 +1192,7 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       tearDownVisitingContext(context);
     }
-    
+
     return invokedComponent;
   }
 
@@ -1199,13 +1217,13 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     return defaultVisitChildren(visitContext, callback);
   }
-  
+
   protected final boolean defaultVisitChildren(
     VisitContext  visitContext,
     VisitCallback callback)
   {
     boolean doneVisiting;
-    
+
     // Clear out the row index if one is set so that
     // we start from a clean slate.
     int oldRowIndex = getRowIndex();
@@ -1215,11 +1233,11 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       // visit the unstamped children
       doneVisiting = visitUnstampedFacets(visitContext, callback);
-      
+
       if (!doneVisiting)
       {
         doneVisiting = _visitStampedColumnFacets(visitContext, callback);
-        
+
         // visit the stamped children
         if (!doneVisiting)
         {
@@ -1230,12 +1248,12 @@ public abstract class UIXCollection extends UIXComponentBase
     finally
     {
       // restore the original rowIndex
-      setRowIndex(oldRowIndex);      
+      setRowIndex(oldRowIndex);
     }
-    
-    return doneVisiting;    
+
+    return doneVisiting;
   }
-  
+
   /**
    * Hook method for subclasses to override to change the behavior
    * of how unstamped facets of the UIXCollection are visited.  The
@@ -1260,7 +1278,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
     return false;
   }
-  
+
 
   /**
    * VistiContext that visits the facets of the UIXColumn children, including
@@ -1272,13 +1290,13 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       _wrapped = wrappedContext;
     }
-    
+
     @Override
     public VisitContext getWrapped()
     {
       return _wrapped;
     }
-    
+
     @Override
     public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callback)
     {
@@ -1292,7 +1310,7 @@ public abstract class UIXCollection extends UIXComponentBase
             if (UIXComponent.visitTree(getWrapped(), facetChild, callback))
               return VisitResult.COMPLETE;
           }
-          
+
           // visit the indexed children, recursively looking for more columns
           for (UIComponent child : component.getChildren())
           {
@@ -1301,12 +1319,12 @@ public abstract class UIXCollection extends UIXComponentBase
           }
         }
       }
-      
+
       // at this point, we either have already manually processed the UIXColumn's children, or
       // the component wasn't a UIXColumn and shouldn't be processed
       return VisitResult.REJECT;
     }
-    
+
     private final VisitContext _wrapped;
   }
 
@@ -1341,7 +1359,7 @@ public abstract class UIXCollection extends UIXComponentBase
               return VisitResult.COMPLETE;
           }
         }
-        
+
         return VisitResult.REJECT;
       }
       else
@@ -1352,24 +1370,24 @@ public abstract class UIXCollection extends UIXComponentBase
           return VisitResult.REJECT;
       }
     }
-    
+
     private final VisitContext _wrapped;
   }
-  
+
   /**
    * Implementation used to visit each stamped row
    */
   private boolean _visitStampedColumnFacets(
     VisitContext      visitContext,
     VisitCallback     callback)
-  {    
+  {
     // visit the facets of the stamped columns
     List<UIComponent> stamps = getStamps();
-    
+
     if (!stamps.isEmpty())
     {
       VisitContext columnVisitingContext = new ColumnFacetsOnlyVisitContext(visitContext);
-      
+
       for (UIComponent stamp : stamps)
       {
         if (UIXComponent.visitTree(columnVisitingContext, stamp, callback))
@@ -1378,7 +1396,7 @@ public abstract class UIXCollection extends UIXComponentBase
         }
       }
     }
-    
+
     return false;
   }
 
@@ -1448,7 +1466,7 @@ public abstract class UIXCollection extends UIXComponentBase
   protected abstract CollectionModel createCollectionModel(
     CollectionModel current,
     Object value);
-  
+
   /**
     * Hook called with the result of <code>createCollectionModel</code>.
     * Subclasses can use this method to perform initialization after the CollectionModel
@@ -1462,7 +1480,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     // do nothing
   }
- 
+
 
   /**
    * Gets the value that must be converted into a CollectionModel
@@ -1505,15 +1523,15 @@ public abstract class UIXCollection extends UIXComponentBase
       }
     };
   }
-  
-  
+
+
   //
   // LocalRowKeyIndex implementation
   //
 
   /**
    * Given a row index, check if a row is locally available
-   * @param rowIndex index of row to check 
+   * @param rowIndex index of row to check
    * @return true if row is locally available
    */
   public boolean isRowLocallyAvailable(int rowIndex)
@@ -1523,7 +1541,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Given a row key, check if a row is locally available
-   * @param rowKey row key for the row to check 
+   * @param rowKey row key for the row to check
    * @return true if row is locally available
    */
   public boolean isRowLocallyAvailable(Object rowKey)
@@ -1543,7 +1561,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Check if a range of rows is locally available starting from a row index
-   * @param startIndex staring index for the range  
+   * @param startIndex staring index for the range
    * @param rowCount number of rows in the range
    * @return true if range of rows is locally available
    */
@@ -1554,7 +1572,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Check if a range of rows is locally available starting from a row key
-   * @param startRowKey staring row key for the range  
+   * @param startRowKey staring row key for the range
    * @param rowCount number of rows in the range
    * @return true if range of rows is locally available
    */
@@ -1562,9 +1580,9 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     return getCollectionModel().areRowsLocallyAvailable(startRowKey, rowCount);
   }
-  
+
   /**
-   * Convenient API to return a row count estimate.  This method can be optimized 
+   * Convenient API to return a row count estimate.  This method can be optimized
    * to avoid a data fetch which may be required to return an exact row count
    * @return estimated row count
    */
@@ -1575,14 +1593,14 @@ public abstract class UIXCollection extends UIXComponentBase
 
 
   /**
-   * Helper API to determine if the row count returned from {@link #getEstimatedRowCount} 
+   * Helper API to determine if the row count returned from {@link #getEstimatedRowCount}
    * is EXACT, or an ESTIMATE
    */
   public LocalRowKeyIndex.Confidence getEstimatedRowCountConfidence()
   {
     return getCollectionModel().getEstimatedRowCountConfidence();
   }
-  
+
   /**
    * clear all rows from the local cache
    */
@@ -1590,7 +1608,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     getCollectionModel().clearLocalCache();
   }
-  
+
   /**
    * Clear the requested range of rows from the local cache
    * @param startingIndex starting row index for the range to clear
@@ -1600,7 +1618,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     getCollectionModel().clearCachedRows(startingIndex, rowsToClear);
   }
-  
+
   /**
    * Clear the requested range of rows from the local cache
    * @param startingRowKey starting row key for the range to clear
@@ -1610,7 +1628,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     getCollectionModel().clearCachedRows(startingRowKey, rowsToClear);
   }
-  
+
   /**
    * Clear a row from the local cache by row index
    * @param index row index for the row to clear from the cache
@@ -1619,16 +1637,16 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     getCollectionModel().clearCachedRow(index);
   }
-  
+
   /**
    * Clear a row from the local cache by row key
    * @param rowKey row key for the row to clear from the cache
    */
   public void clearCachedRow(Object rowKey)
   {
-    getCollectionModel().clearCachedRow(rowKey);    
+    getCollectionModel().clearCachedRow(rowKey);
   }
-  
+
   /**
    * Indicates the caching strategy supported by the model
    * @see LocalRowKeyIndex.LocalCachingStrategy
@@ -1638,7 +1656,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     return getCollectionModel().getCachingStrategy();
   }
-  
+
 
   /**
    * override this method to place initialization code that must run
@@ -1915,11 +1933,11 @@ public abstract class UIXCollection extends UIXComponentBase
       if (key != null)
       {
         currencyCache.put(newRowKey, key);
-      }      
+      }
       return key != null;
     }
 
-    
+
 
     private static String _createToken(ValueMap<Object,String> currencyCache)
     {
@@ -1974,11 +1992,73 @@ public abstract class UIXCollection extends UIXComponentBase
     private static final long serialVersionUID = 1L;
   }
 
+  /**
+   * Class to be able to suspend the context of the collection.
+   * <p>Current implementation removes the var and varStatus from the request while the
+   * collection is suspended.</p>
+   */
+  private static class CollectionComponentChange
+    extends ComponentContextChange
+  {
+    private CollectionComponentChange(
+      UIXCollection component)
+    {
+      _component = component;
+    }
+
+    public void suspend(
+      FacesContext facesContext)
+    {
+      _oldRowIndex = _component.getRowIndex();
+      _component._inSuspendOrResume = true;
+      try
+      {
+        _component.setRowIndex(-1);
+      }
+      finally
+      {
+        _component._inSuspendOrResume = false;
+      }
+    }
+
+    public void resume(
+      FacesContext facesContext)
+    {
+      _component._inSuspendOrResume = true;
+      try
+      {
+        _component.setRowIndex(_oldRowIndex);
+      }
+      finally
+      {
+        _component._inSuspendOrResume = false;
+      }
+    }
+
+    @Override
+    public String toString()
+    {
+      String className = _component.getClass().getName();
+      String componentId = _component.getId();
+      return new StringBuilder(58 + className.length() + componentId.length())
+        .append("UIXCollection.CollectionComponentChange[Component class: ")
+        .append(className)
+        .append(", component ID: ")
+        .append(componentId)
+        .append("]")
+        .toString();
+    }
+
+    private final UIXCollection _component;
+    private int _oldRowIndex;
+  }
+
   // do not assign a non-null value. values should be assigned lazily. this is
   // because this value is preserved by stampStateSaving, when table-within-table
   // is used. And if a non-null value is used, then all nested tables will
   // end up sharing this stampState. see bug 4279735:
   private InternalState _state = null;
+  private boolean _inSuspendOrResume = false;
 
   // use this key to indicate uninitialized state.
   // all the variables that use this are transient so this object need not

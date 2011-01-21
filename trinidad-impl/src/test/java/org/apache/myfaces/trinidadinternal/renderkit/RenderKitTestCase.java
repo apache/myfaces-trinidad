@@ -40,6 +40,8 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import javax.faces.event.PhaseId;
+
 import org.apache.commons.lang.StringUtils;
 
 import org.apache.myfaces.trinidad.context.Agent;
@@ -160,6 +162,7 @@ abstract public class RenderKitTestCase extends TestSuite
       _requestContext.setAgent(_agent);
       _requestContext.setRightToLeft(_rightToLeft);
       _requestContext.setAccessibilityMode(_accMode);
+      _facesContext.setCurrentPhaseId(PhaseId.RENDER_RESPONSE);
 
       UIViewRoot root = RenderKitBootstrap.createUIViewRoot(_facesContext);
       root.setRenderKitId(getRenderKitId());

@@ -59,8 +59,8 @@
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">值的格式不正確.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">輸入符合下列樣式的值: {2}</resource>
 <!-- Upload ConversionException messages -->
-<resource key="org.apache.myfaces.trinidad.UPLOAD" dnt="false">檔案太大.</resource>
-<resource key="org.apache.myfaces.trinidad.UPLOAD_detail" dnt="false">檔案太大, 因此無法上傳.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">檔案上傳失敗.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}.</resource>
 <!-- hints for validators -->
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">輸入小於或等於 {0} 的數字.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">輸入大於或等於 {0} 的數字.</resource>
@@ -68,7 +68,7 @@
 <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_HINT" dnt="false">輸入 {0} 個或更少的字元.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_HINT" dnt="false">輸入 {0} 個或更多的字元.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.EXACT_HINT" dnt="false">輸入 {0} 個字元.</resource>
-<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.RANGE_HINT" dnt="false">輸入 {0} 個到 {1} 個間的字元.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.RANGE_HINT" dnt="false">輸入介於 {0} 到 {1} 個之間的字元.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_HINT" dnt="false">輸入 {0} 當日或之前的日期.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT" dnt="false"> 輸入 {0} 當日或之後的日期.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.RANGE_HINT" dnt="false">輸入 {0} 到 {1} 之間的日期.</resource>

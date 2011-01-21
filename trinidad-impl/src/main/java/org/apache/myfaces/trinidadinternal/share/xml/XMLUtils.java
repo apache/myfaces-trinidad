@@ -94,7 +94,7 @@ public class XMLUtils
       InputSource source = new InputSource(stream);
       source.setSystemId(sourceName);
 
-      // Store a resolver relative to the file we're about to parse
+      // Store a resolver relative to the file we're about to parse. This will be used for imports.
       setResolver(context, resolver.getResolver(sourceName));
       setInputStreamProvider(context, provider);
 
@@ -144,6 +144,8 @@ public class XMLUtils
     InputStreamProvider baseProvider = getInputStreamProvider(context);
     if (baseProvider instanceof CachingInputStreamProvider)
     {
+      // set the dependency; hasSourceChanged also checks if the 
+      // dependencies have changed
       ((CachingInputStreamProvider) baseProvider).addCacheDependency(provider);
     }
 
@@ -151,7 +153,7 @@ public class XMLUtils
     ArrayList<Object> list = 
       (ArrayList<Object>) context.getProperty(_SHARE_NAMESPACE, "_includeStack");
     Object identifier = provider.getIdentifier();
-
+    
     if ((list != null) && (list.contains(identifier)))
     {
       // =-=AEW Just logging an error isn't really enough - the include
@@ -162,6 +164,8 @@ public class XMLUtils
     }
 
     // Step 4. Try to get a cached version
+    // =-=jmw I don't see when this cached gets a non-null value other than if the same file
+    // is included twice.
     Object cached = provider.getCachedResult();
     if ((cached != null) && expectedType.isInstance(cached))
       return cached;

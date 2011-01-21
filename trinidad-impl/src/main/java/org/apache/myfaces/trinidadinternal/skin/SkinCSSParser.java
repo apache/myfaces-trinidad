@@ -45,9 +45,8 @@ public class SkinCSSParser
 
     try
     {
-      _documentHandler = documentHandler;
-      _scanner = new CSSScanner(in);
-      _documentHandler.startDocument();
+      CSSScanner scanner = new CSSScanner(in);
+      documentHandler.startDocument();
       List<String> selectorList = null;
 
       // start scanning the document
@@ -55,23 +54,23 @@ public class SkinCSSParser
       // return @rules, which end with ';'
       // return selectors, which end with a {
       // return properties, which end with a }
-      _currentType = _nextIgnoreSpaces();
+      int currentType = _nextIgnoreSpaces(scanner);
 
-      while (_currentType != CSSLexicalUnits.EOF)
+      while (currentType != CSSLexicalUnits.EOF)
       {
-        if (_currentType == CSSLexicalUnits.COMMENT)
-          _documentHandler.comment(_scanner.getStringValue());
-        else if (_currentType == CSSLexicalUnits.AT_KEYWORD)
-          _documentHandler.atRule(_scanner.getStringValue());
-        else if (_currentType == CSSLexicalUnits.LEFT_CURLY_BRACE)
+        if (currentType == CSSLexicalUnits.COMMENT)
+          documentHandler.comment(scanner.getStringValue());
+        else if (currentType == CSSLexicalUnits.AT_KEYWORD)
+          documentHandler.atRule(scanner.getStringValue());
+        else if (currentType == CSSLexicalUnits.LEFT_CURLY_BRACE)
         {
-          _documentHandler.startSelector();
-          selectorList = _parseSelectorString(_scanner.getStringValue());
+          documentHandler.startSelector();
+          selectorList = _parseSelectorString(scanner.getStringValue());
         }
-        else if (_currentType == CSSLexicalUnits.RIGHT_CURLY_BRACE)
+        else if (currentType == CSSLexicalUnits.RIGHT_CURLY_BRACE)
         {
-          String properties = _scanner.getStringValue();
-          _handlePropertiesString(properties);
+          String properties = scanner.getStringValue();
+          _handlePropertiesString(documentHandler, properties);
           if (selectorList == null)
           {
             if (_LOG.isWarning())
@@ -79,14 +78,14 @@ public class SkinCSSParser
               _LOG.warning("IGNORING_PROPERTIES_WITHOUT_SELECTOR", properties);
             }
           }
-          _documentHandler.endSelector(selectorList);
+          documentHandler.endSelector(selectorList);
         }
-        _nextIgnoreSpaces();
+        currentType = _nextIgnoreSpaces(scanner);
       }
     }
     finally
     {
-      _documentHandler.endDocument();
+      documentHandler.endDocument();
     }
   }
 
@@ -122,8 +121,14 @@ public class SkinCSSParser
       {
         trimmedSelector = selector[i].trim();
       }
-
-      selectorList.add(trimmedSelector);
+      // skip the selector if it is empty
+      if ("".equals(trimmedSelector))
+      {
+        if (_LOG.isWarning())
+        _LOG.warning("ERR_PARSING_SKIN_SELECTOR", selectors);
+      }
+      else
+        selectorList.add(trimmedSelector);
     }
     
     return selectorList;
@@ -135,6 +140,7 @@ public class SkinCSSParser
    * callback.
    */
   private void _handlePropertiesString(
+    SkinCSSDocumentHandler documentHandler,
     String properties)
   {
     if (properties == null)
@@ -154,7 +160,7 @@ public class SkinCSSParser
       {
         String name = property[i].substring(0, indexOfColon);
         String value = property[i].substring(indexOfColon+1);
-        _documentHandler.property(name.trim(), value.trim());
+        documentHandler.property(name.trim(), value.trim());
 
       }
     }
@@ -228,14 +234,14 @@ public class SkinCSSParser
   }
 
   // ignores spaces.
-  private int _nextIgnoreSpaces()
+  private int _nextIgnoreSpaces(CSSScanner scanner)
   {
-    _currentType = _scanner.getNextToken();
-    while (_currentType == CSSLexicalUnits.SPACE)
+    int currentType = scanner.getNextToken();
+    while (currentType == CSSLexicalUnits.SPACE)
     {
-      _currentType = _scanner.getNextToken();
+      currentType = scanner.getNextToken();
     }
-    return _currentType;
+    return currentType;
   }
 
 
@@ -485,9 +491,6 @@ public class SkinCSSParser
     public static final int AT_KEYWORD = 5;
   }
 
-  private SkinCSSDocumentHandler _documentHandler;
-  private CSSScanner             _scanner;
-  private int                    _currentType;
   // this is the pattern for finding comments. We want to strip out
   // comments from the properties, and we use this pattern to do it.
   private static final Pattern  _COMMENT_PATTERN =

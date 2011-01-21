@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Невозможно загрузить {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Невозможно создать экземпляр UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Невозможно загрузить в сеть файл, т.к. его размер слишком велик.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad выполняется в режиме отладки. Не используйте в коммерческой версии. См.:{0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->

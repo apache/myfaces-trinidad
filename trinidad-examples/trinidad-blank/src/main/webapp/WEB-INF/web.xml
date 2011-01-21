@@ -22,6 +22,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
+
+  <!-- setting the project stage to be DEVELOPMENT -->
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>   
+    <param-value>Development</param-value>
+  </context-param>
+
   <!-- Use client-side state saving.  In Trinidad, it is an
        optimized, token-based mechanism that is almost always a
        better choice than the standard JSF server-side state saving. -->

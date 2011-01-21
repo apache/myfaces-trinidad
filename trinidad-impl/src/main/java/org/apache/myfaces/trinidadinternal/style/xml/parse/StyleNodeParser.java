@@ -98,8 +98,10 @@ public class StyleNodeParser extends BaseNodeParser
     return new StyleNode(_name,
                          _selector,
                          properties,
+                         null, // skinProperties not supported in XSS (XSS will be deleted soon)
                          includedStyles,
                          includedProperties,
+                         null,
                          null,
                          _resetProperties);
   }

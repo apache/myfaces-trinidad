@@ -43,10 +43,13 @@ import javax.el.ValueExpression;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
+import org.apache.myfaces.trinidad.resource.SkinResourceLoader;
 import org.apache.myfaces.trinidad.share.io.NameResolver;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
+import org.apache.myfaces.trinidad.skin.SkinVersion;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.config.LazyValueExpression;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimpleDesktopSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimplePdaSkin;
@@ -68,11 +71,11 @@ import org.apache.myfaces.trinidadinternal.share.xml.ParserManager;
 import org.apache.myfaces.trinidadinternal.share.xml.TreeBuilder;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
-
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.parse.XMLConstants;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinAdditionNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinNode;
+import org.apache.myfaces.trinidadinternal.skin.parse.SkinVersionNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinsNode;
 
 /**
@@ -127,8 +130,11 @@ public class SkinUtils
       SkinFactory.setFactory(new SkinFactoryImpl());
       skinFactory = SkinFactory.getFactory();
     }
-
+    boolean fine = _LOG.isFine();
+    if (fine) _LOG.fine("Begin registerSkinExtensions");
     _registerSkinExtensionsAndAdditions(context, skinFactory);
+    if (fine) _LOG.fine("End registerSkinExtensions");
+
 
   }
 
@@ -287,6 +293,7 @@ public class SkinUtils
     // Register skin node factory and skin addition node factory
     _registerFactory(manager, SkinNode.class, "SkinNode");
     _registerFactory(manager, SkinAdditionNode.class, "SkinAdditionNode");
+    _registerFactory(manager, SkinVersionNode.class, "SkinVersionNode");
 
     return manager;
   }
@@ -380,7 +387,8 @@ public class SkinUtils
      
     // Add META-INF/trinidad-skins.xml skins to skin factory. (sorted first to make sure 
     // we register the most 'base' skins first)
-    List<SkinsNode> metaInfSkinsNodeList = _getMetaInfSkinsNodeList(); 
+    if (_LOG.isFine()) _LOG.fine("Parse META-INF/trinidad-skins.xml files");
+    List<SkinsNode> metaInfSkinsNodeList = _getMetaInfSkinsNodeList();
     // Go through each SkinsNode object 
     // (contains List of SkinNodes and List of SkinAdditionNodes)
     // and return a List of the SkinNodes.
@@ -397,7 +405,8 @@ public class SkinUtils
       _addSkinToFactory(skinFactory, skinNode, true);
     }
     
-    // Add WEB-INF/trinidad-skins.xml skins to skin factory. (sorted first)    
+    // Add WEB-INF/trinidad-skins.xml skins to skin factory. (sorted first) 
+    if (_LOG.isFine()) _LOG.fine("Parse WEB-INF/trinidad-skins.xml files");
     SkinsNode webInfSkinsNode = _getWebInfSkinsNode(context);
     if (webInfSkinsNode != null)
     {
@@ -429,6 +438,44 @@ public class SkinUtils
       _registerSkinAdditions(fContext, skinFactory, skinAdditionNodeList, false);    
     }
     
+    _registerTrinidadSkinsFromSkinResourceLoaderServices(context, skinFactory);
+    
+    
+  }
+
+  // this finds the trinidad-skins.xml files by calling findResource on any SkinResourceLoader
+  // services. This is used by the DT to find trinidad-skins.xml files that are not in META-INF
+  // or WEB-INF. See TRINIDAD-1914
+  private static void _registerTrinidadSkinsFromSkinResourceLoaderServices(
+    ExternalContext context,
+    SkinFactory skinFactory)
+  {
+     if (_LOG.isFine()) _LOG.fine("Parse SkinResourceLoader trinidad-skins.xml");
+    // register skins found in DT using the META-INF/services
+    List<SkinResourceLoader> urlProviders = ClassLoaderUtils.getServices(
+                                      "org.apache.myfaces.trinidad.resource.SkinResourceLoader");
+    if (urlProviders != null && !urlProviders.isEmpty())
+    {
+      List<SkinsNode> additionalSkins = _getAdditionalTrinidadSkins(context, urlProviders);
+      
+      // Go through each SkinsNode object 
+      // (contains List of SkinNodes and List of SkinAdditionNodes)
+      // and return a List of the SkinNodes.
+      List<SkinNode> additionalSkinNodeList = new ArrayList<SkinNode>();
+      for (SkinsNode skinsNode : additionalSkins)
+      {
+        additionalSkinNodeList.addAll(skinsNode.getSkinNodes());
+      }    
+      
+      List<SkinNode> sortedAdditionalSkinNodes = _sortSkinNodes(skinFactory, additionalSkinNodeList);
+      
+      for (SkinNode skinNode : sortedAdditionalSkinNodes)
+      {
+        if (_LOG.isFine()) _LOG.fine("Skin {0} with stylesheet {1}",
+                                     new Object[]{skinNode.getId(), skinNode.getStyleSheetName()});
+        _addSkinToFactory(skinFactory, skinNode, false);
+      }   
+    }
   }
   
   /**
@@ -555,6 +602,9 @@ public class SkinUtils
     String bundleName = skinNode.getBundleName();
     String translationSourceExpression = 
       skinNode.getTranslationSourceExpression();
+    SkinVersionNode skinVersionNode = skinNode.getSkinVersionNode();
+    
+    SkinVersion skinVersion = _createSkinVersion(skinVersionNode);
     
     if (renderKitId == null)
       renderKitId = _RENDER_KIT_ID_DESKTOP;
@@ -602,7 +652,8 @@ public class SkinUtils
                                family,
                                renderKitId,
                                styleSheetName,
-                               bundleName);    
+                               bundleName,
+                               skinVersion);    
     }
     else
     {
@@ -620,7 +671,8 @@ public class SkinUtils
                                  family,
                                  renderKitId,
                                  styleSheetName,
-                                 translationSourceVE);         
+                                 translationSourceVE,
+                                 skinVersion);         
       }
       else
       {
@@ -628,7 +680,8 @@ public class SkinUtils
                                  id,
                                  family,
                                  renderKitId,
-                                 styleSheetName);         
+                                 styleSheetName,
+                                 skinVersion);         
       }
 
     }
@@ -654,6 +707,22 @@ public class SkinUtils
 
   }
   
+  // Create a SkinVersion object from the SkinVersionNode object.
+  private static SkinVersion _createSkinVersion(SkinVersionNode skinVersionNode)
+  {
+    if (skinVersionNode != null)
+    {
+      String name = skinVersionNode.getName();
+      boolean isDefault = skinVersionNode.isDefault();
+      if ("".equals(name) && !isDefault)
+         return SkinVersion.EMPTY_SKIN_VERSION;
+      else
+        return new SkinVersion(name, isDefault);
+    }
+    else
+      return SkinVersion.EMPTY_SKIN_VERSION;
+  }
+  
   /**
    * Get the WEB-INF/trinidad-skins.xml file, parse it, and return a List of SkinsNode objects. 
    * @param context ServletContext used to getResourceAsStream
@@ -667,7 +736,20 @@ public class SkinUtils
     {
       SkinsNode webInfSkinsNode = 
         _getSkinsNodeFromInputStream(null, null, in, _getDefaultManager(), _CONFIG_FILE);
+      if (_LOG.isFine())
+      {
+        for (SkinNode node : webInfSkinsNode.getSkinNodes())
+        {
+          _LOG.fine("Skin {0} with stylesheet {1}", 
+                    new Object[]{node.getId(), node.getStyleSheetName()});
+        }
+        for (SkinAdditionNode node: webInfSkinsNode.getSkinAdditionNodes())
+        {
+          _LOG.fine("SkinAddition {0} with stylesheet {1}", 
+                      new Object[]{node.getSkinId(), node.getStyleSheetName()});
 
+        }
+      }
       return webInfSkinsNode;
     }
     else
@@ -701,44 +783,10 @@ public class SkinUtils
         
         // if url matches one we've already processed, skip it
         boolean successfullyAdded = urlPaths.add(url.getPath());
-
-        if (!successfullyAdded)
-        {
-          if (_LOG.isFinest())
-          {
-            _LOG.finest("Skipping skin URL:{0} because it was already processed. " +
-              "It was on the classpath more than once.", url);
-          }
-          // continue to the next url
-        }
-        else
-        {
-          _LOG.finest("Processing skin URL:{0}", url);
-          InputStream in = url.openStream();
-          try
-          {
-            // parse the config file and register the skin's additional stylesheets.
-  
-            if (in != null)
-            {
-              SkinsNode  metaInfSkinsNode = 
-                _getSkinsNodeFromInputStream(null, null, in, _getDefaultManager(), 
-                                             _META_INF_CONFIG_FILE);
-  
-              allSkinsNodes.add(metaInfSkinsNode);
-              
-            }
-          }
-          catch (Exception e)
-          {
-           _LOG.warning("ERR_PARSING", url);
-           _LOG.warning(e);
-          }
-          finally
-          {
-            in.close();
-          }     
-        }
+        // _processTrinidadSkinsURL logs the url we are processing
+        _processTrinidadSkinsURL(allSkinsNodes, url, successfullyAdded);
+    
+        
       }
     }
     catch (IOException e)
@@ -876,6 +924,110 @@ public class SkinUtils
       return styleSheetName;
   }
   
+  // register skins found in DT using the META-INF/services
+  private static List<SkinsNode> _getAdditionalTrinidadSkins(
+    ExternalContext context,
+    List<SkinResourceLoader> providers)
+  {
+    Set<String> urlPaths = new HashSet<String>(16);
+    List<SkinsNode> allSkinsNodes = new ArrayList<SkinsNode>(); 
+    
+
+    for (SkinResourceLoader urlProvider : providers )
+    {
+      Iterator<URL> urlIterator = urlProvider.findResources(context, _TRINIDAD_SKINS_XML);
+
+      if (urlIterator != null)
+      {
+        try
+        {
+          while (urlIterator.hasNext())
+          {
+            URL url = urlIterator.next();
+            // if url matches one we've already processed, skip it
+            boolean successfullyAdded = urlPaths.add(url.getPath());
+            // _processTrinidadSkinsURL logs the url we are processing
+            _processTrinidadSkinsURL(allSkinsNodes, url, successfullyAdded);
+          }
+
+        }
+        catch (IOException e)
+        {
+          _LOG.severe("ERR_LOADING_FILE", _META_INF_CONFIG_FILE);
+          _LOG.severe(e);
+        }
+      }
+    }
+    
+
+    return allSkinsNodes;
+  }
+
+  private static void _processTrinidadSkinsURL(
+    List<SkinsNode> allSkinsNodes,
+    URL url,
+    boolean successfullyAdded)
+    throws IOException
+  {
+    if (!successfullyAdded)
+    {
+      if (_LOG.isFine())
+      {
+        _LOG.fine("Skipping skin URL:{0} because it was already processed. " +
+                    "It was on the classpath more than once.",
+                    url);
+      }
+      // continue to the next url
+    }
+    else
+    {
+      if (_LOG.isFine()) _LOG.fine("Processing skin URL:{0}", url);
+      InputStream in = url.openStream();
+      try
+      {
+        // parse the config file and register the skin's additional stylesheets.
+
+        if (in != null)
+        {
+          SkinsNode metaInfSkinsNode =
+            _getSkinsNodeFromInputStream(null, null, in,
+                                         _getDefaultManager(),
+                                         _META_INF_CONFIG_FILE);
+          
+          if (metaInfSkinsNode != null)
+          {
+            // for debug only.
+            if (_LOG.isFine())
+            {
+              for (SkinNode node : metaInfSkinsNode.getSkinNodes())
+                _LOG.fine("Skin {0} with stylesheet {1}", 
+                          new Object[]{node.getId(), node.getStyleSheetName()});
+              for (SkinAdditionNode node: metaInfSkinsNode.getSkinAdditionNodes())
+                _LOG.fine("SkinAddition {0} with stylesheet {1}", 
+                            new Object[]{node.getSkinId(), node.getStyleSheetName()});
+            }
+            
+            allSkinsNodes.add(metaInfSkinsNode);
+          }
+          else
+          {
+            if(_LOG.isFine()) _LOG.fine("No skins found in the URL.");
+          }
+        }
+      }
+      catch (Exception e)
+      {
+        _LOG.warning("ERR_PARSING", url);
+        _LOG.warning(e);
+      }
+      finally
+      {
+        in.close();
+      }
+    }
+  }
+  
+  
   private SkinUtils() {}
 
   // The default ParserManager
@@ -890,6 +1042,7 @@ public class SkinUtils
 
   static private final String _CONFIG_FILE = "/WEB-INF/trinidad-skins.xml";
   static private final String _META_INF_CONFIG_FILE = "META-INF/trinidad-skins.xml";
+  static private final String _TRINIDAD_SKINS_XML = "trinidad-skins.xml";
   static private final String _META_INF_DIR = "META-INF/";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinUtils.class);
 

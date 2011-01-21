@@ -52,6 +52,7 @@ public class XhtmlResponseWriter extends ResponseWriter
     // Ignored: getContentType() always identifies this as XHTML
     //_contentType = contentType;
     _encoding = encoding;
+    _cdataCount = 0;
     CaboHttpUtils.validateEncoding(encoding);
   }
 
@@ -86,7 +87,12 @@ public class XhtmlResponseWriter extends ResponseWriter
   public void startCDATA() throws IOException 
   {
     _closeStartIfNecessary();
-    _out.write("<![CDATA[");
+    // Ignore all nested calls to start a CDATA section except the first - a CDATA section cannot contain the string 
+    // "]]>" as the section ends ends with the first occurrence of this sequence.
+    _cdataCount++;
+    
+    if (_cdataCount == 1)
+      _out.write("<![CDATA[");
   }
 
   /**
@@ -95,7 +101,11 @@ public class XhtmlResponseWriter extends ResponseWriter
    */
   public void endCDATA() throws IOException 
   {
-    _out.write("]]>");
+    // Only close the outermost CDATA section and ignore nested calls to endCDATA(). 
+    if (_cdataCount == 1)
+      _out.write("]]>");
+    
+    _cdataCount--;
   }
 
   @Override
@@ -476,6 +486,9 @@ public class XhtmlResponseWriter extends ResponseWriter
 
   // holds an element that will only be started if it has attributes
   private String      _pendingElement;
+  
+  // number of CDATA sections started
+  private int         _cdataCount;
 
   // stack of skipped and unskipped elements used to determine when
   // to suppress the end tag of a skipped element

@@ -106,6 +106,31 @@ abstract public class SkinFactory
     String family, 
     String renderKitId);
   
+
+  /**
+   * <p>Return a {@link Skin} instance for the specified skinFamily and
+   * renderKitId, and skin version. The best matched skin is returned. 
+   * If there is no registered {@link
+   * Skin} for the specified identifier, return
+   * <code>null</code>.  The set of available skin identifiers
+   * is available via the <code>getSkinIds()</code> method.</p>
+   *
+   * @param context FacesContext for the request currently being
+   * processed, or <code>null</code> if none is available.
+   * @param family family of the requested {@link Skin} instance
+   * @param renderKitId RenderKit identifier of the requested
+   *  {@link Skin} instance
+   *  @param version. A string that denotes the skin version name. It can be "default" or 
+   *  the name of the version (see the Skin's SkinVersion#getName) or null which 
+   *  returns the skin with no version set.
+   *  
+   */
+  public abstract Skin getSkin(
+    FacesContext context, 
+    String family,
+    String renderKitId,
+    String version);
+  
   /**
    * <p>Return an <code>Iterator</code> over the set of skin
    * identifiers registered with this factory.

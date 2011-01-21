@@ -42,6 +42,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 
 
@@ -171,13 +172,7 @@ abstract public class UIXComponent extends UIComponent
 
         try
         {
-          // Optimize the cases of UINamingContainer (<f:subview>) and UIPanel -
-          // we will treat these components as FlattenedComponents because they do not render
-          // any DOM
-          // Note that JSF 2.0 creates UIPanel wrappers around multiple components
-          // inside of <f:facet>
-          if (UINamingContainer.class == child.getClass() ||
-              UIPanel.class == child.getClass())
+          if (isFlattenableCoreComponent(child))
           {
             processed =
                 processFlattenedChildren(context, cpContext, childProcessor,
@@ -483,6 +478,7 @@ abstract public class UIXComponent extends UIComponent
       component.pushComponentToEL(context, null);
 
       boolean doneVisiting = false;
+      RuntimeException re = null;
 
       try
       {
@@ -525,42 +521,7 @@ abstract public class UIXComponent extends UIComponent
             // visit the children of the component if we aren't supposed to skip them
             if (!skipChildren)
             {
-              // setup any context needed for visiting the children of the component as opposed
-              // to the component itself
-              if (rc != null)
-              {
-                uixComponent.setupChildrenEncodingContext(context, rc);
-              }
-              else
-              {
-                uixComponent.setupChildrenVisitingContext(context);
-              }
-
-
-              try
-              {
-                // determine whether this visit should be iterating.  If it shouldn't, don't
-                // even call the protected hook.  We currently don't iterate during the
-                // restore view phase when we are visiting all of the components.
-                boolean noIterate = (visitContext.getIdsToVisit() == VisitContext.ALL_IDS) &&
-                                    (context.getCurrentPhaseId() == PhaseId.RESTORE_VIEW);
-
-                doneVisiting =  (noIterate)
-                                  ? uixComponent._visitAllChildren(visitContext, callback)
-                                  : uixComponent.visitChildren(visitContext, callback);
-              }
-              finally
-              {
-                // teardown any context initialized above
-                if (rc != null)
-                {
-                  uixComponent.tearDownChildrenEncodingContext(context, rc);
-                }
-                else
-                {
-                  uixComponent.tearDownChildrenVisitingContext(context);
-                }
-              }
+              doneVisiting = visitChildren(visitContext, uixComponent, callback);
             }
           }
           else
@@ -569,27 +530,171 @@ abstract public class UIXComponent extends UIComponent
             assert(visitResult == VisitResult.REJECT);
           }
         }
+        catch (RuntimeException ex)
+        {
+          re = ex;
+        }
         finally
         {
-         // tear down the context we set up in order to visit our component
-          if (rc != null)
+          try
           {
-            uixComponent.tearDownEncodingContext(context, rc);
+            // tear down the context we set up in order to visit our component
+            if (rc != null)
+            {
+              uixComponent.tearDownEncodingContext(context, rc);
+            }
+            else
+            {
+              uixComponent.tearDownVisitingContext(context);
+            }
           }
-          else
+          catch (RuntimeException ex)
           {
-            uixComponent.tearDownVisitingContext(context);
+            if (re == null)
+            {
+              throw ex;
+            }
+            else
+            {
+              _LOG.warning(ex);
+            }
           }
         }
       }
       finally
       {
         component.popComponentFromEL(context);
+
+        if (re != null)
+        {
+          throw re;
+        }
       }
 
       // if we got this far, we're not done
       return doneVisiting;
     }
+  }
+
+  /**
+   * Utility method to allow the visiting of children components while visiting a parent using
+   * a new visit callback or visit context. The method may only be called when the parent is
+   * is the target of a visitation to ensure that it is properly in context.
+   * <p>Example usage:</p>
+   * <pre>@Override
+   * public VisitResult visit(
+   *   VisitContext visitContext,
+   *   UIComponent  target)
+   * {
+   *   if (someCondition)
+   *   {
+   *     UIXComponent.visitChildren(target, visitContext, new VisitCallback() {...});
+   *     return VisitResult.COMPLETE;
+   *   }
+   *   ...
+   * }</pre>
+   *
+   * @param visitContext the <code>VisitContext</code> for this visit
+   * @param parentComponent the <code>UIComponent</code> to visit the children. The parent component
+   * must be actively being visited in order to call this method.
+   * @param callback the <code>VisitCallback</code> instance
+   * whose <code>visit</code> method will be called
+   * for each node visited.
+   * @return component implementations may return <code>true</code>
+   * to indicate that the tree visit is complete (eg. all components
+   * that need to be visited have been visited).  This results in
+   * the tree visit being short-circuited such that no more components
+   * are visited.
+   */
+  public static boolean visitChildren(
+    VisitContext  visitContext,
+    UIComponent   parentComponent,
+    VisitCallback callback)
+  {
+    if (!(parentComponent instanceof UIXComponent))
+    {
+      // Not a UIXComponent, there is no extra functionality necessary in order to visit the
+      // children.
+      for (Iterator<UIComponent> iter = parentComponent.getFacetsAndChildren(); iter.hasNext();)
+      {
+        UIComponent child = iter.next();
+
+        if (child.visitTree(visitContext, callback))
+        {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    UIXComponent uixParentComponent = (UIXComponent)parentComponent;
+    FacesContext context = visitContext.getFacesContext();
+    RenderingContext rc = (_isEncodingVisit(visitContext))
+                            ? RenderingContext.getCurrentInstance()
+                            : null;
+    boolean doneVisiting = false;
+    RuntimeException re = null;
+
+    // setup any context needed for visiting the children of the component as opposed
+    // to the component itself
+
+    if (parentComponent instanceof UIXComponent)
+    {
+      if (rc != null)
+      {
+        uixParentComponent.setupChildrenEncodingContext(context, rc);
+      }
+      else
+      {
+        uixParentComponent.setupChildrenVisitingContext(context);
+      }
+    }
+
+    try
+    {
+      // determine whether this visit should be iterating.  If it shouldn't, don't
+      // even call the protected hook.  We currently don't iterate during the
+      // restore view phase when we are visiting all of the components.
+      boolean noIterate = (visitContext.getIdsToVisit() == VisitContext.ALL_IDS) &&
+                          (context.getCurrentPhaseId() == PhaseId.RESTORE_VIEW);
+
+      doneVisiting =  (noIterate)
+                        ? uixParentComponent._visitAllChildren(visitContext, callback)
+                        : uixParentComponent.visitChildren(visitContext, callback);
+    }
+    catch (RuntimeException ex)
+    {
+      re = ex;
+    }
+    finally
+    {
+      try
+      {
+        // teardown any context initialized above
+        if (rc != null)
+        {
+          uixParentComponent.tearDownChildrenEncodingContext(context, rc);
+        }
+        else
+        {
+          uixParentComponent.tearDownChildrenVisitingContext(context);
+        }
+      }
+      catch (RuntimeException ex)
+      {
+        if (re == null)
+        {
+          throw ex;
+        }
+        else
+        {
+          _LOG.warning(ex);
+        }
+      }
+    }
+
+    return doneVisiting;
   }
 
   /**
@@ -1044,4 +1149,34 @@ abstract public class UIXComponent extends UIComponent
   {
     throw new UnsupportedOperationException();
   }
+
+  /**
+   * Determine if we can flatten a core JSF component.
+   * @param component The component
+   * @return true if the component is a core JSF component and we can
+   * flatten it successfully.
+   */
+  private static boolean isFlattenableCoreComponent(UIComponent component)
+  {
+    // Optimize the cases of UINamingContainer (<f:subview>) and UIPanel -
+    // we will treat these components as FlattenedComponents because they do not render
+    // any DOM.
+    // Also note that as of JSF 2.0, UINamingContainer components are built
+    // by f:subview, as well as composite components.
+    Class<? extends UIComponent> componentClass = component.getClass();
+
+    if (UINamingContainer.class == componentClass)
+    {
+      // Check to see if this component was created as a composite
+      // component, which we cannot flatten
+      return component.getFacet(UIComponent.COMPOSITE_FACET_NAME) == null;
+    }
+
+    // Note that JSF 2.0 creates UIPanel wrappers around multiple components
+    // inside of <f:facet>
+    return UIPanel.class == componentClass;
+  }
+
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(UIXComponent.class);
 }

@@ -41,6 +41,12 @@ public class PartialDemoStatusBean implements java.io.Serializable
   {
     return _checkBoxUpdateCount;
   }
+  
+  public int getPrevalidateEventCount()
+  {
+    return _prevalidateEventCount;
+  }
+  
 
   public String getCheckBoxStateText()
   {
@@ -146,6 +152,11 @@ public class PartialDemoStatusBean implements java.io.Serializable
   {
     _checkBoxUpdateCount++;
   }
+  
+  public void incrementPrevalidateEventCount()
+  {
+    _prevalidateEventCount++;
+  }
 
   public String getUploadFileState()
   {
@@ -173,9 +184,11 @@ public class PartialDemoStatusBean implements java.io.Serializable
     _radioState = _DEFAULT_RADIO_STATE;
     _textValue = _DEFAULT_TEXT_VALUE;
     _uploadFileState = _DEFAULT_UPLOAD_FILE;
+    _prevalidateEventCount = 0;
   }
 
   private int     _checkBoxUpdateCount;
+  private int     _prevalidateEventCount;
   // This is kept as a Boolean so we can reset to the default value.
   private Boolean _checkBoxState;
   private Integer _choiceInt;

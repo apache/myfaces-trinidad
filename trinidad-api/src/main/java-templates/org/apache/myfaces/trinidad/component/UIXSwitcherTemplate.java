@@ -20,8 +20,6 @@ package org.apache.myfaces.trinidad.component;
 
 import java.io.IOException;
 
-import java.util.Iterator;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
@@ -139,7 +137,9 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
   {
     UIComponent facet = _getFacet();
     if (facet != null)
-      __encodeRecursive(context, facet);
+    {
+      facet.encodeAll(context);
+    }
   }
 
   /**

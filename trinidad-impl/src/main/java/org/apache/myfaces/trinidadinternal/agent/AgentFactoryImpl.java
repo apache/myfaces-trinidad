@@ -115,6 +115,43 @@ public class AgentFactoryImpl implements AgentFactory
       _populateUnknownAgentImpl(null, agent);
       return;
     }
+    
+    // Uncomment if you need to simulate googlebot crawler
+    /*if (facesContext != null && facesContext.getExternalContext().getRequestParameterMap().
+                        get("googlebot") != null)
+    {
+      _populateGoogleCrawlerAgentImpl("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)", agent, 25);
+      return;
+    }*/
+    
+    int googlebotIndex = userAgent.indexOf(_GOOGLEBOT_ID);
+    if (googlebotIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_GOOGLEBOT, _GOOGLEBOT_ID, googlebotIndex);
+      return;
+    }
+    
+    int bingIndex = userAgent.indexOf(_BINGBOT_ID);
+    if (bingIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_MSNBOT, _BINGBOT_ID, bingIndex);
+      return;
+    }
+    
+    bingIndex = userAgent.indexOf(_MSNBOT_ID);
+    if (bingIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_MSNBOT, _MSNBOT_ID, bingIndex);
+      return;
+    }
+    
+    int oracleSesIndex = userAgent.indexOf(_ORACLE_SES_ID);
+    if (oracleSesIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_ORACLE_SES, _ORACLE_SES_ID, oracleSesIndex);
+      return;
+    }
+    
 
     //the useragent string for telnet and PDA design time will start with
     //OracleJDevMobile because in each of these cases we know we have an
@@ -388,12 +425,31 @@ public class AgentFactoryImpl implements AgentFactory
    */
   private void _populatePocketPCAgentImpl(String agent,String uaPixels,AgentImpl agentObj)
   {
-    int start = agent.indexOf("MSIE");
+
+    // The latest Windows-Mobile user-agents have different formats, so we
+    // need to have two difference logics to handle both older and newer 
+    // WM browsers.    
+    // Latest WM browsers have version detail assiciated with "IEMobile"
+    int start = agent.indexOf("IEMobile");
+    
+    int length;
+    
+    // If "IEMobile" not present, use the legacy "MSIE"
+    if (start < 0)
+    {
+      start = agent.indexOf("MSIE");
+      length = "MSIE".length();
+    }
+    else
+    {
+      length = "IEMobile".length();
+    }
+    
     String version = null;
 
     if (start > -1)
     {
-      version = _getVersion(agent, start + "MSIE".length());
+      version = _getVersion(agent, start + length);
     }
     agentObj.setType(Agent.TYPE_PDA);
     agentObj.setAgent(Agent.AGENT_IE);
@@ -797,9 +853,13 @@ public class AgentFactoryImpl implements AgentFactory
       // At the moment, this includes Safari and Google Chrome
       agentObj.setPlatform(Agent.PLATFORM_WINDOWS);
     }
+    else if (agent.indexOf("Android") > 0)
+    {
+      //Includes Android Webkit browsers
+      agentObj.setPlatform(Agent.PLATFORM_ANDROID);
+    } 
     else if (agent.indexOf("Linux") > 0)
     {
-      // At the moment, this includes Android
       agentObj.setPlatform(Agent.PLATFORM_LINUX);
     }
     else if (agent.indexOf("Mac") > 0)
@@ -807,7 +867,16 @@ public class AgentFactoryImpl implements AgentFactory
       // At the moment, this includes Safari
       agentObj.setPlatform(Agent.PLATFORM_MACOS);
     }
-
+    else if (agent.indexOf("BlackBerry") > 0)
+    {
+      //Includes Blackberry Webkit browsers
+      agentObj.setPlatform(Agent.PLATFORM_BLACKBERRY);
+    }    
+    else if (agent.indexOf("webOS") > 0)
+    {
+      agentObj.setPlatform(Agent.PLATFORM_PALM);
+    }
+  
     String version = _getVersion(agent, start);
     agentObj.setType(Agent.TYPE_DESKTOP);
     if ((agent.indexOf("Symbian") > -1) || (agent.indexOf("Nokia") > -1))
@@ -932,7 +1001,29 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
 
   }
+  
+  /**
+   * Returns an AgentEntry for a web crawler
+   */
+  private void _populateCrawlerAgentImpl(String userAgent, 
+                                         AgentImpl agentObj,
+                                         String agent,
+                                         String agentId,
+                                         int idIndex)
+  {
+    agentObj.setType(Agent.TYPE_WEBCRAWLER);
 
+    agentObj.setAgent(agent);
+    String version = _getVersion(userAgent, idIndex + agentId.length());
+    if (version != null && version.length() > 0)
+    {
+      agentObj.setAgentVersion(version);
+    }
+    agentObj.setPlatform(Agent.PLATFORM_UNKNOWN);
+    agentObj.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
+    agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
+
+  }
 
   /**
    * Returns the version contained within a string starting
@@ -995,4 +1086,8 @@ public class AgentFactoryImpl implements AgentFactory
   static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";
   static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentFactoryImpl.class);
 
+  static final private String _GOOGLEBOT_ID = "Googlebot";
+  static final private String _MSNBOT_ID = "msnbot";
+  static final private String _BINGBOT_ID = "bingbot";
+  static final private String _ORACLE_SES_ID = "Oracle Secure Enterprise Search";
 }

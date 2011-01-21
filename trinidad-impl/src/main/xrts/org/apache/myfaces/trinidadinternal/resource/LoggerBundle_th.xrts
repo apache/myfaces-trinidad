@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">ไม่สามารถโหลด {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">ไม่สามารถเริ่มต้นอินสแตนซ์ UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">ไม่สามารถอัปโหลดไฟล์ เนื่องจากมีขนาดใหญ่เกินไป</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad กำลังรันในโหมดการดีบัก ห้ามใช้ในสภาวะแวดล้อมการใช้งานจริง โปรดดูที่: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->

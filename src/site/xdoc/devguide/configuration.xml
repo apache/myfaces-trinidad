@@ -617,6 +617,7 @@ The behavior is controlled by passing a comma-delimited set of case-insensitive 
 <li><strong>NONE</strong> no state serialization checks are performed (the default)</li>
 <li><strong>ALL</strong> perform all available tests (unless NONE is also specified, in which case NONE takes precedence)</li>
 <li><strong>SESSION</strong> Wrap the Session Map returned by the ExternalContext to test that only Serializable objects are placed in the Session Map, throwing a CastCastException if the Object is not Serializable</li>
+<li><strong>BEANS </strong> The attributes of the session and application Maps should be checked for cases where the attribute was mutated but not dirtied for failover.</li>
 <li><strong>TREE</strong> aggressively attempt to serialize the component state during state saving and throw an exception if serialization fails</li>
 <li><strong>COMPONENT</strong> aggressively attempt to serialize each component subtree's state during state saving in order to identify the problem component (slow)</li>
 <li><strong>PROPERTY</strong> aggessively attempt to serialize each property value during state saving in order to identify the problem property (slow)</li>

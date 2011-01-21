@@ -30,6 +30,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
+import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
@@ -110,6 +111,12 @@ public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
     return _skin.getFamily();
   }
 
+  @Override
+  public SkinVersion getVersion()
+  {
+    return _skin.getVersion();
+  }
+  
   @Override
   public String getRenderKitId()
   {

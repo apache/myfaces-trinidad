@@ -35,6 +35,7 @@ public class XmlResponseWriter extends ResponseWriter
   {
     _out = writer;
     _encoding = encoding;
+    _cdataCount = 0;
   }
 
   public String getCharacterEncoding()
@@ -60,8 +61,12 @@ public class XmlResponseWriter extends ResponseWriter
   public void startCDATA() throws IOException 
   {
     closeStartIfNecessary();
-    _out.write("<![CDATA[");
-
+    // Ignore all nested calls to start a CDATA section except the first - a CDATA section cannot contain the string 
+    // "]]>" as the section ends ends with the first occurrence of this sequence.
+    _cdataCount++;
+    
+    if (_cdataCount == 1)
+      _out.write("<![CDATA[");
   }
 
   /**
@@ -70,7 +75,11 @@ public class XmlResponseWriter extends ResponseWriter
    */
   public void endCDATA() throws IOException 
   {
-    _out.write("]]>");
+    // Only close the outermost CDATA section and ignore nested calls to endCDATA(). 
+    if (_cdataCount == 1)
+      _out.write("]]>");
+    
+    _cdataCount--;
   }
 
   public void endDocument() throws IOException
@@ -236,4 +245,5 @@ public class XmlResponseWriter extends ResponseWriter
   private final Writer      _out;
   private final String      _encoding;
   private       boolean     _closeStart;
+  private       int         _cdataCount;
 }

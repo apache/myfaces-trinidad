@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Nu s-a putut încărca {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Nu se poate instanţia UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Fişierul nu a putut fi încărcat, deoarece este prea mare.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad rulează în modul Depanare. Nu utilizaţi într-un mod de producţie. Consultaţi: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->

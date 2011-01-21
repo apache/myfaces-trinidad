@@ -44,6 +44,11 @@ public class PartialDemoUtilBean
     _status.reset();
     _resetList();
   }
+  
+  public void prevalidateField()
+  {
+    _status.incrementPrevalidateEventCount();
+  }
 
   public void valueChanged(ValueChangeEvent vce)
   {
