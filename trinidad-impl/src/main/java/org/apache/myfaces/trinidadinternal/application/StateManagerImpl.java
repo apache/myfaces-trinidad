@@ -958,6 +958,13 @@ public class StateManagerImpl extends StateManagerWrapper
       return false;
     }
 
+    // is vanilla JSF used? No Trinidad render-kit-id give? If so, we need to return FALSE,
+    // since we want to save the ENTIRE state on the client...
+    if (RenderKitFactory.HTML_BASIC_RENDER_KIT.equals(FacesContext.getCurrentInstance().getViewRoot().getRenderKitId()))
+    {
+      return false;
+    }
+
     // Last missing option: state-saving is "CLIENT" and the client-state-method uses
     // its default (token), so we return TRUE to send down a token string.
     return true;
