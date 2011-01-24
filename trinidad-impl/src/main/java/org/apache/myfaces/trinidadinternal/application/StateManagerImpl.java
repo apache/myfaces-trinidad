@@ -947,7 +947,9 @@ public class StateManagerImpl extends StateManagerWrapper
 
     // is vanilla JSF used? No Trinidad render-kit-id give? If so, we need to return FALSE,
     // since we want to save the ENTIRE state on the client...
-    if (RenderKitFactory.HTML_BASIC_RENDER_KIT.equals(FacesContext.getCurrentInstance().getViewRoot().getRenderKitId()))
+    UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+
+    if (viewRoot != null && RenderKitFactory.HTML_BASIC_RENDER_KIT.equals(viewRoot.getRenderKitId()))
     {
       return false;
     }
