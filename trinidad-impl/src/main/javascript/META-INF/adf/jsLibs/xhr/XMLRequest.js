@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -48,7 +48,7 @@ TrXMLRequest.COMPLETED = 4;
 * Parameters: isSynch - true if request should be synchronous,
 * false otherwise
 **/
-TrXMLRequest.prototype.setSynchronous = 
+TrXMLRequest.prototype.setSynchronous =
 function (isSynch)
 {
   this.isSynchronous = isSynch;
@@ -61,7 +61,7 @@ function (isSynch)
 * The callback should have the following siganture:
 * <void> function (<TrXMLRequest>request)
 **/
-TrXMLRequest.prototype.setCallback = 
+TrXMLRequest.prototype.setCallback =
 function (_callback)
 {
   this.callback = _callback;
@@ -91,7 +91,7 @@ function()
 * Note: this method will block if the the request is asynchronous and
 * has not yet been completed
 **/
-TrXMLRequest.prototype.getResponseXML = 
+TrXMLRequest.prototype.getResponseXML =
 function()
 {
   return this.xmlhttp.responseXML;
@@ -102,7 +102,7 @@ function()
 * Note: this method will block if the the request is asynchronous and
 * has not yet been completed
 **/
-TrXMLRequest.prototype.getResponseText = 
+TrXMLRequest.prototype.getResponseText =
 function()
 {
   return this.xmlhttp.responseText;
@@ -110,7 +110,7 @@ function()
 
 /**
 * Sends an XML HTTP request
-* Parameters: 
+* Parameters:
 * url - destination URL
 * content - XML document or string that should be included in the request's body
 **/
@@ -124,7 +124,7 @@ function(url, content)
     cb.obj = this;
     xmlhttp.onreadystatechange  = cb;
   }
-  
+
   var method = content ? "POST" : "GET";
   xmlhttp.open(method, url, !this.isSynchronous);
   for (var name in this.headers)
@@ -143,20 +143,20 @@ function(url, content)
 }
 
 
-TrXMLRequest.prototype.getResponseHeader = 
+TrXMLRequest.prototype.getResponseHeader =
 function(name)
 {
 
   return this.xmlhttp.getResponseHeader(name);
 }
 
-TrXMLRequest.prototype.getAllResponseHeaders = 
+TrXMLRequest.prototype.getAllResponseHeaders =
 function()
 {
   return this.xmlhttp.getAllResponseHeaders();
 }
 
-TrXMLRequest.prototype.setRequestHeader = 
+TrXMLRequest.prototype.setRequestHeader =
 function(name, value)
 {
   this.headers[name] = value;
@@ -213,7 +213,8 @@ TrXMLRequest.prototype.cleanup =function()
  */
 function TrXMLJsfAjaxRequest(
   event,
-  params)
+  params,
+  formId)
 {
   this.isSynchronous = false;
   this.callback = null;
@@ -221,6 +222,7 @@ function TrXMLJsfAjaxRequest(
   this._params = params || new Object();
   this._status = 0;
   this._state = TrXMLRequest.UNINITIALIZED;
+  this._formId = formId;
 }
 TrXMLJsfAjaxRequest.prototype.setCallback = function(value)
 {
@@ -244,6 +246,17 @@ TrXMLJsfAjaxRequest.prototype.getResponseText = function()
 }
 TrXMLJsfAjaxRequest.prototype.cleanup = function()
 {
+  if (this._formElements != null)
+  {
+    for (var name in this._formElements)
+    {
+      var origValue = this._origFormValues[name];
+      this._formElements[name].value = origValue;
+    }
+  }
+  delete this._origFormValues;
+  delete this._formElements;
+
   this.callback = null;
 }
 TrXMLJsfAjaxRequest.prototype._ajaxCallback = function(
@@ -301,10 +314,45 @@ TrXMLJsfAjaxRequest.prototype.send = function()
       "onerror": ajaxCallback,
       "Tr-PPR-Message": true // Indicate that this a "legacy" PPR request sent over jsf.ajax
     };
-    
+
   for (var p in this._params)
   {
     payload[p] = this._params[p];
+  }
+
+  // Unlike the Trinidad Request queue _getPostbackContent method, the core JSF ajax request
+  // does not overwrite form values with parameter values. Due to the fact that this is expected
+  // and Trinidad renderers add form hidden fields to the form (see CoreFormData source), we
+  // need to update the form here and remove the values from the params.
+  this._origFormValues = {};
+  this._formElements = {};
+  if (this._formId != null)
+  {
+    var formElement = document.getElementById(this._formId);
+    if (formElement != null)
+    {
+      var formElements = formElement.elements;
+      for (var i = 0; i < formElements.length; ++i)
+      {
+        var input = formElements[i];
+        if (input.name && !input.disabled && !(input.tagName == "INPUT" && input.type == "submit"))
+        {
+          for (p in payload)
+          {
+            if (p == input.name)
+            {
+              var payloadValue = payload[p];
+              delete payload[p];
+
+              this._origFormValues[p] = input.value;
+              this._formElements[p] = input;
+              input.value = payloadValue;
+              break;
+            }
+          }
+        }
+      }
+    }
   }
 
   jsf.ajax.request(

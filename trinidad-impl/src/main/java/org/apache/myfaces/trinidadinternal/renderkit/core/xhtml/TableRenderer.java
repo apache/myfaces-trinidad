@@ -67,7 +67,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRende
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableSelectManyRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableSelectOneRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 
 
 abstract public class TableRenderer extends XhtmlRenderer
@@ -112,7 +111,14 @@ abstract public class TableRenderer extends XhtmlRenderer
     Map<String, String> parameters =
       facesContext.getExternalContext().getRequestParameterMap();
 
-    String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+    Object source = parameters.get("javax.faces.source");
+
+    // Support the legacy as well as JSF2 parameter name
+    if (source == null)
+    {
+      source = parameters.get("source");
+    }
+
     String id = clientId == null ? component.getClientId(facesContext) : clientId;
     if (!id.equals(source))
       return;
@@ -424,23 +430,23 @@ abstract public class TableRenderer extends XhtmlRenderer
           rw.writeText(tContext.getJSVarName()+"="+
                  TreeUtils.createNewJSCollectionComponentState(formName, tid)+";", null);
           rw.endElement(XhtmlConstants.SCRIPT_ELEMENT);
-          
-          // Incases where we partial refresh an empty table, Windows Mobile/ 
-          // BlackBerry ignore the JS which is sent as a PPR response to handle 
-          // page navigation and show/hide functions. To fix this problem, lets 
+
+          // Incases where we partial refresh an empty table, Windows Mobile/
+          // BlackBerry ignore the JS which is sent as a PPR response to handle
+          // page navigation and show/hide functions. To fix this problem, lets
           // render the JS here
           if ((Agent.PLATFORM_PPC.equalsIgnoreCase(
-                               rc.getAgent().getPlatformName()) 
+                               rc.getAgent().getPlatformName())
               || Agent.PLATFORM_BLACKBERRY.equalsIgnoreCase(
                                rc.getAgent().getPlatformName()))
-              && supportsScripting(rc) 
+              && supportsScripting(rc)
               && tContext.getRowData().isEmptyTable())
           {
             // Script for show/hide funtionality in detailStamp facet
             rw.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
             renderScriptDeferAttribute(context, rc);
             renderScriptTypeAttribute(context, rc);
-            
+
             String js =  "function _submitHideShow(a,v,b,c,l,d) {" +
                       "var o = {"+
                              XhtmlConstants.EVENT_PARAM + ":b," +
@@ -450,10 +456,10 @@ abstract public class TableRenderer extends XhtmlRenderer
                        "_setRequestedFocusNode(document,l,false,window);" +
                        "_submitPartialChange(a,v,o);" +
                        "return false;}";
-            
+
             rw.writeText(js, null);
             rw.endElement(XhtmlConstants.SCRIPT_ELEMENT);
-            
+
             // Script for pagination
             ProcessUtils.renderNavSubmitScript(context, rc);
             ProcessUtils.renderNavChoiceSubmitScript(context, rc);

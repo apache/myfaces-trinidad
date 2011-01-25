@@ -193,13 +193,13 @@ TrRequestQueue.prototype.sendFormPost = function(
       // come up with a hack to send "headers" via a multipart request?
       this.sendRequest(context, method, action, params, headerParams, event,
         params ? params.source : null, actionForm.id);
-  }
+    }
     else
     {
       var content = this._getPostbackContent(actionForm, params);
       this.sendRequest(context, method, action, content, headerParams, event,
         params ? params.source : null, actionForm.id);
-}
+    }
   }
 }
 
@@ -456,7 +456,8 @@ TrRequestQueue.prototype._doXmlHttpRequest = function(requestItem)
   var xmlHttp;
   if (this._useJsfBuiltInAjaxForXhr)
   {
-    xmlHttp = new TrXMLJsfAjaxRequest(requestItem._event, requestItem._content);
+    xmlHttp = new TrXMLJsfAjaxRequest(requestItem._event, requestItem._content,
+      requestItem._formId);
   }
   else
   {
@@ -473,26 +474,26 @@ TrRequestQueue.prototype._doXmlHttpRequest = function(requestItem)
 
   if (!this._useJsfBuiltInAjaxForXhr)
   {
-  // xmlhttp request uses the same charset as its parent document's charset.
-  // There is no need to set the charset.
-  xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    // xmlhttp request uses the same charset as its parent document's charset.
+    // There is no need to set the charset.
+    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-  var headerParams = requestItem._headerParams;
+    var headerParams = requestItem._headerParams;
 
-  if (headerParams != null)
-  {
-    for (var headerName in headerParams)
+    if (headerParams != null)
     {
-      var currHeader =  headerParams[headerName];
+      for (var headerName in headerParams)
+      {
+        var currHeader =  headerParams[headerName];
 
-      // handle array parameters by joining them together with comma separators
-      // Test if it's an array via the "join" method
-      if (currHeader["join"])
-        currHeader = currHeader.join(',')
+        // handle array parameters by joining them together with comma separators
+        // Test if it's an array via the "join" method
+        if (currHeader["join"])
+          currHeader = currHeader.join(',')
 
-      xmlHttp.setRequestHeader(headerName, currHeader);
+        xmlHttp.setRequestHeader(headerName, currHeader);
+      }
     }
-  }
   }
 
   xmlHttp.send(requestItem._actionURL, requestItem._content);

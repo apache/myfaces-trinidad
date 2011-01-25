@@ -228,7 +228,7 @@ function _agentInit()
 
   // Indicate browser's PPR capability support
   var pprUnsupported    = false;
-  
+
   // Indicate whether the browser and platform are capable of
   // sending PPR requests via JSF Ajax
   var useJsfAjax = true;
@@ -281,7 +281,7 @@ function _agentInit()
         // A new kind string was given to WM6 browser as the
         // capability is significantly different from predecessors.
         kind = "iemobile";
-        // Switch off JSF ajax for time being. There are still unresolved 
+        // Switch off JSF ajax for time being. There are still unresolved
         // issues with Mojarra in supporting mobile-browsers
         useJsfAjax = false;
       }
@@ -346,7 +346,7 @@ function _agentInit()
 
     isBlackBerry = true;
     kind = "blackberry";
-    // Switch off the JSF ajax for time being. There are still unresolved 
+    // Switch off the JSF ajax for time being. There are still unresolved
     // issues with Mojarra in supporting mobile browsers
     useJsfAjax = false;
   }
@@ -3909,7 +3909,7 @@ function _submitPartialChange(
   parameters = _addFormParameter(parameters, "partial", "true");
 
   // block all mouse clicks until the submit is done
-    _pprStartBlocking(window);
+  _pprStartBlocking(window);
 
   // Submit the form
   var submitted = submitForm(form, doValidate, parameters, true, event);
@@ -4929,7 +4929,7 @@ TrUIUtils._getElementLocation = function(elem)
           box = doc.getBoxObjectFor(doc.documentElement);
           loc.x -= box.screenX;
           loc.y -= box.screenY;
-          return loc;        
+          return loc;
         }
       }
     }
@@ -5032,11 +5032,11 @@ TrUIUtils._getStyle = function(element, prop)
  * http://en.wikipedia.org/wiki/Double_precision
  *
  * this means in certain cases a long value that will be fine on the server will be
- * rounded by the client converter. To avoid this parse the number string, and don't 
- * try to convert on the client if the number of digits is greater than 15. 
- * 
- * Of course this is an imperfect fix, but since the vast majority of 
- * numbers entered are less than 15 digits numbers are still converted on the client most 
+ * rounded by the client converter. To avoid this parse the number string, and don't
+ * try to convert on the client if the number of digits is greater than 15.
+ *
+ * Of course this is an imperfect fix, but since the vast majority of
+ * numbers entered are less than 15 digits numbers are still converted on the client most
  * of the time.
  */
 TrUIUtils.isNumberConvertible = function(numberString)
@@ -5044,22 +5044,22 @@ TrUIUtils.isNumberConvertible = function(numberString)
   if (numberString != null)
   {
     var nums = 0;
-    
+
     for (var i = 0; i < numberString.length; i++)
     {
       var charCode = numberString.charCodeAt(i);
-      // the charcode for "0" is 48, the charcode for "9" is 57, so count anything between these 
+      // the charcode for "0" is 48, the charcode for "9" is 57, so count anything between these
       // as a number
       if (charCode > 47 && charCode < 58)
       {
         nums++;
       }
     }
-    
+
     if (nums > 15)
-      return false;    
+      return false;
   }
-    
+
   return true;
 }
 
