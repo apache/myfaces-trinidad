@@ -32,6 +32,7 @@ import java.util.Map;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
@@ -409,7 +410,17 @@ final class StampState implements Externalizable
     @Override
     public void restoreRowState(UIComponent child)
     {
-      ((UIXCollection) child).__setMyStampState(_state);
+      //There is a bug in the RI where, on a PPR request, an UIPanel will sometimes be
+      //added to a facet that contains only one child in facelets.  This, of course,
+      //changes the structure of the saved data.  If we get a UIPanel here, then this
+      //but is the cause.  It means we have a Collection which contains a switcher
+      //which in turn contains another Collection, and UIPanel was returned instead of
+      //the origional collection.  Therefore, this UIPanel should ALWAYS only have one
+      //Item.  If the facet contained more then one item, we would ALWAYS have a UIPanel
+      //and therefore we would be using a different stamp state.
+      UIXCollection myChild = (child instanceof UIPanel)?(UIXCollection)child.getChildren().get(0):(UIXCollection)child;
+      
+      myChild.__setMyStampState(_state);
     }
 
     @Override
