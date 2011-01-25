@@ -361,6 +361,17 @@ public class FormRenderer extends XhtmlRenderer
       _renderNeededValues(context, rc);
     }
 
+    // Windows Mobile (WM) 6.1 doesn't support executing JS which are sent along
+    // a PPR response, so components which have their own JS will not work in
+    // WM 6.1 if it is injected during a PPR.
+    // To fix this issue, we need to render the script used by other components. 
+    if ((Agent.PLATFORM_PPC.equalsIgnoreCase(rc.getAgent().getPlatformName()))  
+        && Boolean.TRUE.equals(rc.getAgent().
+                     getCapabilities().get(TrinidadAgent.CAP_PARTIAL_RENDERING)))
+    {
+      _renderOtherComponentScripts(context, rc, writer);
+    }
+      
     // Render submitFormCheck js function --
     // checks if submitForm was rejected because form was incomplete
     // when it was called, and thus calls submitForm again.
@@ -1273,6 +1284,29 @@ public class FormRenderer extends XhtmlRenderer
         }
       }
     }
+  }
+
+  /**
+   * Render the JavaScript needed by other components.
+   * @param: context - FacesContext
+   * @param: arc - RenderingContext
+   * @param: writer - ResponseWriter
+   */
+  private void _renderOtherComponentScripts(
+    FacesContext  context,
+    RenderingContext arc,
+    ResponseWriter writer) throws IOException
+  {
+    // Script for show/hide funtionality in detailStamp facet
+    writer.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
+    renderScriptDeferAttribute(context, arc);
+    renderScriptTypeAttribute(context, arc);
+    writer.writeText(ShowDetailRenderer.PARTIAL_JS, null);
+    writer.endElement(XhtmlConstants.SCRIPT_ELEMENT);
+      
+    // Script for a table's pagination
+    ProcessUtils.renderNavSubmitScript(context, arc);
+    ProcessUtils.renderNavChoiceSubmitScript(context, arc);  
   }
 
   // key used to indicate whether or not usesUpload is used:

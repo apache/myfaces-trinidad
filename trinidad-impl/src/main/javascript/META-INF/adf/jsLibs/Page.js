@@ -650,8 +650,16 @@ TrPage.prototype._loadScript = function (source)
     var responseText = xmlHttp.getResponseText();
     if (responseText)
     {
-      if (_agent.isIE)
-        window.execScript(responseText);
+      if (_agent.isIE || _agent.isWindowsMobile6)
+      {
+        // Some WindowsMobile browser like 6.1 simply doesn't have 
+        // consisitent support for window.execScript, so better 
+        // to catch an exception .
+        try
+        {      
+          window.execScript(responseText);
+        } catch(e) {} 
+      } 
       else
         window.eval(responseText);
     }
@@ -674,8 +682,31 @@ TrPage.prototype._handlePprResponseScript = function (scriptNode)
     var nodeText = TrPage._getTextContent(scriptNode);
     if (nodeText)
     {
-      if (_agent.isIE)
-        window.execScript(nodeText);
+      if (_agent.isIE || _agent.isWindowsMobile6)
+      {
+        // Some WindowsMobile browser like 6.1 simply doesn't have 
+        // consisitent support for window.execScript, so better 
+        // to catch an exception .
+        try
+        {
+          window.execScript(nodeText);
+        }
+        catch(e) {}
+      } 
+      
+      // flakey head appendix method which does not work in the correct 
+      // order or at all for all modern browsers but seems to be the only 
+      // method which works on blackberry correctly hence we are going to 
+      // use it as fallback
+      else if(_agent.isBlackBerry)
+      {
+        var head = document.getElementsByTagName("head")[0];
+        var scriptElement = document.createElement("script");
+        scriptElement.type = "text/javascript";
+        scriptElement.text = nodeText; 
+        head.insertBefore(scriptElement, head.firstChild);
+        head.removeChild(scriptElement); 
+      }
       else
         window.eval(nodeText);
     }
@@ -691,7 +722,7 @@ TrPage.prototype._handlePprResponseLibrary = function (scriptNode)
 // TODO: move to agent API
 TrPage._getTextContent = function (element)
 {
-  if (_agent.isIE)
+  if (_agent.isIE || _agent.isWindowsMobile6)
   {
     // NOTE: this only works if it is an element, not some other DOM node
     var textContent = element.innerText;
@@ -701,9 +732,9 @@ TrPage._getTextContent = function (element)
     return textContent;
   }
 
-  // Safari doesn't have "innerText", "text" or "textContent" -
+  // Safari/BlackBerry doesn't have "innerText", "text" or "textContent" -
   // (at least not for XML nodes).  So sum up all the text children
-  if (_agent.isSafari)
+  if (_agent.isSafari || _agent.isBlackBerry)
   {
     var text = "";
     var currChild = element.firstChild;
