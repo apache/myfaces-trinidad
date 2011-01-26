@@ -49,7 +49,19 @@ public class SkinFactoryImpl extends SkinFactory
     _skins = new LinkedHashMap<String, Skin>();
 
   }
-
+  
+   /**
+    * <p>Register the specified {@link Skin} instance, associated with
+    * the specified <code>skinId</code>, to be supported by this
+    * {@link SkinFactory}, replacing any previously registered
+    * {@link Skin} for this identifier.</p>
+    * 
+    * <p>A warning will be logged if a previously registered {@link Skin} was replaced, since it could produce
+    * inconsistent results if the application cached the previously registered Skin.</p>
+    *
+    * @param skinId Identifier of the {@link Skin} to register
+    * @param skin {@link Skin} instance that we are registering
+    */
   @Override
   public  void addSkin(
     String skinId,
@@ -63,7 +75,9 @@ public class SkinFactoryImpl extends SkinFactory
 
     synchronized (_skins)
     {
-      _skins.put(skinId, skin);
+      Skin previousValue = _skins.put(skinId, skin);
+      if (previousValue != null)
+        _LOG.warning("DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY", skinId);
     }
   }
 
