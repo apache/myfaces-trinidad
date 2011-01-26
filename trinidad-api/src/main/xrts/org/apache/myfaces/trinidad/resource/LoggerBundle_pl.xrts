@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Menedżerowi zmian nie udało się zastosować metody AddChildComponentChange, ponieważ już istnieje składnik podrzędny o tym samym identyfikatorze. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Nie określono żadnego węzła</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Stemplowany składnik nie jest utrwalany w obrębie iteratora</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Wymagany składnik</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -316,4 +318,6 @@
 <resource key="ZIP_STATE_FAILED" dnt="false">Nie udało się skompresować (zip) stanu strony. Stan, aby można go było kompresować, musi być serializowalny, dlatego typową przyczyną nieudanego skompresowania stanu jest jego nieserializowalność. Kompresowanie można wyłączyć, ustawiając właściwość org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE na wartość false. Informacje, jak sprawdzać różne aspekty serializacji, można znaleźć w dokumentacji opisującej systemową właściwość org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION.</resource>
 <!-- UNZIP_STATE_FAILED -->
 <resource key="UNZIP_STATE_FAILED" dnt="false">Nie udało się zdekompresować stanu strony.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">Metody getClientId nie należy wywoływać podczas konstruowania perspektywy. Identyfikator składnika: {0}</resource>
 </resources>

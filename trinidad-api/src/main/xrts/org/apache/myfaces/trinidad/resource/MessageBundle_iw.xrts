@@ -42,7 +42,7 @@
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">חובה לבחור בחירה אחת לפחות.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">נדרשת בחירה.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">חובה לבחור בחירה אחת לפחות.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">עליך לבצע בחירה.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">נדרשת בחירת שורה.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">עליך לבחור שורה.</resource>

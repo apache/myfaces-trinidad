@@ -42,7 +42,7 @@
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">Πρέπει να πραγματοποιήσετε τουλάχιστον μία επιλογή.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">Απαιτείται μια επιλογή.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">Πρέπει να πραγματοποιήσετε τουλάχιστον μία επιλογή.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">Πρέπει να κάνετε μία επιλογή.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">Απαιτείται μια επιλογή σειράς.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">Πρέπει να επιλέξετε μια σειρά.</resource>

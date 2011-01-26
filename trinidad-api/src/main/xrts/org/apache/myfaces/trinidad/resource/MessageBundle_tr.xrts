@@ -42,7 +42,7 @@
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">En az bir seçim yapmanız gerekli.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">Seçim yapılması gerekli.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">En az bir seçim yapmanız gerekli.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">Bir seçim yapmalısınız.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">Satır seçilmesi gerekli.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">Satır seçmeniz gerekli.</resource>

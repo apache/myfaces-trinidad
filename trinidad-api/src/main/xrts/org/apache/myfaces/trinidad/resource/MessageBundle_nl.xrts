@@ -42,7 +42,7 @@
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">U moet ten minste één item selecteren.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">Een selectie is vereist.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">U moet ten minste één item selecteren.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">U moet een selectie maken.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">Er moet een rij worden geselecteerd.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">U moet een rij selecteren.</resource>

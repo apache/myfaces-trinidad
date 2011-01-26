@@ -42,7 +42,7 @@
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">必须至少做一个选择。</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">要求进行选择。</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">必须至少做一个选择。</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">必须进行选择。</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">要求选择行。</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">必须选择一行。</resource>

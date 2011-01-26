@@ -500,7 +500,7 @@
 <resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">들여쓰기</resource>
 <resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">하이퍼링크 생성</resource>
 <resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">링크 위치 입력(예: http://www.oracle.com)</resource>
-<resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">사용자 클릭 대상 URL</resource>
+<resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">사용자 누르기 대상 URL</resource>
 <resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">이미지 업로드</resource>
 <resource key="RTE_FONT_CHOICE_TEXT" dnt="false">글꼴</resource>
 <resource key="RTE_FONT_SIZE_CHOICE_TEXT" dnt="false">글꼴 크기</resource>

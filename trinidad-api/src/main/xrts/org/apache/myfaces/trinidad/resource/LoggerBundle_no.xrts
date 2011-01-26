@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Endringsstyrer kan ikke iverksette AddChildComponentChange fordi det allerede finnes en underordnet komponent med samme ID. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Ingen knutepunkt er angitt</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Vi vil ikke opprettholde den stemplede komponenten i en iterator</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Komponent er nødvendig</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -316,4 +318,6 @@
 <resource key="ZIP_STATE_FAILED" dnt="false">Kan ikke pakke sidetilstanden. Tilstanden må være serialiserbar for at den skal kunne pakkes. En vanlig årsak til at pakkingen mislykkes, er at sidetilstanden ikke er serialisebar. Du kan deaktivere pakking ved å sette org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE til usann. Se dokumentet om systemegenskapen org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION om hvordan du tester ulike aspekter ved serialisering.</resource>
 <!-- UNZIP_STATE_FAILED -->
 <resource key="UNZIP_STATE_FAILED" dnt="false">Kan ikke pakke ut sidetilstanden.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">getClientId må ikke kalles når visningen bygges. Komponent-ID: {0}</resource>
 </resources>

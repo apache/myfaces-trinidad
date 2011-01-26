@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Сбой при попытке диспетчера изменений применить AddChildComponentChange, т.к. дочерний компонент с таким идентификатором уже существует. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Не задан узел</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">В итераторе не должны содержаться помеченные компоненты</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Требуется компонент</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -316,4 +318,6 @@
 <resource key="ZIP_STATE_FAILED" dnt="false">Сбой при добавлении состояния страницы в zip-архив. Для добавления состояния в zip-архив оно должно быть сериализуемым, поэтому распространенной причиной сбоев при добавлении состояний в zip-архивы является несериализуемость состояния. Добавление в zip-архив можно отключить, установив для org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION значение false. О проверке различных аспектов сериализации см. документацию о системном свойстве org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION.</resource>
 <!-- UNZIP_STATE_FAILED -->
 <resource key="UNZIP_STATE_FAILED" dnt="false">Сбой при извлечении состояния страницы из zip-архива.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">Параметр getClientId не должен вызываться во время построения представления. Идентификатор компонента: {0}</resource>
 </resources>

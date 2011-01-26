@@ -36,19 +36,19 @@
 <!-- message will be of the form <classname>.MSG_KEY_detail.             -->
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED" dnt="false">必須輸入值.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED_detail" dnt="false">您必須要輸入一個值.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED_detail" dnt="false">必須輸入一個值.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED" dnt="false">必須選擇一個項目.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">您至少必須選擇一個項目.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">必須至少選擇一個項目.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">必須選擇一個項目.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">您至少必須選擇一個項目.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">必須選取一個項目.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">必須選擇一個資料列.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">您必須選取一個資料列.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">必須選取一個資料列.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED" dnt="false">必須選擇一個資料列.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED_detail" dnt="false">您必須選取一或多個資料列.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED_detail" dnt="false">必須選取一或多個資料列.</resource>
 <!-- SelectManyRenderer ConversionException messages -->
 <!-- {0} modelClass                                  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.UNSUPPORTED_MODEL_TYPE" dnt="false">不支援的模型類型.</resource>
@@ -70,7 +70,7 @@
 <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.EXACT_HINT" dnt="false">輸入 {0} 個字元.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.RANGE_HINT" dnt="false">輸入介於 {0} 到 {1} 個之間的字元.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_HINT" dnt="false">輸入 {0} 當日或之前的日期.</resource>
-<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT" dnt="false"> 輸入 {0} 當日或之後的日期.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT" dnt="false">輸入 {0} 當日或之後的日期.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.RANGE_HINT" dnt="false">輸入 {0} 到 {1} 之間的日期.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT" dnt="false">輸入下列其中一個天次的日期: {0}</resource>
 <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT" dnt="false">輸入下列其中一個月份的日期: {0}</resource>

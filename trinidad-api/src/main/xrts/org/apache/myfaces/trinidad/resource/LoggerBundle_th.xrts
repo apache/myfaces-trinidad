@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">โปรแกรมจัดการการเปลี่ยนแปลงไม่สามารถใช้ AddChildComponentChange เนื่องจากมีองค์ประกอบระดับล่างที่มี ID เดียวกันแล้ว {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">ไม่ได้ระบุโหนด</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">เราไม่ต้องการกำหนดองค์ประกอบที่ประทับข้อมูลภายในตัววนซ้ำเป็นแบบถาวร</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">ต้องมีองค์ประกอบ</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -316,4 +318,6 @@
 <resource key="ZIP_STATE_FAILED" dnt="false">ไม่สามารถซิปสภาวะของเพจ สภาวะต้องเป็นแบบที่ซีเรียลไลซ์ได้จึงจะสามารถรวมในซิปไฟล์ได้ ดังนั้น สาเหตุทั่วไปที่สภาวะของเพจไม่สามารถซิปได้ก็คือ สภาวะของเพจนั้นไม่ใช่แบบที่ซีเรียลไลซ์ได้ คุณสามารถปิดการรวมไฟล์ซิปด้วยการตั้งค่า org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE เป็นเท็จ โปรดดูเอกสารเกี่ยวกับคุณสมบัติระบบ org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION เพื่อดูวิธีการทดสอบการซีเรียลไลซ์ในด้านต่างๆ</resource>
 <!-- UNZIP_STATE_FAILED -->
 <resource key="UNZIP_STATE_FAILED" dnt="false">ไม่สามารถคลายซิปสภาวะของเพจ</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">ไม่สามารถเรียก getClientId ขณะที่สร้างวิว ID องค์ประกอบ: {0}</resource>
 </resources>

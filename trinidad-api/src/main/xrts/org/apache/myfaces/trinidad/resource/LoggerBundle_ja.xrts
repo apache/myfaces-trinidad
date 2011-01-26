@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">同じIDの子コンポーネントがすでに存在するため、変更マネージャはAddChildComponentChangeの適用に失敗しました。{0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">ノードが指定されていません</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">イテレータ内でスタンプ済コンポーネントを永続化しません</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">コンポーネントが必要</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -316,4 +318,6 @@
 <resource key="ZIP_STATE_FAILED" dnt="false">ページ状態の圧縮に失敗しました。状態を圧縮するには状態がシリアライズ可能である必要があるため、ページ状態の圧縮に失敗する一般的な理由はページ状態がシリアライズ可能ではないことです。org.apache.myfaces.trinidad.COMPRESS_VIEW_STATEをfalseに設定することで、圧縮をオフにすることができます。シリアライズの様々な側面のテスト方法は、システム・プロパティorg.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATIONに関するドキュメントを参照してください。</resource>
 <!-- UNZIP_STATE_FAILED -->
 <resource key="UNZIP_STATE_FAILED" dnt="false">ページ状態の解凍に失敗しました。</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">ビューの作成中にgetClientIdの呼出しはできません。コンポーネントID: {0}</resource>
 </resources>

@@ -59,9 +59,9 @@
 <!-- NO_REQUESTCONTEXT_TIMEZONE_DEFAULT -->
 <resource key="NO_REQUESTCONTEXT_TIMEZONE_DEFAULT" dnt="false">לא נמצא RequestContext; ייעשה שימוש בברירת המחדל לאזור זמן.</resource>
 <!-- FAIL_HOLD_DECIMALFORMAT -->
-<resource key="FAIL_HOLD_DECIMALFORMAT" dnt="false">לא הושג DecimalFormat לסוג: {0} מפריד עשרוני, מפריד הקבצת מספרים, ייעשה שימוש בברירת המחדל לקוד מטבע המתאימה למקום {1}</resource>
+<resource key="FAIL_HOLD_DECIMALFORMAT" dnt="false">לא הושג DecimalFormat לסוג: {0} מפריד עשרוני, מפריד הקבצת מספרים, ייעשה שימוש בברירת המחדל לקוד מטבע המתאימה להגדרות האזור {1}</resource>
 <!-- NULL_REQUESTCONTEXT -->
-<resource key="NULL_REQUESTCONTEXT" dnt="false">RequestContext הוא null: מפריד עשרוני, מפריד הקבצת מספרים, ייעשה שימוש בברירת המחדל לקוד מטבע המתאימה למקום</resource>
+<resource key="NULL_REQUESTCONTEXT" dnt="false">RequestContext הוא null: מפריד עשרוני, מפריד הקבצת מספרים, ייעשה שימוש בברירת המחדל לקוד מטבע המתאימה להגדרות אזור</resource>
 <!-- NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE -->
 <resource key="NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE" dnt="false">RequestContext הוא null, אי אפשר להשיג קוד מטבע</resource>
 <!-- NUMBER_NOT_DECIMALFORMAT_IGNORE_CURRENCY -->
@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Change manager נכשל בהחלת AddChildComponentChange כיוון שכבר קיים רכיב בן עם אותו זיהוי. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">לא צוין צומת</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">איננו מעוניינים לעדכן רכיבים מוחתמים באיטרטור</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">נדרש רכיב</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -316,4 +318,6 @@
 <resource key="ZIP_STATE_FAILED" dnt="false">נכשלה יצירת zip של מצב הדף. המצב חייב להיות serializable כדי ליצור zip. סיבה נפוצה לכישלון ביצירת zip היא שמצב הדף אינו serializable. אפשר להפסיק את יצירת ה-zip על ידי הגדרת org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE כ-false. כדי ללמוד על בדיקת היבטים שונים של serialization, עיין בתיעוד על מאפיין המערכת org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION.</resource>
 <!-- UNZIP_STATE_FAILED -->
 <resource key="UNZIP_STATE_FAILED" dnt="false">נכשלה פעולת unzip של מצב הדף.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">אי אפשר לקרוא ל-getClientId בעת בניית ה-view. זיהוי הרכיב: {0}</resource>
 </resources>

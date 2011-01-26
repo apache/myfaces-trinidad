@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Değişiklik yöneticisi AddChildComponentChange uygulamayamadı, çünkü aynı kimliğe sahip bir bağımlı öğe bileşen zaten var. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Hiçbir düğüm belirlenmedi</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Tekrarlayıcı içinde damgalı bileşeni sürdürmek istemeyiz.</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Bileşen gerekli</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -316,4 +318,6 @@
 <resource key="ZIP_STATE_FAILED" dnt="false">Sayfa durumu zip ile arşivlenemedi. Bunun gerçekleştirilebilmesi için durumun seriye dönüştürülebilir olması gerekir, bu nedenle, sayfa durumunun zip ile arşivlenememesinin sık karşılaşılan nedenlerden biri seriye dönüştürülebilir olmamasıdır. org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE ayarını yanlış seçeneğine ayarlayarak zip işlevini kapatabilirsiniz. Seriye dönüştürme işleminin çeşitli yönlerinin nasıl test edileceği ile ilgili bilgi için sistem özelliği org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION ile ilgili belgeye bakın.</resource>
 <!-- UNZIP_STATE_FAILED -->
 <resource key="UNZIP_STATE_FAILED" dnt="false">Sayfa durumu unzip ile açılamadı.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">Görünüm yapılandırılırken getClientId çağrılmamalıdır. Bileşen No: {0}</resource>
 </resources>

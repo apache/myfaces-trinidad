@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Change Manager konnte AddChildComponentChange nicht anwenden, weil eine untergeordnete Komponente mit derselben ID bereits vorhanden ist. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Kein Knoten angegeben</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Gestempelte Komponente innerhalb eines Iterators soll nicht dauerhaft gespeichert werden</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Komponente erforderlich</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -316,4 +318,6 @@
 <resource key="ZIP_STATE_FAILED" dnt="false">Komprimieren des Seitenstatus nicht erfolgreich. Der Status muss &quot;Serializable&quot; lauten, damit er komprimiert werden kann. Ein Grund, warum der Seitenstatus nicht erfolgreich verläuft, liegt häufig darin, dass der Seitenstatus nicht &quot;Serializable&quot; lautet. Sie können das Komprimieren deaktivieren, indem Sie org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE auf &quot;False&quot; setzen. Im Dokument über die org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION-Systemeigenschaft erhalten Sie Informationen zum Testen verschiedener Serialisierungsaspekte.</resource>
 <!-- UNZIP_STATE_FAILED -->
 <resource key="UNZIP_STATE_FAILED" dnt="false">Dekomprimieren des Seitenstatus nicht erfolgreich.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">getClientId darf nicht aufgerufen werden, während die Ansicht erstellt wird. Komponenten-ID: {0}</resource>
 </resources>

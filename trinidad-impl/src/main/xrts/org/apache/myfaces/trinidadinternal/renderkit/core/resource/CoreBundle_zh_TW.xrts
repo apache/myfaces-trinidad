@@ -57,7 +57,7 @@
 <resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">重新排列..</resource>
 <resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">工具列</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">預設</resource>
-<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">按範例查詢</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">依範例查詢</resource>
 <resource key="afr_compositeTable.MENU_FORMAT" dnt="false">格式</resource>
 <resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">重新調整資料欄大小..</resource>
 <resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">重設..</resource>

@@ -128,6 +128,8 @@
 <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">De wijzigingsmanager kan AddChildComponentChange niet toepassen omdat er al een onderliggende component bestaat met dezelfde ID. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Er is geen node opgegeven.</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Wij willen een component met een stempel niet persistent maken binnen een iterator.</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Component is verplicht.</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -316,4 +318,6 @@
 <resource key="ZIP_STATE_FAILED" dnt="false">Het comprimeren van de paginastatus is mislukt. De status moet serialiseerbaar zijn om te kunnen worden gecomprimeerd. Vaak mislukt het comprimeren van de paginastatus omdat de paginastatus niet serialiseerbaar is. U kunt het comprimeren uitzetten door org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE in te stellen op &apos;Onwaar&apos;. Raadpleeg de documentatie over de eigenschap org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION voor informatie over het testen van diverse aspecten van serialisatie.</resource>
 <!-- UNZIP_STATE_FAILED -->
 <resource key="UNZIP_STATE_FAILED" dnt="false">Het decomprimeren van de paginastatus is mislukt.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">getClientId mag niet worden aangeroepen terwijl de view wordt geconstrueerd. Component-ID: {0}</resource>
 </resources>

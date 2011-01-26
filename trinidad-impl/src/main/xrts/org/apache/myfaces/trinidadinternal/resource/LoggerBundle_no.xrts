@@ -76,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">Elementet {0} støtter ikke EL-uttrykk.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">Elementet {0} godtar bare heltallsverdier</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">Elementet {0} godtar bare lange verdier</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Finner ikke kontekstklasselasteren.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -256,11 +258,17 @@
 <!-- TREE_COMPONENT_MUST_INSIDE_FORM -->
 <resource key="TREE_COMPONENT_MUST_INSIDE_FORM" dnt="false">Trekomponenten må brukes innenfor et skjema.</resource>
 <!-- CANNOT_FIND_SCRIPTLET -->
-<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">Finner ikke skriptleten: {0}</resource>
+<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">Finner ikke skriptletten: {0}</resource>
 <!-- UNABLE_GET_RESOURCE -->
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Kan ikke hente ressursen {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad kjører med feilletings-javascript. Må ikke brukes i et produksjonsmiljø. Se parameteren org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT i /WEB-INF/web.xml</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Miljøet er konfigurert som produksjon, og Apache Trinidad kjører med Java-skript for feilleting. Se parameteren org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT i /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Miljøet er konfigurert som produksjon, og Apache Trinidad kjører med Java-skript for feilleting. Se parameteren org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT i /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Miljøet er konfigurert som produksjon, og Apache Trinidad kjører med debug-output satt til TRUE. Se elementet debug-output i filen trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Ugyldig verdi: {0} for {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -309,8 +317,18 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Kan ikke hente skall med null-skinId</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Finner ikke et utseende som samsvarer med familien {0} og gjengiversamlingen {1}, så vi bruker det enkle skallet</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Fant et skall som samsvarer med familien {0} og versjonen {1}. Vi bruker skallet {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Finner ikke et skall som samsvarer med familien {0} og versjonen {1}. Vi bruker skallet {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Finner ikke et skall uten versjoner for familien {0}. Vi bruker versjonsskallet {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Kan ikke hente stilarkdokumentets tidsstempel, fordi vi ikke kan åpne tilkoblingen.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">Skallutvelgeren {0} er ikke et skallikonobjekt fordi den ikke har et innholdsattributt. Hvis du opprettet denne utvelgeren, gir du den nytt navn slik at det slutter med style i stedet for icon, slik at skallrammeverket vil behandle den som en stil, og ikke som et ikon.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} må komme foran alle andre regler.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Følgende skall utvider hverandre på en sirkulær måte, eller så finnes ikke skallet som de utvider: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -421,6 +439,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Finner ikke nødvendig ID for elementet.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Finner ikke nødvendig family for elementet.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Finner ikke nødvendig underordnet element for version, name.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Misformet egenskapsoppføring: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,4 +744,14 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ugyldig variant for identifikatoren {0} for regional innstilling. Kan ikke inneholde skråstreker for å unngå XSS-angrep. Bruker en tom streng for varianten.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Kan ikke slette filen {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState må være en forekomst av StateManager.SerializedView eller en objektmatrise med lengden 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Delvis lagring av tilstand støttes ikke ennå. Sett context-param javax.faces.PARTIAL_STATE_SAVING til usann i web.xml.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Feil ved serialisering av {0}-attributt: {1} verdi: {2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failover-feil: {0}-attributt: {1} av typen {2} er ikke serialiserbart</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failover-feil: Serialisering av {0}-attributtet {1} er endret fra {2} til {3} uten at attributtet er skadet</resource>
 </resources>
