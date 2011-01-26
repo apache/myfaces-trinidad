@@ -502,6 +502,16 @@
     </pluginManagement>
     
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.1</version>
+        <configuration>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+        </configuration>
+      </plugin>
+
+
       <!-- is this right? -->      
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
