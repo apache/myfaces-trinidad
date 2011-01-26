@@ -153,7 +153,10 @@ CollectionComponent.defineMultiSelect = function(selectedKey,selectedModeKey,aut
         for(var i=0; i<boxes.length; i++)
         {
             var box = boxes[i];
-            box.checked = selectAll;
+            if(!box.disabled)
+            {
+                box.checked = selectAll;
+            }
         }
         var selectedMode = this.getFormElement(this._selectedModeKey);
         if (selectAll)
