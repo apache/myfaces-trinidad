@@ -28,7 +28,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>6</version>
+    <version>10</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
@@ -145,11 +145,6 @@
   <repositories>
     <!-- needed for Bean Validation API -->
     <repository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshots</name>
-      <url>http://repository.apache.org/snapshots</url>
-    </repository>
-    <repository>
       <id>jboss</id>
       <name>jboss nexus</name>
       <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
@@ -159,19 +154,6 @@
       <id>maven2-repository.dev.java.net</id>
       <name>Java.net Repository for Maven</name>
       <url>http://download.java.net/maven/2/</url>
-    </repository>
-      <!-- apache snapshot repository should be disabled... -->
-    <repository>
-      <id>apache.snapshots.old</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-        <updatePolicy>never</updatePolicy>
-      </snapshots>
     </repository>
   </repositories>
 
@@ -196,18 +178,6 @@
       <name>Apache Website</name>
       <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
     </site>
-
-    <!-- this is defined in a 'good' root pom, but not for ours... -->
-    <repository>
-      <id>apache.releases.https</id>
-      <name>Apache Release Distribution Repository</name>
-      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url>
-    </repository>
-    <snapshotRepository>
-      <id>apache.snapshots.https</id>
-      <name>Apache Development Snapshot Repository</name>
-      <url>https://repository.apache.org/content/repositories/snapshots</url>
-    </snapshotRepository>
   </distributionManagement>
 
   <dependencyManagement>
@@ -383,6 +353,7 @@
       <plugins>
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
+          <version>3.0-beta-3</version>
           <inherited>true</inherited>
           <configuration>
             <outputEncoding>UTF-8</outputEncoding>
@@ -624,14 +595,14 @@
 
   <reporting>
     <plugins>
-      <plugin>
+      <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
         <version>2.0</version>
         <configuration>
           <threshold>Low</threshold>
         </configuration>
-      </plugin>
+      </plugin-->
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -644,7 +615,7 @@
         <version>2.0.1</version>
       </plugin>
 
-      <plugin>
+      <!--plugin>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>2.3</version>
         <configuration>
@@ -656,7 +627,7 @@
           <minimumTokens>100</minimumTokens>
           <targetJdk>${jdk.version}</targetJdk>
         </configuration>
-      </plugin>
+      </plugin-->
     </plugins>
   </reporting>
 
