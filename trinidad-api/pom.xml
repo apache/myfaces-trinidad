@@ -151,6 +151,47 @@
         </configuration>
       </plugin>
 
+      <!-- 
+          To make the current version of maven available through a property (maven.version),
+          the build-helper-maven-plugin can be used.
+      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.3</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>maven-version</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- 
+          To make the current revision number, we use the buildnumber-maven-plugin.
+      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <version>1.0-beta-4</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>create</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <doCheck>false</doCheck>
+          <doUpdate>false</doUpdate>
+          <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+          <buildNumberPropertyName>scm.revision</buildNumberPropertyName>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -160,6 +201,14 @@
              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
            </manifest>
+           <manifestEntries>
+             <Revision>${scm.revision}</Revision>
+             <Maven-Version>${maven.version}</Maven-Version>
+             <Java-Vendor>${java.vendor}</Java-Vendor>
+             <Os-Name>${os.name}</Os-Name>
+             <Os-Arch>${os.arch}</Os-Arch>
+             <Os-Version>${os.version}</Os-Version>
+           </manifestEntries>
          </archive>
        </configuration>
         <executions>
