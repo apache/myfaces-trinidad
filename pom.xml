@@ -32,7 +32,6 @@
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
-
   <artifactId>trinidad</artifactId>
   <version>2.0.0-beta-2-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -41,14 +40,12 @@
     <!-- Standards -->
     <jdk.version>1.6</jdk.version>    
     <servlet.version>2.5</servlet.version>
-
     <portlet.version>2.0</portlet.version>
     <validation.version>1.0.0.GA</validation.version>
     <jsp.version>2.1</jsp.version>
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>2.0</jsf-spec.version>
     <jsf-ri.version>2.0.4-b09</jsf-ri.version>
-
     <jsf-myfaces.version>2.0.3</jsf-myfaces.version>
     <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
@@ -56,7 +53,6 @@
     <pluto-embedded.version>1.0.1</pluto-embedded.version>
     
     <!-- Testing -->
-
     <shale.version>1.0.5</shale.version>
     <jmock.version>1.2.0</jmock.version>
     <junit.version>4.4</junit.version>
@@ -64,7 +60,6 @@
     <!-- Plugins -->
     <trinidad-plugins.version>2.0.4</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
-
     <jetty-plugin.version>6.1.21</jetty-plugin.version>
     <pluto.version>1.1.6</pluto.version>
     <pluto.package>org.apache.pluto</pluto.package>
@@ -81,7 +76,6 @@
   <ciManagement>
     <system>continuum</system>
     <url>http://myfaces.zones.apache.org:8080/continuum</url>
-
     <notifiers>
       <notifier>
         <type>mail</type>
@@ -89,7 +83,6 @@
         <configuration>
           <address>commits@myfaces.apache.org</address>
         </configuration>
-
       </notifier>
     </notifiers>
   </ciManagement>
@@ -98,14 +91,12 @@
     <mailingList>
       <name>MyFaces Users (use [Trinidad] prefix)</name>
       <post>users@myfaces.apache.org</post>
-
       <subscribe>users-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users</archive>
       <otherArchives>
         <otherArchive>http://users.myfaces.markmail.org/</otherArchive>
         <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
-
         <otherArchive>http://www.nabble.com/MyFaces---Users-f181.html</otherArchive>
       </otherArchives>
     </mailingList>
@@ -113,14 +104,12 @@
       <name>MyFaces Developers (use [Trinidad] prefix)</name>
       <post>dev@myfaces.apache.org</post>
       <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
-
       <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
       <otherArchives>
         <otherArchive>http://dev.myfaces.markmail.org/</otherArchive>
         <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
         <otherArchive>http://www.nabble.com/My-Faces---Dev-f182.html</otherArchive>
-
       </otherArchives>
     </mailingList>
     <mailingList>
@@ -128,7 +117,6 @@
       <post>Do not post</post>
       <subscribe>issues-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>issues-unsubscribe@myfaces.apache.org</unsubscribe>
-
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
       <otherArchives>
         <otherArchive>http://dev.myfaces.markmail.org/</otherArchive>
@@ -136,14 +124,12 @@
         <otherArchive>http://www.nabble.com/My-Faces---Dev-f182.html</otherArchive>
       </otherArchives>
     </mailingList>
-
     <mailingList>
       <name>MyFaces commits</name>
       <post>Do not post</post>
       <subscribe>commits-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits</archive>
-
       <otherArchives>
         <otherArchive>http://commits.myfaces.markmail.org/</otherArchive>
       </otherArchives>
@@ -152,7 +138,6 @@
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk</connection>
-
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk</developerConnection>
     <url>http://svn.apache.org/viewvc/myfaces/trinidad/trunk</url>
   </scm>
@@ -161,7 +146,6 @@
     <!-- needed for Bean Validation API -->
     <repository>
       <id>apache.snapshots</id>
-
       <name>Apache Snapshots</name>
       <url>http://repository.apache.org/snapshots</url>
     </repository>
@@ -169,7 +153,6 @@
       <id>jboss</id>
       <name>jboss nexus</name>
       <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
-
     </repository>
     <!-- Needed for Mojarra -->
     <repository>
@@ -177,7 +160,6 @@
       <name>Java.net Repository for Maven</name>
       <url>http://download.java.net/maven/2/</url>
     </repository>
-
       <!-- apache snapshot repository should be disabled... -->
     <repository>
       <id>apache.snapshots.old</id>
@@ -185,7 +167,6 @@
       <url>http://people.apache.org/repo/m2-snapshot-repository</url>
       <releases>
         <enabled>false</enabled>
-
       </releases>
       <snapshots>
         <enabled>false</enabled>
@@ -213,7 +194,6 @@
     <site>
       <id>apache-site</id>
       <name>Apache Website</name>
-
       <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
     </site>
 
@@ -222,7 +202,6 @@
       <id>apache.releases.https</id>
       <name>Apache Release Distribution Repository</name>
       <url>https://repository.apache.org/service/local/staging/deploy/maven2</url>
-
     </repository>
     <snapshotRepository>
       <id>apache.snapshots.https</id>
@@ -238,7 +217,6 @@
         <artifactId>servlet-api</artifactId>
         <version>${servlet.version}</version>
         <scope>provided</scope>
-
       </dependency>
 
       <dependency>
@@ -246,7 +224,6 @@
         <artifactId>jstl</artifactId>
         <version>${jstl.version}</version>
         <scope>provided</scope>
-
       </dependency>
 
       <dependency>
@@ -254,7 +231,6 @@
         <artifactId>jsp-api</artifactId>
         <version>${jsp.version}</version>
         <scope>provided</scope>
-
       </dependency>
 
       <dependency>
@@ -262,7 +238,6 @@
         <artifactId>portlet-api</artifactId>
         <version>${portlet.version}</version>
         <scope>provided</scope>
-
       </dependency>
       
       <dependency>
@@ -307,7 +282,6 @@
         <version>${portlet-bridge.version}</version>
         <scope>provided</scope>
       </dependency>
-
       
       <dependency>
         <!-- If the impl is needed, it should always be added in -->
@@ -316,7 +290,6 @@
         <version>${portlet-bridge.version}</version>
         <scope>provided</scope>
       </dependency>
-
       
       <dependency>
         <groupId>commons-lang</groupId>
@@ -326,7 +299,6 @@
 
       <dependency>
         <groupId>commons-io</groupId>
-
         <artifactId>commons-io</artifactId>
         <version>${commons-io.version}</version>
       </dependency>
@@ -334,7 +306,6 @@
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-build</artifactId>
-
         <version>${pom.version}</version>
         <scope>provided</scope>
       </dependency>
@@ -342,7 +313,6 @@
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-api</artifactId>
-
         <version>${pom.version}</version>
       </dependency>
 
@@ -350,7 +320,6 @@
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-impl</artifactId>
         <version>${pom.version}</version>
-
       </dependency>
 
       <dependency>
@@ -358,7 +327,6 @@
         <artifactId>trinidad-api</artifactId>
         <version>${pom.version}</version>
         <type>test-jar</type>
-
         <scope>test</scope>
       </dependency>
 
@@ -366,7 +334,6 @@
         <groupId>org.apache.shale</groupId>
         <artifactId>shale-test</artifactId>
         <version>${shale.version}</version>
-
         <scope>test</scope>
       </dependency>
 
@@ -374,7 +341,6 @@
         <groupId>jmock</groupId>
         <artifactId>jmock</artifactId>
         <version>${jmock.version}</version>
-
         <scope>test</scope>
       </dependency>
 
@@ -382,7 +348,6 @@
         <groupId>jmock</groupId>
         <artifactId>jmock-cglib</artifactId>
         <version>${jmock.version}</version>
-
         <scope>test</scope>
       </dependency>
 
@@ -390,7 +355,6 @@
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>${junit.version}</version>
-
         <scope>test</scope>
       </dependency>
       
@@ -399,7 +363,6 @@
         <artifactId>maven-jetty-pluto-embedded</artifactId>
         <version>${pluto-embedded.version}</version>
       </dependency>
-
       <dependency>
         <groupId>${pluto.package}</groupId>
         <artifactId>pluto-util</artifactId>
@@ -407,7 +370,6 @@
         <scope>provided</scope>
       </dependency>
     </dependencies>
-
   </dependencyManagement>
 
   <modules>
@@ -424,7 +386,6 @@
           <inherited>true</inherited>
           <configuration>
             <outputEncoding>UTF-8</outputEncoding>
-
           </configuration>
         </plugin>
 
@@ -434,7 +395,6 @@
           <configuration>
             <!-- set the forkMode to "always" to validate new tests,
               and "never" otherwise for performance -->
-
             <forkMode>never</forkMode>
             <parallel>true</parallel>
           </configuration>
@@ -443,7 +403,6 @@
         <plugin>
           <groupId>org.apache.myfaces.maven</groupId>
           <artifactId>wagon-maven-plugin</artifactId>
-
           <version>${wagon-plugin.version}</version>
           <inherited>true</inherited>
           <configuration>
@@ -458,7 +417,6 @@
           <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
         </plugin>
-
         
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
@@ -467,7 +425,6 @@
           <inherited>true</inherited>
           <configuration>
             <force>true</force>
-
             <jsfVersion>${jsf-spec.version}</jsfVersion>
           </configuration>
         </plugin>
@@ -476,7 +433,6 @@
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-jdev-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
-
         </plugin>
 
         <plugin>
@@ -484,7 +440,6 @@
           <artifactId>maven-i18n-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
-
         </plugin>
 
         <plugin>
@@ -492,7 +447,6 @@
           <artifactId>maven-javascript-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
-
         </plugin>
 
         <plugin>
@@ -508,7 +462,6 @@
           <configuration>
             <source>${jdk.version}</source>
             <target>${jdk.version}</target>
-
             <!--
             <showWarnings>true</showWarnings>
             <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>
@@ -520,7 +473,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
           <inherited>true</inherited>
-
           <configuration>
             <targetJdk>${jdk.version}</targetJdk>
           </configuration>
@@ -529,7 +481,6 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-
           <configuration>
             <source>${jdk.version}</source>
           </configuration>
@@ -538,7 +489,6 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
-
           <inherited>true</inherited>
           <configuration>
             <filtering>false</filtering>
@@ -547,7 +497,6 @@
 
         <plugin>
             <artifactId>maven-source-plugin</artifactId>
-
             <executions>
                 <execution>
                     <id>attach-source</id>
@@ -556,7 +505,6 @@
                     </goals>
                 </execution>
             </executions>
-
         </plugin>
 
         <plugin>
@@ -580,14 +528,12 @@
         </plugin>  
 
         <plugin>
-
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-idea-plugin</artifactId>
           <configuration>
             <jdkName>${maven.compile.source}</jdkName>
             <linkModules>true</linkModules>
             <downloadSources>true</downloadSources>
-
             <jdkLevel>5.0</jdkLevel>
           </configuration>
         </plugin>
@@ -598,7 +544,6 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-
         <artifactId>maven-enforcer-plugin</artifactId>
         <executions>
           <execution>
@@ -606,7 +551,6 @@
             <goals>
               <goal>enforce</goal>
             </goals>
-
             <configuration>
               <rules>
                 <requireJavaVersion>
@@ -615,7 +559,6 @@
                 </requireJavaVersion>
               </rules>
             </configuration>
-
           </execution>
         </executions>
       </plugin>
@@ -624,7 +567,6 @@
         <artifactId>maven-release-plugin</artifactId>
         <!--version>2.1</version-->
         <configuration>
-
           <preparationGoals>clean verify install</preparationGoals>
           <tagBase>https://svn.apache.org/repos/asf/myfaces/trinidad/tags</tagBase>
           <autoVersionSubmodules>true</autoVersionSubmodules>
@@ -633,7 +575,6 @@
 
       <!-- force generating a *-sources.jar when building a jar -->
       <plugin>
-
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
         <executions>
@@ -641,7 +582,6 @@
             <id>attach-source</id>
             <goals>
               <goal>jar</goal>
-
             </goals>
           </execution>
         </executions>
@@ -650,7 +590,6 @@
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-xrts-plugin</artifactId>
-
         <executions>
           <execution>
             <goals>
@@ -659,7 +598,6 @@
             </goals>
           </execution>
         </executions>
-
       </plugin>
         
       <plugin>
@@ -669,7 +607,6 @@
           <execution>
             <goals>
               <goal>process</goal>
-
             </goals>
             <configuration>
               <resourceBundles>
@@ -678,7 +615,6 @@
               <properties>
                 <addLicense>true</addLicense>
               </properties>
-
             </configuration>
           </execution>
         </executions>
@@ -688,7 +624,6 @@
 
   <reporting>
     <plugins>
-
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
@@ -696,7 +631,6 @@
         <configuration>
           <threshold>Low</threshold>
         </configuration>
-
       </plugin>
 
       <plugin>
@@ -706,7 +640,6 @@
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-
         <artifactId>maven-project-info-reports-plugin</artifactId>
         <version>2.0.1</version>
       </plugin>
@@ -714,7 +647,6 @@
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>2.3</version>
-
         <configuration>
           <rulesets>
             <ruleset>/rulesets/basic.xml</ruleset>
@@ -722,7 +654,6 @@
           </rulesets>
           <linkXref>true</linkXref>
           <minimumTokens>100</minimumTokens>
-
           <targetJdk>${jdk.version}</targetJdk>
         </configuration>
       </plugin>
@@ -736,7 +667,6 @@
       there is, it may manually be invoked by adding a -PbuildExamples.
     -->
     <profile>
-
       <id>buildExamples</id>
       <activation>
         <property>
@@ -746,7 +676,6 @@
       
       <modules>
         <module>trinidad-examples</module>
-
       </modules>
     </profile>
 
@@ -769,7 +698,6 @@
       <id>apache-release</id>
 
       <modules>
-
         <module>trinidad-assembly</module>
       </modules>
     </profile>
@@ -783,7 +711,6 @@
     <profile>
       <id>enableAssert</id>
       <build>
-
         <pluginManagement>
           <plugins>
             <plugin>
@@ -791,7 +718,6 @@
               <inherited>true</inherited>
               <configuration>
                 <forkMode>once</forkMode>
-
                 <argLine>-enableassertions</argLine>
                 <parallel>false</parallel>
               </configuration>
@@ -800,7 +726,6 @@
         </pluginManagement>
       </build>
     </profile>
-
     
     <!--
       This marks the JSF libraries for inclusion into the example projects.  Execute this profile
@@ -815,7 +740,6 @@
           <dependency>
             <groupId>javax.faces</groupId>
             <artifactId>jsf-api</artifactId>
-
             <version>${jsf-ri.version}</version>
             <scope>compile</scope>
           </dependency>
@@ -823,7 +747,6 @@
           <dependency>
             <groupId>javax.faces</groupId>
             <artifactId>jsf-impl</artifactId>
-
             <version>${jsf-ri.version}</version>
             <scope>runtime</scope>
           </dependency>
@@ -831,7 +754,6 @@
           <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
-
             <version>${jsf-myfaces.version}</version>
             <scope>compile</scope>
           </dependency>
@@ -839,7 +761,6 @@
           <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-impl</artifactId>
-
             <version>${jsf-myfaces.version}</version>
             <scope>runtime</scope>
           </dependency>
@@ -854,7 +775,6 @@
       mvn install -PincludeJSTL
     -->
     <profile>
-
       <id>includeJSTL</id>
       <dependencyManagement>
         <dependencies>
@@ -862,7 +782,6 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
-
             <scope>compile</scope>
           </dependency>
         </dependencies>
@@ -877,7 +796,6 @@
     -->
     <profile>
       <id>includeBridge</id>
-
       <dependencyManagement>
         <dependencies>
           <dependency>
@@ -885,7 +803,6 @@
             <artifactId>portlet-bridge-api</artifactId>
             <version>${portlet-bridge.version}</version>
             <scope>compile</scope>
-
           </dependency>
       
           <dependency>
@@ -894,7 +811,6 @@
             <version>${portlet-bridge.version}</version>
             <scope>runtime</scope>
           </dependency>
-
         </dependencies>
       </dependencyManagement>      
     </profile>
