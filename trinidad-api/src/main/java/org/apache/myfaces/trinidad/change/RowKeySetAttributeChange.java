@@ -11,11 +11,7 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
-/**
- * Handles RowKeySetAttribute changes, which need to be handled specially because they are mutable
- * and programmers assume that the instances don't change
- */
-public final class RowKeySetAttributeChange extends AttributeComponentChange
+public class RowKeySetAttributeChange extends AttributeComponentChange
 {
   public RowKeySetAttributeChange(String clientId,  String propertyName, Object value)
   {
@@ -51,7 +47,9 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
       attributeMap.remove(attributeName);
     }
     else
-    {      
+    {
+      boolean putValue = true;
+      
       // Specially handle RowKeySet case by replacing the contents of the RowKeySet in-place
       // rather than replacing the entire object.  This keeps the mutable object instance from
       // changing
@@ -63,99 +61,60 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
         
         if (expression != null)
         {
-          //use EL to get the oldValue and then determine whether we need to update in place
           final FacesContext context = FacesContext.getCurrentInstance();
-                    
-          context.getViewRoot().invokeOnComponent(
-            context,
-            _clientId,
-            new GetOldValueAndUpdate(expression, (RowKeySet)attributeValue));
+          
+          RowKeySet[] outHolder = new RowKeySet[1];
+          
+          context.getViewRoot().invokeOnComponent(context,
+                                                 _clientId,
+                                                 new ExpressionEvaluator(expression, outHolder));
+          
+          oldValue = outHolder[0];
         }
         else
         {
           oldValue = attributeMap.get(attributeName);
-
-          if (oldValue instanceof RowKeySet)
+        }
+                
+        if (oldValue instanceof RowKeySet)
+        {
+          RowKeySet oldKeySet = (RowKeySet)oldValue;
+          
+          // check for equality because otherwise we would clear ourselves and end up empty
+          if (oldKeySet != attributeValue)
           {
-            _updateKeySet(_clientId, (RowKeySet)oldValue, (RowKeySet)attributeValue);
-            
-            // we updated in place, but we still need to set the attribute in order for partial
-            // state saving to work
+            oldKeySet.clear();
+            oldKeySet.addAll((RowKeySet)attributeValue);
           }
-        }      
+          
+          // don't replace the RowKeySet
+          putValue = false;
+        }
       }
       
       
-      attributeMap.put(attributeName, attributeValue);
+      if (putValue)
+      {
+        attributeMap.put(attributeName, attributeValue);
+      }
     }
   }
   
-  private static void _updateKeySet(String clientId, RowKeySet oldKeySet, RowKeySet newKeySet)
+  private static final class ExpressionEvaluator implements ContextCallback
   {
-    // check for equality because otherwise we would clear ourselves and end up empty
-    if (oldKeySet != newKeySet)
+    public ExpressionEvaluator(ValueExpression expression, RowKeySet[] out)
     {
-      // no client id, so we're in context
-      if (clientId == null)
-      {
-        oldKeySet.clear();
-        oldKeySet.addAll(newKeySet);        
-      }
-      else
-      {
-        final FacesContext context = FacesContext.getCurrentInstance();
-        
-        context.getViewRoot().invokeOnComponent(
-           context,
-           clientId,
-           new RowKeySetUpdater(oldKeySet, newKeySet));
-      }
-    }    
-  }
-  
-  /**
-   * Get the oldValue in context and update it in context
-   */
-  private static final class GetOldValueAndUpdate implements ContextCallback
-  {
-    public GetOldValueAndUpdate(ValueExpression expression, RowKeySet newKeySet)
-    {
+      _out        = out;
       _expression = expression;
-      _newKeySet  = newKeySet;
     }
     public void invokeContextCallback(FacesContext context,
                                       UIComponent target)
     {
-      // update the KeySet with the old and new values
-      RowKeySetAttributeChange._updateKeySet(null,
-                                             (RowKeySet)_expression.getValue(context.getELContext()),
-                                             _newKeySet);
+      _out[0] = (RowKeySet)_expression.getValue(context.getELContext());
     }
     
+    private final RowKeySet[] _out;
     private final ValueExpression _expression;
-    private final RowKeySet _newKeySet;
-  }
-
-  /**
-   * Makes sure that we clear and add the RowKeySet in context
-   */
-  private static final class RowKeySetUpdater implements ContextCallback
-  {
-    public RowKeySetUpdater(RowKeySet oldKeySet, RowKeySet newKeySet)
-    {
-      _oldKeySet = oldKeySet;
-      _newKeySet = newKeySet;
-    }
-
-    public void invokeContextCallback(FacesContext context,
-                                      UIComponent target)
-    {
-      _oldKeySet.clear();
-      _oldKeySet.addAll(_newKeySet);
-    }
-    
-    private final RowKeySet _oldKeySet;
-    private final RowKeySet _newKeySet;
   }
 
   private static final long serialVersionUID = 1L;
