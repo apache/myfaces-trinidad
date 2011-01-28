@@ -174,6 +174,14 @@ public class StateManagerImpl extends StateManagerWrapper
 
     if (sms != null)
     {
+      // Force view root to use full state saving
+      // This is necessary because we recreate the view root on postback when view root caching
+      // is enabled and assume that that we can apply the full state
+      if (_useViewRootCache(context))
+      {
+        viewRoot.clearInitialState();
+      }
+      
       viewState = sms.saveView(context);
     }
     else
