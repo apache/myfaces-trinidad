@@ -272,6 +272,10 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       stampState = iState._stampState;
       clientKeyMgr = iState._clientKeyMgr;
+      
+      // Make sure that we are not holding on to any application data in our state
+      iState._value = null;
+      iState._model= null;
     }
     else
     {
