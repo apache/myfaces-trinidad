@@ -30,6 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * TODO Remove the ParsedProperty code from Trinidad. It is only used for
  * the un-used image generation code.
  * TODO Then remove CoreStyle and implement the public Style object instead.
+ * @deprecated
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/BaseStyle.java#0 $) $Date: 10-nov-2005.18:57:54 $
  */
 abstract public class BaseStyle extends CoreStyle implements Serializable 

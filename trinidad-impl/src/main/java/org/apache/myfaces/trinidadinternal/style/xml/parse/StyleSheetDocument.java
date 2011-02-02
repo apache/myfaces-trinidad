@@ -34,12 +34,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
@@ -47,9 +49,9 @@ import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.URIImageIcon;
-import org.apache.myfaces.trinidadinternal.style.CSSStyle;
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.UnmodifiableStyle;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
@@ -295,14 +297,18 @@ public class StyleSheetDocument
     String  uri = null;
     String  text = null;
     boolean isNullIcon = false;
-    CSSStyle  inlineStyle = null;
-
+    
+    // TODO Use an ArrayMap to use less memory, and we do not need concurrency since we will never modify this map.
+    // switching from ConcurrentHashMap to ArrayMap may break golden files, so be sure to check those
+    // if you switch.
+    Map<String, String> propertyMap = new ConcurrentHashMap<String, String>();
+    
     // loop through each property in the StyleNode.
     // If 'content', then get the url and the type of icon: 
     // Context, Image, Null, or Text
     // If 'width', then get the width
     // If 'height', then get the height
-    // Build up all the rest of the properties as a CSSStyle object.
+    // Build up all the rest of the properties as an UnmodifiableStyle object.
     // Then create an Icon object. 
     Collection<PropertyNode> properties = resolvedNode.getProperties();
     for (PropertyNode propertyNode : properties)
@@ -325,9 +331,7 @@ public class StyleSheetDocument
           {
             widthValue = null;
             // use inlineStyle for non-integer width values;
-            if (inlineStyle == null)
-              inlineStyle = new CSSStyle();
-            inlineStyle.setProperty(propertyName, propertyValue);
+            propertyMap.put(propertyName, propertyValue);
           }
         }
         else if (propertyName.equals("height"))
@@ -343,9 +347,7 @@ public class StyleSheetDocument
           {
             // use inlineStyle for non-integer height values;
             heightValue = null;
-            if (inlineStyle == null)
-              inlineStyle = new CSSStyle();
-            inlineStyle.setProperty(propertyName, propertyValue);
+            propertyMap.put(propertyName, propertyValue);
           }
         }
         else if (propertyName.equals("content"))
@@ -367,9 +369,7 @@ public class StyleSheetDocument
         else
         {
           // create an inlineStyle with all the extraneous style properties
-          if (inlineStyle == null)
-            inlineStyle = new CSSStyle();
-          inlineStyle.setProperty(propertyName, propertyValue);
+          propertyMap.put(propertyName, propertyValue);
         }
       }
     }
@@ -386,19 +386,20 @@ public class StyleSheetDocument
        // don't allow styleClass from the css parsing file. We can handle
        // this when we have style includes
        // put back the width/height properties if there were some
-       if ((heightValue != null || widthValue != null) && inlineStyle == null)
-         inlineStyle = new CSSStyle();
        if (heightValue != null)
-         inlineStyle.setProperty("height", heightValue);
+         propertyMap.put("height", heightValue);
        if (widthValue != null)
-         inlineStyle.setProperty("width", widthValue);
-       icon = new TextIcon(text, text, null, inlineStyle);
+         propertyMap.put("width", widthValue);
+       icon = new TextIcon(text, text, null, 
+                           propertyMap.isEmpty() ? null : new UnmodifiableStyle(propertyMap));
      }
      else if (uri != null)
      {
        // A URIImageIcon url starts with '/' or 'http:',
        // whereas a ContextImageIcons uri does not. 
        boolean startsWithASlash = uri.startsWith("/");
+      Style inlineStyle = propertyMap.isEmpty() ? null : new UnmodifiableStyle(propertyMap);
+
        if (!startsWithASlash)
        {
          icon =
