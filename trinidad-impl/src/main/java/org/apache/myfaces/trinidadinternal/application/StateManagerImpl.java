@@ -326,7 +326,7 @@ public class StateManagerImpl extends StateManagerWrapper
       if (applicationViewCache == null)
       {
         assert(!dontSave);
-        
+
         RequestContext trinContext = RequestContext.getCurrentInstance();
 
         TokenCache cache = _getViewCache(trinContext, extContext);
@@ -773,7 +773,7 @@ public class StateManagerImpl extends StateManagerWrapper
   private TokenCache _getViewCache(RequestContext trinContext, ExternalContext extContext)
   {
     String cacheKey = _getViewCacheKey(extContext, trinContext, null);
-    
+
     return TokenCache.getTokenCacheFromSession(extContext,cacheKey, true,_getCacheSize(extContext));
   }
 
@@ -1420,6 +1420,7 @@ public class StateManagerImpl extends StateManagerWrapper
         if(decompressor != null)
         {
           decompressor.reset();
+          decompressor.setInput(_EMPTY);
           TransientHolder<Inflater> th = TransientHolder.newTransientHolder(decompressor);
           sessionMap.put("PAGE_STATE_INFLATER", th);
         }
@@ -1481,6 +1482,7 @@ public class StateManagerImpl extends StateManagerWrapper
         if(compresser != null)
         {
           compresser.reset();
+          compresser.setInput(_EMPTY);
           TransientHolder<Deflater> th = TransientHolder.newTransientHolder(compresser);
           sessionMap.put("PAGE_STATE_DEFLATER", th);
         }
@@ -1547,6 +1549,8 @@ public class StateManagerImpl extends StateManagerWrapper
   private static final String _APPLICATION_CACHE_TOKEN = "_a_";
 
   private static final long serialVersionUID = 1L;
+
+  private static final byte[] _EMPTY = new byte[0];
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StateManagerImpl.class);
 }
