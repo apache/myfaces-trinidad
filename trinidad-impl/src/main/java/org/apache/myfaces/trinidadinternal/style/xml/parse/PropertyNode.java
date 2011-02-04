@@ -48,17 +48,20 @@ public class PropertyNode
       // This will improve the memory used.
       _name = name.intern();
      
-      if (_INTERN_VALUES_FOR.contains(name))
+      if (value != null)
       {
-        value = value.intern();
-      }
-      else
-      {
-        String internedValue =  _INTERNED_VALUES.get(value);
-       
-        if (internedValue != null)
+        if (_INTERN_VALUES_FOR.contains(name))
         {
-          value = internedValue;
+          value = value.intern();
+        }
+        else
+        {
+          String internedValue =  _INTERNED_VALUES.get(value);
+         
+          if (internedValue != null)
+          {
+            value = internedValue;
+          }
         }
       }
      
