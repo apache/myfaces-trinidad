@@ -1044,7 +1044,7 @@ public class AgentFactoryImpl implements AgentFactory
     }
 
     int end = base.length();
-    start = start + 1;
+    start = (start >= end) ? end : start + 1;
 
     for (int i = start; i < end; i++)
     {
