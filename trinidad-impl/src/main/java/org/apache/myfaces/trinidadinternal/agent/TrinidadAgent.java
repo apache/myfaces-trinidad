@@ -349,7 +349,11 @@ public abstract class TrinidadAgent implements Agent, Cloneable
     /**
      * Application enum for Bing web crawler.
      */
-    MSNBOT("msnbot", AGENT_MSNBOT);
+    MSNBOT("msnbot", AGENT_MSNBOT),
+    /**
+     * Application enum for Oracle SES.
+     */
+    ORACLE_SES("oracle_ses", AGENT_ORACLE_SES);
 
     /**
      * Return the appropriate Application instance given the name of an Application
@@ -546,6 +550,11 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    * Application constant for Bing web crawler.
    */
   static public final int APPLICATION_MSNBOT = Application.MSNBOT.ordinal();
+  
+  /**
+   * Application constant for Oracle SES.
+   */
+  static public final int APPLICATION_ORACLE_SES = Application.ORACLE_SES.ordinal();
   
   /**
    * OS constant for an unknown operating system.
