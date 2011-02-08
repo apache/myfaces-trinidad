@@ -254,6 +254,11 @@ public interface TrinidadAgent extends Agent
    * Application constant for voice
    */
   static public final int TYPE_VOICE = 3;
+  
+  /**
+   * Application constant for web crawlers
+   */
+  static public final int TYPE_WEBCRAWLER = 4;
 
 
 
@@ -353,6 +358,22 @@ public interface TrinidadAgent extends Agent
    * Application constant for email.
    */
   static public final int APPLICATION_EMAIL = 16;
+  
+  /**
+   * Application constant Google web crawler.
+   */
+  static public final int APPLICATION_GOOGLEBOT = 17;
+
+  /**
+   * Application constant for Bing web crawler.
+   */
+  static public final int APPLICATION_MSNBOT = 18;
+  
+  /**
+   * Application constant for Oracle SES.
+   */
+  static public final int APPLICATION_ORACLE_SES = 19;
+  
   /**
    * OS constant for an unknown operating system.
    */
