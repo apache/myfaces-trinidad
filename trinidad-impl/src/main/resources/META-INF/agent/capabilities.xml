@@ -74,6 +74,21 @@
       <include refid="html" />
       <include src="email.xml" />
     </capabilities>
+    
+    <capabilities id="googlebot" agents="googlebot">
+      <include refid="html" />
+      <include src="email.xml" />
+    </capabilities>
+    
+    <capabilities id="msnbot" agents="msnbot">
+      <include refid="html" />
+      <include src="email.xml" />
+    </capabilities>
+    
+    <capabilities id="oracle_ses" agents="oracle_ses">
+      <include refid="html" />
+      <include src="email.xml" />
+    </capabilities>
 
     <capabilities id="webkit" agents="webkit">
       <include refid="html" />

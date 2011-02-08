@@ -109,6 +109,42 @@ public class AgentFactoryImpl implements AgentFactory
       _populateUnknownAgentImpl(null, agent);
       return;
     }
+    
+    // Uncomment if you need to simulate googlebot crawler
+    /*if (facesContext != null && facesContext.getExternalContext().getRequestParameterMap().
+                        get("googlebot") != null)
+    {
+      _populateCrawlerAgentImpl("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)", agent, Agent.AGENT_GOOGLEBOT, _GOOGLEBOT_ID, 25);
+      return;
+    }*/
+    
+    int googlebotIndex = userAgent.indexOf(_GOOGLEBOT_ID);
+    if (googlebotIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_GOOGLEBOT, _GOOGLEBOT_ID, googlebotIndex);
+      return;
+    }
+    
+    int bingIndex = userAgent.indexOf(_BINGBOT_ID);
+    if (bingIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_MSNBOT, _BINGBOT_ID, bingIndex);
+      return;
+    }
+    
+    bingIndex = userAgent.indexOf(_MSNBOT_ID);
+    if (bingIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_MSNBOT, _MSNBOT_ID, bingIndex);
+      return;
+    }
+    
+    int oracleSesIndex = userAgent.indexOf(_ORACLE_SES_ID);
+    if (oracleSesIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_ORACLE_SES, _ORACLE_SES_ID, oracleSesIndex);
+      return;
+    }
 
     //the useragent string for telnet and PDA design time will start with
     //OracleJDevMobile because in each of these cases we know we have an
@@ -926,6 +962,29 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
 
   }
+  
+  /**
+   * Returns an AgentEntry for a web crawler
+   */
+  private void _populateCrawlerAgentImpl(String userAgent, 
+                                         AgentImpl agentObj,
+                                         String agent,
+                                         String agentId,
+                                         int idIndex)
+  {
+    agentObj.setType(Agent.TYPE_WEBCRAWLER);
+
+    agentObj.setAgent(agent);
+    String version = _getVersion(userAgent, idIndex + agentId.length());
+    if (version != null && version.length() > 0)
+    {
+      agentObj.setAgentVersion(version);
+    }
+    agentObj.setPlatform(Agent.PLATFORM_UNKNOWN);
+    agentObj.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
+    agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
+
+  }
 
 
   /**
@@ -947,7 +1006,7 @@ public class AgentFactoryImpl implements AgentFactory
     }
 
     int end = base.length();
-    start = start + 1;
+    start = (start >= end) ? end : start + 1;
 
     for (int i = start; i < end; i++)
     {
@@ -988,5 +1047,10 @@ public class AgentFactoryImpl implements AgentFactory
     "org.apache.myfaces.trinidad.agent.email";
   static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";
   static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentFactoryImpl.class);
+  
+  static final private String _GOOGLEBOT_ID = "Googlebot";
+  static final private String _MSNBOT_ID = "msnbot";
+  static final private String _BINGBOT_ID = "bingbot";
+  static final private String _ORACLE_SES_ID = "Oracle Secure Enterprise Search";
 
 }
