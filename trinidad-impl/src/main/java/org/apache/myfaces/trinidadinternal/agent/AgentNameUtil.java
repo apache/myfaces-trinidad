@@ -101,6 +101,21 @@ public class AgentNameUtil
     {
       return TrinidadAgent.APPLICATION_KONQUEROR;
     }
+    
+    if(TrinidadAgent.AGENT_GOOGLEBOT.equals(agentName))
+    {
+      return TrinidadAgent.APPLICATION_GOOGLEBOT;
+    }
+    
+    if(TrinidadAgent.AGENT_MSNBOT.equals(agentName))
+    {
+      return TrinidadAgent.APPLICATION_MSNBOT;
+    }
+    
+    if(TrinidadAgent.AGENT_ORACLE_SES.equals(agentName))
+    {
+      return TrinidadAgent.APPLICATION_ORACLE_SES;
+    }
 
     return TrinidadAgent.APPLICATION_UNKNOWN;
   }
@@ -183,6 +198,11 @@ public class AgentNameUtil
     {
       return TrinidadAgent.TYPE_PHONE;
     }
+    
+    if (otype == Agent.TYPE_WEBCRAWLER)
+    {
+      return TrinidadAgent.TYPE_WEBCRAWLER;
+    }
 
     //Default to desktop (This is UIX 2.2 logic)
     return TrinidadAgent.TYPE_DESKTOP;
@@ -223,6 +243,12 @@ public class AgentNameUtil
         return TrinidadAgent.AGENT_KONQUEROR;
       case TrinidadAgent.APPLICATION_EMAIL:
         return TrinidadAgent.AGENT_EMAIL;
+      case TrinidadAgent.APPLICATION_GOOGLEBOT:
+        return TrinidadAgent.AGENT_GOOGLEBOT;
+      case TrinidadAgent.APPLICATION_MSNBOT:
+        return TrinidadAgent.AGENT_MSNBOT;
+      case TrinidadAgent.APPLICATION_ORACLE_SES:
+        return TrinidadAgent.AGENT_ORACLE_SES;
       default:
         return TrinidadAgent.AGENT_UNKNOWN;
     }
