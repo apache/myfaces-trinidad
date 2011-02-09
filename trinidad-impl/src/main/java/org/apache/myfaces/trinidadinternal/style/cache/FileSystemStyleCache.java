@@ -310,6 +310,7 @@ public class FileSystemStyleCache implements StyleProvider
         _entryCache = null;
         _document = null;
         _reusableStyleMap = null;
+        _reusableSelectorMap = null;
         _shortStyleClassMap = null;
         _namespacePrefixes  = null;
       }
@@ -327,6 +328,8 @@ public class FileSystemStyleCache implements StyleProvider
         _entryCache = new ConcurrentHashMap<Object, Entry>(19);
       if (_reusableStyleMap == null)
         _reusableStyleMap = new ConcurrentHashMap<Style, Style>();
+      if (_reusableSelectorMap == null)
+        _reusableSelectorMap = new ConcurrentHashMap<Selector, Selector>();
 
       cache = _cache;
       entryCache = _entryCache;
@@ -460,7 +463,20 @@ public class FileSystemStyleCache implements StyleProvider
         Style style = _convertStyleNodeToStyle(styleNodes[i], _reusableStyleMap);
         if (resolvedSelectorStyleMap == null)
           resolvedSelectorStyleMap = new ConcurrentHashMap<Selector, Style>();
-        resolvedSelectorStyleMap.put(Selector.createSelector(selector), style);
+
+        // To save memory, we reuse Selector objects
+        Selector selectorCreated = Selector.createSelector(selector);
+        Selector cachedSelector = _reusableSelectorMap.get(selectorCreated);
+        if (cachedSelector == null)
+        {
+          _reusableSelectorMap.put(selectorCreated, selectorCreated);
+          resolvedSelectorStyleMap.put(selectorCreated, style);
+        }
+        else
+        {
+          resolvedSelectorStyleMap.put(cachedSelector, style);
+        }
+        
       }
     }
     
@@ -1520,6 +1536,11 @@ public class FileSystemStyleCache implements StyleProvider
    *  if we reuse Style objects per FileSystemStyleCache instance rather than per
    *  FileSystemStyleCache$Entry instance. The is the map we use to store unique Style objects. */
   private ConcurrentMap<Style, Style> _reusableStyleMap;
+  
+  /** Use this to store Selector objects so that they can be reused in all the FileSystemStyleCache$StylesImpl
+   * objects. A generated css file can contain 4533 selectors at 16 bytes each. The Selectors will largely
+   * be the same between FileSystemStyleCache$StylesImpl instances, so they should be shared. */
+  private ConcurrentMap<Selector, Selector> _reusableSelectorMap;
   
   /** The cache of style sheet URIs */
   private ConcurrentMap<Key, Entry> _cache;
