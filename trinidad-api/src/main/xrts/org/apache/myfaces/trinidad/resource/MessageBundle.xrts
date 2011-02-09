@@ -72,7 +72,7 @@
 
   <!-- Upload ConversionException messages -->
   <resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE">The file upload failed.</resource>
-  <resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail">{0}.</resource>
+  <resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail">{0}</resource>
 
   <!-- hints for validators -->
   <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT">Enter a number less than or equal to {0}.</resource>
