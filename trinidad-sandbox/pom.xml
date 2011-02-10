@@ -34,9 +34,9 @@
   <packaging>pom</packaging>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox/branches/1.2.12.3-branch</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox/branches/1.2.12.3-branch</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox/branches/1.2.12.3-branch</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox/branches/1.2.12.4.1-branch</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox/branches/1.2.12.4.1-branch</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox/branches/1.2.12.4.1-branch</url>
   </scm>
 
   <issueManagement>
