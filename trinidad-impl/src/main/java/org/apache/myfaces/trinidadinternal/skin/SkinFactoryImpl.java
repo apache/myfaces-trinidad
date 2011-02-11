@@ -18,8 +18,10 @@
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
@@ -27,6 +29,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
+import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
@@ -43,7 +46,7 @@ public class SkinFactoryImpl extends SkinFactory
   public SkinFactoryImpl()
   {
     super();
-    _skins = new HashMap<String, Skin>();
+    _skins = new LinkedHashMap<String, Skin>();
 
   }
 
@@ -111,11 +114,43 @@ public class SkinFactoryImpl extends SkinFactory
     String       family,
     String       renderKitId)
   {
+    return getSkin(context, family, renderKitId, null);
+  }
 
+  /**
+   * Given the skin family, renderKitId, and version, return the best matched skin.
+   * The skin picking logic is:
+   * If an exact family, renderKitId, and version (including null or "") is found, return that skin
+   * Else if the user asks for version "default", return the skin with family and renderKitId with version marked
+   * default. If version wasn't default and does not match any version for the skins with family and renderKitId, 
+   * then return the 'default' skin if there is one marked or return the last entry in the list
+   * of matching family/renderKitId skins.
+   * @param context
+   * @param family
+   * @param renderKitId
+   * @param version The version of the skin you want to return. This can be 
+   *                "default", or a version name (e.g., "v1"), or null or "" 
+   *                (if you want the skin that does not have a version set).
+   * @return the best matched Skin given the family, renderKitId, and version.
+   */
+  @Override
+  public Skin getSkin(
+    FacesContext context,
+    String       family,
+    String       renderKitId,
+    String       version)
+  {
+    // By setting the version to the empty string if version is null, we can
+    // get the skin that has a matching family and renderkit and has no skin version.
+    // (A Skin with no version returns SkinVersion.EMPTY_SKIN_VERSION for skin.getVersion(),
+    // and getName will be "")
+    if (version == null)
+        version = "";
+  
     // given a skinFamily and a renderKitId, figure out the skinId.
     // If we don't have an exact match, use the simple skin that matches the
     // renderKitId (simple.desktop or simple.pda)
-   if (family == null)
+    if (family == null)
      throw new NullPointerException("Null skin family");
 
     // default render-kit-id, if needed.
@@ -125,6 +160,7 @@ public class SkinFactoryImpl extends SkinFactory
     // loop through each skin in the SkinFactory
     // and see if the family and the renderKitId match
     Skin matchingSkin = null;
+    List<Skin> matchingSkinList = new ArrayList<Skin>();
 
     for(Skin skin : _skins.values())
     {
@@ -132,12 +168,12 @@ public class SkinFactoryImpl extends SkinFactory
           renderKitId.equalsIgnoreCase(skin.getRenderKitId()))
       {
         // exact family+renderKitId match!
-        matchingSkin = skin;
-        break;
+        matchingSkinList.add(skin);
       }
     }
+    
 
-    if (matchingSkin == null)
+    if (matchingSkinList.isEmpty())
     {
       // if we get here, that means we couldn't find an exact
       // family/renderKitId match, so return the simple skin
@@ -147,10 +183,6 @@ public class SkinFactoryImpl extends SkinFactory
          _LOG.warning("CANNOT_FIND_MATCHING_SKIN", new Object[]{family, renderKitId});
        }
 
-      // if we get here, that means we couldn't find an exact
-      // family/renderKitId match, so return the simple skin
-      // that matches the renderkitid.
-
       if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_PORTLET))
         matchingSkin = getSkin(context, _SIMPLE_PORTLET);
       else if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_PDA))
@@ -158,10 +190,104 @@ public class SkinFactoryImpl extends SkinFactory
       else
         matchingSkin = getSkin(context, _SIMPLE_DESKTOP);
     }
+    else
+    {
+      // at this point we know we have something in the matchingSkinList
+      // which is a list of matching family and renderKitId skins. Now match the version
+      // to find the best matched skin.
+        boolean foundMatchingSkin = false;
+        boolean versionIsDefault = (_DEFAULT.compareToIgnoreCase(version) == 0);
+      // if the user didn't ask for the 'default' version, then look for the exact match
+        if (!versionIsDefault)
+        {
+          for (Skin skin : matchingSkinList)
+          {
+            SkinVersion skinVersion = skin.getVersion();
+            if (skinVersion != null)
+            {
+              String name = skinVersion.getName(); 
+              if (version.equals(name))
+              {
+                matchingSkin = skin;
+                break;
+              }
+            }
+          }          
+        }
+      // matchingSkin will be null if an exact version match (family+renderKitId+exact version) was not found;
+      // we can have an exact version match if the user asks for null version, and we find a skin with no
+      // version set.
+        if (matchingSkin == null || versionIsDefault)
+        {
+          // find skin with version= default
+          matchingSkin = _getDefaultVersionSkin(matchingSkinList);
 
-    // If we've got a matching skin, wrap it in a RequestSkinWrapper 
+          if (matchingSkin == null)
+          {
+            // get the last skin in the matchingSkinList if there is no skin marked default.
+            matchingSkin = matchingSkinList.get(matchingSkinList.size() -1);
+          }
+          else if ((matchingSkin != null) && versionIsDefault)
+          {
+            // found the default skin the user wanted
+            foundMatchingSkin = true;
+          }
+        } // end matchingSkin == null || versionIsDefault 
+        else
+        {
+          foundMatchingSkin = true;
+        }
+        // log messages
+        if (foundMatchingSkin)
+        {
+          if (_LOG.isFine())
+            _LOG.fine("GET_SKIN_FOUND_SKIN_VERSION", 
+                      new Object[]{family, version, matchingSkin.getId()}); 
+        }
+        else
+        {
+          if(_LOG.isWarning())
+        {
+          if ("".equals(version))
+          {
+              _LOG.warning("GET_SKIN_CANNOT_FIND_NO_VERSION", 
+                           new Object[]{family, matchingSkin.getId()});  
+          }
+          else
+          { 
+            _LOG.warning("GET_SKIN_CANNOT_FIND_SKIN_VERSION", 
+                         new Object[]{family, version, matchingSkin.getId()}); 
+        }
+        }
+      }
+    }
+    
+    // If we've got a matching skin, wrap it in a RequestSkinWrapper
     // to provide access to request-specific state.
-    return (matchingSkin == null) ? null : new RequestSkinWrapper(matchingSkin);
+    return (matchingSkin == null) ? null : new RequestSkinWrapper(matchingSkin); 
+  }
+
+  /**
+   * Given a list of Skins, find the one that has its SkinVersion set to 'default', if it exists.
+   * @param matchingSkinList A list of Skins that we will look through to find the 'default'.
+   * @return Skin with SkinVersion isDefault true, otherwise, null.
+   */
+  private Skin _getDefaultVersionSkin(List<Skin> matchingSkinList)
+  {
+    Skin matchingSkin = null;
+    for (Skin skin : matchingSkinList)
+    {
+      SkinVersion skinVersion = skin.getVersion();
+      if (skinVersion != null)
+      {
+        if (skinVersion.isDefault())
+        {
+          matchingSkin = skin;
+          break;
+        }
+      }
+    }
+    return matchingSkin;
   }
 
   @Override
@@ -170,13 +296,13 @@ public class SkinFactoryImpl extends SkinFactory
     return (_skins.keySet().iterator());
   }
 
-
   // Stores all the Skins in this SkinFactory
   private Map<String, Skin> _skins = null;
 
   static private final String _SIMPLE_PDA = "simple.pda";
   static private final String _SIMPLE_DESKTOP = "simple.desktop";
   static private final String _SIMPLE_PORTLET = "simple.portlet";
+  static private final String _DEFAULT = "default";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinFactoryImpl.class);
 
 }

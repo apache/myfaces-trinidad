@@ -455,6 +455,15 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN">Can''t find a skin that matches family {0} and renderkit {1}, so we will use the simple skin</resource>
 
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION">Found a skin that matches family {0} and version {1}. We will use skin {2}.</resource>
+
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION">Cannot find a skin that matches family {0} and version {1}. We will use the skin {2}.</resource>
+
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION">Cannot find an unversioned skin for family {0}. We will use the versioned skin {1}.</resource>
+
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP">Could not get the stylesheet document's timestamp because we couldn't open the connection.</resource>
 
@@ -622,6 +631,9 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND">Required element 'family' not found.</resource>
+
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND">Required child element for 'version', 'name' not found.</resource>
 
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY">Malformed property entry: {0}={1}</resource>

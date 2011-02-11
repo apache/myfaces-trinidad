@@ -36,6 +36,29 @@
             org.apache.myfaces.trinidaddemo.resource.SkinBundle
         </bundle-name>
     </skin>
+    <skin>
+        <id>
+            purple-v1.desktop
+        </id>
+        <family>
+            purple
+        </family>
+        <render-kit-id>
+            org.apache.myfaces.trinidad.desktop
+        </render-kit-id>
+        <style-sheet-name>
+            skins/purple/purpleSkin-v1.css
+        </style-sheet-name>
+        <extends>
+          purple.desktop
+        </extends>
+        <version>
+           <name>v1</name>
+        </version>
+        <bundle-name>
+            org.apache.myfaces.trinidaddemo.resource.SkinBundle
+        </bundle-name>
+    </skin>
     <!-- You can extend any skin you want. Here we want the purple
     skin, but with a bigger font size -->
     <skin>

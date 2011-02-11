@@ -139,9 +139,13 @@
             <li>Create a *.css stylesheet document that gets linked to your skin definition in
                 trinidad-skins.xml</li>
             <li>Set trinidad-config.xml &lt;skin-family&gt; to be the skin-family of your skin.</li>
+          <li>Optionally, if the skin has a version, set trinidad-config.xml &lt;skin-version&gt; to be the skin-version of your skin,
+            or "default" if you want choose the skin marked to be the default for that skin family.</li>
           </ul>
             <li>Turn off styleclass name compression in web.xml (while creating the skin only then
                 turn it back on for performance sake)</li>
+            <li>Turn on check file modification in web.xml (while creating the skin only then
+                turn it back off for performance sake)</li>
             <li>Install Firebug to help look at the DOM and the styleclasses</li>
             <li>Run a component or application to see the default mode. Your skin will extend the
                 default skin, unless you specify otherwise (because you can extend any skin you
@@ -190,6 +194,14 @@
                     <family>
                         bigfont
                     </family>
+                    <!-- optional. If you want to version your skin, then you set the version.
+                    This is useful if you want to keep the skin-family the same name, but you
+                    have fixed bugs in the skin. The user can use the original version or the 
+                    new version by specifying skin-version in trinidad-config.xml.-->
+                    <version>
+                      <name>v1</name>
+                      <default>true</default>
+                    </version>
                     <!-- if you want this skin to be for a pda, use org.apache.myfaces.trinidad.pda as the render-kit-id -->
                     <render-kit-id>
                         org.apache.myfaces.trinidad.desktop
@@ -221,11 +233,21 @@
         <b>id</b> - Each skin must have an id. This is a unique identifier for a skin. The syntax we use is bigfont.desktop. 
         We put the .desktop in there to specify that this is for the desktop renderkit. You can also create a skin for the pda renderkit if you would like.
         </li>
-        <b>family</b> - Each skin must have a family. A skin belongs to a family and this is what you set in the 
+        <li><b>family</b> - Each skin must have a family. A skin belongs to a family and this is what you set in the 
         trinidad-config.xml file under &lt;skin-family&gt;. Then the specific skin is chosen depending upon 
         the renderkit that is being used on render. You can create a bigfont.pda skin that is also in the bigfont family. 
         Then if a person is running your app with a pda, they would get the bigfont.pda skin. Otherwise, if you 
         didn't have a bigfont.pda skin, they'd get the default skin which is simple.pda.
+        </li>
+        <li><b>version</b> - Version is optional. Setting a version on your skin is useful if you
+        tend to change your css to fix bugs. Instead of creating a new skin and updating the skin-family 
+        so the end user can choose the new skin (e.g., purple-release2), you can instead create a new skin
+        with the same skin-family, and a version like release2.       
+        This way the skin-family in trinidad-config.xml will not have to change. The user can
+        either change the skin-version or they can set it to "default"
+        You can set the <b>name</b> element of the version, and optionally you can set the <b>default</b> element to true/false. 
+        The default skin will get picked if the trinidad-config.xml only specifies the skin-family.
+        </li>
         <li>
         <b>render-kit-id</b> - The renderkit that this skin is designed for. The values can be org.apache.myfaces.trinidad.desktop or org.apache.myfaces.trinidad.pda.
         </li>
@@ -309,10 +331,13 @@ In bigfont.css, to change the font for your application, do this:
 </source>
 Components that use font and font-family have included these aliases in their skin definitions, so if you change the aliases, everything that includes these aliases will change.
        </subsection>
-       <subsection name="In trinidad-config.xml set the skin-family">
+       <subsection name="In trinidad-config.xml set the skin-family and optionally the skin-version">
 Open the trinidad-config.xml file that is in your WEB-INF directory.
 Set &lt;skin-family&gt;bigfont&lt;/skin-family&gt;
-This will set your skin to bigfont when you run your application. You can EL-bind the skin-family as well to dynamically change the skin at runtime.
+This will set your skin to bigfont when you run your application. 
+You can EL-bind the skin-family as well to dynamically change the skin at runtime.
+If the skin has a particular version you want, you can also set the skin-version element to the name
+of the skin's version.
 <P>
 Remember, your page must have the &lt;tr:document&gt; tag on the page to kick off the skin framework.
 </P>
@@ -678,9 +703,10 @@ so the medium panelBox's body will be pink, not yellow */
         <P>Let's go through an example. Let's say you want to skin the ShowDetail disclosed tip.
         Let's say the 'key' is af_showDetail.DISCLOSED_TIP. You would:
         <ul>
-        <li> Create a ResouceBundle file that sets your new value for this key and any other
-        keys you want to change the value for.</li>
+        <li> Create a ResourceBundle file(s) that sets your new value for this key and any other
+        keys you want to change the value for, one file per language.</li>
         <li> Set bundle-name in the trinidad-skins.xml file for your custom skin.</li>
+        <li> Package your skin and resource bundle classes together in the jar.</li>
         </ul>
         </P>
 
@@ -718,6 +744,12 @@ so the medium panelBox's body will be pink, not yellow */
             org.apache.myfaces.trinidaddemo.resource.SkinBundle
         </bundle-name>
     </skin>]]></source>
+        <source><![CDATA[  
+        The directory structure of your skin jar would look like:
+        META-INF
+        META-INF/trinidad-skins.xml
+        META-INF/org/apache/myfaces/trinidaddemo/resource/SkinBundle.class & SkinBundle_fr.class
+        ]]></source>
         <P>Then when the renderer renders the text, it will look in your resource bundle first for the key's value.   
         It is highly recommended if you do skin text that you provide all the translated bundles
         for the key you are skinning. Therefore you will have many other files, like SkinBundle_fr, etc.,

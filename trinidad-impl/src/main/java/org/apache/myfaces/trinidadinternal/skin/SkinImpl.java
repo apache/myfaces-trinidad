@@ -48,6 +48,7 @@ import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 
 import org.apache.myfaces.trinidad.skin.SkinAddition;
+import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
@@ -97,6 +98,12 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   {
     return null;
   }
+
+  @Override
+  public SkinVersion getVersion()
+  {
+    return SkinVersion.EMPTY_SKIN_VERSION;
+  }  
 
   /**
    * Returns the renderKitId for the Skin.

@@ -590,10 +590,13 @@ public class CoreRenderingContext extends RenderingContext
     FacesContext   context,
     RequestContext afContext)
   {
-    // get skinFamily
+    // get skin-family
     String skinFamily = afContext.getSkinFamily();
     if (skinFamily == null)
       skinFamily = getDefaultSkinFamily();
+
+    // get skin-version
+    String skinVersionString = afContext.getSkinVersion();
 
     // get renderKitId, default is desktop renderKit
     String renderKitId = XhtmlConstants.APACHE_TRINIDAD_DESKTOP;
@@ -616,7 +619,7 @@ public class CoreRenderingContext extends RenderingContext
       return;
     }
 
-    Skin skin = factory.getSkin(null, skinFamily, renderKitId);
+    Skin skin = factory.getSkin(context, skinFamily, renderKitId, skinVersionString);
 
     if (skin == null)
     {

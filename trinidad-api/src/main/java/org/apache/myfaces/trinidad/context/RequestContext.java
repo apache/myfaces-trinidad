@@ -251,6 +251,14 @@ abstract public class RequestContext
   public abstract String getSkinFamily();
 
   /**
+   * Returns the name of the skin version that goes with the skin-family.
+   */
+  public String getSkinVersion()
+  {
+    return null;
+  }
+
+  /**
    * Determines whether the current View Root is an internal view
    * @param context Faces context
    * @return true if the current View Root is an internal view, false otherwise
