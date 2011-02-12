@@ -98,8 +98,14 @@ Latest source code from SVN repository
 
 Nightly builds from SVN repository
 
-     There are also {{{http://people.apache.org/repo/m2-snapshot-repository/org/apache/myfaces/trinidad} nightly builds}}
+     There are also {{{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/trinidad} nightly builds}}
      available every 24 hours (11:00 PM EST).
+
+Archive of old releases
+
+    Older releases are available in the {{{http://archive.apache.org/dist/myfaces/} archive}}.  Those
+    releases are only provided as historical artifacts. We strongly
+    recommend not to use those releases, but upgrade to the most recent release.
 
 Verifying checksums
 
