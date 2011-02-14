@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.el.MethodExpression;
 
@@ -654,12 +655,8 @@ abstract public class UIXComponent extends UIComponent
     try
     {
       // determine whether this visit should be iterating.  If it shouldn't, don't
-      // even call the protected hook.  We currently don't iterate during the
-      // restore view phase when we are visiting all of the components.
-      boolean noIterate = (visitContext.getIdsToVisit() == VisitContext.ALL_IDS) &&
-                          (context.getCurrentPhaseId() == PhaseId.RESTORE_VIEW);
-
-      doneVisiting =  (noIterate)
+      // even call the protected hook.
+      doneVisiting =  (_isSkipIterationVisit(visitContext))
                         ? uixParentComponent._visitAllChildren(visitContext, callback)
                         : uixParentComponent.visitChildren(visitContext, callback);
     }
@@ -822,6 +819,18 @@ abstract public class UIXComponent extends UIComponent
       return false;
 
     return true;
+  }
+
+  /**
+   * Tests whether we should skip iteration during this visit
+   */
+  private static boolean _isSkipIterationVisit(VisitContext visitContext)
+  {
+    FacesContext context = visitContext.getFacesContext();
+    Map<Object, Object> attrs = context.getAttributes();
+    Object skipIteration = attrs.get("javax.faces.visit.SKIP_ITERATION");
+
+    return Boolean.TRUE.equals(skipIteration);
   }
 
   /**
