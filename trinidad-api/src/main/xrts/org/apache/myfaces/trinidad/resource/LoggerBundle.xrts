@@ -118,7 +118,7 @@
 <resource key="ERR_PARSING_URL">Error parsing:{0}</resource>
 
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE">error loading resource:{0}</resource>
+<resource key="ERR_LOADING_RESROUCE">Error loading resource:{0}</resource>
 
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE">Resource name "{0}" begins with a slash, which is not portable.</resource>

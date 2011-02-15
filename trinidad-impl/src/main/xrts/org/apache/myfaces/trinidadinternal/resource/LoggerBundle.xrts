@@ -218,7 +218,7 @@
 <resource key="RESOURCE_BUNDLE_NOT_FOUND">Resource bundle {0} could not be found.</resource>
 
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE">error closing file:{0}</resource>
+<resource key="ERR_CLOSING_FILE">Error closing file:{0}</resource>
 
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE">Error getting region-metadata files:{0}</resource>
@@ -501,7 +501,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="ERR_PARSING">Error parsing:{0}</resource>
 
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE">error loading file:{0}</resource>
+<resource key="ERR_LOADING_FILE">Error loading file:{0}</resource>
 
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET">Could not load style sheet: {0}</resource>
@@ -1026,7 +1026,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
  <resource key="UNKNOWN_COMPARISON">Unknown comparison</resource>
 
  <!-- TEST_BOUNDVALUE_REQUIRED -->
- <resource key="TEST_BOUNDVALUE_REQUIRED">test BoundValue required</resource>
+ <resource key="TEST_BOUNDVALUE_REQUIRED">Test BoundValue required</resource>
 
  <!-- NULL_LIST_ARGUMENT -->
  <resource key="NULL_LIST_ARGUMENT">Null list argument</resource>
