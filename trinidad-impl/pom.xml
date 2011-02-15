@@ -211,7 +211,7 @@
       <!-- 
           To make the current revision number, we use the buildnumber-maven-plugin.
       -->
-      <plugin>
+      <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>buildnumber-maven-plugin</artifactId>
         <version>1.0-beta-4</version>
@@ -229,7 +229,7 @@
           <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
           <buildNumberPropertyName>scm.revision</buildNumberPropertyName>
         </configuration>
-      </plugin>
+      </plugin-->
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
