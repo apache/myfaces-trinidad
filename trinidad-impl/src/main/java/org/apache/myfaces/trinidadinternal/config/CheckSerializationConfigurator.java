@@ -63,6 +63,7 @@ import org.apache.myfaces.trinidad.util.CollectionUtils.MapMutationHooks;
 import org.apache.myfaces.trinidad.util.TransientHolder;
 
 import org.apache.myfaces.trinidadinternal.context.external.ServletApplicationMap;
+import org.apache.myfaces.trinidadinternal.util.ObjectInputStreamResolveClass;
 
 /**
  * Configurator that uses both wrapped ExternalContext (for Portlet cases) and wrapped
@@ -561,7 +562,7 @@ public final class CheckSerializationConfigurator extends Configurator
         byte[] copyBytes = Arrays.copyOf(serializedBytes, serializedBytes.length);
         
         ByteArrayInputStream baos = new ByteArrayInputStream(copyBytes);
-        ObjectInputStream ois = new ObjectInputStream(baos);
+        ObjectInputStream ois = new ObjectInputStreamResolveClass(baos);
         deserializedObject = ois.readObject();
         ois.close();
       }
