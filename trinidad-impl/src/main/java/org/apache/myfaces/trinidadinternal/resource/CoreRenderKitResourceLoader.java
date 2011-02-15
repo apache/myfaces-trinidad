@@ -55,7 +55,7 @@ public class CoreRenderKitResourceLoader extends RegexResourceLoader
     register("(/.*LocaleElements.*\\.js)",
              new LocaleElementsResourceLoader(getLocaleElementsURI("LocaleElements", true))); 
 
-    register("(/.*\\.(css|cur|jpg|gif|png|jpeg|svg|js))",
+    register("(/.*\\.(css|cur|ico|jpg|gif|png|jpeg|svg|js))",
              new CoreClassLoaderResourceLoader(parent));
   }
 
