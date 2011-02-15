@@ -169,29 +169,6 @@
         </executions>
       </plugin>
 
-      <!-- 
-          To make the current revision number, we use the buildnumber-maven-plugin.
-      -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>buildnumber-maven-plugin</artifactId>
-        <version>1.0-beta-4</version>
-        <executions>
-          <execution>
-            <phase>validate</phase>
-            <goals>
-              <goal>create</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <doCheck>false</doCheck>
-          <doUpdate>false</doUpdate>
-          <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
-          <buildNumberPropertyName>scm.revision</buildNumberPropertyName>
-        </configuration>
-      </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -202,7 +179,6 @@
              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
            </manifest>
            <manifestEntries>
-             <Revision>${scm.revision}</Revision>
              <Maven-Version>${maven.version}</Maven-Version>
              <Java-Vendor>${java.vendor}</Java-Vendor>
              <Os-Name>${os.name}</Os-Name>
@@ -376,6 +352,49 @@
                 </goals>
               </execution>
             </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    
+    <!-- This adds further debugging information to the manifest.  Currently this is the svn revision number of the build.  -->
+    <profile>
+      <id>extended-manifest</id>
+      
+      <build>
+        <plugins>
+          <!-- 
+            To make the current revision number, we use the buildnumber-maven-plugin.
+          -->
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>buildnumber-maven-plugin</artifactId>
+            <version>1.0-beta-4</version>
+            <executions>
+              <execution>
+                <phase>validate</phase>
+                <goals>
+                  <goal>create</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <doCheck>false</doCheck>
+              <doUpdate>false</doUpdate>
+              <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+              <buildNumberPropertyName>scm.revision</buildNumberPropertyName>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <archive>
+                <manifestEntries>
+                  <Revision>${scm.revision}</Revision>
+                </manifestEntries>
+              </archive>
+            </configuration>
           </plugin>
         </plugins>
       </build>
