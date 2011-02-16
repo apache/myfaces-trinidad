@@ -326,7 +326,7 @@
       </plugin>
     </plugins>
   </reporting>
-  <plugins>
+  <profiles>
     <!-- This adds further debugging information to the manifest.  Currently this is the svn revision number of the build.  -->
     <profile>
       <id>extended-manifest</id>
@@ -369,5 +369,5 @@
         </plugins>
       </build>
     </profile>  
-  </plugins>
+  </profiles>
 </project>
