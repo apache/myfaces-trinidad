@@ -62,7 +62,7 @@ final class StringArrayPropertyTagRule extends MetaRule
       {
         // TRINIDAD-2034 - create a new String array instance every time to avoid issues
         // with sharing mutable objects
-        Object params = new Object[]{_itemList.isEmpty() ? null : _itemList.toArray(new String[_itemList.size()])};
+        Object params[] = new Object[]{_itemList.isEmpty() ? null : _itemList.toArray(new String[_itemList.size()])};
         _method.invoke(instance, params);
       }
       catch (InvocationTargetException e)
