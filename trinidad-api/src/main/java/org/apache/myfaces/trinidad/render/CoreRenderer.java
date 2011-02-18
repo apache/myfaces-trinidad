@@ -269,6 +269,12 @@ public class CoreRenderer extends Renderer
       return null;
 
     String uri = o.toString();
+    
+    // TRINIDAD-2039: do not return URI's for empty resource values
+    if (uri.length() == 0)
+    {
+      return null;
+    }
 
     // Treat two slashes as server-relative
     if (uri.startsWith("//"))
