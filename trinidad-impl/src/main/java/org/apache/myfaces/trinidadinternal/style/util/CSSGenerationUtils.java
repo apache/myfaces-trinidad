@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.style.util;
 
+import java.beans.Beans;
+
 import java.io.PrintWriter;
 
 import java.util.ArrayList;
@@ -1388,7 +1390,9 @@ public class CSSGenerationUtils
 
   static private String _convertPseudoClass(String pseudoClass)
   {
-    if (_BUILT_IN_PSEUDO_CLASSES.contains(pseudoClass))
+    // The design time needs the browser-supported pseudo-classes to be converted so they
+    // can show a preview of the skinned component.
+    if (_BUILT_IN_PSEUDO_CLASSES.contains(pseudoClass) && !Beans.isDesignTime())
       return pseudoClass;
     StringBuilder builder = new StringBuilder(pseudoClass.length() + 3);
     builder.append(".");
@@ -1406,8 +1410,7 @@ public class CSSGenerationUtils
     return builder.toString();
   }
 
-
-  // =-=AEW Do we care about built-in pseudo-elements???
+  // We want to output to the css the browser-supported pseudo-classes as is
   static private final Set<String> _BUILT_IN_PSEUDO_CLASSES =
     new HashSet<String>();
   static
@@ -1420,7 +1423,6 @@ public class CSSGenerationUtils
     _BUILT_IN_PSEUDO_CLASSES.add(":focus");
   }
 
-  private static final Pattern _SPACE_PATTERN = Pattern.compile("\\s");
   private static final Pattern _DASH_PATTERN =  Pattern.compile("-");
   private static final String[] _EMPTY_STRING_ARRAY = new String[0];
   private static final int _MSIE_SELECTOR_LIMIT = 4095;
