@@ -631,7 +631,7 @@
     -tr-rule-ref: selector(".AFFloatEnd:alias");
   }
 
-  af|separator:alias {}
+  af|separator {}
 
   /** Required label selectors **/
 
