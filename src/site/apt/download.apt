@@ -33,23 +33,23 @@ Download Apache MyFaces Trinidad
   created using GNU tar extensions. Thus they must be untarred with a GNU compatible
   version of tar.
 
-    << Apache MyFaces Trinidad 2.0.0-beta-1 Distribution for JSF 2.0 >>
+    << Apache MyFaces Trinidad 2.0.0-beta-2 Distribution for JSF 2.0 >>
 
     Release notes can be found
   {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310661&styleName=Html&version=12314840}here}}.
-
+<img src="file:///home/sobryan/Source/myfaces/trinidad/trunk/src/site/resources/images/trinidad_logo.png" alt="" /><img src="file:///home/sobryan/Source/myfaces/trinidad/trunk/src/site/resources/images/trinidad_logo.png" alt="" />
 *-------------------------+---------+----------+-----------+
 |                         | Mirrors | Checksum | Signature |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 2.0.0-beta-1 (tar.gz)     | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-1-dist.tar.gz} trinidad-2.0.0-beta-1-dist.tar.gz}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-1-dist.tar.gz.md5} trinidad-2.0.0-beta-1-dist.tar.gz.md5}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-1-dist.tar.gz.asc} trinidad-2.0.0-beta-1-dist.tar.gz.asc}} |
+| Apache MyFaces Trinidad 2.0.0-beta-2 (tar.gz)     | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-2-dist.tar.gz} trinidad-2.0.0-beta-2-dist.tar.gz}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-2-dist.tar.gz.md5} trinidad-2.0.0-beta-2-dist.tar.gz.md5}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-2-dist.tar.gz.asc} trinidad-2.0.0-beta-2-dist.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 2.0.0-beta-1 (zip)      | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-1-dist.zip} trinidad-2.0.0-beta-1-dist.zip}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-1-dist.zip.md5} trinidad-2.0.0-beta-1-dist.zip.md5}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-1-dist.zip.asc} trinidad-2.0.0-beta-1-dist.zip.asc}} |
+| Apache MyFaces Trinidad 2.0.0-beta-2 (zip)      | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-2-dist.zip} trinidad-2.0.0-beta-2-dist.zip}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-2-dist.zip.md5} trinidad-2.0.0-beta-2-dist.zip.md5}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-2-dist.zip.asc} trinidad-2.0.0-beta-2-dist.zip.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 2.0.0-beta-1 Example (tar.gz)     | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-1-example.tar.gz} trinidad-2.0.0-beta-1-example.tar.gz}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-1-example.tar.gz.md5} trinidad-2.0.0-beta-1-example.tar.gz.md5}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-1-example.tar.gz.asc} trinidad-2.0.0-beta-1-example.tar.gz.asc}} |
+| Apache MyFaces Trinidad 2.0.0-beta-2 Example (tar.gz)     | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-2-example.tar.gz} trinidad-2.0.0-beta-2-example.tar.gz}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-2-example.tar.gz.md5} trinidad-2.0.0-beta-2-example.tar.gz.md5}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-2-example.tar.gz.asc} trinidad-2.0.0-beta-2-example.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 2.0.0-beta-1  Example (zip)      | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-1-example.zip} trinidad-2.0.0-beta-1-example.zip}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-1-example.zip.md5} trinidad-2.0.0-beta-1-example.zip.md5}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-1-example.zip.asc} trinidad-2.0.0-beta-1-example.zip.asc}} |
+| Apache MyFaces Trinidad 2.0.0-beta-2  Example (zip)      | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-2-example.zip} trinidad-2.0.0-beta-2-example.zip}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-2-example.zip.md5} trinidad-2.0.0-beta-2-example.zip.md5}} | {{{http://myfaces.apache.org/dist/binaries/trinidad-2.0.0-beta-2-example.zip.asc} trinidad-2.0.0-beta-2-example.zip.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 2.0.0-beta-1  Source (zip)      | {{{http://myfaces.apache.org/dist/source/trinidad-2.0.0-beta-1-src-all.zip} trinidad-2.0.0-beta-1-src-all.zip}} | {{{http://myfaces.apache.org/dist/source/trinidad-2.0.0-beta-1-src-all.zip.md5} trinidad-2.0.0-beta-1-src-all.zip.md5}} | {{{http://myfaces.apache.org/dist/source/trinidad-2.0.0-beta-1-src-all.zip.asc} trinidad-2.0.0-beta-1-src-all.zip.asc}} |
+| Apache MyFaces Trinidad 2.0.0-beta-2  Source (zip)      | {{{http://myfaces.apache.org/dist/source/trinidad-2.0.0-beta-2-src-all.zip} trinidad-2.0.0-beta-2-src-all.zip}} | {{{http://myfaces.apache.org/dist/source/trinidad-2.0.0-beta-2-src-all.zip.md5} trinidad-2.0.0-beta-2-src-all.zip.md5}} | {{{http://myfaces.apache.org/dist/source/trinidad-2.0.0-beta-2-src-all.zip.asc} trinidad-2.0.0-beta-2-src-all.zip.asc}} |
 *-------------------------+---------+----------+-----------+
 
     << Apache MyFaces Trinidad 1.2.14 Distribution for JSF 1.2 >>

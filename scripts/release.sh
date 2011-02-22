@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 # settings:
-VERSION=2.0.0-beta-1
+VERSION=2.0.0-beta-3
 REPOSITORY=https://repository.apache.org/content/repositories/releases
 
 # download the bits (user-agent to "" is important)
