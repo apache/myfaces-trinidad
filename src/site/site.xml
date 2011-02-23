@@ -42,7 +42,7 @@
       <item name="MyFaces" href="http://myfaces.apache.org/"/>
     </links>
 
-    <menu name="">
+    <menu name="Trinidad">
       <item name="Download" href="download.html"/>
       <item name="Publications" href="publications.html" />
       <item name="Installation" href="devguide/installation.html" />
