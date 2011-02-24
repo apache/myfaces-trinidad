@@ -19,17 +19,15 @@
 package org.apache.myfaces.trinidadinternal.style;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Collections;
-import java.util.Iterator;
-
-import org.apache.myfaces.trinidad.style.Style;
+import java.util.Map;
 
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 
 
 /**
- * Style implementation for CSS.
+ * Style implementation for CSS. Mutable.
+ * @deprecated Use UnmodifiableStyle which cannot be modified once it is created.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/CSSStyle.java#0 $) $Date: 10-nov-2005.18:57:55 $
  */

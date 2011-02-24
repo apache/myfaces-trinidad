@@ -18,17 +18,18 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import java.util.HashMap;
 import java.util.Map;
 
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
-import org.apache.myfaces.trinidadinternal.style.CSSStyle;
-
+import org.apache.myfaces.trinidadinternal.style.UnmodifiableStyle;
 
 
 /**
@@ -111,18 +112,20 @@ public class XhtmlSkin extends BaseSkin
   
   static
   {
-    // does this matter if it's not an ArrayMap?
-    _spinboxTopStyleMap = new HashMap<String, String>();
+    // todo Use ArrayMap instead of ConcurrentHashMap
+    // We were using CSSStyle instead of UnmodifiableStyle and that class copied the properties 
+    // into a ConcurrentHashMap. Changing this to another map will change the spinbox golden files.
+    _spinboxTopStyleMap = new ConcurrentHashMap<String, String>();
     _spinboxTopStyleMap.put("display", "block");
     // this is needed for the image
-    _spinboxBottomStyleMap = new HashMap<String, String>();
+    _spinboxBottomStyleMap = new ConcurrentHashMap<String, String>();
     _spinboxBottomStyleMap.put("display", "block");
     _spinboxBottomStyleMap.put("padding-top", "2px");
 
   }
   
-  private static final CSSStyle spinboxTopStyle = new CSSStyle(_spinboxTopStyleMap);
-  private static final CSSStyle spinboxBottomStyle = new CSSStyle(_spinboxBottomStyleMap);
+  private static final Style spinboxTopStyle = new UnmodifiableStyle(_spinboxTopStyleMap);
+  private static final Style spinboxBottomStyle = new UnmodifiableStyle(_spinboxBottomStyleMap);
 
 
 
