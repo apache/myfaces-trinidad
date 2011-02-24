@@ -253,6 +253,15 @@ public abstract class UIXCollection extends UIXComponentBase
       setRowKey(currencyKey);
     }
 
+    // Finally clean up any internal model state that we might be holding on to. We do not want to hold onto any 
+    // application data in between requests 
+    InternalState iState = _getInternalState(false);
+    if (iState != null)
+    {
+      iState._value = null;
+      iState._model= null;
+    }
+    
     return savedState;
   }
 
@@ -272,10 +281,6 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       stampState = iState._stampState;
       clientKeyMgr = iState._clientKeyMgr;
-      
-      // Make sure that we are not holding on to any application data in our state
-      iState._value = null;
-      iState._model= null;
     }
     else
     {
