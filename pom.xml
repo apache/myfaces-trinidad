@@ -637,7 +637,7 @@
       by making sure that there is no -DperformRelease property on the maven command.  If
       there is, it may manually be invoked by adding a -PbuildExamples.
     -->
-    <!-- profile>
+    <profile>
       <id>buildExamples</id>
       <activation>
         <property>
@@ -648,7 +648,7 @@
       <modules>
         <module>trinidad-examples</module>
       </modules>
-    </profile -->
+    </profile>
 
    <!--
      To create a new branch, use the following command:
