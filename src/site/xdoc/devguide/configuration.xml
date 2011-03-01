@@ -226,12 +226,14 @@ while converting strings to Date.
         <subsection name="two-digit-year-start">
 <p>
 The <code>&lt;two-digit-year-start&gt;</code> element defines the 
-year offset that should be used for parsing years with only two digits.
-If it is not set, it is defaulted to year <code>1950</code>. This value is 
-used by <code>org.apache.myfaces.trinidad.converter.DateTimeConverter</code>
-while converting strings to Date. This property may also
-be explicitly configured with an EL expression that returns 
-Integer object if needed or can be directly harcoded to a integer value.
+100-year span that should be used used by <code>org.apache.myfaces.trinidad.converter.DateTimeConverter</code>
+to parse strings containing 2 digit years. The
+parsed Date will be in the range startDate to startDate + 100 years. For
+example, when the string is "1/1/11" and the two-digit-year-start is set to 1900, the 
+DateTimeConverter will parse it into the Date equivalent to 1st January 1911.
+If the property is not set, it is defaulted to year <code>1950</code>. 
+This property may be explicitly configured with an EL expression that returns 
+Integer object or it can be directly harcoded to a integer value.
 </p>
         </subsection>
         <subsection name="right-to-left">
