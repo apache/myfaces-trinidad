@@ -253,15 +253,15 @@ public abstract class UIXCollection extends UIXComponentBase
       setRowKey(currencyKey);
     }
 
-    // Finally clean up any internal model state that we might be holding on to. We do not want to hold onto any 
-    // application data in between requests 
+    // Finally clean up any internal model state that we might be holding on to. We do not want to hold onto any
+    // application data in between requests
     InternalState iState = _getInternalState(false);
     if (iState != null)
     {
       iState._value = null;
       iState._model= null;
     }
-    
+
     return savedState;
   }
 
@@ -1792,6 +1792,13 @@ public abstract class UIXCollection extends UIXComponentBase
     StampState stampState = _getStampState();
     FacesContext context = getFacesContext();
     Object currencyObj = getRowKey();
+
+    // TRINIDAD-2047: we do not need to save stamp state if there is no active stamp
+    if (currencyObj == null)
+    {
+      return;
+    }
+
     int position = 0;
     for(UIComponent stamp : getStamps())
     {
