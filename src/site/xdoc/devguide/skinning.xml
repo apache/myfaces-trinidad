@@ -660,10 +660,15 @@ so the medium panelBox's body will be pink, not yellow */
                 content: '?';
               }            
             </source>
-              <P>There are some limitations with skinning icons that do not exist when skinning styles. 
-              You cannot use the skin properties like -tr-rule-ref and -tr-inhibit when skinning icons 
-              though you can when skinning style selectors. These limitations should some day be 
-              fixed and this documentation will be updated then.</P> 
+              <P>Until recently there were limitations with skinning icons that -tr-rule-ref and -tr-inhibit were not supported. 
+              Further, the skin properties were not inherited from base skin for icon selectors. 
+              We fixed these limitations to make the icon selector behavior consistent with general skinning style selectors. 
+              Now that we inherit the skin properties for icons, if there were 'content' and other properties like 'width' and 'height' set, 
+              and you override just the 'content' property in your custom skin, you would inherit the 'width' and 'height' 
+              from the base skin. While this is a change in behavior, it is a change in right direction. 
+              If this behavior is not desirable, skinners can use -tr-inhibit to inhibit some properties or 
+              'tr-inhibit: all' to inhibit all properties before overriding the 'content' property.
+              </P> 
         </subsection>
         <a name="urls"></a>
         <subsection name="Specifying urls">
