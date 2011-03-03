@@ -860,7 +860,8 @@ public class SkinTranslationMapDemo
         parameter is the style from which the property is included and the second one is the name of the included property
         in that style. When the property included has the same name as in the including selector, the following syntax
         can also be used: background-color: -tr-property-ref("af|foo") instead of: background-color: -tr-property-ref("af|foo",
-        "background-color"). This is useful when only some properties from another style are needed to be included.
+        "background-color"). You can also use this in compact property values, like border: 1px solid -tr-property-ref(".AFDefaultColor:alias","color");
+        This is useful when only some properties from another style are needed to be included.
         In this case, we won't need to include the entire style via a -tr-rule-ref rule, but only the needed property.
         </li>
         <li>
