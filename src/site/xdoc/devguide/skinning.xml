@@ -852,8 +852,7 @@ public class SkinTranslationMapDemo
         <li>
         <strong>-tr-rule-ref</strong> - > This is used to include other styles in your style see :alias
         section. Application developers probably won't use this. This is meant for component developers to use when
-        they are setting up the base skin for their components. -tr-rule-ref works for style selectors but not
-        for icons (selectors that end with -icon) or skinning properties. (See TRINIDAD-17).
+        they are setting up the base skin for their components.
         </li>
         <li>
         <strong>-tr-property-ref</strong> - > This is used to include properties from other styles in your style.
@@ -863,8 +862,6 @@ public class SkinTranslationMapDemo
         can also be used: background-color: -tr-property-ref("af|foo") instead of: background-color: -tr-property-ref("af|foo",
         "background-color"). This is useful when only some properties from another style are needed to be included.
         In this case, we won't need to include the entire style via a -tr-rule-ref rule, but only the needed property.
-        -tr-rule-ref works for style selectors but not
-        for icons (selectors that end with -icon) or skinning properties. This should work some day.
         </li>
         <li>
         <strong>+/-</strong> - > This feature of the skinning framework allows you to set
