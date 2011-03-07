@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -53,7 +53,7 @@ abstract class BaseChangeManager extends ChangeManager
     // don't want to persist the changes 
     UIComponent parent = uiComponent.getParent();
     UIComponent root = facesContext.getViewRoot();
-    while (parent != root) 
+    while (parent != null && parent != root) 
     {
       if (parent.getClass() == UIXIterator.class) 
       {
@@ -95,7 +95,7 @@ abstract class BaseChangeManager extends ChangeManager
    * A no-op implementation of adding a ComponentChange. Sub-classers should
    * override and provide an implementation if they support component changes.
    * @param facesContext The FacesContext for this request.
-   * @param targetComponent The target component against which this change needs 
+   * @param targetComponent The target component against which this change needs
    * to be registered and applied later on.
    * @param componentChange The ComponentChange to add
    */
@@ -123,7 +123,7 @@ abstract class BaseChangeManager extends ChangeManager
    * in order to enable  Document-based Persistence
    */
   protected abstract Document getDocument(FacesContext context);
-  
+
   /**
    *  Returns true if we can support Document-based Persistence
    *  in this ChangeManager.  Subclassers adding Document-based Persistence
