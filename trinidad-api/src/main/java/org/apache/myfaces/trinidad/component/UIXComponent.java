@@ -689,6 +689,11 @@ abstract public class UIXComponent extends UIComponent
           _LOG.warning(ex);
         }
       }
+
+      if (re != null)
+      {
+        throw re;
+      }
     }
 
     return doneVisiting;
