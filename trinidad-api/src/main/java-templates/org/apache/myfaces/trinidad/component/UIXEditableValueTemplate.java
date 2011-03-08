@@ -51,6 +51,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
 import org.apache.myfaces.trinidad.util.MessageFactory;
+import org.apache.myfaces.trinidad.util.Reportable;
 
 
 /**
@@ -328,9 +329,18 @@ abstract public class UIXEditableValueTemplate
       }
 
       setValid(false);
-      FacesMessage message = MessageFactory.getMessage(e);
-      message = _wrapMessage(message);
-      context.addMessage(getClientId(context), message);
+
+      // don't report the exception if the exception is a Reportable instance and tells so
+      boolean shouldReportMessage = (e instanceof Reportable) ?
+                                    ((Reportable) e).shouldReportMessage() :
+                                    true;
+
+      if (shouldReportMessage)
+      {
+        FacesMessage message = MessageFactory.getMessage(e);
+        message = _wrapMessage(message);
+        context.addMessage(getClientId(context), message);
+      }
     }
   }
 
