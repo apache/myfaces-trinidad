@@ -1123,13 +1123,25 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED">Partial state saving is not yet supported. Please set context-param javax.faces.PARTIAL_STATE_SAVING to false in your web.xml.</resource>
 
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED">Error serializing {0} attribute:{1} value:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE">Error serializing {0} attribute:{1} </resource>
+
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL"> failed value=</resource>
 
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE">Failover error: {0} attribute:{1} of type {2} is not Serializable</resource>
 
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED">Failover error: Serialization of {0} attribute:{1} has changed from {2} to {3} without the attribute being dirtied</resource>
+
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE">Session attribute serialization testing failed for {0}. This check can be disabled by removing 'REQUEST' from the 'org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION' system property</resource>
+
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE">Exception gathering session attribute serialization testing failure</resource>
+
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE">Session attribute:{0} </resource>
 
 </resources>

@@ -57,6 +57,7 @@ public final class StateUtils
     boolean checkSessionSerialization = false;
     boolean checkApplicationSerialization = false;
     boolean checkMangedBeanMutation = false;
+    boolean checkAtEndRequest = false;
 
     String checkSerializationProperty;
 
@@ -91,6 +92,7 @@ public final class StateUtils
           checkSessionSerialization = true;
           checkApplicationSerialization = true;
           checkMangedBeanMutation = true;
+          checkAtEndRequest                    = true;
         }
         else
         {
@@ -100,6 +102,7 @@ public final class StateUtils
           checkSessionSerialization = serializationFlags.contains("SESSION");
           checkApplicationSerialization = serializationFlags.contains("APPLICATION");
           checkMangedBeanMutation = serializationFlags.contains("BEANS");
+          checkAtEndRequest = serializationFlags.contains("REQUEST");
         }
       }
     }
@@ -110,6 +113,7 @@ public final class StateUtils
     _CHECK_SESSION_SERIALIZATION = checkSessionSerialization;
     _CHECK_APPLICATION_SERIALIZATION = checkApplicationSerialization;
     _CHECK_MANAGED_BEAN_MUTATATION = checkMangedBeanMutation;
+    _CHECK_AT_END_REQUEST = checkAtEndRequest;
   }
 
   private static final boolean _CHECK_COMPONENT_TREE_STATE_SERIALIZATION;
@@ -118,6 +122,7 @@ public final class StateUtils
   private static final boolean _CHECK_SESSION_SERIALIZATION;
   private static final boolean _CHECK_APPLICATION_SERIALIZATION;
   private static final boolean _CHECK_MANAGED_BEAN_MUTATATION;
+  private static final boolean _CHECK_AT_END_REQUEST;
   
   /**
    * Returns <code>true</code> if properties should be checked for
@@ -249,6 +254,16 @@ public final class StateUtils
     return _CHECK_MANAGED_BEAN_MUTATATION;
   }
 
+  /**
+   * Returns <code>true</code> if all attributes in the session Map should be
+   * checked for serializability at the end of each request.  This check should
+   * only be performed if <code>checkSessionSerialization</code> also returns <code>true</code>.
+   * @see #checkSessionSerialization
+   */
+  public static boolean checkScopesAtEndOfRequest(ExternalContext extContext)
+  {
+    return _CHECK_AT_END_REQUEST;
+  }
 
   /**
    * Persists a property key.
@@ -618,7 +633,3 @@ public final class StateUtils
 
 
 }
-
-
-
-
