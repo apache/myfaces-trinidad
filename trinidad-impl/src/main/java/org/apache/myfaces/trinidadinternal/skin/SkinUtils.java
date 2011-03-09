@@ -256,13 +256,10 @@ public class SkinUtils
       skinsNode = ((SkinsNode)builder.parse(provider, input, context));
    
     }
-    catch (IOException ioe)
+    catch (Exception e)
     {
-      _LOG.warning(ioe);
-    }
-    catch (SAXException saxe)
-    {
-      _LOG.warning(saxe);
+      _LOG.warning("SKIN_CONFIG_PROCESS_FAILURE", configFile);
+      _LOG.warning(e);
     }
     finally
     {
@@ -992,7 +989,7 @@ public class SkinUtils
           SkinsNode metaInfSkinsNode =
             _getSkinsNodeFromInputStream(null, null, in,
                                          _getDefaultManager(),
-                                         _META_INF_CONFIG_FILE);
+                                         url.toString());
           
           if (metaInfSkinsNode != null)
           {
