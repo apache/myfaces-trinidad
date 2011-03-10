@@ -29,9 +29,12 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -203,30 +206,45 @@ public final class CheckSerializationConfigurator extends Configurator
     Map<String, Object> checkedMap,
     Object              mapWriteLock)
   {
-    Object list = checkedMap.get(_CHECKED_MAPS_KEY);
+    Object holder = checkedMap.get(_CHECKED_MAPS_KEY);
     
-    if (list == null)
+    TransientHolder<List<MutatedBeanChecker>> listHolder;
+    List<MutatedBeanChecker> mutatedBeans = null;
+    
+    if (holder != null)                                         
+    {
+      listHolder = (TransientHolder<List<MutatedBeanChecker>>)holder;
+      
+      mutatedBeans = listHolder.getValue();
+    }
+                                                 
+    if (mutatedBeans == null)
     {
       // make sure that the list is only created once per map
       synchronized(mapWriteLock)
       {
-        // check again in case we value was written by the previou lock holder
-        list = checkedMap.get(_CHECKED_MAPS_KEY);
+        // check again in case we value was written by the previous lock holder
+        holder = checkedMap.get(_CHECKED_MAPS_KEY);
+
+        if (holder != null)                                         
+        {
+          listHolder = (TransientHolder<List<MutatedBeanChecker>>)holder;
+          
+          mutatedBeans = listHolder.getValue();
+        }
         
-        if (list == null)
+        if (mutatedBeans == null)
         {
           // mutations to the list itself need to be thread-safe
-          List<MutatedBeanChecker> beanList = new CopyOnWriteArrayList<MutatedBeanChecker>();
+          mutatedBeans = new CopyOnWriteArrayList<MutatedBeanChecker>();
           
           // use a TransientHolder since we don't care if this gets failed over
-          checkedMap.put(_CHECKED_MAPS_KEY, TransientHolder.newTransientHolder(beanList));
-          
-          return beanList;
+          checkedMap.put(_CHECKED_MAPS_KEY, TransientHolder.newTransientHolder(mutatedBeans));
         }
       }
     }
     
-    return ((TransientHolder<List<MutatedBeanChecker>>)list).getValue();
+    return mutatedBeans;
   }
 
   /**
@@ -241,6 +259,88 @@ public final class CheckSerializationConfigurator extends Configurator
     for (MutatedBeanChecker beanChecker : beanCheckers)
     {
       beanChecker._unmutatedKeyValues.remove(key);
+    }
+  }
+  
+  /**
+   * Serialize an object and return the byte[]
+   * @param objectToSerialize
+   * @return
+   * @throws IOException
+   */
+  private static byte[] _serialize(Object objectToSerialize) throws IOException
+  {
+    ByteArrayOutputStream outputByteStream = new ByteArrayOutputStream();
+    
+    new ObjectOutputStream(outputByteStream).writeObject(objectToSerialize);
+    
+    return outputByteStream.toByteArray();    
+  }
+
+  /**
+   * Extract the detailed messages for a serialization failure
+   * @param keyMessage
+   * @param value
+   * @return
+   */
+  private static String _extractFailureString(String keyMessage, Object value)
+  {
+    List<Object> failureStack = new ArrayList<Object>();
+    
+    failureStack.add(keyMessage);
+    failureStack.add(value);
+    
+    _extractFailure(failureStack, value);
+    
+    String joinMessage = _LOG.getMessage("EXTRACT_SERIALIZATION_DETAIL");
+    
+    StringBuilder message = new StringBuilder();
+    
+    Iterator<Object> failures = failureStack.iterator();
+    
+    do
+    {
+      String keyInfo = (String)failures.next();
+      Object failedValue = failures.next();
+      
+      message.append(keyInfo);
+      message.append(joinMessage);
+      message.append(failedValue);
+      
+      if (failures.hasNext())
+        message.append(", ");
+      else
+        break;
+      
+    } while (true);
+    
+    return message.toString();
+  }
+
+  /**
+   * Extract the detailed causes of a serialization failure onto the failureStack
+   * @param failureStack
+   * @param failedObject
+   */
+  private static void _extractFailure(
+    List<Object> failureStack,
+    Object       failedObject)
+  {
+    if (failedObject instanceof Map)
+    {
+      _MAP_EXTRACTOR.extractFailure(failureStack, (Map<Object, Object>)failedObject);
+    }
+    else if (failedObject instanceof List)
+    {
+      _LIST_EXTRACTOR.extractFailure(failureStack, (List<Object>)failedObject);
+    }
+    else if (failedObject instanceof Collection)
+    {
+      _COLLECTION_EXTRACTOR.extractFailure(failureStack, (List<Object>)failedObject);
+    }
+    else if (failedObject instanceof Object[])
+    {
+      _ARRAY_EXTRACTOR.extractFailure(failureStack, (Object[])failedObject);
     }
   }
 
@@ -604,7 +704,7 @@ public final class CheckSerializationConfigurator extends Configurator
       
       Class valueClass = value.getClass();
       
-      // check against the lsit of classes to ignore for performance reasons
+      // check against the list of classes to ignore for performance reasons
       if (_INGNORE_CLASS_NAMES.contains(valueClass.getName()))
         return _EMPTY_BYTE_ARRAY;
       
@@ -615,7 +715,7 @@ public final class CheckSerializationConfigurator extends Configurator
           String message = _LOG.getMessage("ATTRIBUTE_NOT_SERIALIZABLE",
                                            new Object[]{_mapName, key, valueClass});
       
-          // throw new IllegalStateException(message);
+          _LOG.severe(message);
         }
         
         return _EMPTY_BYTE_ARRAY;
@@ -625,20 +725,18 @@ public final class CheckSerializationConfigurator extends Configurator
       // verify that the contents of the value are in fact Serializable
       try
       {
-        ByteArrayOutputStream outputByteStream = new ByteArrayOutputStream();
-        
-        new ObjectOutputStream(outputByteStream).writeObject(value);
-        
-        return outputByteStream.toByteArray();
+        return _serialize(value);
       }
-      catch (IOException e)
+      catch (Throwable e)
       {
         if (requireSerialization)
         {
-          String message = _LOG.getMessage("ATTRIBUTE_SERIALIZATION_FAILED",
-                                           new Object[]{_mapName, key, value});
+          String baseMessage = _LOG.getMessage("ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE",
+                                           new Object[]{_mapName, key});
           
-          throw new IllegalArgumentException(message, e);            
+          String message = _extractFailureString(baseMessage, value);
+          
+          _LOG.severe(message, e);            
         }
 
         return _EMPTY_BYTE_ARRAY;
@@ -886,11 +984,15 @@ public final class CheckSerializationConfigurator extends Configurator
         // check the possible conditions under which we would need to create a SerializationChecker
         if (checkSession || checkApplication || checkManagedBeanMutation)
         {
+          boolean checkSessionAtEnd = StateUtils.checkScopesAtEndOfRequest(extContext);
+            
           SerializationChecker serializationChecker = new SerializationChecker(
                                                                            extContext,
                                                                            checkSession,
                                                                            checkApplication,
-                                                                           checkManagedBeanMutation);
+                                                                           checkManagedBeanMutation,
+                                                                           checkSessionAtEnd);
+          
           requestMap.put(_SERIALIZATION_CHECKER_KEY, serializationChecker);
           
           return serializationChecker;
@@ -913,7 +1015,8 @@ public final class CheckSerializationConfigurator extends Configurator
       ExternalContext extContext,
       boolean checkSession,
       boolean checkApplication,
-      boolean checkManagedBeanMutation)
+      boolean checkManagedBeanMutation,
+      boolean checkSessionAtEnd)
     {
       Map<String, Object> sessionMap = extContext.getSessionMap();
       Map<String, Object> applicationMap = extContext.getApplicationMap();
@@ -958,8 +1061,9 @@ public final class CheckSerializationConfigurator extends Configurator
         }        
       }
             
-      _sessionMap     = sessionMap;
-      _applicationMap = applicationMap;
+      _sessionMap        = sessionMap;
+      _applicationMap    = applicationMap;
+      _checkSessionAttrs = checkSessionAtEnd;
     }
 
     /**
@@ -1043,6 +1147,39 @@ public final class CheckSerializationConfigurator extends Configurator
     
       if (_applicationBeanChecker != null)
         _applicationBeanChecker.checkForMutations();
+      
+      // check that all of the attributes in the Session are Serializable
+      if (_checkSessionAttrs)
+      {
+        for (Map.Entry<String, Object> attrEntry : _sessionMap.entrySet())
+        {
+          String key = attrEntry.getKey();
+          Object value = attrEntry.getValue();
+          
+          try
+          {
+            _serialize(value);
+          }
+          catch (Throwable e)
+          {
+            try
+            { 
+              String sessionAttributeString = _LOG.getMessage("SESSION_SERIALIZATION_ATTRIBUTE", key);
+              String failureDetails = _extractFailureString(sessionAttributeString, value);
+
+              String message = _LOG.getMessage("SERIALIZATION_TESTING_FAILURE", failureDetails);
+              
+              _LOG.severe(message);
+            }
+            catch (Throwable ee)
+            {
+              String failureMessage = _LOG.getMessage("SERIALIZATION_LOGGING_FAILURE");
+              
+              _LOG.severe(failureMessage, ee);              
+            }
+          }
+        }
+      }
     }
    
     /**
@@ -1232,14 +1369,161 @@ public final class CheckSerializationConfigurator extends Configurator
 
       private final HttpSession _wrappedSession;
     }
-       
+ 
+    private static final TrinidadLogger _LOG = 
+                                   TrinidadLogger.createTrinidadLogger(SerializationChecker.class);
+      
     private final MutatedBeanChecker _sessionBeanChecker;
     private final MutatedBeanChecker _applicationBeanChecker;
 
     private final Map<String, Object> _sessionMap;
     private final Map<String, Object> _applicationMap;
+    private final boolean             _checkSessionAttrs;
   }
 
+  /**
+   * Class for extracting more detailed failure information for a particular object type
+   * that has failed Serialization
+   * 
+   * @param <T>
+   */
+  private static abstract class SerializationFailureExtractor<T>
+  {
+    /**
+     * Called to extract failure information about the failedObject onto the
+     * failureStack
+     */
+    public abstract void extractFailure(List<Object> failureStack, T faileddObject);
+  }
+  
+  /**
+   * Extract information about failures in Maps
+   */
+  private static class MapExtractor extends SerializationFailureExtractor<Map<Object, Object>>
+  {
+    public void extractFailure(List<Object> failureStack, Map<Object, Object> failedMap)
+    {
+      for (Map.Entry<Object, Object> entry : failedMap.entrySet())
+      {
+        Object key = entry.getKey();
+        
+        try
+        {
+          _serialize(key);
+        }
+        catch (Throwable e)
+        {
+          failureStack.add("Failed map key:" + key);
+          failureStack.add(key);
+          
+          _extractFailure(failureStack, key);
+        }
+
+        Object value = entry.getValue();
+
+        try
+        {
+          _serialize(value);
+        }
+        catch (Throwable e)
+        {
+          failureStack.add("Failed map value for key=" + key + " value:" + value);
+          failureStack.add(value);
+          
+          _extractFailure(failureStack, value);
+        }
+      }
+    }
+  }
+
+  /**
+   * Extract information about serialization failures in Lists
+   */
+  private static class ListExtractor extends SerializationFailureExtractor<List<Object>>
+  {
+    public void extractFailure(List<Object> failureStack, List<Object> failedList)
+    {
+      int size = failedList.size();
+      
+      for (int i = 0; i < size; i++)
+      {
+        Object value = failedList.get(i);
+        
+        try
+        {
+          _serialize(value);
+        }
+        catch (Throwable e)
+        {
+          failureStack.add("Failed List value for index=" + i + " value:" + value);
+          failureStack.add(value);
+          
+          _extractFailure(failureStack, value);
+        }
+      }
+    }
+  }
+
+  /**
+   * Extract information about serialization failures in Arrays
+   */
+  private static class ArrayExtractor extends SerializationFailureExtractor<Object[]>
+  {
+    public void extractFailure(List<Object> failureStack, Object[] failedArray)
+    {
+      int size = failedArray.length;
+      
+      for (int i = 0; i < size; i++)
+      {
+        Object value = failedArray[i];
+        
+        try
+        {
+          _serialize(value);
+        }
+        catch (Throwable e)
+        {
+          failureStack.add("Failed array value for index=" + i + " value:" + value);
+          failureStack.add(value);
+          
+          _extractFailure(failureStack, value);
+        }
+      }
+    }
+  }
+
+  /**
+   * Extract information about serialization failures in Collections
+   */
+  private static class CollectionExtractor extends SerializationFailureExtractor<Collection<Object>>
+  {
+    public void extractFailure(List<Object> failureStack, Collection<Object> failedCollection)
+    {      
+      for (Object value : failedCollection)
+      {        
+        try
+        {
+          _serialize(value);
+        }
+        catch (Throwable e)
+        {
+          failureStack.add("Failed Collection value:" + value);
+          failureStack.add(value);
+          
+          _extractFailure(failureStack, value);
+        }
+      }
+    }
+  }
+
+  private static final TrinidadLogger _LOG = 
+                        TrinidadLogger.createTrinidadLogger(CheckSerializationConfigurator.class);
+ 
+  private static final MapExtractor _MAP_EXTRACTOR = new MapExtractor();
+  private static final ListExtractor _LIST_EXTRACTOR = new ListExtractor();
+  private static final CollectionExtractor _COLLECTION_EXTRACTOR = new CollectionExtractor();
+  private static final ArrayExtractor _ARRAY_EXTRACTOR = new ArrayExtractor();
+  
   private static final String _CHECKED_MAPS_KEY = MutatedBeanChecker.class.getName() +"#MAPS";
 
   private static final String _SERIALIZATION_CHECKER_KEY = 
