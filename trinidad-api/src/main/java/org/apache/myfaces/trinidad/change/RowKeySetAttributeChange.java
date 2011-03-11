@@ -61,7 +61,9 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
 
         Object oldValue;
         
-        if (expression != null)
+        // due to bug in how the trinidad table and tree handle their RowKeySets, always use
+        // invoke on component and get the old value in context all of the time for now
+        if (true || (expression != null))
         {
           //use EL to get the oldValue and then determine whether we need to update in place
           final FacesContext context = FacesContext.getCurrentInstance();
@@ -69,7 +71,7 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
           context.getViewRoot().invokeOnComponent(
             context,
             _clientId,
-            new GetOldValueAndUpdate(expression, (RowKeySet)attributeValue));
+            new GetOldValueAndUpdate(expression, attributeName, (RowKeySet)attributeValue));
         }
         else
         {
@@ -118,21 +120,32 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
    */
   private static final class GetOldValueAndUpdate implements ContextCallback
   {
-    public GetOldValueAndUpdate(ValueExpression expression, RowKeySet newKeySet)
+    public GetOldValueAndUpdate(ValueExpression expression, String attributeName, RowKeySet newKeySet)
     {
       _expression = expression;
+      _attributeName = attributeName;
       _newKeySet  = newKeySet;
     }
     public void invokeContextCallback(FacesContext context,
                                       UIComponent target)
     {
+      Object oldValue;
+      
+      // due to bug in how tables and trees handle RowKeySet, temporarily support getting the
+      // old value in context, even when we don't have a value expression
+      if (_expression != null)
+        oldValue = _expression.getValue(context.getELContext());
+      else
+        oldValue = target.getAttributes().get(_attributeName);
+      
       // update the KeySet with the old and new values
       RowKeySetAttributeChange._updateKeySet(null,
-                                             (RowKeySet)_expression.getValue(context.getELContext()),
+                                             (RowKeySet)oldValue,
                                              _newKeySet);
     }
     
     private final ValueExpression _expression;
+    private final String _attributeName;
     private final RowKeySet _newKeySet;
   }
 
