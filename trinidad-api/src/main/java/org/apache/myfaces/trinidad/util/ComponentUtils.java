@@ -27,6 +27,9 @@ import javax.faces.component.UIComponent;
 
 import javax.faces.component.UIViewRoot;
 
+import javax.faces.context.FacesContext;
+
+import org.apache.myfaces.trinidad.component.FlattenedComponent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -449,6 +452,40 @@ public final class ComponentUtils
   }
 
   /**
+   * Returns the nearest ancestor component, skipping over any
+   * flattening components.
+   * 
+   * @param context the FacesContext
+   * @param component the UIComponent
+   * @return the first ancestor component that is not a FlattenedComponent
+   *   that is actively flattening its children or null if no such ancestor
+   *   component is found.
+   * @see org.apache.myfaces.trinidad.component.FlattenedComponent
+   */
+  public static UIComponent getNonFlatteningAncestor(
+    FacesContext context,
+    UIComponent component)
+  {
+    UIComponent parent = component.getParent();
+    
+    while (parent != null)
+    { 
+      if (!_isFlattening(context, parent))
+        return parent;
+      
+      parent = parent.getParent();
+    }
+
+    return null;
+  }
+
+  private static boolean _isFlattening(FacesContext context, UIComponent component)
+  {
+    return ((component instanceof FlattenedComponent) &&
+      ((FlattenedComponent)component).isFlatteningChildren(context));
+  }
+
+  /**
    * Builds the scoped id. Adds the naming container's id and the separator char
    * in a recursive fashion.
    * @param targetComponent The component for which the scoped id needs to be
@@ -509,7 +546,7 @@ public final class ComponentUtils
     
     return checkedParent;
   }
-  
+
   // given a component, get its naming container. If the component
   // is a naming container, it will get its naming container.
   // if no parent naming containers exist, it stops at the ViewRoot.
