@@ -114,7 +114,7 @@ public class SessionChangeManager extends BaseChangeManager
       
       if (changesForView != null)
       {
-        changesForView.applyComponentChanges(context, component);
+        changesForView.applySimpleComponentChanges(context, component);
       }
     }
   }
@@ -144,15 +144,18 @@ public class SessionChangeManager extends BaseChangeManager
     }
     else
     {
+      String         sessionKey     = _getSessionKey(context);
+      ChangesForView changesForView = _getChangesForView(context, sessionKey, true);
+      
       // get the absolute scopedId for the target component so that we have a unique identifier
       // to compare
       String scopedIdForTargetComponent = 
         ComponentUtils.getScopedIdForComponent(targetComponent, context.getViewRoot());
-
-      String         sessionKey     = _getSessionKey(context);
-      ChangesForView changesForView = _getChangesForView(context, sessionKey, true);
       
-      _insertComponentChange(changesForView, scopedIdForTargetComponent, componentChange);
+      String logicalScopedIdForTargetComponent = 
+        ComponentUtils.getLogicalScopedIdForComponent(targetComponent, context.getViewRoot());
+      
+      _insertComponentChange(changesForView, scopedIdForTargetComponent, logicalScopedIdForTargetComponent, componentChange);
       
       // dirty the key in the session for failover
       context.getExternalContext().getSessionMap().put(sessionKey, changesForView);
@@ -212,7 +215,11 @@ public class SessionChangeManager extends BaseChangeManager
     // if found, we insert the new change instance
     if (!onlyIfPresent || (replaced != null))
     {
-      _insertComponentChange(changesForView, scopedIdForTargetComponent, attributeComponentChange);
+      String logicalScopedIdForTargetComponent = ComponentUtils.getLogicalScopedIdForComponent(
+                                                                              component,
+                                                                              context.getViewRoot());
+      
+      _insertComponentChange(changesForView, scopedIdForTargetComponent, logicalScopedIdForTargetComponent, attributeComponentChange);
 
       // dirty the key in the session for failover
       context.getExternalContext().getSessionMap().put(sessionKey, changesForView);
@@ -312,14 +319,17 @@ public class SessionChangeManager extends BaseChangeManager
    * 
    * @param changesForView
    * @param scopedIdForTargetComponent
+   * @param logicalScopedIdForTargetComponent
    * @param componentChange
    */
   private void _insertComponentChange(ChangesForView changesForView,
                                       String scopedIdForTargetComponent,
+                                      String logicalScopedIdForTargetComponent,
                                       ComponentChange componentChange) 
-  {
+  { 
     QualifiedComponentChange newQualifiedChange = 
       new QualifiedComponentChange(scopedIdForTargetComponent,
+                                   logicalScopedIdForTargetComponent,
                                    componentChange);
     
     changesForView.addChange(newQualifiedChange);
@@ -704,9 +714,11 @@ public class SessionChangeManager extends BaseChangeManager
      * @param context
      * @param component
      */
-    protected void applyComponentChanges(FacesContext context, UIComponent component)
+    protected void applySimpleComponentChanges(FacesContext context, UIComponent component)
     {
-      String scopedId = ComponentUtils.getScopedIdForComponent(component, context.getViewRoot());
+      // Simple component changes always use logical scoped ids because they are consistent across
+      // all phases including tag execution
+      String scopedId = ComponentUtils.getLogicalScopedIdForComponent(component, context.getViewRoot());
       
       ConcurrentMap<String, ComponentChange> componentChanges = _attrChanges.get(scopedId);
       
@@ -725,7 +737,7 @@ public class SessionChangeManager extends BaseChangeManager
       QualifiedComponentChange                                      qAttrChange)
     {
       // update the current attribute values for the scoped id
-      String currScopedId = qAttrChange.getTargetComponentScopedId();
+      String currScopedId = qAttrChange.getTargetComponentLogicalScopedId();
       
       // apply any move rename
       String originalScopedId = renameMap.get(currScopedId);
@@ -767,8 +779,8 @@ public class SessionChangeManager extends BaseChangeManager
       ConcurrentMap<String, String> renameMap,
       MoveChildComponentChange      moveChange)
     {
-      String sourceScopedId      = moveChange.getSourceScopedId();
-      String destinationScopedId = moveChange.getDestinationScopedId();
+      String sourceScopedId      = moveChange.getSourceLogicalScopedId();
+      String destinationScopedId = moveChange.getDestinationLogicalScopedId();
       
       // we only need to update the map if we actually changed scoped ids
       if (!(sourceScopedId.equals(destinationScopedId)))
@@ -850,6 +862,7 @@ public class SessionChangeManager extends BaseChangeManager
   private static class QualifiedComponentChange implements Serializable
   {
     public QualifiedComponentChange(String targetComponentScopedId,
+                                    String targetComponentLogicalScopedId,
                                     ComponentChange componentChange)
     {
       // NO-TRANS : Class is private and inner, no translated message required
@@ -858,12 +871,19 @@ public class SessionChangeManager extends BaseChangeManager
                                            "component change is required");
       
       _targetComponentScopedId = targetComponentScopedId;
+      _targetComponentLogicalScopedId = (targetComponentScopedId.equals(targetComponentLogicalScopedId)) ? null :
+                                                    targetComponentLogicalScopedId;
       _componentChange = componentChange;
     }
     
     public String getTargetComponentScopedId()
     {
       return _targetComponentScopedId;
+    }
+    
+    public String getTargetComponentLogicalScopedId()
+    {
+      return _targetComponentLogicalScopedId != null ? _targetComponentLogicalScopedId : _targetComponentScopedId;
     }
 
     public ComponentChange getComponentChange()
@@ -882,24 +902,25 @@ public class SessionChangeManager extends BaseChangeManager
       
       QualifiedComponentChange other = (QualifiedComponentChange)o;
       
-      return _targetComponentScopedId.equals(other._targetComponentScopedId) &&
+      return getTargetComponentLogicalScopedId().equals(other.getTargetComponentLogicalScopedId()) &&
              _componentChange.equals(other._componentChange);
     }
     
     @Override
     public int hashCode()
     {
-      return _targetComponentScopedId.hashCode() + 37 * _componentChange.hashCode();
+      return getTargetComponentLogicalScopedId().hashCode() + 37 * _componentChange.hashCode();
     }
         
     @Override
     public String toString()
     {
-      return super.toString() + "[target=" + _targetComponentScopedId +
+      return super.toString() + "[target=" + _targetComponentScopedId + " logical_target=" + getTargetComponentLogicalScopedId() +
               " change=" + _componentChange + "]";
     }
 
     private final String _targetComponentScopedId;
+    private final String _targetComponentLogicalScopedId;
     private final ComponentChange _componentChange;
 
     private static final long serialVersionUID = 1L;
