@@ -47,8 +47,8 @@ public final class PartialPageUtils
   }
 
   /**
-   * Returns <code>true</code> if optimized PPR is enabled for this request
-   * @return
+   * Returns <code>true</code> if optimized PPR is enabled for this request.
+   * @return <code>true</code> if optimized PPR is enabled for this request
    */
   public static boolean isOptimizedPPREnabled(FacesContext context, boolean checkIsPPR)
   {
@@ -57,27 +57,26 @@ public final class PartialPageUtils
     if (!checkIsPPR ||
         (PartialPageUtils.isPartialRequest(context) && PartialPageUtils.isPPRActive(context)))
     {
-      if (Boolean.TRUE.equals(context.getAttributes().get(_FORCE_OPTIMIZED_PPR)))
+      Map<Object, Object> contextAttributes = context.getAttributes();
+      
+      Object optimizedPPR = contextAttributes.get(_OPTIMIZED_PPR_ENABLED_PROP);
+      
+      if (optimizedPPR != null)
       {
-        optimizedPPREnabled = true;
+        optimizedPPREnabled = ((Boolean)optimizedPPR).booleanValue();
       }
       else
       {
-        ExternalContext external = context.getExternalContext();
-      
-        // see if PPR optimization is enabled for the servlet (the default is off)
-        if ("true".equalsIgnoreCase(external.getInitParameter(_INIT_PROP_PPR_OPTIMIZATION_ENABLED)))
-        {
-          // see if PPR optimization is enabled for the application (the default is on)
-          optimizedPPREnabled = !Boolean.TRUE.equals(
-                            external.getApplicationMap().get(_APP_PROP_PPR_OPTIMIZATION_DISABLED));
-        }
+        optimizedPPREnabled = !"off".equalsIgnoreCase(_getPprOptimization(context));
+        
+        // cache the result into the context attributes
+        contextAttributes.put(_OPTIMIZED_PPR_ENABLED_PROP, optimizedPPREnabled);
       }
     }
     
     return optimizedPPREnabled;
   }
-
+  
   /**
    * Check if a NamingContainer has any partial targets
    */
@@ -246,16 +245,42 @@ public final class PartialPageUtils
    */
   public static void forceOptimizedPPR(FacesContext context)
   {
-    context.getAttributes().put(_FORCE_OPTIMIZED_PPR, Boolean.TRUE);
+    context.getAttributes().put(_OPTIMIZED_PPR_ENABLED_PROP, Boolean.TRUE);
   }
 
-  // temporary servlet initialization flag controlling whether PPR optimization is enabled for the servlet
-  private static final String _INIT_PROP_PPR_OPTIMIZATION_ENABLED = 
-                                      "org.apache.myfaces.trinidadinternal.ENABLE_PPR_OPTIMIZATION";
+  /**
+   * Returns the value of the PPR optimization parameter.  We currently support "on" and "off"
+   * @param context
+   * @return
+   */
+  private static String _getPprOptimization(FacesContext context)
+  {
+    ExternalContext external = context.getExternalContext();
+    
+    Map<String, Object> applicationMap = external.getApplicationMap();
+    
+    // first check if this has been overridden at the application level
+    String pprOptimization = (String)applicationMap.get(_PPR_OPTIMIZATION_PROP);
+    
+    if (pprOptimization == null)
+    {
+      // the value hasn't been set, so check the initialization parameter
+      pprOptimization = external.getInitParameter(_PPR_OPTIMIZATION_PROP);
+      
+      // default to "on"
+      if (pprOptimization == null)
+        pprOptimization = "on";
+      
+      // cache in the application so that we don't need to fetch this again
+      applicationMap.put(_PPR_OPTIMIZATION_PROP, pprOptimization);
+    }
+    
+    return pprOptimization;
+  }
 
-  // temporaty application property controlling whether PPR optimization is enabled for the application
-  private static final String _APP_PROP_PPR_OPTIMIZATION_DISABLED =
-                                     "org.apache.myfaces.trinidadinternal.DISABLE_PPR_OPTIMIZATION";
+  // System property controlling whether client ID caching is enabled
+  private static final String _PPR_OPTIMIZATION_PROP = 
+                                                    "org.apache.myfaces.trinidad.PPR_OPTIMIZATION";
 
   // Flag used to store info on the context about whether
   // an iFrame is built yet.
@@ -263,5 +288,5 @@ public final class PartialPageUtils
           "org.apache.myfaces.trinidadinternal.renderkit._pprActiveOnPage";
   
   
-  private static final Object _FORCE_OPTIMIZED_PPR = new Object();
+  private static final Object _OPTIMIZED_PPR_ENABLED_PROP = new Object();
 }
