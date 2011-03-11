@@ -58,14 +58,11 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
       if (attributeValue instanceof RowKeySet)
       {
         ValueExpression expression = uiComponent.getValueExpression(attributeName);
-
-        Object oldValue;
+        final FacesContext context = FacesContext.getCurrentInstance();
         
         if (expression != null)
         {
           //use EL to get the oldValue and then determine whether we need to update in place
-          final FacesContext context = FacesContext.getCurrentInstance();
-                    
           context.getViewRoot().invokeOnComponent(
             context,
             _clientId,
@@ -73,18 +70,11 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
         }
         else
         {
-          oldValue = attributeMap.get(attributeName);
-
-          if (oldValue instanceof RowKeySet)
-          {
-            _updateKeySet(_clientId, (RowKeySet)oldValue, (RowKeySet)attributeValue);
-            
-            // we updated in place, but we still need to set the attribute in order for partial
-            // state saving to work
-          }
-        }      
+          context.getViewRoot().invokeOnComponent(context, _clientId,
+                 new GetOldValueAndUpdate(attributeName, (RowKeySet)attributeValue));
+        
+        }       
       }
-      
       
       attributeMap.put(attributeName, attributeValue);
     }
@@ -120,19 +110,41 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
   {
     public GetOldValueAndUpdate(ValueExpression expression, RowKeySet newKeySet)
     {
+      _attributeName = null;
       _expression = expression;
       _newKeySet  = newKeySet;
     }
+    public GetOldValueAndUpdate(String attributeName, RowKeySet newKeySet)
+    {
+      _expression = null;
+      _attributeName = attributeName;
+      _newKeySet  = newKeySet;
+    }
+
     public void invokeContextCallback(FacesContext context,
                                       UIComponent target)
     {
-      // update the KeySet with the old and new values
-      RowKeySetAttributeChange._updateKeySet(null,
+      if (_expression != null)
+      {
+        // update the KeySet with the old and new values
+        RowKeySetAttributeChange._updateKeySet(null,
                                              (RowKeySet)_expression.getValue(context.getELContext()),
                                              _newKeySet);
+      }
+      else 
+      {
+        Map<String, Object> attributeMap = target.getAttributes();
+        RowKeySet oldKeySet = (RowKeySet) attributeMap.get(_attributeName);
+
+        // update the KeySet with the old and new values
+        RowKeySetAttributeChange._updateKeySet(null,
+                                             oldKeySet,
+                                             _newKeySet);
+      }
     }
     
     private final ValueExpression _expression;
+    private final String _attributeName;
     private final RowKeySet _newKeySet;
   }
 
