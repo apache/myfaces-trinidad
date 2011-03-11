@@ -27,6 +27,9 @@ import javax.faces.component.UIComponent;
 
 import javax.faces.component.UIViewRoot;
 
+import javax.faces.context.FacesContext;
+
+import org.apache.myfaces.trinidad.component.FlattenedComponent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -446,6 +449,40 @@ public final class ComponentUtils
     _buildScopedId(targetComponent, baseComponent, builder);
     
     return builder.toString();
+  }
+
+  /**
+   * Returns the nearest ancestor component, skipping over any
+   * flattening components.
+   * 
+   * @param context the FacesContext
+   * @param component the UIComponent
+   * @return the first ancestor component that is not a FlattenedComponent
+   *   that is actively flattening its children or null if no such ancestor
+   *   component is found.
+   * @see org.apache.myfaces.trinidad.component.FlattenedComponent
+   */
+  public static UIComponent getNonFlatteningAncestor(
+    FacesContext context,
+    UIComponent component)
+  {
+    UIComponent parent = component.getParent();
+    
+    while (parent != null)
+    { 
+      if (!_isFlattening(context, parent))
+        return parent;
+      
+      parent = parent.getParent();
+    }
+
+    return null;
+  }
+
+  private static boolean _isFlattening(FacesContext context, UIComponent component)
+  {
+    return ((component instanceof FlattenedComponent) &&
+      ((FlattenedComponent)component).isFlatteningChildren(context));
   }
 
   /**
