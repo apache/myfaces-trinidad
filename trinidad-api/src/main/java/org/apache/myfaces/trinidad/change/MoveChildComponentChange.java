@@ -584,14 +584,18 @@ public final class MoveChildComponentChange
     
     return getSourceLogicalScopedId().equals(other.getSourceLogicalScopedId()) &&
            getDestinationLogicalScopedId().equals(other.getDestinationLogicalScopedId()) &&
-           _insertBeforeId.equals(other._insertBeforeId);
+           _equalsOrNull(_insertBeforeId, other._insertBeforeId);
   }
   
   @Override
   public int hashCode()
   {
-    return (getSourceLogicalScopedId().hashCode() + 37 * getDestinationLogicalScopedId().hashCode() +
-           1369 * _insertBeforeId.hashCode());
+    int hashCode = getSourceLogicalScopedId().hashCode() + 37 * getDestinationLogicalScopedId().hashCode();
+    if (_insertBeforeId != null)
+    {
+      hashCode = hashCode + 1369 * _insertBeforeId.hashCode();
+    }
+    return hashCode;
   }
       
   @Override
@@ -632,6 +636,11 @@ public final class MoveChildComponentChange
       level--;
     }
     return component;
+  }
+  
+  private boolean _equalsOrNull(Object obj1, Object obj2)
+  {
+    return (obj1 == null) ? (obj2 == null) : obj1.equals(obj2);
   }
   
   private transient UIComponent _commonParent;
