@@ -21,6 +21,8 @@ package org.apache.myfaces.trinidad.util;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.io.Writer;
+
 import java.lang.reflect.Method;
 
 import javax.faces.context.ExternalContext;
@@ -224,7 +226,7 @@ public final class ExternalContextUtils
       return null;
     }
   }
-
+  
   /**
    * Returns the contextPath of the ServletRequest or <code>null</code> for portlet requests
    *
@@ -266,6 +268,29 @@ public final class ExternalContextUtils
     {
       return null;
     }
+  }
+  
+  /**
+   * Returns the writer appropriate for the current response or <code>null</code> if one is
+   * not available.  This will always be available in a servlet request, but will only be available
+   * for resource or render responses in a portal environments
+   * 
+   * @param ec the current externalContext
+   * @return a writer appropriate for the current response
+   * @see ExternalContext#getResponseOutputWriter()
+   * 
+   * @deprecated replaced by an API in JSF.  Use ExternalContext.getResponseOutputWriter()
+   */
+  @Deprecated
+  public static Writer getResponseWriter(ExternalContext ec)
+    throws IOException
+  {
+    if (isResponseWritable(ec))
+    {
+      return ec.getResponseOutputWriter();
+    }
+    
+    return null;
   }
 
   /**
