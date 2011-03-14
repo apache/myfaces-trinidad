@@ -447,6 +447,9 @@ public class FileSystemStyleCache implements StyleProvider
     // etc -- the info that is in the StyleContext.
     // These styles contain all the StyleNodes, that is, where selector or
     // name (aka alias) are non-null.
+    // If a selector has no properties at all (af|foo {}), it will not be returned in the list of
+    // StyleNodes. It gets into the shortStyleClassMap which has already happened, but
+    // it won't get written to the CSS File.
     StyleNode[] styleNodes = _getStyleContextResolvedStyles(context, document);
     if (styleNodes == null)
       return null;
@@ -1083,7 +1086,9 @@ public class FileSystemStyleCache implements StyleProvider
 
     emptySelectors.removeAll(nonEmptySelectors);
 
-    // Replace all empty keys with an empty string as the selector
+    // Replace all empty keys with an empty string as the selector. 
+    // The reason is to keep empty keys from getting written to the HTML.
+    // Empty keys get filtered out of the CSS file when we write to that.
     for (String emptyKey : emptySelectors)
       map.put(emptyKey, CoreRenderingContext.EMPTY_STYLE_CLASS);
 
