@@ -756,6 +756,35 @@ abstract public class UIXComponent extends UIComponent
       }
     }
   }
+  
+  /**
+   * Provides a logical parent for this component (a parent in the context of the document where this component was
+   * defined). The default implementation will simply call getParent(). Components that get relocated during
+   * tag execution will return their original parent
+   * @return logical parent component
+   */
+  public UIComponent getLogicalParent()
+  {
+    return getParent();
+  }
+  
+  /**
+   * Provides a logical parent for the component (a parent in the context of the document where the component was
+   * defined). The default implementation will simply call getParent() on the component. Components that get relocated during
+   * tag execution should have their original parent returned (if available).
+   * @param component - child component whose parent is being retrieved
+   * @return logical parent component
+   */
+  public static UIComponent getLogicalParent(UIComponent component)
+  {
+    if (component instanceof UIXComponent)
+    {
+      return ((UIXComponent)component).getLogicalParent();  
+    }
+    
+    return component.getParent();  
+  }
+
 
   /**
    * <p>Sets up the context necessary to visit or invoke the component for all phases.</p>

@@ -94,6 +94,21 @@ public final class MoveChildComponentChange
     if (destinationContainer == null)
       throw new IllegalArgumentException(
         _LOG.getMessage("DESTINATION_CONTAINER_REQUIRED"));
+    
+    UIComponent viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+    
+    String sourceAbsoluteLogicalScopedId = ComponentUtils.getLogicalScopedIdForComponent(movableChild, viewRoot);
+    
+    String destinationContainerLogicalPrefix = _getScopedIdPrefix(destinationContainer,
+                                          ComponentUtils.getLogicalScopedIdForComponent(destinationContainer, viewRoot));
+    
+    String movableChildId = movableChild.getId();
+    
+    String destinationAbsoluteLogicalScopedId = (destinationContainerLogicalPrefix != null)
+                                          ? new StringBuilder(destinationContainerLogicalPrefix).
+                                            append(NamingContainer.SEPARATOR_CHAR).
+                                            append(movableChildId).toString()
+                                          : movableChildId;
 
     // Get the common parent
     _commonParent = 
@@ -132,6 +147,9 @@ public final class MoveChildComponentChange
                                            append(_movableChildScopedId).toString()
                                  : _movableChildScopedId;
     
+    _sourceAbsoluteLogicalScopedId = _sourceAbsoluteScopedId.equals(sourceAbsoluteLogicalScopedId) ? null : 
+                                                                                          sourceAbsoluteLogicalScopedId; 
+    
     // calculate the absolute scoped id of the destination
     String destinationContainerPrefix = _getScopedIdPrefix(destinationContainer,
                                                            _destinationContainerScopedId);
@@ -148,7 +166,10 @@ public final class MoveChildComponentChange
       destinationScopedIdBuilder.append(destinationContainerPrefix).append(NamingContainer.SEPARATOR_CHAR);
     }
     
-    _destinationAbsoluteScopedId = destinationScopedIdBuilder.append(movableChild.getId()).toString();
+    _destinationAbsoluteScopedId = destinationScopedIdBuilder.append(movableChildId).toString();
+    
+    _destinationAbsoluteLogicalScopedId = _destinationAbsoluteScopedId.equals(destinationAbsoluteLogicalScopedId) ? null :
+                                              destinationAbsoluteLogicalScopedId;
 
     // For insertBeforeComponent, we do not care to obtain scoped id.
     _insertBeforeId = (insertBeforeComponent == null) ? 
@@ -471,6 +492,62 @@ public final class MoveChildComponentChange
     return _destinationAbsoluteScopedId;
   }
   
+  
+  /**
+   * Returns the absolute logical scopedId of the source component
+   */
+  public String getSourceLogicalScopedId()
+  {
+    return (_sourceAbsoluteLogicalScopedId == null) ? _sourceAbsoluteScopedId : _sourceAbsoluteLogicalScopedId;
+  }
+  
+  /**
+   * Returns the absolute logical scopedId of the source component at its destination
+   */
+  public String getDestinationLogicalScopedId()
+  {
+    return (_destinationAbsoluteLogicalScopedId == null) ? _destinationAbsoluteScopedId : _destinationAbsoluteLogicalScopedId;
+  }
+  
+  @Override
+  public boolean equals(Object o)
+  {
+    if (o == this)
+      return true;
+    
+    if (!(o instanceof MoveChildComponentChange))
+      return false;
+    
+    MoveChildComponentChange other = (MoveChildComponentChange)o;
+    
+    return getSourceLogicalScopedId().equals(other.getSourceLogicalScopedId()) &&
+           getDestinationLogicalScopedId().equals(other.getDestinationLogicalScopedId()) &&
+           _equalsOrNull(_insertBeforeId, other._insertBeforeId);
+  }
+  
+  @Override
+  public int hashCode()
+  {
+    int hashCode = getSourceLogicalScopedId().hashCode() + 37 * getDestinationLogicalScopedId().hashCode();
+    if (_insertBeforeId != null)
+    {
+      hashCode = hashCode + 1369 * _insertBeforeId.hashCode();
+    }
+    return hashCode;
+  }
+      
+  @Override
+  public String toString()
+  {
+    return super.toString() + "[logical_source=" + getSourceLogicalScopedId() + " logical_destination=" + getDestinationLogicalScopedId() +
+            " absolute source=" + getSourceScopedId() + " absolute destination" + getDestinationScopedId() +" insert_before=" + _insertBeforeId + "]";
+  }
+  
+  private boolean _equalsOrNull(Object obj1, Object obj2)
+  {
+    return (obj1 == null) ? (obj2 == null) : obj1.equals(obj2);
+  } 
+  
   /**
    * Returns the depth of a UIComponent in the tree. 
    * @param comp the UIComponent whose depth has to be calculated
@@ -513,6 +590,8 @@ public final class MoveChildComponentChange
   private final String _insertBeforeId;
   private final String _sourceAbsoluteScopedId;
   private final String _destinationAbsoluteScopedId;
+  private final String _sourceAbsoluteLogicalScopedId;
+  private final String _destinationAbsoluteLogicalScopedId;
   private static final long serialVersionUID = 1L;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
