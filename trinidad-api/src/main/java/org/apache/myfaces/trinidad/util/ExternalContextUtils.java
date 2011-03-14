@@ -21,6 +21,9 @@ package org.apache.myfaces.trinidad.util;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.io.Writer;
+
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import javax.faces.context.ExternalContext;
@@ -266,6 +269,51 @@ public final class ExternalContextUtils
     {
       return null;
     }
+  }
+  
+  /**
+   * Returns the writer appropriate for the current response or <code>null</code> if one is
+   * not available.  This will always be available in a servlet request, but will only be available
+   * for resource or render responses in a portal environments
+   * 
+   * @param ec the current externalContext
+   * @return a writer appropriate for the current response
+   */
+  public static Writer getResponseWriter(ExternalContext ec) throws IOException
+  {
+    if(isResponseWritable(ec))
+    { 
+      Object response = ec.getResponse();
+      
+      Method writerMethod;
+      try
+      {
+        writerMethod = response.getClass().getMethod("getWriter");
+        return (Writer)writerMethod.invoke(response);
+      }
+      catch (NoSuchMethodException e)
+      {
+        _LOG.severe(e);
+      }
+      catch (IllegalAccessException e)
+      {
+        _LOG.severe(e);
+      }
+      catch (InvocationTargetException e)
+      {
+        Throwable cause = e.getCause();
+        
+        //Throws the IOException as per the contract
+        if(cause instanceof IOException)
+        {
+          throw (IOException)cause;
+        }
+        
+        _LOG.severe(e);
+      }
+    }
+    
+    return null;
   }
 
   /**
