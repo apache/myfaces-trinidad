@@ -61,7 +61,7 @@
 <!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
 <resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Trinidad 的 ViewHandler 已多次注册。要避免初始化问题, 请确保只加载了一个 Trinidad 实施 jar</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
-<resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad 正在启用了时间戳检查的情况下运行。这不应当在生产环境中使用。请查看 WEB-INF/web.xml 中的 {0} 属性</resource>
+<resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad 正在启用了时间戳检查的情况下运行。这不应当在正式版环境中使用。请查看 WEB-INF/web.xml 中的 {0} 属性</resource>
 <!-- CANNOT_LOAD_URL -->
 <resource key="CANNOT_LOAD_URL" dnt="false">无法加载 {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
@@ -69,7 +69,7 @@
 <!-- UPLOADED_FILE_LARGE -->
 <resource key="UPLOADED_FILE_LARGE" dnt="false">由于文件太大, 无法上载。</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
-<resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad 正在调试模式下运行。请勿在生产环境中使用。请查看 {0}</resource>
+<resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad 正在调试模式下运行。请勿在正式版环境中使用。请查看 {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
 <resource key="ELEMENT_NOT_UNDERSTOOD" dnt="false">无法理解元素 {0}</resource>
 <!-- NOT_SUPPORT_EL_EXPRESSION -->
@@ -262,13 +262,13 @@
 <!-- UNABLE_GET_RESOURCE -->
 <resource key="UNABLE_GET_RESOURCE" dnt="false">无法获取资源 {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
-<resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad 正在使用调试 javascript 运行。请勿在生产环境中使用。请查看 /WEB-INF/web.xml 中的 &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; 参数</resource>
+<resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad 正在使用调试 javascript 运行。请勿在正式版环境中使用。请查看 /WEB-INF/web.xml 中的 &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; 参数</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
-<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">您的环境配置为生产环境, 而 Apache Trinidad 正在使用调试 javascript 运行。请查看 /WEB-INF/web.xml 中的 &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; 参数</resource>
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">您的环境配置为正式版环境, 而 Apache Trinidad 正在使用调试 javascript 运行。请查看 /WEB-INF/web.xml 中的 &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; 参数</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">您的环境配置为生产环境, 而 Apache Trinidad 正在使用调试 javascript 运行。请查看 /WEB-INF/web.xml 中的 &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; 参数</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">您的环境配置为正式版环境, 而 Apache Trinidad 正在使用未压缩的 CSS 运行。请查看 /WEB-INF/web.xml 中的 &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; 参数</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
-<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">您的环境配置为生产环境, 而 Apache Trinidad 正在 debug-output 为“真”的情况下运行。请查看 trinidad-config.xml 文件中的 &quot;debug-output&quot; 元素。</resource>
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">您的环境配置为正式版环境, 而 Apache Trinidad 正在 debug-output 为“真”的情况下运行。请查看 trinidad-config.xml 文件中的 &quot;debug-output&quot; 元素。</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">{1} 的值 {0} 非法</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">忽略属性 {0}, 因为不存在相应的选择器。</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">读取外观 css 文件时出错</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">读取外观 css 文件时出错。选择器中有额外的逗号: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">无法添加具有空 skinId 的外观或空的外观</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">以前添加的{0}外观已重新添加。如果在应用程序中高速缓存此外观, 则可能会获得不一致的结果。请查看类路径中是否有重复的 trinidad-skins.xml 文件。</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">无法获取具有空 skinId 的外观</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

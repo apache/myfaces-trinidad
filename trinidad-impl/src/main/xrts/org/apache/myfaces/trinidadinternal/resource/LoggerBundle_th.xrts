@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">มีการคอนฟิเกอร์สภาวะแวดล้อมของคุณเป็นแบบใช้งานจริง และ Apache Trinidad กำลังรันด้วยจาวาสคริปต์ของดีบัก โปรดดูพารามิเตอร์ &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; ใน /WEB-INF/web.xml</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">มีการคอนฟิเกอร์สภาวะแวดล้อมของคุณเป็นแบบใช้งานจริง และ Apache Trinidad กำลังรันด้วยจาวาสคริปต์ของดีบัก โปรดดูพารามิเตอร์ &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; ใน /WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">มีการคอนฟิเกอร์สภาวะแวดล้อมของคุณเป็นแบบใช้งานจริง และ Apache Trinidad กำลังรันโดยมี CSS ที่ไม่ได้บีบอัด โปรดดูพารามิเตอร์ &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; ใน /WEB-INF/web.xml</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">มีการคอนฟิเกอร์สภาวะแวดล้อมของคุณเป็นแบบใช้งานจริง และ Apache Trinidad กำลังรัน โดยมี debug-output เป็น TRUE โปรดดูอีลิเมนต์ &quot;debug-output&quot; ในไฟล์ trinidad-config.xml</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">ไม่ประมวลผลคุณสมบัติ {0} เนื่องจากไม่มีตัวเลือกที่ตรงกัน</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">เกิดข้อผิดพลาดขณะอ่านจากไฟล์ css ของสกิน</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">เกิดข้อผิดพลาดขณะอ่านไฟล์ css ของสกิน มีเครื่องหมายคอมมาส่วนเกินในซีเลคเตอร์: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">ไม่สามารถเพิ่มสกินที่มี skinId หรือสกินเป็นนัล</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">มีการเพิ่มสกินที่เพิ่มไว้ก่อนหน้านี้ {0} อีกครั้ง ถ้าคุณใช้แคชกับสกินนี้ในแอปพลิเคชันของคุณ คุณอาจได้ผลลัพธ์ที่ไม่สอดคล้องกัน โปรดตรวจหาไฟล์ trinidad-skins.xml ที่ซ้ำกันในคลาสพาธ</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">ไม่สามารถเรียกสกินที่มี skinId เป็นนัล</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

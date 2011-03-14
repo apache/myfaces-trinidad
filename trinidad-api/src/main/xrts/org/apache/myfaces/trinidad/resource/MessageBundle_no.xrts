@@ -60,7 +60,7 @@
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">Angi en verdi som samsvarer med dette mønsteret: {2}</resource>
 <!-- Upload ConversionException messages -->
 <resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">Fillastingen mislyktes.</resource>
-<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}</resource>
 <!-- hints for validators -->
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">Angi et tall som er mindre enn eller lik {0}.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">Angi et tall som er større enn eller lik {0}.</resource>

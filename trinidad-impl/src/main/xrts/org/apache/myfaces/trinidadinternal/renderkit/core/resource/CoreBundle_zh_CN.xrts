@@ -401,7 +401,7 @@
 <!--title above a confirmation message box-->
 <resource key="af_messages.CONFIRMATION" dnt="false">确认</resource>
 <!-- text when the processing component is in indeterminate mode in simple skin -->
-<resource key="af_panelHeader.PROCESSING" dnt="false">处理</resource>
+<resource key="af_panelHeader.PROCESSING" dnt="false">正在处理</resource>
 <!--error string for form submission-->
 <resource key="af_form.SUBMIT_ERRORS" dnt="false">表单验证失败:</resource>
 <!--resource strings for afh:frameBorderLayout-->

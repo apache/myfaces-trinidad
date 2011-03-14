@@ -60,7 +60,7 @@
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">Introduzca un valor que coincida con este patrón: {2}</resource>
 <!-- Upload ConversionException messages -->
 <resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">Fallo al cargar el archivo.</resource>
-<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}</resource>
 <!-- hints for validators -->
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">Introduzca un número menor o igual que {0}.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">Introduzca un número mayor o igual que {0}.</resource>

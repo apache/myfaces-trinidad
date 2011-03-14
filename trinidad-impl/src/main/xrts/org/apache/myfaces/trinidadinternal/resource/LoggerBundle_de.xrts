@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Die Umgebung ist für die Produktion konfiguriert, und Apache Trinidad wird mit Debug-Javascript ausgeführt. Siehe Parameter &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; in /WEB-INF/web.xml</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Die Umgebung ist für die Produktion konfiguriert, und Apache Trinidad wird mit Debug-Javascript ausgeführt. Siehe Parameter &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; in /WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Die Umgebung ist für die Production konfiguriert, und Apache Trinidad wird mit unkomprimiertem CSS ausgeführt. Siehe Parameter &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; in /WEB-INF/web.xml</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Die Umgebung ist für die Produktion konfiguriert, und Apache Trinidad wird mit debug-output &quot;TRUE&quot; ausgeführt. Siehe Element &quot;debug-output&quot; in der Datei &quot;trinidad-config.xml&quot;.</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Eigenschaften {0} werden ignoriert, weil kein entsprechender Selector vorhanden ist.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Fehler beim Lesen aus der Skin-CSS-Datei</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Fehler beim Lesen aus der Skin-CSS-Datei. Ein zusätzliches Komma ist enthalten im Selektor: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Skin mit Null-skinId oder Null-Skin kann nicht hinzugefügt werden</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Die bereits hinzugefügte Skin {0} wurde erneut hinzugefügt. Wenn Sie diese Skin in Ihrer Anwendung im Cache haben, erhalten Sie keine konsistenten Ergebnisse. Prüfen Sie doppelte trinidad-skins.xml-Dateien im Klassenpfad.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Skin mit Null-skinId kann nicht abgerufen werden</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

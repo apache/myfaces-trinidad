@@ -60,7 +60,7 @@
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">Zadejte hodnotu odpovídající tomuto vzoru: {2}</resource>
 <!-- Upload ConversionException messages -->
 <resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">Odesílání souboru selhalo.</resource>
-<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}</resource>
 <!-- hints for validators -->
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">Zadejte číslo menší nebo rovné {0}.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">Zadejte číslo větší nebo rovné {0}.</resource>

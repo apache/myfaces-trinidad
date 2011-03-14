@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">De omgeving is geconfigureerd als productie en Apache Trinidad wordt uitgevoerd met debug javascript. Zie de parameter &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; in /WEB-INF/web.xml.</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">De omgeving is geconfigureerd als productie en Apache Trinidad wordt uitgevoerd met debug javascript. Zie de parameter &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; in /WEB-INF/web.xml.</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">De omgeving is geconfigureerd als productie en Apache Trinidad wordt uitgevoerd met niet-comprimeerde CSS. Zie de parameter &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; in /WEB-INF/web.xml.</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">De omgeving is geconfigureerd als productie en Apache Trinidad wordt uitgevoerd met debugging-uitvoer WAAR. Zie het &quot;debugging-uitvoer&quot;-element in het bestand trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">De eigenschappen {0} worden genegeerd omdat er geen overeenkomstige selector aanwezig is.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Er is een fout opgetreden tijdens het lezen uit het css-bestand voor de weergave.</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Fout bij het lezen van het CSS-bestand voor de weergave. Er staat een extra komma in selector: {0}.</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Kan geen weergave toevoegen als de weergave-ID of de weergave NULL is.</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">De eerder toegevoegde {0}-weergave is nogmaals toegevoegd. Als u deze weergave hebt opgeslagen in de cache van uw applicatie, krijgt u mogelijk inconsistente resultaten. Controleer of er dubbele trinidad-skins.xml-bestanden voorkomen in het klassenpad.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Kan geen weergave ophalen als de weergave-ID NULL is.</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

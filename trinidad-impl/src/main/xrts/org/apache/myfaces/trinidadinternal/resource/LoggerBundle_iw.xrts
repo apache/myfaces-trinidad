@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">הסביבה שלך מוגדרת כסביבת ייצור ו-Apache Trinidad פועל עם javascript לניפוי. עיין בפרמטר &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; ב-/WEB-INF/web.xml</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">הסביבה שלך מוגדרת כסביבת ייצור ו-Apache Trinidad פועל עם javascript לניפוי. עיין בפרמטר &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; ב-/WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">הסביבה שלך מוגדרת כסביבת ייצור ו-Apache Trinidad רץ עם CSS לא דחוס. עיין בפרמטר &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; ב-/WEB-INF/web.xml</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">הסביבה שלך מוגדרת כסביבת ייצור ו-Apache Trinidad פועל עם debug-output TRUE. עיין באלמנט &quot;debug-output&quot; בקובץ trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">התוכנה מתעלמת ממאפייני {0} מכיוון שאין בורר מתאים.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">שגיאה בקריאה מקובץ css של המעטפת</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">שגיאה בקריאה מקובץ css של המעטפת. נמצא פסיק נוסף בבורר: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">אי אפשר להוסיף מעטפת עם זיהוי מעטפת null או מעטפת null</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">המעטפת שנוספה מקודם {0} נוספה כעת שוב. אם העברת את המעטפת הזו למטמון ביישום שלך אתה עלול לקבל תוצאות לא עקביות. חפש קובצי trinidad-skins.xml כפולים ב-classpath.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">אי אפשר להביא מעטפת עם זיהוי מעטפת null</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Mediul dvs. este configurat ca producţie iar Apache Trinidad rulează cu un javascript de depanare. Examinaţi parametrul &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; din /WEB-INF/web.xml</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Mediul dvs. este configurat ca producţie, iar Apache Trinidad rulează cu un javascript de depanare. Examinaţi parametrul &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; din /WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Mediul dvs. este configurat ca producţie, iar Apache Trinidad rulează cu un CSS decomprimat. Consultaţi parametrul &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; din /WEB-INF/web.xml</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Mediul dvs. este configurat ca producţie, iar Apache Trinidad rulează cu debug-output TRUE. Examinaţi parametrul &quot;debug-output&quot; din fişierul trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Se ignoră proprietăţile {0} deoarece nu există nici un selector corespondent.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Eroare la citirea din fişierul css pentru culori</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Eroare la citirea din fişierul css pentru schema de culori. În selector există o virgulă în plus: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Nu se pot adăuga culori cu ID skinID nul sau culori nule</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Schema de culori adăugată anterior, {0}, a fost adăugată din nou. Dacă aţi memorat în cache această schemă de culori în aplicaţia dvs., este posibil să obţineţi rezultate inconsecvente. Verificaţi dacă există fişiere trinidad-skins.xml duplicate în classpath.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nu se pot prelua culorile cu ID-ul skinId nul</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

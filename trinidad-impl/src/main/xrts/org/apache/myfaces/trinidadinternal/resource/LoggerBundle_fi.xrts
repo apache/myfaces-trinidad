@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Ympäristösi on määritetty tuotannoksi, ja Apache Trinidad on käynnissä virheenetsinnän javascript-komentojonon kanssa. Katso org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT-parametri /WEB-INF/web.xml-tiedostossa</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Ympäristösi on määritetty tuotannoksi, ja Apache Trinidad on käynnissä virheenetsinnän javascript-komentojonon kanssa. Katso org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT-parametri /WEB-INF/web.xml-tiedostossa</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Ympäristösi on määritetty tuotannoksi, ja Apache Trinidad on käynnissä pakkaamattoman CSS-tiedoston kanssa. Katso org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION-parametri /WEB-INF/web.xml-tiedostossa</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Ympäristösi on määritetty tuotannoksi, ja Apache Trinidad on käynnissä debug-output TRUE -määritteen kanssa. Katso debug-output-elementti trinidad-config.xml-tiedostossa.</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ominaisuudet {0} ohitetaan, koska vastaavaa valitsinta ei ole.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Virhe olemuksen css-tiedoston lukemisessa</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Virhe olemuksen css-tiedoston luvussa. Ylimääräinen pilkku valitsimessa: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Ei voi lisätä olemusta, jonka skinId- tai skin-arvo on tyhjä</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Aiemmin lisätty olemus {0} on lisätty uudelleen. Jos tallensit olemuksen välimuistiin, tulokset voivat olla epäyhtenäisiä. Tarkista, onko luokkapolussa toistuvia trinidad-skins.xml-tiedostoja.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Olemusta ei voi hakea tyhjällä skinId-tunnuksella</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

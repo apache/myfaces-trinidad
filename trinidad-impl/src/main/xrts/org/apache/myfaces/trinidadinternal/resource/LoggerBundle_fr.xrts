@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Votre environnement est configuré en tant que production et Apache Trinidad est exécuté avec le script Java de débogage. Consultez le paramètre org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT dans /WEB-INF/web.xml</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Votre environnement est configuré en tant que production et Apache Trinidad est exécuté avec le script Java de débogage. Consultez le paramètre org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT dans /WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Votre environnement est configuré en tant que production et Apache Trinidad est exécuté avec le fichier CSS (Cascading Style Sheet) non compressé. Consultez le paramètre &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; dans /WEB-INF/web.xml</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Votre environnement est configuré en tant que production et Apache Trinidad est exécuté avec l&apos;élément debug-output défini sur TRUE. Consultez l&apos;élément debug-output dans le fichier trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Non-prise en compte des propriétés {0} car il n&apos;&apos;y a pas de sélecteur correspondant.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Erreur de lecture depuis le fichier CSS d&apos;apparence</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Erreur de lecture depuis le fichier CSS d&apos;&apos;apparence. Le sélecteur comporte une virgule de trop : {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Impossible d&apos;ajouter l&apos;apparence avec des valeurs skinId ou skin NULL</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">L&apos;&apos;apparence {0} ajoutée précédemment a été ajoutée à nouveau. Si vous avez mis cette apparence en mémoire cache dans l&apos;&apos;application, vous risquez d&apos;&apos;obtenir des résultats incohérents. Recherchez les fichiers trinidad-skins.xml dans la variable d&apos;&apos;environnement CLASSPATH.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Impossible d&apos;obtenir l&apos;apparence avec une valeur skinId NULL</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

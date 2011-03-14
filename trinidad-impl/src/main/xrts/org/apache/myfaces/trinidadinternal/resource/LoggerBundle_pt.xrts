@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">O ambiente está configurado como sendo de produção e o Apache Trinidad está em execução com depuração de javascript. Consulte o parâmetro &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; em /WEB-INF/web.xml</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">O ambiente está configurado como sendo de produção e o Apache Trinidad está em execução com depuração de javascript. Consulte o parâmetro &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; em /WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">O ambiente está configurado como sendo de produção e o Apache Trinidad está em execução com CSS não comprimido. Consulte o parâmetro &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; em /WEB-INF/web.xml</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">O ambiente está configurado como sendo de produção e o Apache Trinidad está em execução com debug-output TRUE. Consulte o elemento &quot;debug-output&quot; no ficheiro trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">A ignorar as propriedades {0}, porque não existe um selector correspondente.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Erro na leitura do ficheiro css do esquema de cores</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Erro na leitura do ficheiro css do esquema de cores. Existe uma vírgula adicional no selector: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Não é possível acrescentar o Esquema de Cores com uma skinId nula ou um esquema de cores nulo</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">O esquema de cores {0} acrescentado anteriormente foi novamente acrescentado. Se colocou este esquema de cores na cache na aplicação, poderá obter resultados inconsistentes. Verifique se existem ficheiros trinidad-skins.xml em duplicado no classpath.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Não é possível obter o Esquema de Cores com uma skinId nula</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

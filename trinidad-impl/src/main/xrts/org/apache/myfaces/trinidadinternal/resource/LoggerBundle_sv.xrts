@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Miljön är konfigurerad som produktion och Apache Trinidad körs med javascript för felsökning. Se parametern &quot;&quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot;&quot; i /WEB-INF/web.xml</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Miljön är konfigurerad som produktion och Apache Trinidad körs med javascript för felsökning. Se parametern &quot;&quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot;&quot; i /WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Miljön är konfigurerad som produktion och Apache Trinidad körs med okomprimerad CSS. Se parametern &quot;&quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot;&quot; i /WEB-INF/web.xml</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Miljön är konfigurerad som produktion och Apache Trinidad körs med felsökningsutdata TRUE. Se elementet &quot;&quot;debug-output&quot;&quot; i trinidad-config.xml file.</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ignorerar egenskaper {0} eftersom det inte finns någon motsvarande väljare.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Fel vid läsning från skalets css-fil</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Fel vid läsning från skalets css-fil. Det finns ett extra kommatecken i väljaren: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Kan inte lägga till Skin med null i skinId eller null skal</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Det tidigare tillagda {0}-skalet har lagts till igen. Om du har cachat det här skalet i applikationen kan resultaten bli inkonsekventa. Kontrollera om det finns dubbla trinidad-skins.xml-filer i klassökvägen.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Kan inte hämta Skin med null i skinId</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Vaše prostředí je nakonfigurováno jako provozní a modul Apache Trinidad běží s laděním javaskriptů. Viz parametr org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT v souboru /WEB-INF/web.xml</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Vaše prostředí je nakonfigurováno jako provozní a modul Apache Trinidad běží s laděním javaskriptů. Viz parametr org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT v souboru /WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Vaše prostředí je konfigurováno jako provozní a modul Apache Trinidad běží s dekomprimovaným CSS. Viz parametr org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION v souboru /WEB-INF/web.xml</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Vaše prostředí je nakonfigurováno jako provozní a modul Apache Trinidad běží s hodnotou TRUE prvku konfigurace debug-output. Viz prvek debug-output v souboru trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Vlastnosti {0} budou ignorovány, protože neexistuje odpovídající modul pro výběr.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Chyba při čtení ze souboru CSS vzhledu</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Chyba při čtení ze souboru vzhledu CSS. V selektoru: {0} je čárka navíc</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Nelze přidat vzhled s hodnotou null u skinID nebo null u vzhledu</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Dříve přidaný vzhled {0} byl přidán znovu. Pokud jste tento vzhled uložili do paměti cache ve vaší aplikaci, můžete získat nekonzistentní výsledky. Zkontrolujte, zda nejsou duplikované soubory trinidad-skins.xml v cestě třídy.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nelze získat vzhled s hodnotou null u SkinID</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

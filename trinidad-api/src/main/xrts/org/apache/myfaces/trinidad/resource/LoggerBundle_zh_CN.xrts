@@ -95,7 +95,7 @@
 <!-- RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER -->
 <resource key="RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER" dnt="false">无法在 servlet 路径 {0} 中找到 ResourceServlet 的 ResourceLoader。原因: 无法找到资源 {1}</resource>
 <!-- RESOURCESERVLET_IN_DEBUG_MODE -->
-<resource key="RESOURCESERVLET_IN_DEBUG_MODE" dnt="false">Trinidad ResourceServlet 正在以调试模式运行。请勿在生产环境中使用。请查看 /WEB-INF/web.xml 中的 {0} 参数</resource>
+<resource key="RESOURCESERVLET_IN_DEBUG_MODE" dnt="false">Trinidad ResourceServlet 正在以调试模式运行。请勿在正式版环境中使用。请查看 /WEB-INF/web.xml 中的 {0} 参数</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">找不到上下文类加载程序。</resource>
 <!-- CANNOT_CONVERT_INTO_INT_ARRAY -->
@@ -221,9 +221,9 @@
 <!-- ILLEGAL_PATTERN_CHARACTER -->
 <resource key="ILLEGAL_PATTERN_CHARACTER" dnt="false">模式字符 &apos;&apos;{0}&apos;&apos; 非法</resource>
 <!-- LOGGER_REQUIRED -->
-<resource key="LOGGER_REQUIRED" dnt="false">需要事件记录程序</resource>
+<resource key="LOGGER_REQUIRED" dnt="false">需要日志记录程序</resource>
 <!-- LOGGER_NAME_REQUIRED -->
-<resource key="LOGGER_NAME_REQUIRED" dnt="false">需要事件记录程序名称</resource>
+<resource key="LOGGER_NAME_REQUIRED" dnt="false">需要日志记录程序名称</resource>
 <!-- CLASS_REQUIRED -->
 <resource key="CLASS_REQUIRED" dnt="false">需要类</resource>
 <!-- PACKAGE_REQUIRED -->

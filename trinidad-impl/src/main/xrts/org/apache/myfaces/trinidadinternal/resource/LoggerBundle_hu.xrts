@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">A környezet éles üzemiként lett konfigurálva, az Apache Trinidad pedig a javascript hibakeresési változatát futtatja. Lásd az &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; paramétert a /WEB-INF/web.xml fájlban</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">A környezet éles üzemiként lett konfigurálva, az Apache Trinidad pedig a javascript hibakeresési változatát futtatja. Lásd az &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; paramétert a /WEB-INF/web.xml fájlban</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">A környezete éles termelésire lett konfigurálva, és az Apache Trinidad nem tömörített CSS használatával fut. Nézze meg az &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; paramétert a /WEB-INF/web.xml fájlban</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">A környezet éles üzemiként lett konfigurálva, az Apache Trinidad pedig a debug-output TRUE beállítással fut. Lásd a &quot;debug-output&quot; elemet a trinidad-config.xml fájlban</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">A(z) {0} tulajdonságok figyelmen kívül hagyása, mivel nincs megfelelő kijelölő.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Hiba a grafikus felülethez tartozó css fájl olvasásakor</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Hiba a grafikus felülethez tartozó css fájl olvasásakor. A választóban egy felesleges vessző található: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Nem vehető fel grafikus felület, ha a skinId vagy a grafikus felület null értékű</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">A már hozzárendelt {0} grafikus felület újra hozzá lett adva. ha ez a felület már gyorsítótárazva lett az alkalmazásban, az eredmények következetlenek lehetnek. Ellenőrizze, hogy az osztályelérési úton nincs-e ismétlődő trinidad-skins.xml fájl.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nem kérhető le grafikus felület, ha a skinId null értékű</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

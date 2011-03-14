@@ -481,7 +481,7 @@
 <resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">Celkem</resource>
 <!--LOVChoice-->
 <!--Text for the lovChoice More... option  -->
-<resource key="LOV_CHOICE_MORE_OPTION" dnt="false">Více...</resource>
+<resource key="LOV_CHOICE_MORE_OPTION" dnt="false">Další...</resource>
 <!-- Resources added for the Apps RichTextEditor -->
 <resource key="RTE_CUT_BUTTON_TEXT" dnt="false">Vyjmout</resource>
 <resource key="RTE_COPY_BUTTON_TEXT" dnt="false">Kopírovat</resource>

@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Среда настроена как коммерческая версия. Apache Trinidad выполняется с отладочным JavaScript. См. параметр &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; в /WEB-INF/web.xml</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Среда настроена как коммерческая версия. Apache Trinidad выполняется с отладочным javascript. См. параметр &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; в /WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Среда настроена в производственном режиме. Apache Trinidad выполняется с CSS без сжатия. См. параметр \&quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION\&quot; в /WEB-INF/web.xml</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Среда настроена как коммерческая версия. Apache Trinidad выполняется с отладочным выводом TRUE. См. элемент &quot;debug-output&quot; в файле trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Свойства {0} игнорируются, т.к. отсутствует соответствующий инструмент выбора.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Ошибка при чтении из файла css оформления.</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Ошибка при чтении из файла css оформления. Лишняя запятая в селекторе: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Невозможно добавить оформление с неопределенным skinId или неопределенным skin</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Добавленное ранее оформление {0} добавлено повторно. При выполнении кэширования этого оформления в приложении возможно получение несогласованных результатов. Проверьте наличие повторяющихся файлов trinidad-skins.xml на пути классов.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Невозможно получить оформление с неопределенным skinId</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

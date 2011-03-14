@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Miljøet er konfigurert som produksjon, og Apache Trinidad kjører med Java-skript for feilleting. Se parameteren org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT i /WEB-INF/web.xml</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Miljøet er konfigurert som produksjon, og Apache Trinidad kjører med Java-skript for feilleting. Se parameteren org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT i /WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Miljøet er konfigurert som produksjon, og Apache Trinidad kjører med ukomprimert CSS. Se parameteren org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION i /WEB-INF/web.xml</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Miljøet er konfigurert som produksjon, og Apache Trinidad kjører med debug-output satt til TRUE. Se elementet debug-output i filen trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ignorerer egenskapene {0} fordi det ikke finnes noen tilsvarende utvelger.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Feil ved lesing fra CSS-skallfilen</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Feil ved lesing fra CSS-skallfilen. Det er et ekstra komma i utvelgeren: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Kan ikke legge til skallet med en skinId eller et utseende med nullverdi</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">{0}-skallet som er lagt til tidligere, er lagt til på nytt. Hvis du mellomlagret dette skallet i applikasjonen, kan det hende at du får inkonsekvente resultater. Se etter dupliserte trinidad-skins.xml-filer i klassebanen.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Kan ikke hente skall med null-skinId</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">تم تكوين البيئة للإنتاج، بينما يتم تشغيل Apache Trinidad مع javascript لتصحيح الأخطاء. راجع معلمة &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; في /WEB-INF/web.xml</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">تم تكوين البيئة للإنتاج، بينما يتم تشغيل Apache Trinidad مع javascript لتصحيح الأخطاء. راجع معلمة &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; في /WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">تم تكوين البيئة للإنتاج، بينما يتم تشغيل Apache Trinidad باستخدام CSS غير مضغوط. راجع معلمة &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; في /WEB-INF/web.xml</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">تم تكوين البيئة للإنتاج، بينما يتم تشغيل Apache Trinidad مع تعيين مخرجات تصحيح الأخطاء debug-output إلى TRUE. راجع عنصر &quot;debug-output&quot; في ملف trinidad-config.xml</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">إهمال الخصائص {0} لعدم وجود محدد مطابق.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">حدث خطأ أثناء القراءة من ملف css الخاص بالمظهر</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">حدث خطأ أثناء القراءة من ملف المظهر الخارجي css. هناك فاصلة زائدة في المحدد: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">لا يمكن إضافة مظهر مع معرف مظهر skinId خالٍ أو مظهر خالٍ</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">تمت إضافة المظهر الخارجي السابق {0} مرة أخرى. في حالة تخزين هذا المظهر الخارجي في الذاكرة المخبئية للتطبيق, فقد تحصل على نتائج غير متسقة. تحقق من وجود ملفات trinidad-skins.xml متكررة في مسار الكلاس.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">لا يمكن الحصول على مظهر ذي معرف مظهر skinId خالٍ</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

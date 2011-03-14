@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Ortamınız üretim olarak konfigüre edilmiş ve Apache Trinidad hata ayıklama javascript&apos;i ile çalışıyor. /WEB-INF/web.xml yolundaki &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; parametresine bakın</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Ortamınız üretim olarak konfigüre edilmiş ve Apache Trinidad hata ayıklama javascript&apos;i ile çalışıyor. /WEB-INF/web.xml yolundaki &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; parametresine bakın</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Ortamınız üretim olarak konfigüre edilmiş ve Apache Trinidad sıkıştırılmamış CSS ile çalışıyor. /WEB-INF/web.xml yolundaki &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; parametresine bakın</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Ortamınız üretim olarak konfigüre edilmiş ve Apache Trinidad TRUE hata ayıklama çıktısı ile çalışıyor. trinidad-config.xml dosyasındaki &quot;debug-output&quot; (hata ayıklama çıktısı) öğesine bakın.</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">İlgili seçici mevcut olmadığından {0} nitelikleri yoksayılıyor.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Dış görünüm css dosyasından okunurken hata oluştu</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Dış görünüm css dosyasından okunurken hata oluştu. Seçicide fazladan virgül var: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Boş skinId veya boş skin değerine sahip bir Dış Görünüm eklenemez</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Önceden eklenen {0} dış görünümü yeniden eklendi. Bu dış görünümü uygulamanızda önbellekte sakladıysanız, tutarsız sonuçlar alabilirsiniz. Sınıf dizin yolunda tekrarlanan trinidad-skins.xml dosyaları olup olmadığını kontrol edin.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">skinId değeri boş olan bir Dış Görünüm alınamaz</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->

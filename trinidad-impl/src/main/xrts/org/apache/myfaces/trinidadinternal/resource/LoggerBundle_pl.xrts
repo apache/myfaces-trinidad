@@ -266,7 +266,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Środowisko zostało skonfigurowane jako produkcyjne, ale serwer Apache Trinidad działa w trybie wykrywania błędów JavaScript. Proszę sprawdzić parametr &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; w pliku /WEB-INF/web.xml</resource>
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Środowisko zostało skonfigurowane jako produkcyjne, ale serwer Apache Trinidad działa w trybie wykrywania błędów JavaScript. Proszę sprawdzić parametr &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; w pliku /WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Środowisko zostało skonfigurowane jako produkcyjne, ale serwer Apache Trinidad działa z nieskompresowanym CSS. Proszę sprawdzić parametr &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; w pliku /WEB-INF/web.xml</resource>
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Środowisko zostało skonfigurowane jako produkcyjne, ale serwer Apache Trinidad działa przy wartości parametru debug-output ustawionej na TRUE. Proszę sprawdzić element &quot;debug-output&quot; w pliku trinidad-config.</resource>
 <!-- ILLEGAL_VALUE -->
@@ -311,8 +311,12 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ignorowanie właściwości {0}, ponieważ nie ma odpowiedniego selektora.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Błąd podczas odczytywania z pliku css dla nakładki</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Błąd podczas odczytywania z pliku css dla nakładki. W selektorze {0} znajduje się niepotrzebny przecinek.</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Nie można dodać nakładki z identyfikatorem (skinId) o wartości Null lub nakładki o wartości Null</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Ponownie dodano wcześniej dodaną nakładkę {0}. Jeśli nakładka ta została pobrana do pamięci podręcznej aplikacji, wyniki mogą być niespójne. Proszę sprawdzić, czy w ścieżce klasy nie występują zduplikowane pliki trinidad-skins.xml .</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nie można uzyskać nakładki z identyfikatorem (skinId) o wartości Null</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
