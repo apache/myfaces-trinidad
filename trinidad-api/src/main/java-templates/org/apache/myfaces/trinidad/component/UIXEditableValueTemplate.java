@@ -188,6 +188,23 @@ abstract public class UIXEditableValueTemplate
   @Override
   public void processDecodes(FacesContext context)
   {
+
+    if (!isValid())
+    {
+      // An exception could occur during normal bean attribute level
+      // validation in update_model phase. When it happens, the component
+      // will have an invalid local value, and LOCAL_VALUE_SET remains
+      // true since we want the invalid value to be shown to end user
+      // to make corrections. But we don't want the invalid state affects
+      // the next request, so we clear the local value and LOCAL_VALUE_SET
+      // property here. While on the other hand, we should not clear the
+      // state when the component is valid, to avoid accidentally clearing
+      // data that other components might depend on.
+
+      setValue(null);
+      setLocalValueSet(false);
+    }
+
     setValid(true);
 
     // Skip processing if our rendered flag is false
