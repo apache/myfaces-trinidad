@@ -119,7 +119,16 @@ public class FileDownloadActionListener extends FacesBeanImpl
         }
         MethodExpression method = getMethod();
         OutputStream out = new BufferedOutputStream(new OnDemandOutputStream(hsr));
-        method.invoke(context.getELContext(), new Object[]{context, out});
+        try
+        {
+          method.invoke(context.getELContext(), new Object[]{context, out});
+        }
+        catch (Exception e)
+        {
+          FacesMessage error = MessageFactory.getMessage(e);
+          context.addMessage(null, error);
+          throw e;
+        }
         out.close();
          
       }
