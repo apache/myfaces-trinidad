@@ -18,6 +18,10 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
+import java.io.IOException;
+
+import java.io.Writer;
+
 import java.util.Iterator;
 import java.util.Map;
 
@@ -26,6 +30,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
@@ -33,7 +39,9 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContextImpl;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.XmlResponseWriter;
 
 /**
  * Utility methods for Renderers which support partial page rendering.
@@ -217,6 +225,40 @@ public final class PartialPageUtils
     
     requestScope.put(_PPR_ACTIVE_FLAG_NAME, Boolean.TRUE);
   }
+  
+  /**
+   * This method writes a <noop/> to the response. 
+   * 
+   * @param context the FacesContext
+   * @throws IOException 
+   */
+  public static void renderNoopResponse(FacesContext context) 
+    throws IOException
+  {
+    ExternalContext external = context.getExternalContext();
+    Writer writer = ExternalContextUtils.getResponseWriter(external);
+    Object response = external.getResponse();
+    
+    if (response instanceof HttpServletResponse) 
+    {
+      HttpServletResponse httpResponse = (HttpServletResponse) response;
+  
+      // Prevent caching
+      httpResponse.setHeader("Cache-Control", "no-cache");
+      httpResponse.setHeader("Pragma", "no-cache");
+      httpResponse.setHeader("Expires", "-1");
+    }
+    
+    XmlResponseWriter xrw = new XmlResponseWriter(writer, "utf-8");
+    xrw.startDocument();
+
+    xrw.startElement("noop", null);
+    xrw.endElement("noop");      
+
+    xrw.endDocument();
+    xrw.close();
+  }
+
 
   // temporary servlet initialization flag controlling whether PPR optimization is enabled for the servlet
   private static final String _INIT_PROP_PPR_OPTIMIZATION_ENABLED = 
