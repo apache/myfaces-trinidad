@@ -55,12 +55,12 @@ import org.apache.myfaces.trinidad.context.Window;
 import org.apache.myfaces.trinidad.context.WindowManager;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
-import org.apache.myfaces.trinidad.util.TransientHolder;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
+import org.apache.myfaces.trinidadinternal.util.ObjectInputStreamResolveClass;
 import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
 import org.apache.myfaces.trinidadinternal.util.TokenCache;
-import org.apache.myfaces.trinidadinternal.util.ObjectInputStreamResolveClass;
+
 
 /**
  * StateManager that handles a hybrid client/server strategy:  the state
@@ -1346,26 +1346,10 @@ public class StateManagerImpl extends StateManagerWrapper
 
     private Object _unzipBytes(FacesContext context, byte[] zippedBytes)
     {
-      Inflater decompressor = null;
-      ExternalContext externalContext = context.getExternalContext();
-      Map<String,Object> sessionMap  = externalContext.getSessionMap();
+      Inflater decompressor = new Inflater();
 
       try
       {
-        //Get inflater from session cope
-        TransientHolder<Inflater> th =
-                              (TransientHolder<Inflater>)sessionMap.remove("PAGE_STATE_INFLATER");
-
-        if (th != null)
-        {
-          decompressor = th.getValue();
-        }
-
-        if(decompressor == null)
-        {
-          decompressor = new Inflater();
-        }
-
         decompressor.setInput(zippedBytes);
         ByteArrayOutputStream bos = new ByteArrayOutputStream(zippedBytes.length);
         byte[] buf = new byte[zippedBytes.length*5];
@@ -1399,38 +1383,16 @@ public class StateManagerImpl extends StateManagerWrapper
       }
       finally
       {
-        //Reset and put back
-        if(decompressor != null)
-        {
-          decompressor.reset();
-          decompressor.setInput(_EMPTY);
-          TransientHolder<Inflater> th = TransientHolder.newTransientHolder(decompressor);
-          sessionMap.put("PAGE_STATE_INFLATER", th);
-        }
+        decompressor.end();       
       }
     }
 
     private void _zipToBytes(FacesContext context, Object state)
     {
-      Deflater compresser = null;
-      ExternalContext externalContext = context.getExternalContext();
-      Map<String,Object> sessionMap  = externalContext.getSessionMap();
+      Deflater compresser = new Deflater(Deflater.BEST_SPEED);
 
       try
       {
-        //Get deflater from session scope
-        TransientHolder<Deflater> th =
-                              (TransientHolder<Deflater>)sessionMap.remove("PAGE_STATE_DEFLATER");
-
-        if (th != null)
-        {
-          compresser = th.getValue();
-        }
-
-        if(compresser == null)
-        {
-          compresser = new Deflater(Deflater.BEST_SPEED);
-        }
 
         //Serialize state
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -1462,14 +1424,7 @@ public class StateManagerImpl extends StateManagerWrapper
       }
       finally
       {
-        //Reset and put back
-        if(compresser != null)
-        {
-          compresser.reset();
-          compresser.setInput(_EMPTY);
-          TransientHolder<Deflater> th = TransientHolder.newTransientHolder(compresser);
-          sessionMap.put("PAGE_STATE_DEFLATER", th);
-        }
+        compresser.end();
       }
     }
   }
@@ -1523,8 +1478,6 @@ public class StateManagerImpl extends StateManagerWrapper
   // key for saving the toekn to the PageState for the last accessed view in this Session
   private static final String _ACTIVE_PAGE_TOKEN_SESSION_KEY =
               "org.apache.myfaces.trinidadinternal.application.StateManagerImp.ACTIVE_PAGE_STATE";
-
-  private static final byte[] _EMPTY = new byte[0];
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StateManagerImpl.class);
 }
