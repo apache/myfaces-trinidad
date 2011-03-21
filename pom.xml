@@ -397,6 +397,7 @@
           <configuration>
             <force>true</force>
             <jsfVersion>${jsf-spec.version}</jsfVersion>
+            <metadataComplete>true</metadataComplete>
           </configuration>
         </plugin>
 
