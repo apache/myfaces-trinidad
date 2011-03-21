@@ -489,12 +489,11 @@ abstract public class UIXComponent extends UIComponent
 
         // UIXComponents are allowed to set up their context differently for encoding
         // than normal processing, so behave differently if this is the RenderResponse
-        // phase
-        if (rc != null)
-        {
-          uixComponent.setupEncodingContext(context, rc);
-        }
-        else
+        // phase.  In order to allow the visitcallback to call encodeAll in the ppr case,
+        // we don't call setupEncodingContext before we call the visitContext, since this
+        // would result in setupEncodingContext being called twice on the partial roots,
+        // instead we only do so if the visitCallback returns ACCEPT
+        if (rc == null)
         {
           uixComponent.setupVisitingContext(context);
         }
@@ -522,7 +521,25 @@ abstract public class UIXComponent extends UIComponent
             // visit the children of the component if we aren't supposed to skip them
             if (!skipChildren)
             {
-              doneVisiting = visitChildren(visitContext, uixComponent, callback);
+              // setup encoding context before visiting children, since we didn't do so
+              // before calling the visitCallback
+              if (rc != null)
+              {
+                uixComponent.setupEncodingContext(context, rc);
+              }
+                
+              try
+              {
+                doneVisiting = visitChildren(visitContext, uixComponent, callback);                  
+              }
+              finally
+              {
+                // teardown the encoding context if we set it up
+                if (rc != null)
+                {
+                  uixComponent.tearDownEncodingContext(context, rc);
+                }
+              }
             }
           }
           else
@@ -540,11 +557,7 @@ abstract public class UIXComponent extends UIComponent
           try
           {
             // tear down the context we set up in order to visit our component
-            if (rc != null)
-            {
-              uixComponent.tearDownEncodingContext(context, rc);
-            }
-            else
+            if (rc == null)
             {
               uixComponent.tearDownVisitingContext(context);
             }
@@ -903,6 +916,8 @@ abstract public class UIXComponent extends UIComponent
    * @see #tearDownVisitingContext
    * @see #setupEncodingContext
    * @see #tearDownEncodingContext
+   * @see #setupChildrenVistingContext
+   * 
    */
   protected void setupVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
@@ -920,6 +935,7 @@ abstract public class UIXComponent extends UIComponent
    * @param context FacesContext
    * @see #visitChildren
    * @see #tearDownChildrenVisitingContext
+   * @see setupVisitingContext
    */
   protected void setupChildrenVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
@@ -976,9 +992,19 @@ abstract public class UIXComponent extends UIComponent
    * <code>tearDownEncodingContext</code> as well.</p>
    * <p>It is guaranteed that if <code>setUpEncodingContext</code> completes
    * <code>tearDownEncodingContext</code> will be called for this component</p>
+   * <p>
+   * During partial page rendering traversals, <code>setupEncodingContext</code> is not called
+   * before the <code>VisitCallback</code> is invoked.  This behavior is different than for
+   * <code>setupVisitingContext</code>, which is always called before the <code>VisitCallback</code>
+   * is invoked for non-partial page rendering visits.  This difference in behavior allows the
+   * <code>VisitCallback</code> in a partial page rendering visit to safely call
+   * <code>UIComponent.encodeAll</code>, which in the case of a UIXComponent, will call
+   * <code>UIXComponent.setupEncodeContext</code>.
+   * </p>
    * @param context The FacesContext
    * @param rc      RenderingContext to use for encoding
    * @see #setupVisitingContext
+   * @see #setupChildrenEncodingContext
    * @see #tearDownVisitingContext
    * @see #tearDownEncodingContext
    * @see org.apache.myfaces.trinidad.render.CoreRenderer#setupEncodingContext(FacesContext, RenderingContext, UIComponent)
@@ -1003,6 +1029,7 @@ abstract public class UIXComponent extends UIComponent
    * @param rc      RenderingContext to use for encoding
    * @see #setupChildrenVisitingContext
    * @see #tearDownChildrenEncodingContext
+   * @see #setupEncodingContext
    * @see org.apache.myfaces.trinidad.render.CoreRenderer#setupChildrenEncodingContext
    */
   public void setupChildrenEncodingContext(FacesContext context, RenderingContext rc)
@@ -1033,6 +1060,7 @@ abstract public class UIXComponent extends UIComponent
    * @see #setupEncodingContext
    * @see #tearDownVisitingContext
    * @see #setupEncodingContext
+   * @see #tearDownChildrenEncodingContext
    * @see org.apache.myfaces.trinidad.render.CoreRenderer#tearDownEncodingContext(FacesContext, RenderingContext, UIComponent)
    */
   protected void tearDownEncodingContext(
@@ -1062,6 +1090,7 @@ abstract public class UIXComponent extends UIComponent
    * @param rc      RenderingContext to use for encoding
    * @see #setupChildrenVisitingContext
    * @see #tearDownChildrenEncodingContext
+   * @see #tearDownEncodingContext
    * @see org.apache.myfaces.trinidad.render.CoreRenderer#setupChildrenEncodingContext
    */
   public void tearDownChildrenEncodingContext(
