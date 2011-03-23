@@ -75,7 +75,8 @@ public final class PartialPageUtils
       }
       else
       {
-        optimizedPPREnabled = !"off".equalsIgnoreCase(_getPprOptimization(context));
+        // default optimized ppr to off
+        optimizedPPREnabled = "on".equalsIgnoreCase(_getPprOptimization(context));
         
         // cache the result into the context attributes
         contextAttributes.put(_OPTIMIZED_PPR_ENABLED_PROP, optimizedPPREnabled);
@@ -309,9 +310,9 @@ public final class PartialPageUtils
       // the value hasn't been set, so check the initialization parameter
       pprOptimization = external.getInitParameter(_PPR_OPTIMIZATION_PROP);
       
-      // default to "on"
+      // default to "off"
       if (pprOptimization == null)
-        pprOptimization = "on";
+        pprOptimization = "off";
       
       // cache in the application so that we don't need to fetch this again
       applicationMap.put(_PPR_OPTIMIZATION_PROP, pprOptimization);
