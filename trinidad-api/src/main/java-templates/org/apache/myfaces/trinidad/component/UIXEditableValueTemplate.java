@@ -503,8 +503,8 @@ abstract public class UIXEditableValueTemplate
   protected boolean compareValues(Object previous, Object value)
   {
     // handle cases where previous value was empty
-    if (isEmpty(previous)) // bug 4268807
-      return !isEmpty(value);
+    if (previous == null || "".equals(previous)) // bug 4268807
+      return !(value == null || "".equals(value));
 
     boolean isNotEqual = !previous.equals(value);
 
