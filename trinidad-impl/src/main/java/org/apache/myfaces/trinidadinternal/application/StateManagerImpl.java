@@ -662,8 +662,9 @@ public class StateManagerImpl extends StateManagerWrapper
         return sms.restoreView(context, viewId, renderKitId);
       }
 
-      structure = rsm.getTreeStructureToRestore(context, viewId);
-      state = rsm.getComponentStateToRestore(context);
+      Object[] stateArray = (Object[])rsm.getState(context, viewId);
+      structure = stateArray[0];
+      state = stateArray[1];
     }
 
 
