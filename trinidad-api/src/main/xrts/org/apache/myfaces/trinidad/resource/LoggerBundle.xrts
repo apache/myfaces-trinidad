@@ -471,4 +471,7 @@
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID">getClientId should not be called while the view is being constructed. Component ID: {0}</resource>
 
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET">row key might not be reset correctly at the end of the request. Component ID: {0} ViewId: {1}</resource>
+
 </resources>

@@ -242,6 +242,20 @@ public abstract class UIXCollection extends UIXComponentBase
     // current row's state is properly preserved, and that
     // the children are reset to their default state.
     Object currencyKey = _getCurrencyKey();
+    
+    // since this is the end of the request, we expect the row currency to be reset back to null
+    // setting it and leaving it there might introduce multiple issues, so log a warning here    
+    //if (currencyKey != null) 
+    {
+      //if (_LOG.isWarning()) 
+      {
+        String scopedId = ComponentUtils.getScopedIdForComponent(this, context.getViewRoot());
+        String viewId = context.getViewRoot()==null?null:context.getViewRoot().getViewId();
+        //_LOG.warning("ROWKEY_NOT_RESET", new Object[]{scopedId, viewId});        
+        _LOG.severe("ROWKEY_NOT_RESET", new Object[]{scopedId, viewId});        
+      }
+    }
+    
     Object initKey = _getCurrencyKeyForInitialStampState();
     if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
     {
