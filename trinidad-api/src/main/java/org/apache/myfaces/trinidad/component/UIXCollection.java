@@ -180,7 +180,7 @@ public abstract class UIXCollection extends UIXComponentBase
     if (!isRendered())
       return;
 
-    _flushCachedModel();
+    __flushCachedModel();
 
     // Make sure _hasEvent is false.
     iState._hasEvent = false;
@@ -598,7 +598,7 @@ public abstract class UIXCollection extends UIXComponentBase
       if (keyMgr instanceof DefaultClientKeyManager)
         ((DefaultClientKeyManager) keyMgr).clear();
     }
-    _flushCachedModel();
+    __flushCachedModel();
 
     Object assertKey = null;
     assert ((assertKey = getRowKey()) != null) || true;
@@ -1133,11 +1133,11 @@ public abstract class UIXCollection extends UIXComponentBase
       {
         if (!_getAndMarkFirstInvokeForRequest(context, clientId))
         {
-          // Call _init() since _flushCachedModel() assumes that
+          // Call _init() since __flushCachedModel() assumes that
           // selectedRowKeys and disclosedRowKeys are initialized to be non-null
           _init();
 
-          _flushCachedModel();
+          __flushCachedModel();
         }
 
         pushComponentToEL(context, null);
@@ -1163,11 +1163,11 @@ public abstract class UIXCollection extends UIXComponentBase
         {
           if (!_getAndMarkFirstInvokeForRequest(context, thisClientId))
           {
-            // Call _init() since _flushCachedModel() assumes that
+            // Call _init() since __flushCachedModel() assumes that
             // selectedRowKeys and disclosedRowKeys are initialized to be non-null
             _init();
 
-            _flushCachedModel();
+            __flushCachedModel();
           }
 
           String postId = clientId.substring(thisClientIdLength + 1);
@@ -1709,10 +1709,10 @@ public abstract class UIXCollection extends UIXComponentBase
    */
   void __processFlattenedChildrenBegin()
   {
-    // Call _init() since _flushCachedModel() assumes that
+    // Call _init() since __flushCachedModel() assumes that
     // selectedRowKeys and disclosedRowKeys are initialized to be non-null.
     _init();
-    _flushCachedModel();
+    __flushCachedModel();
   }
 
   private void _init()
@@ -1726,7 +1726,7 @@ public abstract class UIXCollection extends UIXComponentBase
     }
   }
 
-  private void _flushCachedModel()
+  void __flushCachedModel()
   {
     InternalState iState = _getInternalState(true);
     Object value = getValue();
