@@ -35,17 +35,13 @@ import javax.el.ValueExpression;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentELTag;
 
 import javax.servlet.jsp.JspException;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.component.UIXComponent;
-import org.apache.myfaces.trinidad.component.UIXDocument;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -77,28 +73,6 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     return retVal;
   }
-
-  @Override
-  public int doEndTag() throws JspException
-  {
-    UIComponent component = getComponentInstance();
-    
-    // Apply changes once we have a stable UIComponent subtree is completely 
-    //  created. End of document tag is a best bet.
-    if (component instanceof UIXDocument)
-    {
-      if (getCreated()) 
-      {
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        // Used by SessionChangeManager to confirm that the state was not restored.
-        ec.getRequestMap().put(DOCUMENT_CREATED_KEY, Boolean.TRUE);
-      }
-      ChangeManager cm = RequestContext.getCurrentInstance().getChangeManager();
-      cm.applyComponentChangesForCurrentView(FacesContext.getCurrentInstance());
-    }
-    return super.doEndTag();
-  }
-
 
   @Override
   protected final void setProperties(UIComponent component)
@@ -495,6 +469,8 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     return sdf;
   }
 
+  //  No more used anywhere in Trinidad code, so deprecate since 2.0.x.
+  @Deprecated
   public static final String DOCUMENT_CREATED_KEY = "org.apache.myfaces.trinidad.DOCUMENTCREATED";
 
   private MethodExpression  _attributeChangeListener;
