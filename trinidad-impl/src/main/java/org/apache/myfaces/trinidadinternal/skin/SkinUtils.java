@@ -18,11 +18,15 @@
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
+import java.beans.Beans;
+
 import java.io.IOException;
 
 import java.io.InputStream;
 
 import java.net.URL;
+
+import java.net.URLConnection;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -726,7 +730,15 @@ public class SkinUtils
         else
         {
           _LOG.finest("Processing skin URL:{0}", url);
-          InputStream in = url.openStream();
+
+          URLConnection urlConnection = url.openConnection();
+          // prevent caching during DT where the source may change...
+          if (Beans.isDesignTime())
+          {
+            urlConnection.setUseCaches(false);
+          }
+          InputStream in = urlConnection.getInputStream();
+
           try
           {
             // parse the config file and register the skin's additional stylesheets.
