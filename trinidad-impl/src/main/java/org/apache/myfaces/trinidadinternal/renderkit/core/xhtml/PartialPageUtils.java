@@ -19,7 +19,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.io.Writer;
 
 import java.util.Iterator;
@@ -33,15 +32,14 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidad.context.RequestContext;
-
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-
-import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContextImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.XmlResponseWriter;
+
 
 /**
  * Utility methods for Renderers which support partial page rendering.
@@ -283,9 +281,11 @@ public final class PartialPageUtils
     
     XmlResponseWriter xrw = new XmlResponseWriter(writer, "utf-8");
     xrw.startDocument();
-
+    
+    xrw.startElement("partial-response", null);
     xrw.startElement("noop", null);
     xrw.endElement("noop");      
+    xrw.endElement("partial-response");
 
     xrw.endDocument();
     xrw.close();
