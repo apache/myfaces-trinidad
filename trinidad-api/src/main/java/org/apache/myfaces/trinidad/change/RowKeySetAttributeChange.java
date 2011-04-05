@@ -13,7 +13,15 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 
 /**
  * Handles RowKeySetAttribute changes, which need to be handled specially because they are mutable
- * and programmers assume that the instances don't change
+ * and programmers assume that the instances don't change.
+ * 
+ * Cases that we need to worry about:
+ * 1) old value is null
+ * 2) new value is null (should clear existing RowKeySet if possible)
+ * 3) old value = new value
+ * 4) new value is a ValueExpression or ValueBinding
+ * 5) old value is a ValueExpression that needs to be evaluated in context
+ * 6) RowKeySet is internally bound to a model that needs to be evaluated in context
  */
 public final class RowKeySetAttributeChange extends AttributeComponentChange
 {
@@ -29,92 +37,57 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
 
   @Override
   @SuppressWarnings("deprecation")
-  public void changeComponent(UIComponent uiComponent)
+  public void changeComponent(UIComponent component)
   {
-    Map<String, Object> attributeMap = uiComponent.getAttributes();
+    Map<String, Object> attributeMap = component.getAttributes();
 
-    Object attributeValue = getAttributeValue();
-    String attributeName  = getAttributeName();
+    Object newAttributeValue = getAttributeValue();
+    String attrName  = getAttributeName();
     
-    // if the attributevalue is a ValueExpression or ValueBinding, use the
-    // appropriate setValueExpression/setValueBinding call and remove the
-    // current attribute value, if any, so that the ValueExpression/ValueBinding
-    // can take precedence
-    if (attributeValue instanceof ValueExpression)
+    if ((newAttributeValue instanceof RowKeySet) || (newAttributeValue == null))
     {
-      uiComponent.setValueExpression(attributeName, (ValueExpression)attributeValue);
-      attributeMap.remove(attributeName);
-    }
-    else if (attributeValue instanceof ValueBinding)
-    {
-      uiComponent.setValueBinding(attributeName, (ValueBinding)attributeValue);
-      attributeMap.remove(attributeName);
-    }
-    else
-    {      
       // Specially handle RowKeySet case by replacing the contents of the RowKeySet in-place
       // rather than replacing the entire object.  This keeps the mutable object instance from
       // changing
-      if (attributeValue instanceof RowKeySet)
-      {
-        ValueExpression expression = uiComponent.getValueExpression(attributeName);
-
-        Object oldValue;
-        
-        // due to bug in how the trinidad table and tree handle their RowKeySets, always use
-        // invoke on component and get the old value in context all of the time for now
-        if (true || (expression != null))
-        {
-          //use EL to get the oldValue and then determine whether we need to update in place
-          final FacesContext context = FacesContext.getCurrentInstance();
-                    
-          context.getViewRoot().invokeOnComponent(
-            context,
-            _clientId,
-            new GetOldValueAndUpdate(expression, attributeName, (RowKeySet)attributeValue));
-        }
-        else
-        {
-          oldValue = attributeMap.get(attributeName);
-
-          if (oldValue instanceof RowKeySet)
-          {
-            _updateKeySet(_clientId, (RowKeySet)oldValue, (RowKeySet)attributeValue);
-            
-            // we updated in place, but we still need to set the attribute in order for partial
-            // state saving to work
-          }
-        }      
-      }
-      
-      
-      attributeMap.put(attributeName, attributeValue);
+      _updateRowKeySetInPlace(component, attrName, (RowKeySet)newAttributeValue);
+    }
+    else if (newAttributeValue instanceof ValueExpression)
+    {
+      // if the new attribute value is a ValueExpession, set it and remove the old value
+      // so that the ValueExpression takes precedence
+      component.setValueExpression(attrName, (ValueExpression)newAttributeValue);
+      attributeMap.remove(attrName);
+    }
+    else if (newAttributeValue instanceof ValueBinding)
+    {
+      // if the new attribute value is a ValueBinding, set it and remove the old value
+      // so that the ValueBinding takes precedence
+      component.setValueBinding(attrName, (ValueBinding)newAttributeValue);
+      attributeMap.remove(attrName);
+    }
+    else
+    {
+      // perform the default behavior
+      attributeMap.put(attrName, newAttributeValue);
     }
   }
-  
-  private static void _updateKeySet(String clientId, RowKeySet oldKeySet, RowKeySet newKeySet)
+
+  private void _updateRowKeySetInPlace(UIComponent component, String attrName, RowKeySet newValue)
   {
-    // check for equality because otherwise we would clear ourselves and end up empty
-    if (oldKeySet != newKeySet)
-    {
-      // no client id, so we're in context
-      if (clientId == null)
-      {
-        oldKeySet.clear();
-        oldKeySet.addAll(newKeySet);        
-      }
-      else
-      {
-        final FacesContext context = FacesContext.getCurrentInstance();
-        
-        context.getViewRoot().invokeOnComponent(
-           context,
-           clientId,
-           new RowKeySetUpdater(oldKeySet, newKeySet));
-      }
-    }    
+    ValueExpression oldExpression = component.getValueExpression(attrName);
+    
+    // due to bug in how the trinidad table and tree handle their RowKeySets, always use
+    // invoke on component and get the old value in context all of the time for now rather
+    // than trying to get the value directly if we don't have an expression
+    //use EL to get the oldValue and then determine whether we need to update in place
+    final FacesContext context = FacesContext.getCurrentInstance();
+                
+    context.getViewRoot().invokeOnComponent(
+      context,
+      _clientId,
+      new GetOldValueAndUpdate(oldExpression, attrName, newValue));
   }
-  
+    
   /**
    * Get the oldValue in context and update it in context
    */
@@ -126,6 +99,7 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
       _attributeName = attributeName;
       _newKeySet  = newKeySet;
     }
+    
     public void invokeContextCallback(FacesContext context,
                                       UIComponent target)
     {
@@ -138,36 +112,37 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
       else
         oldValue = target.getAttributes().get(_attributeName);
       
-      // update the KeySet with the old and new values
-      RowKeySetAttributeChange._updateKeySet(null,
-                                             (RowKeySet)oldValue,
-                                             _newKeySet);
+      // update the old KeySet with the old and new values
+      _updateKeySet(target, oldValue);
+    }
+
+    private void _updateKeySet(UIComponent component, Object oldValue)
+    {
+      // check for equality because otherwise we would clear ourselves and end up empty
+      if (oldValue != _newKeySet)
+      {
+        // if the old value is a RowKeySet, we can replace in place
+        if (oldValue instanceof RowKeySet)
+        {
+          RowKeySet oldKeySet = (RowKeySet)oldValue;
+          
+          oldKeySet.clear();
+          
+          if (_newKeySet != null)
+          {
+            oldKeySet.addAll(_newKeySet);
+          }
+        }
+        else
+        {
+          // if the oldKeySet is null, just set the new keySet
+          component.getAttributes().put(_attributeName, _newKeySet);
+        }
+      }    
     }
     
     private final ValueExpression _expression;
     private final String _attributeName;
-    private final RowKeySet _newKeySet;
-  }
-
-  /**
-   * Makes sure that we clear and add the RowKeySet in context
-   */
-  private static final class RowKeySetUpdater implements ContextCallback
-  {
-    public RowKeySetUpdater(RowKeySet oldKeySet, RowKeySet newKeySet)
-    {
-      _oldKeySet = oldKeySet;
-      _newKeySet = newKeySet;
-    }
-
-    public void invokeContextCallback(FacesContext context,
-                                      UIComponent target)
-    {
-      _oldKeySet.clear();
-      _oldKeySet.addAll(_newKeySet);
-    }
-    
-    private final RowKeySet _oldKeySet;
     private final RowKeySet _newKeySet;
   }
 
