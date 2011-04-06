@@ -2120,53 +2120,63 @@
                  title="test-shortDesc"
                 >
               
-              <input
-                   id="mainId:_0"
-                   name="mainId"
-                   type="radio"
-                   value="0"
+              <fieldset
+                   style="border:none;margin:0px;padding:0px;"
                   >
                 
-              </input>
-              <label
-                   for="mainId:_0"
-                  >
-                item2
-              </label>
-              <br
-                  >
-                
-              </br>
-              <input
-                   id="mainId:_1"
-                   name="mainId"
-                   type="radio"
-                   value="1"
-                  >
-                
-              </input>
-              <label
-                   for="mainId:_1"
-                  >
-                item4
-              </label>
-              <br
-                  >
-                
-              </br>
-              <input
-                   id="mainId:_2"
-                   name="mainId"
-                   type="radio"
-                   value="2"
-                  >
-                
-              </input>
-              <label
-                   for="mainId:_2"
-                  >
-                item8
-              </label>
+                <legend
+                     class="p_OraHiddenLabel"
+                    >
+                  test-shortDesc
+                </legend>
+                <input
+                     id="mainId:_0"
+                     name="mainId"
+                     type="radio"
+                     value="0"
+                    >
+                  
+                </input>
+                <label
+                     for="mainId:_0"
+                    >
+                  item2
+                </label>
+                <br
+                    >
+                  
+                </br>
+                <input
+                     id="mainId:_1"
+                     name="mainId"
+                     type="radio"
+                     value="1"
+                    >
+                  
+                </input>
+                <label
+                     for="mainId:_1"
+                    >
+                  item4
+                </label>
+                <br
+                    >
+                  
+                </br>
+                <input
+                     id="mainId:_2"
+                     name="mainId"
+                     type="radio"
+                     value="2"
+                    >
+                  
+                </input>
+                <label
+                     for="mainId:_2"
+                    >
+                  item8
+                </label>
+              </fieldset>
             </span>
           </td>
         </tr>
