@@ -19,13 +19,11 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.io.IOException;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
 import javax.el.MethodExpression;
-
 import javax.faces.component.NamingContainer;
 import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
@@ -39,6 +37,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -50,6 +49,7 @@ import org.apache.myfaces.trinidad.render.CoreRenderer;
 /**
  * Pure abstract base class for all UIX components.
  */
+@JSFComponent
 abstract public class UIXComponent extends UIComponent
 {
   /**

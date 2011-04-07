@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.MenuModel;
 import org.apache.myfaces.trinidad.model.ModelUtils;
@@ -30,6 +31,7 @@ import org.apache.myfaces.trinidad.model.ModelUtils;
  * will change in a future release.
  */
 // TODO these base classes need to be completely refactored
+@JSFComponent
 abstract public class UIXNavigationHierarchy extends UIXHierarchy
 {
 

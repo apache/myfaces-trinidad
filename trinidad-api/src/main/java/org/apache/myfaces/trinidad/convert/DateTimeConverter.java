@@ -47,6 +47,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -172,6 +174,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/convert/DateTimeConverter.java#0 $) $Date: 10-nov-2005.19:09:11 $
  */
+@JSFConverter(configExcluded=true)
 public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
                                implements Converter, StateHolder
 
@@ -358,6 +361,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @return custom error message that was set.
    * @see #setMessageDetailConvertDate(String)
    */
+  @JSFProperty
   public String getMessageDetailConvertDate()
   {
     Object msg = _facesBean.getProperty(_CONVERT_DATE_MESSAGE_DETAIL_KEY);
@@ -383,6 +387,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @return custom error message that was set.</p>
    * @see #setMessageDetailConvertTime(java.lang.String)
    */
+  @JSFProperty
   public String getMessageDetailConvertTime()
   {
     Object msg =_facesBean.getProperty(_CONVERT_TIME_MESSAGE_DETAIL_KEY);
@@ -409,6 +414,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @return custom error message that was set.
    * @see #setMessageDetailConvertBoth(java.lang.String)
    */
+  @JSFProperty
   public String getMessageDetailConvertBoth()
   {
      Object msg = _facesBean.getProperty(_CONVERT_BOTH_MESSAGE_DETAIL_KEY);
@@ -799,6 +805,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   * request is used during call to <code>getAsObject</code> and
   * <code>getAsString</code>.</p>
   */
+  @JSFProperty
   @Override
   public Locale getLocale()
   {
@@ -825,6 +832,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * <p>Return the format pattern to be used when formatting and
    * parsing dates and times.</p>
    */
+  @JSFProperty
   @Override
   public String getPattern()
   {
@@ -857,6 +865,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   * for the web-app is used. If time zone is not set for the web-app then
   * the default time zone of <code>GMT</code> is used.</p>
   */
+  @JSFProperty
   @Override
   public TimeZone getTimeZone()
   {
@@ -884,6 +893,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * If not explicitly set, the default type, <code>date</code>
    * is returned.</p>
    */
+  @JSFProperty(defaultValue="date")
   @Override
   public String getType()
   {
@@ -913,6 +923,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @see #setDateStyle(java.lang.String)
    * @return date style
    */
+  @JSFProperty(defaultValue="shortish")
   @Override
   public String getDateStyle()
   {
@@ -939,6 +950,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * <p>Return the style to be used to format or parse times.  If not set,
    * the default value, <code>short</code>, is returned.</p>
    */
+  @JSFProperty(defaultValue="short")
   @Override
   public String getTimeStyle()
   {
@@ -963,6 +975,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * <p>Return the secondary pattern used to parse string when parsing by
    * pattern or style fails.</p>
    */
+  @JSFProperty
   public String getSecondaryPattern()
   {
     Object secPattern = _facesBean.getProperty(_SECONDARY_PATTERN_KEY);

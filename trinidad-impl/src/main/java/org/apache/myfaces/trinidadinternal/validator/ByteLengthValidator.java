@@ -31,6 +31,7 @@ import java.util.Set;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
@@ -39,6 +40,11 @@ import org.apache.myfaces.trinidadinternal.util.JsonUtils;
  * <p>Enables byte length validation at the client side. </p>
  *
  */
+@JSFValidator(
+        name="tr:validateByteLength",
+        bodyContent="empty",
+        id="org.apache.myfaces.trinidad.ByteLength",
+        tagClass="org.apache.myfaces.trinidadinternal.taglib.validator.ValidateByteLengthTag")
 public class ByteLengthValidator
               extends org.apache.myfaces.trinidad.validator.ByteLengthValidator
               implements ClientValidator

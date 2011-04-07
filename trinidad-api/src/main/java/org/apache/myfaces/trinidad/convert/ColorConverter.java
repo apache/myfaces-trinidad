@@ -32,6 +32,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
@@ -114,6 +116,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/convert/ColorConverter.java#0 $) $Date: 10-nov-2005.19:09:09 $
  */
+@JSFConverter(configExcluded=true)
 public class ColorConverter implements Converter, StateHolder
 {
 
@@ -332,6 +335,7 @@ public class ColorConverter implements Converter, StateHolder
    * <p>Retrun the patterns set for this converter.</p>
    * @return patterns
    */
+  @JSFProperty
   public String[] getPatterns()
   {
     return ComponentUtils.resolveStringArray(_facesBean.getProperty(_PATTERNS_KEY));
@@ -341,6 +345,7 @@ public class ColorConverter implements Converter, StateHolder
    * <p>Return if localized transparent text should be supported by this
    * converter.</p>
    */
+  @JSFProperty(defaultValue="false")
   public boolean isTransparentAllowed()
   {
     return ComponentUtils.resolveBoolean(_facesBean.getProperty(_TRANSPARENT_ALLOWED_KEY));
@@ -506,6 +511,7 @@ public class ColorConverter implements Converter, StateHolder
    * @return Custom error message.
    * @see #setMessageDetailConvert(String)
    */
+  @JSFProperty
   public String getMessageDetailConvert()
   {
     return ComponentUtils.resolveString(_facesBean.getProperty(_CONVERT_MESSAGE_DETAIL_KEY));
@@ -526,6 +532,7 @@ public class ColorConverter implements Converter, StateHolder
    * @return Custom hint message.
    * @see  #setHint(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHint()
   {
     Object obj = _facesBean.getProperty(_HINT_FORMAT_KEY);

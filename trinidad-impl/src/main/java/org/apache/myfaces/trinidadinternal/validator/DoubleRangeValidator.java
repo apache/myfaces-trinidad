@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
@@ -34,6 +35,11 @@ import org.apache.myfaces.trinidadinternal.util.JsonUtils;
  * <p>Implementation for <code>java.lang.Long</code> values.</p>
  *
  */
+@JSFValidator(
+        name="tr:validateDoubleRange",
+        bodyContent="empty",
+        id="org.apache.myfaces.trinidad.DoubleRange",
+        tagClass="org.apache.myfaces.trinidadinternal.taglib.validator.ValidateDoubleRangeTag")
 public class DoubleRangeValidator extends org.apache.myfaces.trinidad.validator.DoubleRangeValidator
                                 implements ClientValidator
 {

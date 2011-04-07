@@ -32,6 +32,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
@@ -62,6 +64,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/validator/RegExpValidator.java#0 $) $Date: 10-nov-2005.19:08:34 $
  */
+@JSFValidator(configExcluded=true)
 public class RegExpValidator implements StateHolder, Validator
 {
   /**
@@ -151,6 +154,7 @@ public class RegExpValidator implements StateHolder, Validator
     }
   }
 
+  @JSFProperty(istransient=true, tagExcluded=true)
   public boolean isTransient()
   {
     return (_isTransient);
@@ -306,6 +310,7 @@ public class RegExpValidator implements StateHolder, Validator
    * @return Custom hint message.
    * @see  #setHint(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHint()
   {
     Object obj = _facesBean.getProperty(_HINT_PATTERN_KEY);
@@ -333,6 +338,7 @@ public class RegExpValidator implements StateHolder, Validator
    * <p>Return the pattern value to be enforced by this {@link
    * Validator}
    */
+  @JSFProperty
   public String getPattern()
   {
     Object obj = _facesBean.getProperty(_PATTERN_KEY);
@@ -356,6 +362,7 @@ public class RegExpValidator implements StateHolder, Validator
    * @return Custom error message
    * @see #setMessageDetailNoMatch(String)
    */
+  @JSFProperty
   public String getMessageDetailNoMatch()
   {
     Object obj = _facesBean.getProperty(_NO_MATCH_MESSAGE_DETAIL_KEY);

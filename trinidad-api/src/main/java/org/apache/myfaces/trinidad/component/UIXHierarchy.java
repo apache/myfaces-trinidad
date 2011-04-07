@@ -25,6 +25,8 @@ import javax.faces.component.UIComponent;
 
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
+
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.LocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.ModelUtils;
@@ -38,6 +40,7 @@ import org.apache.myfaces.trinidad.model.TreeModel;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/UIXHierarchy.java#0 $) $Date: 10-nov-2005.19:09:52 $
  */
+@JSFComponent
 public abstract class UIXHierarchy extends UIXCollection implements CollectionComponent, LocalRowKeyIndex, 
              TreeLocalRowKeyIndex
 {

@@ -63,9 +63,11 @@
     <jetty-plugin.version>6.1.21</jetty-plugin.version>
     <pluto.version>1.1.6</pluto.version>
     <pluto.package>org.apache.pluto</pluto.package>
+    <myfaces-builder-plugin.version>1.0.9</myfaces-builder-plugin.version>
     
     <!-- Other -->
     <jdev.release>11.1.1.0.0</jdev.release>
+    <myfaces-builder-annotations.version>1.0.8</myfaces-builder-annotations.version>
   </properties>
 
   <issueManagement>
@@ -274,6 +276,13 @@
       </dependency>
 
       <dependency>
+        <groupId>org.apache.myfaces.buildtools</groupId>
+        <artifactId>myfaces-builder-annotations</artifactId>
+        <version>${myfaces-builder-annotations.version}</version>
+        <scope>provided</scope>
+      </dependency>
+    
+      <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-build</artifactId>
         <version>${project.version}</version>
@@ -425,6 +434,12 @@
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-tagdoc-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.apache.myfaces.buildtools</groupId>
+          <artifactId>myfaces-builder-plugin</artifactId>
+          <version>${myfaces-builder-plugin.version}</version>
         </plugin>
 
         <plugin>

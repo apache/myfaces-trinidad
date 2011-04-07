@@ -38,6 +38,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
 import javax.faces.el.ValueBinding;
+
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -115,6 +118,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  *
  * <p>
  */
+@JSFConverter(configExcluded=true)
 public class NumberConverter extends javax.faces.convert.NumberConverter
 {
 
@@ -491,6 +495,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @see #setMessageDetailConvertPattern(String)
    *
    */
+  @JSFProperty
   public String getMessageDetailConvertPattern()
   {
     Object msg = _facesBean.getProperty(_CONVERT_PATTERN_MESSAGE_DETAIL_KEY);
@@ -517,6 +522,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @return Custom error message.
    * @see #setMessageDetailConvertNumber(String)
    */
+  @JSFProperty
   public String getMessageDetailConvertNumber()
   {
     Object msg = _facesBean.getProperty(_CONVERT_NUMBER_MESSAGE_DETAIL_KEY);
@@ -544,6 +550,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @return Custom error message.
    * @see #setMessageDetailConvertCurrency(String)
    */
+  @JSFProperty
   public String getMessageDetailConvertCurrency()
   {
     Object msg = _facesBean.getProperty(_CONVERT_CURRENCY_MESSAGE_DETAIL_KEY);
@@ -571,6 +578,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @return Custom error message.
    * @see #setMessageDetailConvertPercent(String)
    */
+  @JSFProperty
   public String getMessageDetailConvertPercent()
   {
     Object msg = _facesBean.getProperty(_CONVERT_PERCENT_MESSAGE_DETAIL_KEY);
@@ -606,6 +614,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_CURRENCY_CODE_KEY, currencyCode);
   }
 
+  @JSFProperty
   @Override
   public String getCurrencyCode()
   {
@@ -619,6 +628,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_CURRENCY_SYMBOL_KEY, currencySymbol);
   }
 
+  @JSFProperty
   @Override
   public String getCurrencySymbol()
   {
@@ -633,6 +643,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_GROUPING_USED_KEY, grpUsed);
   }
 
+  @JSFProperty(defaultValue="true")
   @Override
   public  boolean isGroupingUsed()
   {
@@ -646,6 +657,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_INTEGER_ONLY_KEY, _getBooleanValue(integerOnly));
   }
 
+  @JSFProperty(defaultValue="false")
   @Override
   public boolean isIntegerOnly()
   {
@@ -674,6 +686,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * in the {@link javax.faces.component.UIViewRoot} for the current request
    * will be utilized during parsing.</p>
    */
+  @JSFProperty
   @Override
   public Locale getLocale()
   {
@@ -690,6 +703,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_MAX_FRACTION_DIGITS_KEY, _getIntValue(maxFractionDigits));
   }
 
+  @JSFProperty
   @Override
   public int getMaxFractionDigits()
   {
@@ -703,6 +717,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_MAX_INTEGER_DIGITS_KEY, _getIntValue(maxIntegerDigits));
   }
 
+  @JSFProperty
   @Override
   public int getMaxIntegerDigits()
   {
@@ -716,6 +731,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_MIN_FRACTION_DIGITS_KEY, _getIntValue(minFractionDigits));
   }
 
+  @JSFProperty
   @Override
   public int getMinFractionDigits()
   {
@@ -729,6 +745,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_MIN_INTEGER_DIGITS_KEY, _getIntValue(minIntegerDigits));
   }
 
+  @JSFProperty
   @Override
   public int getMinIntegerDigits()
   {
@@ -742,6 +759,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_PATTERN_KEY, pattern);
   }
 
+  @JSFProperty
   @Override
   public String getPattern()
   {
@@ -808,6 +826,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_TYPE_KEY, type);
   }
 
+  @JSFProperty(defaultValue="number")
   @Override
   public String getType()
   {

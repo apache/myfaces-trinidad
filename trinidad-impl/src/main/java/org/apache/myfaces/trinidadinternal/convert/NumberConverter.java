@@ -30,11 +30,17 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
+@JSFConverter(
+        name="tr:convertNumber",
+        bodyContent="empty",
+        id="org.apache.myfaces.trinidad.Number",
+        tagClass="org.apache.myfaces.trinidadinternal.taglib.convert.ConvertNumberTag")
 public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberConverter
                    implements ClientConverter
 {

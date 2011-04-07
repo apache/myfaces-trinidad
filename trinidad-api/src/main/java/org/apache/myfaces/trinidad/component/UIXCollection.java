@@ -42,6 +42,7 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.context.ComponentContextChange;
@@ -63,6 +64,7 @@ import org.apache.myfaces.trinidad.util.ComponentUtils;
  * And it wraps events that are queued, so that the correct rowData can be
  * restored on this component when the event is broadcast.
  */
+@JSFComponent
 public abstract class UIXCollection extends UIXComponentBase
   implements NamingContainer
 {

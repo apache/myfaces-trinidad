@@ -19,30 +19,32 @@
 package org.apache.myfaces.trinidadinternal.validator;
 
 import java.io.IOException;
-
 import java.text.SimpleDateFormat;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import java.util.TimeZone;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.validator.ValidatorException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
-import org.apache.myfaces.trinidadinternal.convert.DateTimeConverter;
 import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
+@JSFValidator(
+        name="tr:validateDateTimeRange",
+        bodyContent="empty",
+        id="org.apache.myfaces.trinidad.DateTimeRange",
+        tagClass="org.apache.myfaces.trinidadinternal.taglib.validator.ValidateDateTimeRangeTag")
 public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validator.DateTimeRangeValidator
                                        implements ClientValidator
 {

@@ -40,6 +40,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -48,7 +50,7 @@ import org.apache.myfaces.trinidad.model.DateListProvider;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
-
+@JSFValidator(configExcluded=true)
 public class DateRestrictionValidator implements Validator, StateHolder {
 
 
@@ -96,6 +98,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
     _initMaps();
   }
 
+  @JSFProperty
   public final String[] getInvalidMonths()
   {
     return (String[]) _facesBean.getProperty(_INVALID_MONTHS);
@@ -106,6 +109,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
     _facesBean.setProperty(_INVALID_MONTHS, invalidMonths);
   }
   
+  @JSFProperty
   public final String[] getInvalidDaysOfWeek()
   {
     return (String[]) _facesBean.getProperty(_INVALID_DAYS_OF_WEEK);  }
@@ -115,6 +119,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
     _facesBean.setProperty(_INVALID_DAYS_OF_WEEK, invalidDaysOfWeek);
   }
   
+  @JSFProperty
   public final DateListProvider getInvalidDays()
   {
     return (DateListProvider)_facesBean.getProperty(_INVALID_DAYS);
@@ -125,6 +130,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
     _facesBean.setProperty(_INVALID_DAYS, invalidDays);
   }
   
+  @JSFProperty
   public final String getMessageDetailInvalidMonths()
   {
     Object messageDetailInvalidMonths = _facesBean.getProperty(_INVALID_MONTHS_MESSAGE_DETAIL_KEY);
@@ -136,6 +142,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
     _facesBean.setProperty(_INVALID_MONTHS_MESSAGE_DETAIL_KEY, invalidMonths);
   }
   
+  @JSFProperty
   public final String getMessageDetailInvalidDaysOfWeek()
   {
     Object messageDetailInvalidDaysOfWeek = _facesBean.getProperty(_INVALID_DAYS_OF_WEEK_MESSAGE_DETAIL_KEY);
@@ -147,6 +154,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
     _facesBean.setProperty(_INVALID_DAYS_OF_WEEK_MESSAGE_DETAIL_KEY, invalidDaysOfWeek);
   }
   
+  @JSFProperty
   public final String getMessageDetailInvalidDays()
   {
     Object messageDetailInvalidDays = _facesBean.getProperty(_INVALID_DAYS_MESSAGE_DETAIL_KEY);
@@ -173,6 +181,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
    * @return Custom hint message.
    * @see  #setHintInvalidDaysOfWeek(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintInvalidDaysOfWeek()
   {
     Object obj = _facesBean.getProperty(_HINT_WEEK_KEY);
@@ -194,6 +203,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
    * @return Custom hint message.
    * @see  #setHintInvalidMonths(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintInvalidMonths()
   {
     Object obj = _facesBean.getProperty(_HINT_MONTH_KEY);
@@ -269,6 +279,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
     _facesBean.restoreState(context, state);
   }
 
+  @JSFProperty(istransient=true, tagExcluded=true)
   public boolean isTransient()
   {
     return (_transientValue);

@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
 
 import javax.faces.convert.ConverterException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 
@@ -34,6 +35,7 @@ import org.apache.myfaces.trinidad.util.IntegerUtils;
  * <p>Implementation for <code>java.lang.Long</code> values.</p>
  *
  */
+@JSFConverter(id="javax.faces.Long")
 public class LongConverter extends javax.faces.convert.LongConverter
                            implements ClientConverter
 {

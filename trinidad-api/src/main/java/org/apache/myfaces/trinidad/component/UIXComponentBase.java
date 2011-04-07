@@ -63,6 +63,7 @@ import javax.faces.event.SystemEventListener;
 import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.trinidad.bean.AttachedObjects;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.FacesBeanFactory;
@@ -111,6 +112,7 @@ import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
  */
 // TODO Write Class Javadoc
 // TODO Thorough review against UIComponentBase
+@JSFComponent
 abstract public class UIXComponentBase extends UIXComponent
 {
   // Created up top to ensure it's present while we're processing

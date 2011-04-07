@@ -73,6 +73,11 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.myfaces.buildtools</groupId>
+      <artifactId>myfaces-builder-annotations</artifactId>
+    </dependency>
+      
+    <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-build</artifactId>
     </dependency>
@@ -131,6 +136,41 @@
 
   <build>
     <plugins>
+      <plugin>
+          <groupId>org.apache.myfaces.buildtools</groupId>
+          <artifactId>myfaces-builder-plugin</artifactId>
+          <executions>
+              <execution>
+                  <goals>
+                      <goal>build-metadata</goal>
+                  </goals>
+              </execution>
+              <!-- TODO: This execution uses myfaces-builder-plugin to generate
+              jsp tag classes. Note it only generates component tag classes, not
+              converter and validator ones (there are other goals on builder
+              plugin to do that). The generated stuff can be compared using a diff
+              tool against maven-faces-plugin generated files. For now the intention
+              is just test if myfaces-builder-plugin integration is working well and
+              it is possible to use it to generate custom components extending from
+              trinidad. See TRINIDAD-1409 for details. 
+              <execution>
+                <id>make_tags</id>
+                <configuration>
+                    <modelIds>
+                        <modelId>trinidad-api</modelId>
+                    </modelIds>
+                    <jsfVersion>20</jsfVersion>
+                    <templateTagName>trinidadTagClass20.vm</templateTagName>
+                    <packageContains>org.apache.myfaces.trinidadinternal</packageContains>
+                </configuration>
+                <goals>
+                    <goal>make-tags</goal>
+                </goals>
+              </execution>
+              -->
+          </executions>
+      </plugin>
+          
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>

@@ -40,6 +40,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.el.ValueExpression;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
 import org.apache.myfaces.trinidad.component.UIXEditableValue;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
@@ -61,6 +62,11 @@ import org.apache.myfaces.trinidadinternal.util.JsonUtils;
  *          adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/convert/DateTimeConverter.java#0 $)
  *          $Date: 10-nov-2005.19:06:22 $
  */
+@JSFConverter(
+        name="tr:convertDateTime",
+        bodyContent="empty",
+        id="org.apache.myfaces.trinidad.DateTime",
+        tagClass="org.apache.myfaces.trinidadinternal.taglib.convert.ConvertDateTimeTag")
 public class DateTimeConverter extends
     org.apache.myfaces.trinidad.convert.DateTimeConverter implements
     ClientConverter

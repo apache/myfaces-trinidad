@@ -32,6 +32,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
@@ -75,6 +77,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/validator/ByteLengthValidator.java#0 $) $Date: 10-nov-2005.19:08:32 $
  */
+@JSFValidator(configExcluded=true)
 public class ByteLengthValidator  implements StateHolder, Validator
 {
 
@@ -131,6 +134,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    * <p>Return the character encoding set for this {@link Validator} or
    * <code>iso-8859-1</code> if it has not been set.</p>
    */
+  @JSFProperty(defaultValue="iso-8859-1")
   public String getEncoding()
   {
     Object encoding = _facesBean.getProperty(_ENCODING_KEY);
@@ -153,6 +157,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    * Validator} or <code>zero</code> if it has not been
    * set.</p>
    */
+  @JSFProperty
   public int getMaximum()
   {
     return ComponentUtils.resolveInteger(_facesBean.getProperty(_MAXIMUM_KEY));
@@ -175,6 +180,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    * @return Custom error message.
    * @see  #setMessageDetailMaximum(String)
    */
+  @JSFProperty
   public String getMessageDetailMaximum()
   {
     Object obj = _facesBean.getProperty(_MAXIMUM_MESSAGE_DETAIL_KEY);
@@ -196,6 +202,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    * @return Custom hint message.
    * @see  #setHintMaximum(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintMaximum()
   {
     Object obj = _facesBean.getProperty(_HINT_MAXIMUM_KEY);
@@ -259,6 +266,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
     _facesBean.restoreState(context, state);
   }
 
+  @JSFProperty(istransient=true, tagExcluded=true)
   public boolean isTransient()
   {
     return (_isTransient);

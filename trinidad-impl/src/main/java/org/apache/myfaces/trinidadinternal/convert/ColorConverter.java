@@ -27,6 +27,8 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFJspProperty;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
@@ -36,6 +38,11 @@ import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 /**
  */
+@JSFConverter(
+        name="tr:convertColor",
+        bodyContent="empty",
+        id="org.apache.myfaces.trinidad.Color",
+        tagClass="org.apache.myfaces.trinidadinternal.taglib.convert.ConvertColorTag")
 public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorConverter
                             implements ClientConverter
 {

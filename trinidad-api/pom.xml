@@ -41,6 +41,11 @@
     </dependency>
     
     <dependency>
+        <groupId>org.apache.myfaces.buildtools</groupId>
+        <artifactId>myfaces-builder-annotations</artifactId>
+    </dependency>
+    
+    <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
     </dependency>
@@ -233,6 +238,22 @@
             <include implementation="java.lang.String">**/*Test.java</include>
           </includes>
         </configuration>
+      </plugin>
+
+      <plugin>
+          <groupId>org.apache.myfaces.buildtools</groupId>
+          <artifactId>myfaces-builder-plugin</artifactId>
+          <executions>
+              <execution>
+                  <goals>
+                      <goal>build-metadata</goal>
+                  </goals>
+                  <configuration>
+                      <inputFile>${project.basedir}/src/main/conf/META-INF/myfaces-core-2_0-metadata.xml</inputFile>
+                      <readMavenFacesPluginMetadata>true</readMavenFacesPluginMetadata>
+                  </configuration>
+              </execution>
+          </executions>
       </plugin>
 
       <plugin>
