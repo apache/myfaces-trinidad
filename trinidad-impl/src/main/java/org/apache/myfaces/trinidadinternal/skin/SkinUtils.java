@@ -21,53 +21,44 @@ package org.apache.myfaces.trinidadinternal.skin;
 import java.beans.Beans;
 
 import java.io.IOException;
-
 import java.io.InputStream;
 
 import java.net.URL;
-
 import java.net.URLConnection;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-
 import java.util.Set;
 import java.util.Stack;
+
+import javax.el.ValueExpression;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import javax.el.ValueExpression;
-
-import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.resource.SkinResourceLoader;
 import org.apache.myfaces.trinidad.share.io.NameResolver;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
+import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.config.LazyValueExpression;
-import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimpleDesktopSkin;
-import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimplePdaSkin;
-import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimplePortletSkin;
-import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
-import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPdaSkinExtension;
-import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPortletSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaDesktopSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaPdaSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaPortletSkin;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPdaSkinExtension;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPortletSkinExtension;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimpleDesktopSkin;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimplePdaSkin;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimplePortletSkin;
 import org.apache.myfaces.trinidadinternal.share.xml.ClassParserFactory;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
 import org.apache.myfaces.trinidadinternal.share.xml.ParserFactory;
@@ -76,14 +67,17 @@ import org.apache.myfaces.trinidadinternal.share.xml.TreeBuilder;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
-import org.apache.myfaces.trinidadinternal.skin.parse.XMLConstants;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinAdditionNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinVersionNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinsNode;
+import org.apache.myfaces.trinidadinternal.skin.parse.XMLConstants;
+
+import org.xml.sax.InputSource;
+
 
 /**
- * Utility functions for creating Skin objects and SkinExtension objects 
+ * Utility functions for creating Skin objects and SkinExtension objects
  * from the trinidad-skins.xml file and
  * adding them to the SkinFactory. It also adds SkinAdditions to the Skin objects.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinUtils.java#0 $) $Date: 10-nov-2005.18:59:00 $
@@ -396,7 +390,9 @@ public class SkinUtils
     List<SkinNode> metaInfSkinNodes = new ArrayList<SkinNode>();
     for (SkinsNode skinsNode : metaInfSkinsNodeList)
     {
-      metaInfSkinNodes.addAll(skinsNode.getSkinNodes());
+      List<SkinNode> skinNodes = skinsNode.getSkinNodes();
+      if (skinNodes != null)
+        metaInfSkinNodes.addAll(skinNodes);
     }    
     
     List<SkinNode> sortedMetaInfSkinNodes = _sortSkinNodes(skinFactory, metaInfSkinNodes);
