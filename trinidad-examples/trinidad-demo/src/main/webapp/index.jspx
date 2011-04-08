@@ -27,9 +27,9 @@
        <f:facet name="metaContainer">
          <tr:group id="metaContainer">
            <tr:outputText id="metaLink1" escape="false"
-                          value='&lt;link rel="icon" type="image/png" href="#{facesContext.externalContext.requestContextPath}/adf/images/favicon.png">'/>
+                          value='&lt;link rel="icon" type="image/png" href="#{facesContext.externalContext.requestContextPath}/adf/images/trfavicon.png">'/>
            <tr:outputText id="metaLink2" escape="false"
-                          value='&lt;link rel="apple-touch-icon" href="#{facesContext.externalContext.requestContextPath}/adf/images/touchicon.png">'/>
+                          value='&lt;link rel="apple-touch-icon" href="#{facesContext.externalContext.requestContextPath}/adf/images/trtouchicon.png">'/>
          </tr:group>
        </f:facet>
        <tr:form>
