@@ -554,28 +554,33 @@ class SkinStyleSheetParserUtils
           
           // get the string that is inside of the 'url()'
           String uriString = _getURIString(propertyValue);
+          boolean isAbsoluteURI = CSSUtils.isAbsoluteURI(uriString);
           
           // a leading / indicates context-relative
           //      (auto-prefix the servlet context)
           // a leading // indicates server-relative
           //      (don't auto-prefix the servlet context).
-
-          boolean startsWithTwoSlashes = uriString.startsWith("//");
-          if (!startsWithTwoSlashes && uriString.startsWith("/"))
+          if (!isAbsoluteURI)
           {
-            uriString = uriString.substring(1);
-          }
-          else
-          {
-            // a. if it has two slashes, strip off one.
-            // b. if it starts with http: don't do anything to the uri
-            // c. if it an absolute url, then it should be relative to
-            // the skin file since they wrote the absolute url in the skin file.
-            if (startsWithTwoSlashes)
+            boolean startsWithTwoSlashes = uriString.startsWith("//");
+  
+            if (!startsWithTwoSlashes && uriString.startsWith("/"))
+            {
               uriString = uriString.substring(1);
-            else if (!(uriString.startsWith("http:")))
-              uriString = CSSUtils.getAbsoluteURIValue(sourceName, baseSourceURI, uriString);
-
+            }
+            else
+            {
+              // a. if it has two slashes, strip off one.
+              // b. if it is an absolute url, don't do anything
+              // c. if it a relative url, then it should be relative to
+              // the skin file since they wrote the relative url in the skin file.
+              
+              if (startsWithTwoSlashes)
+                uriString = uriString.substring(1);
+              else
+                uriString = CSSUtils.getAbsoluteURIValue(sourceName, baseSourceURI, uriString);
+  
+            }
           }
           // At this point, URIImageIcons start with '/' or 'http:',
           // whereas ContextImageIcons uri do not. This is how we will know which type of 

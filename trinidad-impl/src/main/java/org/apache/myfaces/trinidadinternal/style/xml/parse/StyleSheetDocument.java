@@ -400,7 +400,7 @@ public class StyleSheetDocument
        boolean startsWithASlash = uri.startsWith("/");
       Style inlineStyle = propertyMap.isEmpty() ? null : new UnmodifiableStyle(propertyMap);
 
-       if (!startsWithASlash && !uri.startsWith("http"))
+       if (!startsWithASlash && !CSSUtils.isAbsoluteURI(uri))
        {
          icon =
            new ContextImageIcon(uri, uri, width, height, null, inlineStyle);
