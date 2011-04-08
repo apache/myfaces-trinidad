@@ -18,8 +18,6 @@
  */
 package org.apache.myfaces.trinidadinternal.application;
 
-import java.beans.BeanInfo;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -32,22 +30,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.faces.application.Resource;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.view.StateManagementStrategy;
 import javax.faces.view.ViewDeclarationLanguage;
 import javax.faces.view.ViewDeclarationLanguageFactory;
-import javax.faces.view.ViewMetadata;
 
-import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.InternalView;
-
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 public class ViewDeclarationLanguageFactoryImpl
   extends ViewDeclarationLanguageFactory
@@ -82,12 +76,7 @@ public class ViewDeclarationLanguageFactoryImpl
     // implementation
     viewId = _getPath(context, viewId);
     
-    ViewDeclarationLanguage vdl = getWrapped().getViewDeclarationLanguage(viewId);
-    // Possiblity of nested VDLs of the same kind
-    if (vdl instanceof ChangeApplyingVDLWrapper) 
-      return vdl;
-
-    return new ChangeApplyingVDLWrapper(getWrapped().getViewDeclarationLanguage(viewId));
+    return getWrapped().getViewDeclarationLanguage(viewId);
   }
   
   @Override
@@ -291,71 +280,5 @@ public class ViewDeclarationLanguageFactoryImpl
   interface InternalViewFinder
   {
     public InternalView getInternalView(FacesContext context, String viewId);
-  }
-  
-  /**
-   * The VDL implementation that wraps an underlying VDL and additionally applies component changes based 
-   * customization (usually SessionChangeManager). Note that this works both for Facelets and JSPs.
-   */
-  private static class ChangeApplyingVDLWrapper extends ViewDeclarationLanguage
-  {
-    ChangeApplyingVDLWrapper(ViewDeclarationLanguage wrapped)
-    {
-      _wrapped = wrapped;
-    }
-
-    @Override
-    public BeanInfo getComponentMetadata(FacesContext facesContext, Resource resource)
-    {
-      return _wrapped.getComponentMetadata(facesContext, resource);
-    }
-
-    @Override
-    public ViewMetadata getViewMetadata(FacesContext facesContext, String string)
-    {
-      return _wrapped.getViewMetadata(facesContext, string);
-    }
-
-    @Override
-    public Resource getScriptComponentResource(FacesContext facesContext, Resource resource)
-    {
-      return _wrapped.getScriptComponentResource(facesContext, resource);
-    }
-
-    @Override
-    public UIViewRoot createView(FacesContext facesContext, String string)
-    {
-      return _wrapped.createView(facesContext, string);
-    }
-
-    @Override
-    public UIViewRoot restoreView(FacesContext facesContext, String string)
-    {
-      return _wrapped.restoreView(facesContext, string);
-    }
-
-    @Override
-    public void buildView(FacesContext facesContext, UIViewRoot uiViewRoot)
-      throws IOException
-    {
-      _wrapped.buildView(facesContext, uiViewRoot);
-      ChangeManager cm = RequestContext.getCurrentInstance().getChangeManager();
-      cm.applyComponentChangesForCurrentView(FacesContext.getCurrentInstance());
-    }
-
-    @Override
-    public void renderView(FacesContext facesContext, UIViewRoot uiViewRoot)
-      throws IOException
-    {
-      _wrapped.renderView(facesContext, uiViewRoot);
-    }
-
-    @Override
-    public StateManagementStrategy getStateManagementStrategy(FacesContext facesContext, String string)
-    {
-      return _wrapped.getStateManagementStrategy(facesContext, string);
-    }
-    
-    private final ViewDeclarationLanguage _wrapped;
   }
 }
