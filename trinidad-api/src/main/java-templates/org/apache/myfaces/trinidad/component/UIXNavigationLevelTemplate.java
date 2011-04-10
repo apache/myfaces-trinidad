@@ -24,6 +24,8 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
+import org.apache.myfaces.trinidad.util.ComponentUtils;
+
 
 /**
  * Base class for the NavigationLevel component.
@@ -59,6 +61,20 @@ abstract public class UIXNavigationLevelTemplate extends UIXNavigationHierarchy
 
   @Override
   protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    if (ComponentUtils.isSkipIterationVisit(visitContext))
+    {
+      return visitChildrenWithoutIterating(visitContext, callback);
+    }
+    else
+    {
+      return _visitChildrenIterating(visitContext, callback);
+    }
+  }
+
+  private boolean _visitChildrenIterating(
     VisitContext  visitContext,
     VisitCallback callback)
   {

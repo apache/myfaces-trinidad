@@ -20,12 +20,15 @@ package org.apache.myfaces.trinidad.util;
 
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 
 import javax.faces.component.UIViewRoot;
+
+import javax.faces.component.visit.VisitContext;
 
 import org.apache.myfaces.trinidad.component.UIXComponent;
 import javax.faces.context.FacesContext;
@@ -329,6 +332,19 @@ public final class ComponentUtils
     return (value != null)
              ? (Locale) value
              : defaultValue;
+  }
+  
+  /**
+   * @param visitContext
+   * @return <code>true</code> if this is a non-iterating visit.
+   */
+  public static boolean isSkipIterationVisit(VisitContext visitContext)
+  {
+    FacesContext context = visitContext.getFacesContext();
+    Map<Object, Object> attrs = context.getAttributes();
+    Object skipIteration = attrs.get("javax.faces.visit.SKIP_ITERATION");
+
+    return Boolean.TRUE.equals(skipIteration);
   }
   
   /**

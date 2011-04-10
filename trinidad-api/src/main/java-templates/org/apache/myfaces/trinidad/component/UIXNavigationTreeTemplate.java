@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetTreeImpl;
 import org.apache.myfaces.trinidad.model.TreeModel;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 
 /**
@@ -116,7 +117,14 @@ abstract public class UIXNavigationTreeTemplate extends UIXNavigationHierarchy
     VisitContext  visitContext,
     VisitCallback callback)
   {
-    return visitData(visitContext, callback);
+    if (ComponentUtils.isSkipIterationVisit(visitContext))
+    {
+      return visitChildrenWithoutIterating(visitContext, callback);
+    }
+    else
+    {
+      return visitData(visitContext, callback);
+    }
   }
 
   @Override

@@ -44,6 +44,7 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetTreeImpl;
 import org.apache.myfaces.trinidad.model.TreeModel;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 /**
  * Base class for Tree component.
@@ -157,7 +158,14 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
     VisitContext  visitContext,
     VisitCallback callback)
   {
-    return visitData(visitContext, callback);
+    if (ComponentUtils.isSkipIterationVisit(visitContext))
+    {
+      return visitChildrenWithoutIterating(visitContext, callback);
+    }
+    else
+    {
+      return visitData(visitContext, callback);
+    }
   }
   
   @Override

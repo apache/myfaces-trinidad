@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidad.component;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Map;
 
 import javax.el.MethodExpression;
 import javax.faces.component.NamingContainer;
@@ -390,7 +389,7 @@ abstract public class UIXComponent extends UIComponent
     }
 
     // visit all of the children of the component
-    return _visitAllChildren(visitContext, callback);
+    return visitAllChildren(visitContext, callback);
   }
 
   /**
@@ -399,7 +398,7 @@ abstract public class UIXComponent extends UIComponent
    * @param callback the <code>VisitCallback</code> instance
    * @return <code>true</code> if the visit is complete.
    */
-  private boolean _visitAllChildren(
+  protected final boolean visitAllChildren(
     VisitContext visitContext,
     VisitCallback callback)
   {
@@ -667,11 +666,7 @@ abstract public class UIXComponent extends UIComponent
 
     try
     {
-      // determine whether this visit should be iterating.  If it shouldn't, don't
-      // even call the protected hook.
-      doneVisiting =  (_isSkipIterationVisit(visitContext))
-                        ? uixParentComponent._visitAllChildren(visitContext, callback)
-                        : uixParentComponent.visitChildren(visitContext, callback);
+      doneVisiting = uixParentComponent.visitChildren(visitContext, callback);
     }
     catch (RuntimeException ex)
     {
@@ -837,18 +832,6 @@ abstract public class UIXComponent extends UIComponent
       return false;
 
     return true;
-  }
-
-  /**
-   * Tests whether we should skip iteration during this visit
-   */
-  private static boolean _isSkipIterationVisit(VisitContext visitContext)
-  {
-    FacesContext context = visitContext.getFacesContext();
-    Map<Object, Object> attrs = context.getAttributes();
-    Object skipIteration = attrs.get("javax.faces.visit.SKIP_ITERATION");
-
-    return Boolean.TRUE.equals(skipIteration);
   }
 
   /**

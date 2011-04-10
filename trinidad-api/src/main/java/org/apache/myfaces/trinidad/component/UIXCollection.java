@@ -1242,40 +1242,70 @@ public abstract class UIXCollection extends UIXComponentBase
     return defaultVisitChildren(visitContext, callback);
   }
 
+  /**
+   * Performs a non-iterating visit of the children.  The default implementation visits all
+   * of the children.  If the UIXCollection subclass doesn't visit some of its children in
+   * certain cases, it needs to override this method.
+   * @param visitContext
+   * @param callback
+   * @return
+   */
+  protected boolean visitChildrenWithoutIterating(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    return visitAllChildren(visitContext, callback);
+  }
+  
+  /**
+   * Default implementation of child visiting of UIXCollection subclasses for cases where a
+   * UIXCollection subclass wants to restore the default implementation that one of its
+   * superclasses have overridden.
+   * @param visitContext
+   * @param callback
+   * @return
+   */
   protected final boolean defaultVisitChildren(
     VisitContext  visitContext,
     VisitCallback callback)
   {
-    boolean doneVisiting;
-
-    // Clear out the row index if one is set so that
-    // we start from a clean slate.
-    int oldRowIndex = getRowIndex();
-    setRowIndex(-1);
-
-    try
+    if (ComponentUtils.isSkipIterationVisit(visitContext))
     {
-      // visit the unstamped children
-      doneVisiting = visitUnstampedFacets(visitContext, callback);
-
-      if (!doneVisiting)
+      return visitChildrenWithoutIterating(visitContext, callback);
+    }
+    else
+    {
+      boolean doneVisiting;
+  
+      // Clear out the row index if one is set so that
+      // we start from a clean slate.
+      int oldRowIndex = getRowIndex();
+      setRowIndex(-1);
+  
+      try
       {
-        doneVisiting = _visitStampedColumnFacets(visitContext, callback);
-
-        // visit the stamped children
+        // visit the unstamped children
+        doneVisiting = visitUnstampedFacets(visitContext, callback);
+  
         if (!doneVisiting)
         {
-          doneVisiting = visitData(visitContext, callback);
+          doneVisiting = _visitStampedColumnFacets(visitContext, callback);
+  
+          // visit the stamped children
+          if (!doneVisiting)
+          {
+            doneVisiting = visitData(visitContext, callback);
+          }
         }
       }
+      finally
+      {
+        // restore the original rowIndex
+        setRowIndex(oldRowIndex);
+      }
+      
+      return doneVisiting;
     }
-    finally
-    {
-      // restore the original rowIndex
-      setRowIndex(oldRowIndex);
-    }
-
-    return doneVisiting;
   }
 
   /**
