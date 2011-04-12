@@ -276,32 +276,35 @@ public class CoreResponseStateManager extends ResponseStateManager
       // Nope, let's look for a regular state field
       else
       {
-        StringReader sr = new StringReader(stateString);
-        BufferedReader br = new BufferedReader(sr);
-        Base64InputStream b64_in = new Base64InputStream(br);
+        if (stateString != null)
+        {
+          StringReader sr = new StringReader(stateString);
+          BufferedReader br = new BufferedReader(sr);
+          Base64InputStream b64_in = new Base64InputStream(br);
 
 
-        try
-        {
-          ObjectInputStream ois;
-          ois = new ObjectInputStreamResolveClass( new GZIPInputStream( b64_in, _BUFFER_SIZE ));
+          try
+          {
+            ObjectInputStream ois;
+            ois = new ObjectInputStreamResolveClass( new GZIPInputStream( b64_in, _BUFFER_SIZE ));
 
-          Object structure = ois.readObject();
-          Object state = ois.readObject();
-          ois.close();
-          view = new Object[]{structure, state};
-        }
-        catch (OptionalDataException ode)
-        {
-          _LOG.severe(ode);
-        }
-        catch (ClassNotFoundException cnfe)
-        {
-          _LOG.severe(cnfe);
-        }
-        catch (IOException ioe)
-        {
-          _LOG.severe(ioe);
+            Object structure = ois.readObject();
+            Object state = ois.readObject();
+            ois.close();
+            view = new Object[]{structure, state};
+          }
+          catch (OptionalDataException ode)
+          {
+            _LOG.severe(ode);
+          }
+          catch (ClassNotFoundException cnfe)
+          {
+            _LOG.severe(cnfe);
+          }
+          catch (IOException ioe)
+          {
+            _LOG.severe(ioe);
+          }
         }
       }
 
