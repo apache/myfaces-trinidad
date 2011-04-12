@@ -628,7 +628,13 @@ TrPage._getFirstElementWithId = function (domNode)
         return childNode;
       }
     }
-    return TrPage._getFirstElementWithId(childNode);
+
+    // Workaround for issue http://java.net/jira/browse/JAVASERVERFACES-1441
+    var recCallResult = TrPage._getFirstElementWithId(childNode);
+    if (recCallResult != null)
+    {
+      return recCallResult;
+    } 
   }
 
   return null;
