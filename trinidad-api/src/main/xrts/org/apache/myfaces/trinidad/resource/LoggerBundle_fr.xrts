@@ -125,9 +125,11 @@
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Index non valide</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Ajout d&apos;&apos;un enfant lorsqu&apos;&apos;un enfant portant le même ID existe déjà. L&apos;&apos;ancien enfant sera enlevé et un nouveau sera ajouté. {0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Echec de la modification du gestionnaire pour appliquer AddChildComponentChange, car un composant enfant portant le même ID existe déjà. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Aucun noeud indiqué</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Le composant horodaté ne doit pas être rendu persistant dans l&apos;itérateur</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Composant obligatoire</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -156,6 +158,8 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">Impossible de créer un AddFacetChange si facetName ou facetComponent est NULL.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Le nom de facet doit être indiqué</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">Echec de la modification du gestionnaire pour appliquer SetFacetChildComponentChange, car un facet portant le même nom existe déjà. {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Un composant enfant à déplacer est obligatoire.</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -168,6 +172,8 @@
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">L&apos;&apos;enfant à déplacer est introuvable : {0}.</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
 <resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Le conteneur de destination est introuvable : {0}.</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">Un autre composant portant le même ID a été détecté dans le conteneur de destination. Abandon de l&apos;&apos;opération de déplacement : {0}.</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">L&apos;&apos;élément d&apos;&apos;insertion avant le composant ou le noeud est introuvable : {0}.</resource>
 <!-- INDEX_SIZE -->
@@ -215,9 +221,9 @@
 <!-- ILLEGAL_PATTERN_CHARACTER -->
 <resource key="ILLEGAL_PATTERN_CHARACTER" dnt="false">Caractère de modèle de sélection interdit &apos;&apos;{0}&apos;&apos;</resource>
 <!-- LOGGER_REQUIRED -->
-<resource key="LOGGER_REQUIRED" dnt="false">Programme de journalisation obligatoire</resource>
+<resource key="LOGGER_REQUIRED" dnt="false">Journaliseur obligatoire</resource>
 <!-- LOGGER_NAME_REQUIRED -->
-<resource key="LOGGER_NAME_REQUIRED" dnt="false">Nom de programme de journalisation obligatoire</resource>
+<resource key="LOGGER_NAME_REQUIRED" dnt="false">Nom de journaliseur obligatoire</resource>
 <!-- CLASS_REQUIRED -->
 <resource key="CLASS_REQUIRED" dnt="false">Classe obligatoire</resource>
 <!-- PACKAGE_REQUIRED -->
@@ -308,4 +314,10 @@
 <resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">Impossible de définir les paramètres d&apos;affichage de portlet en raison de l&apos;échec de la réflexion</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">Le type de &quot;{0}&quot; l&apos;&apos;empêche d&apos;&apos;être comparé à &quot;{1}&quot;.</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">Echec de la compression de l&apos;état de la page. L&apos;état doit être sérialisable pour être compressé. Il est fréquent que la compression échoue lorsque l&apos;état de la page n&apos;est pas sérialisable. Vous pouvez désactiver la compression en définissant org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE sur False. Reportez-vous à la documentation sur la propriété système org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION pour savoir comment tester différents aspects de la sérialisation.</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">Echec de la décompression de l&apos;état de la page.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">getClientId ne doit pas être appelé pendant la construction de la vue. ID de composant : {0}</resource>
 </resources>

@@ -101,16 +101,24 @@ TrLongConverter.prototype.getAsObject = function(
   label
   )
 {
-  return _decimalParse(numberString, 
-                       this._message,
-                       "org.apache.myfaces.trinidad.convert.LongConverter",
-                       this._maxPrecision,
-                       this._maxScale,
-                       this._maxValue,
-                       this._minValue,
-                       label,
-                       null);
+  if(TrUIUtils.isNumberConvertible(numberString))
+  {
+    return _decimalParse(numberString, 
+                         this._message,
+                         "org.apache.myfaces.trinidad.convert.LongConverter",
+                         this._maxPrecision,
+                         this._maxScale,
+                         this._maxValue,
+                         this._minValue,
+                         label,
+                         null);
+  }
+  else
+  {
+    return undefined;
+  }
 }
+
 function TrShortConverter(
   message,
   maxPrecision,
@@ -567,13 +575,24 @@ TrLengthValidator.prototype.validate  = function(
   }
 }
 
+// Trinidad-1818: When min/max is specified, use two pieces of information
+// min/maxValue         : The date as a string parseable by the converter (for hints)
+// minISODate/maxISODate: The date as an ISO-like string to correctly recreate the Date object.
+//                        This is because the converter pattern could lose information, e.g. with a
+//                        Date of 4712-12-31 and converter with YY, min/maxValue would be "12-12-31"
+//                        and the converter would parse that into 2012-12-31. See TRINIDAD-1920
 function TrDateTimeRangeValidator(
   maxValue,
   minValue,
-  messages)
+  messages,
+  maxISODate,
+  minISODate
+)
 {
   this._maxValue = maxValue;
+  this._maxISODate = maxISODate;
   this._minValue = minValue;
+  this._minISODate = minISODate;
   this._messages = messages;
   // for debugging
   this._class = "TrDateTimeRangeValidator";
@@ -586,8 +605,10 @@ TrDateTimeRangeValidator.prototype.getHints = function(
 {
   var max = null;
   var min = null;
+
   if (this._maxValue)
     max = this._maxValue;
+
   if (this._minValue)
     min = this._minValue;
 
@@ -603,6 +624,7 @@ TrDateTimeRangeValidator.prototype.getHints = function(
     "hintRange"
   );
 }
+
 TrDateTimeRangeValidator.prototype.validate  = function(
   value,
   label,
@@ -611,13 +633,22 @@ TrDateTimeRangeValidator.prototype.validate  = function(
 {
   dateTime = value.getTime();
   var facesMessage;
+  var isoConverter = this._getISOConverter ();
   //range
   if(this._minValue && this._maxValue)
   {
     try
     {
-      minDate = (converter.getAsObject (this._minValue)).getTime();
-      maxDate = (converter.getAsObject (this._maxValue)).getTime();
+       // min/maxISODate were introduced in TRINIDAD-1920, pre-existing callers may have them null.
+       // If so, revert to previous  behavior where we just parse the min/maxValue string, though
+       // that may have less information than the ISO version. 
+        minDate = (this._minISODate == null) ? 
+                    converter.getAsObject (this._minValue).getTime() :
+                    isoConverter.getAsObject (this._minISODate).getTime ();
+
+        maxDate = (this._maxISODate == null) ? 
+                    converter.getAsObject (this._maxValue).getTime () :
+                    isoConverter.getAsObject (this._maxISODate).getTime ();
     }
     catch (e)
     {
@@ -625,6 +656,7 @@ TrDateTimeRangeValidator.prototype.validate  = function(
       // client conversion fails
       return value;
     }
+    
     if(dateTime >= minDate && dateTime <= maxDate)
     {
       return value;
@@ -658,7 +690,9 @@ TrDateTimeRangeValidator.prototype.validate  = function(
     {
       try
       {
-        minDate = (converter.getAsObject (this._minValue)).getTime();
+        minDate = (this._minISODate == null) ? 
+                    converter.getAsObject (this._minValue).getTime ():
+                    isoConverter.getAsObject (this._minISODate).getTime ();
       }
       catch (e)
       {
@@ -696,8 +730,9 @@ TrDateTimeRangeValidator.prototype.validate  = function(
     {
       try
       {
-      maxDate = (converter.getAsObject (this._maxValue)).getTime();
-        
+        maxDate = (this._maxISODate == null) ? 
+                    converter.getAsObject (this._maxValue).getTime ():
+                    isoConverter.getAsObject (this._maxISODate).getTime ();
       }
       catch (e)
       {
@@ -738,6 +773,14 @@ TrDateTimeRangeValidator.prototype.validate  = function(
   throw new TrConverterException(facesMessage);
 }
 
+TrDateTimeRangeValidator.prototype._getISOConverter = function ()
+{
+  // This pattern must be kept in sync with DateTimeRangeValidator#_ISO_FORMAT
+  if (this._ISO_CONVERTER == null)
+   this._ISO_CONVERTER = new TrDateTimeConverter("yyyy-MM-dd HH:mm:ss",  null, null, null, null);
+  return this._ISO_CONVERTER;
+}
+
 function TrDateRestrictionValidator(
   weekdaysValue,
   monthValue,
@@ -766,9 +809,9 @@ TrDateRestrictionValidator.prototype.getHints = function(
   
   //if needed, remove the submitted values, which are invalid, to display only the valid ones
   if(this._weekdaysValue)
-    TrCollections.removeValuesFromArray(this._weekdaysValue, allWeekdays);
+    this._removeDisabledValues(this._weekdaysValue, allWeekdays);
   if(this._monthValue)
-  TrCollections.removeValuesFromArray(this._monthValue, allMonth);
+    this._removeDisabledValues(this._monthValue, allMonth);
   
   return _returnHints(
     this._messages,
@@ -802,6 +845,34 @@ TrDateRestrictionValidator.prototype._translate = function(
     return values;
   }
 }
+
+/**
+ * For all values in allValueArray, check if it is disabled by looking up
+ * map disabledValueMap, if so, remove it from allValueArray
+ */
+TrDateRestrictionValidator.prototype._removeDisabledValues = function(
+  disabledValueMap,
+  allValueArray
+  )
+{
+  if(disabledValueMap && allValueArray)
+  {
+    for (i=0; i<allValueArray.length; i++)
+    {
+      if(disabledValueMap[allValueArray[i].toLowerCase()] != undefined)
+      {
+        allValueArray.splice(i,1);
+
+        // the element originally at index i is removed, and 
+        // we now have a new element at index i, thus we need
+        // to stay on the same position to check whether we
+        // need to remove it.
+        i--;
+      }
+    }
+  }
+}
+
 TrDateRestrictionValidator.prototype.validate  = function(
   value,
   label,
@@ -818,7 +889,7 @@ TrDateRestrictionValidator.prototype.validate  = function(
       if(weekDaysArray[i].toLowerCase() == dayString)
       {
         var allWeekdays = ['mon','tue','wed','thu','fri','sat','sun'];
-        TrCollections.removeValuesFromArray(this._weekdaysValue, allWeekdays);
+        this._removeDisabledValues(this._weekdaysValue, allWeekdays);
         var days = _trToString(this._translate(allWeekdays, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()));
 
         var facesMessage;
@@ -957,15 +1028,17 @@ function _decimalParse(
     var floater = false;
     if (parsefloat != null)
     {
-      // Why parseInt(parseFloat(numberString))? Because the server NumberConverter behaves the same 
-      // way as parseFloat. Note the following:
+      // Why trim leading zeroes? parseFloat behaves the same way as the server NumberConverter, 
+      // but parseInt interprets octal, and thus we need to trim leading zeroes. 
+      // Note the following:
       // parseInt interprets octal and hex:
       //   alert(parseInt("0xA")); // returns 10
       //   alert(parseInt("008")); // returns 0, as it stops parsing octal at the first invalid character, 8
       // parseFloat interprets neither octal nor hex:
       //   alert(parseFloat("0xA")); // returns 0, as it stops parsing decimal at the first invalid character, x
       //   alert(parseFloat("008")); // returns 8
-      result = parsefloat ? parseFloat(numberString) : parseInt(parseFloat(numberString));
+      numberString = TrNumberFormat.trimLeadingZeroes(numberString);
+      result = parsefloat ? parseFloat(numberString) : parseInt(numberString);
     }
     else
     {

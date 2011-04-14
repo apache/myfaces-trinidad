@@ -57,9 +57,10 @@ class ChildArrayList extends ArrayList<UIComponent>
         index = adjustedIndex; 
       }
     }
-
-    element.setParent(_parent);
+    
+    // do not change the order of these calls, see TRINIDAD-1674 for more info
     super.add(index, element);
+    element.setParent(_parent);
   }
 
   
@@ -196,5 +197,5 @@ class ChildArrayList extends ArrayList<UIComponent>
   private final UIComponent _parent;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     ChildArrayList.class);
-  private static final long serialVersionUID = 8586863522864515171L;
+  private static final long serialVersionUID = 1L;
 }

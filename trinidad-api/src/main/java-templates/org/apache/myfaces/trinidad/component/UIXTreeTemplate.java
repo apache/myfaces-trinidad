@@ -23,6 +23,11 @@ import java.io.IOException;
 import javax.el.MethodExpression;
 
 import javax.faces.component.UIComponent;
+
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
@@ -39,6 +44,7 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetTreeImpl;
 import org.apache.myfaces.trinidad.model.TreeModel;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 /**
  * Base class for Tree component.
@@ -103,12 +109,8 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
   }
 
   @Override
-  public CollectionModel createCollectionModel(CollectionModel current, Object value)
+  protected void postCreateCollectionModel(CollectionModel model)
   {
-
-    TreeModel model = ModelUtils.toTreeModel(value);
-    model.setRowKey(null);
-
     RowKeySet selectedRowKeys = getSelectedRowKeys();
 
     if (selectedRowKeys == null)
@@ -126,8 +128,14 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
     }
 
     selectedRowKeys.setCollectionModel(model);
-    disclosedRowKeys.setCollectionModel(model);
+    disclosedRowKeys.setCollectionModel(model);    
+  }
 
+  @Override
+  public CollectionModel createCollectionModel(CollectionModel current, Object value)
+  {
+    TreeModel model = ModelUtils.toTreeModel(value);
+    model.setRowKey(null);
     return model;
   }
 
@@ -138,16 +146,42 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
   {
     // this component has no facets that need to be processed once.
     // instead process the "nodeStamp" facet as many times as necessary:
-    Object oldPath = getRowKey();
-    setRowKey(null);
     HierarchyUtils.__iterateOverTree(context,
                                      phaseId,
                                      this,
                                      getDisclosedRowKeys(),
                                      true);
-    setRowKey(oldPath);
   }
 
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    if (ComponentUtils.isSkipIterationVisit(visitContext))
+    {
+      return visitChildrenWithoutIterating(visitContext, callback);
+    }
+    else
+    {
+      return visitData(visitContext, callback);
+    }
+  }
+  
+  @Override
+  protected boolean visitData(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // if we are only visiting rendered stamps, then pass in the disclosed row keys, otherwise
+    // pass in null, indicating that all row keys should be visited
+    RowKeySet disclosedRowKeys = (visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED))
+                                   ? getDisclosedRowKeys()
+                                   : null;
+    
+    return visitHierarchy(visitContext, callback, getStamps(), disclosedRowKeys);
+  }
+  
   @Override
   void __init()
   {

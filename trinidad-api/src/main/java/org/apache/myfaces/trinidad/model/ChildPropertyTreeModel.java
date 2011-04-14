@@ -176,6 +176,15 @@ public class ChildPropertyTreeModel extends TreeModel
     {
       Object pathKey = path.get(i);
       _setRowKey(pathKey);
+      if (!isRowAvailable())
+      {
+        // setRowKey should fail for invalid row key in the path.
+        // Also isRowAvailable should return false
+        _path.clear();
+        _path.add(root);
+        setRowIndex(-1);
+        return;        
+      }
       enterContainer();
     }
     

@@ -30,6 +30,7 @@
            class="af_panelGroupLayout"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         

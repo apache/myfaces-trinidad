@@ -138,6 +138,9 @@ public abstract class ChangeManager
 
   /**
    * Add a ComponentChange to this current request for a specified component.
+   * When called we will disallow changes if the component or its any ancestor 
+   * is a stamped component by UIXIterator. 
+   *
    * @throws IllegalArgumentException if any of the supplied parameters were to
    *          be null.
    */
@@ -145,9 +148,28 @@ public abstract class ChangeManager
     FacesContext facesContext,
     UIComponent uiComponent,
     ComponentChange change);
+  
+  /**
+   * Replace an AttributeComponentChange if it's present. 
+   * 
+   * @param facesContext
+   * @param uiComponent
+   * @param attributeComponentChange
+   * @return the old change instance
+   */
+  public AttributeComponentChange replaceAttributeChangeIfPresent(FacesContext facesContext,
+    UIComponent uiComponent,
+    AttributeComponentChange attributeComponentChange)
+  {    
+    _LOG.warning("Must be implemented by subclass");
+    return null;
+  }  
 
   /**
    * Add a DocumentChange to this current request for a specified component.
+   * When called we will allow changes even if the component or its any ancestor 
+   * is a stamped component by UIXIterator.
+   * 
    * @throws IllegalArgumentException if any of the supplied parameters were to
    *          be null.
    */
@@ -190,6 +212,18 @@ public abstract class ChangeManager
     )
   {
     throw new UnsupportedOperationException("Subclassers must implement");
+  }
+
+  /**
+   * Apply non-cross-component changes to a component in its original location.  This is typically
+   * only called by tags that need to ensure that a newly created component instance is
+   * as up-to-date as possible.
+   * @param context
+   * @param component Component to apply the simple changes to
+   */
+  public void applySimpleComponentChanges(FacesContext context, UIComponent component)
+  {
+    throw new UnsupportedOperationException("Subclassers must implement");    
   }
   
   private static class AttributeConverter extends DocumentChangeFactory

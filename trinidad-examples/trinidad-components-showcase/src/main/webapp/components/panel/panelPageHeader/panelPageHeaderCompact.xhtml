@@ -1,0 +1,56 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
+
+    <ui:define name="demoContent">
+
+        <tr:panelPageHeader chromeType="compact">
+            <f:facet name="branding">
+                <tr:panelGroupLayout layout="horizontal">
+                    <tr:image source="/resources/corporateBrand.gif" shortDesc="corporate"/>
+                </tr:panelGroupLayout>
+            </f:facet>
+
+            <f:facet name="navigationGlobal">
+                <tr:navigationPane hint="buttons" inlineStyle="padding-bottom: 18px">
+                    <tr:commandNavigationItem text="About Us"
+                                              action="none"/>
+                    <tr:commandNavigationItem text="Contact"
+                                              action="none"/>
+                </tr:navigationPane>
+            </f:facet>
+
+            <f:facet name="navigation2">
+                <tr:navigationPane hint="bar" inlineStyle="margin-top: 20px">
+                    <tr:commandNavigationItem text="Apps" action="none"
+                                              selected="true"/>
+                    <tr:commandNavigationItem text="Godies" action="none"/>
+                    <tr:commandNavigationItem text="Support" action="none"/>
+                    <tr:commandNavigationItem text="Blog" action="none"/>
+                </tr:navigationPane>
+            </f:facet>
+        </tr:panelPageHeader>
+
+    </ui:define>
+</ui:composition>

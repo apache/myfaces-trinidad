@@ -20,6 +20,10 @@ package org.apache.myfaces.trinidad.bean.util;
 
 import java.util.Map;
 
+import java.util.Set;
+
+import javax.faces.component.PartialStateHolder;
+
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.bean.PropertyMap;
@@ -60,6 +64,11 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
       if (!_equals(value, retValue))
         _deltas.put(key, value);
     }
+    
+    if (key.isPartialStateHolder())
+    {
+      _getPartialStateHolderTracker(true).addProperty(key);
+    }
 
     return retValue;
   }
@@ -77,6 +86,15 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
       assert(key instanceof PropertyKey);
       _deltas.put((PropertyKey) key, null);
     }
+    
+    if (key instanceof PropertyKey)
+    {
+      PropertyKey propKey  = (PropertyKey)key;
+      if (propKey.isPartialStateHolder())
+      {
+        _getPartialStateHolderTracker(true).removeProperty(propKey);
+      }
+    }
 
     return super.remove(key);
   }
@@ -86,6 +104,15 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
   {
     if (_createDeltas())
       _deltas.putAll(t);
+    
+    Set<? extends PropertyKey> keys = t.keySet();
+    for (PropertyKey key: keys)
+    {
+      if (key.isPartialStateHolder())
+      {
+        _getPartialStateHolderTracker(true).addProperty(key);
+      }
+    }
 
     super.putAll(t);
   }
@@ -138,6 +165,22 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
   public void markInitialState()
   {
     _initialStateMarked = true;
+    
+    // PropertyTracker uses a bitmask to track properties
+    // We are tracking all properties that have CA_PARTIAL_STATE_HOLDER capability,
+    // so that we do not have to check every property here
+    PropertyTracker tracker = _getPartialStateHolderTracker(false);
+    if (tracker != null)
+    {
+      for (PropertyKey key: tracker)
+      {
+        Object val = get(key);
+        if (val != null)
+        {
+          ((PartialStateHolder)val).markInitialState();
+        }
+      }
+    }
   }
 
 
@@ -145,11 +188,36 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
   {
     _initialStateMarked = false;
     _deltas = null;
+    
+    // PropertyTracker uses a bitmask to track properties
+    // We are tracking all properties that have CA_PARTIAL_STATE_HOLDER capability,
+    // so that we do not have to check every property here
+    PropertyTracker tracker = _getPartialStateHolderTracker(false);
+    if (tracker != null)
+    {
+      for (PropertyKey key: tracker)
+      {
+        Object val = get(key);
+        if (val != null)
+        {
+          ((PartialStateHolder)val).clearInitialState();
+        }
+      }
+    }
   }
 
   public boolean initialStateMarked()
   {
     return _initialStateMarked;
+  }
+  
+  /**
+   * Sets the the FacesBean type used by this map's owner bean
+   * @param type FacesBean type
+   */
+  public void setType(FacesBean.Type type)
+  {
+    _type = type;
   }
 
   private boolean _createDeltas()
@@ -177,8 +245,25 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
 
     return a.equals(b);
   }
+  
+  private PropertyTracker _getPartialStateHolderTracker(boolean create)
+  {
+    if (_tracker == null && create)
+    {
+      if (_type == null)
+      {
+        throw new IllegalStateException("FacesBean.TYPE is required to track properties");
+      }
+      _tracker = new PropertyTracker(_type);
+    }
+    return _tracker;                  
+  }
+  
+  
 
   private transient boolean _initialStateMarked;
   private transient PropertyMap _deltas;
   private boolean      _useStateHolder;
+  private FacesBean.Type _type;
+  private PropertyTracker _tracker;
 }

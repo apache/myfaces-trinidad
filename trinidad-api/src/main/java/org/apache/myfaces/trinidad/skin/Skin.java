@@ -53,6 +53,19 @@ abstract public class Skin
    * current render-kit-id.
    */
   abstract public String getFamily();
+  
+
+  /**
+   * Returns the (@link SkinVersion} instance of the "version" for this skin.
+   * When a Skin instance is created, a SkinVersion instance can be a part of it.
+   * In trinidad-skins.xml this is the version element. In the trinidad-config.xml, 
+   * the application developer can set the skin-version to a skin version, or to 'default'.
+   * This returns SkinVersion.EMPTY_SKIN_VERSION if no version is set.
+   */
+  public SkinVersion getVersion()
+  {
+    return SkinVersion.EMPTY_SKIN_VERSION;
+  }
 
   /**
    * Returns the renderKitId for the Skin.
@@ -186,5 +199,21 @@ abstract public class Skin
    * @return List a List of SkinAdditions.
    */
   abstract public List<SkinAddition> getSkinAdditions ();
-    
+  
+  /**
+   * Check to see if this Skin has been marked dirty. 
+   * The only way to mark a Skin dirty is to call setDirty(true).
+   * @return true if the Skin is marked dirty. 
+   */
+  abstract public boolean isDirty();
+
+  /**
+   * Sets the dirty flag of the Skin. Use this if you want to regenerate the skin. 
+   * During rendering, if isDirty is true, 
+   * the skin's css file will be reprocessed regardless of whether the css file has been modified 
+   * or if the CHECK_FILE_MODIFICATION flag was set. 
+   * The Skinning Framework calls setDirty(false) after the skin has been reprocessed.
+   */
+  abstract public void setDirty(boolean dirty);
+  
 }

@@ -41,8 +41,10 @@ import org.apache.myfaces.trinidad.util.ContainerUtils;
  * Please note that setters should not be called on objects
  * of this class.Objects of this class are fully initialized
  * on construction.
- *
+ * @deprecated Use org.apache.myfaces.trinidad.menu.ImmutableItemNode instead of this one.
  */
+
+@Deprecated
 public class ImmutableItemNode extends ItemNode
 {
   
@@ -518,6 +520,10 @@ public class ImmutableItemNode extends ItemNode
 
         String label1 = new String(keyArray2, 0, j);
         label = label1;
+      }
+      // https://issues.apache.org/jira/browse/TRINIDAD-1588
+      if (accessKey == null) {
+          return label;
       }
       return _joinLabelAndAccessKey(label, accessKey);
     }

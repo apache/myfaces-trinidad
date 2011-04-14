@@ -24,6 +24,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
+
 
 /**
  * An InputStreamProvider for loading files.

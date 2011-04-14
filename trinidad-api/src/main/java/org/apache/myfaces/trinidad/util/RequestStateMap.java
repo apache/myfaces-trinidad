@@ -1,3 +1,4 @@
+
 /*
  *  Licensed to the Apache Software Foundation (ASF) under one
  *  or more contributor license agreements.  See the NOTICE file
@@ -36,6 +37,7 @@ import javax.servlet.ServletRequest;
  @ExcludeFromManagedRequestScope
  public class RequestStateMap extends HashMap<String, Object>
  {
+
    static public RequestStateMap getInstance(ServletRequest req)
    {
      RequestStateMap map = (RequestStateMap)req.getAttribute(_STATE_MAP);
@@ -65,6 +67,7 @@ import javax.servlet.ServletRequest;
           if(map == null)
           {
             map = myMap;
+            reqMap.put(_STATE_MAP, map);
           }
           else
           {
@@ -96,7 +99,7 @@ import javax.servlet.ServletRequest;
          Method m = actionResp.getClass().getMethod("setRenderParameter", String.class, String.class);
          String uuid = UUID.randomUUID().toString();
 
-         ec.getRequestMap().put(_STATE_MAP+"."+uuid, this);
+         ec.getSessionMap().put(_STATE_MAP+"."+uuid, this);
          m.invoke(actionResp, _STATE_MAP, uuid);
        }
        catch(Throwable t)
@@ -108,4 +111,5 @@ import javax.servlet.ServletRequest;
    }
    
    private static final String _STATE_MAP = RequestStateMap.class.getName();
+   private static final long serialVersionUID = 1L;
  }

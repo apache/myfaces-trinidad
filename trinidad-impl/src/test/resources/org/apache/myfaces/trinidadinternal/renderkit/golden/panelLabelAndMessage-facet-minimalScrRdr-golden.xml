@@ -5,6 +5,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -28,6 +29,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  datatable="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -44,6 +46,7 @@
                        class="af_selectBooleanCheckbox"
                        datatable="0"
                        id="_idXXX__xc_"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -91,6 +94,7 @@
                        class="af_selectBooleanCheckbox"
                        datatable="0"
                        id="_idXXX__xc_"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -142,6 +146,7 @@
                        class="af_inputText"
                        datatable="0"
                        id="_idXXX__xc_"
+                       role="presentation"
                        summary=""
                       >
                     

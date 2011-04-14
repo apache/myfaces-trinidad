@@ -53,5 +53,21 @@ public abstract class ClientRowKeyManager implements Serializable
    */
   public abstract Object getRowKey(FacesContext context, UIComponent component, String clientRowKey);
   
+  
+  /**
+   * Replaces an old row key with a new key if the old row key exists.  If the old row key is successfully replaced,
+   * the new row key will be mapped to the existing client row key.
+   * @param context
+   * @param component
+   * @param oldRowKey row key to replace (may not exist)
+   * @param newRowKey new row key
+   * @return <code>true</code> if old row key existed and was replaced, <code>false</code> otherwise
+   */
+  public boolean replaceRowKey(FacesContext context, UIComponent component, Object oldRowKey, Object newRowKey)
+  {
+    // default implementation to maintain backwards compatibility
+    return false;
+  }
+  
   private static final long serialVersionUID = 1L;
 }

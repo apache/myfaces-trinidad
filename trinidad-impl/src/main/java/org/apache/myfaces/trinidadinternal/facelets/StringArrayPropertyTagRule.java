@@ -21,8 +21,10 @@ package org.apache.myfaces.trinidadinternal.facelets;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.Collections;
 
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.Metadata;
@@ -51,15 +53,17 @@ final class StringArrayPropertyTagRule extends MetaRule
     @Override
     public void applyMetadata(FaceletContext ctx, Object instance)
     {
-      if (_params == null)
+      if (_itemList == null)
       {
-        String[] strArray = _coerceToStringArray(_attribute.getValue());
-        _params = new Object[]{strArray};
+        _itemList = _coerceToStringArray(_attribute.getValue());
       }
       
       try
       {
-        _method.invoke(instance, _params);
+        // TRINIDAD-2034 - create a new String array instance every time to avoid issues
+        // with sharing mutable objects
+        Object params[] = new Object[]{_itemList.isEmpty() ? null : _itemList.toArray(new String[_itemList.size()])};
+        _method.invoke(instance, params);
       }
       catch (InvocationTargetException e)
       {
@@ -73,7 +77,7 @@ final class StringArrayPropertyTagRule extends MetaRule
 
     private final Method       _method;
     private final TagAttribute _attribute;
-    private       Object[]     _params;
+    private       List<String> _itemList;
   }
    
 
@@ -98,10 +102,10 @@ final class StringArrayPropertyTagRule extends MetaRule
     return null;
   }
 
-  static private String[] _coerceToStringArray(String str)
+  static private List<String> _coerceToStringArray(String str)
   {
     if (str == null)
-      return null;
+      return Collections.emptyList();
 
     ArrayList<String> list = new ArrayList<String>();
     StringTokenizer tokens = new StringTokenizer(str);
@@ -110,7 +114,7 @@ final class StringArrayPropertyTagRule extends MetaRule
       list.add(tokens.nextToken());
     }
     
-    return list.toArray(new String[list.size()]);
+    return list;
   }
 
   static private final Class<? extends String[]> _STRING_ARRAY_TYPE = (new String[0]).getClass();

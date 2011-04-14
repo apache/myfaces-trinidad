@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Kan {0} niet laden.</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Kan UploadedFileProcessor niet instantiëren.</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Het bestand kan niet worden geladen omdat de inhoud te groot is.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad wordt uitgevoerd in de debugmodus. Gebruik deze optie niet in een productieomgeving. Raadpleeg: {0}.</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">Element {0} ondersteunt geen EL-uitdrukkingen.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">Element {0} accepteert alleen gehele waarden.</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">Element {0} accepteert alleen lange waarden.</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Kan het laadprogramma van de contextklasse niet vinden.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -254,11 +258,17 @@
 <!-- TREE_COMPONENT_MUST_INSIDE_FORM -->
 <resource key="TREE_COMPONENT_MUST_INSIDE_FORM" dnt="false">De boomstructuurcomponent moet zich binnen een scherm bevinden.</resource>
 <!-- CANNOT_FIND_SCRIPTLET -->
-<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">Kan scriptlet {0} niet vinden.</resource>
+<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">Scriptlet {0} is niet gevonden.</resource>
 <!-- UNABLE_GET_RESOURCE -->
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Kan resource {0} niet ophalen.</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad wordt uitgevoerd met debug-Javascript. Gebruik deze optie niet in een productieomgeving. Raadpleeg de parameter &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; in /WEB-INF/web.xml.</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">De omgeving is geconfigureerd als productie en Apache Trinidad wordt uitgevoerd met debug javascript. Zie de parameter &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; in /WEB-INF/web.xml.</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">De omgeving is geconfigureerd als productie en Apache Trinidad wordt uitgevoerd met niet-comprimeerde CSS. Zie de parameter &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; in /WEB-INF/web.xml.</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">De omgeving is geconfigureerd als productie en Apache Trinidad wordt uitgevoerd met debugging-uitvoer WAAR. Zie het &quot;debugging-uitvoer&quot;-element in het bestand trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Ongeldige waarde: {0} voor {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +311,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">De eigenschappen {0} worden genegeerd omdat er geen overeenkomstige selector aanwezig is.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Er is een fout opgetreden tijdens het lezen uit het css-bestand voor de weergave.</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Fout bij het lezen van het CSS-bestand voor de weergave. Er staat een extra komma in selector: {0}.</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Kan geen weergave toevoegen als de weergave-ID of de weergave NULL is.</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">De eerder toegevoegde {0}-weergave is nogmaals toegevoegd. Als u deze weergave hebt opgeslagen in de cache van uw applicatie, krijgt u mogelijk inconsistente resultaten. Controleer of er dubbele trinidad-skins.xml-bestanden voorkomen in het klassenpad.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Kan geen weergave ophalen als de weergave-ID NULL is.</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Kan geen weergave vinden die overeenkomt met familie {0} en renderkit {1}. De eenvoudige weergave wordt gebruikt.</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Er is een weergave gevonden die overeenkomt met familie {0} en versie {1}. Weergave {2} wordt gebruikt.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Er is geen weergave gevonden die overeenkomt met familie {0} en versie {1}. Weergave {2} wordt gebruikt.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Er is geen niet-geversioneerde weergave gevonden voor familie {0}. De geversioneerde weergave {1} wordt gebruikt.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Kan de tijdstempel van het opmaakprofieldocument niet ophalen omdat de verbinding niet kan worden geopend.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">De weergaveselector {0} is geen weergavepictogramobject, omdat de weergaveselector geen inhoudattribuut heeft. Als u deze selector hebt aangemaakt, hernoemt u deze, zodat de selector eindigt op &quot;style&quot; in plaats van op &quot;icon&quot; en door het weergaveframework wordt behandeld als een stijl en niet als een pictogram.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} moet vóór alle andere regels komen.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">De volgende weergaven breiden elkaar op circulaire wijze uit of de weergave die wordt uitgebreid, bestaat niet: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -419,6 +443,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Het verplichte element &apos;id&apos; is niet gevonden.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Het verplichte element &apos;family&apos; is niet gevonden.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Vereist onderliggend element voor &apos;version&apos;, &apos;name&apos; is niet gevonden.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Onjuiste eigenschapinvoer: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -710,7 +736,7 @@
 <!-- DEPRECATED_TRIGGER_SYNTAX -->
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Kan gedeeltelijke trigger {0} van {1} niet vinden met de ondersteunde partialTriggers-syntaxis. De gedeeltelijke trigger is gevonden met de afgekeurde syntaxis. Gebruik de ondersteunde syntaxis.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
-<resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Voor de DateTimeRangeValidator moet de component een EditableValueHolder zijn om clientvalidatie te laten werken. Clientvalidatie wordt uitgeschakeld voor component {0}.</resource>
+<resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Voor de DateTimeRangeValidator moet de component een EditableValueHolder zijn om clientvalidatie te laten werken. Clientvalidatie wordt gedeactiveerd voor component {0}.</resource>
 <!-- INVALID_LOCALE_LANG_LENGTH  -->
 <resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Ongeldige taal voor locale-ID {0}. De taalcode moet uit 2 tekens bestaan. Zie javadoc over locale voor de juiste notatie. De huidige paginalocale wordt gebruikt.</resource>
 <!-- INVALID_LOCALE_LANG_CASE  -->
@@ -721,4 +747,15 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ongeldig land voor locale-ID {0}. De landcode moet in hoofdletters zijn. Zie javadoc over locale voor de juiste notatie. Er wordt een lege string gebruikt voor het land.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ongeldige variant voor locale-ID {0}. De variant mag geen slashes bevatten. Dit om XSS-aanvallen te voorkomen. Er wordt een lege string gebruikt voor de variant.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Het volgende bestand kan niet worden verwijderd: {0}.</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState moet een instance zijn van StateManager.SerializedView of een objectarray met lengte 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Gedeeltelijk opslaan van status wordt nog niet ondersteund. Stel context-param javax.faces.PARTIAL_STATE_SAVING in op &apos;niet waar&apos; in web.xml.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Fout bij serialiseren van {0} attribuut: {1} waarde: {2}.</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failover-fout: {0} attribuut: {1} van het type {2} is niet serialiseerbaar.</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failover-fout: serialisatie van {0} attribuut: {1} is gewijzigd van {2} in {3} zonder dat het attribuut is vervuild.</resource>
 </resources>

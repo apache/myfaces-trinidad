@@ -58,19 +58,22 @@ public class ShowDetailItemRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
     Map<String, String> parameters =
-      context.getExternalContext().getRequestParameterMap();
+      facesContext.getExternalContext().getRequestParameterMap();
 
     Object event = parameters.get(XhtmlConstants.EVENT_PARAM);
     if (XhtmlConstants.HIDE_EVENT.equals(event) ||
         XhtmlConstants.SHOW_EVENT.equals(event))
     {
       Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
-      String id = component.getClientId(context);
+      String id = clientId == null ? component.getClientId(facesContext) : clientId;
 
       if (id.equals(source))
       {

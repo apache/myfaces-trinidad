@@ -30,9 +30,10 @@ import org.apache.myfaces.trinidad.util.ContainerUtils;
 
 /**
  * Code specific to a Menu Model's ItemNode.
- *     
+ * @deprecated Please use org.apache.myfaces.trinidad.menu.ItemNode instead of this one.
  */
 
+@Deprecated
 public class ItemNode extends MenuNode
 {
   /**

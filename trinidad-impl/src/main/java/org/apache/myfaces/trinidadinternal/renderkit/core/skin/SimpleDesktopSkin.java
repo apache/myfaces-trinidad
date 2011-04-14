@@ -42,7 +42,7 @@ public class SimpleDesktopSkin extends BaseDesktopSkin
   @Override
   public String getStyleSheetName()
   {
-    return "META-INF/adf/styles/simple-desktop.xss";
+    return "META-INF/adf/styles/simple-desktop.css";
   }
 
   /**

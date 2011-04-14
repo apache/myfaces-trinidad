@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->        
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+              version="2.0">    
+
+  <application>
+    <!-- Use the Trinidad RenderKit -->
+    <default-render-kit-id>
+      org.apache.myfaces.trinidad.core
+    </default-render-kit-id>
+  </application>
+
+    <managed-bean>
+        <managed-bean-name>navigationHandler</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.NavigationHandlerBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>skinFamilySelection</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.support.util.SkinFamilySelection</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>groupLayoutDynamicBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.components.layout.panelGroupLayout.GroupLayoutDynamicBean
+        </managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>commandButtonBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.components.buttonsAndLinks.commandButton.CommandButtonBean
+        </managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>commandLinkBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.components.buttonsAndLinks.commandLink.CommandLinkBean
+        </managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>messagesBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.components.output.messages.MessagesBean
+        </managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>chartBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.components.output.chart.ChartBean
+        </managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>progressIndicatorBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.components.output.progessIndicator.ProgressIndicatorBean
+        </managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>formBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.components.panel.form.FormBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>statusIndicatorBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.components.output.statusIndicator.StatusIndicatorBean
+        </managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>singleStepButtonBarBean</managed-bean-name>
+        <managed-bean-class>
+            org.apache.myfaces.trinidaddemo.components.navigation.singleStepButtonBar.SingleStepButtonBarBean
+        </managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>inputListOfValuesBean</managed-bean-name>
+        <managed-bean-class>
+            org.apache.myfaces.trinidaddemo.components.input.inputListOfValues.InputListOfValuesBean
+        </managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>selectRangeChoiceBarBean</managed-bean-name>
+        <managed-bean-class>
+            org.apache.myfaces.trinidaddemo.components.select.selectRangeChoiceBar.SelectRangeChoiceBarBean
+        </managed-bean-class>
+        <managed-bean-scope>none</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>tableColumn</managed-bean-name>
+        <managed-bean-class>
+            org.apache.myfaces.trinidaddemo.components.table.column.TableColumnBean
+        </managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>treeTableBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.components.table.treeTable.TreeTableBean
+        </managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>navigationTreeBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.components.navigation.navigationTree.NavigationTreeBean
+        </managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>trainBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.components.navigation.train.TrainBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>processChoiceBarBean</managed-bean-name>
+        <managed-bean-class>
+            org.apache.myfaces.trinidaddemo.components.navigation.processChoiceBar.ProcessChoiceBarBean
+        </managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>contactListBean</managed-bean-name>
+        <managed-bean-class>
+            org.apache.myfaces.trinidaddemo.samples.email.ContactListBean
+        </managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>receivedEmailListBean</managed-bean-name>
+        <managed-bean-class>
+            org.apache.myfaces.trinidaddemo.samples.email.ReceivedEmailListBean
+        </managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sentEmailListBean</managed-bean-name>
+        <managed-bean-class>
+            org.apache.myfaces.trinidaddemo.samples.email.SentEmailListBean
+        </managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <component>
+        <component-type>org.apache.myfaces.trinidad.OutputSource</component-type>
+        <component-class>org.apache.myfaces.trinidaddemo.support.jsf.OutputSource</component-class>
+    </component>
+
+
+    <render-kit>
+        <renderer>
+            <component-family>org.apache.myfaces.trinidad.Output</component-family>
+            <renderer-type>org.apache.myfaces.trinidad.OutputSource</renderer-type>
+            <renderer-class>org.apache.myfaces.trinidaddemo.support.jsf.OutputSourceRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+
+    <navigation-rule>
+
+        <navigation-case>
+            <from-outcome>homeForm</from-outcome>
+            <to-view-id>/pages/demoStart.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>demoAppForm</from-outcome>
+            <to-view-id>/samples/email/e-mailTemplate.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>searchForm</from-outcome>
+            <to-view-id>/pages/demoSearch.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>processChoiceBar1</from-outcome>
+            <to-view-id>/components/navigation/processChoiceBar/processChoiceBar.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>processChoiceBar2</from-outcome>
+            <to-view-id>/components/navigation/processChoiceBar/processChoiceBar2.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>processChoiceBar3</from-outcome>
+            <to-view-id>/components/navigation/processChoiceBar/processChoiceBar3.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>trainGeneralInfo</from-outcome>
+            <to-view-id>/components/navigation/train/generalInfo.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>trainCompanyInfo</from-outcome>
+            <to-view-id>/components/navigation/train/companyInfo.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>trainJsfSurvey</from-outcome>
+            <to-view-id>/components/navigation/train/jsfSurvey.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>trainTrinidadSurvey</from-outcome>
+            <to-view-id>/components/navigation/train/trinidadSurvey.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>trainYouAreDone</from-outcome>
+            <to-view-id>/components/navigation/train/youAreDone.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>goToEMailContacts</from-outcome>
+            <to-view-id>/samples/email/e-mailContacts.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>goToInbox</from-outcome>
+            <to-view-id>/samples/email/e-mailListReceived.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>goToSent</from-outcome>
+            <to-view-id>/samples/email/e-mailListSent.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>goToNewMail</from-outcome>
+            <to-view-id>/samples/email/newEmail.xhtml</to-view-id>
+        </navigation-case>
+
+
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/components/input/inputListOfValues/inputListOfValues.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>dialog:periodicTable</from-outcome>
+            <to-view-id>/components/input/inputListOfValues/inputListOfValuesDialog.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/components/input/inputListOfValues/inputListOfValuesDetailed.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>dialog:periodicTable</from-outcome>
+            <to-view-id>/components/input/inputListOfValues/inputListOfValuesDialog.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/components/input/inputListOfValues/inputListOfValuesSimple.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>dialog:periodicTable</from-outcome>
+            <to-view-id>/components/input/inputListOfValues/inputListOfValuesDialog.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>

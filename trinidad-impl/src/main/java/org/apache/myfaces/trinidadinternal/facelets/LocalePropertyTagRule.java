@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.facelets;
 
+import org.apache.myfaces.trinidadinternal.taglib.util.TagUtils;
+
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.MetaRule;
 import javax.faces.view.facelets.Metadata;
@@ -48,7 +50,7 @@ class LocalePropertyTagRule extends MetaRule
     {
       if (_params == null)
       {
-        Locale loc = new Locale(_attribute.getValue(ctx));        
+        Locale loc = TagUtils.getLocale(_attribute.getValue(ctx));        
         _params = new Object[]{loc};
       }
       try

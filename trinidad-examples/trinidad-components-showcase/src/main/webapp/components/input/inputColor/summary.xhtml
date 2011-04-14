@@ -1,0 +1,37 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    The inputColor component creates a text field for entering colors. Users can specify
+    color values in one of three ways, depending on how the inputColor component is configured.
+
+    <tr:panelList>
+        <tr:outputText value="Users can type the color value directly in the field. This option is always available."/>
+        <tr:outputText value="Users can select a color value from a secondary dialog. This option may not be
+            available in all look and feel implementations. In particular, this option is not available on PDA look and feels."/>
+        <tr:outputText value="Users can select a color value from an inline chooseColor component. In order to
+            enable this option, the chooseColor must be placed in the same page as the inputColor, and the inputColor's
+            paletteId attribute must be set to the id of the corresponding chooseColor. Again, this option is not
+            supported on PDA look and feel."/>
+    </tr:panelList>
+    
+</ui:composition>

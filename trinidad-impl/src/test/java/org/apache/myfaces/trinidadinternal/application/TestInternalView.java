@@ -36,8 +36,8 @@ public class TestInternalView extends InternalView
   @Override
   public UIViewRoot createView(FacesContext context, String viewId)
   {
-    ViewHandlerImplTest.__internalViewCalled = "create";
-    return null;
+    ViewDeclarationLanguageFactoryImplTest.__internalViewCalled = "create";
+    return new UIViewRoot();
   }
 
   /**
@@ -46,7 +46,7 @@ public class TestInternalView extends InternalView
   @Override
   public UIViewRoot restoreView(FacesContext context, String viewId)
   {
-    ViewHandlerImplTest.__internalViewCalled = "restore";
+    ViewDeclarationLanguageFactoryImplTest.__internalViewCalled = "restore";
     return null;
   }
   
@@ -58,6 +58,6 @@ public class TestInternalView extends InternalView
     FacesContext context, 
     UIViewRoot   viewToRender) throws IOException, FacesException
   {
-    ViewHandlerImplTest.__internalViewCalled = "render";
+    ViewDeclarationLanguageFactoryImplTest.__internalViewCalled = "render";
   }
 }

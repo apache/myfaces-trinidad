@@ -18,29 +18,25 @@
  */
 package org.apache.myfaces.trinidadinternal.taglib.listener;
 
-import org.apache.myfaces.trinidadinternal.taglib.util.TagUtils;
-
 import javax.el.ValueExpression;
-
-import javax.servlet.jsp.tagext.TagSupport;
-import javax.servlet.jsp.JspException;
-
 import javax.faces.application.Application;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentClassicTagBase;
+import javax.servlet.jsp.JspException;
 
 import org.apache.myfaces.trinidad.event.SetActionListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.webapp.ELContextTag;
+import org.apache.myfaces.trinidad.webapp.TrinidadTagSupport;
 
 /**
  * JavaServer Faces version 1.2 a <code>setPropertyActionListener</code>, which provides the 
  * same functionality. In JSF 1.2 days this class should be <code>deprecated</code>.
  *
  */
-public class SetActionListenerTag extends TagSupport
+public class SetActionListenerTag extends TrinidadTagSupport
 {
   public void setFrom(ValueExpression from)
   {

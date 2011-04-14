@@ -27,6 +27,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
@@ -37,6 +39,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * <p>Implementation for <code>java.lang.Double</code> values.</p>
  *
  */
+@JSFValidator(configExcluded=true)
 public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValidator
 {
   
@@ -120,6 +123,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * Validator} or null if it has not been
    * set.
    */
+  @JSFProperty
   @Override
   public double getMaximum()
   {
@@ -147,6 +151,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * Validator}, or null if it has not been
    * set.
    */
+  @JSFProperty
   @Override
   public double getMinimum()
   {
@@ -185,6 +190,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @return Custom error message.
    * @see #setMessageDetailMaximum(String)
    */
+  @JSFProperty
   public String getMessageDetailMaximum()
   {
     Object maxMsgDet = _facesBean.getProperty(_MAXIMUM_MESSAGE_DETAIL_KEY);
@@ -209,6 +215,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @return Custom error message.
    * @see #setMessageDetailMinimum(String)
    */
+  @JSFProperty
   public String getMessageDetailMinimum()
   {
     Object minMsgDet = _facesBean.getProperty(_MINIMUM_MESSAGE_DETAIL_KEY);
@@ -234,6 +241,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @return Custom error message.
    * @see #setMessageDetailNotInRange(String)
    */
+  @JSFProperty
   public String getMessageDetailNotInRange()
   {
     Object notInRngMsg = _facesBean.getProperty(_NOT_IN_RANGE_MESSAGE_DETAIL_KEY);
@@ -255,6 +263,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @return Custom hint message.
    * @see  #setHintMaximum(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintMaximum()
   {
     Object obj = _facesBean.getProperty(_HINT_MAXIMUM_KEY);
@@ -266,6 +275,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * Overrides default hint message
    * @param hintMinimum Custom hint message.
    */
+  @JSFProperty(tagExcluded=true)
   public void setHintMinimum(String hintMinimum)
   {
     _facesBean.setProperty(_HINT_MINIMUM_KEY, hintMinimum);
@@ -297,6 +307,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @return Custom hint message.
    * @see  #setHintNotInRange
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintNotInRange()
   {
     Object obj = _facesBean.getProperty(_HINT_NOT_IN_RANGE);
@@ -448,6 +459,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
     return ValidatorUtils.getValueBinding(_facesBean, name);
   }
   
+  @JSFProperty(istransient=true, tagExcluded=true)
   @Override
   public boolean isTransient()
   {

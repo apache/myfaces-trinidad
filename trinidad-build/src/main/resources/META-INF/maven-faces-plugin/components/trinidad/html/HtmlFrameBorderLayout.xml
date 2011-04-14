@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
@@ -368,9 +368,9 @@
       <mfp:component-metadata/>
       <mfp:uix2-local-name>frameBorderLayout</mfp:uix2-local-name>
       <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
-      <fmd:default-event-name>load</fmd:default-event-name>
-      <fmd:event-names>load unload</fmd:event-names>
       <fmd:component-metadata>
+        <fmd:default-event-name>load</fmd:default-event-name>
+        <fmd:event-names>load unload</fmd:event-names>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.HtmlFrame</fmd:preferred-child-components>
         <fmd:required-ancestor-contracts>org-apache-myfaces-trinidad-htmlframeborderlayout-holder</fmd:required-ancestor-contracts>
         <fmd:satisfied-contracts>org-apache-myfaces-trinidad-htmlframe-holder</fmd:satisfied-contracts>

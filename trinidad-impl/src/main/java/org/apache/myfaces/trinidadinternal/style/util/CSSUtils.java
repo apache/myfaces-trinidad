@@ -19,6 +19,11 @@
 package org.apache.myfaces.trinidadinternal.style.util;
 
 import java.awt.Color;
+
+import java.net.URI;
+
+import java.net.URISyntaxException;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -162,6 +167,26 @@ public class CSSUtils
       buffer.append(styleSheetName.substring(0, lastSepIndex));
       return buffer.toString();
     }
+  }
+  
+  public static boolean isAbsoluteURI(String uriString)
+  {
+    if (uriString == null)
+      return false;
+    if (uriString.indexOf(':') == -1)
+      return false;
+    
+    URI uri;
+    try
+    {
+      uri = new URI(uriString);
+      return uri.isAbsolute();
+    }
+    catch (URISyntaxException e)
+    {
+      _LOG.warning("The URI syntax is incorrect, and can not be verified.");
+    }
+    return false;
   }
   
   /**

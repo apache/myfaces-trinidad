@@ -153,6 +153,8 @@ public class NameUtils
       platform = TrinidadAgent.OS_NOKIA_S60;
     else if (_PLATFORM_GENERICPDA.equals(platformName))
       platform = TrinidadAgent.OS_GENERICPDA;
+    else if (_PLATFORM_ANDROID.equals(platformName))
+      platform = TrinidadAgent.OS_ANDROID;
 
 
     else if (!_PLATFORM_UNIX.equals(platformName))
@@ -199,6 +201,9 @@ public class NameUtils
       break;
     case TrinidadAgent.OS_GENERICPDA:
       name = _PLATFORM_GENERICPDA;
+      break;
+    case TrinidadAgent.OS_ANDROID:
+      name = _PLATFORM_ANDROID;
       break;
     case TrinidadAgent.OS_UNKNOWN:
       // This case is only here to avoid the default assertion
@@ -600,6 +605,11 @@ public class NameUtils
             return new boolean[] { true, true };          
         }
       }
+      else
+      {
+        // no agent matcher, so all agents match
+        browserMatched = true;
+      }
     }
 
     return new boolean[] { browserMatched, false };
@@ -692,6 +702,8 @@ public class NameUtils
   private static final String _PLATFORM_NOKIA_S60 = "nokia_s60";
 
   private static final String _PLATFORM_GENERICPDA = "genericpda";
+  
+  private static final String _PLATFORM_ANDROID = "android";
 
   // Accessibility constants
   private static final String _ACC_HIGH_CONTRAST = "hc";

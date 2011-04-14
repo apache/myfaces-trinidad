@@ -30,9 +30,6 @@ import javax.faces.application.Application;
 import javax.faces.application.ApplicationFactory;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
-
 /**
  * A ValueExpression class that lazily parses the underlying EL expression
  * (in case the Application object is not yet available).  Unfortunately,
@@ -222,6 +219,5 @@ public class LazyValueExpression extends ValueExpression
   private final String    _expression;
   private final Class<?>  _expectedType;
 
-
-  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(LazyValueExpression.class);
+  private static final long serialVersionUID = 1L;
 }

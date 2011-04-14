@@ -18,7 +18,7 @@
     under the License.
 	   
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
@@ -33,7 +33,7 @@
     <property>
       <description><![CDATA[whether or not the component is
               currently selected.  This is a typesafe alias for the "value"
-              attribute.]]>
+              attribute. Note that "selected" and "value" attributes should not be used at the same time to avoid conflict.]]>
       </description>
       <property-name>selected</property-name>
       <property-class>boolean</property-class>

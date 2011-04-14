@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
@@ -35,6 +36,11 @@ import org.apache.myfaces.trinidadinternal.util.JsonUtils;
  * <p>Implementation for length of <code>java.lang.String</code> values.</p>
  *
  */
+@JSFValidator(
+        name="tr:validateLength",
+        bodyContent="empty",
+        id="org.apache.myfaces.trinidad.Length",
+        tagClass="org.apache.myfaces.trinidadinternal.taglib.validator.ValidateLengthTag")
 public class LengthValidator extends org.apache.myfaces.trinidad.validator.LengthValidator
                                 implements ClientValidator
 {

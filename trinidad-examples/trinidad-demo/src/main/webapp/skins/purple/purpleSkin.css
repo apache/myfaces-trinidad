@@ -34,6 +34,25 @@ af|foo af|bar {color: purple; background-color: green; border-color: pink}
   font-size: medium;
 }
 
+@mode quirks
+{
+  af|foo {font-style:italic; font-size: large;}
+}
+@mode standards
+{
+  af|commandButton
+  {
+    max-width: 100px;
+    background-color: -tr-property-ref(".AFTestBackgroundColor:alias");
+    font-style: -tr-property-ref("af|foo");
+  }
+}
+
+/* test the new include property functionality */
+.AFTestForegroundColor:alias {color: yellow; font-style:italic;}
+.AFTestBackgroundColor:alias {background-color: -tr-property-ref(".AFTestForegroundColor:alias","color")}
+
+
 .AFDarkForeground:alias {color:#035D5C;}
 .AFDarkBackground:alias {background-color:Purple;}
 /** In the base styles, AFDarkBorder uses the background-color of 
@@ -479,12 +498,6 @@ af|inputDate::launch-icon:rtl
   height:24px
 }
 
-/* use special properties to change the ui **/
-/* don't show the last item in breadCrumbs (the default is to show it)*/
-@agent gecko
-{
-af|breadCrumbs {-tr-show-last-item:false}
-}
 
 af|breadCrumbs::step {color: purple;}
 af|breadCrumbs::step:hover {color: green}
@@ -895,7 +908,90 @@ af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-content {
 }
 
 .AFFooIcon:alias {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
-.AFBarIcon {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
+.AFBarIcon:alias {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
+
+
+
+@agent email
+{
+  af|selectBooleanCheckbox::label {color: red}
+}
+
+@agent ie and (version:7)
+{
+  af|selectBooleanCheckbox::label {color: aqua}
+}
+
+@agent gecko and (min-version:1.9.*) {
+  af|selectBooleanCheckbox::label {color: Orange;}
+}
+
+@agent gecko and (min-version:0.8.1.*)  and (max-version:0.9.1.*), gecko and (version:5), ie and (min-version:5.*) and (max-version:8), gecko and (version: 2.9.1.*){
+  af|selectBooleanCheckbox::label {color: fuschia}
+}
+
+/* This tests the ordering of includes */
+/* includes happen first no matter where they are, then the local properties get applied. 
+.second and .third resolve both resolve to color:red; background-coor:green} */
+.first {color: blue; background-color: green}
+.second {-tr-rule-ref:selector(".first"); color: red}
+.third {color: red; -tr-rule-ref:selector(".first");}
+
+/* test what happens if someone screw ups and creates a style selector 
+with a name that ends in 'icon'. Should see a warning logged. */
+af|style-not-icon {color: red; background-color:Lime;}
+
+/* test -tr-rule-ref for skin properties */
+/* works
+.AFShowLastItem:alias {-tr-show-last-item: false;}
+af|breadCrumbs {-tr-rule-ref: selector(".AFShowLastItem:alias");}
+*/
+/* works
+.AFFoo:alias {-tr-show-last-item: false;}
+.AFBar:alias {color: red; background-color: blue}
+.AFCombined:alias {
+-tr-rule-ref: selector(".AFFoo:alias");
+-tr-rule-ref: selector(".AFBar:alias");
+}
+
+af|breadCrumbs {
+-tr-rule-ref: selector(".AFCombined:alias");
+}
+*/
+/* works
+.AFFoo:alias {color: red;}
+af|breadCrumbs {
+-tr-show-last-item: -tr-property-ref(".AFFoo:alias","color");
+}
+*/
+/*
+.AFFoo:alias {-tr-show-last-item: true;}
+af|breadCrumbs {
+-tr-show-last-item: -tr-property-ref(".AFFoo:alias"); 
+}
+*/
+.AFFooBar:alias {color: pink}
+af|breadCrumbs {
+  -tr-rule-ref: selector(".AFFooBar:alias");
+  text-align:left;
+  -tr-show-last-item: true;
+}
+
+af|someNewStyle {
+  -tr-rule-ref: selector(".AFFooBar:alias");
+  text-align:left;
+  -tr-some-url: url("adfasdf.png");  
+}
+
+/*
+.AFFoo:alias {-tr-show-last-item: true;color: red; background-color: pink;}
+
+af|breadCrumbs {
+-tr-rule-ref: selector(".AFFoo:alias"); 
+}
+
+*/
+/* af|tree -tr-show-lines */
 
 @agent ie
 {
@@ -910,17 +1006,4 @@ af|tree {
 }
 }
 
-@agent email
-{
-  af|selectBooleanCheckbox::label {color: red}
-}
-
-@agent ie and (version:7)
-{
-  af|selectBooleanCheckbox::label {color: aqua}
-}
-
-@agent gecko and (min-version:0.8.1.*)  and (max-version:0.9.1.*), gecko and (version:5), ie and (min-version:5.*) and (max-version:8), gecko and (version: 2.9.1.*){
-  af|selectBooleanCheckbox::label {color: fuschia}
-}
 

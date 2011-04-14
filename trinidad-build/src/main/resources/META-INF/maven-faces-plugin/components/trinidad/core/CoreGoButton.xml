@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
@@ -153,17 +153,14 @@ is not needed.]]>
       <mfp:author>Andy Schwartz</mfp:author>
       <mfp:component-metadata/>
       <fmd:client-behavior-holder>true</fmd:client-behavior-holder>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>blur click dblclick focus keydown keypress keyup mousedown mousemove
-        mouseout mouseover mouseup</fmd:event-names>
       <mfp:java-constructor>
         <mfp:property-name>destination</mfp:property-name>
       </mfp:java-constructor>
       <mfp:uix2-local-name>button</mfp:uix2-local-name>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup focus blur</fmd:event-names>
       <fmd:component-metadata>
+        <fmd:default-event-name>click</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup focus blur</fmd:event-names>
         <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
         <fmd:default-property>text</fmd:default-property>
       </fmd:component-metadata>

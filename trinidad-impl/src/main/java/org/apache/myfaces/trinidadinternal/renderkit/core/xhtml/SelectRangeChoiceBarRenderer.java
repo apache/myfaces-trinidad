@@ -75,12 +75,15 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
     Map<String, String> parameters =
-      context.getExternalContext().getRequestParameterMap();
+      facesContext.getExternalContext().getRequestParameterMap();
 
     Object event = parameters.get(XhtmlConstants.EVENT_PARAM);
 
@@ -88,7 +91,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     if (XhtmlConstants.GOTO_EVENT.equals(event))
     {
       Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
-      String id = component.getClientId(context);
+      String id = clientId == null ? component.getClientId(facesContext) : clientId;
       if (id.equals(source))
       {
         UIXSelectRange choiceBar = (UIXSelectRange)component;
@@ -97,7 +100,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         rce.queue();
 
         if (choiceBar.isImmediate())
-          context.renderResponse();
+          facesContext.renderResponse();
 
         RequestContext.getCurrentInstance().addPartialTarget(component);
       }

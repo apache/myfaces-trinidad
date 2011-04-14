@@ -1,0 +1,150 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/samples/email/e-mailTemplate.xhtml">
+
+    <ui:define name="componentContent">
+        <tr:panelHorizontalLayout styleClass="fit_to_parrent">
+            <h2>
+                Contacts
+            </h2>
+            <tr:spacer width="30px"/>
+            <tr:panelHorizontalLayout halign="end">
+                <tr:panelGroupLayout layout="horizontal">
+                    <tr:commandLink id="newContactImg" action="#{contactListBean.newContact}" partialSubmit="true"
+                                    styleClass="newContact" inlineStyle="width:16px;height:16px;"/>
+                    <tr:commandLink id="newContactLink" text="New" action="#{contactListBean.newContact}"
+                                    partialSubmit="true"/>
+                </tr:panelGroupLayout>
+                <tr:spacer width="10px"/>
+                <tr:panelGroupLayout layout="horizontal">
+                    <tr:commandLink id="editContactImg" action="#{contactListBean.editContact}" partialSubmit="true"
+                                    styleClass="editContact" inlineStyle="width:16px;height:16px;"/>
+                    <tr:commandLink id="editContactLink" text="Edit" action="#{contactListBean.editContact}"
+                                    partialSubmit="true" />
+                </tr:panelGroupLayout>
+                <tr:spacer width="10px"/>
+                <tr:panelGroupLayout layout="horizontal">
+                    <tr:commandLink styleClass="deleteContact" action="#{contactListBean.deleteContact}"
+                                    inlineStyle="width:16px;height:16px;"/>
+                    <tr:commandLink text="Delete" action="#{contactListBean.deleteContact}"/>
+                </tr:panelGroupLayout>
+            </tr:panelHorizontalLayout>
+        </tr:panelHorizontalLayout>
+
+        <tr:panelGroupLayout layout="vertical" inlineStyle="margin-top: 22px;" styleClass="rightColumn">
+
+            <tr:panelBox text="Contact List" inlineStyle="width: 100%" styleClass="mail_list"
+                         partialTriggers="saveContact">
+                <tr:table id="contactList"
+                          binding="#{contactListBean.tableBean.table}"
+                          value="#{contactListBean.list}" var="row" rowSelection="multiple"
+                          verticalGridVisible="false" styleClass="fit_to_parrent">
+                    <tr:column align="center">
+                        <f:facet name="header">
+                            <tr:outputText value="First Name"/>
+                        </f:facet>
+                        <tr:outputText value="#{row.firstName}"/>
+                    </tr:column>
+                    <tr:column align="center">
+                        <f:facet name="header">
+                            <tr:outputText value="Last Name"/>
+                        </f:facet>
+                        <tr:outputText value="#{row.lastName}"/>
+                    </tr:column>
+                    <tr:column align="center">
+                        <f:facet name="header">
+                            <tr:outputText value="Email"/>
+                        </f:facet>
+                        <tr:outputText value="#{row.EMailAddress}"/>
+                    </tr:column>
+                    <tr:column align="center" inlineStyle="">
+                        <f:facet name="header">
+                            <tr:outputText value="Birthday"/>
+                        </f:facet>
+                        <tr:outputText value="#{row.birthDay}"/>
+                    </tr:column>
+                </tr:table>
+            </tr:panelBox>
+
+            <tr:spacer height="10px"/>
+
+
+            <tr:panelGroupLayout layout="vertical"
+                                 partialTriggers="newContactImg newContactLink editContactImg editContactLink saveContact cancelContact" >
+            <tr:panelTabbed position="above" rendered="#{contactListBean.contact != null}">
+                <tr:showDetailItem text="Personal">
+                    <h:panelGrid columns="2" width="100%" style="width: 100%;" cellpadding="0" cellspacing="2px">
+                        <tr:outputLabel value="First Name" for="firstname"/>
+                        <tr:inputText id="firstname" value="#{contactListBean.contact.firstName}"/>
+
+                        <tr:outputLabel value="Last Name" for="lastname"/>
+                        <tr:inputText id="lastname" value="#{contactListBean.contact.lastName}"/>
+
+                        <tr:outputLabel value="E-Mail" for="email"/>
+                        <tr:inputText id="email" value="#{contactListBean.contact.EMailAddress}"/>
+
+                        <tr:outputLabel value="Street" for="street"/>
+                        <tr:inputText id="street" value="#{contactListBean.contact.street}"/>
+
+                        <tr:outputLabel value="ZIP" for="zip"/>
+                        <tr:inputText id="zip" value="#{contactListBean.contact.zip}"/>
+
+                        <tr:outputLabel value="City" for="city"/>
+                        <tr:inputText id="city" value="#{contactListBean.contact.city}"/>
+
+                        <tr:outputLabel value="Country" for="country"/>
+                        <tr:inputText id="country" value="#{contactListBean.contact.country}"/>
+
+                        <tr:outputLabel value="Birthday" for="birthday"/>
+                        <tr:inputDate id="birthdate" value="#{contactListBean.contact.birthDay}">
+                            <f:convertDateTime pattern="yyyy.M.d"/>
+                        </tr:inputDate>
+
+                        <tr:commandButton id="saveContact" text="Save"
+                                          action="#{contactListBean.save}" partialSubmit="true"/>
+                        <tr:commandButton id="cancelContact" text="Cancel"
+                                          action="#{contactListBean.cancel}" partialSubmit="true"/>
+
+                    </h:panelGrid>
+
+
+                </tr:showDetailItem>
+
+                <tr:showDetailItem text="Bussines">
+                </tr:showDetailItem>
+
+
+                <tr:showDetailItem text="Misc">
+                </tr:showDetailItem>
+
+            </tr:panelTabbed>
+            </tr:panelGroupLayout>
+
+
+        </tr:panelGroupLayout>
+
+    </ui:define>
+
+</ui:composition>

@@ -60,6 +60,11 @@ public interface Agent
    * Constant for Phone sized devices
    */
   public static final Object TYPE_PHONE = "phone";
+  
+  /**
+   * Constant for Web Crawlers
+   */
+  public static final Object TYPE_WEBCRAWLER = "webcrawler";
 
   /**
    * Constant for unknown platform
@@ -89,7 +94,7 @@ public interface Agent
   public static final String  PLATFORM_MAC = PLATFORM_MACOS;
 
   /**
-   * Constant for iPhone platform
+   * Constant for the iOS (iPhone/iPod touch/iPad) platform
    */
   public static final String  PLATFORM_IPHONE = "iphone";
 
@@ -123,6 +128,11 @@ public interface Agent
    * Constant for generic PDA device browser
    */
   public static final String PLATFORM_GENERICPDA = "genericpda";
+  
+  /**
+   * Constant for android device browsers
+   */
+  public static final String PLATFORM_ANDROID = "android";
 
   /**
    * Constant for unknown platform version
@@ -183,6 +193,21 @@ public interface Agent
    * Constant for basic HTML (without JavaScript) Browser agent.
    */
   public static final String AGENT_GENERICPDA = "genericpda";
+  
+  /**
+   * Constant for MSN web crawler (currently used by Bing and Yahoo)
+   */
+  public static final String AGENT_MSNBOT = "msnbot";
+  
+  /**
+   * Constant for Google web crawler
+   */
+  public static final String AGENT_GOOGLEBOT = "googlebot";
+  
+  /**
+   * Constant for Oracle SES web crawler
+   */
+  public static final String AGENT_ORACLE_SES = "oracle_ses";
 
   /**
    * Constant for unknown Agent version

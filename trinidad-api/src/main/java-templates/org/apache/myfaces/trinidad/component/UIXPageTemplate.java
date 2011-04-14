@@ -24,8 +24,12 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
+
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+
 import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
@@ -36,6 +40,7 @@ import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetTreeImpl;
 import org.apache.myfaces.trinidad.model.TreeModel;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 
 /**
@@ -115,7 +120,104 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
         processComponent(context, facets.get(facetKey), phaseId);
       }
     }
+  }
+  
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    if (ComponentUtils.isSkipIterationVisit(visitContext))
+    {
+      return visitChildrenWithoutIterating(visitContext, callback);
+    }
+    else
+    {
+      return _visitChildrenIterating(visitContext, callback);
+    }
+  }
+  
+  private boolean _visitChildrenIterating(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    boolean done = visitData(visitContext, callback);
+    
+    if (!done)
+    {
+      // process the children
+      int childCount = getChildCount();
+      if (childCount > 0)
+      {
+        for (UIComponent child : getChildren())
+        {
+          done = UIXComponent.visitTree(visitContext, child, callback);
+          
+          if (done)
+            break;
+        }
+      }
+      
+      // process the non-stamp facet children
+      if (!done)
+      {
+        // Visit the facets except for the node stamp
+        int facetCount = getFacetCount();
+        
+        if (facetCount > 0)
+        {
+          UIComponent nodeStamp = getNodeStamp();
+          
+          // if our only facet is the node stamp, we don't need to do this
+          if ((facetCount > 1) || (nodeStamp == null))
+          {
+            for (UIComponent facet : getFacets().values())
+            {
+              // ignore the nodeStamp facet, since it is stamped
+              if (facet != nodeStamp)
+              {
+                if (UIXComponent.visitTree(visitContext, facet, callback))
+                {
+                  done = true;
+                  break;
+                }
+              }
+            }
+          }
+        }        
+      }
+    }
+    
+    return done;    
+  }
+  
+  @Override
+  protected boolean visitData(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    Object oldPath = getRowKey();
 
+    // if we are only visiting rendered stamps, then pass in the disclosed row keys, otherwise
+    // pass in null, indicating that all row keys should be visited
+    RowKeySet disclosedRowKeys = (visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED))
+                                   ? getDisclosedRowKeys()
+                                   : null;
+
+    setRowKey(null);
+
+    boolean done;
+    
+    try
+    {
+      done = visitHierarchy(visitContext, callback, getStamps(), disclosedRowKeys);
+    }
+    finally
+    {
+      setRowKey(oldPath);
+    }
+    
+    return done;
   }
 
   @Override
@@ -165,6 +267,7 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
           RowKeySet rowKeys = (RowKeySet) value;
           // row key sets need the most recent collection model, but there is no one common entry
           // point to set this on the set besides when code asks for the value from the bean
+          __flushCachedModel();  //insist that we populate with the very lastest instance of the collection model
           rowKeys.setCollectionModel(getCollectionModel());
         }
         finally

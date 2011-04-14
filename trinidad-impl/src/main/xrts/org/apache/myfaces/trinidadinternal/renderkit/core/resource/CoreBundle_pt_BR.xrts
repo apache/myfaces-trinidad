@@ -47,20 +47,20 @@
 <resource key="afr_compositeTable.MENU_VIEW" dnt="false">Exibir</resource>
 <resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">Colunas</resource>
 <resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">Mostrar Tudo</resource>
-<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Mostrar Mais Colunas...</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Mostrar Mais Colunas..</resource>
 <resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">Congelar</resource>
 <resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">Maximizar</resource>
 <resource key="afr_compositeTable.MENU_SORT" dnt="false">Classificar</resource>
 <resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">Crescente</resource>
 <resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">Decrescente</resource>
-<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Avançado...</resource>
-<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Reordenar...</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Avançado..</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Reordenar..</resource>
 <resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Barras de Ferramentas</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Default</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Query By Example</resource>
-<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Formato</resource>
-<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Redimensionar Colunas...</resource>
-<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Redefinir...</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Formatar</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Redimensionar Colunas..</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Redefinir..</resource>
 <resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">Quebra Automática</resource>
 <resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Linhas Selecionadas:</resource>
 <resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">Todos</resource>
@@ -70,9 +70,9 @@
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">Expandir</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Contrair</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">Expandir Todos os Itens a Seguir</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Contrair Todos os Itens a Seguir</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Recolher Todos os Itens a Seguir</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">Expandir Tudo</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Recolher Tudo</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Contrair Tudo</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">Subir</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">Mostrar como Principal</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Ir para o início</resource>
@@ -333,7 +333,7 @@
 <!--Link text for expanding all rows-->
 <resource key="af_treeTable.EXPAND_ALL" dnt="false">Expandir Tudo</resource>
 <!--Link text for collapsing all rows-->
-<resource key="af_treeTable.COLLAPSE_ALL" dnt="false">Recolher Tudo</resource>
+<resource key="af_treeTable.COLLAPSE_ALL" dnt="false">Contrair Tudo</resource>
 <!--Link text for showing all details-->
 <resource key="af_table.SHOW_ALL_DETAILS" dnt="false">Mostrar Todos os Detalhes</resource>
 <!--Link text for hiding all details-->

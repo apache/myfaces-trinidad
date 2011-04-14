@@ -58,18 +58,21 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
   //
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
     UIXCollection table = (UIXCollection) component;
     Object oldKey = table.getRowKey();
 
     table.setRowIndex(-1);
-    String tableId = table.getClientId(context);
+    String tableId = clientId == null ? table.getClientId(facesContext) : clientId;
 
     Map<String, String[]> parameters =
-      context.getExternalContext().getRequestParameterValuesMap();
+      facesContext.getExternalContext().getRequestParameterValuesMap();
 
     String[] unselectedBoxes =
       parameters.get(tableId+NamingContainer.SEPARATOR_CHAR+UNSELECTED_KEY);

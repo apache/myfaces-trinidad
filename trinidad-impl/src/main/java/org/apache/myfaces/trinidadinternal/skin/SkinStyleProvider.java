@@ -95,6 +95,11 @@ public class SkinStyleProvider extends FileSystemStyleCache
         // yet, try creating it now.
         provider = new SkinStyleProvider(skin,
                                          targetDirectoryPath);
+        if (_LOG.isFine())
+        {
+          _LOG.fine("Create a new SkinStyleProvider for skin {0} and targetDirectoryPath {1}", 
+                    new Object[]{skin.getId(), targetDirectoryPath});
+        }
 
         // Store the provider in our cache
         providers.put(key, provider);

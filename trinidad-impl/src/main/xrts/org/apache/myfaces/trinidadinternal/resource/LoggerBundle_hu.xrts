@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Nem tölthető be a következő: {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Nem hozható létre UploadedFileProcessor példánya</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">A fájl túl nagy, ezért nem tölthető fel.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">A Trinidad hibakeresési üzemmódban fut. Ne használja éles környezetben. Lásd: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">A(z) {0} elem nem támogatja az EL-kifejezéseket.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">A(z) {0} elem csak egész értékeket fogad el</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">A(z) {0} elem csak hosszú értékeket fogad el</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Nem található a környezeti osztály betöltője.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -259,6 +263,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Nem kérhető le erőforrás: {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Az Apache Trinidad a javascript hibakeresési üzemmódban fut. Ne használja éles környezetben. Lásd az &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; paramétert a /WEB-INF/web.xml fájlban</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">A környezet éles üzemiként lett konfigurálva, az Apache Trinidad pedig a javascript hibakeresési változatát futtatja. Lásd az &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; paramétert a /WEB-INF/web.xml fájlban</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">A környezete éles termelésire lett konfigurálva, és az Apache Trinidad nem tömörített CSS használatával fut. Nézze meg az &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; paramétert a /WEB-INF/web.xml fájlban</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">A környezet éles üzemiként lett konfigurálva, az Apache Trinidad pedig a debug-output TRUE beállítással fut. Lásd a &quot;debug-output&quot; elemet a trinidad-config.xml fájlban</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Szabálytalan érték: {0} a(z) {1} paraméternél</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +311,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">A(z) {0} tulajdonságok figyelmen kívül hagyása, mivel nincs megfelelő kijelölő.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Hiba a grafikus felülethez tartozó css fájl olvasásakor</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Hiba a grafikus felülethez tartozó css fájl olvasásakor. A választóban egy felesleges vessző található: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Nem vehető fel grafikus felület, ha a skinId vagy a grafikus felület null értékű</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">A már hozzárendelt {0} grafikus felület újra hozzá lett adva. ha ez a felület már gyorsítótárazva lett az alkalmazásban, az eredmények következetlenek lehetnek. Ellenőrizze, hogy az osztályelérési úton nincs-e ismétlődő trinidad-skins.xml fájl.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nem kérhető le grafikus felület, ha a skinId null értékű</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Nem található a(z) {0} családnak és a(z) {1} megjelenítési készletnek megfelelő grafikus felület, így az egyszerű grafikus felületet használjuk</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Található a(z) {0} családnak és a(z) {1} verziónak megfelelő grafikus felület. A(z) {2} grafikus felületet fogjuk használni.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Nem található a(z) {0} családnak és a(z) {1} verziónak megfelelő grafikus felület. A(z) {2} grafikus felületet fogjuk használni.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Nem található a(z) {0} családnak megfelelő verzió nélküli grafikus felület. A verzióval rendelkező {1} grafikus felületet fogjuk használni.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Nem kérhető le a stíluslap dokumentumának időbélyege, mivel nem nyitható meg a kapcsolat.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">A(z) {0} felületválasztó nem felületikon-objektum, mivel nincs tartalom attribútuma. Ha ezt a választót ön hozta létre, nevezze át úgy, hogy a vége &quot;style&quot; legyen az &quot;icon&quot; helyett, így a felületeket kezelő keretrendszer stílusként fogja kezelni, nem ikonként.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">A(z) {0} csak minden más szabály előtt lehet.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">A következő grafikus felületek körkörös módon egymás kiterjesztései, illetve nem található a kiterjesztett grafikus felület: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -419,6 +443,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">A kötelező &apos;id&apos; elem nem található.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">A kötelező &apos;family&apos; elem nem található.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">A &apos;version&apos; és &apos;name&apos; részére nem található a szükséges alárendelt elem.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Hibás formátumú tulajdonságbejegyzés: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -721,4 +747,15 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Érvénytelen ország a(z) {0} nyelvi-területi azonosító számára. Az országkódnak nagybetűsnek kell lennie. A helyes formátumot a nyelvi-területi beállításra vonatkozó javadoc tartalmazza. A rendszer üres karakterláncot használ országként.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Érvénytelen változó a(z) {0} nyelvi-területi azonosító számára. A változó nem tartalmazhat törtvonalat az XSS-támadás elkerülésére. A rendszer üres karakterláncot használ változóként.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Nem törölhető ez a fájl: {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">Az IState csak a StateManager.SerializedView példánya lehet, illetve olyan objektumtömb, aminek a hossza 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">A részleges állapot mentése még nem támogatott. Állítsa be a web.xml fájlban a javax.faces.PARTIAL_STATE_SAVING környezeti paramétert hamisra.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Hiba a(z) {0} sorba rendezésekor attribútum:{1} érték:{2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Az átállási {0} hiba {2} típusú {1} attribútuma nem alakítható soros adattá</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Átállási hiba: Az {1} attribútumhoz tartozó {0} soros adattá alakítása megváltozott, {2} helyett {3} lett, az attribútum szennyeződése nélkül</resource>
 </resources>

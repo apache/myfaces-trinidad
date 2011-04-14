@@ -57,7 +57,7 @@
 <resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Réorganiser...</resource>
 <resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Barres d&apos;outils</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Valeur par défaut</resource>
-<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">QBE (Query By Example)</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Requête par l&apos;exemple</resource>
 <resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Format</resource>
 <resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Redimensionner les colonnes...</resource>
 <resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Réinitialiser...</resource>
@@ -259,11 +259,11 @@
 <resource key="af_selectManyShuttle.DESCRIPTION_LABEL" dnt="false">Description</resource>
 <resource key="af_selectOrderShuttle.DESCRIPTION_LABEL" dnt="false">Description</resource>
 <!--Alt tag for moving all the items-->
-<resource key="af_selectManyShuttle.MOVE_ALL_TIP" dnt="false">Déplacer tous les éléments vers une autre liste</resource>
-<resource key="af_selectOrderShuttle.MOVE_ALL_TIP" dnt="false">Déplacer tous les éléments vers une autre liste</resource>
+<resource key="af_selectManyShuttle.MOVE_ALL_TIP" dnt="false">Déplacer tous les éléments vers l&apos;autre liste</resource>
+<resource key="af_selectOrderShuttle.MOVE_ALL_TIP" dnt="false">Déplacer tous les éléments vers l&apos;autre liste</resource>
 <!--Alt tag for moving selected items-->
-<resource key="af_selectManyShuttle.MOVE_TIP" dnt="false">Déplacer les éléments sélectionnés vers une autre liste</resource>
-<resource key="af_selectOrderShuttle.MOVE_TIP" dnt="false">Déplacer les éléments sélectionnés vers une autre liste</resource>
+<resource key="af_selectManyShuttle.MOVE_TIP" dnt="false">Déplacer les éléments sélectionnés vers l&apos;autre liste</resource>
+<resource key="af_selectOrderShuttle.MOVE_TIP" dnt="false">Déplacer les éléments sélectionnés vers l&apos;autre liste</resource>
 <!--Alt tag for removing all the items-->
 <resource key="af_selectManyShuttle.REMOVE_ALL_TIP" dnt="false">Enlever tous les éléments de la liste</resource>
 <resource key="af_selectOrderShuttle.REMOVE_ALL_TIP" dnt="false">Enlever tous les éléments de la liste</resource>
@@ -369,9 +369,9 @@
 <!-- alt text for the icon that indicates a readOnly checkbox in the unchecked state -->
 <resource key="af_selectBooleanCheckbox.READONLY_NOT_CHECKED_TIP" dnt="false">Case Lecture seule désélectionnée</resource>
 <!-- alt text for the icon that indicates a readOnly radioButton in the selected state -->
-<resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Bouton d&apos;option Lecture seule sélectionné</resource>
+<resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Bouton radio Lecture seule sélectionné</resource>
 <!-- alt text for the icon that indicates a readOnly radioButton in the unselected state -->
-<resource key="af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP" dnt="false">Bouton d&apos;option Lecture seule non sélectionné</resource>
+<resource key="af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP" dnt="false">Bouton radio Lecture seule non sélectionné</resource>
 <!-- This is the title of the link at the top of a page that a screen-reader
        user would use to skip all the navigation links and jump to the
        content -->
@@ -496,8 +496,8 @@
 <resource key="RTE_HR_BUTTON_TEXT" dnt="false">Règle horizontale</resource>
 <resource key="RTE_NUMBERING_BUTTON_TEXT" dnt="false">Liste numérotée</resource>
 <resource key="RTE_BULLETS_BUTTON_TEXT" dnt="false">Liste à puces</resource>
-<resource key="RTE_DECREASE_INDENT_BUTTON_TEXT" dnt="false">Diminuer le retrait</resource>
-<resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">Augmenter le retrait</resource>
+<resource key="RTE_DECREASE_INDENT_BUTTON_TEXT" dnt="false">Réduire l&apos;indentation</resource>
+<resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">Augmenter l&apos;indentation</resource>
 <resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">Créer un lien hypertexte</resource>
 <resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Saisir l&apos;emplacement du lien (ex. : http://www.oracle.com)</resource>
 <resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">URL de destination des clics</resource>

@@ -27,9 +27,10 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Code specific to a Menu Model's GroupNode.
- *
+ * @deprecated Use org.apache.myfaces.trinidad.menu.GroupNode instead of this one.
  */
 
+@Deprecated
 public class GroupNode extends MenuNode
 {
   /**

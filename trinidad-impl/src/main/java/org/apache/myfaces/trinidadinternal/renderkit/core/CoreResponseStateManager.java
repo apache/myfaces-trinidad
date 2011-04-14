@@ -35,6 +35,7 @@ import java.util.zip.GZIPOutputStream;
 
 import javax.faces.FacesException;
 import javax.faces.application.StateManager;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.ResponseStateManager;
@@ -44,7 +45,7 @@ import org.apache.myfaces.trinidad.util.Base64InputStream;
 import org.apache.myfaces.trinidad.util.Base64OutputStream;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
-
+import org.apache.myfaces.trinidadinternal.util.ObjectInputStreamResolveClass;
 
 /**
  * ResponseStateManager implementation for the Core RenderKit.
@@ -211,6 +212,45 @@ public class CoreResponseStateManager extends ResponseStateManager
   }
 
   /**
+   * Returns the State token if a valid state token is available in the request, or null if not.
+   * @param external
+   * @return
+   */
+  public static String getStateToken(ExternalContext external)
+  {
+    return _tokenStringFromStateString(_getStateString(external));
+  }
+
+  /**
+   * Returns the State String for the request (either token or client state value)
+   * @param external
+   * @return
+   */
+  private static String _getStateString(ExternalContext external)
+  {
+    return external.getRequestParameterMap().get(VIEW_STATE_PARAM);
+  }
+  
+  /** 
+   * Give a client state String, return the tokenString for it if present, or null
+   */
+  private static String _tokenStringFromStateString(String stateString)
+  {
+    if (stateString != null)
+    {
+      // See if we've got a token;  that'll be the case if we're
+      // prefixed by _TOKEN_PREFIX
+      if (stateString.startsWith(_TOKEN_PREFIX))
+      {
+        return stateString.substring(_TOKEN_PREFIX.length());
+      }
+    }
+    
+    return null;     
+  }
+
+
+  /**
    * Restore the serialized view from the incoming request.
    * @todo ensure that the caching never gets confused by two
    *       different views being reconstituted in the same request?
@@ -219,69 +259,52 @@ public class CoreResponseStateManager extends ResponseStateManager
   private Object[] _restoreSerializedView(
      FacesContext context)
   {
-    Map<String, Object> requestMap =
-      context.getExternalContext().getRequestMap();
+    ExternalContext external = context.getExternalContext();
+    
+    Map<String, Object> requestMap = external.getRequestMap();
 
     Object[] view = (Object[]) requestMap.get(_CACHED_SERIALIZED_VIEW);
     if (view == null)
     {
-      Map<String, String> requestParamMap =
-         context.getExternalContext().getRequestParameterMap();
-
-      String stateString = requestParamMap.get(VIEW_STATE_PARAM);
-      if (stateString == null)
-        return null;
-
-      // First see if we've got a token;  that'll be the case if we're
-      // prefixed by _TOKEN_PREFIX
-      if (stateString.startsWith(_TOKEN_PREFIX))
+      String stateString = _getStateString(external);
+      String tokenString = _tokenStringFromStateString(stateString);
+ 
+      if (tokenString != null)
       {
-        String tokenString = stateString.substring(_TOKEN_PREFIX.length());
         view = new Object[]{tokenString, null};
       }
       // Nope, let's look for a regular state field
       else
       {
-        StringReader sr = new StringReader(stateString);
-        BufferedReader br = new BufferedReader(sr);
-        Base64InputStream b64_in = new Base64InputStream(br);
+        if (stateString != null)
+        {
+          StringReader sr = new StringReader(stateString);
+          BufferedReader br = new BufferedReader(sr);
+          Base64InputStream b64_in = new Base64InputStream(br);
 
 
-        try
-        {
-          ObjectInputStream ois;
-          ois = new ObjectInputStream( new GZIPInputStream( b64_in,
-                                                            _BUFFER_SIZE ))
-            {
-              protected Class<?> resolveClass(ObjectStreamClass desc)
-                                       throws IOException,
-                                              ClassNotFoundException
-              {
-                // TRINIDAD-1062 It has been noticed that in OC4J and Weblogic that the
-                // classes being resolved are having problems by not finding
-                // them using the context class loader. Therefore, we are adding
-                // this work-around until the problem with these application
-                // servers can be better understood
-                return ClassLoaderUtils.loadClass(desc.getName());
-              }
-            };
+          try
+          {
+            ObjectInputStream ois;
+            ois = new ObjectInputStreamResolveClass( new GZIPInputStream( b64_in, _BUFFER_SIZE ));
 
-          Object structure = ois.readObject();
-          Object state = ois.readObject();
-          ois.close();
-          view = new Object[]{structure, state};
-        }
-        catch (OptionalDataException ode)
-        {
-          _LOG.severe(ode);
-        }
-        catch (ClassNotFoundException cnfe)
-        {
-          _LOG.severe(cnfe);
-        }
-        catch (IOException ioe)
-        {
-          _LOG.severe(ioe);
+            Object structure = ois.readObject();
+            Object state = ois.readObject();
+            ois.close();
+            view = new Object[]{structure, state};
+          }
+          catch (OptionalDataException ode)
+          {
+            _LOG.severe(ode);
+          }
+          catch (ClassNotFoundException cnfe)
+          {
+            _LOG.severe(cnfe);
+          }
+          catch (IOException ioe)
+          {
+            _LOG.severe(ioe);
+          }
         }
       }
 

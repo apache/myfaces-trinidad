@@ -18,14 +18,21 @@
  */
 package org.apache.myfaces.trinidadinternal.application;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import javax.faces.application.ConfigurableNavigationHandler;
+import javax.faces.application.NavigationCase;
 import javax.faces.application.NavigationHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.DialogService;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-public class NavigationHandlerImpl extends NavigationHandler
+public class NavigationHandlerImpl extends ConfigurableNavigationHandler
 {
   public NavigationHandlerImpl(NavigationHandler delegate)
   {
@@ -43,28 +50,91 @@ public class NavigationHandlerImpl extends NavigationHandler
       _delegate.handleNavigation(context, fromAction, outcome);
       return;
     }
-
-    UIViewRoot oldRoot = context.getViewRoot();
-        
-    _delegate.handleNavigation(context, fromAction, outcome);
-
-    UIViewRoot newRoot = context.getViewRoot();
-    if ((outcome != null) && (newRoot != oldRoot))
+ 
+    RequestContext afc = RequestContext.getCurrentInstance();
+    
+    // We are interested for "dialog:" prefixed outcomes 
+    if ((outcome != null) && (outcome.startsWith(afc.getDialogService().getDialogNavigationPrefix())))
     {
-      RequestContext afc = RequestContext.getCurrentInstance();
-
       // Handle "dialog:" URLs
-      if (outcome.startsWith(afc.getDialogService().getDialogNavigationPrefix()))
+      
+      // First we try find a classic navigation case from faces-config.xml
+      NavigationCase navigationCase = getNavigationCase(context, fromAction, outcome);
+      
+      // Then if there is no rule (but we are in dialog here) try interpret 
+      // outcome as view id - JSF 2.0 Implicit Navigation.
+      if (navigationCase == null)
       {
-        // Navigate back to the original root
-        context.setViewRoot(oldRoot);
-
+        navigationCase = getNavigationCase(context, fromAction, 
+            outcome.substring(afc.getDialogService().getDialogNavigationPrefix().length()));
+      } 
+      
+      UIViewRoot newRoot = null;
+      UIViewRoot oldRoot = context.getViewRoot();
+      
+      if (navigationCase == null)
+      {
+        // Execute the old (pre-ConfigurableNavigation) code in case the navigation case
+        // could not be determined
+        
+        // ViewMap is cleared during navigation, so save it here (we will be undoing the navigation
+        // by restoring the old view root below)
+        Map<String,Object> viewMap = oldRoot.getViewMap(false);
+        Map<String,Object> cloneMap = (viewMap == null) ? null : new HashMap<String, Object>(viewMap);
+        
+        _delegate.handleNavigation(context, fromAction, outcome);
+        
+        newRoot = context.getViewRoot();
+        
+        if (newRoot != oldRoot)
+        {
+          // Navigate back to the original root
+          context.setViewRoot(oldRoot);
+          
+          // Restore the old ViewMap because it gets cleared during setViewRoot()
+          if (cloneMap != null)
+          {
+            oldRoot.getViewMap().putAll(cloneMap);
+          }
+        }
+      }
+      else
+      {
+        newRoot = context.getApplication().getViewHandler().createView(context, navigationCase.getToViewId(context));
+      }
+     
+      if (newRoot != oldRoot)
+      {
         // Give ourselves a new page flow scope
         afc.getPageFlowScopeProvider().pushPageFlowScope(context, true);
         // And ask the component to launch a dialog
         afc.getDialogService().queueLaunchEvent(newRoot);
       }
     }
+    else
+    {
+       // not a dialog, call the wrapped NavigationHandler
+      _delegate.handleNavigation(context, fromAction, outcome);
+    }
+  }
+  
+  @Override
+  public NavigationCase getNavigationCase(FacesContext context, String fromAction,
+      String outcome)
+  {
+    if (!(_delegate instanceof ConfigurableNavigationHandler))
+      return null;
+    
+    return ((ConfigurableNavigationHandler)_delegate).getNavigationCase(context, fromAction, outcome);
+  }
+
+  @Override
+  public Map<String, Set<NavigationCase>> getNavigationCases()
+  {
+    if (!(_delegate instanceof ConfigurableNavigationHandler))
+      return _emptyCaces;
+    
+    return ((ConfigurableNavigationHandler)_delegate).getNavigationCases();
   }
   
   /**
@@ -100,4 +170,7 @@ public class NavigationHandlerImpl extends NavigationHandler
 
   private Boolean _disabled;
   private NavigationHandler _delegate;
+  private final Map<String, Set<NavigationCase>> _emptyCaces = new HashMap<String, Set<NavigationCase>>();
+  
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(NavigationHandlerImpl.class);
 }

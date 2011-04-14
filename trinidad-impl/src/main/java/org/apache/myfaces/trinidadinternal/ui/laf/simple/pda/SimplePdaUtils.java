@@ -49,10 +49,10 @@ public class SimplePdaUtils extends PdaHtmlLafUtils
 
   private static final NameAndAgentScorer _PDA_SCORER =
     new NameAndAgentScorer("simple",
-                           TrinidadAgent.TYPE_PDA,
                            null,
                            null,
-                           null);
+                           null,
+                           TrinidadAgent.TYPE_PDA);
 
 
 }

@@ -39,7 +39,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
   @Override
   public String getStyleSheetName()
   {
-    return "META-INF/adf/styles/simple-portlet.xss";
+    return "META-INF/adf/styles/simple-portlet.css";
   }
 
   /**

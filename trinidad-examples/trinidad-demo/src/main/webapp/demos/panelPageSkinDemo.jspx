@@ -24,7 +24,7 @@
           xmlns:trh="http://myfaces.apache.org/trinidad/html"
           xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
-  <f:view>
+  <f:view beforePhase="#{skinDirty.beforePhase}">
     <trh:html>
       <trh:head title="Skin Demo">
         <!-- the beach skin is defined in beach.css. If you want to add your own
@@ -86,8 +86,11 @@
                   <tr:selectItem label="purpleBigFont" value="purpleBigFont"/>
                   <tr:selectItem label="beach" value="beach"/>
                   <tr:selectItem label="suede" value="suede"/>
+                  <tr:selectItem label="locale" value="localeDemo"/>
                 </tr:selectOneChoice>
                 <tr:commandButton text="Go"/>
+                <tr:commandButton text="Set Skin Dirty" actionListener="#{skinDirty.buttonAction}"/>
+                <tr:outputText value="(to immediately see skin's css changes)" />
                 <tr:goLink id="goLinkId" text="EmailablePageMode" 
                   destination="panelPageSkinDemo.jspx?org.apache.myfaces.trinidad.agent.email=true" />
                 <tr:selectBooleanCheckbox text="true" label="Label (red in purple skin + email mode):" value="true"/>
@@ -156,7 +159,7 @@
                     </tr:showDetailItem>
                     <tr:showDetailItem text="Tab 2" disclosed="true">
                       <tr:panelHeader text="PanelTabbed details">
-                        <tr:outputText value="Everything in Camping  is on sale!  Enjoy huge savings on our most popular tents                     and sleeping bags. We even have dried food and mattresses"
+                        <tr:outputText value="In Locale Skin, commandButton text is red in en and de locales and blue in ro-RO. Test it out!"
                                        styleClass="mainContentText"/>
                         <tr:panelGroupLayout layout="horizontal">
                           <tr:goButton text="Sorry, Disabled" disabled="true"/>

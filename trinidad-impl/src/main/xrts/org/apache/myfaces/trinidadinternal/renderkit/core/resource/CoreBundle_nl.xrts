@@ -37,7 +37,7 @@
 <resource key="af_menuChoice.LABEL" dnt="false">Tussen applicaties schakelen</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">Naar geselecteerde applicatie</resource>
-<resource key="af_menuChoice.GO" dnt="false">Ga naar</resource>
+<resource key="af_menuChoice.GO" dnt="false">Uitvoeren</resource>
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">Selecteren</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">Selecteren</resource>
@@ -47,20 +47,20 @@
 <resource key="afr_compositeTable.MENU_VIEW" dnt="false">Bekijken</resource>
 <resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">Kolommen</resource>
 <resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">Alles tonen</resource>
-<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Meer kolommen tonen...</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Meer kolommen tonen..</resource>
 <resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">Blokkeren</resource>
 <resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">Maximaliseren</resource>
 <resource key="afr_compositeTable.MENU_SORT" dnt="false">Sorteren</resource>
 <resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">Oplopend</resource>
 <resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">Aflopend</resource>
 <resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Uitgebreid...</resource>
-<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Herordenen...</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Herordenen..</resource>
 <resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Werkbalken</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Standaard</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Zoeken volgens voorbeeld</resource>
 <resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Opmaak</resource>
-<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Formaat van kolommen wijzigen...</resource>
-<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Opnieuw instellen...</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Formaat van kolommen wijzigen..</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Opnieuw instellen..</resource>
 <resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">Terugloop</resource>
 <resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Geselecteerde rijen:</resource>
 <resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">Alle</resource>
@@ -218,7 +218,7 @@
 <!-- The user will also need to press the 'Go' button. -->
 <!-- This should be translated as 'Go' in the sense of 'proceed' -->
 <!-- as in 'Go to the next step' not as 'move'                   -->
-<resource key="af_chooseDate.GO_BUTTON_LABEL" dnt="false">Zoek</resource>
+<resource key="af_chooseDate.GO_BUTTON_LABEL" dnt="false">Uitvoeren</resource>
 <!--defaults strings for showDetail, showDetailHeader, and showDetail in table -->
 <resource key="af_showDetail.DISCLOSED" dnt="false">Verbergen</resource>
 <resource key="af_showDetail.UNDISCLOSED" dnt="false">Tonen</resource>
@@ -413,7 +413,7 @@
 <!-- This should be translated as 'Go' in the sense of 'proceed' -->
 <!-- as in 'Go to the next step' not as 'move'                   -->
 <!-- See FirePartialAction.renderTrigger -->
-<resource key="PPR_TRIGGER_LABEL" dnt="false">Ga naar</resource>
+<resource key="PPR_TRIGGER_LABEL" dnt="false">Uitvoeren</resource>
 <!-- Icons are used in the prompts for message components -->
 <!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
@@ -440,7 +440,7 @@
 <!-- Text of the ALT tag for the content frame of popup windows -->
 <resource key="FRAME_CONTENT" dnt="false">Inhoud</resource>
 <!-- A message displayed when we think there's a popup blocker installed -->
-<resource key="WINDOW_CREATION_ERROR" dnt="false">In uw browser worden pop-upvensters geblokkeerd, waardoor de applicatie niet goed wordt uitgevoerd. Schakel de optie voor het blokkeren van pop-upvensters uit of sta de vensters op deze site toe.</resource>
+<resource key="WINDOW_CREATION_ERROR" dnt="false">In uw browser worden pop-upvensters geblokkeerd, waardoor de applicatie niet goed functioneert. Deactiveer de optie voor het blokkeren van pop-upvensters of sta de vensters op deze site toe.</resource>
 <!-- Text to display in noframes element. This message is set on noframes element,
        when page redirection happens for LOV selection. -->
 <resource key="NO_FRAMES_MESSAGE" dnt="false">Uw browser ondersteunt geen frames. Ondersteuning van frames is voor deze functionaliteit noodzakelijk.</resource>

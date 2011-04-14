@@ -41,7 +41,11 @@ import org.apache.myfaces.trinidadinternal.context.external.ServletApplicationMa
 import org.apache.myfaces.trinidadinternal.context.external.ServletInitParameterMap;
 import org.apache.myfaces.trinidadinternal.context.external.ServletRequestMap;
 
-
+/**
+ * @deprecated This implementation is merged to CompositeUploadedFileProcessorImpl.
+ * This class will be removed in the next release.
+ * 
+ */
 public class UploadedFileProcessorImpl implements UploadedFileProcessor
 {
   public UploadedFileProcessorImpl()
@@ -149,7 +153,7 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     
     if(contentLength>_maxDiskSpace)
     {
-      return new ErrorFile();
+      return new ErrorFile(_LOG.getMessage("UPLOADED_FILE_LARGE"));
     }
     // Process one new file, loading only as much as can fit
     // in the remaining memory and disk space.
@@ -164,7 +168,7 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     catch(IOException ioe)
     {
       _LOG.severe(ioe);
-      return new ErrorFile();
+      return new ErrorFile(ioe.getLocalizedMessage());
     }
 
     // Keep a tally of how much we've stored in memory and on disk.

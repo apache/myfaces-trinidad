@@ -41,6 +41,12 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
   {
     super(out);
   }
+  
+  public ScriptBufferingResponseWriter(ResponseWriter out, boolean enabled)
+  {
+    super(out);
+    _enabled = enabled;
+  }
 
   /**
    * Constructor for clones - share the scripts and libraries list.
@@ -50,7 +56,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
     super(out);
     _scripts = base._scripts;
     _libraries = base._libraries;
-    
+    _enabled = base._enabled;
   }
 
   // Returns a List of Strings containing script content, or null
@@ -195,7 +201,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
   public void startElement(String name, UIComponent component)
      throws IOException
   {
-    if ("script".equals(name))
+    if (_enabled && "script".equals(name))
     {
       _inScript = true;
     }
@@ -278,5 +284,6 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
   private StringBuilder _scriptBuilder;
   private List<String>  _libraries = new ArrayList<String>();
   private List<String>  _scripts = new ArrayList<String>();
+  private boolean       _enabled = true;
 }
 

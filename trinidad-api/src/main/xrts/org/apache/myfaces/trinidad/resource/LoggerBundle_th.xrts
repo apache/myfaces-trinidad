@@ -125,9 +125,11 @@
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">ดัชนีไม่ถูกต้อง</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">มีการเพิ่มรายการระดับล่างขณะที่มีรายการระดับล่างที่ใช้ ID เดียวกันแล้ว ระบบจะลบรายการระดับล่างเดิมออก และเพิ่มรายการระดับล่างใหม่ {0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">โปรแกรมจัดการการเปลี่ยนแปลงไม่สามารถใช้ AddChildComponentChange เนื่องจากมีองค์ประกอบระดับล่างที่มี ID เดียวกันแล้ว {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">ไม่ได้ระบุโหนด</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">เราไม่ต้องการกำหนดองค์ประกอบที่ประทับข้อมูลภายในตัววนซ้ำเป็นแบบถาวร</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">ต้องมีองค์ประกอบ</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -156,6 +158,8 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">ไม่สามารถสร้าง AddFacetChange ด้วย facetName หรือ facetComponent ที่เป็นนัล</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">ต้องระบุชื่อ Facet</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">โปรแกรมจัดการการเปลี่ยนแปลงไม่สามารถใช้ SetFacetChildComponentChange เนื่องจากมี facet ที่มีชื่อเดียวกันแล้ว {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">ต้องมีองค์ประกอบระดับล่างที่จะย้าย</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -168,6 +172,8 @@
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">ไม่พบรายการระดับล่างที่จะย้าย: {0}</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
 <resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">ไม่พบคอนเทนเนอร์ปลายทาง: {0}</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">พบองค์ประกอบอื่นที่มี ID เดียวกันในคอนเทนเนอร์ปลายทาง การย้ายถูกล้มเลิก: {0}</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">ไม่พบการแทรกก่อนหน้าองค์ประกอบหรือโหนด: {0}</resource>
 <!-- INDEX_SIZE -->
@@ -308,4 +314,10 @@
 <resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">ไม่สามารถตั้งค่าพารามิเตอร์การแสดงผลพอร์ตเล็ต เนื่องจากการแสดงผลล้มเหลว</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">ประเภทสำหรับ &quot;{0}&quot; ทำให้ไม่สามารถเปรียบเทียบกับ &quot;{1}&quot;</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">ไม่สามารถซิปสภาวะของเพจ สภาวะต้องเป็นแบบที่ซีเรียลไลซ์ได้จึงจะสามารถรวมในซิปไฟล์ได้ ดังนั้น สาเหตุทั่วไปที่สภาวะของเพจไม่สามารถซิปได้ก็คือ สภาวะของเพจนั้นไม่ใช่แบบที่ซีเรียลไลซ์ได้ คุณสามารถปิดการรวมไฟล์ซิปด้วยการตั้งค่า org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE เป็นเท็จ โปรดดูเอกสารเกี่ยวกับคุณสมบัติระบบ org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION เพื่อดูวิธีการทดสอบการซีเรียลไลซ์ในด้านต่างๆ</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">ไม่สามารถคลายซิปสภาวะของเพจ</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">ไม่สามารถเรียก getClientId ขณะที่สร้างวิว ID องค์ประกอบ: {0}</resource>
 </resources>

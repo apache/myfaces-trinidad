@@ -21,4 +21,5 @@
 <capabilityData xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
   <capability name="accessKeys" value="true"/>
   <capability name="partialRendering" value="true"/>
+  <capability name="-adfinternal-fieldset" value="true"/>  
 </capabilityData>

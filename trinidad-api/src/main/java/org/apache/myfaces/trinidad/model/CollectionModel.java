@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidad.model;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
 import javax.faces.model.DataModel;
 
 /**
@@ -296,6 +297,68 @@ public abstract class CollectionModel extends DataModel
     }
   }
 
+  /**
+   * <p>
+   * Adds the listener to the Set of RowKeyChangeListeners on the Collection.
+   * </p>
+   * <p>
+   * The same listener instance may be added multiple times, but will only be called once per change.
+   * </p>
+   * <p>
+   * Since the Collection may have a lifetime longer than Request, the listener implementation 
+   * should take care not to maintain any references to objects only valid in the current Request.  
+   * For example, if a UIComponent wishes to listen on a Collection, the UIComponent cannot use a 
+   * listener that maintains a Java reference to the UIComponent instance because UIComponent 
+   * instances are only valid for the current request (this also precludes the use of a non-static 
+   * inner class for the listener).  Instead, the UIComponent would need to use an indirect 
+   * reference such as {@link ComponentReference} to dynamically find the correct instance to use.  
+   * In the case where the Collection has a short lifetime, the code that adds the listener needs to 
+   * ensure that it executes every time the Collection instance is reinstantiated.
+   * </p>
+   * @param listener The listener for RowKeyChangeEvents to add to the Collection 
+   * @see #removeRowKeyChangeListener
+   */
+  public void addRowKeyChangeListener(RowKeyChangeListener listener)
+  {
+    if(!_rowKeyChangeListeners.contains(listener))
+      _rowKeyChangeListeners.add(listener);
+  }
+
+  /**
+   * <p>
+   * Remove an existing listener from the Set of RowKeyChangeListeners on the Collection.
+   * </p>
+   * <p>
+   * The same listener instance may be removed multiple times wihtout failure.
+   * </p>
+   * 
+   * @param listener The listener for RowKeyChangeEvents to remove from the Collection
+   */
+  public void removeRowKeyChangeListener(RowKeyChangeListener listener)
+  {
+    _rowKeyChangeListeners.remove(listener);
+  }
+
+  /**
+   * Fire an existing RowKeyChangeEvent to any registered listeners.
+   * No event is fired if the given event's old and new row keys are equal and non-null.
+   * @param event  The RowKeyChangeEvent object.
+   */
+  protected void fireRowKeyChange(RowKeyChangeEvent event) 
+  {
+    Object oldRowKey = event.getOldRowKey();
+    Object newRowKey = event.getNewRowKey();
+    if (oldRowKey != null && newRowKey != null && oldRowKey.equals(newRowKey)) 
+    {
+      return;
+    }
+
+    for (RowKeyChangeListener listener: _rowKeyChangeListeners)
+    {
+      listener.onRowKeyChange(event);
+    }
+  }
+
   //
   // Below is the default implemenation for the LocalRowKeyIndex interface.  
   //
@@ -453,5 +516,6 @@ public abstract class CollectionModel extends DataModel
   {
     return LocalRowKeyIndex.LocalCachingStrategy.NONE;
   }
-  
+
+  private List<RowKeyChangeListener> _rowKeyChangeListeners = new ArrayList<RowKeyChangeListener>(3);    
 }

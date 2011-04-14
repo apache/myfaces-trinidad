@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.share.io;
 
+import java.beans.Beans;
+
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.io.IOException;
@@ -25,7 +27,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidad.util.URLUtils;
+
 
 /**
  * An InputStreamProvider for opening URLs.
@@ -51,6 +55,11 @@ public class URLInputStreamProvider implements InputStreamProvider
     // to URL.openConnection
     _lastModifiedTime = URLUtils.getLastModified(_url);
     URLConnection connection = _url.openConnection();
+    // prevent caching during DT where the source may change...
+    if (Beans.isDesignTime())
+    {
+      connection.setUseCaches(false);
+    }
     // In theory, should not need to close
     InputStream base = connection.getInputStream();
     

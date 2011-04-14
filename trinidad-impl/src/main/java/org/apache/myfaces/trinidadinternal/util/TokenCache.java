@@ -66,33 +66,51 @@ public class TokenCache implements Serializable
    */
   @SuppressWarnings("unchecked")
   static public TokenCache getTokenCacheFromSession(
-    FacesContext context,
-    String       cacheName,
-    boolean      createIfNeeded,
-    int          defaultSize)
+    ExternalContext extContext,
+    String          cacheName,
+    boolean         createIfNeeded,
+    int             defaultSize)
   {
-    ExternalContext external = context.getExternalContext();
-    Object session = external.getSession(true);
-    assert(session != null);
+    Map<String, Object> sessionMap = extContext.getSessionMap();
 
-    TokenCache cache;
-    // Synchronize on the session object to ensure that
-    // we don't ever create two different caches
-    synchronized (session)
+    TokenCache cache = (TokenCache)sessionMap.get(cacheName);
+    
+    if (cache == null)
     {
-      cache = (TokenCache) external.getSessionMap().get(cacheName);
-      if ((cache == null) && createIfNeeded)
+      if (createIfNeeded)
       {
-        // create the TokenCache with the crytographically random seed
-        cache = new TokenCache(defaultSize, _getSeed());
-
-        external.getSessionMap().put(cacheName, cache);
+        Object session = extContext.getSession(true);
+  
+        // Synchronize on the session object to ensure that
+        // we don't ever create two different caches
+        synchronized (session)
+        {
+          cache = (TokenCache)sessionMap.get(cacheName);
+          
+          if (cache == null)
+          {
+            // create the TokenCache with the crytographically random seed
+            cache = new TokenCache(defaultSize, _getSeed(), sessionMap, cacheName);
+    
+            sessionMap.put(cacheName, cache);
+          }
+          else
+          {
+            // make sure the existing cache has its own attached so it can dirty itself
+            cache.reattachOwner(sessionMap);
+          }
+        }
       }
+    }
+    else
+    {
+      // make sure the existing cache has its own attached so it can dirty itself
+      cache.reattachOwner(sessionMap);
     }
 
     return cache;
   }
-  
+    
   /**
    * Returns a cryptographically secure random number to use as the TokenCache seed
    */
@@ -124,11 +142,10 @@ public class TokenCache implements Serializable
   /**
    * For serialization only
    */
-  public TokenCache()
+  TokenCache()
   {
-    this(_DEFAULT_SIZE, 0L);
-  }
-
+    this(_DEFAULT_SIZE, 0L, null, null);
+  }   
 
   /**
    * Create a TokenCache that will store the last "size" entries.  This version should
@@ -138,30 +155,37 @@ public class TokenCache implements Serializable
    */
   public TokenCache(int size)
   {
-    this(size, 0L);
-  }
-
-  /**
-   * Create a TokenCache that will store the last "size" entries,
-   * and begins its tokens based on the seed (instead of always
-   * starting at "0").
-   * @Deprecated Use version using a long size instead for greater security
-   */
-  public TokenCache(int size, int seed)
-  {
-    this(size, (long)seed);
+    this(size, 0L, null, null);
   }
 
  /**
   * Create a TokenCache that will store the last "size" entries,
   * and begins its tokens based on the seed (instead of always
   * starting at "0").
+  * @patam owner      Optional Cache that stores the token cache
+  * @param keyInOwner Optional Name under which this cache is stored in the owner
   */
- public TokenCache(int size, long seed)
+  private TokenCache(int size, long seed, Map<String, Object> owner, String keyInOwner)
   {
-    _cache = new LRU(size);
-    _pinned = new ConcurrentHashMap<String, String>(size);
-    _count = new AtomicLong(seed);
+    _cache      = new LRU(size);
+    _pinned     = new ConcurrentHashMap<String, String>(size);
+    _count      = new AtomicLong(seed);
+    _owner      = owner;
+    _keyInOwner = keyInOwner;
+  } 
+
+  /**
+   * Reattaches the owner after Serialization since the owner might not be Serializable or it
+   * might not be a good idea to serialize the owner.
+   * @param owner
+   * @throws NullPointerException if owner is null
+   */
+  public void reattachOwner(Map<String, Object> owner)
+  {
+    if (owner == null)
+      throw new NullPointerException("Can't set owner to null");
+      
+    _owner = owner;
   }
 
   /**
@@ -222,6 +246,9 @@ public class TokenCache implements Serializable
     
     targetStore.put(token, value);
 
+    // our contents have changed, so mark ourselves as dirty in our owner
+    _dirty();
+    
     return token;
   }
 
@@ -289,14 +316,22 @@ public class TokenCache implements Serializable
       String token, 
       Map<String, V> targetStore)
   {
+    V oldValue;
+    
     synchronized (this)
     {
       _LOG.finest("Removing token {0} from cache", token);
       _cache.remove(token);
+      
       // TODO: should removing a value that is "pinned" take?
       // Or should it stay in memory?
-      return _removeTokenIfReady(targetStore, token);
+      oldValue = _removeTokenIfReady(targetStore, token);
     }
+
+    // our contents have changed, so mark ourselves as dirty in our owner
+    _dirty();
+    
+    return oldValue;
   }
 
   /**
@@ -314,6 +349,9 @@ public class TokenCache implements Serializable
 
       _cache.clear();
     }
+
+    // our contents have changed, so mark ourselves as dirty in our owner
+    _dirty();
   }
 
   private String _getNextToken()
@@ -323,6 +361,17 @@ public class TokenCache implements Serializable
     
     // convert using base 36 because it is a fast efficient subset of base-64
     return Long.toString(nextToken, 36);
+  }
+  
+  /**
+   * Mark the cache as dirty in the owner
+   */
+  private void _dirty()
+  {
+    if (_keyInOwner != null)
+    {
+      _owner.put(_keyInOwner, this);
+    }
   }
 
   private class LRU extends LRUCache<String, String>
@@ -351,9 +400,14 @@ public class TokenCache implements Serializable
   // the current token value
   private final AtomicLong _count;
 
+  private final String _keyInOwner;
+  
   // Hack instance parameter used to communicate between the LRU cache's
   // removing() method, and the addNewEntry() method that may trigger it
   private transient String _removed;
+
+  // owning cache
+  private transient Map<String, Object> _owner;
 
   static private final int _DEFAULT_SIZE = 15;
   static private final long serialVersionUID = 1L;

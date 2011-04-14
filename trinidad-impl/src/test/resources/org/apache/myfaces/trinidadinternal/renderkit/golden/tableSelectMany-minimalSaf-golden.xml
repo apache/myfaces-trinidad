@@ -103,6 +103,12 @@
                               4-6 of 6
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -231,6 +237,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:0"
+                        >
+                      Select
+                    </label>
                     <input
                          name="mainId:_us"
                          type="hidden"
@@ -261,6 +273,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:1"
+                        >
+                      Select
+                    </label>
                     <input
                          name="mainId:_us"
                          type="hidden"
@@ -291,6 +309,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:2"
+                        >
+                      Select
+                    </label>
                     <input
                          name="mainId:_us"
                          type="hidden"
@@ -428,6 +452,12 @@
                               4-6 of 6
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -556,6 +586,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:0"
+                        >
+                      Select
+                    </label>
                     <input
                          name="mainId:_us"
                          type="hidden"
@@ -586,6 +622,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:1"
+                        >
+                      Select
+                    </label>
                     <input
                          name="mainId:_us"
                          type="hidden"
@@ -616,6 +658,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:2"
+                        >
+                      Select
+                    </label>
                     <input
                          name="mainId:_us"
                          type="hidden"
@@ -753,6 +801,12 @@
                               4-6 of 6
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -887,6 +941,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:0"
+                        >
+                      Select
+                    </label>
                     <input
                          name="mainId:_us"
                          type="hidden"
@@ -918,6 +978,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:1"
+                        >
+                      Select
+                    </label>
                     <input
                          name="mainId:_us"
                          type="hidden"
@@ -949,6 +1015,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:2"
+                        >
+                      Select
+                    </label>
                     <input
                          name="mainId:_us"
                          type="hidden"

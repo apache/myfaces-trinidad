@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleConstants;
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 
 /**
- * NodeParser for includeProperty nodes
+ * NodeParser for includeProperty nodes. This parses the XSS file.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/IncludePropertyNodeParser.java#0 $) $Date: 10-nov-2005.18:58:08 $
  */
 public class IncludePropertyNodeParser extends LeafNodeParser

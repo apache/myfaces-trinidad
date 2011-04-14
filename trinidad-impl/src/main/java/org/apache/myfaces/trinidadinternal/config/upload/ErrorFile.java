@@ -26,6 +26,11 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
 
 public class ErrorFile implements UploadedFile, Serializable
 {
+  
+  public ErrorFile(String errorMessage)
+  {
+    _errorMessage = errorMessage;
+  }
 
   public void dispose()
   {
@@ -53,8 +58,10 @@ public class ErrorFile implements UploadedFile, Serializable
 
   public Object getOpaqueData()
   {
-    return null;
+    return _errorMessage;
   }
+  
+  private String _errorMessage = null;
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 }

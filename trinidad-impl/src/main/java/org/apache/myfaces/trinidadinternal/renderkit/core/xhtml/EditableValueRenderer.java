@@ -64,26 +64,36 @@ abstract public class EditableValueRenderer extends ValueRenderer
   // DECODING IMPLEMENTATION
   //
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
-    if (skipDecode(context))
+    if (skipDecode(facesContext))
       return;
 
     Object submittedValue;
-    if (!wasSubmitted(context, component))
+    if (!wasSubmitted(facesContext, component))
       submittedValue = null;
     else
-      submittedValue = getSubmittedValue(context,
-                                         component,
-                                         component.getClientId(context));
+    {
+      if (clientId == null)
+      {
+        clientId = component.getClientId(facesContext);
+      }
+      submittedValue = getSubmittedValue(facesContext, component, clientId);
+    }
 
     if (_LOG.isFinest())
     {
+      if (clientId == null)
+      {
+        clientId = component.getClientId(facesContext);
+      }
       _LOG.finest("Value submitted for ID {0} is {1}",
-                  new Object[]{component.getClientId(context),
-                               submittedValue});
+        new Object[]{clientId, submittedValue});
     }
 
     EditableValueHolder evh = (EditableValueHolder) component;
@@ -120,7 +130,9 @@ abstract public class EditableValueRenderer extends ValueRenderer
     {
       return converter.getAsObject(context,
                                    component,
-                                   submittedValue.toString());
+                                   // due to the new "JSF2 empty value" parameters it can be the
+                                   // case the we actually have a NULL value here.
+                                   (submittedValue != null) ? submittedValue.toString() : null);
     }
 
     return submittedValue;

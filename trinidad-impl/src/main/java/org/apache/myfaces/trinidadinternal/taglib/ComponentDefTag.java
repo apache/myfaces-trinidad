@@ -19,17 +19,14 @@
 package org.apache.myfaces.trinidadinternal.taglib;
 
 import javax.faces.component.UIComponent;
-
-import javax.servlet.jsp.tagext.TagSupport;
+import javax.faces.webapp.UIComponentClassicTagBase;
+import javax.servlet.jsp.JspException;
 
 import org.apache.myfaces.trinidad.component.UIXComponentRef;
-
-import javax.servlet.jsp.JspException;
-import org.apache.myfaces.trinidadinternal.taglib.util.TagUtils;
-import javax.faces.webapp.UIComponentClassicTagBase;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.webapp.TrinidadTagSupport;
 
-public class ComponentDefTag extends TagSupport
+public class ComponentDefTag extends TrinidadTagSupport
 {
   public ComponentDefTag()
   {
@@ -79,4 +76,5 @@ public class ComponentDefTag extends TagSupport
   }
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     ComponentDefTag.class);
+  private static final long serialVersionUID = 1L;
 }

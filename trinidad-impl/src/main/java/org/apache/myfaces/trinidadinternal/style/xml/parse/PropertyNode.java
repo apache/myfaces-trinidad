@@ -16,6 +16,12 @@
 
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Private implementation of PropertyNode.
@@ -24,26 +30,43 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 public class PropertyNode
 {
-
   /**
-   * Creates a PropertyNode with the specified name and value.
-   * @param name name of the propertyNode. Examples are 'font-size', 'background-color'.
-   * @param value value of the propertyNode. Examples are '12px', 'red', '0xeaeaea'
-   * If name is null or the empty string, an IllegalArgumentException is thrown.
-   */
-  public PropertyNode(String name, String value)
-  {
+     * Creates a PropertyNode with the specified name and value.
+     * @param name name of the propertyNode. Examples are 'font-size', 'background-color'.
+     * @param value value of the propertyNode. Examples are '12px', 'red', '0xeaeaea'
+     * If name is null or the empty string, an IllegalArgumentException is thrown.
+     */
+    public PropertyNode(String name, String value)
+    {
 
-    if (name == null || "".equals(name))
-      throw new IllegalArgumentException(_LOG.getMessage(
-        "PROPERTYNODE_NAME_CANNOT_BE_NULL_OR_EMPTY", new Object[]{name, value}));
+      if (name == null || "".equals(name))
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "PROPERTYNODE_NAME_CANNOT_BE_NULL_OR_EMPTY", new Object[]{name, value}));
 
-    // intern() name because many of the property names are the same,
-    // like color, background-color, background-image, font-size, etc.
-    // This will improve the memory used.
-    _name = name.intern();
-    _value = value;
-  }
+      // intern() name because many of the property names are the same,
+      // like color, background-color, background-image, font-size, etc.
+      // This will improve the memory used.
+      _name = name.intern();
+     
+      if (value != null)
+      {
+        if (_INTERN_VALUES_FOR.contains(name))
+        {
+          value = value.intern();
+        }
+        else
+        {
+          String internedValue =  _INTERNED_VALUES.get(value);
+         
+          if (internedValue != null)
+          {
+            value = internedValue;
+          }
+        }
+      }
+     
+      _value = value;
+    }
 
   /**
    * Implementation of PropertyNode.getName().
@@ -93,6 +116,107 @@ public class PropertyNode
       "[name="   + _name   + ", " +
       "value=" + _value + "]";
   }
+  
+  // map to the interned value for values that are common enough that we should intern them,
+  // but we can't always intern based purely on the property name.  A good example are
+  // proprties like vertical-align or cursor where there are many fixed values but the
+  // option to use a percentage or URL is also there
+  private static final Map<String, String> _INTERNED_VALUES = new HashMap<String, String>();
+
+  static
+  {
+    // initialize values that we should share
+    String[] internedValues = new String[]
+    {
+      "#000000",
+      "#FFFFFF",
+      "#ffffff",
+      "0",
+      "0%",
+      "0px",
+      "1",
+      "10%",
+      "100%",
+      "1px",
+      "1em",
+      "2",
+      "2px",
+      "3px",
+      "auto",
+      "4px",
+      "5px",
+      "50%",
+      "6px",
+      "7px",
+      "8px",
+      "9px",
+      "auto",
+      "baseline",
+      "black",
+      "bottom",
+      "center",
+      "center center",
+      "crosshair",
+      "default",
+      "e-resize",
+      "gray",
+      "help",
+      "inherit",
+      "left",
+      "middle",
+      "move",
+      "n-resize",
+      "ne-resize",
+      "nw-resize",
+      "none",
+      "pointer",
+      "progress",
+      "right",
+      "s-resize",
+      "se-resize",
+      "sub",
+      "super",
+      "sw-resize",
+      "text",
+      "text-bottom",
+      "text-top",
+      "top",
+      "transparent",
+      "w-resize",
+      "wait",
+      "white"
+    };
+   
+    for (int i = 0; i < internedValues.length; i++)
+    {
+      String internedValue = internedValues[i];
+     
+      _INTERNED_VALUES.put(internedValue, internedValue);
+    }
+  }
+ 
+  // property names that we should always intern the values for because they are either
+  // enumerations or are repeated often (font-family)
+  private static final Set<String> _INTERN_VALUES_FOR = new HashSet<String>(
+    Arrays.asList("-moz-box-sizing",
+                  "background-repeat",
+                  "border-style",
+                  "display",
+                  "float",
+                  "font-family",
+                  "font-style",
+                  "font-weight",
+                  "list-style-position",
+                  "list-style-type",
+                  "overflow",
+                  "overflow-x",
+                  "overflow-y",
+                  "position",
+                  "text-align",
+                  "text-decoration",
+                  "transparent",
+                  "visibility",
+                  "white-space"));
 
   private final String _name;
   private final String _value;

@@ -102,7 +102,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -268,6 +274,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -846,7 +858,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="dateidmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="dateidyear"
@@ -1012,6 +1030,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="dateidyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -1591,7 +1615,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -1757,6 +1787,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -2336,7 +2372,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -2502,6 +2544,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -3081,7 +3129,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -3247,6 +3301,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -3826,7 +3886,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -3992,6 +4058,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -4571,7 +4643,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -4737,6 +4815,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -5316,7 +5400,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -5482,6 +5572,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -6061,7 +6157,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -6227,6 +6329,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -6806,7 +6914,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -6972,6 +7086,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -7551,7 +7671,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -7717,6 +7843,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -8296,7 +8428,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -8462,6 +8600,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -9041,7 +9185,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -9207,6 +9357,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -9786,7 +9942,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -9952,6 +10114,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"
@@ -10531,7 +10699,13 @@
                   >
                 December
               </option>
-            </select>&#160;
+            </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdmonth"
+                >
+              Choose month
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -10697,6 +10871,12 @@
                 After 2019
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainIdyear"
+                >
+              Choose year
+            </label>
           </td>
           <td
                align="right"

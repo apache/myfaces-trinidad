@@ -49,7 +49,7 @@ import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableDecimalFormatContext;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext;
 import org.apache.myfaces.trinidadinternal.skin.RequestSkinWrapper;
@@ -425,12 +425,12 @@ public class CoreRenderingContext extends RenderingContext
   }
 
   /**
-   * Return the default skin family, which is "minimal" for the
+   * Return the default skin family, which is "casablanca" for the
    * core renderkit.
    */
   protected String getDefaultSkinFamily()
   {
-    return "minimal";
+    return TrinidadRenderingConstants.CASABLANCA_SKIN_FAMILY;
   }
 
 
@@ -606,22 +606,25 @@ public class CoreRenderingContext extends RenderingContext
     FacesContext   context,
     RequestContext afContext)
   {
-    // get skinFamily
+    // get skin-family
     String skinFamily = afContext.getSkinFamily();
     if (skinFamily == null)
       skinFamily = getDefaultSkinFamily();
+    
+    // get skin-version
+    String skinVersionString = afContext.getSkinVersion();
 
     // get renderKitId, default is desktop renderKit
-    String renderKitId = XhtmlConstants.APACHE_TRINIDAD_DESKTOP;
+    String renderKitId = TrinidadRenderingConstants.APACHE_TRINIDAD_DESKTOP;
     if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()))
     {
-      renderKitId = XhtmlConstants.APACHE_TRINIDAD_PORTLET;
+      renderKitId = TrinidadRenderingConstants.APACHE_TRINIDAD_PORTLET;
     }
     else if (TrinidadAgent.TYPE_PDA == _agent.getAgentType())
     {
       // =-=jmw @todo when we have proper renderKitId switching, I can
       // get rid of this bit of code. Should we use getViewRoot().getRenderKitId() instead?
-      renderKitId = XhtmlConstants.APACHE_TRINIDAD_PDA;
+      renderKitId = TrinidadRenderingConstants.APACHE_TRINIDAD_PDA;
     }
 
 
@@ -632,7 +635,7 @@ public class CoreRenderingContext extends RenderingContext
       return;
     }
 
-    Skin skin = factory.getSkin(null, skinFamily, renderKitId);
+    Skin skin = factory.getSkin(context, skinFamily, renderKitId, skinVersionString);
 
     if (skin == null)
     {

@@ -1,0 +1,122 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.	   
+-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                xmlns:trd="http://localhost:8080/trinidad-demo"
+                template="/template/componentsShowCaseTemplate.xhtml">
+
+    <ui:define name="componentContent">
+
+        <tr:subform>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td align="left" width="70%">
+                        <h1>
+                            #{navigationHandler.currentComponentVariantDemo.title}
+                        </h1>
+                    </td>
+                    <td align="right" width="25%">
+                        <tr:statusIndicator>
+                            <f:facet name="busy">
+                                <tr:outputText value="Loading, please wait..." inlineStyle="color: #cc3300;"/>
+                            </f:facet>
+                        </tr:statusIndicator>
+                    </td>
+                    <td align="right" width="5%" style="padding-right: 12px">
+                        <tr:statusIndicator/>
+                    </td>
+                </tr>
+            </table>
+        </tr:subform>
+      
+        <tr:panelGroupLayout layout="vertical" inlineStyle="margin-top: 22px;" styleClass="rightColumn">
+
+            <tr:subform>
+                <h:panelGrid columns="2" width="100%" style="width: 100%;" cellpadding="0" cellspacing="0"
+                             columnClasses="#{navigationHandler.currentComponentDemo.columnStyleClassNames}">
+
+                    <tr:panelBox text="Component Demo" inlineStyle="width: 100%">
+                        <ui:insert name="demoContent"/>
+                    </tr:panelBox>
+
+                    <tr:panelBox text="Variant" inlineStyle="width: 100%;"
+                                 rendered="#{navigationHandler.currentComponentDemo.supportsMultipleVariants}"
+                                 styleClass="component_variations af_panelBox_light">
+                        <tr:navigationPane hint="list" var="aComponentVariant"
+                                           value="#{navigationHandler.currentComponentDemo.variants}">
+                            <f:facet name="nodeStamp">
+                                <tr:commandNavigationItem text="#{aComponentVariant.variantDisplayName}"
+                                                          selected="#{navigationHandler.componentVariantDemoSelected[aComponentVariant]}"
+                                                          destination="#{aComponentVariant.destination}">
+                                </tr:commandNavigationItem>
+                            </f:facet>
+                        </tr:navigationPane>
+                    </tr:panelBox>
+
+                </h:panelGrid>
+            </tr:subform>
+
+            <tr:subform>
+                <h2 class="page">Sumary</h2>
+                <ui:include src="#{navigationHandler.currentComponentVariantDemo.summaryResourcePath}"/>
+                <tr:spacer height="10px"/>
+                <tr:panelGroupLayout rendered="#{navigationHandler.currentComponentDemo.tagDocumentationLink != null ||
+                                                    navigationHandler.currentComponentDemo.skinDocumentationLink != null}">
+                    <div style="background:#F6F4F0; border: 1px solid #BBB1AA; padding:5px;">
+                        <tr:outputText value="Read more on MyFaces: "/>
+                        <tr:goLink text="Tag Documentation" destination="#{navigationHandler.currentComponentDemo.tagDocumentationLink}"
+                                   targetFrame="_blank" rendered="#{navigationHandler.currentComponentDemo.tagDocumentationLink != null}"/>
+                        <tr:outputText value=" | " rendered="#{(navigationHandler.currentComponentDemo.tagDocumentationLink != null) and
+                                                             (navigationHandler.currentComponentDemo.skinDocumentationLink != null)}"/>
+                        <tr:goLink text="Skinning Key Documentation" destination="#{navigationHandler.currentComponentDemo.skinDocumentationLink}"
+                                   targetFrame="_blank" rendered="#{navigationHandler.currentComponentDemo.skinDocumentationLink != null}"/>
+                    </div>
+                </tr:panelGroupLayout>
+            </tr:subform>
+
+            <tr:subform>
+                <div class="samples">
+                    <h2 class="page">Code samples</h2>
+                    <tr:panelTabbed position="above">
+
+                        <c:forEach items="#{navigationHandler.currentComponentVariantDemo.jsfResourcePaths}" var="aJsfPath">
+                            <tr:showDetailItem text="JSF Page">
+                                <trd:outputSource value="#{aJsfPath}"
+                                                  styleClass="sourceCode" styleUsage="xml"/>
+                            </tr:showDetailItem>
+                        </c:forEach>
+
+                        <tr:showDetailItem text="Backing Beans" rendered="#{!navigationHandler.currentComponentVariantDemo.static}">
+                            <trd:outputSource value="#{navigationHandler.currentComponentVariantDemo.backingBeanResourcePath}"
+                                              pathPrefix="/WEB-INF/src" styleClass="sourceCode" styleUsage="java"/>
+                        </tr:showDetailItem>
+                    </tr:panelTabbed>
+                </div>
+            </tr:subform>
+
+        </tr:panelGroupLayout>
+
+    </ui:define>
+
+</ui:composition>

@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Nu s-a putut încărca {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Nu se poate instanţia UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Fişierul nu a putut fi încărcat, deoarece este prea mare.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad rulează în modul Depanare. Nu utilizaţi într-un mod de producţie. Consultaţi: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">Elementul {0} nu acceptă expresiile EL.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">Elementul {0} acceptă numai valori întregi</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">Elementul {0} acceptă numai valori lungi</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Nu s-a putut găsi programul de încărcare al clasei de contexte.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -259,6 +263,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Nu se poate prelua resursa {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad rulează cu un javascript de depanare. Nu utilizaţi într-un mediu de producţie. Examinaţi parametrul &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; din /WEB-INF/web.xml</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Mediul dvs. este configurat ca producţie iar Apache Trinidad rulează cu un javascript de depanare. Examinaţi parametrul &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; din /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Mediul dvs. este configurat ca producţie, iar Apache Trinidad rulează cu un CSS decomprimat. Consultaţi parametrul &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; din /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Mediul dvs. este configurat ca producţie, iar Apache Trinidad rulează cu debug-output TRUE. Examinaţi parametrul &quot;debug-output&quot; din fişierul trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Valoare ilegală: {0} pentru {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +311,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Se ignoră proprietăţile {0} deoarece nu există nici un selector corespondent.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Eroare la citirea din fişierul css pentru culori</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Eroare la citirea din fişierul css pentru schema de culori. În selector există o virgulă în plus: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Nu se pot adăuga culori cu ID skinID nul sau culori nule</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Schema de culori adăugată anterior, {0}, a fost adăugată din nou. Dacă aţi memorat în cache această schemă de culori în aplicaţia dvs., este posibil să obţineţi rezultate inconsecvente. Verificaţi dacă există fişiere trinidad-skins.xml duplicate în classpath.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nu se pot prelua culorile cu ID-ul skinId nul</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Nu se pot găsi culori care să corespundă familiei {0} şi kitului de randare {1}, astfel încât se vor utiliza culori simple</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">S-au găsit culori care corespund familiei {0} şi versiunii {1}. Vom utiliza culorile {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Nu se pot găsi culori care să corespundă familiei {0} şi versiunii {1}. Vom utiliza culorile {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Nu se pot găsi culori fără versiune pt. familia {0}. Vom utiliza culorile cu versiune {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Nu s-a putut marcajul temporal al documentului cu foi de stiluri deoarece nu s-a putut deschide conexiunea.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">Selectorul de culori {0} nu este un obiect-pictogramă pentru culori din moment ce nu are un atribut de conţinut. Dacă aţi creat acest selector, redenumiţi-l astfel încât să se termine în &quot;stil&quot; în loc de &quot;pictogramă&quot;, astfel încât cadrul de lucru pentru culori să îl trateze ca stil, nu ca pictogramă.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} trebuie să fie înaintea tuturor celorlalte reguli.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Următoarele culori se extind reciproc în manieră circulară sau culorile extinse de acestea nu există: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -419,6 +443,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Elementul &apos;id&apos; obligatoriu nu a fost găsit.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Elementul obligatoriu &apos;family&apos; nu a fost găsit.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Elementul fiu obligatoriu pt. &apos;version&apos;, &apos;name&apos; nu a fost găsit.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Intrare de proprietate cu format greşit: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -721,4 +747,15 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ţară nevalidă pentru identificatorul variabilei locale {0} - codul de ţară trebuie să fie scris cu majuscule; pentru formatul corect, consultaţi documentaţia Java pentru variabile locale. Se va utiliza un şir gol pentru ţară</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variantă nevalidă pentru identificatorul variabilei locale {0} - nu poate să conţină caractere slash pentru a evita atacul XSS. Se va utiliza un şir gol pentru variantă.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Nu s-a putut şterge fişierul {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState trebuie să fie o instanţă a StateManager.SerializedView sau o matrice obiect cu lungimea 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Salvarea parţială a stării nu este acceptată încă. Setaţi context-param javax.faces.PARTIAL_STATE_SAVING ca fals în fişierul dvs. web.xml.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Eroare la serializarea {0}, atribut: {1} valoare:{2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Eroare de failover: {0}, atributul: {1} de tipul {2} nu este serializabil</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Eroare failover: Serializarea {0} atribut: {1} s-a schimbat de la {2} la {3} fără ca atributul să fie corupt.</resource>
 </resources>

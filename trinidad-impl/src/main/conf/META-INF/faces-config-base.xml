@@ -39,6 +39,12 @@
     <faces-context-factory>
       org.apache.myfaces.trinidadinternal.context.FacesContextFactoryImpl
     </faces-context-factory>
+    <view-declaration-language-factory>
+      org.apache.myfaces.trinidadinternal.application.ViewDeclarationLanguageFactoryImpl
+    </view-declaration-language-factory>
+    <partial-view-context-factory>
+      org.apache.myfaces.trinidadinternal.context.PartialViewContextFactoryImpl
+    </partial-view-context-factory>
   </factory>
 
   <lifecycle>

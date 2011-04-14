@@ -1,0 +1,47 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    The panelPopup is used to place ancillary information on a page, made visible via a clickable link (e.g icon or link).
+
+    <br/>
+
+    The text attribute or 'trigger' facet is used to define the clickable area of the page.
+    When clicked a floating panel is made visible containing the child components. If the title attribute is present,
+    then a title bar (including the title) will be rendered for the popup panel. 
+
+    <br/>
+
+    The position attribute of popupPanel can be used to control the location of the panel when visible. 
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="You can make changes to the style of the content region of this component by adding your
+        custom styles to the contentStyle attribute. "/>
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="Content containers will generally have only one child with the actual contents as its
+        children. This child will describe how the content should be displayed. However, the content container can have
+        multiple children, in which case the children are displayed in a stack fashion, lined up vertically."/>
+    
+</ui:composition>

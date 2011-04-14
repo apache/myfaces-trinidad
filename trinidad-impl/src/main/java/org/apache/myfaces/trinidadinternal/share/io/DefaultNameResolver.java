@@ -25,6 +25,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.MalformedURLException;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidad.share.io.NameResolver;
+
+
 
 /**
  * Default implementation of NameResolver.  This class

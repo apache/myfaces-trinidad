@@ -27,6 +27,9 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+
 import javax.el.MethodExpression;
 
 import javax.faces.component.UIComponent;
@@ -40,7 +43,6 @@ import org.apache.myfaces.trinidad.event.FocusEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeListener;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-import org.apache.myfaces.trinidad.model.TreeModel;
 
 /**
  * Base class for TreeTable component. The behaviours implemented by the
@@ -274,19 +276,36 @@ abstract public class UIXTreeTableTemplate extends UIXTree
    */
   // TODO cache the result.
   @Override
-  @SuppressWarnings("unchecked")
-  protected final List getStamps()
+  protected final List<UIComponent> getStamps()
   {
+    
     List<UIComponent> children = getChildren();
-    UIComponent nodeStamp = getNodeStamp();
-    if (nodeStamp != null)
+    List<UIComponent> stamps;
+    
+    if (children.isEmpty())
     {
-      List<UIComponent> stamps = new ArrayList<UIComponent>(children.size() + 1);
-      stamps.addAll(children);
-      stamps.add(nodeStamp);
-      return stamps;
+      // no children, so use Node stamps as the stamp
+      stamps = super.getStamps();
     }
-    return children;
+    else
+    {
+      UIComponent nodeStamp = getNodeStamp();
+      
+      if (nodeStamp == null)
+      {
+        // no node stamp, so stamp, is only the children
+        stamps = children;
+      }
+      else
+      {
+        // stamps are the children plus the node stamp
+        stamps = new ArrayList<UIComponent>(children.size() + 1);
+        stamps.addAll(children);
+        stamps.add(nodeStamp);
+      }
+    }
+    
+    return stamps;
   }
 
   /**
@@ -326,25 +345,25 @@ abstract public class UIXTreeTableTemplate extends UIXTree
 
   @SuppressWarnings("unchecked")
   @Override
-  protected final void processFacetsAndChildren(
+  protected void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)
   {
     // process all the facets of this hgrid just once
     // (except for the "nodeStamp" facet which must be processed once
     // per row):
-    TableUtils.__processFacets(context, this, this, phaseId,
+    TableUtils.processFacets(context, this, this, phaseId,
       UIXTreeTable.NODE_STAMP_FACET);
 
     UIComponent nodeStamp = getNodeStamp();
     // process any facets of the nodeStamp column:
-    TableUtils.__processFacets(context, this, nodeStamp, phaseId, null);
+    TableUtils.processFacets(context, this, nodeStamp, phaseId, null);
 
     // process all the facets of this table's column children:
-    TableUtils.__processColumnFacets(context, this, this, phaseId);
+    TableUtils.processColumnFacets(context, this, this, phaseId);
 
     // recursively process any grandchild columns of the nodeStamp column:
-    TableUtils.__processColumnFacets(context, this, nodeStamp, phaseId);
+    TableUtils.processColumnFacets(context, this, nodeStamp, phaseId);
 
     Object oldPath = getRowKey();
     RowKeySet state = getDisclosedRowKeys();
@@ -363,7 +382,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
       }
       else
       {
-        TableUtils.__processStampedChildren(context, this, phaseId);
+        TableUtils.processStampedChildren(context, this, phaseId);
         processComponent(context, nodeStamp, phaseId); // bug 4688568
   
         if (state.isContained())
@@ -381,6 +400,80 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     {
       setRowKey(oldPath);
     }
+  }
+
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // need to override to do the default since our superclass
+    // UIXTree does stuff here we don't want
+    return defaultVisitChildren(visitContext, callback);
+  }
+
+  @Override
+  protected boolean visitUnstampedFacets(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // Visit the facets except for the node stamp
+    int facetCount = getFacetCount();
+    
+    if (facetCount > 0)
+    {
+      UIComponent nodeStamp = getNodeStamp();
+      
+      // if our only facet is the node stamp, we don't need to do this
+      if ((facetCount > 1) || (nodeStamp == null))
+      {
+        for (UIComponent facet : getFacets().values())
+        {
+          // ignore the nodeStamp facet, since it is stamped
+          if (facet != nodeStamp)
+          {
+            if (UIXComponent.visitTree(visitContext, facet, callback))
+            {
+              return true;
+            }
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
+  @Override
+  protected boolean visitData(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    Object focusedPath = getFocusRowKey();
+    Object oldRowKey = null;
+    
+    // start from the focused area
+    if (focusedPath != null)
+    {
+      oldRowKey = getRowKey();
+      setRowKey(focusedPath);
+    }
+    
+    boolean done;
+    
+    try
+    {
+      done = super.visitData(new NoColumnFacetsVisitContext(visitContext), callback);
+    }
+    finally
+    {
+      if (focusedPath != null)
+      {
+        setRowKey(oldRowKey);
+      }
+    }
+    
+    return done;
   }
 
   /**

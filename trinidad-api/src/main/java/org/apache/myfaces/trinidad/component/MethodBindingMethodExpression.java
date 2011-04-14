@@ -34,7 +34,6 @@ import javax.faces.el.MethodBinding;
 class MethodBindingMethodExpression
   extends MethodExpression implements Serializable
 {
-
   // TODO implement serialization correctly?
   public MethodBindingMethodExpression(MethodBinding binding)
   {
@@ -48,7 +47,7 @@ class MethodBindingMethodExpression
 
   public MethodInfo getMethodInfo(ELContext context)
   {
-    Class type = _binding.getType(FacesContext.getCurrentInstance());
+    Class<?> type = _binding.getType(FacesContext.getCurrentInstance());
     return new MethodInfo(null, type, null);
   }
 
@@ -92,4 +91,5 @@ class MethodBindingMethodExpression
   }
 
   private final MethodBinding _binding;
+  private static final long serialVersionUID = 1L;
 }

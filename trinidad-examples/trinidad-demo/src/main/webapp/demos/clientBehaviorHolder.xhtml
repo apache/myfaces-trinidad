@@ -69,7 +69,7 @@ function handleBlur(event)
               </tr:commandButton>
               <tr:commandButton id="cb2" text="Submit via JSF Ajax">
                 <trd:invokeFunctionBehavior function="checkPrevent" />
-                <f:ajax render="it2" />
+                <f:ajax render="it2" execute="it1" />
               </tr:commandButton>
             </tr:panelFormLayout>
           </tr:panelHeader>

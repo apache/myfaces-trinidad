@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.el.MethodExpression;
 
@@ -303,21 +302,21 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   }
 
   @Override
-  protected final void processFacetsAndChildren(
+  protected void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)
   {
     // process all the facets of this table just once
     // (except for the "detailStamp" facet which must be processed once
     // per row):
-    TableUtils.__processFacets(context, this, this, phaseId,
+    TableUtils.processFacets(context, this, this, phaseId,
       UIXTable.DETAIL_STAMP_FACET);
 
     // process all the facets of this table's column children:
-    TableUtils.__processColumnFacets(context, this, this, phaseId);
+    TableUtils.processColumnFacets(context, this, this, phaseId);
 
     // process all the children and the detailStamp as many times as necessary
-    _processStamps(context, phaseId);
+    processStamps(context, phaseId);
   }
 
   /**
@@ -380,8 +379,12 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     CollectionModel current,
     Object value)
   {
-    CollectionModel model = super.createCollectionModel(current, value);
-
+    return super.createCollectionModel(current, value);
+  }
+  
+  @Override
+  protected void postCreateCollectionModel(CollectionModel model)
+  {
     RowKeySet selectedRowKeys = getSelectedRowKeys();
 
     if (selectedRowKeys == null)
@@ -405,9 +408,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     if (_sortCriteria != null)
     {
       model.setSortCriteria(_sortCriteria);
-    }
-
-    return model;
+    }    
   }
 
   /**
@@ -443,7 +444,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     setDisclosedRowKeys((RowKeySet) state[5]);
   }
 
-  private void _processStamps(
+  protected void processStamps(
     FacesContext context,
     PhaseId phaseId)
   {
@@ -461,12 +462,15 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       for (int i = startIndex; i <= endIndex; i++)
       {
         setRowIndex(i);
-        TableUtils.__processStampedChildren(context, this, phaseId);
-
-        if ((disclosureState != null) && disclosureState.isContained())
+        if (isRowAvailable())
         {
-          assert getRowIndex() == i;
-          processComponent(context, detail, phaseId);
+          TableUtils.processStampedChildren(context, this, phaseId);
+  
+          if ((disclosureState != null) && disclosureState.isContained())
+          {
+            assert getRowIndex() == i;
+            processComponent(context, detail, phaseId);
+          }
         }
       }
 
@@ -546,6 +550,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
             RowKeySet rowKeys = (RowKeySet) value;
             // row key sets need the most recent collection model, but there is no one common entry
             // point to set this on the set besides when code asks for the value from the bean
+            __flushCachedModel();  //insist that we populate with the very lastest instance of the collection model
             rowKeys.setCollectionModel(getCollectionModel());
           }
           finally
@@ -567,6 +572,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
             RowKeySet rowKeys = (RowKeySet) value;
             // row key sets need the most recent collection model, but there is no one common entry
             // point to set this on the set besides when code asks for the value from the bean
+            __flushCachedModel();  //insist that we populate with the very lastest instance of the collection model
             rowKeys.setCollectionModel(getCollectionModel());
           }
           finally

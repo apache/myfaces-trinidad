@@ -150,6 +150,12 @@
               >
             
           </input>
+          <label
+               class="p_OraHiddenLabel"
+               for="mainId"
+              >
+            test-label
+          </label>
         </span>
       </span>
 <!--AttributeTest[group,secondGroup]-->
@@ -360,6 +366,12 @@
               >
             
           </input>
+          <label
+               class="p_OraHiddenLabel"
+               for="mainId"
+              >
+            test-shortDesc
+          </label>
         </span>
       </span>
 <!--AttributeTest[onblur,null]-->

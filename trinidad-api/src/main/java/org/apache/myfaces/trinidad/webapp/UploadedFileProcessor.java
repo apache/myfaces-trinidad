@@ -24,8 +24,10 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
 
 /**
  * Interface responsible for processing file uploads.  An Apache Trinidad
- * application has a single <code>UploadedFileProcessor</code> instance.
- * It is accessible from the {@link org.apache.myfaces.trinidad.context.RequestContext},
+ * application has a single <code>UploadedFileProcessor</code> instance. For
+ * more simpler, multiple chained UploadedFileProcessor option please look at
+ * {@link  org.apache.myfaces.trinidad.webapp.ChainedUploadedFileProcessor}.
+ * UploadedFileProcessor is accessible from the {@link org.apache.myfaces.trinidad.context.RequestContext},
  * but will be invoked automatically by the framework as needed.  Developers
  * can replace the standard processor using the
  * <code>trinidad-config.xml</code> file.
@@ -106,6 +108,19 @@ public interface UploadedFileProcessor
    *  must remain valid for the duration of this request.  The framework
    *  guarantees that {@link UploadedFile#dispose}</code> will be called before
    *  the request completes.
+   *  </p>
+   *  <p>
+   *  If any implementation of this method throws an IOException, it is considered that there is a 
+   *  error in processing the uploaded file, and the message contained in the IOException is shown 
+   *  to the user as a value conversion warning.
+   *  If the processing failure is less severe, and if the failure need to be meaningfully reported 
+   *  to the end users, the length of the returned UploadedFile should be set to -1, and its 
+   *  getOpaqueData() should provide the error details. The object returned by getOpaqueData() 
+   *  should implement a toString() that returns a detailed error message. During the JSF life cycle 
+   *  later, the input file component would show this message as value conversion warning to the 
+   *  user.
+   *  @see UploadedFile#getLength()
+   *  @see UploadedFile#getOpaqueData()
    *  </p>
    * @param request the current servlet or portlet request
    * @param file a temporary file object

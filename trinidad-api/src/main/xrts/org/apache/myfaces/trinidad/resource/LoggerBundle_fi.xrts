@@ -125,9 +125,11 @@
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Virheellinen indeksi</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Lisätään alitason kohde, kun samaa tunnusta käyttävä alitason kohde on jo olemassa. Aiempi alitason kohde poistetaan ja uusi lisätään. {0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Muutoshallintaohjelma ei onnistunut käyttämään AddChildComponentChange-kohdetta, koska samalla tunnuksella on jo olemassa alikomponentti. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Solmua ei ole määritetty</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Iteroijan sisältämää leimattua komponenttia ei pitäisi tehdä pysyväksi.</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Komponentti tarvitaan</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -156,6 +158,8 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">AddFacetChange-kohdetta ei voi muodostaa, kun facetName tai facetComponent on tyhjä.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Tahon nimi on määritettävä</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">Muutoshallintaohjelma ei onnistunut käyttämään SetFacetChildComponentChange-kohdetta, koska samalla nimellä on jo olemassa taho. {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Siirrettävä alitason komponentti on pakollinen.</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -168,6 +172,8 @@
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Siirrettävää alitason kohdetta ei löydy: {0}.</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
 <resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Kohdesäilöä ei löydy: {0}.</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">Kohdesäilöstä löytyi toinen komponentti, jolla on sama tunnus. Siirtotoiminto keskeytettiin: {0}.</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Komponenttia tai solmua, jonka edelle kohde lisätään, ei löydy: {0}.</resource>
 <!-- INDEX_SIZE -->
@@ -308,4 +314,10 @@
 <resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">Portlet-muokkausparametreja ei voi määrittää virheellisen heijastuksen vuoksi</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">&quot;{0}&quot;:n tyyppi estää sen vertaamisen &quot;{1}&quot;:een.</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">Sivun tilan zip-pakkaus epäonnistui. Tilan voi zip-pakata vain, jos tila on sarjoitettu. Sivun tilan pakkaus epäonnistuukin usein siksi, ettei tilaa ole sarjoitettu. Voit poistaa zip-pakkauksen käytöstä määrittämällä ominaisuuden org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE arvoksi epätosi. Järjestelmäominaisuuden org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION ohjeissa on lisätietoja sarjoituksen testaamisesta.</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">Sivun tilan zip-pakkauksen purku epäonnistui.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">GetClientId:tä ei pitäisi kutsua, kun näkymää muodostutaan. Komponentin tunnus: {0}</resource>
 </resources>

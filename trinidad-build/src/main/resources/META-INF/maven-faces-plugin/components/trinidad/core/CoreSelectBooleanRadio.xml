@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
@@ -215,10 +215,10 @@ tip), and may use simpler layout primitives]]>
       <mfp:author>Brian Albers</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>selectBooleanRadio</mfp:uix2-local-name>
-      <fmd:default-event-name>change</fmd:default-event-name>
-      <fmd:event-names>change click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup focus blur valueChange</fmd:event-names>
       <fmd:component-metadata>
+        <fmd:default-event-name>change</fmd:default-event-name>
+        <fmd:event-names>change click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup focus blur valueChange</fmd:event-names>
         <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
         <fmd:expert>true</fmd:expert>
         <fmd:default-property>text</fmd:default-property>

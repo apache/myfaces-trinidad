@@ -258,6 +258,11 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    * Application constant for voice
    */
   static public final int TYPE_VOICE = 3;
+  
+  /**
+   * Application constant for web crawlers
+   */
+  static public final int TYPE_WEBCRAWLER = 4;
 
   /**
    * Enumeration representing an Application
@@ -336,7 +341,19 @@ public abstract class TrinidadAgent implements Agent, Cloneable
     /**
      * Application enum for opera.
      */
-    OPERA("opera", AGENT_OPERA);
+    OPERA("opera", AGENT_OPERA),
+    /**
+     * Application enum for Google web crawler.
+     */
+    GOOGLEBOT("googlebot", AGENT_GOOGLEBOT),
+    /**
+     * Application enum for Bing web crawler.
+     */
+    MSNBOT("msnbot", AGENT_MSNBOT),
+    /**
+     * Application enum for Oracle SES.
+     */
+    ORACLE_SES("oracle_ses", AGENT_ORACLE_SES);
 
     /**
      * Return the appropriate Application instance given the name of an Application
@@ -525,6 +542,21 @@ public abstract class TrinidadAgent implements Agent, Cloneable
   static public final int APPLICATION_OPERA = Application.OPERA.ordinal();
   
   /**
+   * Application constant for Google web crawler.
+   */
+  static public final int APPLICATION_GOOGLEBOT = Application.GOOGLEBOT.ordinal();
+  
+  /**
+   * Application constant for Bing web crawler.
+   */
+  static public final int APPLICATION_MSNBOT = Application.MSNBOT.ordinal();
+  
+  /**
+   * Application constant for Oracle SES.
+   */
+  static public final int APPLICATION_ORACLE_SES = Application.ORACLE_SES.ordinal();
+  
+  /**
    * OS constant for an unknown operating system.
    */
   static public final int OS_UNKNOWN = 0;
@@ -578,8 +610,12 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    * OS constant for generic PDA
    */
   static public final int OS_GENERICPDA   = 10;
-
-
+  
+  /**
+   * OS constant for Android
+   */
+  static public final int OS_ANDROID  = 11;
+  
   /**
    * Name Constant for Netfront agent
    */
@@ -645,7 +681,7 @@ public abstract class TrinidadAgent implements Agent, Cloneable
   public static final String SKIN_GENERIC_PDA = "genericpda";
   
   /* 
-   * Skin family for all Safari browsers running in iPhones/iPod
+   * Skin family for all Safari browsers running in the iOS platform (iPhones/iPod/iPad)
    */
   public static final String SKIN_WEBKIT_IPHONE = "iPhonewebkit";
   

@@ -77,6 +77,7 @@ public class XhtmlScriptletFactory
     ConfigurationScriptlet.sharedInstance().registerSelf();
     GlobalVariablesScriptlet.sharedInstance().registerSelf();
     DialogStyleScriptlet.sharedInstance().registerSelf();
+    PanelBorderIE6Scriptlet.sharedInstance().registerSelf();
   }
 
 

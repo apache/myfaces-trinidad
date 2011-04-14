@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
@@ -279,10 +279,10 @@ and assigning initial page focus.
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>body</mfp:uix2-local-name>
-      <fmd:default-event-name>load</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup load unload</fmd:event-names>
       <fmd:component-metadata>
+        <fmd:default-event-name>load</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup load unload</fmd:event-names>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CorePanelPage org.apache.myfaces.trinidad.CoreForm</fmd:preferred-child-components>
         <fmd:required-ancestor-contracts>org-apache-myfaces-trinidad-htmlbody-holder</fmd:required-ancestor-contracts>
       </fmd:component-metadata>

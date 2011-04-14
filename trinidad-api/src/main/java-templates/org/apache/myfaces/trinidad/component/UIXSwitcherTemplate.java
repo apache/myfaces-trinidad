@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,6 +21,9 @@ package org.apache.myfaces.trinidad.component;
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
 import javax.faces.context.FacesContext;
 
 
@@ -57,7 +60,6 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
       facet.processValidators(context);
   }
 
-
   /**
    * Only process updates on the currently active facet.
    */
@@ -78,16 +80,42 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
     final ComponentProcessor<S> childProcessor,
     final S callbackContext) throws IOException
   {
-    UIComponent facet = _getFacet();
-    
-    if (facet != null)
-      return UIXComponent.processFlattenedChildren(context,
-                                                   cpContext,
-                                                   childProcessor,
-                                                   facet,
-                                                   callbackContext);
-    else
-      return false;
+    setupVisitingContext(context);
+
+    boolean abort;
+
+    try
+    {
+      UIComponent facet = _getFacet();
+
+      if (facet != null)
+      {
+        setupChildrenVisitingContext(context);
+
+        try
+        {
+          abort = UIXComponent.processFlattenedChildren(context,
+                                                        cpContext,
+                                                        childProcessor,
+                                                        facet,
+                                                        callbackContext);
+        }
+        finally
+        {
+          tearDownChildrenVisitingContext(context);
+        }
+      }
+      else
+      {
+        abort = false;
+      }
+    }
+    finally
+    {
+      tearDownChildrenVisitingContext(context);
+    }
+
+    return abort;
   }
 
   /**
@@ -109,9 +137,10 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
   {
     UIComponent facet = _getFacet();
     if (facet != null)
-      __encodeRecursive(context, facet);
+    {
+      facet.encodeAll(context);
+    }
   }
-
 
   /**
    * Override to return true.
@@ -120,6 +149,26 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
   public boolean getRendersChildren()
   {
     return true;
+  }
+
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    if (visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED))
+    {
+      UIComponent facet = _getFacet();
+      if (facet != null)
+      {
+        return facet.visitTree(visitContext, callback);
+      }
+      return false;
+    }
+    else
+    {
+      return super.visitChildren(visitContext, callback);
+    }
   }
 
   private UIComponent _getFacet()
@@ -141,7 +190,6 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
 
     return null;
   }
-
 }
 
 

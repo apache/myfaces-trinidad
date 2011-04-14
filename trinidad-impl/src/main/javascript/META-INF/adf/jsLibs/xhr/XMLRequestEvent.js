@@ -25,11 +25,15 @@
  */
 function TrXMLRequestEvent(
   status,
-  request
+  request,
+  source,
+  formId
   )
 {
   this._status = status;
   this._request = request;
+  this._source = source;
+  this._formId = formId;
 }
 
 TrXMLRequestEvent.STATUS_QUEUED = 1;
@@ -37,9 +41,19 @@ TrXMLRequestEvent.STATUS_SEND_BEFORE = 2;
 TrXMLRequestEvent.STATUS_SEND_AFTER = 3;
 TrXMLRequestEvent.STATUS_COMPLETE = 4;
 
+TrXMLRequestEvent.prototype.getFormId = function()
+{
+  return this._formId;
+}
+
 TrXMLRequestEvent.prototype.getStatus = function()
 {
   return this._status;
+}
+
+TrXMLRequestEvent.prototype.getSource = function()
+{
+  return this._source;
 }
 
 /**
@@ -148,3 +162,11 @@ TrXMLRequestEvent.prototype.getResponseContentType = function()
 {
   this.getResponseHeader("Content-Type");
 }
+
+/**
+ * Returns if the request was made by the built in JSF AJAX APIs
+ */
+TrXMLRequestEvent.prototype.isJsfAjaxRequest = function()
+{
+  return (this._request instanceof TrXMLJsfAjaxRequest);
+};

@@ -36,10 +36,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.component.UIXComponent;
-import org.apache.myfaces.trinidad.component.visit.VisitCallback;
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
-import org.apache.myfaces.trinidad.component.visit.VisitHint;
-import org.apache.myfaces.trinidad.component.visit.VisitResult;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+import javax.faces.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
@@ -378,8 +378,6 @@ public class PartialPageContextImpl extends PartialPageContext
     {
       // First sure that we should visit this component - ie.
       // that this component is represented in our id set.
-      String clientId = _getVisitId(component);
-
       VisitResult result;
      
       if (component instanceof UIXComponent)
@@ -422,33 +420,11 @@ public class PartialPageContextImpl extends PartialPageContext
     public Set<VisitHint> getHints()
     {
       return _PPR_VISIT_HINTS;
-    }
-
-    // Tests whether the specified component should be visited.
-    // If so, returns its client id.  If not, returns null.
-    private String _getVisitId(UIComponent component)
-    {
-      // We first check to see whether the component's id
-      // is in our id collection.  We do this before checking
-      // for the full client id because getting the full client id
-      // is more expensive than just getting the local id.
-      String id = component.getId();
-
-      if ((id != null) && !_targetIds.contains(id))
-        return null;
-
-      // The id was a match - now check the client id.
-      // note that client id should never be null (should be
-      // generated even if id is null, so asserting this.)
-      String clientId = component.getClientId(getFacesContext());
-      assert(clientId != null);
-
-      return _targets.containsKey(clientId) ? clientId : null;
-    }                                                                      
+    }                                                             
   }
 
-  private static final Set<VisitHint> _PPR_VISIT_HINTS = EnumSet.of(VisitHint.SKIP_UNRENDERED,
-                                                                    VisitHint.EXECUTE_LIFECYCLE);
+  private static final Set<VisitHint> _PPR_VISIT_HINTS = Collections.unmodifiableSet(
+                                                         EnumSet.of(VisitHint.SKIP_UNRENDERED, VisitHint.EXECUTE_LIFECYCLE));
   private final FacesContext _context;
   
   // if the value is TRUE, then this target has been rendered.  If false, it has yet to be rendered

@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">{0}をロードできませんでした</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">UploadedFileProcessorをインスタンス化できませんでした</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">ファイルが大きすぎるためアップロードできませんでした。</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidadがデバッグ・モードで実行中です。本番環境では使用しないでください。参照:{0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">要素{0}はEL式をサポートしません。</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">要素{0}は整数値のみを受け入れます</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">要素{0}はlong値のみを受け入れます</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">コンテキスト・クラス・ローダーが見つかりませんでした。</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -162,7 +166,7 @@
 <!-- MISSING_AT -->
 <resource key="MISSING_AT" dnt="false">{1}に&lt;{0}&gt;がありません</resource>
 <!-- EXCEPTION_AT -->
-<resource key="EXCEPTION_AT" dnt="false">{0}での例外</resource>
+<resource key="EXCEPTION_AT" dnt="false">{0}で例外</resource>
 <!-- RENDERER_INSTANTIATION_FAILED -->
 <resource key="RENDERER_INSTANTIATION_FAILED" dnt="false">レンダラ{0}のインスタンス化に失敗しました</resource>
 <!-- RENDERER_NOT_FOUND -->
@@ -198,7 +202,7 @@
 <!-- CANNOT_GET_STYLESHEET_CACHE -->
 <resource key="CANNOT_GET_STYLESHEET_CACHE" dnt="false">スタイルシート・キャッシュを取得できませんでした</resource>
 <!-- MODEL_NOT_SPECIFIED_FOR_CHART_COMPONENT -->
-<resource key="MODEL_NOT_SPECIFIED_FOR_CHART_COMPONENT" dnt="false">グラフ・コンポーネント用のモデルが指定されていません。</resource>
+<resource key="MODEL_NOT_SPECIFIED_FOR_CHART_COMPONENT" dnt="false">チャート・コンポーネント用のモデルが指定されていません。</resource>
 <!-- TRAIN_MUST_INSIDE_FORM -->
 <resource key="TRAIN_MUST_INSIDE_FORM" dnt="false">トレインはフォーム内で使用する必要があります</resource>
 <!-- NODESTAMP_FACET_NOT_FOUND_FOR_TRAIN -->
@@ -259,6 +263,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">リソース{0}を取得できません</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidadがdebug javascriptを使用して実行中です。本番環境では使用しないでください。/WEB-INF/web.xmlの&quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot;パラメータを参照してください</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">環境は本番として構成されています。Apache Trinidadがdebug javascriptを使用して実行中です。/WEB-INF/web.xmlの&quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot;パラメータを参照してください。</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">環境は本番として構成されています。Apache Trinidadがdebug javascriptを使用して実行中です。/WEB-INF/web.xmlの&quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot;パラメータを参照してください。</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">環境は本番として構成されています。Apache Trinidadがdebug-outputをTRUEにした状態で実行中です。trinidad-config.xmlファイルの\&quot;debug-output\&quot;要素を参照してください。</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">{1}の無効な値:{0}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -307,8 +317,18 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">nullのskinIdのスキンは取得できません</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">ファミリ{0}およびrenderkit {1}と一致するスキンが見つからないため、単純なスキンを使用します</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">ファミリ{0}およびバージョン{1}と一致するスキンが見つかりました。スキン{2}を使用します。</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">ファミリ{0}およびバージョン{1}と一致するスキンが見つかりません。スキン{2}を使用します。</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">ファミリ{0}のバージョニングされていないスキンが見つかりません。バージョニングされたスキン{1}を使用します。</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">接続を開けなかったためスタイルシート・ドキュメントのタイムスタンプを取得できませんでした。</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">スキン・セレクタ{0}は、コンテンツ属性がないため、スキン・アイコン・オブジェクトではありません。このセレクタを作成した場合、スキニング・フレームワークがiconではなくstyleとして処理するには、&quot;icon&quot;のかわりに&quot;style&quot;で終わるように名前を変更してください。</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0}はすべての他のルールの前にある必要があります。</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">次のスキンは相互に循環拡張しているか、拡張したスキンが存在しません:{0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -419,6 +439,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">必須要素&apos;id&apos;が見つかりません。</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">必須要素&apos;family&apos;が見つかりません。</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">&apos;version&apos;の必須の子要素&apos;name&apos;が見つかりません。</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">不正な形式のプロパティ・エントリ: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -721,4 +743,15 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">ロケール識別子{0}の国が無効です - 国コードは大文字である必要があります。正しい形式についてはロケールjavadocを参照してください。国には空の文字列が使用されます</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">ロケール識別子{0}のバリアントが無効です - XSS攻撃を回避するために、スラッシュを含めることはできません。バリアントには空の文字列が使用されます。</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">ファイル{0}を削除できませんでした</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IStateはStateManager.SerializedViewのインスタンス、または長さが2のオブジェクト配列である必要があります。</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">状態の部分的保存はまだサポートされていません。web.xmlでcontext-param javax.faces.PARTIAL_STATE_SAVINGをfalseに設定してください。</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">{0}の属性: {1} 値: {2}のシリアライズ化中にエラーが発生しました</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">フェイルオーバー・エラー: {0}のタイプ{2}の属性: {1}はシリアライズ化できません</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">フェイルオーバー・エラー: {0}の属性: {1}のシリアライズ化により、属性がダーティにされずに{2}から{3}に変更されました</resource>
 </resources>

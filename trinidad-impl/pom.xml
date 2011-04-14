@@ -73,6 +73,11 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.myfaces.buildtools</groupId>
+      <artifactId>myfaces-builder-annotations</artifactId>
+    </dependency>
+      
+    <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-build</artifactId>
     </dependency>
@@ -132,6 +137,41 @@
   <build>
     <plugins>
       <plugin>
+          <groupId>org.apache.myfaces.buildtools</groupId>
+          <artifactId>myfaces-builder-plugin</artifactId>
+          <executions>
+              <execution>
+                  <goals>
+                      <goal>build-metadata</goal>
+                  </goals>
+              </execution>
+              <!-- TODO: This execution uses myfaces-builder-plugin to generate
+              jsp tag classes. Note it only generates component tag classes, not
+              converter and validator ones (there are other goals on builder
+              plugin to do that). The generated stuff can be compared using a diff
+              tool against maven-faces-plugin generated files. For now the intention
+              is just test if myfaces-builder-plugin integration is working well and
+              it is possible to use it to generate custom components extending from
+              trinidad. See TRINIDAD-1409 for details. 
+              <execution>
+                <id>make_tags</id>
+                <configuration>
+                    <modelIds>
+                        <modelId>trinidad-api</modelId>
+                    </modelIds>
+                    <jsfVersion>20</jsfVersion>
+                    <templateTagName>trinidadTagClass20.vm</templateTagName>
+                    <packageContains>org.apache.myfaces.trinidadinternal</packageContains>
+                </configuration>
+                <goals>
+                    <goal>make-tags</goal>
+                </goals>
+              </execution>
+              -->
+          </executions>
+      </plugin>
+          
+      <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
         <configuration>
@@ -189,6 +229,48 @@
           </includes>
         </configuration>
       </plugin>
+
+      <!-- 
+          To make the current version of maven available through a property (maven.version),
+          the build-helper-maven-plugin can be used.
+      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>maven-version</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- 
+          To make the current revision number, we use the buildnumber-maven-plugin.
+      -->
+      <!--plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <version>1.0-beta-4</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>create</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <doCheck>false</doCheck>
+          <doUpdate>false</doUpdate>
+          <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+          <buildNumberPropertyName>scm.revision</buildNumberPropertyName>
+        </configuration>
+      </plugin-->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -198,6 +280,14 @@
              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
            </manifest>
+           <manifestEntries>
+             <Revision>${scm.revision}</Revision>
+             <Maven-Version>${maven.version}</Maven-Version>
+             <Java-Vendor>${java.vendor}</Java-Vendor>
+             <Os-Name>${os.name}</Os-Name>
+             <Os-Arch>${os.arch}</Os-Arch>
+             <Os-Version>${os.version}</Os-Version>
+           </manifestEntries>
          </archive>
        </configuration>
         <executions>

@@ -90,12 +90,11 @@ public class XmlHttpConfigurator extends Configurator
   {
     XmlResponseWriter rw = new XmlResponseWriter(writer, "UTF-8");
     rw.startDocument();
-    // Add another PI indicating that this is a rich response
-    // FIXME: this code is duplicated in PPRResponseWriter - fix that
-    rw.write("<?Tr-XHR-Response-Type ?>\n");
+    rw.startElement("partial-response", null);
     rw.startElement("redirect", null);
-    rw.writeText(url, null);
+    rw.writeAttribute("url", url, null);
     rw.endElement("redirect");
+    rw.endElement("partial-response");
     rw.endDocument();
     rw.close();
   }
@@ -115,13 +114,16 @@ public class XmlHttpConfigurator extends Configurator
     PrintWriter writer = response.getWriter();
     XmlResponseWriter rw = new XmlResponseWriter(writer, "UTF-8");
     rw.startDocument();
-    // Add another PI indicating that this is a rich response
-    // FIXME: this code is duplicated in PPRResponseWriter - fix that
-    rw.write("<?Tr-XHR-Response-Type ?>\n");
+    rw.startElement("partial-response", null);
     rw.startElement("error", null);
-    rw.writeAttribute("status", HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null);
+    rw.startElement("error-name", null);
+    rw.writeText(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null);
+    rw.endElement("error-name");
+    rw.startElement("error-message", null);
     rw.writeText(_getExceptionString(t) + _PLEASE_SEE_ERROR_LOG + error, null);
+    rw.endElement("error-message");
     rw.endElement("error");
+    rw.endElement("partial-response");
     rw.endDocument();
     rw.close();
   }

@@ -1,0 +1,47 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
+
+    <ui:define name="demoContent">
+
+        <tr:outputText value="Installation Wizard"/>
+        <tr:spacer height="15px"/>
+        <tr:selectManyCheckbox label="Select items to install:" simple="true">
+            <tr:selectItem label="Static Content" value="1"/>
+            <tr:selectItem label="Default Document" value="2"/>
+            <tr:selectItem label="Directory Browse" value="3"/>
+            <tr:selectItem label="Aplication Request Routing 1.0" value="4"/>
+            <tr:selectItem label="URL Rewrite 1.1" value="5"/>
+        </tr:selectManyCheckbox>
+        <tr:spacer height="10px"/>
+        <tr:panelHorizontalLayout>
+            <tr:spacer width="5px"/>
+            <tr:commandButton text="&lt; Back"/>
+            <tr:spacer width="10px"/>
+            <tr:commandButton text="Next &gt;"/>
+            <tr:spacer width="25px"/>
+            <tr:commandButton text="Cancel"/>
+        </tr:panelHorizontalLayout>
+
+    </ui:define>
+</ui:composition>

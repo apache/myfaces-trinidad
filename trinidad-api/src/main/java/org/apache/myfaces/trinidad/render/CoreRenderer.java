@@ -19,6 +19,8 @@
 package org.apache.myfaces.trinidad.render;
 
 
+import java.beans.Beans;
+
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -26,20 +28,23 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXComponent;
-import org.apache.myfaces.trinidad.component.visit.VisitCallback;
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
-import org.apache.myfaces.trinidad.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -103,7 +108,7 @@ public class CoreRenderer extends Renderer
 
   /**
    * <p>
-   * Called before rendering the current component's children in order to set
+   * Called before rendering the current comopnent's children in order to set
    * up any special context.
    * </p>
    * <p>If <code>setupEncodingContext</code> succeeds then
@@ -118,25 +123,47 @@ public class CoreRenderer extends Renderer
   public void setupEncodingContext(
     FacesContext     context,
     RenderingContext rc,
-    UIXComponent     component)
-  {
-  }
-
-  public void setupEncodingContext(
-    FacesContext     context,
-    RenderingContext rc,
     UIComponent      component)
   {
-    // temporary hack to change UIComponent.  Once the change has propagated through, we will
-    // remove the UIXComponent version.
-    // We need to support UIComponents so that we can use CoreRenderers against non-UIXComponents
+    // TODO Remove after one release
     if (component instanceof UIXComponent)
       setupEncodingContext(context, rc, (UIXComponent)component);
+
+  }
+
+  // TODO Remove after one release
+  @Deprecated
+  public void setupEncodingContext(
+    @SuppressWarnings("unused") FacesContext context,
+    @SuppressWarnings("unused") RenderingContext rc,
+    @SuppressWarnings("unused") UIXComponent component)
+  {
   }
 
   /**
    * <p>
-   * Called after rendering the current component's children in order to tear
+   * Called before rendering the current component's children in order to set
+   * up any special context.
+   * </p>
+   * <p>If <code>setupChildrenEncodingContext</code> succeeds then
+   * <code>tearDownChildrenEncodingContext</code> will be called for the same component.
+   * </p>
+   * <p>The default implementation does nothing</p>
+   * @param context FacesContext for this request
+   * @param rc RenderingContext for this encoding pass
+   * @param component Component to encode using this Renderer
+   * @see #tearDownChildrenEncodingContext
+   */
+  public void setupChildrenEncodingContext(
+    @SuppressWarnings("unused") FacesContext context,
+    @SuppressWarnings("unused") RenderingContext rc,
+    @SuppressWarnings("unused") UIComponent component)
+  {
+  }
+
+  /**
+   * <p>
+   * Called after rendering the current component in order to tear
    * down any special context.
    * </p>
    * <p>
@@ -146,26 +173,124 @@ public class CoreRenderer extends Renderer
    * <p>The default implementation does nothing</p>
    * @param context FacesContext for this request
    * @param rc RenderingContext for this encoding pass
-   * @ param component Component to encode using this Renderer
+   * @param component Component to encode using this Renderer
    * @see #setupEncodingContext
    */
   public void tearDownEncodingContext(
     FacesContext     context,
     RenderingContext rc,
-    UIXComponent     component)
+    UIComponent     component)
+  {
+    // TODO Remove after one release
+    if (component instanceof UIXComponent)
+      tearDownEncodingContext(context, rc, (UIXComponent)component);
+  }
+
+  /**
+   * Hook to allow the renderer to customize the visitation of the children components
+   * of a component during the visitation of a component during rendering.
+   *
+   * @param component the component which owns the children to visit
+   * @param visitContext the visitation context
+   * @param callback the visit callback
+   * @return <code>true</code> if the visit is complete.
+   * @see UIXComponent#visitChildren(VisitContext, VisitCallback)
+   */
+  public boolean visitChildrenForEncoding(
+    UIXComponent  component,
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // visit the children of the component
+    Iterator<UIComponent> kids = component.getFacetsAndChildren();
+
+    while (kids.hasNext())
+    {
+      // If any kid visit returns true, we are done.
+      if (kids.next().visitTree(visitContext, callback))
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  // TODO Remove after one release
+  @Deprecated
+  public void tearDownEncodingContext(
+    @SuppressWarnings("unused") FacesContext context,
+    @SuppressWarnings("unused") RenderingContext rc,
+    @SuppressWarnings("unused") UIXComponent     component)
   {
   }
 
-  public void tearDownEncodingContext(
-    FacesContext     context,
-    RenderingContext rc,
-    UIComponent      component)
+  /**
+   * <p>
+   * Called after rendering the current component's children in order to tear
+   * down any special context.
+   * </p>
+   * <p>
+   * <code>tearDownChildrenEncodingContext</code> will be called on the component if
+   * <code>setupChildrenEncodingContext</code> succeeded.
+   * </p>
+   * <p>The default implementation does nothing</p>
+   * @param context FacesContext for this request
+   * @param rc RenderingContext for this encoding pass
+   * @param component Component to encode using this Renderer
+   * @see #setupChildrenEncodingContext
+   */
+  public void tearDownChildrenEncodingContext(
+    @SuppressWarnings("unused") FacesContext context,
+    @SuppressWarnings("unused") RenderingContext rc,
+    @SuppressWarnings("unused") UIComponent component)
   {
-    // temporary hack to change UIComponent.  Once the change has propagated through, we will
-    // remove the UIXComponent version.
-    // We need to support UIComponents so that we can use CoreRenderers against non-UIXComponents
-    if (component instanceof UIXComponent)
-      tearDownEncodingContext(context, rc, (UIXComponent)component);
+  }
+
+  // Note this should probably be made final, but since it is new, doing so could
+  // break compatibility with present sub-classes
+
+  /**
+   * {@inheritDoc}
+   * <p>
+   * Sub-classes should override the
+   * {@link #decode(FacesContext, UIComponent, FacesBean, String)} method
+   * to perform their own decoding logic
+   * </p>
+   *
+   * @see #decode(FacesContext, UIComponent, FacesBean, String)
+   */
+  @Override
+  public final void decode(
+    FacesContext facesContext,
+    UIComponent  component)
+  {
+    FacesBean facesBean = getFacesBean(component);
+    String clientId = null;
+    if (facesBean != null)
+    {
+      clientId = decodeBehaviors(facesContext, component, facesBean);
+    }
+    decode(facesContext, component, facesBean, clientId);
+  }
+
+  /**
+   * Hook for sub-classes to perform their own decode logic
+   * @param facesContext the faces context
+   * @param component the component to decode
+   * @param facesBean the faces bean for the component
+   * @param clientId the client ID if it has been retrieved already
+   * during decoding, otherwise it will be null. Passed in for performance
+   * reasons, so that if it has already been retrieved it will not need to be
+   * retrieved again
+   */
+  protected void decode(
+    @SuppressWarnings("unused") FacesContext facesContext,
+    @SuppressWarnings("unused") UIComponent  component,
+    @SuppressWarnings("unused") FacesBean    facesBean,
+    @SuppressWarnings("unused") String       clientId)
+  {
+    // No-op
   }
 
   //
@@ -250,6 +375,7 @@ public class CoreRenderer extends Renderer
    * Coerces an object into a resource URI, calling the view-handler.
    * @deprecated use toResourceUri
    */
+  @Deprecated
   static public String toUri(Object o)
   {
     return toResourceUri(FacesContext.getCurrentInstance(),o);
@@ -358,16 +484,43 @@ public class CoreRenderer extends Renderer
         "NO_RENDERINGCONTEXT"));
 
     FacesBean bean = getFacesBean(component);
-    if (getRendersChildren())
+    RuntimeException re = null;
+    try
     {
-      beforeEncode(context, rc, component, bean);
-      encodeAll(context, rc, component, bean);
+      if (getRendersChildren())
+      {
+        beforeEncode(context, rc, component, bean);
+        encodeAll(context, rc, component, bean);
+      }
+      else
+      {
+        encodeEnd(context, rc, component, bean);
+      }
     }
-    else
+    catch (RuntimeException ex)
     {
-      encodeEnd(context, rc, component, bean);
+      re = ex;
     }
-    afterEncode(context, rc, component, bean);
+    finally
+    {
+      try
+      {
+        afterEncode(context, rc, component, bean);
+      }
+      catch (RuntimeException ex)
+      {
+        if (re == null)
+        {
+          throw ex;
+        }
+        _LOG.warning(ex);
+      }
+
+      if (re != null)
+      {
+        throw re;
+      }
+    }
   }
 
   /**
@@ -450,23 +603,7 @@ public class CoreRenderer extends Renderer
     ) throws IOException
   {
     assert(child.isRendered());
-    child.encodeBegin(context);
-    if (child.getRendersChildren())
-    {
-      child.encodeChildren(context);
-    }
-    else
-    {
-      if (child.getChildCount() > 0)
-      {
-        for(UIComponent subChild : (List<UIComponent>)child.getChildren())
-        {
-          RenderUtils.encodeRecursive(context, subChild);
-        }
-      }
-    }
-
-    child.encodeEnd(context);
+    child.encodeAll(context);
   }
 
   @SuppressWarnings("unchecked")
@@ -749,9 +886,9 @@ public class CoreRenderer extends Renderer
   {
     return (Agent.PLATFORM_GENERICPDA.equals(rc.getAgent().getPlatformName()));
   }
-  
+
   /**
-   * This method returns true if a user-agent's platform is NokiaS60 
+   * This method returns true if a user-agent's platform is NokiaS60
    * @param arc - RenderingContext of a request
    * @return boolean
    */
@@ -809,6 +946,64 @@ public class CoreRenderer extends Renderer
   //
   // Rendering convenience methods.
   //
+
+  /**
+   * Decodes the behaviors of this component, if it is the component that is the source
+   * of the call to the server and the event matches behaviors that are attached to
+   * the component
+   *
+   * @param facesContext the faces context
+   * @param component the component
+   * @param bean the faces bean
+   * @return the client ID if it was retrieved, null otherwise
+   */
+  protected final String decodeBehaviors(
+    FacesContext facesContext,
+    UIComponent  component,
+    FacesBean    bean)
+  {
+    if (!(component instanceof ClientBehaviorHolder))
+    {
+      return null;
+    }
+
+    // Check if there are client behaviors first as it should be faster to access then
+    // getting the behavior event from the request parameter map (fewer method calls)
+    Map<String, List<ClientBehavior>> behaviorsMap = ((ClientBehaviorHolder)component).getClientBehaviors();
+    if (behaviorsMap.isEmpty())
+    {
+      return null;
+    }
+
+    // Get the behavior event sent by the client, if any
+    Map<String, String> requestParams = facesContext.getExternalContext().getRequestParameterMap();
+    String event = requestParams.get(_BEHAVIOR_EVENT_KEY);
+    if (event == null)
+    {
+      return null;
+    }
+
+    // Does the component have behaviors for this event type?
+    List<ClientBehavior> behaviors = behaviorsMap.get(event);
+    if (behaviors == null || behaviors.isEmpty())
+    {
+      return null;
+    }
+
+    // See if this is the submitting component
+    String clientId = component.getClientId(facesContext);
+    String sourceClientId = requestParams.get("javax.faces.source");
+    if (clientId.equals(sourceClientId))
+    {
+      // Decode the behaviors
+      for (ClientBehavior behavior: behaviors)
+      {
+        behavior.decode(facesContext, component);
+      }
+    }
+
+    return clientId;
+  }
 
   /**
    * Get a collection of all the parameters that are children of the current component as
@@ -883,8 +1078,11 @@ public class CoreRenderer extends Renderer
   {
     if (styleClass != null)
     {
-      styleClass = rc.getStyleClass(styleClass);
-      context.getResponseWriter().writeAttribute("class", styleClass, null);
+      String compressedStyleClass = rc.getStyleClass(styleClass);
+      context.getResponseWriter().writeAttribute("class", compressedStyleClass, null);
+
+      if (Beans.isDesignTime())
+        context.getResponseWriter().writeAttribute("rawClass", styleClass, null);
     }
   }
 
@@ -938,6 +1136,28 @@ public class CoreRenderer extends Renderer
     }
 
     context.getResponseWriter().writeAttribute("class", value, null);
+
+    if (Beans.isDesignTime())
+    {
+      StringBuilder builder = new StringBuilder();
+      for (int i = 0; i < length; i++)
+      {
+        if (styleClasses[i] != null)
+        {
+          String styleClass = styleClasses[i];
+          if (styleClass != null)
+          {
+            if (builder.length() != 0)
+              builder.append(' ');
+            builder.append(styleClass);
+          }
+        }
+      }
+
+      if (builder.length() > 0)
+        context.getResponseWriter().writeAttribute("rawClass", builder.toString(), null);
+    }
+
   }
 
   // Heuristic guess of the maximum length of a typical compressed style
@@ -945,4 +1165,5 @@ public class CoreRenderer extends Renderer
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     CoreRenderer.class);
+  private static final String _BEHAVIOR_EVENT_KEY = "javax.faces.behavior.event";
 }

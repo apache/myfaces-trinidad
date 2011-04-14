@@ -76,6 +76,10 @@ public class HiddenLabelUtils
         assert(agent.getCapability(TrinidadAgent.CAP_IS_JDEV_VE) == null);
         return true;
 
+      // Safari does support the label hack
+      case SAFARI:
+        return true;
+
       // Assume everyone else doesn't.
       case NETSCAPE:
       default:

@@ -35,16 +35,17 @@
   <skin>
     <groupId>org.apache.myfaces.maven</groupId>
     <artifactId>myfaces-site-skin</artifactId>
-    <version>1-SNAPSHOT</version>
+    <version>1</version>
   </skin>
   <body>
     <links>
       <item name="MyFaces" href="http://myfaces.apache.org/"/>
     </links>
 
-    <menu name="">
+    <menu name="Trinidad">
       <item name="Download" href="download.html"/>
-      <item name="Installation" href="installation.html" />
+      <item name="Publications" href="publications.html" />
+      <item name="Installation" href="devguide/installation.html" />
       <item name="Current Release Notes" href="download.html"/>
       <item name="Supported Browsers" href="browsers.html" />
       <item name="Overview" href="spec-diff.html" />
@@ -54,7 +55,7 @@
       <item name="Developer Guide" href="devguide/index.html" />
       <item name="Plugins" href="plugins/index.html"/>
       <item name="Trinidad 1.0.x" href="trinidad-1_0/index.html"/>
-      <item name="Live Demos" href="http://www.irian.at/trinidad-demo/faces/index.jspx" />
+      <item name="Live Demos (Trinidad 1.2.x)" href="http://www.irian.at/trinidad-demo/faces/index.jspx" />
     </menu>
 
     <menu name="Foundation">

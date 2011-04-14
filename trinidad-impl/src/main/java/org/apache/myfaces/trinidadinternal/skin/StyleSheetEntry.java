@@ -18,14 +18,26 @@
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import java.util.List;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.context.FacesContext;
+
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidad.share.io.NameResolver;
+
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
-import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.FileInputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.io.URLInputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
@@ -37,7 +49,10 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 
 /**
  * Package-private utility class used by Skin implementation
- * to manage a single XSS or CSS skin stylesheet source file.
+ * to manage a single XSS or CSS skin stylesheet source file .
+ * This class calls the parsing code which parses either the XSS or CSS file (_createSkinStyleSheet),
+ * and it stores a StyleSheetDocument object, which is a parsed representation of a 
+ * Trinidad style sheet document whether that is in the css or xss format or merged.
  * This class could actually
  * be pushed into an inner class in Skin, but at the moment
  * it is separated out simply to reduce the amount of code in
@@ -48,7 +63,7 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 class StyleSheetEntry
 {
   /**
-   * Creates a StyleSheetEntry for the specified context/name.
+   * Creates a StyleSheetEntry for the specified context and styleSheetName.
    * This method will log any errors/exceptions and return
    * null if the style sheet source file could not be found/parsed.
    */
@@ -60,7 +75,7 @@ class StyleSheetEntry
     // In order to create the StyleSheetEntry, we need to locate and
     // parse the style sheet file.  We use a NameResolver to use to
     // find the style sheet.
-    NameResolver resolver = _getNameResolver(context);
+    NameResolver resolver = _getNameResolver(context, styleSheetName);
     if (resolver == null)
       return null;
 
@@ -74,15 +89,16 @@ class StyleSheetEntry
       if (skinStyleSheet == null)
         return null;
 
-      // We either create a plain old StyleSheetEntry or a special
-      // subclass of StyleSheetEntry that can check for modifications
-      // depending on the Configuration settings
-      if (context.checkStylesModified())
-        return new CheckModifiedEntry(styleSheetName,
-                                      skinStyleSheet.getDocument(),
-                                      resolver);
+      // We either a special subclass of StyleSheetEntry that will recalculate 
+      // the StyleSheetEntry if the skin is dirty or if the web.xml's 
+      // CHECK_FILE_MODIFICATION flag is set and there are file modifications.
+      boolean checkStylesModified = context.checkStylesModified();
+      return new CheckModifiedEntry(styleSheetName,
+                                    skinStyleSheet.getDocument(),
+                                    resolver,
+                                    checkStylesModified);
 
-      return skinStyleSheet;
+
 
 
 
@@ -141,6 +157,68 @@ class StyleSheetEntry
   {
     return false;
   }
+  
+  // Gets a File for the specified name, or returns null if no file exists
+  // Try the local styles directory.
+  public static File resolveLocalFile(File localStylesDir, String name)
+  {
+    // Try the local styles directory
+    File file = new File(localStylesDir, name);
+    if (file.exists())
+      return file;
+
+    return null;
+  }
+
+  // Gets an URL for the specified name using ClassLoaderUtils.getResource
+  public static URL resolveClassLoaderURL(String name)
+  {
+    if (name == null)
+      return null;
+    return ClassLoaderUtils.getResource(name);
+
+  }
+
+  // Gets an URL for the non static urls -- that is, urls that could change after the
+  // server has started.
+  public static URL resolveNonStaticURL(String name)
+  {
+    if (name == null)
+      return null;
+    FacesContext fContext = FacesContext.getCurrentInstance();
+    if (fContext != null)
+    {
+      try
+      {
+        if (name.startsWith("http:") ||
+            name.startsWith("https:") ||
+            name.startsWith("file:") ||
+            name.startsWith("ftp:") ||
+            name.startsWith("jar:"))
+        {
+          URL url = new URL(name);
+          if (url != null)
+            return url;
+        }
+        else
+        {
+          String rootName = _getRootName(name);
+          // Return a URL for the application resource mapped to the specified path,
+          // if it exists; otherwise, return null.
+          URL url = fContext.getExternalContext().getResource(rootName);
+          if (url != null)
+            return url;
+        }
+      }
+      catch (MalformedURLException e)
+      {
+        // Eat the MalformedURLException - maybe the name isn't an URL
+        ;
+      }
+    }
+    return null;
+  }  
+  
 
   // Called by CheckModifiedEntry when the style sheet has changed
   void __setDocument(StyleSheetDocument document)
@@ -164,7 +242,7 @@ class StyleSheetEntry
     {
 
       // Parse the style sheet to create the StyleSheetDocument
-      StyleSheetDocument document = _createStyleSheetDocument(resolver,
+      StyleSheetDocument document = _createStyleSheetDocumentFromXSS(resolver,
                                                               styleSheetName);
       if (document == null)
         skinStyleSheet = null;
@@ -189,7 +267,7 @@ class StyleSheetEntry
   }
 
 
-  // Creates the StyleSheetEntry
+  // Creates the StyleSheetEntry from a skinning file that ends in .css
   private static StyleSheetEntry _createSkinStyleSheetFromCSS(
     NameResolver     resolver,
     String           styleSheetName
@@ -198,10 +276,12 @@ class StyleSheetEntry
 
      try
      {
+        // We simply use a ParseContext as a place to store parameters like
+       // inputStreamProviders and nameResolvers that will be reused when parsing
         ParseContextImpl parseContext = new ParseContextImpl();
         // if this is a utility that isn't in this file, then I can't return a SkinStyleSheet.
         // I think instead this parseCSSSource should return a new instance of StyleSheetEntry.
-        return (StyleSheetEntry)SkinStyleSheetParserUtils.parseCSSSource(
+        return SkinStyleSheetParserUtils.parseCSSSource(
                                     parseContext,
                                     resolver,
                                     styleSheetName,
@@ -217,8 +297,8 @@ class StyleSheetEntry
       return null;
   }
 
-  // Creates the StyleSheetDocument
-  private static StyleSheetDocument _createStyleSheetDocument(
+  // Creates the StyleSheetDocument from a skinning file that ends in .xss, like base-desktop.xss
+  private static StyleSheetDocument _createStyleSheetDocumentFromXSS(
     NameResolver     resolver,
     String           styleSheetName
     )
@@ -228,6 +308,7 @@ class StyleSheetEntry
 
     try
     {
+      // this will parse the xss file adn return a StyleSheetDocument
       return StyleSheetDocumentUtils.createStyleSheetDocument(xmlProvider,
                                                               resolver,
                                                               styleSheetName);
@@ -244,14 +325,36 @@ class StyleSheetEntry
 
 
 
-  // Returns the NameResolver to use for locating style sheet files
+  // Returns the NameResolver to use for locating and loading style sheet file.
+  // Depending upon what the styleSheetName is, we load the file different way: local file,
+  // url, etc.
   private static NameResolver _getNameResolver(
-    StyleContext context
+    StyleContext context,
+    String       styleSheetName
     )
   {
-    // First, get a NameResolver that we can use to resolve
-    // locate the style sheet file.
-    NameResolver resolver = StyleSheetNameResolver.createResolver(context);
+    // get localStylesDirectory
+    File localStylesDir = _getStylesDir(context);
+
+    // Make sure we have some styles directory
+    if ((localStylesDir == null))
+    {
+      _LOG.warning(_STYLES_DIR_ERROR);
+      return null;
+    }
+    NameResolver resolver = null;
+
+    try
+    {
+      resolver =
+          _getNameResolverForStyleSheetFile(context, localStylesDir, styleSheetName);
+    }
+    catch (IOException e)
+    {
+      if (_LOG.isWarning())
+        _LOG.warning("CANNOT_LOAD_STYLESHEET", styleSheetName);
+        _LOG.warning(e.getMessage());
+    }
     if (resolver == null)
     {
       // If we can't get a NameResolver, something is seriously wrong.
@@ -263,16 +366,93 @@ class StyleSheetEntry
     // can use to check for updates to imported style sheets
     return new CachingNameResolver(resolver, null, true);
   }
+  
+  /**
+   * <p>
+   * This method tries to find the Skin's stylesheet file (e.g., purple-desktop.css). 
+   * It creates a NameResolver object, and it returns the NameResolver object. 
+   * A NameResolver object contains an
+   * InputStreamProvider (this object loads the file) and a sub- NameResolver 
+   * that finds files that are relative to the base file, like an @import file in a .css file.
+   * </p>
+   * <p>
+   * This method tries to find the stylesheet file, first locally, or using an url, or a static url, 
+   * then we create a StyleSheetNameResolver and we pass in the InputStreamProvider we created that
+   * we know can find the file. If we can't find the file any of these ways, then we check 
+   * META-INF/services for a NameResolver service. This is how a third party can customize
+   * how they can find files, by supplying a META-INF/services NameResolver implementation. 
+   * </p>
+   * @param context
+   * @param localStylesDir File the local styles directory
+   * @param filename the stylesheet name
+   * @return NameResolver - either a StyleSheetNameResolver or the META-INF/services NameResolver
+   * implementation. The META-INF/services NameResolver implementation is the way a third party
+   * can customize the way they find and load files.
+   * @throws FileNotFoundException when the file could not be found in all of the ways we tried to find it.
+   */
+  private static NameResolver _getNameResolverForStyleSheetFile(
+    StyleContext context, 
+    File         localStylesDir,
+    String       filename) throws IOException
+  {
+    InputStreamProvider provider = null;
+    
+    File file = StyleSheetEntry.resolveLocalFile(localStylesDir, filename);
+    if (file != null)
+      provider = new FileInputStreamProvider(file);
+    
+    if (provider == null)
+    {
+      // Gets an URL for the specified name.
+      // Try a few different means to get the file as an url and then create the appropriate
+      // InputStreamProvider from that URL.
+      URL url = resolveNonStaticURL(filename);
+      if (url != null)
+        provider = new URLInputStreamProvider(url);
+      else
+      {
+        // see if it is an URL that can be loaded by the ClassLoader.
+        // We create a StaticURLInputStreamProvider from the url because we consider the
+        // url static because it can't be changed without restarting the server, so we don't
+        // need to check if the source has changed.
+        url = resolveClassLoaderURL(filename);
+        if (url != null)
+          provider = new StaticURLInputStreamProvider(url);
+      }
+    }
+    // If at this point we have found an InputStreamProvider, then we will create a 
+    // StyleSheetNameResolver. Otherwise, we need to check for a custom NameResolver.
+    if (provider != null)
+      return StyleSheetNameResolver.createResolver(context, localStylesDir, provider);
+
+    // If we still can't locate the file at this point, then look for a custom
+    // NameResolver specified as a META-INF\services.
+    NameResolver servicesNameResolver = _loadNameResolverFromServices(filename);
+    if (servicesNameResolver != null)
+    {
+      if (_LOG.isFine())
+      {
+        _LOG.fine("Using the InputStreamProvider from META-INF\\services");
+      }
+      return servicesNameResolver;
+    }
+
+    // If we couldn't locate the file, throw an IOException
+    throw new FileNotFoundException(_getFileNotFoundMessage(localStylesDir, filename));
+  }
 
 
-  // Subclass of StyleSheetEntry which checks for updates
-  // to the underlying style sheet files.
+  // Subclass of StyleSheetEntry which recreates the StyleSheetEntry
+  // if the skin is marked dirty (skin.isDirty()) or if the underlying 
+  // source files have been modified and CHECK_FILE_MODIFICATION flag is set
+  // in web.xml.
   private static class CheckModifiedEntry extends StyleSheetEntry
   {
     public CheckModifiedEntry(
       String                 styleSheetName,
       StyleSheetDocument     document,
-      NameResolver           resolver
+      NameResolver           resolver,
+      boolean                checkFileModifiedFlagSet
       )
     {
       super(styleSheetName, document);
@@ -280,27 +460,34 @@ class StyleSheetEntry
       // We need the InputStreamProvider in order to check
       // for modifications.  Get it from the NameResolver.
       _provider = _getInputStreamProvider(resolver);
+      _checkFileModifiedFlagSet = checkFileModifiedFlagSet;
     }
 
-    // Override of checkModified() which uses the
-    // InputStreamProvider to check for changes to the
-    // style sheet source files.
+    // Override of checkModified() which first checks if the file
+    // needs to be reparsed and a new CSS file generated.
+    // The conditions are if the skin is marked dirty, or if the 
+    // web.xml's CHECK_FILE_MODIFICATION flag is set and the source
+    // has changed. The InputStreamProvider's hasSourceChanged method
+    // is called to see if the source has changed.
     @Override
     public boolean checkModified(StyleContext context)
     {
       // We would synchronize here, but at the moment synchronization
       // is provided by Skin.getStyleSheetDocument().
-      if ((_provider != null) && (_provider.hasSourceChanged()))
+      if (context.isDirty() || 
+          (_checkFileModifiedFlagSet && 
+           ((_provider != null) && (_provider.hasSourceChanged())))  )
       {
         // Throw away the old InputStreamProvider and StyleSheetDocument
         _provider = null;
         __setDocument(null);
 
         // Get a new NameResolver
-        NameResolver resolver = _getNameResolver(context);
+        String name = getStyleSheetName();
+        NameResolver resolver = _getNameResolver(context, name);
         if (resolver != null)
         {
-          String name = getStyleSheetName();
+          
 
           // Recreate the StyleSheetEntry for the styleSheet using the new NameResolver
           // (e.g., if purpleSkin.css
@@ -353,12 +540,155 @@ class StyleSheetEntry
     }
 
     private InputStreamProvider _provider;
+    private boolean _checkFileModifiedFlagSet;
+  }
+  
+
+
+  // Construct error message for the specified file name
+  private static String _getFileNotFoundMessage(File localStylesDir, String name)
+  {
+    StringBuffer buffer = new StringBuffer();
+    buffer.append("Unable to locate the skin's style sheet \"");
+    buffer.append(name);
+    buffer.append("\" in ");
+
+    if (localStylesDir != null)
+    {
+      buffer.append("local styles directory (");
+      buffer.append(localStylesDir.getPath());
+      buffer.append("), ");
+    }
+
+    buffer.append("or on the class path.\n");
+    buffer.append("Please be sure that this style sheet is installed.");
+
+    return buffer.toString();
   }
 
-  private String              _name;
-  private StyleSheetDocument  _document;
+  // Returns the File corresponding to the styles directory - either
+  // the local directory or the shared directory - depending on the
+  // shared value
+  private static File _getStylesDir(
+    StyleContext context)
+  {
+    String contextPath = context.getGeneratedFilesPath();
 
+    // We only need to look up the shared styles path if the shared
+    // context path is non-null.  If the shared context path is null,
+    // we don't have a shared styles directory (and calling
+    // Configuration.getPath() may throw a DirectoryUnavailableException).
+    if (contextPath == null)
+      return null;
+
+    String stylesPath = contextPath + "/adf/styles";
+
+    // Convert the path to a File
+    File stylesDir = new File(stylesPath);
+
+    // Make sure the directory actually exists
+    if (stylesDir.exists())
+       return stylesDir;
+
+    return null;
+  }
+
+  // Returns a name which can be resolved relative to the
+  // ServletContext root.
+  private static String _getRootName(String name)
+  {
+    // Tack on a starting "/" if the name doesn't already have one -
+    // seems to be required by ServletContext.getRealPath() and
+    // ServletContext.getResource() - at least on OC4J.
+    return (name.startsWith("/")) ? name : ("/" + name);
+  }
+
+  /**
+   * Returns an instance of NameResolver that was set in META-INF\services.
+   * This is used only if the stylesheet cannot be found any other way.
+   * This way third party users can create their own way to find the file e.g., MDS.
+   *
+   * @return a NameResolver instance that has been defined in META-INF\services\
+   * org.apache.myfaces.trinidad.share.io.NameResolver
+  // In this file they will have a line like "org.mycompany.io.MyNameResolverImpl".
+   * null if no NameResolver is found.
+   */
+  static private NameResolver _loadNameResolverFromServices(String name)
+  {
+    // We don't want to check services every time, so instead store it on the applicationMap.
+    FacesContext context = FacesContext.getCurrentInstance();
+    Map<String, Object> appMap = context.getExternalContext().getApplicationMap();
+
+    // Is it stored on the application map already? If so, use it.
+    NameResolver savedResolver = (NameResolver)appMap.get(_SERVICES_RESOLVER_KEY);
+    if (savedResolver != null)
+      return savedResolver;
+
+    List<NameResolver> resolvers = ClassLoaderUtils.getServices(
+                                      _NAME_RESOLVER_CLASS_NAME);
+
+    for (NameResolver customNameResolver : resolvers)
+    {
+      InputStreamProvider provider = null;
+      try
+      {
+        provider = customNameResolver.getProvider(name);
+      }
+      catch (IOException e)
+      {
+        // Log fine message. Try the next factory to get a provider
+        if (_LOG.isFine())
+          _LOG.fine(_SERVICES_RESOLVER_IOEXCEPTION_MSG);       
+      }
+      // Found a customNameResolver with a provider. So store it away and return it from the method.
+      if (provider != null)
+      {
+        appMap.put(_SERVICES_RESOLVER_KEY, customNameResolver);
+        return customNameResolver;
+      }
+    }
+    
+    return null;
+
+  }
+
+  // A subclass of URLInputStreamProvider which never checks for
+  // modifications
+  private static class StaticURLInputStreamProvider
+    extends URLInputStreamProvider
+  {
+    public StaticURLInputStreamProvider(URL url)
+    {
+      super(url);
+    }
+
+    @Override
+    public boolean hasSourceChanged()
+    {
+      return false;
+    }
+  }
+
+  // for META-INF\services\org.apache.myfaces.trinidad.share.io.NameResolver
+  // In this file they will have a line like "org.mycompany.io.MyNameResolverImpl"
+  static private final String _NAME_RESOLVER_CLASS_NAME =
+    NameResolver.class.getName();
+
+  // Error messages
+  private static final String _STYLES_DIR_ERROR =
+    "Could not locate the Trinidad styles directory."
+    + "Please be sure that the Trinidad installable resources are installed.";
+  
+  private static final String _SERVICES_RESOLVER_IOEXCEPTION_MSG =
+    "IOException when calling the META-INF/services NameResolver's getProvider method. " +
+    "Trying next nameResolver.";
+
+  private static final String _SERVICES_RESOLVER_KEY =
+    "org.apache.myfaces.trinidadinternal.skin.SERVICES_RESOLVER_KEY";  
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StyleSheetEntry.class);
+  
+  private String              _name;
+  private StyleSheetDocument  _document;
 
 }

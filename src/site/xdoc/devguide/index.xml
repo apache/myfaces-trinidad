@@ -20,21 +20,22 @@
 -->
 <document>
   <properties>
-    <title>Developer Guide Index</title>
+    <title>Developer Guide Index for Apache MyFaces Trinidad</title>
   </properties>
 
   <body>
     <section name="Development Guidelines for Apache MyFaces Trinidad">
       <p>
         <ul>        
-            <li><a href="configuration.html">Configuring Apache Trinidad</a></li>
+            <li><a href="installation.html">Installing Apache MyFaces Trinidad</a></li>
+            <li><a href="configuration.html">Configuring Apache MyFaces Trinidad</a></li>
             <li><a href="ppr.html">AJAX and Partial Page Rendering (PPR)</a></li>
             <li><a href="communicatingBetweenPages.html">Communicating Between Pages: pageFlowScope</a></li>
-            <li><a href="dialogs.html">The Apache Trinidad Dialog Framework</a></li>
+            <li><a href="dialogs.html">The Apache MyFaces Trinidad Dialog Framework</a></li>
             <li><a href="fileUpload.html">File Upload</a></li>            
-            <li><a href="table.html">Using Apache Trinidad Tables</a></li>     
-            <li><a href="tree.html">Using Apache Trinidad Trees</a></li>       
-            <li><a href="chart.html">Using Apache Trinidad Chart</a></li>       
+            <li><a href="table.html">Using Apache MyFaces Trinidad Tables</a></li>     
+            <li><a href="tree.html">Using Apache MyFaces Trinidad Trees</a></li>       
+            <li><a href="chart.html">Using Apache MyFaces Trinidad Chart</a></li>       
             <li><a href="navigation.html">Navigation</a></li>      
             <li><a href="xmlMenuModel.html">XMLMenuModel</a></li>      
             <li><a href="clientValidation.html">Client-side Converters and Validators</a></li> 

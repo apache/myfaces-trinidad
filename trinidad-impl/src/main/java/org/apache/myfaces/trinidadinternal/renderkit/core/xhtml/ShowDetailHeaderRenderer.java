@@ -51,12 +51,16 @@ public class ShowDetailHeaderRenderer
   }
 
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    @SuppressWarnings("unused")
+    String       clientId)
   {
     // Delegate decoding to the showDetail renderer
-    _detailRenderer.decode(context, component);
+    _detailRenderer.decode(facesContext, component);
   }
 
   @Override

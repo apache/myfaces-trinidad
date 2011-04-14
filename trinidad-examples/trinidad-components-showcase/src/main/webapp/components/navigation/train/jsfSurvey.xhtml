@@ -1,0 +1,73 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
+
+    <ui:define name="demoContent">
+
+        <tr:spacer height="5"/>
+        <tr:outputFormatted styleUsage="instruction"
+                            value="&lt;b>Please take the time to complet all the steps of our Trinidad Questionnaire&lt;/b>"/>
+        <tr:spacer height="10"/>
+        <tr:separator/>
+        <tr:spacer height="5"/>
+
+        <tr:train var="foo" value="#{trainBean}">
+            <f:facet name="nodeStamp">
+                <tr:commandNavigationItem text="#{foo.label}"
+                                          action="#{foo.getOutcome}"
+                                          immediate="#{trainBean.immediate}"
+                                          disabled="#{trainBean.readOnly}"
+                                          visited="#{trainBean.visited}"/>
+            </f:facet>
+        </tr:train>
+
+        <tr:spacer height="20px"/>
+        <tr:panelHorizontalLayout>
+            <tr:outputText value="Your JSF knowledge level"/>
+            <tr:spacer width="55" height="10"/>
+            <tr:selectOneChoice>
+                <f:selectItem itemLabel="Beginner"/>
+                <f:selectItem itemLabel="Medium"/>
+                <f:selectItem itemLabel="Advanced"/>
+            </tr:selectOneChoice>
+        </tr:panelHorizontalLayout>
+        <tr:panelHorizontalLayout>
+            <tr:outputText value="How often do you use JSF"/>
+            <tr:spacer width="52" height="40"/>
+            <tr:inputText/>
+        </tr:panelHorizontalLayout>
+        <tr:panelHorizontalLayout>
+            <tr:outputText value="Your favorite JSF component library"/>
+            <tr:inputText/>
+        </tr:panelHorizontalLayout>
+        <tr:spacer height="10px"/>
+
+        <tr:panelHorizontalLayout>
+            <tr:commandButton text="&lt; Back" action="trainCompanyInfo"/>
+            <tr:spacer width="5px"/>
+            <tr:commandButton text="Next &gt;" action="trainTrinidadSurvey"/>
+        </tr:panelHorizontalLayout>
+
+    </ui:define>
+</ui:composition>

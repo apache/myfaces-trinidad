@@ -59,7 +59,7 @@ public class UIBean
     _panelPage = panelPage;
   }
 
-  public void fileUploaded(ValueChangeEvent event)
+  public void fileUploaded(ValueChangeEvent event) throws IOException
   {
     UploadedFile file = (UploadedFile) event.getNewValue();
     if (file != null)
@@ -67,7 +67,8 @@ public class UIBean
       FacesContext context = FacesContext.getCurrentInstance();
       FacesMessage message = new FacesMessage(
          "Uploaded file " + file.getFilename() +
-         " (" + file.getLength() + " bytes)");
+         " (" + file.getLength() + " bytes)"+". Bytes available to read: " +
+         file.getInputStream().available());
       context.addMessage(event.getComponent().getClientId(context), message);
     }
   }

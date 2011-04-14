@@ -229,6 +229,10 @@ function _agentInit()
   // Indicate browser's PPR capability support
   var pprUnsupported    = false;
 
+  // Indicate whether the browser and platform are capable of
+  // sending PPR requests via JSF Ajax
+  var useJsfAjax = true;
+
   // Flag to indicate that document object is sufficiently implemented to
   // provide good level of access to HTML, XHTML and XML document.
   // For example, Windows Mobile 5 and Blackberry does not implement
@@ -277,6 +281,9 @@ function _agentInit()
         // A new kind string was given to WM6 browser as the
         // capability is significantly different from predecessors.
         kind = "iemobile";
+        // Switch off JSF ajax for time being. There are still unresolved
+        // issues with Mojarra in supporting mobile-browsers
+        useJsfAjax = false;
       }
     }
     else
@@ -339,6 +346,9 @@ function _agentInit()
 
     isBlackBerry = true;
     kind = "blackberry";
+    // Switch off the JSF ajax for time being. There are still unresolved
+    // issues with Mojarra in supporting mobile browsers
+    useJsfAjax = false;
   }
   else if ((agentString.indexOf('mozilla')    != -1) &&
            (agentString.indexOf('spoofer')    == -1) &&
@@ -390,6 +400,7 @@ function _agentInit()
   _agent.isWindowsMobile6       = isWindowsMobile6;
   _agent.kind                   = kind;
   _agent.pprUnsupported         = pprUnsupported;
+  _agent.useJsfAjax             = useJsfAjax;
   _agent.supportsDomDocument    = supportsDomDocument;
   _agent.supportsNodeType       = supportsNodeType;
   _agent.supportsValidation     = supportsValidation;
@@ -1701,7 +1712,8 @@ function submitForm(
   form,
   doValidate,
   parameters,
-  isPartial
+  isPartial,
+  event
   )
 {
   // If we've delayed any sort of event submission, we won't want to do it at
@@ -1862,7 +1874,7 @@ function submitForm(
       }
       else
       {
-        TrPage.getInstance().sendPartialFormPost(form, parameters);
+        TrPage.getInstance().sendPartialFormPost(form, parameters, null, event);
       }
     }
     else
@@ -3593,7 +3605,10 @@ function _doPprStartBlocking (win)
 {
   // Clean up timeout set in _pprStartBlocking()
   if (win._pprTimeoutFunc)
+  {
     win.clearTimeout(win._pprTimeoutFunc);
+    win._pprTimeoutFunc = null;
+  }
 
   // In order to force the user to allow a PPR update to complete, we
   // block all mouse clicks between the start of a PPR update, and the end.
@@ -3636,7 +3651,14 @@ function _doPprStartBlocking (win)
 //
 function _pprStopBlocking(win)
 {
-
+  // see TRINIDAD-1833. If _pprStartBlocking() was delayed with setTimeout(),
+  // we need to clear it here. Otherwise _pprStartBlocking() will be called later,
+  // and will end up winning
+  if (win._pprTimeoutFunc)
+  {
+    win.clearTimeout(win._pprTimeoutFunc);
+    win._pprTimeoutFunc = null;
+  }
   // No blocking is performed on Nokia, PPC and BlackBerry devices
   if (_agent.isPIE || _agent.isNokiaPhone || _agent.isBlackBerry)
     return;
@@ -3868,7 +3890,8 @@ function _firePartialChange(url)
 function _submitPartialChange(
   form,
   doValidate,
-  parameters)
+  parameters,
+  event)
 {
   // If there's no PPR iframe, then just perform a normal,
   // full-page submission.
@@ -3886,10 +3909,10 @@ function _submitPartialChange(
   parameters = _addFormParameter(parameters, "partial", "true");
 
   // block all mouse clicks until the submit is done
-    _pprStartBlocking(window);
+  _pprStartBlocking(window);
 
   // Submit the form
-  var submitted = submitForm(form, doValidate, parameters, true);
+  var submitted = submitForm(form, doValidate, parameters, true, event);
 
   // If the form wasn't actually submitted, update the ref count
   if (!submitted)
@@ -4884,12 +4907,30 @@ TrUIUtils._getElementLocation = function(elem)
       TrUIUtils._getElemLoc = function(elem)
       {
         var doc = elem.ownerDocument;
-        var box = doc.getBoxObjectFor(elem);
-        var loc = { x: box.screenX, y: box.screenY };
-        box = doc.getBoxObjectFor(doc.documentElement);
-        loc.x -= box.screenX;
-        loc.y -= box.screenY;
-        return loc;
+
+        if (doc.getBoxObjectFor === undefined)
+        {
+          var boundingRect = elem.getBoundingClientRect();
+          // top and bottom are not rounded off in Gecko1.9
+          // http://www.quirksmode.org/dom/w3c_cssom.html#elementviewm
+          var elemTop = Math.round(boundingRect.top);
+          var elemLeft = boundingRect.left;
+          var docElement = doc.documentElement;
+          // clientLeft and clientTop would be 0 for Gecko1.9
+          // https://bugzilla.mozilla.org/show_bug.cgi?id=174397#c34
+          elemLeft += docElement.scrollLeft;
+          elemTop += docElement.scrollTop;
+          return {x:elemLeft, y:elemTop};
+        }
+        else
+        {
+          var box = doc.getBoxObjectFor(elem);
+          var loc = { x: box.screenX, y: box.screenY };
+          box = doc.getBoxObjectFor(doc.documentElement);
+          loc.x -= box.screenX;
+          loc.y -= box.screenY;
+          return loc;
+        }
       }
     }
     else if(_agent.isIE)
@@ -4983,3 +5024,42 @@ TrUIUtils._getStyle = function(element, prop)
   }
   return '';
 }
+
+/**
+ * Check whether a number string can be converted or not.
+ *
+ * javascript numbers are really doubles, and as such can accurately support 15 digits, see
+ * http://en.wikipedia.org/wiki/Double_precision
+ *
+ * this means in certain cases a long value that will be fine on the server will be
+ * rounded by the client converter. To avoid this parse the number string, and don't
+ * try to convert on the client if the number of digits is greater than 15.
+ *
+ * Of course this is an imperfect fix, but since the vast majority of
+ * numbers entered are less than 15 digits numbers are still converted on the client most
+ * of the time.
+ */
+TrUIUtils.isNumberConvertible = function(numberString)
+{
+  if (numberString != null)
+  {
+    var nums = 0;
+
+    for (var i = 0; i < numberString.length; i++)
+    {
+      var charCode = numberString.charCodeAt(i);
+      // the charcode for "0" is 48, the charcode for "9" is 57, so count anything between these
+      // as a number
+      if (charCode > 47 && charCode < 58)
+      {
+        nums++;
+      }
+    }
+
+    if (nums > 15)
+      return false;
+  }
+
+  return true;
+}
+

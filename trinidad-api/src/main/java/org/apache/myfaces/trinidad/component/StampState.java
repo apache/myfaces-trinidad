@@ -32,6 +32,7 @@ import java.util.Map;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
@@ -116,12 +117,6 @@ final class StampState implements Externalizable
   public static void restoreStampState(FacesContext context, UIComponent stamp,
                                        Object stampState)
   {
-    String stampId = stamp.getId();
-    // Force the ID to be reset to reset the client identifier (needed
-    // for UIComponentBase implementation which caches clientId too
-    // aggressively)
-    stamp.setId(stampId);
-
     if (stampState != null)
     {
       RowState state = (RowState) stampState;
@@ -331,7 +326,7 @@ final class StampState implements Externalizable
 
     abstract public boolean isNull();
     
-    private static final long serialVersionUID = 8634916495453219932L;
+    private static final long serialVersionUID = 1L;
   }
 
   static private final class SDState extends RowState
@@ -415,7 +410,17 @@ final class StampState implements Externalizable
     @Override
     public void restoreRowState(UIComponent child)
     {
-      ((UIXCollection) child).__setMyStampState(_state);
+      //There is a bug in the RI where, on a PPR request, an UIPanel will sometimes be
+      //added to a facet that contains only one child in facelets.  This, of course,
+      //changes the structure of the saved data.  If we get a UIPanel here, then this
+      //but is the cause.  It means we have a Collection which contains a switcher
+      //which in turn contains another Collection, and UIPanel was returned instead of
+      //the origional collection.  Therefore, this UIPanel should ALWAYS only have one
+      //Item.  If the facet contained more then one item, we would ALWAYS have a UIPanel
+      //and therefore we would be using a different stamp state.
+      UIXCollection myChild = (child instanceof UIPanel)?(UIXCollection)child.getChildren().get(0):(UIXCollection)child;
+      
+      myChild.__setMyStampState(_state);
     }
 
     @Override

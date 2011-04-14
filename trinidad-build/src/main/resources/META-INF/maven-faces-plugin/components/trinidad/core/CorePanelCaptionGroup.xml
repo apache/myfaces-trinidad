@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
@@ -56,7 +56,9 @@
       <property-name>captionText</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata/>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
         <fmd:property-metadata>
           <fmd:preferred>true</fmd:preferred>
           <fmd:required>false</fmd:required>
@@ -99,10 +101,12 @@ content group.  For simple captions, the captionText attribute will suffice.
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Danny Robinson</mfp:author>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup</fmd:event-names>
       <mfp:uix2-local-name>panelCaptionGroup</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-event-name>click</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup</fmd:event-names>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

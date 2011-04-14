@@ -25,12 +25,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
-import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.skin.AgentAtRuleMatcher;
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
@@ -43,8 +41,12 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
  * Private implementation of StyleSheetNode. A StyleSheetNode has StyleNodes for particular
  * browsers, direction, versions, platforms and mode.  In addition, the StyleSheetNode
  * provides access to IconNodes representing the icons which were defined within
- * the context of this style sheet.
- *
+ * the context of this style sheet. StyleSheetNodes are contained in StyleSheetDocuments.
+ * And a StyleSheetNode is created for both .xss skin files and .css files.
+ * .xss skin files create StyleSheetNodes via StyleSheetNodeParser
+ * .css skin files create StyleSheetNodes via SkinStyleSheetParserUtils
+ * @see StyleSheetNodeParser
+ * @see org.apache.myfaces.trinidadinternal.skin.SkinStyleSheetParserUtils
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetNode.java#0 $) $Date: 10-nov-2005.18:58:46 $
  */
 public class StyleSheetNode
@@ -56,8 +58,7 @@ public class StyleSheetNode
   public StyleSheetNode(
     StyleNode[] styles,
     Collection<IconNode> icons,
-    Collection<SkinPropertyNode> skinProperties,
-    Locale[] locales,
+    Set<Locale> locales,
     int direction,
     AgentAtRuleMatcher agentMatcher,
     int[] platforms,
@@ -76,18 +77,10 @@ public class StyleSheetNode
     else
       _icons = Collections.emptyList();
 
-
-    if (skinProperties != null)
-      _skinProperties = Collections.unmodifiableList(
-        new ArrayList<SkinPropertyNode>(skinProperties));
-    else
-      _skinProperties = Collections.emptyList();
-
     // locales, browsers, versions, platforms order does not matter, so these are Sets.
     if (locales != null)
     {
-      Set<Locale> localesSet = _copyLocaleArrayToSet(locales);
-      _locales = Collections.unmodifiableSet(localesSet);
+      _locales = Collections.unmodifiableSet(locales);
     }
     else
       _locales = Collections.emptySet();
@@ -130,19 +123,7 @@ public class StyleSheetNode
   {
     return _icons;
   }
-
-  /**
-   * Returns the SkinProperties List for this
-   * StyleSheetEntry. This is a list of SkinProperyNodes
-   * a node contains the selector, the -tr- property, and the value.
-   * e.g, selector: af|breadCrumbs, property: -tr-show-last-item,
-   * value: true
-   */
-  public Collection<SkinPropertyNode> getSkinProperties()
-  {
-    return _skinProperties;
-  }
-  
+ 
   /**
    * Implementation of StyleSheetNode.getReadingDirection();
    */
@@ -330,6 +311,9 @@ public class StyleSheetNode
       return 0;
 
     int match = 0;
+
+    if (_locales.contains(locale))
+        return _LOCALE_EXACT_MATCH;
 
     for (Locale tmpLocale : _locales)
     {
@@ -567,9 +551,6 @@ public class StyleSheetNode
 
   private final List<StyleNode> _styles;     // The styles contained within this node
   private final List<IconNode>  _icons;      // The icons contained within this node
-  // List of -tr- properties that the skin can be set on the skin.
-  // This is a List of SkinPropertyNodes
-  private List <SkinPropertyNode> _skinProperties;
   // Order does not matter for locales, browsers, versions, platforms
   private final Set<Locale>     _locales;    // The locale variants
   private final int             _direction;  // The reading direction

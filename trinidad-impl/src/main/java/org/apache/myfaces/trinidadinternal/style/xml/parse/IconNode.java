@@ -30,13 +30,13 @@ public class IconNode
 {
   /**
    * Creates a IconNode
-   * @param namespace The namespace of the icon
    * @param name The name of the icon
    * @param icon The Icon instance
    */
   public IconNode(
-    String name,
-    Icon   icon
+    String            name,
+    Icon              icon,
+    StyleNode         styleNode 
     )
   {
     if (name == null)
@@ -47,7 +47,24 @@ public class IconNode
 
     _name = name;
     _icon = icon;
+    _styleNode = styleNode;
+    
   }
+
+  /**
+   * Creates a IconNode
+   * @param name The name of the icon
+   * @param icon The Icon instance
+   */
+  public IconNode(
+    String            name,
+    Icon              icon    
+    )
+  {
+    this (name, icon, null);
+    
+  }
+
 
 
   /**
@@ -66,9 +83,16 @@ public class IconNode
   {
     return _icon;
   }
+  
+  public StyleNode getStyleNode()
+  {
+    return _styleNode;
+  }
 
   private String      _name;
   private Icon        _icon;
+  private StyleNode   _styleNode;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     IconNode.class);
+
 }

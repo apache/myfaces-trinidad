@@ -32,9 +32,10 @@ import org.apache.myfaces.trinidad.util.ContainerUtils;
  *
  * IMPORTANT NOTE: even internally, values that support EL expressions
  * should use the "get" methods to obtain values.
- *
+ * @deprecated Use org.apache.myfaces.trinidad.menu.MenuNode instead of this one.
  */
 
+@Deprecated
 public class MenuNode
 {
   /**

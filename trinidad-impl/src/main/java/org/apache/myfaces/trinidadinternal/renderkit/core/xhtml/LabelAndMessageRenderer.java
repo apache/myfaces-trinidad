@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXGroup;
 import org.apache.myfaces.trinidad.component.UIXPanel;
 import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -259,10 +260,26 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       // 2) not a non-panelForm-friendly component
       boolean needsTableTag = !isLabelStartAligned ||
                     (!needsPanelFormLayout && _needsTableTag(component));
+                    
+      boolean isPIE = Agent.PLATFORM_PPC.equalsIgnoreCase(
+                                        rc.getAgent().getPlatformName());
 
       if (needsTableTag)
       {
-        rw.startElement("table", component);
+        // While handling a PPR response, Windows Mobile cannot DOM replace
+        // a table element. Wrapping a table element with a div element fixes
+        // the problem.
+        if (isPIE)
+        {
+          rw.startElement("div", component);
+          renderId(context, component);
+          rw.startElement("table", null);
+        }
+        else
+        {
+          rw.startElement("table", component);
+        }
+        
         // =-=AEW THIS DOESN'T SEEM RIGHT - IT SHOULD GO ON THE INPUT FIELD
         // ONLY, RIGHT?  Matching UIX 2.2 behavior here.
         rw.writeAttribute("title", getShortDesc(component, bean), "title");
@@ -272,7 +289,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
           // rendered in full width.
           rw.writeAttribute("width", "100%", null);
         }
-        renderId(context, component);
+        
+        if (!isPIE)
+          renderId(context, component);
 
         // put the outer style class here, like af_inputText, styleClass,
         // inlineStyle, 'state' styles like p_AFDisabled, etc.
@@ -378,6 +397,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       if (needsTableTag)
       {
         rw.endElement("table");
+                
+        if (isPIE)
+          rw.endElement("div");
       }
     }
 

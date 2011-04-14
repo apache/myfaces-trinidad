@@ -25,6 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 
 /**
@@ -32,6 +33,7 @@ import org.apache.myfaces.trinidad.convert.ClientConverter;
  *
  *
  */
+@JSFConverter(id="javax.faces.Byte")
 public class ByteConverter extends javax.faces.convert.ByteConverter
                            implements ClientConverter
 {

@@ -20,11 +20,15 @@ package org.apache.myfaces.trinidad.component;
 
 import java.io.IOException;
 
+import javax.faces.component.UIComponentBase;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 import org.apache.myfaces.trinidad.component.UIComponentTestCase;
+
+import org.jmock.Mock;
 
 /**
  * Unit tests for UIXProcess
@@ -133,4 +137,16 @@ public class UIXProcessTest extends UIComponentTestCase
     UIXProcess component = new UIXProcess();
     doTestRenderResponse(component);
   }
+  
+  protected Mock createMockUIComponent()
+  {
+    // the UIXProcess is allowed to call getId and setId on its child
+    Mock mock = super.createMockUIComponent();
+    
+    mock.stubs().method("getId");
+    mock.stubs().method("setId");
+        
+    return mock;
+  }
+
 }

@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidad.util;
 
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.faces.component.NamingContainer;
@@ -27,6 +28,12 @@ import javax.faces.component.UIComponent;
 
 import javax.faces.component.UIViewRoot;
 
+import javax.faces.component.visit.VisitContext;
+
+import org.apache.myfaces.trinidad.component.UIXComponent;
+import javax.faces.context.FacesContext;
+
+import org.apache.myfaces.trinidad.component.FlattenedComponent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -213,11 +220,31 @@ public final class ComponentUtils
     Object  value
     )
   {
-    return (value != null)
-             ? value.toString()
-             : null;
+    return resolveString(value, false);
   }
 
+  /**
+   * Utility method for component code that transforms Object->String.
+   * If treatEmptyStringAsNull is true, null is returned for empty string.
+   */
+  public static String resolveString(
+    Object  value,
+    boolean treatEmptyStringAsNull
+    )
+  {
+    if (value == null)
+    {
+      return null;
+    }
+
+    String strValue = value.toString();
+    if (treatEmptyStringAsNull && strValue.trim().isEmpty())
+    {
+      return null;
+    }
+
+    return strValue;
+  }
 
   /**
    * Utility method for component code that transforms Object->String.
@@ -305,6 +332,19 @@ public final class ComponentUtils
     return (value != null)
              ? (Locale) value
              : defaultValue;
+  }
+  
+  /**
+   * @param visitContext
+   * @return <code>true</code> if this is a non-iterating visit.
+   */
+  public static boolean isSkipIterationVisit(VisitContext visitContext)
+  {
+    FacesContext context = visitContext.getFacesContext();
+    Map<Object, Object> attrs = context.getAttributes();
+    Object skipIteration = attrs.get("javax.faces.visit.SKIP_ITERATION");
+
+    return Boolean.TRUE.equals(skipIteration);
   }
   
   /**
@@ -426,6 +466,56 @@ public final class ComponentUtils
     UIComponent targetComponent,
     UIComponent baseComponent)
   {
+    return _getScopedIdForComponentImpl(targetComponent, baseComponent, false);
+  }
+  
+  /**
+   * Gets the logical scoped identifier for the target component. The scoping will be
+   * within a subtree rooted by the supplied base component. The subtree will be computed in the
+   * context of the document or documents where the components were defined. If the supplied
+   * base component were to be the view root, the returned id will be the 
+   * absolute id and hence prefixed with NamingContainer.SEPARATOR_CHARACTER.
+   * 
+   * This algorithm reverse matches that of UIComponent.findComponent(). 
+   * In other words, the scoped id returned by this method can be safely used 
+   * in calls to findComponent() on the baseComponent, if it were to be
+   * enclosing the targetComponent.
+   * 
+   * This method assumes that the supplied baseComponent definitely encloses the
+   * targetComponent, return value is not reliable if this is not the case.
+   * 
+   * Examples of id returned: ':foo:bar:baz'/'foo:baz'/'foo'
+   * 
+   * @param targetComponent The component for which the scoped id needs to be
+   * determined.
+   * @param baseComponent The component relative to which the scoped id for the
+   * targetComponent needs to be determined.
+   * @return The scoped id for target component. Returns null if the supplied
+   * targetComponent was null or did not have an id.
+   */
+  public static String getLogicalScopedIdForComponent(
+    UIComponent targetComponent,
+    UIComponent baseComponent)
+  {
+    return _getScopedIdForComponentImpl(targetComponent, baseComponent, true);
+  }
+  
+  /**
+   * Returns scoped id for a component
+   * @param targetComponent The component for which the scoped id needs to be
+   * determined.
+   * @param baseComponent The component relative to which the scoped id for the
+   * targetComponent needs to be determined.
+   * @param isLogical true if a logical scoped id (the id in the context of the document where targetComponent was defined)
+   * should be returned, false otherwise
+   * @return The scoped id for target component. Returns null if the supplied
+   * targetComponent was null or did not have an id.
+   */
+  private static String _getScopedIdForComponentImpl(
+    UIComponent targetComponent,
+    UIComponent baseComponent,
+    boolean isLogical)
+  {
     String targetComponentId = targetComponent.getId();
     
     if (targetComponent == null || 
@@ -443,11 +533,45 @@ public final class ComponentUtils
     if (baseComponent instanceof UIViewRoot)
       builder.append(NamingContainer.SEPARATOR_CHAR);
 
-    _buildScopedId(targetComponent, baseComponent, builder);
+    _buildScopedId(targetComponent, baseComponent, builder, isLogical);
     
     return builder.toString();
   }
 
+  /**
+   * Returns the nearest ancestor component, skipping over any
+   * flattening components.
+   * 
+   * @param context the FacesContext
+   * @param component the UIComponent
+   * @return the first ancestor component that is not a FlattenedComponent
+   *   that is actively flattening its children or null if no such ancestor
+   *   component is found.
+   * @see org.apache.myfaces.trinidad.component.FlattenedComponent
+   */
+  public static UIComponent getNonFlatteningAncestor(
+    FacesContext context,
+    UIComponent component)
+  {
+    UIComponent parent = component.getParent();
+    
+    while (parent != null)
+    { 
+      if (!_isFlattening(context, parent))
+        return parent;
+      
+      parent = parent.getParent();
+    }
+
+    return null;
+  }
+
+  private static boolean _isFlattening(FacesContext context, UIComponent component)
+  {
+    return ((component instanceof FlattenedComponent) &&
+      ((FlattenedComponent)component).isFlatteningChildren(context));
+  }
+  
   /**
    * Builds the scoped id. Adds the naming container's id and the separator char
    * in a recursive fashion.
@@ -456,19 +580,21 @@ public final class ComponentUtils
    * @param baseComponent The component relative to which the scoped id for the
    * targetComponent needs to be built.
    * @param builder The StringBuilder which is to store the scoped id.
+   * @param isLogical true if the logical scoped id should be returned, false otherwise
    * @return The String value of the scoped id
    */
   private static void _buildScopedId(
     UIComponent  targetComponent,
     UIComponent  baseComponent,
-    StringBuilder builder)
+    StringBuilder builder,
+    boolean isLogical)
   {
     UIComponent namingContainer = 
-      _getParentNamingContainer(targetComponent, baseComponent);
+      _getParentNamingContainer(targetComponent, baseComponent, isLogical);
 
     if (namingContainer != null)
     {
-      _buildScopedId(namingContainer, baseComponent, builder);
+      _buildScopedId(namingContainer, baseComponent, builder, isLogical);
       builder.append(NamingContainer.SEPARATOR_CHAR);
     }
       
@@ -480,23 +606,30 @@ public final class ComponentUtils
    * we don't go beyond the a supplied base component. 
    * @param component the UIComponent 
    * @param baseComponent The component to limit the search up to.
+   * @param isLogical true if logical parent hierarchy should be used, false otherwise
    * @return the naming container of the component which has to be in the 
    * subtree rooted by the baseComponent. Returns null if no such ancestor 
    * naming container component exists.
    */
   private static UIComponent _getParentNamingContainer(
     UIComponent component,
-    UIComponent baseComponent)
+    UIComponent baseComponent,
+    boolean isLogical)
   {
     // Optimize when both arguments are the same - could happen due to recursion
     //  in _buildScopedId()
     if (component.equals(baseComponent))
       return null;
     
-    UIComponent checkedParent = component.getParent();
+    UIComponent checkedParent = component;
     
-    while(checkedParent != null)
+    do
     {
+      checkedParent = isLogical ? UIXComponent.getLogicalParent(checkedParent) : checkedParent.getParent();
+    
+      if (checkedParent == null)
+        break;
+      
       if (checkedParent instanceof NamingContainer)
         break;
       
@@ -504,8 +637,7 @@ public final class ComponentUtils
       if (checkedParent == baseComponent)
         return null;
       
-      checkedParent = checkedParent.getParent();
-    }
+    } while (true);
     
     return checkedParent;
   }

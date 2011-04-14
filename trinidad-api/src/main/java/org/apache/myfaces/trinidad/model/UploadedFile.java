@@ -40,6 +40,11 @@ public interface UploadedFile
 
   /**
    * Returns the total length (in bytes) of the file.
+   * A length of -1 is interpreted as an error situation, and will be treated as JSF convertor 
+   * failure. When this happens, the details of this error is expected to be in the toString() 
+   * implementation of the object returned through getOpaqueData(). This detail will be displayed 
+   * to the user as a conversion failure message.
+   * @see UploadedFile#getOpaqueData()
    */
   public long getLength();
 
@@ -54,6 +59,7 @@ public interface UploadedFile
    * cannot guarantee that the  instance returned from
    * code>UploadedFileProcessor</code> is the same one made available
    * later.
+   * @see UploadedFile#getLength()
    */
   public Object getOpaqueData();
 

@@ -39,6 +39,7 @@ public class TrinidadConverterHandler
     m.addRule(StringArrayPropertyTagRule.Instance);
     m.addRule(ValueExpressionTagRule.Instance);
     m.addRule(LocalePropertyTagRule.Instance);
+    m.addRule (TimezonePropertyTagRule.Instance);
     return m;
   }
 }

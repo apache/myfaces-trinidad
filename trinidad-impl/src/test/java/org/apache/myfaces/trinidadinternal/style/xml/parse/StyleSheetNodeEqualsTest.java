@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -77,7 +77,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
       new IncludeStyleNode("name", null);
     IncludeStyleNode unequalNode =
       new IncludeStyleNode(null, "anotherSelector");
-    
+
     assertEquals(node.hashCode() == anotherNode.hashCode(), true);
     assertEquals(node.equals(anotherNode), true);
     assertEquals(anotherNode.equals(node), true);
@@ -85,7 +85,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
     assertEquals(node.equals("Hello"), false);
 
   }
-  
+
   /**
    * test the StyleNode hashCode and equals
    */
@@ -93,26 +93,26 @@ public class StyleSheetNodeEqualsTest extends TestCase
   {
 
     StyleNode afDefaultFontNode = getAfDefaultFontStyleNode();
-                    
+
     StyleNode afDefaultFontNodeReset = getAfDefaultFontResetStyleNode();
-                    
+
     StyleNode afOutputLabelNode = getOutputLabelStyleNode();
-     
+
     StyleNode anotherOutputLabelNode = getAnotherOutputLabelStyleNode();
-     
+
     assertEquals(anotherOutputLabelNode.hashCode() == afOutputLabelNode.hashCode(), true);
-     
+
     assertEquals(anotherOutputLabelNode.equals(afOutputLabelNode), true);
     assertEquals(afOutputLabelNode.equals(anotherOutputLabelNode), true);
-     
+
     assertEquals(afDefaultFontNode.equals(anotherOutputLabelNode), false);
-     
+
     assertEquals(afDefaultFontNode.equals(afDefaultFontNodeReset), false);
     assertEquals(afDefaultFontNodeReset.equals(afDefaultFontNode), false);
     assertEquals(afDefaultFontNodeReset.equals("Hello"), false);
 
   }
-  
+
   public void testStyleSheetNodeEquals() throws Exception
   {
     StyleNode[] styleSheetOneNodes = {getAfDefaultFontStyleNode(),
@@ -129,10 +129,9 @@ public class StyleSheetNodeEqualsTest extends TestCase
     List<IconNode> anotherIconNodes = _getIconNodes();
 
     // create locales arrays
-    Locale[] localesArray = getLocalesArray();
-    Locale[] anotherLocalesArray = getAnotherLocalesArray();
-    Locale[] diffOrderLocalesArray = getDiffOrderLocalesArray();
-     
+    Set<Locale> localeSet = getLocalesSet();
+    Set<Locale> diffOrderLocalesSet = getDiffOrderLocalesSet();
+
     // create a browsers map
     String browserSelector = "netscape and (version:5), netscape and (version:6), ie and (version:7), ie and (version:8)";
     String anotherBrowserSelector = browserSelector;
@@ -146,7 +145,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
     Set<String> anotherAccProps = new HashSet<String>(Arrays.asList("high-contrast", "large-fonts"));
     Set<String> differentOrderAccProps = new HashSet<String>(Arrays.asList("large-fonts", "high-contrast"));
 
-    
+
     // The constructor takes these arguments:
     // StyleNode[] styles,
     // Locale[] locales,
@@ -154,12 +153,11 @@ public class StyleSheetNodeEqualsTest extends TestCase
     // int[] browsers,
     // int[] platforms,
     // int mode
-    
+
     StyleSheetNode styleSheetNode =
       new StyleSheetNode(styleSheetOneNodes,
                          iconNodes,
-                         null,
-                         localesArray,
+                         localeSet,
                          0,
                          new AgentAtRuleMatcher(browserSelector),
                          platforms,
@@ -168,8 +166,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
     StyleSheetNode anotherStyleSheetNode =
       new StyleSheetNode(anotherStyleSheetOneNodes,
                          anotherIconNodes,
-                         null,
-                         anotherLocalesArray,
+                         localeSet,
                          0,
                          new AgentAtRuleMatcher(anotherBrowserSelector),
                          anotherPlatforms,
@@ -178,18 +175,17 @@ public class StyleSheetNodeEqualsTest extends TestCase
     StyleSheetNode sameDiffOrderStyleSheetNode =
       new StyleSheetNode(anotherStyleSheetOneNodes,
                          anotherIconNodes,
-                         null,
-                         diffOrderLocalesArray,
+                         diffOrderLocalesSet,
                          0,
                          new AgentAtRuleMatcher(anotherBrowserDiffOrder),
                          differentOrderPlatforms,
                          0,
                          differentOrderAccProps);
-      
+
     // these should be equal
     assertEquals(styleSheetNode.getStyleSheetId() == anotherStyleSheetNode.getStyleSheetId(), true);
     assertEquals(styleSheetNode.getStyleSheetId() == sameDiffOrderStyleSheetNode.getStyleSheetId(), true);
-        
+
     // Note that StyleSheetNode.equals() explicitly uses the default
     // identity comparison since we never care about logical equivalence
     // of two StyleSheetNode instances.  The StyleSheetNode equality
@@ -203,15 +199,15 @@ public class StyleSheetNodeEqualsTest extends TestCase
 
     // these should be false
     assertEquals(styleSheetNode.equals(null), false);
-    assertEquals(styleSheetNode.equals(localesArray), false);
-    
+    assertEquals(styleSheetNode.equals(localeSet), false);
+
     /* Test styleSheetNode's toString */
     /*
     System.out.println(sameLocaleDiffOrderStyleSheetNode.toString());
     */
-    
+
   }
-  
+
   // returns a StyleNode for "AFDefaultFont" name, null selector, resetProperties = false
   private StyleNode getAfDefaultFontStyleNode()
   {
@@ -221,16 +217,16 @@ public class StyleSheetNodeEqualsTest extends TestCase
 
     IncludeStyleNode[] defaultFontIncludeStyles =
       { new IncludeStyleNode("AFDefaultFontFamily", null) };
-      
+
     IncludePropertyNode[] defaultFontIncludeProperty =
       { new IncludePropertyNode("AFVeryDarkBackground", null, "background-color", "color") };
 
     return
-      new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes,
-                    defaultFontIncludeStyles, defaultFontIncludeProperty, null, false);
-    
+      new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes, null,
+                    defaultFontIncludeStyles, defaultFontIncludeProperty, null, null, false);
+
   }
-  
+
   // returns a StyleNode for "AFDefaultFont" name, null selector, resetProperties = true
   private StyleNode getAfDefaultFontResetStyleNode()
   {
@@ -240,33 +236,33 @@ public class StyleSheetNodeEqualsTest extends TestCase
 
     IncludeStyleNode[] defaultFontIncludeStyles =
       { new IncludeStyleNode("AFDefaultFontFamily", null) };
-      
+
     IncludePropertyNode[] defaultFontIncludeProperty =
       { new IncludePropertyNode("AFVeryDarkBackground", null, "background-color", "color") };
 
     return
-      new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes,
-                    defaultFontIncludeStyles, defaultFontIncludeProperty, null, true);
-    
+      new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes, null,
+                    defaultFontIncludeStyles, defaultFontIncludeProperty, null, null, true);
+
   }
-  
+
   // returns a StyleNode for "af|outputLabel:error" selector
   private StyleNode getOutputLabelStyleNode()
   {
     // build up another StyleNode
     IncludeStyleNode[] labelIncludeStyles = {new IncludeStyleNode("AFLabel", null)};
     PropertyNode[] labelPropertyNodes = {new PropertyNode("color", "red")};
-    
+
     Set<String> labelInhibitedProperties = new HashSet<String>();
     labelInhibitedProperties.add("font-size");
     labelInhibitedProperties.add("background-color");
 
-      
+
     return
-        new StyleNode(null, "af|outputLabel:error", labelPropertyNodes, labelIncludeStyles,
-                      null, labelInhibitedProperties, false);
+        new StyleNode(null, "af|outputLabel:error", labelPropertyNodes, null, labelIncludeStyles,
+                      null, null, labelInhibitedProperties, false);
   }
-  
+
   // returns a StyleNode that matches the outputLabelStyleNode
   // the inhibited properties are added in a different order, that's all.
   private StyleNode getAnotherOutputLabelStyleNode()
@@ -276,11 +272,11 @@ public class StyleSheetNodeEqualsTest extends TestCase
     Set<String> anotherInhibitedProperties = new HashSet<String>();
     anotherInhibitedProperties.add("background-color");
     anotherInhibitedProperties.add("font-size");
-    
-    return  new StyleNode(null, "af|outputLabel:error", anotherPropertyNodes, anotherIncludeStyles,
-                          null, anotherInhibitedProperties, false);
+
+    return  new StyleNode(null, "af|outputLabel:error", anotherPropertyNodes, null, anotherIncludeStyles,
+                          null, null, anotherInhibitedProperties, false);
   }
-  
+
   private Set<Locale> getLocalesSet()
   {
     Set<Locale> set = new HashSet<Locale>();
@@ -288,7 +284,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
     set.add(new Locale("zh", "CN"));
     return set;
   }
-  
+
   private Set<Locale> getDiffOrderLocalesSet()
   {
     Set<Locale> set = new HashSet<Locale>();
@@ -297,18 +293,18 @@ public class StyleSheetNodeEqualsTest extends TestCase
 
     return set;
   }
-  
+
   // same as above
   private Locale[] getLocalesArray()
   {
     return new Locale[] {new Locale("tw", "TW"), new Locale("zh", "CN")};
   }
-  
+
   private Locale[] getAnotherLocalesArray()
   {
     return new Locale[] {new Locale("tw", "TW"), new Locale("zh", "CN")};
   }
-  
+
   // same as above, different order
   private Locale[] getDiffOrderLocalesArray()
   {
@@ -318,15 +314,16 @@ public class StyleSheetNodeEqualsTest extends TestCase
   private List<IconNode> _getIconNodes()
   {
     List<IconNode> iconNodes = new ArrayList<IconNode>(2);
-    
+
     Icon icon1 = new TextIcon("Hello, world!");
     Icon icon2 = new ContextImageIcon("/foo/bar/baz.png", 10, 10);
-    
+
     iconNodes.add(new IconNode("hello", icon1));
     iconNodes.add(new IconNode("foo", icon1));
-    
+
     return iconNodes;
   }
 }
+
 
 

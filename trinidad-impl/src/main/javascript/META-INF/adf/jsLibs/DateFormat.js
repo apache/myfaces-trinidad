@@ -79,6 +79,7 @@ function _doClumping(
   var kindCount    = 0;
   var lastChar     = void 0;
   var startIndex   = 0;
+  var quoteIndex = null;
   
   for (var i = 0; i < formatLength; i++)
   {
@@ -88,11 +89,17 @@ function _doClumping(
     {
       if (currChar == "\'")
       {
+        // test strings to test escaping working properly
+        // "'one '' two '' three''' 'four '' five'"   ->     "one ' two ' three' four ' five
+        // "HH:mm:ss 'o''clock' z"                    ->     "[time] o'clock [timezone]"
+        // "HH:mm:ss 'oclock' z"                      ->     "[time] oclock [timezone]"
+        // "HH:mm:ss '' z"                            ->     "[time] ' [timezone]"
+        
         inQuote = false;
         
         // handle to single quotes in a row as escaping the quote
         // by not skipping it when outputting
-        if (kindCount != 1)
+        if (kindCount != 1 && startIndex != quoteIndex)
         {
           startIndex++;
           kindCount--;
@@ -111,9 +118,21 @@ function _doClumping(
           // alert("failure at " + startIndex + " with " + lastChar);
           return false;
         }
+               
+        var nextIndex = i + 1;
+    
+        if (nextIndex < formatLength)
+        {
+          var nextChar = formatPattern.charAt(nextIndex);
+          
+          if (nextChar == "\'")
+          {
+            quoteIndex = nextIndex;
+          }
+        } 
         
         kindCount = 0;
-        lastChar  = void 0;
+        lastChar  = void 0; 
       }
       else
       {
@@ -519,7 +538,7 @@ function _subparse(
         {
           if (eraIndex == 0)
           {
-            parseContext.isBC = true;
+            parseContext.parsedBC = true;
           }
         }
         else

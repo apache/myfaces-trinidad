@@ -33,19 +33,6 @@
   <artifactId>trinidad-example</artifactId>
   <packaging>pom</packaging>
 
-  <repositories>
-    <repository>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>apache-maven-snapshots</id>
-      <url>http://people.apache.org/repo/m2-snapshot-repository/</url>
-    </repository>
-  </repositories>
-
   <properties>
     <portlet.version>1.0</portlet.version>
   </properties>
@@ -93,21 +80,18 @@
   <modules>
     <module>trinidad-blank</module>
     <module>trinidad-demo</module>
+    <module>trinidad-components-showcase</module>
   </modules>
 
   <profiles>
     <!-- 
       This profile is for preparing a release.  Execute this profile like this:
       
-       mvn release:prepare -DprepareRelease=true
+       mvn release:prepare -Papache-releae
      -->
     <profile>
-     <id>prepare-release</id>
-     <activation>
-       <property>
-         <name>prepareRelease</name>
-       </property>
-     </activation>
+     <id>apache-release</id>
+
      <modules>
        <module>trinidad-example-assembly</module>
      </modules>      
@@ -117,19 +101,19 @@
       <id>jettyConfig</id>
       <dependencyManagement>
         <dependencies>
-          <!--dependency>
-            <groupId>javax.faces</groupId>
+          <dependency>
+            <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
             <scope>compile</scope>
           </dependency>
 
           <dependency>
-            <groupId>javax.faces</groupId>
+            <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <scope>runtime</scope>
-          </dependency-->
+          </dependency>
 
-          <!--dependency>
+          <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
             <scope>compile</scope>
@@ -139,7 +123,7 @@
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-impl</artifactId>
             <scope>runtime</scope>
-          </dependency-->
+          </dependency>
           
          </dependencies>
        </dependencyManagement>
@@ -151,16 +135,13 @@
       flag.  To invoke this profile, simply do not include a -Djsf= property on your maven
       command line.  Execute this profile like this:
       
-      mstarets - The default has been temporarily changed to JSF RI
-      TODO: Restore old profile activation rules after we can build with myfaces
-      
       mvn -PjettyConfig jetty:run
     -->    
     <profile>
       <id>myfaces</id>
       <activation>
         <property>
-          <name>myfaces</name>
+          <name>!jsf</name>
         </property>
       </activation>
       <dependencies>
@@ -175,7 +156,6 @@
       </dependencies>
       
     </profile>
-
     <!--
       This profile activates the JSF RI as the release to use for these demos.  When activated
       the JSF RI is used when these examples are run in Jetty and/or used with the 
@@ -188,7 +168,8 @@
       <id>jsfri</id>
       <activation>
         <property>
-          <name>!myfaces</name>
+          <name>jsf</name>
+          <value>ri</value>
         </property>
       </activation>
       <dependencies>

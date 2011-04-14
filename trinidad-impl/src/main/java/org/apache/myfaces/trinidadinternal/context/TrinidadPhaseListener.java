@@ -34,11 +34,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 public class TrinidadPhaseListener implements PhaseListener
 {
   /**
-   * 
-   */
-  private static final long serialVersionUID = -1249678874100309402L;
-
-  /**
    * Returns true if the request might be a postback request.
    */
   static public boolean isPostback(FacesContext context)
@@ -105,5 +100,6 @@ public class TrinidadPhaseListener implements PhaseListener
 
   static private final String _POSTBACK_KEY =
     "org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener.POSTBACK";
-  
+
+  private static final long serialVersionUID = 1234567L;
 }

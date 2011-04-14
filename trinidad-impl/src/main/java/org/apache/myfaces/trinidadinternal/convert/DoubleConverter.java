@@ -25,12 +25,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 
 /**
  * <p>Implementation for <code>java.lang.Double</code> values.</p>
  *
  */
+@JSFConverter(id="javax.faces.Double")
 public class DoubleConverter extends javax.faces.convert.DoubleConverter
                              implements ClientConverter
 {

@@ -40,7 +40,7 @@ public class FacesConfigTest extends XMLValidityTestCase
     URL configSource = getClass().getResource("/META-INF/faces-config.xml");
     executeValidityTest(dtdSource,
                         publicID,
-                        configSource);
+                        configSource); 
     */
   }
 }

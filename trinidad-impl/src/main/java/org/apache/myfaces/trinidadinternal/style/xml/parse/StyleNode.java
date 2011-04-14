@@ -34,6 +34,7 @@ import java.util.Set;
 public class StyleNode
 {
 
+
   /**
    * Creates a Style with the specified properties
    */
@@ -41,31 +42,37 @@ public class StyleNode
     String                 name,
     String                 selector,
     PropertyNode[]         properties,
+    PropertyNode[]         skinProperties,
     IncludeStyleNode[]     includedStyles,
     IncludePropertyNode[]  includedProperties,
+    IncludeCompactPropertyNode[] includedCompactProperties,
     Set<String>            inhibitedProperties
     )
   {
     this(name,
          selector,
          properties,
+         skinProperties,
          includedStyles,
          includedProperties,
+         includedCompactProperties,
          inhibitedProperties,
          false);
   }
-
+  
   // Constructor which also specifies allows resetProperties
-  // flag to be specified.  This is package-private, since
-  // only StyleNodeParser should be calling this.
-  StyleNode(
+  // flag to be specified.
+  // skinProperties are server-side properties like -tr-show-last-item: true
+  public StyleNode(
     String                 name,
     String                 selector,
     PropertyNode[]         properties,
+    PropertyNode[]         skinProperties,
     IncludeStyleNode[]     includedStyles,
     IncludePropertyNode[]  includedProperties,
+    IncludeCompactPropertyNode[] includedCompactProperties,
     Set<String>            inhibitedProperties,
-    boolean                resetProperties
+    boolean                resetProperties    
     )
   {
     // Initialize _name, _selector, _resetProperties
@@ -108,8 +115,28 @@ public class StyleNode
       _includedProperties = Collections.singletonList(includedProperties[0]);
     else
       _includedProperties = Collections.unmodifiableList(Arrays.asList(includedProperties));
-      
-      
+
+    // Initialize _includedCompactProperties
+    // ------------------------------
+    if ((includedCompactProperties == null) || (includedCompactProperties.length == 0))
+      _includedCompactProperties = Collections.emptyList();
+    else if (includedCompactProperties.length == 1)
+      _includedCompactProperties = Collections.singletonList(includedCompactProperties[0]);
+    else
+      _includedCompactProperties = 
+        Collections.unmodifiableList(Arrays.asList(includedCompactProperties));
+    
+    // Initialize _skinProperties. These are server-side skin properties, like -tr-show-last-item,
+    // as opposed to client side, like background-color or color. client side properties get
+    // written to css file, but server-side skin properties do not.
+    // ------------------------------
+    if ((skinProperties == null) || (skinProperties.length == 0))
+      _skinProperties = Collections.emptyList();
+    else if (skinProperties.length == 1)
+      _skinProperties = Collections.singletonList(skinProperties[0]);
+    else
+      _skinProperties = Collections.unmodifiableList(Arrays.asList(skinProperties));
+    
     // Initialize _inhibitAll and _inhibitedProperties
     // -----------------------------------------------    
     boolean inhibitAll = false;
@@ -198,6 +225,23 @@ public class StyleNode
   }
 
   /**
+   * Implementation of StyleNode.getSkinProperties().
+   */
+  public Collection<PropertyNode> getSkinProperties()
+  {
+    return _skinProperties;
+  }
+  
+
+  /**
+   * Implementation of StyleNode.getIncludedCompactProperties().
+   */
+  public Collection<IncludeCompactPropertyNode> getIncludedCompactProperties()
+  {
+    return _includedCompactProperties;
+  }  
+  
+  /**
    * Return a Collection of IncludeStyleNode objects for the StyleNode. 
    * This method will return a Collections.emptyList this StyleNode does
    * not have any IncludeStyleNode.
@@ -267,7 +311,9 @@ public class StyleNode
       (_inhibitedProperties.equals(test._inhibitedProperties)) &&
       (_includedStyles.equals(test._includedStyles)) &&
       (_includedProperties.equals(test._includedProperties)) &&
-      (_properties.equals(test._properties));
+      (_includedCompactProperties.equals(test._includedCompactProperties)) &&
+      (_properties.equals(test._properties)) &&
+      (_skinProperties.equals(test._skinProperties));
   }
   
   @Override
@@ -281,7 +327,9 @@ public class StyleNode
     hash = 37*hash + _inhibitedProperties.hashCode();
     hash = 37*hash + _includedStyles.hashCode();
     hash = 37*hash + _includedProperties.hashCode();
+    hash = 37*hash + _includedCompactProperties.hashCode();
     hash = 37*hash + _properties.hashCode();
+    hash = 37*hash + _skinProperties.hashCode();
     
     return hash;
   }
@@ -293,8 +341,10 @@ public class StyleNode
       "name="   + _name   + ", " +
       "selector=" + _selector + ", " +
       "properties="  + _properties.toString()  + ", " +
+      "skinProperties="  + _skinProperties.toString()  + ", " +
       "includeStyles="  + _includedStyles.toString()  + ", " +
       "includeProperties="  + _includedProperties.toString()  + ", " + 
+      "includeCompactProperties="  + _includedCompactProperties.toString()  + ", " + 
       "inhibitedProperties="  + _inhibitedProperties.toString()  + ", " + 
       "resetProperties="  + _resetProperties  + ", " +
       "inhibitAll=" + _inhibitAll + "]";
@@ -312,8 +362,10 @@ public class StyleNode
   private final String                     _name;
   private final String                     _selector;
   private final List<PropertyNode>         _properties;          // The property nodes
+  private final List<PropertyNode>         _skinProperties;      // The skin property nodes
   private final List<IncludeStyleNode>     _includedStyles;      // Included styles
   private final List<IncludePropertyNode>  _includedProperties;  // Included properties
+  private final List<IncludeCompactPropertyNode> _includedCompactProperties;  
   private final List<String>               _inhibitedProperties; // Inhibited properties
   
   // These flags checks whether the style should inherit properties

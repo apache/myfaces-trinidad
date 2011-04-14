@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">URL-osoitetta {0} ei voi ladata</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">UploadedFileProcessor-instanssia ei voi luoda</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Tiedostoa ei voi avata, koska se on liian suuri.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad on käynnissä virheenetsintätilassa. Ei saa käyttää tuotantoympäristössä. Katso: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">Elementti {0} ei tue EL-lausekkeita.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">Elementti {0} hyväksyy vain kokonaislukuarvot</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">Elementti {0} hyväksyy vain pitkät arvot</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Kontekstin luokkalataajaa ei löydy.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -259,6 +263,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Resurssia {0} ei voi hakea</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad on käynnissä virheenetsinnän javascript-komentojonon kanssa. Ei saa käyttää tuotantoympäristössä. Katso org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT -parametri /WEB-INF/web.xml-tiedostossa</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Ympäristösi on määritetty tuotannoksi, ja Apache Trinidad on käynnissä virheenetsinnän javascript-komentojonon kanssa. Katso org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT-parametri /WEB-INF/web.xml-tiedostossa</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Ympäristösi on määritetty tuotannoksi, ja Apache Trinidad on käynnissä pakkaamattoman CSS-tiedoston kanssa. Katso org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION-parametri /WEB-INF/web.xml-tiedostossa</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Ympäristösi on määritetty tuotannoksi, ja Apache Trinidad on käynnissä debug-output TRUE -määritteen kanssa. Katso debug-output-elementti trinidad-config.xml-tiedostossa.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Virheellinen arvo {0} kohteelle {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +311,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ominaisuudet {0} ohitetaan, koska vastaavaa valitsinta ei ole.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Virhe olemuksen css-tiedoston lukemisessa</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Virhe olemuksen css-tiedoston luvussa. Ylimääräinen pilkku valitsimessa: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Ei voi lisätä olemusta, jonka skinId- tai skin-arvo on tyhjä</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Aiemmin lisätty olemus {0} on lisätty uudelleen. Jos tallensit olemuksen välimuistiin, tulokset voivat olla epäyhtenäisiä. Tarkista, onko luokkapolussa toistuvia trinidad-skins.xml-tiedostoja.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Olemusta ei voi hakea tyhjällä skinId-tunnuksella</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Perhettä {0} ja renderkit-kohdetta {1} vastaavaa olemusta ei löydy, joten yksinkertaista olemusta käytetään</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Löytyi olemus, joka vastaa perhettä {0} ja versiota {1}. Käytetään olemusta {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Perhettä {0} ja versiota {1} vastaavaa olemusta ei löydy. Käytetään olemusta {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Perhettä {0} vastaavaa versiotonta olemusta ei löydy. Käytetään versioitua olemusta {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Tyylisivuasiakirjan aikaleimaa ei voi hakea, koska yhteyttä ei voi avata.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">Olemuksen valitsin {0} ei ole olemuksen kuvakeobjekti, koska sillä ei ole sisältömääritettä. Jos loit tämän valitsimen, vaihda sen nimeä niin, että lopussa on &quot;style&quot; eikä &quot;icon&quot;. Näin olemuksenluontikehys käsittelee sitä tyylinä kuvakkeen sijaan.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">Säännön {0} on tultava ennen kaikkia muita sääntöjä.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Seuraavat olemukset laajentavat toisiaan kehämäisella tavalla, tai olemusta, jota ne laajentavat, ei ole olemassa: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -419,6 +443,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Pakollista elementtiä id ei löydy.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Pakollista elementtiä family ei löydy.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Kohteen &quot;version&quot; pakollista alielementtiä &quot;name&quot; ei löydy.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Väärin muodostettu ominaisuuskirjaus: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -721,4 +747,15 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Virheellinen aluetunnuksen {0} maa - maatunnus on kirjoitettava isoilla kirjaimilla, tarkista oikea muoto Locale javadoc -tiedostosta. Maatunnuksena käytetään tyhjää merkkijonoa.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Virheellinen aluetunnuksen {0} muuttuja - se ei voi sisältää vinoviivaa, jotta XSS-hyökkäykset voidaan välttää. Muuttujana käytetään tyhjää merkkijonoa.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Tiedostoa {0} ei voi poistaa</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IStaten on oltava StateManager.SerializedView-instanssi tai Object-taulukko pituudella 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Osittaista tilan tallennusta ei vielä tueta. Aseta web.xml-tiedostossa context-param javax.faces.PARTIAL_STATE_SAVING-arvoksi false.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Virhe sarjoitettaessa {0}-määritettä: {1}; arvo:{2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Virhe vikatilannevaihdossa: {0}-määritettä {1}, jonka tyyppi on {2}, ei voi sarjoittaa</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Virhe vikatilannevaihdossa: {0}-määritteen {1} sarjoitus muuttui kohteesta {2} kohteeseen {3}, mutta määrite ei muuttunut</resource>
 </resources>

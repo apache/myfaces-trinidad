@@ -141,21 +141,6 @@ public interface FacesBean
   public void setValueBinding(PropertyKey key, ValueBinding binding);
 
   /**
-   * Add a client behavior for a bean of a component that is a
-   * {@link javax.faces.component.behavior.ClientBehaviorHolder}
-   * @param eventName the event name
-   * @param behavior the behavior
-   */
-  public void addClientBehavior(String eventName, ClientBehavior behavior);
-
-  /**
-   * Get a map of event name to list of client behaviors for a bean of a component that is a
-   * {@link javax.faces.component.behavior.ClientBehaviorHolder}
-   * @return Non-null map of client behaviors (will return an empty map if none are present)
-   */
-  public Map<String, List<ClientBehavior>> getClientBehaviors();
-
-  /**
    * Add an entry to a list.  The same value may be added
    * repeatedly;  null is also a legal value.  (Consumers of
    * this API can apply more stringent rules to specific keys

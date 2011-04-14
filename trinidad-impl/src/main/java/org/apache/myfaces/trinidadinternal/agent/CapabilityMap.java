@@ -189,7 +189,7 @@ public class CapabilityMap extends AbstractMap<Object, Object> implements Clonea
   @Override
   public Object put(Object key, Object value)
   {
-    return new UnsupportedOperationException();
+    throw new UnsupportedOperationException();
   }
 
   /**

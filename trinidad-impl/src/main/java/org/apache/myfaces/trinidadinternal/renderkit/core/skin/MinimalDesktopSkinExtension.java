@@ -18,7 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
 
@@ -37,17 +37,13 @@ public class MinimalDesktopSkinExtension extends SkinExtension
      // Create a SkinExtension for Minimal
     super(baseSkin,
           _MINIMAL_DESKTOP_ID,
-          _MINIMAL_FAMILY,
-          XhtmlConstants.APACHE_TRINIDAD_DESKTOP);
+          TrinidadRenderingConstants.MINIMAL_SKIN_FAMILY,
+          TrinidadRenderingConstants.APACHE_TRINIDAD_DESKTOP);
 
     // Register our style sheet
     setStyleSheetName(_MINIMAL_STYLE_SHEET_NAME);
 
   }
-  
-
-  // Minimal skin family name
-  private static final String _MINIMAL_FAMILY = "minimal";
 
   // Minimal skin id
   private static final String _MINIMAL_DESKTOP_ID = "minimal.desktop";
@@ -55,5 +51,5 @@ public class MinimalDesktopSkinExtension extends SkinExtension
 
   // Minimal skin style sheet name
   private static final String _MINIMAL_STYLE_SHEET_NAME =
-    "META-INF/adf/styles/minimal-desktop.xss";
+    "META-INF/adf/styles/minimal-desktop.css";
 }

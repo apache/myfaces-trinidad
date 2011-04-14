@@ -33,6 +33,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
@@ -79,6 +81,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 // TODO The error message date/time reads
 // "Date cannot be before Mon Feb 16 16:11:13 PST 2004", but the
 // date should probably be in the format of the converter....
+@JSFValidator(configExcluded=true)
 public class DateTimeRangeValidator implements Validator, StateHolder {
 
 
@@ -160,6 +163,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * Validator} or null if it has not been
    * set.
    */
+  @JSFProperty
   public Date getMaximum()
   {
     Object maxDate = _facesBean.getProperty(_MAXIMUM_KEY);
@@ -183,6 +187,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * Validator}, or null if it has not been
    * set.
    */
+  @JSFProperty
   public Date getMinimum()
   {
     Object minDate = _facesBean.getProperty(_MINIMUM_KEY);
@@ -217,6 +222,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom error message.
    * @see #setMessageDetailMaximum(String)
    */
+  @JSFProperty
   public String getMessageDetailMaximum()
   {
     Object maxMsgDet = _facesBean.getProperty(_MAXIMUM_MESSAGE_DETAIL_KEY);
@@ -241,6 +247,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom error message.
    * @see #setMessageDetailMinimum(String)
    */
+  @JSFProperty
   public String getMessageDetailMinimum()
   {
     Object minMsgDet = _facesBean.getProperty(_MINIMUM_MESSAGE_DETAIL_KEY);
@@ -266,6 +273,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom error message.
    * @see #setMessageDetailNotInRange(String)
    */
+  @JSFProperty
   public String getMessageDetailNotInRange()
   {
     Object notInRngMsg = _facesBean.getProperty(_NOT_IN_RANGE_MESSAGE_DETAIL_KEY);
@@ -287,6 +295,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom hint message.
    * @see  #setHintMaximum(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintMaximum()
   {
     Object obj = _facesBean.getProperty(_HINT_MAXIMUM_KEY);
@@ -308,6 +317,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom hint message.
    * @see  #setHintMinimum(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintMinimum()
   {
     Object obj = _facesBean.getProperty(_HINT_MINIMUM_KEY);
@@ -329,6 +339,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom hint message.
    * @see  #setHintNotInRange(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintNotInRange()
   {
     Object obj = _facesBean.getProperty(_HINT_NOT_IN_RANGE);
@@ -521,6 +532,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     return result;
   }
 
+  @JSFProperty(istransient=true,tagExcluded=true)
   public boolean isTransient()
   {
     return (_transientValue);

@@ -26,6 +26,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
+import javax.faces.render.Renderer;
+
 import org.apache.myfaces.trinidad.component.UIXForm;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
@@ -217,6 +219,34 @@ public class RenderUtils
 
   }
 
+  /**
+   * Returns the clientId used by the renderer in place of the clientId used by the component.
+   * Certain renderers render their root element with a clientId that differs from the one
+   * used by the component.
+   * @param context FacesContent.
+   * @param component UIComponent.
+   * @return component clientId if the renderer clientId is null. Otherwise clientId used by 
+   * renderer.
+   */
+  public static String getRendererClientId(
+    FacesContext context, 
+    UIComponent component) 
+  {
+    String clientId = component.getClientId(context);
+    String family = component.getFamily();
+    String rendererType = component.getRendererType();
+    if (rendererType != null)
+    {
+      Renderer renderer = context.getRenderKit().getRenderer(family, rendererType);
+      if (renderer instanceof CoreRenderer)
+      {
+        CoreRenderer coreRenderer = (CoreRenderer) renderer;
+        String rendererClientId = coreRenderer.getClientId(context, component);
+        return rendererClientId == null ? clientId : rendererClientId;
+      }
+    }
+    return clientId;
+  }
 
   // This does NOT use findComponent
   // ComponentUtils.findRelativeComponent finds the component, whereas
@@ -300,6 +330,7 @@ public class RenderUtils
     }
     return colonCount;
   }
+  
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(RenderUtils.class);
 

@@ -125,9 +125,11 @@
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Ugyldig indeks</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Legger til en underordnet når det allerede finnes en underordnet med samme ID. Den gamle underordnede fjernes, og den nye underordnede legges til. {0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Endringsstyrer kan ikke iverksette AddChildComponentChange fordi det allerede finnes en underordnet komponent med samme ID. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Ingen knutepunkt er angitt</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Vi vil ikke opprettholde den stemplede komponenten i en iterator</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Komponent er nødvendig</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -156,6 +158,8 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">Kan ikke bygge en AddFacetChange der facetName eller facetComponent er null.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Fasettnavnet må angis</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">Endringsstyrer kan ikke iverksette SetFacetChildComponentChange fordi det allerede finnes en fasett med det samme navnet. {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Den underordnede komponenten som skal flyttes, er nødvendig.</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -168,6 +172,8 @@
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Finner ikke den underordnede som skal flyttes: {0}.</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
 <resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Finner ikke målbeholderen: {0}.</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">En annen komponent med samme ID ble funnet i målbeholderen. Flytting avbrutt: {0}.</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Finner ikke innsettingen før komponenten eller knutepunktet: {0}.</resource>
 <!-- INDEX_SIZE -->
@@ -308,4 +314,10 @@
 <resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">Kan ikke angi parametre for portletgjengivelse på grunn av mislykket refleksjon</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">Typen for {0} forhindrer sammenligning med {1}.</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">Kan ikke pakke sidetilstanden. Tilstanden må være serialiserbar for at den skal kunne pakkes. En vanlig årsak til at pakkingen mislykkes, er at sidetilstanden ikke er serialisebar. Du kan deaktivere pakking ved å sette org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE til usann. Se dokumentet om systemegenskapen org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION om hvordan du tester ulike aspekter ved serialisering.</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">Kan ikke pakke ut sidetilstanden.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">getClientId må ikke kalles når visningen bygges. Komponent-ID: {0}</resource>
 </resources>

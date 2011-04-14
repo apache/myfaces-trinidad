@@ -59,14 +59,17 @@ class DatePropertyTagRule
     
     public void applyMetadata(FaceletContext ctx, Object instance)
     {
-      if (_params == null)
+      if (_time == null)
       {
         Date date = _coerceToDate(_attribute.getValue(), _adjustToEnd);
-        _params = new Object[]{date};
+        _time = (date == null) ? _UNKNOWN_TIME : date.getTime();
       }
       try
       {
-        _method.invoke(instance, _params);
+        // TRINIDAD-2034 - create a new instance of Date every time to avoid issues
+        // with sharing mutable objects
+        Object params[] = new Object[]{(_time.longValue() == _UNKNOWN_TIME) ? null : new Date(_time)};
+        _method.invoke(instance, params);
       }
       catch (InvocationTargetException e)
       {
@@ -81,7 +84,8 @@ class DatePropertyTagRule
     private final Method       _method;
     private final TagAttribute _attribute;
     private final boolean      _adjustToEnd;
-    private       Object[]     _params;
+    private       Long         _time;
+    private static final long  _UNKNOWN_TIME = -1;
   }
   
   public Metadata applyRule(String name, TagAttribute attribute,

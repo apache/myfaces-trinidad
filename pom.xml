@@ -28,7 +28,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>6</version>
+    <version>10</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
@@ -45,12 +45,11 @@
     <jsp.version>2.1</jsp.version>
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>2.0</jsf-spec.version>
-    <jsf-ri.version>2.0.1</jsf-ri.version>
-    <!--jsf-ri.version>2.0.0-b22</jsf-ri.version-->
-    <!--jsf-myfaces.version>1.2.4</jsf-myfaces.version>
-    <jsf-facelets.version>1.1.14</jsf-facelets.version-->
+    <jsf-ri.version>2.0.4-b09</jsf-ri.version>
+    <jsf-myfaces.version>2.0.4</jsf-myfaces.version>
     <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
+    <commons-io.version>2.0</commons-io.version>
     <pluto-embedded.version>1.0.1</pluto-embedded.version>
     
     <!-- Testing -->
@@ -59,14 +58,16 @@
     <junit.version>4.4</junit.version>
     
     <!-- Plugins -->
-    <trinidad-plugins.version>2.0.0</trinidad-plugins.version>
+    <trinidad-plugins.version>2.0.5</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
     <jetty-plugin.version>6.1.21</jetty-plugin.version>
     <pluto.version>1.1.6</pluto.version>
     <pluto.package>org.apache.pluto</pluto.package>
+    <myfaces-builder-plugin.version>1.0.9</myfaces-builder-plugin.version>
     
     <!-- Other -->
     <jdev.release>11.1.1.0.0</jdev.release>
+    <myfaces-builder-annotations.version>1.0.8</myfaces-builder-annotations.version>
   </properties>
 
   <issueManagement>
@@ -138,38 +139,39 @@
   </mailingLists>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/trunk/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/branches/2.0.0.1-branch</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/branches/2.0.0.1-branch</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/trinidad/branches/2.0.0.1-branch</url>
   </scm>
 
   <repositories>
-    <!--Fixme: This repository is pretty bad.  We should move require artifacts to repo1. -->
-    <repository>
-      <id>java.net</id>
-      <url>http://download.java.net/maven/1</url>
-      <layout>legacy</layout>
-    </repository>
-    <repository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-    </repository>
     <!-- needed for Bean Validation API -->
     <repository>
-      <id>jboss releases</id>
-      <name>JBoss Releases</name>
-      <url>http://repository.jboss.org/maven2/</url>
-      <layout>default</layout>
+      <id>jboss</id>
+      <name>jboss nexus</name>
+      <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+    </repository>
+    <!-- Needed for Mojarra -->
+    <repository>
+      <id>maven2-repository.dev.java.net</id>
+      <name>Java.net Repository for Maven</name>
+      <url>http://download.java.net/maven/2/</url>
     </repository>
   </repositories>
 
   <pluginRepositories>
-    <pluginRepository>
+    <!--
+        We need this in HERE, since our plugins are a separate project.
+        It would be awful to have that setting in the myfaces-pom.
+    -->
+    <!--pluginRepository>
       <id>apache.snapshots</id>
       <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-    </pluginRepository>
+      <url>http://repository.apache.org/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </pluginRepository-->
   </pluginRepositories>
 
   <distributionManagement>
@@ -178,12 +180,6 @@
       <name>Apache Website</name>
       <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
     </site>
-    <snapshotRepository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>apache-maven-snapshots</id>
-      <name>Apache Maven Snapshot Repository</name>
-      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
-    </snapshotRepository>
   </distributionManagement>
 
   <dependencyManagement>
@@ -234,11 +230,11 @@
         <groupId>javax.validation</groupId>
         <artifactId>validation-api</artifactId>
         <version>${validation.version}</version>
-        <scope>compile</scope>
+        <scope>provided</scope>
       </dependency>
 
 <!-- for now we just use the RI, b/c nothing around for MyFaces 2.0 -->
-      <!--dependency>
+      <dependency>
         <groupId>org.apache.myfaces.core</groupId>
         <artifactId>myfaces-api</artifactId>
         <version>${jsf-myfaces.version}</version>
@@ -250,7 +246,7 @@
         <artifactId>myfaces-impl</artifactId>
         <version>${jsf-myfaces.version}</version>
         <scope>provided</scope>
-      </dependency-->
+      </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.portlet-bridge</groupId>
@@ -267,13 +263,6 @@
         <scope>provided</scope>
       </dependency>
       
-      <!--dependency>
-        <groupId>com.sun.facelets</groupId>
-        <artifactId>jsf-facelets</artifactId>
-        <version>${jsf-facelets.version}</version>
-        <scope>provided</scope>
-      </dependency-->
-
       <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
@@ -281,28 +270,41 @@
       </dependency>
 
       <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.myfaces.buildtools</groupId>
+        <artifactId>myfaces-builder-annotations</artifactId>
+        <version>${myfaces-builder-annotations.version}</version>
+        <scope>provided</scope>
+      </dependency>
+    
+      <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-build</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-api</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-impl</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-api</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
@@ -360,6 +362,7 @@
       <plugins>
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
+          <!--version>3.0-beta-3</version-->
           <inherited>true</inherited>
           <configuration>
             <outputEncoding>UTF-8</outputEncoding>
@@ -403,6 +406,7 @@
           <configuration>
             <force>true</force>
             <jsfVersion>${jsf-spec.version}</jsfVersion>
+            <metadataComplete>true</metadataComplete>
           </configuration>
         </plugin>
 
@@ -430,6 +434,12 @@
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-tagdoc-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.apache.myfaces.buildtools</groupId>
+          <artifactId>myfaces-builder-plugin</artifactId>
+          <version>${myfaces-builder-plugin.version}</version>
         </plugin>
 
         <plugin>
@@ -521,14 +531,49 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-versions</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <message>Apache MyFaces Trinidad 2 needs to be compiled with Java 6</message>
+                  <version>1.6</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
+        <!--version>2.1</version-->
         <configuration>
           <preparationGoals>clean verify install</preparationGoals>
-          <tagBase>https://svn.apache.org//repos/asf/myfaces/trinidad/tags/</tagBase>
+          <tagBase>https://svn.apache.org/repos/asf/myfaces/trinidad/tags</tagBase>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
 
-      <!-- is this right? -->      
+      <!-- force generating a *-sources.jar when building a jar -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-source</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-xrts-plugin</artifactId>
@@ -566,14 +611,14 @@
 
   <reporting>
     <plugins>
-      <plugin>
+      <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
         <version>2.0</version>
         <configuration>
           <threshold>Low</threshold>
         </configuration>
-      </plugin>
+      </plugin-->
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -586,7 +631,7 @@
         <version>2.0.1</version>
       </plugin>
 
-      <plugin>
+      <!--plugin>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>2.3</version>
         <configuration>
@@ -598,7 +643,7 @@
           <minimumTokens>100</minimumTokens>
           <targetJdk>${jdk.version}</targetJdk>
         </configuration>
-      </plugin>
+      </plugin-->
     </plugins>
   </reporting>
 
@@ -621,81 +666,27 @@
       </modules>
     </profile>
 
-    <profile>
-      <id>partial-lifecycle</id>
-      <modules>
-        <module>trinidad-partial-lifecycle</module>
-      </modules>
-    </profile>
+   <!--
+     To create a new branch, use the following command:
+     mvn release:branch -DprepareRelease=true -DbranchName=my-branch -DupdateBranchVersions=true -DupdateWorkingCopyVersions=false
+   -->
 
     <!-- 
-      This profile is for preparing a release.  Execute this profile like this:
+      Add the assembly module when performing an apache-release
       
-      mvn release:prepare -DprepareRelease=true
+      USAGE:
+       - mvn release:prepare -Papache-release
+       - mvn release:perform -Papache-release
+
+      NOTE that for the maven lifecycle invoked by the release plugin, -Papache-release will
+      be added automatically because of the config in apache-parent-7.
     -->
     <profile>
-      <id>prepare-release</id>
+      <id>apache-release</id>
 
-      <activation>
-        <property>
-          <name>prepareRelease</name>
-        </property>
-      </activation>
-           
       <modules>
         <module>trinidad-assembly</module>
-        <module>trinidad-sandbox</module>
       </modules>
-    </profile>
-
-    <!-- 
-      This profile is for building the release artifacts for review.  Execute this profile 
-      like this:
-      
-      mvn clean source:jar install deploy -DaltDeploymentRepository=matzew::default::file://FOLDER -DperformRelease=true
-      
-      Issuing this command will also perform the "sign-artifacts" profile from the master pom.
-    -->
-    <profile>
-      <id>release</id>
-      <activation>
-        <property>
-          <name>performRelease</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <configuration>
-              <excludePackageNames>org.apache.myfaces.trinidadinternal.*</excludePackageNames>
-            </configuration>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-scm-plugin</artifactId>
-            <executions>
-              <execution>
-                <phase>validate</phase>
-                <id>getting-scm.revision</id>
-                <goals>
-                  <goal>update</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
 
     <!--
@@ -747,7 +738,7 @@
             <scope>runtime</scope>
           </dependency>
 
-          <!--dependency>
+          <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
             <version>${jsf-myfaces.version}</version>
@@ -759,7 +750,7 @@
             <artifactId>myfaces-impl</artifactId>
             <version>${jsf-myfaces.version}</version>
             <scope>runtime</scope>
-          </dependency-->
+          </dependency>
         </dependencies>
       </dependencyManagement>
     </profile>
@@ -811,27 +802,5 @@
       </dependencyManagement>      
     </profile>
 
-    <!-- allow people that use Java6 (or above) as their default JRE to specify
-      a Java5 home in their maven settings.xml. This makes the javac
-      run from that location (forked). This will fail if running on
-      Java6 without the Java5 home set. This only affects the compiler,
-      all tests and other maven plugins will still run it the active
-      JDK (java6). The property that is needed is "jdk5.home"
-      
-      Example usage in your settings.xml:
-<settings>
-  <profiles>
-    <profile>
-      <id>java5.home</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <properties>
-        <jdk5.home>/usr/lib/jvm/java-1.5.0-sun</jdk5.home>
-      </properties>
-    </profile>
-  </profiles>
-</settings>
-      -->
   </profiles>
 </project>

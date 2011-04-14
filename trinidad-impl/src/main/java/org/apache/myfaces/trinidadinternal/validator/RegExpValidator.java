@@ -27,10 +27,16 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
+@JSFValidator(
+        name="tr:validateRegExp",
+        bodyContent="empty",
+        id="org.apache.myfaces.trinidad.RegExp",
+        tagClass="org.apache.myfaces.trinidadinternal.taglib.validator.ValidateRegExpTag")
 public class RegExpValidator
                        extends org.apache.myfaces.trinidad.validator.RegExpValidator
                          implements ClientValidator

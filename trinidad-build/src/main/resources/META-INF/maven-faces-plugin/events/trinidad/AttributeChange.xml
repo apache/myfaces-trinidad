@@ -18,13 +18,13 @@
     under the License.
 	   
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <faces-config-extension>
     <mfp:event>
-      <mfp:description>Event delivered to describe an attribute change.  Attribute change events are not delivered for any programmatic change to a property.  They are only delivered when a renderer changes a property without the application's specific request.  An example of an attribute change events might include the width of a column that supported client-side resizing.</mfp:description>
+      <mfp:description>Event delivered to describe an attribute change.  Attribute change events are not delivered for any programmatic change to a property.  They are only delivered when a renderer changes a property without the application's specific request.  An example of an attribute change event might include the width of a column that supported client-side resizing.</mfp:description>
       <mfp:event-type>org.apache.myfaces.trinidad.AttributeChange</mfp:event-type>
       <mfp:event-class>org.apache.myfaces.trinidad.event.AttributeChangeEvent</mfp:event-class>
       <mfp:event-listener-class>org.apache.myfaces.trinidad.event.AttributeChangeListener</mfp:event-listener-class>

@@ -5,6 +5,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -31,6 +32,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -57,6 +59,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -83,6 +86,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -109,6 +113,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -135,6 +140,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -160,6 +166,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
            valign="middle"
           >
@@ -186,6 +193,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
            valign="top"
           >
@@ -212,6 +220,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
            valign="bottom"
           >
@@ -238,6 +247,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
            width="75%"
           >
@@ -264,6 +274,7 @@
            cellspacing="0"
            datatable="0"
            id="myRowId"
+           role="presentation"
            summary=""
           >
         
@@ -289,6 +300,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            style="background-color:blue"
            summary=""
           >
@@ -315,6 +327,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
            title="myShortDesc"
           >
@@ -342,6 +355,7 @@
            class="myStyle"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -368,6 +382,7 @@
            datatable="0"
            id="mainId"
            onclick="test-onclick"
+           role="presentation"
            summary=""
           >
         
@@ -394,6 +409,7 @@
            datatable="0"
            id="mainId"
            ondblclick="test-ondblclick"
+           role="presentation"
            summary=""
           >
         
@@ -420,6 +436,7 @@
            datatable="0"
            id="mainId"
            onkeydown="test-onkeydown"
+           role="presentation"
            summary=""
           >
         
@@ -446,6 +463,7 @@
            datatable="0"
            id="mainId"
            onkeypress="test-onkeypress"
+           role="presentation"
            summary=""
           >
         
@@ -472,6 +490,7 @@
            datatable="0"
            id="mainId"
            onkeyup="test-onkeyup"
+           role="presentation"
            summary=""
           >
         
@@ -498,6 +517,7 @@
            datatable="0"
            id="mainId"
            onmousedown="test-onmousedown"
+           role="presentation"
            summary=""
           >
         
@@ -524,6 +544,7 @@
            datatable="0"
            id="mainId"
            onmousemove="test-onmousemove"
+           role="presentation"
            summary=""
           >
         
@@ -550,6 +571,7 @@
            datatable="0"
            id="mainId"
            onmouseout="test-onmouseout"
+           role="presentation"
            summary=""
           >
         
@@ -576,6 +598,7 @@
            datatable="0"
            id="mainId"
            onmouseover="test-onmouseover"
+           role="presentation"
            summary=""
           >
         
@@ -602,6 +625,7 @@
            datatable="0"
            id="mainId"
            onmouseup="test-onmouseup"
+           role="presentation"
            summary=""
           >
         

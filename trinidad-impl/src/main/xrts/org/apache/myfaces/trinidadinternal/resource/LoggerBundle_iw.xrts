@@ -45,9 +45,9 @@
 <!-- UNABLE_PARSE_MODEL_STRING -->
 <resource key="UNABLE_PARSE_MODEL_STRING" dnt="false">אי אפשר לנתח מחרוזת מודל</resource>
 <!-- INVALID_CAPABILITY_DATA_URL -->
-<resource key="INVALID_CAPABILITY_DATA_URL" dnt="false"> url {0} של נתוני יכולות בלתי תקף</resource>
+<resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">url {0} של נתוני יכולות בלתי תקף</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
-<resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">לא נמצא מצב view שמור לאסימון {0}</resource>
+<resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">לא נמצא מצב תצוגה שמור לאסימון {0}</resource>
 <!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
 <resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE אינו נתמך ואין להשתמש בו כיוון שברוב המקרים הוא לא פועל.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">אי אפשר לטעון את {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">לא ניתן ליצור מופע של UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">אי אפשר לטעון את הקובץ כיוון שהוא גדול מדי.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad רץ במצב ניפוי באגים. לא לשימוש בסביבת ייצור. ראה:{0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">אלמנט {0} לא תומך בביטויי EL.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">אלמנט {0} מקבל רק ערכים שהם מספרים שלמים</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">אלמנט {0} מקבל רק ערכים שסוג הנתונים שלהם הוא long.</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">לא נמצא טוען מחלקת הקשר.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -87,7 +91,7 @@
 <!-- CANNOT_QUEUE_RETURN_EVENT -->
 <resource key="CANNOT_QUEUE_RETURN_EVENT" dnt="false">אי אפשר להציב את אירוע החזרה בתור: אין מקור הפעלה</resource>
 <!-- RENDERKIT_NOT_SUPPORT_DIALOGRENDERKITSERVICE -->
-<resource key="RENDERKIT_NOT_SUPPORT_DIALOGRENDERKITSERVICE" dnt="false">RenderKit {0} לא תומך ב-DialogRenderKitService ולא יכול לשמש להפעלת דו-שיח;  במקום זאת ייעשה שימוש בחלון יחיד.</resource>
+<resource key="RENDERKIT_NOT_SUPPORT_DIALOGRENDERKITSERVICE" dnt="false">RenderKit {0} לא תומך ב-DialogRenderKitService ולא יכול לשמש להפעלת דו-שיח; במקום זאת ייעשה שימוש בחלון יחיד.</resource>
 <!-- HTTPSESSION_USED_FOR_CHANGE_PERSISTENCE -->
 <resource key="HTTPSESSION_USED_FOR_CHANGE_PERSISTENCE" dnt="false">Apache Trinidad משתמש ב-HTTPSession להתמדת שינויים</resource>
 <!-- CHANGE_MANAGER_CREATION_FAILED -->
@@ -138,7 +142,7 @@
 <!-- ATTRIBUTE_OUTSIDE_ELEMENT -->
 <resource key="ATTRIBUTE_OUTSIDE_ELEMENT" dnt="false">כתיבת תכונה מחוץ לאלמנט</resource>
 <!-- DUPLICATE_ATTRIBUTE_OUTPUT -->
-<resource key="DUPLICATE_ATTRIBUTE_OUTPUT" dnt="false">תכונה &quot;{0}&quot; נפלטה פעמיים;  התכונה תיכתב במקום זאת כ- &quot;duplicate_{1}&quot;.</resource>
+<resource key="DUPLICATE_ATTRIBUTE_OUTPUT" dnt="false">תכונה &quot;{0}&quot; נפלטה פעמיים. התכונה תיכתב במקום זאת כ-&quot;duplicate_{1}&quot;.</resource>
 <!-- ELEMENT_END_NAME_NOT_MATCH_START_NAME -->
 <resource key="ELEMENT_END_NAME_NOT_MATCH_START_NAME" dnt="false">שם סוף אלמנט:{0} לא מתאים לשם התחלה:{1}</resource>
 <!-- GROUPNODE_REFER_INVALID_GROUP_NODE -->
@@ -259,6 +263,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">אי אפשר להביא משאב {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad רץ עם javascript לניפוי באגים. לא לשימוש בסביבת ייצור. ראה את הפרמטר &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; ב-/WEB-INF/web.xml</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">הסביבה שלך מוגדרת כסביבת ייצור ו-Apache Trinidad פועל עם javascript לניפוי. עיין בפרמטר &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; ב-/WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">הסביבה שלך מוגדרת כסביבת ייצור ו-Apache Trinidad רץ עם CSS לא דחוס. עיין בפרמטר &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; ב-/WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">הסביבה שלך מוגדרת כסביבת ייצור ו-Apache Trinidad פועל עם debug-output TRUE. עיין באלמנט &quot;debug-output&quot; בקובץ trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">ערך בלתי חוקי:{0} ל-{1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +311,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">התוכנה מתעלמת ממאפייני {0} מכיוון שאין בורר מתאים.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">שגיאה בקריאה מקובץ css של המעטפת</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">שגיאה בקריאה מקובץ css של המעטפת. נמצא פסיק נוסף בבורר: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">אי אפשר להוסיף מעטפת עם זיהוי מעטפת null או מעטפת null</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">המעטפת שנוספה מקודם {0} נוספה כעת שוב. אם העברת את המעטפת הזו למטמון ביישום שלך אתה עלול לקבל תוצאות לא עקביות. חפש קובצי trinidad-skins.xml כפולים ב-classpath.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">אי אפשר להביא מעטפת עם זיהוי מעטפת null</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">אין מעטפת המתאימה למשפחה {0} ו-renderkit {1}, לכן נשתמש במעטפת הפשוטה</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">נמצאה מעטפת שמתאימה למשפחה {0} וגרסה {1}. אנו נשתמש במעטפת {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">לא נמצאה מעטפת שמתאימה למשפחה {0} וגרסה {1}. אנו נשתמש במעטפת {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">לא נמצאה מעטפת ללא גרסה למשפחה {0}. אנו נשתמש במעטפת עם הגרסה {1}. </resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">אי אפשר להביא את חותמת הזמן של מסמך גיליון הסגנונות כי לא ניתן לפתוח את החיבור.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">בורר המעטפת {0} אינו אובייקט סמל מעטפת כיוון שאין לו תכונת תוכן. אם יצרת בורר זה, שנה את שמו כך שיסתיים ב-&quot;style&quot; ולא ב-&quot;icon&quot;, כדי למערכת המעטפת תתייחס אליו כסגנון ולא כסמל.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} חייב להיות קודם לכל הכללים האחרים.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">המעטפות הבאות מגדילות זו את זו בצורה מעגלית או שהמעטפת שהן מגדילות לא קיימת:{0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -366,7 +390,7 @@
 <!-- MISSING_VALIDATORID -->
 <resource key="MISSING_VALIDATORID" dnt="false">התכונה &apos;validatorId&apos; חסרה</resource>
 <!-- CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN -->
-<resource key="CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN" dnt="false">אי אפשר לנתח ערך {0} לתאריך באמצעות תבנית &quot;yyyy-MM-dd&quot;;  המערכת מתעלמת.</resource>
+<resource key="CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN" dnt="false">אי אפשר לנתח ערך {0} לתאריך באמצעות תבנית &quot;yyyy-MM-dd&quot;; המערכת מתעלמת.</resource>
 <!-- NO_RENDERERFACTORY_REGISTERED_COMPONENT -->
 <resource key="NO_RENDERERFACTORY_REGISTERED_COMPONENT" dnt="false">אין RendererFactory רשום לרכיבים ב-namespace {0}</resource>
 <!-- NO_RENDERER_REGISTERED -->
@@ -419,6 +443,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">אלמנט נדרש &apos;זיהוי&apos; לא נמצא.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">אלמנט נדרש &apos;משפחה&apos; לא נמצא.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">לא נמצא אלמנט בן נדרש ל&apos;גרסה&apos;, &apos;שם&apos;.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">ערך מאפיין שגוי: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -452,9 +478,9 @@
 <!-- PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED -->
 <resource key="PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED" dnt="false">חריגה מגבולות שטח דיסק לבקשה.</resource>
 <!-- POPVIEW_NO_VIEW_PUSHED -->
-<resource key="POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): לא נדחף כל view.</resource>
+<resource key="POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): לא נדחף כל מבט.</resource>
 <!-- POPVIEW_NO_VIEW_PUSHED -->
-<resource key=">POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): לא נדחף כל view.</resource>
+<resource key=">POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): לא נדחף כל מבט.</resource>
 <!-- ONLY_HTTPSERVLETREQUEST_SUPPORTED -->
 <resource key="ONLY_HTTPSERVLETREQUEST_SUPPORTED" dnt="false">רק HttpServletRequest נתמך</resource>
 <!-- ONLY_HTTPSERVLETRESPONSE_SUPPORTED -->
@@ -566,7 +592,7 @@
 <!-- NULL_SKIN_ID -->
 <resource key="NULL_SKIN_ID" dnt="false">זיהוי Null</resource>
 <!-- NULL_LOCALE_CONTEXT -->
-<resource key="NULL_LOCALE_CONTEXT" dnt="false">הקשר מקום Null</resource>
+<resource key="NULL_LOCALE_CONTEXT" dnt="false">הקשר Null להגדרות אזור</resource>
 <!-- NULL_ICONNAME -->
 <resource key="NULL_ICONNAME" dnt="false">Null iconName</resource>
 <!-- NULL_STYLESHEETNAME -->
@@ -594,7 +620,7 @@
 <!-- NO_COMPONENT_ASSOCIATED_WITH_UICOMPONENTTAG -->
 <resource key="NO_COMPONENT_ASSOCIATED_WITH_UICOMPONENTTAG" dnt="false">אין רכיב מקושר עם UIComponentTag</resource>
 <!-- NAME_ATTRIBUTE_CANNOT_BE_EL_BOUND -->
-<resource key="NAME_ATTRIBUTE_CANNOT_BE_EL_BOUND" dnt="false">תכונת השם לא יכולה להיות כרוכת  EL</resource>
+<resource key="NAME_ATTRIBUTE_CANNOT_BE_EL_BOUND" dnt="false">תכונת השם לא יכולה להיות כרוכת EL</resource>
 <!-- COMPOENENTDEF_CANNOT_RUN_AS_STANDALONE -->
 <resource key="COMPOENENTDEF_CANNOT_RUN_AS_STANDALONE" dnt="false">אי אפשר להריץ את componentDef באופן אוטונומי. עליו להיות כלול בתוך עץ רכיבי JSF.</resource>
 <!-- COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF -->
@@ -712,13 +738,24 @@
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator דורש שהרכיב יהיה EditableValueHolder כדי שאימות הלקוח יפעל. אימות הלקוח ייחסם לרכיב {0}.</resource>
 <!-- INVALID_LOCALE_LANG_LENGTH  -->
-<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">שפה בלתי תקפה למזהה האזור {0} - קוד השפה צריך להיות בן שתי ספרות. לקבלת מידע על התבנית הנכונה, עיין ב-Locale javadoc. ייעשה שימוש באזור הדף הנוכחי.</resource>
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">שפה בלתי תקפה למזהה האזור {0} - קוד השפה צריך להיות בן שתי ספרות. לקבלת מידע על התבנית הנכונה, עיין ב-Locale javadoc. ייעשה שימוש בהגדרות האזור של הדף הנוכחי.</resource>
 <!-- INVALID_LOCALE_LANG_CASE  -->
-<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">שפה בלתי תקפה למזהה האזור {0} - קוד השפה צריך להיות באותיות קטנות. לקבלת מידע על התבנית הנכונה, עיין ב-Locale javadoc. ייעשה שימוש באזור הדף הנוכחי.</resource>
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">שפה בלתי תקפה למזהה האזור {0} - קוד השפה צריך להיות באותיות קטנות. לקבלת מידע על התבנית הנכונה, עיין ב-Locale javadoc. ייעשה שימוש בהגדרות האזור של הדף הנוכחי.</resource>
 <!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
 <resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">שפה בלתי תקפה למזהה האזור {0} - קוד הארץ צריך להיות בן שני תווים. לקבלת מידע על התבנית הנכונה, עיין ב-Locale javadoc. ייעשה שימוש במחרוזת ריקה לארץ</resource>
 <!-- INVALID_LOCALE_COUNTRY_CASE  -->
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">שפה בלתי תקפה למזהה האזור {0} - קוד הארץ צריך להיות באותיות רישיות. לקבלת מידע על התבנית הנכונה, עיין ב-Locale javadoc. ייעשה שימוש במחרוזת ריקה לארץ</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">משתנה בלתי תקף למזהה האזור {0} - אינו יכול להכיל קווים נטויים למניעת התקפות XSS. ייעשה שימוש במחרוזת ריקה למשתנה.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">אי אפשר למחוק את הקובץ {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState חייב להיות מופע של StateManager.SerializedView או מערך אובייקטים באורך 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">שמירת מצב חלקי אינה נתמכת. הגדר את context-param javax.faces.PARTIAL_STATE_SAVING כ-false בקובץ web.xml.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">שגיאה בביצוע serializing {0} על התכונה: {1} ערך: {2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">שגיאה בביצוע Failover {0}: התכונה: {1} מסוג {2} איננה Serializable</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">שגיאה בביצוע Failover: ביצוע Serialization של {0} התכונה: {1} השתנה מ-{2} ל-{3} מבלי שהתכונה תתלכלך</resource>
 </resources>

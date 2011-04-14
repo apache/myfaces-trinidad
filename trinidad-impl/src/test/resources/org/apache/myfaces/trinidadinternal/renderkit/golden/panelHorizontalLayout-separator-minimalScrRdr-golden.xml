@@ -5,6 +5,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -52,6 +53,7 @@
            datatable="0"
            id="mainId"
            onclick="test-onclick"
+           role="presentation"
            summary=""
           >
         
@@ -99,6 +101,7 @@
            datatable="0"
            id="mainId"
            ondblclick="test-ondblclick"
+           role="presentation"
            summary=""
           >
         
@@ -146,6 +149,7 @@
            datatable="0"
            id="mainId"
            onkeydown="test-onkeydown"
+           role="presentation"
            summary=""
           >
         
@@ -193,6 +197,7 @@
            datatable="0"
            id="mainId"
            onkeypress="test-onkeypress"
+           role="presentation"
            summary=""
           >
         
@@ -240,6 +245,7 @@
            datatable="0"
            id="mainId"
            onkeyup="test-onkeyup"
+           role="presentation"
            summary=""
           >
         
@@ -287,6 +293,7 @@
            datatable="0"
            id="mainId"
            onmousedown="test-onmousedown"
+           role="presentation"
            summary=""
           >
         
@@ -334,6 +341,7 @@
            datatable="0"
            id="mainId"
            onmousemove="test-onmousemove"
+           role="presentation"
            summary=""
           >
         
@@ -381,6 +389,7 @@
            datatable="0"
            id="mainId"
            onmouseout="test-onmouseout"
+           role="presentation"
            summary=""
           >
         
@@ -428,6 +437,7 @@
            datatable="0"
            id="mainId"
            onmouseover="test-onmouseover"
+           role="presentation"
            summary=""
           >
         
@@ -475,6 +485,7 @@
            datatable="0"
            id="mainId"
            onmouseup="test-onmouseup"
+           role="presentation"
            summary=""
           >
         
@@ -522,6 +533,7 @@
            class="test-styleClass"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -568,6 +580,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
            title="test-shortDesc"
           >
@@ -615,6 +628,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            style="background-color:red"
            summary=""
           >
@@ -662,6 +676,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -713,6 +728,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -764,6 +780,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -815,6 +832,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -866,6 +884,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -917,6 +936,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -963,6 +983,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -1009,6 +1030,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -1061,6 +1083,7 @@
            cellspacing="0"
            datatable="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         

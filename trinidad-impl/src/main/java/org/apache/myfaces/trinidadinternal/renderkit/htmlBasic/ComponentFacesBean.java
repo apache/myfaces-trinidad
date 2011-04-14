@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.htmlBasic;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import javax.el.ValueExpression;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
@@ -56,6 +58,16 @@ public class ComponentFacesBean implements FacesBean
   final public Object getProperty(PropertyKey key)
   {
     return _component.getAttributes().get(key.getName());
+  }
+  
+  public Map<String, List<ClientBehavior>> getClientBehaviors()
+  {
+    Map<String, List<ClientBehavior>> behaviors = _EMPTY_CLIENT_BEHAVIORS_MAP;
+    if (_component instanceof ClientBehaviorHolder)
+    {
+      behaviors = ((ClientBehaviorHolder)_component).getClientBehaviors();
+    }
+    return behaviors;
   }
 
   /**
@@ -175,10 +187,7 @@ public class ComponentFacesBean implements FacesBean
     throw new UnsupportedOperationException();
   }
 
-  public Map<String, List<ClientBehavior>> getClientBehaviors()
-  {
-    throw new UnsupportedOperationException();
-  }
-
   private final UIComponent _component;
+  
+  private static final Map<String, List<ClientBehavior>> _EMPTY_CLIENT_BEHAVIORS_MAP = Collections.emptyMap();
 }

@@ -25,12 +25,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 
 /**
  * <p>Implementation for <code>java.lang.Float</code> values.</p>
  *
  */
+@JSFConverter(id="javax.faces.Float")
 public class FloatConverter extends javax.faces.convert.FloatConverter
                             implements ClientConverter
 {

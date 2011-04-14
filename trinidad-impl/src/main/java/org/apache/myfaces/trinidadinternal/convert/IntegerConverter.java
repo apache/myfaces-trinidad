@@ -25,6 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 
@@ -33,6 +34,7 @@ import org.apache.myfaces.trinidad.util.IntegerUtils;
  *
  *
  */
+@JSFConverter(id="javax.faces.Integer")
 public class IntegerConverter extends javax.faces.convert.IntegerConverter
                               implements ClientConverter
 {

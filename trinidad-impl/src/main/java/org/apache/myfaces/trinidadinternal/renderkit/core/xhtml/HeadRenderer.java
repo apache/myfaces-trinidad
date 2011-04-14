@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
+import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -36,6 +37,7 @@ import org.apache.myfaces.trinidad.render.CoreRenderer;
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/HeadRenderer.java#0 $) $Date: 10-nov-2005.19:01:29 $
  */
+@ResourceDependency(target = "head", library = "javax.faces", name = "jsf.js")
 public class HeadRenderer extends XhtmlRenderer
 {
   public HeadRenderer()

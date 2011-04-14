@@ -366,16 +366,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
       // _setRequestedFocusNode() call?  It could derive them itself.
       if (partial)
       {
-        js =
-          "function _submitHideShow(a,v,b,c,l,d) {" +
-            "var o = {"+
-                  XhtmlConstants.EVENT_PARAM + ":b," +
-                  XhtmlConstants.SOURCE_PARAM + ":c};" +
-            "if (d!=(void 0)) o." +
-                  XhtmlConstants.VALUE_PARAM + "=d;" +
-            "_setRequestedFocusNode(document,l,false,window);" +
-            "_submitPartialChange(a,v,o);" +
-            "return false;}";
+        js = PARTIAL_JS;
       }
       else
       {
@@ -644,6 +635,22 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
   {
     return getPromptStyleClass(getDisclosed(component, bean));
   }
+  
+  // This constant will be accessed by FormRenderer. The reason is Windows 
+  // Mobile 6.1 doesn't support executing JS which are sent along a PPR response.
+  // ShowDetail's JS is sent only on a need basic, so WM 6.1 will ignore the 
+  // ShowDetail's JS if it is in an PPR response.
+  // To fix this issue, we need to render this script in FormRenderer
+  public static final String PARTIAL_JS = 
+    "function _submitHideShow(a,v,b,c,l,d) {" +
+      "var o = {"+
+            XhtmlConstants.EVENT_PARAM + ":b," +
+            XhtmlConstants.SOURCE_PARAM + ":c};" +
+      "if (d!=(void 0)) o." +
+            XhtmlConstants.VALUE_PARAM + "=d;" +
+      "_setRequestedFocusNode(document,l,false,window);" +
+      "_submitPartialChange(a,v,o);" +
+      "return false;}";
 
   private PropertyKey _immediateKey;
   private PropertyKey _disclosedTextKey;

@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidad.context;
 
 import java.util.Iterator;
 
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import javax.faces.component.visit.VisitContext;
 
 
 /**

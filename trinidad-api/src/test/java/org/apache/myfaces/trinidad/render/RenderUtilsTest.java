@@ -31,8 +31,9 @@ import org.apache.myfaces.trinidad.component.UIXForm;
 import org.apache.myfaces.trinidad.component.UIXInput;
 import org.apache.myfaces.trinidad.component.UIXPanel;
 
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 
-public class RenderUtilsTest extends TestCase
+public class RenderUtilsTest extends FacesTestCase
 {
   public static final Test suite()
   {
@@ -89,6 +90,8 @@ public class RenderUtilsTest extends TestCase
   @SuppressWarnings("unchecked")
   public void testButtonAndNamingContainerSiblings()
   {
+    FacesContext context = FacesContext.getCurrentInstance();
+
       // rootPanel
       //     button1
       //     table1
@@ -105,41 +108,41 @@ public class RenderUtilsTest extends TestCase
       table1.getChildren().add(tableChild);
     
     String relativeId =
-      RenderUtils.getRelativeId(null, button1, "table1");
+      RenderUtils.getRelativeId(context, button1, "table1");
     assertEquals("table1", relativeId);
     
     relativeId =
-      RenderUtils.getRelativeId(null, button1, ":table1");
+      RenderUtils.getRelativeId(context, button1, ":table1");
     assertEquals("table1", relativeId);
     
     // new way would find nothing, so we'd have to get something logical
     relativeId =
-      RenderUtils.getRelativeId(null, table1, "someRandomId");
+      RenderUtils.getRelativeId(context, table1, "someRandomId");
     assertEquals("table1_Client:someRandomId", relativeId);
     
     relativeId =
-      RenderUtils.getRelativeId(null, table1, ":commandButton1");
+      RenderUtils.getRelativeId(context, table1, ":commandButton1");
     assertEquals("commandButton1", relativeId);
 
     // to get to the commandButton from the table, you need to pop out of the
     // table
     relativeId =
-      RenderUtils.getRelativeId(null, table1, "::commandButton1");
+      RenderUtils.getRelativeId(context, table1, "::commandButton1");
     assertEquals("commandButton1", relativeId);
     
     // backward compatibility test -- this was the old syntax for siblings to the table.
     // this should be found by looking at the nc's parent from findRelativeComponent
     relativeId =
-      RenderUtils.getRelativeId(null, table1, "commandButton1");
+      RenderUtils.getRelativeId(context, table1, "commandButton1");
     assertEquals("commandButton1", relativeId);
        
     // backward compatibility test -- this was the old syntax for children to the table.
     relativeId =
-      RenderUtils.getRelativeId(null, table1, "table1:tableChildId");
+      RenderUtils.getRelativeId(context, table1, "table1:tableChildId");
     assertEquals("table1:tableChildId", relativeId);
      // this is the new syntax for children to the table
     relativeId =
-      RenderUtils.getRelativeId(null, table1, "tableChildId");
+      RenderUtils.getRelativeId(context, table1, "tableChildId");
     assertEquals("table1:tableChildId", relativeId);
 
   }
@@ -150,6 +153,7 @@ public class RenderUtilsTest extends TestCase
   @SuppressWarnings("unchecked")
   public void testRelativeSearch()
   {
+    FacesContext context = FacesContext.getCurrentInstance();
 
 
       // set up component hierarchy
@@ -195,13 +199,13 @@ public class RenderUtilsTest extends TestCase
      */
       
     String relativeId =
-      RenderUtils.getRelativeId(null, input1, "::button1");
+      RenderUtils.getRelativeId(context, input1, "::button1");
     // new way should pop OUT of ONE naming container and will find it
     assertEquals("ncRoot:button1", relativeId);
 
     
     relativeId =
-      RenderUtils.getRelativeId(null, input1, ":::button1");
+      RenderUtils.getRelativeId(context, input1, ":::button1");
     // new way should pop OUT of TWO naming containers and will find not find it
     // since it is in ncRoot and the base is now the view root.
     // so it goes to the old findRelativeComponent, and this will find it.
@@ -209,27 +213,27 @@ public class RenderUtilsTest extends TestCase
 
 
     relativeId =
-      RenderUtils.getRelativeId(null, input1, "randomPeer");
+      RenderUtils.getRelativeId(context, input1, "randomPeer");
     // randomPeer doesn't exist, so new way won't find it.
     // uses code that doesn't need to find the component to return this:
     assertEquals("nc1_Client:randomPeer", relativeId);
     
     relativeId =
-      RenderUtils.getRelativeId(null, input1, "::randomPeer");
+      RenderUtils.getRelativeId(context, input1, "::randomPeer");
     // randomPeer doesn't exist, so new way won't find it.
     // uses code that doesn't need to find the component to return this:
     assertEquals("ncRoot_Client:randomPeer", relativeId);
  
     // rootButton is child of form and sibling to ncRoot. It's 2 nc up from input1
     relativeId =
-      RenderUtils.getRelativeId(null, input1, ":::rootButton");
+      RenderUtils.getRelativeId(context, input1, ":::rootButton");
     // new way should pop OUT of both NC with ::: and will find it
     assertEquals("rootButton", relativeId);
 
  
     // rootButton is child of form and sibling to ncRoot. It's 2 nc up from input1
     relativeId =
-      RenderUtils.getRelativeId(null, input1, "::rootButton");
+      RenderUtils.getRelativeId(context, input1, "::rootButton");
     // new way should pop OUT of one NC with ::, so it can't find it
     // the 'old' findRelativeComponent can't find it either.
     // so it returns what the old getRelativeId would have returned
@@ -240,19 +244,19 @@ public class RenderUtilsTest extends TestCase
     
     // rootButton is child of form and sibling to ncRoot. It's 2 nc up from input1
     relativeId =
-      RenderUtils.getRelativeId(null, input1, "::::rootButton");
+      RenderUtils.getRelativeId(context, input1, "::::rootButton");
     // new way should pop OUT of ALL NCs and will find it.
     assertEquals("rootButton", relativeId);
     
 
     
     relativeId =
-      RenderUtils.getRelativeId(null, input1, "::::button1");
+      RenderUtils.getRelativeId(context, input1, "::::button1");
     // new way should return this
     assertEquals("button1", relativeId);
     
     relativeId =
-      RenderUtils.getRelativeId(null, input1, ":::::button1");
+      RenderUtils.getRelativeId(context, input1, ":::::button1");
     assertEquals("button1", relativeId);
   }
 

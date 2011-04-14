@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
@@ -47,6 +47,21 @@
         <mfp:property-metadata/>
         <fmd:property-metadata>
           <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
+      </property-extension>
+    </property>
+
+    <property>
+      <description><![CDATA[Specify the state saving behavior for this page. client=force to be (full) client;
+             server=force to be server-side; default=follows the settings of the web.xml]]></description>
+      <property-name>stateSaving</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>default</default-value>
+      <property-extension>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+          <fmd:property-values>default client server</fmd:property-values>
         </fmd:property-metadata>
       </property-extension>
     </property>
@@ -115,10 +130,10 @@
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>document</mfp:uix2-local-name>
-      <fmd:default-event-name>load</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup load unload</fmd:event-names>
       <fmd:component-metadata>
+        <fmd:default-event-name>load</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup load unload</fmd:event-names>
         <fmd:default-property>title</fmd:default-property>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreForm</fmd:preferred-child-components>
       </fmd:component-metadata>

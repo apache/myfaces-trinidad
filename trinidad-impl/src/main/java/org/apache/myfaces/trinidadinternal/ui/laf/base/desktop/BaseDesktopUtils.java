@@ -69,7 +69,7 @@ public class BaseDesktopUtils extends XhtmlLafUtils
 
   // We use a scorer which matches base/desktop - but not Netscape
   private static final NameAndAgentScorer _SCORER =
-    new NoNetscapeScorer("base");
+    new NoNetscapeScorer("base", TrinidadAgent.TYPE_DESKTOP, TrinidadAgent.TYPE_WEBCRAWLER);
 
   /**
    * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
@@ -77,14 +77,15 @@ public class BaseDesktopUtils extends XhtmlLafUtils
   @Deprecated
   private static class NoNetscapeScorer extends NameAndAgentScorer
   {
-    public NoNetscapeScorer(String lafName)
+    public NoNetscapeScorer(String lafName, int type1, int type2)
     {
-      // Initialize the NameAndAgentScorer for base/desktop
+      // Initialize the NameAndAgentScorer for base
       super(lafName,
-            TrinidadAgent.TYPE_DESKTOP,
             null,
             null,
-            null);
+            null,
+            type1,
+            type2);
     }
 
     @Override

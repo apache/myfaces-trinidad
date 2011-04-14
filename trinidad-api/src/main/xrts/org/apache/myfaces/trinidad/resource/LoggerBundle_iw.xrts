@@ -59,9 +59,9 @@
 <!-- NO_REQUESTCONTEXT_TIMEZONE_DEFAULT -->
 <resource key="NO_REQUESTCONTEXT_TIMEZONE_DEFAULT" dnt="false">לא נמצא RequestContext; ייעשה שימוש בברירת המחדל לאזור זמן.</resource>
 <!-- FAIL_HOLD_DECIMALFORMAT -->
-<resource key="FAIL_HOLD_DECIMALFORMAT" dnt="false">לא הושג DecimalFormat לסוג: {0} מפריד עשרוני, מפריד הקבצת מספרים, ייעשה שימוש בברירת המחדל לקוד מטבע המתאימה למקום {1}</resource>
+<resource key="FAIL_HOLD_DECIMALFORMAT" dnt="false">לא הושג DecimalFormat לסוג: {0} מפריד עשרוני, מפריד הקבצת מספרים, ייעשה שימוש בברירת המחדל לקוד מטבע המתאימה להגדרות האזור {1}</resource>
 <!-- NULL_REQUESTCONTEXT -->
-<resource key="NULL_REQUESTCONTEXT" dnt="false">RequestContext הוא null: מפריד עשרוני, מפריד הקבצת מספרים, ייעשה שימוש בברירת המחדל לקוד מטבע המתאימה למקום</resource>
+<resource key="NULL_REQUESTCONTEXT" dnt="false">RequestContext הוא null: מפריד עשרוני, מפריד הקבצת מספרים, ייעשה שימוש בברירת המחדל לקוד מטבע המתאימה להגדרות אזור</resource>
 <!-- NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE -->
 <resource key="NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE" dnt="false">RequestContext הוא null, אי אפשר להשיג קוד מטבע</resource>
 <!-- NUMBER_NOT_DECIMALFORMAT_IGNORE_CURRENCY -->
@@ -101,7 +101,7 @@
 <!-- CANNOT_CONVERT_INTO_INT_ARRAY -->
 <resource key="CANNOT_CONVERT_INTO_INT_ARRAY" dnt="false">אי אפשר להמיר:{0} ל-int[]</resource>
 <!-- CANNOT_PARSE_VALUE_INTO_DATE -->
-<resource key="CANNOT_PARSE_VALUE_INTO_DATE" dnt="false">אי אפשר לנתח ערך {0} לתאריך באמצעות תבנית &quot;yyyy-MM-dd&quot;;  המערכת מתעלמת.</resource>
+<resource key="CANNOT_PARSE_VALUE_INTO_DATE" dnt="false">אי אפשר לנתח ערך {0} לתאריך באמצעות תבנית &quot;yyyy-MM-dd&quot;; המערכת מתעלמת.</resource>
 <!-- NO_PARENT_COMPONENTREF_FOUND -->
 <resource key="NO_PARENT_COMPONENTREF_FOUND" dnt="false">לא נמצא &lt;tr:componentRef&gt; אב!</resource>
 <!-- EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE -->
@@ -125,9 +125,11 @@
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">אינדקס בלתי תקף</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">מוסיף בן כאשר בן עם אותו זיהוי כבר קיים. הבן הישן יוסר והבן החדש יתווסף. {0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Change manager נכשל בהחלת AddChildComponentChange כיוון שכבר קיים רכיב בן עם אותו זיהוי. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">לא צוין צומת</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">איננו מעוניינים לעדכן רכיבים מוחתמים באיטרטור</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">נדרש רכיב</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -156,6 +158,8 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">אי אפשר לבנות AddFacetChange אם אחד מבין facetName ו-facetComponent הוא null.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">יש לציין שם היבט</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">Change manager נכשל בהחלת SetFacetChildComponentChange כיוון שכבר קיים היבט בשם זה. {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">נדרש רכיב בן להעברה.</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -168,6 +172,8 @@
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">הבן המיועד להעברה לא נמצא: {0}.</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
 <resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">האובייקט המכיל היעד לא נמצא: {0}.</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">נמצא רכיב אחר עם אותו זיהוי, באובייקט המכיל היעד. פעולת ההעברה בוטלה: {0}.</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">הרכיב או הצומת שלפניו יש לבצע הוספה לא נמצא: {0}.</resource>
 <!-- INDEX_SIZE -->
@@ -227,7 +233,7 @@
 <!-- CANNOT_EXIT_ROOT_CONTAINER -->
 <resource key="CANNOT_EXIT_ROOT_CONTAINER" dnt="false">אי אפשר לצאת מאובייקט מכיל שורש</resource>
 <!-- SETTING_ILLEGAL_VALUE -->
-<resource key="SETTING_ILLEGAL_VALUE" dnt="false">מוגדר ערך בלתי  חוקי - עליו להיות בין -1 וערך מרבי</resource>
+<resource key="SETTING_ILLEGAL_VALUE" dnt="false">מוגדר ערך בלתי חוקי - עליו להיות בין -1 וערך מרבי</resource>
 <!-- CANNOT_CONVERT_INTO_MENUMODEL -->
 <resource key="CANNOT_CONVERT_INTO_MENUMODEL" dnt="false">אי אפשר להמיר את {0} ל-MenuModel</resource>
 <!-- ROWKEY -->
@@ -263,7 +269,7 @@
 <!-- NULL_RESOURCEID -->
 <resource key="NULL_RESOURCEID" dnt="false">resourceId הוא null</resource>
 <!-- CANNOT_FIND_DEFAULT_FACESMESSAGE -->
-<resource key="CANNOT_FIND_DEFAULT_FACESMESSAGE" dnt="false"> FacesMessage.FACES_MESSAGES של ברירת מחדל לא נמצא</resource>
+<resource key="CANNOT_FIND_DEFAULT_FACESMESSAGE" dnt="false">FacesMessage.FACES_MESSAGES של ברירת מחדל לא נמצא</resource>
 <!-- NULL_FACESCONTEXT -->
 <resource key="NULL_FACESCONTEXT" dnt="false">FacesContext הוא null</resource>
 <!-- CUSTOM_MESSAGE_SHOULD_BE_VALUEBINDING_OR_STRING_TYPE -->
@@ -283,7 +289,7 @@
 <!-- RESOURCE_PATH_OUTSIDE_ROOT -->
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">נתיב המשאב {0} מכיל &quot;..&quot; והוא מפוענח כנמצא מחוץ לספריית השורש, ולכן כנתיב לא מאובטח. לפיכך, המערכת מתעלמת מהנתיב.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
-<resource key="RESOURCE_PATH_DOTS" dnt="false">נתיב המשאב {0} מכיל &quot;..&quot;. דפדפנים מפענחים את  &quot;..&quot; כנתיב חשוד.</resource>
+<resource key="RESOURCE_PATH_DOTS" dnt="false">נתיב המשאב {0} מכיל &quot;..&quot;. דפדפנים מפענחים את &quot;..&quot; כנתיב חשוד.</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">לא נמצא רכיב עם scopedId {0} מ-{1} בתחביר הנתמך. נמצא שתחביר הרכיב הוא תחביר שנדחה. השתמש בתחביר הנתמך.</resource>
 <!-- UNSERIALIZABLE_VALUE -->
@@ -308,4 +314,10 @@
 <resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">אי אפשר להגדיר פרמטרים לתצוגת פורטלט בגלל השתקפות שנכשלה</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">הסוג של &quot;{0}&quot; מונע את השוואתו ל-&quot;{1}&quot;.</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">נכשלה יצירת zip של מצב הדף. המצב חייב להיות serializable כדי ליצור zip. סיבה נפוצה לכישלון ביצירת zip היא שמצב הדף אינו serializable. אפשר להפסיק את יצירת ה-zip על ידי הגדרת org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE כ-false. כדי ללמוד על בדיקת היבטים שונים של serialization, עיין בתיעוד על מאפיין המערכת org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION.</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">נכשלה פעולת unzip של מצב הדף.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">אי אפשר לקרוא ל-getClientId בעת בניית ה-view. זיהוי הרכיב: {0}</resource>
 </resources>

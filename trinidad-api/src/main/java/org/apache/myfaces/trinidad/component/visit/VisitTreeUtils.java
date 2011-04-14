@@ -18,8 +18,14 @@
  */
 package org.apache.myfaces.trinidad.component.visit;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Set;
 
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.UIXComponent;
@@ -31,7 +37,36 @@ import org.apache.myfaces.trinidad.context.RequestContext;
  */
 public final class VisitTreeUtils
 {
+  /**
+   * Set of {@link VisitHint#SKIP_UNRENDERED} and {@link VisitHint#SKIP_TRANSIENT} provided
+   * for convenience as it is a common use case.
+   */
+  public static final Set<VisitHint> NON_TRANSIENT_RENDERED_HINTS =
+    EnumSet.of(VisitHint.SKIP_UNRENDERED, VisitHint.SKIP_TRANSIENT);
+
   private VisitTreeUtils() {}
+
+  /**
+   * <p>Creates a VisitContext instance for use with
+   * {@link javax.faces.component.UIComponent#visitTree}.</p>
+   *
+   * @param context the FacesContext for the current request
+   * @param ids the client ids of the components to visit.  If null,
+   *   all components will be visited.
+   * @param hints the VisitHints to apply to the visit
+   * @return a VisitContext instance that is initialized with the
+   *   specified ids and hints.
+   * @deprecated Method is no longer needed and duplicates the functionality provided by
+   *   {@link VisitContext#createVisitContext(FacesContext, Collection<String>, Set<VisitHint>)}
+   */
+  @Deprecated
+  public static VisitContext createVisitContext(
+    FacesContext context,
+    Collection<String> ids,
+    Set<VisitHint> hints)
+  {
+    return VisitContext.createVisitContext(context, ids, hints);
+  }
 
   /**
    * Visit a single component in the component tree starting from the view root.
@@ -47,8 +82,8 @@ public final class VisitTreeUtils
     String        clientId,
     VisitCallback visitCallback)
   {
-    VisitContext visitContext = RequestContext.getCurrentInstance().createVisitContext(facesContext,
-      Collections.singleton(clientId), null, null);
+    VisitContext visitContext = VisitContext.createVisitContext(facesContext,
+                                  Collections.singleton(clientId), null);
     return UIXComponent.visitTree(visitContext, facesContext.getViewRoot(), visitCallback);
   }
 }

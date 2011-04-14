@@ -18,7 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
 
@@ -37,18 +37,16 @@ public class MinimalPdaSkinExtension extends SkinExtension
      // Create a SkinExtension for Minimal
     super(baseSkin,
           _MINIMAL_PDA_ID,
-          _MINIMAL_FAMILY,
-          XhtmlConstants.APACHE_TRINIDAD_PDA);
+          TrinidadRenderingConstants.MINIMAL_SKIN_FAMILY,
+          TrinidadRenderingConstants.APACHE_TRINIDAD_PDA);
 
     // Register our style sheet
     setStyleSheetName(_MINIMAL_STYLE_SHEET_NAME);
 
   }
 
-  // Minimal skin family name
-  private static final String _MINIMAL_FAMILY = "minimal";
   private static final String _MINIMAL_PDA_ID = "minimal.pda";
   // Minimal skin style sheet name
   private static final String _MINIMAL_STYLE_SHEET_NAME =
-    "META-INF/adf/styles/minimal-pda.xss";
+    "META-INF/adf/styles/minimal-pda.css";
 }

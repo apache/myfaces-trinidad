@@ -25,8 +25,8 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+
 
 /**
  * Trinidad implementation of AgentFactory.
@@ -71,16 +71,22 @@ public class AgentFactoryImpl implements AgentFactory
   // consulted to correctly populate the agent
   private void _populateAgentImpl(
     FacesContext facesContext,
-    Map<String, String> headerMap, 
+    Map<String, String> headerMap,
     AgentImpl agent)
   {
-  
     String userAgent = headerMap.get("User-Agent");
+    if (userAgent == null)
+    {
+      // This will happen during JSF2 initialization
+      _populateUnknownAgentImpl(userAgent, agent);
+      return;
+    }
+
     String isEmail = null;
     if (facesContext != null)
       isEmail = facesContext.getExternalContext().getRequestParameterMap().
                         get(_EMAIL_PARAM);
- 
+
     if ("true".equals(isEmail))
     {
       _populateEmailAgentImpl(agent);
@@ -103,6 +109,49 @@ public class AgentFactoryImpl implements AgentFactory
       _populateWAPAgentImpl(agent);
       return;
     }
+
+    if (userAgent == null)
+    {
+      _populateUnknownAgentImpl(null, agent);
+      return;
+    }
+    
+    // Uncomment if you need to simulate googlebot crawler
+    /*if (facesContext != null && facesContext.getExternalContext().getRequestParameterMap().
+                        get("googlebot") != null)
+    {
+      _populateGoogleCrawlerAgentImpl("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)", agent, 25);
+      return;
+    }*/
+    
+    int googlebotIndex = userAgent.indexOf(_GOOGLEBOT_ID);
+    if (googlebotIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_GOOGLEBOT, _GOOGLEBOT_ID, googlebotIndex);
+      return;
+    }
+    
+    int bingIndex = userAgent.indexOf(_BINGBOT_ID);
+    if (bingIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_MSNBOT, _BINGBOT_ID, bingIndex);
+      return;
+    }
+    
+    bingIndex = userAgent.indexOf(_MSNBOT_ID);
+    if (bingIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_MSNBOT, _MSNBOT_ID, bingIndex);
+      return;
+    }
+    
+    int oracleSesIndex = userAgent.indexOf(_ORACLE_SES_ID);
+    if (oracleSesIndex >= 0)
+    {
+      _populateCrawlerAgentImpl(userAgent, agent, Agent.AGENT_ORACLE_SES, _ORACLE_SES_ID, oracleSesIndex);
+      return;
+    }
+    
 
     //the useragent string for telnet and PDA design time will start with
     //OracleJDevMobile because in each of these cases we know we have an
@@ -376,18 +425,37 @@ public class AgentFactoryImpl implements AgentFactory
    */
   private void _populatePocketPCAgentImpl(String agent,String uaPixels,AgentImpl agentObj)
   {
-    int start = agent.indexOf("MSIE");
+
+    // The latest Windows-Mobile user-agents have different formats, so we
+    // need to have two difference logics to handle both older and newer 
+    // WM browsers.    
+    // Latest WM browsers have version detail assiciated with "IEMobile"
+    int start = agent.indexOf("IEMobile");
+    
+    int length;
+    
+    // If "IEMobile" not present, use the legacy "MSIE"
+    if (start < 0)
+    {
+      start = agent.indexOf("MSIE");
+      length = "MSIE".length();
+    }
+    else
+    {
+      length = "IEMobile".length();
+    }
+    
     String version = null;
 
     if (start > -1)
     {
-      version = _getVersion(agent, start + "MSIE".length());
+      version = _getVersion(agent, start + length);
     }
     agentObj.setType(Agent.TYPE_PDA);
     agentObj.setAgent(Agent.AGENT_IE);
     agentObj.setAgentVersion(version);
     agentObj.setPlatform(Agent.PLATFORM_PPC);
-    
+
     boolean narrowScreenDevice = false;
 
     if(uaPixels != null && uaPixels.length() > 0)
@@ -418,7 +486,7 @@ public class AgentFactoryImpl implements AgentFactory
       {
         agentObj.__addRequestCapability(TrinidadAgent.CAP_WIDTH,width);
         agentObj.__addRequestCapability(TrinidadAgent.CAP_HEIGHT,height);
-        
+
         if (width.intValue() < XhtmlConstants.NARROW_SCREEN_PDA_MAX_WIDTH)
         {
           narrowScreenDevice = true;
@@ -433,15 +501,15 @@ public class AgentFactoryImpl implements AgentFactory
     {
       narrowScreenDevice = true;
     }
-         
+
     if (narrowScreenDevice)
     {
-      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN, 
+      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN,
                                                                  Boolean.TRUE);
     }
     else
     {
-      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN, 
+      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN,
                                                                  Boolean.FALSE);
     }
   }
@@ -488,9 +556,9 @@ public class AgentFactoryImpl implements AgentFactory
       agentObj.setAgentVersion(version);
       agentObj.setPlatform(Agent.PLATFORM_BLACKBERRY);
       agentObj.setMakeModel(makeModel);
-      // Most of BlackBerry devices' widths are more than 240px, so 
+      // Most of BlackBerry devices' widths are more than 240px, so
       // don't consider BlackBerry as a narrow-screen PDA.
-      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN, 
+      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN,
                                                             Boolean.FALSE);
   }
 
@@ -700,7 +768,7 @@ public class AgentFactoryImpl implements AgentFactory
     // so just return. It will be handle by _populateGenricPDAImpl().
     else if (agent.indexOf("MOT-") != -1 || agent.indexOf("Nokia") != -1)
     {
-      return; 
+      return;
     }
     else
     {
@@ -709,6 +777,15 @@ public class AgentFactoryImpl implements AgentFactory
 
       int operaIndex = agent.indexOf("Opera/");
       int firstSpace = agent.indexOf(" ");
+            
+      // Opera Mobile running in HTC
+      if (agent.indexOf("HTC-") != -1 || 
+          agent.indexOf("HTC_") != -1 || 
+          agent.indexOf("XV6850") != -1)
+      {
+        firstSpace = agent.indexOf(" ", operaIndex);
+      }
+      
       if (operaIndex >= 0 && firstSpace >=0 )
       {
         agentObj.setAgentVersion(agent.substring(operaIndex + 6,firstSpace));
@@ -758,11 +835,17 @@ public class AgentFactoryImpl implements AgentFactory
 
     if (agent.indexOf("iPhone") > 0)
     {
+      // iPhone is a member of the iOS platform:
+      agentObj.setPlatform(Agent.PLATFORM_IPHONE);
+    }
+    else if (agent.indexOf("iPad") > 0)
+    {
+      // iPad is a member of the iOS platform:
       agentObj.setPlatform(Agent.PLATFORM_IPHONE);
     }
     else if (agent.indexOf("iPod") > 0)
     {
-      // At the moment, the iPod touch version of this browser matches iPhone's
+      // iPod is a member of the iOS platform:
       agentObj.setPlatform(Agent.PLATFORM_IPHONE);
     }
     else if (agent.indexOf("Win") > 0)
@@ -770,9 +853,13 @@ public class AgentFactoryImpl implements AgentFactory
       // At the moment, this includes Safari and Google Chrome
       agentObj.setPlatform(Agent.PLATFORM_WINDOWS);
     }
+    else if (agent.indexOf("Android") > 0)
+    {
+      //Includes Android Webkit browsers
+      agentObj.setPlatform(Agent.PLATFORM_ANDROID);
+    } 
     else if (agent.indexOf("Linux") > 0)
     {
-      // At the moment, this includes Android
       agentObj.setPlatform(Agent.PLATFORM_LINUX);
     }
     else if (agent.indexOf("Mac") > 0)
@@ -780,7 +867,16 @@ public class AgentFactoryImpl implements AgentFactory
       // At the moment, this includes Safari
       agentObj.setPlatform(Agent.PLATFORM_MACOS);
     }
-
+    else if (agent.indexOf("BlackBerry") > 0)
+    {
+      //Includes Blackberry Webkit browsers
+      agentObj.setPlatform(Agent.PLATFORM_BLACKBERRY);
+    }    
+    else if (agent.indexOf("webOS") > 0)
+    {
+      agentObj.setPlatform(Agent.PLATFORM_PALM);
+    }
+  
     String version = _getVersion(agent, start);
     agentObj.setType(Agent.TYPE_DESKTOP);
     if ((agent.indexOf("Symbian") > -1) || (agent.indexOf("Nokia") > -1))
@@ -888,14 +984,14 @@ public class AgentFactoryImpl implements AgentFactory
       }
     }
   }
-  
+
   /**
    * Returns an AgentEntry for the email agents like Outlook 2007 and
    * Thunderbird
    */
   private void _populateEmailAgentImpl(AgentImpl agentObj)
   {
-   
+
     agentObj.setType(Agent.TYPE_DESKTOP);
 
     agentObj.setAgent(Agent.AGENT_EMAIL);
@@ -904,8 +1000,30 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
     agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
 
-  }  
+  }
+  
+  /**
+   * Returns an AgentEntry for a web crawler
+   */
+  private void _populateCrawlerAgentImpl(String userAgent, 
+                                         AgentImpl agentObj,
+                                         String agent,
+                                         String agentId,
+                                         int idIndex)
+  {
+    agentObj.setType(Agent.TYPE_WEBCRAWLER);
 
+    agentObj.setAgent(agent);
+    String version = _getVersion(userAgent, idIndex + agentId.length());
+    if (version != null && version.length() > 0)
+    {
+      agentObj.setAgentVersion(version);
+    }
+    agentObj.setPlatform(Agent.PLATFORM_UNKNOWN);
+    agentObj.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
+    agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
+
+  }
 
   /**
    * Returns the version contained within a string starting
@@ -926,7 +1044,7 @@ public class AgentFactoryImpl implements AgentFactory
     }
 
     int end = base.length();
-    start = start + 1;
+    start = (start >= end) ? end : start + 1;
 
     for (int i = start; i < end; i++)
     {
@@ -968,4 +1086,8 @@ public class AgentFactoryImpl implements AgentFactory
   static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";
   static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentFactoryImpl.class);
 
+  static final private String _GOOGLEBOT_ID = "Googlebot";
+  static final private String _MSNBOT_ID = "msnbot";
+  static final private String _BINGBOT_ID = "bingbot";
+  static final private String _ORACLE_SES_ID = "Oracle Secure Enterprise Search";
 }

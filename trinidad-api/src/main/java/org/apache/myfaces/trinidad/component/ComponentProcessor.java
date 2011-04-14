@@ -31,7 +31,7 @@ import javax.faces.context.FacesContext;
  * Instances of this interface are parameterized by the type of the callbackContext the implementor
  * expects.  The typical usage is that the implementor creates and instance of the desired context
  * and calls a helper method on a different object (for example
- * <code>UIXComponet.processComponent</code> with the desired ComponentProcessor and context
+ * <code>UIXComponent.processComponent</code> with the desired ComponentProcessor and context
  * instances to actually perform the iteration.
  * <p>
  * Because the ComponentProcessor can't look ahead, more complex iteration tasks, such as

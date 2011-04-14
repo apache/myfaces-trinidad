@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Nepodarilo sa zaviesť {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Nepodarilo sa vytvoriť inštanciu UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Súbor sa nepodarilo odovzdať, pretože je príliš veľký.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Aplikácia Trinidad je spustená v režime ladenia. Túto funkciu nepoužívajte v produkčnom prostredí. Pozrite si: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">Prvok {0} nepodporuje výrazy EL.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">Prvok {0} akceptuje iba celočíselné hodnoty</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">Prvok {0} akceptuje iba hodnoty typu LONG</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Zavádzač triedy kontextu sa nenašiel.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -174,9 +178,9 @@
 <!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
 <resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> Skin {0} zadaný v requestMap sa použije, aj keď sa styleSheetDocumentId pre skin spotrebiteľa nenachádzal v requestMap. Toto ovplyvní výkon, pretože hárky štýlov producenta a spotrebiteľa nie je možné zdieľať.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Obal {0} zadaný v súbore requestMap sa nepoužije, pretože neexistuje.</resource>
+<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Skin {0} zadaný v súbore requestMap sa nepoužije, pretože neexistuje.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
-<resource key="CANNOT_GET_SKIN_FROM_SKINFACTORY" dnt="false">Nepodarilo sa načítať obal {0} z SkinFactory</resource>
+<resource key="CANNOT_GET_SKIN_FROM_SKINFACTORY" dnt="false">Nepodarilo sa načítať skin {0} zo SkinFactory</resource>
 <!-- SKIN_CIRCULAR_INCLUDE_ERROR -->
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Našla sa cyklická závislosť v ikone referencie skinu {0}</resource>
 <!-- NULL_SKINADDITION -->
@@ -258,7 +262,13 @@
 <!-- UNABLE_GET_RESOURCE -->
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Nemožno načítať prostriedok {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
-<resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Aplikácia Apache Trinidad je spustená s kódom javascript ladenia. Túto funkciu nepoužívajte v produkčnom prostredí. Pozrite si parameter org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT v súbore /WEB-INF/web.xml.</resource>
+<resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad je spustený v ladiacom režime pre javascript. Nepoužívajte v produkčnom prostredí. Pozrite si parameter org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT v súbore /WEB-INF/web.xml.</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Prostredie je nakonfigurované ako produkčné a Apache Trinidad je spustený v ladiacom režime pre javascript. Pozrite si parameter &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; v súbore /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Prostredie je nakonfigurované ako produkčné a Apache Trinidad je spustený s nekomprimovaným súborom CSS. Pozrite si parameter &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; v súbore /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Prostredie je nakonfigurované ako produkčné a Apache Trinidad je spustený s výstupom ladenia nastaveným na hodnotu TRUE. Pozrite si prvok &quot;debug-output&quot; v súbore trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Neplatná hodnota: {0} pre {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -296,23 +306,37 @@
 <!-- UNKNOWN_ATTRIBUTE_NAMESPACE -->
 <resource key="UNKNOWN_ATTRIBUTE_NAMESPACE" dnt="false">Neznámy atribút: {0}, priestor názvov = {1}</resource>
 <!-- ERR_PARSING_SKIN_CSS_FILE -->
-<resource key="ERR_PARSING_SKIN_CSS_FILE" dnt="false">Chyba pri syntaktickej analýze súboru css obalu. Názov vlastnosti nemôže byť null alebo prázdny reťazec. Syntaktický analyzátor bude tento názov ignorovať. Názov je {0} a hodnota je {1}.</resource>
+<resource key="ERR_PARSING_SKIN_CSS_FILE" dnt="false">Chyba pri syntaktickej analýze súboru css skinu. Názov vlastnosti nemôže byť null ani prázdny reťazec. Syntaktický analyzátor bude tento názov ignorovať. Názov je {0} a hodnota je {1}.</resource>
 <!-- IGNORING_PROPERTIES_WITHOUT_SELECTOR -->
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Vlastnosti {0} sa ignorujú, pretože neexistuje žiadny zodpovedajúci selektor.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
-<resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Chyba pri čítaní zo súboru css obalu</resource>
+<resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Chyba pri čítaní zo súboru css skinu</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Chyba pri čítaní zo súboru css skinu. V selektore je nadbytočná čiarka: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
-<resource key="CANNOT_ADD_SKIN" dnt="false">Nemožno pridať obal, ktorý má skinId s hodnotou null, ani obal, ktorý je null</resource>
+<resource key="CANNOT_ADD_SKIN" dnt="false">Nemožno pridať skin, ktorý má skinId s hodnotou null, ani skin, ktorý je null</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Skôr pridaný skin {0} bol znova pridaný. Ak bol tento skin uložený v cache aplikácie, môžete získať nekonzistentné výsledky. Skontrolujte, či v classpath neexistujú duplicitné súbory trinidad-skins.xml.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
-<resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nemožno načítať obal, ktorý má skinId s hodnotou null</resource>
+<resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nemožno načítať skin, ktorý má skinId s hodnotou null</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
-<resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Obal zodpovedajúci množine {0} a renderkitu {1} sa nenašiel, a preto sa použije jednoduchý obal</resource>
+<resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Skin zodpovedajúci množine {0} a renderkitu {1} sa nenašiel, a preto sa použije jednoduchý skin</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Našiel sa skin, ktorý zodpovedá množine {0} a verzii {1}. Použije sa skin {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Nenašiel sa skin, ktorý zodpovedá množine {0} a verzii {1}. Použije sa skin {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Nenašiel sa skin bez priradenej verzie pre množinu {0}. Použije sa skin s priradenou verziou {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Nepodarilo sa načítať časovú značku dokumentu hárka štýlov, pretože sa nepodarilo otvoriť pripojenie.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">Selektor skinu {0} nie je objekt ikony skinu, pretože nemá atribút obsahu. Ak ste vytvorili tento selektor, zmeňte jeho názov tak, aby sa nekončil výrazom &quot;icon&quot;, ale výrazom &quot;style&quot;. Skinning Framework ho potom spracuje ako štýl, nie ako ikonu.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} musí byť pred všetkými ostatnými pravidlami.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
-<resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Nasledujúce obaly sa navzájom cyklicky rozširujú alebo obal, ktorý rozširujú, neexistuje: {0}</resource>
+<resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Nasledujúce skiny sa navzájom cyklicky rozširujú alebo skin, ktorý rozširujú, neexistuje: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
-<resource key="UNABLE_LOCATE_BASE_SKIN" dnt="false">Nepodarilo sa nájsť základný obal {0} na použitie v definujúcom obale s ID {1}, množinou {2} a ID renderkitu {3}. Použije sa predvolený základný obal {4}.</resource>
+<resource key="UNABLE_LOCATE_BASE_SKIN" dnt="false">Nepodarilo sa nájsť základný skin {0} na použitie v definujúcom skine s ID {1}, množinou {2} a ID renderkitu {3}. Použije sa predvolený základný skin {4}.</resource>
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Chyba pri syntaktickej analýze: {0}</resource>
 <!-- ERR_LOADING_FILE -->
@@ -419,6 +443,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Požadovaný prvok id sa nenašiel.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Požadovaný prvok family sa nenašiel.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Požadovaný podradený prvok pre &quot;version&quot;, &quot;name&quot; sa nenašiel.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Nesprávne vytvorená položka vlastnosti: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -478,9 +504,9 @@
 <!-- PROBLEM_LOADING -->
 <resource key="PROBLEM_LOADING" dnt="false">Problém pri zavádzaní...</resource>
 <!-- GRABBING_PIXELS -->
-<resource key="GRABBING_PIXELS" dnt="false">Počas obsadzovania zobrazovacích bodov:</resource>
+<resource key="GRABBING_PIXELS" dnt="false">Počas obsadzovania pixelov:</resource>
 <!-- ERROR_FETCHING_IMAGE -->
-<resource key="ERROR_FETCHING_IMAGE" dnt="false">Chyba pri vyvolávaní obrázka. Obsadili sa {0} hodnoty zobrazovacích bodov obrázka {1} x {2}.</resource>
+<resource key="ERROR_FETCHING_IMAGE" dnt="false">Chyba pri vyvolávaní obrázka. Obsadili sa {0} hodnoty pixelov obrázka {1} x {2}.</resource>
 <!-- EXCEEDED_GIF_COLOR_LIMIT -->
 <resource key="EXCEEDED_GIF_COLOR_LIMIT" dnt="false">Obmedzenie počtu farieb obrázka gif bolo prekročené.</resource>
 <!-- NO_SPACE_LEFT_FOR_TRANSPARENCY -->
@@ -572,7 +598,7 @@
 <!-- NULL_STYLESHEETNAME -->
 <resource key="NULL_STYLESHEETNAME" dnt="false">styleSheetName je null</resource>
 <!-- NO_SKIN_SPECIFIED -->
-<resource key="NO_SKIN_SPECIFIED" dnt="false">Nie je zadaný žiadny obal.</resource>
+<resource key="NO_SKIN_SPECIFIED" dnt="false">Nie je zadaný žiadny skin.</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">inputStream je null</resource>
 <!-- NULL_PARSEMANAGER -->
@@ -721,4 +747,15 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Neplatná krajina pre identifikátor miestnych nastavení {0} - kód krajiny musí byť zadaný veľkými písmenami. Údaje o správnom formáte nájdete v dokumente javadoc pre miestne nastavenia. Pre krajinu sa použije prázdny reťazec</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Neplatný variant pre identifikátor miestnych nastavení {0} - nesmie obsahovať lomky, aby sa predišlo útoku XSS. Pre variant sa použije prázdny reťazec.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Nepodarilo sa odstrániť súbor {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState musí byť inštanciou metódy StateManager.SerializedView alebo pole objektu s dĺžkou 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Čiastočné uloženie stavu zatiaľ nie je podporované. V súbore web.xml nastavte context-param javax.faces.PARTIAL_STATE_SAVING na hodnotu false.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Chyba serializácie atribútu {0}: {1}, hodnoty:{2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Chyba prepnutia: {0} atribút: {1} typu {2} nie je serializovateľný</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Chyba prepnutia: Serializácia atribútu {0}: {1} sa zmenila z {2} na {3} bez toho, aby bol atribút modifikovaný</resource>
 </resources>

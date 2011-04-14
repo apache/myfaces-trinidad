@@ -47,6 +47,9 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
   {
     Mock mock = mock(UIComponent.class);
     UIComponent component = (UIComponent) mock.proxy();
+    //we do not care about getValueExpression() being called or not
+    mock.stubs().method("getValueExpression");
+
     MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     NumberConverter converter = getNumberConverter();
 
@@ -69,6 +72,9 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
   {
     Mock mock = mock(UIComponent.class);
     UIComponent component = (UIComponent) mock.proxy();
+    //we do not care about getValueExpression() being called or not
+    mock.stubs().method("getValueExpression");
+
     MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     NumberConverter converter  = getNumberConverter();
 
@@ -84,6 +90,9 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
   {
     Mock mock = mock(UIComponent.class);
     UIComponent component = (UIComponent) mock.proxy();
+    //we do not care about getValueExpression() being called or not
+    mock.stubs().method("getValueExpression");
+
     setFacesContext(facesContext);
     try
     {
@@ -125,6 +134,9 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     {
       Mock mock = mock(UIComponent.class);
       UIComponent component = (UIComponent) mock.proxy();
+      //we do not care about getValueExpression() being called or not
+      mock.stubs().method("getValueExpression");
+
 
       setFacesContext(facesContext);
       try
@@ -167,6 +179,9 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     NumberConverter restoreConverter = getNumberConverter();
     Mock mock = mock(UIComponent.class);
     UIComponent component = (UIComponent) mock.proxy();
+    //we do not care about getValueExpression() being called or not
+    mock.stubs().method("getValueExpression");
+
     MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     for (int i = 0; i < _LOCALES.length; i++)
@@ -224,6 +239,8 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     NumberConverter converter = getNumberConverter();
     Mock mock = mock(UIComponent.class);
     UIComponent component = (UIComponent) mock.proxy();
+    //we do not care about getValueExpression() being called or not
+    mock.stubs().method("getValueExpression");
 
     converter.setLocale(Locale.US);
     converter.setType("currency");
@@ -253,6 +270,8 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     NumberConverter converter   = getNumberConverter();
     Mock mock = buildMockUIComponent(2);
     UIComponent component = (UIComponent) mock.proxy();
+    //we do not care about getValueExpression() being called or not
+    mock.stubs().method("getValueExpression");
 
     converter.setLocale(Locale.US);
     converter.setType("currency");
@@ -297,6 +316,9 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     NumberConverter converter = getNumberConverter();
     Mock mock = mock(UIComponent.class);
     UIComponent component = (UIComponent) mock.proxy();
+    //we do not care about getValueExpression() being called or not
+    mock.stubs().method("getValueExpression");
+
     converter.setLocale(Locale.US);
     converter.setType("currency");
     Double  value = new Double(99);
@@ -323,6 +345,9 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     NumberConverter converter = getNumberConverter();
     Mock mock = mock(UIComponent.class);
     UIComponent component = (UIComponent) mock.proxy();
+    //we do not care about getValueExpression() being called or not
+    mock.stubs().method("getValueExpression");
+
     converter.setLocale(Locale.US);
 
     String[] inputs = {"23.10", "44.90876", "11111", "67859.0001"};
@@ -352,6 +377,9 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     NumberConverter converter = getNumberConverter();
     Mock mock = mock(UIComponent.class);
     UIComponent component = (UIComponent) mock.proxy();
+    //we do not care about getValueExpression() being called or not
+    mock.stubs().method("getValueExpression");
+
     converter.setLocale(Locale.US);
 
     String[] inputs = {"23.10", "44.90876", "11111", "67859.0001"};
@@ -387,6 +415,8 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     NumberConverter converter = getNumberConverter();
     Mock mock = mock(UIComponent.class);
     UIComponent component = (UIComponent) mock.proxy();
+    //we do not care about getValueExpression() being called or not
+    mock.stubs().method("getValueExpression");
 
     String input = "1234.56";
 
@@ -415,6 +445,9 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     NumberConverter converter = getNumberConverter();
     Mock mock = mock(UIComponent.class);
     UIComponent component = (UIComponent) mock.proxy();
+    //we do not care about getValueExpression() being called or not
+    mock.stubs().method("getValueExpression");
+
     converter.setLocale(Locale.US);
     setFacesContext(facesContext);
     try
@@ -438,6 +471,9 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     String[] inputValues = {"123ABC", "22.22.2" };
     Mock mock = buildMockUIComponent(inputValues.length * 3);
     UIComponent component = (UIComponent) mock.proxy();
+    //we do not care about getValueExpression() being called or not
+    mock.stubs().method("getValueExpression");
+
     MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     for (int i = 0; i < inputValues.length; i++)
@@ -460,6 +496,8 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     NumberConverter converter   = getNumberConverter();
     Mock mock = mock(UIComponent.class);
     UIComponent component = (UIComponent) mock.proxy();
+    //we do not care about getValueExpression() being called or not
+    mock.stubs().method("getValueExpression");
 
     setFacesContext(facesContext);
     try

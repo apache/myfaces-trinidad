@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.share.io;
 
 import java.io.InputStream;
 import java.io.IOException;
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
 
 /**
  * Proxying class for InputStreamProviders.  Subclassers

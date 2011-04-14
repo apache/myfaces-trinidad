@@ -31,7 +31,7 @@
 <!-- CANNOT_RESOLVE_CAPABILITIES_FILE -->
 <resource key="CANNOT_RESOLVE_CAPABILITIES_FILE" dnt="false">&quot;無法解析功能檔案&quot;</resource>
 <!-- INVALID_DEPENDENCY -->
-<resource key="INVALID_DEPENDENCY" dnt="false">在按參照包括中, 找到無效的相依性</resource>
+<resource key="INVALID_DEPENDENCY" dnt="false">在依參照包括中, 發現無效的相依性</resource>
 <!-- REFERENCE_ID_NOT_FOUND -->
 <resource key="REFERENCE_ID_NOT_FOUND" dnt="false">找不到 id {0} 的參照</resource>
 <!-- FAIL_PARSE_CAPABILITIES_DOCUMENT -->
@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">無法載入 {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">無法建立 UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">檔案太大, 無法上傳.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad 正在除錯模式下執行. 請勿用於實際執行環境. 請參閱:{0}.</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">元素 {0} 不支援 EL 表示式.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">元素 {0} 只接受整數值</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">元素 {0} 只接受長值</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">找不到相關資訊環境類別載入器.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -254,11 +258,17 @@
 <!-- TREE_COMPONENT_MUST_INSIDE_FORM -->
 <resource key="TREE_COMPONENT_MUST_INSIDE_FORM" dnt="false">樹狀結構元件必須用於表單內部.</resource>
 <!-- CANNOT_FIND_SCRIPTLET -->
-<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">找不到 scriptlet: {0}</resource>
+<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">找不到 Scriptlet: {0}</resource>
 <!-- UNABLE_GET_RESOURCE -->
 <resource key="UNABLE_GET_RESOURCE" dnt="false">無法取得資源 {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad 正在使用除錯 javascript 執行中. 請勿用於實際執行環境. 請參閱 /WEB-INF/web.xml 中的 &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; 參數.</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">您的環境設定為實際執行, 而 Apache Trinidad 以除錯 javascript 執行. 請查看 /WEB-INF/web.xml 中的 &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; 參數.</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">您的環境設定為實際執行, 而 Apache Trinidad 以未壓縮的 CSS 執行. 請查看 /WEB-INF/web.xml 中的 &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; 參數</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">您的環境設定為實際執行, 而 Apache Trinidad 以 debug-output TRUE 執行. 請查看 trinidad-config.xml 檔案中的 &quot;debug-output&quot; 元素.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">{1} 的值 {0} 無效</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +311,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">因為沒有相應的選取器, 所以正在忽略特性 {0}.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">讀取面板 css 檔案時發生錯誤</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">讀取面板 css 檔案時發生錯誤. 選取器中有額外的逗號: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">若 skinId 為空值或面板為空值, 便無法新增面板.</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">您已重複新增先前新增的 {0} 面板. 若您在應用程式中快取此面板, 可能會得到不一致的結果. 請檢查類別路徑中是否有重複的 trinidad-skins.xml 檔案.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">若 skinId 為空值, 便無法面板.</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">找不到符合系列 {0} 與 renderkit {1} 的面板, 所以我們將會使用簡易面板.</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">找到符合系列 {0} 和版本 {1} 的面板. 將會使用面板 {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">找不到符合系列 {0} 和版本 {1} 的面板. 將會使用面板 {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">找不到系列 {0} 之已取消啟動多版本功能的面板. 將會使用啟動多版本功能的面板 {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">因為我們無法開啟連線, 所以無法取得樣式表文件的時戳.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">面板選取器 {0} 不是一個「面板圖示物件」, 因為它並沒有內容屬性. 如果您建立了此選取器, 請將它重新命名為以 &quot;style&quot; 結尾, 而不是以 &quot;icon&quot; 結尾, 這樣「面板架構」才會將它視為樣式而非圖示.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} 必須在所有其他規則之前.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">下列面板以循環形式互相擴充, 或者它們擴充的面板不存在:{0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -419,6 +443,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">找不到必要的元素 &apos;id&apos;.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">找不到必要的元素 &apos;family&apos;.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">找不到 &apos;version&apos;、&apos;name&apos; 的必要子項元素.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">格式錯誤的特性項目: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -536,7 +562,7 @@
 <!-- FORMAT_PARSEOBJECT_FAIL -->
 <resource key="FORMAT_PARSEOBJECT_FAIL" dnt="false">Format.parseObject(String) 失敗</resource>
 <!-- CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR -->
-<resource key="CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR" dnt="false">無法將提供的「物件」格式化為「顏色」</resource>
+<resource key="CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR" dnt="false">無法將指定的「物件」格式化為「顏色」</resource>
 <!-- ILLEGAL_PATTERN_CHARACTER -->
 <resource key="ILLEGAL_PATTERN_CHARACTER" dnt="false">無效的樣式字元 &apos;&apos;{0}&apos;&apos;</resource>
 <!-- >ILLEGAL_PATTERN_CHARACTER -->
@@ -598,7 +624,7 @@
 <!-- COMPOENENTDEF_CANNOT_RUN_AS_STANDALONE -->
 <resource key="COMPOENENTDEF_CANNOT_RUN_AS_STANDALONE" dnt="false">componentDef 不可以獨立執行. 它必須包含在 JSF 元件樹狀結構中.</resource>
 <!-- COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF -->
-<resource key="COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF" dnt="false">componentDef 必須做為 &lt;tr:componentRef&gt; 的子項.</resource>
+<resource key="COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF" dnt="false">componentDef 必須作為 &lt;tr:componentRef&gt; 的子項.</resource>
 <!-- COMPONENTDEF_NOT_SUPPORT_EL -->
 <resource key="COMPONENTDEF_NOT_SUPPORT_EL" dnt="false">tr:componentDef 不支援 &apos;var&apos; 上的 EL</resource>
 <!-- MUST_BE_SIMPLE_JSF_EL_EXPRESSION -->
@@ -638,7 +664,7 @@
 <!-- ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED -->
 <resource key="ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED" dnt="false">只支援 ContextBasedConfiguration</resource>
 <!-- FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED -->
-<resource key="FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED" dnt="false">指派 RendererManager 後, 不可以設定 facet.</resource>
+<resource key="FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED" dnt="false">指定 RendererManager 後, 不可以設定 facet.</resource>
 <!-- ILLEGAL_TO_SET_CHILDREN -->
 <resource key="ILLEGAL_TO_SET_CHILDREN" dnt="false">在 {0} 上設定子項是無效的</resource>
 <!-- ILLEGAL_TO_ADD_CHILDREN -->
@@ -721,4 +747,15 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">「地區設定」ID {0} 的國別無效 - 國別代碼必須使用大寫, 請參閱「地區設定」Java 文件以瞭解正確的格式. 將會使用空白的國別字串.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">「地區設定」ID {0} 的變異無效 - 不得包含斜線以避免 XSS 攻擊. 將會使用空白的變異字串.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">無法刪除檔案 {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState 必須是 StateManager.SerializedView 的執行處理, 或長度 2 的「物件」陣列.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">尚不支援部分狀態儲存功能. 請將您 web.xml 中的相關資訊環境參數 javax.faces.PARTIAL_STATE_SAVING 設為 false.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">將 {0} 屬性序列化時發生錯誤:{1} 值:{2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">容錯移轉錯誤: {0} 屬性:{1} (類型 {2}) 不可序列化</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">容錯移轉錯誤: {0} 屬性的序列化:{1} 已在未變動屬性的情況下從 {2} 變更為 {3}</resource>
 </resources>

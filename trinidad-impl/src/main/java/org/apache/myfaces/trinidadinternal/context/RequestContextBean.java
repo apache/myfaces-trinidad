@@ -68,7 +68,9 @@ public class RequestContextBean extends FacesBeanImpl
   static public final PropertyKey TWO_DIGIT_YEAR_START =
     TYPE.registerKey("two-digit-year-start", Integer.class);
   static public final PropertyKey SKIN_FAMILY_KEY =
-    TYPE.registerKey("skin-family");    
+    TYPE.registerKey("skin-family");
+  static public final PropertyKey SKIN_VERSION_KEY =
+    TYPE.registerKey("skin-version");   
   static public final PropertyKey UPLOADED_FILE_PROCESSOR_KEY = 
     TYPE.registerKey("uploaded-file-processor",
                      PropertyKey.CAP_NOT_BOUND);

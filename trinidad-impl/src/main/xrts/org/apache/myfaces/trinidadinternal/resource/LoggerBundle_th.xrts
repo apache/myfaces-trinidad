@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">ไม่สามารถโหลด {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">ไม่สามารถเริ่มต้นอินสแตนซ์ UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">ไม่สามารถอัปโหลดไฟล์ เนื่องจากมีขนาดใหญ่เกินไป</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad กำลังรันในโหมดการดีบัก ห้ามใช้ในสภาวะแวดล้อมการใช้งานจริง โปรดดูที่: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">อีลิเมนต์ {0} ไม่รองรับเอ็กซ์เพรสชัน EL</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">อีลิเมนต์ {0} รองรับเฉพาะค่าจำนวนเต็มเท่านั้น</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">อีลิเมนต์ {0} รองรับเฉพาะค่าแบบยาวเท่านั้น</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">ไม่พบคลาสโหลดเดอร์ของคอนเท็กซ์</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -166,7 +170,7 @@
 <!-- RENDERER_INSTANTIATION_FAILED -->
 <resource key="RENDERER_INSTANTIATION_FAILED" dnt="false">การเริ่มต้นอินสแตนซ์ของตัวแสดงผล {0} ล้มเหลว</resource>
 <!-- RENDERER_NOT_FOUND -->
-<resource key="RENDERER_NOT_FOUND" dnt="false">ไม่พบตัวแสดงผล &apos;&apos;{0}&apos;&apos; สำหรับกลุ่มขององค์ประกอบ &apos;&apos;{1}&apos;&apos;</resource>
+<resource key="RENDERER_NOT_FOUND" dnt="false">ไม่พบตัวแสดงผล &apos;&apos;{0}&apos;&apos; สำหรับแฟมิลีขององค์ประกอบ &apos;&apos;{1}&apos;&apos;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">ไม่มี SkinFactory</resource>
 <!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
@@ -259,6 +263,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">ไม่สามารถเรียกทรัพยากร {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad กำลังรันด้วยจาวาสคริปต์ ห้ามใช้ในสภาวะแวดล้อมการใช้งานจริง โปรดดูพารามิเตอร์ &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; ใน /WEB-INF/web.xml</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">มีการคอนฟิเกอร์สภาวะแวดล้อมของคุณเป็นแบบใช้งานจริง และ Apache Trinidad กำลังรันด้วยจาวาสคริปต์ของดีบัก โปรดดูพารามิเตอร์ &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; ใน /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">มีการคอนฟิเกอร์สภาวะแวดล้อมของคุณเป็นแบบใช้งานจริง และ Apache Trinidad กำลังรันโดยมี CSS ที่ไม่ได้บีบอัด โปรดดูพารามิเตอร์ &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; ใน /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">มีการคอนฟิเกอร์สภาวะแวดล้อมของคุณเป็นแบบใช้งานจริง และ Apache Trinidad กำลังรัน โดยมี debug-output เป็น TRUE โปรดดูอีลิเมนต์ &quot;debug-output&quot; ในไฟล์ trinidad-config.xml</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">ค่าไม่ถูกต้อง: {0} สำหรับ {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,18 +311,32 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">ไม่ประมวลผลคุณสมบัติ {0} เนื่องจากไม่มีตัวเลือกที่ตรงกัน</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">เกิดข้อผิดพลาดขณะอ่านจากไฟล์ css ของสกิน</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">เกิดข้อผิดพลาดขณะอ่านไฟล์ css ของสกิน มีเครื่องหมายคอมมาส่วนเกินในซีเลคเตอร์: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">ไม่สามารถเพิ่มสกินที่มี skinId หรือสกินเป็นนัล</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">มีการเพิ่มสกินที่เพิ่มไว้ก่อนหน้านี้ {0} อีกครั้ง ถ้าคุณใช้แคชกับสกินนี้ในแอปพลิเคชันของคุณ คุณอาจได้ผลลัพธ์ที่ไม่สอดคล้องกัน โปรดตรวจหาไฟล์ trinidad-skins.xml ที่ซ้ำกันในคลาสพาธ</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">ไม่สามารถเรียกสกินที่มี skinId เป็นนัล</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
-<resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">ไม่พบสกินที่ตรงกับกลุ่ม {0} และ renderkit {1} ดังนั้น เราจะใช้สกินทั่วไป</resource>
+<resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">ไม่พบสกินที่ตรงกับแฟมิลี {0} และ renderkit {1} ดังนั้น เราจะใช้สกินทั่วไป</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">พบสกินที่ตรงกับแฟมิลี {0} และเวอร์ชัน {1} เราจะใช้จะสกิน {2}</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">ไม่พบสกินที่ตรงกับแฟมิลี {0} และเวอร์ชัน {1} เราจะใช้จะสกิน {2}</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">ไม่พบสกินที่ไม่มีเวอร์ชันสำหรับแฟมิลี {0} เราจะใช้สกินที่มีเวอร์ชัน {1}</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">ไม่สามารถเรียกเวลาระบบสำหรับเอกสารของสไตล์ชีท เนื่องจากเราไม่สามารถเปิดการเชื่อมต่อ</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">ซีเลคเตอร์ของสกิน {0} ไม่ใช่ออบเจกต์สำหรับไอคอนของสกิน เนื่องจากไม่มีแอททริบิวเนื้อหา ถ้าคุณสร้างซีเลคเตอร์นี้ โปรดเปลี่ยนชื่อให้ลงท้ายด้วย &quot;style&quot; แทนที่จะเป็น &quot;icon&quot; เพื่อให้เฟรมเวิร์กของการใช้สกินถือว่าเป็นสไตล์ ไม่ใช่ไอคอน</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} ต้องมาก่อนกฎอื่นทั้งหมด</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">สกินต่อไปนี้ขยายกันและกันแบบวนซ้ำ หรือสกินที่ถูกขยายไม่มีอยู่: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
-<resource key="UNABLE_LOCATE_BASE_SKIN" dnt="false">ไม่พบสกินพื้นฐาน &quot;{0}&quot; สำหรับใช้ในการกำหนดสกินของ ID &quot;{1}&quot;, กลุ่ม &quot;{2}&quot;, ID ของ renderkit &quot;{3}&quot; ระบบจะใช้สกินพื้นฐานดีฟอลต์  &quot;{4}&quot;</resource>
+<resource key="UNABLE_LOCATE_BASE_SKIN" dnt="false">ไม่พบสกินพื้นฐาน &quot;{0}&quot; สำหรับใช้ในการกำหนดสกินของ ID &quot;{1}&quot;, แฟมิลี &quot;{2}&quot;, ID ของ renderkit &quot;{3}&quot; ระบบจะใช้สกินพื้นฐานดีฟอลต์  &quot;{4}&quot;</resource>
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">เกิดข้อผิดพลาดขณะพาร์ซ: {0}</resource>
 <!-- ERR_LOADING_FILE -->
@@ -419,6 +443,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">ไม่พบอีลิเมนต์ที่ต้องระบุ &apos;id&apos;</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">ไม่พบอีลิเมนต์ที่ต้องระบุ &apos;family&apos;</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">ไม่พบอีลิเมนต์ระดับล่างที่ต้องการสำหรับ &apos;version&apos; และ &apos;name&apos;</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">รายการคุณสมบัติมีรูปแบบไม่ถูกต้อง: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -490,7 +516,7 @@
 <!-- REGION_METADATA_CANNOT_NEST -->
 <resource key="REGION_METADATA_CANNOT_NEST" dnt="false">ยังไม่สามารถซ้อนอีลิเมนต์: {0}</resource>
 <!-- DUPLICATE_RENDERER_TYPE -->
-<resource key="DUPLICATE_RENDERER_TYPE" dnt="false">ประเภทตัวแสดงผล &quot;{0}&quot; ซ้ำกันสำหรับกลุ่ม &quot;{1}&quot;</resource>
+<resource key="DUPLICATE_RENDERER_TYPE" dnt="false">ประเภทตัวแสดงผล &quot;{0}&quot; ซ้ำกันสำหรับแฟมิลี &quot;{1}&quot;</resource>
 <!-- NO_RETURNID_AVAILABLE_FOR_RETURNING_FROM_DIALOG -->
 <resource key="NO_RETURNID_AVAILABLE_FOR_RETURNING_FROM_DIALOG" dnt="false">ไม่มี returnId สำหรับแสดงผลจากไดอะล็อก ซึ่งมักหมายความว่าคุณไม่อยู่ในไดอะล็อกนี้ตั้งแต่แรก หรือไม่มี pageFlowScope ที่ใช้ได้</resource>
 <!-- TRAINRENDERER_ONLY_RENDERS_INSTANCE -->
@@ -680,7 +706,7 @@
 <!-- CHILD_NOT_NULL_NOT_ICONNODE_INSTANCE -->
 <resource key="CHILD_NOT_NULL_NOT_ICONNODE_INSTANCE" dnt="false">รายการระดับล่างไม่เป็นนัล และไม่ใช่อินสแตนซ์ของ IconNode</resource>
 <!-- NULL_FAMILY -->
-<resource key="NULL_FAMILY" dnt="false">กลุ่มเป็นนัล</resource>
+<resource key="NULL_FAMILY" dnt="false">แฟมิลีเป็นนัล</resource>
 <!-- NON_NULL_CHILD_NOT_SKINPROPERTYNODE_INSTANCE -->
 <resource key="NON_NULL_CHILD_NOT_SKINPROPERTYNODE_INSTANCE" dnt="false">รายการระดับล่างไม่เป็นนัลและไม่ใช่อินสแตนซ์ของ SkinPropertyNode</resource>
 <!-- RENDERINGCONTEXT_HAS_BEEN_CREATED -->
@@ -721,4 +747,15 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">ประเทศไม่ถูกต้องสำหรับตัวระบุโลแคล {0} - รหัสประเทศต้องเป็นตัวพิมพ์ใหญ่ โปรดดูเอกสารจาวาของโลแคลสำหรับรูปแบบที่ถูกต้อง ระบบจะใช้สตริงว่างเปล่าสำหรับประเทศ</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">ค่าแปรปรวนไม่ถูกต้องสำหรับตัวระบุโลแคล {0} - ต้องไม่มีเครื่องหมายทับเพื่อหลีกเลี่ยงการโจมตี XSS ระบบจะใช้สตริงว่างเปล่าสำหรับค่าแปรปรวน</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">ไม่สามารถลบไฟล์ {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState ต้องเป็นอินสแตนซ์ของ StateManager.SerializedView หรืออาเรย์ของออบเจกต์ที่มีความยาว 2</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">ยังไม่รองรับการบันทึกสภาวะเพียงบางส่วน โปรดตั้งค่า context-param javax.faces.PARTIAL_STATE_SAVING ใน web.xml เป็นเท็จ</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">เกิดข้อผิดพลาดขณะซีเรียลไลซ์ {0} แอททริบิว: {1} ค่า: {2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">ข้อผิดพลาดในการเฟลโอเวอร์: {0} แอททริบิว: {1} ประเภท {2} ไม่สามารถซีเรียลไลซ์</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">ข้อผิดพลาดในการเฟลโอเวอร์: การซีเรียลไลซ์ {0} แอททริบิว: {1} มีการเปลี่ยนแปลงจาก {2} เป็น {3} โดยไม่มีผลกับแอททริบิว</resource>
 </resources>

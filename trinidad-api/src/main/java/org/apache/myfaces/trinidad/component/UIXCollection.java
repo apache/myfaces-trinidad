@@ -32,14 +32,22 @@ import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitContextWrapper;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.context.ComponentContextChange;
+import org.apache.myfaces.trinidad.context.ComponentContextManager;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.CollectionModel;
@@ -56,6 +64,7 @@ import org.apache.myfaces.trinidad.util.ComponentUtils;
  * And it wraps events that are queued, so that the correct rowData can be
  * restored on this component when the event is broadcast.
  */
+@JSFComponent
 public abstract class UIXCollection extends UIXComponentBase
   implements NamingContainer
 {
@@ -173,7 +182,7 @@ public abstract class UIXCollection extends UIXComponentBase
     if (!isRendered())
       return;
 
-    _flushCachedModel();
+    __flushCachedModel();
 
     // Make sure _hasEvent is false.
     iState._hasEvent = false;
@@ -235,6 +244,19 @@ public abstract class UIXCollection extends UIXComponentBase
     // current row's state is properly preserved, and that
     // the children are reset to their default state.
     Object currencyKey = _getCurrencyKey();
+
+    // since this is the end of the request, we expect the row currency to be reset back to null
+    // setting it and leaving it there might introduce multiple issues, so log a warning here
+    if (currencyKey != null)
+    {
+      if (_LOG.isWarning())
+      {
+        String scopedId = ComponentUtils.getScopedIdForComponent(this, context.getViewRoot());
+        String viewId = context.getViewRoot()==null?null:context.getViewRoot().getViewId();
+        _LOG.warning("ROWKEY_NOT_RESET", new Object[]{scopedId, viewId});
+      }
+    }
+
     Object initKey = _getCurrencyKeyForInitialStampState();
     if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
     {
@@ -246,6 +268,15 @@ public abstract class UIXCollection extends UIXComponentBase
     if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
     {
       setRowKey(currencyKey);
+    }
+
+    // Finally clean up any internal model state that we might be holding on to. We do not want to hold onto any
+    // application data in between requests
+    InternalState iState = _getInternalState(false);
+    if (iState != null)
+    {
+      iState._value = null;
+      iState._model= null;
     }
 
     return savedState;
@@ -294,7 +325,9 @@ public abstract class UIXCollection extends UIXComponentBase
     }
     else
     {
-      superState = stampState = clientKeyMgr = null;
+      superState = null;
+      stampState = null;
+      clientKeyMgr = null;
     }
     super.restoreState(context, superState);
 
@@ -320,7 +353,7 @@ public abstract class UIXCollection extends UIXComponentBase
   /**
    * Checks to see if the current row is available. This is useful when the
    * total number of rows is not known.
-   * @see CollectionModel#isRowAvailable
+   * @see CollectionModel#isRowAvailable()
    * @return true iff the current row is available.
    */
   public final boolean isRowAvailable()
@@ -329,27 +362,27 @@ public abstract class UIXCollection extends UIXComponentBase
   }
 
   /**
-   * Check for an available row by row key. 
+   * Check for an available row by row key.
    * @param rowKey the row key for the row to check.
    * @return true if a value exists; false otherwise.
    */
   public final boolean isRowAvailable(Object rowKey)
   {
-    return getCollectionModel().isRowAvailable(rowKey);    
+    return getCollectionModel().isRowAvailable(rowKey);
   }
-  
+
   /**
-   * Get row data by row key. 
+   * Get row data by row key.
    * @param rowKey the row key for the row to get data.
    * @return row data
    */
   public final Object getRowData(Object rowKey)
   {
-    return getCollectionModel().getRowData(rowKey);        
+    return getCollectionModel().getRowData(rowKey);
   }
-  
+
   /**
-   * Check if a range of rows is available starting from the current position 
+   * Check if a range of rows is available starting from the current position
    * @param rowCount number of rows to check
    * @return true if all rows in range are available
    */
@@ -357,21 +390,21 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     return getCollectionModel().areRowsAvailable(rowCount);
   }
-  
+
   /**
-   * Check if a range of rows is available from a starting index without 
+   * Check if a range of rows is available from a starting index without
    * requiring the client to iterate over the rows
    * @param startIndex the starting index for the range
    * @param rowCount number of rows to check
    * @return true if all rows in range are available
    */
-  public final boolean areRowsAvailable(int startIndex, int rowCount) 
+  public final boolean areRowsAvailable(int startIndex, int rowCount)
   {
     return getCollectionModel().areRowsAvailable(startIndex, rowCount);
   }
-  
+
   /**
-   * Check if a range of rows is available from a starting row key without 
+   * Check if a range of rows is available from a starting row key without
    * requiring the client to iterate over the rows
    * @param startRowKey the starting row key for the range
    * @param rowCount number of rows to check
@@ -381,8 +414,8 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     return getCollectionModel().areRowsAvailable(startRowKey, rowCount);
   }
-  
-  
+
+
 
   /**
    * Gets the total number of rows in this table.
@@ -427,7 +460,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Gets the data for the current row.
-   * @see CollectionModel#getRowData
+   * @see CollectionModel#getRowData(int)
    * @return null if the current row is unavailable
    */
   public final Object getRowData()
@@ -536,7 +569,7 @@ public abstract class UIXCollection extends UIXComponentBase
   /**
    * Clear the rowKey-to-currencyString cache.
    * The cache is not cleared immediately; instead it will be cleared
-   * when {@link #encodeBegin} is called.
+   * when {@link #encodeBegin(FacesContext)} is called.
    * @deprecated Have your Renderer implement {@link ClientRowKeyManagerFactory}
    * and create your own {@link ClientRowKeyManager} instances. Then you can
    * manage the lifecycle of each key inside your ClientRowKeyManager.
@@ -567,7 +600,7 @@ public abstract class UIXCollection extends UIXComponentBase
       if (keyMgr instanceof DefaultClientKeyManager)
         ((DefaultClientKeyManager) keyMgr).clear();
     }
-    _flushCachedModel();
+    __flushCachedModel();
 
     Object assertKey = null;
     assert ((assertKey = getRowKey()) != null) || true;
@@ -660,9 +693,6 @@ public abstract class UIXCollection extends UIXComponentBase
     String key = getClientRowKeyManager().getClientRowKey(fc, this, currencyObject);
     return key;
   }
-
-
-
 
   /**
    * This is a safe way of getting currency keys and not accidentally forcing
@@ -764,6 +794,19 @@ public abstract class UIXCollection extends UIXComponentBase
                   " and currencyKey:"+getRowKey());
     }
 
+    ComponentContextManager compCtxMgr = null;
+    if (!_inSuspendOrResume)
+    {
+      compCtxMgr = RequestContext.getCurrentInstance().getComponentContextManager();
+      ComponentContextChange change = compCtxMgr.peekChange();
+      if (change instanceof CollectionComponentChange &&
+          ((CollectionComponentChange)change)._component == this)
+      {
+        // Remove the component context change if one was added
+        compCtxMgr.popChange();
+      }
+    }
+
     InternalState iState = _getInternalState(true);
     if (rowData == null)
     {
@@ -797,9 +840,24 @@ public abstract class UIXCollection extends UIXComponentBase
         Map<String, Object> varStatusMap = createVarStatusMap();
         iState._prevVarStatus = _setELVar(iState._varStatus, varStatusMap);
       }
+
+      // If there is a current row, push a component change so that we may clear the
+      // var and var status should a visit tree occur
+      if (!_inSuspendOrResume)
+      {
+        compCtxMgr.pushChange(new CollectionComponentChange(this));
+      }
     }
 
     _restoreStampState();
+
+    // ensure the client IDs are reset on the component, otherwise they will not get the
+    // proper stamped IDs. This mirrors the behavior in UIData and follows the JSF specification
+    // on when client IDs are allowed to be cached and when they must be reset
+    List<UIComponent> stamps = getStamps();
+
+    for (UIComponent stamp : stamps)
+      UIXComponent.clearCachedClientIds(stamp);
   }
 
   /**
@@ -856,7 +914,7 @@ public abstract class UIXCollection extends UIXComponentBase
     // just having stamp state, and having stamp state + child/facet state
     assert(!(stampState instanceof Object[]));
 
-    int facetCount = _getFacetCount(stamp);
+    int facetCount = stamp.getFacetCount();
 
     Object[] state = null;
 
@@ -943,11 +1001,6 @@ public abstract class UIXCollection extends UIXComponentBase
     // Just a transient component - return
     if ((stampState == Transient.TRUE) || (stampState == null))
     {
-      // ensure the client IDs are reset on the component, otherwise they will not get the
-      // proper stamped IDs. This mirrors the behavior in UIData and follows the JSF specification
-      // on when client IDs are allowed to be cached and when they must be reset
-      String id = stamp.getId();
-      stamp.setId(id);
       return;
     }
 
@@ -997,7 +1050,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Process a component.
-   * This method calls {@link #processDecodes},
+   * This method calls {@link #processDecodes(FacesContext)},
    * {@link #processValidators} or
    * {@link #processUpdates}
    * depending on the {#link PhaseId}.
@@ -1072,79 +1125,349 @@ public abstract class UIXCollection extends UIXComponentBase
                                    ContextCallback callback)
     throws FacesException
   {
-    String thisClientId = getClientId(context);
-    if (clientId.equals(thisClientId))
+    boolean invokedComponent;
+    setupVisitingContext(context);
+
+    try
     {
-      if (!_getAndMarkFirstInvokeForRequest(context, clientId))
+      String thisClientId = getClientId(context);
+      if (clientId.equals(thisClientId))
       {
-        // Call _init() since _flushCachedModel() assumes that
-        // selectedRowKeys and disclosedRowKeys are initialized to be non-null
-        _init();
-
-        _flushCachedModel();
-      }
-
-      callback.invokeContextCallback(context, this);
-      return true;
-    }
-    // If we're on a row, set the currency, and invoke
-    // inside
-    int thisClientIdLength = thisClientId.length();
-    if (clientId.startsWith(thisClientId) &&
-        (clientId.charAt(thisClientIdLength) == NamingContainer.SEPARATOR_CHAR))
-    {
-      setupVisitingContext(context);
-
-      try
-      {
-        if (!_getAndMarkFirstInvokeForRequest(context, thisClientId))
+        if (!_getAndMarkFirstInvokeForRequest(context, clientId))
         {
-          // Call _init() since _flushCachedModel() assumes that
+          // Call _init() since __flushCachedModel() assumes that
           // selectedRowKeys and disclosedRowKeys are initialized to be non-null
           _init();
 
-          _flushCachedModel();
+          __flushCachedModel();
         }
 
-        String postId = clientId.substring(thisClientIdLength + 1);
-        int sepIndex = postId.indexOf(NamingContainer.SEPARATOR_CHAR);
-        // If there's no separator character afterwards, then this
-        // isn't a row key
-        if (sepIndex < 0)
-          return invokeOnChildrenComponents(context, clientId, callback);
-        else
-        {
-          String currencyString = postId.substring(0, sepIndex);
-          Object rowKey = getClientRowKeyManager().getRowKey(context, this, currencyString);
+        pushComponentToEL(context, null);
 
-          // A non-null rowKey here means we are on a row and we should set currency,  otherwise
-          // the client id is for a non-stamped child component in the table/column header/footer.
-          if (rowKey != null)
+        try
+        {
+          callback.invokeContextCallback(context, this);
+        }
+        finally
+        {
+          popComponentFromEL(context);
+        }
+
+        invokedComponent = true;
+      }
+      else
+      {
+        // If we're on a row, set the currency, and invoke
+        // inside
+        int thisClientIdLength = thisClientId.length();
+        if (clientId.startsWith(thisClientId) &&
+            (clientId.charAt(thisClientIdLength) == NamingContainer.SEPARATOR_CHAR))
+        {
+          if (!_getAndMarkFirstInvokeForRequest(context, thisClientId))
           {
-            Object oldRowKey = getRowKey();
-            try
+            // Call _init() since __flushCachedModel() assumes that
+            // selectedRowKeys and disclosedRowKeys are initialized to be non-null
+            _init();
+
+            __flushCachedModel();
+          }
+
+          String postId = clientId.substring(thisClientIdLength + 1);
+          int sepIndex = postId.indexOf(NamingContainer.SEPARATOR_CHAR);
+          // If there's no separator character afterwards, then this
+          // isn't a row key
+          if (sepIndex < 0)
+            return invokeOnChildrenComponents(context, clientId, callback);
+          else
+          {
+            String currencyString = postId.substring(0, sepIndex);
+            Object rowKey = getClientRowKeyManager().getRowKey(context, this, currencyString);
+
+            // A non-null rowKey here means we are on a row and we should set currency,  otherwise
+            // the client id is for a non-stamped child component in the table/column header/footer.
+            if (rowKey != null)
             {
-              setRowKey(rowKey);
-              return invokeOnChildrenComponents(context, clientId, callback);
+              Object oldRowKey = getRowKey();
+              try
+              {
+                setRowKey(rowKey);
+                invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
+              }
+              finally
+              {
+                // And restore the currency
+                setRowKey(oldRowKey);
+              }
             }
-            finally
+            else
             {
-              // And restore the currency
-              setRowKey(oldRowKey);
+              invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
             }
           }
-          else
-            return invokeOnChildrenComponents(context, clientId, callback);
+        }
+        else
+        {
+          // clientId isn't in this subtree
+          invokedComponent = false;
+        }
+      }
+    }
+    finally
+    {
+      tearDownVisitingContext(context);
+    }
+
+    return invokedComponent;
+  }
+
+  /**
+   * <p>
+   * Override default children visiting code to visit the facets and facets of the columns
+   * before delegating to the <code>visitData</code> to visit the individual rows of data.
+   * </p><p>
+   * Subclasses should override this method if they wish to change the way in which the non-stamped
+   * children are visited.  If they wish to change the wash the the stamped children are visited,
+   * they should override <code>visitData</code> instead.
+   * </p>
+   * @param visitContext
+   * @param callback
+   * @return <code>true</code> if all of the children to visit have been visited
+   * @see #visitData
+   */
+  @Override
+  protected boolean visitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    return defaultVisitChildren(visitContext, callback);
+  }
+
+  /**
+   * Performs a non-iterating visit of the children.  The default implementation visits all
+   * of the children.  If the UIXCollection subclass doesn't visit some of its children in
+   * certain cases, it needs to override this method.
+   * @param visitContext
+   * @param callback
+   * @return
+   */
+  protected boolean visitChildrenWithoutIterating(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    return visitAllChildren(visitContext, callback);
+  }
+  
+  /**
+   * Default implementation of child visiting of UIXCollection subclasses for cases where a
+   * UIXCollection subclass wants to restore the default implementation that one of its
+   * superclasses have overridden.
+   * @param visitContext
+   * @param callback
+   * @return
+   */
+  protected final boolean defaultVisitChildren(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    if (ComponentUtils.isSkipIterationVisit(visitContext))
+    {
+      return visitChildrenWithoutIterating(visitContext, callback);
+    }
+    else
+    {
+      boolean doneVisiting;
+  
+      // Clear out the row index if one is set so that
+      // we start from a clean slate.
+      int oldRowIndex = getRowIndex();
+      setRowIndex(-1);
+  
+      try
+      {
+        // visit the unstamped children
+        doneVisiting = visitUnstampedFacets(visitContext, callback);
+  
+        if (!doneVisiting)
+        {
+          doneVisiting = _visitStampedColumnFacets(visitContext, callback);
+  
+          // visit the stamped children
+          if (!doneVisiting)
+          {
+            doneVisiting = visitData(visitContext, callback);
+          }
         }
       }
       finally
       {
-        tearDownVisitingContext(context);
+        // restore the original rowIndex
+        setRowIndex(oldRowIndex);
+      }
+      
+      return doneVisiting;
+    }
+  }
+
+  /**
+   * Hook method for subclasses to override to change the behavior
+   * of how unstamped facets of the UIXCollection are visited.  The
+   * Default implementation visits all of the facets of the
+   * UIXCollection.
+   */
+  protected boolean visitUnstampedFacets(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // Visit the facets with no row
+    if (getFacetCount() > 0)
+    {
+      for (UIComponent facet : getFacets().values())
+      {
+        if (UIXComponent.visitTree(visitContext, facet, callback))
+        {
+          return true;
+        }
       }
     }
 
     return false;
   }
+
+
+  /**
+   * VistiContext that visits the facets of the UIXColumn children, including
+   * nested UIXColumn childrem
+   */
+  private static class ColumnFacetsOnlyVisitContext extends VisitContextWrapper
+  {
+    public ColumnFacetsOnlyVisitContext(VisitContext wrappedContext)
+    {
+      _wrapped = wrappedContext;
+    }
+
+    @Override
+    public VisitContext getWrapped()
+    {
+      return _wrapped;
+    }
+
+    @Override
+    public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callback)
+    {
+      if (component instanceof UIXColumn)
+      {
+        if (component.getFacetCount() > 0)
+        {
+          // visit the facet children without filtering for just UIXColumn children
+          for (UIComponent facetChild : component.getFacets().values())
+          {
+            if (UIXComponent.visitTree(getWrapped(), facetChild, callback))
+              return VisitResult.COMPLETE;
+          }
+
+          // visit the indexed children, recursively looking for more columns
+          for (UIComponent child : component.getChildren())
+          {
+            if (UIXComponent.visitTree(this, child, callback))
+              return VisitResult.COMPLETE;
+          }
+        }
+      }
+
+      // at this point, we either have already manually processed the UIXColumn's children, or
+      // the component wasn't a UIXColumn and shouldn't be processed
+      return VisitResult.REJECT;
+    }
+
+    private final VisitContext _wrapped;
+  }
+
+  /**
+   * VisitContext implementation that doesn't visit any of the Facets of
+   * UIXColumn children.  This is used when stamping children
+   */
+  protected static final class NoColumnFacetsVisitContext extends VisitContextWrapper
+  {
+    NoColumnFacetsVisitContext(VisitContext wrapped)
+    {
+      _wrapped = wrapped;
+    }
+
+    @Override
+    public VisitContext getWrapped()
+    {
+      return _wrapped;
+    }
+
+    @Override
+    public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callback)
+    {
+      if (component instanceof UIXColumn)
+      {
+        if (component.getChildCount() > 0)
+        {
+          // visit only the indexed children of the columns
+          for (UIComponent child : component.getChildren())
+          {
+            if (UIXComponent.visitTree(this, child, callback))
+              return VisitResult.COMPLETE;
+          }
+        }
+
+        return VisitResult.REJECT;
+      }
+      else
+      {
+        if (UIXComponent.visitTree(getWrapped(), component, callback))
+          return VisitResult.COMPLETE;
+        else
+          return VisitResult.REJECT;
+      }
+    }
+
+    private final VisitContext _wrapped;
+  }
+
+  /**
+   * Implementation used to visit each stamped row
+   */
+  private boolean _visitStampedColumnFacets(
+    VisitContext      visitContext,
+    VisitCallback     callback)
+  {
+    // visit the facets of the stamped columns
+    List<UIComponent> stamps = getStamps();
+
+    if (!stamps.isEmpty())
+    {
+      VisitContext columnVisitingContext = new ColumnFacetsOnlyVisitContext(visitContext);
+
+      for (UIComponent stamp : stamps)
+      {
+        if (UIXComponent.visitTree(columnVisitingContext, stamp, callback))
+        {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+
+  /**
+   * Visit the rows and children of the columns of the collection per row-index. This should
+   * not visit row index -1 (it will be perfomed in the visitTree method). The columns
+   * themselves should not be visited, only their children in this function.
+   *
+   * @param visitContext The visiting context
+   * @param callback The visit callback
+   * @return true if the visiting should stop
+   * @see #visitChildren(VisitContext, VisitCallback)
+   */
+  protected abstract boolean visitData(
+    VisitContext  visitContext,
+    VisitCallback callback);
 
   /**
    * Gets the CollectionModel to use with this component.
@@ -1167,6 +1490,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
       iState._value = getValue();
       iState._model = createCollectionModel(null, iState._value);
+      postCreateCollectionModel(iState._model);
       assert iState._model != null;
     }
     // model might not have been created if createIfNull is false:
@@ -1185,12 +1509,32 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Creates the CollectionModel to use with this component.
+   * The state of the UIComponent with the new model instance is not fully initialized until
+   * after this method returns. As a result,  other component attributes that need
+   * a fully initialized model should not be initialized in this method.  Instead,
+   * model-dependent initialization should be done in <code>postCreateCollectionModel</code>
+   * @see #postCreateCollectionModel
    * @param current the current CollectionModel, or null if there is none.
    * @param value this is the value returned from {@link #getValue()}
    */
   protected abstract CollectionModel createCollectionModel(
     CollectionModel current,
     Object value);
+
+  /**
+    * Hook called with the result of <code>createCollectionModel</code>.
+    * Subclasses can use this method to perform initialization after the CollectionModel
+    * is fully initialized.
+    * Subclassers should call super before accessing any component state to ensure
+    * that superclass initialization has been performed.
+    * @see #createCollectionModel
+    * @param model The model instance returned by<code><createCollectionModel</code>
+    */
+  protected void postCreateCollectionModel(CollectionModel model)
+  {
+    // do nothing
+  }
+
 
   /**
    * Gets the value that must be converted into a CollectionModel
@@ -1233,15 +1577,15 @@ public abstract class UIXCollection extends UIXComponentBase
       }
     };
   }
-  
-  
+
+
   //
   // LocalRowKeyIndex implementation
   //
 
   /**
    * Given a row index, check if a row is locally available
-   * @param rowIndex index of row to check 
+   * @param rowIndex index of row to check
    * @return true if row is locally available
    */
   public boolean isRowLocallyAvailable(int rowIndex)
@@ -1251,7 +1595,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Given a row key, check if a row is locally available
-   * @param rowKey row key for the row to check 
+   * @param rowKey row key for the row to check
    * @return true if row is locally available
    */
   public boolean isRowLocallyAvailable(Object rowKey)
@@ -1271,7 +1615,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Check if a range of rows is locally available starting from a row index
-   * @param startIndex staring index for the range  
+   * @param startIndex staring index for the range
    * @param rowCount number of rows in the range
    * @return true if range of rows is locally available
    */
@@ -1282,7 +1626,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Check if a range of rows is locally available starting from a row key
-   * @param startRowKey staring row key for the range  
+   * @param startRowKey staring row key for the range
    * @param rowCount number of rows in the range
    * @return true if range of rows is locally available
    */
@@ -1290,9 +1634,9 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     return getCollectionModel().areRowsLocallyAvailable(startRowKey, rowCount);
   }
-  
+
   /**
-   * Convenient API to return a row count estimate.  This method can be optimized 
+   * Convenient API to return a row count estimate.  This method can be optimized
    * to avoid a data fetch which may be required to return an exact row count
    * @return estimated row count
    */
@@ -1303,14 +1647,14 @@ public abstract class UIXCollection extends UIXComponentBase
 
 
   /**
-   * Helper API to determine if the row count returned from {@link #getEstimatedRowCount} 
+   * Helper API to determine if the row count returned from {@link #getEstimatedRowCount}
    * is EXACT, or an ESTIMATE
    */
   public LocalRowKeyIndex.Confidence getEstimatedRowCountConfidence()
   {
     return getCollectionModel().getEstimatedRowCountConfidence();
   }
-  
+
   /**
    * clear all rows from the local cache
    */
@@ -1318,7 +1662,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     getCollectionModel().clearLocalCache();
   }
-  
+
   /**
    * Clear the requested range of rows from the local cache
    * @param startingIndex starting row index for the range to clear
@@ -1328,7 +1672,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     getCollectionModel().clearCachedRows(startingIndex, rowsToClear);
   }
-  
+
   /**
    * Clear the requested range of rows from the local cache
    * @param startingRowKey starting row key for the range to clear
@@ -1338,7 +1682,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     getCollectionModel().clearCachedRows(startingRowKey, rowsToClear);
   }
-  
+
   /**
    * Clear a row from the local cache by row index
    * @param index row index for the row to clear from the cache
@@ -1347,26 +1691,26 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     getCollectionModel().clearCachedRow(index);
   }
-  
+
   /**
    * Clear a row from the local cache by row key
    * @param rowKey row key for the row to clear from the cache
    */
   public void clearCachedRow(Object rowKey)
   {
-    getCollectionModel().clearCachedRow(rowKey);    
+    getCollectionModel().clearCachedRow(rowKey);
   }
-  
+
   /**
    * Indicates the caching strategy supported by the model
-   * @see LocalCachingStrategy
+   * @see LocalRowKeyIndex.LocalCachingStrategy
    * @return caching strategy supported by the model
    */
   public LocalRowKeyIndex.LocalCachingStrategy getCachingStrategy()
   {
     return getCollectionModel().getCachingStrategy();
   }
-  
+
 
   /**
    * override this method to place initialization code that must run
@@ -1397,10 +1741,10 @@ public abstract class UIXCollection extends UIXComponentBase
    */
   void __processFlattenedChildrenBegin()
   {
-    // Call _init() since _flushCachedModel() assumes that
+    // Call _init() since __flushCachedModel() assumes that
     // selectedRowKeys and disclosedRowKeys are initialized to be non-null.
     _init();
-    _flushCachedModel();
+    __flushCachedModel();
   }
 
   private void _init()
@@ -1414,7 +1758,7 @@ public abstract class UIXCollection extends UIXComponentBase
     }
   }
 
-  private void _flushCachedModel()
+  void __flushCachedModel()
   {
     InternalState iState = _getInternalState(true);
     Object value = getValue();
@@ -1422,6 +1766,7 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       iState._value = value;
       iState._model = createCollectionModel(iState._model, value);
+      postCreateCollectionModel(iState._model);
     }
   }
 
@@ -1489,6 +1834,13 @@ public abstract class UIXCollection extends UIXComponentBase
     StampState stampState = _getStampState();
     FacesContext context = getFacesContext();
     Object currencyObj = getRowKey();
+
+    // TRINIDAD-2047: we do not need to save stamp state if there is no active stamp
+    if (currencyObj == null)
+    {
+      return;
+    }
+
     int position = 0;
     for(UIComponent stamp : getStamps())
     {
@@ -1585,21 +1937,8 @@ public abstract class UIXCollection extends UIXComponentBase
     return b.equals(a);
   }
 
-  //
-  // Optimized path that avoids creating the Facet map
-  // unless necessary
-  //
-  private int _getFacetCount(UIComponent component)
-  {
-    if (component instanceof UIXComponent)
-      return ((UIXComponent) component).getFacetCount();
-
-    return component.getFacets().size();
-  }
-
   private static final class DefaultClientKeyManager extends ClientRowKeyManager
   {
-
     public void clear()
     {
       _currencyCache.clear();
@@ -1611,9 +1950,6 @@ public abstract class UIXCollection extends UIXComponentBase
     @Override
     public Object getRowKey(FacesContext context, UIComponent component, String clientRowKey)
     {
-      if (_isOptimizedKey(clientRowKey))
-        return clientRowKey;
-
       ValueMap<Object,String> currencyCache = _currencyCache;
       Object rowkey = currencyCache.getKey(clientRowKey);
       return rowkey;
@@ -1633,20 +1969,6 @@ public abstract class UIXCollection extends UIXComponentBase
       if (key == null)
       {
         // we don't have a string-key, so create a new one.
-
-        // first check to see if the rowkey itself can be used as the string-key:
-        if (rowKey instanceof String)
-        {
-          // TODO: make sure that this string is suitable for use as
-          // NamingContainer ids:
-          key = rowKey.toString();
-          if (_isOptimizedKey(key))
-          {
-            // no need to add to the token map:
-            return key;
-          }
-        }
-
         key = _createToken(currencyCache);
 
         if (_LOG.isFiner())
@@ -1658,16 +1980,25 @@ public abstract class UIXCollection extends UIXComponentBase
       return key;
     }
 
-    private static boolean _isOptimizedKey(String key)
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean replaceRowKey(FacesContext context, UIComponent component, Object oldRowKey, Object newRowKey)
     {
-      // if a key could be a number, then it might conflict with our
-      // internal representation of tokens. Therefore, if a key could be
-      // a number, then use the token cache.
-      // if there is no way this key can be a number, then it can
-      // be treated as an optimized key and can bypass the token cache
-      // system:
-      return ((key.length() > 0) && (!Character.isDigit(key.charAt(0))));
+      assert oldRowKey != null && newRowKey != null;
+
+      ValueMap<Object,String> currencyCache = _currencyCache;
+      String key = currencyCache.remove(oldRowKey);
+      // check to see if we already have a string key:
+      if (key != null)
+      {
+        currencyCache.put(newRowKey, key);
+      }
+      return key != null;
     }
+
+
 
     private static String _createToken(ValueMap<Object,String> currencyCache)
     {
@@ -1722,11 +2053,73 @@ public abstract class UIXCollection extends UIXComponentBase
     private static final long serialVersionUID = 1L;
   }
 
+  /**
+   * Class to be able to suspend the context of the collection.
+   * <p>Current implementation removes the var and varStatus from the request while the
+   * collection is suspended.</p>
+   */
+  private static class CollectionComponentChange
+    extends ComponentContextChange
+  {
+    private CollectionComponentChange(
+      UIXCollection component)
+    {
+      _component = component;
+    }
+
+    public void suspend(
+      FacesContext facesContext)
+    {
+      _oldRowIndex = _component.getRowIndex();
+      _component._inSuspendOrResume = true;
+      try
+      {
+        _component.setRowIndex(-1);
+      }
+      finally
+      {
+        _component._inSuspendOrResume = false;
+      }
+    }
+
+    public void resume(
+      FacesContext facesContext)
+    {
+      _component._inSuspendOrResume = true;
+      try
+      {
+        _component.setRowIndex(_oldRowIndex);
+      }
+      finally
+      {
+        _component._inSuspendOrResume = false;
+      }
+    }
+
+    @Override
+    public String toString()
+    {
+      String className = _component.getClass().getName();
+      String componentId = _component.getId();
+      return new StringBuilder(58 + className.length() + componentId.length())
+        .append("UIXCollection.CollectionComponentChange[Component class: ")
+        .append(className)
+        .append(", component ID: ")
+        .append(componentId)
+        .append("]")
+        .toString();
+    }
+
+    private final UIXCollection _component;
+    private int _oldRowIndex;
+  }
+
   // do not assign a non-null value. values should be assigned lazily. this is
   // because this value is preserved by stampStateSaving, when table-within-table
   // is used. And if a non-null value is used, then all nested tables will
   // end up sharing this stampState. see bug 4279735:
   private InternalState _state = null;
+  private boolean _inSuspendOrResume = false;
 
   // use this key to indicate uninitialized state.
   // all the variables that use this are transient so this object need not

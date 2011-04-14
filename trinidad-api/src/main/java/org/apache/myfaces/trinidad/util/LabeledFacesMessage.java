@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidad.util;
 
+import javax.el.ValueExpression;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
@@ -89,7 +91,12 @@ public class LabeledFacesMessage extends FacesMessage
   public String getLabelAsString(FacesContext context)
   {
     Object label = getLabel();
-    if (label instanceof ValueBinding)
+
+    if (label instanceof ValueExpression)
+    {
+      label = ((ValueExpression) label).getValue(context.getELContext());          
+    }
+    else if (label instanceof ValueBinding)
     {
       label = ((ValueBinding) label).getValue(context);
     }

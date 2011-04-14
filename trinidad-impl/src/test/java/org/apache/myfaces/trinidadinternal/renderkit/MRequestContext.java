@@ -20,7 +20,6 @@ package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.awt.Color;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -32,11 +31,8 @@ import java.util.TimeZone;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
-import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.Agent;
@@ -45,7 +41,6 @@ import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
 import org.apache.myfaces.trinidad.context.PageResolver;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
-import org.apache.myfaces.trinidadinternal.context.MVisitContextFactory;
 import org.apache.myfaces.trinidadinternal.context.PageFlowScopeProviderImpl;
 import org.apache.myfaces.trinidadinternal.context.PageResolverDefaultImpl;
 
@@ -371,16 +366,6 @@ public class MRequestContext extends RequestContext
   public UIComponent restoreComponent(Object state)
   {
     throw new UnsupportedOperationException("Not implemented yet");
-  }
-
-  @Override
-  public VisitContext createVisitContext(
-   FacesContext context,
-   Collection<String> ids,
-   Set<VisitHint> hints,
-   PhaseId phaseId)
-  {
-    return MVisitContextFactory.createVisitContext(context, ids, hints, phaseId);
   }
 
   @Override

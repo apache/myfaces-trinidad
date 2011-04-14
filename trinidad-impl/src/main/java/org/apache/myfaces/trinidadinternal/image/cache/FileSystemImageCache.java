@@ -44,7 +44,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
@@ -62,7 +62,6 @@ import org.apache.myfaces.trinidadinternal.image.util.FileUtils;
 import org.apache.myfaces.trinidadinternal.image.util.MapArea;
 import org.apache.myfaces.trinidadinternal.image.xml.ImageProviderRequestUtils;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
-import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.style.util.GraphicsUtils;

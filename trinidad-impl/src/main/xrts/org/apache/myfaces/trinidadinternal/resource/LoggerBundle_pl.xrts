@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Nie można było załadować {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Nie można było utworzyć instancji obiektu UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Nie można było wysłać pliku, ponieważ jest on zbyt duży.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad działa w trybie wykrywania błędów. Nie należy tego używać w środowisku produkcyjnym. Zob. {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">Element {0} nie obsługuje wyrażeń EL.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">Element {0} przyjmuje tylko wartości całkowitoliczbowe</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">Element {0} przyjmuje tylko wartości typu Long</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Nie znaleziono kontekstowego procesu ładowania klas.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -259,6 +263,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Nie można uzyskać zasobu {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad działa z wykrywaniem błędów JavaScript. Nie należy używać w trybie produkcyjnym. Zob. parametr &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; w pliku /WEB-INF/web.xml</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Środowisko zostało skonfigurowane jako produkcyjne, ale serwer Apache Trinidad działa w trybie wykrywania błędów JavaScript. Proszę sprawdzić parametr &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; w pliku /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Środowisko zostało skonfigurowane jako produkcyjne, ale serwer Apache Trinidad działa z nieskompresowanym CSS. Proszę sprawdzić parametr &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; w pliku /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Środowisko zostało skonfigurowane jako produkcyjne, ale serwer Apache Trinidad działa przy wartości parametru debug-output ustawionej na TRUE. Proszę sprawdzić element &quot;debug-output&quot; w pliku trinidad-config.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Niedozwolona wartość {0} dla {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +311,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ignorowanie właściwości {0}, ponieważ nie ma odpowiedniego selektora.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Błąd podczas odczytywania z pliku css dla nakładki</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Błąd podczas odczytywania z pliku css dla nakładki. W selektorze {0} znajduje się niepotrzebny przecinek.</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Nie można dodać nakładki z identyfikatorem (skinId) o wartości Null lub nakładki o wartości Null</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Ponownie dodano wcześniej dodaną nakładkę {0}. Jeśli nakładka ta została pobrana do pamięci podręcznej aplikacji, wyniki mogą być niespójne. Proszę sprawdzić, czy w ścieżce klasy nie występują zduplikowane pliki trinidad-skins.xml .</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nie można uzyskać nakładki z identyfikatorem (skinId) o wartości Null</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Nie znaleziono nakładki zgodnej z rodziną &quot;{0}&quot; i zestawem wypełniającym &quot;{1}&quot;; zostanie użyta nakładka prosta</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Znaleziono nakładkę zgodną z rodziną {0} i wersją {1}. Zostanie użyta nakładka {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Nie znaleziono nakładki zgodnej z rodziną {0} i wersją {1}. Zostanie użyta nakładka {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Dla rodziny {0} nie znaleziono nakładki bez ustalonej wersji. Zostanie użyta nakładka {1} z ustaloną wersją.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Nie udało się uzyskać znacznika czasu dokumentu arkusza stylów, ponieważ nie można było otworzyć połączenia.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">Selektor nakładek {0} nie jest obiektem ikony nakładki, ponieważ nie ma atrybutu zawartości. Jeśli użytkownik utworzył ten selektor, należy zmienić nazwę selektora tak, aby kończyła się wyrażeniem &quot;style&quot;, a nie &quot;icon&quot;. Dzięki temu mechanizm nakładek będzie traktował go jako styl, a nie ikonę.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} musi wystąpić przed innymi regułami.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Następujące nakładki rozszerzają się wzajemnie w sposób cykliczny albo nie istnieje nakładka, którą rozszerzają: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -419,6 +443,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Nie znaleziono wymaganego elementu &quot;id&quot;.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Nie znaleziono wymaganego elementu &quot;family&quot;.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Nie znaleziono wymaganego elementu podrzędnego dla &quot;version&quot;, &quot;name&quot;.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Niepoprawnie ukształtowany wpis właściwości: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -427,7 +453,7 @@
 <resource key="CLIENT_SIDE_ENCODING_NOT_SUPPORTED" dnt="false">Kodowanie {0} nie jest obsługiwane po stronie klienta. Nastąpi pominięcie weryfikacji po stronie klienta.</resource>
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">TrinidadFilter nie został zainstalowany. Apache Trinidad wymaga tego filtra do poprawnego działania.</resource>
-<resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Wartość &quot;{0}&quot; nie jest dozwoloną wartością dla &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
+<resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Wartość &quot;{0}&quot; nie jest dozwoloną wartością dla &lt;&quot;{1}&quot;&gt;</resource>
 <resource key="INVALID_ACC_PROFILE" dnt="false">Wartość &quot;{0}&quot; nie jest poprawną właściwością profilu dostępności</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() może być użyte tylko z agentami utworzonymi przez tę klasę.</resource>
@@ -720,5 +746,16 @@
 <!-- INVALID_LOCALE_COUNTRY_CASE  -->
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Niepoprawny kraj dla identyfikatora {0} ustawień narodowych - kod kraju musi być podany wielkimi literami (poprawny format można znaleźć w dokumencie &quot;Locale javadoc&quot;). Dla kraju zostanie użyta pusta wartość napisowa.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
-<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Niepoprawna odmiana (variant) dla identyfikatora {0} ustawień narodowych - nie może zawierać ukośników (w celu uniknięcia ataków XSS). Zostanie użyta pusta wartość napisowa.</resource>
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Niepoprawna odmiana (variant) identyfikatora {0} ustawień narodowych - nie może zawierać ukośników (w celu uniknięcia ataków XSS). Zostanie użyta pusta wartość napisowa.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Nie udało się usunąć pliku {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">Obiekt IState musi być instancją klasy StateManager.SerializedView lub tablicą obiektów o długości 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Częściowe zapisywanie stanu nie jest jeszcze obsługiwane. Proszę zmienić wartość parametru context-param javax.faces.PARTIAL_STATE_SAVING na false w pliku web.xml.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Błąd podczas serializowania atrybutu {0}:{1} wartość:{2}</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Błąd podczas przejmowania awaryjnego: {0} atrybut:{1} typu {2} nie jest serializowalny</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Błąd podczas przejmowania awaryjnego: serializacja atrybutu {0}:{1} zmieniła z {2} na {3} bez zmiany wartości atrybutu</resource>
 </resources>

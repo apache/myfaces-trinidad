@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
+
 /**
  * Base class for the Menu component.
  * <p>
@@ -26,6 +28,7 @@ package org.apache.myfaces.trinidad.component;
  *
  */
 // TODO these base classes need to be completely refactored
+@JSFComponent
 abstract public class UIXMenuHierarchy extends UIXHierarchy
 {
 

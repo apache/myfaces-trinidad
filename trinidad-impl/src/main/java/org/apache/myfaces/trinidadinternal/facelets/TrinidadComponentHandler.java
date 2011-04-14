@@ -31,6 +31,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * TagLibrary implementation for Apache Trinidad core library.
@@ -53,9 +54,14 @@ public class TrinidadComponentHandler extends ComponentHandler
                                                      StateManager.PARTIAL_STATE_SAVING_PARAM_NAME);
         
         if (Boolean.valueOf(restoreMode))
+        {
           _markInitialState = Boolean.TRUE;
+          _LOG.severe("PARTIAL_STATE_SAVING_NOT_SUPPORTED");
+        }
         else
+        {
           _markInitialState = Boolean.FALSE;
+        }
       }
     }
   }
@@ -92,4 +98,6 @@ public class TrinidadComponentHandler extends ComponentHandler
   }
 
   static private Boolean _markInitialState;
+  static final private TrinidadLogger _LOG =
+                               TrinidadLogger.createTrinidadLogger(TrinidadComponentHandler.class);
 }

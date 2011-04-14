@@ -1,0 +1,48 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    The Trinidad Table is used to display tabular data. It also supports selection (both single and multiple), sorting, record navigation and detail-disclosure.  
+
+    <br/>
+
+    The Trinidad Table component uses a model to access the data in the underlying list. The
+    specific model class is org.apache.myfaces.trinidad.model.CollectionModel. You may also use other model
+    instances, e.g., java.util.List , array, and javax.faces.model.DataModel. The Table will automatically convert
+    the instance into a CollectionModel. 
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="The immediate children of a Table component must all be &lt;tr:column&gt; components. Each
+        visible Trinidad Column component creates a separate column in the Table. For more information see the
+        documentation for &lt;column&gt;"/>
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="When the list being displayed by a Table is huge, you can enable the Table to break up
+        the list into ranges and display a single range at a time. Range controls are provided on the Table to let the
+        user scroll to the next range, or to go back to the previous range. If the total size of the list is known, a
+        control to let the user jump directly to a particular part of the list is also provided on the Table. Use the
+        Table attributes &quot;rows&quot; and &quot;first&quot; to control the range navigation feature. When the user
+        changes the range, the Table fires a RangeChangeEvent. "/>
+
+</ui:composition>

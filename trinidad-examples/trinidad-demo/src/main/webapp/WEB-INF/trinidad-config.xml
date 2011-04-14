@@ -19,7 +19,7 @@
 	   
 -->
 <trinidad-config xmlns="http://myfaces.apache.org/trinidad/config">
-  <debug-output>true</debug-output>
+  <!--debug-output>true</debug-output-->
   <!-- Uncomment to switch back to ALERT style client-side validation,
     or set to DISABLED to disable it altogether
   <client-validation>ALERT</client-validation>
@@ -33,6 +33,9 @@
   <skin-family>#{prefs.proxy.skinFamily}</skin-family>  
 
 
+  <uploaded-file-processor>org.apache.myfaces.trinidaddemo.ProfanityScanner org.apache.myfaces.trinidaddemo.ProfanityScanner</uploaded-file-processor>
+
+  <!--uploaded-file-processor>org.apache.myfaces.trinidaddemo.ProfanityScanner</uploaded-file-processor-->
 
   <!--
   <output-mode>portlet</output-mode>

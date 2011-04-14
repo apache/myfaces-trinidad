@@ -23,19 +23,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import java.util.Iterator;
 import java.util.Map;
 
-import javax.el.ELContext;
-
-import javax.faces.application.Application;
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
-import javax.faces.context.ResponseStream;
-import javax.faces.context.ResponseWriter;
+import javax.faces.context.FacesContextWrapper;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.render.RenderKit;
 
@@ -68,7 +62,7 @@ public class FacesContextFactoryImpl
     return new CacheRenderKit(_factory.getFacesContext(context, request, response, lifecycle));
   }
   
-  static public class CacheRenderKit extends FacesContext
+  static public class CacheRenderKit extends FacesContextWrapper
   {
     @SuppressWarnings("unchecked")
     public CacheRenderKit(FacesContext base)
@@ -92,42 +86,9 @@ public class FacesContextFactoryImpl
     }
 
     @Override
-    public Application getApplication()
-    {
-      return _base.getApplication();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public Iterator getClientIdsWithMessages()
-    {
-      return _base.getClientIdsWithMessages();
-    }
-
-    @Override
     public ExternalContext getExternalContext()
     {
       return _external;
-    }
-
-    @Override
-    public FacesMessage.Severity getMaximumSeverity()
-    {
-      return _base.getMaximumSeverity();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public Iterator getMessages()
-    {
-      return _base.getMessages();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public Iterator getMessages(String clientId)
-    {
-      return _base.getMessages(clientId);
     }
 
     @Override
@@ -160,71 +121,11 @@ public class FacesContextFactoryImpl
     }
 
     @Override
-    public boolean getRenderResponse()
+    public FacesContext getWrapped()
     {
-      return _base.getRenderResponse();
+      return _base;
     }
-
-    @Override
-    public boolean getResponseComplete()
-    {
-      return _base.getResponseComplete();
-    }
-
-    @Override
-    public ResponseStream getResponseStream()
-    {
-      return _base.getResponseStream();
-    }
-
-    @Override
-    public void setResponseStream(ResponseStream responseStream)
-    {
-      _base.setResponseStream(responseStream);
-    }
-
-    @Override
-    public ResponseWriter getResponseWriter()
-    {
-      return _base.getResponseWriter();
-    }
-
-    @Override
-    public void setResponseWriter(ResponseWriter responseWriter)
-    {
-      _base.setResponseWriter(responseWriter);
-    }
-
-    @Override
-    public UIViewRoot getViewRoot()
-    {
-      return _base.getViewRoot();
-    }
-
-    @Override
-    public void setViewRoot(UIViewRoot viewRoot)
-    {
-      _base.setViewRoot(viewRoot);
-    }
-
-    @Override
-    public void addMessage(String clientId, FacesMessage facesMessage)
-    {
-      _base.addMessage(clientId, facesMessage);
-    }
-
-    @Override
-    public void renderResponse()
-    {
-      _base.renderResponse();
-    }
-
-    @Override
-    public void responseComplete()
-    {
-      _base.responseComplete();
-    }
-
+    
     @Override
     public void release()
     {
@@ -234,14 +135,9 @@ public class FacesContextFactoryImpl
         GlobalConfiguratorImpl.getInstance().endRequest(ec);
       }
       
-      _base.release();
+      super.release();
     }
     
-    public ELContext getELContext()
-    {
-      return _base.getELContext();
-    }
-
     private final FacesContext    _base;
     private final ExternalContext _external;
     // An Object, not a String, so that FindBugs won't complain

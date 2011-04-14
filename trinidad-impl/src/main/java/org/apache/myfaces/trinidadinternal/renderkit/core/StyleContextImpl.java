@@ -114,27 +114,6 @@ class StyleContextImpl implements StyleContext
 
   public boolean checkStylesModified()
   {
-
-    if (Beans.isDesignTime())
-    {
-      // In Design Time mode, if we have a skin-id on the request scope,
-      // then this means we want to check if the skin css files are modified.
-      // This is an alternative to the initParam (CHECK_TIMESTAMP_PARAM) which
-      // is set in web.xml. Design Time cannot set the web.xml file.
-      FacesContext context = FacesContext.getCurrentInstance();
-      Object requestSkinId = 
-        ((CoreRenderingContext) _arc).getRequestMapSkinId(context);
-
-      if (requestSkinId != null)
-      {
-        return true;
-      }
-    }
-
-    // TODO: similar code is present in the ViewHanlder;
-    // this needs to be factored out into a common util.
-    // See TRINIDAD-1662
-    
     FacesContext context = FacesContext.getCurrentInstance();
     String checkTimestamp =
       context.getExternalContext().getInitParameter(Configuration.CHECK_TIMESTAMP_PARAM);
@@ -142,6 +121,29 @@ class StyleContextImpl implements StyleContext
     // in production stage we don't want TRUE here;
     // a WARNING will be triggered by the ViewHandlerImpl.java
     return "true".equals(checkTimestamp);
+  }
+
+  /*
+   * checks to see if the Skin is dirty by calling skin.isDirty()
+   */
+  public boolean isDirty()
+  {
+    if (Beans.isDesignTime())
+    {
+      // In Design Time mode, if we have a skin dirty flag on the request scope,
+      // then this means the Design Time wants the skin to regenerate. To do this,
+      // we call the skin.setDirty API.
+      FacesContext context = FacesContext.getCurrentInstance();
+      Object requestSkinDirty = _getRequestMapSkinDirty(context);
+      if (Boolean.TRUE.equals(requestSkinDirty))
+      {
+
+        // set the skin to dirty
+        _arc.getSkin().setDirty(true); 
+        return true;
+      }
+    }
+    return _arc.getSkin().isDirty();
   }
 
   public boolean disableStandardsMode()
@@ -171,6 +173,25 @@ class StyleContextImpl implements StyleContext
 
     // Return a non-null StyleProvider instance
     return NullStyleProvider.getInstance();
+  }
+  
+  /**
+   * Look on the requestMap for "org.apache.myfaces.trinidad.skin.dirty", and return
+   * the Object (true/false/null).
+   * This is for clients who want to send to the server that the skin is dirty rather
+   * than using the skin.setDirty API. The design time client cannot call the APIs, so this
+   * is for anyone that cannot call the APIs.
+   * @param facesContext
+   * @return the skin dirty Object that is on the request map.
+   */
+  private Object _getRequestMapSkinDirty(FacesContext facesContext)
+  {
+    Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+
+    // Get the requested Skin Dirty flag from the request Map
+    Object requestedSkinDirty = requestMap.get(_SKIN_DIRTY_PARAM);
+
+    return requestedSkinDirty;
   }
 
   public boolean isPortletMode()
@@ -312,6 +333,8 @@ class StyleContextImpl implements StyleContext
   private StyleProvider _styleProvider;
   private Styles _styles;
   private Boolean  _isDisableStyleCompression;
+  static private final String _SKIN_DIRTY_PARAM =
+    "org.apache.myfaces.trinidad.skin.dirty";
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(StyleContextImpl.class);

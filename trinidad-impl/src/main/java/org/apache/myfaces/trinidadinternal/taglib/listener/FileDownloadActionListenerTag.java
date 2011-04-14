@@ -18,28 +18,22 @@
  */
 package org.apache.myfaces.trinidadinternal.taglib.listener;
 
-import org.apache.myfaces.trinidadinternal.taglib.util.TagUtils;
-
-import java.io.OutputStream;
-
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
-
-import javax.servlet.jsp.tagext.TagSupport;
-import javax.servlet.jsp.JspException;
-
 import javax.faces.application.Application;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentTag;
+import javax.servlet.jsp.JspException;
 
-import org.apache.myfaces.trinidad.webapp.ELContextTag;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.webapp.ELContextTag;
+import org.apache.myfaces.trinidad.webapp.TrinidadTagSupport;
 
 /**
  */
-public class FileDownloadActionListenerTag extends TagSupport
+public class FileDownloadActionListenerTag extends TrinidadTagSupport
 {
   public void setContentType(ValueExpression contentType)
   {

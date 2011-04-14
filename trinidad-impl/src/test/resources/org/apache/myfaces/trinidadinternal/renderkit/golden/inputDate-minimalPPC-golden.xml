@@ -1,1767 +1,1887 @@
 <results>
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[chooseId,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this,'test-chooseId')"
-                 onfocus="_dff(this,'test-chooseId')"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <script
-                 type="text/javascript"
-                >
-              _dfa('mainId','test-chooseId');
-            </script>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this,'test-chooseId')"
+                   onfocus="_dff(this,'test-chooseId')"
+                   size="10"
+                   type="text"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              </input>
+              <script
+                   type="text/javascript"
+                  >
+                _dfa('mainId','test-chooseId');
+              </script>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[disabled,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[disabled,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate p_AFDisabled"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate p_AFDisabled"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 disabled="disabled"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <input
+                   class="af_inputDate_content"
+                   disabled="disabled"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              </input>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[label,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-            <label
-                 for="mainId"
-                >
-              test-label
-            </label>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <label
+                   for="mainId"
+                  >
+                test-label
+              </label>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[readOnly,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[readOnly,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate p_AFReadOnly"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate p_AFReadOnly"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <div
-                 class="af_inputDate_content"
-                 id="mainId"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </div>
-            <div
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-              <img
-                   alt=""
-                   height="0"
-                   width="1"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <div
+                   class="af_inputDate_content"
+                   id="mainId"
                   >
                 
-              </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              </div>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[required,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[required,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate p_AFRequired"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate p_AFRequired"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-            <span
-                 class="AFRequiredIconStyle"
-                 title="Required"
-                >
-              *
-            </span>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <span
+                   class="AFRequiredIconStyle"
+                   title="Required"
+                  >
+                *
+              </span>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[showRequired,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[required,false]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[required,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate p_AFRequired"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate p_AFRequired"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-            <span
-                 class="AFRequiredIconStyle"
-                 title="Required"
-                >
-              *
-            </span>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <span
+                   class="AFRequiredIconStyle"
+                   title="Required"
+                  >
+                *
+              </span>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[showRequired,true]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate p_AFRequired"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate p_AFRequired"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-            <span
-                 class="AFRequiredIconStyle"
-                 title="Required"
-                >
-              *
-            </span>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <span
+                   class="AFRequiredIconStyle"
+                   title="Required"
+                  >
+                *
+              </span>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[showRequired,true,AttributeTest[required,false]]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate p_AFRequired"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate p_AFRequired"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-            <span
-                 class="AFRequiredIconStyle"
-                 title="Required"
-                >
-              *
-            </span>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <span
+                   class="AFRequiredIconStyle"
+                   title="Required"
+                  >
+                *
+              </span>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[showRequired,true,AttributeTest[required,true]]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate p_AFRequired"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate p_AFRequired"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-            <span
-                 class="AFRequiredIconStyle"
-                 title="Required"
-                >
-              *
-            </span>
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+              <span
+                   class="AFRequiredIconStyle"
+                   title="Required"
+                  >
+                *
+              </span>
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[id,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="test-id__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="test-id"
-                 name="test-id"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="test-id"
+                   name="test-id"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[inlineStyle,background-color:red]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           style="background-color:red"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             style="background-color:red"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[shortDesc,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           title="test-shortDesc"
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             title="test-shortDesc"
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 title="test-shortDesc"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   title="test-shortDesc"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[styleClass,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="test-styleClass af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="test-styleClass af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onblur,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="return _chain('_dfb(this)','test-onblur',this,null)"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="return _chain('_dfb(this)','test-onblur',this,null)"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onchange,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 onchange="test-onchange"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   onchange="test-onchange"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[ondblclick,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 ondblclick="test-ondblclick"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   ondblclick="test-ondblclick"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onfocus,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 onfocus="test-onfocus"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   onfocus="test-onfocus"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onkeydown,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 onkeydown="test-onkeydown"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   onkeydown="test-onkeydown"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onkeypress,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 onkeypress="test-onkeypress"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   onkeypress="test-onkeypress"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmousedown,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 onmousedown="test-onmousedown"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   onmousedown="test-onmousedown"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmousemove,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 onmousemove="test-onmousemove"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   onmousemove="test-onmousemove"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmouseout,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 onmouseout="test-onmouseout"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   onmouseout="test-onmouseout"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmouseover,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 onmouseover="test-onmouseover"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   onmouseover="test-onmouseover"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmouseup,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="af_inputDate"
+      <div
            id="mainId__xc_"
-           summary=""
-           width="100%"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="af_inputDate"
+             summary=""
+             width="100%"
             >
           
-          <td
-               class="af_inputDate_label"
+          <tr
               >
             
-          </td>
-          <td
-               class="AFContentCell"
-               valign="top"
-              >
-            
-            <input
-                 class="af_inputDate_content"
-                 id="mainId"
-                 name="mainId"
-                 onblur="_dfb(this)"
-                 onmouseup="test-onmouseup"
-                 size="10"
-                 type="text"
+            <td
+                 class="af_inputDate_label"
                 >
               
-            </input>
-            <img
-                 alt=""
-                 height="1"
-                 width="8"
-                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            </td>
+            <td
+                 class="AFContentCell"
+                 valign="top"
                 >
               
-            </img>
-            <div
-                >
-              
+              <input
+                   class="af_inputDate_content"
+                   id="mainId"
+                   name="mainId"
+                   onblur="_dfb(this)"
+                   onmouseup="test-onmouseup"
+                   size="10"
+                   type="text"
+                  >
+                
+              </input>
               <img
                    alt=""
-                   height="0"
-                   width="1"
+                   height="1"
+                   width="8"
                    src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
-            </div>
-          </td>
-        </tr>
-      </table>
+              <div
+                  >
+                
+                <img
+                     alt=""
+                     height="0"
+                     width="1"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                    >
+                  
+                </img>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
 </results>

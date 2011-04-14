@@ -18,27 +18,17 @@
  */
 package org.apache.myfaces.trinidadinternal.application;
 
-import java.io.InputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-
-import java.util.Set;
 
 import javax.faces.FacesException;
 import javax.faces.application.ProjectStage;
 import javax.faces.application.ViewHandler;
 import javax.faces.application.ViewHandlerWrapper;
 import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import javax.faces.view.ViewDeclarationLanguage;
@@ -46,7 +36,6 @@ import javax.faces.view.ViewDeclarationLanguage;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
-import org.apache.myfaces.trinidad.render.InternalView;
 import org.apache.myfaces.trinidad.util.Service;
 import org.apache.myfaces.trinidad.util.URLUtils;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
@@ -75,7 +64,6 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
   {
     _delegate = delegate;
     _timestamps = new HashMap<String, Long>();
-    _loadInternalViews();
   }
 
   public ViewHandler getWrapped()
@@ -83,35 +71,13 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
     return _delegate;
   }
   
-  public ViewDeclarationLanguage getViewDeclarationLanguage(FacesContext context,
-                                                            String viewId)
-  {
-    // InternalViews will not use ViewDeclarationLanguage processors,
-    // since they do essentially the same job themselves.
-    InternalView internal = _getInternalView(context, viewId);
-    if (internal != null)
-    {
-      return null;
-    }
-    return _delegate.getViewDeclarationLanguage(context, viewId);
-  }
 
   @Override
   public UIViewRoot createView(FacesContext context, String viewId)
   {
     _initIfNeeded(context);
-    
-    _storeInternalViewIds(context);
 
-    InternalView internal = _getInternalView(context, viewId);
-    if (internal != null)
-    {
-      UIViewRoot root = internal.createView(context, viewId);
-      if (root != null)
-        return root;
-      // Otherwise, fall through to default processing
-    }
-    else if (_checkTimestamp(context))
+    if (_checkTimestamp(context, viewId))
     {
       try
       {
@@ -195,17 +161,8 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
       {
         if (service != null)
           service.encodeBegin(context);
-
-        InternalView internal = _getInternalView(context,
-                                                 viewToRender.getViewId());
-        if (internal != null)
-        {
-          internal.renderView(context, viewToRender);
-        }
-        else
-        {
-          super.renderView(context, viewToRender);
-        }
+        
+        super.renderView(context, viewToRender);
 
         if (service != null)
           service.encodeEnd(context);
@@ -226,8 +183,6 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
     FacesContext context,
     String       viewId)
   {    
-    _storeInternalViewIds(context);
-    
     //This code processes a "return" event.  Most of this logic was moved to 
     //StateManagerImpl because we ran into a problem with JSF where it didn't 
     //set up the JSF mapping properly if we didn't delegate to the default 
@@ -240,15 +195,9 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
       return super.restoreView(context, viewId);
     }
     
-    InternalView internal = _getInternalView(context, viewId);
-    if (internal != null)
-    {
-      return internal.restoreView(context, viewId);
-    }
-
     boolean uptodate = true;
 
-    if (_checkTimestamp(context))
+    if (_checkTimestamp(context, viewId))
     {
       try
       {
@@ -305,15 +254,23 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
   public void writeState(
     FacesContext context) throws IOException
   {
+    // After the move of InteralView loading code to the ViewDeclarationFactoryImpl,
+    // this class was not supposed to do anything with the InternalViews.
+    // Unfortunately, writeState() has not been exposed on ViewDeclarationLanguage,
+    // so we have to override this method here. Without an override, JSF save state
+    // marker gets written straight to the response
+
     String viewId = context.getViewRoot().getViewId();
-    InternalView internal =
-       _getInternalView(context, viewId);
-
-    // As internal views whether they're stateless.  If they are, don't
-    // bother writing anything out.
-    if ((internal != null) && internal.isStateless(context, viewId))
-      return;
-
+    ViewDeclarationLanguage vdl = getViewDeclarationLanguage(context, viewId);
+    if (vdl instanceof InternalViewHandlingStrategy)
+    {
+      InternalViewHandlingStrategy strategy = (InternalViewHandlingStrategy)vdl;
+      if (strategy.__isStateless(context, viewId))
+      {
+        return;
+      }
+    }
+    
     ExtendedRenderKitService service = _getExtendedRenderKitService(context);
     if ((service != null) &&
         service.isStateless(context))
@@ -322,27 +279,6 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
     super.writeState(context);
   }
   
-  public static boolean isInternalViewId(FacesContext context, String id)
-  {
-    if (id == null)
-      return false;
-    
-    Set<String> ids = 
-        (Set<String>)context.getExternalContext().getRequestMap().get(_INTERNAL_VIEW_ID_SET);
-    
-    if (ids == null)
-      return false;
-    
-    return ids.contains(id);
-  }
-  
-  private void _storeInternalViewIds(FacesContext context)
-  {
-    // Save internal view Ids on the request map, so that we can retrieve them later
-    // (see RequestContext.isInternalViewRequest())
-    Set<String> ids = new HashSet<String>(_internalViews.keySet());
-    context.getExternalContext().getRequestMap().put(_INTERNAL_VIEW_ID_SET, ids);
-  }
 
   synchronized private void _initIfNeeded(FacesContext context)
   {
@@ -389,7 +325,7 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
                               ExtendedRenderKitService.class);
   }
 
-  private boolean _checkTimestamp(FacesContext context)
+  private boolean _checkTimestamp(FacesContext context, String viewId)
   {
     if (_checkTimestamp == null)
     {
@@ -434,7 +370,18 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
       }
     }
 
-    return _checkTimestamp.booleanValue();
+    // Even if _checkTimestamp is TRUE, we do not want to perform the check for the InternalViews
+    boolean check = _checkTimestamp.booleanValue();
+    
+    if (check)
+    {
+      if (getViewDeclarationLanguage(context, viewId) 
+                              instanceof InternalViewHandlingStrategy)
+      {
+        return false;
+      }
+    }
+    return check;
   }
 
 
@@ -463,141 +410,13 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
   }
 
 
-  private InternalView _getInternalView(
-    FacesContext context, 
-    String       viewId)
-  {
-    InternalView internal = _internalViews.get(viewId);
-    if (internal == null)
-    {
-      // If we're using suffix-mapping, then any internal viewId will
-      // get affixed with ".jsp" or ".jspx";  try trimming that off
-      // if present
-      ExternalContext external = context.getExternalContext();
-      
-      // Only bother when using suffix-mapping (path info will always
-      // be non-null for prefix-mapping)
-      if (external.getRequestPathInfo() == null)
-      {
-        String suffix = external.getInitParameter("javax.faces.DEFAULT_SUFFIX");
-        if (suffix == null)
-          suffix = ".jspx";
-        
-        if (viewId.endsWith(suffix))
-        {
-          String viewIdWithoutSuffix = viewId.substring(
-             0, viewId.length() - suffix.length());
-          internal = _internalViews.get(viewIdWithoutSuffix);
-        }
-      }
-    }
-
-    return internal;
-  }
-
-  //
-  // Load the META-INF/org.apache.myfaces.trinidad.render.InternalView.properties
-  // files.
-  //
-  private void _loadInternalViews()
-  {
-    _internalViews = new HashMap<String, InternalView>();
-    List<URL> list = new ArrayList<URL>();
-    ClassLoader loader = _getClassLoader();
-    try
-    {
-      Enumeration<URL> en = loader.getResources(
-               "META-INF/org.apache.myfaces.trinidad.render.InternalView.properties");
-      while (en.hasMoreElements())
-      {
-        list.add(en.nextElement());
-      }
-
-      // And, for some temporary backwards compatibility, also load
-      // the incorrect properties without "render"
-      en = loader.getResources(
-               "META-INF/org.apache.myfaces.trinidad.InternalView.properties");
-      while (en.hasMoreElements())
-      {
-        list.add(en.nextElement());
-      }
-
-
-      // Reverse the list so it is in the proper order (most local
-      // entry "wins")
-      Collections.reverse(list);
-    }
-    catch (IOException ioe)
-    {
-      _LOG.severe(ioe);
-    }
-
-    for (URL url : list)
-    {
-      try
-      {
-        Properties properties = new Properties();
-        _LOG.fine("Loading internal views from {0}",  url);
-        InputStream is = url.openStream();
-        try
-        {
-          properties.load(is);
-        }
-        finally
-        {
-          is.close();
-        }
-
-        for (Map.Entry<Object, Object> entry : properties.entrySet())
-        {
-          String name = (String) entry.getKey();
-          String className = (String) entry.getValue();
-          Class<?> clazz = loader.loadClass(className);
-          InternalView view = (InternalView) clazz.newInstance();
-          _internalViews.put(name, view);
-        }
-      }
-      catch (IllegalAccessException iae)
-      {
-        _LOG.severe("CANNOT_LOAD_URL", url);
-        _LOG.severe(iae);
-      }
-      catch (InstantiationException ie)
-      {
-        _LOG.severe("CANNOT_LOAD_URL", url);
-        _LOG.severe(ie);
-      }
-      catch (ClassNotFoundException cnfe)
-      {
-        _LOG.severe("CANNOT_LOAD_URL", url);
-        _LOG.severe(cnfe);
-      }
-      catch (IOException ioe)
-      {
-        _LOG.severe("CANNOT_LOAD_URL", url);
-        _LOG.severe(ioe);
-      }
-    }
-  }
-
-
-  static private ClassLoader _getClassLoader()
-  {
-    ClassLoader loader = Thread.currentThread().getContextClassLoader();
-    if (loader == null)
-      loader = ViewHandlerImpl.class.getClassLoader();
-    return loader;
-  }
-
   private Boolean           _checkTimestamp;
   // Mostly final, but see _initIfNeeded()
   private ViewHandler       _delegate;
   private final Map<String, Long> _timestamps;
   private boolean           _inited;
-  private Map<String, InternalView> _internalViews;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ViewHandlerImpl.class);
   private static final Long   _NOT_FOUND = Long.valueOf(0);
   private static final String _RENDER_VIEW_MARKER = "__trRenderViewEntry";
-  private static final String _INTERNAL_VIEW_ID_SET = "org.apache.myfaces.trinidadinternal.application._INTERNAL_IDS";
 }

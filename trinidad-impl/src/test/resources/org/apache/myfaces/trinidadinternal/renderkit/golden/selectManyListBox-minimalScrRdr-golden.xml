@@ -6,6 +6,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -61,6 +62,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -117,6 +119,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -172,6 +175,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -227,6 +231,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -282,6 +287,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -343,6 +349,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -398,6 +405,7 @@
            class="af_selectManyListbox p_AFDisabled"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -454,6 +462,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -514,6 +523,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -569,6 +579,7 @@
            class="af_selectManyListbox p_AFReadOnly"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -606,6 +617,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -661,6 +673,7 @@
            class="af_selectManyListbox p_AFRequired"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -721,6 +734,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -776,6 +790,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -831,6 +846,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -886,6 +902,7 @@
            class="af_selectManyListbox p_AFRequired"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -946,6 +963,7 @@
            class="af_selectManyListbox p_AFRequired"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1006,6 +1024,7 @@
            class="af_selectManyListbox p_AFRequired"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1066,6 +1085,7 @@
            class="af_selectManyListbox p_AFRequired"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1126,6 +1146,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="test-id__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1181,6 +1202,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            style="background-color:red"
            summary=""
           >
@@ -1237,6 +1259,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
            title="test-shortDesc"
           >
@@ -1300,6 +1323,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1356,6 +1380,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1412,6 +1437,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1468,6 +1494,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1524,6 +1551,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1580,6 +1608,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1636,6 +1665,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1692,6 +1722,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1748,6 +1779,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1804,6 +1836,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1860,6 +1893,7 @@
            class="af_selectManyListbox"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         

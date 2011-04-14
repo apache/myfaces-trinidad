@@ -1,0 +1,43 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
+
+    <ui:define name="demoContent">
+
+        <tr:panelFormLayout inlineStyle="padding-bottom:4px; position:relative;">
+            <tr:outputText value="The Web is like a dominatrix.  Everywhere you turn, you see little buttons ordering you to Submit."
+                           inlineStyle="font-size:2.6em; color:#E8E2D7; line-height:1.1em;"/>
+            <tr:panelBox text="To do list:"
+                         background="dark"
+                         inlineStyle="position:absolute; top:0px; left:100px;">
+                <tr:selectManyCheckbox inlineStyle="text-align:left; font-weight:bold;">
+                    <tr:selectItem label="Change car oil"/>
+                    <tr:selectItem label="Pick up laundry"/>
+                    <tr:selectItem label="Walk dog"/>
+                    <tr:selectItem label="Repair patio deck"/>
+                </tr:selectManyCheckbox>
+            </tr:panelBox>
+        </tr:panelFormLayout>
+
+    </ui:define>
+</ui:composition>

@@ -73,9 +73,24 @@ public class TableLayoutRenderer extends XhtmlRenderer
     renderHAlign(context, rc, getHalign(component, bean));
     // TODO: if TABLES_CAP_ADVANCED and TABLES_CAP_ADVANCED_ATTRS
     // are both false, don't render cell padding, cell spacing, or border
-    OutputUtils.renderDataTableAttributes(context, rc, getCellPadding(component, bean),
-      getCellSpacing(component, bean), getBorderWidth(component, bean),
-      getWidth(component, bean), getSummary(component, bean));
+
+    // Normally, you would think tableLayout would be a layout table. But this component also allows
+    // the assignment of a summary, which is usually only present on a data table (and is set to ""
+    // for a layout table). So, based on whether there is a summary attribute or not, we'll render as
+    // either a data or layout table.
+    Object summary = getSummary(component, bean);
+    if (summary.equals(""))
+    {
+      OutputUtils.renderLayoutTableAttributes(context, rc, getCellPadding(component, bean),
+        getCellSpacing(component, bean), getBorderWidth(component, bean),
+        getWidth(component, bean));
+    }
+    else
+    {
+      OutputUtils.renderDataTableAttributes(context, rc, getCellPadding(component, bean),
+        getCellSpacing(component, bean), getBorderWidth(component, bean),
+        getWidth(component, bean), getSummary(component, bean));
+    }
 
     encodeAllChildren(context, component);
 

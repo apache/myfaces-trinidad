@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
@@ -243,7 +243,16 @@
       <mfp:tag-name>trh:tableLayout</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.html.HtmlTableLayoutTag</mfp:tag-class>
       <mfp:long-description><![CDATA[A TableLayout is a thin wrapper around the HTML &lt;table&gt;
-          element.  It contains a series of row layout elements.]]>
+          element.  It contains a series of row layout elements.
+         <section name="Table Layout">
+          By default, HTML tables treat cell widths more like suggestions rather than requirements;
+          cell content sizes contribute more in determining the size of each column.
+          If you care more for the specified cellFormat widths than content sizes (particularly if your
+          cellFormat widths are percentage-based and your cells have contents that are
+          programmatically-resizable based on the cell width), then you will need to use
+          inlineStyle="table-layout:fixed" to declare that you want your cell widths to be explicitly honored.
+          Refer to the CSS specification for further details on this style property.
+          </section>]]>
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code>
@@ -277,10 +286,10 @@
       <mfp:java-constructor>
         <mfp:property-name>width</mfp:property-name>
       </mfp:java-constructor>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
+        <fmd:default-event-name>click</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup</fmd:event-names>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.HtmlRowLayout</fmd:preferred-child-components>
         <fmd:satisfied-contracts>org-apache-myfaces-trinidad-htmlrowlayout-holder</fmd:satisfied-contracts>
       </fmd:component-metadata>

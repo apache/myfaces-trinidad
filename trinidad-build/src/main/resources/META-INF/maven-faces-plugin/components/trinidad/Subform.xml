@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
@@ -29,19 +29,6 @@
     </icon>
     <component-type>org.apache.myfaces.trinidad.Subform</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXSubform</component-class>
-    <property>
-      <description><![CDATA[whether the subform was submitted on this request]]></description>
-      <property-name>submitted</property-name>
-      <property-class>boolean</property-class>
-      <default-value>false</default-value>
-      <property-extension>
-        <mfp:tag-attribute-excluded>true</mfp:tag-attribute-excluded>
-        <mfp:transient>yes</mfp:transient>
-        <fmd:property-metadata>
-          <fmd:value-expression>PROHIBITED</fmd:value-expression>
-        </fmd:property-metadata>
-      </property-extension>
-    </property>
     <property>
       <description><![CDATA[whether the subform should assume it
 has been submitted.  When set to "true", "submitted" will be

@@ -18,7 +18,7 @@
     under the License.
      
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
@@ -194,7 +194,7 @@
       <description><![CDATA[Time zone in which to interpret any time information in the date
                string. If not set here, picks this value from
                trinidad-config.xml configuration file. If not defined there, then
-               it is defaulted to GMT.]]>
+               it is defaulted to the value returned by TimeZone.getDefault() which is usually the server JVM timezone.]]>
       </description>
       <property-name>timeZone</property-name>
       <property-class>java.util.TimeZone</property-class>

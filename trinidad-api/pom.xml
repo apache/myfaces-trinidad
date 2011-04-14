@@ -32,12 +32,17 @@
 
   <artifactId>trinidad-api</artifactId>
   <packaging>jar</packaging>
-
+  
   <dependencies>
 
     <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-build</artifactId>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.apache.myfaces.buildtools</groupId>
+        <artifactId>myfaces-builder-annotations</artifactId>
     </dependency>
     
     <dependency>
@@ -98,11 +103,48 @@
       <groupId>jmock</groupId>
       <artifactId>jmock-cglib</artifactId>
     </dependency>
+     <dependency> 	 
+       <groupId>commons-lang</groupId> 	 
+       <artifactId>commons-lang</artifactId> 	 
+       <scope>test</scope> 	 
+     </dependency> 	 
+
+     <dependency> 	 
+       <groupId>commons-io</groupId> 	 
+       <artifactId>commons-io</artifactId> 	 
+       <scope>test</scope> 	 
+     </dependency> 
 
   </dependencies>
 
   <build>
     <plugins>
+      <plugin>
+         <groupId>org.codehaus.mojo</groupId> 	 
+         <artifactId>clirr-maven-plugin</artifactId> 	 
+         <version>2.3</version> 	 
+         <configuration>
+           <minSeverity>error</minSeverity> 	 
+           <textOutputFile>${project.basedir}/target/clirr-runner.txt</textOutputFile> 	 
+           <failOnError>false</failOnError> 	 
+           <comparisonArtifacts> 	 
+             <comparisonArtifact> 	 
+               <groupId>org.apache.myfaces.trinidad</groupId> 	 
+               <artifactId>trinidad-api</artifactId> 	 
+               <version>1.2.15-SNAPSHOT</version> 	 
+             </comparisonArtifact> 	 
+           </comparisonArtifacts> 	 
+         </configuration> 	 
+         <executions> 	 
+           <execution> 	 
+             <goals> 	 
+               <goal>check</goal> 	 
+             </goals> 	 
+             <phase>test-compile</phase> 	 
+           </execution> 	 
+         </executions> 	 
+       </plugin>
+
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
@@ -114,6 +156,24 @@
         </configuration>
       </plugin>
 
+      <!-- 
+          To make the current version of maven available through a property (maven.version),
+          the build-helper-maven-plugin can be used.
+      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>maven-version</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -123,6 +183,13 @@
              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
            </manifest>
+           <manifestEntries>
+             <Maven-Version>${maven.version}</Maven-Version>
+             <Java-Vendor>${java.vendor}</Java-Vendor>
+             <Os-Name>${os.name}</Os-Name>
+             <Os-Arch>${os.arch}</Os-Arch>
+             <Os-Version>${os.version}</Os-Version>
+           </manifestEntries>
          </archive>
        </configuration>
         <executions>
@@ -157,10 +224,36 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
+          <systemProperties> 	 
+            <property> 	 
+              <name>trinidad.clirr.golden</name> 	 
+              <value>${project.basedir}/src/test/clirr/clirr-runner.txt</value> 	 
+            </property> 	 
+            <property> 	 
+              <name>trinidad.clirr.compare</name> 	 
+              <value>${project.basedir}/target/clirr-runner.txt</value> 	 
+            </property> 	 
+          </systemProperties>
           <includes implementation="java.util.ArrayList">
             <include implementation="java.lang.String">**/*Test.java</include>
           </includes>
         </configuration>
+      </plugin>
+
+      <plugin>
+          <groupId>org.apache.myfaces.buildtools</groupId>
+          <artifactId>myfaces-builder-plugin</artifactId>
+          <executions>
+              <execution>
+                  <goals>
+                      <goal>build-metadata</goal>
+                  </goals>
+                  <configuration>
+                      <inputFile>${project.basedir}/src/main/conf/META-INF/myfaces-core-2_0-metadata.xml</inputFile>
+                      <readMavenFacesPluginMetadata>true</readMavenFacesPluginMetadata>
+                  </configuration>
+              </execution>
+          </executions>
       </plugin>
 
       <plugin>
@@ -225,6 +318,13 @@
         <configuration>
           <showPackage>false</showPackage>
           <showProtected>true</showProtected>
+          <!-- we should look up the new URLs -->
+          <!--links>
+            <link>http://download.oracle.com/javase/1.5.0/docs/api</link>
+            <link>http://download.oracle.com/javaee/1.4/api</link>
+            <link>http://download.oracle.com/docs/cd/E17802_01/j2ee/javaee/javaserverfaces/2.0/docs/api</link>
+            <link>http://download.oracle.com/javaee/5/api</link>
+          </links-->
         </configuration>
       </plugin>
 
@@ -235,9 +335,90 @@
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changelog-plugin</artifactId>
+        <configuration>
+          <basedir>${basedir}</basedir>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
       </plugin>
 
     </plugins>
   </reporting>
+
+  <!-- 
+    This profile is for preparing a release....
+  -->
+  <profiles>
+    <profile>
+      <id>prepare-release</id>
+
+      <activation>
+        <property>
+          <name>prepareRelease</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    
+    <!-- This adds further debugging information to the manifest.  Currently this is the svn revision number of the build.  -->
+    <profile>
+      <id>extended-manifest</id>
+      
+      <build>
+        <plugins>
+          <!-- 
+            To make the current revision number, we use the buildnumber-maven-plugin.
+          -->
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>buildnumber-maven-plugin</artifactId>
+            <version>1.0-beta-4</version>
+            <executions>
+              <execution>
+                <phase>validate</phase>
+                <goals>
+                  <goal>create</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <doCheck>false</doCheck>
+              <doUpdate>false</doUpdate>
+              <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+              <buildNumberPropertyName>scm.revision</buildNumberPropertyName>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <archive>
+                <manifestEntries>
+                  <Revision>${scm.revision}</Revision>
+                </manifestEntries>
+              </archive>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

@@ -99,17 +99,27 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    String       clientId)
   {
-    decodeSelection(context, component);
+    decodeSelection(facesContext, component);
 
     Map<String, String> parameters =
-      context.getExternalContext().getRequestParameterMap();
+      facesContext.getExternalContext().getRequestParameterMap();
 
-    String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
-    String id = component.getClientId(context);
+    Object source = parameters.get("javax.faces.source");
+
+    // Support the legacy as well as JSF2 parameter name
+    if (source == null)
+    {
+      source = parameters.get("source");
+    }
+
+    String id = clientId == null ? component.getClientId(facesContext) : clientId;
     if (!id.equals(source))
       return;
 
@@ -383,6 +393,12 @@ abstract public class TableRenderer extends XhtmlRenderer
       // 2. render the table content
       renderTableContent(context, rc, tContext, component);
 
+      // 3. render the footer bars (controlbar) if applicable
+      if (_shouldRepeatControlBar(rc))
+      {
+        renderNavigationFooterBars(context, rc, tContext, component, bean);
+      }
+
       // end the outertable:
       rw.endElement(XhtmlConstants.TABLE_ELEMENT);
 
@@ -414,6 +430,7 @@ abstract public class TableRenderer extends XhtmlRenderer
           rw.writeText(tContext.getJSVarName()+"="+
                  TreeUtils.createNewJSCollectionComponentState(formName, tid)+";", null);
           rw.endElement(XhtmlConstants.SCRIPT_ELEMENT);
+
         }
       }
 
@@ -688,6 +705,35 @@ abstract public class TableRenderer extends XhtmlRenderer
     //   render the sub control bar. we need to to this even if the table is empty
     // because we need to render the filter area. bug 3757395
     renderSubControlBar(context, rc, tContext, component, true);
+  }
+
+  /**
+   * Render the navigation header bars, i.e. all the bars that appear above the
+   * actual data table. eg. title, controlbar and subcontrolbar
+   */
+  protected void renderNavigationFooterBars(
+    FacesContext          context,
+    RenderingContext      rc,
+    TableRenderingContext tContext,
+    UIComponent           component,
+    FacesBean             bean
+    ) throws IOException
+  {
+    // Render the lower control bar - must render tableActions even if table is empty.
+    _renderControlBar(context, rc, tContext, component, false); //isUpper
+  }
+
+  private boolean _shouldRepeatControlBar(RenderingContext rc)
+  {
+    Object propValue =
+      rc.getSkin().getProperty(SkinProperties.AF_TABLE_REPEAT_CONTROL_BAR);
+
+    if (propValue == null)
+    {
+      return DEFAULT_REPEAT_CONTROL_BAR;
+    }
+
+    return Boolean.TRUE.equals(propValue);
   }
 
   /**
@@ -1063,6 +1109,12 @@ abstract public class TableRenderer extends XhtmlRenderer
   private static final Object _UPPER_NAV_BAR_ID_PROPERTY = new Object();
 
   private static final String _VALUE_FIELD_NAME      = "_value";
+
+  /**
+   * Whether the table should repeat its control bars above and below the table by default if not
+   * specified by the -tr-repeat-control-bar skin property.
+   */
+  public static final boolean DEFAULT_REPEAT_CONTROL_BAR = false;
 
   private final SpecialColumnRenderer _detailRenderer = new DetailColumnRenderer();
 

@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -96,10 +96,10 @@ conversion to and from Java objects.]]>
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>outputText</mfp:uix2-local-name>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
+        <fmd:default-event-name>click</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup</fmd:event-names>
         <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
         <fmd:default-property>value</fmd:default-property>
       </fmd:component-metadata>

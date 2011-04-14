@@ -1,0 +1,54 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    Usually, this component will simply contain labelled Apache Trinidad input
+    components in its main content - these are inputText, inputFile, inputColor, inputListOfValues,
+    inputDate, selectBooleanCheckbox, selectBooleanRadio, selectOneChoice, selectOneListbox, selectOneRadio,
+    selectManyCheckbox, and selectManyListbox. These components must have their &quot;simple&quot; attribute set to
+    false, which is the default, and will cause the labels and fields inside the panelFormLayout to be aligned
+    vertically.
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="When more complex field contents are needed, use a panelLabelAndMessage around the more
+        complex contents needed; see the example below. "/>
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="Other components can be added to panelFormLayout, but they will not line up with labels
+        and fields automatically, and each will appear on its own row. You can use other panel components - like
+        panelHorizontal - to get some level of layout within a row, but to align contents with the other labels and
+        fields, use panelLabelAndMessage or the &quot;footer&quot; facet. "/>
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="The panelFormLayout is an example of one of the components that has support for grouping
+        its children components. If you place panelFormLayout child items inside of a group, separators will be drawn
+        around the group of form items if adjacent to other form items (separators won't be drawn at the top if the
+        group is the first item in the column or, similarly, at the bottom if the group is the last item in the column).
+        Grouped panelFormLayout items are kept in the same column of the panelFormLayout even when the assigned rows
+        attribute is set to a value smaller than the number of items in the group. The panelFormLayout component also
+        supports the group component in its footer facet so you can place more than one item in the footer. You can even
+        group footer items one additional time to get separators to appear. "/>
+
+</ui:composition>

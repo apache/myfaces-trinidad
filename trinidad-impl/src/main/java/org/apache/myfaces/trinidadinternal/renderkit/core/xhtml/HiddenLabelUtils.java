@@ -39,6 +39,12 @@ public class HiddenLabelUtils
     if (XhtmlRenderer.isInaccessibleMode(arc))
       return false;
 
+    // Though the method is named "supports" hidden labels, it's really being called and used in
+    // the sense of "do we want to render" hidden labels, and if this method returns false no label
+    // is written at all. We always want labels in screen reader mode, so return true.
+    if (XhtmlRenderer.isScreenReaderMode(arc))
+      return true;
+
     // For this switch - and for getting the major version - tunnel
     // to CoreRenderingContext
     TrinidadAgent agent = ((CoreRenderingContext) arc).getTrinidadAgent();
@@ -55,19 +61,19 @@ public class HiddenLabelUtils
           if (agent.getCapability(TrinidadAgent.CAP_IS_JDEV_VE) != null)
             return false;
 
-          // IE 5 and 6 do.
+          // IE 5+ supports hidden labels
           return true;
         }
 
-        // IE on the Mac doesn't support the label hack
+        // IE on the Mac (which got as far as IE5 before Mac IE was dropped) doesn't support hidden labels
         return false;
 
-      // Mozilla does support the label hack
+      // Mozilla, Safari, and Chrome supports hidden labels
       case GECKO:
+      case SAFARI:
         return true;
 
-      // Assume everyone else doesn't.
-      case NETSCAPE:
+      // Assume everyone else doesn't (important for the many mobile agents)
       default:
         return false;
     }

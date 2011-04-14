@@ -38,9 +38,8 @@ import org.w3c.dom.Node;
  * parent component instance must be passed as an argument. The add() utility
  * method in this class can be alternatively used to conveniently register the
  * change against the common parent. While applying this change, if a child with
- * the same identifier as the movable child were to be already present in the
- * destination container, it will be considered as a duplicate child, will be
- * removed and movable child will be added.
+ * the same id as the movable child were to be already present in the destination 
+ * container, the move operation is aborted.
  * @see #add(FacesContext, ChangeManager)
  * @see ChangeManager#addComponentChange(FacesContext, UIComponent, ComponentChange)
  * @see ChangeManager#addDocumentChange(FacesContext, UIComponent, DocumentChange)
@@ -94,6 +93,21 @@ public final class MoveChildComponentChange
     if (destinationContainer == null)
       throw new IllegalArgumentException(
         _LOG.getMessage("DESTINATION_CONTAINER_REQUIRED"));
+    
+    UIComponent viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+    
+    String sourceAbsoluteLogicalScopedId = ComponentUtils.getLogicalScopedIdForComponent(movableChild, viewRoot);
+    
+    String destinationContainerLogicalPrefix = _getScopedIdPrefix(destinationContainer,
+                                          ComponentUtils.getLogicalScopedIdForComponent(destinationContainer, viewRoot));
+    
+    String movableChildId = movableChild.getId();
+    
+    String destinationAbsoluteLogicalScopedId = (destinationContainerLogicalPrefix != null)
+                                          ? new StringBuilder(destinationContainerLogicalPrefix).
+                                            append(NamingContainer.SEPARATOR_CHAR).
+                                            append(movableChildId).toString()
+                                          : movableChildId;
 
     // Get the common parent
     _commonParent = 
@@ -113,8 +127,7 @@ public final class MoveChildComponentChange
       ComponentUtils.getScopedIdForComponent(destinationContainer, _commonParent);
           
     _commonParentScopedId = 
-      ComponentUtils.getScopedIdForComponent(_commonParent, null);
-
+      ComponentUtils.getScopedIdForComponent(_commonParent, viewRoot);
     if (_movableChildScopedId == null || 
         _sourceParentScopedId == null || 
         _destinationContainerScopedId == null ||
@@ -132,6 +145,9 @@ public final class MoveChildComponentChange
                                            append(_movableChildScopedId).toString()
                                  : _movableChildScopedId;
     
+    _sourceAbsoluteLogicalScopedId = _sourceAbsoluteScopedId.equals(sourceAbsoluteLogicalScopedId) ? null : 
+                                                                                          sourceAbsoluteLogicalScopedId; 
+    
     // calculate the absolute scoped id of the destination
     String destinationContainerPrefix = _getScopedIdPrefix(destinationContainer,
                                                            _destinationContainerScopedId);
@@ -148,7 +164,10 @@ public final class MoveChildComponentChange
       destinationScopedIdBuilder.append(destinationContainerPrefix).append(NamingContainer.SEPARATOR_CHAR);
     }
     
-    _destinationAbsoluteScopedId = destinationScopedIdBuilder.append(movableChild.getId()).toString();
+    _destinationAbsoluteScopedId = destinationScopedIdBuilder.append(movableChildId).toString();
+    
+    _destinationAbsoluteLogicalScopedId = _destinationAbsoluteScopedId.equals(destinationAbsoluteLogicalScopedId) ? null :
+                                              destinationAbsoluteLogicalScopedId;
 
     // For insertBeforeComponent, we do not care to obtain scoped id.
     _insertBeforeId = (insertBeforeComponent == null) ? 
@@ -233,34 +252,70 @@ public final class MoveChildComponentChange
       return;
     }
     
-    // 2. Find movableChild, gather any duplicates and remove them.
+    // 2. Find movableChild, gather the possible duplicates (theoritically only three) and keep a
+    //  single copy among them.
     //  Duplicates are possible because 
     //  a) taghandlers re-create the component that was in the jspx file in
     //    their original location, no matter whether it was moved/removed due to 
     //    aplication of a different ComponentChange. Such components could now 
-    //    be considered duplicates. In theory, there could be just one such 
+    //    be considered duplicates, because they are newly created from their vanilla definition
+    //    in the jspx document, and would not have any further ComponentChanges applied on them. 
+    //    There should be one such duplicate.
+    //  b) Apart from adding the MoveComponentChange, we expect developers to apply the change in 
+    //    order to reflect in the same request cycle (i.e. developers call 
+    //    ComponentChange.changeComponent()). Consequently, the component tree contains a moved 
+    //    child at the destination. Such components must be preserved, because they have 
+    //    incorporated any subsequent ComponentChanges on them. There should be one such moved
+    //    component.
+    //  c) We would have moved/added components due to previous customization an earlier application 
+    //    of ComponentChange, that could still be in the view tree. There should be one such zombie/ 
     //    duplicate.
-    //  b) We would have moved/added components due to an earlier application of 
-    //    a ComponentChange, that could still be in the view tree. Such 
-    //    components must now be considered duplicates. In theory, there could 
-    //    be just one such duplicate.
-    // This issue of duplicates is more common when the movement is within same 
-    // NamingContainer.
     UIComponent sourceParent = 
       changeTargetComponent.findComponent(_sourceParentScopedId);
     
     UIComponent foundChild = 
       changeTargetComponent.findComponent(_movableChildScopedId);
-    //Assume the first found child is the movableChild
-    UIComponent movableChild = foundChild;
+
+    // To flag if a child was already found in a destination container (maybe due to previous move)    
+    boolean isChildIdAtDestination = false;
+    
+    UIComponent movableChild = null;
     int movableChildIndex = 0;
+    UIComponent movedChild = null;
+    int movedChildIndex = 0;
+    UIComponent duplicateChild = null;
+    int duplicateChildIndex = 0;
+    UIComponent duplicateChildParent = null;
+
     while (foundChild != null)
     {
-      // If the parent matches, this is the one to move, rest are duplicates
+      // 2.a. If the parent matches, this could be the component that JSF-Runtime re-created
+      //  and added because it is in the physical document
       if (foundChild.getParent().equals(sourceParent))
       {
         movableChild = foundChild;
         movableChildIndex = sourceParent.getChildren().indexOf(movableChild);
+      }
+      // 2.b.a. We could possibly find the child at its destination, because apart from
+      //  adding the change, the change was applied in previous request, and the move
+      //  could have been within the same naming container umbrella. In this case
+      //  we do not want to move anything and the movable child is considered as a 
+      //  duplicate and candidate for removal.
+      else if (foundChild.getParent().equals(destinationContainer))
+      {
+        isChildIdAtDestination = true;
+        movedChild = foundChild;
+        movedChildIndex = destinationContainer.getChildren().indexOf(movedChild);
+      }
+      // 2.c. Possible dup from subsequent MoveChildComponentChange in the sequence of multiple
+      //  moves of the component in this same request. For example, if the move is from A->B->C,
+      //  and if we are currently dealing with move from A->B, the component that was added at
+      //  position C (in addition to adding the move change to changemanager) will now be dup.
+      else
+      {
+        duplicateChild = foundChild;
+        duplicateChildIndex = foundChild.getParent().getChildren().indexOf(foundChild);
+        duplicateChildParent = foundChild.getParent();
       }
 
       // Invariably, remove the found component from the tree. We remove the
@@ -269,39 +324,74 @@ public final class MoveChildComponentChange
       //  NamingContainer.
       foundChild.getParent().getChildren().remove(foundChild);
 
-      // Try and find the next potential duplicate
+      // Try and find the next potential copy of the component to move
       foundChild = changeTargetComponent.findComponent(_movableChildScopedId);
     }
     
+    //  We need to re-attach the dup for now, the dupes will be eliminated gradually while applying
+    //  the successive move change involving the same component.
+    if (duplicateChild != null)
+    {
+      duplicateChildParent.getChildren().add(duplicateChildIndex, duplicateChild);
+    }
+
+    // Can't do anything without a movable child.    
     if(movableChild == null)
     {
       _LOG.warning("MOVABLE_CHILD_NOT_FOUND", _movableChildScopedId);
+      // Reverse any damage that we might have caused, and exit
+      if (movedChild != null)
+      {
+        destinationContainer.getChildren().add(movedChildIndex, movedChild);
+      }
       return;
     }
     
-    // Reattach the moveable child, so that move happens atomically at the end.
-    sourceParent.getChildren().add(movableChildIndex, movableChild);
-    
-    // 3. If there is a child already existing with the same identifier in the 
-    //  destination container, remove it. We are doing this before identifying 
-    //  the insert index so that insert index is accurate, in case we end up 
-    //  removing any child in this step.
-    String movableChildId = movableChild.getId();
-    int indexOfChildWithSameIdAtDestination = 0;
-    UIComponent childWithSameIdAtDestination = null;
-    for (UIComponent childComponent:destinationContainer.getChildren())
+    // 2.b.b. Similar to situation in step #2.b.a, but here the move is across different naming 
+    //  containers, we could not catch this earlier.
+    if (!isChildIdAtDestination)
     {
-      if (movableChildId.equals(childComponent.getId()))
+      String movableChildId = movableChild.getId();
+      for (UIComponent childComponent:destinationContainer.getChildren())
       {
-        indexOfChildWithSameIdAtDestination = 
-          destinationContainer.getChildren().indexOf(childComponent);
-        childWithSameIdAtDestination = childComponent;
-        destinationContainer.getChildren().remove(childComponent);
+        if (movableChildId.equals(childComponent.getId()))
+        {
+          isChildIdAtDestination = true;
+          movedChild = childComponent;
+          // Temporarily remove this child, we might add it back in step #3 below.
+          movedChild.getParent().getChildren().remove(movedChild);
+          break;
+        }
       }
     }
+
+    // 3. Check whether the destination container has a child with same id.
+    if (isChildIdAtDestination)
+    {
+      _LOG.warning("MOVABLE_CHILD_SAME_ID_FOUND", _movableChildScopedId);
+
+      // Component type matches, this means the child is already at destination. We have removed all
+      //  duplicates, and have nothing more to do in this case
+      if ( (movableChild.getFamily().equals(movedChild.getFamily())) &&
+             (movableChild.getRendererType().equals(movedChild.getRendererType())) )
+      {
+        // Add back the moved child that we removed earlier.
+        destinationContainer.getChildren().add(movedChildIndex, movedChild);
+      }
+      else
+      {
+        // Duplicate child by id, but not of the same component type - a condition we cannot handle.
+        // Reverse any damage that we might have caused and exit
+        sourceParent.getChildren().add(movableChildIndex, movableChild);
+      }
+      return;
+    }
+
+    // We are now dealing with case where there were no duplicates, and a proper point-to-point
+    //  move should happen. Reattach the moveable child, so that move happens atomically at the end.
+    sourceParent.getChildren().add(movableChildIndex, movableChild);
     
-    // 4. See if we can find the insertBeforeComponent among the 
-    //  destinationContainer's children
+    // 4. See if we can find the insertBeforeComponent among the destinationContainer's children
     int insertIndex = -1;
     if (_insertBeforeId != null)
     {
@@ -315,16 +405,9 @@ public final class MoveChildComponentChange
         }
       }
   
-      // insertBeforeId was specified, but corresponding component is missing. 
-      //  In this case abort the move, after re-adding any components in 
-      //  destination container that we may have deleted from step #3.
+      // insertBeforeId was specified, but we cannot find the insertBefore component. Exit.
       if (insertIndex == -1)
       {
-        if (childWithSameIdAtDestination != null)
-          destinationContainer.getChildren().add(
-            indexOfChildWithSameIdAtDestination,
-            childWithSameIdAtDestination);
-        
         _LOG.warning("INSERT_BEFORE_NOT_FOUND", _insertBeforeId);
         return;
       }
@@ -471,6 +554,57 @@ public final class MoveChildComponentChange
     return _destinationAbsoluteScopedId;
   }
   
+  
+  /**
+   * Returns the absolute logical scopedId of the source component
+   */
+  public String getSourceLogicalScopedId()
+  {
+    return (_sourceAbsoluteLogicalScopedId == null) ? _sourceAbsoluteScopedId : _sourceAbsoluteLogicalScopedId;
+  }
+  
+  /**
+   * Returns the absolute logical scopedId of the source component at its destination
+   */
+  public String getDestinationLogicalScopedId()
+  {
+    return (_destinationAbsoluteLogicalScopedId == null) ? _destinationAbsoluteScopedId : _destinationAbsoluteLogicalScopedId;
+  }
+  
+  @Override
+  public boolean equals(Object o)
+  {
+    if (o == this)
+      return true;
+    
+    if (!(o instanceof MoveChildComponentChange))
+      return false;
+    
+    MoveChildComponentChange other = (MoveChildComponentChange)o;
+    
+    return getSourceLogicalScopedId().equals(other.getSourceLogicalScopedId()) &&
+           getDestinationLogicalScopedId().equals(other.getDestinationLogicalScopedId()) &&
+           _equalsOrNull(_insertBeforeId, other._insertBeforeId);
+  }
+  
+  @Override
+  public int hashCode()
+  {
+    int hashCode = getSourceLogicalScopedId().hashCode() + 37 * getDestinationLogicalScopedId().hashCode();
+    if (_insertBeforeId != null)
+    {
+      hashCode = hashCode + 1369 * _insertBeforeId.hashCode();
+    }
+    return hashCode;
+  }
+      
+  @Override
+  public String toString()
+  {
+    return super.toString() + "[logical_source=" + getSourceLogicalScopedId() + " logical_destination=" + getDestinationLogicalScopedId() +
+            " absolute source=" + getSourceScopedId() + " absolute destination" + getDestinationScopedId() +" insert_before=" + _insertBeforeId + "]";
+  }
+  
   /**
    * Returns the depth of a UIComponent in the tree. 
    * @param comp the UIComponent whose depth has to be calculated
@@ -504,6 +638,11 @@ public final class MoveChildComponentChange
     return component;
   }
   
+  private boolean _equalsOrNull(Object obj1, Object obj2)
+  {
+    return (obj1 == null) ? (obj2 == null) : obj1.equals(obj2);
+  }
+  
   private transient UIComponent _commonParent;
 
   private final String _movableChildScopedId;
@@ -513,6 +652,8 @@ public final class MoveChildComponentChange
   private final String _insertBeforeId;
   private final String _sourceAbsoluteScopedId;
   private final String _destinationAbsoluteScopedId;
+  private final String _sourceAbsoluteLogicalScopedId;
+  private final String _destinationAbsoluteLogicalScopedId;
   private static final long serialVersionUID = 1L;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(

@@ -34,13 +34,13 @@ import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
-import org.apache.myfaces.trinidad.component.visit.VisitContext;
-import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.event.WindowLifecycleListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -140,6 +140,31 @@ abstract public class RequestContext
    * @param create if the map should be created if it already does not exist.
    */
   public abstract Map<String, Object> getViewMap(boolean create);
+
+  /**
+   * Returns a Map of objects associated with the current window if any.  If there is no
+   * current window, the Session Map is returned.
+   * @return Map for storing objects associated with the current window.
+   * @see org.apache.myfaces.trinidad.context.Window#getWindowMap
+   */
+  public Map<String, Object> getWindowMap()
+  {
+    WindowManager wm = getWindowManager();
+
+    ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
+
+    Window window = wm.getCurrentWindow(extContext);
+
+    if (window != null)
+    {
+
+      return window.getWindowMap();
+    }
+    else
+    {
+      return extContext.getSessionMap();
+    }
+  }
 
   //
   // Dialog APIs
@@ -249,6 +274,14 @@ abstract public class RequestContext
    * Returns the name of the preferred skin family.
    */
   public abstract String getSkinFamily();
+
+  /**
+   * Returns the name of the skin version that goes with the skin-family.
+   */
+  public String getSkinVersion()
+  {
+    return null;
+  }
 
   /**
    * Determines whether the current View Root is an internal view
@@ -512,22 +545,25 @@ abstract public class RequestContext
 
   /**
    * <p>Creates a VisitContext instance for use with
-   * {@link org.apache.myfaces.trinidad.component.UIXComponent#visitTree UIComponent.visitTree()}.</p>
+   * {@link UIComponent#visitTree}.</p>
    *
    * @param context the FacesContext for the current request
    * @param ids the client ids of the components to visit.  If null,
    *   all components will be visited.
    * @param hints the VisitHints to apply to the visit
-   * @param phaseId.  PhaseId if any for this visit.  If PhaseId is specified,
-   * hints must contain VisitHint.EXECUTE_LIFECYCLE
+   * @param phaseId.  ignored.
    * @return a VisitContext instance that is initialized with the
    *   specified ids and hints.
+   * @deprecated use {@link VisitContext#createVisitContext(FacesContext, Collection<String>, Set<VisitHint>)} instead
    */
-  public abstract VisitContext createVisitContext(
+  public final VisitContext createVisitContext(
     FacesContext context,
     Collection<String> ids,
     Set<VisitHint> hints,
-    PhaseId phaseId);
+    PhaseId phaseId)
+  {
+    return VisitContext.createVisitContext(context, ids, hints);
+  }
 
   public abstract UploadedFileProcessor getUploadedFileProcessor();
 
@@ -601,54 +637,74 @@ abstract public class RequestContext
     // get instance using the WindowManagerFactory
     if (windowManager == null)
     {
-      // check if we have cached it per session
-      ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
+      FacesContext context = FacesContext.getCurrentInstance();
 
-      // create a new instance using the WindowManagerFactory
-      ConcurrentMap<String, Object> concurrentAppMap =
-                                         getCurrentInstance().getApplicationScopedConcurrentMap();
-
-      WindowManagerFactory windowManagerFactory = (WindowManagerFactory)concurrentAppMap.get(
-                                                            _WINDOW_MANAGER_FACTORY_CLASS_NAME);
-
-      if (windowManagerFactory == null)
+      // just in case we're called before the real JSF lifecycle starts
+      if (context != null)
       {
-        // we haven't registered a WindowManagerFactory yet, so use the services api to see
-        // if a factory has been registered
-        List<WindowManagerFactory> windowManagerFactories =
-                                ClassLoaderUtils.getServices(_WINDOW_MANAGER_FACTORY_CLASS_NAME);
+        // check if we have cached it per session
+        ExternalContext extContext = context.getExternalContext();
 
-        if (windowManagerFactories.isEmpty())
+        // create a new instance using the WindowManagerFactory
+        ConcurrentMap<String, Object> concurrentAppMap = getApplicationScopedConcurrentMap();
+
+        WindowManagerFactory windowManagerFactory = (WindowManagerFactory)concurrentAppMap.get(
+                                                              _WINDOW_MANAGER_FACTORY_CLASS_NAME);
+
+        if (windowManagerFactory == null)
         {
-          // no factory registered so use the factory that returns dummy stub WindowManagers
-          windowManagerFactory = _STUB_WINDOW_MANAGER_FACTORY;
-        }
-        else
-        {
-          // only one WindowManager is allowed, use it
-          windowManagerFactory = windowManagerFactories.get(0);
-        }
+          // we haven't registered a WindowManagerFactory yet, so use the services api to see
+          // if a factory has been registered
+          List<WindowManagerFactory> windowManagerFactories =
+                                  ClassLoaderUtils.getServices(_WINDOW_MANAGER_FACTORY_CLASS_NAME);
 
-        // save the WindowManagerFactory to the application if it hasn't already been saved
-        // if it has been saved, use the previously registered WindowManagerFactory
-        WindowManagerFactory oldWindowManagerFactory = (WindowManagerFactory)
-                            concurrentAppMap.putIfAbsent(_WINDOW_MANAGER_FACTORY_CLASS_NAME,
-                                                         windowManagerFactory);
+          if (windowManagerFactories.isEmpty())
+          {
+            // no factory registered so use the factory that returns dummy stub WindowManagers
+            windowManagerFactory = _STUB_WINDOW_MANAGER_FACTORY;
+          }
+          else
+          {
+            // only one WindowManager is allowed, use it
+            windowManagerFactory = windowManagerFactories.get(0);
+          }
 
-        if (oldWindowManagerFactory != null)
-          windowManagerFactory = oldWindowManagerFactory;
-      } // create WindowManagerFactory
+          // save the WindowManagerFactory to the application if it hasn't already been saved
+          // if it has been saved, use the previously registered WindowManagerFactory
+          WindowManagerFactory oldWindowManagerFactory = (WindowManagerFactory)
+                              concurrentAppMap.putIfAbsent(_WINDOW_MANAGER_FACTORY_CLASS_NAME,
+                                                           windowManagerFactory);
 
-      // get the WindowManager from the factory.  The factory will create a new instance
-      // for this session if necessary
-      windowManager = windowManagerFactory.getWindowManager(extContext);
+          if (oldWindowManagerFactory != null)
+            windowManagerFactory = oldWindowManagerFactory;
+        } // create WindowManagerFactory
 
-      // remember for the next call on this thread
-      _windowManager = windowManager;
+        // get the WindowManager from the factory.  The factory will create a new instance
+        // for this session if necessary
+        windowManager = windowManagerFactory.getWindowManager(extContext);
+
+        // remember for the next call on this thread
+        _windowManager = windowManager;
+      }
     }
 
     return windowManager;
   }
+
+  /**
+   * Get the component context manager.
+   * @return The manager of component context changes to be used to suspend and resume
+   * component specific context changes.
+   */
+   public ComponentContextManager getComponentContextManager()
+   {
+     if (_componentContextManager == null)
+     {
+       _componentContextManager = new ComponentContextManagerImpl();
+     }
+
+     return _componentContextManager;
+   }
 
   /**
    * Releases the RequestContext object.  This method must only
@@ -786,6 +842,8 @@ abstract public class RequestContext
     new ThreadLocal<RequestContext>();
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(RequestContext.class);
+
+  private ComponentContextManager _componentContextManager;
 
   // window manager for this request
   private WindowManager _windowManager;

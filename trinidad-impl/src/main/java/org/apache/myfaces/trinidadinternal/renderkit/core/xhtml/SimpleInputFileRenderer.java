@@ -78,7 +78,8 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
       file = files.getUploadedFile(clientId);
     }
 
-    // If we couldn't find a file (or the file is empty), return "FALSE" to indicate that
+    // If we couldn't find a file (e.g. does not exist OR the file is empty),
+    // return "FALSE" to indicate that...
     // the file upload *was* available, but didn't upload a file
     // this time.
     if (file == null || file.getLength() == 0)
@@ -109,7 +110,13 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     UploadedFile file = (UploadedFile) submittedValue;
     if(file.getLength() == -1)
     {
-      FacesMessage fm = MessageFactory.getMessage(context, "org.apache.myfaces.trinidad.UPLOAD");
+      // There was a failure while one of the UploadedFileProcessor in the chain processed this file,
+      // we expect the details to be in opaqueData
+      String errorMessage = file.getOpaqueData().toString();
+      FacesMessage fm = MessageFactory.getMessage(context, 
+                                                  FacesMessage.SEVERITY_WARN, 
+                                                  "org.apache.myfaces.trinidad.UPLOAD_FAILURE", 
+                                                  new Object[]{errorMessage}, component); 
       throw new ConverterException(fm);
     }
 

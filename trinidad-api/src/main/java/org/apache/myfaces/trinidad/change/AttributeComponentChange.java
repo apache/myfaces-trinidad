@@ -113,6 +113,41 @@ public class AttributeComponentChange extends ComponentChange
     }
   }
 
+  @Override
+  public String toString()
+  {
+    return super.toString() + "[attribute=" + _attributeName +
+           ",value=" + _attributeValue + "]";
+  }
+  
+  @Override
+  public int hashCode()
+  {
+    int hashCode = _attributeName.hashCode();
+    
+    if (_attributeValue != null)
+      hashCode += 37 * _attributeValue.hashCode();
+    
+    return hashCode;
+  }
+  
+  @Override
+  public boolean equals(Object o)
+  {
+    if (o == this)
+      return true;
+    
+    if (!(o instanceof AttributeComponentChange))
+      return false;
+    
+    AttributeComponentChange other = (AttributeComponentChange)o;
+    
+    return _attributeName.equals(other._attributeName) &&
+           ((_attributeValue == null)
+             ? other._attributeValue == null
+             : _attributeValue.equals(other._attributeValue));
+  }
+
   private final String _attributeName;
 
   //=-=pu: Should we disallow non-serializable values during construction itself

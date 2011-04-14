@@ -25,6 +25,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
@@ -56,13 +59,40 @@ public class PropertyKey
    * Capability indicating this property can use the StateHolder API.
    */
   static public final int CAP_STATE_HOLDER = 8;
+  
+  /**
+   * Capability indicating this property can use the PartialStateHolder API.
+   */
+  static public final int CAP_PARTIAL_STATE_HOLDER = 16;
 
   /**
    * Create a named PropertyKey, not attached to any type.
+   * @see #getDefaultPropertyKey
    */
   static public PropertyKey createPropertyKey(String name)
   {
     return new PropertyKey(name);
+  }
+  
+  private static final ConcurrentMap<String, PropertyKey> _sDefaultKeyCache = 
+                                            new ConcurrentHashMap<String, PropertyKey>();
+                             
+  /**
+   * Returns a named PropertyKey of type Object
+   */
+  public static PropertyKey getDefaultPropertyKey(String name)
+  {
+    PropertyKey cachedKey = _sDefaultKeyCache.get(name);
+    
+    if (cachedKey == null)
+    {
+      cachedKey = new PropertyKey(name);
+      
+      // we don't need putIfAbsent because we don't care about identity
+      _sDefaultKeyCache.put(name, cachedKey);
+    }
+    
+    return cachedKey;
   }
   
   //
@@ -195,6 +225,14 @@ public class PropertyKey
   public boolean isList()
   {
     return (_capabilities & CAP_LIST) != 0;
+  }
+  
+  /**
+   * Returns true if the property is used to store a PartialStateHolder.
+   */
+  public boolean isPartialStateHolder()
+  {
+    return (_capabilities & CAP_PARTIAL_STATE_HOLDER) != 0;
   }
 
   /**
@@ -370,7 +408,8 @@ public class PropertyKey
     CAP_NOT_BOUND |
     CAP_TRANSIENT |
     CAP_LIST |
-    CAP_STATE_HOLDER;
+    CAP_STATE_HOLDER|
+    CAP_PARTIAL_STATE_HOLDER;
 
   static private final Class<Object> _TYPE_DEFAULT = Object.class;
 

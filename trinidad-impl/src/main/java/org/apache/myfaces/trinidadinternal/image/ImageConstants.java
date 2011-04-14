@@ -227,7 +227,7 @@ public interface ImageConstants
    * The InputStreamProvider is used to obtain image data for the
    * source images for global buttons and colorizeds.
    *
-   * @see org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider
+   * @see org.apache.myfaces.trinidad.share.io.InputStreamProvider
    */
   public static final Object SOURCE_INPUT_STREAM_PROVIDER_KEY = "inputStreamProvider";
 

@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.style.util;
 
+import java.beans.Beans;
+
 import java.io.PrintWriter;
 
 import java.util.ArrayList;
@@ -165,7 +167,8 @@ public class CSSGenerationUtils
     // We'll start writing the CSS file now.  First
     // write out the header with a time stamp
     Date date = new Date();
-    out.println("/* This CSS file generated on " + date + " */");
+    if (!compressStyles)
+      out.println("/* This CSS file generated on " + date + " */");
 
     // Keep track of the number of selectors written out. The reason? IE has a 4095 limit,
     // and we want to warn when we get to that limit.
@@ -183,7 +186,7 @@ public class CSSGenerationUtils
       // We only write out styles for which we have a property string.
       // All other entries correspond to styles which don't have selectors -
       // or styles which will be rendered as a "matching" style.
-      if (propertyString != null)
+      if (propertyString != null && !(propertyString.equals("")))
       {
         // Get all of the styles which share this property string.
         StyleNode[] matchingStyles = matchingStylesMap.get(propertyString);
@@ -333,7 +336,10 @@ public class CSSGenerationUtils
           }
         }
 
-        out.println("}");
+        if (compressStyles)
+          out.print("}"); // take out the newlines for performance
+        else
+          out.println("}");
       }
     }
     out.println("/* The number of CSS selectors in this file is " + numberSelectorsWritten + " */");
@@ -1384,7 +1390,9 @@ public class CSSGenerationUtils
 
   static private String _convertPseudoClass(String pseudoClass)
   {
-    if (_BUILT_IN_PSEUDO_CLASSES.contains(pseudoClass))
+    // The design time needs the browser-supported pseudo-classes to be converted so they
+    // can show a preview of the skinned component.
+    if (_BUILT_IN_PSEUDO_CLASSES.contains(pseudoClass) && !Beans.isDesignTime())
       return pseudoClass;
     StringBuilder builder = new StringBuilder(pseudoClass.length() + 3);
     builder.append(".");
@@ -1402,8 +1410,7 @@ public class CSSGenerationUtils
     return builder.toString();
   }
 
-
-  // =-=AEW Do we care about built-in pseudo-elements???
+  // We want to output to the css the browser-supported pseudo-classes as is
   static private final Set<String> _BUILT_IN_PSEUDO_CLASSES =
     new HashSet<String>();
   static
@@ -1416,7 +1423,6 @@ public class CSSGenerationUtils
     _BUILT_IN_PSEUDO_CLASSES.add(":focus");
   }
 
-  private static final Pattern _SPACE_PATTERN = Pattern.compile("\\s");
   private static final Pattern _DASH_PATTERN =  Pattern.compile("-");
   private static final String[] _EMPTY_STRING_ARRAY = new String[0];
   private static final int _MSIE_SELECTOR_LIMIT = 4095;

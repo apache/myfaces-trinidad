@@ -128,6 +128,19 @@ public class RenderKitBootstrap
       }
     }
 
+    // set up the lifecycle factories
+    // Install the basic lifecycleFactory impl.
+    FactoryFinder.setFactory(FactoryFinder.LIFECYCLE_FACTORY, "com.sun.faces.lifecycle.LifecycleFactoryImpl");
+
+    // Install all registered lifecycle factories
+    if (info != null)
+    {
+      for (String lifecycleFactory : info.getLifecycleFactories())
+      {
+        FactoryFinder.setFactory(FactoryFinder.LIFECYCLE_FACTORY, lifecycleFactory);
+      }
+    }
+    
     // Set up the SkinFactory
     if (SkinFactory.getFactory() == null)
     {

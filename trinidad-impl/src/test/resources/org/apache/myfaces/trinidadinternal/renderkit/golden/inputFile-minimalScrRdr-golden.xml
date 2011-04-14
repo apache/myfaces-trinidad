@@ -6,6 +6,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -44,6 +45,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -83,6 +85,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -122,6 +125,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -161,6 +165,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -200,6 +205,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -239,6 +245,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -278,6 +285,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -317,6 +325,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -356,6 +365,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -395,6 +405,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -434,6 +445,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -473,6 +485,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -512,6 +525,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -551,6 +565,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -590,6 +605,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -628,6 +644,7 @@
            class="af_inputFile p_AFDisabled"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -667,6 +684,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -706,6 +724,7 @@
            class="af_inputFile"
            datatable="0"
            id="id_val__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -744,6 +763,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            style="background-color:red"
            summary=""
           >
@@ -783,6 +803,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -826,6 +847,7 @@
            class="af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
            title="test-shortDesc"
           >
@@ -872,6 +894,7 @@
            class="test-styleClass af_inputFile"
            datatable="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         

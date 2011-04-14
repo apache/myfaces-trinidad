@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -206,10 +206,10 @@ This facet may not always line up perfectly, especially if the labels or fields 
       <mfp:author>Gabrielle Crawford</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>messageComponentLayout</mfp:uix2-local-name>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
+        <fmd:default-event-name>click</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup</fmd:event-names>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreInputText org.apache.myfaces.trinidad.CoreInputFile org.apache.myfaces.trinidad.CoreSelectBooleanCheckbox org.apache.myfaces.trinidad.CoreSelectBooleanRadio org.apache.myfaces.trinidad.CoreInputColor org.apache.myfaces.trinidad.CoreInputDate org.apache.myfaces.trinidad.CoreInputListOfValues org.apache.myfaces.trinidad.CoreSelectManyListbox org.apache.myfaces.trinidad.CoreSelectOneChoice org.apache.myfaces.trinidad.CoreSelectOneRadio org.apache.myfaces.trinidad.CorePanelLabelAndMessage org.apache.myfaces.trinidad.CoreSelectManyCheckbox</fmd:preferred-child-components>
       </fmd:component-metadata>
     </component-extension>

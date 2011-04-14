@@ -105,7 +105,7 @@
 <!-- NO_PARENT_COMPONENTREF_FOUND -->
 <resource key="NO_PARENT_COMPONENTREF_FOUND" dnt="false">親の&lt;tr:componentRef&gt;が見つかりません。</resource>
 <!-- EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE -->
-<resource key="EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE" dnt="false">イベント{0}が、すでに開示状態にあるshowDetailに配信されました。</resource>
+<resource key="EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE" dnt="false">イベント{0}が、すでに公開状態にあるshowDetailに配信されました。</resource>
 <!-- NAME_ALREADY_REGISTERED -->
 <resource key="NAME_ALREADY_REGISTERED" dnt="false">名前&quot;{0}&quot;はすでに登録されています。</resource>
 <!-- INDEX_ALREADY_REGISTERED -->
@@ -125,9 +125,11 @@
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">無効な索引</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">同じIDを持つ子がすでに存在するときに、子を追加しようとしています。古い子が削除され、新しい子が追加されます。{0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">同じIDの子コンポーネントがすでに存在するため、変更マネージャはAddChildComponentChangeの適用に失敗しました。{0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">ノードが指定されていません</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">イテレータ内でスタンプ済コンポーネントを永続化しません</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">コンポーネントが必要</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -156,6 +158,8 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">facetNameまたはfacetComponentのいずれかがnullのAddFacetChangeは作成できません。</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">ファセット名を指定する必要があります</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">同一名のファセットがすでに存在するため、変更マネージャはSetFacetChildComponentChangeの適用に失敗しました。{0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">移動する子コンポーネントが必要です。</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -168,6 +172,8 @@
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">移動する子が見つかりませんでした: {0}。</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
 <resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">宛先コンテナが見つかりませんでした: {0}。</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">宛先コンテナで同一IDの別のコンポーネントが見つかりました。移動操作が中断されました: {0}。</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">コンポーネントまたはノードの前の挿入が見つかりませんでした: {0}。</resource>
 <!-- INDEX_SIZE -->
@@ -308,4 +314,10 @@
 <resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">リフレクションに失敗したためポートレットのレンダリング・パラメータを設定できません</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">&quot;{0}&quot;はタイプが原因で&quot;{1}&quot;と比較できません。</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">ページ状態の圧縮に失敗しました。状態を圧縮するには状態がシリアライズ可能である必要があるため、ページ状態の圧縮に失敗する一般的な理由はページ状態がシリアライズ可能ではないことです。org.apache.myfaces.trinidad.COMPRESS_VIEW_STATEをfalseに設定することで、圧縮をオフにすることができます。シリアライズの様々な側面のテスト方法は、システム・プロパティorg.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATIONに関するドキュメントを参照してください。</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">ページ状態の解凍に失敗しました。</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">ビューの作成中にgetClientIdの呼出しはできません。コンポーネントID: {0}</resource>
 </resources>

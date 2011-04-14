@@ -63,9 +63,13 @@ public class TableSelectOneRenderer extends XhtmlRenderer
   //
   @SuppressWarnings("unchecked")
   @Override
-  public void decode(
-    FacesContext context,
-    UIComponent  component)
+  protected void decode(
+    FacesContext facesContext,
+    UIComponent  component,
+    @SuppressWarnings("unused")
+    FacesBean    facesBean,
+    @SuppressWarnings("unused")
+    String       clientId)
   {
     UIXCollection table = (UIXCollection) component;
     Object oldKey = table.getRowKey();
@@ -75,10 +79,10 @@ public class TableSelectOneRenderer extends XhtmlRenderer
       // Set the row key to null to force the clientId to be correct
       table.setRowKey(null);
 
-      String selectionParam = __getSelectionParameterName(context, table);
+      String selectionParam = __getSelectionParameterName(facesContext, table);
 
       Map<String, String> parameters =
-        context.getExternalContext().getRequestParameterMap();
+        facesContext.getExternalContext().getRequestParameterMap();
 
       _LOG.finest("Params:{0}", parameters);
 

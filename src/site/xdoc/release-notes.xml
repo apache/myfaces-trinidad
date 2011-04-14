@@ -72,6 +72,9 @@ without stopping/starting the server.
 </li>
 <li>The style name for skinning the root of a panelAccordion has changed from "af|panelAccordion::container" to "af|panelAccordion".</li>
 <li>The xOffset/yOffset attributes of panelPopup have been renamed to xoffset/yoffset.</li>
+<li>A final decode method override has been added to CoreRender. This is to ensure that the client behaviors are correctly decoded in JSF 2. The method
+  has been made final to ensure that it will be caused to avoid bugs. Any subclasses of CoreRenderer that override the decode method will need to
+  switch to the new non-final method with the signature <code>protected void decode(FacesContext, UIComponent, FacesBean, String)</code>.</li>
 </ul>
 </subsection>
 
@@ -86,6 +89,8 @@ without stopping/starting the server.
 <li>Partial-page rendering should now be much more efficient, as
 many portions of the page that are not being rerendered can be
 skipped entirely.
+</li>
+<li>UIXComponentBase.getClientId() now implements the same caching behavior that is provided by UIComponentBase.  The client id is computed and cached the first time that getClientId() is called.  The cached value is retained until any subsequent call to setId().  This caching behavior can result in a significant performance boost, particularly for views with large/deep component trees.  (See the <a href="devguide/configuration.html#org.apache.myfaces.trinidad.CLIENT_ID_CACHING">org.apache.myfaces.trinidad.CLIENT_ID_CACHING</a> system property for more information.)
 </li>
 </ul>
 </subsection>

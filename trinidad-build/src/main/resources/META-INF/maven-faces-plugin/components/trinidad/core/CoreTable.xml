@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
@@ -248,10 +248,10 @@ detail-disclosure.
       <mfp:author>Brian Albers</mfp:author>
       <mfp:component-metadata/>
       <mfp:uix2-local-name>table</mfp:uix2-local-name>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup</fmd:event-names>
       <fmd:component-metadata>
+        <fmd:default-event-name>click</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup</fmd:event-names>
         <fmd:default-property>id</fmd:default-property>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreColumn</fmd:preferred-child-components>
         <fmd:satisfied-contracts>org-apache-myfaces-trinidad-corecolumn-holder</fmd:satisfied-contracts>

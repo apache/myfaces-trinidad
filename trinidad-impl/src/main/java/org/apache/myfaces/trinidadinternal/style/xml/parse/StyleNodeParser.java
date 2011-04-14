@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleConstants;
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 
 /**
- * NodeParser for style nodes
+ * NodeParser for style nodes. This parses the XSS file.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleNodeParser.java#0 $) $Date: 10-nov-2005.18:58:12 $
  */
 public class StyleNodeParser extends BaseNodeParser
@@ -98,8 +98,10 @@ public class StyleNodeParser extends BaseNodeParser
     return new StyleNode(_name,
                          _selector,
                          properties,
+                         null, // skinProperties not supported in XSS (XSS will be deleted soon)
                          includedStyles,
                          includedProperties,
+                         null,
                          null,
                          _resetProperties);
   }

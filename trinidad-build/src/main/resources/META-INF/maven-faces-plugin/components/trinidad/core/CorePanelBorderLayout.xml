@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -403,7 +403,7 @@
       <mfp:example>
         <mfp:source-code>
           <![CDATA[
-<tr:panelBorderLayoutLayout>
+<tr:panelBorderLayout>
   <f:facet name="top">
     <tr:image source="/images/globalhelp.gif"/>
   </f:facet>
@@ -422,16 +422,18 @@
 
   <tr:outputText value="Here is some content"
                  styleClass="AFInstructionText"/>
-</tr:panelBorderLayoutLayout>
+</tr:panelBorderLayout>
           ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata/>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup</fmd:event-names>
       <mfp:uix2-local-name>borderLayout</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup</fmd:event-names>
+        <fmd:default-event-name>click</fmd:default-event-name>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

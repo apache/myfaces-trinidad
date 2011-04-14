@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -68,7 +68,7 @@ horizontal line, or vertically.]]>
       <mfp:example>
         <mfp:source-code>
           <![CDATA[
-<tr:panelGroupLayoutLayout layout="horizontal">
+<tr:panelGroupLayout layout="horizontal">
   <f:facet name="separator">
     <tr:spacer width="10" height="1"/>
   </f:facet>
@@ -78,7 +78,7 @@ horizontal line, or vertically.]]>
         destination="http://myfaces.apache.org"/>
   <tr:goLink text="Apache Trinidad 3"
         destination="http://myfaces.apache.org"/>
-</tr:panelGroupLayoutLayout>
+</tr:panelGroupLayout>
           ]]>
         </mfp:source-code>
       </mfp:example>
@@ -87,10 +87,12 @@ horizontal line, or vertically.]]>
       <mfp:java-constructor>
         <mfp:facet-name>separator</mfp:facet-name>
       </mfp:java-constructor>
-      <fmd:default-event-name>click</fmd:default-event-name>
-      <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
-        keypress keydown keyup</fmd:event-names>
       <mfp:uix2-local-name>panelGroupLayout</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-event-name>click</fmd:default-event-name>
+        <fmd:event-names>click dblclick mousedown mouseup mouseover mousemove mouseout
+          keypress keydown keyup</fmd:event-names>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

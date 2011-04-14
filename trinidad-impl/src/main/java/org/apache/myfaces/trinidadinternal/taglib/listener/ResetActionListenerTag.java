@@ -21,15 +21,15 @@ package org.apache.myfaces.trinidadinternal.taglib.listener;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentClassicTagBase;
-
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.webapp.TrinidadTagSupport;
 
 /**
  *
  */
-public class ResetActionListenerTag extends TagSupport
+public class ResetActionListenerTag extends TrinidadTagSupport
 {
   @Override
   public int doStartTag() throws JspException
