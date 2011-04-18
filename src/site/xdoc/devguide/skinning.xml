@@ -1263,6 +1263,13 @@ this resolves to
           
           </P>
         </subsection>  
+        <subsection name="Performance when many different skins in an application">
+        The skinning framework caches information for the generated css file for each skin that is requested. This
+        could be a source of a memory leak if your application is built to use many different skins, like each user has his own custom skin. Fortunately, this is not a common usecase.
+        In this case, you would want to limit the number of generated css files we cache in our LRUCache (least-recently used cache).
+        You can do this by specifying the maximum number of skins you want to cache with the web.xml context-param 
+        org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED
+         </subsection>
       </section>
       
       <a name="Custom_Component_Developers"></a>

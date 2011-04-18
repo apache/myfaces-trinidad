@@ -18,8 +18,11 @@
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
@@ -28,6 +31,7 @@ import org.apache.myfaces.trinidadinternal.style.cache.FileSystemStyleCache;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidadinternal.util.LRUCache;
 
 
 /**
@@ -228,6 +232,44 @@ public class SkinStyleProvider extends FileSystemStyleCache
     // =-=ags For now, we just use a global variable.  But
     //        really, our cache should probably be hanging off
     //        of the ServletContext.
+    if (_sSharedProviders == null)
+    {
+      FacesContext context = FacesContext.getCurrentInstance();
+      String lruCacheSize =
+        context.getExternalContext().
+        getInitParameter(_MAX_SKINS_CACHED); 
+      
+      int lruCacheSizeInt = _MAX_SKINS_CACHED_DEFAULT;
+      boolean invalidInt = false;
+
+      if (lruCacheSize != null && !lruCacheSize.equals(""))
+      {
+        try
+        {
+          lruCacheSizeInt = Integer.parseInt(lruCacheSize);
+        }
+        catch (NumberFormatException nfe)
+        {
+          invalidInt = true;
+        }
+        if (lruCacheSizeInt <= 0)
+        {
+          invalidInt = true;
+        }
+      }
+      
+      // The user typed in an invalid integer ( <=0 or a value that couldn't be formatted to a number)
+      // so log a warning
+      if (invalidInt)
+      {
+        lruCacheSizeInt = _MAX_SKINS_CACHED_DEFAULT;
+        if (_LOG.isWarning())
+          _LOG.warning("INVALID_INTEGER_MAX_SKINS_CACHED", new Object[]{lruCacheSize, _MAX_SKINS_CACHED_DEFAULT});        
+      }
+        
+      _sSharedProviders = new LRUCache<ProviderKey, StyleProvider>(lruCacheSizeInt);
+    }
+
     return _sSharedProviders;
   }
 
@@ -288,13 +330,15 @@ public class SkinStyleProvider extends FileSystemStyleCache
 
   // The Skin which provides styles
   private Skin _skin;
-
+  
   // The Skin-specific StyleSheetDocument
   private StyleSheetDocument _skinDocument;
 
   // Cache of shared SkinStyleProvider instances
-  private static final Map<ProviderKey, StyleProvider> _sSharedProviders =
-    new HashMap<ProviderKey, StyleProvider>(31);
+  private static Map<ProviderKey, StyleProvider> _sSharedProviders;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     SkinStyleProvider.class);
+  private static final String _MAX_SKINS_CACHED =
+    "org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED";
+  private static final int _MAX_SKINS_CACHED_DEFAULT = 20;
 }
