@@ -896,6 +896,9 @@ The skin {0} specified on the requestMap will be used even though the consumer''
  <!-- NO_SKIN_SPECIFIED -->
  <resource key="NO_SKIN_SPECIFIED">No Skin specified.</resource>
 
+ <!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+ <resource key="INVALID_INTEGER_MAX_SKINS_CACHED">Invalid integer {0} for context-param org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED in web.xml, so the default integer {1} is used instead.</resource>
+
  <!-- NO_INPUTSTREAM -->
  <resource key="NO_INPUTSTREAM">Null inputStream</resource>
 
