@@ -154,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Regroupement de ressources {0} introuvable.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">erreur lors de la fermeture du fichier : {0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Erreur lors de la fermeture du fichier : {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Erreur lors de l&apos;&apos;obtention des fichiers de métadonnées de région : {0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Détection d&apos;&apos;une dépendance circulaire dans l&apos;&apos;icône de référence de l&apos;&apos;apparence {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Un objet SkinAddition NULL a été transmis à addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Echec du traitement du fichier de configuration d&apos;&apos;apparence : {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">La source de traduction ValueExpression de l&apos;apparence n&apos;appartient pas à la correspondance de type ni au groupe de ressources attendu. Par conséquent, elle ne sera pas prise en compte.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -340,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Erreurs lors de l&apos;&apos;analyse : {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">erreur lors du chargement du fichier : {0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Erreur lors du chargement du fichier : {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Impossible de charger la feuille de style : {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -722,7 +724,7 @@
 <!-- FILE_DOWNLOAD_LISTENER_REQUIRES_SERVLET -->
 <resource key="FILE_DOWNLOAD_LISTENER_REQUIRES_SERVLET" dnt="false">fileDownloadActionListener prend uniquement en charge l&apos;API de servlet.</resource>
 <!-- FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG -->
-<resource key="FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG" dnt="false">fileDownloadActionListener doit être à l&apos;&apos;intérieur d&apos;&apos;une balise UIComponent pour un composant &quot;commande&quot;</resource>
+<resource key="FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG" dnt="false">fileDownloadActionListener doit être à l&apos;intérieur d&apos;une balise UIComponent pour un composant &quot;commande&quot;</resource>
 <!-- FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION -->
 <resource key="FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION" dnt="false">L&apos;attribut &apos;method&apos; fileDownloadActionListener doit être une expression EL.</resource>
 <!-- STATUS_INDICATOR_MISSING_ICONS -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IState doit être une instance de StateManager.SerializedView ou un tableau d&apos;objets de longueur 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">L&apos;enregistrement partiel de l&apos;état n&apos;est pas encore pris en charge. Définissez context-param javax.faces.PARTIAL_STATE_SAVING sur False dans le fichier web.xml.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Erreur lors de la sérialisation de l&apos;&apos;attribut {0} : {1}, valeur : {2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Erreur lors de la sérialisation de l&apos;&apos;attribut {0} : {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> valeur ayant échoué =</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Erreur de basculement en cas d&apos;&apos;incident : l&apos;&apos;attribut {0} {1} de type {2} n&apos;&apos;est pas sérialisable</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Erreur de basculement en cas d&apos;&apos;incident : la sérialisation de l&apos;&apos;attribut {0} {1} est passée de {2} à {3} alors que l&apos;&apos;attribut n&apos;&apos;a pas été modifié</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Echec du test de sérialisation de l&apos;&apos;attribut de session pour {0}. Vous pouvez désactiver ce contrôle en enlevant &apos;&apos;REQUEST&apos;&apos; de la propriété système &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Exception lors de la collecte - Echec du test de sérialisation de l&apos;attribut de session</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Attribut de session : {0} </resource>
 </resources>

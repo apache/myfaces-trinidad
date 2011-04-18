@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">Erro na análise de:{0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">erro no carregamento do recurso:{0}</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">Erro no carregamento do recurso:{0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">O nome do recurso &quot;{0}&quot; começa por uma barra oblíqua e, assim, não é portátil.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->

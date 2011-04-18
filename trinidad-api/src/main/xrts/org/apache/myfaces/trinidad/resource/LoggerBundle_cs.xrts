@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">Chyba při syntaktické analýze:{0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">chyba při načítání zdroje:{0}</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">Chyba při načítání zdroje:{0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">Název zdroje &quot;{0}&quot; začíná lomítkem, nelze vytvořit port.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
