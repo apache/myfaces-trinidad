@@ -154,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">O pacote de recursos {0} não foi encontrado.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">erro ao fechar o arquivo:{0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Erro ao fechar o arquivo: {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Erro ao obter arquivos region-metadata: {0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Dependência circular detectada no ícone de referência de skin {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Um objeto SkinAddition nulo foi informado ao addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Falha ao processar o arquivo de configuração do skin: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">A ValueExpression de tradução-origem do skin não é o Mapa ou ResourceBundle do tipo esperado, por isso será ignorada.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -340,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Erro de parse:{0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">erro ao carregar o arquivo:{0}.</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Erro ao carregar o arquivo: {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Não foi possível carregar a folha de estilo: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -688,7 +690,7 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Comparação desconhecida</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">test BoundValue obrigatório</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">Teste de BoundValue obrigatório</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">Argumento de lista nulo</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IState deve ser uma instância de StateManager.SerializedView ou um array do Objeto de tamanho 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Salvar estado parcial não suportado. Defina o parâmetro de contexto javax.faces.PARTIAL_STATE_SAVING para falso em seu web.xml.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Erro ao serializar {0} atributo:{1} valor:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Erro ao serializar {0} atributo:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> valor com falha=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Erro de failover: {0} atributo:{1} do tipo {2} não pode ser Serializado</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Erro de failover: A serialização do {0} atributo:{1} foi alterada de {2} para {3} sem a contaminação do atributo</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Falha no teste de serialização do atributo da sessão de {0}. Esta verificação pode ser desativada através da remoção de &apos;&apos;REQUEST&apos;&apos; da propriedade do sistema &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Falha na exceção ao obter o teste de serialização do atributo da sessão</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atributo da sessão: {0} </resource>
 </resources>

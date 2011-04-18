@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Circulaire afhankelijkheid aangetroffen in pictogram weergaveverwijzing {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Een SkinAddition-object met een waarde NULL is doorgegeven aan addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Weergaveconfiguratiebestand {0} kan niet worden verwerkt.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">De vertaalbron ValueExpression van de weergave is niet van het verwachte type Map of ResourceBundle, dus deze wordt genegeerd.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IState moet een instance zijn van StateManager.SerializedView of een objectarray met lengte 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Gedeeltelijk opslaan van status wordt nog niet ondersteund. Stel context-param javax.faces.PARTIAL_STATE_SAVING in op &apos;niet waar&apos; in web.xml.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Fout bij serialiseren van {0} attribuut: {1} waarde: {2}.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Fout bij het serialiseren van {0} attribuut: {1}. </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> mislukte waarde=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failover-fout: {0} attribuut: {1} van het type {2} is niet serialiseerbaar.</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failover-fout: serialisatie van {0} attribuut: {1} is gewijzigd van {2} in {3} zonder dat het attribuut is vervuild.</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Serialisatietest van sessieattribuut is mislukt voor {0}. Deze controle kan worden uitgeschakeld door &apos;&apos;REQUEST&apos;&apos; uit de systeemeigenschap &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos; te verwijderen.</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Fout bij de serialisatietest van de sessieattribuut waarbij uitzonderingen worden verzameld</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Sessieattribuut: {0}</resource>
 </resources>

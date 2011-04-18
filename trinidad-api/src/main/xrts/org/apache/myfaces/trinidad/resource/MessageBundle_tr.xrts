@@ -250,7 +250,7 @@
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE" dnt="false">Girilen tarih veya saat geçerli değil.</resource>
-<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE_detail" dnt="false">Geçerli bir tarih veya saat girin.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE_detail" dnt="false">Geçerli bir tarih veya saat girin. </resource>
 <!-- {0} the label that identifies the component    -->
 <!-- {1} value entered by the user                  -->
 <!-- {2} the pattern the converter is expecting     -->

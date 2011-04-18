@@ -154,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Ressourcepakken {0} blev ikke fundet.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">fejl under lukning af fil: {0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Fejl under lukning af fil: {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Fejl under hentning af områdemetadatafiler:{0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Cirkulær afhængighed blev fundet i temareferenceikon {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Et NULL-SkinAddition-objekt blev videregivet til addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Kunne ikke behandle skemakonfigurationsfil: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Temaets translation-source-ValueExpression er ikke af den forventede type, Map eller ResourceBundle, og ignoreres derfor.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -340,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Fejl under analyse af: {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">fejl under indlæsning af fil: {0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Fejl under indlæsning af fil: {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Kunne ikke indlæse typografiark: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -688,7 +690,7 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Ukendt sammenligning</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">test-BoundValue er påkrævet</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">Test-BoundValue er påkrævet</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">NULL-listeargument</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IState skal være en forekomst af StateManager.SerializedView eller en objektmatrix med en længde på 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Lagring af delvise tilstande understøttes ikke endnu. Sæt context-param javax.faces.PARTIAL_STATE_SAVING til false i web.xml.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Fejl under serialisering af {0}-attributten: {1}, værdien: {2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Fejl under serialisering af {0}-attributten: {1}</resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> fejlet værdi=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failover-fejl: {0}, attributten: {1} af typen {2} kan ikke serialiseres</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failover-fejl: Serialisering af {0}-attributten: {1} er ændret fra {2} til {3}, uden at attributten er beskadiget</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Serialiseringstest af sessionsattribut fejlede for {0}. Dette tjek kan deaktiveres ved at fjerne &apos;&apos;REQUEST&apos;&apos; fra systemegenskaben &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Undtagelse under indhentning af testfejl ved serialisering af sessionsattribut</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Sessionsattribut: {0} </resource>
 </resources>

@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">Hiba {0} elemzésekor</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">hiba a(z) {0} erőforrás betöltésekor</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">Hiba a(z) {0} erőforrás betöltésekor</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">A(z) &quot;{0}&quot; erőforrás neve ferde vonallal kezdődik, így az nem hordozható.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->

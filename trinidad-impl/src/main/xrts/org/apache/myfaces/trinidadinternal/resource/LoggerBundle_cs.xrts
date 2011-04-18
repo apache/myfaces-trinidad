@@ -154,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Svazek zdrojů {0} nebyl nalezen.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">chyba při zavírání souboru:{0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Chyba při zavírání souboru:{0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Chyba při získávání souborů metadat oblasti:{0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">V ikoně {0} odkazující na vzhled byla zjištěna cyklická závislost</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Do addSkinAddition byl předán objekt SkinAddition s hodnotou null.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Selhalo zpracování vzhledu konfiguračního souboru: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Překlad-zdroj ValueExpression tohoto vzhledu není očekávaného typu Map nebo ResourceBundle a bude proto ignorován.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -340,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Chyba při syntaktické analýze:{0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">chyba při načítání souboru:{0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Chyba při načítání souboru:{0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Nelze načíst šablonu stylů: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IState musí být instancí StateManager.SerializedView nebo pole objektů o délce 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Částečné ukládání stavů ještě není podporováno. Nastavte parametr context-param javax.faces.PARTIAL_STATE_SAVING v souboru web.xml na hodnotu False.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Chyba při serializaci atributu {0}:{1} hodnota:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Chyba při serializaci atributu {0}:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> hodnota selhání =</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Chyba zotavení: {0} atribut:{1} typu {2} není serializovatelný</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Chyba zotavení: Serializace atributu {0}:{1} se změnila z {2} na {3} bez modifikace atributu</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Selhalo testování serializace relace atributu pro {0}. Tuto kontrolu lze dezaktivovat odebráním hodnoty &apos;&apos;REQUEST&apos;&apos; ze systémové vlastnosti &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Selhání při testování výjimky shromažďování serializace atributu relace</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atribut relace:{0} </resource>
 </resources>

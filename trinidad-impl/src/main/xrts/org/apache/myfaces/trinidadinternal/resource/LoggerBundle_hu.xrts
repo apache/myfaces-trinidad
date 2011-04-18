@@ -154,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Nem található a(z) {0} erőforrásköteg.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">hiba a(z) {0} fájl bezárásakor</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Hiba a(z) {0} fájl bezárásakor</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Hiba a területi metaadatfájlok lekérésekor: {0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Körkörös függőség van a felülethivatkozási ikonnál: {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Az addSkinAddition null értékű SkinAddition objektumot kapott.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Nem sikerült feldolgozni a grafikus felülethez tartozó konfigurációs fájlt: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">A felület translation-source tulajdonságát meghatározó ValueExpression nem a várt Map vagy ResourceBundle típusú, ezért a rendszer figyelmen kívül hagyja.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -340,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Hiba {0} elemzésekor</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">hiba a(z) {0} fájl betöltésekor</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Hiba a fájl betöltésekor: {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Nem lehet betölteni a következő stíluslapot: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -688,7 +690,7 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Ismeretlen összehasonlítás</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">BoundValue tesztelése kötelező</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">A BoundValue tesztelése kötelező</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">Null értékű lista argumentum</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">Az IState csak a StateManager.SerializedView példánya lehet, illetve olyan objektumtömb, aminek a hossza 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">A részleges állapot mentése még nem támogatott. Állítsa be a web.xml fájlban a javax.faces.PARTIAL_STATE_SAVING környezeti paramétert hamisra.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Hiba a(z) {0} sorba rendezésekor attribútum:{1} érték:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Hiba a(z) {0} soros adattá alakításakor, attribútum:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> hibás érték=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Az átállási {0} hiba {2} típusú {1} attribútuma nem alakítható soros adattá</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Átállási hiba: Az {1} attribútumhoz tartozó {0} soros adattá alakítása megváltozott, {2} helyett {3} lett, az attribútum szennyeződése nélkül</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Hiba a munkameneti attribútum soros adattá alakításának ellenőrzésekor ennél: {0}. Ez az ellenőrzés úgy tiltható le, hogy eltávolítja a &apos;&apos;REQUEST&apos;&apos; elemet az &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos; rendszertulajdonságból</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Kivétel történt munkameneti attribútum soros adattá alakításának ellenőrzési hibájának begyűjtésekor</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Munkameneti attribútum:{0} </resource>
 </resources>
