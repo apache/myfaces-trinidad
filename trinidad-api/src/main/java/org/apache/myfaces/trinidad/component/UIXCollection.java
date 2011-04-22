@@ -899,92 +899,108 @@ public abstract class UIXCollection extends UIXComponentBase
     if (stamp.isTransient())
       return Transient.TRUE;
 
-    // The structure we will use is:
-    //   0: state of the stamp
-    //   1: state of the children (an array)
-    //   2: state of the facets (an array of name-key pairs)
-    // If there is no facet state, we have a two-element array
-    // If there is no facet state or child state, we have a one-elment array
-    // If there is no state at all, we return null
-
-    Object stampState = StampState.saveStampState(context, stamp);
-
-    // StampState can never EVER be an Object array, as if we do,
-    // we have no possible way of identifying the difference between
-    // just having stamp state, and having stamp state + child/facet state
-    assert(!(stampState instanceof Object[]));
-
-    int facetCount = stamp.getFacetCount();
+    boolean needsTearDownContext = false;
+    
+    if(stamp instanceof FlattenedComponent && stamp instanceof UIXComponent)
+    {
+      ((UIXComponent)stamp).setupVisitingContext(context);
+      needsTearDownContext = true;
+    }
 
     Object[] state = null;
-
-    if (facetCount > 0)
+    
+    try
     {
-      boolean facetStateIsEmpty = true;
-      Object[] facetState = null;
-
-      Map<String, UIComponent> facetMap = stamp.getFacets();
-
-      int i = 0;
-      for(Map.Entry<String, UIComponent> entry : facetMap.entrySet())
+      // The structure we will use is:
+      //   0: state of the stamp
+      //   1: state of the children (an array)
+      //   2: state of the facets (an array of name-key pairs)
+      // If there is no facet state, we have a two-element array
+      // If there is no facet state or child state, we have a one-elment array
+      // If there is no state at all, we return null
+  
+      Object stampState = StampState.saveStampState(context, stamp);
+  
+      // StampState can never EVER be an Object array, as if we do,
+      // we have no possible way of identifying the difference between
+      // just having stamp state, and having stamp state + child/facet state
+      assert(!(stampState instanceof Object[]));
+  
+      int facetCount = stamp.getFacetCount();
+  
+      if (facetCount > 0)
       {
-        Object singleFacetState = saveStampState(context, entry.getValue());
-        if ((singleFacetState == null) ||
-            (singleFacetState == Transient.TRUE))
-          continue;
-
-        // Don't bother allocating anything until we have some non-null
-        // and non-transient facet state
-        if (facetStateIsEmpty)
+        boolean facetStateIsEmpty = true;
+        Object[] facetState = null;
+  
+        Map<String, UIComponent> facetMap = stamp.getFacets();
+  
+        int i = 0;
+        for(Map.Entry<String, UIComponent> entry : facetMap.entrySet())
         {
-          facetStateIsEmpty = false;
-          facetState = new Object[facetCount * 2];
+          Object singleFacetState = saveStampState(context, entry.getValue());
+          if ((singleFacetState == null) ||
+              (singleFacetState == Transient.TRUE))
+            continue;
+  
+          // Don't bother allocating anything until we have some non-null
+          // and non-transient facet state
+          if (facetStateIsEmpty)
+          {
+            facetStateIsEmpty = false;
+            facetState = new Object[facetCount * 2];
+          }
+  
+          int base = i * 2;
+          assert(facetState != null);
+          facetState[base] = entry.getKey();
+          facetState[base + 1] = singleFacetState;
+          i++;
         }
-
-        int base = i * 2;
-        assert(facetState != null);
-        facetState[base] = entry.getKey();
-        facetState[base + 1] = singleFacetState;
-        i++;
+  
+        // OK, we had something:  allocate the state array to three
+        // entries, and insert the facet state at position 2
+        if (!facetStateIsEmpty)
+        {
+          // trim the facetState array if necessary
+          if(i < facetCount)
+          {
+            Object[] trimmed = new Object[i*2];
+            System.arraycopy(facetState, 0, trimmed, 0, i*2);
+            facetState = trimmed;
+          }
+          state = new Object[3];
+          state[2] = facetState;
+        }
       }
-
-      // OK, we had something:  allocate the state array to three
-      // entries, and insert the facet state at position 2
-      if (!facetStateIsEmpty)
+  
+      // If we have any children, iterate through the array,
+      // saving state
+      Object childState = StampState.saveChildStampState(context,
+                                                         stamp,
+                                                         this);
+      if (childState != null)
       {
-        // trim the facetState array if necessary
-        if(i < facetCount)
-        {
-          Object[] trimmed = new Object[i*2];
-          System.arraycopy(facetState, 0, trimmed, 0, i*2);
-          facetState = trimmed;
-        }
-        state = new Object[3];
-        state[2] = facetState;
+        // If the state hasn't been allocated yet, we only
+        // need a two-element array
+        if (state == null)
+          state = new Object[2];
+        state[1] = childState;
       }
-    }
-
-    // If we have any children, iterate through the array,
-    // saving state
-    Object childState = StampState.saveChildStampState(context,
-                                                       stamp,
-                                                       this);
-    if (childState != null)
-    {
-      // If the state hasn't been allocated yet, we only
-      // need a two-element array
+  
+      // If we don't have an array, just return the stamp
+      // state
       if (state == null)
-        state = new Object[2];
-      state[1] = childState;
+        return stampState;
+  
+      // Otherwise, store the stamp state at index 0, and return
+      state[0] = stampState;
     }
-
-    // If we don't have an array, just return the stamp
-    // state
-    if (state == null)
-      return stampState;
-
-    // Otherwise, store the stamp state at index 0, and return
-    state[0] = stampState;
+    finally
+    {
+      if(needsTearDownContext)
+        ((UIXComponent)stamp).tearDownVisitingContext(context);
+    }
     return state;
   }
 
