@@ -554,6 +554,25 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     @Override
     public Object getProperty(PropertyKey key)
     {
+      if (key == _DISCLOSED_ROW_KEYS_WITHOUT_MODEL_KEY)
+      {
+        // This case is only true if the table is trying to serialize the disclosed row keys to
+        // the stamp state of a parent UIXCollection. This work-around prevents EL evaluation to
+        // get the collection model during stamp state saving. This should be permissible as the
+        // state saving code does not need the collection model to be set in the row key set in
+        // order to save its state.
+        return super.getProperty(DISCLOSED_ROW_KEYS_KEY);
+      }
+      else if (key == _SELECTED_ROW_KEYS_WITHOUT_MODEL_KEY)
+      {
+        // This case is only true if the table is trying to serialize the selected row keys to
+        // the stamp state of a parent UIXCollection. This work-around prevents EL evaluation to
+        // get the collection model during stamp state saving. This should be permissible as the
+        // state saving code does not need the collection model to be set in the row key set in
+        // order to save its state.
+        return super.getProperty(SELECTED_ROW_KEYS_KEY);
+      }
+
       Object value = super.getProperty(key);
       if (key == DISCLOSED_ROW_KEYS_KEY)
       {
@@ -596,24 +615,6 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
             _retrievingSelectedRows = false;
           }
         }
-      }
-      else if (key == _DISCLOSED_ROW_KEYS_WITHOUT_MODEL_KEY)
-      {
-        // This case is only true if the table is trying to serialize the disclosed row keys to
-        // the stamp state of a parent UIXCollection. This work-around prevents EL evaluation to
-        // get the collection model during stamp state saving. This should be permissible as the
-        // state saving code does not need the collection model to be set in the row key set in
-        // order to save its state.
-        value = super.getProperty(DISCLOSED_ROW_KEYS_KEY);
-      }
-      else if (key == _SELECTED_ROW_KEYS_WITHOUT_MODEL_KEY)
-      {
-        // This case is only true if the table is trying to serialize the selected row keys to
-        // the stamp state of a parent UIXCollection. This work-around prevents EL evaluation to
-        // get the collection model during stamp state saving. This should be permissible as the
-        // state saving code does not need the collection model to be set in the row key set in
-        // order to save its state.
-        value = super.getProperty(SELECTED_ROW_KEYS_KEY);
       }
 
       return value;
