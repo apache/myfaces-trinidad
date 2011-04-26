@@ -874,6 +874,11 @@ public abstract class UIXCollection extends UIXComponentBase
   /**
    * Gets the currencyObject to setup the rowData to use to build initial
    * stamp state.
+   * <p>
+   *   This allows the collection model to have an initial row key outside of the UIComponent.
+   *   Should the model be at a row that is not the first row, the component will restore the row
+   *   back to the initial row key instead of a null row key once stamping is done.
+   * </p>
    */
   private Object _getCurrencyKeyForInitialStampState()
   {
@@ -900,7 +905,7 @@ public abstract class UIXCollection extends UIXComponentBase
       return Transient.TRUE;
 
     boolean needsTearDownContext = false;
-    
+
     if(stamp instanceof FlattenedComponent && stamp instanceof UIXComponent)
     {
       ((UIXComponent)stamp).setupVisitingContext(context);
@@ -908,7 +913,7 @@ public abstract class UIXCollection extends UIXComponentBase
     }
 
     Object[] state = null;
-    
+
     try
     {
       // The structure we will use is:
@@ -918,23 +923,23 @@ public abstract class UIXCollection extends UIXComponentBase
       // If there is no facet state, we have a two-element array
       // If there is no facet state or child state, we have a one-elment array
       // If there is no state at all, we return null
-  
+
       Object stampState = StampState.saveStampState(context, stamp);
-  
+
       // StampState can never EVER be an Object array, as if we do,
       // we have no possible way of identifying the difference between
       // just having stamp state, and having stamp state + child/facet state
       assert(!(stampState instanceof Object[]));
-  
+
       int facetCount = stamp.getFacetCount();
-  
+
       if (facetCount > 0)
       {
         boolean facetStateIsEmpty = true;
         Object[] facetState = null;
-  
+
         Map<String, UIComponent> facetMap = stamp.getFacets();
-  
+
         int i = 0;
         for(Map.Entry<String, UIComponent> entry : facetMap.entrySet())
         {
@@ -942,7 +947,7 @@ public abstract class UIXCollection extends UIXComponentBase
           if ((singleFacetState == null) ||
               (singleFacetState == Transient.TRUE))
             continue;
-  
+
           // Don't bother allocating anything until we have some non-null
           // and non-transient facet state
           if (facetStateIsEmpty)
@@ -950,14 +955,14 @@ public abstract class UIXCollection extends UIXComponentBase
             facetStateIsEmpty = false;
             facetState = new Object[facetCount * 2];
           }
-  
+
           int base = i * 2;
           assert(facetState != null);
           facetState[base] = entry.getKey();
           facetState[base + 1] = singleFacetState;
           i++;
         }
-  
+
         // OK, we had something:  allocate the state array to three
         // entries, and insert the facet state at position 2
         if (!facetStateIsEmpty)
@@ -973,7 +978,7 @@ public abstract class UIXCollection extends UIXComponentBase
           state[2] = facetState;
         }
       }
-  
+
       // If we have any children, iterate through the array,
       // saving state
       Object childState = StampState.saveChildStampState(context,
@@ -987,12 +992,12 @@ public abstract class UIXCollection extends UIXComponentBase
           state = new Object[2];
         state[1] = childState;
       }
-  
+
       // If we don't have an array, just return the stamp
       // state
       if (state == null)
         return stampState;
-  
+
       // Otherwise, store the stamp state at index 0, and return
       state[0] = stampState;
     }
@@ -1272,7 +1277,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     return visitAllChildren(visitContext, callback);
   }
-  
+
   /**
    * Default implementation of child visiting of UIXCollection subclasses for cases where a
    * UIXCollection subclass wants to restore the default implementation that one of its
@@ -1292,21 +1297,21 @@ public abstract class UIXCollection extends UIXComponentBase
     else
     {
       boolean doneVisiting;
-  
+
       // Clear out the row index if one is set so that
       // we start from a clean slate.
       int oldRowIndex = getRowIndex();
       setRowIndex(-1);
-  
+
       try
       {
         // visit the unstamped children
         doneVisiting = visitUnstampedFacets(visitContext, callback);
-  
+
         if (!doneVisiting)
         {
           doneVisiting = _visitStampedColumnFacets(visitContext, callback);
-  
+
           // visit the stamped children
           if (!doneVisiting)
           {
@@ -1319,7 +1324,7 @@ public abstract class UIXCollection extends UIXComponentBase
         // restore the original rowIndex
         setRowIndex(oldRowIndex);
       }
-      
+
       return doneVisiting;
     }
   }
@@ -1851,14 +1856,18 @@ public abstract class UIXCollection extends UIXComponentBase
     FacesContext context = getFacesContext();
     Object currencyObj = getRowKey();
 
-    // TRINIDAD-2047: we do not need to save stamp state if there is no active stamp
-    if (currencyObj == null)
-    {
-      return;
-    }
+    // Note: even though the currencyObj may be null, we still need to save the state. The reason
+    // is that the code does not clear out the state when it is saved, instead, the un-stamped
+    // state is saved. Once the row key is set back to null, this un-stamped state is restored
+    // onto the children components. This restoration allows editable value holders, show detail
+    // items and nested UIXCollections to clear their state.
+    // For nested UIXCollections, this un-stamped state is required to set the nested collection's
+    // _state (internal state containing the stamp state) to null when not on a row key. Without
+    // that call, the nested UIXCollection components would end up sharing the same stamp state
+    // across parent rows.
 
     int position = 0;
-    for(UIComponent stamp : getStamps())
+    for (UIComponent stamp : getStamps())
     {
       Object state = saveStampState(context, stamp);
 //      String stampId = stamp.getId();

@@ -54,6 +54,15 @@ import org.apache.myfaces.trinidad.model.SortCriterion;
 abstract public class UIXTableTemplate extends UIXIteratorTemplate
   implements CollectionComponent
 {
+/**/  static public final FacesBean.Type TYPE = new FacesBean.Type(UIXIterator.TYPE);
+
+  // These are "fake" properties that allow the table to get the disclosed row keys and the
+  // selected row key without triggering the call to getCollectionModel from the
+  // RowKeyFacesBeanWrapper class. See the stamp state saving code for its usage.
+  static private final PropertyKey _DISCLOSED_ROW_KEYS_WITHOUT_MODEL_KEY =
+    TYPE.registerKey("disclosedRowKeysWithoutModel", RowKeySet.class);
+  static private final PropertyKey _SELECTED_ROW_KEYS_WITHOUT_MODEL_KEY =
+    TYPE.registerKey("selectedRowKeysWithoutModel", RowKeySet.class);
 
 
   /**
@@ -381,7 +390,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   {
     return super.createCollectionModel(current, value);
   }
-  
+
   @Override
   protected void postCreateCollectionModel(CollectionModel model)
   {
@@ -408,7 +417,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     if (_sortCriteria != null)
     {
       model.setSortCriteria(_sortCriteria);
-    }    
+    }
   }
 
   /**
@@ -422,8 +431,17 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     state[1] = super.__getMyStampState();
     state[2] = Integer.valueOf(getFirst());
     state[3] = Boolean.valueOf(isShowAll());
-    state[4] = getSelectedRowKeys();
-    state[5] = getDisclosedRowKeys();
+
+    // Use "hidden" property keys to allow the row key sets to be retrieved without the
+    // RowKeyFacesBeanWrapper trying to resolve the collection model to be set into the row key
+    // set. This is needed to stop the unnecessary lookup of the collection model when it is not
+    // needed during stamp state saving of the table.
+    RowKeySet selectedRowKeys = (RowKeySet)getProperty(_SELECTED_ROW_KEYS_WITHOUT_MODEL_KEY);
+    RowKeySet disclosedRowKeys = (RowKeySet)getProperty(_DISCLOSED_ROW_KEYS_WITHOUT_MODEL_KEY);
+
+    state[4] = selectedRowKeys;
+    state[5] = disclosedRowKeys;
+
     return state;
   }
 
@@ -465,7 +483,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
         if (isRowAvailable())
         {
           TableUtils.processStampedChildren(context, this, phaseId);
-  
+
           if ((disclosureState != null) && disclosureState.isContained())
           {
             assert getRowIndex() == i;
@@ -580,6 +598,24 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
             _retrievingSelectedRows = false;
           }
         }
+      }
+      else if (key == _DISCLOSED_ROW_KEYS_WITHOUT_MODEL_KEY)
+      {
+        // This case is only true if the table is trying to serialize the disclosed row keys to
+        // the stamp state of a parent UIXCollection. This work-around prevents EL evaluation to
+        // get the collection model during stamp state saving. This should be permissible as the
+        // state saving code does not need the collection model to be set in the row key set in
+        // order to save its state.
+        value = super.getProperty(DISCLOSED_ROW_KEYS_KEY);
+      }
+      else if (key == _SELECTED_ROW_KEYS_WITHOUT_MODEL_KEY)
+      {
+        // This case is only true if the table is trying to serialize the selected row keys to
+        // the stamp state of a parent UIXCollection. This work-around prevents EL evaluation to
+        // get the collection model during stamp state saving. This should be permissible as the
+        // state saving code does not need the collection model to be set in the row key set in
+        // order to save its state.
+        value = super.getProperty(SELECTED_ROW_KEYS_KEY);
       }
 
       return value;
