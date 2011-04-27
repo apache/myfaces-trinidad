@@ -846,13 +846,107 @@ public class SkinTranslationMapDemo
         base skin has padding-right: 6px and you inhibit padding, you will still get the padding-right. You need
         to inhibit padding-right. Also note that inhibitions happen when the skinning framework processes the skin's css file,
         and not based on cascading rules in the browser. Therefore the skin selector has to match and the property name has
-        to match exactly to what you are inhibiting. -tr-inhibit works for style selectors but not
-        for icons (selectors that end with -icon) or skinning properties. This should work some day.
+        to match exactly to what you are inhibiting. -tr-inhibit works for style selectors, icons 
+        (selectors that end with -icon) and skinning properties.
+        <source>
+          <![CDATA[
+          
+          Skin A:
+            af|breadCrumbs { -tr-show-last-item: false; }
+
+          Skin B extends Skin A:
+            af|breadCrumbs { -tr-inhibit: -tr-show-last-item;}
+
+          Skin A does not show the last breadcrumb. Skin B does show the last breadcrumb.
+          
+          --
+          Skin A
+            .SomeStyleClass { 
+                color: red;
+                font-size: 11px;
+            }
+          Skin B
+            .SomeStyleClass { 
+                -tr-inhibit: color;
+            }
+            
+          Skin A has color: red, but Skin B has no color, since it has been inhibited.
+          
+          --
+          Skin A
+          .SomeStyleClass { 
+            color: red;
+            font-size: 11px;
+            -tr-inhibit: color;
+          }
+          
+          This definition makes no sense. If your intent is to remove the color attribute, 
+          then you should simple say:
+          .SomeStyleClass {font-size: 11px}
+          You shouldn't be setting a property, then inhibiting it in the same definition, or even the same skin.
+          Inhibits happen first in the same rule, then the specific styles, so if you inhibit a property, and also
+          define a property in the same rule, it won't be inhibited.
+          However, if you define .SomeStyleClass {-tr-inhibit: color;} later in Skin A, it will be inhibited.
+          Again, do not inhibit within the same skin. It takes more programming cycles to do the merge, and your css
+          isn't as clean.
+          ]]>
+        </source>
         </li>        
         <li>
         <strong>-tr-rule-ref</strong> - > This is used to include other styles in your style see :alias
         section. Application developers probably won't use this. This is meant for component developers to use when
         they are setting up the base skin for their components.
+        Here are some examples of how you can use -tr-rule-ref and what the generated css would be.
+        <source>
+          <![CDATA[
+          Example 1:
+          
+          Skin A
+          
+              .AFSomeAlias:alias {color: red}
+              .foo {-tr-rule-ref: selector(".AFSomeAlias:alias")}
+          
+          Skin B extends Skin A
+          
+              .AFSomeAlias:alias {color: blue}
+          
+          Result
+          
+          If you run Skin A, you will see in your CSS
+              .foo {color: red}
+          
+          In you run Skin B, you will see in your CSS
+              .foo {color: blue}
+          because the alias that .foo includes (.AFSomeAlias:alias) in Skin A has 
+          overwritten its color property in Skin B to blue.
+                  
+          ---
+          Example 2:
+          
+          Skin A
+          
+              .myClass {color: orange}
+          
+          Skin B extends Skin A
+          
+              .MyBlueColor:alias {color: blue}
+              .myClass {color: pink; -tr-rule-ref: selector(".MyBlueColor:alias")}   
+          
+          If you run Skin A, you will see in your CSS
+              .myClass {color: orange}
+          
+          In you run Skin B, you will see in your CSS
+              .myClass {color: pink}
+          
+          In Skin B's definition for .myClass, all 'includes' (like -tr-rule-ref) get merged in first, 
+          then specific property definitions (like color in this case) get merged in last for the rule.
+          Therefore, color: pink overwrites -tr-rule-ref: selector(".MyBlueColor:alias");
+          However, if you define .myClass {-tr-rule-ref: selector(".MyBlueColor:alias")} later in Skin B, it will be blue.
+          
+          If you are unsure of what includes or inhibits resolve to, you can run your own skinning test like 
+          above, and look at the generated css file.
+          ]]>
+        </source>
         </li>
         <li>
         <strong>-tr-property-ref</strong> - > This is used to include properties from other styles in your style.
