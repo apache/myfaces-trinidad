@@ -56,6 +56,16 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
 /**/  static public final PropertyKey DISCLOSED_ROW_KEYS_KEY = null;
 /**/  static public final PropertyKey SELECTED_ROW_KEYS_KEY = null;
 
+/**/  static public final FacesBean.Type TYPE = new FacesBean.Type(org.apache.myfaces.trinidad.component.UIXHierarchy.TYPE);
+
+  // These are "fake" properties that allow the table to get the disclosed row keys and the
+  // selected row key without triggering the call to getCollectionModel from the
+  // RowKeyFacesBeanWrapper class. See the stamp state saving code for its usage.
+  static private final PropertyKey _DISCLOSED_ROW_KEYS_WITHOUT_MODEL_KEY =
+    TYPE.registerKey("disclosedRowKeysWithoutModel", RowKeySet.class);
+  static private final PropertyKey _SELECTED_ROW_KEYS_WITHOUT_MODEL_KEY =
+    TYPE.registerKey("selectedRowKeysWithoutModel", RowKeySet.class);
+
   @Deprecated
   public void setRowDisclosureListener(MethodBinding binding)
   {
@@ -170,8 +180,17 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
     Object[] state = new Object[4];
     state[0] = super.__getMyStampState();
     state[1] = getFocusRowKey();
-    state[2] = getSelectedRowKeys();
-    state[3] = getDisclosedRowKeys();
+
+    // Use "hidden" property keys to allow the row key sets to be retrieved without the
+    // RowKeyFacesBeanWrapper trying to resolve the collection model to be set into the row key
+    // set. This is needed to stop the unnecessary lookup of the collection model when it is not
+    // needed during stamp state saving of the table.
+    RowKeySet selectedRowKeys = (RowKeySet)getProperty(_SELECTED_ROW_KEYS_WITHOUT_MODEL_KEY);
+    RowKeySet disclosedRowKeys = (RowKeySet)getProperty(_DISCLOSED_ROW_KEYS_WITHOUT_MODEL_KEY);
+
+    state[2] = selectedRowKeys;
+    state[3] = disclosedRowKeys;
+
     return state;
   }
 
@@ -210,6 +229,25 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
     @Override
     public Object getProperty(PropertyKey key)
     {
+      if (key == _DISCLOSED_ROW_KEYS_WITHOUT_MODEL_KEY)
+      {
+        // This case is only true if the table is trying to serialize the disclosed row keys to
+        // the stamp state of a parent UIXCollection. This work-around prevents EL evaluation to
+        // get the collection model during stamp state saving. This should be permissible as the
+        // state saving code does not need the collection model to be set in the row key set in
+        // order to save its state.
+        return super.getProperty(DISCLOSED_ROW_KEYS_KEY);
+      }
+      else if (key == _SELECTED_ROW_KEYS_WITHOUT_MODEL_KEY)
+      {
+        // This case is only true if the table is trying to serialize the selected row keys to
+        // the stamp state of a parent UIXCollection. This work-around prevents EL evaluation to
+        // get the collection model during stamp state saving. This should be permissible as the
+        // state saving code does not need the collection model to be set in the row key set in
+        // order to save its state.
+        return super.getProperty(SELECTED_ROW_KEYS_KEY);
+      }
+
       Object value = super.getProperty(key);
       if (key == DISCLOSED_ROW_KEYS_KEY)
       {
