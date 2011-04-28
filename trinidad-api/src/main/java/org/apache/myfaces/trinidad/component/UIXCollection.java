@@ -874,6 +874,11 @@ public abstract class UIXCollection extends UIXComponentBase
   /**
    * Gets the currencyObject to setup the rowData to use to build initial
    * stamp state.
+   * <p>
+   *   This allows the collection model to have an initial row key outside of the UIComponent.
+   *   Should the model be at a row that is not the first row, the component will restore the row
+   *   back to the initial row key instead of a null row key once stamping is done.
+   * </p>
    */
   private Object _getCurrencyKeyForInitialStampState()
   {
@@ -1851,11 +1856,15 @@ public abstract class UIXCollection extends UIXComponentBase
     FacesContext context = getFacesContext();
     Object currencyObj = getRowKey();
 
-    // TRINIDAD-2047: we do not need to save stamp state if there is no active stamp
-    if (currencyObj == null)
-    {
-      return;
-    }
+    // Note: even though the currencyObj may be null, we still need to save the state. The reason
+    // is that the code does not clear out the state when it is saved, instead, the un-stamped
+    // state is saved. Once the row key is set back to null, this un-stamped state is restored
+    // onto the children components. This restoration allows editable value holders, show detail
+    // items and nested UIXCollections to clear their state.
+    // For nested UIXCollections, this un-stamped state is required to set the nested collection's
+    // _state (internal state containing the stamp state) to null when not on a row key. Without
+    // that call, the nested UIXCollection components would end up sharing the same stamp state
+    // across parent rows.
 
     int position = 0;
     for(UIComponent stamp : getStamps())
