@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.bean.util;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import java.util.Set;
@@ -59,55 +60,68 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
   }
 
   @Override
-  public Object put(
-    PropertyKey key,
-    Object      value)
-  {
-    Object retValue = super.put(key, value);
-    if (_createDeltas())
-    {
-      if (!_equals(value, retValue))
-        _deltas.put(key, value);
-    }
-    
-    if (key.isPartialStateHolder())
-    {
-      _getPartialStateHolderTracker(true).addProperty(key);
-    }
+   public Object put(
+     PropertyKey key,
+     Object      value)
+   {
+     Object retValue = super.put(key, value);
+     if (_createDeltas())
+     {
+       if (!_equals(value, retValue))
+         _deltas.put(key, value);
+     }
+     else if (key.isMutable())
+     {
+       _getMutableTracker(true).addProperty(key);
+     }
+     
+     if (key.isPartialStateHolder())
+     {
+       _getPartialStateHolderTracker(true).addProperty(key);
+     }
 
-    return retValue;
-  }
+     return retValue;
+   }
 
   @Override
-  public Object remove(
-    Object key)
-  {
-    if (_createDeltas())
-    {
-      if (!super.containsKey(key))
-        return null;
-
-      // If this key is contained, it certainly must be a PropertyKey!
-      assert(key instanceof PropertyKey);
-      _deltas.put((PropertyKey) key, null);
-    }
+   public Object remove(
+     Object key)
+   {
+     boolean useDeltas = _createDeltas();
     
-    if (key instanceof PropertyKey)
-    {
-      PropertyKey propKey  = (PropertyKey)key;
-      if (propKey.isPartialStateHolder())
-      {
-        _getPartialStateHolderTracker(true).removeProperty(propKey);
-      }
-    }
+     if (useDeltas)
+     {
+       if (!super.containsKey(key))
+         return null;
 
-    return super.remove(key);
-  }
+       // If this key is contained, it certainly must be a PropertyKey!
+       assert(key instanceof PropertyKey);
+       _deltas.put((PropertyKey) key, null);
+     }
+     
+     if (key instanceof PropertyKey)
+     {
+       PropertyKey propKey  = (PropertyKey)key;
+       if (propKey.isPartialStateHolder())
+       {
+         _getPartialStateHolderTracker(true).removeProperty(propKey);
+       }
+       
+       if (!useDeltas &&  propKey.isMutable())
+       {
+         _getMutableTracker(true).removeProperty(propKey);
+       }
+     }
+
+     return super.remove(key);
+   }
 
   @Override
   public void putAll(Map<? extends PropertyKey, ? extends Object> t)
   {
-    if (_createDeltas())
+    boolean useDeltas =_createDeltas();
+    
+    if (useDeltas)
       _deltas.putAll(t);
 
     Set<? extends PropertyKey> keys = t.keySet();
@@ -116,7 +130,13 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
       if (key.isPartialStateHolder())
       {
         _getPartialStateHolderTracker(true).addProperty(key);
+      }  
+      
+      if (!useDeltas && key.isMutable())
+      {
+        _getMutableTracker(true).addProperty(key);
       }
+
     }
 
     super.putAll(t);
@@ -125,7 +145,7 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
   public Object saveState(FacesContext context)
   {
     if (_initialStateMarked)
-    {
+    {    
       if (_deltas == null)
         return null;
 
@@ -149,6 +169,25 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
   {
     PropertyHashMap map = new PropertyHashMap(2);
     map.setUseStateHolder(getUseStateHolder());
+    map.setType(_type);
+
+    PropertyTracker tracker = _getMutableTracker(false);
+    
+    if (tracker != null)
+    {      
+      for (PropertyKey key: tracker)
+      {
+        Object val = get(key);
+        
+        if (val != null)
+        {
+          map.put(key, val);
+        }
+      }
+      
+      _mutableTracker = null;
+    }
+    
     return map;
   }
 
@@ -259,12 +298,27 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
     }
     return _tracker;                  
   }
+  
+  
+  private PropertyTracker _getMutableTracker(boolean create)
+  {
+    if (_mutableTracker == null && create)
+    {
+      if (_type == null)
+      {
+        throw new IllegalStateException("FacesBean.TYPE is required to track properties");
+      }
+      _mutableTracker = new PropertyTracker(_type);
+    }
+    return _mutableTracker;                  
+  }  
 
   private transient boolean _initialStateMarked;
   private transient PropertyMap _deltas;
   private boolean      _useStateHolder;
   private transient FacesBean.Type _type;
   private transient PropertyTracker _tracker;
+  private transient PropertyTracker _mutableTracker;
 
   private static final long serialVersionUID = 1L;
 
