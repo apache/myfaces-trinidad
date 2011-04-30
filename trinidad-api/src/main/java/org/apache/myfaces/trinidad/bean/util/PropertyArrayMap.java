@@ -61,7 +61,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
      Object retValue = super.put(key, value);
      if (_createDeltas())
      {
-       if (!_equals(value, retValue))
+       if (key.isMutable() || !_equals(value, retValue))
          _deltas.put(key, value);
      }
      else if (key.isMutable())
