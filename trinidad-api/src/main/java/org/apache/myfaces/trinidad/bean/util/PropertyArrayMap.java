@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,6 +21,8 @@ package org.apache.myfaces.trinidad.bean.util;
 import java.util.Map;
 
 import java.util.Set;
+
+import javax.el.ValueExpression;
 
 import javax.faces.component.PartialStateHolder;
 
@@ -64,11 +66,11 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
        if (key.isMutable() || !_equals(value, retValue))
          _deltas.put(key, value);
      }
-     else if (key.isMutable())
+     else if (key.isMutable() && !(value instanceof ValueExpression))
      {
        _getMutableTracker(true).addProperty(key);
      }
-     
+
      if (key.isPartialStateHolder())
      {
        _getPartialStateHolderTracker(true).addProperty(key);
@@ -82,7 +84,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
      Object key)
    {
      boolean useDeltas = _createDeltas();
-    
+
      if (useDeltas)
      {
        if (!super.containsKey(key))
@@ -92,7 +94,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
        assert(key instanceof PropertyKey);
        _deltas.put((PropertyKey) key, null);
      }
-     
+
      if (key instanceof PropertyKey)
      {
        PropertyKey propKey  = (PropertyKey)key;
@@ -100,10 +102,13 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
        {
          _getPartialStateHolderTracker(true).removeProperty(propKey);
        }
-       
+
        if (!useDeltas &&  propKey.isMutable())
        {
-         _getMutableTracker(true).removeProperty(propKey);
+         PropertyTracker mutableTracker = _getMutableTracker(false);
+
+         if (mutableTracker != null)
+           mutableTracker.removeProperty(propKey);
        }
      }
 
@@ -114,7 +119,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
   public void putAll(Map<? extends PropertyKey, ? extends Object> t)
   {
     boolean useDeltas =_createDeltas();
-    
+
     if (useDeltas)
       _deltas.putAll(t);
 
@@ -124,11 +129,16 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
       if (key.isPartialStateHolder())
       {
         _getPartialStateHolderTracker(true).addProperty(key);
-      }  
-      
+      }
+
       if (!useDeltas && key.isMutable())
       {
-        _getMutableTracker(true).addProperty(key);
+        Object value = t.get(key);
+
+        if (!(value instanceof ValueExpression))
+        {
+          _getMutableTracker(true).addProperty(key);
+        }
       }
 
     }
@@ -139,7 +149,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
   public Object saveState(FacesContext context)
   {
     if (_initialStateMarked)
-    {    
+    {
       if (_deltas == null)
         return null;
 
@@ -164,23 +174,23 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
     PropertyArrayMap map = new PropertyArrayMap(2);
     map.setUseStateHolder(getUseStateHolder());
     map.setType(_type);
-    
+
     PropertyTracker tracker = _getMutableTracker(false);
-    
+
     if (tracker != null)
-    {      
+    {
       for (PropertyKey key: tracker)
       {
         Object val = get(key);
-        
+
         if (val != null)
         {
           map.put(key, val);
         }
       }
-            
+
       _mutableTracker = null;
-    }    
+    }
     return map;
   }
 
@@ -202,7 +212,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
   public void markInitialState()
   {
     _initialStateMarked = true;
-    
+
     // PropertyTracker uses a bitmask to track properties
     // We are tracking all properties that have CA_PARTIAL_STATE_HOLDER capability,
     // so that we do not have to check every property here
@@ -225,7 +235,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
   {
     _initialStateMarked = false;
     _deltas = null;
-    
+
     // PropertyTracker uses a bitmask to track properties
     // We are tracking all properties that have CA_PARTIAL_STATE_HOLDER capability,
     // so that we do not have to check every property here
@@ -247,7 +257,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
   {
     return _initialStateMarked;
   }
-  
+
   /**
    * Sets the the FacesBean type used by this map's owner bean
    * @param type FacesBean type
@@ -268,7 +278,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
 
       return true;
     }
-    
+
     return false;
   }
 
@@ -282,7 +292,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
 
     return a.equals(b);
   }
-  
+
   private PropertyTracker _getPartialStateHolderTracker(boolean create)
   {
     if (_tracker == null && create)
@@ -293,9 +303,9 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
       }
       _tracker = new PropertyTracker(_type);
     }
-    return _tracker;                  
+    return _tracker;
   }
-    
+
     private PropertyTracker _getMutableTracker(boolean create)
     {
       if (_mutableTracker == null && create)
@@ -306,9 +316,9 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
         }
         _mutableTracker = new PropertyTracker(_type);
       }
-      return _mutableTracker;                  
-    }  
-  
+      return _mutableTracker;
+    }
+
 
   private transient boolean _initialStateMarked;
   private transient PropertyMap _deltas;

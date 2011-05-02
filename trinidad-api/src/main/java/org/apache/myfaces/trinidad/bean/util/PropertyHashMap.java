@@ -24,6 +24,8 @@ import java.util.Map;
 
 import java.util.Set;
 
+import javax.el.ValueExpression;
+
 import javax.faces.component.PartialStateHolder;
 import javax.faces.context.FacesContext;
 
@@ -70,7 +72,7 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
        if (key.isMutable() || !_equals(value, retValue))
          _deltas.put(key, value);
      }
-     else if (key.isMutable())
+     else if (key.isMutable() && !(value instanceof ValueExpression))
      {
        _getMutableTracker(true).addProperty(key);
      }
@@ -109,7 +111,10 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
        
        if (!useDeltas &&  propKey.isMutable())
        {
-         _getMutableTracker(true).removeProperty(propKey);
+         PropertyTracker mutableTracker = _getMutableTracker(false);
+         
+         if (mutableTracker != null)
+           mutableTracker.removeProperty(propKey);
        }
      }
 
@@ -134,7 +139,12 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
       
       if (!useDeltas && key.isMutable())
       {
-        _getMutableTracker(true).addProperty(key);
+        Object value = t.get(key);
+        
+        if (!(value instanceof ValueExpression))
+        {
+          _getMutableTracker(true).addProperty(key);
+        }
       }
 
     }
