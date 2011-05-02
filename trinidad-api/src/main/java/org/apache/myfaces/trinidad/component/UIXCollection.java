@@ -38,6 +38,7 @@ import javax.faces.component.visit.VisitContextWrapper;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
@@ -133,7 +134,10 @@ public abstract class UIXCollection extends UIXComponentBase
     // rowKey/rowData):
     Object currencyKey = getRowKey();
     event = new TableRowEvent(this, event, currencyKey);
-    super.queueEvent(event);
+
+    // Queue a CollectionContextEvent in order to allow this class to setup the component change
+    // before sub-classes attempt to process the table row event instance.
+    super.queueEvent(new CollectionContextEvent(this, event));
   }
 
   /**
@@ -146,20 +150,37 @@ public abstract class UIXCollection extends UIXComponentBase
   public void broadcast(FacesEvent event)
     throws AbortProcessingException
   {
-    // For "TableRowEvents", set up the data before firing the
-    // event to the actual component.
-    if (event instanceof TableRowEvent)
+    // Unwrap CollectionContextEvent events so that the original event is broadcast
+    // within a component change event context.
+    if (event instanceof CollectionContextEvent)
     {
-      TableRowEvent rowEvent = (TableRowEvent) event;
-      Object old = getRowKey();
-      setRowKey(rowEvent.getCurrencyKey());
-      FacesEvent wrapped = rowEvent.getEvent();
-      wrapped.getComponent().broadcast(wrapped);
-      setRowKey(old);
+      _setupContextChange();
+      try
+      {
+        this.broadcast(((CollectionContextEvent)event).getEvent());
+      }
+      finally
+      {
+        _tearDownContextChange();
+      }
     }
     else
     {
-      super.broadcast(event);
+      // For "TableRowEvents", set up the data before firing the
+      // event to the actual component.
+      if (event instanceof TableRowEvent)
+      {
+        TableRowEvent rowEvent = (TableRowEvent) event;
+        Object old = getRowKey();
+        setRowKey(rowEvent.getCurrencyKey());
+        FacesEvent wrapped = rowEvent.getEvent();
+        wrapped.getComponent().broadcast(wrapped);
+        setRowKey(old);
+      }
+      else
+      {
+        super.broadcast(event);
+      }
     }
   }
 
@@ -174,30 +195,38 @@ public abstract class UIXCollection extends UIXComponentBase
     if (context == null)
       throw new NullPointerException();
 
-    _init();
+    _setupContextChange();
+    try
+    {
+      _init();
 
-    InternalState iState = _getInternalState(true);
-    iState._isFirstRender = false;
+      InternalState iState = _getInternalState(true);
+      iState._isFirstRender = false;
 
-    if (!isRendered())
-      return;
+      if (!isRendered())
+        return;
 
-    __flushCachedModel();
+      __flushCachedModel();
 
-    // Make sure _hasEvent is false.
-    iState._hasEvent = false;
+      // Make sure _hasEvent is false.
+      iState._hasEvent = false;
 
-    // =-=AEW Because I'm getting the state in decode(), I need
-    // to do it before iterating over the children - otherwise,
-    // they'll be working off the wrong startIndex.  When state
-    // management is integrated, I can likely put this back in the
-    // usual order
+      // =-=AEW Because I'm getting the state in decode(), I need
+      // to do it before iterating over the children - otherwise,
+      // they'll be working off the wrong startIndex.  When state
+      // management is integrated, I can likely put this back in the
+      // usual order
 
-    // Process this component itself
-    decode(context);
+      // Process this component itself
+      decode(context);
 
-    // Process all facets and children of this component
-    decodeChildren(context);
+      // Process all facets and children of this component
+      decodeChildren(context);
+    }
+    finally
+    {
+      _tearDownContextChange();
+    }
   }
 
   @Override
@@ -238,48 +267,56 @@ public abstract class UIXCollection extends UIXComponentBase
   @Override
   public Object processSaveState(FacesContext context)
   {
-    // If we saved state in the middle of processing a row,
-    // then make sure that we revert to a "null" rowKey while
-    // saving state;  this is necessary to ensure that the
-    // current row's state is properly preserved, and that
-    // the children are reset to their default state.
-    Object currencyKey = _getCurrencyKey();
-
-    // since this is the end of the request, we expect the row currency to be reset back to null
-    // setting it and leaving it there might introduce multiple issues, so log a warning here
-    if (currencyKey != null)
+    _setupContextChange();
+    try
     {
-      if (_LOG.isWarning())
+      // If we saved state in the middle of processing a row,
+      // then make sure that we revert to a "null" rowKey while
+      // saving state;  this is necessary to ensure that the
+      // current row's state is properly preserved, and that
+      // the children are reset to their default state.
+      Object currencyKey = _getCurrencyKey();
+
+      // since this is the end of the request, we expect the row currency to be reset back to null
+      // setting it and leaving it there might introduce multiple issues, so log a warning here
+      if (currencyKey != null)
       {
-        String scopedId = ComponentUtils.getScopedIdForComponent(this, context.getViewRoot());
-        String viewId = context.getViewRoot()==null?null:context.getViewRoot().getViewId();
-        _LOG.warning("ROWKEY_NOT_RESET", new Object[]{scopedId, viewId});
+        if (_LOG.isWarning())
+        {
+          String scopedId = ComponentUtils.getScopedIdForComponent(this, context.getViewRoot());
+          String viewId = context.getViewRoot()==null?null:context.getViewRoot().getViewId();
+          _LOG.warning("ROWKEY_NOT_RESET", new Object[]{scopedId, viewId});
+        }
       }
-    }
 
-    Object initKey = _getCurrencyKeyForInitialStampState();
-    if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
+      Object initKey = _getCurrencyKeyForInitialStampState();
+      if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
+      {
+        setRowKey(initKey);
+      }
+
+      Object savedState = super.processSaveState(context);
+
+      if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
+      {
+        setRowKey(currencyKey);
+      }
+
+      // Finally clean up any internal model state that we might be holding on to. We do not want to hold onto any
+      // application data in between requests
+      InternalState iState = _getInternalState(false);
+      if (iState != null)
+      {
+        iState._value = null;
+        iState._model= null;
+      }
+
+      return savedState;
+    }
+    finally
     {
-      setRowKey(initKey);
+      _tearDownContextChange();
     }
-
-    Object savedState = super.processSaveState(context);
-
-    if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
-    {
-      setRowKey(currencyKey);
-    }
-
-    // Finally clean up any internal model state that we might be holding on to. We do not want to hold onto any
-    // application data in between requests
-    InternalState iState = _getInternalState(false);
-    if (iState != null)
-    {
-      iState._value = null;
-      iState._model= null;
-    }
-
-    return savedState;
   }
 
   @Override
@@ -509,6 +546,8 @@ public abstract class UIXCollection extends UIXComponentBase
    */
   public void setRowKey(Object rowKey)
   {
+    _verifyComponentInContext();
+
     preRowDataChange();
     getCollectionModel().setRowKey(rowKey);
     postRowDataChange();
@@ -526,6 +565,8 @@ public abstract class UIXCollection extends UIXComponentBase
    */
   public void setRowIndex(int rowIndex)
   {
+    _verifyComponentInContext();
+
     preRowDataChange();
     getCollectionModel().setRowIndex(rowIndex);
     postRowDataChange();
@@ -586,37 +627,73 @@ public abstract class UIXCollection extends UIXComponentBase
   @Override
   public final void encodeBegin(FacesContext context) throws IOException
   {
-    _init();
-
-    InternalState istate = _getInternalState(true);
-    // we must not clear the currency cache everytime. only clear
-    // it in response to specific events: bug 4773659
-
-    // TODO all this code should be removed and moved into the renderer:
-    if (istate._clearTokenCache)
+    _setupContextChange();
+    boolean teardown = true;
+    try
     {
-      istate._clearTokenCache = false;
-      ClientRowKeyManager keyMgr = getClientRowKeyManager();
-      if (keyMgr instanceof DefaultClientKeyManager)
-        ((DefaultClientKeyManager) keyMgr).clear();
-    }
-    __flushCachedModel();
+      _init();
 
-    Object assertKey = null;
-    assert ((assertKey = getRowKey()) != null) || true;
-    __encodeBegin(context);
-    // make sure that the rendering code preserves the currency:
-    assert _assertKeyPreserved(assertKey) : "CurrencyKey not preserved";
+      InternalState istate = _getInternalState(true);
+      // we must not clear the currency cache everytime. only clear
+      // it in response to specific events: bug 4773659
+
+      // TODO all this code should be removed and moved into the renderer:
+      if (istate._clearTokenCache)
+      {
+        istate._clearTokenCache = false;
+        ClientRowKeyManager keyMgr = getClientRowKeyManager();
+        if (keyMgr instanceof DefaultClientKeyManager)
+          ((DefaultClientKeyManager) keyMgr).clear();
+      }
+      __flushCachedModel();
+
+      Object assertKey = null;
+      assert ((assertKey = getRowKey()) != null) || true;
+      __encodeBegin(context);
+      // make sure that the rendering code preserves the currency:
+      assert _assertKeyPreserved(assertKey) : "CurrencyKey not preserved";
+
+      teardown = false;
+    }
+    finally
+    {
+      if (teardown)
+      {
+        // Tear down on errors & exceptions
+        _tearDownContextChange();
+      }
+    }
   }
 
   @Override
   public void encodeEnd(FacesContext context) throws IOException
   {
-    Object assertKey = null;
-    assert ((assertKey = getRowKey()) != null) || true;
-    super.encodeEnd(context);
-    // make sure that the rendering code preserves the currency:
-    assert _assertKeyPreserved(assertKey) : "CurrencyKey not preserved";
+    try
+    {
+      Object assertKey = null;
+      assert ((assertKey = getRowKey()) != null) || true;
+      super.encodeEnd(context);
+      // make sure that the rendering code preserves the currency:
+      assert _assertKeyPreserved(assertKey) : "CurrencyKey not preserved";
+    }
+    finally
+    {
+      _tearDownContextChange();
+    }
+  }
+
+  @Override
+  protected void setupVisitingContext(FacesContext context)
+  {
+    super.setupVisitingContext(context);
+    _setupContextChange();
+  }
+
+  @Override
+  protected void tearDownVisitingContext(FacesContext context)
+  {
+    _tearDownContextChange();
+    super.tearDownVisitingContext(context);
   }
 
   private boolean _assertKeyPreserved(Object oldKey)
@@ -740,6 +817,61 @@ public abstract class UIXCollection extends UIXComponentBase
       setRowKey(rowkey);
   }
 
+  public void processRestoreState(
+    FacesContext context,
+    Object       state)
+  {
+    _setupContextChange();
+    try
+    {
+      super.processRestoreState(context, state);
+    }
+    finally
+    {
+      _tearDownContextChange();
+    }
+  }
+
+  public void processUpdates(FacesContext context)
+  {
+    _setupContextChange();
+    try
+    {
+      super.processUpdates(context);
+    }
+    finally
+    {
+      _tearDownContextChange();
+    }
+  }
+
+  public void processValidators(FacesContext context)
+  {
+    _setupContextChange();
+    try
+    {
+      super.processValidators(context);
+    }
+    finally
+    {
+      _tearDownContextChange();
+    }
+  }
+
+  public void processEvent(ComponentSystemEvent event)
+    throws AbortProcessingException
+  {
+    _setupContextChange();
+    try
+    {
+      super.processEvent(event);
+    }
+    finally
+    {
+      _tearDownContextChange();
+    }
+  }
+
   /**
      * Gets the client-id of this component, without any NamingContainers.
      * This id changes depending on the currency Object.
@@ -794,19 +926,6 @@ public abstract class UIXCollection extends UIXComponentBase
                   " and currencyKey:"+getRowKey());
     }
 
-    ComponentContextManager compCtxMgr = null;
-    if (!_inSuspendOrResume)
-    {
-      compCtxMgr = RequestContext.getCurrentInstance().getComponentContextManager();
-      ComponentContextChange change = compCtxMgr.peekChange();
-      if (change instanceof CollectionComponentChange &&
-          ((CollectionComponentChange)change)._component == this)
-      {
-        // Remove the component context change if one was added
-        compCtxMgr.popChange();
-      }
-    }
-
     InternalState iState = _getInternalState(true);
     if (rowData == null)
     {
@@ -839,13 +958,6 @@ public abstract class UIXCollection extends UIXComponentBase
       {
         Map<String, Object> varStatusMap = createVarStatusMap();
         iState._prevVarStatus = _setELVar(iState._varStatus, varStatusMap);
-      }
-
-      // If there is a current row, push a component change so that we may clear the
-      // var and var status should a visit tree occur
-      if (!_inSuspendOrResume)
-      {
-        compCtxMgr.pushChange(new CollectionComponentChange(this));
       }
     }
 
@@ -1962,6 +2074,61 @@ public abstract class UIXCollection extends UIXComponentBase
     return b.equals(a);
   }
 
+  private void _setupContextChange()
+  {
+    ComponentContextManager compCtxMgr =
+      RequestContext.getCurrentInstance().getComponentContextManager();
+
+    compCtxMgr.pushChange(new CollectionComponentChange(this));
+  }
+
+  private void _tearDownContextChange()
+  {
+    try
+    {
+      ComponentContextManager compCtxMgr =
+        RequestContext.getCurrentInstance().getComponentContextManager();
+      ComponentContextChange change = compCtxMgr.peekChange();
+
+      if (change instanceof CollectionComponentChange &&
+          ((CollectionComponentChange)change)._component == this)
+      {
+        // Remove the component context change if one was added
+        compCtxMgr.popChange();
+      }
+      else
+      {
+        _LOG.severe("COLLECTION_CHANGE_TEARDOWN", new Object[] { getId(), change });
+      }
+    }
+    catch (RuntimeException re)
+    {
+      _LOG.severe(re);
+    }
+  }
+
+  private void _verifyComponentInContext()
+  {
+    if (_inSuspendOrResume)
+    {
+      return;
+    }
+
+    ComponentContextManager compCtxMgr =
+      RequestContext.getCurrentInstance().getComponentContextManager();
+    ComponentContextChange change = compCtxMgr.peekChange();
+
+    if (!(change instanceof CollectionComponentChange) ||
+        ((CollectionComponentChange)change)._component != this)
+    {
+      _LOG.warning("COLLECTION_NOT_IN_CONTEXT", getId());
+      if (_LOG.isFine())
+      {
+        Thread.currentThread().dumpStack();
+      }
+    }
+  }
+
   private static final class DefaultClientKeyManager extends ClientRowKeyManager
   {
     public void clear()
@@ -2095,11 +2262,12 @@ public abstract class UIXCollection extends UIXComponentBase
     public void suspend(
       FacesContext facesContext)
     {
-      _oldRowIndex = _component.getRowIndex();
+      _rowKey = _component.getRowKey();
+
       _component._inSuspendOrResume = true;
       try
       {
-        _component.setRowIndex(-1);
+        _component.setRowKey(null);
       }
       finally
       {
@@ -2113,7 +2281,7 @@ public abstract class UIXCollection extends UIXComponentBase
       _component._inSuspendOrResume = true;
       try
       {
-        _component.setRowIndex(_oldRowIndex);
+        _component.setRowKey(_rowKey);
       }
       finally
       {
@@ -2136,7 +2304,21 @@ public abstract class UIXCollection extends UIXComponentBase
     }
 
     private final UIXCollection _component;
-    private int _oldRowIndex;
+    private Object _rowKey;
+  }
+
+  private static class CollectionContextEvent
+    extends WrapperEvent
+  {
+    public CollectionContextEvent(
+      UIComponent source,
+      FacesEvent  event)
+    {
+      super(source, event);
+    }
+
+    @SuppressWarnings("compatibility:-7639429485707197863")
+    private static final long serialVersionUID = 1L;
   }
 
   // do not assign a non-null value. values should be assigned lazily. this is
