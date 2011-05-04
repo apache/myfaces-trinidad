@@ -147,6 +147,10 @@ public class UINodeFacesBean extends FacesBeanImpl
   {
     return new FlaggedPropertyMap()
     {
+      {
+        setType(UINodeFacesBean.this.getType());
+      }
+      
       @Override
       public Object put(PropertyKey key, Object value)
       {
