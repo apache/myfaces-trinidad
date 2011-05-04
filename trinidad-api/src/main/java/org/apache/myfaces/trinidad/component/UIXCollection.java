@@ -2076,6 +2076,13 @@ public abstract class UIXCollection extends UIXComponentBase
 
   private void _setupContextChange()
   {
+    if (_inSuspendOrResume)
+    {
+      // This situation will occur when the CollectionComponentChange is currently setting the
+      // row key.
+      return;
+    }
+
     ComponentContextManager compCtxMgr =
       RequestContext.getCurrentInstance().getComponentContextManager();
 
@@ -2084,6 +2091,13 @@ public abstract class UIXCollection extends UIXComponentBase
 
   private void _tearDownContextChange()
   {
+    if (_inSuspendOrResume)
+    {
+      // This situation will occur when the CollectionComponentChange is currently setting the
+      // row key.
+      return;
+    }
+
     try
     {
       ComponentContextManager compCtxMgr =
@@ -2262,12 +2276,35 @@ public abstract class UIXCollection extends UIXComponentBase
     public void suspend(
       FacesContext facesContext)
     {
-      _rowKey = _component.getRowKey();
-
       _component._inSuspendOrResume = true;
+
       try
       {
-        _component.setRowKey(null);
+        InternalState iState = _component._getInternalState(false);
+        if (iState == null || iState._model == null || iState._currentRowKey == _NULL)
+        {
+          // If we were to try to call getRowKey() here, this would call getCollectionModel().
+          // The get collection model may result in EL being evaluated, which is undesirable
+          // and will cause bugs when called while we are suspending. This is because evaluating
+          // EL may need to suspend or resume other component context changes, and we do not want
+          // re-entrant calls to the component context stack while we are already suspending.
+
+          // Note that this code will fail if someone has set the _model to null while on a rowKey
+          // (Should not happen, would be considered a bug if that were to be done).
+          _rowKey = null;
+        }
+        else
+        {
+          _rowKey = _component.getRowKey();
+
+          // Set the row key back to null to force the collection into the un-stamped state. This
+          // will ensure that the collection is not in a row key while the component context is
+          // not setup. Only do this if the row key is not already on the null row key.
+          if (_rowKey != null)
+          {
+            _component.setRowKey(null);
+          }
+        }
       }
       finally
       {
@@ -2281,7 +2318,11 @@ public abstract class UIXCollection extends UIXComponentBase
       _component._inSuspendOrResume = true;
       try
       {
-        _component.setRowKey(_rowKey);
+        // Only set the row key if one was stored during the suspend.
+        if (_rowKey != null)
+        {
+          _component.setRowKey(_rowKey);
+        }
       }
       finally
       {
@@ -2304,6 +2345,7 @@ public abstract class UIXCollection extends UIXComponentBase
     }
 
     private final UIXCollection _component;
+    private CollectionModel _collectionModel;
     private Object _rowKey;
   }
 
