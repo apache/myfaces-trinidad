@@ -63,10 +63,10 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
      Object retValue = super.put(key, value);
      if (_createDeltas())
      {
-       if (key.isMutable() || !_equals(value, retValue))
+       if (key.getMutable().isAtLeastSometimesMutable() || !_equals(value, retValue))
          _deltas.put(key, value);
      }
-     else if (key.isMutable() && !(value instanceof ValueExpression))
+     else if (key.getMutable().isAtLeastSometimesMutable() && !(value instanceof ValueExpression))
      {
        _getMutableTracker(true).addProperty(key);
      }
@@ -103,7 +103,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
          _getPartialStateHolderTracker(true).removeProperty(propKey);
        }
 
-       if (!useDeltas &&  propKey.isMutable())
+       if (!useDeltas &&  propKey.getMutable().isAtLeastSometimesMutable())
        {
          PropertyTracker mutableTracker = _getMutableTracker(false);
 
@@ -131,7 +131,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
         _getPartialStateHolderTracker(true).addProperty(key);
       }
 
-      if (!useDeltas && key.isMutable())
+      if (!useDeltas && key.getMutable().isAtLeastSometimesMutable())
       {
         Object value = t.get(key);
 
@@ -292,7 +292,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
 
     return a.equals(b);
   }
-
+  
   private PropertyTracker _getPartialStateHolderTracker(boolean create)
   {
     if (_tracker == null && create)

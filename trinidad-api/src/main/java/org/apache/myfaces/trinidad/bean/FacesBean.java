@@ -338,6 +338,15 @@ public interface FacesBean
       return registerKey(name, type, null, capabilities);
     }
 
+    public PropertyKey registerKey(
+      String   name,
+      Class<?> type,
+      Object   defaultValue,
+      int      capabilities)
+    {
+      return registerKey(name, type, defaultValue, capabilities, null);
+    }
+
     /**
      * Add an alias to an existing PropertyKey.
      * @exception IllegalStateException if the type is already locked,
@@ -361,19 +370,24 @@ public interface FacesBean
      *    or the key already exists.
      */
     public PropertyKey registerKey(
-      String   name,
-      Class<?> type,
-      Object   defaultValue,
-      int      capabilities)
+      String              name,
+      Class<?>            type,
+      Object              defaultValue,
+      int                 capabilities,
+      PropertyKey.Mutable mutable)
     {
       _checkLocked();
       _checkName(name);
+
+      if (mutable == null)
+        mutable = PropertyKey.Mutable.IMMUTABLE;
 
       PropertyKey key = createPropertyKey(name,
                                           type,
                                           defaultValue,
                                           capabilities,
-                                          getNextIndex());
+                                          getNextIndex(),
+                                          mutable);
       addKey(key);
       return key;
     }
@@ -429,13 +443,25 @@ public interface FacesBean
       int      capabilities,
       int      index)
     {
+      return createPropertyKey(name, type, defaultValue, capabilities, index, 
+                                                                    PropertyKey.Mutable.IMMUTABLE);
+    }
+
+    protected PropertyKey createPropertyKey(
+      String              name,
+      Class<?>            type,
+      Object              defaultValue,
+      int                 capabilities,
+      int                 index,
+      PropertyKey.Mutable mutable)
+    {      
       if (_superType != null)
       {
         return _superType.createPropertyKey(name, type, defaultValue,
-                                            capabilities, index);
+                                            capabilities, index, mutable);
       }
 
-      return new PropertyKey(name, type, defaultValue, capabilities, index);
+      return new PropertyKey(name, type, defaultValue, capabilities, index, mutable);
     }
 
     /**

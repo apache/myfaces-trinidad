@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -52,7 +52,18 @@ public class UINodePropertyKey extends PropertyKey
     int      capabilities,
     int      index)
   {
-    super(name, type, defaultValue, capabilities, index);
+    this(name, type, defaultValue, capabilities, index, Mutable.IMMUTABLE);
+  }
+
+  UINodePropertyKey(
+    String              name,
+    Class<?>            type,
+    Object              defaultValue,
+    int                 capabilities,
+    int                 index,
+    PropertyKey.Mutable mutable)
+  {
+    super(name, type, defaultValue, capabilities, index, mutable);
     _attributeKey = _UICONSTANTS_KEYS.get(name);
   }
 
