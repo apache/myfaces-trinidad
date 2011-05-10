@@ -1,7 +1,5 @@
 package org.apache.myfaces.trinidad.change;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Map;
 
 import javax.el.ValueExpression;
@@ -11,7 +9,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
 /**
@@ -77,21 +74,6 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
 
   private void _updateRowKeySetInPlace(UIComponent component, String attrName, RowKeySet newValue)
   {
-    // Take a snapshot of the remembered keys, so we are insulated from any heayweight implementations of RowKeySet 
-    Collection<Object> newKeySet = new HashSet<Object>();
-
-    try 
-    {
-      newKeySet.addAll(newValue);
-    }
-    // addAll() can raise a few exceptions, a behavior we can't reliably predict for different possible implementations 
-    //  of RowKeySet during invokeOnComponent, we do not want to propogate either, gracefully fail change attempt.
-    catch (Exception e) 
-    {
-      _LOG.warning("FAILED_ROWKEYSETATTRIBUTECHANGE", e.getClass());
-      return;
-    }
-
     ValueExpression oldExpression = component.getValueExpression(attrName);
     
     // due to bug in how the trinidad table and tree handle their RowKeySets, always use
@@ -103,7 +85,7 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
     context.getViewRoot().invokeOnComponent(
       context,
       _clientId,
-      new GetOldValueAndUpdate(oldExpression, attrName, newKeySet));
+      new GetOldValueAndUpdate(oldExpression, attrName, newValue));
   }
     
   /**
@@ -111,11 +93,11 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
    */
   private static final class GetOldValueAndUpdate implements ContextCallback
   {
-    public GetOldValueAndUpdate(ValueExpression expression, String attributeName, Collection<Object> newKeySet)
+    public GetOldValueAndUpdate(ValueExpression expression, String attributeName, RowKeySet newKeySet)
     {
       _expression = expression;
       _attributeName = attributeName;
-      _newKeySet = newKeySet;
+      _newKeySet  = newKeySet;
     }
     
     public void invokeContextCallback(FacesContext context,
@@ -161,11 +143,10 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
     
     private final ValueExpression _expression;
     private final String _attributeName;
-    private final Collection<Object> _newKeySet;
+    private final RowKeySet _newKeySet;
   }
 
   private static final long serialVersionUID = 1L;
-  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RowKeySetAttributeChange.class);
   
   private final String _clientId;
 }
