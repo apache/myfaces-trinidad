@@ -101,7 +101,7 @@ TrLongConverter.prototype.getAsObject = function(
   label
   )
 {
-  if(TrUIUtils.isNumberConvertible(numberString))
+  if(TrFormatUtils.isNumberConvertible(numberString))
   {
     return _decimalParse(numberString, 
                          this._message,
@@ -976,7 +976,7 @@ function _decimalParse(
   if (numberString == null)
     return null;
     
-  numberString = TrUIUtils.trim(numberString);
+  numberString = TrFormatUtils.trim(numberString);
   if (numberString.length == 0)
     return null
     
