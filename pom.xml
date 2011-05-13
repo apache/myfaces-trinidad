@@ -47,7 +47,7 @@
     <jsf-spec.version>2.0</jsf-spec.version>
     <jsf-ri.version>2.0.4-b09</jsf-ri.version>
     <jsf-myfaces.version>2.0.4</jsf-myfaces.version>
-    <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
+    <portlet-bridge.version>2.0.0</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
     <commons-io.version>2.0</commons-io.version>
     <pluto-embedded.version>1.0.1</pluto-embedded.version>
@@ -58,7 +58,7 @@
     <junit.version>4.4</junit.version>
     
     <!-- Plugins -->
-    <trinidad-plugins.version>2.0.5</trinidad-plugins.version>
+    <trinidad-plugins.version>2.0.6</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
     <jetty-plugin.version>6.1.21</jetty-plugin.version>
     <pluto.version>1.1.6</pluto.version>
@@ -178,7 +178,7 @@
     <site>
       <id>apache-site</id>
       <name>Apache Website</name>
-      <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
+      <url>scp://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
     </site>
   </distributionManagement>
 
@@ -364,6 +364,13 @@
           <artifactId>maven-site-plugin</artifactId>
           <!--version>3.0-beta-3</version-->
           <inherited>true</inherited>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.maven.wagon</groupId>
+              <artifactId>wagon-ssh</artifactId>
+              <version>1.0-beta-7</version>
+            </dependency>
+          </dependencies>
           <configuration>
             <outputEncoding>UTF-8</outputEncoding>
           </configuration>
