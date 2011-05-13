@@ -219,7 +219,7 @@ TrNumberConverter.prototype.getAsObject = function(
   label
   )
 {
-  numberString = TrUIUtils.trim(numberString);
+  numberString = TrFormatUtils.trim(numberString);
   
   if(this._isConvertible(numberString))
   {
@@ -333,7 +333,7 @@ TrNumberConverter.prototype._isConvertible = function(numberString)
     return false;
 
   // check other common criteria as well.
-  return TrUIUtils.isNumberConvertible(numberString);   
+  return TrFormatUtils.isNumberConvertible(numberString);   
 
 }
 
