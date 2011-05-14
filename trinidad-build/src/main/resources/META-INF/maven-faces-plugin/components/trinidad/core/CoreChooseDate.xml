@@ -45,6 +45,7 @@ to allow the largest range of values to be accepted.]]>
       <property-name>minValue</property-name>
       <property-class>java.util.Date</property-class>
       <property-extension>
+        <mfp:mutable>sometimes</mfp:mutable>
         <mfp:property-metadata/>
         <fmd:property-metadata>
           <fmd:preferred>true</fmd:preferred>
@@ -64,6 +65,7 @@ to allow the largest range of values to be accepted.]]>
       <property-name>maxValue</property-name>
       <property-class>java.util.Date</property-class>
       <property-extension>
+        <mfp:mutable>sometimes</mfp:mutable>
         <mfp:property-metadata>
           <mfp:use-max-time>true</mfp:use-max-time>
         </mfp:property-metadata>

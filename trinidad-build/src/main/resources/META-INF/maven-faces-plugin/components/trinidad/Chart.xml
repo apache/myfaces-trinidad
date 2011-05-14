@@ -39,6 +39,7 @@
       <property-name>value</property-name>
       <property-class>java.lang.Object</property-class>
       <property-extension>
+        <mfp:mutable>sometimes</mfp:mutable>
         <mfp:property-metadata/>
         <fmd:property-metadata>
           <fmd:preferred>true</fmd:preferred>
