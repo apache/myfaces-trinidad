@@ -154,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Impossibile trovare il bundle delle risorse {0}.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">errore durante la chiusura del file: {0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Errore durante la chiusura del file: {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Errore durante il recupero dei file dei metadati di area: {0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Individuata dipendenza circolare nell&apos;&apos;icona di riferimento skin {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Oggetto SkinAddition nullo passato a addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Elaborazione del file di configurazione dello skin non riuscita: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Il valore ValueExpression translation-source dello skin non è del tipo Map o ResourceBundle previsto, pertanto verrà ignorato.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -340,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Errore durante l&apos;&apos;analisi di: {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">errore durante il caricamento del file: {0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Errore durante il caricamento del file: {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Impossibile caricare il foglio di stile: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -688,7 +690,7 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Confronto sconosciuto</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">test BoundValue necessario</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">Test BoundValue necessario</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">Argomento lista nullo</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IState deve essere un&apos;istanza di StateManager.SerializedView o un array dell&apos;oggetto di lunghezza 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Il salvataggio parziale dello stato non è ancora supportato. Impostare context-param javax.faces.PARTIAL_STATE_SAVING su false nel file web.xml.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Errore durante la serializzazione dell&apos;&apos;attributo {0}:{1} valore:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Errore durante la serializzazione dell&apos;&apos;attributo {0}: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> valore con errore=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Errore di failover: {0} l&apos;&apos;attributo {1} di tipo {2} non è serializzabile</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Errore di failover: serializzazione dell&apos;&apos;attributo {0}: {1} è cambiata da {2} a {3} senza modificare l&apos;&apos;attributo</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Test della serializzazione dell&apos;&apos;attributo di sessione non riuscito per {0}. Per disabilitare questo controllo, rimuovere &apos;&apos;REQUEST&apos;&apos; dalla proprietà di sistema &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;.</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Eccezione durante il recupero dell&apos;errore del test per la serializzazione dell&apos;attributo di sessione</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Attributo sessione: {0} </resource>
 </resources>

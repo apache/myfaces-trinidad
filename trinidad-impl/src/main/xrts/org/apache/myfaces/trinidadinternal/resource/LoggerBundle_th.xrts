@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">ตรวจพบการอ้างอิงแบบวนซ้ำในไอคอนการอ้างอิงของสกิน {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">มีการระบุออบเจกต์ SkinAddition ที่เป็นนัลให้กับ addSkinAddition</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">ไม่สามารถประมวลผลไฟล์คอนฟิกของสกิน: {0}</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">ValueExpression สำหรับ translation-source ของสกินไม่ใช่ประเภท Map หรือ ResourceBundle ที่ต้องการ ระบบจะไม่ประมวลผล</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IState ต้องเป็นอินสแตนซ์ของ StateManager.SerializedView หรืออาเรย์ของออบเจกต์ที่มีความยาว 2</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">ยังไม่รองรับการบันทึกสภาวะเพียงบางส่วน โปรดตั้งค่า context-param javax.faces.PARTIAL_STATE_SAVING ใน web.xml เป็นเท็จ</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">เกิดข้อผิดพลาดขณะซีเรียลไลซ์ {0} แอททริบิว: {1} ค่า: {2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">เกิดข้อผิดพลาดขณะซีเรียลไลซ์ {0} แอททริบิว: {1}</resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> ค่าที่ล้มเหลว=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">ข้อผิดพลาดในการเฟลโอเวอร์: {0} แอททริบิว: {1} ประเภท {2} ไม่สามารถซีเรียลไลซ์</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">ข้อผิดพลาดในการเฟลโอเวอร์: การซีเรียลไลซ์ {0} แอททริบิว: {1} มีการเปลี่ยนแปลงจาก {2} เป็น {3} โดยไม่มีผลกับแอททริบิว</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">การทดสอบการซีเรียลไลซ์แอททริบิวของเซสชันล้มเหลวสำหรับ {0} คุณสามารถเลิกใช้การตรวจสอบนี้ โดยลบ &apos;&apos;REQUEST&apos;&apos; ออกจากคุณสมบัติระบบ &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">เกิดข้อผิดพลาดขณะรวมข้อมูลการทดสอบการซีเรียลไลซ์แอททริบิวของเซสชันที่ล้มเหลว</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">แอททริบิวของเซสชัน: {0}</resource>
 </resources>

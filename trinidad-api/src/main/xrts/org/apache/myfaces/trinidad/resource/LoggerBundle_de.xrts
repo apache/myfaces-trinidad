@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Dekomprimieren des Seitenstatus nicht erfolgreich.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">getClientId darf nicht aufgerufen werden, während die Ansicht erstellt wird. Komponenten-ID: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">Zeilenschlüssel wird möglicherweise am Ende der Anforderung nicht ordnungsgemäß zurückgesetzt. Komponenten-ID: {0} ViewId: {1}</resource>
 </resources>

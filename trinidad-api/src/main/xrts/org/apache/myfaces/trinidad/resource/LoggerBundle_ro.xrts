@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">Eroare la interpretarea: {0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">eroare la încărcarea resursei: {0}</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">Eroare la încărcarea resursei:{0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">Numele de resursă &quot;{0}&quot; începe cu un caracter slash, care nu este portabil.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Eşec la dezarhivarea .zip a stării paginii.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">getClientId nu trebuie apelat în timp ce vizualizarea este construită. ID componentă: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">cheia rândului ar putea să nu fie resetată corect la sfârşitul cererii. ID componentă: {0} ViewId: {1}</resource>
 </resources>

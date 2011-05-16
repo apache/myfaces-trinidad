@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">เกิดข้อผิดพลาดขณะพาร์ซ: {0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">เกิดข้อผิดพลาดขณะโหลดทรัพยากร: &apos;&apos;{0}&apos;&apos;</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">เกิดข้อผิดพลาดขณะโหลดทรัพยากร: {0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">ชื่อทรัพยากร &quot;{0}&quot; เริ่มต้นด้วยเครื่องหมายทับ ซึ่งไม่สามารถโยกย้ายได้</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">ไม่สามารถคลายซิปสภาวะของเพจ</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">ไม่สามารถเรียก getClientId ขณะที่สร้างวิว ID องค์ประกอบ: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">คีย์ของแถวอาจมีการรีเซ็ตไม่ถูกต้องที่ท้ายคำขอ ID องค์ประกอบ: {0} ViewId: {1}</resource>
 </resources>

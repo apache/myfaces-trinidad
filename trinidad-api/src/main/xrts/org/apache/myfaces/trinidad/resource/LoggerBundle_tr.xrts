@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Sayfa durumu unzip ile açılamadı.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">Görünüm yapılandırılırken getClientId çağrılmamalıdır. Bileşen No: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">satır anahtarı isteğin sonunda doğru sıfırlanmamış olabilir. Bileşen No: {0} Görünüm No: {1}</resource>
 </resources>

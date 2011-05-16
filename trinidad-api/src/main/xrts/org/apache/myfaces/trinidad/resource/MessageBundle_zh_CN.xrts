@@ -35,19 +35,19 @@
 <!-- value will be of the form <classname>.MSG_KEY, and the detailed     -->
 <!-- message will be of the form <classname>.MSG_KEY_detail.             -->
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED" dnt="false">要求提供值。</resource>
+<resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED" dnt="false">必须提供值。</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED_detail" dnt="false">必须输入一个值。</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED" dnt="false">要求进行选择。</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED" dnt="false">必须进行选择。</resource>
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">必须至少做一个选择。</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">要求进行选择。</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">必须进行选择。</resource>
 <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">必须进行选择。</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">要求选择行。</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">必须选择行。</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">必须选择一行。</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED" dnt="false">要求选择行。</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED" dnt="false">必须选择行。</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED_detail" dnt="false">必须选择一行或多行。</resource>
 <!-- SelectManyRenderer ConversionException messages -->
 <!-- {0} modelClass                                  -->

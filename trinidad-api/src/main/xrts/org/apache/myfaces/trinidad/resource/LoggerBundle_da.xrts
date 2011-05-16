@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Kunne ikke pakke sidetilstanden ud.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">getClientId må ikke kaldes, mens visningen konstrueres. Komponent-ID: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">rækkenøgle nulstilles måske ikke korrekt ved slutningen af anmodningen. Komponent-ID: {0} Visnings-ID: {1}</resource>
 </resources>

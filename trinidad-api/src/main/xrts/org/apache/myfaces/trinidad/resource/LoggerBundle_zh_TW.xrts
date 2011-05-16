@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">無法解壓縮頁面狀態.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">建構視觀表時不可呼叫 getClientId. 元件 ID: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">要求結尾處未正確重設資料列索引鍵. 元件 ID: {0} ViewId: {1}</resource>
 </resources>

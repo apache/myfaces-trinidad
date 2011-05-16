@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">Error al analizar: {0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">error al cargar el recurso: {0}</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">Error al cargar el recurso:{0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">El nombre del recurso &quot;{0}&quot; empieza por una barra inclinada, que no es portátil.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Fallo al descomprimir el estado de la página.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">No se debe llamar getClientId mientras se genera la vista. Identificador de componente: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">la clave de fila no se puede restablecer correctamente al final de la solicitud. Identificador de Componente: {0} Identificador de Vista: {1}</resource>
 </resources>

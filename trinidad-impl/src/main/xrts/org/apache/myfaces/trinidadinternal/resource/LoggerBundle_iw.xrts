@@ -154,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">חבילת משאבים {0} לא נמצאה.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">שגיאה בסגירת קובץ:{0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">שגיאה בסגירת קובץ: {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">שגיאה בהבאת קובצי metadata של האזור:{0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">התגלתה תלות מעגלית בסמל הפניית המעטפת {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">אובייקט SkinAddition עם ערך null הועבר אל addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">כישלון בניתוח קובץ תצורה של מעטפת: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">ה-ValueExpression של המקור-תרגום של המעטפת אינו מהסוג הצפוי Map או ResourceBundle ולכן המערכת מתעלמת ממנו.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -340,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">שגיאה בניתוח:{0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">שגיאה בטעינת קובץ:{0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">שגיאה בטעינת קובץ: {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">אי אפשר לטעון גיליון סגנונות: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IState חייב להיות מופע של StateManager.SerializedView או מערך אובייקטים באורך 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">שמירת מצב חלקי אינה נתמכת. הגדר את context-param javax.faces.PARTIAL_STATE_SAVING כ-false בקובץ web.xml.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">שגיאה בביצוע serializing {0} על התכונה: {1} ערך: {2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">שגיאה בביצוע serialization {0} של התכונה: {1}</resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false">ערך נכשל=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">שגיאה בביצוע Failover {0}: התכונה: {1} מסוג {2} איננה Serializable</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">שגיאה בביצוע Failover: ביצוע Serialization של {0} התכונה: {1} השתנה מ-{2} ל-{3} מבלי שהתכונה תתלכלך</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">נכשלה בדיקת serialization של תכונת מושב עבודה של {0}. אפשר לחסום בדיקה זו בהסרת &apos;&apos;REQUEST&apos;&apos; ממאפיין המערכת &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">כישלון באיסוף חריגים בבדיקת serialization של תכונת מושב עבודה</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">תכונת מושב עבודה: {0}</resource>
 </resources>

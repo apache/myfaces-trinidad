@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">ページ状態の解凍に失敗しました。</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">ビューの作成中にgetClientIdの呼出しはできません。コンポーネントID: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">行キーがリクエストの最後で正しくリセットされていない可能性があります。コンポーネントID: {0} ViewId: {1}</resource>
 </resources>

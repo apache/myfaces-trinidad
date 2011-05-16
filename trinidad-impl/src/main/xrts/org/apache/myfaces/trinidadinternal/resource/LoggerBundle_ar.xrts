@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">تم اكتشاف تبعية دائرية في أيقونة مرجع السطح الخارجي {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">تم تمرير كائن SkinAddition خال إلى addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">فشلت معالجة ملف تكوين المظهر الخارجي: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">ValueExpression الخاص بمصدر ترجمة المظهر الخارجي ليس من نوع التخطيط Map أو ResourceBundle المتوقع، لذا سيتم تجاهله.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">يجب أن يكون IState طبعة لـ StateManager.SerializedView أو مصفوفة كائنات بالطول 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">الحفظ الجزئي للحالة ليس مدعومًا حتى الآن. الرجاء تعيين معلمة السياق javax.faces.PARTIAL_STATE_SAVING إلى القيمة غير صحيح false في web.xml.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">خطأ في تسلسل {0} السمة: {1} القيمة: {2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">حدث خطأ في إنشاء تسلسل سمة {0} : {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> قيمة الفشل=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">خطأ في الانتقال عقب الفشل: {0} السمة:{1} من النوع {2} غير قابلة للتسلسل</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">خطأ في الانتقال عقب الفشل: تم تغيير {0} السمة:{1} من {2} إلى {3} دون تجاهل السمة</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">فشل اختبار إنشاء تسلسل سمة جلسة عمل {0}. ويمكن تعطيل هذا الاختبار عبر إزالة &apos;&apos;REQUEST&apos;&apos; من خاصية النظام &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">حدث استثناء أثناء جمع بيانات فشل اختبار إنشاء تسلسل لسمة جلسة العمل</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">سمة جلسة العمل:{0} </resource>
 </resources>

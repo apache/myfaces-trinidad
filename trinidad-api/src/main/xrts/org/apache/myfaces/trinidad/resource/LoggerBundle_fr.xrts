@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Echec de la décompression de l&apos;état de la page.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">getClientId ne doit pas être appelé pendant la construction de la vue. ID de composant : {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">la clé de ligne n&apos;&apos;est peut-être pas réinitialisée correctement à la fin de la demande. ID de composant : {0} ; ID de vue : {1}</resource>
 </resources>

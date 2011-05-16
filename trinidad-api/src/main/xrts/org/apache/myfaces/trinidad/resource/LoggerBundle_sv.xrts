@@ -37,9 +37,9 @@
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->
 <resource key="SAVED_CHILD_COUNT_NOT_MATCH" dnt="false">Sparat antal underordnade matchar inte aktuellt antal (var {0}, nu {1})</resource>
 <!-- FACETS_STATE_MISSING_WILLNOT_RESTORE -->
-<resource key="FACETS_STATE_MISSING_WILLNOT_RESTORE" dnt="false">Status för vissa komponenter av {0} saknas och återställs inte.</resource>
+<resource key="FACETS_STATE_MISSING_WILLNOT_RESTORE" dnt="false">Status för vissa aspekter av {0} saknas och återställs inte.</resource>
 <!-- DISCARDING_SAVED_STATE -->
-<resource key="DISCARDING_SAVED_STATE" dnt="false">Sparad komponentstatus innehåller status för komponenten &quot;{0}&quot; som inte finns i återställt träd; ignorerar denna status.</resource>
+<resource key="DISCARDING_SAVED_STATE" dnt="false">Sparad aspektstatus innehåller status för aspekten &quot;{0}&quot; som inte finns i återställt träd; ignorerar denna status.</resource>
 <!-- SAVED_STATE_INCLUDE_TRANSIENT_COMPONENT_STATE -->
 <resource key="SAVED_STATE_INCLUDE_TRANSIENT_COMPONENT_STATE" dnt="false">Sparad status innehåller status för en tillfällig komponent: {0}</resource>
 <!-- CANNOT_FIND_ROWKEY -->
@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">Fel vid tolkning av:{0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">fel vid laddning av resursen:{0}</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">Fel vid laddning av resurs:{0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">Resursnamnet &quot;{0}&quot; börjar med ett snedstreck, vilket inte kan flyttas.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
@@ -157,9 +157,9 @@
 <!-- CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT -->
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">Kan inte konstruera en AddFacetChange om något av facetName eller facetComponent är null.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
-<resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Facet-namn måste anges</resource>
+<resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Aspekt måste anges</resource>
 <!-- FACET_ALREADY_PRESENT -->
-<resource key="FACET_ALREADY_PRESENT" dnt="false">Ändringshanterare kunde inte använda SetFacetChildComponentChange eftersom det redan finns en komponent med samma namn. {0}</resource>
+<resource key="FACET_ALREADY_PRESENT" dnt="false">Ändringshanterare kunde inte använda SetFacetChildComponentChange eftersom det redan finns en aspekt med samma namn. {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Underordnad komponent som ska flyttas måste anges.</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Kunde inte zippa upp sidstatus.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">getClientId ska inte anropas under tiden vyn konstrueras. Komponent-id: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">radnyckel kanske inte återställs korrekt i slutet av begäran. Komponent-id: {0} ViewId: {1}</resource>
 </resources>
