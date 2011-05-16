@@ -1,7 +1,5 @@
 package org.apache.myfaces.trinidad.change;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Map;
 
 import javax.el.ValueExpression;
@@ -77,15 +75,11 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
 
   private void _updateRowKeySetInPlace(UIComponent component, String attrName, RowKeySet newValue)
   {
-    // Take a snapshot of the remembered keys, so we are insulated from any heayweight implementations of RowKeySet 
-    Collection<Object> newKeySet = new HashSet<Object>();
-
+    // Check whether the remembered RowKeySet object is in a valid state (iterable).
     try 
     {
-      newKeySet.addAll(newValue);
+      newValue.iterator().hasNext();
     }
-    // addAll() can raise a few exceptions, a behavior we can't reliably predict for different possible implementations 
-    //  of RowKeySet during invokeOnComponent, we do not want to propogate either, gracefully fail change attempt.
     catch (Exception e) 
     {
       _LOG.warning("FAILED_ROWKEYSETATTRIBUTECHANGE", e.getClass());
@@ -103,7 +97,7 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
     context.getViewRoot().invokeOnComponent(
       context,
       _clientId,
-      new GetOldValueAndUpdate(oldExpression, attrName, newKeySet));
+      new GetOldValueAndUpdate(oldExpression, attrName, newValue));
   }
     
   /**
@@ -111,7 +105,7 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
    */
   private static final class GetOldValueAndUpdate implements ContextCallback
   {
-    public GetOldValueAndUpdate(ValueExpression expression, String attributeName, Collection<Object> newKeySet)
+    public GetOldValueAndUpdate(ValueExpression expression, String attributeName, RowKeySet newKeySet)
     {
       _expression = expression;
       _attributeName = attributeName;
@@ -161,7 +155,7 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
     
     private final ValueExpression _expression;
     private final String _attributeName;
-    private final Collection<Object> _newKeySet;
+    private final RowKeySet _newKeySet;
   }
 
   private static final long serialVersionUID = 1L;
