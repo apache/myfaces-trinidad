@@ -9,6 +9,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
 /**
@@ -74,6 +75,17 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
 
   private void _updateRowKeySetInPlace(UIComponent component, String attrName, RowKeySet newValue)
   {
+    // Check whether the remembered RowKeySet object is in a valid state (iterable).
+    try 
+    {
+      newValue.iterator().hasNext();
+    }
+    catch (Exception e) 
+    {
+      _LOG.warning("FAILED_ROWKEYSETATTRIBUTECHANGE", e.getClass());
+      return;
+    }
+
     ValueExpression oldExpression = component.getValueExpression(attrName);
     
     // due to bug in how the trinidad table and tree handle their RowKeySets, always use
@@ -97,7 +109,7 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
     {
       _expression = expression;
       _attributeName = attributeName;
-      _newKeySet  = newKeySet;
+      _newKeySet = newKeySet;
     }
     
     public void invokeContextCallback(FacesContext context,
@@ -147,6 +159,7 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
   }
 
   private static final long serialVersionUID = 1L;
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RowKeySetAttributeChange.class);
   
   private final String _clientId;
 }

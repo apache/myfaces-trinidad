@@ -39,6 +39,9 @@
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE">Conversion class: {0} not of type {1}</resource>
 
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE">Failed to apply row key set attribute change. Reason : {1}</resource>
+
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS">Unable to instantiate converterClass: {0}</resource>
 
