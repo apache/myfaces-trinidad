@@ -354,6 +354,29 @@ abstract public class UIXComponent extends UIComponent
     return visitTree(visitContext, this, callback);
   }
 
+  /**
+   * Specifies what facets and children components should be processed as rendered for life-cycle
+   * methods. Any components not returned will not be processed during methods such as decoding,
+   * validating, updating the model, rendered-only tree visiting, etc.
+   *
+   * @param facesContext the facesContext
+   * @return An iterator of components to process. Must not return null (return an empty iterator
+   * if no children components should be processed).
+   */
+  protected Iterator<UIComponent> getRenderedFacetsAndChildren(
+    FacesContext facesContext)
+  {
+    Renderer renderer = getRenderer(facesContext);
+    if (renderer instanceof CoreRenderer)
+    {
+      return ((CoreRenderer)renderer).getRenderedFacetsAndChildren(facesContext, this);
+    }
+    else
+    {
+      return getFacetsAndChildren();
+    }
+  }
+
  /**
   * Hook for subclasses to override the manner in which the component's children are visited.  The default
   * implementation visits all of the children and facets of the Component.
@@ -399,13 +422,16 @@ abstract public class UIXComponent extends UIComponent
    * @return <code>true</code> if the visit is complete.
    */
   protected final boolean visitAllChildren(
-    VisitContext visitContext,
+    VisitContext  visitContext,
     VisitCallback callback)
   {
     // visit the children of the component
-    Iterator<UIComponent> kids = getFacetsAndChildren();
+    Iterator<UIComponent> kids =
+      visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED) ?
+        getRenderedFacetsAndChildren(visitContext.getFacesContext()) :
+        getFacetsAndChildren();
 
-    while(kids.hasNext())
+    while (kids.hasNext())
     {
       // If any kid visit returns true, we are done.
       if (kids.next().visitTree(visitContext, callback))
@@ -526,10 +552,10 @@ abstract public class UIXComponent extends UIComponent
               {
                 uixComponent.setupEncodingContext(context, rc);
               }
-                
+
               try
               {
-                doneVisiting = visitChildren(visitContext, uixComponent, callback);                  
+                doneVisiting = visitChildren(visitContext, uixComponent, callback);
               }
               finally
               {
@@ -900,7 +926,7 @@ abstract public class UIXComponent extends UIComponent
    * @see #setupEncodingContext
    * @see #tearDownEncodingContext
    * @see #setupChildrenVistingContext
-   * 
+   *
    */
   protected void setupVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
@@ -1167,7 +1193,7 @@ abstract public class UIXComponent extends UIComponent
   {
     return getParent();
   }
-  
+
   /**
    * Provides a logical parent for the component (a parent in the context of the document where the component was
    * defined). The default implementation will simply call getParent() on the component. Components that get relocated during
@@ -1179,10 +1205,10 @@ abstract public class UIXComponent extends UIComponent
   {
     if (component instanceof UIXComponent)
     {
-      return ((UIXComponent)component).getLogicalParent();  
+      return ((UIXComponent)component).getLogicalParent();
     }
-    
-    return component.getParent();  
+
+    return component.getParent();
   }
 
   /**

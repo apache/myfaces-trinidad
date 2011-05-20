@@ -67,6 +67,23 @@ public class CoreRenderer extends Renderer
   }
 
   /**
+   * Allows the rendered to specify what components should be involved with rendered children
+   * life-cycle operations and methods.
+   *
+   * @param facesContext the faces context
+   * @param component the component from which to get the rendered facets and children
+   * @see UIXComponentBase#getRenderedFacetsAndChildren(FacesContext)
+   * @return A list of components to process as rendered components. Defaults to all facets and
+   * children of a component
+   */
+  public Iterator<UIComponent> getRenderedFacetsAndChildren(
+    FacesContext facesContext,
+    UIComponent  component)
+  {
+    return component.getFacetsAndChildren();
+  }
+
+  /**
    * <p>
    * Called when visiting the CoreRenderer's component during optimized partial page encoding so
    * that the CoreRenderer can modify what is actually encoded.  For example tab controls often
@@ -202,7 +219,8 @@ public class CoreRenderer extends Renderer
     VisitCallback callback)
   {
     // visit the children of the component
-    Iterator<UIComponent> kids = component.getFacetsAndChildren();
+    Iterator<UIComponent> kids = getRenderedFacetsAndChildren(
+                                   visitContext.getFacesContext(), component);
 
     while (kids.hasNext())
     {
@@ -616,7 +634,7 @@ public class CoreRenderer extends Renderer
     if (childCount == 0)
       return;
 
-    for(UIComponent child : (List<UIComponent>)component.getChildren())
+    for (UIComponent child : (List<UIComponent>)component.getChildren())
     {
       if (child.isRendered())
       {
