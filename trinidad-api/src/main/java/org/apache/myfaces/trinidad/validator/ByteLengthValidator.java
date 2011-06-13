@@ -432,7 +432,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
     _TYPE.registerKey("encoding", String.class, "iso-8859-1");
 
   private static final PropertyKey _MAXIMUM_KEY =
-    _TYPE.registerKey("maximumBytes", int.class, 0);
+    _TYPE.registerKey("maximum", int.class, 0);
 
   private static final PropertyKey  _MAXIMUM_MESSAGE_DETAIL_KEY =
     _TYPE.registerKey("messageDetailMaximum", String.class);
