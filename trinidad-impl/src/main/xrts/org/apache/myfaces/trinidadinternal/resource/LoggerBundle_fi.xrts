@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Virheellinen aluetunnuksen {0} maa - maatunnus on kirjoitettava isoilla kirjaimilla, tarkista oikea muoto Locale javadoc -tiedostosta. Maatunnuksena käytetään tyhjää merkkijonoa.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Virheellinen aluetunnuksen {0} muuttuja - se ei voi sisältää vinoviivaa, jotta XSS-hyökkäykset voidaan välttää. Muuttujana käytetään tyhjää merkkijonoa.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Tiedostoa {0} ei voi poistaa</resource>
 </resources>

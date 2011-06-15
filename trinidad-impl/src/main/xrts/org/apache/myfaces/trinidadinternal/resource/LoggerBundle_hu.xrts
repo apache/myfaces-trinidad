@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Érvénytelen ország a(z) {0} nyelvi-területi azonosító számára. Az országkódnak nagybetűsnek kell lennie. A helyes formátumot a nyelvi-területi beállításra vonatkozó javadoc tartalmazza. A rendszer üres karakterláncot használ országként.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Érvénytelen változó a(z) {0} nyelvi-területi azonosító számára. A változó nem tartalmazhat törtvonalat az XSS-támadás elkerülésére. A rendszer üres karakterláncot használ változóként.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Nem törölhető ez a fájl: {0}</resource>
 </resources>

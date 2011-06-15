@@ -638,7 +638,7 @@
 <!-- ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED -->
 <resource key="ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED" dnt="false">只支援 ContextBasedConfiguration</resource>
 <!-- FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED -->
-<resource key="FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED" dnt="false">指派 RendererManager 後, 不可以設定 facet.</resource>
+<resource key="FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED" dnt="false">指定 RendererManager 後, 不可以設定 facet.</resource>
 <!-- ILLEGAL_TO_SET_CHILDREN -->
 <resource key="ILLEGAL_TO_SET_CHILDREN" dnt="false">在 {0} 上設定子項是無效的</resource>
 <!-- ILLEGAL_TO_ADD_CHILDREN -->
@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">「地區設定」ID {0} 的國別無效 - 國別代碼必須使用大寫, 請參閱「地區設定」Java 文件以瞭解正確的格式. 將會使用空白的國別字串.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">「地區設定」ID {0} 的變異無效 - 不得包含斜線以避免 XSS 攻擊. 將會使用空白的變異字串.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">無法刪除檔案 {0}</resource>
 </resources>

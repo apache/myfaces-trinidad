@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ugyldigt land for identifikator for landestandard {0} - landekoden skal være med store bogstaver. Javadoc for landestandard indeholder det korrekte format. Vil bruge en tom streng til land</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ugyldig variant for identifikator for landestandard {0} - må ikke indeholde skråstreger, hvis XSS-angreb skal undgås. Vil bruge en tom streng til variant.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Kunne ikke slette filen {0}</resource>
 </resources>

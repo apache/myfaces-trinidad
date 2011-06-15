@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ţară nevalidă pentru identificatorul variabilei locale {0} - codul de ţară trebuie să fie scris cu majuscule; pentru formatul corect, consultaţi documentaţia Java pentru variabile locale. Se va utiliza un şir gol pentru ţară</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variantă nevalidă pentru identificatorul variabilei locale {0} - nu poate să conţină caractere slash pentru a evita atacul XSS. Se va utiliza un şir gol pentru variantă.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Nu s-a putut şterge fişierul {0}</resource>
 </resources>

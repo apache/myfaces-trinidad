@@ -170,7 +170,7 @@
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Det finns ingen SkinFactory</resource>
 <!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Skalet {0} som har angetts i requestMap kommer att användas även om skalet styleSheetDocumentId för konsumenten i requestMap inte överensstämmer med id:t för styleSheetDocument för det lokala skalet. Det här kommer att påverka prestanda eftersom formatmallarna för konsumenten och producenten inte kan delas. För att undvika konflikter kommer producentformatklasserna inte att komprimeras. En orsak till att id:na inte överensstämmer är att jar-filerna i producenten och konsumenten inte är identiska. Skaltillägget för trinidad-skins.xml kan till exempel finnas i en jar-file i klassökvägen för den producenten men inte för konsumenten.</resource>
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Skalet {0} som har angetts i requestMap kommer att användas även om skalet styleSheetDocumentId för konsumenten i requestMap inte matchar id:t för styleSheetDocument för det lokala skalet. Det här kommer att påverka prestanda eftersom formatmallarna för konsumenten och producenten inte kan delas. För att undvika konflikter kommer producentformatklasserna inte att komprimeras. En orsak till att id:na inte matchar är att jar-filerna i producenten och konsumenten inte är identiska. Skaltillägget för trinidad-skins.xml kan till exempel finnas i en jar-file i klassökvägen för den producenten men inte för konsumenten.</resource>
 <!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
 <resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Skalet {0} som har angetts i requestMap kommer att användas även om skalet styleSheetDocumentId för konsumenten i requestMap inte överensstämmer med id:t för styleSheetDocument för det lokala skalet. Det här kommer att påverka prestanda eftersom formatmallarna för konsumenten och producenten inte kan delas.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
@@ -478,9 +478,9 @@
 <!-- PROBLEM_LOADING -->
 <resource key="PROBLEM_LOADING" dnt="false">Problem vid laddning...</resource>
 <!-- GRABBING_PIXELS -->
-<resource key="GRABBING_PIXELS" dnt="false">Vid registrering av pixlar:</resource>
+<resource key="GRABBING_PIXELS" dnt="false">Vid fångst av pixlar:</resource>
 <!-- ERROR_FETCHING_IMAGE -->
-<resource key="ERROR_FETCHING_IMAGE" dnt="false">Fel när bilden hämtades. registrerade {0} pixelvärden för {1} x {2}-bilden.</resource>
+<resource key="ERROR_FETCHING_IMAGE" dnt="false">Fel när bilden hämtades. fångade {0} pixelvärden för {1} x {2}-bilden.</resource>
 <!-- EXCEEDED_GIF_COLOR_LIMIT -->
 <resource key="EXCEEDED_GIF_COLOR_LIMIT" dnt="false">Överskriden gräns för gif-färg.</resource>
 <!-- NO_SPACE_LEFT_FOR_TRANSPARENCY -->
@@ -514,7 +514,7 @@
 <!-- NO_BASE_PATH_REGISTERED -->
 <resource key="NO_BASE_PATH_REGISTERED" dnt="false">Ingen bassökväg har registrerats</resource>
 <!-- KEYS_AND_VALUES_MUST_MATCH -->
-<resource key="KEYS_AND_VALUES_MUST_MATCH" dnt="false">antal nycklar och värden måste stämma överens</resource>
+<resource key="KEYS_AND_VALUES_MUST_MATCH" dnt="false">antal nycklar och värden måste matcha</resource>
 <!-- NOT_A_CHARACTER -->
 <resource key="NOT_A_CHARACTER" dnt="false">{0} är inte ett tecken</resource>
 <!-- CANNOT_BE_PARSED -->
@@ -608,7 +608,7 @@
 <!-- VARSTATUS_CANNOT_BE_EXPRESSION -->
 <resource key="VARSTATUS_CANNOT_BE_EXPRESSION" dnt="false">&quot;varStatus&quot; kan inte vara ett uttryck</resource>
 <!-- MUST_POINT_TO_LIST_OR_ARRAY -->
-<resource key="MUST_POINT_TO_LIST_OR_ARRAY" dnt="false">&quot;objekt&quot; måste peka på en lista eller vektor</resource>
+<resource key="MUST_POINT_TO_LIST_OR_ARRAY" dnt="false">&quot;objekt&quot; måste peka på en lista eller uppställning</resource>
 <!-- MUST_SPECIFY_BEGIN_AND_END -->
 <resource key="MUST_SPECIFY_BEGIN_AND_END" dnt="false">&apos;begin&apos; och &apos;end&apos; ska anges om &apos;items&apos; inte har angetts</resource>
 <!-- MUST_NOT_HAVE_SAME_VALUE -->
@@ -676,7 +676,7 @@
 <!-- FACET_NOT_SUPPORTED -->
 <resource key="FACET_NOT_SUPPORTED" dnt="false">Komponenten {0} stöds inte på {1}</resource>
 <!-- NUMBER_OF_KEYS_AND_VALUES_MUCH_MATCH -->
-<resource key="NUMBER_OF_KEYS_AND_VALUES_MUCH_MATCH" dnt="false">antal nycklar och värden måste stämma överens</resource>
+<resource key="NUMBER_OF_KEYS_AND_VALUES_MUCH_MATCH" dnt="false">antal nycklar och värden måste matcha</resource>
 <!-- CHILD_NOT_NULL_NOT_ICONNODE_INSTANCE -->
 <resource key="CHILD_NOT_NULL_NOT_ICONNODE_INSTANCE" dnt="false">underordnad är inte null och inte en instans av IconNode</resource>
 <!-- NULL_FAMILY -->
@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ogiltigt land för språkidentifierare {0} - landskod måste anges med versaler, se språk-javadoc för korrekt format. Använder tom sträng för land</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ogiltig variant för språkidentifierare {0} - får inte innehålla snedstreck för att undvika XSS-attack. Använder tom sträng för variant.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Kunde inte ta bort filen {0}</resource>
 </resources>

@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Μη έγκυρη χώρα για το αναγνωριστικό τοπικών ρυθμίσεων {0} - ο κωδικός χώρας πρέπει να είναι με πεζά. Για τη σωστή μορφή, ανατρέξτε στο javadoc. Θα χρησιμοποιηθεί κενή συμβολοσειρά για τη χώρα</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Μη έγκυρη μεταβλητή για το αναγνωριστικό τοπικών ρυθμίσεων {0} - δεν είναι δυνατόν να περιέχονται κάθετοι για να αποφευχθεί επίθεση XSS. Θα χρησιμοποιηθεί κενή συμβολοσειρά για τη μεταβλητή.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Δεν ήταν δυνατή η διαγραφή του αρχείου {0}</resource>
 </resources>

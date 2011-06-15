@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">区域设置标识符 {0} 的国家/地区无效 - 国家/地区代码必须大写, 请查看区域设置 Javadoc 以了解正确格式。国家/地区将使用空字符串</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">区域设置标识符 {0} 的变体无效 - 不能包含斜杠, 以避免 XSS 攻击。变体将使用空字符串。</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">无法删除文件 {0}</resource>
 </resources>

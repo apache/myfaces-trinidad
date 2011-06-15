@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">ロケール識別子{0}の国が無効です - 国コードは大文字である必要があります。正しい形式についてはロケールjavadocを参照してください。国には空の文字列が使用されます</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">ロケール識別子{0}のバリアントが無効です - XSS攻撃を回避するために、スラッシュを含めることはできません。バリアントには空の文字列が使用されます。</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">ファイル{0}を削除できませんでした</resource>
 </resources>

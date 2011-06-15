@@ -215,9 +215,9 @@
 <!-- ILLEGAL_PATTERN_CHARACTER -->
 <resource key="ILLEGAL_PATTERN_CHARACTER" dnt="false">Caractère de modèle de sélection interdit &apos;&apos;{0}&apos;&apos;</resource>
 <!-- LOGGER_REQUIRED -->
-<resource key="LOGGER_REQUIRED" dnt="false">Programme de journalisation obligatoire</resource>
+<resource key="LOGGER_REQUIRED" dnt="false">Journaliseur obligatoire</resource>
 <!-- LOGGER_NAME_REQUIRED -->
-<resource key="LOGGER_NAME_REQUIRED" dnt="false">Nom de programme de journalisation obligatoire</resource>
+<resource key="LOGGER_NAME_REQUIRED" dnt="false">Nom de journaliseur obligatoire</resource>
 <!-- CLASS_REQUIRED -->
 <resource key="CLASS_REQUIRED" dnt="false">Classe obligatoire</resource>
 <!-- PACKAGE_REQUIRED -->

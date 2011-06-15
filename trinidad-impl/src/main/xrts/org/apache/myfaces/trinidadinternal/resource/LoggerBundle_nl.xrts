@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ongeldig land voor locale-ID {0}. De landcode moet in hoofdletters zijn. Zie javadoc over locale voor de juiste notatie. Er wordt een lege string gebruikt voor het land.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ongeldige variant voor locale-ID {0}. De variant mag geen slashes bevatten. Dit om XSS-aanvallen te voorkomen. Er wordt een lege string gebruikt voor de variant.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Het volgende bestand kan niet worden verwijderd: {0}.</resource>
 </resources>

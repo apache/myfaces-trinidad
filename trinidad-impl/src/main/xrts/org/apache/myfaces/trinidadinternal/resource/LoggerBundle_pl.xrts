@@ -721,4 +721,5 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Niepoprawny kraj dla identyfikatora {0} ustawień narodowych - kod kraju musi być podany wielkimi literami (poprawny format można znaleźć w dokumencie &quot;Locale javadoc&quot;). Dla kraju zostanie użyta pusta wartość napisowa.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Niepoprawna odmiana (variant) identyfikatora {0} ustawień narodowych - nie może zawierać ukośników (w celu uniknięcia ataków XSS). Zostanie użyta pusta wartość napisowa.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Nie udało się usunąć pliku {0}</resource>
 </resources>
