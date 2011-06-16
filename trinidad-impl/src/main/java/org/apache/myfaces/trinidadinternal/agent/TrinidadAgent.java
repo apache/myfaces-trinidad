@@ -24,6 +24,7 @@ import java.util.Map;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.Version;
 
+
 /**
  * Extension of public Agent interface. Defines constants/method for AdInternal use.
  * Keeping this Interace as is (from before), but extends the public
@@ -67,6 +68,13 @@ public abstract class TrinidadAgent implements Agent, Cloneable
 
   static public final CapabilityKey CAP_HEIGHT =
           CapabilityKey.getCapabilityKey("height", true);
+
+  /**
+   * Touch-screen capability, indicating the agent supports TouchEvent and GestureEvent
+   * events.
+   */
+  static public final CapabilityKey CAP_TOUCH_SCREEN =
+          CapabilityKey.getCapabilityKey("touchScreen", true);
 
   //
   // XHTML Modularization
@@ -173,9 +181,9 @@ public abstract class TrinidadAgent implements Agent, Cloneable
 
   static public final CapabilityKey CAP_IS_JDEV_JAVASCRIPT_VE = CapabilityKey
     .getCapabilityKey("-adfinternal-isJDevJavascriptVE", true);
-  
+
   // If this capability flag is true, it means that the request is from an agent
-  // that is running in a narrow-screen PDA. Trinidad optimizes its rendering 
+  // that is running in a narrow-screen PDA. Trinidad optimizes its rendering
   // for narrow-screen PDAs to reduce the overall width of the page rendered.
   static public final CapabilityKey CAP_NARROW_SCREEN = CapabilityKey
     .getCapabilityKey("narrowScreen", true);
@@ -218,7 +226,7 @@ public abstract class TrinidadAgent implements Agent, Cloneable
   // no styling is supported
   static public final Object STYLES_NONE               =
           CapabilityValue.getCapabilityValue (CAP_STYLE_ATTRIBUTES, "none");
-  // only the 'style' attribute is supported. The 'class' attribute is not 
+  // only the 'style' attribute is supported. The 'class' attribute is not
   // supported.
   static public final Object STYLES_STYLE_ONLY              =
           CapabilityValue.getCapabilityValue (CAP_STYLE_ATTRIBUTES, "style_only");
@@ -237,6 +245,18 @@ public abstract class TrinidadAgent implements Agent, Cloneable
           CapabilityValue.getCapabilityValue (CAP_CSS_SELECTORS, "single");
   static public final Object SELECTORS_MULTIPLE        =
           CapabilityValue.getCapabilityValue (CAP_CSS_SELECTORS, "multiple");
+
+  // Values for CAP_TOUCH_SCREEN
+  /**
+   * Agent only supports single finger touch events
+   */
+  static public final Object TOUCH_SCREEN_SINGLE =
+          CapabilityValue.getCapabilityValue (CAP_TOUCH_SCREEN, "single");
+  /**
+   * Agent supports multiple finger touch events and gestures
+   */
+  static public final Object TOUCH_SCREEN_MULTIPLE =
+          CapabilityValue.getCapabilityValue (CAP_TOUCH_SCREEN, "multiple");
 
   /**
    * Application constant for Desktop devices
@@ -258,7 +278,7 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    * Application constant for voice
    */
   static public final int TYPE_VOICE = 3;
-  
+
   /**
    * Application constant for web crawlers
    */
@@ -268,7 +288,7 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    * Enumeration representing an Application
    */
   public static enum Application
-  {           
+  {
     /**
      * Application enum when the user agent isn't known.
      */
@@ -396,13 +416,13 @@ public abstract class TrinidadAgent implements Agent, Cloneable
       _agentName = agentName;
 
       StateHolder.NAME_TO_APPLICATION.put(applicationName, this);
-      
+
       Map<String, Application> agentToApplication = StateHolder.AGENT_TO_APPLICATION;
-      agentToApplication.put(agentName, this); 
-      
+      agentToApplication.put(agentName, this);
+
       // if we have an alias for this agent name, register that as well
       if (agentAlias != null)
-        agentToApplication.put(agentAlias, this); 
+        agentToApplication.put(agentAlias, this);
     }
 
     /**
@@ -422,10 +442,10 @@ public abstract class TrinidadAgent implements Agent, Cloneable
     {
       return _agentName;
     }
-    
+
     private final String _applicationName;
     private final String _agentName;
-    
+
     /**
      * Holds the maps of agent name and application name to Application object.  By
      * using a separate class, we avoid restrictions on Enums refrerencing static
@@ -437,8 +457,8 @@ public abstract class TrinidadAgent implements Agent, Cloneable
       static public final Map<String, Application> AGENT_TO_APPLICATION = new HashMap<String, Application>();
     }
   }
-  
-  
+
+
   /**
    * Application constant for an entirely unknown application.
    */
@@ -535,27 +555,27 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    * Application constant for email.
    */
   static public final int APPLICATION_EMAIL = Application.EMAIL.ordinal();
-  
+
   /**
    * Application constant for opera.
    */
   static public final int APPLICATION_OPERA = Application.OPERA.ordinal();
-  
+
   /**
    * Application constant for Google web crawler.
    */
   static public final int APPLICATION_GOOGLEBOT = Application.GOOGLEBOT.ordinal();
-  
+
   /**
    * Application constant for Bing web crawler.
    */
   static public final int APPLICATION_MSNBOT = Application.MSNBOT.ordinal();
-  
+
   /**
    * Application constant for Oracle SES.
    */
   static public final int APPLICATION_ORACLE_SES = Application.ORACLE_SES.ordinal();
-  
+
   /**
    * OS constant for an unknown operating system.
    */
@@ -610,12 +630,12 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    * OS constant for generic PDA
    */
   static public final int OS_GENERICPDA   = 10;
-  
+
   /**
    * OS constant for Android
    */
   static public final int OS_ANDROID  = 11;
-  
+
   /**
    * Name Constant for Netfront agent
    */
@@ -664,57 +684,57 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    * Name Constant for Palm Web clipping (Elaine) agent
    */
   public static final String AGENT_ELAINE = "elaine";
-  
+
   /*
-   * Skin family for BlackBerry browsers whose version > 4.5 
-   */ 
+   * Skin family for BlackBerry browsers whose version > 4.5
+   */
   public static final String SKIN_BLACKBERRY = "blackberry";
-  
+
   /*
-   * Skin family for BlackBerry browsers whose version <=4.5 
+   * Skin family for BlackBerry browsers whose version <=4.5
    */
   public static final String SKIN_BLACKBERRY_MINIMAL = "blackberryminimal";
-  
+
   /*
    * Skin family for all the default mobile browsers
    */
   public static final String SKIN_GENERIC_PDA = "genericpda";
-  
-  /* 
+
+  /*
    * Skin family for all Safari browsers running in the iOS platform (iPhones/iPod/iPad)
    */
   public static final String SKIN_WEBKIT_IPHONE = "iPhonewebkit";
-  
-  /* 
+
+  /*
    * Skin family for all Safari browsers running in linux platform
    */
   public static final String SKIN_WEBKIT_LINUX = "linuxwebkit";
-  
-  /* 
+
+  /*
    * Skin family for all Safari browsers running in Mac platform
    */
   public static final String SKIN_WEBKIT_MAC = "macwebkit";
-  
-  /* 
+
+  /*
    * Skin family for all Safari browsers running in Nokia S60
    */
   public static final String SKIN_WEBKIT_NOKIA = "nokiawebkit";
-  
-  /* 
+
+  /*
    * Skin family for all Safari browsers running in windows platforms
    */
   public static final String SKIN_WEBKIT_WINDOWS = "windowswebkit";
-  
-  /* 
+
+  /*
    * Skin family for all Safari browsers running in unknown platforms
    */
   public static final String SKIN_WEBKIT_DEFAULT = "defaultwebkit";
-   
+
   /*
-   * Skin family for Windows Mobile browsers 
+   * Skin family for Windows Mobile browsers
    */
   public static final String SKIN_WINDOWS_MOBILE = "windowsmobile";
-  
+
   /**
    * Returns the type of agent to which we're rendering.  Currently,
    * only web browsers are understood.
@@ -735,7 +755,7 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    * if a version number couldn't be identified.
    */
   public abstract int getAgentMajorVersion();
-  
+
   /**
    * Returns the Version identifier to use for comparing the Version of this Agent to other
    * Versions.
@@ -754,15 +774,15 @@ public abstract class TrinidadAgent implements Agent, Cloneable
   public abstract Object getCapability(CapabilityKey key);
 
   public abstract Object clone();
-  
+
   /*
    * @return <code>String</code> object that represents an agent's
-   * skin-family, which is based upon the agent's CSS-support.     
+   * skin-family, which is based upon the agent's CSS-support.
    * Agents with the same name can have different skin families
    * if agents' versions or platforms are different.
    */
   public abstract String getSkinFamilyType();
-  
+
   /**
    * Convenienc method for cloning by subclases.
    */

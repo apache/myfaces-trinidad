@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-     
+
 -->
 <capabilitiesDocument xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
   <agentCapabilities>
@@ -68,26 +68,40 @@
       <include refid="html" />
       <include src="gecko.xml" />
     </capabilities>
-    
-    
+
+
     <capabilities id="email" agents="email">
       <include refid="html" />
       <include src="email.xml" />
     </capabilities>
-    
+
     <capabilities id="googlebot" agents="googlebot">
       <include refid="html" />
       <include src="email.xml" />
     </capabilities>
-    
+
     <capabilities id="msnbot" agents="msnbot">
       <include refid="html" />
       <include src="email.xml" />
     </capabilities>
-    
+
     <capabilities id="oracle_ses" agents="oracle_ses">
       <include refid="html" />
       <include src="email.xml" />
+    </capabilities>
+
+    <capabilities id="ios" agents="webkit/500+" platforms="ipad iphone ipod">
+      <!-- note, version included to give it a higher score than the webkit312 below -->
+      <include refid="html" />
+      <include src="webkit312.xml"/>
+      <include src="ios.xml"/>
+    </capabilities>
+
+    <capabilities id="android" agents="webkit/500+" platforms="android">
+      <!-- note, version included to give it a higher score than the webkit312 below -->
+      <include refid="html" />
+      <include src="webkit312.xml"/>
+      <include src="android.xml"/>
     </capabilities>
 
     <capabilities id="webkit" agents="webkit">
@@ -109,8 +123,8 @@
       <include refid="html" />
       <include src="netscape.xml"/>
     </capabilities>
-    
-    <!-- Netfront browser is treated as basic HTML browser for 
+
+    <!-- Netfront browser is treated as basic HTML browser for
          performance
     <capabilities id="netfront" agents="netfront/3+ webpro blazer/3+">
       <include refid="pda" />
@@ -134,8 +148,8 @@
       <include refid="pocketie"/>
       <include src="wm6.xml"/>
     </capabilities>
-   
-   
+
+
     <!-- BlackBerry Browser pre-4.0; 3.6 and 3.7 include support for
     XHTML Basic; 3.2 and 3.3 support cHTML; we do not provide
     explicit support for these browsers, but we use the "pda"
@@ -146,9 +160,9 @@
       <include src="pdaGeneric.xml"/>
     </capabilities>
 
-    
+
     <!-- BlackBerry Browser BlackBerry Curve and Perl devices -->
-    <!-- BlackBerry Curve and Perl are treated as basic HTML browsers for 
+    <!-- BlackBerry Curve and Perl are treated as basic HTML browsers for
          performance
     <capabilities id="blackberry4" agents="blackberry/4+" platforms="blackberry">
       <include refid="pda"/>
