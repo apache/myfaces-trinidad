@@ -19,23 +19,14 @@
 package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.faces.context.FacesContext;
-
-import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
-
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidad.share.io.NameResolver;
 
 import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
-import org.apache.myfaces.trinidadinternal.share.io.FileInputStreamProvider;
-import org.apache.myfaces.trinidadinternal.share.io.URLInputStreamProvider;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
@@ -133,8 +124,6 @@ class StyleSheetNameResolver implements NameResolver
 
   private File _localStylesDir;
   private InputStreamProvider _provider;
-  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StyleSheetNameResolver.class);
-  private static final String _SERVICES_PROVIDER_KEY =
-    "org.apache.myfaces.trinidadinternal.skin.SERVICES_PROVIDER_KEY";
+  
 }
 

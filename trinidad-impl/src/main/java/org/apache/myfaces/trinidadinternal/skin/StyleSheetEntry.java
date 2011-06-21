@@ -349,9 +349,9 @@ class StyleSheetEntry
     }
     catch (IOException e)
     {
-      if (_LOG.isSevere())
-        _LOG.severe("CANNOT_LOAD_STYLESHEET", styleSheetName);
-        _LOG.severe(e);
+      if (_LOG.isWarning())
+        _LOG.warning("CANNOT_LOAD_STYLESHEET", styleSheetName);
+        _LOG.warning(e.getMessage());
     }
     if (resolver == null)
     {
@@ -386,7 +386,7 @@ class StyleSheetEntry
    * @return NameResolver - either a StyleSheetNameResolver or the META-INF/services NameResolver
    * implementation. The META-INF/services NameResolver implementation is the way a third party
    * can customize the way they find and load files.
-   * @throws IOException when the file could not be found in all of the ways we tried to find it.
+   * @throws FileNotFoundException when the file could not be found in all of the ways we tried to find it.
    */
   private static NameResolver _getNameResolverForStyleSheetFile(
     StyleContext context, 
@@ -547,7 +547,7 @@ class StyleSheetEntry
   private static String _getFileNotFoundMessage(File localStylesDir, String name)
   {
     StringBuffer buffer = new StringBuffer();
-    buffer.append("Unable to locate style sheet \"");
+    buffer.append("Unable to locate the skin's style sheet \"");
     buffer.append(name);
     buffer.append("\" in ");
 
