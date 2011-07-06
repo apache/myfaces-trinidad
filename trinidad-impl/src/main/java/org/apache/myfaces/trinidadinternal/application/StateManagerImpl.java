@@ -940,7 +940,7 @@ public class StateManagerImpl extends StateManagerWrapper
     // @see setPerViewStateSaving()
     String viewStateValue =
       external.getRequestParameterMap().get(ResponseStateManager.VIEW_STATE_PARAM);
-    if (viewStateValue != null && !viewStateValue.startsWith("!"))
+    if (! (_isViewStateNull(viewStateValue) || viewStateValue.startsWith("!")))
     {
       return false;
     }
@@ -948,6 +948,29 @@ public class StateManagerImpl extends StateManagerWrapper
     // Last missing option: state-saving is "CLIENT" and the client-state-method uses
     // its default (token), so we return TRUE to send down a token string.
     return true;
+  }
+  
+  /**
+   * One oddity with some of the JSF 1.2 Bridge impelmentations is that when
+   * there is a goLink that is encoded as an action URL, as the are expected to
+   * be, the bridge works around an issue in Mojarra that would cause JSF to not
+   * display properly.  The reason for this is that ActionRequests into the
+   * Portal are considered "posts" and Mojarra will skip the render phase of JSF
+   * if there is a post request without a viewStateParameter.  Hopefully this
+   * issue can be fixed in later versions of Mojarra 1.2 and it DOES NOT exist
+   * in MyFaces or Mojarra 2.0 and later.
+   * 
+   * For now, however, in the JSF 1.2 branches, we need to check to see if the
+   * VIEW_STATE_PARAMETER is "org.apache.myfaces.portlet.faces.nullViewState"
+   * in addition to the actual Null value.  This bug is being tracked in
+   * Jira: PORTLETBRIDGE-216.
+   * 
+   * @param ec
+   * @return
+   */
+  private boolean _isViewStateNull(String viewStateValue)
+  {
+    return viewStateValue == null || "org.apache.myfaces.portlet.faces.nullViewState".equals(viewStateValue);
   }
 
   private int _getCacheSize(ExternalContext extContext)
@@ -974,7 +997,6 @@ public class StateManagerImpl extends StateManagerWrapper
   //
   // @todo Map is a bad structure
   // @todo a static size is bad
-  //
   @SuppressWarnings("unchecked")
   static private Map<String, PageState> _getApplicationViewCache(FacesContext context)
   {
