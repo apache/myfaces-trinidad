@@ -35,6 +35,7 @@ public interface SimpleDesktopConstants extends BaseDesktopConstants
    * Simple Skin.
    */
   public static final String SIMPLE_DESKTOP_ID = "simple.desktop";  
+  public static final String SIMPLE_TABLET_ID = "simple.tablet";  
 
 
   // menuTabs Icons

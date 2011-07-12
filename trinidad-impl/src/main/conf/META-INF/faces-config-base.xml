@@ -125,6 +125,11 @@
   </render-kit>
 
   <render-kit>
+    <render-kit-id>org.apache.myfaces.trinidad.core.tablet</render-kit-id>
+    <render-kit-class>org.apache.myfaces.trinidadinternal.renderkit.core.tablet.TabletRenderKit</render-kit-class>
+  </render-kit>
+
+  <render-kit>
     <render-kit-id>org.apache.myfaces.trinidad.core.pda</render-kit-id>
     <render-kit-class>org.apache.myfaces.trinidadinternal.renderkit.core.pda.PdaRenderKit</render-kit-class>
   </render-kit>

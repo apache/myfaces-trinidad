@@ -187,6 +187,8 @@ public final class TrinidadRenderingConstants
     "org.apache.myfaces.trinidad.desktop";
   public static final String APACHE_TRINIDAD_PDA = 
     "org.apache.myfaces.trinidad.pda";
+  public static final String APACHE_TRINIDAD_TABLET =
+    "org.apache.myfaces.trinidad.tablet";
   public static final String APACHE_TRINIDAD_PORTLET = 
     CoreRenderKit.OUTPUT_MODE_PORTLET;
 

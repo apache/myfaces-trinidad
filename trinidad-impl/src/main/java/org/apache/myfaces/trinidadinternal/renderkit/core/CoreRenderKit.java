@@ -139,6 +139,8 @@ public class CoreRenderKit extends RenderKitDecorator
       Agent agent = afc.getAgent();
       if (Agent.TYPE_PDA.equals(agent.getType()))
         return "org.apache.myfaces.trinidad.core.pda";
+      if (Agent.TYPE_TABLET.equals(agent.getType()))
+        return "org.apache.myfaces.trinidad.core.tablet";
     }
     return "org.apache.myfaces.trinidad.core.desktop";
   }

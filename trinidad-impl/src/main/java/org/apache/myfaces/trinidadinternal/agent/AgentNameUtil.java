@@ -117,6 +117,11 @@ public class AgentNameUtil
       return TrinidadAgent.TYPE_WEBCRAWLER;
     }
 
+    if (otype == Agent.TYPE_TABLET)
+    {
+      return TrinidadAgent.TYPE_TABLET;
+    }
+
     //Default to desktop (This is UIX 2.2 logic)
     return TrinidadAgent.TYPE_DESKTOP;
   }
@@ -173,6 +178,8 @@ public class AgentNameUtil
         return Agent.TYPE_PDA;
       case TrinidadAgent.TYPE_PHONE:
         return Agent.TYPE_PHONE;
+      case TrinidadAgent.TYPE_TABLET:
+        return Agent.TYPE_TABLET;
       case TrinidadAgent.TYPE_VOICE:
       default:
         return Agent.TYPE_UNKNOWN;

@@ -1226,12 +1226,6 @@
   af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content a {
     -tr-rule-ref: selector(".AFTextForeground:alias");
   }
-  af|navigationPane::bar-active-enabled af|navigationPane::bar-content a:hover {
-    text-decoration: underline;
-  }
-  af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content a:hover {
-    text-decoration: underline;
-  }
   af|navigationPane::bar-active-disabled af|navigationPane::bar-content {
     color: gray;
     font-weight: bold;
@@ -1272,12 +1266,6 @@
   }
   af|navigationPane::buttons-inactive-enabled {
     cursor: pointer;
-  }
-  af|navigationPane::buttons-active-enabled af|navigationPane::buttons-content a:hover {
-    text-decoration: underline;
-  }
-  af|navigationPane::buttons-inactive-enabled af|navigationPane::buttons-content a:hover {
-    text-decoration: underline;
   }
   af|navigationPane::buttons-active-disabled af|navigationPane::buttons-content {
     color: gray;
@@ -1330,12 +1318,6 @@
   }
   af|navigationPane::list-inactive-enabled {
     cursor: pointer;
-  }
-  af|navigationPane::list-active-enabled af|navigationPane::list-content a:hover {
-    text-decoration: underline;
-  }
-  af|navigationPane::list-inactive-enabled af|navigationPane::list-content a:hover {
-    text-decoration: underline;
   }
   af|navigationPane::list-active-disabled af|navigationPane::list-content {
     color: gray;
@@ -4235,3 +4217,97 @@
   }
 } } }
 
+
+/* <styleSheetDocument xmlns="http://myfaces.apache.org/uix/style"
+                    version="2.0:  */
+/**
+  The base style sheet for the desktop implementation of
+  the Simple Look And Feel.
+ **/
+/**
+    panelBox Styles
+  **/
+af|panelBox::header
+{
+  width: 100%;
+  /** Only tile the header's background image horizontally.
+         That way, if the user zooms up the text size, the
+         header's top border won't end up repeating **/
+
+  background-repeat: repeat-x;
+}
+/**
+    MenuBar styles
+  **/
+/** Disable item wrapping - can make MenuBar's icons look bad **/
+.AFMenuBarItem:alias
+{
+  white-space: nowrap;
+}
+
+af|menuBar::body
+{
+  -tr-rule-ref: selector(".AFDarkBackground:alias");
+}
+
+af|menuBar::title
+{
+  -tr-rule-ref: selector(".AFDarkBackground:alias");
+}
+/** Also set the background color for the empty globalHeader **/
+af|menuBar::empty
+{
+  -tr-rule-ref: selector(".AFDarkBackground:alias");
+  /**
+      Custom Skins can use the height property to control the empty
+      MenuBar's height.  We let it default though...
+    **/
+  /**
+      height: 4px;
+    **/
+}
+/** messages style **/
+af|messages::body
+{
+  -tr-rule-ref: selector(".AFLightAccentBackground:alias");
+}
+/**
+    TabBar Styles
+  **/
+/** Disable item wrapping - can make tabBar's icons look bad **/
+.AFTabBarItem:alias
+{
+  white-space: nowrap;
+}
+/**
+    Table Styles
+  **/
+/** Add a border around the table contents.
+       Does this really belong here? **/
+af|table::content
+{
+  -tr-rule-ref: selector(".AFVeryDarkAccentBorder:alias");
+  -tr-rule-ref: selector(".OraTableBorder1111");
+}
+
+af|treeTable::content
+{
+  -tr-rule-ref: selector(".AFVeryDarkAccentBorder:alias");
+  -tr-rule-ref: selector(".OraTableBorder1111");
+}
+
+.AFLogo
+{
+  width: 103px;
+  height: 13px;
+  background-image: url('../../images/logo-dark.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+}
+/* end stylesheet with no options */
+@agent ie and (version: 6){
+  .AFLogo {
+    background-image: url('../../images/logo-dark.gif');
+  }
+}
