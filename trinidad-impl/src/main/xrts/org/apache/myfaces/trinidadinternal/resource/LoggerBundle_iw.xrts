@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">אי אפשר להביא מעטפת עם זיהוי מעטפת null</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">אין מעטפת המתאימה למשפחה {0} ו-renderkit {1}, לכן נשתמש במעטפת הפשוטה</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">נמצאה מעטפת שמתאימה למשפחה {0} וגרסה {1}. אנו נשתמש במעטפת {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">לא נמצאה מעטפת שמתאימה למשפחה {0} וגרסה {1}. אנו נשתמש במעטפת {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">לא נמצאה מעטפת ללא גרסה למשפחה {0}. אנו נשתמש במעטפת עם הגרסה {1}. </resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">אי אפשר להביא את חותמת הזמן של מסמך גיליון הסגנונות כי לא ניתן לפתוח את החיבור.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">אלמנט נדרש &apos;זיהוי&apos; לא נמצא.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">אלמנט נדרש &apos;משפחה&apos; לא נמצא.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">לא נמצא אלמנט בן נדרש ל&apos;גרסה&apos;, &apos;שם&apos;.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">ערך מאפיין שגוי: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">משתנה בלתי תקף למזהה האזור {0} - אינו יכול להכיל קווים נטויים למניעת התקפות XSS. ייעשה שימוש במחרוזת ריקה למשתנה.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">אי אפשר למחוק את הקובץ {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">שגיאה בביצוע serializing {0} על התכונה: {1} ערך: {2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">שגיאה בביצוע serialization {0} של התכונה: {1}</resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false">ערך נכשל=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">שגיאה בביצוע Failover {0}: התכונה: {1} מסוג {2} איננה Serializable</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">שגיאה בביצוע Failover: ביצוע Serialization של {0} התכונה: {1} השתנה מ-{2} ל-{3} מבלי שהתכונה תתלכלך</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">נכשלה בדיקת serialization של תכונת מושב עבודה של {0}. אפשר לחסום בדיקה זו בהסרת &apos;&apos;REQUEST&apos;&apos; ממאפיין המערכת &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">כישלון באיסוף חריגים בבדיקת serialization של תכונת מושב עבודה</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">תכונת מושב עבודה:{0}</resource>
 </resources>

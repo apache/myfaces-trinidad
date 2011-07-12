@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nu se pot prelua culorile cu ID-ul skinId nul</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Nu se pot găsi culori care să corespundă familiei {0} şi kitului de randare {1}, astfel încât se vor utiliza culori simple</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">S-au găsit culori care corespund familiei {0} şi versiunii {1}. Vom utiliza culorile {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Nu se pot găsi culori care să corespundă familiei {0} şi versiunii {1}. Vom utiliza culorile {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Nu se pot găsi culori fără versiune pt. familia {0}. Vom utiliza culorile cu versiune {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Nu s-a putut marcajul temporal al documentului cu foi de stiluri deoarece nu s-a putut deschide conexiunea.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Elementul &apos;id&apos; obligatoriu nu a fost găsit.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Elementul obligatoriu &apos;family&apos; nu a fost găsit.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Elementul fiu obligatoriu pt. &apos;version&apos;, &apos;name&apos; nu a fost găsit.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Intrare de proprietate cu format greşit: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variantă nevalidă pentru identificatorul variabilei locale {0} - nu poate să conţină caractere slash pentru a evita atacul XSS. Se va utiliza un şir gol pentru variantă.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Nu s-a putut şterge fişierul {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Eroare la serializarea {0}, atribut: {1} valoare:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Eroare la serializarea atributului {0}: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> valoare eşuată=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Eroare de failover: {0}, atributul: {1} de tipul {2} nu este serializabil</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Eroare failover: Serializarea {0} atribut: {1} s-a schimbat de la {2} la {3} fără ca atributul să fie corupt.</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Sesiunea de testare a serializării atributului a eşuat pentru {0}. Acest control poate fi dezactivat eliminând &apos;&apos;REQUEST&apos;&apos; din proprietatea de sistem &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Excepţie la preluarea eşecului sesiunii de testare a serializării atributului</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atribut sesiune:{0}</resource>
 </resources>

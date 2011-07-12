@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Não é possível obter o Esquema de Cores com uma skinId nula</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Não é possível encontrar um esquema de cores que corresponda à família {0} e renderkit {1}, pelo que será utilizado o esquema de cores simples</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Foi encontrado um esquema de cores que corresponde à família {0} e à versão {1}. Será utilizado o esquema de cores {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Não é possível encontrar um esquema de cores que corresponda à família {0} e à versão {1}. Será utilizado o esquema de cores {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Não é possível encontrar um esquema de cores sem versões criadas para a família {0}. Será utilizado o esquema de cores com versões criadas {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Não foi possível obter a indicação de data/hora do documento da folha de estilos, porque não foi possível abrir a ligação.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">O elemento necessário &apos;id&apos; não foi encontrado.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">O elemento necessário &apos;family&apos; não foi encontrado.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">O elemento filho necessário para &apos;version&apos;, &apos;name&apos; não foi encontrado.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Entrada da propriedade incorrecta: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante inválida para o identificador de Definições Locais {0} - não é possível que contenha barras oblíquas para evitar um ataque de XSS. Será utilizada uma cadeia de caracteres vazia para a variante.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Não foi possível apagar o ficheiro {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Erro na sequenciação do atributo {0}:{1}, valor:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Erro na sequenciação do atributo {0}:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> valor com falha=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Erro de failover: o atributo {0}:{1} do tipo {2} não é Sequenciável</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Erro de failover: A sequenciação do atributo {0}:{1} foi alterada de {2} para {3} sem que o atributo fosse alterado</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Falha no teste de sequenciação do atributo da sessão para {0}. É possível desactivar esta verificação através da remoção de &apos;&apos;REQUEST&apos;&apos; da propriedade do sistema &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Excepção na recolha da falha do teste de sequenciação do atributo da sessão</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atributo da sessão:{0}</resource>
 </resources>

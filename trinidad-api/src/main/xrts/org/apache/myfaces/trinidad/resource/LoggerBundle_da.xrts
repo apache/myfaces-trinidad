@@ -273,7 +273,7 @@
 <!-- NULL_FACESCONTEXT -->
 <resource key="NULL_FACESCONTEXT" dnt="false">FacesContext er NULL</resource>
 <!-- CUSTOM_MESSAGE_SHOULD_BE_VALUEBINDING_OR_STRING_TYPE -->
-<resource key="CUSTOM_MESSAGE_SHOULD_BE_VALUEBINDING_OR_STRING_TYPE" dnt="false">brugerdefineret meddelelse skal være af typen ValueBinding eller String</resource>
+<resource key="CUSTOM_MESSAGE_SHOULD_BE_VALUEBINDING_OR_STRING_TYPE" dnt="false">tilpasset meddelelse skal være af typen ValueBinding eller String</resource>
 <!-- PROVIDER_NOT_RETURN_IMPLEMENTING_OBJECT -->
 <resource key="PROVIDER_NOT_RETURN_IMPLEMENTING_OBJECT" dnt="false">Udbyderen {0} returnerede ikke et objekt, der implementerer {1}</resource>
 <!-- OBTAIN_NULL_RENDERKIT_WHILE_GETTING_SERVICE -->

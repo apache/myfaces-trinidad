@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">لا يمكن الحصول على مظهر ذي معرف مظهر skinId خالٍ</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">لا يمكن العثور على مظهر مطابق للمجموعة {0} وrenderkit {1}، سنستخدم المظهر البسيط</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">تم العثور على مظهر مطابق للمجموعة {0} والإصدار {1}. سنستخدم المظهر {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">لا يمكن العثور على مظهر مطابق للمجموعة {0} والإصدار {1}. سنستخدم المظهر {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">لا يمكن العثور على مظهر ذي إصدار للمجموعة {0}. سنستخدم المظهر ذا الإصدار {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">تعذر الحصول على توقيت مستند أوراق النمط نظرًا لتعذر فتح الاتصال.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">لم يتم العثور على العنصر المطلوب &apos;id&apos;.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">لم يتم العثور على العنصر المطلوب &apos;family&apos;.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">لم يتم العثور على العنصر الفرعي المطلوب لـ &quot;الإصدار&quot;، &quot;الاسم&quot;.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">إدخال خاصية سيئ التكوين: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">متغير معرف المنطقة اللغوية {0} غير صالح - لا يمكن أن يشتمل المعرف على شُرط مائلة وذلك لتجنب هجوم XSS. سيتم استخدام سلسلة فارغة للمتغير.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">تعذر حذف الملف {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">خطأ في تسلسل {0} السمة: {1} القيمة: {2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">حدث خطأ في إنشاء تسلسل سمة {0} : {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> قيمة الفشل=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">خطأ في الانتقال عقب الفشل: {0} السمة:{1} من النوع {2} غير قابلة للتسلسل</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">خطأ في الانتقال عقب الفشل: تم تغيير {0} السمة:{1} من {2} إلى {3} دون تجاهل السمة</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">فشل اختبار إنشاء تسلسل سمة جلسة عمل {0}. ويمكن تعطيل هذا الاختبار عبر إزالة &apos;&apos;REQUEST&apos;&apos; من خاصية النظام &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">حدث استثناء أثناء جمع بيانات فشل اختبار إنشاء تسلسل لسمة جلسة العمل</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">سمة جلسة العمل:{0}</resource>
 </resources>

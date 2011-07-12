@@ -57,7 +57,7 @@
 <resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Neu anordnen..</resource>
 <resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Symbolleisten</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Standard</resource>
-<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Abfrage nach Beispiel (QBE)</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Abfrage</resource>
 <resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Format</resource>
 <resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Spalten skalieren..</resource>
 <resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Zurücksetzen..</resource>
