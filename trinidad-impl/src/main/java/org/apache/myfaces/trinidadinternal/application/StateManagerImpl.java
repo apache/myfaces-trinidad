@@ -171,28 +171,42 @@ public class StateManagerImpl extends StateManagerWrapper
 
     String viewId = viewRoot.getViewId();
     StateManagementStrategy sms = _getStateManagementStrategy(context, viewId);
-
-    if (sms != null)
+    Map<Object, Object> contextAttributes = context.getAttributes();
+    
+    try
     {
-      // Force view root to use full state saving
-      // This is necessary because we recreate the view root on postback when view root caching
-      // is enabled and assume that that we can apply the full state
-      if (_useViewRootCache(context))
-      {
-        viewRoot.clearInitialState();
-      }
-      
-      viewState = sms.saveView(context);
+        // TODO Once we're dependent on JSF 2.1 we should be using StateManager.IS_SAVING_STATE as the key, but 
+        // for now we can use the String value of StateManager.IS_SAVING_STATE
+        contextAttributes.put("javax.faces.IS_SAVING_STATE", Boolean.TRUE);
+        
+        if (sms != null)
+        {
+          // Force view root to use full state saving
+          // This is necessary because we recreate the view root on postback when view root caching
+          // is enabled and assume that that we can apply the full state
+          if (_useViewRootCache(context))
+          {
+            viewRoot.clearInitialState();
+          }
+          
+          viewState = sms.saveView(context);
+        }
+        else
+        {
+          // if there's no stateManagementStrategy handle saving the state ourselves
+          _removeTransientComponents(viewRoot);
+    
+          Object structure = !_needStructure(context) ? null : new Structure(viewRoot);
+          Object state = viewRoot.processSaveState(context);
+          viewState = new Object[]{structure, state};
+    
+        }        
     }
-    else
+    finally 
     {
-      // if there's no stateManagementStrategy handle saving the state ourselves
-      _removeTransientComponents(viewRoot);
-
-      Object structure = !_needStructure(context) ? null : new Structure(viewRoot);
-      Object state = viewRoot.processSaveState(context);
-      viewState = new Object[]{structure, state};
-
+      // TODO Once we're dependent on JSF 2.1 we should be using StateManager.IS_SAVING_STATE as the key, but 
+      // for now we can use the String value of StateManager.IS_SAVING_STATE
+      contextAttributes.remove("javax.faces.IS_SAVING_STATE");
     }
 
     if (_saveAsToken(context))
