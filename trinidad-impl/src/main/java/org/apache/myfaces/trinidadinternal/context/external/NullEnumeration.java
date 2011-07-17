@@ -25,7 +25,7 @@ import java.util.Enumeration;
  *
  * @version $Revision$ $Date$
  */
-final class NullEnumeration implements Enumeration<Object>
+final class NullEnumeration implements Enumeration<String>
 {
   static final NullEnumeration instance()
   {
@@ -37,7 +37,7 @@ final class NullEnumeration implements Enumeration<Object>
     return false;
   }
 
-  public Object nextElement()
+  public String nextElement()
   {
     throw new UnsupportedOperationException("NullEnumeration has no elements");
   }

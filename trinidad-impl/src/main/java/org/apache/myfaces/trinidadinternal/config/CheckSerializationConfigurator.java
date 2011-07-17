@@ -21,13 +21,16 @@ package org.apache.myfaces.trinidadinternal.config;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.lang.reflect.InvocationHandler;
+
+import java.lang.reflect.Method;
+
+import java.lang.reflect.Proxy;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,10 +49,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.ExternalContextWrapper;
 
 import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -60,6 +60,7 @@ import javax.servlet.http.HttpSessionContext;
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
 import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.CollectionUtils;
 import org.apache.myfaces.trinidad.util.CollectionUtils.MapMutationHooks;
 import org.apache.myfaces.trinidad.util.TransientHolder;
@@ -342,6 +343,13 @@ public final class CheckSerializationConfigurator extends Configurator
       _ARRAY_EXTRACTOR.extractFailure(failureStack, (Object[])failedObject);
     }
   }
+  
+  private static ServletContext _getServletContextProxy(ServletContext orig, Map<String,Object> map)
+  {
+    return (ServletContext) Proxy.newProxyInstance(ClassLoaderUtils.getContextClassLoader(),
+                                                         new Class[] {ServletContext.class},
+                                                         new ServletContextMonitorInvocationHandler(orig, map));
+  }
 
   /**
    * Wraps the FilterConfig so that we can wrap the ServletContext that it returns so that
@@ -354,7 +362,7 @@ public final class CheckSerializationConfigurator extends Configurator
       _delegate = filterConfig;
       
       // create ServletContext wrapper to catch sets and removes from the ServletContext
-      _wrappedContext = new ContextWrapper(filterConfig.getServletContext(), null);
+      _wrappedContext = _getServletContextProxy(filterConfig.getServletContext(), null);
     }
     
     public String getFilterName()
@@ -780,164 +788,44 @@ public final class CheckSerializationConfigurator extends Configurator
   }
   
   /**
-   * Wraps the ServletContext so that we can catch modifications to the attributes
+   * Wraps the ServletContext so that we can catch modifications to the attributes.  This 
+   * had to be changed to support a dynmaic proxy so that it could be use with both
+   * Server 2.1 and Servlet 3.0 Specifications.
    */
-  private static final class ContextWrapper implements ServletContext
+  private static final class ServletContextMonitorInvocationHandler implements InvocationHandler
   {
-    ContextWrapper(
-      ServletContext      servletContext,
-      Map<String, Object> applicationMap)
+    public ServletContextMonitorInvocationHandler(ServletContext context, Map<String, Object> appMap)
     {
-      _delegate = servletContext;
+      _delegate = context;
       
       // if we already have an Application Map, use it, otherwise create a wrapper around
       // the ServletContext
-      if (applicationMap != null)
+      if (appMap != null)
       {
-        _applicationMap = applicationMap;
+        _applicationMap = appMap;
       }
       else
       {
-        _applicationMap = new ServletApplicationMap(servletContext);
+        _applicationMap = new ServletApplicationMap(context);
       }
     }
 
-    public String getContextPath()
+    @Override
+    public Object invoke(Object object, Method method, Object[] objects) throws Throwable
     {
-      return _delegate.getContextPath();
-    }
-
-    public ServletContext getContext(String string)
-    {
-      return _delegate.getContext(string);
-    }
-
-    public int getMajorVersion()
-    {
-      return _delegate.getMajorVersion();
-    }
-
-    public int getMinorVersion()
-    {
-      return _delegate.getMinorVersion();
-    }
-
-    public String getMimeType(String string)
-    {
-      return _delegate.getMimeType(string);
-    }
-
-    public Set getResourcePaths(String string)
-    {
-      return _delegate.getResourcePaths(string);
-    }
-
-    public URL getResource(String string) throws MalformedURLException
-    {
-      return _delegate.getResource(string);
-    }
-
-    public InputStream getResourceAsStream(String string)
-    {
-      return _delegate.getResourceAsStream(string);
-    }
-
-    public RequestDispatcher getRequestDispatcher(String string)
-    {
-      return _delegate.getRequestDispatcher(string);
-    }
-
-    public RequestDispatcher getNamedDispatcher(String string)
-    {
-      return _delegate.getNamedDispatcher(string);
-    }
-
-    public Servlet getServlet(String string) throws ServletException
-    {
-      return _delegate.getServlet(string);
-    }
-
-    public Enumeration getServlets()
-    {
-      return _delegate.getServlets();
-    }
-
-    public Enumeration getServletNames()
-    {
-      return _delegate.getServletNames();
-    }
-
-    public void log(String string)
-    {
-      _delegate.log(string);
-    }
-
-    public void log(Exception exception, String string)
-    {
-      _delegate.log(exception, string);
-    }
-
-    public void log(String string, Throwable throwable)
-    {
-      _delegate.log(string, throwable);
-    }
-
-    public String getRealPath(String string)
-    {
-      return _delegate.getRealPath(string);
-    }
-
-    public String getServerInfo()
-    {
-      return _delegate.getServerInfo();
-    }
-
-    public String getInitParameter(String string)
-    {
-      return _delegate.getInitParameter(string);
-    }
-
-    public Enumeration getInitParameterNames()
-    {
-      return _delegate.getInitParameterNames();
-    }
-
-    public Object getAttribute(String key)
-    {
-      return _delegate.getAttribute(key);
-    }
-
-    public Enumeration getAttributeNames()
-    {
-      return _delegate.getAttributeNames();
-    }
-
-    /**
-     * Override to remove the attribute from the list of attributes to fail over
-     * @param key
-     * @param value
-     */
-    public void setAttribute(String key, Object value)
-    {
-      _delegate.setAttribute(key, value);
       
-      _notifyBeanCheckersOfChange(_getMutatedBeanList(), key);      
-    }
+      //Notifys the system that an attribute has changed on set or remove
+      String name = method.getName();
 
-    /**
-     * Override to remove the attribute from the list of attributes to fail over
-     * @param key
-     */
-    public void removeAttribute(String key)
-    {
-      _delegate.removeAttribute(key);
+      //This method delegates all methods to the delegate
+      Object result = method.invoke(_delegate, objects);
 
-      _notifyBeanCheckersOfChange(_getMutatedBeanList(), key);
-    }
-
-    public String getServletContextName()
-    {
-      return _delegate.getServletContextName();
+      if("setAttribute".equals(name) || "removeAttribute".equals(name))
+      {
+        _notifyBeanCheckersOfChange(_getMutatedBeanList(), objects[0]);                
+      }
+          
+      return result;
     }
 
     private List<MutatedBeanChecker> _getMutatedBeanList()
@@ -947,7 +835,8 @@ public final class CheckSerializationConfigurator extends Configurator
 
     private final ServletContext      _delegate;
     private final Map<String, Object> _applicationMap;
-  }
+
+  }  
 
   /**
    * Performs any configured serialization checking of the Session or Application Maps including
@@ -1233,7 +1122,7 @@ public final class CheckSerializationConfigurator extends Configurator
           // determine whether we need to return a wrapped ServletContext as well
           if (applicationMap != null)
           {
-            _wrappedContext = new ContextWrapper(session.getServletContext(), applicationMap);
+            _wrappedContext = _getServletContextProxy(session.getServletContext(), applicationMap);
           }
           else
           {
