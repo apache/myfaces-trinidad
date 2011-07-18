@@ -46,7 +46,7 @@
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>2.0</jsf-spec.version>
     <jsf-ri.version>2.0.4-b09</jsf-ri.version>
-    <jsf-myfaces.version>2.0.4</jsf-myfaces.version>
+    <jsf-myfaces.version>2.0.7</jsf-myfaces.version>
     <portlet-bridge.version>2.0.0</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
     <commons-io.version>2.0</commons-io.version>
