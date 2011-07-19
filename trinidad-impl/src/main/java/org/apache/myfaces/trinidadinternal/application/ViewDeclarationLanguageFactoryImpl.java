@@ -38,6 +38,7 @@ import javax.faces.application.Resource;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import javax.faces.view.StateManagementStrategy;
 import javax.faces.view.ViewDeclarationLanguage;
 import javax.faces.view.ViewDeclarationLanguageFactory;
@@ -339,8 +340,11 @@ public class ViewDeclarationLanguageFactoryImpl
       throws IOException
     {
       _wrapped.buildView(facesContext, uiViewRoot);
-      ChangeManager cm = RequestContext.getCurrentInstance().getChangeManager();
-      cm.applyComponentChangesForCurrentView(FacesContext.getCurrentInstance());
+      if(PhaseId.RENDER_RESPONSE.equals(FacesContext.getCurrentInstance().getCurrentPhaseId()))
+      {          
+        ChangeManager cm = RequestContext.getCurrentInstance().getChangeManager();
+        cm.applyComponentChangesForCurrentView(FacesContext.getCurrentInstance());
+      }
     }
 
     @Override
