@@ -145,6 +145,11 @@ public interface Agent
   public static final String AGENT_ORACLE_SES = "oracle_ses";
 
   /** 
+   * Constant for android device browsers
+   */
+  public static final String PLATFORM_ANDROID = "android";
+
+  /**
    * Constant for unknown platform version
    */
   public static final String PLATFORM_VERSION_UNKNOWN = "unknown";

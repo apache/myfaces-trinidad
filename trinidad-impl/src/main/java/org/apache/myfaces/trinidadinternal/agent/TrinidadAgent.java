@@ -64,6 +64,13 @@ public interface TrinidadAgent extends Agent
   static public final CapabilityKey CAP_HEIGHT =
           CapabilityKey.getCapabilityKey("height", true);
 
+  /**
+   * Touch-screen capability, indicating the agent supports TouchEvent and GestureEvent
+   * events.
+   */
+  static public final CapabilityKey CAP_TOUCH_SCREEN =
+          CapabilityKey.getCapabilityKey("touchScreen", true);
+
   //
   // XHTML Modularization
   //
@@ -233,6 +240,24 @@ public interface TrinidadAgent extends Agent
           CapabilityValue.getCapabilityValue (CAP_CSS_SELECTORS, "single");
   static public Object SELECTORS_MULTIPLE        =
           CapabilityValue.getCapabilityValue (CAP_CSS_SELECTORS, "multiple");
+
+  // Values for CAP_TOUCH_SCREEN
+  /**
+   * Agent does not have a touch screen
+   */
+  static public final Object TOUCH_SCREEN_NONE =
+          CapabilityValue.getCapabilityValue (CAP_TOUCH_SCREEN, "none");
+
+  /**
+   * Agent only supports single finger touch events
+   */
+  static public final Object TOUCH_SCREEN_SINGLE =
+          CapabilityValue.getCapabilityValue (CAP_TOUCH_SCREEN, "single");
+  /**
+   * Agent supports multiple finger touch events and gestures
+   */
+  static public final Object TOUCH_SCREEN_MULTIPLE =
+          CapabilityValue.getCapabilityValue (CAP_TOUCH_SCREEN, "multiple");
 
   /**
    * Application constant for Desktop devices
@@ -429,6 +454,10 @@ public interface TrinidadAgent extends Agent
    */
   static public final int OS_GENERICPDA   = 10;
 
+  /**
+   * OS constant for Android
+   */
+  static public final int OS_ANDROID  = 11;
 
   /**
    * Name Constant for Netfront agent

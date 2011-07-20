@@ -178,6 +178,11 @@ public class AgentNameUtil
         return TrinidadAgent.OS_GENERICPDA;
     }
 
+    if (TrinidadAgent.PLATFORM_ANDROID.equals(platformName))
+    {
+      return TrinidadAgent.OS_ANDROID;
+    }    
+
     return TrinidadAgent.OS_UNKNOWN;
   }
 
@@ -285,6 +290,8 @@ public class AgentNameUtil
         return TrinidadAgent.PLATFORM_NOKIA_S60;
       case TrinidadAgent.OS_GENERICPDA:
         return TrinidadAgent.PLATFORM_GENERICPDA;
+      case TrinidadAgent.OS_ANDROID:
+        return TrinidadAgent.PLATFORM_ANDROID;
       default:
         return null;
     }
