@@ -201,8 +201,6 @@ public class SkinFactoryImpl extends SkinFactory
         matchingSkin = getSkin(context, _SIMPLE_PORTLET);
       else if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_PDA))
         matchingSkin = getSkin(context, _SIMPLE_PDA);
-      else if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_TABLET))
-        matchingSkin = getSkin(context, _SIMPLE_TABLET);
       else
         matchingSkin = getSkin(context, _SIMPLE_DESKTOP);
     }
@@ -317,7 +315,6 @@ public class SkinFactoryImpl extends SkinFactory
 
   static private final String _SIMPLE_PDA = "simple.pda";
   static private final String _SIMPLE_DESKTOP = "simple.desktop";
-  static private final String _SIMPLE_TABLET = "simple.tablet";
   static private final String _SIMPLE_PORTLET = "simple.portlet";
   static private final String _DEFAULT = "default";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinFactoryImpl.class);

@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop.SimpleDesktopUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.simple.pda.SimplePdaUtils;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.ui.laf.simple.tablet.SimpleTabletUtils;
 
 /**
  * Manages the set of LookAndFeel instances.  LookAndFeel instances can
@@ -74,7 +73,6 @@ public class LookAndFeelManager
 
     SimpleDesktopUtils.registerLookAndFeel(manager);
     SimplePdaUtils.registerLookAndFeel(manager);
-    SimpleTabletUtils.registerLookAndFeel(manager);
 
     return manager;
   }

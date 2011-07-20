@@ -707,7 +707,7 @@ public class AgentFactoryImpl implements AgentFactory
     // We need the rv to support @agent versioning in CSS as the date makes no sense,
     // so look for the rv:, not the Gecko build date
 
-    _populateAgentType(agent, agentObj);
+    agentObj.setType(Agent.TYPE_DESKTOP);
     agentObj.setAgent(Agent.AGENT_GECKO);
 
     int start = agent.indexOf("rv:");
@@ -878,9 +878,7 @@ public class AgentFactoryImpl implements AgentFactory
     }
   
     String version = _getVersion(agent, start);
-
-    _populateAgentType(agent, agentObj);
-
+    agentObj.setType(Agent.TYPE_DESKTOP);
     if ((agent.indexOf("Symbian") > -1) || (agent.indexOf("Nokia") > -1))
     {
       agentObj.setAgent(Agent.AGENT_NOKIA_S60);
@@ -893,19 +891,6 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setAgentVersion(version);
   }
 
-  private void _populateAgentType(String agent, AgentImpl agentObj) {
-    if (agent.contains("WebKit") && 
-      (agent.contains("Android") || agent.contains("iPad")
-      || agent.contains("iPhone") || agent.contains("iPod")))
-    {
-      agentObj.setType(Agent.TYPE_TABLET);
-    }
-    else
-    {
-      agentObj.setType(Agent.TYPE_DESKTOP);
-    }
-  }
-
   /**
    * Returns an AgentEntry for the "Mozilla" family of browsers - which
    * most at least pretend to be.
@@ -913,7 +898,7 @@ public class AgentFactoryImpl implements AgentFactory
   private void _populateMozillaAgentImpl(String agent,AgentImpl agentObj)
   {
     int paren = agent.indexOf('(');
-    _populateAgentType(agent, agentObj);
+    agentObj.setType(Agent.TYPE_DESKTOP); //Is this default realli okay??? These days Mobile agents also use Mozilla/xx.xx
 
     // No section to qualify the agent;  assume Mozilla/Netscape
     if (paren == -1)

@@ -626,10 +626,6 @@ public class CoreRenderingContext extends RenderingContext
       // get rid of this bit of code. Should we use getViewRoot().getRenderKitId() instead?
       renderKitId = TrinidadRenderingConstants.APACHE_TRINIDAD_PDA;
     }
-    else if (TrinidadAgent.TYPE_TABLET == _agent.getAgentType())
-    {
-      renderKitId = TrinidadRenderingConstants.APACHE_TRINIDAD_TABLET;
-    }
 
 
     SkinFactory factory = SkinFactory.getFactory();

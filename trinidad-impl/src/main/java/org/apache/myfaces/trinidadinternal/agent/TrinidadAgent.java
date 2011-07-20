@@ -291,11 +291,6 @@ public abstract class TrinidadAgent implements Agent, Cloneable
   static public final int TYPE_WEBCRAWLER = 4;
 
   /**
-   * Application constant for tablet devices
-   */
-  static public final int TYPE_TABLET = 5;
-  
-  /**
    * Enumeration representing an Application
    */
   public static enum Application

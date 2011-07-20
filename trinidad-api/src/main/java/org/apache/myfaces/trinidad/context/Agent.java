@@ -66,12 +66,6 @@ public interface Agent
    */
   public static final Object TYPE_WEBCRAWLER = "webcrawler";
 
-
-  /**
-   * Constant for tablet devices
-   */
-  public static final Object TYPE_TABLET = "tablet";
-
   /**
    * Constant for unknown platform
    */

@@ -53,14 +53,12 @@ import org.apache.myfaces.trinidadinternal.config.LazyValueExpression;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaDesktopSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaPdaSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaPortletSkin;
-import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaTabletSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPdaSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPortletSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimpleDesktopSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimplePdaSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimplePortletSkin;
-import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimpleTabletSkin;
 import org.apache.myfaces.trinidadinternal.share.xml.ClassParserFactory;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
 import org.apache.myfaces.trinidadinternal.share.xml.ParserFactory;
@@ -336,10 +334,6 @@ public class SkinUtils
 
     SimplePdaSkin simplePdaSkin = new SimplePdaSkin();
     skinFactory.addSkin(simplePdaSkin.getId(), simplePdaSkin);
-
-    SimpleTabletSkin simpleTabletSkin = new SimpleTabletSkin();
-    skinFactory.addSkin(simpleTabletSkin.getId(), simpleTabletSkin);
-
     //portlet skin maps most of our style classes to portlet style classes,
     // so we output portlet style classes.
     // It also clears out the portlet style class definitions.
@@ -360,9 +354,6 @@ public class SkinUtils
 
     CasablancaDesktopSkin casablancaDesktopSkin = new CasablancaDesktopSkin(simpleDesktopSkin);
     skinFactory.addSkin(casablancaDesktopSkin.getId(), casablancaDesktopSkin);
-
-    CasablancaTabletSkin casablancaTabletSkin = new CasablancaTabletSkin(simpleTabletSkin);
-    skinFactory.addSkin(casablancaTabletSkin.getId(), casablancaTabletSkin);
 
     CasablancaPdaSkin casablancaPdaSkin = new CasablancaPdaSkin(simplePdaSkin);
     skinFactory.addSkin(casablancaPdaSkin.getId(), casablancaPdaSkin);
