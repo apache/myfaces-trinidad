@@ -145,16 +145,25 @@ public class CoreRenderKit extends RenderKitDecorator
     return "org.apache.myfaces.trinidad.core.desktop";
   }
 
+  /**
+   * Returns true if this is a Trinidad PPR Ajax request sent over with the legacy (non-JSF2 Ajax) mechanism
+   */
   static public boolean isLegacyAjaxRequest(ExternalContext ec)
   {
     return "true".equals(ec.getRequestHeaderMap().get(_PPR_REQUEST_HEADER));
   }
 
+  /**
+   * Returns true is this a PPR request sent by Trinidad (as opposed to a request sent with <f:ajax>)
+   */
   static public boolean isLegacyPartialRequest(Map<String, String[]> parameters)
   {
     return _checkParameter(parameters, _PPR_REQUEST_HEADER, "true");
   }
 
+  /**
+   * Returns true is this a PPR request sent by Trinidad (as opposed to a request sent with <f:ajax>)
+   */
   static public boolean isLegacyPartialRequest(ExternalContext ec)
   {
     // A partial request could be an AJAX request, or it could
@@ -163,6 +172,9 @@ public class CoreRenderKit extends RenderKitDecorator
            "true".equals(ec.getRequestParameterMap().get(_PPR_REQUEST_HEADER));    
   }
   
+  /**
+   * Returns true if this is a Trinidad PPR request or <f:ajax> request
+   */
   static public boolean isPartialRequest(Map<String, String[]> parameters)
   {
     if (isLegacyPartialRequest(parameters))
@@ -173,13 +185,16 @@ public class CoreRenderKit extends RenderKitDecorator
     return _checkParameter(parameters, _FACES_REQUEST, _PARTIAL_AJAX);
   }
   
+  /**
+   * Returns true if this is a Trinidad PPR request or <f:ajax> request
+   */
   static public boolean isPartialRequest(ExternalContext ec)
   {
     if (isLegacyPartialRequest(ec))
     {
       return true;
     }
-    return _PARTIAL_AJAX.equals(ec.getRequestHeaderMap().get(_FACES_REQUEST));
+    return _isJsf2Ajax(ec);
   }
   
   public CoreRenderKit()
@@ -615,20 +630,12 @@ public class CoreRenderKit extends RenderKitDecorator
         rw = new HtmlResponseWriter(writer, characterEncoding);
       }
       
-      // mstarets - PPRResponseWriter will be created in the PartialViewContextImpl
-      // for both the JSF2-style ajax requests and legacy requests
-      
-      /*RenderingContext rc = RenderingContext.getCurrentInstance();
-      if (rc == null)
+      // JIRA 2107 - jsf.js cannot handle HTML comments in the <update> element, so we need to suppress debug output
+      // if we are generating response that will be handled by JSF2.0 Ajax
+      if (_isJsf2Ajax(fContext.getExternalContext()))
       {
-        // TODO: is this always indicative of something being very wrong?
-        _LOG.severe("No RenderingContext has been created.");
+        return rw;
       }
-      else
-      {
-        if (isPartialRequest(fContext.getExternalContext()))
-          rw = new PPRResponseWriter(rw, rc);
-      }*/
       
       return _addDebugResponseWriters(rw);
     }
@@ -819,6 +826,11 @@ public class CoreRenderKit extends RenderKitDecorator
     if ((array == null) || (array.length != 1))
       return false;
     return value.equals(array[0]);
+  }
+  
+  private static boolean _isJsf2Ajax(ExternalContext ec)
+  {
+    return _PARTIAL_AJAX.equals(ec.getRequestHeaderMap().get(_FACES_REQUEST));
   }
 
   private static final String _XHTML_MIME_TYPE = "application/xhtml+xml";
