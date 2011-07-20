@@ -248,6 +248,12 @@ public abstract class TrinidadAgent implements Agent, Cloneable
 
   // Values for CAP_TOUCH_SCREEN
   /**
+   * Agent does not have a touch screen
+   */
+  static public final Object TOUCH_SCREEN_NONE =
+          CapabilityValue.getCapabilityValue (CAP_TOUCH_SCREEN, "none");
+
+  /**
    * Agent only supports single finger touch events
    */
   static public final Object TOUCH_SCREEN_SINGLE =
