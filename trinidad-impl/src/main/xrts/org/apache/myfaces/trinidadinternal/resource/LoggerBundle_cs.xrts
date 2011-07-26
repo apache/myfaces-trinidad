@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nelze získat vzhled s hodnotou null u SkinID</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Nelze nalézt vzhled odpovídající řadě {0} a sadě vykreslení {1}, bude tedy použit jednoduchý vzhled</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Byl nalezen vzhled, který odpovídá řadě {0} a verzi {1}. Použijeme vzhled {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Nelze najít vzhled, který odpovídá řadě {0} a verzi {1}. Použijeme vzhled {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Nelze najít vzhled bez verze pro řadu {0}. Použijeme vzhled s verzí {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Nelze získat časové razítko dokumentu stylu šablon, protože nemůžeme otevřít připojení.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Nebylo nalezeno ID požadovaného prvku.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Nebyla nalezena skupina požadovaného prvku.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Nebyl nalezen povinný podřízený element pro elementy &apos;version&apos; a &apos;name&apos;.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Chybně formátované zadání vlastnosti: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Neplatná varianta ID místního nastavení {0} - kvůli ochraně proti XSS nesmí obsahovat lomítka. Pro variantu bude použit prázdný řetězec.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Nelze odstranit soubor {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Chyba při serializaci atributu {0}:{1} hodnota:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Chyba při serializaci atributu {0}:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> hodnota selhání =</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Chyba zotavení: {0} atribut:{1} typu {2} není serializovatelný</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Chyba zotavení: Serializace atributu {0}:{1} se změnila z {2} na {3} bez modifikace atributu</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Selhalo testování serializace relace atributu pro {0}. Tuto kontrolu lze dezaktivovat odebráním hodnoty &apos;&apos;REQUEST&apos;&apos; ze systémové vlastnosti &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Selhání při testování výjimky shromažďování serializace atributu relace</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atribut relace:{0}</resource>
 </resources>

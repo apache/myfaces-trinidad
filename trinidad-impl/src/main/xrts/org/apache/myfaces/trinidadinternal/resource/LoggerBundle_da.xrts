@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Kan ikke hente tema med NULL-skinId</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Kan ikke finde et tema, der matcher gruppen {0} og gengivelsessættet {1}, så vi bruger det simple tema</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Fandt et tema, som matcher gruppen {0} og version {1}. Vi bruger temaet {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Kan ikke finde et tema, som matcher gruppen {0} og version {1}. Vi bruger temaet {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Kan ikke finde et ikke-versioneret tema for gruppen {0}. Vi bruger det versionerede tema {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Kunne ikke hente typografiarkdokumentets tidsstempel, fordi vi ikke kunne åbne forbindelsen.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Det påkrævede element-&apos;ID&apos; blev ikke fundet.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Den påkrævede element-&apos;gruppe&apos; blev ikke fundet.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Det påkrævede underordnede element for &apos;version&apos;, &apos;navn&apos; blev ikke fundet.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Forkert udformet egenskabspost: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ugyldig variant for identifikator for landestandard {0} - må ikke indeholde skråstreger, hvis XSS-angreb skal undgås. Vil bruge en tom streng til variant.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Kunne ikke slette filen {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Fejl under serialisering af {0}-attributten: {1}, værdien: {2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Fejl under serialisering af {0}-attributten: {1}</resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> fejlet værdi=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failover-fejl: {0}, attributten: {1} af typen {2} kan ikke serialiseres</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failover-fejl: Serialisering af {0}-attributten: {1} er ændret fra {2} til {3}, uden at attributten er beskadiget</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Serialiseringstest af sessionsattribut fejlede for {0}. Dette tjek kan deaktiveres ved at fjerne &apos;&apos;REQUEST&apos;&apos; fra systemegenskaben &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Undtagelse under indhentning af testfejl ved serialisering af sessionsattribut</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Sessionsattribut:{0}</resource>
 </resources>

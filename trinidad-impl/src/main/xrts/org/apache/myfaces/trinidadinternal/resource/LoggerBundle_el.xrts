@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Δεν είναι δυνατή η λήψη τρόπου εμφάνισης με μη ορισμένο (null) αναγνωριστικό</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Δεν είναι δυνατή η εύρεση τρόπου εμφάνισης που να συμφωνεί με την οικογένεια &quot;{0}&quot; και το renderkit &quot;{1}&quot;, για το λόγο αυτό θα χρησιμοποιηθεί ο απλός τρόπος εμφάνισης</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Βρέθηκε μια εμφάνιση που συμφωνεί με την οικογένεια {0} και την έκδοση {1}. Θα χρησιμοποιηθεί η εμφάνιση {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Δεν είναι δυνατή η εύρεση εμφάνισης που συμφωνεί με την οικογένεια {0} και την έκδοση {1}. Θα χρησιμοποιηθεί η εμφάνιση {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Δεν είναι δυνατή η εύρεση εμφάνισης στην οποία δεν έχει αποδοθεί η ιδιότητα τήρησης εκδόσεων για την οικογένεια {0}. Θα χρησιμοποιηθεί η εμφάνιση με ιδιότητα τήρησης εκδόσεων {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Δεν ήταν δυνατή η λήψη της χρονικής ένδειξης του εγγράφου φύλλου στυλ επειδή δεν ήταν δυνατό να ανοίξει η σύνδεση.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Το απαιτούμενο στοιχείο &quot;id&quot; δεν βρέθηκε.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Το απαιτούμενο στοιχείο &quot;family&quot; δεν βρέθηκε.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Το απαιτούμενο θυγατρικό στοιχείο για &apos;version&apos;, &apos;name&apos; δεν βρέθηκε.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Λανθασμένη μορφή καταχώρισης σε ιδιότητα: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Μη έγκυρη μεταβλητή για το αναγνωριστικό τοπικών ρυθμίσεων {0} - δεν είναι δυνατόν να περιέχονται κάθετοι για να αποφευχθεί επίθεση XSS. Θα χρησιμοποιηθεί κενή συμβολοσειρά για τη μεταβλητή.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Δεν ήταν δυνατή η διαγραφή του αρχείου {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Σφάλμα κατά τη σειριοποίηση της παραμέτρου {0}:{1} τιμή:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Προέκυψε σφάλμα κατά τη σειριοποίηση της παραμέτρου {0}: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> τιμή αποτυχίας=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Σφάλμα αντιμετώπισης: {0} η παράμετρος:{1} τύπου {2} δεν μπορεί να μετατραπεί σε σειριακή μορφή</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Σφάλμα αντιμετώπισης: Η σειριοποίηση της παραμέτρου {0}:{1} άλλαξε από {2} σε {3} χωρίς η παράμετρος να μεταβληθεί</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Η δοκιμή σειριοποίησης παραμέτρων της περιόδου λειτουργίας απέτυχε για το {0}. Η απενεργοποίηση αυτού του έλεγχου μπορεί να γίνει καταργώντας το στοιχείο &apos;&apos;REQUEST&apos;&apos; από την ιδιότητα συστήματος &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Εξαίρεση κατά τη συγκέντρωση αποτυχιών δοκιμής σειριοποίησης παραμέτρων περιόδου λειτουργίας</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Παράμετρος περιόδου λειτουργίας:{0}</resource>
 </resources>

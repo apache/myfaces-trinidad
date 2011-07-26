@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nie można uzyskać nakładki z identyfikatorem (skinId) o wartości Null</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Nie znaleziono nakładki zgodnej z rodziną &quot;{0}&quot; i zestawem wypełniającym &quot;{1}&quot;; zostanie użyta nakładka prosta</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Znaleziono nakładkę zgodną z rodziną {0} i wersją {1}. Zostanie użyta nakładka {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Nie znaleziono nakładki zgodnej z rodziną {0} i wersją {1}. Zostanie użyta nakładka {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Dla rodziny {0} nie znaleziono nakładki bez ustalonej wersji. Zostanie użyta nakładka {1} z ustaloną wersją.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Nie udało się uzyskać znacznika czasu dokumentu arkusza stylów, ponieważ nie można było otworzyć połączenia.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Nie znaleziono wymaganego elementu &quot;id&quot;.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Nie znaleziono wymaganego elementu &quot;family&quot;.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Nie znaleziono wymaganego elementu podrzędnego dla &quot;version&quot;, &quot;name&quot;.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Niepoprawnie ukształtowany wpis właściwości: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Niepoprawna odmiana (variant) identyfikatora {0} ustawień narodowych - nie może zawierać ukośników (w celu uniknięcia ataków XSS). Zostanie użyta pusta wartość napisowa.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Nie udało się usunąć pliku {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Błąd podczas serializowania atrybutu {0}:{1} wartość:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Błąd podczas serializowania atrybutu {0}: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> wartość z niepowodzeniem=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Błąd podczas przejmowania awaryjnego: {0} atrybut:{1} typu {2} nie jest serializowalny</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Błąd podczas przejmowania awaryjnego: serializacja atrybutu {0}:{1} zmieniła z {2} na {3} bez zmiany wartości atrybutu</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Testowanie serializacji atrybutu sesyjnego zakończyło się niepowodzeniem; powód: {0}. Test ten można wyłączyć usuwając napis REQUEST z systemowej właściwości org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION.</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Wyjątek podczas gromadzenia danych dot. niepowodzenia testowania serializacji atrybutu sesyjnego</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atrybut sesyjny: {0}</resource>
 </resources>

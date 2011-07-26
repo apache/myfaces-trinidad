@@ -204,13 +204,13 @@
 <!-- TRAIN_MUST_INSIDE_FORM -->
 <resource key="TRAIN_MUST_INSIDE_FORM" dnt="false">Tåg måste användas inuti ett formulär</resource>
 <!-- NODESTAMP_FACET_NOT_FOUND_FOR_TRAIN -->
-<resource key="NODESTAMP_FACET_NOT_FOUND_FOR_TRAIN" dnt="false">För tåget förväntas en nodeStamp-komponent, ingen sådan komponent har hittats för tåget {0}</resource>
+<resource key="NODESTAMP_FACET_NOT_FOUND_FOR_TRAIN" dnt="false">Sekvensen förväntade en nodeStamp-aspekt, ingen sådan aspekt har hittats för sekvensen {0}</resource>
 <!-- VISIBLE_STOP_COUNT_MUST_ABOVE_ZERO -->
 <resource key="VISIBLE_STOP_COUNT_MUST_ABOVE_ZERO" dnt="false">Synligt hållplatsantal måste vara &gt; 0, {0} har hittats</resource>
 <!-- VISIBLE_STOP_COUNT_MYST_INTEGER -->
 <resource key="VISIBLE_STOP_COUNT_MYST_INTEGER" dnt="false">Synligt hållplatsantal måste vara ett heltal, {0} har hittats</resource>
 <!-- NODESTAMP_FACET_MISSING -->
-<resource key="NODESTAMP_FACET_MISSING" dnt="false">&apos;nodeStamp&apos;-komponenten saknas.</resource>
+<resource key="NODESTAMP_FACET_MISSING" dnt="false">&apos;nodeStamp&apos;-aspekten saknas.</resource>
 <!-- SINGLE_STEP_MUST_INSIDE_FORM -->
 <resource key="SINGLE_STEP_MUST_INSIDE_FORM" dnt="false">SingleSteps måste användas inuti ett formulär</resource>
 <!-- FRAMES_MUST_INSIDE_FRAMEBORDERLAYOUTS -->
@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Kan inte hämta Skin med null i skinId</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Hittar inte ett skal som matchar familjen {0} och renderkit {1} så det enkla skalet används</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Hittade ett skal som matchar familjen {0} och versionen {1}. Skalet {2} används.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Kan inte hitta ett skal som matchar familjen {0} och versionen {1}. Skalet {2} används.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Kan inte hitta ett skal utan version för familjen {0}. Versionsskalet {1} används.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Kunde inte hämta formatmallsdokumentets tidsstämpel eftersom anslutningen inte kunde öppnas.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Det obligatoriska elementet &apos;id&apos; kan inte hittas.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Det obligatoriska elementet &apos;family&apos; kan inte hittas.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Obligatoriskt underordnat element för &quot;version&quot;, &quot;namn&quot; hittades inte.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Felaktigt utformad egenskapspost: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -640,7 +648,7 @@
 <!-- ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED -->
 <resource key="ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED" dnt="false">Endast ContextBasedConfiguration stöds</resource>
 <!-- FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED -->
-<resource key="FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED" dnt="false">Komponenten kanske inte anges sedan RendererManager har tilldelats.</resource>
+<resource key="FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED" dnt="false">Aspekten får inte anges när RendererManager har tilldelats.</resource>
 <!-- ILLEGAL_TO_SET_CHILDREN -->
 <resource key="ILLEGAL_TO_SET_CHILDREN" dnt="false">Det är otillåtet att ange underordnade på en {0}</resource>
 <!-- ILLEGAL_TO_ADD_CHILDREN -->
@@ -676,7 +684,7 @@
 <!-- NULL_BASESCORE -->
 <resource key="NULL_BASESCORE" dnt="false">Null baseScore</resource>
 <!-- FACET_NOT_SUPPORTED -->
-<resource key="FACET_NOT_SUPPORTED" dnt="false">Komponenten {0} stöds inte på {1}</resource>
+<resource key="FACET_NOT_SUPPORTED" dnt="false">Aspekten {0} stöds inte på {1}</resource>
 <!-- NUMBER_OF_KEYS_AND_VALUES_MUCH_MATCH -->
 <resource key="NUMBER_OF_KEYS_AND_VALUES_MUCH_MATCH" dnt="false">antal nycklar och värden måste matcha</resource>
 <!-- CHILD_NOT_NULL_NOT_ICONNODE_INSTANCE -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ogiltig variant för språkidentifierare {0} - får inte innehålla snedstreck för att undvika XSS-attack. Använder tom sträng för variant.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Kunde inte ta bort filen {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Fel vid serialisering av {0} attribut: {1} värde: {2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Fel vid serialisering av {0} attribut:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> underkänt värde=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failoverfel: {0} attribut: {1} av typen {2} är inte serialiserbart</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failoverfel: serialisering av {0} attribut: {1} har ändrats från {2} till {3} utan att attributet har smutsats</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Test av serialisering av sessionsattribut underkändes för {0}. Den här kontrollen kan avaktiveras genom att /&apos;&apos;REQUEST/&apos;&apos; tas bort från systemegenskapen /&apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION/&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Fel inträffade vid undantagsinsamling under test av serialisering av sessionsattribut</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Sessionsattribut:{0}</resource>
 </resources>

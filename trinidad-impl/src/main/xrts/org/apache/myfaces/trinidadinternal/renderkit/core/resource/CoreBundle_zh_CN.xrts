@@ -69,8 +69,8 @@
 <!-- Resource for Composite Tree Table -->
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">展开</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">隐藏</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">在下面全部展开</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">在下面全部隐藏</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">展开全部下级</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">隐藏全部下级</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">全部展开</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">全部隐藏</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">向上</resource>

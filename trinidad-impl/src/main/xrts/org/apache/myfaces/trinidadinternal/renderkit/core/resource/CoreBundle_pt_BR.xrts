@@ -68,11 +68,11 @@
 <resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">Colunas Congeladas:</resource>
 <!-- Resource for Composite Tree Table -->
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">Expandir</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Recolher</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Contrair</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">Expandir Todos os Itens a Seguir</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Recolher Todos os Itens a Seguir</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">Expandir Tudo</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Recolher Tudo</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Contrair Tudo</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">Subir</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">Mostrar como Principal</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Ir para o início</resource>
@@ -333,7 +333,7 @@
 <!--Link text for expanding all rows-->
 <resource key="af_treeTable.EXPAND_ALL" dnt="false">Expandir Tudo</resource>
 <!--Link text for collapsing all rows-->
-<resource key="af_treeTable.COLLAPSE_ALL" dnt="false">Recolher Tudo</resource>
+<resource key="af_treeTable.COLLAPSE_ALL" dnt="false">Contrair Tudo</resource>
 <!--Link text for showing all details-->
 <resource key="af_table.SHOW_ALL_DETAILS" dnt="false">Mostrar Todos os Detalhes</resource>
 <!--Link text for hiding all details-->

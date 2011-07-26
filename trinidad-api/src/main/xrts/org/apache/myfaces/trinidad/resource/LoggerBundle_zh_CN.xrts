@@ -221,9 +221,9 @@
 <!-- ILLEGAL_PATTERN_CHARACTER -->
 <resource key="ILLEGAL_PATTERN_CHARACTER" dnt="false">模式字符 &apos;&apos;{0}&apos;&apos; 非法</resource>
 <!-- LOGGER_REQUIRED -->
-<resource key="LOGGER_REQUIRED" dnt="false">需要事件记录程序</resource>
+<resource key="LOGGER_REQUIRED" dnt="false">需要日志记录程序</resource>
 <!-- LOGGER_NAME_REQUIRED -->
-<resource key="LOGGER_NAME_REQUIRED" dnt="false">需要事件记录程序名称</resource>
+<resource key="LOGGER_NAME_REQUIRED" dnt="false">需要日志记录程序名称</resource>
 <!-- CLASS_REQUIRED -->
 <resource key="CLASS_REQUIRED" dnt="false">需要类</resource>
 <!-- PACKAGE_REQUIRED -->

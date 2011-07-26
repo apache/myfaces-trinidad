@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Impossible d&apos;obtenir l&apos;apparence avec une valeur skinId NULL</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Impossible de trouver une apparence correspondant à la famille {0} et au kit renderkit {1}. Utilisation de l&apos;&apos;apparence simple</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Une apparence correspondant à la famille {0} et à la version {1} a été trouvée. Nous utiliserons l&apos;&apos;apparence {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">L&apos;&apos;apparence correspondant à la famille {0} et à la version {1} est introuvable. Nous utiliserons l&apos;&apos;apparence {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">L&apos;&apos;apparence avec numéro de version pour la famille {0} est introuvable. Nous utiliserons l&apos;&apos;apparence avec numéro de version {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Impossible d&apos;obtenir l&apos;horodatage du document de feuille de style car il est impossible d&apos;ouvrir la connexion.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Elément obligatoire &apos;id&apos; introuvable.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Elément obligatoire &apos;family&apos; introuvable.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">L&apos;élément enfant obligatoire pour &apos;version&apos;, &apos;name&apos; est introuvable.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Entrée de propriété de format incorrect : {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -698,7 +706,7 @@
 <!-- FILE_DOWNLOAD_LISTENER_REQUIRES_SERVLET -->
 <resource key="FILE_DOWNLOAD_LISTENER_REQUIRES_SERVLET" dnt="false">fileDownloadActionListener prend uniquement en charge l&apos;API de servlet.</resource>
 <!-- FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG -->
-<resource key="FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG" dnt="false">fileDownloadActionListener doit être à l&apos;&apos;intérieur d&apos;&apos;une balise UIComponent pour un composant &quot;commande&quot;</resource>
+<resource key="FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG" dnt="false">fileDownloadActionListener doit être à l&apos;intérieur d&apos;une balise UIComponent pour un composant &quot;commande&quot;</resource>
 <!-- FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION -->
 <resource key="FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION" dnt="false">L&apos;attribut &apos;method&apos; fileDownloadActionListener doit être une expression EL.</resource>
 <!-- STATUS_INDICATOR_MISSING_ICONS -->
@@ -724,4 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante non valide pour l&apos;&apos;identificateur de paramètres locaux {0} : il ne peut pas contenir de barre oblique pour éviter les attaques XSS. Une chaîne vide sera utilisée comme variante.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Impossible de supprimer le fichier {0}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Erreur lors de la sérialisation de l&apos;&apos;attribut {0} : {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> valeur ayant échoué =</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Erreur de basculement en cas d&apos;&apos;incident : l&apos;&apos;attribut {0} {1} de type {2} n&apos;&apos;est pas sérialisable</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Erreur de basculement en cas d&apos;&apos;incident : la sérialisation de l&apos;&apos;attribut {0} {1} est passée de {2} à {3} alors que l&apos;&apos;attribut n&apos;&apos;a pas été modifié</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Echec du test de sérialisation de l&apos;&apos;attribut de session pour {0}. Vous pouvez désactiver ce contrôle en enlevant &apos;&apos;REQUEST&apos;&apos; de la propriété système &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Exception lors de la collecte - Echec du test de sérialisation de l&apos;attribut de session</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Attribut de session : {0}</resource>
 </resources>

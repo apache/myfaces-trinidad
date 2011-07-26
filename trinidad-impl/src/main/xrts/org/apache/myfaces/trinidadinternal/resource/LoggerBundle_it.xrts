@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Impossibile ottenere lo skin con skinId nullo</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Impossibile trovare uno skin che corrisponda alla famiglia {0} e al renderkit {1}, pertanto verrà utilizzato lo skin semplice</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Trovato uno skin che corrisponde alla famiglia {0} versione {1}. Verrà utilizzato lo skin {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Impossibile trovare uno skin che corrisponda alla famiglia {0} versione {1}. Verrà utilizzato lo skin {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Impossibile trovare uno skin senza controllo delle versioni per la famiglia {0}. Verrà utilizzato lo skin con controllo delle versioni {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Impossibile ottenere l&apos;indicatore orario del documento dei figli di stile poiché risulta impossibile aprire la connessione.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Elemento &apos;id&apos; obbligatorio non trovato.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Elemento &apos;family&apos; obbligatorio non trovato.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Elemento figlio richiesto per &apos;versione&apos;, &apos;nome&apos; non trovato.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Formato voce di proprietà non valido: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante non valida per l&apos;&apos;ID impostazioni nazionali {0}. Non può contenere barre per evitare attacchi XSS. Verrà utilizzata una stringa vuota per la variante.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Impossibile eliminare il file {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Errore durante la serializzazione dell&apos;&apos;attributo {0}:{1} valore:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Errore durante la serializzazione dell&apos;&apos;attributo {0}: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> valore con errore=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Errore di failover: {0} l&apos;&apos;attributo {1} di tipo {2} non è serializzabile</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Errore di failover: serializzazione dell&apos;&apos;attributo {0}: {1} è cambiata da {2} a {3} senza modificare l&apos;&apos;attributo</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Test della serializzazione dell&apos;&apos;attributo di sessione non riuscito per {0}. Per disabilitare questo controllo, rimuovere &apos;&apos;REQUEST&apos;&apos; dalla proprietà di sistema &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;.</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Eccezione durante il recupero dell&apos;errore del test per la serializzazione dell&apos;attributo di sessione</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Attributo sessione: {0}</resource>
 </resources>

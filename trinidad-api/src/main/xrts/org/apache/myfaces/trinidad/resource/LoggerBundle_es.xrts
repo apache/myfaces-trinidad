@@ -251,7 +251,7 @@
 <!-- NO_RENDERINGCONTEXT -->
 <resource key="NO_RENDERINGCONTEXT" dnt="false">Ningún RenderingContext</resource>
 <!-- RESOURCE_PATH_REGULAR_EXPRESSION_HAS_NO_LEADING_SLASH -->
-<resource key="RESOURCE_PATH_REGULAR_EXPRESSION_HAS_NO_LEADING_SLASH" dnt="false">La expresión normal de ruta de acceso a recursos &quot;{0}&quot; no tiene barras inclinadas iniciales</resource>
+<resource key="RESOURCE_PATH_REGULAR_EXPRESSION_HAS_NO_LEADING_SLASH" dnt="false">La expresión regular de ruta de acceso a recursos &quot;{0}&quot; no tiene barras inclinadas iniciales</resource>
 <!-- FACTORY_ALREADY_AVAILABlE_FOR_THIS_CLASS_LOADER -->
 <resource key="FACTORY_ALREADY_AVAILABlE_FOR_THIS_CLASS_LOADER" dnt="false">La fábrica ya está disponible para este cargador de clase.</resource>
 <!-- BYTE_ARRAY_CANNOT_BE_NULL -->
@@ -283,7 +283,7 @@
 <!-- VALUE_IS_NOT_DATE_TYPE -->
 <resource key="VALUE_IS_NOT_DATE_TYPE" dnt="false">el &apos;valor&apos; no es de tipo java.util.Date</resource>
 <!-- NULL_REGEXP_PATTERN -->
-<resource key="NULL_REGEXP_PATTERN" dnt="false">El patrón de expresión normal es nulo</resource>
+<resource key="NULL_REGEXP_PATTERN" dnt="false">El patrón de expresión regular es nulo</resource>
 <!-- VIEW_TAG_NOT_PRESENT -->
 <resource key="VIEW_TAG_NOT_PRESENT" dnt="false">&lt;f:view&gt; no estaba presente en esta página; se ha encontrado la etiqueta {0} sin &lt;f:view&gt; en proceso.</resource>
 <!-- RESOURCE_PATH_OUTSIDE_ROOT -->
