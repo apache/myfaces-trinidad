@@ -9,6 +9,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
 /**
@@ -126,11 +127,19 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
         {
           RowKeySet oldKeySet = (RowKeySet)oldValue;
           
-          oldKeySet.clear();
-          
-          if (_newKeySet != null)
+          try
           {
-            oldKeySet.addAll(_newKeySet);
+            oldKeySet.clear();
+            
+            if (_newKeySet != null)
+            {
+              oldKeySet.addAll(_newKeySet);
+            }
+          }
+          catch (Exception e)
+          {
+            _LOG.warning("FAILED_ROWKEYSETATTRIBUTECHANGE", e);
+            return;
           }
         }
         else
@@ -147,6 +156,6 @@ public final class RowKeySetAttributeChange extends AttributeComponentChange
   }
 
   private static final long serialVersionUID = 1L;
-  
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RowKeySetAttributeChange.class);
   private final String _clientId;
 }

@@ -200,6 +200,9 @@
  <!-- CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT -->
  <resource key="CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT">Cannot construct an ChangeComponentProxy with null UIComponent.</resource>
  
+ <!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+ <resource key="FAILED_ROWKEYSETATTRIBUTECHANGE">Failed to apply row key set attribute change. Reason : {1}</resource>
+
  <!-- TARGET_CLASS_NAME_MUST_BE_PROVIDED -->
  <resource key="TARGET_CLASS_NAME_MUST_BE_PROVIDED">Target class name must be provided</resource>
  
