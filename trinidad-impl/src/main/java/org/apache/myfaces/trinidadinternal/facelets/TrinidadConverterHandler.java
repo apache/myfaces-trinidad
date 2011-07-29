@@ -19,10 +19,12 @@
 package org.apache.myfaces.trinidadinternal.facelets;
 
 
+import java.beans.Beans;
 
 import javax.faces.view.facelets.ConverterConfig;
 import javax.faces.view.facelets.ConverterHandler;
 import javax.faces.view.facelets.MetaRuleset;
+
 
 public class TrinidadConverterHandler
   extends ConverterHandler
@@ -36,6 +38,9 @@ public class TrinidadConverterHandler
   protected MetaRuleset createMetaRuleset(Class type)
   {
     MetaRuleset m = super.createMetaRuleset(type);
+    // Trinidad-2014 : Converters may have id specified in the tld, but it isn't supported
+    if (Beans.isDesignTime())
+      m.ignore("id");
     m.addRule(StringArrayPropertyTagRule.Instance);
     m.addRule(ValueExpressionTagRule.Instance);
     m.addRule(LocalePropertyTagRule.Instance);
