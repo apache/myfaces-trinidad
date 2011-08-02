@@ -40,7 +40,7 @@ import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
            "minimal.portlet",
            TrinidadRenderingConstants.MINIMAL_SKIN_FAMILY,
            TrinidadRenderingConstants.OUTPUT_MODE_PORTLET,
-           "META-INF/adf/styles/simple-portlet.xss");
+           "META-INF/adf/styles/simple-portlet.css");
    }
 
  }

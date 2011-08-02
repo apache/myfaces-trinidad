@@ -236,30 +236,17 @@ class StyleSheetEntry
     )
   {
 
-    StyleSheetEntry skinStyleSheet;
+    StyleSheetEntry skinStyleSheet = null;
 
-    if (!styleSheetName.endsWith(".css"))
-    {
-
-      // Parse the style sheet to create the StyleSheetDocument
-      StyleSheetDocument document = _createStyleSheetDocumentFromXSS(resolver,
-                                                              styleSheetName);
-      if (document == null)
-        skinStyleSheet = null;
-      else
-      {
-        skinStyleSheet = new StyleSheetEntry(styleSheetName,
-                                             document);
-      }
-
-    }
-    else
+    if (styleSheetName.endsWith(".css"))
     {
       // this will parse a skin css file which allows icons, properties,
       // and styles.
         skinStyleSheet =  _createSkinStyleSheetFromCSS(resolver,
                                                        styleSheetName);
-
+    } else {
+      String message = _LOG.getMessage("INVALID_STYLESHEET_TYPE", new Object[]{styleSheetName});
+      _LOG.severe(message);
     }
 
     return skinStyleSheet;
@@ -296,34 +283,6 @@ class StyleSheetEntry
      }
       return null;
   }
-
-  // Creates the StyleSheetDocument from a skinning file that ends in .xss, like base-desktop.xss
-  private static StyleSheetDocument _createStyleSheetDocumentFromXSS(
-    NameResolver     resolver,
-    String           styleSheetName
-    )
-  {
-
-    XMLProvider xmlProvider = new JaxpXMLProvider();
-
-    try
-    {
-      // this will parse the xss file adn return a StyleSheetDocument
-      return StyleSheetDocumentUtils.createStyleSheetDocument(xmlProvider,
-                                                              resolver,
-                                                              styleSheetName);
-    }
-    catch (Exception e)
-    {
-      if (_LOG.isSevere())
-        _LOG.severe("CANNOT_LOAD_STYLESHEET", styleSheetName);
-        _LOG.severe(e);
-    }
-
-    return null;
-  }
-
-
 
   // Returns the NameResolver to use for locating and loading style sheet file.
   // Depending upon what the styleSheetName is, we load the file different way: local file,

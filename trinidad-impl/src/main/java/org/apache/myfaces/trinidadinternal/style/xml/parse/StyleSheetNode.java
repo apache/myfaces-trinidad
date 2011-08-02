@@ -42,10 +42,8 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
  * browsers, direction, versions, platforms and mode.  In addition, the StyleSheetNode
  * provides access to IconNodes representing the icons which were defined within
  * the context of this style sheet. StyleSheetNodes are contained in StyleSheetDocuments.
- * And a StyleSheetNode is created for both .xss skin files and .css files.
- * .xss skin files create StyleSheetNodes via StyleSheetNodeParser
+ * And a StyleSheetNode is created for .css files.
  * .css skin files create StyleSheetNodes via SkinStyleSheetParserUtils
- * @see StyleSheetNodeParser
  * @see org.apache.myfaces.trinidadinternal.skin.SkinStyleSheetParserUtils
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetNode.java#0 $) $Date: 10-nov-2005.18:58:46 $
  */
@@ -606,9 +604,7 @@ public class StyleSheetNode
 
   // This special platform constant is used to indicate that the style sheet
   // is Unix-specific, but not specific to a particular Unix OS.  It is
-  // package private, as StyleSheetNodeParser references this when
-  // creating the int[] platforms array that gets passed in to StyleSheetNode.
-  // Agent.OS constants start from 0.  We use Integer.MAX_VALUE to avoid
-  // collisions
+  // package private. Agent.OS constants start from 0.
+  // We use Integer.MAX_VALUE to avoid collisions
   static final int __OS_UNIX = Integer.MAX_VALUE;
 }

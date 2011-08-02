@@ -1150,4 +1150,6 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE">Session attribute:{0} </resource>
 
+<resource key="INVALID_STYLESHEET_TYPE">Parsing error: Unknown type of stylesheet '{0}'. Style sheets other than css are not supported. </resource>
+
 </resources>

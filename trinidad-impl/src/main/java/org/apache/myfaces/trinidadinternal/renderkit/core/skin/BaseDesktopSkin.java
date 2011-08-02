@@ -87,7 +87,7 @@ public class BaseDesktopSkin extends XhtmlSkin
   @Override
   public String getStyleSheetName()
   {
-    return "base-desktop.xss";
+    return "base-desktop.css";
   }
 
   // Customizable LAF Icons

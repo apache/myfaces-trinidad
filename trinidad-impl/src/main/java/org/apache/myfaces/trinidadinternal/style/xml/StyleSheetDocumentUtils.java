@@ -55,69 +55,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 public class StyleSheetDocumentUtils
 {
   /**
-   * Creates a StyleSheetDocument from the specified InputSource (.xss file)
-   *
-   * @param provider The XMLProvider to use to parse the source document
-   * @param source The InputSource for the source document.  The system
-   *         id of the InputSource must be the file system path of the
-   *         source document.
-   */
-  public static StyleSheetDocument createStyleSheetDocument(
-    XMLProvider  provider,
-    InputSource  source
-    ) throws IOException, SAXException
-  {
-    // Make sure we've got a source file
-    String sourceName = source.getSystemId();
-    if ((sourceName == null)) 
-    {
-      throw new IllegalArgumentException(_LOG.getMessage(
-        "NULL_SOURCENAME"));
-    }
-
-    return createStyleSheetDocument(
-                          provider,
-                          new DefaultNameResolver(new File(sourceName), null),
-                          sourceName);
-
-  }
-
-  /**
-   * Creates a StyleSheetDocument from the specified InputSource (.xss file)
-   * @param xmlProvider The XMLProvider to use to parse the source document
-   * @param resolver The NameResolver to use to locate the source document.
-   *                 This must be a non-null instance.
-   * @param sourceName The name of the source XSS document.  This value
-   *                 must resolve to a valid document via the provided
-   *                 NameResolver.
-   */
-  public static StyleSheetDocument createStyleSheetDocument(
-    XMLProvider  xmlProvider,
-    NameResolver resolver,
-    String       sourceName
-    ) throws IOException, SAXException
-  {
-    // We always require a source name and a resolver
-    if ((sourceName == null)||(resolver == null)) 
-    {
-      throw new NullPointerException(_LOG.getMessage(
-        "NULL_ARGUMENT"));
-    }
-
-    // Gather all of the the objects that we need for the parse
-    ParserManager manager = _getDefaultParserManager();
-    ParseContextImpl parseContext = new ParseContextImpl();
-
-    // Parse it!
-    return (StyleSheetDocument)XMLUtils.parseSource(parseContext,
-                                                    xmlProvider,
-                                                    manager,
-                                                    resolver,
-                                                    sourceName,
-                                                    StyleSheetDocument.class);
-  }
-
-  /**
    * Merges two StyleSheetDocuments to produce a new StyleSheetDocuments
    * which combines styles from both documents.  If styles appear in
    * both documents, the style properties in the second StyleSheetDocument

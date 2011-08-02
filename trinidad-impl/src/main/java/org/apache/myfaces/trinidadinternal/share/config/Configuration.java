@@ -111,16 +111,6 @@ abstract public class Configuration
   static public final Object LOOK_AND_FEEL_MANAGER = "lookAndFeelManager";
 
   /**
-   * Key for the XSS style sheet name property.  Any value
-   * registered here will be used as the default stylesheet
-   * for all UIX projects.  The stylesheet will be looked
-   * for in the directory specified by the STYLES_DIRECTORY
-   * key.
-   */
-  // THE VALUE OF THIS STRING MATTERS: IT IS USED IN XML PARSING
-  static public final Object STYLE_SHEET_NAME = "styleSheetName";
-
-  /**
    * Key for the RendererManager property.  Any UIX Components RendererManager
    * stored at this key will be used by UIX Components's ServletRenderingContext
    * if none is explicitly attached.

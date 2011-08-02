@@ -68,7 +68,7 @@ public class BaseDesktopLookAndFeel extends XhtmlLookAndFeel
    */
   public String getStyleSheetName()
   {
-    return "META-INF/adf/styles/base-desktop.xss";
+    return "META-INF/adf/styles/base-desktop.css";
   }
 
   @Override
