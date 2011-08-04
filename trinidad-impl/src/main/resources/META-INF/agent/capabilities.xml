@@ -68,6 +68,11 @@
       <include refid="html" />
       <include src="gecko.xml" />
     </capabilities>
+    
+    <capabilities id="gecko4" agents="gecko/4+">
+      <include refid="gecko" />
+      <include src="gecko4.xml" />
+    </capabilities>
 
 
     <capabilities id="email" agents="email">
@@ -90,20 +95,20 @@
       <include src="email.xml" />
     </capabilities>
 
-    <capabilities id="ios" agents="webkit/500+" platforms="ipad iphone ipod">
+    <capabilities id="ios" agents="webkit/533+" platforms="ipad iphone ipod">
       <!-- note, version included to give it a higher score than the webkit312 below -->
       <include refid="html" />
-      <include src="webkit312.xml"/>
+      <include refid="webkit533"/>
       <include src="ios.xml"/>
     </capabilities>
 
-    <capabilities id="android" agents="webkit/500+" platforms="android">
+    <capabilities id="android" agents="webkit/533+" platforms="android">
       <!-- note, version included to give it a higher score than the webkit312 below -->
       <include refid="html" />
-      <include src="webkit312.xml"/>
+      <include refid="webkit533"/>
       <include src="android.xml"/>
     </capabilities>
-
+    
     <capabilities id="webkit" agents="webkit">
       <include refid="html" />
       <include src="webkit.xml"/>
@@ -112,6 +117,11 @@
     <capabilities id="webkit312" agents="webkit/312.1+">
       <include refid="webkit" />
       <include src="webkit312.xml"/>
+    </capabilities>
+    
+    <capabilities id="webkit533" agents="webkit/533+">
+      <include refid="webkit312" />
+      <include src="webkit533.xml"/>
     </capabilities>
 
     <capabilities id="nokia_s60" agents="nokia_s60">

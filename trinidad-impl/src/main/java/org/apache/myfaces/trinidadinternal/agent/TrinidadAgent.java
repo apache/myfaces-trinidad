@@ -75,6 +75,13 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    */
   static public final CapabilityKey CAP_TOUCH_SCREEN =
           CapabilityKey.getCapabilityKey("touchScreen", true);
+  
+  /**
+   * Session History Management (HTML5 History) Capability indicating support for 
+   * APIs like history.pushState, history.replaceState, etc.
+   */
+  static public final CapabilityKey CAP_HISTORY_MANAGEMENT = 
+          CapabilityKey.getCapabilityKey("historyManagement", true);
 
   //
   // XHTML Modularization
@@ -263,6 +270,14 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    */
   static public final Object TOUCH_SCREEN_MULTIPLE =
           CapabilityValue.getCapabilityValue (CAP_TOUCH_SCREEN, "multiple");
+  
+  // Values for CAP_HISTORY_MANAGEMENT
+  /**
+   * Agent fully supports Session History Management (HTML5 History) APIs
+   */
+  static public final Object HISTORY_MANAGEMENT_FULL =
+          CapabilityValue.getCapabilityValue (CAP_HISTORY_MANAGEMENT, "full");
+  
 
   /**
    * Application constant for Desktop devices
