@@ -275,7 +275,7 @@ class SkinStyleSheetParserUtils
                              iconNodeList,
                              null,/*locales, not yet supported*/
                              skinSSNode.getDirection(),
-                             skinSSNode.getAgentVersions(),
+                             skinSSNode.getAgentsProperties(),
                              skinSSNode.getPlatforms(),
                              0,
                              skinSSNode.getAcessibilityProperties());

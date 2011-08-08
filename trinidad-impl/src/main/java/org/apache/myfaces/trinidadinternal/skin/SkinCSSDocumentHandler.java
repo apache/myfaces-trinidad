@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -37,9 +38,9 @@ import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
- /** As the Skin css file is parsed, methods in this class are called to
-  * build up a SkinStyleSheetNode.
-  */
+/** As the Skin css file is parsed, methods in this class are called to
+ * build up a SkinStyleSheetNode.
+ */
 public class SkinCSSDocumentHandler
 {
 
@@ -242,7 +243,7 @@ public class SkinCSSDocumentHandler
   private CompleteSelectorNode _createCompleteSelectorNode(
     String                     selector,
     List<PropertyNode>         propertyNodeList,
-    Map<Integer, Set<Version>> selectorAgentVersions,
+    Map<Integer, AgentProperties> selectorAgentsProperties,
     int[]                      selectorPlatforms,
     Set<String>                selectorAccProperties)
   {
@@ -269,7 +270,7 @@ public class SkinCSSDocumentHandler
         selector,
         propertyNodeList,
         direction,
-        selectorAgentVersions,
+        selectorAgentsProperties,
         selectorPlatforms,
         selectorAccProperties);
   }
@@ -293,7 +294,7 @@ public class SkinCSSDocumentHandler
     {
       // we add to the ssNodeList in this method.
       int direction = completeSelectorNode.getDirection();
-      Map<Integer, Set<Version>> agentVersions = completeSelectorNode.getAgentVersions();
+      Map<Integer, AgentProperties> agentsProperties = completeSelectorNode.getAgentsProperties();
       int[] platforms = completeSelectorNode.getPlatforms();
       Set<String> accProperties = completeSelectorNode.getAccessibilityProperties();
 
@@ -306,7 +307,7 @@ public class SkinCSSDocumentHandler
       for (int i = skinStyleSheetNodes.size() - 1; i >= 0 && !match; --i)
       {
         SkinStyleSheetNode ssNode = skinStyleSheetNodes.get(i);
-        match = ssNode.matches(direction, agentVersions, platforms, accProperties);
+        match = ssNode.matches(direction, agentsProperties, platforms, accProperties);
         if (match)
           ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
       }
@@ -315,7 +316,7 @@ public class SkinCSSDocumentHandler
       {
        // no matching stylesheet node found, so create a new one
         SkinStyleSheetNode ssNode =
-         new SkinStyleSheetNode(namespaceMap, direction, agentVersions, platforms, accProperties);
+         new SkinStyleSheetNode(namespaceMap, direction, agentsProperties, platforms, accProperties);
         ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
         skinStyleSheetNodes.add(ssNode);
       }
@@ -345,48 +346,7 @@ public class SkinCSSDocumentHandler
       
       if (_AT_AGENT.equals(type))
       {
-        _selectorAgents = new HashMap<Integer, Set<Version>>();
-
-        for (int i=0; i < typeArray.length; i++)
-        {
-          // TODO: support min-version and max-version
-          // parse the agent versions. Examples:
-          // @agent ie and (version:6)
-          // @agent ie and (version:6.*)
-          // @agent ie and (version:5.0.*)
-          // @agent ie and (version:5.*) and (version:6)
-          
-          String[] sections = _WHITESPACE_PATTERN.split(typeArray[i].trim(), 2);
-          
-          // currently the type must be first
-          if (sections.length == 0)
-          {
-            throw new IllegalArgumentException("Invalid @agent string: " + typeArray[i]);
-          }
-          int agentInt = NameUtils.getBrowser(sections[0]);
-          if (agentInt != TrinidadAgent.APPLICATION_UNKNOWN)
-          {
-            Set<Version> versions = new HashSet<Version>();
-            _selectorAgents.put(agentInt, versions);
-            
-            if (sections.length == 2)
-            {
-              Matcher m = _AND_MEDIA_PROPERTY_SPLITTER.matcher(sections[1]);
-              
-              while (m.find())
-              {
-                String propName = m.group(1);
-                String version = m.group(2);
-                
-                if (!"version".equals(propName))
-                {
-                  throw new IllegalArgumentException("Invalid @agent property name: " + propName);
-                }
-                versions.add(new Version(version, "*"));
-              }
-            }
-          }
-        }
+        _parseAgentRule(typeArray);
       }
       else if (_AT_PLATFORM.equals(type))
       {
@@ -434,7 +394,166 @@ public class SkinCSSDocumentHandler
       }
     }
   }
+
+  /**
+   * Parses <code>types</code> string of the "@agent" rule for "version" and "touchScreen" 
+   * properties that are stored in an {@link AgentProperties}.
+   * @param typeArray tokenization by agents
+   * @see #_parseAgentProperties
+   * @see #_initAtRuleTargetTypes
+   */
+  private void _parseAgentRule(String[] typeArray)
+  {
+    // tracks matches on agent and properties.  
+    _selectorAgents = new HashMap<Integer, AgentProperties>();   
+    
+    Set<String> globalCapabilityTouchScreen = new HashSet<String>();
+    Set<Version> globalVersions = new HashSet<Version>();
+    
+    // Parsing agent types takes 2 passes to resovle the agent data.  
+    // 1) Identify agent properties that apply to all agents and 
+    //    parse agent types that are targeted at a specific agent
+    // 2) Apply global properties collected in the first pass to to 
+    //    all agents.
+    
+    // pass #1 - parse agent types
+    for (int i=0; i < typeArray.length; i++)
+    {
+      // TODO: support min-version and max-version
+      
+      String agentType =  typeArray[i].trim();
+       
+      // Check to see if the agent name is missing from the section.  These 
+      // rules are applied to all agents.
+      // @agent (touchScreen)                              /* all tablet agents, single and multiple touch */
+      // @agent (touchScreen:none)                         /* all desktop agents */ 
+      // @agent (touchScreen:single) and (version:multipe) /* all tablet agents, single and multiple touch */
+
+      Matcher m = _GLOBAL_MEDIA_PROPERTY_SPLITTER.matcher(agentType);
+      if (m.find() && m.start() == 0)  
+      {
+        // section[1] has no agent but matches property syntax
+        _parseAgentProperties(globalCapabilityTouchScreen, globalVersions, m.reset());
+        continue;  // continue to the next agent type condition
+      }
+      
+      // parse the agent versions. Examples:
+      // @agent ie and (version:6)
+      // @agent ie and (version:6.*)
+      // @agent ie and (version:5.0.*)
+      // @agent ie and (version:5.*) and (version:6), webkit and (version:5.0.*)
  
+      String[] sections = _WHITESPACE_PATTERN.split(agentType, 2);   
+      // currently the type must be first
+      if (sections.length == 0)
+      {
+        throw new IllegalArgumentException("Invalid @agent string: " + typeArray[i]);
+      }
+
+      int agentInt = NameUtils.getBrowser(sections[0]);
+      if (agentInt == TrinidadAgent.APPLICATION_UNKNOWN) 
+        throw new IllegalArgumentException("Invalid agent name in @agent string: " + typeArray[i]);        
+      
+      Set<String> capabilityTouchScreen = new HashSet<String>();
+      Set<Version> versions = new HashSet<Version>();      
+
+      // Match on agent. An empty AgentProperties instance by agent id 
+      // (no version and no touch capabilities) still indicates a match 
+      // on the agent browser.
+      _selectorAgents.put(agentInt, new AgentProperties(versions, capabilityTouchScreen));
+        
+      // The 2nd section when an agent name is provided are properties: 
+      // " and (version:6) and (version:5.0.*) and (touchScreen)".
+      if (sections.length == 2)
+      {
+        m = _AND_MEDIA_PROPERTY_SPLITTER.matcher(sections[1]);
+        if (!m.find())
+          throw new IllegalArgumentException("Invalid agent property syntax in @agent string: " + sections[1]);         
+        _parseAgentProperties(capabilityTouchScreen, versions, m.reset());
+      } 
+    } // end for typesArray
+    
+    // pass #2 - apply global properties to all agents
+    if (!globalCapabilityTouchScreen.isEmpty() || !globalVersions.isEmpty())
+    {
+      int[] allBrowsers = NameUtils.getAllBrowsers();
+      for (int agentInt: allBrowsers) 
+      {
+        AgentProperties agentProps = _selectorAgents.get(agentInt);
+        if (agentProps != null)
+        {
+          // add global propertie to existing agent properties
+          agentProps.getVersions().addAll(globalVersions);
+          agentProps.getCapabilityTouchScreen().addAll(globalCapabilityTouchScreen);
+        }
+        else
+        {
+          // add global properties to agent selectors for specific agent
+          _selectorAgents.put(agentInt, new AgentProperties(globalVersions, globalCapabilityTouchScreen));
+        }
+      } // end for all browsers
+    } // has global properties
+  }
+
+  /**
+   * Uses the regexp matcher to parse agent properties and append to the 
+   * capability and version sets passed in the actual parameter.
+   * 
+   * @param capabilityTouchScreen "touchScreen" agent properties
+   * @param versions "version" agent properties
+   * @param m reset agent matcher
+   * @see #_parseAgentRule
+   */
+  private void _parseAgentProperties(Set<String> capabilityTouchScreen,
+                                     Set<Version> versions, Matcher m)
+  {
+    while (m.find())
+    {
+      String propName = m.group(1);
+      String propValue = m.group(2);
+
+      if ("version".equals(propName))
+      {
+        if (propValue != null)
+          versions.add(new Version(propValue.trim(), "*"));
+        else
+          _LOG.warning("INVALID_AGENT_PROPERTY", new Object[]
+            { propName, propValue });
+      }
+      else if (TrinidadAgent.CAP_TOUCH_SCREEN.getCapabilityName().equals(propName))
+      {
+        String[] capTouchArray;
+        if (propValue != null)
+        {
+          String capValue = propValue.trim();
+          if (this._ALL_TOUCH_CAPABILITIES.contains(capValue))
+            capTouchArray = new String[]
+                { capValue };
+          else
+          {
+            _LOG.warning("INVALID_AGENT_PROPERTY", new Object[]
+                { propName, capValue });
+            capTouchArray = new String[]
+                { };
+          }
+        }
+        else
+        {
+          capTouchArray = _AFFIRMATIVE_TOUCH_CAPABILITIES;
+        }
+
+        Set<String> capTouchValues =
+          new HashSet<String>(Arrays.<String>asList(capTouchArray));
+        capabilityTouchScreen.addAll(capTouchValues);
+      }
+      else
+      {
+        //throw new IllegalArgumentException("Invalid @agent property name: " + propName);
+        _LOG.warning("INVALID_AGENT_PROPERTY", new Object[] { propName, propValue });
+      }
+    } // end while
+  }
+
   // Copies Integers from a List of Integers into an int array
   private int[] _getIntArray(List <Integer> integerList)
   {
@@ -535,17 +654,17 @@ public class SkinCSSDocumentHandler
     return mergedProperties;
   }
 
-   /**
-    * This Class contains a SkinSelectorPropertiesNode and a rtl direction.
-    * We will use this information when creating a SkinStyleSheetNode.
-    */
+  /**
+   * This Class contains a SkinSelectorPropertiesNode and a rtl direction.
+   * We will use this information when creating a SkinStyleSheetNode.
+   */
   private static class CompleteSelectorNode
   {
     public CompleteSelectorNode(
       String                     selectorName,
       List<PropertyNode>         propertyNodes,
       int                        direction,
-      Map<Integer, Set<Version>> agentVersions,
+      Map<Integer, AgentProperties> agentsProperties,
       int[]                      platforms,
       Set<String>                accProperties
       )
@@ -554,9 +673,9 @@ public class SkinCSSDocumentHandler
       _direction = direction;
       // copy the agents and platforms because these get nulled out
       // at the end of the @rule parsing.
-      _agentVersions = agentVersions != null ?
-        new HashMap<Integer, Set<Version>>(agentVersions) :
-        new HashMap<Integer, Set<Version>>();
+      _agentsProperties = agentsProperties != null ?
+        new HashMap<Integer, AgentProperties>(agentsProperties) :
+        new HashMap<Integer, AgentProperties>();
       
       _platforms = _copyIntArray(platforms);
       
@@ -580,11 +699,11 @@ public class SkinCSSDocumentHandler
     }
 
     /**
-     * @return The versions of the agent to be supported
+     * @return The supported agent properties, "version", "touchScreen".
      */
-    public Map<Integer, Set<Version>> getAgentVersions()
+    public Map<Integer, AgentProperties> getAgentsProperties()
     {
-      return _agentVersions;
+      return _agentsProperties;
     }
     
     public int[] getPlatforms()
@@ -611,7 +730,7 @@ public class SkinCSSDocumentHandler
 
     private SkinSelectorPropertiesNode _node;
     private int _direction;  // the reading direction
-    private Map<Integer, Set<Version>> _agentVersions;
+    private Map<Integer, AgentProperties> _agentsProperties;
     private int[] _platforms;
     private Set<String> _accProperties;
   }
@@ -633,9 +752,10 @@ public class SkinCSSDocumentHandler
   private int[] _selectorPlatforms = null;
 
   // As we need to be able to have multiple versions to an agent
-  // we store a map of agents and their version sets
-  private Map<Integer, Set<Version>> _selectorAgents = null;
-
+  // we store a map of agents and their properties.  Agent properties
+  // are additional critera applied to selection (version, touchScreen).
+  private Map<Integer, AgentProperties> _selectorAgents = null;
+  
   // Stack of accessibility property sets.  While java.util.Stack has the
   // push/pop API that we want, we don't need the synchronization, so we
   // just use a LinkedList instead and pretend its a stack.
@@ -650,7 +770,20 @@ public class SkinCSSDocumentHandler
     Pattern.compile("\\s+");
   
   private static final Pattern _AND_MEDIA_PROPERTY_SPLITTER =
-    Pattern.compile("\\band\\s+\\((\\w+)\\s*:\\s*(\\S+)\\s*\\)");
+    Pattern.compile("\\band\\s+\\(([A-Za-z0-9_-]+)(?::\\s*([A-Za-z0-9.]+)\\s*)?\\s*");
+
+  private static final Pattern _GLOBAL_MEDIA_PROPERTY_SPLITTER = 
+    Pattern.compile("\\(([A-Za-z0-9_-]+)(?::\\s*([A-Za-z0-9.]+)\\s*)?\\)"); 
+  private static final String[] _AFFIRMATIVE_TOUCH_CAPABILITIES =
+    new String[]
+    { TrinidadAgent.TOUCH_SCREEN_MULTIPLE.toString(),
+      TrinidadAgent.TOUCH_SCREEN_SINGLE.toString() };
+
+  private static final HashSet<String> _ALL_TOUCH_CAPABILITIES =
+    new HashSet<String>(Arrays.<String>asList(new String[]
+        { TrinidadAgent.TOUCH_SCREEN_MULTIPLE.toString(),
+          TrinidadAgent.TOUCH_SCREEN_SINGLE.toString(),
+          TrinidadAgent.TOUCH_SCREEN_NONE.toString() }));
 }
-   
-   
+
+

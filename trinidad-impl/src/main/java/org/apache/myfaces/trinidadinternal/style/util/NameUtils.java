@@ -25,6 +25,7 @@ import java.util.Vector;
 
 import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.skin.AgentProperties;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
@@ -33,13 +34,21 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * Utilities for converting between variant names and ids
- * 
+ *
  * @version $Name: $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/util/NameUtils.java#0 $) $Date: 10-nov-2005.18:58:52 $
  */
 public class NameUtils
 {
   private NameUtils() {}
 
+  /**
+   * @return id of all supported browsers
+   */
+  public static int[] getAllBrowsers()
+  {
+    return _ALL_BROWSERS;  
+  }
+  
   /**
    * Returns the id of the browser with the specified name
    */
@@ -642,7 +651,7 @@ public class NameUtils
    *          and the second value being the version match
    */
   private static boolean[] _isBrowserAndVersionMatch(StyleContext context,
-      StyleSheetNode[] styleSheets)
+                                                     StyleSheetNode[] styleSheets)
   {
     int browser = context.getAgent().getAgentApplication();
     Version version = new Version(context.getAgent().getAgentVersion());
@@ -653,23 +662,28 @@ public class NameUtils
 
     boolean browserMatched = false;
     Integer browserNum = Integer.valueOf(browser);
-    
+
     // If any style sheet has a non-null browser variant, we must
     // have a browser match.
     for (int i = 0; i < styleSheets.length; i++)
     {
-      if (!styleSheets[i].getAgentVersions().isEmpty())
+      if (!styleSheets[i].getAgentsProperties().isEmpty())
       {
-        Set<Version> versions = styleSheets[i].getAgentVersions().get(browserNum);
-        
-        if (versions != null)
+        AgentProperties agentProps =
+          styleSheets[i].getAgentsProperties().get(browserNum);
+        if (agentProps != null)
         {
           browserMatched = true;
-          for (Version av : versions)
+          
+          Set<Version> versions = agentProps.getVersions();
+          if (versions != null && !versions.isEmpty())
           {
-            if (av.compareTo(version) == 0)
+            for (Version av: versions)
             {
-              return new boolean[] { true, true };
+              if (av.compareTo(version) == 0)
+              {
+                return new boolean[] { true, true };
+              }
             }
           }
         }
@@ -766,6 +780,17 @@ public class NameUtils
   private static final String _BROWSER_GENERICPDA = "genericpda";
 
   private static final String _BROWSER_EMAIL = "email";
+  
+  // all supported browsers by id
+  private static final int[] _ALL_BROWSERS =
+  { TrinidadAgent.APPLICATION_NETSCAPE,
+    TrinidadAgent.APPLICATION_IEXPLORER, TrinidadAgent.APPLICATION_GECKO,
+    TrinidadAgent.APPLICATION_ICE, TrinidadAgent.APPLICATION_SAFARI,
+    TrinidadAgent.APPLICATION_BLACKBERRY,
+    TrinidadAgent.APPLICATION_NOKIA_S60,
+    TrinidadAgent.APPLICATION_GENERICPDA,
+    TrinidadAgent.APPLICATION_EMAIL };
+
   // Platform constants
   private static final String _PLATFORM_WINDOWS = "windows";
 

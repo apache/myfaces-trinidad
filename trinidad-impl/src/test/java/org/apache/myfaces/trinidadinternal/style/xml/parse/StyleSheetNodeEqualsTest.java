@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -29,6 +30,7 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 
+import org.apache.myfaces.trinidadinternal.skin.AgentProperties;
 import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
@@ -133,16 +135,16 @@ public class StyleSheetNodeEqualsTest extends TestCase
     Locale[] diffOrderLocalesArray = getDiffOrderLocalesArray();
      
     // create a browsers map
-    Map<Integer, Set<Version>> browsers = new HashMap<Integer, Set<Version>>();
-    browsers.put(1, new HashSet<Version>(Arrays.asList(new Version("5"), new Version("6"))));
-    browsers.put(2, new HashSet<Version>(Arrays.asList(new Version("7"), new Version("8"))));
-    Map<Integer, Set<Version>> anotherBrowsers = new HashMap<Integer, Set<Version>>();
-    anotherBrowsers.put(1, new HashSet<Version>(Arrays.asList(new Version("5"), new Version("6"))));
-    anotherBrowsers.put(2, new HashSet<Version>(Arrays.asList(new Version("7"), new Version("8"))));
-    Map<Integer, Set<Version>> anotherBrowsersDiffOrder
-        = new HashMap<Integer, Set<Version>>();
-    anotherBrowsersDiffOrder.put(2, new HashSet<Version>(Arrays.asList(new Version("8"), new Version("7"))));
-    anotherBrowsersDiffOrder.put(1, new HashSet<Version>(Arrays.asList(new Version("6"), new Version("5"))));
+    Map<Integer, AgentProperties> browsers = new HashMap<Integer, AgentProperties>();
+    browsers.put(1, new AgentProperties(new HashSet<Version>(Arrays.asList(new Version("5"), new Version("6"))), Collections.<String>emptySet()));
+    browsers.put(2, new AgentProperties(new HashSet<Version>(Arrays.asList(new Version("7"), new Version("8"))), Collections.<String>emptySet()));
+    Map<Integer, AgentProperties> anotherBrowsers = new HashMap<Integer, AgentProperties>();
+    anotherBrowsers.put(1, new AgentProperties(new HashSet<Version>(Arrays.asList(new Version("5"), new Version("6"))), Collections.<String>emptySet()));
+    anotherBrowsers.put(2, new AgentProperties(new HashSet<Version>(Arrays.asList(new Version("7"), new Version("8"))), Collections.<String>emptySet()));
+    Map<Integer, AgentProperties> anotherBrowsersDiffOrder
+        = new HashMap<Integer, AgentProperties>();
+    anotherBrowsersDiffOrder.put(2, new AgentProperties(new HashSet<Version>(Arrays.asList(new Version("8"), new Version("7"))), Collections.<String>emptySet()));
+    anotherBrowsersDiffOrder.put(1, new AgentProperties(new HashSet<Version>(Arrays.asList(new Version("6"), new Version("5"))), Collections.<String>emptySet()));
 
 
     int[] platforms = {2, 3, 4};

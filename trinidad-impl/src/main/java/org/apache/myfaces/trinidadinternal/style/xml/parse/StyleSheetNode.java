@@ -32,6 +32,7 @@ import java.util.StringTokenizer;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.skin.AgentProperties;
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
@@ -57,7 +58,7 @@ public class StyleSheetNode
     Collection<IconNode> icons,
     Locale[] locales,
     int direction,
-    Map<Integer, Set<Version>> agentVersions,
+    Map<Integer, AgentProperties> agentsProperties,
     int[] platforms,
     int mode,
     Set<String> accessibilityProperties
@@ -83,12 +84,12 @@ public class StyleSheetNode
     else
       _locales = Collections.emptySet();
 
-    if (agentVersions != null)
+    if (agentsProperties != null)
     {
-      _agentVersions = Collections.unmodifiableMap(agentVersions);
+      _agentsProperties = Collections.unmodifiableMap(agentsProperties);
     }
     else
-      _agentVersions = Collections.emptyMap();
+      _agentsProperties = Collections.emptyMap();
 
     if (platforms != null)
     {
@@ -149,12 +150,11 @@ public class StyleSheetNode
   }
 
   /**
-   * Implementation of StyleSheetNode.getAgentVersions().
-   * @return a map containing each browser type mapped to its versions set
+   * @return A map containing each browser mapped to supported properties.
    */
-  public Map<Integer, Set<Version>> getAgentVersions()
+  public Map<Integer, AgentProperties> getAgentsProperties()
   {
-    return _agentVersions;
+    return _agentsProperties;
   }
 
   /**
@@ -199,8 +199,8 @@ public class StyleSheetNode
 
     int browser = agent.getAgentApplication();
     
-    int browserAndVersionMatch = _compareBrowserAndVersion(browser, agent);
-    if (browserAndVersionMatch == 0)
+    int browserAndPropertiesMatch = _compareBrowserAndProperties(browser, agent);
+    if (browserAndPropertiesMatch == 0)
       return 0;
     int modeMatch = _compareMode(mode);
     if(modeMatch == 0)
@@ -214,7 +214,7 @@ public class StyleSheetNode
     if (accessibilityMatch == 0)
       return 0;
 
-    return (localeMatch | browserAndVersionMatch | osMatch | accessibilityMatch);
+    return (localeMatch | browserAndPropertiesMatch | osMatch | accessibilityMatch);
   }
 
   @Override
@@ -258,7 +258,7 @@ public class StyleSheetNode
     return getClass().getName() + "[" +
       "locales="   + (_locales != null ? _locales.toString() : "")    + ", " +
       "direction=" + _getDirectionString() + ", " +
-      "agentVersions="  + (_agentVersions != null ? _agentVersions.toString() : "")  + ", " +
+      "agentProperties="  + (_agentsProperties != null ? _agentsProperties.toString() : "")  + ", " +
 //      "versions="  + _versions.toString()  + ", " +
       "platforms=" + (_platforms != null ? _platforms.toString() : "") + ", " +
       "styles="    + (_styles != null ? _styles.toString() : "") + ", " +
@@ -297,7 +297,7 @@ public class StyleSheetNode
     hash = 37*hash + _mode;
     hash = 37*hash + _direction;
     hash = 37*hash + _locales.hashCode();
-    hash = 37*hash + _agentVersions.hashCode();
+    hash = 37*hash + _agentsProperties.hashCode();
     hash = 37*hash + _platforms.hashCode();
     hash = 37*hash + _styles.hashCode();
     hash = 37*hash + _accProps.hashCode();
@@ -365,41 +365,64 @@ public class StyleSheetNode
   }
 
   //Compares the browser and its version against the supported variants
-  private int _compareBrowserAndVersion(int browser, TrinidadAgent agent)
+  private int _compareBrowserAndProperties(int browser, TrinidadAgent agent)
   {
     // If we don't have a browser specified, we match anything
-    if (_agentVersions.isEmpty())
+    if (_agentsProperties.isEmpty())
       return _BROWSER_UNKNOWN_MATCH;
 
     // On the other hand, if we do have a browser specified, but
     // the client browser is not known, we don't have a match
     if (browser == TrinidadAgent.APPLICATION_UNKNOWN)
-      return 0;
+      return 0; // no-match
     
     //If we have browser exact match, compare versions
     Integer browserNum = Integer.valueOf(browser);
-    if (_agentVersions.containsKey(browserNum))
+    if (_agentsProperties.containsKey(browserNum))
     {
-      Set<Version> versions = _agentVersions.get(browserNum);
-      if (versions.isEmpty())
-        return _BROWSER_EXACT_MATCH | _VERSION_UNKNOWN_MATCH;
+      int matchResults = 0;
       
-      Version version = new Version(agent.getAgentVersion());
-        
-      for (Version av : versions)
+      AgentProperties agentProperties = _agentsProperties.get(browserNum);
+      Set<Version> versions = agentProperties.getVersions();
+
+      if (versions.isEmpty())
       {
-        if (av.compareTo(version) == 0)
+        matchResults = _BROWSER_EXACT_MATCH |_VERSION_UNKNOWN_MATCH;
+      }
+      else
+      {
+        Version version = new Version(agent.getAgentVersion());
+        
+        for (Version av : versions)
         {
-          return _BROWSER_EXACT_MATCH | _VERSION_EXACT_MATCH;
+          if (av.compareTo(version) == 0)
+          {
+            matchResults = _BROWSER_EXACT_MATCH |_VERSION_EXACT_MATCH;
+            break;
+          }
         }
+        if (matchResults == 0)  // version specified but no matchy
+          return 0;
       }
       
-      return 0;
+      String agentCapTouchScreen = (String) agent.getCapability(TrinidadAgent.CAP_TOUCH_SCREEN);
+      Set<String> capabilityTouchScreen = agentProperties.getCapabilityTouchScreen();   
+      if (capabilityTouchScreen.isEmpty())
+      {
+        matchResults |= _BROWSER_EXACT_MATCH | _CAP_TOUCH_SCREEN_UNKNOWN_MATCH;        
+      }
+      else if (capabilityTouchScreen.contains(agentCapTouchScreen))
+      {
+        matchResults |= _BROWSER_EXACT_MATCH | _CAP_TOUCH_SCREEN_EXACT_MATCH;
+      }
+      else if (matchResults == (_BROWSER_EXACT_MATCH | _VERSION_UNKNOWN_MATCH)) // no match on version or touch
+        return 0;
+      
+      return matchResults;
     }
 
-    return 0;
+    return 0; // no-match
   }
-
 
   // Compares the specified OS against the supported variants
   private int _compareOS(int os)
@@ -563,7 +586,7 @@ public class StyleSheetNode
   // Integer is 3, it is APPLICATION_GECKO.
   // TODO It would be clearer to make the Integer an Enum, and to make the
   // Application constants an enum.
-  private final Map<Integer, Set<Version>>    _agentVersions;
+  private final Map<Integer, AgentProperties> _agentsProperties;
   private final Set<Integer>    _platforms;  // The platform variants
   private final int             _mode;       // The mode
   private final Set<String>     _accProps;   // Accessibility profile properties
@@ -592,7 +615,11 @@ public class StyleSheetNode
 
   // Constants for version matches - 0x000000f0 bits
   private static final int _VERSION_EXACT_MATCH     = 0x00000020;
-  private static final int _VERSION_UNKNOWN_MATCH   = 0x00000020;
+  private static final int _VERSION_UNKNOWN_MATCH   = 0x00000010;
+
+  // Constants for capability touchScreen matches - 0x000000f0 bits
+  private static final int _CAP_TOUCH_SCREEN_EXACT_MATCH     = 0x00000040;
+  private static final int _CAP_TOUCH_SCREEN_UNKNOWN_MATCH   = 0x00000030;
 
   // Constants for os matches - 0x0000000f bits
   private static final int _OS_EXACT_MATCH          = 0x00000004;
