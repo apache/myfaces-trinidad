@@ -33,7 +33,7 @@
 
   <groupId>org.apache.myfaces.trinidad</groupId>
   <artifactId>trinidad</artifactId>
-  <version>1.2.12.6.0-SNAPSHOT</version>
+  <version>1.2-ios-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
