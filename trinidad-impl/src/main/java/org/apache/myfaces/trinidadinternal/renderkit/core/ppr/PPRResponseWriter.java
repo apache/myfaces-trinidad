@@ -218,7 +218,6 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
       super.write(text, off, len);
   }
 
-  /* Needed in JSF 1.2
   @Override
   public void writeText(Object      text,
                         UIComponent component,
@@ -227,7 +226,6 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     if (_isInsideTarget() && (text != null))
       super.writeText(text, component, propertyName);
   }
-  */
 
   public void startElement(String name, UIComponent component)
      throws IOException
