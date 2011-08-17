@@ -31,6 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -233,6 +234,18 @@ public class TokenCache implements Serializable
       // NOTE: this put() has a side-effect that can result
       // in _removed being non-null afterwards
       _cache.put(token, token);
+
+      if(_DEBUG_TOKEN_CACHE)
+      {
+        _LOG.severe("-------------- Add New Entry ----------");
+        _debugAddTokenToViewIdMap(token);
+
+        if (pinnedToken != null)
+        {
+          _LOG.severe("PINNING " + _debugGetTokenToViewIdString(_debugGetTokenToViewIdMap(), token) + " to " + _debugGetTokenToViewIdString(_debugGetTokenToViewIdMap(), pinnedToken) );  
+        }
+      }
+      
       remove = _removed;
       _removed = null;
     }
@@ -241,17 +254,22 @@ public class TokenCache implements Serializable
     // assert above.
     if (remove != null)
     {
-      _removeTokenIfReady(targetStore, remove);
+      _removeTokenIfReady(targetStore, remove);        
     }
     
     targetStore.put(token, value);
 
     // our contents have changed, so mark ourselves as dirty in our owner
     _dirty();
-    
+
+    if(_DEBUG_TOKEN_CACHE)
+    {
+      _debugLogCacheInfo(targetStore, "After Additions"); 
+      
+    }
+
     return token;
   }
-
 
   /**
    * Returns true if an entry is still available.  This
@@ -289,21 +307,42 @@ public class TokenCache implements Serializable
     {
       _LOG.finest("Removing token ''{0}''", token);
       // Remove it from the target store
+
+      if (_DEBUG_TOKEN_CACHE)
+      {
+        _debugRemoveTokenFromViewIdMap(token);
+      }
+      
       removedValue = targetStore.remove(token);
       // Now, see if that key was pinning anything else
       String wasPinned = _pinned.remove(token);
       if (wasPinned != null)
+      {
+
+        if (_DEBUG_TOKEN_CACHE)
+        {
+          _LOG.severe("REMOVING pinning of token " + token + " to " + 
+                      _debugGetTokenToViewIdString(_debugGetTokenToViewIdMap(), wasPinned) );  
+        }        
+        
         // Yup, so see if we can remove that token
         _removeTokenIfReady(targetStore, wasPinned);
+      }
     }
     else
     {
+      if (_DEBUG_TOKEN_CACHE)
+      {
+        _LOG.severe("NOT removing pinned token from target store " + 
+                    _debugGetTokenToViewIdString(_debugGetTokenToViewIdMap(), token) );  
+      }
+      
       _LOG.finest("Not removing pinned token ''{0}''", token);
       // TODO: is this correct?  We're not really removing
       // the target value.
       removedValue = targetStore.get(token);
     }
-    
+
     return removedValue;
   }
 
@@ -320,12 +359,22 @@ public class TokenCache implements Serializable
     
     synchronized (this)
     {
+      if(_DEBUG_TOKEN_CACHE)
+      {
+        _LOG.severe("-------------- Remove Old Entry ----------");
+      }
+      
       _LOG.finest("Removing token {0} from cache", token);
       _cache.remove(token);
       
       // TODO: should removing a value that is "pinned" take?
       // Or should it stay in memory?
       oldValue = _removeTokenIfReady(targetStore, token);
+      
+      if (_DEBUG_TOKEN_CACHE)
+      {
+        _debugLogCacheInfo(targetStore, "After removing old entry:");
+      }
     }
 
     // our contents have changed, so mark ourselves as dirty in our owner
@@ -374,6 +423,97 @@ public class TokenCache implements Serializable
     }
   }
 
+
+  /**
+   * Method to help with debugging, should only be called when 
+   * _DEBUG_TOKEN_CACHE is true
+   */
+  private void _debugAddTokenToViewIdMap(String token)
+  {
+    FacesContext context = FacesContext.getCurrentInstance();
+    Map<String,String> tokenToViewIdMap = _debugGetTokenToViewIdMap();      
+    UIViewRoot root = context.getViewRoot();
+    String viewId = root.getViewId();    
+    tokenToViewIdMap.put(token, viewId);    
+    _LOG.severe("ADDING " +  _debugGetTokenToViewIdString(tokenToViewIdMap, token));
+  }
+
+  /**
+   * Method to help with debugging, should only be called when 
+   * _DEBUG_TOKEN_CACHE is true
+   */
+  private void _debugRemoveTokenFromViewIdMap(String token)
+  {
+    FacesContext context = FacesContext.getCurrentInstance();
+    Map<String,String> tokenToViewIdMap = _debugGetTokenToViewIdMap();  
+    
+    _LOG.severe("REMOVING " + _debugGetTokenToViewIdString(tokenToViewIdMap, token));
+    tokenToViewIdMap.remove(token);
+  }  
+
+
+  /**
+   * Method to help with debugging, should only be called when 
+   * _DEBUG_TOKEN_CACHE is true
+   */
+  private String _debugGetTokenToViewIdString(Map<String,String> tokenToViewId, String token)
+  {  
+    StringBuffer tokenBuffer = new StringBuffer();
+    tokenBuffer.append(token);
+    tokenBuffer.append(" (");
+    tokenBuffer.append(tokenToViewId.get(token));
+    tokenBuffer.append(")");
+    
+    return tokenBuffer.toString();
+  }
+
+  /**
+   * Method to help with debugging, should only be called when 
+   * _DEBUG_TOKEN_CACHE is true
+   */
+  private <V> void _debugLogCacheInfo(Map<String, V> targetStore, String logAddition)
+  {  
+    Map<String,String> tokenToViewId = _debugGetTokenToViewIdMap();
+    StringBuffer logString = new StringBuffer();
+
+    logString.append(logAddition);    
+    logString.append("\ntarget Store token keys:");
+    
+    for (String targetStoreToken: targetStore.keySet()) 
+    {
+      logString.append("\n    ");
+      logString.append(_debugGetTokenToViewIdString(tokenToViewId, targetStoreToken));
+    }  
+    
+    logString.append("\n_pinned:");
+    
+    for (String pinnedKeyToken: _pinned.keySet()) 
+    {
+      logString.append("\n    ");
+      logString.append(_debugGetTokenToViewIdString(tokenToViewId, pinnedKeyToken));
+      
+      logString.append("   pinned to     ");
+      String pinnedValueToken = _pinned.get(pinnedKeyToken);
+      logString.append(_debugGetTokenToViewIdString(tokenToViewId, pinnedValueToken));
+    }
+    
+    _LOG.severe(logString.toString());
+  }
+
+  private Map<String,String> _debugGetTokenToViewIdMap()
+  {
+    FacesContext context = FacesContext.getCurrentInstance();
+    Map<String,String> tokenToViewId = (Map<String, String>)context.getExternalContext().getSessionMap().get("org.apache.myfaces.trinidadinternal.util.TOKEN_FOR_VIEW_ID");
+    
+    if (tokenToViewId == null) 
+    {
+      tokenToViewId = new ConcurrentHashMap<String, String>();
+      context.getExternalContext().getSessionMap().put("org.apache.myfaces.trinidadinternal.util.TOKEN_FOR_VIEW_ID", tokenToViewId);
+      
+    }
+    return tokenToViewId;
+  }
+
   private class LRU extends LRUCache<String, String>
   {
     public LRU(int maxSize)
@@ -413,4 +553,21 @@ public class TokenCache implements Serializable
   static private final long serialVersionUID = 1L;
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(TokenCache.class);
+    
+  // ViewExpiredExceptions are fairly common, and the token cache is used for 
+  // page state tokens, but the tokens aren't really human readable. 
+  // In order to make it easier to understand what is in the cache
+  // we've added a system property for debugging purposes. When enabled
+  // we store a map of token -> viewId on the session which we use
+  // to log something more human readable.
+  // 
+  // in order to use this the tester would set the system property to:
+  // -Dorg.apache.myfaces.trinidadinternal.DEBUG_TOKEN_CACHE=true
+
+  static private final Boolean _DEBUG_TOKEN_CACHE;
+  static
+  {
+    String dtcProp = System.getProperty("org.apache.myfaces.trinidadinternal.DEBUG_TOKEN_CACHE");
+    _DEBUG_TOKEN_CACHE = Boolean.valueOf(dtcProp);  
+  }
 }
