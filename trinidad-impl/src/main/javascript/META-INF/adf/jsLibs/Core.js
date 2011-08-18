@@ -2695,63 +2695,6 @@ function _multiValidate(
   return failureMap;
 }
 
-/**
- * Used for the converters and validators we provide which all have the form
- *
- * {0} - label
- * {1} - string value
- * {2} - extra param
- * {3} - extra param
- */
-function _createFacesMessage(
-  key,
-  label,
-  value,
-  param2,
-  param3
-)
-{
-  var summary = TrMessageFactory.getSummaryString(key);
-  var detail = TrMessageFactory.getDetailString(key);
-  // format the detail error string
-  if (detail != null)
-  {
-    detail = TrFastMessageFormatUtils.format(detail, label, value, param2, param3);
-  }
-  return new TrFacesMessage(summary,
-                          detail,
-                          TrFacesMessage.SEVERITY_ERROR);
-}
-
-/**
- * Used for the converters and validators we provide which all have the form
- *
- * {0} - label
- * {1} - string value
- * {2} - extra param
- * {3} - extra param
- */
-function _createCustomFacesMessage(
-  summary,
-  detail,
-  label,
-  value,
-  param2,
-  param3
-)
-{
-
-  // format the detail error string
-  if (detail != null)
-  {
-    detail = TrFastMessageFormatUtils.format(detail, label, value, param2, param3);
-  }
-
-  return new TrFacesMessage(summary,
-                          detail,
-                          TrFacesMessage.SEVERITY_ERROR);
-}
-
 
 function _getGlobalErrorString(
   input,
@@ -4744,21 +4687,6 @@ function _getEventObj()
  * User interfaces utility methods
  */
 var TrUIUtils = new Object();
-
-/**
- * Remove leading and trailing whitespace
- */
-TrUIUtils.trim = function(
-data)
-{
-  if (data != null && (typeof data) == 'string')
-    return data.replace(TrUIUtils._TRIM_ALL_RE, '');
-
-  return data;
-}
-
-// regular expression to gather whitespace at beginning and end of line
-TrUIUtils._TRIM_ALL_RE = /^\s*|\s*$/g;
 
 
 /**

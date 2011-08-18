@@ -211,6 +211,7 @@ TrNumberConverter.prototype.getAsString = function(
   }
 }
 
+
 /**
  * Returns the number value for the submitted string or undefined (see also _isConvertible).
  */
@@ -227,7 +228,7 @@ TrNumberConverter.prototype.getAsObject = function(
     if (numberString == null)
       return null;
     
-    numberString = TrUIUtils.trim(numberString);
+    numberString = TrFormatUtils.trim(numberString);
     if (numberString.length == 0)
       return null
 
@@ -327,7 +328,6 @@ TrNumberConverter.prototype.getAsObject = function(
  */
 TrNumberConverter.prototype._isConvertible = function()
 {
-  // The locale attribute is now supported on convertNumber.
   return (this._pattern == null);
 }
 

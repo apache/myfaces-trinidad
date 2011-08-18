@@ -111,6 +111,7 @@ TrLongConverter.prototype.getAsObject = function(
                        label,
                        null);
 }
+
 function TrShortConverter(
   message,
   maxPrecision,
@@ -942,7 +943,7 @@ function _decimalParse(
   if (numberString == null)
     return null;
     
-  numberString = TrUIUtils.trim(numberString);
+  numberString = TrFormatUtils.trim(numberString);
   if (numberString.length == 0)
     return null
     

@@ -100,7 +100,7 @@ public class XhtmlScriptletFactory
   static
   {
     _sLocaleScriptlet =
-        new AliasedScriptlet(LOCALE_LIB, new String[]{
+        new LibraryScriptlet(LOCALE_LIB, new String[]{
                               "getUserLanguage()",
                               "getJavaLanguage()",
                               "TrConverter()", 
@@ -113,11 +113,8 @@ public class XhtmlScriptletFactory
                               "isUpperCase()",
                               "isNotUpperCase()",
                               "isLetter()",
-                              "getLocaleSymbols()"},
-                            new String[]
-                            {
-                              CORE_LIB
-                            });
+                              "getLocaleSymbols()"}
+                             );
 
     //    new LocaleInfoScriptlet();
     //new DateFormatInfoScriptlet();
@@ -139,7 +136,8 @@ public class XhtmlScriptletFactory
                            },
                            new String[]
                            {
-                             GlobalVariablesScriptlet.GLOBAL_VARIABLES_KEY
+                             GlobalVariablesScriptlet.GLOBAL_VARIABLES_KEY,
+                             LOCALE_LIB
                            })
       {
         // =-=AEW  The Core library needs to be rendered even
@@ -153,7 +151,7 @@ public class XhtmlScriptletFactory
       };
 
     _sDateFormatScriptlet =
-      new AliasedScriptlet(DATE_FORMAT_LIB,
+      new LibraryScriptlet(DATE_FORMAT_LIB,
                            new String[]
                            {
                              "TrDateTimeConverter()",
@@ -216,7 +214,7 @@ public class XhtmlScriptletFactory
                              "TableProxy()",
                            });
    _sColorFormatScriptlet =
-      new AliasedScriptlet(COLOR_FORMAT_LIB,
+      new LibraryScriptlet(COLOR_FORMAT_LIB,
                            new String[]
                            {
                              "TrColor()",
