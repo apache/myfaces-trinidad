@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">ไม่สามารถเรียกสกินที่มี skinId เป็นนัล</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">ไม่พบสกินที่ตรงกับกลุ่ม {0} และ renderkit {1} ดังนั้น เราจะใช้สกินทั่วไป</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">พบสกินที่ตรงกับแฟมิลี {0} และเวอร์ชัน {1} เราจะใช้จะสกิน {2}</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">ไม่พบสกินที่ตรงกับแฟมิลี {0} และเวอร์ชัน {1} เราจะใช้จะสกิน {2}</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">ไม่พบสกินที่ไม่มีเวอร์ชันสำหรับแฟมิลี {0} เราจะใช้สกินที่มีเวอร์ชัน {1}</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">ไม่สามารถเรียกเวลาระบบสำหรับเอกสารของสไตล์ชีท เนื่องจากเราไม่สามารถเปิดการเชื่อมต่อ</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">ไม่พบอีลิเมนต์ที่ต้องระบุ &apos;id&apos;</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">ไม่พบอีลิเมนต์ที่ต้องระบุ &apos;family&apos;</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">ไม่พบอีลิเมนต์ระดับล่างที่ต้องการสำหรับ &apos;version&apos; และ &apos;name&apos;</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">รายการคุณสมบัติมีรูปแบบไม่ถูกต้อง: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">ค่าแปรปรวนไม่ถูกต้องสำหรับตัวระบุโลแคล {0} - ต้องไม่มีเครื่องหมายทับเพื่อหลีกเลี่ยงการโจมตี XSS ระบบจะใช้สตริงว่างเปล่าสำหรับค่าแปรปรวน</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">ไม่สามารถลบไฟล์ {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">เกิดข้อผิดพลาดขณะซีเรียลไลซ์ {0} แอททริบิว: {1} ค่า: {2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">เกิดข้อผิดพลาดขณะซีเรียลไลซ์ {0} แอททริบิว: {1}</resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> ค่าที่ล้มเหลว=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">ข้อผิดพลาดในการเฟลโอเวอร์: {0} แอททริบิว: {1} ประเภท {2} ไม่สามารถซีเรียลไลซ์</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">ข้อผิดพลาดในการเฟลโอเวอร์: การซีเรียลไลซ์ {0} แอททริบิว: {1} มีการเปลี่ยนแปลงจาก {2} เป็น {3} โดยไม่มีผลกับแอททริบิว</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">การทดสอบการซีเรียลไลซ์แอททริบิวของเซสชันล้มเหลวสำหรับ {0} คุณสามารถเลิกใช้การตรวจสอบนี้ โดยลบ &apos;&apos;REQUEST&apos;&apos; ออกจากคุณสมบัติระบบ &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">เกิดข้อผิดพลาดขณะรวมข้อมูลการทดสอบการซีเรียลไลซ์แอททริบิวของเซสชันที่ล้มเหลว</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">แอททริบิวของเซสชัน: {0}</resource>
 </resources>

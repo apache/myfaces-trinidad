@@ -129,7 +129,7 @@
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">לא צוין צומת</resource>
 <!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
-<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">איננו מעוניינים לשמור רכיבים מוחתמים באיטרטור</resource>
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">איננו מעוניינים לעדכן רכיבים מוחתמים באיטרטור</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">נדרש רכיב</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->

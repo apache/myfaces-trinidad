@@ -91,7 +91,7 @@
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
 <resource key="UNABLE_LOAD_MESSAGE_BUNDLE" dnt="false">バンドル{0}をロードできません</resource>
 <!-- UNABLE_LOAD_FACES_BUNDLE -->
-<resource key="UNABLE_LOAD_FACES_BUNDLE" dnt="false">フェース・バンドル{0}をロードできません</resource>
+<resource key="UNABLE_LOAD_FACES_BUNDLE" dnt="false">Facesバンドル{0}をロードできません</resource>
 <!-- RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER -->
 <resource key="RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER" dnt="false">サーブレット・パス:{0}でResourceServletのResourceLoaderが見つかりません。原因: リソース:{1}が見つかりませんでした</resource>
 <!-- RESOURCESERVLET_IN_DEBUG_MODE -->

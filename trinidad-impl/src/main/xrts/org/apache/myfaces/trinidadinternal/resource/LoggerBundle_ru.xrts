@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Невозможно получить оформление с неопределенным skinId</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Невозможно найти оформление, соответствующее семейству {0} и renderkit {1}, поэтому будет использоваться простое оформление</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Обнаружено оформление, соответствующее семейству {0} версии {1}. Будет использовано оформление {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Не удается найти оформление, соответствующее семейству {0} версии {1}. Будет использовано оформление {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Не удается найти оформление без версии для семейства {0}. Будет использовано оформление {1}, которое имеет версию.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Невозможно получить отметку времени документа таблицы стилей, т.к. невозможно открыть соединение.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Не найден обязательный элемент &apos;id&apos;.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Не найден обязательный элемент &apos;family&apos;.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Требуемый дочерний элемент для &apos;версии&apos; и &apos;имени&apos; не найден.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Неверно сформированная запись свойства: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Недопустимая разновидность для идентификатора национальных настроек {0} - во избежание атак XSS он не может содержать символов косой черты. Для разновидности будет использована пустая строка.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Невозможно удалить файл {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Ошибка сериализации атрибута {0}:{1} значение:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Ошибка при сериализации атрибута {0}:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> сбой значения=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Ошибка восстановления соединения: {0} атрибут:{1} типа {2} не является сериализуемым</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Ошибка восстановления соединения: сериализация атрибута {0}:{1} изменена с {2} на {3}, атрибут не поврежден</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Сбой при проверке сериализации атрибута сеанса для {0}. Эту проверку можно отключить, удалив &apos;&apos;REQUEST&apos;&apos; из системного свойства &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Исключение при сборе данных о сбое проверки сериализации атрибута сеанса</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Атрибут сеанса:{0}</resource>
 </resources>

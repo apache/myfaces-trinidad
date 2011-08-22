@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">No se puede obtener la máscara con un valor nulo de skinId</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">No se ha encontrado una máscara que coincida con la familia {0} y el kit de presentación {1}, por lo tanto se utilizará la máscara simple</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Se ha encontrado una máscara que coincide con la familia {0} y con la versión {1}. Se utilizará la máscara {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">No se ha encontrado una máscara que coincida con la familia {0} y con la versión {1}. Se utilizará la máscara {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">No se ha encontrado una máscara no versionada para la familia {0}. Se utilizará la máscara versionada {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">No se ha podido obtener el registro de hora del documento de hoja de estilo porque no se ha podido abrir la conexión.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">No se ha encontrado el elemento &apos;id&apos; necesario.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">No se ha encontrado el elemento &apos;family&apos; necesario.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">No se ha encontrado el elemento secundario para &apos;version&apos;, &apos;name&apos; necesario.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Entrada de propiedad con formato incorrecto: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante no válida para el identificador de configuración regional {0}: No puede contener barras para evitar el ataque de XSS. Se utilizará una cadena vacía para la variante.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">No se ha podido suprimir el archivo {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Error al serializar {0} atributo:{1} valor:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Error al serializar el atributo {0}: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> valor fallido=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Error de failover: {0} atributo: {1} de tipo {2} no serializable</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Error de failover: La serialización de {0} atributo: {1} ha cambiado de {2} a {3} sin que se haya ensuciado el atributo.</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Fallo de prueba de serialización de atributo de sesión para {0}. Esta comprobación se puede desactivar eliminando &apos;&apos;REQUEST&apos;&apos; de la propiedad del sistema &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Excepción al recoger el fallo de prueba de serialización de atributo de sesión</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atributo de Sesión: {0}</resource>
 </resources>

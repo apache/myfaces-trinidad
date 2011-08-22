@@ -249,7 +249,7 @@
 <!--Text for reordering items to top of list-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">Parte superior</resource>
 <!--Text for reordering items up one position in the list-->
-<resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">Para Cima</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">Up</resource>
 <!--Text for reordering items to bottom of list-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">Inferior</resource>
 <!--Text for reordering items down one position in the list-->

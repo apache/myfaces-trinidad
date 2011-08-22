@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nemožno načítať obal, ktorý má skinId s hodnotou null</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Obal zodpovedajúci množine {0} a renderkitu {1} sa nenašiel, a preto sa použije jednoduchý obal</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Našiel sa skin, ktorý zodpovedá množine {0} a verzii {1}. Použije sa skin {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Nenašiel sa skin, ktorý zodpovedá množine {0} a verzii {1}. Použije sa skin {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Nenašiel sa skin bez priradenej verzie pre množinu {0}. Použije sa skin s priradenou verziou {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Nepodarilo sa načítať časovú značku dokumentu hárka štýlov, pretože sa nepodarilo otvoriť pripojenie.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Požadovaný prvok id sa nenašiel.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Požadovaný prvok family sa nenašiel.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Požadovaný podradený prvok pre &quot;version&quot;, &quot;name&quot; sa nenašiel.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Nesprávne vytvorená položka vlastnosti: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Neplatný variant pre identifikátor miestnych nastavení {0} - nesmie obsahovať lomky, aby sa predišlo útoku XSS. Pre variant sa použije prázdny reťazec.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Nepodarilo sa odstrániť súbor {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Chyba serializácie atribútu {0}: {1}, hodnoty:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Chyba serializácie atribútu {0}: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> neúspešná hodnota=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Chyba prepnutia: {0} atribút: {1} typu {2} nie je serializovateľný</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Chyba prepnutia: Serializácia atribútu {0}: {1} sa zmenila z {2} na {3} bez toho, aby bol atribút modifikovaný</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Zlyhalo testovanie serializácie atribútu relácie pre {0}. Túto kontrolu je možné deaktivovať odstránením textu REQUEST zo systémovej vlastnosti org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Výnimka - zlyhanie pri zhromažďovaní informácií pre testovanie serializácie atribútu relácie</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atribút relácie: {0}</resource>
 </resources>

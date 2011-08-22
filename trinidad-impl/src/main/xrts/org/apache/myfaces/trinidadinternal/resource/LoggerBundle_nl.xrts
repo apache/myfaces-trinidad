@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Kan geen weergave ophalen als de weergave-ID NULL is.</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Kan geen weergave vinden die overeenkomt met familie {0} en renderkit {1}. De eenvoudige weergave wordt gebruikt.</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Er is een weergave gevonden die overeenkomt met familie {0} en versie {1}. Weergave {2} wordt gebruikt.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Er is geen weergave gevonden die overeenkomt met familie {0} en versie {1}. Weergave {2} wordt gebruikt.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Er is geen niet-geversioneerde weergave gevonden voor familie {0}. De geversioneerde weergave {1} wordt gebruikt.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Kan de tijdstempel van het opmaakprofieldocument niet ophalen omdat de verbinding niet kan worden geopend.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Het verplichte element &apos;id&apos; is niet gevonden.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Het verplichte element &apos;family&apos; is niet gevonden.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Vereist onderliggend element voor &apos;version&apos;, &apos;name&apos; is niet gevonden.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Onjuiste eigenschapinvoer: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -462,7 +470,7 @@
 <!-- ONLY_HTTPSERVLETRESPONSE_SUPPORTED -->
 <resource key="ONLY_HTTPSERVLETRESPONSE_SUPPORTED" dnt="false">Alleen HttpServletResponse wordt ondersteund.</resource>
 <!-- CANNOT_BE_NULL -->
-<resource key="CANNOT_BE_NULL" dnt="false">{0} kan niet NULL zijn.</resource>
+<resource key="CANNOT_BE_NULL" dnt="false">{0} mag niet NULL zijn.</resource>
 <!-- NULL_REQUEST_ON_THIS_CONTEXT -->
 <resource key="NULL_REQUEST_ON_THIS_CONTEXT" dnt="false">De aanvraag is NULL in deze context.</resource>
 <!-- NULL_RESPONSE_ON_THIS_CONTEXT -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ongeldige variant voor locale-ID {0}. De variant mag geen slashes bevatten. Dit om XSS-aanvallen te voorkomen. Er wordt een lege string gebruikt voor de variant.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Het volgende bestand kan niet worden verwijderd: {0}.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Fout bij serialiseren van {0} attribuut: {1} waarde: {2}.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Fout bij het serialiseren van {0} attribuut: {1}. </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> mislukte waarde=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failover-fout: {0} attribuut: {1} van het type {2} is niet serialiseerbaar.</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failover-fout: serialisatie van {0} attribuut: {1} is gewijzigd van {2} in {3} zonder dat het attribuut is vervuild.</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Serialisatietest van sessieattribuut is mislukt voor {0}. Deze controle kan worden uitgeschakeld door &apos;&apos;REQUEST&apos;&apos; uit de systeemeigenschap &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos; te verwijderen.</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Fout bij de serialisatietest van de sessieattribuut waarbij uitzonderingen worden verzameld</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Sessieattribuut: {0}</resource>
 </resources>

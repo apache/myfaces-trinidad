@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">skinId değeri boş olan bir Dış Görünüm alınamaz</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">{0} ailesi ve {1} dönüştürme setiyle eşleşen bir dış görünüm bulunamıyor. Bu nedenle basit dış görünüm kullanılacak</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">{0} ailesi ve {1} sürümüyle eşleşen bir dış görünüm bulundu. {2} dış görünümü kullanılacak.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">{0} ailesi ve {1} sürümüyle eşleşen bir dış görünüm bulunamıyor. {2} dış görünümü kullanılacak.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">{0} ailesi için sürümlendirilmemiş bir dış görünüm bulunamıyor. Sürümlendirilmiş {1} dış görünümü kullanılacak.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Bağlantı açılamadığından, stil sayfası dokümanının zaman damgası kullanılacak.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Gerekli &apos;id&apos; öğesi bulunamadı.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Gerekli &apos;family&apos; öğesi bulunamadı.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">&apos;sürüm&apos;, &apos;ad&apos; için gereken alt öğe bulunamadı.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Hatalı nitelik girişi: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,4 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">{0} Yerel ayar tanımlayıcısı için geçersiz varyant - XSS saldırısından kaçınmak için eğik çizgi içeremez. Varyant için boş dize kullanılacak.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">{0} dosyası silinemedi</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">{0} özelliği seriye dönüştürülürken hata oluştu: {1}</resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> failed value=</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Adres devri hatası: {0} {2} türündeki {1} özelliği Seriye Dönüştürülebilir değil</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Adres Devri Hatası: {0} öğesiyle ilgili {1} özelliğinin seriye dönüştürme işlemi, özellik kirletilmeksizin {2} iken {3} olarak değiştirildi.</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">{0} için oturum özelliği seriye dönüştürme testi başarısız oldu. Bu kontrol &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos; sistem niteliğinden &apos;&apos;REQUEST&apos;&apos; kaldırılarak devre dışı bırakılabilir</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Oturum özelliği seriye dönüştürme testi başarısızlığı toplanırken istisna oluştu</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Oturum özelliği:{0}</resource>
 </resources>

@@ -309,6 +309,12 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nem kérhető le grafikus felület, ha a skinId null értékű</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Nem található a(z) {0} családnak és a(z) {1} megjelenítési készletnek megfelelő grafikus felület, így az egyszerű grafikus felületet használjuk</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Található a(z) {0} családnak és a(z) {1} verziónak megfelelő grafikus felület. A(z) {2} grafikus felületet fogjuk használni.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Nem található a(z) {0} családnak és a(z) {1} verziónak megfelelő grafikus felület. A(z) {2} grafikus felületet fogjuk használni.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Nem található a(z) {0} családnak megfelelő verzió nélküli grafikus felület. A verzióval rendelkező {1} grafikus felületet fogjuk használni.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Nem kérhető le a stíluslap dokumentumának időbélyege, mivel nem nyitható meg a kapcsolat.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -421,6 +427,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">A kötelező &apos;id&apos; elem nem található.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">A kötelező &apos;family&apos; elem nem található.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">A &apos;version&apos; és &apos;name&apos; részére nem található a szükséges alárendelt elem.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Hibás formátumú tulajdonságbejegyzés: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -724,10 +732,18 @@
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Érvénytelen változó a(z) {0} nyelvi-területi azonosító számára. A változó nem tartalmazhat törtvonalat az XSS-támadás elkerülésére. A rendszer üres karakterláncot használ változóként.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Nem törölhető ez a fájl: {0}</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Hiba a(z) {0} sorba rendezésekor attribútum:{1} érték:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Hiba a(z) {0} soros adattá alakításakor, attribútum:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> hibás érték=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Az átállási {0} hiba {2} típusú {1} attribútuma nem alakítható soros adattá</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Átállási hiba: Az {1} attribútumhoz tartozó {0} soros adattá alakítása megváltozott, {2} helyett {3} lett, az attribútum szennyeződése nélkül</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Hiba a munkameneti attribútum soros adattá alakításának ellenőrzésekor ennél: {0}. Ez az ellenőrzés úgy tiltható le, hogy eltávolítja a &apos;&apos;REQUEST&apos;&apos; elemet az &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos; rendszertulajdonságból</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Kivétel történt munkameneti attribútum soros adattá alakításának ellenőrzési hibájának begyűjtésekor</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Munkameneti attribútum:{0}</resource>
 </resources>
