@@ -167,35 +167,35 @@ public class XhtmlUtils
     // problems when resizing windows - but we're done with Netscape 4)
     libURL = context.getExternalContext().encodeResourceURL(libURL.toString());
 
-    if (XhtmlConstants.FACET_PORTLET.equals(rc.getOutputMode()))
-    {
-      if (rc.getProperties().get(_PORTLET_LIB_TABLE_KEY) == null)
-      {
-        rc.getProperties().put(_PORTLET_LIB_TABLE_KEY, Boolean.TRUE);
-        writer.writeText("var _uixJSL;" +
-                         "if(!_uixJSL)_uixJSL={};" +
-                         "function _addJSL(u)" +
-                         "{" +
-                           "if(!_uixJSL[u])" +
-                           "{" +
-                             "_uixJSL[u]=1;" +
-                             "document.write(\"<scrip\"+" +
-                                            "\"t src=\\\"\"+u+" +
-                                            "\"\\\"></scrip\"+" +
-                                            "\"t>\")" +
-                           "}" +
-                         "}",
-             null);
-      }
-      writer.writeText("_addJSL(\"", null);
-      writer.writeText(libURL, null);
-      writer.writeText("\")", null);
-    }
-    else
-    {
+//    if (XhtmlConstants.FACET_PORTLET.equals(rc.getOutputMode()))
+//    {
+//      if (rc.getProperties().get(_PORTLET_LIB_TABLE_KEY) == null)
+//      {
+//        rc.getProperties().put(_PORTLET_LIB_TABLE_KEY, Boolean.TRUE);
+//        writer.writeText("var _uixJSL;" +
+//                         "if(!_uixJSL)_uixJSL={};" +
+//                         "function _addJSL(u)" +
+//                         "{" +
+//                           "if(!_uixJSL[u])" +
+//                           "{" +
+//                             "_uixJSL[u]=1;" +
+//                             "document.write(\"<scrip\"+" +
+//                                            "\"t src=\\\"\"+u+" +
+//                                            "\"\\\"></scrip\"+" +
+//                                            "\"t>\")" +
+//                           "}" +
+//                         "}",
+//             null);
+//      }
+//      writer.writeText("_addJSL(\"", null);
+//      writer.writeText(libURL, null);
+//      writer.writeText("\")", null);
+//    }
+//    else
+//    {
       // The "safe" case: just write out the source
       writer.writeURIAttribute("src", libURL, null);
-    }
+//    }
 
     writer.endElement("script");
   }
