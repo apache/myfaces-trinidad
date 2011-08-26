@@ -28,6 +28,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.context.Window;
 import org.apache.myfaces.trinidad.context.WindowManager;
 
 
@@ -184,8 +185,24 @@ public final class TokenCacheDebugUtils
     addToRequestStringBuffer("Session Id = " + sessionId);
     
     WindowManager wm = RequestContext.getCurrentInstance().getWindowManager();
-    String windowId = wm.getCurrentWindow(externalContext).getId();
-    addToRequestStringBuffer("\nWindow Id = " + windowId );    
+    if (wm != null)
+    {
+      Window window = wm.getCurrentWindow(externalContext);
+      
+      if (window != null)
+      {
+        addToRequestStringBuffer("\nWindow Id = " + window.getId() );   
+      }
+      else
+      {
+        addToRequestStringBuffer("\nWindow Id could not be determined, window is null" ); 
+      }
+        
+    }
+    else
+    {
+      addToRequestStringBuffer("\nWindow Id could not be determined, window manager null" ); 
+    }
   }  
 
   /**
