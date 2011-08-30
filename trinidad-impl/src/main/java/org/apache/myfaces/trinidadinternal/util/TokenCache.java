@@ -233,17 +233,15 @@ public class TokenCache implements Serializable
 
       if(TokenCacheDebugUtils.debugTokenCache())
       {
-        TokenCacheDebugUtils.clearRequestStringBuffer();
-        TokenCacheDebugUtils.addToRequestStringBuffer("-------------- Add New Entry ----------\n");
-        TokenCacheDebugUtils.logIdString();
+        TokenCacheDebugUtils.startLog("Add New Entry");
         TokenCacheDebugUtils.addTokenToViewIdMap(token);
 
         if (pinnedToken != null)
         {
-          TokenCacheDebugUtils.addToRequestStringBuffer("\nPINNING " + 
-                      TokenCacheDebugUtils.getTokenToViewIdString(TokenCacheDebugUtils.getTokenToViewIdMap(), token) + 
+          TokenCacheDebugUtils.addToLog("\nPINNING " + 
+                      TokenCacheDebugUtils.getTokenToViewIdString(token) + 
                       " to " + 
-                      TokenCacheDebugUtils.getTokenToViewIdString(TokenCacheDebugUtils.getTokenToViewIdMap(), pinnedToken));  
+                      TokenCacheDebugUtils.getTokenToViewIdString(pinnedToken));  
         }
       }
       
@@ -266,7 +264,7 @@ public class TokenCache implements Serializable
     if(TokenCacheDebugUtils.debugTokenCache())
     {
       TokenCacheDebugUtils.logCacheInfo(targetStore, _pinned, "After Additions"); 
-      _LOG.severe(TokenCacheDebugUtils.getRequestString());
+      _LOG.severe(TokenCacheDebugUtils.getLogString());
       
     }
 
@@ -323,8 +321,8 @@ public class TokenCache implements Serializable
 
         if (TokenCacheDebugUtils.debugTokenCache())
         {
-          TokenCacheDebugUtils.addToRequestStringBuffer("\nREMOVING pinning of token " + token + " to " + 
-                      TokenCacheDebugUtils.getTokenToViewIdString(TokenCacheDebugUtils.getTokenToViewIdMap(), wasPinned));  
+          TokenCacheDebugUtils.addToLog("\nREMOVING pinning of token " + token + " to " + 
+                      TokenCacheDebugUtils.getTokenToViewIdString(wasPinned));  
         }        
         
         // Yup, so see if we can remove that token
@@ -335,8 +333,8 @@ public class TokenCache implements Serializable
     {
       if (TokenCacheDebugUtils.debugTokenCache())
       {
-        TokenCacheDebugUtils.addToRequestStringBuffer("\nNOT removing pinned token from target store " + 
-                    TokenCacheDebugUtils.getTokenToViewIdString(TokenCacheDebugUtils.getTokenToViewIdMap(), token) );  
+        TokenCacheDebugUtils.addToLog("\nNOT removing pinned token from target store " + 
+                    TokenCacheDebugUtils.getTokenToViewIdString(token) );  
       }
       
       _LOG.finest("Not removing pinned token ''{0}''", token);
@@ -363,9 +361,7 @@ public class TokenCache implements Serializable
     {
       if(TokenCacheDebugUtils.debugTokenCache())
       {
-        TokenCacheDebugUtils.clearRequestStringBuffer();
-        TokenCacheDebugUtils.addToRequestStringBuffer("-------------- Remove Old Entry ----------\n");
-        TokenCacheDebugUtils.logIdString();
+        TokenCacheDebugUtils.startLog("Remove Old Entry");
       }
       
       _LOG.finest("Removing token {0} from cache", token);
@@ -378,7 +374,7 @@ public class TokenCache implements Serializable
       if (TokenCacheDebugUtils.debugTokenCache())
       {
         TokenCacheDebugUtils.logCacheInfo(targetStore, _pinned, "After removing old entry:");
-        _LOG.severe(TokenCacheDebugUtils.getRequestString());
+        _LOG.severe(TokenCacheDebugUtils.getLogString());
       }
     }
 

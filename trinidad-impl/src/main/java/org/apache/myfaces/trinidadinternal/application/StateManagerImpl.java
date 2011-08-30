@@ -629,11 +629,7 @@ public class StateManagerImpl extends StateManagerWrapper
 
         if(TokenCacheDebugUtils.debugTokenCache())
         {
-          TokenCacheDebugUtils.clearRequestStringBuffer();
-          TokenCacheDebugUtils.addToRequestStringBuffer("-------------- Restore View ----------\n");
-          TokenCacheDebugUtils.logIdString();
-
-          // get view cache key with "." separator suffix to separate the SubKeyMap keys
+          // get the state map
           String subkey = _getViewCacheKey(extContext,
                                            RequestContext.getCurrentInstance(),
                                            _SUBKEY_SEPARATOR);
@@ -641,8 +637,11 @@ public class StateManagerImpl extends StateManagerWrapper
           Map<String, PageState> stateMap = new SubKeyMap<PageState>(
                            extContext.getSessionMap(),
                            subkey);
+          
+          // log what's currently in the state map
+          TokenCacheDebugUtils.startLog("Restore View");
           TokenCacheDebugUtils.logCacheInfo(stateMap, null, "token '" + token + "' not found"); 
-          _LOG.severe(TokenCacheDebugUtils.getRequestString());        
+          _LOG.severe(TokenCacheDebugUtils.getLogString());        
         }
         
         return null;
