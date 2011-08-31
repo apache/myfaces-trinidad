@@ -61,6 +61,7 @@ import org.apache.myfaces.trinidadinternal.util.LRUCache;
 import org.apache.myfaces.trinidadinternal.util.ObjectInputStreamResolveClass;
 import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
 import org.apache.myfaces.trinidadinternal.util.TokenCache;
+import org.apache.myfaces.trinidadinternal.util.TokenCacheDebugUtils;
 
 
 /**
@@ -604,7 +605,7 @@ public class StateManagerImpl extends StateManagerWrapper
 
         // get view cache key with "." separator suffix to separate the SubKeyMap keys
         String subkey = _getViewCacheKey(extContext, trinContext, _SUBKEY_SEPARATOR);
-
+      
         Map<String, PageState> stateMap = new SubKeyMap<PageState>(
                          extContext.getSessionMap(),
                          subkey);
@@ -627,6 +628,24 @@ public class StateManagerImpl extends StateManagerWrapper
       if (viewState == null)
       {
         _LOG.severe("CANNOT_FIND_SAVED_VIEW_STATE", token);
+
+        if(TokenCacheDebugUtils.debugTokenCache())
+        {
+          // get the state map
+          String subkey = _getViewCacheKey(extContext,
+                                           RequestContext.getCurrentInstance(),
+                                           _SUBKEY_SEPARATOR);
+
+          Map<String, PageState> stateMap = new SubKeyMap<PageState>(
+                           extContext.getSessionMap(),
+                           subkey);
+          
+          // log what's currently in the state map
+          TokenCacheDebugUtils.startLog("Restore View");
+          TokenCacheDebugUtils.logCacheInfo(stateMap, null, "token '" + token + "' not found"); 
+          _LOG.severe(TokenCacheDebugUtils.getLogString());        
+        }
+        
         return null;
       }
 

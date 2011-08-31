@@ -26,13 +26,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import java.util.Map;
-
 import java.util.concurrent.ConcurrentHashMap;
-
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -233,6 +230,21 @@ public class TokenCache implements Serializable
       // NOTE: this put() has a side-effect that can result
       // in _removed being non-null afterwards
       _cache.put(token, token);
+
+      if(TokenCacheDebugUtils.debugTokenCache())
+      {
+        TokenCacheDebugUtils.startLog("Add New Entry");
+        TokenCacheDebugUtils.addTokenToViewIdMap(token);
+
+        if (pinnedToken != null)
+        {
+          TokenCacheDebugUtils.addToLog("\nPINNING " + 
+                      TokenCacheDebugUtils.getTokenToViewIdString(token) + 
+                      " to " + 
+                      TokenCacheDebugUtils.getTokenToViewIdString(pinnedToken));  
+        }
+      }
+      
       remove = _removed;
       _removed = null;
     }
@@ -241,17 +253,23 @@ public class TokenCache implements Serializable
     // assert above.
     if (remove != null)
     {
-      _removeTokenIfReady(targetStore, remove);
+      _removeTokenIfReady(targetStore, remove);        
     }
     
     targetStore.put(token, value);
 
     // our contents have changed, so mark ourselves as dirty in our owner
     _dirty();
-    
+
+    if(TokenCacheDebugUtils.debugTokenCache())
+    {
+      TokenCacheDebugUtils.logCacheInfo(targetStore, _pinned, "After Additions"); 
+      _LOG.severe(TokenCacheDebugUtils.getLogString());
+      
+    }
+
     return token;
   }
-
 
   /**
    * Returns true if an entry is still available.  This
@@ -289,21 +307,42 @@ public class TokenCache implements Serializable
     {
       _LOG.finest("Removing token ''{0}''", token);
       // Remove it from the target store
+
+      if (TokenCacheDebugUtils.debugTokenCache())
+      {
+        TokenCacheDebugUtils.removeTokenFromViewIdMap(token);
+      }
+      
       removedValue = targetStore.remove(token);
       // Now, see if that key was pinning anything else
       String wasPinned = _pinned.remove(token);
       if (wasPinned != null)
+      {
+
+        if (TokenCacheDebugUtils.debugTokenCache())
+        {
+          TokenCacheDebugUtils.addToLog("\nREMOVING pinning of token " + token + " to " + 
+                      TokenCacheDebugUtils.getTokenToViewIdString(wasPinned));  
+        }        
+        
         // Yup, so see if we can remove that token
         _removeTokenIfReady(targetStore, wasPinned);
+      }
     }
     else
     {
+      if (TokenCacheDebugUtils.debugTokenCache())
+      {
+        TokenCacheDebugUtils.addToLog("\nNOT removing pinned token from target store " + 
+                    TokenCacheDebugUtils.getTokenToViewIdString(token) );  
+      }
+      
       _LOG.finest("Not removing pinned token ''{0}''", token);
       // TODO: is this correct?  We're not really removing
       // the target value.
       removedValue = targetStore.get(token);
     }
-    
+
     return removedValue;
   }
 
@@ -320,12 +359,23 @@ public class TokenCache implements Serializable
     
     synchronized (this)
     {
+      if(TokenCacheDebugUtils.debugTokenCache())
+      {
+        TokenCacheDebugUtils.startLog("Remove Old Entry");
+      }
+      
       _LOG.finest("Removing token {0} from cache", token);
       _cache.remove(token);
       
       // TODO: should removing a value that is "pinned" take?
       // Or should it stay in memory?
       oldValue = _removeTokenIfReady(targetStore, token);
+      
+      if (TokenCacheDebugUtils.debugTokenCache())
+      {
+        TokenCacheDebugUtils.logCacheInfo(targetStore, _pinned, "After removing old entry:");
+        _LOG.severe(TokenCacheDebugUtils.getLogString());
+      }
     }
 
     // our contents have changed, so mark ourselves as dirty in our owner
