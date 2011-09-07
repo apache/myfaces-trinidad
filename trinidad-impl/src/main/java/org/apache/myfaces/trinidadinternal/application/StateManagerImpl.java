@@ -967,13 +967,20 @@ public class StateManagerImpl extends StateManagerWrapper
       return false;
     }
 
-    // is vanilla JSF used? No Trinidad render-kit-id give? If so, we need to return FALSE,
-    // since we want to save the ENTIRE state on the client...
-    UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+    // In certain situations this method is called from a filter and there's no facesContext, so 
+    // make sure to check for a null context
+    FacesContext context = FacesContext.getCurrentInstance();
 
-    if (viewRoot != null && RenderKitFactory.HTML_BASIC_RENDER_KIT.equals(viewRoot.getRenderKitId()))
+    if (context != null)
     {
-      return false;
+      // is vanilla JSF used? No Trinidad render-kit-id give? If so, we need to return FALSE,
+      // since we want to save the ENTIRE state on the client...
+      UIViewRoot viewRoot = context.getViewRoot();
+      
+      if (viewRoot != null && RenderKitFactory.HTML_BASIC_RENDER_KIT.equals(viewRoot.getRenderKitId()))
+      {
+        return false;
+      }
     }
 
     // Last missing option: state-saving is "CLIENT" and the client-state-method uses
