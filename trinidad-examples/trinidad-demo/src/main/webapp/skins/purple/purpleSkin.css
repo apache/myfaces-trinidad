@@ -144,11 +144,20 @@ af|panelTabbed::tab-link {
   text-decoration: none;
 }
 
-af|panelTabbed::tab-link:hover
-{
-  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+@agent (touchScreen:none) {
+  af|panelTabbed::tab-link:hover
+  {
+    -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+  }
+  af|menuTabs::enabled-link:hover
+  {
+    -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+  }
+  af|menuBar::enabled-link:hover
+  {
+    -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+  }
 }
-
 /* put some space in the
 first cell */
 af|panelTabbed::cell-start {
@@ -205,12 +214,6 @@ af|menuTabs::enabled-link
 {
   color: white;
 }
-
-af|menuTabs::enabled-link:hover
-{
-  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
-}
-
 
 /** menuTabs that use icons are define like the following */
 af|menuTabs::enabled-start-icon
@@ -298,10 +301,6 @@ af|menuBar
 af|menuBar::selected-link
 {
   font-weight:bold;
-}
-af|menuBar::enabled-link:hover
-{
-  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
 }
 af|menuBar::separator
 {
@@ -498,14 +497,15 @@ af|inputDate::launch-icon:rtl
   height:24px
 }
 
-
+@agent (touchScreen:none) {
+  af|breadCrumbs::step:hover {color: green}
+  af|breadCrumbs::selected-step:hover {color: green;}
+  af|treeTable::path-step:hover {color: green}
+  af|treeTable::path-selected-step:hover {color: green;}
+}
 af|breadCrumbs::step {color: purple;}
-af|breadCrumbs::step:hover {color: green}
-af|breadCrumbs::selected-step:hover {color: green;}
 
 af|treeTable::path-step {color: purple; text-decoration:none}
-af|treeTable::path-step:hover {color: green}
-af|treeTable::path-selected-step:hover {color: green;}
 
 
 /** if, for some reason, you don't want an icon to show up, you
@@ -726,10 +726,11 @@ is a right-to-left language. */
   font-size: 24em;
 }
 /* test css parsing only */
-.AFPanelNavigationHorizontal ul li.on:hover ul {
-    background: #224d6f;
-} 
-
+@agent (touchScreen:none) {
+  .AFPanelNavigationHorizontal ul li.on:hover ul {
+      background: #224d6f;
+  }
+}
 af|navigationPane::bar {
   background-color: pink;
 }
@@ -742,10 +743,11 @@ af|navigationPane::bar-active-enabled af|navigationPane::bar-content A {
   color: blue;
 }
 
-af|navigationPane::bar-active-enabled af|navigationPane::bar-content A:hover {
-  color: purple;
+@agent (touchScreen:none) {
+  af|navigationPane::bar-active-enabled af|navigationPane::bar-content A:hover {
+    color: purple;
+  }
 }
-
 af|navigationPane::bar-content {
   padding-top: 6px;
   padding-bottom: 6px;

@@ -372,7 +372,7 @@ public class StyleSheetNode
     // On the other hand, if we do have a browser specified, but
     // the client browser is not known, we don't have a match
     if (application == TrinidadAgent.Application.UNKNOWN)
-      return 0;
+      return _NO_MATCH;
     
     Set<AgentAtRuleMatcher.Match> matches = _agentMatcher.match(agent);
     
@@ -388,6 +388,11 @@ public class StyleSheetNode
                            ? _VERSION_EXACT_MATCH
                            : _VERSION_UNKNOWN_MATCH;
       matchResult |= versionMatch;
+
+      int capTouchMatch = (matches.contains(AgentAtRuleMatcher.Match.CAP_TOUCH_SCREEN))
+                           ? _CAP_TOUCH_SCREEN_EXACT_MATCH
+                           : _CAP_TOUCH_SCREEN_UNKNOWN_MATCH; 
+      matchResult |= capTouchMatch;
     }
 
     return matchResult;
@@ -586,6 +591,10 @@ public class StyleSheetNode
   // Constants for version matches - 0x000000f0 bits
   private static final int _VERSION_EXACT_MATCH     = 0x00000020;
   private static final int _VERSION_UNKNOWN_MATCH   = 0x00000010;
+
+  // Constants for capability touchScreen matches - 0x000000f0 bits
+  private static final int _CAP_TOUCH_SCREEN_EXACT_MATCH     = 0x00000040;
+  private static final int _CAP_TOUCH_SCREEN_UNKNOWN_MATCH   = 0x00000030;
 
   // Constants for os matches - 0x0000000f bits
   private static final int _OS_EXACT_MATCH          = 0x00000004;

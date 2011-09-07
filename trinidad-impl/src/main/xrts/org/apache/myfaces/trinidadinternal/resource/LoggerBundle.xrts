@@ -1152,4 +1152,6 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <resource key="INVALID_STYLESHEET_TYPE">Parsing error: Unknown type of stylesheet '{0}'. Style sheets other than css are not supported. </resource>
 
+<resource key="INVALID_AGENT_PROPERTY">Not a valid @agent CSS property rule: {0}: {1}</resource>
+
 </resources>

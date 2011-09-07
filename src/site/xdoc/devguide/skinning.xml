@@ -1078,6 +1078,32 @@ this resolves to
         <source>
         @agent ie and (min-version: 6) and (max-version: 7), gecko and (version: 1.9)
         </source>
+        You can use touchScreen to specify styles/selectors for touch screen devices. Agent captures a capability named "touchScreen" which is set to none, single or multiple.
+        <source>
+        @agent (touchScreen:none)
+        @agent (touchScreen:single)
+        @agent (touchScreen:multiple)
+        </source>
+        Matches the corresponding touchScreen agent capability.
+        A short cut provided to specify any touchScreen device is:
+        <source>
+        @agent (touchScreen)
+        </source>
+        Matches all agents with touchScreen capability set to single or multiple.
+        You may notice that we have not specified agent name for the touchScreen examples till now. Agent name is made optional for touchScreen rules.
+        <source>
+        @agent webkit and (touchScreen)
+        </source>
+        Matches webkit run on all touch devices (single or multiple touch).
+        touchScreen can be specified with multiple ANDs and ORs as well.
+        <source>
+        @agent webkit and (version: 9) and (touchScreen:single)
+        </source>
+        Matches single touch device running version 9 of webkit.
+        <source>
+        @agent ie and (version: 9), webkit and (touchScreen:multiple)
+        </source>
+        Matches either version 9 of Internet Explorer or agent with multiple touch capability.
         </P>
         </li>        
         <li>

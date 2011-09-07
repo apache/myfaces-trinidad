@@ -550,11 +550,13 @@ code {
 .components_list af|navigationPane::list-inactive-enabled af|navigationPane::list-content a {
     -tr-rule-ref: selector(".CBNavPaneListOption_Custom");
 }
-.components_list af|navigationPane::list-inactive-enabled af|navigationPane::list-content a:hover {
-    -tr-rule-ref: selector(".CBNavPaneListOptionHover_Custom");
-}
-.components_list af|navigationPane::list-active-enabled af|navigationPane::list-content a:hover {
-    -tr-rule-ref: selector(".CBNavPaneListOptionSelectedHover_Custom");
+@agent (touchScreen:none) {
+  .components_list af|navigationPane::list-inactive-enabled af|navigationPane::list-content a:hover {
+      -tr-rule-ref: selector(".CBNavPaneListOptionHover_Custom");
+  }
+  .components_list af|navigationPane::list-active-enabled af|navigationPane::list-content a:hover {
+      -tr-rule-ref: selector(".CBNavPaneListOptionSelectedHover_Custom");
+  }
 }
 .components_list af|navigationPane::list-active-disabled af|navigationPane::list-content,
     af|navigationPane::list-inactive-disabled af|navigationPane::list-content {
@@ -718,10 +720,29 @@ code {
         float: none;
     }
 }
-#page_bar a:hover {
-	text-decoration: none;
-	color: white;
-	background: #7D7873 url("/skins/slices/menu_hover.png") no-repeat bottom right;
+@agent (touchScreen:none) {
+  #page_bar a:hover {
+    text-decoration: none;
+    color: white;
+    background: #7D7873 url("/skins/slices/menu_hover.png") no-repeat bottom right;
+  }
+  #page_bar a:hover span {
+    border-top: 1px solid #88847F;
+    border-bottom: 1px solid #423F3B;
+  }
+  #page_bar .menu_anchor, #page_bar a:hover .menu_anchor {
+  	display: block;
+	position: relative;
+    z-index: 10000;
+	border: none;
+	padding: 0;
+  }
+  #main_menu li a:hover {
+  }
+  #page_bar .expand:hover .submenu {
+	display: block;
+  }
+
 }
 #page_bar a span {
 	display: block;
@@ -731,10 +752,6 @@ code {
 	white-space: nowrap;
     line-height: 1em;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-}
-#page_bar a:hover span {
-	border-top: 1px solid #88847F;
-	border-bottom: 1px solid #423F3B;
 }
 #page_bar a.expand span {
 	padding-right: 24px;
@@ -747,13 +764,6 @@ code {
 	padding-right: 12px;
 	background: none;
 }
-#page_bar .menu_anchor, #page_bar a:hover .menu_anchor {
-	display: block;
-	position: relative;
-    z-index: 10000;
-	border: none;
-	padding: 0;
-}
 /* Main Menu -------------------------------------------------------------------------------------------------------- */
 #main_menu li {
 	float: left;
@@ -761,8 +771,6 @@ code {
 }
 #main_menu li a {
     text-decoration: none;
-}
-#main_menu li a:hover {
 }
 /* Submenu ---------------------------------------------------------------------------------------------------------- */
 #page_bar .submenu_container {
@@ -787,9 +795,6 @@ code {
 	background: #615D59;     
 	border: 1px solid #56524E;
 }
-#page_bar .expand:hover .submenu {
-	display: block;
-}
 @agent ie and (version: 5), ie and (version: 6), ie and (version: 7), ie and (version: 8) {
     #page_bar .expand:hover .submenu {
         width: 100%;
@@ -798,8 +803,10 @@ code {
 #page_bar .expand .submenu a {
 	background: #78736E;
 }
-#page_bar .expand .submenu a:hover {
-    background: #7D7873 url("/skins/slices/menu_hover.png") no-repeat bottom center;
+@agent (touchScreen:none) {
+  #page_bar .expand .submenu a:hover {
+      background: #7D7873 url("/skins/slices/menu_hover.png") no-repeat bottom center;
+  }
 }
 #page_bar .expand .submenu a span {
 	border-bottom: none;
@@ -822,8 +829,10 @@ code {
 #skin_menu li a {
 	text-decoration: none;
 }
-#skin_menu a:hover {
-	background-position: bottom left;
+@agent (touchScreen:none) {
+  #skin_menu a:hover {
+    background-position: bottom left;
+  }
 }
 
 /* ------------------------------------------------------------------------------------------------------------------ */
@@ -874,10 +883,12 @@ code {
         float: none;
     }
 }
-#page_bar a:hover {
-	text-decoration: none;
-	color: white;
-	background: #7D7873 url("/skins/slices/menu_hover.png") no-repeat bottom right;
+@agent (touchScreen:none) {
+  #page_bar a:hover {
+    text-decoration: none;
+    color: white;
+    background: #7D7873 url("/skins/slices/menu_hover.png") no-repeat bottom right;
+  }
 }
 #page_bar a span {
 	display: block;
@@ -886,9 +897,11 @@ code {
 	padding: 7px 12px;
 	white-space: nowrap;
 }
-#page_bar a:hover span {
-	border-top: 1px solid #88847F;
-	border-bottom: 1px solid #423F3B;
+@agent (touchScreen:none) {
+  #page_bar a:hover span {
+    border-top: 1px solid #88847F;
+    border-bottom: 1px solid #423F3B;
+  }
 }
 #page_bar a.expand span {
 	padding-right: 24px;
@@ -906,18 +919,30 @@ code {
 	padding-right: 12px;
 	background: none;
 }
-#page_bar .menu_anchor, #page_bar a:hover .menu_anchor {
+
+#page_bar .menu_anchor {
 	display: block;
 	position: relative;
     z-index: 10000;
 	border: none;
 	padding: 0;
 }
+@agent (touchScreen:none) {
+  #page_bar a:hover .menu_anchor {
+    display: block;
+    position: relative;
+      z-index: 10000;
+    border: none;
+    padding: 0;
+  }
+}
 /* Main Menu -------------------------------------------------------------------------------------------------------- */
 #main_menu li {
 	float: left;
 }
-#main_menu li a:hover {
+@agent (touchScreen:none) {
+  #main_menu li a:hover {
+  }
 }
 /* Submenu ---------------------------------------------------------------------------------------------------------- */
 #page_bar .submenu_container {
@@ -939,8 +964,10 @@ code {
 	background: #615D59;     
 	border: 1px solid #56524E;
 }
-#page_bar .expand:hover .submenu {
-	display: block;
+@agent (touchScreen:none) {
+  #page_bar .expand:hover .submenu {
+    display: block;
+  }
 }
 @agent ie and (version: 5), ie and (version: 6), ie and (version: 7), ie and (version: 8) {
     #page_bar .expand:hover .submenu {
@@ -950,8 +977,10 @@ code {
 #page_bar .expand .submenu a {
 	background: #78736E;
 }
-#page_bar .expand .submenu a:hover {
-    background: #7D7873 url("/skins/slices/menu_hover.png") no-repeat bottom center;
+@agent (touchScreen:none) {
+  #page_bar .expand .submenu a:hover {
+      background: #7D7873 url("/skins/slices/menu_hover.png") no-repeat bottom center;
+  }
 }
 #page_bar .expand .submenu a span {
 	border-bottom: none;
@@ -971,8 +1000,10 @@ code {
 #skin_menu a {
 	background-position: bottom left;
 }
-#skin_menu a:hover {
-	background-position: bottom left;
+@agent (touchScreen:none) {
+  #skin_menu a:hover {
+    background-position: bottom left;
+  }
 }
 
 /* ------------------------------------------------------------------------------------------------------------------ */
@@ -1002,8 +1033,16 @@ code {
     color: #0C87D1;
     text-decoration: none;
 }
-.gs-result a.gs-title:hover {
-    text-decoration: underline;
+@agent (touchScreen:none) {
+  .gs-result a.gs-title:hover {
+      text-decoration: underline;
+  }
+  .gsc-cursor .gsc-cursor-page:hover {
+      -tr-rule-ref: selector(".CBPaginatorScrollerHover:alias");
+  }
+  .gsc-cursor .gsc-cursor-current-page:hover {
+      -tr-rule-ref: selector(".CBPaginatorScrollerSelectedHover:alias");
+  }
 }
 /* Search-result item body */
 .gs-result .gs-snippet {
@@ -1013,12 +1052,6 @@ code {
     text-decoration: none;
     -tr-rule-ref: selector(".CBPaginatorScroller:alias");
 }
-.gsc-cursor .gsc-cursor-page:hover {
-    -tr-rule-ref: selector(".CBPaginatorScrollerHover:alias");
-}
 .gsc-cursor .gsc-cursor-current-page {
     -tr-rule-ref: selector(".CBPaginatorScrollerSelected:alias");
-}
-.gsc-cursor .gsc-cursor-current-page:hover {
-    -tr-rule-ref: selector(".CBPaginatorScrollerSelectedHover:alias");
 }

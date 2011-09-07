@@ -1226,11 +1226,13 @@
   af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content a {
     -tr-rule-ref: selector(".AFTextForeground:alias");
   }
-  af|navigationPane::bar-active-enabled af|navigationPane::bar-content a:hover {
-    text-decoration: underline;
-  }
-  af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content a:hover {
-    text-decoration: underline;
+  @agent (touchScreen:none) {
+    af|navigationPane::bar-active-enabled af|navigationPane::bar-content a:hover {
+      text-decoration: underline;
+    }
+    af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content a:hover {
+      text-decoration: underline;
+    }
   }
   af|navigationPane::bar-active-disabled af|navigationPane::bar-content {
     color: gray;
@@ -1273,11 +1275,13 @@
   af|navigationPane::buttons-inactive-enabled {
     cursor: pointer;
   }
-  af|navigationPane::buttons-active-enabled af|navigationPane::buttons-content a:hover {
-    text-decoration: underline;
-  }
-  af|navigationPane::buttons-inactive-enabled af|navigationPane::buttons-content a:hover {
-    text-decoration: underline;
+  @agent (touchScreen:none) {
+    af|navigationPane::buttons-active-enabled af|navigationPane::buttons-content a:hover {
+      text-decoration: underline;
+    }
+    af|navigationPane::buttons-inactive-enabled af|navigationPane::buttons-content a:hover {
+      text-decoration: underline;
+    }
   }
   af|navigationPane::buttons-active-disabled af|navigationPane::buttons-content {
     color: gray;
@@ -1331,11 +1335,13 @@
   af|navigationPane::list-inactive-enabled {
     cursor: pointer;
   }
-  af|navigationPane::list-active-enabled af|navigationPane::list-content a:hover {
-    text-decoration: underline;
-  }
-  af|navigationPane::list-inactive-enabled af|navigationPane::list-content a:hover {
-    text-decoration: underline;
+  @agent (touchScreen:none) {
+    af|navigationPane::list-active-enabled af|navigationPane::list-content a:hover {
+      text-decoration: underline;
+    }
+    af|navigationPane::list-inactive-enabled af|navigationPane::list-content a:hover {
+      text-decoration: underline;
+    }
   }
   af|navigationPane::list-active-disabled af|navigationPane::list-content {
     color: gray;
