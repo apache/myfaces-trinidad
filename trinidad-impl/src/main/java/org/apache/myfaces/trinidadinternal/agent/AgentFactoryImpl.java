@@ -846,9 +846,13 @@ public class AgentFactoryImpl implements AgentFactory
       // At the moment, this includes Safari and Google Chrome
       agentObj.setPlatform(Agent.PLATFORM_WINDOWS);
     }
+    else if (agent.indexOf("Android") > 0)
+    {
+      //Includes Android Webkit browsers
+      agentObj.setPlatform(Agent.PLATFORM_ANDROID);
+    } 
     else if (agent.indexOf("Linux") > 0)
     {
-      // At the moment, this includes Android
       agentObj.setPlatform(Agent.PLATFORM_LINUX);
     }
     else if (agent.indexOf("Mac") > 0)
@@ -860,6 +864,10 @@ public class AgentFactoryImpl implements AgentFactory
     {
       //Includes Blackberry Webkit browsers
       agentObj.setPlatform(Agent.PLATFORM_BLACKBERRY);
+    }
+    else if (agent.indexOf("webOS") > 0)
+    {
+      agentObj.setPlatform(Agent.PLATFORM_PALM);
     }
 
     String version = _getVersion(agent, start);

@@ -16,15 +16,10 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <capabilityData xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
-  <capability name="textPresentation" value="true"/>      
-  <capability name="-adfinternal-nameIdentification" value="true"/>
-  <capability name="-adfinternal-disabledFormElements" value="false"/>
-  <capability name="-adfinternal-readonlyFormElements" value="false"/>
-  <capability name="-adfinternal-advancedButtons" value="false"/>
-  <capability name="-adfinternal-cssSelectors" value="multiple"/>
-  <capability name="-adfinternal-styleAttributes" value="external"/>
-  <capability name="narrowScreen" value="true"/>
+  <capability name="touchScreen" value="multiple"/>
+<capability name="-adfinternal-supportsDisabledOptions" value="false"/>
 </capabilityData>
+

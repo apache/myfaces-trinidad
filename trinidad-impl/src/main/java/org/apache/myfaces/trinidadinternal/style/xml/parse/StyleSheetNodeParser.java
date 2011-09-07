@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -34,6 +35,7 @@ import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
+import org.apache.myfaces.trinidadinternal.skin.AgentProperties;
 import org.apache.myfaces.trinidadinternal.style.StyleConstants;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
@@ -93,14 +95,15 @@ public class StyleSheetNodeParser extends BaseNodeParser
    }
    
     int browserCount = (_browsers != null) ? _browsers.length : 0;
-    Map<Integer, Set<Version>> browsers
-        = new HashMap<Integer, Set<Version>>(browserCount);
+    Map<Integer, AgentProperties> browsers
+        = new HashMap<Integer, AgentProperties>(browserCount);
 
    //in XSS there's now way of having multiple browsers and multiple versions
    //if encountered, we map all versions to each browser (it works for 1 browser)
    for (int i=0; i < browserCount ; i++)
    {
-     browsers.put(_browsers[i], new HashSet<Version>(versions));
+     // touchScreen capabilities are not supported in xss.  This is only a css feature.
+     browsers.put(_browsers[i], new AgentProperties(new HashSet<Version>(versions), Collections.<String>emptySet()));
    }
 
     return new StyleSheetNode(
