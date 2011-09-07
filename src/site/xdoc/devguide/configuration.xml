@@ -233,7 +233,7 @@ example, when the string is "1/1/11" and the two-digit-year-start is set to 1900
 DateTimeConverter will parse it into the Date equivalent to 1st January 1911.
 If the property is not set, it is defaulted to year <code>1950</code>. 
 This property may be explicitly configured with an EL expression that returns 
-Integer object or it can be directly harcoded to a integer value.
+Integer object or it can be directly harcoded to a integer value.This value should be specified as a Gregorian Calendar year.
 </p>
         </subsection>
         <subsection name="right-to-left">

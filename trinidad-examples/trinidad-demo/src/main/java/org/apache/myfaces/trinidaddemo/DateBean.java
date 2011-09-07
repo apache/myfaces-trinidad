@@ -135,7 +135,7 @@ public class DateBean implements java.io.Serializable
   }
 
   public void setCurrentDate(Date date)
-  {
+  {    
     return;
   }
 
@@ -146,6 +146,7 @@ public class DateBean implements java.io.Serializable
 
   public void setTodayFromMidnight(Date date)
   {
+    _todayFromMidnight = date;
     return;
   }
 
@@ -156,6 +157,7 @@ public class DateBean implements java.io.Serializable
 
   public void setTonightNearMidnight(Date date)
   {
+    _tonightNearMidnight = date;
     return;
   }
 
