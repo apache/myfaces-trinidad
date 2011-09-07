@@ -231,7 +231,8 @@ If it is not set, it is defaulted to year <code>1950</code>. This value is
 used by <code>org.apache.myfaces.trinidad.converter.DateTimeConverter</code>
 while converting strings to Date. This property may also
 be explicitly configured with an EL expression that returns 
-Integer object if needed or can be directly harcoded to a integer value.
+Integer object if needed or can be directly harcoded to a integer value. This value should be  
+specified as a Gregorian Calendar year.
 </p>
         </subsection>
         <subsection name="right-to-left">
