@@ -532,6 +532,7 @@ abstract public class UIXComponentBase extends UIXComponent
       {
         // set the reference
         _parent = parent;
+        _resetClientId();
 
         if (parent.isInView())
         {
@@ -555,21 +556,25 @@ abstract public class UIXComponentBase extends UIXComponent
 
         // (un)set the reference
         _parent = parent;
+        _resetClientId();
       }
+    }
+  }
 
-      // clear cached client ids if necessary
-      if (_clientId != null)
+  private void _resetClientId()
+  {
+    // clear cached client ids if necessary
+    if (_clientId != null)
+    {
+      String newClientId = _calculateClientId(FacesContext.getCurrentInstance());
+
+      // if our clientId changed as a result of being reparented (because we moved
+      // between NamingContainers for instance) then we need to clear out
+      // all of the cached client ids for our subtree
+      if (!_clientId.equals(newClientId))
       {
-        String newClientId = _calculateClientId(FacesContext.getCurrentInstance());
-
-        // if our clientId changed as a result of being reparented (because we moved
-        // between NamingContainers for instance) then we need to clear out
-        // all of the cached client ids for our subtree
-        if (!_clientId.equals(newClientId))
-        {
-          clearCachedClientIds();
-          _clientId = newClientId;
-        }
+        clearCachedClientIds();
+        _clientId = newClientId;
       }
     }
   }
