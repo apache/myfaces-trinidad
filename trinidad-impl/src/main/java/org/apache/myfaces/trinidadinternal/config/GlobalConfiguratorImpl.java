@@ -23,7 +23,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.faces.context.ExternalContext;
 
@@ -200,7 +203,7 @@ public final class GlobalConfiguratorImpl
       if (!_isDisabled(ec))
       {
         // If this hasn't been initialized then please initialize
-        if (!_initialized)
+        if (!_initialized.get())
         {
           init(ec);
         }
@@ -243,29 +246,38 @@ public final class GlobalConfiguratorImpl
   @Override
   public void destroy()
   {
-    if (_initialized)
-    {
+    
+    if (_initialized.get())
+    { 
       try
       {
-        for (final Configurator config: _services)
+        //Forces atomic operations with init.  If we are in the middle of an init or another destroy, we'll
+        //wait on this lock until our operations are complete.  We then have to recheck our initialized state.
+        
+        _initLock.lock();
+        if(_initialized.get())
         {
-          try
+          for (final Configurator config: _services)
           {
-            config.destroy();
+            try
+            {
+              config.destroy();
+            }
+            catch (final Throwable t)
+            {
+              // we always want to continue to destroy things, so log errors and continue
+              _LOG.severe(t);
+            }
           }
-          catch (final Throwable t)
-          {
-            // we always want to continue to destroy things, so log errors and continue
-            _LOG.severe(t);
-          }
+          _services = null;
+          _initialized.set(false);
         }
-        _services = null;
-        _initialized = false;
       }
       finally
       {
         //release any managed threadlocals that may have been used durring destroy
         _releaseManagedThreadLocals();
+        _initLock.unlock();
       }
     }
   }
@@ -372,45 +384,54 @@ public final class GlobalConfiguratorImpl
   public void init(ExternalContext ec)
   {
     assert ec != null;
-
-    if (!_initialized)
+    
+    if (!_initialized.get())
     {
       try
       {
-        _services = ClassLoaderUtils.getServices(Configurator.class.getName());
-
-        // Create a new RequestContextFactory is needed
-        if (RequestContextFactory.getFactory() == null)
+        //For thread saftey.  It is possible for two threads to enter this code at the same time.  When
+        //the do the second one will wait at the lock until initialization is complete.  Then the AtomicBoolean
+        //is checked again for validity.
+        _initLock.lock();
+        //Check the AtomicBoolean for a change
+        if(!_initialized.get())
         {
-          RequestContextFactory.setFactory(new RequestContextFactoryImpl());
+          _services = ClassLoaderUtils.getServices(Configurator.class.getName());
+  
+          // Create a new RequestContextFactory is needed
+          if (RequestContextFactory.getFactory() == null)
+          {
+            RequestContextFactory.setFactory(new RequestContextFactoryImpl());
+          }
+  
+          // Create a new SkinFactory if needed.
+          if (SkinFactory.getFactory() == null)
+          {
+            SkinFactory.setFactory(new SkinFactoryImpl());
+          }
+  
+          // register the base skins
+          SkinUtils.registerBaseSkins();
+  
+          for (final Configurator config: _services)
+          {
+            config.init(ec);
+          }
+  
+          // after the 'services' filters are initialized, then register
+          // the skin extensions found in trinidad-skins.xml. This
+          // gives a chance to the 'services' filters to create more base
+          // skins that the skins in trinidad-skins.xml can extend.
+          SkinUtils.registerSkinExtensions(ec);
+          _initialized.set(true);
         }
-
-        // Create a new SkinFactory if needed.
-        if (SkinFactory.getFactory() == null)
-        {
-          SkinFactory.setFactory(new SkinFactoryImpl());
-        }
-
-        // register the base skins
-        SkinUtils.registerBaseSkins();
-
-        for (final Configurator config: _services)
-        {
-          config.init(ec);
-        }
-
-        // after the 'services' filters are initialized, then register
-        // the skin extensions found in trinidad-skins.xml. This
-        // gives a chance to the 'services' filters to create more base
-        // skins that the skins in trinidad-skins.xml can extend.
-        SkinUtils.registerSkinExtensions(ec);
-        _initialized = true;
       }
       finally
       {
         //Do cleanup of anything which may have use the thread local manager during
         //init.
         _releaseManagedThreadLocals();
+        _initLock.unlock();
       }
     }
     else
@@ -483,7 +504,7 @@ public final class GlobalConfiguratorImpl
 
       context.release();
       _releaseManagedThreadLocals();
-      
+
       assert RequestContext.getCurrentInstance() == null;
     }
   }
@@ -500,7 +521,7 @@ public final class GlobalConfiguratorImpl
       resetter.__removeThreadLocals();
     }
   }
-  
+
   /**
    * Ensure that all DeferredComponentReferences are fully initialized before the
    * request completes
@@ -727,8 +748,10 @@ public final class GlobalConfiguratorImpl
 
   private static volatile boolean _sSetRequestBugTested = false;
   private static boolean _sHasSetRequestBug = false;
+  
+  private final ReentrantLock _initLock = new ReentrantLock();
 
-  private boolean _initialized;
+  private AtomicBoolean _initialized = new AtomicBoolean(false);
   private List<Configurator> _services;
   static private final Map<ClassLoader, GlobalConfiguratorImpl> _CONFIGURATORS =
     new HashMap<ClassLoader, GlobalConfiguratorImpl>();
