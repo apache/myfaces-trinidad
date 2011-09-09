@@ -4094,9 +4094,3 @@ ul {
     padding: 0;
     list-style-type: none;
 }
-
-@agent (touchScreen) {
-  af|myStyle {
-    border: 1px solid red;
-  }
-}
