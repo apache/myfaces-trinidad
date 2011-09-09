@@ -86,7 +86,27 @@ public class FastMessageFormat
     for (int i = 0; i < formatLength; i++)
     {
       char ch = _formatText[i];
-      if (ch == '{')
+      
+      // Check for doubled-up quotes
+      if (ch == '\'' && (i+1 < formatLength) && (_formatText[i+1] == '\''))
+      {
+        /*
+        The tranlations tool uses special processing for single quotation marks that appear in 
+        resource strings. In ResourceBundle files, if a message contains an argument placeholder, 
+        e.g. {0} or {1}, it is assumed to be a format pattern for MessageFormat and the translation 
+        tool automatically doubles all single quotes inside such a message. If the message contains 
+        no arguments, it is expected to be used directly after loading from the bundle, without 
+        processing with MessageFormat. Therefore, no quotes are doubled automatically in such a 
+        message. This code change accounts for the presence of doubled quotes.
+        */
+        
+        buffer.append(_formatText, lastStart, i - lastStart);
+        
+        // skip one of the double quotes. 
+        i++;
+        lastStart = i;
+      }
+      else if (ch == '{')
       {
         // Only check for single digit patterns that have an associated token.
         if (i + 2 < formatLength && _formatText[i + 2] == '}')

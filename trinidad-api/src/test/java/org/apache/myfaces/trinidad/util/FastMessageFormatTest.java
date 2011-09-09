@@ -54,6 +54,16 @@ public class FastMessageFormatTest
     String[] params = { "beef", "kosher", null };
     String result = fmf.format(params);
     assertEquals(result, "beef {{3} isn't {} {a} {12a}kosher {");
+    
+    // tests doubled single quotes.
+    // Same as above, except doubled single quotes are replaced 
+    // with a single single quote.
+    // Expected result: "beef {{3} isn't {} {a} {12a}kosher {"
+    FastMessageFormat fmf2 =
+      new FastMessageFormat("{0} {{3} isn''t {} {a} {12a}{2}{1} {");
+    String[] params2 = { "beef", "kosher", null };
+    result = fmf2.format(params2);
+    assertEquals(result, "beef {{3} isn't {} {a} {12a}kosher {");    
   }
 }
 
