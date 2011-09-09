@@ -428,8 +428,8 @@ public final class GlobalConfiguratorImpl
       }
       finally
       {
-          //Do cleanup of anything which may have use the thread local manager during
-          //init.
+        //Do cleanup of anything which may have use the thread local manager during
+        //init.
         _releaseManagedThreadLocals();
         _initLock.unlock();
       }

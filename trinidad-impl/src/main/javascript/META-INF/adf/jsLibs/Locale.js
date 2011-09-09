@@ -961,7 +961,6 @@ TrFastMessageFormatUtils.format = function(
   // arguments[1], ..., arguments[arguments.length-1]
   var formatLength = formatString.length;
   var tokenCount = arguments.length - 1;
-  var substr = null;
   
   // Use the javascript StringBuffer technique.
   var buffer = [];
@@ -971,18 +970,7 @@ TrFastMessageFormatUtils.format = function(
   {
     // IE7 does not support the string[index] syntax, so use string.charAt(index) instead.
     var ch = formatString.charAt(i);
-    
-    // Check for a double quoted (escape) character
-    if (ch == '\'' && (i + 1 < formatLength) && (formatString.charAt(i+1) == '\''))
-     {
-      substr = formatString.substring(lastStart, i - lastStart);
-      buffer.push(substr);
-      
-      // skip one of the double quotes. 
-      i++;
-      lastStart = i;
-    }
-    else if (ch == '{')
+    if (ch == '{')
     {
       // Only check for single digit patterns that have an associated token.
       if (i + 2 < formatLength && formatString.charAt(i+2) == '}')
@@ -991,7 +979,7 @@ TrFastMessageFormatUtils.format = function(
         if (tokenIndex >= 0 && tokenIndex < tokenCount)
         {            
           // Use the javascript StringBuffer technique for append(string)
-          substr = formatString.substring(lastStart, i);
+          var substr = formatString.substring(lastStart, i);
           buffer.push(substr);
           
           var token = arguments[tokenIndex+1];
