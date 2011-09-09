@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Nezdařilo se rozbalit stav stránky.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">Metodu getClientId nelze volat, pokud probíhá sestavování zobrazení. ID komponenty: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">klíč řádku zřejmě nebyl na konci požadavku správně obnoven. ID komponenty: {0} ID pohledu: {1}</resource>
 </resources>

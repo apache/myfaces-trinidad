@@ -154,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Kunde inte hitta resurspaketet {0}.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">fel när filen:{0} stängdes</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Fel vid stängning av fil:{0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Fel när region-metadatafilerna:{0} hämtades</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Cirkelberoende har upptäckts i skalreferensikonen {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Ett null SkinAddition-objekt har överförts till addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Kunde inte bearbeta skalkonfigurationsfil: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Skalets översättningskälla ValueExpression har inte förväntad typ av Map eller ResourceBundle, så den ignoreras.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -206,13 +208,13 @@
 <!-- TRAIN_MUST_INSIDE_FORM -->
 <resource key="TRAIN_MUST_INSIDE_FORM" dnt="false">Tåg måste användas inuti ett formulär</resource>
 <!-- NODESTAMP_FACET_NOT_FOUND_FOR_TRAIN -->
-<resource key="NODESTAMP_FACET_NOT_FOUND_FOR_TRAIN" dnt="false">För tåget förväntas en nodeStamp-komponent, ingen sådan komponent har hittats för tåget {0}</resource>
+<resource key="NODESTAMP_FACET_NOT_FOUND_FOR_TRAIN" dnt="false">Sekvensen förväntade en nodeStamp-aspekt, ingen sådan aspekt har hittats för sekvensen {0}</resource>
 <!-- VISIBLE_STOP_COUNT_MUST_ABOVE_ZERO -->
 <resource key="VISIBLE_STOP_COUNT_MUST_ABOVE_ZERO" dnt="false">Synligt hållplatsantal måste vara &gt; 0, {0} har hittats</resource>
 <!-- VISIBLE_STOP_COUNT_MYST_INTEGER -->
 <resource key="VISIBLE_STOP_COUNT_MYST_INTEGER" dnt="false">Synligt hållplatsantal måste vara ett heltal, {0} har hittats</resource>
 <!-- NODESTAMP_FACET_MISSING -->
-<resource key="NODESTAMP_FACET_MISSING" dnt="false">&apos;nodeStamp&apos;-komponenten saknas.</resource>
+<resource key="NODESTAMP_FACET_MISSING" dnt="false">&apos;nodeStamp&apos;-aspekten saknas.</resource>
 <!-- SINGLE_STEP_MUST_INSIDE_FORM -->
 <resource key="SINGLE_STEP_MUST_INSIDE_FORM" dnt="false">SingleSteps måste användas inuti ett formulär</resource>
 <!-- FRAMES_MUST_INSIDE_FRAMEBORDERLAYOUTS -->
@@ -340,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Fel vid tolkning av:{0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">fel vid laddning av filen:{0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Fel vid laddning av fil:{0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Kunde inte ladda formatmallen: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -664,7 +666,7 @@
 <!-- ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED -->
 <resource key="ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED" dnt="false">Endast ContextBasedConfiguration stöds</resource>
 <!-- FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED -->
-<resource key="FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED" dnt="false">Komponenten kanske inte anges sedan RendererManager har tilldelats.</resource>
+<resource key="FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED" dnt="false">Aspekten får inte anges när RendererManager har tilldelats.</resource>
 <!-- ILLEGAL_TO_SET_CHILDREN -->
 <resource key="ILLEGAL_TO_SET_CHILDREN" dnt="false">Det är otillåtet att ange underordnade på en {0}</resource>
 <!-- ILLEGAL_TO_ADD_CHILDREN -->
@@ -688,7 +690,7 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Okänd jämförelse</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">test BoundValue måste anges</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">Test-BoundValue måste anges</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">Null-listargument</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
@@ -700,7 +702,7 @@
 <!-- NULL_BASESCORE -->
 <resource key="NULL_BASESCORE" dnt="false">Null baseScore</resource>
 <!-- FACET_NOT_SUPPORTED -->
-<resource key="FACET_NOT_SUPPORTED" dnt="false">Komponenten {0} stöds inte på {1}</resource>
+<resource key="FACET_NOT_SUPPORTED" dnt="false">Aspekten {0} stöds inte på {1}</resource>
 <!-- NUMBER_OF_KEYS_AND_VALUES_MUCH_MATCH -->
 <resource key="NUMBER_OF_KEYS_AND_VALUES_MUCH_MATCH" dnt="false">antal nycklar och värden måste matcha</resource>
 <!-- CHILD_NOT_NULL_NOT_ICONNODE_INSTANCE -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IState måste vara en instans för StateManager.SerializedView eller en objektuppställning med längden 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Att spara partiellt läge kan ännu inte användas. Ange kontextparametern javax.faces.PARTIAL_STATE_SAVING till falskt i web.xml.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Fel vid serialisering av {0} attribut: {1} värde: {2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Fel vid serialisering av {0} attribut:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> underkänt värde=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failoverfel: {0} attribut: {1} av typen {2} är inte serialiserbart</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failoverfel: serialisering av {0} attribut: {1} har ändrats från {2} till {3} utan att attributet har smutsats</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Test av serialisering av sessionsattribut underkändes för {0}. Den här kontrollen kan avaktiveras genom att /&apos;&apos;REQUEST/&apos;&apos; tas bort från systemegenskapen /&apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION/&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Fel inträffade vid undantagsinsamling under test av serialisering av sessionsattribut</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Sessionsattribut:{0} </resource>
 </resources>

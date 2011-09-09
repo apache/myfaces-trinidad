@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">שגיאה בניתוח: {0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">שגיאה בטעינת משאב:{0}</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">שגיאה בטעינת משאב: {0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">שם משאב &quot;{0}&quot; מתחיל בקו נטוי, שאיננו נייד.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">נכשלה פעולת unzip של מצב הדף.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">אי אפשר לקרוא ל-getClientId בעת בניית ה-view. זיהוי הרכיב: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">ייתכן שמפתח שורה לא אופס נכון בסיום הבקשה. זיהוי רכיב: {0} ViewId: {1}</resource>
 </resources>

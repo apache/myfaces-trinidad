@@ -154,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">No se ha encontrado el grupo de recursos {0}.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">error al cerrar el archivo: {0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Error al cerrar el archivo:{0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Error al obtener los archivos de metadatos de región: {0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Se ha detectado una dependencia circular en el icono de referencia de máscara {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Se ha transferido un objeto SkinAddition nulo a addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Fallo al analizar el archivo de configuración de máscara: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">ValueExpression de translation-source de la máscara no tiene el tipo esperado Map ni ResourceBundle, por lo que se ignorará.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -340,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Error al analizar: {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">error al cargar el archivo: {0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Error al cargar el archivo:{0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">No se ha podido cargar la hoja de estilo: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -688,7 +690,7 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Comparación desconocida</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">se necesita probar BoundValue</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">Se necesita probar BoundValue</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">Argumento de lista nulo</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IState debe ser una instancia de StateManager.SerializedView o una matriz de objeto de longitud 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">El almacenamiento de estado parcial aún no está soportado. Defina context-param javax.faces.PARTIAL_STATE_SAVING como falso en web.xml.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Error al serializar {0} atributo:{1} valor:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Error al serializar el atributo {0}: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> valor fallido=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Error de failover: {0} atributo: {1} de tipo {2} no serializable</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Error de failover: La serialización de {0} atributo: {1} ha cambiado de {2} a {3} sin que se haya ensuciado el atributo.</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Fallo de prueba de serialización de atributo de sesión para {0}. Esta comprobación se puede desactivar eliminando &apos;&apos;REQUEST&apos;&apos; de la propiedad del sistema &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Excepción al recoger el fallo de prueba de serialización de atributo de sesión</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atributo de Sesión: {0} </resource>
 </resources>

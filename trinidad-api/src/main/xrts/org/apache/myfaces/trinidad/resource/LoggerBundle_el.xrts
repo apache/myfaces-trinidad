@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">Σφάλμα κατά την ανάλυση: {0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">Σφάλμα στη φόρτωση πόρου: {0}</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">Σφάλμα στη φόρτωση πόρου:{0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">Το όνομα πόρου &quot;{0}&quot; αρχίζει με κάθετο (/) , η οποία δεν έχει δυνατότητα μεταφοράς.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Απέτυχε η αποσυμπίεση της κατάστασης της σελίδας.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">Δεν θα πρέπει να γίνει κλήση του getClientId κατά τη δημιουργία της προβολής. Αναγνωριστικό συστατικού στοιχείου: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">ενδέχεται να μην γίνει σωστή επαναφορά του κλειδιού σειράς στο τέλος της αίτησης. Αναγνωριστικό συστατικού στοιχείου: {0} ViewId: {1}</resource>
 </resources>

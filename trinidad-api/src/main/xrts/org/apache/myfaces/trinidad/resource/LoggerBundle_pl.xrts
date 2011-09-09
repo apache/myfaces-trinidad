@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">Błąd podczas analizy składniowej: {0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">błąd podczas ładowania zasobu: {0}</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">Błąd podczas ładowania zasobu: {0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">Nazwa zasobu &quot;{0}&quot; zaczyna się ukośnikiem, który nie jest przenośny.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Nie udało się zdekompresować stanu strony.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">Metody getClientId nie należy wywoływać podczas konstruowania perspektywy. Identyfikator składnika: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">klucz wiersza może nie być zresetowany poprawnie na końcu żądania. Identyfikator składnika: {0} ViewId: {1}</resource>
 </resources>

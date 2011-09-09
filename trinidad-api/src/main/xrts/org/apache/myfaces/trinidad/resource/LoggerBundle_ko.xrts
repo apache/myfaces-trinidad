@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">페이지 상태의 압축 해제를 실패했습니다.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">뷰를 생성하는 동안에는 getClientId가 호출되지 않아야 합니다. 구성 요소 ID: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">요청 종료 시 행 키가 제대로 재설정되지 않았을 수 있습니다. 구성 요소 ID: {0} ViewId: {1}</resource>
 </resources>

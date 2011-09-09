@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">스킨 참조 아이콘 {0}에서 순환 종속성이 발견되었습니다.</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">널 SkinAddition 객체가 addSkinAddition에 전달되었습니다.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">스킨 구성 파일 처리 실패: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">스킨의 translation-source ValueExpression은 필요한 Map 또는 ResourceBundle 유형이 아니므로 무시됩니다.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -340,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">구문 분석 중 오류 발생: {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">파일 로드 중 오류 발생: {0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">파일을 로드하는 중 오류 발생: {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">스타일시트를 로드할 수 없음: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IState는 StateManager.SerializedView의 인스턴스이거나 길이가 2인 객체 배열이어야 합니다.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">상태를 부분적으로 저장할 수 없습니다. web.xml에서 context-param javax.faces.PARTIAL_STATE_SAVING을 false로 설정하십시오.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">{0} 속성 {1}의 {2} 값을 직렬화하는 중 오류가 발생했습니다.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">{0} 속성 {1}을(를) 직렬화하는 중 오류가 발생했습니다. </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> 실패 값 =</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">복구 오류: {2} 유형의 {0} 속성 {1}을(를) 직렬화할 수 없습니다.</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">복구 오류: {0} 속성 {1}의 직렬화가 속성 변경 없이 {2}에서 {3}(으)로 변경되었습니다.</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">{0}에 대한 세션 속성 직렬화 테스트를 실패했습니다. &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos; 시스템 속성에서 &apos;&apos;REQUEST&apos;&apos;를 제거하여 이 검사를 사용 안함으로 설정할 수 있습니다.</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">세션 속성 직렬화 테스트 실패를 수집하는 중 예외 사항이 발생했습니다.</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">세션 속성: {0}</resource>
 </resources>

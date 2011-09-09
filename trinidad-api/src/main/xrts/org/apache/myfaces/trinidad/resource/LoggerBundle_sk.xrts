@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">Chyba pri syntaktickej analýze: {0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">chyba pri zavádzaní prostriedku: {0}</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">Chyba pri zavádzaní prostriedku: {0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">Názov prostriedku {0} začína lomkou, čo nie je portovateľné.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Nepodarilo sa dekomprimovať stav stránky.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">Počas vytvárania pohľadu by nemala byť volaná metóda getClientId. ID komponentu: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">kľúč riadka mohol byť nesprávne znovunastavený na konci požiadavky. ID komponentu: {0} ViewId: {1}</resource>
 </resources>

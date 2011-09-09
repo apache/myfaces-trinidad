@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">Ошибка при синтаксическом анализе: {0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">ошибка при загрузке ресурса {0}</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">Ошибка при загрузке ресурса:{0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">Имя ресурса &quot;{0}&quot; начинается с косой черты, поэтому не переносимо.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Сбой при извлечении состояния страницы из zip-архива.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">Параметр getClientId не должен вызываться во время построения представления. Идентификатор компонента: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">возможно, ключ строки в конце запроса сброшен некорректно. Идентификатор компонента: {0} ViewId: {1}</resource>
 </resources>

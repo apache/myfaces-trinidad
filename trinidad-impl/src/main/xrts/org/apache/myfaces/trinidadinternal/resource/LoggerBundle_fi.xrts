@@ -154,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Resurssinippua {0} ei löydy.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">virhe tiedoston sulkemisessa: {0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Virhe tiedoston sulkemisessa: {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Virhe region-metadata-tiedostojen haussa: {0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Olemuksen viittauskuvakkeessa {0} havaittiin silmukka</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Tyhjä SkinAddition-objekti välitettiin addSkinAddition-menetelmään.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Olemuksen kokoonpanotiedoston {0} käsittely epäonnistui.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Olemuksen translation-source-elementin ValueExpression-arvo ei ole odotettu Map- tai ResourceBundle-tyyppi, joten se ohitetaan.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -688,7 +690,7 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Tuntematon vertailu</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">testin BoundValue tarvitaan</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">Testin BoundValue tarvitaan</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">Tyhjä listavertailu</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IStaten on oltava StateManager.SerializedView-instanssi tai Object-taulukko pituudella 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Osittaista tilan tallennusta ei vielä tueta. Aseta web.xml-tiedostossa context-param javax.faces.PARTIAL_STATE_SAVING-arvoksi false.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Virhe sarjoitettaessa {0}-määritettä: {1}; arvo:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Virhe määritteen {0} sarjoituksessa: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> virheellinen arvo=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Virhe vikatilannevaihdossa: {0}-määritettä {1}, jonka tyyppi on {2}, ei voi sarjoittaa</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Virhe vikatilannevaihdossa: {0}-määritteen {1} sarjoitus muuttui kohteesta {2} kohteeseen {3}, mutta määrite ei muuttunut</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Istunnon määritteen sarjoituksen testaus epäonnistui kohteessa {0}. Tarkistuksen voi poistaa käytöstä poistamalla kohde REQUEST järjestelmäominaisuudesta org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Poikkeus kerättäessä istunnon määritteen sarjoituksen testauksen virhettä.</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Istunnon määrite:{0} </resource>
 </resources>

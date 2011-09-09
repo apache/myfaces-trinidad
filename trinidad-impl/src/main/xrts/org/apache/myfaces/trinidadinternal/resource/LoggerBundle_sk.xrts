@@ -154,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Zväzok prostriedkov {0} sa nenašiel.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">chyba pri zatváraní súboru: {0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Chyba pri zatváraní súboru: {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Chyba pri získavaní súborov metadát oblasti: {0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Našla sa cyklická závislosť v ikone referencie skinu {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Do addSkinAddition bol odovzdaný objekt SkinAddition s hodnotou null.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Nepodarilo sa spracovať konfiguračný súbor skinu: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Translation-source ValueExpression pre skin nie je očakávaného typu Map alebo ResourceBundle, preto sa bude ignorovať.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -340,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Chyba pri syntaktickej analýze: {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">chyba pri zavádzaní súboru: {0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Chyba pri zavádzaní súboru: {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Nepodarilo sa zaviesť hárok štýlov: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IState musí byť inštanciou metódy StateManager.SerializedView alebo pole objektu s dĺžkou 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Čiastočné uloženie stavu zatiaľ nie je podporované. V súbore web.xml nastavte context-param javax.faces.PARTIAL_STATE_SAVING na hodnotu false.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Chyba serializácie atribútu {0}: {1}, hodnoty:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Chyba serializácie atribútu {0}: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> neúspešná hodnota=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Chyba prepnutia: {0} atribút: {1} typu {2} nie je serializovateľný</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Chyba prepnutia: Serializácia atribútu {0}: {1} sa zmenila z {2} na {3} bez toho, aby bol atribút modifikovaný</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Zlyhalo testovanie serializácie atribútu relácie pre {0}. Túto kontrolu je možné deaktivovať odstránením textu REQUEST zo systémovej vlastnosti org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Výnimka - zlyhanie pri zhromažďovaní informácií pre testovanie serializácie atribútu relácie</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atribút relácie: {0} </resource>
 </resources>

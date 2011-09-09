@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Het decomprimeren van de paginastatus is mislukt.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">getClientId mag niet worden aangeroepen terwijl de view wordt geconstrueerd. Component-ID: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">Rijsleutel wordt mogelijk niet correct opnieuw ingesteld aan het einde van de aanvraag. Component-ID: {0} ViewId: {1}</resource>
 </resources>

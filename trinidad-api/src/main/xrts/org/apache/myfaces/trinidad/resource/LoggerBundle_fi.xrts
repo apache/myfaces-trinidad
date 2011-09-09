@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">Sivun tilan zip-pakkauksen purku epäonnistui.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">GetClientId:tä ei pitäisi kutsua, kun näkymää muodostutaan. Komponentin tunnus: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">Rivitunnusta ei ehkä ole palautettu oikein pyynnön lopussa. Komponentin tunnus: {0} ViewId: {1}</resource>
 </resources>

@@ -154,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">リソース・バンドル{0}が見つかりませんでした。</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">ファイル:{0}を閉じる際のエラー</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">ファイルを閉じる際のエラー: {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">リージョンメタデータ・ファイルを取得中のエラー: {0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">スキン参照アイコン{0}で循環依存性が検出されました</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">nullのSkinAdditionオブジェクトがaddSkinAdditionに渡されました。</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">スキン構成ファイルの処理に失敗しました: {0}。</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">スキンのtranslation-source ValueExpressionは、予想されたタイプであるMapまたはResourceBundleではないため、無視されます。</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -320,7 +322,7 @@
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">nullのskinIdのスキンは取得できません</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
-<resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">ファミリ{0}およびrenderkit {1}と一致するスキンが見つからないため、単純なスキンを使用します</resource>
+<resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">ファミリ{0}およびrenderkit {1}と一致するスキンが見つからないため、simpleスキンを使用します</resource>
 <!-- GET_SKIN_FOUND_SKIN_VERSION -->
 <resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">ファミリ{0}およびバージョン{1}と一致するスキンが見つかりました。スキン{2}を使用します。</resource>
 <!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">IStateはStateManager.SerializedViewのインスタンス、または長さが2のオブジェクト配列である必要があります。</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">状態の部分的保存はまだサポートされていません。web.xmlでcontext-param javax.faces.PARTIAL_STATE_SAVINGをfalseに設定してください。</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">{0}の属性: {1} 値: {2}のシリアライズ化中にエラーが発生しました</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">{0}属性のシリアライズ化中にエラーが発生しました:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> 失敗した値=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">フェイルオーバー・エラー: {0}のタイプ{2}の属性: {1}はシリアライズ化できません</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">フェイルオーバー・エラー: {0}の属性: {1}のシリアライズ化により、属性がダーティにされずに{2}から{3}に変更されました</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">{0}のセッション属性シリアライズ化テストに失敗しました。このチェックは、&apos;&apos;REQUEST&apos;&apos;を&apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;システム・プロパティから削除することにより無効にできます</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">セッション属性シリアライズ化テストの失敗を収集中に例外が発生しました</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">セッション属性: {0} </resource>
 </resources>

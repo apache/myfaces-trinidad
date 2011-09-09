@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">对 {0} 进行语法分析时出错</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">加载资源 {0} 时出错</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">加载资源{0}时出错</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">资源名称 &quot;{0}&quot; 以斜杠开头, 这是不可移植的。</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
@@ -320,4 +320,6 @@
 <resource key="UNZIP_STATE_FAILED" dnt="false">无法解压缩页状态。</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">构建视图期间不应调用 getClientId。组件 ID: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">请求结束时可能未正确地重置行关键字。组件 ID: {0} ViewId: {1}</resource>
 </resources>

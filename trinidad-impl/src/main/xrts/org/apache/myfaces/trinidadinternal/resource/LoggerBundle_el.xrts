@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Εντοπίστηκε κυκλική αναφορά στο εικονίδιο αναφοράς του τρόπου εμφάνισης {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Μεταβιβάστηκε μη ορισμένο (null) αντικείμενο SkinAddition στη μέθοδο addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Απέτυχε η επεξεργασία του αρχείου διαμόρφωσης εμφάνισης: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Το ValueExpression της προέλευσης μετάφρασης για τον τρόπο εμφάνισης δεν είναι του αναμενόμενου τύπου Map ή ResourceBundle, και επομένως δεν θα ληφθεί υπόψη.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -340,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Σφάλμα κατά την ανάλυση: {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">Σφάλμα κατά τη φόρτωση του αρχείου :{0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Σφάλμα κατά τη φόρτωση του αρχείου:{0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Δεν ήταν δυνατή η φόρτωση του φύλλου στυλ: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">Το στοιχείο IState θα πρέπει να είναι παρουσία του StateManager.SerializedView ή πίνακας αντικειμένων με μήκος 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Η αποθήκευση της κατάστασης \&quot;μερική\&quot; δεν υποστηρίζεται ακόμη. Ορίστε την παράμετρο περιβάλλοντος javax.faces.PARTIAL_STATE_SAVING στην τιμή false στο αρχείο σας web.xml.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Σφάλμα κατά τη σειριοποίηση της παραμέτρου {0}:{1} τιμή:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Προέκυψε σφάλμα κατά τη σειριοποίηση της παραμέτρου {0}: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> τιμή αποτυχίας=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Σφάλμα αντιμετώπισης: {0} η παράμετρος:{1} τύπου {2} δεν μπορεί να μετατραπεί σε σειριακή μορφή</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Σφάλμα αντιμετώπισης: Η σειριοποίηση της παραμέτρου {0}:{1} άλλαξε από {2} σε {3} χωρίς η παράμετρος να μεταβληθεί</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Η δοκιμή σειριοποίησης παραμέτρων της περιόδου λειτουργίας απέτυχε για το {0}. Η απενεργοποίηση αυτού του έλεγχου μπορεί να γίνει καταργώντας το στοιχείο &apos;&apos;REQUEST&apos;&apos; από την ιδιότητα συστήματος &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Εξαίρεση κατά τη συγκέντρωση αποτυχιών δοκιμής σειριοποίησης παραμέτρων περιόδου λειτουργίας</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Παράμετρος περιόδου λειτουργίας:{0} </resource>
 </resources>

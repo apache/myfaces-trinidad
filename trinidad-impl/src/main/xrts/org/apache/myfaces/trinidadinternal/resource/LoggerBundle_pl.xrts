@@ -154,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Nie znaleziono pakietu zasobów {0}.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">błąd podczas zamykania pliku: {0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Błąd podczas zamykania pliku: {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Błąd podczas uzyskiwania plików metadanych obszaru: {0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -185,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Wykryto cykliczną zależność w ikonie &quot;{0}&quot; odwołania do nakładki</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Do addSkinAddition przekazano obiekt SkinAddition o wartości Null.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Nie udało się przetworzyć pliku konfiguracyjnego nakładki: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Wyrażenie wartości źródła translacji (translation-source) nakładki nie jest oczekiwanego typu Map lub ResourceBundle i dlatego zostanie zignorowane.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -316,7 +318,7 @@
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Nie można dodać nakładki z identyfikatorem (skinId) o wartości Null lub nakładki o wartości Null</resource>
 <!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
-<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Ponownie dodano wcześniej dodaną nakładkę {0}. Jeśli nakładka ta została pobrana do pamięci podręcznej aplikacji, wyniki mogą być niespójne. Proszę sprawdzić, czy w ścieżce klasy nie występują zduplikowane pliki trinidad-skins.xml .</resource>
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Ponownie dodano wcześniej dodaną nakładkę {0}. Jeśli nakładka ta została pobrana do podręcznej pamięci aplikacji, wyniki mogą być niespójne. Proszę sprawdzić, czy na ścieżce klas (classpath) nie występują zduplikowane pliki trinidad-skins.xml .</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nie można uzyskać nakładki z identyfikatorem (skinId) o wartości Null</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
@@ -340,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Błąd podczas analizy składniowej: {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">błąd podczas ładowania pliku: {0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Błąd podczas ładowania pliku: {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Nie udało się załadować arkusza stylów: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -688,7 +690,7 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Nieznane porównanie</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">wymagana testowa wartość wiązania</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">Wymagana testowa wartość wiązania</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">Argument listy o wartości Null</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
@@ -752,10 +754,18 @@
 <resource key="UNEXPECTED_STATE" dnt="false">Obiekt IState musi być instancją klasy StateManager.SerializedView lub tablicą obiektów o długości 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Częściowe zapisywanie stanu nie jest jeszcze obsługiwane. Proszę zmienić wartość parametru context-param javax.faces.PARTIAL_STATE_SAVING na false w pliku web.xml.</resource>
-<!-- ATTRIBUTE_SERIALIZATION_FAILED -->
-<resource key="ATTRIBUTE_SERIALIZATION_FAILED" dnt="false">Błąd podczas serializowania atrybutu {0}:{1} wartość:{2}</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Błąd podczas serializowania atrybutu {0}: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> wartość z niepowodzeniem=</resource>
 <!-- ATTRIBUTE_NOT_SERIALIABLE -->
 <resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Błąd podczas przejmowania awaryjnego: {0} atrybut:{1} typu {2} nie jest serializowalny</resource>
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Błąd podczas przejmowania awaryjnego: serializacja atrybutu {0}:{1} zmieniła z {2} na {3} bez zmiany wartości atrybutu</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Testowanie serializacji atrybutu sesyjnego zakończyło się niepowodzeniem; powód: {0}. Test ten można wyłączyć usuwając napis REQUEST z systemowej właściwości org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION.</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Wyjątek podczas gromadzenia danych dot. niepowodzenia testowania serializacji atrybutu sesyjnego</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atrybut sesyjny: {0} </resource>
 </resources>
