@@ -33,7 +33,7 @@
 
   <groupId>org.apache.myfaces.trinidad</groupId>
   <artifactId>trinidad</artifactId>
-  <version>1.2.15</version>
+  <version>1.2.16-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -138,9 +138,9 @@
   </mailingLists>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/tags/trinidad-1.2.15</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/tags/trinidad-1.2.15</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/trinidad/tags/trinidad-1.2.15</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/branches/trinidad-1.2.x</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/branches/trinidad-1.2.x</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/trinidad/branches/trinidad-1.2.x</url>
   </scm>
 
   <repositories>
