@@ -87,15 +87,11 @@
     <!-- 
       This profile is for preparing a release.  Execute this profile like this:
       
-       mvn release:prepare -DprepareRelease=true
+       mvn release:prepare -Papache-releae
      -->
     <profile>
-     <id>prepare-release</id>
-     <activation>
-       <property>
-         <name>prepareRelease</name>
-       </property>
-     </activation>
+     <id>apache-release</id>
+
      <modules>
        <module>trinidad-example-assembly</module>
      </modules>      
