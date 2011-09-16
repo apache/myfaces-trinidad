@@ -465,28 +465,70 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   //
   // Find the selected item in the list
   //
-  private int _findIndex(
-      Object value, 
-      List<SelectItem> selectItems)
-  {
-    int size = selectItems.size();
-    int result;
-    for (int i = 0; i < size; i++)
-    {
-      SelectItem item = selectItems.get(i);
-      if (item == null)
-        continue;
+	private int _findIndex(Object value, List<SelectItem> selectItems) {
+		int size = selectItems.size();
+		// int result;
+		int counter = -1;
 
-      result = resolveIndex(item, value, i);
-      if(result >= 0)
-      {
-        return result;
-      }
-    }
+		// works only for group at first level - does not work for nested
+		// groups, instead of calling recursive method
+		// resolveIndex() the code below finds the index of select items, select
+		// item groups are excluded from counter - nesting of optgroups not
+		// supported by html4
+		for (int i = 0; i < size; i++) {
 
-    return -1;
-  }
+			SelectItem item = selectItems.get(i);
+			if (item == null) {
+				continue;
+			}
+			if (item instanceof SelectItemGroup) {
+				for (SelectItem subItem : ((SelectItemGroup) item).getSelectItems()) {
+					counter++;
+					if (hasValue(value, subItem)) {
+						return counter;
+					}
+				}
+			} else {
+				counter++;
+				if (hasValue(value, item)) {
+					return counter;
+				}
+			}
+			// result = resolveIndex(item, value, i);
+			// if(result >= 0)
+			// {
+			// return result;
+			// }
+		}
 
+		return -1;
+	}
+
+	/**
+	 * Returns true when value matches the value of select item, false
+	 * otherwise.
+	 * 
+	 * @param value
+	 *            searched value
+	 * @param item
+	 *            select item
+	 * @return true when select item has searched value, false otherwise
+	 */
+	private boolean hasValue(Object value, SelectItem item) {
+		if (value == null) {
+			Object itemValue = item.getValue();
+			// =-=AEW Treat the empty string as if it were null
+			if ((itemValue == null) || "".equals(itemValue))
+				return true;
+		} else {
+			if (value.equals(item.getValue())
+					|| (value.getClass().isEnum() && item.getValue() != null && value.toString().equals(
+							item.getValue().toString())))
+				return true;
+		}
+		return false;
+	}
+  
   private int resolveIndex(SelectItem item, Object value, int index)
   {
     if(item instanceof SelectItemGroup)
