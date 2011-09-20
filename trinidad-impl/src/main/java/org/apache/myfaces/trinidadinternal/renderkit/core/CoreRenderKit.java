@@ -111,6 +111,20 @@ public class CoreRenderKit extends RenderKitDecorator
    */
   static public final String OUTPUT_MODE_EMAIL = "email";
 
+  /**
+   * An offline browser output mode.  Render the content such that the output can be taken
+   * offline.  Interactions requiring server communication should be avoided.
+   */
+  static public final String OUTPUT_MODE_OFFLINE = "offline";
+
+  /**
+   * Web Creawler output mode.  Render the content for consumption by a web crawler
+   */
+  static public final String OUTPUT_MODE_WEB_CRAWLER = "webcrawler";
+
+
+  public enum OutputMode {normal, portlet, printable, email, offline}
+
   static public final String RETURN_PARAM = "rtrn";
 
   /**
