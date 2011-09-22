@@ -198,6 +198,17 @@ class StyleContextImpl implements StyleContext
   {
     return CoreRenderKit.OUTPUT_MODE_PORTLET.equals(_arc.getOutputMode());
   }
+  
+  @Override
+  public boolean isRequestSecure()
+  {
+    if (_isRequestSecure == null) 
+    {
+      String scheme = FacesContext.getCurrentInstance().getExternalContext().getRequestScheme();
+      _isRequestSecure =  "https".equals(scheme);
+    }
+    return _isRequestSecure;
+  }
 
   /**
    *
@@ -333,6 +344,7 @@ class StyleContextImpl implements StyleContext
   private StyleProvider _styleProvider;
   private Styles _styles;
   private Boolean  _isDisableStyleCompression;
+  private Boolean _isRequestSecure;
   static private final String _SKIN_DIRTY_PARAM =
     "org.apache.myfaces.trinidad.skin.dirty";
 
