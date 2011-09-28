@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
@@ -31,6 +32,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.style.Styles;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
@@ -158,6 +160,24 @@ class StyleContextImpl implements StyleContext
   {
     return CoreRenderKit.OUTPUT_MODE_PORTLET.equals(_arc.getOutputMode());
   }
+  
+  @Override
+  public boolean isRequestSecure()
+  {
+    if (_isRequestSecure == null) 
+    {
+      String scheme = _getRequestScheme();
+      _isRequestSecure =  "https".equals(scheme);
+    }
+    return _isRequestSecure;
+  }
+
+  static private String _getRequestScheme()
+  {
+    FacesContext context = FacesContext.getCurrentInstance();
+    ExternalContext external = context.getExternalContext();
+    return ExternalContextUtils.getRequestScheme(external);
+  }
 
   /**
    *
@@ -269,6 +289,7 @@ class StyleContextImpl implements StyleContext
   private StyleProvider _styleProvider;
   private Styles _styles;
   private Boolean  _isDisableStyleCompression;
+  private Boolean _isRequestSecure;
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(StyleContextImpl.class);
