@@ -54,4 +54,9 @@ public interface StyleContext
   public boolean isPortletMode();
   public boolean isDisableStyleCompression();
   public boolean isDirty();
+  
+  /**
+   * @return true if the current request is secure (an https request), false otherwise
+   */
+  public boolean isRequestSecure();
 }
