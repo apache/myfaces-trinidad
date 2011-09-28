@@ -271,6 +271,20 @@ public final class ExternalContextUtils
   }
   
   /**
+   * Wrapper for ExternalContext.getRequestScheme().
+   * 
+   * @param ec the current external context
+   * @return the result of ExternalContext.getRequestScheme()
+   *
+   * @deprecated replaced by ExternalContext.getRequestScheme().
+   */
+  @Deprecated
+  public static String getRequestScheme(ExternalContext ec)
+  { 
+    return ec.getRequestScheme();
+  }
+
+  /**
    * Returns the writer appropriate for the current response or <code>null</code> if one is
    * not available.  This will always be available in a servlet request, but will only be available
    * for resource or render responses in a portal environments
