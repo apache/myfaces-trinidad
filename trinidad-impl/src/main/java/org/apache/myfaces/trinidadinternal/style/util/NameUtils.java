@@ -59,7 +59,9 @@ public class NameUtils
 
     int browser = TrinidadAgent.APPLICATION_UNKNOWN;
 
-    if (_BROWSER_NETSCAPE.equals(browserName))
+    if (_BROWSER_GENERIC_DESKTOP.equals(browserName))
+      browser = TrinidadAgent.APPLICATION_GENERIC_DESKTOP;
+    else if (_BROWSER_NETSCAPE.equals(browserName))
       browser = TrinidadAgent.APPLICATION_NETSCAPE;
     else if (_BROWSER_IE.equals(browserName))
       browser = TrinidadAgent.APPLICATION_IEXPLORER;
@@ -123,6 +125,9 @@ public class NameUtils
     case TrinidadAgent.APPLICATION_EMAIL:
       name = _BROWSER_EMAIL;
       break;
+    case TrinidadAgent.APPLICATION_GENERIC_DESKTOP:
+        name = _BROWSER_GENERIC_DESKTOP;
+        break;
     case TrinidadAgent.APPLICATION_UNKNOWN:
       // This case is only here to avoid the default assertion
       break;
@@ -761,6 +766,8 @@ public class NameUtils
   private static final String _DIRECTION_LTR = "ltr";
 
   // Browser constants
+  private static final String _BROWSER_GENERIC_DESKTOP = "genericDesktop";
+
   private static final String _BROWSER_NETSCAPE = "netscape";
 
   private static final String _BROWSER_IE = "ie";

@@ -24,6 +24,7 @@ import java.io.IOException;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -244,6 +245,14 @@ abstract public class RequestContext
    */
   public abstract String getOutputMode();
 
+  /**
+   * Returns the OutputMode enumeration
+   * @return OutputMode
+   */
+  public OutputMode getOutputModeEnum()
+  {
+    return OutputMode.fromId(getOutputMode());
+  }
 
   /**
    * Returns the name of the preferred skin family.
@@ -317,6 +326,70 @@ abstract public class RequestContext
 
     private final String _name;
   };
+
+  /**
+   * Enumeration representing OutputModes
+   */
+  public enum OutputMode
+  {
+    DEFAULT("default"), PORTLET("portlet"), PRINTABLE("printable"), EMAIL("email"),
+    OFFLINE("offline"), WEB_CRAWLER("webcrawler");
+    
+    private OutputMode(String id)
+    {
+      if (id == null) throw new NullPointerException();
+      
+      _id = id;
+    }
+
+    /**
+     * @return the id of this OutputMode.
+     */
+    public String id()
+    {
+      return _id;
+    }
+    
+    @Override
+    public String toString()
+    {
+      return _id;
+    }
+    
+    /**
+     * Returns the OutputMode isntance of <code>null</code> if no id matches.
+     * @param id of OutputMode to return
+     * @return The OutputMode with the specified id
+     * @throws NullPointerException if <code>id</code> is null.
+     * @throws IllegalArgumentException if there is no enum with the specified name.
+     */
+    public static OutputMode fromId(String id)
+    {
+      if (id == null)
+        throw new NullPointerException();
+      
+      OutputMode outputMode = ID_TO_OUTPUT_MODE.get(id);
+      
+      if (outputMode == null)
+        throw new IllegalArgumentException();
+      
+      return outputMode;
+    }
+
+    private static final Map<String, OutputMode> ID_TO_OUTPUT_MODE = new HashMap<String, OutputMode>();
+    
+    static
+    {
+      OutputMode[] instances = OutputMode.class.getEnumConstants();
+      
+      for (int i = 0; i < instances.length; i++)
+      {
+        ID_TO_OUTPUT_MODE.put(instances[i].toString(), instances[i]);
+      }
+    }
+    
+    private final String _id;
+  }
 
   /**
    * Returns the name of the current accessibility mode.

@@ -30,6 +30,11 @@
       <include src="html.xml"/>
     </capabilities>
 
+    <capabilities id="genericDesktop" default="true" >
+      <include refid="html"/>
+      <include src="genericDesktop.xml"/>
+    </capabilities>
+
     <capabilities id="pda" platforms="palm">
       <include refid="htmlBasic"/>
       <include src ="pdaHtml.xml"/>
