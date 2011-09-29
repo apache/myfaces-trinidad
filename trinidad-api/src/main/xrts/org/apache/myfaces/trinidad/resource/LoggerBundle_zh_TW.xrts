@@ -140,6 +140,8 @@
 <resource key="CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL" dnt="false">若 FacesContext, UIComponent 或 Change 之中的其中一項為空值, 便無法新增 Change.</resource>
 <!-- CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT -->
 <resource key="CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT" dnt="false">若 UIComponent 為空值, 便無法建構 ChangeComponentProxy.</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">無法套用資料列索引鍵集屬性變更. 原因 : {1}</resource>
 <!-- TARGET_CLASS_NAME_MUST_BE_PROVIDED -->
 <resource key="TARGET_CLASS_NAME_MUST_BE_PROVIDED" dnt="false">必須提供目標類別名稱</resource>
 <!-- CONVERTER_CLASS_NAME_MUST_BE_PROVIDED -->

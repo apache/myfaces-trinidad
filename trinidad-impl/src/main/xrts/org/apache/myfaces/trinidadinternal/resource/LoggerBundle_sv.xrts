@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Fel inträffade vid undantagsinsamling under test av serialisering av sessionsattribut</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Sessionsattribut:{0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Inte en giltig @agent CSS-egenskapsregel: {0}: {1}</resource>
 </resources>

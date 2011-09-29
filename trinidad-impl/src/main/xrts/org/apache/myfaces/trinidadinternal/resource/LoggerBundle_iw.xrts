@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">כישלון באיסוף חריגים בבדיקת serialization של תכונת מושב עבודה</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">תכונת מושב עבודה:{0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">אינו כלל תקף של מאפיין CSS של @agent: {0}: {1}</resource>
 </resources>

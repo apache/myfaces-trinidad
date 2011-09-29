@@ -140,6 +140,8 @@
 <resource key="CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL" dnt="false">Impossibile aggiungere un elemento Change con un FacesContext, UIComponent o Change nullo.</resource>
 <!-- CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT -->
 <resource key="CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT" dnt="false">Impossibile creare un ChangeComponentProxy con un UIComponent nullo.</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Applicazione della modifica di attributo per il set di chiavi di riga non riuscita. Causa: {1}</resource>
 <!-- TARGET_CLASS_NAME_MUST_BE_PROVIDED -->
 <resource key="TARGET_CLASS_NAME_MUST_BE_PROVIDED" dnt="false">È necessario fornire il nome della classe di destinazione</resource>
 <!-- CONVERTER_CLASS_NAME_MUST_BE_PROVIDED -->

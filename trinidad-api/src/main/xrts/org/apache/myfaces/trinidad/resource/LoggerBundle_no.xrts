@@ -140,6 +140,8 @@
 <resource key="CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL" dnt="false">Kan ikke legge til en endring der FacesContext, UIComponent eller Change er null.</resource>
 <!-- CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT -->
 <resource key="CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT" dnt="false">Kan ikke bygge en ChangeComponentProxy med null-UIComponent.</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Kan ikke gjennomføre endring av attributt for radnøkkelsett. Årsak: {1}</resource>
 <!-- TARGET_CLASS_NAME_MUST_BE_PROVIDED -->
 <resource key="TARGET_CLASS_NAME_MUST_BE_PROVIDED" dnt="false">Målklassenavnet må angis</resource>
 <!-- CONVERTER_CLASS_NAME_MUST_BE_PROVIDED -->

@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">حدث استثناء أثناء جمع بيانات فشل اختبار إنشاء تسلسل لسمة جلسة العمل</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">سمة جلسة العمل:{0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">قاعدة خاصية @agent CSS غير صالحة: {0}: {1}</resource>
 </resources>

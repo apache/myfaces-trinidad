@@ -140,6 +140,8 @@
 <resource key="CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL" dnt="false">Kan geen wijziging toevoegen als FacesContext, UIComponent of Change NULL is.</resource>
 <!-- CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT -->
 <resource key="CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT" dnt="false">Kan ChangeComponentProxy niet samenstellen als UIComponent NULL is.</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Wijziging rijsleutelsetattribuut kan niet worden toegepast. Reden: {1}</resource>
 <!-- TARGET_CLASS_NAME_MUST_BE_PROVIDED -->
 <resource key="TARGET_CLASS_NAME_MUST_BE_PROVIDED" dnt="false">De naam van de doelklasse is verplicht.</resource>
 <!-- CONVERTER_CLASS_NAME_MUST_BE_PROVIDED -->

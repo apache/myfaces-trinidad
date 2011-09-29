@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Undtagelse under indhentning af testfejl ved serialisering af sessionsattribut</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Sessionsattribut:{0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Ikke en gyldig @agent CSS-egenskabsregel: {0}: {1}</resource>
 </resources>

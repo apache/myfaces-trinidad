@@ -140,6 +140,8 @@
 <resource key="CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL" dnt="false">Nelze přidat změnu s atributy FacesContext, UIComponent nebo Změna, které mají hodnotu null.</resource>
 <!-- CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT -->
 <resource key="CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT" dnt="false">Nelze sestavit atribut ChangeComponentProxy s e součástí UIComponent, která má hodnotu null.</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Nepodařilo se použít změnu atributu klíčové řadové sady. Důvod: {1}</resource>
 <!-- TARGET_CLASS_NAME_MUST_BE_PROVIDED -->
 <resource key="TARGET_CLASS_NAME_MUST_BE_PROVIDED" dnt="false">Je třeba zadat název cílové třídy</resource>
 <!-- CONVERTER_CLASS_NAME_MUST_BE_PROVIDED -->

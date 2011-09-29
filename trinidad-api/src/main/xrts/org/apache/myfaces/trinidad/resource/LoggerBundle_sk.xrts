@@ -140,6 +140,8 @@
 <resource key="CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL" dnt="false">Nemožno pridať atribút Change s komponentom FacesContext, UIComponent alebo Change, ktorý je null.</resource>
 <!-- CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT -->
 <resource key="CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT" dnt="false">Atribút ChangeComponentProxy nie je možné skonštruovať s komponentom UIComponent, ktorý je null.</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Zmenu atribútu množiny kľúčov riadka sa nepodarilo aplikovať. Dôvod: {1}</resource>
 <!-- TARGET_CLASS_NAME_MUST_BE_PROVIDED -->
 <resource key="TARGET_CLASS_NAME_MUST_BE_PROVIDED" dnt="false">Je potrebné zadať názov cieľovej triedy</resource>
 <!-- CONVERTER_CLASS_NAME_MUST_BE_PROVIDED -->

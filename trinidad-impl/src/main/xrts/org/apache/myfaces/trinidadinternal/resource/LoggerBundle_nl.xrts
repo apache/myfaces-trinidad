@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Fout bij de serialisatietest van de sessieattribuut waarbij uitzonderingen worden verzameld</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Sessieattribuut: {0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Geen geldige @agent-CSS-eigenschapsregel: {0}: {1}</resource>
 </resources>

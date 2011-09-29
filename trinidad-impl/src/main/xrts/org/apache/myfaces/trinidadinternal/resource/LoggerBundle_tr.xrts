@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Oturum özelliği seriye dönüştürme testi başarısızlığı toplanırken istisna oluştu</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Oturum özelliği:{0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Geçerli bir @agent CSS nitelik kuralı değil: {0}: {1}</resource>
 </resources>

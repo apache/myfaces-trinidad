@@ -226,9 +226,9 @@
 <!-- COMPONENT_COLUMN_OUTSIDE_TABLE -->
 <resource key="COMPONENT_COLUMN_OUTSIDE_TABLE" dnt="false">{0} : colonne utilisée hors d&apos;&apos;un tableau</resource>
 <!-- NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR -->
-<resource key="NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR" dnt="false">Impossible d&apos;ajouter des convertisseurs et des contrôles de validation côté client car le nom de noeud est NULL</resource>
+<resource key="NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR" dnt="false">Impossible d&apos;ajouter des convertisseurs et des valideurs côté client car le nom de noeud est NULL</resource>
 <!-- NULL_VALIDATORS_ITERATOR -->
-<resource key="NULL_VALIDATORS_ITERATOR" dnt="false">Itérateur de contrôles de validation NULL pour {0}</resource>
+<resource key="NULL_VALIDATORS_ITERATOR" dnt="false">Itérateur de valideurs NULL pour {0}</resource>
 <!-- DUPLICATE_CONVERTER_ONE_PER_COMPONENT -->
 <resource key="DUPLICATE_CONVERTER_ONE_PER_COMPONENT" dnt="false">Il y a déjà un convertisseur pour &quot;{0}&quot;. Il ne doit y avoir qu&apos;&apos;un seul convertisseur par composant.</resource>
 <!-- FRAME_MISSING_ATTRIBUTE -->
@@ -370,7 +370,7 @@
 <!-- VALIDATOR_NOT_INSIDE_UICOMPONENT -->
 <resource key="VALIDATOR_NOT_INSIDE_UICOMPONENT" dnt="false">la balise de validation ne se trouve pas dans un UIComponent.</resource>
 <!-- CANNOT_CREATE_VALIDATOR -->
-<resource key="CANNOT_CREATE_VALIDATOR" dnt="false">impossible de créer un contrôle de validation pour le validatorId {0} et la liaison {1}</resource>
+<resource key="CANNOT_CREATE_VALIDATOR" dnt="false">impossible de créer un valideur pour le validatorId {0} et la liaison {1}</resource>
 <!-- MISSING_VALIDATORID -->
 <resource key="MISSING_VALIDATORID" dnt="false">attribut validatorId manquant</resource>
 <!-- CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN -->
@@ -408,7 +408,7 @@
 <!-- CANNOT_FLIP_ICON -->
 <resource key="CANNOT_FLIP_ICON" dnt="false">Impossible d&apos;&apos;obtenir l&apos;&apos;icône retournée pour : {0}</resource>
 <!-- NULL_NODE_NAME_NO_VALIDATOR_ADDED -->
-<resource key="NULL_NODE_NAME_NO_VALIDATOR_ADDED" dnt="false">Le nom du noeud est NULL : aucun contrôle de validation obligatoire côté client n&apos;&apos;a été ajouté pour le noeud avec le nom local {0}</resource>
+<resource key="NULL_NODE_NAME_NO_VALIDATOR_ADDED" dnt="false">Le nom du noeud est NULL : aucun valideur obligatoire côté client n&apos;&apos;a été ajouté pour le noeud avec le nom local {0}</resource>
 <!-- CANNOT_FIND_CLASS -->
 <resource key="CANNOT_FIND_CLASS" dnt="false">Classe {0} introuvable</resource>
 <!-- CANNOT_LOAD_CLASS -->

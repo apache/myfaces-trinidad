@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Excepţie la preluarea eşecului sesiunii de testare a serializării atributului</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atribut sesiune:{0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Următoarea regulă pt. o proprietate CSS @agent nu este validă: {0}: {1}</resource>
 </resources>

@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Wyjątek podczas gromadzenia danych dot. niepowodzenia testowania serializacji atrybutu sesyjnego</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atrybut sesyjny: {0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Niepoprawna reguła właściwości @agent CSS: {0}: {1}</resource>
 </resources>

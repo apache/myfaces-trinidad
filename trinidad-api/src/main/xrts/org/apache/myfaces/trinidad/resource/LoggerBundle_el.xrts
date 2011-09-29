@@ -140,6 +140,8 @@
 <resource key="CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL" dnt="false">Δεν είναι δυνατή η προσθήκη αλλαγής με μη ορισμένο (null) FacesContext, UIComponent ή Change.</resource>
 <!-- CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT -->
 <resource key="CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT" dnt="false">Δεν είναι δυνατή η δόμηση ChangeComponentProxy μη ορισμένο (null) UIComponent.</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Αποτυχία εφαρμογής της αλλαγής παραμέτρου συνόλου κλειδιού σειράς. Αιτία: \&quot;{1}\&quot;</resource>
 <!-- TARGET_CLASS_NAME_MUST_BE_PROVIDED -->
 <resource key="TARGET_CLASS_NAME_MUST_BE_PROVIDED" dnt="false">Πρέπει να δοθεί όνομα κλάσης προορισμού</resource>
 <!-- CONVERTER_CLASS_NAME_MUST_BE_PROVIDED -->

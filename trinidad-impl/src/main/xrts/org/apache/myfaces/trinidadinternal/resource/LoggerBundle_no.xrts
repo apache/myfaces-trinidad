@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Unntak ved innhenting av mislykket serialiseringstesting av øktattributt</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Øktattributt: {0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Ugyldig egenskapsregel for @agent CSS: {0}: {1}</resource>
 </resources>

@@ -140,6 +140,8 @@
 <resource key="CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL" dnt="false">Impossible d&apos;ajouter une modification si FacesContext, UIComponent ou Change sont NULL.</resource>
 <!-- CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT -->
 <resource key="CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT" dnt="false">Impossible de créer un ChangeComponentProxy avec un UIComponent NULL.</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Echec de l&apos;&apos;application de la modification d&apos;&apos;attribut de définition de la clé de ligne. Raison : {1}</resource>
 <!-- TARGET_CLASS_NAME_MUST_BE_PROVIDED -->
 <resource key="TARGET_CLASS_NAME_MUST_BE_PROVIDED" dnt="false">Le nom de la classe cible doit être fourni</resource>
 <!-- CONVERTER_CLASS_NAME_MUST_BE_PROVIDED -->

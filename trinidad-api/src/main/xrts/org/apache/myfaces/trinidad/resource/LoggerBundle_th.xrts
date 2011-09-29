@@ -140,6 +140,8 @@
 <resource key="CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL" dnt="false">ไม่สามารถเพิ่มการเปลี่ยนแปลงด้วย FacesContext, UIComponent หรือการเปลี่ยนแปลงที่เป็นนัล</resource>
 <!-- CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT -->
 <resource key="CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT" dnt="false">ไม่สามารถสร้าง ChangeComponentProxy ด้วย UIComponent ที่เป็นนัล</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">ไม่สามารถใช้การเปลี่ยนแปลงแอททริบิวชุดคีย์ของแถว สาเหตุ: {1}</resource>
 <!-- TARGET_CLASS_NAME_MUST_BE_PROVIDED -->
 <resource key="TARGET_CLASS_NAME_MUST_BE_PROVIDED" dnt="false">ต้องระบุชื่อคลาสเป้าหมาย</resource>
 <!-- CONVERTER_CLASS_NAME_MUST_BE_PROVIDED -->

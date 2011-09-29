@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">收集会话属性串行化测试故障时出现异常错误</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">会话属性: {0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">不是有效的 @agent CSS 属性规则: {0}: {1}</resource>
 </resources>

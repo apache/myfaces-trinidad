@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Selhání při testování výjimky shromažďování serializace atributu relace</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atribut relace:{0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Neplatné pravidlo vlastnosti CSS @agent: {0}: {1}</resource>
 </resources>
