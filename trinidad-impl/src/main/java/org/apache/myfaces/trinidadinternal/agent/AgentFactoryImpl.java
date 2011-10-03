@@ -24,7 +24,6 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
@@ -84,7 +83,6 @@ public class AgentFactoryImpl implements AgentFactory
     {
       Map<String, String> requestParamMap = facesContext.getExternalContext().getRequestParameterMap();
       isEmail = requestParamMap.get(_EMAIL_PARAM);
-      outputMode = requestParamMap.get(_OUTPUTMODE_PARAM);
     }
 
     if ("true".equals(isEmail))
@@ -92,16 +90,7 @@ public class AgentFactoryImpl implements AgentFactory
       _populateEmailAgentImpl(agent);
       return;
     }
-
-    RequestContext reqContext = RequestContext.getCurrentInstance();
-    if ((reqContext != null && 
-        RequestContext.OutputMode.OFFLINE.id().equals(reqContext.getOutputMode())) || 
-        RequestContext.OutputMode.OFFLINE.id().equals(outputMode))
-    {
-      _populateGenericDesktopAgentImpl(agent);
-      return;
-    }
-
+    
     if ((userAgent != null) && userAgent.startsWith("PTG"))
     {
       _populateIaswAgentImpl(userAgent,
@@ -679,21 +668,6 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setType(Agent.TYPE_PHONE);
   }
 
-  /** 
-   * Returns an AgentEntry for a generic desktop agent
-   */
-  private void _populateGenericDesktopAgentImpl(AgentImpl agent)
-  {
-    // Generic Desktop agent
-    agent.setType(Agent.TYPE_DESKTOP);
-   
-    agent.setAgent(Agent.AGENT_GENERIC_DESKTOP);
-    agent.setAgentVersion("0.0"); // we don't know the version
-    agent.setPlatform(Agent.PLATFORM_UNKNOWN);
-    agent.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
-    agent.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
-  }
-
 
   /**
    * Returns an AgentEntry for the browsers that use the Gecko Layout Engine.
@@ -1109,8 +1083,6 @@ public class AgentFactoryImpl implements AgentFactory
   }
   static private final String _EMAIL_PARAM =
     "org.apache.myfaces.trinidad.agent.email";
-    static private final String _OUTPUTMODE_PARAM =
-      "org.apache.myfaces.trinidad.outputMode";
   static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";
   static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentFactoryImpl.class);
   
