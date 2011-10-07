@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">세션 속성 직렬화 테스트 실패를 수집하는 중 예외 사항이 발생했습니다.</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">세션 속성: {0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">적합한 @agent CSS 속성 규칙이 아님: {0}: {1}</resource>
 </resources>

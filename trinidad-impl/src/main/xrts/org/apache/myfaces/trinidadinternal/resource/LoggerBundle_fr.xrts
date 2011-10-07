@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Exception lors de la collecte - Echec du test de sérialisation de l&apos;attribut de session</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Attribut de session : {0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Règle de propriété CSS @agent non valide : {0} : {1}</resource>
 </resources>

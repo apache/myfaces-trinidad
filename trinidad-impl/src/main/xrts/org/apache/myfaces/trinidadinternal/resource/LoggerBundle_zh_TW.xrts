@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">收集階段作業屬性序列化測試失敗時發生異常狀況</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">階段作業屬性:{0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">不是有效的 @agent CSS 特性規則: {0}: {1}</resource>
 </resources>

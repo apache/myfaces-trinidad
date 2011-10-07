@@ -746,4 +746,5 @@
 <resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">セッション属性シリアライズ化テストの失敗を収集中に例外が発生しました</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">セッション属性:{0}</resource>
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">無効な@agent CSSプロパティ・ルールです: {0}: {1}</resource>
 </resources>
