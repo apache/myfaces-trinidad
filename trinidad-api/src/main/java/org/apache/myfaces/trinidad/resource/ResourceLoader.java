@@ -83,6 +83,18 @@ public class ResourceLoader
     return _parent == null || _parent.isCachable();
   }
 
+  @Override public String toString()
+  {
+    StringBuilder result = new StringBuilder();
+    result.append(super.toString());
+    
+    if (_parent != null)
+    {
+      result.append("("+_parent.toString()+")");
+    }
+    return result.toString();
+  }
+
   /**
    * Finds the resource with the given name. Resource loader implementations
    * should override this method to specify where to find resources.  </p>
