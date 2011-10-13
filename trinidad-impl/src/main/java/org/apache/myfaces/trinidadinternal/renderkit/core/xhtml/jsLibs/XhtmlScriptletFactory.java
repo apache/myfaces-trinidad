@@ -187,6 +187,7 @@ public class XhtmlScriptletFactory
                            new String[]
                            {
                              "TrValidator()",
+                             LocaleInfoScriptlet.LOCALE_INFO_KEY
                            });
 
     _sShuttleScriptlet =
