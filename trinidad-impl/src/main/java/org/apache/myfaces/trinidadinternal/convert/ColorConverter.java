@@ -31,7 +31,6 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConvert
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFJspProperty;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.share.text.RGBColorFormat;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
@@ -88,9 +87,17 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
       {
         requestMap.put( _PATTERN_WRITTEN_KEY, Boolean.TRUE);
 
-        buff.append("_cfTrans=\"");
-        buff.append(XhtmlUtils.escapeJS(getTransparentString(context)));
-        buff.append("\";");
+        buff.append("_cfTrans=");
+        try
+        {
+          // Call JsonUtils.writeString to encode Transparent string
+          JsonUtils.writeString(buff, getTransparentString(context), true);
+        }
+        catch (IOException e)
+        {
+          _LOG.severe(e);
+        }
+        buff.append(";");
 
         // only create the _cfs object if it doesn't exist, so we don't
         // wipe out _cfs[xxx] values if we ppr the first color field on a
