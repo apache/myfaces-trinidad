@@ -24,7 +24,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 /**
  * Scriptlet for adding color formatting information.
@@ -60,10 +61,21 @@ class ColorFormatInfoScriptlet extends Scriptlet
   {
     ResponseWriter writer = context.getResponseWriter();
     String transparent = arc.getTranslatedString("af_chooseColor.TRANSPARENT");
-    writer.writeText("_cfTrans='", null);
-    writer.writeText(XhtmlUtils.escapeJS(transparent), null);
-    writer.writeText("';", null);
+    writer.writeText("_cfTrans=", null);
+    StringBuilder buff = new StringBuilder();
+    try
+    {
+      // Call JsonUtils.writeString to encode Transparent string
+      JsonUtils.writeString(buff, transparent, true);
+    }
+    catch (IOException e)
+    {
+      _LOG.severe(e);
+    }
+    writer.writeText(buff.toString(), null);
+    writer.writeText(";", null);
   }
 
   static private final Scriptlet _sInstance = new ColorFormatInfoScriptlet();
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ColorFormatInfoScriptlet.class);
 }
