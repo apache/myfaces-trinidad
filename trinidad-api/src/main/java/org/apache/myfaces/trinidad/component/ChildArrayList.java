@@ -122,6 +122,20 @@ class ChildArrayList extends ArrayList<UIComponent>
 
     return false;
   }
+
+  @Override
+  public void clear()
+  {
+    int size = this.size();
+    
+    while ( size > 0)
+    {
+      size--;
+      remove(size);
+    }
+    
+    super.clear();
+  }
   
   @Override
   public boolean removeAll(Collection<?> collection)
@@ -198,4 +212,5 @@ class ChildArrayList extends ArrayList<UIComponent>
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     ChildArrayList.class);
   private static final long serialVersionUID = 1L;
+
 }
