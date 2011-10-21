@@ -195,6 +195,12 @@ public class ResourceServlet extends HttpServlet
     // Make sure the resource is available
     if (url == null)
     {
+      // log some details on the failure
+      _LOG.warning("URL for resource not found.\n  resourcePath: {0}\n  loader class name: {1}\n  request.pathTranslated: {2}\n  request.requestURL: {3}",
+                   new Object[] { resourcePath, 
+                                  loader, 
+                                  request.getPathTranslated(), 
+                                  request.getRequestURL() });
       response.sendError(HttpServletResponse.SC_NOT_FOUND);
       return;
     }
