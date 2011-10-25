@@ -46,7 +46,15 @@ class ClassRendererInstantiator implements RendererInstantiator
     try
     {
       Class<?> classInstance = ClassLoaderUtils.loadClass(_className);
-      return (Renderer) classInstance.newInstance();
+      Renderer renderer = (Renderer) classInstance.newInstance();
+      
+      // if the Renderer needs two-phase construction, call it
+      if (renderer instanceof NeedsPostConstructionInitialization)
+      {
+        renderer = ((NeedsPostConstructionInitialization<Renderer>)renderer).initialize();
+      }
+      
+      return renderer;
     }
     catch (ClassNotFoundException cnfe)
     {
