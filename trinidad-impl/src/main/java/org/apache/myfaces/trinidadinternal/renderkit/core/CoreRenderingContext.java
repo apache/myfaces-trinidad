@@ -671,9 +671,9 @@ public class CoreRenderingContext extends RenderingContext
         return AgentUtil.mergeCapabilities(agent, _PORTLET_CAPABILITIES);
       }
     }
-    else if (CoreRenderKit.OUTPUT_MODE_OFFLINE.equals(outputMode))
+    else if (CoreRenderKit.OUTPUT_MODE_ATTACHMENT.equals(outputMode))
     {
-      return AgentUtil.mergeCapabilities(agent, _OFFLINE_CAPABILITIES);
+      return AgentUtil.mergeCapabilities(agent, _ATTACHMENT_CAPABILITIES);
     }
     else if (CoreRenderKit.OUTPUT_MODE_WEB_CRAWLER.equals(outputMode))
     {
@@ -827,7 +827,7 @@ public class CoreRenderingContext extends RenderingContext
   static private final Map<Object, Object> _ENHANCED_PORTLET_CAPABILITIES =
     new HashMap<Object, Object>();
 
-  static private final Map<Object, Object> _OFFLINE_CAPABILITIES =
+  static private final Map<Object, Object> _ATTACHMENT_CAPABILITIES =
     new HashMap<Object, Object>();
 
   static private final Map<Object, Object> _WEB_CRAWLER_CAPABILITIES =
@@ -885,7 +885,7 @@ public class CoreRenderingContext extends RenderingContext
                               Boolean.FALSE);
 
     // turn off PPR
-    _OFFLINE_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING, Boolean.FALSE);
+    _ATTACHMENT_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING, Boolean.FALSE);
   }
 
   static private final TrinidadLogger _LOG =

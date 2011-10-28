@@ -333,7 +333,7 @@ abstract public class RequestContext
   public enum OutputMode
   {
     DEFAULT("default"), PORTLET("portlet"), PRINTABLE("printable"), EMAIL("email"),
-    OFFLINE("offline"), WEB_CRAWLER("webcrawler");
+    ATTACHMENT("attachment"), WEB_CRAWLER("webcrawler");
     
     private OutputMode(String id)
     {
