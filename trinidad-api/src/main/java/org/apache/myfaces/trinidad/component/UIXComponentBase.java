@@ -72,7 +72,9 @@ import org.apache.myfaces.trinidad.bean.util.StateUtils;
 import org.apache.myfaces.trinidad.bean.util.ValueMap;
 import org.apache.myfaces.trinidad.change.AttributeComponentChange;
 import org.apache.myfaces.trinidad.change.RowKeySetAttributeChange;
+import org.apache.myfaces.trinidad.component.ComponentProcessingContext.ProcessingHint;
 import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
@@ -330,6 +332,98 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     _cacheRenderer(facesContext);
     return super.getRenderedFacetsAndChildren(facesContext);
+  }
+
+  /**
+   * Convenience method for implementors of {@link FlattenedComponent} to setup either the
+   * visiting context or the encoding context based on if the {@link ComponentProcessingContext}
+   * is processing for encoding or not.
+   * @param facesContext The faces context
+   * @param cpContext The component processing context passed to
+   *                  {@link FlattenedComponent#processFlattenedChildren}
+   */
+  protected void setupFlattenedContext(
+    FacesContext               facesContext,
+    ComponentProcessingContext cpContext
+    )
+  {
+    if (cpContext.getHints().contains(ProcessingHint.PROCESS_FOR_ENCODING))
+    {
+      setupEncodingContext(facesContext, RenderingContext.getCurrentInstance());
+    }
+    else
+    {
+      setupVisitingContext(facesContext);
+    }
+  }
+
+  /**
+   * Convenience method for implementors of {@link FlattenedComponent} to setup either the
+   * visiting context or the encoding context based on if the {@link ComponentProcessingContext}
+   * is processing for encoding or not.
+   * @param facesContext The faces context
+   * @param cpContext The component processing context passed to
+   *                  {@link FlattenedComponent#processFlattenedChildren}
+   */
+  protected void setupFlattenedChildrenContext(
+    FacesContext               facesContext,
+    ComponentProcessingContext cpContext
+    )
+  {
+    if (cpContext.getHints().contains(ProcessingHint.PROCESS_FOR_ENCODING))
+    {
+      setupChildrenEncodingContext(facesContext, RenderingContext.getCurrentInstance());
+    }
+    else
+    {
+      setupChildrenVisitingContext(facesContext);
+    }
+  }
+
+  /**
+   * Convenience method for implementors of {@link FlattenedComponent} to tear down either the
+   * visiting context or the encoding context based on if the {@link ComponentProcessingContext}
+   * is processing for encoding or not.
+   * @param facesContext The faces context
+   * @param cpContext The component processing context passed to
+   *                  {@link FlattenedComponent#processFlattenedChildren}
+   */
+  protected void tearDownFlattenedContext(
+    FacesContext               facesContext,
+    ComponentProcessingContext cpContext
+    )
+  {
+    if (cpContext.getHints().contains(ProcessingHint.PROCESS_FOR_ENCODING))
+    {
+      tearDownEncodingContext(facesContext, RenderingContext.getCurrentInstance());
+    }
+    else
+    {
+      tearDownVisitingContext(facesContext);
+    }
+  }
+
+  /**
+   * Convenience method for implementors of {@link FlattenedComponent} to tear down either the
+   * visiting context or the encoding context based on if the {@link ComponentProcessingContext}
+   * is processing for encoding or not.
+   * @param facesContext The faces context
+   * @param cpContext The component processing context passed to
+   *                  {@link FlattenedComponent#processFlattenedChildren}
+   */
+  protected void tearDownFlattenedChildrenContext(
+    FacesContext               facesContext,
+    ComponentProcessingContext cpContext
+    )
+  {
+    if (cpContext.getHints().contains(ProcessingHint.PROCESS_FOR_ENCODING))
+    {
+      tearDownChildrenEncodingContext(facesContext, RenderingContext.getCurrentInstance());
+    }
+    else
+    {
+      tearDownChildrenVisitingContext(facesContext);
+    }
   }
 
   // ------------------------------------------------------------- Properties
