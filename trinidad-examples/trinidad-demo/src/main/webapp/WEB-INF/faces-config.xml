@@ -3139,4 +3139,10 @@
     <managed-bean-class>org.apache.myfaces.trinidaddemo.SkinDirtyPhaseListener</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>forEachBean</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.tagDemos.ForEachBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
 </faces-config>

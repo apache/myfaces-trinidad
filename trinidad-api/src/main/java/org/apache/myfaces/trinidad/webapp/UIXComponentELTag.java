@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,12 +27,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.webapp.UIComponentELTag;
@@ -64,6 +66,11 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   @Override
   public int doStartTag() throws JspException
   {
+    ComponentIdSuffixStack suffixStack =
+      ComponentIdSuffixStack.getInstance(pageContext);
+
+    _suffixId(suffixStack);
+
     int retVal = super.doStartTag();
 
     //pu: There could have been some validation error during property setting
@@ -71,10 +78,70 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     if (_validationError != null)
       throw new JspException(_validationError);
 
+    if (getComponentInstance() instanceof NamingContainer)
+    {
+      // If a naming container, do not carry component suffixes over from
+      // outside of the naming container.
+      suffixStack.suspend();
+    }
+
     return retVal;
   }
 
   @Override
+  public int doEndTag() throws JspException
+  {
+    UIComponent component = getComponentInstance();
+
+    // Apply changes once we have a stable UIComponent subtree is completely
+    //  created. End of document tag is a best bet.
+    if (component instanceof UIXDocument)
+    {
+      if (getCreated())
+      {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        // Used by SessionChangeManager to confirm that the state was not restored.
+        ec.getRequestMap().put(DOCUMENT_CREATED_KEY, Boolean.TRUE);
+      }
+      ChangeManager cm = RequestContext.getCurrentInstance().getChangeManager();
+      cm.applyComponentChangesForCurrentView(FacesContext.getCurrentInstance());
+    }
+
+    if (getComponentInstance() instanceof NamingContainer)
+    {
+      ComponentIdSuffixStack suffixStack =
+        ComponentIdSuffixStack.getInstance(pageContext);
+      suffixStack.resume();
+    }
+
+    // In the case where this component has had a suffix appended to it,
+    // clear the suffix and revert back to the original ID
+    setId(_origId);
+    _origId = null;
+
+    TagComponentBridge bridge = TagComponentBridge
+      .getInstance(pageContext);
+    bridge.notifyAfterComponentProcessed(getComponentInstance());
+
+    return super.doEndTag();
+  }
+
+  @Override
+  protected UIComponent findComponent(FacesContext context)
+    throws JspException
+  {
+    UIComponent component = super.findComponent(context);
+
+    // Notify any listening tags that this component was found or
+    // created (this method actually does create the compnoent if it
+    // was not found, so it is a bit mis-named in JSF)
+    TagComponentBridge bridge = TagComponentBridge
+      .getInstance(pageContext);
+    bridge.notifyComponentProcessed(component);
+
+    return component;
+  }
+
   protected final void setProperties(UIComponent component)
   {
     if (component instanceof UIViewRoot)
@@ -156,7 +223,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      bean.setProperty(key, 
+      bean.setProperty(key,
                        _parseNameTokensAsList(expression.getValue(null)));
     }
     else
@@ -182,7 +249,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      bean.setProperty(key, 
+      bean.setProperty(key,
                        _parseNameTokensAsSet(expression.getValue(null)));
     }
     else
@@ -209,7 +276,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     {
       Object value = expression.getValue(null);
       if (value != null)
-      { 
+      {
         if (value instanceof Number)
         {
           bean.setProperty(key, value);
@@ -453,10 +520,55 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     if (list == null)
       return null;
     else
-      return new HashSet(list);
+      return new HashSet<String>(list);
   }
 
-  private static final TrinidadLogger _LOG = 
+  private void _suffixId(
+    ComponentIdSuffixStack suffixStack)
+  {
+    // Check to see if this component needs to have its ID suffixed.
+    // This will happen when the component is inside of a suffix
+    // supporting tag like the for each tag. This will allow iterating
+    // components to define how unique IDs will be generated
+    // for components without relying on the UIComponentClassicTagBase
+    // code, which in the Mojarra implementation of JSF appends "j_id_#"
+    // to each component beyond the first, but is not able to be used from
+    // code in a supported fashion.
+    String currentSuffix = suffixStack.getSuffix();
+    if (currentSuffix != null)
+    {
+      _origId = getId();
+      if (_origId == null)
+      {
+        // If the original ID is null, then we cannot suffix the ID correctly. We also cannot
+        // rely on the component ID generation of the UIComponentClassicTagBase is it prevents
+        // anyone from assigning an ID with the autogenerated prefix. As a result, we have to
+        // generate our own unique ID ourselves.
+        // This will ensure that component state will stick with Trinidad components with
+        // generated IDs if components are reordered.
+        Map<String, Object> viewAttrs = FacesContext.getCurrentInstance().getViewRoot()
+          .getAttributes();
+        Integer lastUniqueId = (Integer)viewAttrs.get(_UNIQUE_ID_KEY);
+        if (lastUniqueId == null)
+        {
+          lastUniqueId = 0;
+        }
+        else
+        {
+          ++lastUniqueId;
+        }
+
+        _origId = "tr_" + lastUniqueId;
+        viewAttrs.put(_UNIQUE_ID_KEY, lastUniqueId);
+
+        _origIdGenerated = true;
+      }
+
+      setId(_origId + currentSuffix);
+    }
+  }
+
+  private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(UIXComponentELTag.class);
 
   // We rely strictly on ISO 8601 formats
@@ -469,11 +581,11 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     return sdf;
   }
 
-  //  No more used anywhere in Trinidad code, so deprecate since 2.0.x.
-  @Deprecated
-  public static final String DOCUMENT_CREATED_KEY = "org.apache.myfaces.trinidad.DOCUMENTCREATED";
+  private static final String _DOCUMENT_CREATED_KEY = "org.apache.myfaces.trinidad.DOCUMENTCREATED";
+  private final static String _UNIQUE_ID_KEY = UIXComponentELTag.class.getName() + ".ID";
 
   private MethodExpression  _attributeChangeListener;
   private String            _validationError;
-  
+  private String            _origId;
+  private boolean           _origIdGenerated = false;
 }
