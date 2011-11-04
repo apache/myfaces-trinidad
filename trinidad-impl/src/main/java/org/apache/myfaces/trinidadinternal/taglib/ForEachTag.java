@@ -74,7 +74,6 @@ public class ForEachTag
 {
   public ForEachTag()
   {
-    System.out.println("ForEachTag created");
   }
 
   public void setItems(ValueExpression items)
@@ -113,7 +112,7 @@ public class ForEachTag
   @Override
   public void setJspId(String id)
   {
-    System.out.println("setJspId: " + id);
+    _LOG.finest("setJspId called with ID {0}", id);
     // If the view attributes are null, then this is the first time this method has been called
     // for this request.
     if (_viewAttributes == null)
@@ -148,7 +147,7 @@ public class ForEachTag
   protected int doStartTagImpl()
     throws JspException
   {
-    System.out.println("doStartTagImpl");
+    _LOG.finest("doStartTagImpl called on tag with ID {0}", getId());
     _validateAttributes();
 
     FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -224,8 +223,7 @@ public class ForEachTag
     _isLast = _currentIndex == _currentEnd;
 
     // Save off the previous deferred variables
-    VariableMapper vm =
-      pageContext.getELContext().getVariableMapper();
+    VariableMapper vm = pageContext.getELContext().getVariableMapper();
 
     if (_var != null)
     {
@@ -249,7 +247,7 @@ public class ForEachTag
   @Override
   public int doAfterBody()
   {
-    System.out.println("doAfterBody");
+    _LOG.finest("doAfterBody processing on tag {0}", getId());
     _currentIndex += _currentStep;
     ++_currentCount;
     _isFirst = false;
@@ -259,8 +257,7 @@ public class ForEachTag
     if (_currentEnd < _currentIndex)
     {
       // Restore EL state
-      VariableMapper vm =
-        pageContext.getELContext().getVariableMapper();
+      VariableMapper vm = pageContext.getELContext().getVariableMapper();
       if (_var != null)
         vm.setVariable(_var, _previousDeferredVar);
       if (_varStatus != null)
@@ -297,7 +294,7 @@ public class ForEachTag
     _previousDeferredVar = null;
     _previousDeferredVarStatus = null;
 
-    System.out.println("release called");
+    _LOG.finest("release called");
     _iterationId = null;
     _iterationData = null;
     _viewAttributes = null;
@@ -320,8 +317,12 @@ public class ForEachTag
     {
       Map<String, Object> compAttrs = component.getAttributes();
       Integer iterationId = (Integer)compAttrs.get(_ITERATION_ID_KEY);
-      System.out.println("childComponentProcessed: " + component +
-                         " Previous component iteration ID: " + iterationId);
+      if (_LOG.isFinest())
+      {
+        _LOG.finest(
+          "childComponentProcessed: {0} ({1}). Previous component iteration ID: {2}",
+          new Object[] { component.getClass().getName(), component.getClientId(), iterationId });
+      }
 
       if (iterationId == null)
       {
@@ -348,7 +349,11 @@ public class ForEachTag
     // We are only interested in components that are directly under our parent.
     if (component.getParent() == _parentComponent)
     {
-      System.out.println("afterChildComponentProcessed: " + component);
+      if (_LOG.isFinest())
+      {
+        _LOG.finest("afterChildComponentProcessed on component {0} ({1})",
+          new Object[] { component.getClass().getName(), component.getClientId() });
+      }
       // Store a unique iteration ID in each component. That way, if a component is ever moved
       // from one iteration to another between requests, but not all the components, no problems
       // will ensue. The use case is that ${} is used in the ID of one or more child components
@@ -373,16 +378,14 @@ public class ForEachTag
   private void _updateVars(
     boolean createNewIterationData)
   {
-    VariableMapper vm =
-      pageContext.getELContext().getVariableMapper();
+    VariableMapper vm = pageContext.getELContext().getVariableMapper();
 
     // Generate a new iteration ID
     _updateIterationId();
 
     if (_var != null)
     {
-      // Catch programmer error where _var has been set but
-      // _items has not
+      // Catch programmer error where _var has been set but _items has not
       if (_items != null)
       {
         // Determine if we need to use a key or an index based value expression
@@ -436,7 +439,13 @@ public class ForEachTag
     {
       _previousDeferredVarStatus = vm.resolveVariable(_varStatus);
 
-
+      if (_LOG.isFinest())
+      {
+        _LOG.finest("Storing iteration map key for varStatus." +
+          "\nIteration ID: {0}" +
+          "\nMap key     : {1}",
+          new Object[] { _iterationId, _iterationMapKey });
+      }
       // Store a new var status value expression into the variable mapper
       vm.setVariable(_varStatus, new VarStatusValueExpression(_iterationId, _iterationMapKey));
     }
@@ -521,7 +530,7 @@ public class ForEachTag
       _iterationId = intObj + 1;
     }
 
-    System.out.println("Iteration ID is now " + _iterationId);
+    _LOG.finest("Iteration ID is now {0}", _iterationId);
     _viewAttributes.put(_ITERATION_ID_KEY, _iterationId);
 
     if (_iterationData != null)
@@ -1044,14 +1053,13 @@ public class ForEachTag
       int          index,
       int          end)
     {
-      super();
-      this._key = key;
-      this._first = first;
-      this._last = last;
-      this._begin = begin;
-      this._count = count;
-      this._index = index;
-      this._end = end;
+      _key = key;
+      _first = first;
+      _last = last;
+      _begin = begin;
+      _count = count;
+      _index = index;
+      _end = end;
     }
 
     public final boolean isLast()
@@ -1089,6 +1097,9 @@ public class ForEachTag
       return _key;
     }
 
+    @SuppressWarnings("compatibility:-1418334454154750553")
+    private static final long serialVersionUID = 1L;
+
     private boolean _last;
     private boolean _first;
     private int _begin;
@@ -1096,8 +1107,6 @@ public class ForEachTag
     private int _index;
     private int _end;
     private Serializable _key;
-
-    private static final long serialVersionUID = 0L;
   }
 
   private int _currentBegin;

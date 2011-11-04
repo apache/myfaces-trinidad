@@ -93,7 +93,8 @@
                                      value="First name: #{person.firstName}"/>
                       <tr:outputText id="lastName"
                                      value="Last name: #{person.lastName}"/>
-                      <tr:outputText value="(Panel group layout client ID: #{component.parent.clientId})"/>
+                      <tr:outputText id="clientId"
+                                     value="(Panel group layout client ID: #{component.parent.clientId})"/>
                     </tr:panelGroupLayout>
                     <tr:separator id="sep1" rendered="#{not vs.last}" />
                   </tr:forEach>

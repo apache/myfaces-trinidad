@@ -23,11 +23,20 @@ import javax.faces.component.UIComponent;
 
 import javax.servlet.jsp.PageContext;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 
 /**
- * Internal class to handle communication between iterating tags
- * ({@link TrinidadIterationTag}) and component tags
- * ({@link UIXComponentELTag}).
+ * Internal class to handle communication between iterating tags ({@link TrinidadIterationTag})
+ * and component tags ({@link UIXComponentELTag}).
+ * <p>This class is notified by
+ * {@link UIXComponentELTag#findComponent(javax.faces.context.FacesContext)} to allow iteration
+ * in the tag ancestry to be notified during subsequent requests that the component was
+ * processed.It is also notified by {@link UIXComponentELTag#doEndTag()} to allow ancestor
+ * iteration tags to be notified that a component has finished being processed.</p>
+ * <p>The reason for this is that it allows for the iteration tags, specifically the
+ * ForEachTag, to know when a child tag has been processed so that it can map the component to
+ * the iteration.</p>
  */
 final class TagComponentBridge
 {
@@ -46,14 +55,12 @@ final class TagComponentBridge
   final static TagComponentBridge getInstance(PageContext pageContext)
   {
     TagComponentBridge bridge =
-      (TagComponentBridge) pageContext.getAttribute(_PAGE_CONTEXT_KEY,
-        PageContext.REQUEST_SCOPE);
+      (TagComponentBridge)pageContext.getAttribute(_PAGE_CONTEXT_KEY, PageContext.REQUEST_SCOPE);
 
     if (bridge == null)
     {
       bridge = new TagComponentBridge();
-      pageContext.setAttribute(_PAGE_CONTEXT_KEY, bridge,
-          PageContext.REQUEST_SCOPE);
+      pageContext.setAttribute(_PAGE_CONTEXT_KEY, bridge, PageContext.REQUEST_SCOPE);
     }
 
     return bridge;
@@ -68,7 +75,10 @@ final class TagComponentBridge
   void notifyComponentProcessed(
     UIComponent component)
   {
-    System.out.println("Component processed: " + component.getClientId());
+    if (_LOG.isFine())
+    {
+      _LOG.fine("Component processed: {0}", component.getClientId());
+    }
     for (TrinidadIterationTag tag : _tags)
     {
       tag.childComponentProcessed(component);
@@ -84,7 +94,11 @@ final class TagComponentBridge
   void notifyAfterComponentProcessed(
     UIComponent component)
   {
-    System.out.println("After component processed: " + component.getClientId());
+    if (_LOG.isFine())
+    {
+      _LOG.fine("After component processed: {0}", component.getClientId());
+    }
+
     for (TrinidadIterationTag tag : _tags)
     {
       tag.afterChildComponentProcessed(component);
@@ -114,4 +128,6 @@ final class TagComponentBridge
 
   private final static String _PAGE_CONTEXT_KEY =
     TagComponentBridge.class.getName() + ".PAGE_CONTEXT";
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    TagComponentBridge.class);
 }

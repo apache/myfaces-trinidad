@@ -37,7 +37,6 @@ import javax.el.ValueExpression;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentELTag;
 
@@ -101,12 +100,6 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     //  created. End of document tag is a best bet.
     if (component instanceof UIXDocument)
     {
-      if (getCreated())
-      {
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        // Used by SessionChangeManager to confirm that the state was not restored.
-        ec.getRequestMap().put(_DOCUMENT_CREATED_KEY, Boolean.TRUE);
-      }
       ChangeManager cm = RequestContext.getCurrentInstance().getChangeManager();
       cm.applyComponentChangesForCurrentView(FacesContext.getCurrentInstance());
     }
@@ -123,8 +116,9 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     setId(_origId);
     _origId = null;
 
-    TagComponentBridge bridge = TagComponentBridge
-      .getInstance(pageContext);
+    // Make iteration tags aware that the processing of this component is now complete so that
+    // the tags are able to determine heirarchies.
+    TagComponentBridge bridge = TagComponentBridge.getInstance(pageContext);
     bridge.notifyAfterComponentProcessed(getComponentInstance());
 
     return super.doEndTag();
@@ -134,13 +128,15 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   protected UIComponent findComponent(FacesContext context)
     throws JspException
   {
+    // Note that although this method is called "findComponent", it is actually a find or create
+    // component. When the super class method is called, it will first look for the component, and
+    // if it is not found, it will create one. Therefore, after this super call returns, the
+    // component will be non-null
     UIComponent component = super.findComponent(context);
 
-    // Notify any listening tags that this component was found or
-    // created (this method actually does create the compnoent if it
-    // was not found, so it is a bit mis-named in JSF)
-    TagComponentBridge bridge = TagComponentBridge
-      .getInstance(pageContext);
+    // Notify any listening tags that this component was found or created. This allows iteration
+    // tags to know what components belong to each iteration.
+    TagComponentBridge bridge = TagComponentBridge.getInstance(pageContext);
     bridge.notifyComponentProcessed(component);
 
     return component;
@@ -211,7 +207,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   }
 
   /**
-   * Set a property of type java.util.List<java.lang.String>.  If the value
+   * Set a property of type java.util.List&lt;java.lang.String>.  If the value
    * is an EL expression, it will be stored as a ValueExpression.
    * Otherwise, it will parsed as a whitespace-separated series
    * of strings.
@@ -237,7 +233,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   }
 
   /**
-   * Set a property of type java.util.Set<java.lang.String>.  If the value
+   * Set a property of type java.util.Set&lt;java.lang.String>.  If the value
    * is an EL expression, it will be stored as a ValueExpression.
    * Otherwise, it will parsed as a whitespace-separated series
    * of strings.
@@ -585,7 +581,10 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     return sdf;
   }
 
-  private static final String _DOCUMENT_CREATED_KEY = "org.apache.myfaces.trinidad.DOCUMENTCREATED";
+  /** @deprecated Not used any more in the session state manager */
+  @Deprecated
+  public static final String DOCUMENT_CREATED_KEY = "org.apache.myfaces.trinidad.DOCUMENTCREATED";
+
   private final static String _UNIQUE_ID_KEY = UIXComponentELTag.class.getName() + ".ID";
 
   private MethodExpression  _attributeChangeListener;

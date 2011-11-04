@@ -19,6 +19,7 @@ import org.apache.myfaces.trinidad.change.ReorderChildrenComponentChange;
 import org.apache.myfaces.trinidad.component.UIXCommand;
 import org.apache.myfaces.trinidad.component.visit.VisitTreeUtils;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.model.RowKeyPropertyModel;
 import org.apache.myfaces.trinidad.model.SortCriterion;
 import org.apache.myfaces.trinidad.model.SortableModel;
 
@@ -67,12 +68,13 @@ public class ForEachBean
   {
     _simpleList = Arrays.asList(
                     "One", "Two", "Three", "Four");
-    _model = new SortableModel(
+    _model = new RowKeyPropertyModel(
                Arrays.asList(
                  new Person("a", "John", "Doe"),
                  new Person("b", "Jane", "Doe"),
                  new Person("c", "Bob", "Smith"),
-                 new Person("d", "Alice", "Jones")));
+                 new Person("d", "Alice", "Jones")),
+               "key");
   }
 
   public final void setSortProperty(String sortProperty)
@@ -200,7 +202,7 @@ public class ForEachBean
   }
 
   private final List<String> _simpleList;
-  private final SortableModel _model;
+  private final RowKeyPropertyModel _model;
   private String _sortProperty;
   private boolean _sortAscending;
 }
