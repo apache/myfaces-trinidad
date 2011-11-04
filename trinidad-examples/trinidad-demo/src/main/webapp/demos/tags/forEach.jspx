@@ -82,7 +82,8 @@
             </tr:panelHeader>
             <tr:panelHeader text="Reorder example with CollectionModel">
               <tr:panelGroupLayout layout="vertical">
-                <tr:panelGroupLayout layout="vertical" id="personForEachParent">
+                <tr:panelGroupLayout layout="vertical" id="personForEachParent"
+                                     partialTriggers="applySort">
                   <tr:forEach var="person" items="#{forEachBean.model}" varStatus="vs">
                     <tr:panelGroupLayout id="personPgl">
                       <f:facet name="separator">
@@ -94,7 +95,7 @@
                                      value="Last name: #{person.lastName}"/>
                       <tr:outputText value="(Panel group layout client ID: #{component.parent.clientId})"/>
                     </tr:panelGroupLayout>
-                    <tr:separator rendered="#{not vs.last}" />
+                    <tr:separator id="sep1" rendered="#{not vs.last}" />
                   </tr:forEach>
                 </tr:panelGroupLayout>
               </tr:panelGroupLayout>
@@ -109,7 +110,7 @@
                   <tr:selectItem label="Descending" value="#{false}" />
                 </tr:selectOneRadio>
                 <f:facet name="footer">
-                  <tr:commandLink partialTriggers="personForEachParent"
+                  <tr:commandLink id="applySort"
                                   text="Apply sort"
                                   partialSubmit="true"
                                   actionListener="#{forEachBean.updateSortOrder}"/>

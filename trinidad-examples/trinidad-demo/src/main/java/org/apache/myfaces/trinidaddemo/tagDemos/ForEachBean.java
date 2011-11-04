@@ -9,12 +9,12 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.change.ReorderChildrenComponentChange;
 import org.apache.myfaces.trinidad.component.UIXCommand;
 import org.apache.myfaces.trinidad.component.visit.VisitTreeUtils;
@@ -50,6 +50,12 @@ public class ForEachBean
     public final String getLastName()
     {
       return _lastName;
+    }
+
+    @Override
+    public String toString()
+    {
+      return ("Person[(" + _key + ") " + _lastName + ", " + _firstName + "]");
     }
 
     private final String _key;
@@ -120,6 +126,7 @@ public class ForEachBean
     {
       Person person = (Person)_model.getRowData();
       orderedKeys.add(person.getKey());
+      System.out.println("Person: " + person);
     }
     _model.setRowKey(origRowKey);
 
@@ -127,6 +134,7 @@ public class ForEachBean
          RequestContext.getCurrentInstance().getPartialTargets(sourceComponent))
     {
       String clientId = targetComponent.getClientId();
+      System.out.println("CLIENT ID: " + clientId);
       VisitTreeUtils.visitSingleComponent(facesContext, clientId,
         new ReorderChildrenVisitCallback(orderedKeys));
     }
@@ -151,16 +159,25 @@ public class ForEachBean
       VisitContext visitContext,
       UIComponent  target)
     {
+      System.out.println("**************VISIT " + target.getClientId());
       FacesContext facesContext = visitContext.getFacesContext();
-      List<String> childrenClientIds = new ArrayList<String>();
-      VisitContext childrenContext = VisitTreeUtils.createVisitContext(facesContext,
-                                       null,
-                                       Collections.singleton(VisitHint.SKIP_UNRENDERED));
-      target.visitTree(childrenContext, new GetChildrenClientIdsVisitCallback(childrenClientIds));
+      List<String> childrenIds = new ArrayList<String>();
+      for (UIComponent child : target.getChildren())
+      {
+        // Safe to call get ID out of context
+        childrenIds.add(child.getId());
+      }
 
-      Collections.sort(childrenClientIds, this);
+      Collections.sort(childrenIds, this);
+      System.out.println("Sorted list:");
+      for (String clientId : childrenIds)
+      {
+        System.out.println("  " + clientId);
+      }
 
-      (new ReorderChildrenComponentChange(childrenClientIds)).changeComponent(target);
+      ChangeManager apm = RequestContext.getCurrentInstance().getChangeManager();
+      apm.addComponentChange(facesContext, target,
+        new ReorderChildrenComponentChange(childrenIds));
 
       return VisitResult.COMPLETE;
     }
@@ -180,27 +197,6 @@ public class ForEachBean
     }
 
     private final List<String> _orderedKeys;
-  }
-
-  private static class GetChildrenClientIdsVisitCallback
-    implements VisitCallback
-  {
-    private GetChildrenClientIdsVisitCallback(
-      List<String> clientIds)
-    {
-      this._clientIds = clientIds;
-    }
-
-    @Override
-    public VisitResult visit(
-      VisitContext visitContext,
-      UIComponent  target)
-    {
-      _clientIds.add(target.getClientId(visitContext.getFacesContext()));
-      return VisitResult.REJECT;
-    }
-
-    private final List<String> _clientIds;
   }
 
   private final List<String> _simpleList;

@@ -37,13 +37,17 @@ import javax.el.ValueExpression;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentELTag;
 
 import javax.servlet.jsp.JspException;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.component.UIXDocument;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -101,7 +105,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
       {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         // Used by SessionChangeManager to confirm that the state was not restored.
-        ec.getRequestMap().put(DOCUMENT_CREATED_KEY, Boolean.TRUE);
+        ec.getRequestMap().put(_DOCUMENT_CREATED_KEY, Boolean.TRUE);
       }
       ChangeManager cm = RequestContext.getCurrentInstance().getChangeManager();
       cm.applyComponentChangesForCurrentView(FacesContext.getCurrentInstance());

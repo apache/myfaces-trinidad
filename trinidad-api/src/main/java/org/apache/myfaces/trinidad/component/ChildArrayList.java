@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,11 +18,12 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.faces.component.UIComponent;
 
-import java.util.Collection;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
@@ -54,23 +55,23 @@ class ChildArrayList extends ArrayList<UIComponent>
       // Only adjust the index when the child is re-added to the same parent
       if (oldParent == _parent)
       {
-        index = adjustedIndex; 
+        index = adjustedIndex;
       }
     }
-    
+
     // do not change the order of these calls, see TRINIDAD-1674 for more info
     super.add(index, element);
     element.setParent(_parent);
   }
 
-  
+
   @Override
   public boolean add(UIComponent element)
   {
     add(size(), element);
     return true;
   }
-  
+
   @Override
   public boolean addAll(Collection<? extends UIComponent> collection)
   {
@@ -79,7 +80,7 @@ class ChildArrayList extends ArrayList<UIComponent>
 
   @Override
   public boolean addAll(
-      int index, 
+      int index,
       Collection<? extends UIComponent> collection)
   {
     boolean changed = false;
@@ -91,7 +92,7 @@ class ChildArrayList extends ArrayList<UIComponent>
       add(index++, element);
       changed = true;
     }
-    
+
     return changed;
   }
 
@@ -109,10 +110,10 @@ class ChildArrayList extends ArrayList<UIComponent>
   {
     if (element == null)
       throw new NullPointerException();
-    
+
     if (!(element instanceof UIComponent))
       return false;
-  
+
     if (super.remove(element))
     {
       UIComponent child = (UIComponent) element;
@@ -127,26 +128,26 @@ class ChildArrayList extends ArrayList<UIComponent>
   public void clear()
   {
     int size = this.size();
-    
+
     while ( size > 0)
     {
       size--;
       remove(size);
     }
-    
+
     super.clear();
   }
-  
+
   @Override
   public boolean removeAll(Collection<?> collection)
   {
     boolean result = false;
-    for(Object element : collection)
+    for (Object element : collection)
     {
       if (remove(element))
         result = true;
     }
-    
+
     return result;
   }
 
@@ -155,7 +156,7 @@ class ChildArrayList extends ArrayList<UIComponent>
   {
     if (element == null)
       throw new NullPointerException();
-    
+
     if ((index < 0) || (index >= size()))
       throw new IndexOutOfBoundsException();
 
@@ -163,10 +164,10 @@ class ChildArrayList extends ArrayList<UIComponent>
     UIComponent previous = get(index);
 
     previous.setParent(null);
-    
+
     child.setParent(_parent);
     super.set(index, element);
-    
+
     return previous;
   }
 
@@ -193,7 +194,7 @@ class ChildArrayList extends ArrayList<UIComponent>
         }
       }
     }
-    
+
     Collection<UIComponent> facets = parent.getFacets().values();
     if (facets.contains(component))
     {
@@ -206,7 +207,6 @@ class ChildArrayList extends ArrayList<UIComponent>
     assert(false);
     return index;
   }
-
 
   private final UIComponent _parent;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(

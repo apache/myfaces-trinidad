@@ -68,6 +68,7 @@ final class TagComponentBridge
   void notifyComponentProcessed(
     UIComponent component)
   {
+    System.out.println("Component processed: " + component.getClientId());
     for (TrinidadIterationTag tag : _tags)
     {
       tag.childComponentProcessed(component);
@@ -83,6 +84,7 @@ final class TagComponentBridge
   void notifyAfterComponentProcessed(
     UIComponent component)
   {
+    System.out.println("After component processed: " + component.getClientId());
     for (TrinidadIterationTag tag : _tags)
     {
       tag.afterChildComponentProcessed(component);
