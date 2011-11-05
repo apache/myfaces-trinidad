@@ -136,10 +136,22 @@ public class ForEachTag
       // is never reused.
       _viewAttributes = viewRoot.getAttributes();
 
-      // Create a new iteration map per-request. This will ensure that values from the previous
-      // request are not kept.
-      _iterationMap = new HashMap<Integer, IterationMetaData>();
-      _viewAttributes.put(_iterationMapKey, _iterationMap);
+      @SuppressWarnings("unchecked")
+      Map<Integer, IterationMetaData> iterMap = (Map<Integer, IterationMetaData>)
+        _viewAttributes.get(_iterationMapKey);
+      if (iterMap == null)
+      {
+        _iterationMap = new HashMap<Integer, IterationMetaData>();
+        _LOG.finest("Created a new iteration map for key {0}", _iterationMapKey);
+        _viewAttributes.put(_iterationMapKey, _iterationMap);
+      }
+      else
+      {
+        // Clear the existing map so that the iteration IDs are cleared from the previous
+        // request to avoid caching of the old data in the ForEachBaseValueExpression instances
+        _iterationMap = iterMap;
+        iterMap.clear();
+      }
     }
   }
 
@@ -147,7 +159,7 @@ public class ForEachTag
   protected int doStartTagImpl()
     throws JspException
   {
-    _LOG.finest("doStartTagImpl called on tag with ID {0}", getId());
+    _LOG.finest("doStartTagImpl called");
     _validateAttributes();
 
     FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -247,7 +259,7 @@ public class ForEachTag
   @Override
   public int doAfterBody()
   {
-    _LOG.finest("doAfterBody processing on tag {0}", getId());
+    _LOG.finest("doAfterBody processing");
     _currentIndex += _currentStep;
     ++_currentCount;
     _isFirst = false;
@@ -331,9 +343,25 @@ public class ForEachTag
 
         // Remember that the iteration ID was used
         _iterationIdRequiresIncrement = true;
+
+        if (_LOG.isFinest())
+        {
+          _LOG.finest("New component processed.\n" +
+            "  Iteration ID  : {0}\n" +
+            "  Iteration data: {1}",
+            new Object[] { _iterationId, _iterationData });
+        }
       }
       else
       {
+        if (_LOG.isFinest())
+        {
+          _LOG.finest("Component found with existing iteration ID.\n" +
+            "  Iteration ID  : {0}\n" +
+            "  Iteration data: {1}",
+            new Object[] { iterationId, _iterationData });
+        }
+
         // This component has been seen before, register the old iteration ID with the iteration
         // map so that the EL may look up the iteration data.
         _iterationMap.put(iterationId, _iterationData);
@@ -433,6 +461,14 @@ public class ForEachTag
 
     // Store the iteration data into the view attributes to allow the EL expressions
     // gain access to it
+    if (_LOG.isFinest())
+    {
+      _LOG.finest("Storing iteration data onto map.\n" +
+        "  Iteration ID  : {0}\n" +
+        "  Iteration data: {1}",
+        new Object[] { _iterationId, _iterationData });
+    }
+
     _iterationMap.put(_iterationId, _iterationData);
 
     if (_varStatus != null)
@@ -442,8 +478,8 @@ public class ForEachTag
       if (_LOG.isFinest())
       {
         _LOG.finest("Storing iteration map key for varStatus." +
-          "\nIteration ID: {0}" +
-          "\nMap key     : {1}",
+          "\n  Iteration ID: {0}" +
+          "\n  Map key     : {1}",
           new Object[] { _iterationId, _iterationMapKey });
       }
       // Store a new var status value expression into the variable mapper
@@ -630,7 +666,9 @@ public class ForEachTag
     protected IterationMetaData getIterationMetaData()
     {
       // A value expression should ever only be used for one view root,
-      // so keep a transient reference to the view to increase performance
+      // so keep a transient reference to the view to increase performance.
+      // Note that this map is cleared during setJspId so that it is save to use the same
+      // map that was used after restore view and after the tags are processed in render response.
       if (_viewAttributes == null)
       {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -1095,6 +1133,13 @@ public class ForEachTag
     public final Serializable getKey()
     {
       return _key;
+    }
+
+    @Override
+    public String toString()
+    {
+      return String.format("IterationData[Key: %s, index: %d, first: %s, last: %s]",
+               _key, _index, _first, _last);
     }
 
     @SuppressWarnings("compatibility:-1418334454154750553")
