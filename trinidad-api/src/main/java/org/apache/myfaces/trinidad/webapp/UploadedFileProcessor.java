@@ -80,6 +80,15 @@ public interface UploadedFileProcessor
   public static final String TEMP_DIR_PARAM_NAME = "org.apache.myfaces.trinidad.UPLOAD_TEMP_DIR";
 
   /**
+   * Initialization parameter for the default
+   * <code>UploadedFileProcessor</code> that configures the maximum
+   * file size that can be uploaded. The default is 2000 kilobytes.  Any requests that
+   * exceed this size will result in an EOFException being thrown
+   * on that request.
+   */
+  public static final String MAX_FILE_SIZE_PARAM_NAME = "org.apache.myfaces.trinidad.UPLOAD_MAX_FILE_SIZE";
+  
+  /**
    * Initialize the UploadedFileProcessor with access to the current
    * web application context. 
    * 
