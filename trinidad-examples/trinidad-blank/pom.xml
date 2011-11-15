@@ -26,7 +26,7 @@
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-example</artifactId>
-    <version>1.2.12.6.2-SNAPSHOT</version>
+    <version>1.2.12.6.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>trinidad-blank</artifactId>
