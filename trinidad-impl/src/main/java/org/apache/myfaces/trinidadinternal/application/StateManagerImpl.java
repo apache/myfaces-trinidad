@@ -47,6 +47,8 @@ import javax.faces.render.ResponseStateManager;
 import javax.faces.view.StateManagementStrategy;
 import javax.faces.view.ViewDeclarationLanguage;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
 import org.apache.myfaces.trinidad.component.UIXComponentBase;
 import org.apache.myfaces.trinidad.component.core.CoreDocument;
@@ -629,6 +631,32 @@ public class StateManagerImpl extends StateManagerWrapper
 
         if(TokenCacheDebugUtils.debugTokenCache())
         {
+
+          TokenCacheDebugUtils.startLog("Restore View");
+          
+          String sessionId = "";
+          boolean isNewSession = false;
+          Object session = extContext.getSession(false);
+          
+          if (session == null)
+          {
+            isNewSession = true;
+          }
+          else if (session instanceof HttpSession)
+          {
+            isNewSession = ((HttpSession)session).isNew();            
+            sessionId    = ((HttpSession)session).getId();
+          }
+          
+          if (isNewSession)
+          {
+            TokenCacheDebugUtils.addToLog("The session is new. Session id = " + sessionId);
+          }
+          else
+          {      
+            TokenCacheDebugUtils.addToLog("The session is NOT new. Session id = " + sessionId);
+          }
+          
           // get the state map
           String subkey = _getViewCacheKey(extContext,
                                            RequestContext.getCurrentInstance(),
@@ -639,7 +667,6 @@ public class StateManagerImpl extends StateManagerWrapper
                            subkey);
           
           // log what's currently in the state map
-          TokenCacheDebugUtils.startLog("Restore View");
           TokenCacheDebugUtils.logCacheInfo(stateMap, null, "token '" + token + "' not found"); 
           _LOG.severe(TokenCacheDebugUtils.getLogString());        
         }
