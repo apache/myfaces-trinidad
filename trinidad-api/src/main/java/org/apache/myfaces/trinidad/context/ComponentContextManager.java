@@ -35,6 +35,9 @@ import javax.faces.context.FacesContext;
  * while the table is iterating. By saving off these variables and restoring them, the EL will
  * be correct should code perform an invoke on component or visit tree call, reentering the
  * component tree from the view root.</p>
+ * <p>The changes are automatically suspended during an invoke on component or visit tree
+ * invocation. This work is performed by the trh:head, trh:body and the tr:document components.
+ * Components outside of these components are not restore to the root context.</p>
  */
 public abstract class ComponentContextManager
 {
