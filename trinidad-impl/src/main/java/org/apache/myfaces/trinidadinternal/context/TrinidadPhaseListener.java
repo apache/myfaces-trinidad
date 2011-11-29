@@ -26,6 +26,7 @@ import javax.faces.event.PhaseListener;
 
 import org.apache.myfaces.trinidadinternal.config.xmlHttp.XmlHttpConfigurator;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
+import org.apache.myfaces.trinidadinternal.util.FrameBustingUtils;
 
 /**
  * Performs some trinidad logic and provides some hooks.
@@ -68,11 +69,14 @@ public class TrinidadPhaseListener implements PhaseListener
   @SuppressWarnings("unchecked")
   public void beforePhase(PhaseEvent event)
   {
+    
+    PhaseId phaseId = event.getPhaseId();
+    
     // Ensure that the implicit object gets created.  In general,
     // "restore view" would be sufficient, but someone can call
     // renderResponse() before even calling Lifecycle.execute(),
     // in which case RESTORE_VIEW doesn't actually run.
-    if (event.getPhaseId() == PhaseId.RESTORE_VIEW)
+    if (phaseId == PhaseId.RESTORE_VIEW)
     {
       FacesContext context = event.getFacesContext();
       ExternalContext ec = context.getExternalContext();
@@ -82,11 +86,35 @@ public class TrinidadPhaseListener implements PhaseListener
     // If we've reached "apply request values", this is definitely a
     // postback (the ViewHandler should have reached the same conclusion too,
     // but make sure)
-    else if (event.getPhaseId() == PhaseId.APPLY_REQUEST_VALUES)
+    else if (phaseId == PhaseId.APPLY_REQUEST_VALUES)
     {
       FacesContext context = event.getFacesContext();
       markPostback(context);
     }
+    else if (phaseId == PhaseId.RENDER_RESPONSE)
+    {    
+      // add response headers for framebusting if needed
+
+      FacesContext context = event.getFacesContext();
+      String frameBusting = FrameBustingUtils.getFrameBustingValue(context);        
+  
+      if (! FrameBustingUtils.FRAME_BUSTING_NEVER.equalsIgnoreCase(frameBusting))
+      {
+        // TODO: Mozilla has introduced CSP
+        //     https://wiki.mozilla.org/Security/CSP/Specification
+        // which we may want to support at some point
+        
+        // the X-Frame-Options header doesn't work on all browsers, but we're adding it anyway
+        if (FrameBustingUtils.FRAME_BUSTING_ALWAYS.equalsIgnoreCase(frameBusting))
+        {
+          context.getExternalContext().addResponseHeader("X-Frame-Options", "deny");
+        }
+        else
+        {
+          context.getExternalContext().addResponseHeader("X-Frame-Options", "sameorigin");
+        }
+      }
+    }    
   }
 
 

@@ -34,6 +34,32 @@
     <param-value>.jspx</param-value>
   </context-param>
 
+   
+
+  <context-param> 
+    <!--description>
+      The parameter "org.apache.myfaces.trinidad.security.FRAME_BUSTING" controls 
+      the framebusting feature. Framebusting stops content from running inside 
+      frames (meaning a frame or iframe tag).
+
+      This context parameter is ignored when 
+      org.apache.myfaces.trinidad.util.ExternalContextUtils.isPortlet is true, 
+      and will behave as if the context parameter is set to 'never'.
+
+      Possible values are:
+
+          differentOrigin - only bust frames if the an ancestor window origin 
+                   and the frame origin are different. If the ancestor windows 
+                   and frame have the same origin then allow the content to run 
+                   in a frame. This is the default.
+          always - always bust frames, meaning don't allow a page to be embedded in frames
+          never - never bust frames, meaning always allow a page to be embedded in frames
+
+    </description-->
+    <param-name>org.apache.myfaces.trinidad.security.FRAME_BUSTING</param-name>
+    <param-value>differentOrigin</param-value>
+  </context-param> 
+
   <!-- Set to true for using the lightweight dialog feature -->
   <context-param>
     <param-name>org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS</param-name>
