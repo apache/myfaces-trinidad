@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.IOException;
 import java.io.Reader;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -61,7 +62,12 @@ public class SkinCSSParser
         if (currentType == CSSLexicalUnits.COMMENT)
           documentHandler.comment(scanner.getStringValue());
         else if (currentType == CSSLexicalUnits.AT_KEYWORD)
-          documentHandler.atRule(scanner.getStringValue());
+        {
+          // Remove any comments that are inside of the @rule
+          String atRule = scanner.getStringValue();
+          atRule = _COMMENT_PATTERN.matcher(atRule).replaceAll("");
+          documentHandler.atRule(atRule);
+        }
         else if (currentType == CSSLexicalUnits.LEFT_CURLY_BRACE)
         {
           documentHandler.startSelector();
@@ -130,7 +136,7 @@ public class SkinCSSParser
       else
         selectorList.add(trimmedSelector);
     }
-    
+
     return selectorList;
   }
 
@@ -152,7 +158,7 @@ public class SkinCSSParser
     // split into name and value (don't skip whitespace since properties like padding: 0px 5px
     // need the spaces)
     String[] property = _splitString(properties, ';', false);
-    
+
     for (int i=0; i < property.length; i++)
     {
       int indexOfColon = property[i].indexOf(':');
@@ -185,7 +191,7 @@ public class SkinCSSParser
     int length = in.length();
     StringBuffer buffer = new StringBuffer(length);
     List<String> splitList = new ArrayList<String>();
-    
+
     for (int i=0; i < length; i++)
     {
       char c = in.charAt(i);
@@ -202,7 +208,7 @@ public class SkinCSSParser
         if (!skipWhitespace || !(Character.isWhitespace(c)))
           buffer.append(c);
       }
-      
+
     }
     // we are done with all the characters
     String lastString = buffer.toString();
@@ -210,7 +216,7 @@ public class SkinCSSParser
       splitList.add(lastString);
     return splitList.toArray(_EMPTY_STRING_ARRAY);
   }
-  
+
   private static String _trimChar (
     String in,
     char   c)
@@ -320,21 +326,21 @@ public class SkinCSSParser
               {
                 // WE ARE IN A COMMENT
                 // loop and get characters into buffer until we get '*/'
-  
+
                 _nextChar();
                 int prevChar;
                 while (_currentChar != -1)
                 {
-  
+
                   prevChar = _currentChar;
                   _nextChar();
                   if ((prevChar == '*') && (_currentChar == '/'))
                     break;
                 }
-  
+
                 _type = CSSLexicalUnits.COMMENT;
                 return;
-  
+
               }
               // wasn't a comment, so keep going on, filling the buffer with
               // each _nextChar call.
@@ -392,8 +398,8 @@ public class SkinCSSParser
                 _nextChar();
 
               }
-             
-  
+
+
               _type = CSSLexicalUnits.AT_KEYWORD;
               return;
             }
@@ -495,10 +501,10 @@ public class SkinCSSParser
   // comments from the properties, and we use this pattern to do it.
   private static final Pattern  _COMMENT_PATTERN =
      Pattern.compile("(?s)/\\*.*?\\*/");
-     
+
   private static final String[] _EMPTY_STRING_ARRAY = new String[0];
 
-     
+
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(SkinCSSParser.class);
 
