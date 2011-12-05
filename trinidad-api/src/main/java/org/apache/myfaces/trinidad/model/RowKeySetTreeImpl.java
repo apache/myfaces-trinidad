@@ -820,6 +820,11 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
         if(nextKey == null)
         {
           _currPath = null;
+          // Since, all the child nodes of the curent iterator are
+          // iterated by nextModelKey call updating the _currIterator here to avoid 
+          // looping through the same node again and again.  
+          if(_iteratorStack.size() > 0)
+            _currIterator = _iteratorStack.pop();
           _nextEntry();
         }
       }
@@ -831,17 +836,22 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
           nextNode = _currIterator.next();
           if(_isContained(nextNode.getKey()))
             nextKey = nextNode.getKey();
-          _iteratorStack.push(_currIterator);
-          _currIterator = nextNode.getValue().entrySet().iterator();
-          if(nextNode.getValue().isDefaultContained)
+          // When the currentNode has no child nodes, the 
+          // iterator instance is not pushed to iteratorStack.
+          if(!nextNode.getValue().isEmpty())
           {
-            _currPath = nextNode.getKey();
-            TreeModel model = getCollectionModel();
-            Object oldPath = model.getRowKey();
-            model.setRowKey(_currPath);
-            _minDepth = model.getDepth()+1;
-            model.setRowKey(oldPath);
-            return nextKey;
+            _iteratorStack.push(_currIterator);
+            _currIterator = nextNode.getValue().entrySet().iterator();
+            if(nextNode.getValue().isDefaultContained)
+            {
+              _currPath = nextNode.getKey();
+              TreeModel model = getCollectionModel();
+              Object oldPath = model.getRowKey();
+              model.setRowKey(_currPath);
+              _minDepth = model.getDepth() + 1;
+              model.setRowKey(oldPath);
+              return nextKey;
+            }
           }
         }
       }
