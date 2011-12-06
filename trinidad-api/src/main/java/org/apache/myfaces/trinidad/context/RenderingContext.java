@@ -21,6 +21,8 @@ package org.apache.myfaces.trinidad.context;
 import java.util.Map;
 import java.util.MissingResourceException;
 
+import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.skin.Skin;
@@ -230,6 +232,32 @@ abstract public class RenderingContext
    * @return true if animation is enabled for this RenderingContext
    */
   abstract public boolean isAnimationEnabled();
+
+  /**
+   * Returns true if the current request is a design-time request.
+   * @return true if the current request is a design-time request.
+   */
+  public boolean isDesignTime()
+  {
+    return false;
+  }
+
+  /**
+   * Access to FacesContext.
+   */
+  public FacesContext getFacesContext()
+  {
+    return FacesContext.getCurrentInstance();
+  }
+  
+  /**
+   * Access to RequestContext
+   */
+  public RequestContext getRequestContext()
+  {
+    return RequestContext.getCurrentInstance();
+  }
+
 
   // TODO This is a hack API to enable caching of the client ID.
   // All fine, but we should have a more general mechanism.

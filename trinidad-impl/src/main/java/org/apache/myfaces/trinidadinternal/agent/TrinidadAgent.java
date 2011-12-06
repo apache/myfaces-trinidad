@@ -182,10 +182,15 @@ public abstract class TrinidadAgent implements Agent, Cloneable
   static public final CapabilityKey CAP_SUPPORTS_DISABLED_OPTIONS = CapabilityKey
     .getCapabilityKey("-adfinternal-supportsDisabledOptions", true);
 
-
+  @Deprecated
   static public final CapabilityKey CAP_IS_JDEV_VE = CapabilityKey
     .getCapabilityKey("-adfinternal-isJDevVE", true);
 
+  /** returns the name of the visual editor, or null if no visual editor */
+  static public final CapabilityKey CAP_VE = CapabilityKey
+    .getCapabilityKey("-adfinternal-VE", true);
+
+  @Deprecated
   static public final CapabilityKey CAP_IS_JDEV_JAVASCRIPT_VE = CapabilityKey
     .getCapabilityKey("-adfinternal-isJDevJavascriptVE", true);
 

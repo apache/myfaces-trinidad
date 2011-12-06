@@ -95,11 +95,14 @@ public class CoreRenderingContext extends RenderingContext
     _accessibilityProfile = afContext.getAccessibilityProfile();
     if (_accessibilityProfile == null)
       _accessibilityProfile = AccessibilityProfile.getDefaultInstance();
+    
+    _isDesignTime = _isDesignTime(_agent);
   }
   
   /**
    * Cached access to FacesContext.
    */
+  @Override
   public final FacesContext getFacesContext()
   {
     return _facesContext;
@@ -108,6 +111,7 @@ public class CoreRenderingContext extends RenderingContext
   /**
    * Cached access to RequestContext
    */
+  @Override
   public final RequestContext getRequestContext()
   {
     return _requestContext;
@@ -220,6 +224,17 @@ public class CoreRenderingContext extends RenderingContext
     return _animationEnabled;
   }
 
+  @Override
+  public boolean isDesignTime()
+  {
+    return _isDesignTime;
+  }
+
+  private static boolean _isDesignTime(Agent agent)
+  {
+    return Boolean.TRUE.equals(agent.getCapabilities().get(TrinidadAgent.CAP_VE));
+  }
+
   /**
    * This can return null if there is no form data
    */
@@ -281,7 +296,8 @@ public class CoreRenderingContext extends RenderingContext
   {
     if (_styleContext == null)
     {
-      _styleContext = new StyleContextImpl(this, getTemporaryDirectory(getFacesContext()));
+      _styleContext = new StyleContextImpl(this,
+                                          getTemporaryDirectory(getFacesContext(), isDesignTime()));
     }
 
     return _styleContext;
@@ -465,7 +481,7 @@ public class CoreRenderingContext extends RenderingContext
       return _requestMapSkin;
     _checkedRequestMapSkin = true;
 
-    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()) || Beans.isDesignTime())
+    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()) || isDesignTime())
     {
       FacesContext context = getFacesContext();
       Object requestedSkinId = getRequestMapSkinId(context);
@@ -716,7 +732,7 @@ public class CoreRenderingContext extends RenderingContext
    * @todo: move into the util package?
    */
   @SuppressWarnings("unchecked")
-  static public String getTemporaryDirectory(FacesContext fContext)
+  static public String getTemporaryDirectory(FacesContext fContext, boolean isDesignTime)
   {
     String path = null;
 
@@ -738,7 +754,7 @@ public class CoreRenderingContext extends RenderingContext
       {
         // In design-time land, just write to the temporary directory.
         // But what
-        if (Beans.isDesignTime() ||
+        if (isDesignTime ||
             !(external.getContext() instanceof ServletContext))
         {
           tempdir = new File(System.getProperty("java.io.tmpdir"));
@@ -811,6 +827,7 @@ public class CoreRenderingContext extends RenderingContext
   private boolean             _isLinkDisabled = false;
   private final FacesContext _facesContext;
   private final RequestContext _requestContext;
+  private final boolean        _isDesignTime;
 
   static private final String _SKIN_ID_PARAM =
     "org.apache.myfaces.trinidad.skin.id";

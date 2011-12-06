@@ -1099,7 +1099,7 @@ public class CoreRenderer extends Renderer
       String compressedStyleClass = rc.getStyleClass(styleClass);
       context.getResponseWriter().writeAttribute("class", compressedStyleClass, null);
 
-      if (Beans.isDesignTime())
+      if (rc.isDesignTime())
         context.getResponseWriter().writeAttribute("rawClass", styleClass, null);
     }
   }
@@ -1155,7 +1155,7 @@ public class CoreRenderer extends Renderer
 
     context.getResponseWriter().writeAttribute("class", value, null);
 
-    if (Beans.isDesignTime())
+    if (rc.isDesignTime())
     {
       StringBuilder builder = new StringBuilder();
       for (int i = 0; i < length; i++)

@@ -18,9 +18,12 @@
  */
 package org.apache.myfaces.trinidadinternal.agent;
 
+import java.beans.Beans;
+
 import java.util.Collections;
 import java.util.Map;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.Agent;
@@ -40,45 +43,131 @@ public class AgentFactoryImpl implements AgentFactory
     // this method primarily exists for use during testing
 
     AgentImpl agent = new AgentImpl();
-    _populateAgentImpl(null, headerMap,agent);
+    _populateAgentImpl(null, headerMap, true, agent);
     return agent;
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
   public Agent createAgent(FacesContext facesContext)
   {
     AgentImpl agent = new AgentImpl();
 
     // Get the RequestHeaderMap to help populate the agent
     Map<String, String> headerMap;
+    
+    ExternalContext extContext = null;
+    
     if (facesContext != null)
     {
-      headerMap = facesContext.getExternalContext().getRequestHeaderMap();
+      extContext = facesContext.getExternalContext();
+      headerMap  = extContext.getRequestHeaderMap();
     }
     else
     {
       headerMap = Collections.emptyMap();
     }
 
-    //TODO: Add declarative and extensible means for populating AgentImpl object
-    // the RequestHeaderMap helps populate the agent
-    _populateAgentImpl(facesContext, headerMap, agent);
+    // determine whether we are being called outside of a request, since in that case, we won't be
+    // able to determine the real agent, since we won't have any headers.
+    // This happens during JSF bootstrap
+    boolean noRequest = (extContext == null) || (extContext.getRequest() == null);
+    
+    _populateAgentImpl(facesContext, headerMap, noRequest, agent);
 
     return agent;
   }
 
-  // The headerMap is the RequestHeaderMap from the externalContext. It is
-  // consulted to correctly populate the agent
+  /**
+   * Populates the agent with informatiopn from the FacesContext and headerMap
+   * @param context
+   * @param headerMap
+   * @param noRequest True if we are being called without a real request
+   * @param agent  The blank agentImpl to be filled in
+   */
   private void _populateAgentImpl(
-    FacesContext facesContext,
+    FacesContext        context,
     Map<String, String> headerMap,
-    AgentImpl agent)
+    boolean             noRequest,
+    AgentImpl           agent)
   {
-    String userAgent = headerMap.get("User-Agent");
+    // populate the base agent
+    _populateBaseAgentImpl(context, headerMap, noRequest, agent);
+    
+    // if we are in design time mode, get the IDE version if any and modify the capabilities
+    _modifyAgentForDT(_getUserAgentHeader(headerMap), agent);
+  }
+ 
+  /**
+   * Modifies the returned agent, if necessary with the DT capabilities
+   * @param agentHeader
+   * @param agent
+   * @return
+   */
+  private void _modifyAgentForDT(String agentHeader, AgentImpl agent)
+  {
+    if (agentHeader != null)
+    {
+      if (Beans.isDesignTime())
+      {      
+        // we only kick ourselves into DT mode if actually in an IDE.  This is just in case
+        // a component or the renderer happens to be doing something non-secure in this case
+        int paren = agentHeader.indexOf('(');
+    
+        if (paren > 0)
+        {
+          int jdevIndex = agentHeader.indexOf("JDeveloper", paren);
+          
+          if (jdevIndex >= 0)
+          {
+            boolean isNewJDevVE = agentHeader.indexOf("JDeveloper/", jdevIndex) > 0;
+            boolean isOldJDevJSVE = agentHeader.indexOf("JDeveloper JS", jdevIndex) > 0;
+    
+
+            agent.__addRequestCapability(TrinidadAgent.CAP_VE, "JDeveloper");
+            agent.__addRequestCapability(TrinidadAgent.CAP_IS_JDEV_VE,
+                                            Boolean.TRUE);
+            if (isNewJDevVE || isOldJDevJSVE)
+            {
+              agent.__addRequestCapability(TrinidadAgent.CAP_IS_JDEV_JAVASCRIPT_VE,
+                                              Boolean.TRUE);
+            }
+            else
+            {
+              // make sure that the old JDev editor doesn't think it supports javascript
+              agent.__addRequestCapability(TrinidadAgent.CAP_SCRIPTING_SPEED,
+                                           TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);
+              
+            }
+          }
+        }
+      }
+    }
+  }
+ 
+  private String _getUserAgentHeader(Map<String, String> headerMap)
+  {
+    return headerMap.get("User-Agent"); 
+  }
+  
+  /**
+   * Populates the agent with information from the FacesContext and headerMap
+   * @param facesContext
+   * @param headerMap
+   * @param noRequest True if we are being called without a real request
+   * @param agent
+   */
+  private void _populateBaseAgentImpl(
+    FacesContext        facesContext,
+    Map<String, String> headerMap,
+    boolean             noRequest,
+    AgentImpl           agent)
+  {
+    String userAgent = _getUserAgentHeader(headerMap);
+    
     if (userAgent == null)
     {
       // This will happen during JSF2 initialization
-      _populateUnknownAgentImpl(userAgent, agent);
+      _populateUnknownAgentImpl(userAgent, noRequest, agent);
       return;
     }
 
@@ -93,10 +182,12 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
 
-    if ((userAgent != null) && userAgent.startsWith("PTG"))
+    if (userAgent.startsWith("PTG"))
     {
       _populateIaswAgentImpl(userAgent,
-                             headerMap.get(_IASW_DEVICE_HINT_PARAM),agent);
+                             headerMap.get(_IASW_DEVICE_HINT_PARAM),
+                             noRequest,
+                             agent);
       return;
     }
 
@@ -110,11 +201,6 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
 
-    if (userAgent == null)
-    {
-      _populateUnknownAgentImpl(null, agent);
-      return;
-    }
     
     // Uncomment if you need to simulate googlebot crawler
     /*if (facesContext != null && facesContext.getExternalContext().getRequestParameterMap().
@@ -152,7 +238,6 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
     
-
     //the useragent string for telnet and PDA design time will start with
     //OracleJDevMobile because in each of these cases we know we have an
     //exact match in the device repository for the agent name.  This is
@@ -163,7 +248,7 @@ public class AgentFactoryImpl implements AgentFactory
     //OracleJDevMobile/ITS/[agentName]
     if (userAgent.startsWith("OracleJDevMobile"))
     {
-      _populateJDevMobileAgentImpl(userAgent,agent);
+      _populateJDevMobileAgentImpl(userAgent, noRequest, agent);
       return;
     }
     if (userAgent.startsWith("OracleITS"))
@@ -192,16 +277,6 @@ public class AgentFactoryImpl implements AgentFactory
       _populatePalmWebBrowserProAgentImpl(userAgent,agent);
       return;
     }
-
-/*  //Commenting - Confirm this pattern fornBlazer before uncommenting
-    //and remove the Blazer 3.0 check in the previous if
-    if (((userAgent.indexOf("Blazer/4.") != -1) ||
-        (userAgent.indexOf("Blazer 3.") != -1)) &&
-        ((userAgent.indexOf("Palm") != -1)))
-    {
-      return _getPalmBlazerAgentEntry(userAgent);
-    }
-*/
 
     //PPC 02
     //userAgent = "Mozilla/2.0 (compatible; MSIE 3.02; Windows CE; PPC; 240x320)";
@@ -271,7 +346,7 @@ public class AgentFactoryImpl implements AgentFactory
          userAgentLowercase.indexOf("kddi") > -1 ||
          userAgentLowercase.indexOf("openwave") > -1))
     {
-      _populateGenericPDAAgentImpl(userAgent,agent);
+      _populateGenericPDAAgentImpl(agent);
       return;
     }
 
@@ -289,11 +364,11 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
 
-    _populateUnknownAgentImpl(userAgent, agent);
+    _populateUnknownAgentImpl(userAgent, noRequest, agent);
   }
 
 
-  private void _populateGenericPDAAgentImpl(String userAgent, AgentImpl agent)
+  private void _populateGenericPDAAgentImpl(AgentImpl agent)
   {
     // Generic PDA browser
     agent.setType(Agent.TYPE_PDA);
@@ -302,10 +377,15 @@ public class AgentFactoryImpl implements AgentFactory
     agent.setPlatform(Agent.PLATFORM_GENERICPDA);
   }
 
-  private void _populateUnknownAgentImpl(String userAgent, AgentImpl agent)
+  private void _populateUnknownAgentImpl(String userAgent, boolean noRequest, AgentImpl agent)
   {
-    // Log warning message that we are setting the agent entry to unknown attributes
-    _LOG.warning("UNKNOWN_AGENT_ATTRIBUTES_CREATE_WITH_UNKNOWN", userAgent);
+    // Log warning message that we are setting the agent entry to unknown attributes if
+    // this wasn't a population during bootstrap
+    if (!noRequest)
+    {
+      _LOG.warning("UNKNOWN_AGENT_ATTRIBUTES_CREATE_WITH_UNKNOWN", userAgent);
+    }
+    
     agent.setAgentEntryToNULL();
   }
 
@@ -313,7 +393,7 @@ public class AgentFactoryImpl implements AgentFactory
   //for jdev mobile there are two user agent strings possible:
   //1. OracleJDevMobile_PDA(DeviceName:[name of device])
   //2. OracleJDevMobile_ITS(DeviceName:[name of device])
-  private void _populateJDevMobileAgentImpl(String agent,AgentImpl agentObj)
+  private void _populateJDevMobileAgentImpl(String agent, boolean noRequest, AgentImpl agentObj)
   {
     //the form of JDEVMobile user agent string will be:
     //OracleJDevMobile_[PDA or ITS]/[version](DeviceName:[device name];[capability1]:[capability 1 value];...)
@@ -337,27 +417,35 @@ public class AgentFactoryImpl implements AgentFactory
     {
       returnUnknownAgentObj = true;
     }
+    
     //Now find the name of the device
-    if (!returnUnknownAgentObj){
+    if (!returnUnknownAgentObj)
+    {
       int versionEndIndex = agent.indexOf("(");
       String version = agent.substring(versionStartIndex,versionEndIndex);
       agentObj.setAgentVersion(version);
+      
       //parse agentName
       int agentNameStartIndex = agent.indexOf(":",versionEndIndex) +1;
+      
       //find end of agentName (ie. when we see a semicolon
       int agentNameEndIndex = agentNameStartIndex;
       for (;agent.charAt(agentNameEndIndex)!=';' &&
           agent.charAt(agentNameEndIndex) !=')';
           agentNameEndIndex++);
+      
       String agentName = agent.substring(agentNameStartIndex,agentNameEndIndex);
       agentObj.setAgent(agentName);
+      
       if (agent.charAt(agentNameEndIndex) == ')')
         return;
+      
       //now parse remaining request specific capabilities
       int capabilityNameStartIndex;
       int capabilityNameEndIndex;
       int capabilityValueStartIndex;
       int capabilityValueEndIndex = agentNameEndIndex;
+      
       while(agent.charAt(capabilityValueEndIndex)!= ')')
       {
         capabilityNameStartIndex = capabilityValueEndIndex + 1;
@@ -373,9 +461,10 @@ public class AgentFactoryImpl implements AgentFactory
         agentObj.__addRequestCapability(CapabilityKey.getCapabilityKey(capabilityName,true),capabilityValue);
       }
     }
+    
     if (returnUnknownAgentObj)
     {
-      _populateUnknownAgentImpl(agent, agentObj);
+      _populateUnknownAgentImpl(agent, noRequest, agentObj);
     }
   }
 
@@ -388,22 +477,28 @@ public class AgentFactoryImpl implements AgentFactory
     int versionEndIndex = agent.indexOf("(");
     String version = agent.substring(versionStartIndex,versionEndIndex);
     agentObj.setAgentVersion(version);
+    
     //parse agentName
     int agentNameStartIndex = agent.indexOf(":",versionEndIndex) +1;
+    
     //find end of agentName (ie. when we see a semicolon
     int agentNameEndIndex = agentNameStartIndex;
     for (;agent.charAt(agentNameEndIndex)!=';' &&
           agent.charAt(agentNameEndIndex) !=')';
           agentNameEndIndex++);
+    
     String agentName = agent.substring(agentNameStartIndex,agentNameEndIndex);
     agentObj.setAgent(agentName);
+    
     if (agent.charAt(agentNameEndIndex) == ')')
       return;
+    
     //now parse remaining request specific capabilities
     int capabilityNameStartIndex;
     int capabilityNameEndIndex;
     int capabilityValueStartIndex;
     int capabilityValueEndIndex = agentNameEndIndex;
+    
     while(agent.charAt(capabilityValueEndIndex)!= ')')
     {
       capabilityNameStartIndex = capabilityValueEndIndex + 1;
@@ -425,7 +520,6 @@ public class AgentFactoryImpl implements AgentFactory
    */
   private void _populatePocketPCAgentImpl(String agent,String uaPixels,AgentImpl agentObj)
   {
-
     // The latest Windows-Mobile user-agents have different formats, so we
     // need to have two difference logics to handle both older and newer 
     // WM browsers.    
@@ -458,7 +552,7 @@ public class AgentFactoryImpl implements AgentFactory
 
     boolean narrowScreenDevice = false;
 
-    if(uaPixels != null && uaPixels.length() > 0)
+    if (uaPixels != null && uaPixels.length() > 0)
     {
       // UA-pixels is defined as <width>x<height>
       // UA-pixels was proposed here
@@ -514,52 +608,52 @@ public class AgentFactoryImpl implements AgentFactory
     }
   }
 
-    /**
-     * populates data from a Blackberry browser request
-     */
-    private void _populateBlackberryAgentImpl(String agent,AgentImpl agentObj)
+  /**
+   * populates data from a Blackberry browser request
+   */
+  private void _populateBlackberryAgentImpl(String agent,AgentImpl agentObj)
+  {
+    // the  User-Agent string for the BlackBerry Browser starts with
+    // BlackBerry<model>/<version> where <model> is the BlackBerry
+    // model, e.g. for the BlackBerry browser 4.1.0 on
+    // the BlackBerry 8700 device, the User-Agent string begins with
+    // BlackBerry8700/4.1.0
+
+    int start = agent.indexOf("BlackBerry");
+
+    String version = null;
+    String makeModel = null;
+
+    if (start > -1)
     {
-      // the  User-Agent string for the BlackBerry Browser starts with
-      // BlackBerry<model>/<version> where <model> is the BlackBerry
-      // model, e.g. for the BlackBerry browser 4.1.0 on
-      // the BlackBerry 8700 device, the User-Agent string begins with
-      // BlackBerry8700/4.1.0
-
-      int start = agent.indexOf("BlackBerry");
-
-      String version = null;
-      String makeModel = null;
-
-      if (start > -1)
+      // find the first /, which occurs before the version number
+      int slashLoc = agent.indexOf('/',start);
+      if (slashLoc > -1)
       {
-        // find the first /, which occurs before the version number
-        int slashLoc = agent.indexOf('/',start);
-        if(slashLoc > -1)
-        {
-            // see the note above about how the User-Agent starts with
-            // BlackBerry<model>/<version>; this returns the
-            // BlackBerry<model> (e.g. BlackBerry8700), which we will
-            // use as the Agent hardwareMakeModel
-            makeModel = agent.substring(start,slashLoc);
+          // see the note above about how the User-Agent starts with
+          // BlackBerry<model>/<version>; this returns the
+          // BlackBerry<model> (e.g. BlackBerry8700), which we will
+          // use as the Agent hardwareMakeModel
+          makeModel = agent.substring(start,slashLoc);
 
-            // _getVersion assumes the location of the slash is passed in,
-            // and starts looking for the version at the NEXT character
-            version = _getVersion(agent, slashLoc);
-        }
+          // _getVersion assumes the location of the slash is passed in,
+          // and starts looking for the version at the NEXT character
+          version = _getVersion(agent, slashLoc);
       }
+    }
 
-      // note that the agent and platform are both BLACKBERRY
-      // this is because it is the BlackBerry Browser running on the
-      // BlackBerry device
-      agentObj.setType(Agent.TYPE_PDA);
-      agentObj.setAgent(Agent.AGENT_BLACKBERRY);
-      agentObj.setAgentVersion(version);
-      agentObj.setPlatform(Agent.PLATFORM_BLACKBERRY);
-      agentObj.setMakeModel(makeModel);
-      // Most of BlackBerry devices' widths are more than 240px, so
-      // don't consider BlackBerry as a narrow-screen PDA.
-      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN,
-                                                            Boolean.FALSE);
+    // note that the agent and platform are both BLACKBERRY
+    // this is because it is the BlackBerry Browser running on the
+    // BlackBerry device
+    agentObj.setType(Agent.TYPE_PDA);
+    agentObj.setAgent(Agent.AGENT_BLACKBERRY);
+    agentObj.setAgentVersion(version);
+    agentObj.setPlatform(Agent.PLATFORM_BLACKBERRY);
+    agentObj.setMakeModel(makeModel);
+    // Most of BlackBerry devices' widths are more than 240px, so
+    // don't consider BlackBerry as a narrow-screen PDA.
+    agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN,
+                                                          Boolean.FALSE);
   }
 
   /**
@@ -578,42 +672,18 @@ public class AgentFactoryImpl implements AgentFactory
     }
 
     agentObj.setPlatform(Agent.PLATFORM_PALM);
-
   }
-
-  /**
-   * returns the data for the Palm blazer browser request
-   */
-/* //comment for now
-  private AgentEntry _getPalmBlazerAgentEntry(String agent)
-  {
-    AgentEntry entry = new AgentEntry();
-    entry._type = TYPE_PDA;
-    entry._agent = AdfFacesAgent.AGENT_BLAZER;
-
-    //balzer 3 has "Blazer 3..." and 4.0 has Blazer 4/....
-    int start = agent.indexOf("Blazer");
-
-    if (start > -1)
-    {
-      entry._agentVersion = _getVersion(agent, start + 6);
-    }
-
-    entry._platform = Agent.PLATFORM_PALM;
-
-    return entry;
-  }
-*/
 
   /**
    * returns the AgentEntry for ias wireless
    */
-  private void _populateIaswAgentImpl(String agent, String wirelessType,AgentImpl agentObj)
+  private void _populateIaswAgentImpl(
+    String agent, String wirelessType, boolean noRequest, AgentImpl agentObj)
   {
     // map device hint to agent type
     if (wirelessType == null)
     {
-      _populateUnknownAgentImpl(agent, agentObj);
+      _populateUnknownAgentImpl(agent, noRequest, agentObj);
       return;
     }
 
@@ -640,7 +710,7 @@ public class AgentFactoryImpl implements AgentFactory
   }
 
   /**
-   * returns the AgentEntry for the Ice brwoser
+   * returns the AgentEntry for the Ice browser
    */
   private void _populateIceAgentImpl(String agent,AgentImpl agentObj)
   {
@@ -648,7 +718,7 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setType(Agent.TYPE_DESKTOP);
     agentObj.setAgent(TrinidadAgent.AGENT_ICE_BROWSER);
     agentObj.setAgentVersion(_getVersion(agent, slashIndex));
-    agentObj.setPlatform(_getJavaOS(agent, slashIndex));
+    agentObj.setPlatform(_getJavaOSPlatform(agent, slashIndex));
   }
 
   /**
@@ -895,7 +965,7 @@ public class AgentFactoryImpl implements AgentFactory
    * Returns an AgentEntry for the "Mozilla" family of browsers - which
    * most at least pretend to be.
    */
-  private void _populateMozillaAgentImpl(String agent,AgentImpl agentObj)
+  private void _populateMozillaAgentImpl(String agent, AgentImpl agentObj)
   {
     int paren = agent.indexOf('(');
     agentObj.setType(Agent.TYPE_DESKTOP); //Is this default realli okay??? These days Mobile agents also use Mozilla/xx.xx
@@ -909,9 +979,6 @@ public class AgentFactoryImpl implements AgentFactory
     else
     {
       paren = paren + 1;
-
-      boolean isJDevVE = agent.indexOf("JDeveloper", paren) > 0;
-      boolean isJDevJSVE = agent.indexOf("JDeveloper JS", paren) > 0;
 
       if (agent.indexOf("Konqueror", paren) >= 0)
       {
@@ -951,9 +1018,7 @@ public class AgentFactoryImpl implements AgentFactory
       // try to determine the OS, if unknown
       if (agentObj.getPlatformName() == null || agentObj.getPlatformName().equals(Agent.PLATFORM_UNKNOWN))
       {
-        // Hack: treat the JDeveloper agent as Windows,
-        // so that we assume IE 6.0 Windows capabilities
-        if ((agent.indexOf("Win", paren) > 0) || isJDevVE)
+        if ((agent.indexOf("Win", paren) > 0))
         {
           agentObj.setPlatform(Agent.PLATFORM_WINDOWS);
         }
@@ -969,18 +1034,6 @@ public class AgentFactoryImpl implements AgentFactory
         {
           agentObj.setPlatform(Agent.PLATFORM_SOLARIS);
         }
-      }
-
-      if (isJDevVE)
-      {
-        agentObj.__addRequestCapability(TrinidadAgent.CAP_IS_JDEV_VE,
-                                        Boolean.TRUE);
-        if (isJDevJSVE)
-        {
-          agentObj.__addRequestCapability(TrinidadAgent.CAP_IS_JDEV_JAVASCRIPT_VE,
-                                          Boolean.TRUE);
-        }
-
       }
     }
   }
@@ -1015,14 +1068,15 @@ public class AgentFactoryImpl implements AgentFactory
 
     agentObj.setAgent(agent);
     String version = _getVersion(userAgent, idIndex + agentId.length());
+    
     if (version != null && version.length() > 0)
     {
       agentObj.setAgentVersion(version);
     }
+    
     agentObj.setPlatform(Agent.PLATFORM_UNKNOWN);
     agentObj.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
     agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
-
   }
 
   /**
@@ -1048,7 +1102,7 @@ public class AgentFactoryImpl implements AgentFactory
 
     for (int i = start; i < end; i++)
     {
-      // Find the last non-numeric character; that'll
+      // Find the last non-numeric character; that will
       // mark the end of the version
       char ch = base.charAt(i);
 
@@ -1066,21 +1120,19 @@ public class AgentFactoryImpl implements AgentFactory
    * <p/>
    * Currently, only checks for Windows
    */
-  private String _getJavaOS(String base, int start)
+  private String _getJavaOSPlatform(String base, int start)
   {
-    if (start < 0)
-    {
-      return null;
-    }
-
     // check for Windows
-    if (base.regionMatches(start, "Windows", 0, base.length() - start))
+    if ((start >= 0) && base.regionMatches(start, "Windows", 0, base.length() - start))
     {
       return Agent.PLATFORM_WINDOWS;
     }
-
-    return null;
+    else
+    {
+      return Agent.PLATFORM_UNKNOWN;
+    }
   }
+  
   static private final String _EMAIL_PARAM =
     "org.apache.myfaces.trinidad.agent.email";
   static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";

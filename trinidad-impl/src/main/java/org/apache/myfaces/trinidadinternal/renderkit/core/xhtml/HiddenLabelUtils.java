@@ -48,6 +48,21 @@ public class HiddenLabelUtils
     // For this switch - and for getting the major version - tunnel
     // to CoreRenderingContext
     TrinidadAgent agent = ((CoreRenderingContext) arc).getTrinidadAgent();
+    
+    return agentSupportsHiddenLabels(agent);
+  }
+  
+  /**
+   * Returns <code>true</code> if the Agent supports hidden labels.  Since more than
+   * just the agent is involved, <code>supportsHiddenLabels</code> should be called in addition
+   * to this method.
+   * This method is public to share implementation with the old UIX code
+   * @param agent
+   * @return
+   * @see #supportsHiddenLabels
+   */
+  public static boolean agentSupportsHiddenLabels(TrinidadAgent agent)
+  {
     switch (agent.getAgentApplication())
     {
       case IEXPLORER:
@@ -57,8 +72,8 @@ public class HiddenLabelUtils
           if (agent.getAgentMajorVersion() == 4)
             return false;
 
-          // JDev VE masquerades as IE Windows, but doesn't support this
-          if (agent.getCapability(TrinidadAgent.CAP_IS_JDEV_VE) != null)
+          // The old JDev VE masquerades as IE Windows, but doesn't support this
+          if (Boolean.TRUE.equals(agent.getCapability(TrinidadAgent.CAP_IS_JDEV_VE)))
             return false;
 
           // IE 5+ supports hidden labels
@@ -76,7 +91,7 @@ public class HiddenLabelUtils
       // Assume everyone else doesn't (important for the many mobile agents)
       default:
         return false;
-    }
+    }    
   }
 
   /**

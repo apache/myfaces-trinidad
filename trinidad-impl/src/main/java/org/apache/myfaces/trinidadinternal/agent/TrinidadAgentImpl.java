@@ -59,7 +59,7 @@ public class TrinidadAgentImpl extends TrinidadAgent
     
     Map<Object, Object> requestCaps = _delegate.getCapabilities();
     
-    if (requestCaps != null)
+    if (!requestCaps.isEmpty())
     {
       _capMap = _capMap.merge(requestCaps);
     }
@@ -263,10 +263,7 @@ public class TrinidadAgentImpl extends TrinidadAgent
     CapabilityMap capMap = null;
     DeviceRepository repository = _getDeviceRepository();
 
-    if (repository != null)
-    {
-      capMap = repository.getCapabilityMap(context, this);
-    }
+    capMap = repository.getCapabilityMap(context, this);
 
     if (capMap == null)
     {
@@ -284,15 +281,17 @@ public class TrinidadAgentImpl extends TrinidadAgent
   }
 
 
-  private synchronized static DeviceRepository
-     _getDeviceRepository()
+  private static DeviceRepository _getDeviceRepository()
   {
-    if (!_deviceRepositoryLoaded)
+    if (_deviceRepository == null)
     {
+      synchronized(_DEVICE_REPOSITORY_URL)
       {
-        List<DeviceRepository> list = ClassLoaderUtils.getServices(_DEVICE_REPOSITORY_URL);
-        _deviceRepository = list.isEmpty() ? null : list.get(0);
-        _deviceRepositoryLoaded = true;
+        if (_deviceRepository == null)
+        {
+          List<DeviceRepository> list = ClassLoaderUtils.getServices(_DEVICE_REPOSITORY_URL);
+          _deviceRepository = list.isEmpty() ? EmptyDeviceRepository.getInstance() : list.get(0);          
+        }
       }
     }
     
@@ -457,6 +456,22 @@ public class TrinidadAgentImpl extends TrinidadAgent
     _capMap = _capMap.merge(capabilities);
   }
 
+  private static final class EmptyDeviceRepository extends DeviceRepository
+  {
+    @Override
+    public CapabilityMap getCapabilityMap(FacesContext context, Agent agent)
+    {
+      return null;
+    }
+    
+    public static DeviceRepository getInstance()
+    {
+      return _INSTANCE;
+    }
+    
+    private static final DeviceRepository _INSTANCE = new EmptyDeviceRepository();
+  }
+  
   private static volatile URL _capUrl;
 
   //@todo: Get this from the Configuration Object
@@ -469,8 +484,7 @@ public class TrinidadAgentImpl extends TrinidadAgent
   static final private TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(TrinidadAgentImpl.class);
 
-  private static boolean _deviceRepositoryLoaded;
-  private static DeviceRepository _deviceRepository;
+  private static volatile DeviceRepository _deviceRepository;
 
   private final Agent _delegate;
   private CapabilityMap _capMap;

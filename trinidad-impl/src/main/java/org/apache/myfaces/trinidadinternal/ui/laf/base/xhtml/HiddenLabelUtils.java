@@ -50,41 +50,8 @@ public class HiddenLabelUtils
       return false;
 
     TrinidadAgent agent = context.getAgent();
-    switch (agent.getAgentApplication())
-    {
-      case IEXPLORER:
-        if (agent.getAgentOS() == TrinidadAgent.OS_WINDOWS)
-        {
-          // IE 4 doesn't support the label hack.
-          if (agent.getAgentMajorVersion() == 4)
-            return false;
-          
-          // JDev VE masquerades as IE Windows, but doesn't support this
-          if (agent.getCapability(TrinidadAgent.CAP_IS_JDEV_VE) != null)
-            return false;
 
-          // IE 5 and 6 do.
-          return true;
-        }
-
-        // IE on the Mac doesn't support the label hack
-        return false;
-
-      // Mozilla does support the label hack
-      case GECKO:
-        // Make sure we don't change the VE to Gecko
-        assert(agent.getCapability(TrinidadAgent.CAP_IS_JDEV_VE) == null);
-        return true;
-
-      // Safari does support the label hack
-      case SAFARI:
-        return true;
-
-      // Assume everyone else doesn't.
-      case NETSCAPE:
-      default:
-        return false;
-    }
+    return org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HiddenLabelUtils.agentSupportsHiddenLabels(agent);
   }
 
   /**

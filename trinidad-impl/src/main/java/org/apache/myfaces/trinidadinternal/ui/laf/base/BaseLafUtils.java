@@ -587,7 +587,7 @@ public class BaseLafUtils implements UIConstants
                                    contextURI);
 
     // Check for design time and modify URL if needed
-    if (Beans.isDesignTime())
+    if (context.isDesignTime())
     {
       baseURL = _generateDesignTimeURL(context,baseURL);
     }

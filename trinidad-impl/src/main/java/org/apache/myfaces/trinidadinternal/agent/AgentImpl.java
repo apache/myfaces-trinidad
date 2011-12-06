@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.agent;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -155,14 +156,14 @@ public class AgentImpl extends DefaultAgent
 
   void __addRequestCapability(CapabilityKey key,Object value)
   {
-     if (_requestCapabilities == null)
+     if (_requestCapabilities.isEmpty())
      {
        _requestCapabilities = new HashMap<Object, Object>();
      }
     _requestCapabilities.put(key,value);
   }
 
-  private HashMap<Object, Object> _requestCapabilities;
+  private Map<Object, Object> _requestCapabilities = Collections.emptyMap();
   private AgentEntry _entry;
   static private final AgentEntry _NULL_AGENT_ENTRY = new AgentEntry();
   static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentImpl.class);

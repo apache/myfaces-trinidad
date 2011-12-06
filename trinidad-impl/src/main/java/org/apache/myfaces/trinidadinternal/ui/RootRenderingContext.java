@@ -26,6 +26,8 @@ import java.util.MissingResourceException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
+
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
 import org.apache.myfaces.trinidad.skin.Skin;
@@ -45,6 +47,7 @@ import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 
 import org.apache.myfaces.trinidad.context.LocaleContext;
 
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
 import org.apache.myfaces.trinidadinternal.image.ImageProvider;
@@ -97,10 +100,10 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
                 fContext.getExternalContext().getRequestContextPath());
     setProperty(UIConstants.MARLIN_NAMESPACE,
                 CONTEXT_PATH_PROPERTY,
-                CoreRenderingContext.getTemporaryDirectory(fContext));
+                CoreRenderingContext.getTemporaryDirectory(fContext, isDesignTime()));
 
   }
-
+  
   @Override
   public FacesContext getFacesContext()
   {

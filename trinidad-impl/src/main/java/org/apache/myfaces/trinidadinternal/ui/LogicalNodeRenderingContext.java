@@ -21,6 +21,10 @@ package org.apache.myfaces.trinidadinternal.ui;
 import java.util.Map;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.RequestContext;
+
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
 
 import org.apache.myfaces.trinidadinternal.ui.path.Path;
@@ -46,7 +50,23 @@ public abstract class LogicalNodeRenderingContext implements UIXRenderingContext
     _path      = new PathImpl();
     _nodeStack = new UINode[getDefaultNodeStackSize()];
   }
-
+  
+  public boolean isDesignTime()
+  {
+    RequestContext trinContext = RequestContext.getCurrentInstance();
+    
+    if (trinContext != null)
+    {
+      Agent agent  = trinContext.getAgent();
+      
+      if (agent != null)
+      {
+        return Boolean.TRUE.equals(agent.getCapabilities().get(TrinidadAgent.CAP_VE));
+      }
+    }
+    
+    return false;
+  }
 
   public FacesContext getFacesContext()
   {

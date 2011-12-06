@@ -312,7 +312,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     // largely there for JDev 10.1.3 preview, which was rendering
     // the contents of any NOSCRIPT tags in the VE, but it's
     // a check that does no harm.
-    if (!isInaccessibleMode(rc) && !Beans.isDesignTime())
+    if (!isInaccessibleMode(rc) && !rc.isDesignTime())
     {
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("noscript",null);

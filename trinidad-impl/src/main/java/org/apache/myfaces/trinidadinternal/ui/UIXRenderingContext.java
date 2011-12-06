@@ -424,4 +424,6 @@ public interface UIXRenderingContext extends Cloneable
    * Returns a clone of the RenderingContext.
    */
   public Object clone();
+  
+  public boolean isDesignTime();
 }

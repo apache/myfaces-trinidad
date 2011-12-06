@@ -20,8 +20,8 @@ package org.apache.myfaces.trinidadinternal.agent;
 
 import org.apache.myfaces.trinidad.context.Agent;
 
+import java.util.Collections;
 import java.util.Map;
-
 
 /**
  * Default base class for Agent
@@ -94,9 +94,9 @@ public class DefaultAgent implements Agent
    *
    * @return Map of capability name and value for the current Agent.
    */
-  public Map<Object, Object> getCapabilities ()
+  public Map<Object, Object> getCapabilities()
   {
-    return null;
+    return Collections.emptyMap();
   }  
 
 }

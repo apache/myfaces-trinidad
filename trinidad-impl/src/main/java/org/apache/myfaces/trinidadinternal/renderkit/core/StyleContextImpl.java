@@ -128,7 +128,7 @@ class StyleContextImpl implements StyleContext
    */
   public boolean isDirty()
   {
-    if (Beans.isDesignTime())
+    if (_arc.isDesignTime())
     {
       // In Design Time mode, if we have a skin dirty flag on the request scope,
       // then this means the Design Time wants the skin to regenerate. To do this,
