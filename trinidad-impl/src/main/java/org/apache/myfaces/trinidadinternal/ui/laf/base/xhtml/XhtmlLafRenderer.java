@@ -1199,7 +1199,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
       ((count < 800)
        && (TrinidadAgent.SCRIPTING_SPEED_CAP_FAST ==
            getAgentCapability(context, TrinidadAgent.CAP_SCRIPTING_SPEED))
-       && (!Boolean.TRUE.equals(getAgentCapability(context, TrinidadAgent.CAP_IS_JDEV_VE))));
+       && (getAgentCapability(context, TrinidadAgent.CAP_VE) == null));
     _renderTransparent(context, width, height, needsQuoting, id, useScript);
   }
 

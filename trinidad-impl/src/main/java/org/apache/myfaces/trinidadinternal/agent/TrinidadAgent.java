@@ -182,6 +182,7 @@ public abstract class TrinidadAgent implements Agent, Cloneable
   static public final CapabilityKey CAP_SUPPORTS_DISABLED_OPTIONS = CapabilityKey
     .getCapabilityKey("-adfinternal-supportsDisabledOptions", true);
 
+  // Code referring to this should be using real capabilities instead
   @Deprecated
   static public final CapabilityKey CAP_IS_JDEV_VE = CapabilityKey
     .getCapabilityKey("-adfinternal-isJDevVE", true);
@@ -189,10 +190,6 @@ public abstract class TrinidadAgent implements Agent, Cloneable
   /** returns the name of the visual editor, or null if no visual editor */
   static public final CapabilityKey CAP_VE = CapabilityKey
     .getCapabilityKey("-adfinternal-VE", true);
-
-  @Deprecated
-  static public final CapabilityKey CAP_IS_JDEV_JAVASCRIPT_VE = CapabilityKey
-    .getCapabilityKey("-adfinternal-isJDevJavascriptVE", true);
 
   // If this capability flag is true, it means that the request is from an agent
   // that is running in a narrow-screen PDA. Trinidad optimizes its rendering

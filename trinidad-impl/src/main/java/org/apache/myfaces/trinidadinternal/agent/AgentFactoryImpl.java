@@ -107,7 +107,7 @@ public class AgentFactoryImpl implements AgentFactory
   {
     if (agentHeader != null)
     {
-      if (Beans.isDesignTime())
+      // if (Beans.isDesignTime())
       {      
         // we only kick ourselves into DT mode if actually in an IDE.  This is just in case
         // a component or the renderer happens to be doing something non-secure in this case
@@ -124,15 +124,11 @@ public class AgentFactoryImpl implements AgentFactory
     
 
             agent.__addRequestCapability(TrinidadAgent.CAP_VE, "JDeveloper");
-            agent.__addRequestCapability(TrinidadAgent.CAP_IS_JDEV_VE,
-                                            Boolean.TRUE);
-            if (isNewJDevVE || isOldJDevJSVE)
+
+            if (!isNewJDevVE && !isOldJDevJSVE)
             {
-              agent.__addRequestCapability(TrinidadAgent.CAP_IS_JDEV_JAVASCRIPT_VE,
-                                              Boolean.TRUE);
-            }
-            else
-            {
+              agent.__addRequestCapability(TrinidadAgent.CAP_IS_JDEV_VE, Boolean.TRUE);
+              
               // make sure that the old JDev editor doesn't think it supports javascript
               agent.__addRequestCapability(TrinidadAgent.CAP_SCRIPTING_SPEED,
                                            TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);

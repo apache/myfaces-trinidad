@@ -232,7 +232,7 @@ public class CoreRenderingContext extends RenderingContext
 
   private static boolean _isDesignTime(Agent agent)
   {
-    return Boolean.TRUE.equals(agent.getCapabilities().get(TrinidadAgent.CAP_VE));
+    return (agent.getCapabilities().get(TrinidadAgent.CAP_VE) != null);
   }
 
   /**

@@ -61,7 +61,7 @@ public abstract class LogicalNodeRenderingContext implements UIXRenderingContext
       
       if (agent != null)
       {
-        return Boolean.TRUE.equals(agent.getCapabilities().get(TrinidadAgent.CAP_VE));
+        return agent.getCapabilities().get(TrinidadAgent.CAP_VE) != null;
       }
     }
     
