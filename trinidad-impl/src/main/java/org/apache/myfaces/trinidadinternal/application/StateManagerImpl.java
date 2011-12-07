@@ -549,6 +549,45 @@ public class StateManagerImpl extends StateManagerWrapper
   }
 
   /**
+   * Removes all view states per token cache identified by a <code>windowId</code>.  When token state saving is used,
+   * a token cache is created for each unique window.  The windowId is used to locate the token cache.  Each PageState 
+   * is located in session scope by a composite key that contains both the window id and state token.  When a system window 
+   * closed event is generated, this operation should be called to purge stale view state.
+   * 
+   * @param extContext faces external context
+   * @param windowId window id to store the state token under
+   */
+  public static void removeViewStatesForWindow(ExternalContext extContext, String windowId)
+  {
+    // build a key used to locate the token cache for the target windowId
+    // Can't call _getTokenCacheKey() because it doesn't
+    // take a window id, so directly calling _getPerWindowCacheKey
+    String cacheKey = _getPerWindowCacheKey(windowId, _VIEW_CACHE_KEY, null);
+    
+    // use the helper factory method to locate a token cache for the window.  the 3rd actual parameter is false
+    // indicating that a new cache should not be created if it doesn't exist.
+    TokenCache cache = TokenCache.getTokenCacheFromSession(extContext, cacheKey, false, -1);
+    if (cache != null)
+    {
+      // create a sub key that is used by the SubKeyMap to locate PageState per token
+      // Can't call _getViewCacheKey() because it doesn't
+      // take a window id, so directly calling _getPerWindowCacheKey
+      String subkey = _getPerWindowCacheKey(windowId, _VIEW_CACHE_KEY, _SUBKEY_SEPARATOR);
+      Map<String, Object> sessionMap = extContext.getSessionMap();
+      
+      // create a map that establishes a moniker (key) between the windowId and token cache used to locate the
+      // associated page state.
+      Map<String, PageState> stateMap = new SubKeyMap<PageState>(sessionMap, subkey);
+      
+      // removes all page states known by the token cache from session
+      cache.clear(stateMap);
+      
+      // removes the token cache
+      sessionMap.remove(cacheKey);
+    }
+  }
+  
+  /**
    * Returns the PageState for a state token
    * @param external
    * @param token
