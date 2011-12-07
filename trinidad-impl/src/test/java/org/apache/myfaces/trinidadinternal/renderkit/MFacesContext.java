@@ -362,6 +362,12 @@ public class MFacesContext extends MockFacesContext12
       // implementations as those expect a specific number of calls:
       return _requestMap;
     }
+    
+    @Override
+    public String getRequestScheme()
+    {
+      return "http";
+    }
 
     private final Object _contextObject;
     private final Object _requestObject = new String("request object");
