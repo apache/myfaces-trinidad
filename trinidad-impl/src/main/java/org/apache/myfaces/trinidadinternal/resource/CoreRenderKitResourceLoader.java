@@ -1,4 +1,4 @@
-/*
+ /*
  *  Licensed to the Apache Software Foundation (ASF) under one
  *  or more contributor license agreements.  See the NOTICE file
  *  distributed with this work for additional information
@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,27 +47,22 @@ public class CoreRenderKitResourceLoader extends RegexResourceLoader
   public CoreRenderKitResourceLoader(ResourceLoader parent)
   {
     register("(/.*/Common.*\\.js)",
-             new CoreCommonScriptsResourceLoader(_getCommonLibraryURI(false),
-                                                 false));
+             new CoreCommonScriptsResourceLoader(false));
     register("(/.*/DebugCommon.*\\.js)",
-             new CoreCommonScriptsResourceLoader(_getCommonLibraryURI(true),
-                                                 true));
+             new CoreCommonScriptsResourceLoader(true));
+    
+    register("(/.*/CoreFmt.*\\.js)",
+             new CoreFormatScriptsResourceLoader(false));
+    register("(/.*/DebugCoreFmt.*\\.js)",
+             new CoreFormatScriptsResourceLoader(true));
+    
     register("(/.*LocaleElements.*\\.js)",
-             new LocaleElementsResourceLoader(getLocaleElementsURI("LocaleElements", true))); 
+             new LocaleElementsResourceLoader()); 
 
     register("(/.*\\.(css|cur|ico|jpg|gif|png|jpeg|svg|js))",
              new CoreClassLoaderResourceLoader(parent));
   }
 
-  static private String _getCommonLibraryURI(boolean debug)
-  {
-    StringBuffer base = new StringBuffer(debug
-                                         ? "/adf/jsLibs/DebugCommon"
-                                         : "/adf/jsLibs/Common");
-    return base.append(_VERSION)
-               .append(".js")
-               .toString();
-  }
     
   static public String getLocaleElementsURI(String str, 
                                             Boolean incVersion)
