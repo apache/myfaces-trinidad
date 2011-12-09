@@ -303,7 +303,7 @@ public class PartialViewContextImpl
     RenderingContext rc = RenderingContext.getCurrentInstance();
     assert (rc != null);
 
-    boolean bufferScripts = _requestType == ReqType.LEGACY;
+    boolean bufferScripts = _requestType == ReqType.LEGACY || _requestType == ReqType.AJAX_LEGACY;
     PPRResponseWriter pprWriter =
       new PPRResponseWriter(origResponseWriter, rc, bufferScripts);
 
