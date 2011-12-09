@@ -509,6 +509,9 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET">Could not load style sheet: {0}</resource>
 
+<!-- LOADING_STYLESHEET -->
+<resource key="LOADING_STYLESHEET">Loading style sheet: {0}</resource>
+
 <!-- IOEXCEPTION_IN_PHASE -->
 <resource key="IOEXCEPTION_IN_PHASE">IOException during parse of {0}</resource>
 
@@ -1153,5 +1156,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="INVALID_STYLESHEET_TYPE">Parsing error: Unknown type of stylesheet '{0}'. Style sheets other than css are not supported. </resource>
 
 <resource key="INVALID_AGENT_PROPERTY">Not a valid @agent CSS property rule: {0}: {1}</resource>
+
+<resource key="CSS_SYNTAX_ERROR">Syntax error in skin file currently being processed due to mismatch in the number of open and close braces. The skin file will not be processed correctly. To know the name of file being processed, set log level to 'INFO'.</resource>
 
 </resources>

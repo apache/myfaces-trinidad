@@ -386,6 +386,12 @@ public class SkinCSSParser
                 if (_currentChar == '}' && openBraceCountStarted)
                 {
                   openBraceCount--;
+                  // make sure openBraceCount never goes negative
+                  // if it does, then there was an extra right curly brace
+                  if (openBraceCount < 0)
+                  {
+                    _handleBraceMismatch();
+                  }
                   if (openBraceCountStarted && openBraceCount == 0)
                   {
                     break;
@@ -399,6 +405,11 @@ public class SkinCSSParser
 
               }
 
+              // There should not be any closing braces pending at this point
+              if (openBraceCountStarted && openBraceCount != 0)
+              {
+                _handleBraceMismatch();
+              }
 
               _type = CSSLexicalUnits.AT_KEYWORD;
               return;
@@ -411,6 +422,12 @@ public class SkinCSSParser
               // keep going until we have all the properties
               while ((_currentChar != -1) && (_currentChar != '}'))
               {
+                if (_currentChar == '{')
+                {
+                  // this is not expected. There is a right curly braces missing
+                  _handleBraceMismatch();
+                }
+
                 _nextChar();
               }
               _type = CSSLexicalUnits.RIGHT_CURLY_BRACE;
@@ -419,6 +436,11 @@ public class SkinCSSParser
             {
               while ((_currentChar != -1) && (_currentChar != '{'))
               {
+                // here we navigate to the opening curly braces
+                // there cannot be a closing curly brace here
+                if (_currentChar == '}')
+                  _handleBraceMismatch();
+
                 _nextChar();
               }
               _type = CSSLexicalUnits.LEFT_CURLY_BRACE;
@@ -438,6 +460,12 @@ public class SkinCSSParser
 
     }
 
+    private void _handleBraceMismatch()
+    {
+      // This log is dependent on LOG in StyleSheetEntry._createSkinStyleSheetFromCSS
+      // The skin file name is logged there.
+      _LOG.warning("CSS_SYNTAX_ERROR");
+    }
 
     // fill buffer with one more character
     private void _nextChar()

@@ -263,6 +263,8 @@ class StyleSheetEntry
 
      try
      {
+       // This log is used by syntax error log in SkinCSSParser._handleBraceMismatch
+       _LOG.info("LOADING_STYLESHEET", styleSheetName);
         // We simply use a ParseContext as a place to store parameters like
        // inputStreamProviders and nameResolvers that will be reused when parsing
         ParseContextImpl parseContext = new ParseContextImpl();
