@@ -77,16 +77,20 @@ public class AgentFactoryImpl implements AgentFactory
 
     String userAgent = headerMap.get("User-Agent");
     String isEmail = null;
+    String outputMode = null;
+    
     if (facesContext != null)
-      isEmail = facesContext.getExternalContext().getRequestParameterMap().
-                        get(_EMAIL_PARAM);
+    {
+      Map<String, String> requestParamMap = facesContext.getExternalContext().getRequestParameterMap();
+      isEmail = requestParamMap.get(_EMAIL_PARAM);
+    }
 
     if ("true".equals(isEmail))
     {
       _populateEmailAgentImpl(agent);
       return;
     }
-
+    
     if ((userAgent != null) && userAgent.startsWith("PTG"))
     {
       _populateIaswAgentImpl(userAgent,
@@ -663,6 +667,7 @@ public class AgentFactoryImpl implements AgentFactory
     // Generic WML support
     agentObj.setType(Agent.TYPE_PHONE);
   }
+
 
   /**
    * Returns an AgentEntry for the browsers that use the Gecko Layout Engine.

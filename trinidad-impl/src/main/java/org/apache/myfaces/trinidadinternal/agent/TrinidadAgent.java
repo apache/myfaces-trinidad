@@ -285,8 +285,6 @@ public interface TrinidadAgent extends Agent
    */
   static public final int TYPE_WEBCRAWLER = 4;
 
-
-
   /**
    * Application constant for an entirely unknown application.
    */
@@ -398,6 +396,11 @@ public interface TrinidadAgent extends Agent
    * Application constant for Oracle SES.
    */
   static public final int APPLICATION_ORACLE_SES = 19;
+  
+  /**
+   * Application constant for a generic desktop application.
+   */
+  static public final int APPLICATION_GENERIC_DESKTOP   = 20;
   
   /**
    * OS constant for an unknown operating system.

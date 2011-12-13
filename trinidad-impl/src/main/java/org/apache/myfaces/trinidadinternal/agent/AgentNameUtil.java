@@ -51,6 +51,11 @@ public class AgentNameUtil
       return TrinidadAgent.APPLICATION_GECKO;
     }
 
+    if (TrinidadAgent.AGENT_GENERIC_DESKTOP.equals(agentName))
+    {
+      return TrinidadAgent.APPLICATION_GENERIC_DESKTOP;
+    }
+
     if (TrinidadAgent.AGENT_EMAIL.equals(agentName))
     {
       return TrinidadAgent.APPLICATION_EMAIL;
@@ -228,6 +233,8 @@ public class AgentNameUtil
         return TrinidadAgent.AGENT_IE;
       case TrinidadAgent.APPLICATION_GECKO:
         return TrinidadAgent.AGENT_GECKO;
+      case TrinidadAgent.APPLICATION_GENERIC_DESKTOP:
+        return TrinidadAgent.AGENT_GENERIC_DESKTOP;
       case TrinidadAgent.APPLICATION_WEB_CLIPPING:
         return TrinidadAgent.AGENT_ELAINE;
       case TrinidadAgent.APPLICATION_ICE:

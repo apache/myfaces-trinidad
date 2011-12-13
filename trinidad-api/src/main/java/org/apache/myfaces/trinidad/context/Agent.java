@@ -160,6 +160,11 @@ public interface Agent
   public static final String AGENT_UNKNOWN = "unknown";
 
   /**
+   * Constant for a generic desktop agent that is unknown but relatively powerful
+   */
+  public static final String AGENT_GENERIC_DESKTOP = "genericDesktop";
+
+  /**
    * Constant for Konqueror agent
    */
   public static final String AGENT_KONQUEROR = "konqueror";
