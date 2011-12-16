@@ -20,6 +20,8 @@
 package org.apache.myfaces.trinidadinternal.util;
 
 
+import java.util.concurrent.ConcurrentMap;
+
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
@@ -51,13 +53,11 @@ public class FrameBustingUtils
   static public final String FRAME_BUSTING_ALWAYS = "always";
   static public final String FRAME_BUSTING_DIFFERENT_ORIGIN = "differentOrigin";
   
-  public static String getFrameBustingValue(FacesContext context)
-  {    
-
+  public static String getFrameBustingValue(FacesContext context, RequestContext reqContext)
+  {   
     // Act as if the value is never if
     // 1. we're doing ppr, we should only need to bust frames on a full page render
-    // 2. if the web.xml value is never
-    // 3. if we're in a portal    
+    // 2. if we're in a portal    
     //     Portals have a concept of producers and consumers.
     //     The main page is the consumer, and the portlets inside that page are the producers.
     //     Producer content can only be accessed by trusted consumers.
@@ -66,23 +66,29 @@ public class FrameBustingUtils
     //     but the producers will not do framebusting.
     //     In other words when ExternalContextUtils.isPortlet is true we will behave as if
     //     the context param is set to 'never'.
-    
-    String frameBusting = context.getExternalContext().getInitParameter(_FRAME_BUSTING_PARAM);
-    
-    if ( FRAME_BUSTING_NEVER.equalsIgnoreCase(frameBusting) || 
-         RequestContext.getCurrentInstance().isPartialRequest(context) ||
+    if ( reqContext.isPartialRequest(context) ||
          ExternalContextUtils.isPortlet(context.getExternalContext()))
     {
       return FRAME_BUSTING_NEVER;    
-    }
-    else if (FRAME_BUSTING_ALWAYS.equalsIgnoreCase(frameBusting))
+    }    
+    
+    ConcurrentMap<String, Object> appMap = reqContext.getApplicationScopedConcurrentMap();
+    String frameBusting = (String)appMap.get(_FRAME_BUSTING_PARAM);
+    
+    if (frameBusting == null)
     {
-      return FRAME_BUSTING_ALWAYS;
+      frameBusting = context.getExternalContext().getInitParameter(_FRAME_BUSTING_PARAM);
+      
+      if (FRAME_BUSTING_NEVER.equalsIgnoreCase(frameBusting))
+        frameBusting = FRAME_BUSTING_NEVER;
+      else if (FRAME_BUSTING_ALWAYS.equalsIgnoreCase(frameBusting))
+        frameBusting = FRAME_BUSTING_ALWAYS;
+      else 
+        frameBusting = FRAME_BUSTING_DIFFERENT_ORIGIN;
+      
+      appMap.put(_FRAME_BUSTING_PARAM, frameBusting);
     }
-    else
-    {
-      // default is different origin
-      return FRAME_BUSTING_DIFFERENT_ORIGIN;
-    }
+
+    return frameBusting;
   }  
 }

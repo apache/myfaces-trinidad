@@ -596,7 +596,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
   ) throws IOException
   {    
     // get the framebusting param set in web.xml
-    String frameBusting = FrameBustingUtils.getFrameBustingValue(context);
+    String frameBusting = FrameBustingUtils.getFrameBustingValue(context, rc.getRequestContext());
     
     if (! FrameBustingUtils.FRAME_BUSTING_NEVER.equalsIgnoreCase(frameBusting))
     {

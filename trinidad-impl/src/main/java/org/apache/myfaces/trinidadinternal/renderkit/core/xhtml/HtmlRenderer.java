@@ -84,7 +84,7 @@ public class HtmlRenderer extends XhtmlRenderer
   {
     
     // add response headers for framebusting if needed
-    String frameBusting = FrameBustingUtils.getFrameBustingValue(context);        
+    String frameBusting = FrameBustingUtils.getFrameBustingValue(context, rc.getRequestContext());        
     
     if (! FrameBustingUtils.FRAME_BUSTING_NEVER.equalsIgnoreCase(frameBusting))
     {
