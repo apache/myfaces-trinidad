@@ -703,6 +703,14 @@ public class CoreRenderingContext extends RenderingContext
         return AgentUtil.mergeCapabilities(agent, _PORTLET_CAPABILITIES);
       }
     }
+    else if (CoreRenderKit.OUTPUT_MODE_ATTACHMENT.equals(outputMode))
+    {
+      return AgentUtil.mergeCapabilities(agent, _ATTACHMENT_CAPABILITIES);
+    }
+    else if (CoreRenderKit.OUTPUT_MODE_WEB_CRAWLER.equals(outputMode))
+    {
+      return AgentUtil.mergeCapabilities(agent, _WEB_CRAWLER_CAPABILITIES);
+    }    
     else
     {
       return agent;
@@ -852,6 +860,13 @@ public class CoreRenderingContext extends RenderingContext
   static private final Map<Object, Object> _ENHANCED_PORTLET_CAPABILITIES =
     new HashMap<Object, Object>();
 
+  static private final Map<Object, Object> _ATTACHMENT_CAPABILITIES =
+    new HashMap<Object, Object>();
+
+  static private final Map<Object, Object> _WEB_CRAWLER_CAPABILITIES =
+    new HashMap<Object, Object>();
+
+
   static
   {
     _PRINTABLE_CAPABILITIES.put(TrinidadAgent.CAP_INTRINSIC_EVENTS,
@@ -880,6 +895,19 @@ public class CoreRenderingContext extends RenderingContext
     _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
                             Boolean.FALSE);
 
+    // for now, the Web Crawler capabilities are the same as the EMail capabilities
+    _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_INTRINSIC_EVENTS,
+                            Boolean.FALSE);
+    _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_SCRIPTING_SPEED,
+                            TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);
+    _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_EDITING,
+                            Boolean.FALSE);
+    // =-= bts I wouldn't think that we would output any style sheets for a web crawler
+    _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_STYLE_ATTRIBUTES,
+                                  TrinidadAgent.STYLES_INTERNAL);
+    _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
+                                  Boolean.FALSE);
+    
     _PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
                             Boolean.FALSE);
     _PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_MULTIPLE_WINDOWS,
@@ -887,6 +915,10 @@ public class CoreRenderingContext extends RenderingContext
     
     _ENHANCED_PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_MULTIPLE_WINDOWS,
                               Boolean.FALSE);
+    
+
+    // turn off PPR
+    _ATTACHMENT_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING, Boolean.FALSE);    
   }
 
   static private final TrinidadLogger _LOG =
