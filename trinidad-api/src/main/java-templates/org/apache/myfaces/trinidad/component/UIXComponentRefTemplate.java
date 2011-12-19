@@ -43,18 +43,6 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
 {
 /**/  public abstract String getVar();
 
-
-
-  @Override
-  public boolean invokeOnComponent(FacesContext context,
-                                   String clientId,
-                                   ContextCallback callback)
-    throws FacesException
-  {
-    // optimize case where clientId isn't in NamingContainer
-    return invokeOnNamingContainerComponent(context, clientId, callback);
-  }
-
   @Override
   public void queueEvent(FacesEvent event)
   {

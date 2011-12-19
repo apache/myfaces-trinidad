@@ -1742,6 +1742,7 @@ abstract public class UIXComponentBase extends UIXComponent
    * <p>Subclasses implementing NamingContainer should override
    * <code>invokeOnComponent</code> and delegate to this method.</p>
    */
+  @Deprecated
   protected final boolean invokeOnNamingContainerComponent(
     FacesContext context,
     String clientId,
@@ -1800,63 +1801,6 @@ abstract public class UIXComponentBase extends UIXComponent
 
     return invokedComponent;
   }
-
-  /**
-   * Override to calls the hooks for setting up and tearing down the
-   * context before the children are visited.
-   * @see #setupVisitingContext
-   * @see #tearDownVisitingContext
-   */
-  @Override
-  public boolean invokeOnComponent(
-    FacesContext context,
-    String clientId,
-    ContextCallback callback)
-    throws FacesException
-  {
-    boolean invokedComponent;
-
-    // set up the context for visiting the children
-    setupVisitingContext(context);
-
-    try
-    {
-      String thisClientId = getClientId(context);
-
-      if (clientId.equals(thisClientId))
-      {
-        pushComponentToEL(context, null);
-
-        try
-        {
-          // this is the component we want, so invoke the callback
-          callback.invokeContextCallback(context, this);
-        }
-        finally
-        {
-          popComponentFromEL(context);
-        }
-
-        // we found the component
-        invokedComponent = true;
-      }
-      else
-      {
-        // set up the children visiting context to iterate through children. We inline this
-        // code instead of calling super in order
-        // to avoid making an extra call to getClientId().
-        invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
-      }
-    }
-    finally
-    {
-      // teardown the context now that we have visited the component
-      tearDownVisitingContext(context);
-    }
-
-    return invokedComponent;
-  }
-
 
   @Override
   public void subscribeToEvent(Class<? extends SystemEvent> eventClass, ComponentSystemEventListener componentListener)

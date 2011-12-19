@@ -80,19 +80,6 @@ public abstract class UIXDecorateCollectionTemplate extends UIXComponentBase
     return id;
   }
 
-
-
-  @Override
-  public boolean invokeOnComponent(FacesContext context,
-                                   String clientId,
-                                   ContextCallback callback)
-    throws FacesException
-  {
-    // optimize case where clientId isn't in NamingContainer
-    return invokeOnNamingContainerComponent(context, clientId, callback);
-  }
-
-
   private String _currencyString = null;
 }
 
