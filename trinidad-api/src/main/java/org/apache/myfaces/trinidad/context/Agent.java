@@ -158,6 +158,11 @@ public interface Agent
    * Constant for Gecko agent. Used for all Gecko based agents like Mozilla, Netscape 6+
    */
   public static final String AGENT_GECKO = "gecko";
+  
+  /**
+   * Constant for a generic desktop agent that is unknown but relatively powerful
+   */
+  public static final String AGENT_GENERIC_DESKTOP = "genericDesktop";  
 
   /**
    * Constant for Opera agent.

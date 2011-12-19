@@ -396,7 +396,11 @@ public abstract class TrinidadAgent implements Agent, Cloneable
     /**
      * Application enum for Oracle SES.
      */
-    ORACLE_SES("oracle_ses", AGENT_ORACLE_SES);
+    ORACLE_SES("oracle_ses", AGENT_ORACLE_SES),
+    /**
+     * Application enum for Generic Desktop.
+     */
+    GENERIC_DESKTOP("genericDesktop", AGENT_GENERIC_DESKTOP);
 
     /**
      * Return the appropriate Application instance given the name of an Application
@@ -599,6 +603,11 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    */
   static public final int APPLICATION_ORACLE_SES = Application.ORACLE_SES.ordinal();
 
+  /**
+   * Application constant for a generic desktop application.
+   */
+  static public final int APPLICATION_GENERIC_DESKTOP = Application.GENERIC_DESKTOP.ordinal();
+  
   /**
    * OS constant for an unknown operating system.
    */
