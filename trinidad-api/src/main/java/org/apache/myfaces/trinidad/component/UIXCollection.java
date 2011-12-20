@@ -270,46 +270,12 @@ public abstract class UIXCollection extends UIXComponentBase
     _setupContextChange();
     try
     {
-      // If we saved state in the middle of processing a row,
-      // then make sure that we revert to a "null" rowKey while
-      // saving state;  this is necessary to ensure that the
-      // current row's state is properly preserved, and that
-      // the children are reset to their default state.
-      Object currencyKey = _getCurrencyKey();
-
-      // since this is the end of the request, we expect the row currency to be reset back to null
-      // setting it and leaving it there might introduce multiple issues, so log a warning here
-      if (currencyKey != null)
-      {
-        if (_LOG.isWarning())
-        {
-          String scopedId = ComponentUtils.getScopedIdForComponent(this, context.getViewRoot());
-          String viewId = context.getViewRoot()==null?null:context.getViewRoot().getViewId();
-          _LOG.warning("ROWKEY_NOT_RESET", new Object[]{scopedId, viewId});
-        }
-      }
-
-      Object initKey = _getCurrencyKeyForInitialStampState();
-      if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
-      {
-        setRowKey(initKey);
-      }
-
+      _stateSavingCurrencyKey = _resetCurrencyKeyForStateSaving(context);
+      
       Object savedState = super.processSaveState(context);
-
-      if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
-      {
-        setRowKey(currencyKey);
-      }
-
-      // Finally clean up any internal model state that we might be holding on to. We do not want to hold onto any
-      // application data in between requests
-      InternalState iState = _getInternalState(false);
-      if (iState != null)
-      {
-        iState._value = null;
-        iState._model= null;
-      }
+      
+      _restoreCurrencyKeyForStateSaving(_stateSavingCurrencyKey);
+      _resetInternalState();
 
       return savedState;
     }
@@ -687,11 +653,22 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     super.setupVisitingContext(context);
     _setupContextChange();
+
+    if (Boolean.TRUE.equals(context.getAttributes().get("javax.faces.IS_SAVING_STATE")))
+    {
+      _stateSavingCurrencyKey = _resetCurrencyKeyForStateSaving(context);
+    }
   }
 
   @Override
   protected void tearDownVisitingContext(FacesContext context)
   {
+    if (Boolean.TRUE.equals(context.getAttributes().get("javax.faces.IS_SAVING_STATE")))
+    {
+      _restoreCurrencyKeyForStateSaving(_stateSavingCurrencyKey);
+      _resetInternalState();
+    }
+    
     _tearDownContextChange();
     super.tearDownVisitingContext(context);
   }
@@ -2024,6 +2001,73 @@ public abstract class UIXCollection extends UIXComponentBase
     }
   }
 
+  /**
+   * during state saving, we want to reset the currency to null, but we want to 
+   * remember the current currency, so that after state saving, we can set it back
+   * 
+   * @param context faces context
+   * @return the currency key
+   */
+  private Object _resetCurrencyKeyForStateSaving(FacesContext context) 
+  {
+    // If we saved state in the middle of processing a row,
+    // then make sure that we revert to a "null" rowKey while
+    // saving state;  this is necessary to ensure that the
+    // current row's state is properly preserved, and that
+    // the children are reset to their default state.
+    Object currencyKey = _getCurrencyKey();
+
+    // since this is the end of the request, we expect the row currency to be reset back to null
+    // setting it and leaving it there might introduce multiple issues, so log a warning here
+    if (currencyKey != null)
+    {
+      if (_LOG.isWarning())
+      {
+        String scopedId = ComponentUtils.getScopedIdForComponent(this, context.getViewRoot());
+        String viewId = context.getViewRoot() == null? null: context.getViewRoot().getViewId();
+        _LOG.warning("ROWKEY_NOT_RESET", new Object[]
+            { scopedId, viewId });
+      }
+    }
+
+    Object initKey = _getCurrencyKeyForInitialStampState();
+    if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
+    {
+      setRowKey(initKey);
+    }
+    
+    return currencyKey;
+  }
+  
+  /**
+   * restore the currency key after state saving
+   * 
+   * @param key the currency key
+   */
+  private void _restoreCurrencyKeyForStateSaving(Object key) 
+  {
+    Object currencyKey = key;
+    Object initKey = _getCurrencyKeyForInitialStampState();
+    
+    if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
+    {
+      setRowKey(currencyKey);
+    }
+  }
+  
+  /**
+   * clean up any internal model state that we might be holding on to. 
+   */
+  private void _resetInternalState() 
+  {
+    InternalState iState = _getInternalState(false);
+    if (iState != null)
+    {
+      iState._value = null;
+      iState._model= null;
+    }
+  }
+
   private static final class DefaultClientKeyManager extends ClientRowKeyManager
   {
     public void clear()
@@ -2257,6 +2301,8 @@ public abstract class UIXCollection extends UIXComponentBase
   private static final Object _NULL = new Object();
   private static final String _INVOKE_KEY =
     UIXCollection.class.getName() + ".INVOKE";
+  
+  private transient Object _stateSavingCurrencyKey = null;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXCollection.class);
 
