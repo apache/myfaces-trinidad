@@ -501,7 +501,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR">The css file has hit IE''s limit of 4095 CSS selectors. It has {0} selectors. The selectors after that will be ignored.</resource>
 
 <!-- UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX -->
-<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX">Consecutive sub-element (::) syntax used in selector {0}. This is not supported.</resource>
+<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX">Consecutive sub-element (::) syntax used in selector {0} in a pattern that is not supported.</resource>
 
 <!-- URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET -->
 <resource key="URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET">An url value delimited by url() is expected for the property ''{0}'' in style sheet ''{1}''. Found: ''{2}''.</resource>
