@@ -111,7 +111,9 @@ public class RegExpValidator implements StateHolder, Validator
     Object value
     ) throws ValidatorException
   {
-
+    if (isDisabled())
+      return;
+    
     if ((context == null) || (component == null))
     {
       throw new NullPointerException(_LOG.getMessage(
@@ -267,7 +269,8 @@ public class RegExpValidator implements StateHolder, Validator
     {
       RegExpValidator other = (RegExpValidator) object;
 
-      if ( this.isTransient() == other.isTransient() &&
+      if ( this.isDisabled() == other.isDisabled() &&
+           this.isTransient() == other.isTransient() &&
            ValidatorUtils.equals(getPattern(), other.getPattern()) &&
            ValidatorUtils.equals(getMessageDetailNoMatch(),
                                    other.getMessageDetailNoMatch())
@@ -287,11 +290,14 @@ public class RegExpValidator implements StateHolder, Validator
   public int hashCode()
   {
     int result = 17;
+    
     String pattern = getPattern();
     String noMesgDetail = getMessageDetailNoMatch();
     result = 37 * result + (pattern == null? 0 : pattern.hashCode());
+    result = 37 * result + (isDisabled() ? 1 : 0);    
     result = 37 * result + (isTransient() ? 0 : 1);
     result = 37 * result + (noMesgDetail == null ? 0 : noMesgDetail.hashCode());
+    
     return result;
   }
 
@@ -370,6 +376,26 @@ public class RegExpValidator implements StateHolder, Validator
   }
 
   /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */ 
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */  
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
+  }    
+
+  /**
    * @todo custom message should be evaluated lazily and then be used for
    * displaying message.
    */
@@ -404,6 +430,10 @@ public class RegExpValidator implements StateHolder, Validator
 
   private static final PropertyKey  _HINT_PATTERN_KEY =
     _TYPE.registerKey("hint", String.class);
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 

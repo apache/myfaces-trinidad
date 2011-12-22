@@ -355,6 +355,9 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     UIComponent  component,
     Object       value) throws ValidatorException
   {
+    if (isDisabled())
+      return;
+    
     if ((context == null) || (component == null))
     {
       throw new NullPointerException(_LOG.getMessage(
@@ -497,6 +500,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
       DateTimeRangeValidator that = (DateTimeRangeValidator)o;
 
       if ( _transientValue == that._transientValue &&
+           isDisabled() == that.isDisabled() &&
            (ValidatorUtils.equals(getMinimum(), that.getMinimum())) &&
            (ValidatorUtils.equals(getMaximum(), that.getMaximum())) &&
            (ValidatorUtils.equals(getMessageDetailMaximum(),
@@ -526,6 +530,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     result = 37 * result + ( max == null ? 0 : max.hashCode());
     result = 37 * result + ( min == null ? 0 : min.hashCode());
     result = 37 * result + ( _transientValue ? 0 : 1);
+    result = 37 * result + (isDisabled() ? 1 : 0);
     result = 37 * result + ( maxMsgDet == null ? 0: maxMsgDet.hashCode());
     result = 37 * result + ( minMsgDet == null ? 0: minMsgDet.hashCode());
     result = 37 * result + ( notInRangeMsgDet == null ? 0: notInRangeMsgDet.hashCode());
@@ -538,11 +543,30 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     return (_transientValue);
   }
 
-
   public void setTransient(boolean transientValue)
   {
     _transientValue = transientValue;
   }
+  
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */ 
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */  
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
+  }    
 
   private static Date _getDateValue(
     Object value) throws IllegalArgumentException
@@ -699,6 +723,10 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
 
   private static final PropertyKey  _HINT_NOT_IN_RANGE =
     _TYPE.registerKey("hintNotInRange", String.class);
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 

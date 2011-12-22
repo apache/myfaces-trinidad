@@ -196,6 +196,9 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     if (null == value)
       return null;
 
+    if (isDisabled())
+      return value;
+
     value = value.trim();
     if (value.length() < 1)
       return null;
@@ -359,6 +362,9 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
     if(value instanceof String)
       return (String)value;
+
+    if (isDisabled())
+      return value.toString();
 
     if (!(value instanceof Number))
       throw new IllegalArgumentException(_LOG.getMessage(
@@ -850,6 +856,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     result = result * 37 + getMaxIntegerDigits();
     result = result * 37 + getMinFractionDigits();
     result = result * 37 + getMinIntegerDigits();
+    result = result * 37 + (isDisabled() ? 1 : 0);    
     result = result * 37 + (isGroupingUsed() ? 1: 0);
     result = result * 37 + (isIntegerOnly()? 1: 0);
     result = result * 37 + (isTransient() ? 1: 0);
@@ -879,6 +886,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
         getMaxIntegerDigits()  == nConv.getMaxIntegerDigits()   &&
         getMinFractionDigits() ==  nConv.getMinFractionDigits() &&
         getMinIntegerDigits()  ==  nConv.getMinIntegerDigits()  &&
+        isDisabled() == nConv.isDisabled() &&        
         isTransient() == nConv.isTransient() &&
         isGroupingUsed() ==  nConv.isGroupingUsed() &&
         isIntegerOnly()  == nConv.isIntegerOnly()   &&
@@ -899,6 +907,26 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     }
     return false;
   }
+
+  /**
+   * <p>Set the value to property <code>disabled</code>. Default value is false.</p>
+   * @param isDisabled <code>true</code> if it's disabled, <code>false</code> otherwise.
+   */  
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
+  }  
 
   private static int _getHashValue(Object obj)
   {
@@ -1399,6 +1427,10 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
   private static final PropertyKey  _TYPE_KEY
    = _TYPE.registerKey("type", String.class, "numeric");
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 

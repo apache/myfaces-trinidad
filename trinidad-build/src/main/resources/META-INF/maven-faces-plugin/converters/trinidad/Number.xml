@@ -29,6 +29,13 @@
     <converter-id>org.apache.myfaces.trinidad.Number</converter-id>
     <converter-class>org.apache.myfaces.trinidadinternal.convert.NumberConverter</converter-class>
     <property>
+      <description><![CDATA[Whether the converter should be disabled, default to false.]]>
+      </description>
+      <property-name>disabled</property-name>
+      <property-class>boolean</property-class>
+      <default-value>false</default-value>
+    </property>
+    <property>
       <description><![CDATA[The ISO 4217 currency code, applied only when formatting currencies.
            Currency code can also be set for the entire application in trinidad-config.xml file.
            If currency code is not set on the converter, and if set on

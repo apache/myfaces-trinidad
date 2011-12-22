@@ -375,7 +375,10 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
     UIComponent component,
     Object value
     ) throws ValidatorException
-  {
+  {   
+    if (isDisabled())
+      return;
+    
     if ((context == null) || (component == null))
     {
       throw new NullPointerException();
@@ -520,6 +523,67 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
     _transientValue = transientValue;
   }
 
+  @Override
+  public boolean equals(Object otherObj) 
+  {
+    if (!(otherObj instanceof LengthValidator)) 
+    {
+      return false;
+    }
+    
+    LengthValidator other = (LengthValidator) otherObj;
+    
+    return ((this.getMaximum() == other.getMaximum())
+            && (this.getMinimum() == other.getMinimum())
+            && (this.isMinimumSet() == other.isMinimumSet())
+            && (this.isMaximumSet() == other.isMaximumSet())
+            && (this.isDisabled() == other.isDisabled())
+            && (this.isTransient() == other.isTransient()));
+  }
+
+  @Override
+  public int hashCode() 
+  {
+    int result = 17;
+    Object msgDetExact      =  getMessageDetailExact();
+    Object maxMsgDet        =  getMessageDetailMaximum();
+    Object minMsgDet        =  getMessageDetailMinimum();
+    Object notInRangeMsgDet =  getMessageDetailNotInRange();
+    
+    result = 37 * result + (isDisabled() ? 1 : 0);    
+    result = 37 * result + (isTransient() ? 0 : 1);
+    result = 37 * result + (isMaximumSet() ? 0 : 1);
+    result = 37 * result + (isMinimumSet() ? 0 : 1);
+    result = 37 * result + Integer.valueOf(getMinimum()).hashCode();
+    result = 37 * result + Integer.valueOf(getMaximum()).hashCode();
+    result = 37 * result + ( msgDetExact == null ? 0 : msgDetExact.hashCode());
+    result = 37 * result + ( maxMsgDet == null ? 0 : maxMsgDet.hashCode());
+    result = 37 * result + ( minMsgDet == null ? 0 : minMsgDet.hashCode());
+    result = 37 * result + ( notInRangeMsgDet == null ? 0 : notInRangeMsgDet.hashCode());
+    
+    return result;
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */ 
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */  
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
+  }  
+
   protected boolean isMaximumSet()
   {
     return _facesBean.getProperty(_MAXIMUM_KEY) != null;
@@ -623,6 +687,12 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   }
   
   private static final FacesBean.Type _TYPE = new FacesBean.Type();
+ 
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled",
+                      Boolean.class,
+                      Boolean.FALSE);
   
   // Default is zero, not MIN_VALUE
   private static final PropertyKey _MINIMUM_KEY =

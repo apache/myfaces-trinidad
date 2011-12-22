@@ -287,7 +287,10 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     FacesContext context,
     UIComponent component,
     String value)
-  {
+  { 
+    if (isDisabled())
+      return value;
+    
     Date date = _getParsedDate(context, component, value);
     if (date != null)
     {
@@ -320,7 +323,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     UIComponent component,
     Object value
     )
-  {
+  { 
     if (context == null || component == null)
       throw new NullPointerException(_LOG.getMessage(
         "NULL_FACESCONTEXT_OR_UICOMPONENT"));
@@ -330,6 +333,9 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
     if (value instanceof String)
       return (String)value;
+
+    if (isDisabled())
+      return value.toString();
 
     if (!(value instanceof Date))
       throw new ClassCastException(_LOG.getMessage(
@@ -1097,7 +1103,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     {
       DateTimeConverter other = (DateTimeConverter)object;
 
-      if ( (isTransient() == other.isTransient())
+      if ( (isDisabled() == other.isDisabled())
+           && (isTransient() == other.isTransient())
            && ConverterUtils.equals(getDateStyle(), other.getDateStyle())
            && ConverterUtils.equals(getLocale(), other.getLocale())
            && ConverterUtils.equals(getPattern(), other.getPattern())
@@ -1127,6 +1134,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   public int hashCode()
   {
     int result = 17;
+    result = result * 37 + (isDisabled() ? 1 : 0);    
     result = result * 37 + (isTransient()? 1 : 0);
     result = result * 37 + _getHashValue(getDateStyle());
     result = result * 37 + _getHashValue(getLocale());
@@ -1139,6 +1147,26 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     result = result * 37 + _getHashValue(getMessageDetailConvertTime());
     result = result * 37 + _getHashValue(getMessageDetailConvertBoth());
     return result;
+  }
+
+  /**
+   * <p>Set the value to property <code>disabled</code>. Default value is false.</p>
+   * @param isDisabled <code>true</code> if it's disabled, <code>false</code> otherwise.
+   */  
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */  
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
   }
 
   protected final DateFormat getDateFormat(
@@ -1923,6 +1951,10 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
   private static final PropertyKey  _HINT_BOTH_KEY =
     _TYPE.registerKey("hintBoth", String.class);
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 

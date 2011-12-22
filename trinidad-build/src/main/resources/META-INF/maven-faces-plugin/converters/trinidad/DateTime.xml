@@ -29,7 +29,14 @@
     <display-name>Date Time Converter</display-name>
     <converter-id>org.apache.myfaces.trinidad.DateTime</converter-id>
     <converter-class>org.apache.myfaces.trinidadinternal.convert.DateTimeConverter</converter-class>
-        <property>
+    <property>
+      <description><![CDATA[Whether the converter should be disabled, default to false.]]>
+      </description>
+      <property-name>disabled</property-name>
+      <property-class>boolean</property-class>
+      <default-value>false</default-value>
+    </property>
+    <property>
       <description><![CDATA[<html><p>
               Custom error message to be used, for creating detail part of
               faces message, for values that cannot be converted to date when

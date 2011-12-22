@@ -28,6 +28,13 @@
     <validator-id>org.apache.myfaces.trinidad.DateRestriction</validator-id>
     <validator-class>org.apache.myfaces.trinidadinternal.validator.DateRestrictionValidator</validator-class>
     <property>
+      <description><![CDATA[Whether the converter should be disabled, default to false.]]>
+      </description>
+      <property-name>disabled</property-name>
+      <property-class>boolean</property-class>
+      <default-value>false</default-value>
+    </property>
+    <property>
       <description><![CDATA[Specify the month which are invalid for your use case.
            The attribute takes a whitespace delimited list of months.
            Possible values are jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec.]]>

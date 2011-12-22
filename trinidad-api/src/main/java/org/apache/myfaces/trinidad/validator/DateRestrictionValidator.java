@@ -219,6 +219,9 @@ public class DateRestrictionValidator implements Validator, StateHolder {
     UIComponent  component,
     Object       value) throws ValidatorException
   {
+    if (isDisabled())
+      return;
+    
     if ((context == null) || (component == null))
     {
       throw new NullPointerException(_LOG.getMessage(
@@ -375,6 +378,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
       DateRestrictionValidator that = (DateRestrictionValidator)o;
 
       if ( _transientValue == that._transientValue &&
+           isDisabled() == that.isDisabled() &&
            (ValidatorUtils.equals(getInvalidDays(), that.getInvalidDays())) &&
            (ValidatorUtils.equals(getInvalidDaysOfWeek(), that.getInvalidDaysOfWeek())) &&
            (ValidatorUtils.equals(getInvalidMonths(), that.getInvalidMonths())) &&
@@ -407,12 +411,32 @@ public class DateRestrictionValidator implements Validator, StateHolder {
     result = 37 * result + ( daysOfWeek == null ? 0 : daysOfWeek.hashCode());
     result = 37 * result + ( month == null ? 0 : month.hashCode());
     result = 37 * result + ( _transientValue ? 0 : 1);
+    result = 37 * result + (isDisabled() ? 1 : 0);
     result = 37 * result + ( msgDetDays == null ? 0: msgDetDays.hashCode());
     result = 37 * result + ( msgDetDaysOfWeek == null ? 0: msgDetDaysOfWeek.hashCode());
     result = 37 * result + ( msgDetMonth == null ? 0: msgDetMonth.hashCode());
     return result;
   }
 
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */ 
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */  
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
+  }  
 
   private Converter _getConverter(
     FacesContext context,
@@ -632,6 +656,10 @@ public class DateRestrictionValidator implements Validator, StateHolder {
 
   private static final PropertyKey  _HINT_WEEK_KEY =
     _TYPE.registerKey("hintWeek", String.class);
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private static final PropertyKey  _HINT_MONTH_KEY =
     _TYPE.registerKey("hintMonth", String.class);
