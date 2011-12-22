@@ -378,7 +378,7 @@ public class CSSGenerationUtils
 
     if (_hasNamespacePrefix(shortSelector, namespacePrefixArray))
     {
-      String[] shortSelectorArray  = _splitStringByWhitespace(shortSelector);
+      String[] shortSelectorArray  = StyleUtils.splitStringByWhitespace(shortSelector);
 
       shortSelector =
         _getMappedNSSelector(shortStyleClassMap,
@@ -559,7 +559,7 @@ public class CSSGenerationUtils
         if (namespaceIndex > -1)
         {
           // get the selector up until the space.
-          String[] baseSelector = _splitStringByWhitespace(mappedSelector.substring(namespaceIndex));
+          String[] baseSelector = StyleUtils.splitStringByWhitespace(mappedSelector.substring(namespaceIndex));
           afComponentSelector = baseSelector[0];
           afSelectorList.add(afComponentSelector);
         }
@@ -911,7 +911,7 @@ public class CSSGenerationUtils
     }
 
     // build back the selectorArray into a string
-    return _arrayToStringWithSpaces(selectorArray);
+    return StyleUtils.arrayToStringWithSpaces(selectorArray);
   }
 
   private static String _getEachMappedSelector(
@@ -935,23 +935,26 @@ public class CSSGenerationUtils
     String wholeAfSelector = selector.substring(indexOfNSPrefix);
 
     // get main piece
-    int colonIndex = wholeAfSelector.indexOf("::");
+    int firstDoubleColonIndex = wholeAfSelector.indexOf("::");
 
     // get the part after the ::.
     // colonIndex will be 0 if there is no ::.
-    if (colonIndex != -1)
+    if (firstDoubleColonIndex != -1)
     {
-      if (_LOG.isWarning() &&
-          (wholeAfSelector.lastIndexOf("::") != colonIndex))
+      int lastDoubleColonIndex = wholeAfSelector.lastIndexOf("::");
+      
+      // We exceptionally support multiple occurence of double colon for the browser builtin pseudo elements
+      if (lastDoubleColonIndex != firstDoubleColonIndex && 
+          ! _BUILT_IN_PSEUDO_ELEMENTS.contains(wholeAfSelector.substring(lastDoubleColonIndex)))
       {
         _LOG.warning("UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX", selector);
       }
 
-      colonIndex += 2;
+      firstDoubleColonIndex += 2;
     }
     else
-      colonIndex = 0;
-    String afterDoubleColon = wholeAfSelector.substring(colonIndex);
+      firstDoubleColonIndex = 0;
+    String afterDoubleColon = wholeAfSelector.substring(firstDoubleColonIndex);
 
     // now find the part with a single ':', a ' ', a '[', or a '.'. That is where
     // I want to chop it to get my 'main' piece of the component selector.
@@ -969,21 +972,24 @@ public class CSSGenerationUtils
     String mainSelector;
     if (endIndex == afterLength)
     {
-      mainSelector = wholeAfSelector.substring(0, colonIndex + endIndex);
+      mainSelector = wholeAfSelector.substring(0, firstDoubleColonIndex + endIndex);
     }
     else
     {
-      mainSelector = wholeAfSelector.substring(0, colonIndex + endIndex-1);
+      mainSelector = wholeAfSelector.substring(0, firstDoubleColonIndex + endIndex-1);
     }
     String afterMain = null;
     if (endIndex != afterLength)
     {
       // If I got here, that means there are characters after the 'main' part
       // of the selector.
-      afterMain = wholeAfSelector.substring(colonIndex + endIndex-1);
+      afterMain = wholeAfSelector.substring(firstDoubleColonIndex + endIndex-1);
+      
       // map the afterMain part. It includes styleclasses and pseudo-classes.
       // we don't need to convert the pseudo-classes if we are shortening.
-      if (!shorten)
+      // Also very likely we are dealing with inbuilt pseudo elements that 
+      //  should not be converted, do not process them as pseudo classes.
+      if (!shorten && ! _BUILT_IN_PSEUDO_ELEMENTS.contains(afterMain))
         afterMain = _convertPseudoClassesInSelector(afterMain);
     }
 
@@ -1023,35 +1029,6 @@ public class CSSGenerationUtils
   }
 
   /*
-   * Returns a string representation of the contents of the specified array
-   * where adjacent elements are separated a space (" ").
-   */
-  private static String _arrayToStringWithSpaces(
-    String[] stringArray
-    )
-  {
-    int length = stringArray.length;
-    // if only one thing in the array, just return it to save some time.
-    if (stringArray.length == 1) return stringArray[0];
-
-    // get the bufferSize
-    int bufferSize = 0;
-    for (int i=0; i < length; i++)
-    {
-      bufferSize += stringArray[i].length() + 1;
-    }
-    // turn the array into a space deliminated String
-    StringBuffer returnString = new StringBuffer(bufferSize);
-    for (int i=0; i < length; i++)
-    {
-      returnString.append(stringArray[i]);
-      if (i+1 < length)
-        returnString.append(' ');
-    }
-    return returnString.toString();
-  }
-
-  /*
    * if I see this: af|foo:class:class::element, return this
    * af|foo:class:class and af|foo::element in a String array.
    * if I see this: af|foo:p-class.StyleClass::element, return this:
@@ -1063,7 +1040,7 @@ public class CSSGenerationUtils
   private static String[]  _orderPseudoElementsAndClasses(
     String selector)
   {
-    String[] input = _splitStringByWhitespace(selector);
+    String[] input = StyleUtils.splitStringByWhitespace(selector);
 
     List<String> output = new ArrayList<String>();
     for (int i=0; i < input.length; i++)
@@ -1138,7 +1115,7 @@ public class CSSGenerationUtils
       return selector;
 
     // split on spaces.
-    String[] spacerArray = _splitStringByWhitespace(selector);
+    String[] spacerArray = StyleUtils.splitStringByWhitespace(selector);
 
     for (int i=0; i < spacerArray.length; i++)
     {
@@ -1157,7 +1134,7 @@ public class CSSGenerationUtils
       }
     }
     return StyleUtils.convertToValidSelector(
-      _arrayToStringWithSpaces(spacerArray));
+      StyleUtils.arrayToStringWithSpaces(spacerArray));
 
   }
 
@@ -1295,59 +1272,6 @@ public class CSSGenerationUtils
     return completeBuffer.toString();
   }
 
-  /**
-   * return the array of strings computed by splitting this string
-   * around one or more whitespaces This calls Character.isWhitespace to determine if it is
-   * whitespace. This is important because tabs, newlines, etc count as whitespace
-   * in the selector strings. This is faster than String's split("\\s")
-   * @param selector
-   * @return String[] The array of Strings computed by splitting the input String
-   * around one or more spaces. e.g, "af|foo    af|bar" returns "af|foo" and "af|bar" in
-   * a String Array.
-   */
-  private static String[] _splitStringByWhitespace (
-    String  selector)
-  {
-    // return a String[] with each piece that is deliminated by the inChar.
-    int length = selector.length();
-    StringBuffer buffer = new StringBuffer(length);
-    List<String> splitList = new ArrayList<String>();
-    boolean inWhitespace = false;
-
-    for (int i=0; i < length; i++)
-    {
-      char c = selector.charAt(i);
-      if (Character.isWhitespace(c))
-      {
-        // we hit the whitespace delimiter, so put it in the splitList and start a new buffer.
-        // ignore spaces that are in a row
-        if (!inWhitespace)
-        {
-          String bufferString = buffer.toString();
-          if (bufferString.length() > 0)
-          {
-            splitList.add(bufferString);
-            buffer = new StringBuffer(length);
-            inWhitespace = true;
-          }
-        }
-      }
-      else
-      {
-        buffer.append(c);
-        if (inWhitespace)
-          inWhitespace = false;
-      }
-    }
-    // we are done with all the characters
-    String lastString = buffer.toString();
-    if (lastString.length() > 0)
-      splitList.add(lastString);
-
-    return splitList.toArray(_EMPTY_STRING_ARRAY);
-
-  }
-
   // run through the map. If it's not in the map, return the selector unchanged.
   private static String _runThroughMap(Map<String, String> map, String selector)
   {
@@ -1411,8 +1335,10 @@ public class CSSGenerationUtils
   }
 
   // We want to output to the css the browser-supported pseudo-classes as is
-  static private final Set<String> _BUILT_IN_PSEUDO_CLASSES =
-    new HashSet<String>();
+  static private final Set<String> _BUILT_IN_PSEUDO_CLASSES = new HashSet<String>();
+
+  // We want to output to the css the browser-supported pseudo-elements (HTML5/ CSS3) as is
+  static private final Set<String> _BUILT_IN_PSEUDO_ELEMENTS = new HashSet<String>();
   static
   {
     _BUILT_IN_PSEUDO_CLASSES.add(":first-child");
@@ -1421,10 +1347,21 @@ public class CSSGenerationUtils
     _BUILT_IN_PSEUDO_CLASSES.add(":hover");
     _BUILT_IN_PSEUDO_CLASSES.add(":active");
     _BUILT_IN_PSEUDO_CLASSES.add(":focus");
-  }
+    _BUILT_IN_PSEUDO_CLASSES.add(":-moz-placeholder");
 
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::outside");
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::before");
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::after");
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::alternate");
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::first-line");
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::first-letter");
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::marker");
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::line-marker");
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::selection");
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::-webkit-input-placeholder");
+  }
+  
   private static final Pattern _DASH_PATTERN =  Pattern.compile("-");
-  private static final String[] _EMPTY_STRING_ARRAY = new String[0];
   private static final int _MSIE_SELECTOR_LIMIT = 4095;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CSSGenerationUtils.class);
