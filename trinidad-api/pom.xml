@@ -119,21 +119,26 @@
 
   <build>
     <plugins>
-      <plugin>
+       <plugin>
          <groupId>org.codehaus.mojo</groupId> 	 
          <artifactId>clirr-maven-plugin</artifactId> 	 
          <version>2.3</version> 	 
          <configuration>
            <minSeverity>error</minSeverity> 	 
            <textOutputFile>${project.basedir}/target/clirr-runner.txt</textOutputFile> 	 
-           <failOnError>false</failOnError> 	 
-           <comparisonArtifacts> 	 
+           <failOnError>false</failOnError> 
+           <!-- 
+           This used to verify a specific version, but it was removed because we really want
+           to verify against the "previous" version to ensure that new API's are handled 
+           accordingly.
+           -->
+           <!-- comparisonArtifacts> 	 
              <comparisonArtifact> 	 
                <groupId>org.apache.myfaces.trinidad</groupId> 	 
                <artifactId>trinidad-api</artifactId> 	 
                <version>1.2.15</version> 	 
              </comparisonArtifact> 	 
-           </comparisonArtifacts> 	 
+           </comparisonArtifacts --> 	 
          </configuration> 	 
          <executions> 	 
            <execution> 	 
