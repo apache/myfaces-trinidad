@@ -1138,8 +1138,8 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- EXTRACT_SERIALIZATION_DETAIL -->
 <resource key="EXTRACT_SERIALIZATION_DETAIL"> failed value=</resource>
 
-<!-- ATTRIBUTE_NOT_SERIALIABLE -->
-<resource key="ATTRIBUTE_NOT_SERIALIABLE">Failover error: {0} attribute:{1} of type {2} is not Serializable</resource>
+<!-- ATTRIBUTE_NOT_SERIALIZABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIZABLE">Failover error: {0} attribute:{1} of type {2} is not Serializable</resource>
 
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED">Failover error: Serialization of {0} attribute:{1} has changed from {2} to {3} without the attribute being dirtied</resource>
