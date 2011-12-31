@@ -34,11 +34,11 @@ public class ShowDetailItemDemo extends AbstractComponentDemo {
         Default
     }
 
-	/**
-	 * Constructor.
-	 */
-	public ShowDetailItemDemo() {
-		super(ComponentDemoId.showDetailItem, "Show Detail Item");
+  /**
+   * Constructor.
+   */
+  public ShowDetailItemDemo() {
+    super(ComponentDemoId.showDetailItem, "Show Detail Item");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class ShowDetailItemDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/showDetail/showDetailItem/summary.xhtml";

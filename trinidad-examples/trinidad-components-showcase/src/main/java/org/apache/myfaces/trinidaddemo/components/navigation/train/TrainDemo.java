@@ -31,15 +31,15 @@ public class TrainDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982060956387098910L;
 
     static enum VARIANTS implements IComponentDemoVariantId {
-		PlusOne,
+    PlusOne,
         MaxVisited
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public TrainDemo() {
-		super(ComponentDemoId.train, "Train");
+  /**
+   * Constructor.
+   */
+  public TrainDemo() {
+    super(ComponentDemoId.train, "Train");
         
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.PlusOne, "Plus One", this,
                 new String[]{
@@ -59,13 +59,13 @@ public class TrainDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.PlusOne);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/navigation/train/summary.xhtml";
     }
     
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/navigation/train/TrainBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/navigation/train/TrainBean.java";
+  }
 }

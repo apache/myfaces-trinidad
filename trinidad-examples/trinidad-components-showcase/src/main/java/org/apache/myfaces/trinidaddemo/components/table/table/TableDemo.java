@@ -32,18 +32,18 @@ public class TableDemo extends AbstractComponentDemo {
 
     private enum VARIANTS implements IComponentDemoVariantId {
         GridLines,
-		NoGridLines,
+    NoGridLines,
         SingleRowSelection,
         MultipleRowSelection,
         ShowHide,
         Pagination
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public TableDemo() {
-		super(ComponentDemoId.table, "Table");
+  /**
+   * Constructor.
+   */
+  public TableDemo() {
+    super(ComponentDemoId.table, "Table");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.GridLines, "Grid lines", this,
                 new String[]{
@@ -71,14 +71,14 @@ public class TableDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.GridLines);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/table/table/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java";
+  }
 
 }

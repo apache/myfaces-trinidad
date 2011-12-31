@@ -51,14 +51,14 @@ public final class ContainerUtils
 
       throw new NullPointerException("value");
 
-    }
+    }
 
     int start = value.indexOf("#{");
 
 
     if (start < 0)
     {
-      return false;
+      return false;
 
     }
 

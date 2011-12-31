@@ -31,15 +31,15 @@ public class PanelPageHeaderDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982067356482438720L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Compact,
+    Compact,
         Expanded,
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public PanelPageHeaderDemo() {
-		super(ComponentDemoId.panelPageHeader, "Panel Page Header");
+  /**
+   * Constructor.
+   */
+  public PanelPageHeaderDemo() {
+    super(ComponentDemoId.panelPageHeader, "Panel Page Header");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Compact, "Compact", this,
                 new String[]{
@@ -52,7 +52,7 @@ public class PanelPageHeaderDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.Compact);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelPageHeader/summary.xhtml";

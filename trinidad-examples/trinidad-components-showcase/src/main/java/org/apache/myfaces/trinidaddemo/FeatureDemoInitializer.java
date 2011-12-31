@@ -67,23 +67,23 @@ public class FeatureDemoInitializer {
         return instance;
     }
 
-	public void init() {
-		FeatureDemoRegistry registry = FeatureDemoRegistry.getInstance();
+  public void init() {
+    FeatureDemoRegistry registry = FeatureDemoRegistry.getInstance();
         registerFeatureDemos(registry);
-	}
+  }
 
     /**
      * @param registry
      */
     public void registerFeatureDemos(FeatureDemoRegistry registry) {
         //  registering Layout Converters And Validators components
-		registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new ClientSideConvertersDemo());
-		registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new ClientSideValidatorsDemo());
-		registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new ClientSideDateRestrictionDemo());
-		registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new ServerSideConvertersDemo());
-		registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new ServerSideValidatorsDemo());
-		registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new ServerSideDateRestrictionsDemo());
- 		registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new MessageCustomizationDemo());             
+    registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new ClientSideConvertersDemo());
+    registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new ClientSideValidatorsDemo());
+    registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new ClientSideDateRestrictionDemo());
+    registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new ServerSideConvertersDemo());
+    registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new ServerSideValidatorsDemo());
+    registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new ServerSideDateRestrictionsDemo());
+    registry.registerFeatureDemo(FeatureDemoCategoryId.convertersAndValidators, CATEGORY_CONVERTERS_AND_VALIDATORS_TITLE, new MessageCustomizationDemo());             
 
         registry.registerFeatureDemo(FeatureDemoCategoryId.changePersistence, CHANGE_PERSISTENCE_TITLE, new AddRemoveFacetsDemo());
         registry.registerFeatureDemo(FeatureDemoCategoryId.changePersistence, CHANGE_PERSISTENCE_TITLE, new AddRemoveReorderChildrenDemo());

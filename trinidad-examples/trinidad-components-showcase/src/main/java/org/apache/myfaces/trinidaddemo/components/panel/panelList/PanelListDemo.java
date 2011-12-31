@@ -34,11 +34,11 @@ public class PanelListDemo extends AbstractComponentDemo {
         Default
     }
 
-	/**
-	 * Constructor.
-	 */
-	public PanelListDemo() {
-		super(ComponentDemoId.panelList, "Panel List");
+  /**
+   * Constructor.
+   */
+  public PanelListDemo() {
+    super(ComponentDemoId.panelList, "Panel List");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class PanelListDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelList/summary.xhtml";

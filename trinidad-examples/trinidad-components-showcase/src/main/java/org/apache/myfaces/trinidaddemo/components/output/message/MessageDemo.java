@@ -31,18 +31,18 @@ public class MessageDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982371956886499710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		None,
+    None,
         Warning,
         Info,
         Error,
         Help
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public MessageDemo() {
-		super(ComponentDemoId.message, "Message");
+  /**
+   * Constructor.
+   */
+  public MessageDemo() {
+    super(ComponentDemoId.message, "Message");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.None, this,
                 new String[]{
@@ -66,7 +66,7 @@ public class MessageDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.None);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/output/message/summary.xhtml";

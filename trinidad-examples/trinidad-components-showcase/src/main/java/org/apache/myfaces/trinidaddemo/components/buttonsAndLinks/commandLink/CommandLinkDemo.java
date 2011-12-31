@@ -31,14 +31,14 @@ public class CommandLinkDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956883408710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}    
+    Default
+  }    
 
-	/**
-	 * Constructor.
-	 */
-	public CommandLinkDemo() {
-		super(ComponentDemoId.commandLink , "Command Link");
+  /**
+   * Constructor.
+   */
+  public CommandLinkDemo() {
+    super(ComponentDemoId.commandLink , "Command Link");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "DefaultR", this,
             new String[]{
@@ -46,15 +46,15 @@ public class CommandLinkDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/buttonsAndLinks/commandLink/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/buttonsAndLinks/commandLink/CommandLinkBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/buttonsAndLinks/commandLink/CommandLinkBean.java";
+  }
 
     public String getSkinDocumentationLink(){
         return null;

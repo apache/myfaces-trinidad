@@ -31,14 +31,14 @@ public class SpacerDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982071956886498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public SpacerDemo() {
-		super(ComponentDemoId.spacer, "Spacer");
+  /**
+   * Constructor.
+   */
+  public SpacerDemo() {
+    super(ComponentDemoId.spacer, "Spacer");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class SpacerDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/layout/spacer/summary.xhtml";

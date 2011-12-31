@@ -31,18 +31,18 @@ public class NavigationPaneDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982060956383498310L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Bar,
+    Bar,
         Buttons,
         Choice,
         List,
         Tabs
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public NavigationPaneDemo() {
-		super(ComponentDemoId.navigationPane, "Navigation Pane");
+  /**
+   * Constructor.
+   */
+  public NavigationPaneDemo() {
+    super(ComponentDemoId.navigationPane, "Navigation Pane");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Bar, this,
                 new String[]{
@@ -66,7 +66,7 @@ public class NavigationPaneDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.Tabs);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/navigation/navigationPane/summary.xhtml";

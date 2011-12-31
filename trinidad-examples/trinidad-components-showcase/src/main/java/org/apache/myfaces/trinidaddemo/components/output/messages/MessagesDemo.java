@@ -31,14 +31,14 @@ public class MessagesDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982371956881498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public MessagesDemo() {
-		super(ComponentDemoId.messages, "Messages");
+  /**
+   * Constructor.
+   */
+  public MessagesDemo() {
+    super(ComponentDemoId.messages, "Messages");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,13 +46,13 @@ public class MessagesDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/output/messages/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/output/messages/MessagesBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/output/messages/MessagesBean.java";
+  }
 }

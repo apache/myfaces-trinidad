@@ -31,16 +31,16 @@ public class PanelPopupDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982064956382498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Hover,
+    Hover,
         Centered,
         Relative
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public PanelPopupDemo() {
-		super(ComponentDemoId.panelPopup, "Panel Popup");
+  /**
+   * Constructor.
+   */
+  public PanelPopupDemo() {
+    super(ComponentDemoId.panelPopup, "Panel Popup");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Relative, this,
                 new String[]{
@@ -56,7 +56,7 @@ public class PanelPopupDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.Relative);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelPopup/summary.xhtml";

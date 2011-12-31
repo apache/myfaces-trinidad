@@ -126,10 +126,10 @@ public class ComponentDemoInitializer  {
         return instance;
     }
 
-	public void init() {
-		ComponentDemoRegistry registry = ComponentDemoRegistry.getInstance();
+  public void init() {
+    ComponentDemoRegistry registry = ComponentDemoRegistry.getInstance();
         registerComponentDemos(registry);
-	}
+  }
 
     /**
      * @param registry
@@ -139,7 +139,7 @@ public class ComponentDemoInitializer  {
         //registry.registerComponentDemo(ComponentDemoCategoryId.panel, CATEGORY_PANEL_TITLE, new FormDemo());
         registry.registerComponentDemo(ComponentDemoCategoryId.panel, CATEGORY_PANEL_TITLE, new GroupDemo());
         registry.registerComponentDemo(ComponentDemoCategoryId.panel, CATEGORY_PANEL_TITLE, new PageDemo());
-		registry.registerComponentDemo(ComponentDemoCategoryId.panel, CATEGORY_PANEL_TITLE, new AccordionPanelDemo());
+    registry.registerComponentDemo(ComponentDemoCategoryId.panel, CATEGORY_PANEL_TITLE, new AccordionPanelDemo());
         registry.registerComponentDemo(ComponentDemoCategoryId.panel, CATEGORY_PANEL_TITLE, new PanelBoxDemo());
         registry.registerComponentDemo(ComponentDemoCategoryId.panel, CATEGORY_PANEL_TITLE, new PanelButtonBarDemo());
         registry.registerComponentDemo(ComponentDemoCategoryId.panel, CATEGORY_PANEL_TITLE, new PanelCaptionGroupDemo());
@@ -156,9 +156,9 @@ public class ComponentDemoInitializer  {
         registry.registerComponentDemo(ComponentDemoCategoryId.panel, CATEGORY_PANEL_TITLE, new PanelTipDemo());
 
         //  registering Layout category components
-		registry.registerComponentDemo(ComponentDemoCategoryId.layout, CATEGORY_LAYOUT_TITLE, new BorderLayoutDemo());
-		registry.registerComponentDemo(ComponentDemoCategoryId.layout, CATEGORY_LAYOUT_TITLE, new FormLayoutDemo());
-		registry.registerComponentDemo(ComponentDemoCategoryId.layout, CATEGORY_LAYOUT_TITLE, new GroupLayoutDemo());
+    registry.registerComponentDemo(ComponentDemoCategoryId.layout, CATEGORY_LAYOUT_TITLE, new BorderLayoutDemo());
+    registry.registerComponentDemo(ComponentDemoCategoryId.layout, CATEGORY_LAYOUT_TITLE, new FormLayoutDemo());
+    registry.registerComponentDemo(ComponentDemoCategoryId.layout, CATEGORY_LAYOUT_TITLE, new GroupLayoutDemo());
         registry.registerComponentDemo(ComponentDemoCategoryId.layout, CATEGORY_LAYOUT_TITLE, new HorizontalLayoutDemo());
         registry.registerComponentDemo(ComponentDemoCategoryId.layout, CATEGORY_LAYOUT_TITLE, new SeparatorDemo());
         registry.registerComponentDemo(ComponentDemoCategoryId.layout, CATEGORY_LAYOUT_TITLE, new SpacerDemo());

@@ -32,17 +32,17 @@ public class ShowDetailHeaderDemo extends AbstractComponentDemo {
 
     private enum VARIANTS implements IComponentDemoVariantId {
         NoneMessage,
-		ConfirmationMessage,
+    ConfirmationMessage,
         InfoMessage,
         ErrorMessage,
         WarningMessage
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public ShowDetailHeaderDemo(){
-		super(ComponentDemoId.showDetailHeader, "Show Detail Header");
+  /**
+   * Constructor.
+   */
+  public ShowDetailHeaderDemo(){
+    super(ComponentDemoId.showDetailHeader, "Show Detail Header");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoneMessage, "None Message", this,
                 new String[]{
@@ -66,7 +66,7 @@ public class ShowDetailHeaderDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.NoneMessage);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/showDetail/showDetailHeader/summary.xhtml";

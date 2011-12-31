@@ -31,14 +31,14 @@ public class PanelSideBarDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956382492710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public PanelSideBarDemo() {
-		super(ComponentDemoId.panelSideBar, "Panel Side Bar");
+  /**
+   * Constructor.
+   */
+  public PanelSideBarDemo() {
+    super(ComponentDemoId.panelSideBar, "Panel Side Bar");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class PanelSideBarDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);        
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelSideBar/summary.xhtml";

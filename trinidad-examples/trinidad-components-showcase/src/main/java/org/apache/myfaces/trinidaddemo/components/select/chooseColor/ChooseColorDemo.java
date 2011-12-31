@@ -31,14 +31,14 @@ public class ChooseColorDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956883398710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public ChooseColorDemo() {
-		super(ComponentDemoId.chooseColor, "Choose Color");
+  /**
+   * Constructor.
+   */
+  public ChooseColorDemo() {
+    super(ComponentDemoId.chooseColor, "Choose Color");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class ChooseColorDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);        
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/chooseColor/summary.xhtml";

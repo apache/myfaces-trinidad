@@ -26,25 +26,25 @@ import java.util.List;
  */
 public interface IFeatureDemoCategory extends Serializable {
 
-	/**
-	 * @return the name of this category.
-	 */
-	String getName();
+  /**
+   * @return the name of this category.
+   */
+  String getName();
 
-	/**
-	 * @return the unique identifier of this category, unique across the whole application.
-	 */
-	FeatureDemoCategoryId getId();
+  /**
+   * @return the unique identifier of this category, unique across the whole application.
+   */
+  FeatureDemoCategoryId getId();
 
-	/**
-	 * Adds the specified feature demo to this category.
-	 */
-	void addFeatureDemo(IFeatureDemo featureDemo);
+  /**
+   * Adds the specified feature demo to this category.
+   */
+  void addFeatureDemo(IFeatureDemo featureDemo);
 
-	/**
-	 * Returns a list containing the feature demos part of this category.
-	 *
-	 * @return a list containing the feature demos part of this category.
-	 */
-	List<IFeatureDemo> getFeatureDemos();
+  /**
+   * Returns a list containing the feature demos part of this category.
+   *
+   * @return a list containing the feature demos part of this category.
+   */
+  List<IFeatureDemo> getFeatureDemos();
 }

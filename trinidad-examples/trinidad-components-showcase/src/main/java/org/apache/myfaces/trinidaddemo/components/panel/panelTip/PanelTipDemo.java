@@ -31,14 +31,14 @@ public class PanelTipDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061356382498740L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public PanelTipDemo() {
-		super(ComponentDemoId.panelTip, "Panel Tip");
+  /**
+   * Constructor.
+   */
+  public PanelTipDemo() {
+    super(ComponentDemoId.panelTip, "Panel Tip");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class PanelTipDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelTip/summary.xhtml";

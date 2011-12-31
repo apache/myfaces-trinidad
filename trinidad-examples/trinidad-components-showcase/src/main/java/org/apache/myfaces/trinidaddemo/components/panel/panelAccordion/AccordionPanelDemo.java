@@ -28,16 +28,16 @@ import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
  */
 public class AccordionPanelDemo extends AbstractComponentDemo {
 
-	private static final long serialVersionUID = -4995780657798809893L;
+  private static final long serialVersionUID = -4995780657798809893L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		DiscloseOne,
+    DiscloseOne,
         DiscloseMany,
         DiscloseNone
-	}
+  }
 
-	public AccordionPanelDemo() {
-		super(ComponentDemoId.panelAccordion, "Accordion Panel");
+  public AccordionPanelDemo() {
+    super(ComponentDemoId.panelAccordion, "Accordion Panel");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.DiscloseOne, "Disclose One", this,
                 new String[]{
@@ -53,7 +53,7 @@ public class AccordionPanelDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.DiscloseOne);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelAccordion/summary.xhtml";

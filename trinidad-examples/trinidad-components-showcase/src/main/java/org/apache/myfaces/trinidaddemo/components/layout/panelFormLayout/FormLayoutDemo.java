@@ -31,15 +31,15 @@ public class FormLayoutDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -72121986754092646L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		LabelLeft,
-		LabelTop
-	}
+    LabelLeft,
+    LabelTop
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public FormLayoutDemo() {
-		super(ComponentDemoId.panelFormLayout, "Form Layout");
+  /**
+   * Constructor.
+   */
+  public FormLayoutDemo() {
+    super(ComponentDemoId.panelFormLayout, "Form Layout");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.LabelLeft, "Label left", this,
                 new String[]{
@@ -51,7 +51,7 @@ public class FormLayoutDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.LabelLeft);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/layout/formLayout/summary.xhtml";

@@ -45,9 +45,9 @@ import java.util.logging.Level;
 public class PrettyUrlFilter implements Filter {
 
     private enum TYPES{
-		component,
-		feature
-	}
+    component,
+    feature
+  }
 
     private static final Logger _LOG = Logger.getLogger(PrettyUrlFilter.class.getName());
 

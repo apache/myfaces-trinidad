@@ -25,19 +25,19 @@ import java.io.Serializable;
  */
 public interface IComponentVariantDemo extends Serializable {
 
-	/**
-	 * Returns the unique identifier of this component demo, unique across the whole application. 
-	 * 
-	 * @return the unique identifier of this component demo. 
-	 */
-	ComponentDemoId getId();
-	
-	/**
-	 * Returns the title to be shown at the top in the corresponding JSF page. 
-	 *  
-	 * @return the title or null if none is available.
-	 */
-	String getTitle();
+  /**
+   * Returns the unique identifier of this component demo, unique across the whole application. 
+   * 
+   * @return the unique identifier of this component demo. 
+   */
+  ComponentDemoId getId();
+  
+  /**
+   * Returns the title to be shown at the top in the corresponding JSF page. 
+   *  
+   * @return the title or null if none is available.
+   */
+  String getTitle();
 
     /**
      * Returns a short description about this component demo variant. Used as a value for  <meta name="description"/>
@@ -52,20 +52,20 @@ public interface IComponentVariantDemo extends Serializable {
      * @return the path.
      */
     String getDestination();
-	
-	/**
-	 * Returns the category this component demo belongs to.
-	 * 
-	 * @return the category or null if none is available.
-	 */
-	IComponentDemoCategory getCategory();
-	
-	/**
-	 * Returns  the name of this variant.
-	 * 
-	 * @return the name or null if none is available.
-	 */
-	IComponentDemoVariantId getVariantId();
+  
+  /**
+   * Returns the category this component demo belongs to.
+   * 
+   * @return the category or null if none is available.
+   */
+  IComponentDemoCategory getCategory();
+  
+  /**
+   * Returns  the name of this variant.
+   * 
+   * @return the name or null if none is available.
+   */
+  IComponentDemoVariantId getVariantId();
 
     /**
      * @return
@@ -73,18 +73,18 @@ public interface IComponentVariantDemo extends Serializable {
     String getVariantDisplayName();
 
     /**
-	 * Returns the paths to the corresponding JSF pages.
-	 *
-	 * @return the paths or null if none is available.
-	 */
-	String[] getJsfResourcePaths();    
+   * Returns the paths to the corresponding JSF pages.
+   *
+   * @return the paths or null if none is available.
+   */
+  String[] getJsfResourcePaths();    
 
     /**
-	 * Returns the entry page path to the corresponding JSF page.
-	 *
-	 * @return the path or null if none is available.
-	 */
-	String getEntryPagePath();
+   * Returns the entry page path to the corresponding JSF page.
+   *
+   * @return the path or null if none is available.
+   */
+  String getEntryPagePath();
 
     /**
      * Returns the path to the corresponding JSF fragment which represents the summary of this demo.
@@ -92,19 +92,19 @@ public interface IComponentVariantDemo extends Serializable {
      * @return the resource path, or null if none exists
      */
     String getSummaryResourcePath();
-	
-	/**
-	 * If this component demo is a dynamic one, this method returns the path to the backing bean's java source file. 
-	 * 
-	 * @return the path to the backing bean's java source file.
-	 */
-	String getBackingBeanResourcePath();
-	
-	/**
-	 * Returns true of this component demo is a static one, e.g. there is no dynamic behavior associated with it and  
-	 * there is no backing bean defined for it.
-	 * 
-	 * @return true if this component demo is static, otherwise returns false.
-	 */
-	boolean isStatic();
+  
+  /**
+   * If this component demo is a dynamic one, this method returns the path to the backing bean's java source file. 
+   * 
+   * @return the path to the backing bean's java source file.
+   */
+  String getBackingBeanResourcePath();
+  
+  /**
+   * Returns true of this component demo is a static one, e.g. there is no dynamic behavior associated with it and  
+   * there is no backing bean defined for it.
+   * 
+   * @return true if this component demo is static, otherwise returns false.
+   */
+  boolean isStatic();
 }

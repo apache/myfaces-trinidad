@@ -32,19 +32,19 @@ public class MediaDemo extends AbstractComponentDemo {
 
     private enum VARIANTS implements IComponentDemoVariantId {
         Typical,
-		AllControls,
+    AllControls,
         Link,
         NoControls,
         Quicktime,
         Real,
         Windows
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public MediaDemo() {
-		super(ComponentDemoId.media, "Media");
+  /**
+   * Constructor.
+   */
+  public MediaDemo() {
+    super(ComponentDemoId.media, "Media");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Typical, "Typical", this,
                 new String[]{
@@ -83,7 +83,7 @@ public class MediaDemo extends AbstractComponentDemo {
 
         setDefaultVariant(VARIANTS.Typical);
 
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/graphic/media/summary.xhtml";

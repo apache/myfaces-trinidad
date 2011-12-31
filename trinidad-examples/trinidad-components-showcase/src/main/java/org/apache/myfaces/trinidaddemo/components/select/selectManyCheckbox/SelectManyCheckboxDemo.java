@@ -31,16 +31,16 @@ public class SelectManyCheckboxDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1989061956814398310L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Simple,
+    Simple,
         Detailed,
         Horizontal
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public SelectManyCheckboxDemo() {
-		super(ComponentDemoId.selectManyCheckbox, "Select Many Checkbox");
+  /**
+   * Constructor.
+   */
+  public SelectManyCheckboxDemo() {
+    super(ComponentDemoId.selectManyCheckbox, "Select Many Checkbox");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
@@ -56,7 +56,7 @@ public class SelectManyCheckboxDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.Detailed);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectManyCheckbox/summary.xhtml";

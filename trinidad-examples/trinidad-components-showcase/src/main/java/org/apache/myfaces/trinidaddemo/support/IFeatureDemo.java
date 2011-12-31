@@ -25,26 +25,26 @@ import java.io.Serializable;
  */
 public interface IFeatureDemo extends Serializable {
 
-	/**
-	 * Returns the unique identifier of this component demo, unique across the whole application.
-	 *
-	 * @return the unique identifier of this component demo.
-	 */
-	FeatureDemoId getId();
+  /**
+   * Returns the unique identifier of this component demo, unique across the whole application.
+   *
+   * @return the unique identifier of this component demo.
+   */
+  FeatureDemoId getId();
 
-	/**
-	 * Returns the title to be shown at the top in the corresponding JSF page.
-	 *
-	 * @return the title or null if none is available.
-	 */
-	String getTitle();
+  /**
+   * Returns the title to be shown at the top in the corresponding JSF page.
+   *
+   * @return the title or null if none is available.
+   */
+  String getTitle();
 
-	/**
-	 * Returns the display name of this feature demo.
-	 *
-	 * @return the display name.
-	 */
-	String getDisplayName();
+  /**
+   * Returns the display name of this feature demo.
+   *
+   * @return the display name.
+   */
+  String getDisplayName();
 
     /**
      * Returns the path which can be used to navigate to this feature variant demo.
@@ -53,25 +53,25 @@ public interface IFeatureDemo extends Serializable {
      */
     String getDestination();
 
-	/**
-	 * Returns the category this feature demo belongs to.
-	 *
-	 * @return the category or null if none is available.
-	 */
-	IFeatureDemoCategory getCategory();
+  /**
+   * Returns the category this feature demo belongs to.
+   *
+   * @return the category or null if none is available.
+   */
+  IFeatureDemoCategory getCategory();
 
     /**
-	 * Returns the entry page path to the corresponding JSF page.
-	 *
-	 * @return the path or null if none is available.
-	 */
-	String getPagePath();
+   * Returns the entry page path to the corresponding JSF page.
+   *
+   * @return the path or null if none is available.
+   */
+  String getPagePath();
 
-	/**
-	 * Sets this feature demo's category to be the specified one.
-	 *
-	 * @param category the new category of this feature demo.
-	 */
-	void setCategory(IFeatureDemoCategory category);
+  /**
+   * Sets this feature demo's category to be the specified one.
+   *
+   * @param category the new category of this feature demo.
+   */
+  void setCategory(IFeatureDemoCategory category);
      
 }

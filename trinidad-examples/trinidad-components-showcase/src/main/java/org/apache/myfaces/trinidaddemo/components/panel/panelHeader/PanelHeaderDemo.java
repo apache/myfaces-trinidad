@@ -31,18 +31,18 @@ public class PanelHeaderDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956882338710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		ConfirmationMessage,
+    ConfirmationMessage,
         ErrorMessage,
         None,
         WarningMessage,
         InfoMessage
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public PanelHeaderDemo() {
-		super(ComponentDemoId.panelHeader, "Panel Header");
+  /**
+   * Constructor.
+   */
+  public PanelHeaderDemo() {
+    super(ComponentDemoId.panelHeader, "Panel Header");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ConfirmationMessage, this,
                 new String[]{
@@ -66,7 +66,7 @@ public class PanelHeaderDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.None);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelHeader/summary.xhtml";

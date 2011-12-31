@@ -31,16 +31,16 @@ public class SelectOneRadioDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1989061956014398585L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Simple,
+    Simple,
         Detailed,
         Horizontal,
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public SelectOneRadioDemo() {
-		super(ComponentDemoId.selectOneRadio, "Select One Radio");
+  /**
+   * Constructor.
+   */
+  public SelectOneRadioDemo() {
+    super(ComponentDemoId.selectOneRadio, "Select One Radio");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
@@ -56,7 +56,7 @@ public class SelectOneRadioDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.Detailed);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectOneRadio/summary.xhtml";

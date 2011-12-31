@@ -31,14 +31,14 @@ public class PanelCaptionGroupDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956882438710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public PanelCaptionGroupDemo() {
-		super(ComponentDemoId.panelCaptionGroup, "Panel Caption Group");
+  /**
+   * Constructor.
+   */
+  public PanelCaptionGroupDemo() {
+    super(ComponentDemoId.panelCaptionGroup, "Panel Caption Group");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class PanelCaptionGroupDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelCaptionGroup/summary.xhtml";

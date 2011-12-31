@@ -31,14 +31,14 @@ public class SelectItemDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1989061956813398310L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public SelectItemDemo() {
-		super(ComponentDemoId.selectItem, "Select Item");
+  /**
+   * Constructor.
+   */
+  public SelectItemDemo() {
+    super(ComponentDemoId.selectItem, "Select Item");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class SelectItemDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectItem/summary.xhtml";

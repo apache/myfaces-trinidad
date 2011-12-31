@@ -31,14 +31,14 @@ public class ChooseDateDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956813398710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public ChooseDateDemo() {
-		super(ComponentDemoId.chooseDate, "Choose Date");
+  /**
+   * Constructor.
+   */
+  public ChooseDateDemo() {
+    super(ComponentDemoId.chooseDate, "Choose Date");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class ChooseDateDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/chooseDate/summary.xhtml";

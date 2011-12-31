@@ -28,20 +28,20 @@ import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
  */
 public class HorizontalLayoutDemo extends AbstractComponentDemo {
 
-	private static final long serialVersionUID = -1982071956823498710L;
+  private static final long serialVersionUID = -1982071956823498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Left,
-		Middle,
+    Left,
+    Middle,
         Right,
         Top
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public HorizontalLayoutDemo() {
-		super(ComponentDemoId.panelHorizontalLayout, "Horizontal Layout");
+  /**
+   * Constructor.
+   */
+  public HorizontalLayoutDemo() {
+    super(ComponentDemoId.panelHorizontalLayout, "Horizontal Layout");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Left, this,
                 new String[]{
@@ -64,7 +64,7 @@ public class HorizontalLayoutDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.Left);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/layout/horizontalLayout/summary.xhtml";

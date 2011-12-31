@@ -67,7 +67,7 @@ abstract public class UIXSubformTemplate extends UIXComponentBase
 
     if (!submitted && isDefault() && !_isSomethingSubmitted(context))
     {
-	  submitted = true;
+    submitted = true;
       setSubmitted(true);
     }
 

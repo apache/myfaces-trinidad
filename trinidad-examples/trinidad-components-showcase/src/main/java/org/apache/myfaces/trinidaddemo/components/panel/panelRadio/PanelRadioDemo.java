@@ -31,17 +31,17 @@ public class PanelRadioDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982067956382498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Top,
+    Top,
         Center,
         Start,
         End
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public PanelRadioDemo() {
-		super(ComponentDemoId.panelRadio, "Panel Radio");
+  /**
+   * Constructor.
+   */
+  public PanelRadioDemo() {
+    super(ComponentDemoId.panelRadio, "Panel Radio");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Center, this,
                 new String[]{
@@ -61,7 +61,7 @@ public class PanelRadioDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.Center);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelRadio/summary.xhtml";

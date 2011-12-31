@@ -31,14 +31,14 @@ public class ResetButtonDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982361956883408710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}    
+    Default
+  }    
 
-	/**
-	 * Constructor.
-	 */
-	public ResetButtonDemo() {
-		super(ComponentDemoId.resetButton, "Reset Button");
+  /**
+   * Constructor.
+   */
+  public ResetButtonDemo() {
+    super(ComponentDemoId.resetButton, "Reset Button");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class ResetButtonDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/buttonsAndLinks/resetButton/summary.xhtml";

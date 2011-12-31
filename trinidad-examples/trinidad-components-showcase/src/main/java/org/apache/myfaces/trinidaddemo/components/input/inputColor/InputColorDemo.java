@@ -31,16 +31,16 @@ public class InputColorDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956883498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Compact,
-		Detailed,
+    Compact,
+    Detailed,
         Simple
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public InputColorDemo() {
-		super(ComponentDemoId.inputColor, "Input Color");
+  /**
+   * Constructor.
+   */
+  public InputColorDemo() {
+    super(ComponentDemoId.inputColor, "Input Color");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Compact, this,
                 new String[]{
@@ -58,7 +58,7 @@ public class InputColorDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.Detailed);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/input/inputColor/summary.xhtml";

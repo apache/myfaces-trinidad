@@ -31,8 +31,8 @@ public class TreeDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982060956387090010L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
     /**
      * Constructor.

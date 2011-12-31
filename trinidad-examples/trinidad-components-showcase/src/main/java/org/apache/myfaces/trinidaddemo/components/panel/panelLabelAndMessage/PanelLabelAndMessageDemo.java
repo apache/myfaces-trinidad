@@ -31,14 +31,14 @@ public class PanelLabelAndMessageDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061356882438720L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
     
-	/**
-	 * Constructor.
-	 */
-	public PanelLabelAndMessageDemo() {
-		super(ComponentDemoId.panelLabelAndMessage, "Panel Label And Message");
+  /**
+   * Constructor.
+   */
+  public PanelLabelAndMessageDemo() {
+    super(ComponentDemoId.panelLabelAndMessage, "Panel Label And Message");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class PanelLabelAndMessageDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelLabelAndMessage/summary.xhtml";

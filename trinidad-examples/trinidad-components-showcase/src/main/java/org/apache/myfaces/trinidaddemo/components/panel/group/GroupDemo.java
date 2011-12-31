@@ -31,14 +31,14 @@ public class GroupDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982064956882498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public GroupDemo() {
-		super(ComponentDemoId.group, "Group");
+  /**
+   * Constructor.
+   */
+  public GroupDemo() {
+    super(ComponentDemoId.group, "Group");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class GroupDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/group/summary.xhtml";

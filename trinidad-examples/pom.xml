@@ -18,6 +18,7 @@
     under the License.
 	   
 -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -80,23 +81,61 @@
   <modules>
     <module>trinidad-blank</module>
     <module>trinidad-demo</module>
-    <module>trinidad-components-showcase</module>
   </modules>
+
+  <!-- 
+  This is needed because an error in the master pom's configuration for checkstyle does not allow for
+  resource bundles to be named properly.  Eventually I'm thinking we'll want our own checkstyle configurations.
+  -->
+  <build>  
+    <plugins>
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>trinidad/checkstyle.xml</configLocation>
+          <headerLocation>default/myfaces-header.txt</headerLocation>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.myfaces.buildtools</groupId>
+            <artifactId>checkstyle-rules</artifactId>
+            <version>4</version>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.myfaces.trinidad</groupId>
+            <artifactId>trinidad-build</artifactId>
+            <version>${project.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
 
   <profiles>
     <!-- 
       This profile is for preparing a release.  Execute this profile like this:
       
-       mvn release:prepare -Papache-releae
+       mvn release:prepare
+       
+       NOTE: the apache-release profile is invoked on any execution of the maven-release-plugin
+       as per the apache-10 common ancestor file.
      -->
     <profile>
      <id>apache-release</id>
-
      <modules>
        <module>trinidad-example-assembly</module>
      </modules>      
     </profile>
     
+    <!--
+      This profile activates MyFaces as the release to use for these demos.  By default
+      MyFaces is used when these examples are run in Jetty and/or used with the -PincludeJSF
+      flag.  To invoke this profile, simply do not include a -Djsf= property on your maven
+      command line.  Execute this profile like this:
+      
+      mvn -PjettyConfig jetty:run
+    -->    
     <profile>
       <id>jettyConfig</id>
       <dependencyManagement>
@@ -128,15 +167,25 @@
          </dependencies>
        </dependencyManagement>
      </profile>
-    
-    <!--
-      This profile activates MyFaces as the release to use for these demos.  By default
-      MyFaces is used when these examples are run in Jetty and/or used with the -PincludeJSF
-      flag.  To invoke this profile, simply do not include a -Djsf= property on your maven
-      command line.  Execute this profile like this:
+     
+     <!--
+       The component showcase should only be included if we are not performing a release.  The activation of this
+       profile should only be invoked if release:perform has not been invoked.  Notice that this WILL invoke durring
+       a release:prepare.
+     -->
+     <profile>
+      <id>buildShowcase</id>
+      <activation>
+        <property>
+          <name>!performRelease</name>
+        </property>
+      </activation>      
       
-      mvn -PjettyConfig jetty:run
-    -->    
+      <modules>
+        <module>trinidad-components-showcase</module>
+      </modules>          
+     </profile>
+    
     <profile>
       <id>myfaces</id>
       <activation>

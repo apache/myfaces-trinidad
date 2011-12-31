@@ -31,14 +31,14 @@ public class IconDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956893498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
     
-	/**
-	 * Constructor.
-	 */
-	public IconDemo() {
-		super(ComponentDemoId.icon, "Icon");
+  /**
+   * Constructor.
+   */
+  public IconDemo() {
+    super(ComponentDemoId.icon, "Icon");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
                 new String[]{
@@ -46,7 +46,7 @@ public class IconDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/graphic/icon/summary.xhtml";

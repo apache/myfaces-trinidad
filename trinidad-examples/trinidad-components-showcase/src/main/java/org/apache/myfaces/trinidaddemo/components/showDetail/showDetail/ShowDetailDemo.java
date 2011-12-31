@@ -31,14 +31,14 @@ public class ShowDetailDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1989061456014398510L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public ShowDetailDemo() {
-		super(ComponentDemoId.showDetail, "Show Detail");
+  /**
+   * Constructor.
+   */
+  public ShowDetailDemo() {
+    super(ComponentDemoId.showDetail, "Show Detail");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class ShowDetailDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/showDetail/showDetail/summary.xhtml";

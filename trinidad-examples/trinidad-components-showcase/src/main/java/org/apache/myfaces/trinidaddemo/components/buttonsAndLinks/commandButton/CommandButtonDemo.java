@@ -31,15 +31,15 @@ public class CommandButtonDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956883408710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		fullSubmit,
-		ajaxSubmit
-	}
+    fullSubmit,
+    ajaxSubmit
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public CommandButtonDemo() {
-		super(ComponentDemoId.commandButton , "Command Button");
+  /**
+   * Constructor.
+   */
+  public CommandButtonDemo() {
+    super(ComponentDemoId.commandButton , "Command Button");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.fullSubmit, "Full submit", this,
             new String[]{
@@ -52,13 +52,13 @@ public class CommandButtonDemo extends AbstractComponentDemo {
             }));
 
        setDefaultVariant(VARIANTS.fullSubmit);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/buttonsAndLinks/commandButton/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/buttonsAndLinks/commandButton/CommandButtonBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/buttonsAndLinks/commandButton/CommandButtonBean.java";
+  }
 }

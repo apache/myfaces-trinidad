@@ -37,31 +37,31 @@ import org.apache.myfaces.trinidaddemo.support.IComponentVariantDemo;
  */
 public abstract class AbstractComponentDemo implements IComponentDemo {
 
-	private ComponentDemoId id;
-	private String displayName;
+  private ComponentDemoId id;
+  private String displayName;
     private IComponentVariantDemo defaultVariant;
-	private IComponentDemoCategory category;
+  private IComponentDemoCategory category;
     private static final String tagDocPrefix = "http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_";
     private static final String skinDocPrefix = "http://myfaces.apache.org/trinidad/skin-selectors.html#";
-	
-	private Map<String, IComponentVariantDemo> variantsByName;
-	private List<IComponentVariantDemo> variants;
+  
+  private Map<String, IComponentVariantDemo> variantsByName;
+  private List<IComponentVariantDemo> variants;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param id the unique id of this component demo.
-	 * @param displayName the display name of this component demo.
-	 */
-	public AbstractComponentDemo(ComponentDemoId id, String displayName) {
+  /**
+   * Constructor.
+   * 
+   * @param id the unique id of this component demo.
+   * @param displayName the display name of this component demo.
+   */
+  public AbstractComponentDemo(ComponentDemoId id, String displayName) {
 
-		this.id = id;
-		this.displayName = displayName;
+    this.id = id;
+    this.displayName = displayName;
 
-		this.variantsByName = new HashMap<String, IComponentVariantDemo>();
-		this.variants = new ArrayList<IComponentVariantDemo>();
+    this.variantsByName = new HashMap<String, IComponentVariantDemo>();
+    this.variants = new ArrayList<IComponentVariantDemo>();
 
-	}
+  }
 
     public void setDefaultVariant(IComponentDemoVariantId defaultVariantId){
         IComponentVariantDemo defVariant = getVariant(defaultVariantId.toString());
@@ -82,9 +82,9 @@ public abstract class AbstractComponentDemo implements IComponentDemo {
             throw new UnsupportedOperationException("No demo variants declared for "+ this + " component");
     }
 
-	public ComponentDemoId getId() {
-		return id;
-	}
+  public ComponentDemoId getId() {
+    return id;
+  }
 
     public String getDestination() {
         StringBuilder url = new StringBuilder();
@@ -96,47 +96,47 @@ public abstract class AbstractComponentDemo implements IComponentDemo {
         return url.toString();
     }
 
-	public String getDisplayName() {
-		return displayName;
-	}
+  public String getDisplayName() {
+    return displayName;
+  }
 
     public IComponentDemoCategory getCategory() {
-		return category;
-	}
-	
-	public void setCategory(IComponentDemoCategory category) {
-		this.category = category;
-	}
-	
-	public void addComponentDemoVariant(IComponentVariantDemo variant) {
-		if (variantsByName.get(variant.getVariantId().toString()) != null) {
-			throw new IllegalArgumentException("Variant with name '"+variant.getVariantId()+"' already added to '"+getId()+"' demo!");
-		}
-		
-		variants.add(variant);
-		variantsByName.put(variant.getVariantId().toString(), variant);
-	}
+    return category;
+  }
+  
+  public void setCategory(IComponentDemoCategory category) {
+    this.category = category;
+  }
+  
+  public void addComponentDemoVariant(IComponentVariantDemo variant) {
+    if (variantsByName.get(variant.getVariantId().toString()) != null) {
+      throw new IllegalArgumentException("Variant with name '"+variant.getVariantId()+"' already added to '"+getId()+"' demo!");
+    }
+    
+    variants.add(variant);
+    variantsByName.put(variant.getVariantId().toString(), variant);
+  }
 
-	public List<IComponentVariantDemo> getVariants() {
-		return variants;
-	}
-	
-	public IComponentVariantDemo getVariant(String name) {
-		return variantsByName.get(name);
-	}
+  public List<IComponentVariantDemo> getVariants() {
+    return variants;
+  }
+  
+  public IComponentVariantDemo getVariant(String name) {
+    return variantsByName.get(name);
+  }
 
-	public boolean isSupportsMultipleVariants() {
+  public boolean isSupportsMultipleVariants() {
         
-		return getVariants().size() > 1;
-	}
-	
-	public String getColumnStyleClassNames() {
-		if (isSupportsMultipleVariants()) {
-			return "column75percent2,column25percent2";
-		}
-		
-		return "column100percent";
-	}
+    return getVariants().size() > 1;
+  }
+  
+  public String getColumnStyleClassNames() {
+    if (isSupportsMultipleVariants()) {
+      return "column75percent2,column25percent2";
+    }
+    
+    return "column100percent";
+  }
 
     public String getTagDocumentationLink(){
         return tagDocPrefix + this.getId().toString() + ".html";
@@ -151,25 +151,25 @@ public abstract class AbstractComponentDemo implements IComponentDemo {
     }
 
     public String getBackingBeanResourcePath() {
-		return null;
-	}
+    return null;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof AbstractComponentDemo) {
-			return getId() == ((AbstractComponentDemo)obj).getId();
-		}
-		
-		return false;
-	}
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof AbstractComponentDemo) {
+      return getId() == ((AbstractComponentDemo)obj).getId();
+    }
+    
+    return false;
+  }
 
-	@Override
-	public int hashCode() {
-		return getId() != null ? getId().hashCode() : super.hashCode();
-	}
+  @Override
+  public int hashCode() {
+    return getId() != null ? getId().hashCode() : super.hashCode();
+  }
 
-	@Override
-	public String toString() {
-		return getDisplayName();
-	}
+  @Override
+  public String toString() {
+    return getDisplayName();
+  }
 }

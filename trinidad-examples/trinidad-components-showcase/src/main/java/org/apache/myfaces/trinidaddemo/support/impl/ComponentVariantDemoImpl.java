@@ -128,7 +128,7 @@ public class ComponentVariantDemoImpl extends AbstractComponentVariantDemo {
     }
 
 
-	public String getEntryPagePath(){
+  public String getEntryPagePath(){
         return jsfResourcePaths.length != 0 ? jsfResourcePaths[0] : "";
     }
 

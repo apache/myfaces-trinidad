@@ -17,6 +17,29 @@
     specific language governing permissions and limitations
     under the License.
 -->
+
+<!--
+This pom file has been optimized for Maven3.  Usage of the various targets/tasks is below.
+
+Build:
+  mvn3 [install]
+  mvn3 clean install
+ 
+Prepare Release
+  mvn3 release:prepare
+  
+Perform Release
+  mvn3 release:perform
+
+Change Version Number (http://maven.apache.org/plugins/maven-release-plugin/examples/update-versions.html)
+  mvn3 release:update-versions
+  mvn3 release:update-versions -DautoVersionSubmodules=true
+
+Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/branch.html)
+  mvn3 release:branch -DbranchName=my-branch
+  mvn3 release:branch -DbranchName=my-branch -DupdateBranchVersions=true -DupdateWorkingCopyVersions=false
+-->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -28,7 +51,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>10</version>
+    <version>11</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
@@ -151,6 +174,7 @@
       <name>jboss nexus</name>
       <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
     </repository>
+
     <!-- Needed for Mojarra -->
     <repository>
       <id>maven2-repository.dev.java.net</id>
@@ -158,21 +182,6 @@
       <url>http://download.java.net/maven/2/</url>
     </repository>
   </repositories>
-
-  <pluginRepositories>
-    <!--
-        We need this in HERE, since our plugins are a separate project.
-        It would be awful to have that setting in the myfaces-pom.
-    -->
-    <!--pluginRepository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://repository.apache.org/snapshots</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-    </pluginRepository-->
-  </pluginRepositories>
 
   <distributionManagement>
     <site>
@@ -406,7 +415,7 @@
                   <minimumTokens>100</minimumTokens>
                   <targetJdk>${jdk.version}</targetJdk>
                 </configuration>
-              </plugin-->
+              </plugin -->
             </reportPlugins>
           </configuration>
         </plugin>
@@ -415,9 +424,6 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <inherited>true</inherited>
           <configuration>
-            <!-- set the forkMode to "always" to validate new tests,
-              and "never" otherwise for performance -->
-            <forkMode>never</forkMode>
             <parallel>true</parallel>
           </configuration>
         </plugin>
@@ -438,6 +444,12 @@
           <artifactId>maven-xrts-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
+          <configuration>
+            <defaultLocales>
+              <defaultLocale>en</defaultLocale>
+              <defaultLocale>en_US</defaultLocale>
+            </defaultLocales>
+          </configuration>
         </plugin>
         
         <plugin>
@@ -574,6 +586,14 @@
     
     <plugins>
       <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>default/myfaces-checks-minimal.xml</configLocation>
+          <headerLocation>default/myfaces-header.txt</headerLocation>
+        </configuration>
+      </plugin>
+    
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
         <executions>
@@ -593,10 +613,10 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <!--version>2.1</version-->
         <configuration>
           <preparationGoals>clean verify install</preparationGoals>
           <tagBase>https://svn.apache.org/repos/asf/myfaces/trinidad/tags</tagBase>

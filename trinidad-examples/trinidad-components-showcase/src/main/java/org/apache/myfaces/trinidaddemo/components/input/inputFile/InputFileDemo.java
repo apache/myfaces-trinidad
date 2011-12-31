@@ -31,15 +31,15 @@ public class InputFileDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956883492710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Detailed,
+    Detailed,
         Simple
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public InputFileDemo() {
-		super(ComponentDemoId.inputFile, "Input File");
+  /**
+   * Constructor.
+   */
+  public InputFileDemo() {
+    super(ComponentDemoId.inputFile, "Input File");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
@@ -51,7 +51,7 @@ public class InputFileDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.Detailed);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/input/inputFile/summary.xhtml";
