@@ -99,7 +99,7 @@
           <dependency>
             <groupId>org.apache.myfaces.buildtools</groupId>
             <artifactId>checkstyle-rules</artifactId>
-            <version>4</version>
+            <version>3</version>
           </dependency>
           <dependency>
             <groupId>org.apache.myfaces.trinidad</groupId>
