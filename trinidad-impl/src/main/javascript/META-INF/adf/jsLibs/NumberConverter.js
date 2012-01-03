@@ -219,7 +219,9 @@ TrNumberConverter.prototype.getAsObject = function(
   label
   )
 {
-  if(this._isConvertible())
+  numberString = TrUIUtils.trim(numberString);
+  
+  if(this._isConvertible(numberString))
   {
     // The following are from the javadoc for Number and DateTimeConverter.
     // If the specified String is null, return a null. Otherwise, trim leading and trailing whitespace before proceeding.
@@ -227,7 +229,6 @@ TrNumberConverter.prototype.getAsObject = function(
     if (numberString == null)
       return null;
     
-    numberString = TrUIUtils.trim(numberString);
     if (numberString.length == 0)
       return null
 
@@ -325,10 +326,42 @@ TrNumberConverter.prototype.getAsObject = function(
  * Checks if this converter can convert the value, which
  * is only true, if no pattern is set and the type is a number
  */
-TrNumberConverter.prototype._isConvertible = function()
+TrNumberConverter.prototype._isConvertible = function(numberString)
 {
   // The locale attribute is now supported on convertNumber.
-  return (this._pattern == null);
+  if (this._pattern != null)
+    return false;
+    
+  // javascript numbers are really doubles, and as such can accurately support 15 digits, see
+  //    http://en.wikipedia.org/wiki/Double_precision
+  //
+  // this means in certain cases a long value that will be fine on the server will be
+  // rounded by the client converter. To avoid this parse the number string, and don't 
+  // try to convert on the client if the number of digits is greater than 15. 
+  // 
+  // Of course this is an imperfect fix, but since the vast majority of 
+  // numbers entered are less than 15 digits numbers are still converted on the client most 
+  // of the time.
+  if (numberString != null)
+  {
+    var nums = 0;
+    
+    for (var i = 0; i < numberString.length; i++)
+    {
+      var charCode = numberString.charCodeAt(i);
+      // the charcode for "0" is 48, the charcode for "9" is 57, so count anything between these 
+      // as a number
+      if (charCode > 47 && charCode < 58)
+      {
+        nums++;
+      }
+    }
+    
+    if (nums > 15)
+      return false;    
+  }
+    
+  return true;
 }
 
 /**
