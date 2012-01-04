@@ -81,11 +81,21 @@ public class CSSUtils
     else 
     {
       if (_URI_PROPERTIES.contains(propertyName))
-      { 
-        // Make sure it's a legit value for an URL
-        if (!_SPECIAL_URI_VALUES.contains(propertyValue))
+      {
+        // gradients are specified by syntax: gradient (color details)
+        // We cut the string to get the gradient part
+        String specialUriValue = propertyValue;
+        int parenthesesBeginIndex = specialUriValue.indexOf(_PARENTHESES_BEGIN);
+
+        if (parenthesesBeginIndex != -1)
         {
-          // TODO: Add a list of property names expecting an URL here, 
+          specialUriValue = propertyValue.substring(0, parenthesesBeginIndex).trim();
+        }
+
+        // Make sure it's a legit value for an URL
+        if (!_SPECIAL_URI_VALUES.contains(specialUriValue))
+        {
+          // TODO: Add a list of property names expecting an URL here,
           // "content" maybe?
           _LOG.warning("URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET", new Object[]{propertyName, styleSheetName, propertyValue});
         }
@@ -966,7 +976,8 @@ public class CSSUtils
     return value.indexOf("url(") >= 0;
   }  
   
-  
+
+  private static final String _PARENTHESES_BEGIN = "(";
 
   // CSS values
   private static final String _NORMAL_STYLE   = "normal";
@@ -1088,8 +1099,14 @@ public class CSSUtils
   {
     _SPECIAL_URI_VALUES.add("none");
     _SPECIAL_URI_VALUES.add("inherit");
-  }  
-  
+    _SPECIAL_URI_VALUES.add("-moz-linear-gradient");
+    _SPECIAL_URI_VALUES.add("-webkit-linear-gradient");
+    _SPECIAL_URI_VALUES.add("radial-gradient");
+    _SPECIAL_URI_VALUES.add("linear-gradient");
+    _SPECIAL_URI_VALUES.add("repeating-linear-gradient");
+    _SPECIAL_URI_VALUES.add("repeating-radial-gradient");
+  }
+
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CSSUtils.class);
 
 }
