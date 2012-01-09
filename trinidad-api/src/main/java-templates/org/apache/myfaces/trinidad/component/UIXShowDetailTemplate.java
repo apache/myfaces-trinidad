@@ -24,9 +24,6 @@ import java.util.Iterator;
 import javax.el.MethodExpression;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
@@ -35,7 +32,6 @@ import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.event.DisclosureEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 
 /**
@@ -114,22 +110,6 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
     }
 
     super.queueEvent(e);
-  }
-
-  @Override
-  protected boolean visitChildren(
-    VisitContext  visitContext,
-    VisitCallback callback)
-  {
-    // override to only visit the children if we are disclosed
-    if (!visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED) || isDisclosed())
-    {
-      return super.visitChildren(visitContext, callback);
-    }
-    else
-    {
-      return false;
-    }
   }
 
   protected Iterator<UIComponent> getRenderedFacetsAndChildren(FacesContext facesContext)

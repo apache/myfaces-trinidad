@@ -1230,6 +1230,106 @@ public abstract class UIXCollection extends UIXComponentBase
     return iState._clientKeyMgr;
   }
 
+  public boolean invokeOnComponent(FacesContext context,
+                                   String clientId,
+                                   ContextCallback callback)
+    throws FacesException
+  {
+    boolean invokedComponent;
+    setupVisitingContext(context);
+
+    try
+    {
+      String thisClientId = getClientId(context);
+      if (clientId.equals(thisClientId))
+      {
+        if (!_getAndMarkFirstInvokeForRequest(context, clientId))
+        {
+          // Call _init() since __flushCachedModel() assumes that
+          // selectedRowKeys and disclosedRowKeys are initialized to be non-null
+          _init();
+
+          __flushCachedModel();
+        }
+
+        pushComponentToEL(context, null);
+
+        try
+        {
+          callback.invokeContextCallback(context, this);
+        }
+        finally
+        {
+          popComponentFromEL(context);
+        }
+
+        invokedComponent = true;
+      }
+      else
+      {
+        // If we're on a row, set the currency, and invoke
+        // inside
+        int thisClientIdLength = thisClientId.length();
+        if (clientId.startsWith(thisClientId) &&
+            (clientId.charAt(thisClientIdLength) == NamingContainer.SEPARATOR_CHAR))
+        {
+          if (!_getAndMarkFirstInvokeForRequest(context, thisClientId))
+          {
+            // Call _init() since __flushCachedModel() assumes that
+            // selectedRowKeys and disclosedRowKeys are initialized to be non-null
+            _init();
+
+            __flushCachedModel();
+          }
+
+          String postId = clientId.substring(thisClientIdLength + 1);
+          int sepIndex = postId.indexOf(NamingContainer.SEPARATOR_CHAR);
+          // If there's no separator character afterwards, then this
+          // isn't a row key
+          if (sepIndex < 0)
+            return invokeOnChildrenComponents(context, clientId, callback);
+          else
+          {
+            String currencyString = postId.substring(0, sepIndex);
+            Object rowKey = getClientRowKeyManager().getRowKey(context, this, currencyString);
+
+            // A non-null rowKey here means we are on a row and we should set currency,  otherwise
+            // the client id is for a non-stamped child component in the table/column header/footer.
+            if (rowKey != null)
+            {
+              Object oldRowKey = getRowKey();
+              try
+              {
+                setRowKey(rowKey);
+                invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
+              }
+              finally
+              {
+                // And restore the currency
+                setRowKey(oldRowKey);
+              }
+            }
+            else
+            {
+              invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
+            }
+          }
+        }
+        else
+        {
+          // clientId isn't in this subtree
+          invokedComponent = false;
+        }
+      }
+    }
+    finally
+    {
+      tearDownVisitingContext(context);
+    }
+
+    return invokedComponent;
+  }
+
   /**
    * <p>
    * Override default children visiting code to visit the facets and facets of the columns
@@ -1778,6 +1878,25 @@ public abstract class UIXCollection extends UIXComponentBase
       iState._model = createCollectionModel(iState._model, value);
       postCreateCollectionModel(iState._model);
     }
+  }
+
+  //
+  // Returns true if this is the first request to invokeOnComponent()
+  //
+  static private boolean _getAndMarkFirstInvokeForRequest(
+    FacesContext context, String clientId)
+  {
+    // See if the request contains a marker that we've hit this
+    // method already for this clientId
+    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+    String key = _INVOKE_KEY + clientId;
+    // Yep, we have, so return true
+    if (requestMap.containsKey(key))
+      return true;
+
+    // Stash TRUE for next time, and return false
+    requestMap.put(key, Boolean.TRUE);
+    return false;
   }
 
   /**

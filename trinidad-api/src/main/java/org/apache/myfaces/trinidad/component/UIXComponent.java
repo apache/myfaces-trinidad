@@ -19,18 +19,10 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.io.IOException;
-
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 
-import java.util.Set;
-
 import javax.el.MethodExpression;
-
-import javax.faces.FacesException;
-import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
@@ -332,50 +324,6 @@ abstract public class UIXComponent extends UIComponent
     return processedChild;
   }
 
-  /**
-   * Override to call visitTree instead, since tree visiting is always at least as efficient
-   * as invokeOnComponent
-   * @see UIComponent#visitTree
-   */
-  @Override
-  @Deprecated
-  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
-    throws FacesException
-  {
-    if (clientId == null)
-      throw new NullPointerException();
-
-    // create a VisitContext for visiting just the passed in id    
-    Set<VisitHint> noHints = Collections.emptySet();
-    
-    VisitContext visitContext = VisitContext.createVisitContext(context, Collections.singleton(clientId), noHints);
-    
-    VisitCallback visitCallback = new ContextCallbackWrapper(callback);
-    
-    return visitTree(visitContext, visitCallback);
-  }
-
-  private static class ContextCallbackWrapper implements VisitCallback
-  {
-    public ContextCallbackWrapper(ContextCallback contextCallback)
-    {
-      if (contextCallback == null)
-        throw new NullPointerException();
-      
-      _contextCallback = contextCallback;
-    }
-    
-    @Override
-    public VisitResult visit(VisitContext visitContext, UIComponent component)
-    {
-      _contextCallback.invokeContextCallback(visitContext.getFacesContext(), component);
-      
-      return VisitResult.ACCEPT;
-    }
-    
-    private final ContextCallback _contextCallback;
-  }
-  
   /**
    * <p>Perform a tree visit starting at
    * this node in the tree.</p>

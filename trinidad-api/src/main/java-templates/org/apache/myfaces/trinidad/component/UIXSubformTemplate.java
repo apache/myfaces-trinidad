@@ -82,6 +82,19 @@ abstract public class UIXSubformTemplate extends UIXComponentBase
       super.processUpdates(context);
   }
 
+
+
+
+  @Override
+  public boolean invokeOnComponent(FacesContext context,
+                                   String clientId,
+                                   ContextCallback callback)
+    throws FacesException
+  {
+    // optimize case where clientId isn't in NamingContainer
+    return invokeOnNamingContainerComponent(context, clientId, callback);
+  }
+
   @SuppressWarnings("unchecked")
   static private void _storeSomethingSubmitted(FacesContext context)
   {

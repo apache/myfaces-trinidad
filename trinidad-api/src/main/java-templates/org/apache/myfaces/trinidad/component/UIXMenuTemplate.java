@@ -30,4 +30,15 @@ import javax.faces.component.NamingContainer;
 abstract public class UIXMenuTemplate extends UIXComponentBase
                                       implements NamingContainer
 {
+
+
+  @Override
+  public boolean invokeOnComponent(FacesContext context,
+                                   String clientId,
+                                   ContextCallback callback)
+    throws FacesException
+  {
+    // optimize case where clientId isn't in NamingContainer
+    return invokeOnNamingContainerComponent(context, clientId, callback);
+  }
 }

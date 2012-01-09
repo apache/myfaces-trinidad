@@ -55,4 +55,28 @@ public abstract class HtmlBodyTemplate
       ctxMgr.resume(facesContext, suspendedChanges);
     }
   }
+
+  @Override
+  public boolean invokeOnComponent(
+    FacesContext    facesContext,
+    String          clientId,
+    ContextCallback callback
+    ) throws FacesException
+  {
+    ComponentContextManager ctxMgr = RequestContext.getCurrentInstance()
+      .getComponentContextManager();
+
+    // Suspend any current component context during an invoke on component call for re-entrant
+    // component tree processing
+    SuspendedContextChanges suspendedChanges = ctxMgr.suspend(facesContext);
+
+    try
+    {
+      return super.invokeOnComponent(facesContext, clientId, callback);
+    }
+    finally
+    {
+      ctxMgr.resume(facesContext, suspendedChanges);
+    }
+  }
 }
