@@ -319,7 +319,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
      )
    {
      FacesContext context = FacesContext.getCurrentInstance();
-     if (!_isDisableContentCompressionParameterTrue(context))
+     if (!_isDisableContentCompressionParameterTrue(context, arc))
      {
         StyleContext sContext = ((CoreRenderingContext)arc).getStyleContext();
         StyleProvider sProvider = sContext.getStyleProvider();  
@@ -953,7 +953,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   
   // returns true if the web.xml explicitly has DISABLE_CONTENT_COMPRESSION set to true.
   // else return false.
-  private boolean _isDisableContentCompressionParameterTrue(FacesContext context)
+  private boolean _isDisableContentCompressionParameterTrue(FacesContext context, RenderingContext arc)
   {
     // TODO: this section needs to be MOVED up, perhaps to API,
     // as the StyleContextIMPL.java has exactly the same code;
@@ -978,10 +978,11 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
       disableContentCompressionBoolean = !(context.isProjectStage(ProjectStage.Production));
     }
 
-    // if Apache MyFaces Trinidad is running in production stage and 
+    // if Apache MyFaces Trinidad is running in production stage and not design time and
     // running with content compression disabled we generate a WARNING
     // message
-    if (disableContentCompressionBoolean && context.isProjectStage(ProjectStage.Production))
+    if (disableContentCompressionBoolean && context.isProjectStage(ProjectStage.Production)
+          && !arc.isDesignTime())
     {
       _LOG.warning("DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE");
     }

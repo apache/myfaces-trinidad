@@ -246,10 +246,10 @@ class StyleContextImpl implements StyleContext
       {
         _isDisableStyleCompression = Boolean.TRUE;
 
-        // if Apache MyFaces Trinidad is running in production stage and 
+        // if Apache MyFaces Trinidad is running in production stage and not design time and
         // running with content compression disabled we generate a WARNING
         // message
-        if (context.isProjectStage(ProjectStage.Production))
+        if (context.isProjectStage(ProjectStage.Production) && !_arc.isDesignTime())
         {
           _LOG.warning("DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE");
         }

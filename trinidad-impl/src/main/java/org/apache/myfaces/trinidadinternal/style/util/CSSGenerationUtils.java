@@ -833,7 +833,7 @@ public class CSSGenerationUtils
           else
           {
             String subSelector = selector.substring(start,i);
-            subSelector = _convertPseudoClassesInSelector(subSelector);
+            subSelector = _convertPseudoClassesInSelector(subSelector, selector);
             start = i+1; //Skip space
             b.append(subSelector);
             b.append(' ');
@@ -845,12 +845,12 @@ public class CSSGenerationUtils
       if (start == 0)
       {
         //there is no space in selector, but we still need to map pseudo-classes.
-        mappedSelector = _convertPseudoClassesInSelector(selector);
+        mappedSelector = _convertPseudoClassesInSelector(selector, selector);
       }
       else
       {
         String subSelector = selector.substring(start);
-        subSelector = _convertPseudoClassesInSelector(subSelector);
+        subSelector = _convertPseudoClassesInSelector(subSelector, selector);
         b.append(subSelector);
         mappedSelector = b.toString();
       }
@@ -990,7 +990,7 @@ public class CSSGenerationUtils
       // Also very likely we are dealing with inbuilt pseudo elements that 
       //  should not be converted, do not process them as pseudo classes.
       if (!shorten && ! _BUILT_IN_PSEUDO_ELEMENTS.contains(afterMain))
-        afterMain = _convertPseudoClassesInSelector(afterMain);
+        afterMain = _convertPseudoClassesInSelector(afterMain, wholeAfSelector);
     }
 
     // piece back together the string
@@ -1214,15 +1214,19 @@ public class CSSGenerationUtils
   /**
    * Given a selector, convert the pseudo-classes. Non css-2 pseudo-classes
    * get converted to styleclasses so they don't get passed through to the generated css.
+   *
    * @param selector String input selector. The assumption is there are no spaces.
    * If the original selector has spaces, then break the selector up into the pieces before
    * calling this method.
+   * @param completeSelector to figure out if the selector is AF namespaced
    * @return String the selector with the pseudo-classes converted, if needed.
    * e.g., .StyleClass:error:active -> .StyleClass.p_AFError:active
    */
-  private static String _convertPseudoClassesInSelector(String selector)
+  private static String _convertPseudoClassesInSelector(String selector, String completeSelector)
   {
-    if (selector == null) return selector;
+    if (selector == null || completeSelector ==null) return selector;
+
+    boolean afNamespacedSelector = _isAFNamespacedSelector(completeSelector);
 
     StringBuffer completeBuffer = new StringBuffer();
     StringBuffer pseudoClassBuffer = new StringBuffer();
@@ -1238,7 +1242,7 @@ public class CSSGenerationUtils
         {
           // if we are in a pseudo-class already, and we get a ':' or '.' that means
           // this pseudo-class is complete. Get ready for another one.
-          String convertedPseudoClass = _convertPseudoClass(pseudoClassBuffer.toString());
+          String convertedPseudoClass = _convertPseudoClass(pseudoClassBuffer.toString(), afNamespacedSelector);
           completeBuffer.append(convertedPseudoClass);
           pseudoClassBuffer = new StringBuffer();
           inPseudoClass = false;
@@ -1265,11 +1269,31 @@ public class CSSGenerationUtils
     }
     if (inPseudoClass)
     {
-      String mappedPseudoClass = _convertPseudoClass(pseudoClassBuffer.toString());
+      String mappedPseudoClass = _convertPseudoClass(pseudoClassBuffer.toString(), afNamespacedSelector);
       completeBuffer.append(mappedPseudoClass);
 
     }
     return completeBuffer.toString();
+  }
+
+  /**
+   * Returns true if the passed selector is a 'af' selector.
+   *
+   * @param completeSelector
+   * @return
+   */
+  private static boolean _isAFNamespacedSelector(String completeSelector)
+  {
+
+    Set<String> namespaces = new HashSet<String>();
+    getNamespacePrefixes(namespaces, completeSelector);
+
+    if (namespaces.isEmpty() && completeSelector.startsWith(_DEFAULT_AF_SELECTOR))
+      return true;
+    if (namespaces.contains(_DEFAULT_NAMESPACE))
+      return true;
+
+    return false;
   }
 
   // run through the map. If it's not in the map, return the selector unchanged.
@@ -1312,12 +1336,24 @@ public class CSSGenerationUtils
       new PropertyNodeComparator();
   }
 
-  static private String _convertPseudoClass(String pseudoClass)
+  static private String _convertPseudoClass(String pseudoClass, boolean afNamespacedSelector)
   {
     // The design time needs the browser-supported pseudo-classes to be converted so they
     // can show a preview of the skinned component.
-    if (_BUILT_IN_PSEUDO_CLASSES.contains(pseudoClass) && !Beans.isDesignTime())
+    String builtInPseudoClass = pseudoClass;
+    int parenthesesStartIndex = pseudoClass.indexOf("(");
+    if (parenthesesStartIndex != -1)
+      builtInPseudoClass = pseudoClass.substring(0, parenthesesStartIndex);
+
+    if (_BUILT_IN_PSEUDO_CLASSES.contains(builtInPseudoClass) && !Beans.isDesignTime())
       return pseudoClass;
+
+    // _BACKWARD_COMPATIBLE_CSS3_PSEUDO_CLASSES is treated differently
+    // for namespaced selectors we render it mangled
+    // for non-namespaced selectors we render it directly
+    if (!afNamespacedSelector && _BACKWARD_COMPATIBLE_CSS3_PSEUDO_CLASSES.contains(builtInPseudoClass))
+      return pseudoClass;
+
     StringBuilder builder = new StringBuilder(pseudoClass.length() + 3);
     builder.append(".");
     builder.append(SkinSelectors.STATE_PREFIX);
@@ -1336,11 +1372,13 @@ public class CSSGenerationUtils
 
   // We want to output to the css the browser-supported pseudo-classes as is
   static private final Set<String> _BUILT_IN_PSEUDO_CLASSES = new HashSet<String>();
+  static private final Set<String> _BACKWARD_COMPATIBLE_CSS3_PSEUDO_CLASSES = new HashSet<String>();
 
   // We want to output to the css the browser-supported pseudo-elements (HTML5/ CSS3) as is
   static private final Set<String> _BUILT_IN_PSEUDO_ELEMENTS = new HashSet<String>();
   static
   {
+    /** CSS 2 pseudo classes */
     _BUILT_IN_PSEUDO_CLASSES.add(":first-child");
     _BUILT_IN_PSEUDO_CLASSES.add(":link");
     _BUILT_IN_PSEUDO_CLASSES.add(":visited");
@@ -1349,6 +1387,37 @@ public class CSSGenerationUtils
     _BUILT_IN_PSEUDO_CLASSES.add(":focus");
     _BUILT_IN_PSEUDO_CLASSES.add(":-moz-placeholder");
 
+    /** Special case CSS2 pseudo-elements used as pseudo-classes
+     * for compatibility reasons.
+     * Refer: http://www.w3.org/TR/selectors/#pseudo-elements */
+    _BUILT_IN_PSEUDO_CLASSES.add(":after");
+    _BUILT_IN_PSEUDO_CLASSES.add(":before");
+    _BUILT_IN_PSEUDO_CLASSES.add(":first-line");
+    _BUILT_IN_PSEUDO_CLASSES.add(":first-letter");
+
+    /** CSS 3 pseudo classes */
+    _BUILT_IN_PSEUDO_CLASSES.add(":nth-child");
+    _BUILT_IN_PSEUDO_CLASSES.add(":nth-last-child");
+    _BUILT_IN_PSEUDO_CLASSES.add(":nth-of-type");
+    _BUILT_IN_PSEUDO_CLASSES.add(":nth-last-of-type");
+    _BUILT_IN_PSEUDO_CLASSES.add(":last-child");
+    _BUILT_IN_PSEUDO_CLASSES.add(":first-of-type");
+    _BUILT_IN_PSEUDO_CLASSES.add(":last-of-type");
+    _BUILT_IN_PSEUDO_CLASSES.add(":only-child");
+    _BUILT_IN_PSEUDO_CLASSES.add(":only-of-type");
+    _BUILT_IN_PSEUDO_CLASSES.add(":root");
+    _BUILT_IN_PSEUDO_CLASSES.add(":target");
+    _BUILT_IN_PSEUDO_CLASSES.add(":enabled");
+    _BUILT_IN_PSEUDO_CLASSES.add(":checked");
+    _BUILT_IN_PSEUDO_CLASSES.add(":not");
+    _BUILT_IN_PSEUDO_CLASSES.add(":lang");
+    _BUILT_IN_PSEUDO_CLASSES.add(":indeterminate");
+
+    /** CSS3 pseudo classes for backward compatibility*/
+    _BACKWARD_COMPATIBLE_CSS3_PSEUDO_CLASSES.add(":disabled");
+    _BACKWARD_COMPATIBLE_CSS3_PSEUDO_CLASSES.add(":empty");
+
+    /** CSS3 pseudo elements */
     _BUILT_IN_PSEUDO_ELEMENTS.add("::outside");
     _BUILT_IN_PSEUDO_ELEMENTS.add("::before");
     _BUILT_IN_PSEUDO_ELEMENTS.add("::after");
@@ -1363,6 +1432,8 @@ public class CSSGenerationUtils
   
   private static final Pattern _DASH_PATTERN =  Pattern.compile("-");
   private static final int _MSIE_SELECTOR_LIMIT = 4095;
+  private static final String _DEFAULT_NAMESPACE = "af|";
+  private static final String _DEFAULT_AF_SELECTOR = ".AF";
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CSSGenerationUtils.class);
 }
