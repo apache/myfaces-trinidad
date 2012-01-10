@@ -87,6 +87,10 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     <pluto.version>1.1.6</pluto.version>
     <pluto.package>org.apache.pluto</pluto.package>
     <myfaces-builder-plugin.version>1.0.9</myfaces-builder-plugin.version>
+
+    <!-- Enforcer -->
+    <maven.min-version>3.0</maven.min-version>
+    <jdk.min-version>1.5.0</jdk.min-version>
     
     <!-- Other -->
     <jdev.release>11.1.1.0.0</jdev.release>
@@ -585,6 +589,35 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     </pluginManagement>
     
     <plugins>
+      <!--
+        Trinidad must now be built with a minimum of Maven 3.0 and Java 5.0 because
+        of some oddities with the checkstyle plugin 
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>1.0.1</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <!-- Require AT LEAST Maven 3.0 or higher -->
+                  <version>[${maven.min-version},)</version>
+                </requireMavenVersion>
+                <requireJavaVersion>
+                  <version>[${jdk.min-version},)</version>
+                </requireJavaVersion>
+              </rules>    
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
