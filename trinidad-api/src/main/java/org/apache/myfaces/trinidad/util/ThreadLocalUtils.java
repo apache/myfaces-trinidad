@@ -179,7 +179,8 @@ public final class ThreadLocalUtils
       if (threadLocal == null)
         throw new NullPointerException();
       
-      // WeakReference might be overkill here, but make sure we don't pin ThreadLocals
+      // make sure we don't pin ThreadLocals, in case they were dynamically created, or
+      // statically created on a class that was then unloaded
       _threadLocals.add(new WeakReference<ThreadLocal<?>>(threadLocal));
       
       return threadLocal;
@@ -197,15 +198,15 @@ public final class ThreadLocalUtils
       {
         ThreadLocal<?> threadLocal = iterator.next().get();
         
-        // if the threadLocal is null, that means it has been released and we would really
-        // like to reclaim the entry, however remove isn't supported on CopyOnWriteArrayLists
-        // and the synchronization required to safely remove this item probably isn't
-        // worthy the small increase in memory of keeping around this empty item, so we don't
-        // bother cleaning up this entry
         if (threadLocal != null)
         {
-          // reset the threadlocal for this thread
+          // clean up the ThreadLocal
           threadLocal.remove();
+        }
+        else
+        {
+          // ThreadLocal was gc'ed, so remove the entry
+          iterator.remove();
         }
       }
     }
