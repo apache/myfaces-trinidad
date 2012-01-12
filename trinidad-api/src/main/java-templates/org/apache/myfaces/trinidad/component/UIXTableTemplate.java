@@ -21,9 +21,12 @@ package org.apache.myfaces.trinidad.component;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import java.util.Map;
 
 import javax.el.MethodExpression;
 
@@ -362,7 +365,41 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       return StampState.saveChildStampState(context, stamp, this);
     }
     else
-      return super.saveStampState(context, stamp);
+    {
+      Object stampState = super.saveStampState(context, stamp);
+      
+      // Support for column stamping. Before this fix, nested UIXCollection can never be processed without setting 
+      // currency on the outer iterator. The inner collection's stamp state is only created if it is null. The inner 
+      // collection depends on the outer collection to save and restore the nested stamp state to null as it moves it 
+      // currency  during saveStampState and restoreStampState.
+      
+      // Now if the columns are stamped using an iterator, there could be state associated with the column headers, 
+      // footers etc and this is when the currency is null. So it is possible to process/iterate the af:iterator when 
+      // the currency on the outer table is null. This could be for layout of columns etc.
+      
+      // The following fix uses the internal _movingToNonNullCurrency variable to know that we are ready to start 
+      // iterating the stamps. If so, it saves off the state associated with  the null currency in a temporary map that 
+      // is restored when we are done processing our stamps (also see restoreStampState).
+      if(stamp instanceof UIXIterator && _movingToNonNullCurrency)
+      {
+        // JIT create our temporary map
+        if(_iteratorStampMap == null)
+        {
+          _iteratorStampMap = new HashMap<String, Object>();
+        }
+        
+        // save off the state associated with the null currency
+        _iteratorStampMap.put(stamp.getClientId(context), stampState);
+        
+        // reset the state of the iterator to the prestine state for null currency
+        ((UIXIterator)stamp).__setMyStampState(null);
+        
+        // now save the pristine state to the null currency so that when fresh stamp states can be created if necessary
+        stampState = super.saveStampState(context, stamp);
+      }
+      
+      return stampState;
+    }
   }
 
   /**
@@ -370,8 +407,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
    * This method avoids changing the state of facets on columns.
    */
   @Override
-  protected final void restoreStampState(FacesContext context, UIComponent stamp,
-                                         Object stampState)
+  protected final void restoreStampState(FacesContext context, UIComponent stamp, Object stampState)
   {
     if (stamp instanceof UIXColumn)
     {
@@ -380,7 +416,17 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       StampState.restoreChildStampState(context, stamp, this, stampState);
     }
     else
+    {
+      // If we are done processing our stamps and are moving back to null currency, restore the stamp state to the
+      // one saved off before processing our stamps
+      if(stamp instanceof UIXIterator && _movingBackToNullCurrency && _iteratorStampMap != null)
+      {
+        // clear the cached client id of the iterator so that we can get the one without currency
+        stamp.setId(stamp.getId());
+        stampState = _iteratorStampMap.get(stamp.getClientId(context));        
+      }
       super.restoreStampState(context, stamp, stampState);
+    }
   }
 
   @Override
@@ -641,8 +687,79 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     }
   }
 
+  @Override
+  public void setRowKey(Object rowKey)
+  {
+    _preCurrencyChange(rowKey == null);
+    try
+    {
+      super.setRowKey(rowKey);
+    }
+    finally
+    {
+      _postCurrencyChange();
+    }
+  }
+
+  @Override
+  public void setRowIndex(int rowIndex)
+  {
+    _preCurrencyChange(rowIndex == -1);
+    try
+    {
+      super.setRowIndex(rowIndex);
+    }
+    finally
+    {
+      _postCurrencyChange();
+    }
+  }
+  
+  /**
+   * When the currency changes keep track of the fact that we are ready to start iterating the stamps vs setting
+   * currency to process headers etc. If the new curency is not null but the old one was, 
+   * we are ready to start processing the stamps.
+   * 
+   * Similary keep track of the fact that we are done processing the our stamps. In this case the currency moves back to
+   * null after being set previously
+   */
+  private void _preCurrencyChange(boolean isNewCurrencyNull)
+  {
+    Object currencyObj = getRowKey();    
+    if(currencyObj == null && !isNewCurrencyNull)
+    {
+      _movingToNonNullCurrency = true;
+    }
+    
+    if(currencyObj != null && isNewCurrencyNull)
+    {
+      _movingBackToNullCurrency = true;
+    }
+  }
+  
+  /**
+   * Clean up variables setup during _preCurrencyChange.
+   */
+  private void _postCurrencyChange()
+  {
+    _movingToNonNullCurrency = false;
+    
+    if(_movingBackToNullCurrency)
+    {
+      _iteratorStampMap = null;
+    }
+    _movingBackToNullCurrency = false;
+  }
+  
   transient private List<SortCriterion> _sortCriteria = null;
   // cache of child components inside this table header/footer facets and column header/footer
   // facets
   transient private IdentityHashMap<UIComponent, Boolean> _containerClientIdCache = null;
+  
+  // transient variables used to track when are going to start processing the stamps and when we are done.
+  transient private boolean _movingToNonNullCurrency = false;
+  transient private boolean _movingBackToNullCurrency = false;
+  
+  // map used to support iterator stamping of columns
+  transient private Map<String, Object> _iteratorStampMap = null;
 }

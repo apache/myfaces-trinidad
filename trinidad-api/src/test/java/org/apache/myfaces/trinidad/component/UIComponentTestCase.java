@@ -700,7 +700,12 @@ public class UIComponentTestCase extends FacesTestCase
     mock.stubs().method("getParent").will(returnValue(null));
     mock.stubs().method("setParent");
     mock.stubs().method("getFacetsAndChildren").will(returnIterator(Collections.emptyList()));
-
+    mock.stubs().method("isRendered").will(returnValue(true));
+    
+    mock.stubs().method("getAttributes").will(returnValue(Collections.emptyMap()));
+    mock.stubs().method("pushComponentToEL").withAnyArguments();
+    mock.stubs().method("popComponentFromEL").withAnyArguments();
+    
     mock.expects(never()).method("processRestoreState");
     mock.expects(never()).method("processDecodes");
     mock.expects(never()).method("processValidators");

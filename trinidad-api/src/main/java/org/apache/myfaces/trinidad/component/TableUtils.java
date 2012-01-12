@@ -232,7 +232,7 @@ public final class TableUtils
     new ChildLoop()
     {
       @Override
-      protected void process(FacesContext context, UIComponent facet)
+      protected void process(FacesContext context, UIComponent facet, ComponentProcessingContext cpContext)
       {
         if (facet != skip)
           table.processComponent(context, facet, phaseId);
@@ -253,7 +253,7 @@ public final class TableUtils
     new ChildLoop()
     {
       @Override
-      protected void process(FacesContext context, UIComponent child)
+      protected void process(FacesContext context, UIComponent child, ComponentProcessingContext cpContext)
       {
         if (child instanceof UIXColumn && child.isRendered())
         {
@@ -277,7 +277,7 @@ public final class TableUtils
     new ChildLoop()
     {
       @Override
-      protected void process(FacesContext context, UIComponent child)
+      protected void process(FacesContext context, UIComponent child, ComponentProcessingContext cpContext)
       {
         // make sure that any cached clientIds are cleared so that
         // the clientIds are recalculated with the new row index
