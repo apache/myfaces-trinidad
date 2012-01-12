@@ -130,10 +130,9 @@ public class StyleSheetNodeEqualsTest extends TestCase
     List<IconNode> anotherIconNodes = _getIconNodes();
 
     // create locales arrays
-    Locale[] localesArray = getLocalesArray();
-    Locale[] anotherLocalesArray = getAnotherLocalesArray();
-    Locale[] diffOrderLocalesArray = getDiffOrderLocalesArray();
-     
+    Set<Locale> localeSet = getLocalesSet();
+    Set<Locale> diffOrderLocalesSet = getDiffOrderLocalesSet();
+
     // create a browsers map
     Map<Integer, AgentProperties> browsers = new HashMap<Integer, AgentProperties>();
     browsers.put(1, new AgentProperties(new HashSet<Version>(Arrays.asList(new Version("5"), new Version("6"))), Collections.<String>emptySet()));
@@ -167,7 +166,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
     StyleSheetNode styleSheetNode =
       new StyleSheetNode(styleSheetOneNodes,
                          iconNodes,
-                         localesArray,
+                         localeSet,
                          0,
                          browsers,
                          platforms,
@@ -176,7 +175,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
     StyleSheetNode anotherStyleSheetNode =
       new StyleSheetNode(anotherStyleSheetOneNodes,
                          anotherIconNodes,
-                         anotherLocalesArray,
+                         localeSet,
                          0,
                          anotherBrowsersDiffOrder,
                          anotherPlatforms,
@@ -185,7 +184,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
     StyleSheetNode sameDiffOrderStyleSheetNode =
       new StyleSheetNode(anotherStyleSheetOneNodes,
                          anotherIconNodes,
-                         diffOrderLocalesArray,
+                         diffOrderLocalesSet,
                          0,
                          anotherBrowsersDiffOrder,
                          differentOrderPlatforms,
@@ -209,7 +208,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
 
     // these should be false
     assertEquals(styleSheetNode.equals(null), false);
-    assertEquals(styleSheetNode.equals(localesArray), false);
+    assertEquals(styleSheetNode.equals(localeSet), false);
     
     /* Test styleSheetNode's toString */
     /*
@@ -305,23 +304,6 @@ public class StyleSheetNodeEqualsTest extends TestCase
     return set;
   }
   
-  // same as above
-  private Locale[] getLocalesArray()
-  {
-    return new Locale[] {new Locale("tw", "TW"), new Locale("zh", "CN")};
-  }
-  
-  private Locale[] getAnotherLocalesArray()
-  {
-    return new Locale[] {new Locale("tw", "TW"), new Locale("zh", "CN")};
-  }
-  
-  // same as above, different order
-  private Locale[] getDiffOrderLocalesArray()
-  {
-    return new Locale[] {new Locale("zh", "CN"), new Locale("tw", "TW")};
-  }
-
   private List<IconNode> _getIconNodes()
   {
     List<IconNode> iconNodes = new ArrayList<IconNode>(2);

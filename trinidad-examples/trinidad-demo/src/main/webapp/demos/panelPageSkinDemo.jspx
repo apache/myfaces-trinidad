@@ -86,6 +86,7 @@
                   <tr:selectItem label="purpleBigFont" value="purpleBigFont"/>
                   <tr:selectItem label="beach" value="beach"/>
                   <tr:selectItem label="suede" value="suede"/>
+                  <tr:selectItem label="locale" value="localeDemo"/>
                 </tr:selectOneChoice>
                 <tr:commandButton text="Go"/>
                 <tr:goLink id="goLinkId" text="EmailablePageMode" 
@@ -156,7 +157,7 @@
                     </tr:showDetailItem>
                     <tr:showDetailItem text="Tab 2" disclosed="true">
                       <tr:panelHeader text="PanelTabbed details">
-                        <tr:outputText value="Everything in Camping  is on sale!  Enjoy huge savings on our most popular tents                     and sleeping bags. We even have dried food and mattresses"
+                        <tr:outputText value="In Locale Skin, commandButton text is red in en and de locales and blue in ro-RO. Test it out!"
                                        styleClass="mainContentText"/>
                         <tr:panelGroupLayout layout="horizontal">
                           <tr:goButton text="Sorry, Disabled" disabled="true"/>

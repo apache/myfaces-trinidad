@@ -897,14 +897,19 @@ public class SkinTranslationMapDemo
         This is to define styles only for a particular accessibility profile.  See the <a href="configuration.html#accessibility-profile">Configuring Apache Trinidad</a> chapter for information on setting the accessibility profile.
         </li>
         <li>
-        <strong>:rtl</strong> - >  pseudo-class to create a style or icon definition when the browser 
+        <strong>@locale</strong> {/skin definitions go here/} - >
+        A certain locale must be specified, either only the language or both the language and the country.
+        This is to define styles only for a particular language and country.
+        </li>
+        <li>
+        <strong>:rtl</strong> - >  pseudo-class to create a style or icon definition when the browser
         is in a right-to-left language. The best example is that of images that are not symmetric.
         If you set a skin selector that uses a asymmetrical image, when you set your browser to
         the right-to-left reading direction, then you want your image to be flipped. To do this,
         you use the :rtl pseudo-class at the end of your selector and point it to a flipped-looking image.
         </li>
         <li>
-        :lang or @locale  - >  Not yet implemented in Trinidad.         
+        :lang - >  Not yet implemented in Trinidad.
         </li>          
         </ul>
           

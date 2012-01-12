@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.skin;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,11 +42,13 @@ class SkinStyleSheetNode
     List<SkinSelectorPropertiesNode> skinSelectorNodeList,
     Map<String, String>              namespaceMap,
     int                              direction,
+    Set<Locale>                      locales,
     Map<Integer, AgentProperties>    agentsProperties,
     Set<String>                      accProperties)
   {
     _skinSelectorNodeList = skinSelectorNodeList;
     _namespaceMap = namespaceMap;
+    _locales = locales;
     _direction = direction;
     _agentsProperties = agentsProperties;
     _accProperties = accProperties;
@@ -54,12 +57,14 @@ class SkinStyleSheetNode
   SkinStyleSheetNode(
     Map<String, String>        namespaceMap,
     int                        direction,
+    Set<Locale>                      locales,
     Map<Integer, AgentProperties> agentsProperties,
     int[]                      platforms,
     Set<String>                accProperties)
   {
     _namespaceMap = namespaceMap;
     _direction = direction;
+    _locales = locales;
     _agentsProperties = agentsProperties;
     _platforms = platforms;
     _accProperties = accProperties;
@@ -117,10 +122,16 @@ class SkinStyleSheetNode
     return _accProperties;
   }
 
+  public Set<Locale> getLocales()
+  {
+    return _locales;
+  }
+
   public boolean matches(
     int                        direction,
     Map<Integer, AgentProperties> agentsProperties,
     int[]                      platforms,
+    Set<Locale>                locales,
     Set<String>                accProperties)
   {
     if (direction == _direction)
@@ -132,10 +143,13 @@ class SkinStyleSheetNode
         boolean platformsMatch = _intArraysEqual(platforms, _platforms);
         if (platformsMatch)
         {
-          boolean accMatch = _setsEqual(accProperties, _accProperties);
-
-          if (accMatch)
-            return true;
+          boolean localeMatch = _setsEqual(locales, _locales);
+          if (localeMatch)
+          {
+            boolean accMatch = _setsEqual(accProperties, _accProperties);
+            if (accMatch)
+             return true;
+          }
         }
       }
     }
@@ -166,5 +180,6 @@ class SkinStyleSheetNode
   private int _direction; // reading direction
   private Map<Integer, AgentProperties> _agentsProperties;
   private int[] _platforms;
+  private Set<Locale> _locales;
   private Set<String> _accProperties;
 }
