@@ -392,7 +392,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
         _iteratorStampMap.put(stamp.getClientId(context), stampState);
         
         // reset the state of the iterator to the prestine state for null currency
-        ((UIXIterator)stamp).__setMyStampState(null);
+        ((UIXIterator)stamp).__resetMyStampState();
         
         // now save the pristine state to the null currency so that when fresh stamp states can be created if necessary
         stampState = super.saveStampState(context, stamp);
@@ -508,6 +508,17 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     setDisclosedRowKeys((RowKeySet) state[5]);
   }
 
+  @Override
+  void __resetMyStampState()
+  {
+    super.__resetMyStampState();
+    _sortCriteria = null;
+    setFirst((Integer)FIRST_KEY.getDefault());
+    setShowAll(Boolean.TRUE == SHOW_ALL_KEY.getDefault());
+    setSelectedRowKeys(null);
+    setDisclosedRowKeys(null);
+  }
+  
   protected void processStamps(
     FacesContext context,
     PhaseId phaseId)

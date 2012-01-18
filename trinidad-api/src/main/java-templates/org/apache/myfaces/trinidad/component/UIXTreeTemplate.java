@@ -242,6 +242,15 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
   }
 
   @Override
+  void __resetMyStampState()
+  {
+    super.__resetMyStampState();
+    setFocusRowKey(null);
+    setSelectedRowKeys(null);
+    setDisclosedRowKeys(null);
+  }
+  
+  @Override
   protected FacesBean createFacesBean(String rendererType)
   {
     return new RowKeyFacesBeanWrapper(super.createFacesBean(rendererType));

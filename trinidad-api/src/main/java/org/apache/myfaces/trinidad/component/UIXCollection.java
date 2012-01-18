@@ -1920,6 +1920,17 @@ public abstract class UIXCollection extends UIXComponentBase
   }
 
   /**
+   * reset the stamp state to pristine state. This pristine state when saved to the outer collection for null currency
+   * will allow stamp state for UIXCollection with individual rows to be created
+   * 
+   * This is to support iteration of children(column stamping) within the table.
+   */
+  void __resetMyStampState()
+  {
+    _state = null;
+  }
+  
+  /**
    * Returns true if an event (other than a selection event)
    * has been queued for this component.  This is a hack
    * to support validation in the tableSelectXyz components.

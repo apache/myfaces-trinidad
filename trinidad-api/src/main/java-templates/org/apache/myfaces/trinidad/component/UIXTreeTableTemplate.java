@@ -547,6 +547,13 @@ abstract public class UIXTreeTableTemplate extends UIXTree
       _firstMap = Collections.emptyMap();
   }
 
+  @Override
+  void __resetMyStampState()
+  {
+    super.__resetMyStampState();
+    _firstMap = Collections.emptyMap();
+  }
+  
   private Map<Object, Integer> _firstMap = Collections.emptyMap();
   // cache of child components inside this treeTable header/footer facets and column header/footer
   // facets
