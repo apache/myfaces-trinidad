@@ -19,15 +19,17 @@
 package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -112,6 +114,7 @@ public class SkinCSSDocumentHandler
        CompleteSelectorNode node =
          _createCompleteSelectorNode(selector,
                                      _propertyNodeList,
+                                     _locales,
                                      _selectorAgents,
                                      _selectorPlatforms,
                                      _getSelectorAccProperties());
@@ -189,6 +192,10 @@ public class SkinCSSDocumentHandler
       {
         _parseCustomAtRule(_AT_PLATFORM, atRule);
       }
+      else if (atRule.startsWith(_AT_LOCALE))
+      {
+        _parseCustomAtRule(_AT_LOCALE, atRule);
+      }
       else if (atRule.startsWith(_AT_ACC_PROFILE))
       {
         _parseCustomAtRule(_AT_ACC_PROFILE, atRule);
@@ -204,8 +211,8 @@ public class SkinCSSDocumentHandler
    */
   private void _parseCustomAtRule(String type, String atRule)
   {
-    // get the @agent agents, they are deliminated by commas
-    // parse out the content
+    // get the @agent agents, @platform platforms or the @locale locales 
+    // they are deliminated by commas parse out the content
     // save the atRule type, so the document handler code can get to it.
     // run this through parser again
     String content = _getAtRuleContent(atRule);
@@ -228,6 +235,8 @@ public class SkinCSSDocumentHandler
       _selectorAgents = null;
     else if (_AT_PLATFORM.equals(type))
       _selectorPlatforms = null;
+    else if (_AT_LOCALE.equals(type))
+      _locales = null;
     else if (_AT_ACC_PROFILE.equals(type))
     {
       assert(!_selectorAccPropertiesStack.isEmpty());
@@ -242,6 +251,7 @@ public class SkinCSSDocumentHandler
   private CompleteSelectorNode _createCompleteSelectorNode(
     String                     selector,
     List<PropertyNode>         propertyNodeList,
+    Set<Locale> locales,
     Map<Integer, Set<Version>> selectorAgentVersions,
     int[]                      selectorPlatforms,
     Set<String>                selectorAccProperties)
@@ -268,6 +278,7 @@ public class SkinCSSDocumentHandler
       new CompleteSelectorNode(
         selector,
         propertyNodeList,
+        locales,
         direction,
         selectorAgentVersions,
         selectorPlatforms,
@@ -295,6 +306,7 @@ public class SkinCSSDocumentHandler
       int direction = completeSelectorNode.getDirection();
       Map<Integer, Set<Version>> agentVersions = completeSelectorNode.getAgentVersions();
       int[] platforms = completeSelectorNode.getPlatforms();
+      Set<Locale> locales = completeSelectorNode.getLocales();
       Set<String> accProperties = completeSelectorNode.getAccessibilityProperties();
 
       // loop through the skinStyleSheetNodeList to find a match
@@ -306,7 +318,7 @@ public class SkinCSSDocumentHandler
       for (int i = skinStyleSheetNodes.size() - 1; i >= 0 && !match; --i)
       {
         SkinStyleSheetNode ssNode = skinStyleSheetNodes.get(i);
-        match = ssNode.matches(direction, agentVersions, platforms, accProperties);
+        match = ssNode.matches(direction, agentVersions, platforms, locales, accProperties);
         if (match)
           ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
       }
@@ -315,7 +327,7 @@ public class SkinCSSDocumentHandler
       {
        // no matching stylesheet node found, so create a new one
         SkinStyleSheetNode ssNode =
-         new SkinStyleSheetNode(namespaceMap, direction, agentVersions, platforms, accProperties);
+         new SkinStyleSheetNode(namespaceMap, direction, locales, agentVersions, platforms, accProperties);
         ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
         skinStyleSheetNodes.add(ssNode);
       }
@@ -326,7 +338,7 @@ public class SkinCSSDocumentHandler
   /**
    * Initialized at rule target types.
    * 
-   * @param type type of the at rule. _AT_AGENT, _AT_PLATFORM, or _AT_ACC_PROFILE
+   * @param type type of the at rule. _AT_AGENT, _AT_PLATFORM, _AT_ACC_PROFILE or _AT_LOCALE
    * @param atRule - the atRule string
    */
   private void _initAtRuleTargetTypes(
@@ -401,6 +413,15 @@ public class SkinCSSDocumentHandler
         }
         
         _selectorPlatforms = _getIntArray(list);
+      }
+      else if (_AT_LOCALE.equals(type))
+      {
+        _locales = new HashSet<Locale>();
+        for (int i = 0; i < typeArray.length; i++)
+        {
+          Locale locale = LocaleUtils.getLocaleForIANAString(typeArray[i].replace('_', '-').trim());
+          _locales.add(locale);
+        }
       }
       else if (_AT_ACC_PROFILE.equals(type))
       {
@@ -544,6 +565,7 @@ public class SkinCSSDocumentHandler
     public CompleteSelectorNode(
       String                     selectorName,
       List<PropertyNode>         propertyNodes,
+      Set<Locale>                locales,
       int                        direction,
       Map<Integer, Set<Version>> agentVersions,
       int[]                      platforms,
@@ -554,11 +576,13 @@ public class SkinCSSDocumentHandler
       _direction = direction;
       // copy the agents and platforms because these get nulled out
       // at the end of the @rule parsing.
-      _agentVersions = agentVersions != null ?
+      _agentVersions = (agentVersions != null) ?
         new HashMap<Integer, Set<Version>>(agentVersions) :
         new HashMap<Integer, Set<Version>>();
       
       _platforms = _copyIntArray(platforms);
+      _locales = ((locales != null) ? new HashSet<Locale>(locales)
+            :Collections.<Locale>emptySet());
       
       if (accProperties != null)
       {
@@ -592,6 +616,11 @@ public class SkinCSSDocumentHandler
       return _platforms;
     }
 
+    public Set<Locale> getLocales()
+    {
+      return _locales;
+    }
+
     public Set<String> getAccessibilityProperties()
     {
       return _accProperties;
@@ -613,12 +642,14 @@ public class SkinCSSDocumentHandler
     private int _direction;  // the reading direction
     private Map<Integer, Set<Version>> _agentVersions;
     private int[] _platforms;
+    private Set<Locale> _locales;    
     private Set<String> _accProperties;
   }
 
-  private static String _AT_AGENT = "@agent";
-  private static String _AT_PLATFORM = "@platform";
-  private static String _AT_ACC_PROFILE = "@accessibility-profile";
+  private static final String _AT_AGENT = "@agent";
+  private static final String _AT_PLATFORM = "@platform";
+  private static final String _AT_LOCALE = "@locale";
+  private static final String _AT_ACC_PROFILE = "@accessibility-profile";
 
   // below are properties that we set and reset
   // as the methods of this documentHandler get called.
@@ -635,6 +666,9 @@ public class SkinCSSDocumentHandler
   // As we need to be able to have multiple versions to an agent
   // we store a map of agents and their version sets
   private Map<Integer, Set<Version>> _selectorAgents = null;
+
+  // the locales of the selectors parsed in this document.
+  private Set<Locale> _locales = null;
 
   // Stack of accessibility property sets.  While java.util.Stack has the
   // push/pop API that we want, we don't need the synchronization, so we

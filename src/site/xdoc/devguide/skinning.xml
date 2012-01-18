@@ -897,6 +897,11 @@ public class SkinTranslationMapDemo
         This is to define styles only for a particular accessibility profile.  See the <a href="configuration.html#accessibility-profile">Configuring Apache Trinidad</a> chapter for information on setting the accessibility profile.
         </li>
         <li>
+        <strong>@locale</strong> {/skin definitions go here/} - >
+        A certain locale must be specified, either only the language or both the language and the country.
+        This is to define styles only for a particular language and country.
+        </li>
+        <li>
         <strong>:rtl</strong> - >  pseudo-class to create a style or icon definition when the browser 
         is in a right-to-left language. The best example is that of images that are not symmetric.
         If you set a skin selector that uses a asymmetrical image, when you set your browser to
@@ -904,7 +909,7 @@ public class SkinTranslationMapDemo
         you use the :rtl pseudo-class at the end of your selector and point it to a flipped-looking image.
         </li>
         <li>
-        :lang or @locale  - >  Not yet implemented in Trinidad.         
+        :lang - >  Not yet implemented in Trinidad.         
         </li>          
         </ul>
           
@@ -934,10 +939,21 @@ public class SkinTranslationMapDemo
         }
         
         /* for Firefox 3 (gecko 1.9) use a smaller margin.*/
-        @agent gecko (version: 1.9)
+        @agent gecko and (version: 1.9)
         {
           af|someComponent {margin: 4px;}
         }
+        
+        @locale en, de {
+           af|commandButton {
+              color: red;
+           }
+         }
+         @locale ro-RO {
+           af|commandButton {
+             color: blue;
+           }
+         }
         
         /* The following selectors are for all platforms and all browsers */
         

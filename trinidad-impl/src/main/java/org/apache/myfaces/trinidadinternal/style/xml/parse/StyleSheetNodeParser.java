@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -37,6 +38,7 @@ import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.style.StyleConstants;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
@@ -152,23 +154,6 @@ public class StyleSheetNodeParser extends BaseNodeParser
     }
   }
 
-  // Converts a string to a locale
-  private Locale _getLocale(String str)
-  {
-    // Language only
-    int length = str.length();
-    if (length == 2)
-      return new Locale(str, "");
-
-    // Locale and country
-    if ((length == 5) && (str.charAt(2) == '_'))
-      return new Locale(str.substring(0, 2), str.substring(3, 5));
-
-    // We don't handle variants at the moment...
-
-    return null;
-  }
-
   // Initialize locales
   private void _initLocales(String localeAttr)
   {
@@ -177,20 +162,16 @@ public class StyleSheetNodeParser extends BaseNodeParser
 
     // -= Simon Lessard =-
     // TODO: Check if synchronization is really needed.
-    Vector<Locale> locales = new Vector<Locale>();
+    _locales = Collections.synchronizedSet(new HashSet<Locale>());
     Iterator<String> tokens = _getTokens(localeAttr);
     while (tokens.hasNext())
     {
-      Locale locale = _getLocale(tokens.next());
+      String localeString = tokens.next();
+      // TODO: check if the replace of _ with - is really necessary. Also see RequestContextImpl.getFormattingLocale()
+      Locale locale = LocaleUtils.getLocaleForIANAString(localeString.replace('_', '-').trim());
 
       if (locale != null)
-        locales.addElement(locale);
-    }
-
-    if (locales != null)
-    {
-      _locales = new Locale[locales.size()];
-      locales.copyInto(_locales);
+        _locales.add(locale);
     }
   }
 
@@ -320,7 +301,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
   // -= Simon Lessard =-
   // TODO: Check if synchronization is really needed.
   private Vector<StyleNode> _styles;
-  private Locale[]          _locales;
+  private Set<Locale>       _locales;
   private int               _direction;
   private int               _mode;
   private int[]             _browsers;

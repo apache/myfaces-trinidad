@@ -124,4 +124,12 @@
       <style-sheet-name>skins/accdemo/accdemo.css</style-sheet-name>
     </skin>
 
+    <!-- A skin which demonstrates locale features,
+         eg. @locale -->
+    <skin>
+      <id>localedemo.desktop</id>
+      <family>localeDemo</family>
+      <render-kit-id>org.apache.myfaces.trinidad.desktop</render-kit-id>
+      <style-sheet-name>skins/localedemo/localedemo.css</style-sheet-name>
+    </skin>
 </skins>
