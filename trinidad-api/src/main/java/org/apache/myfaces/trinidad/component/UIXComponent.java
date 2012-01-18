@@ -930,7 +930,16 @@ abstract public class UIXComponent extends UIComponent
    */
   protected void setupVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
-    // do nothing
+    if (_inVisitingContext)
+    {
+      _LOG.warning("COMPONENT_ALREADY_IN_VISITING_CONTEXT", getClientId(context));
+      if (_LOG.isFine())
+      {
+        Thread.currentThread().dumpStack();
+      }
+    }
+
+    _inVisitingContext = true;
   }
 
   /**
@@ -948,7 +957,16 @@ abstract public class UIXComponent extends UIComponent
    */
   protected void setupChildrenVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
-    // do nothing
+    if (_inChildrenVisitingContext)
+    {
+      _LOG.warning("COMPONENT_ALREADY_IN_CHILDREN_VISITING_CONTEXT", getClientId(context));
+      if (_LOG.isFine())
+      {
+        Thread.currentThread().dumpStack();
+      }
+    }
+
+    _inChildrenVisitingContext = true;
   }
 
   /**
@@ -966,7 +984,15 @@ abstract public class UIXComponent extends UIComponent
    */
   protected void tearDownVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
-    // do nothing
+    if (!_inVisitingContext)
+    {
+      _LOG.warning("COMPONENT_NOT_IN_VISITING_CONTEXT", getClientId(context));
+      if (_LOG.isFine())
+      {
+        Thread.currentThread().dumpStack();
+      }
+    }
+    _inVisitingContext = false;
   }
 
   /**
@@ -983,7 +1009,15 @@ abstract public class UIXComponent extends UIComponent
    */
   protected void tearDownChildrenVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
-    // do nothing
+    if (!_inChildrenVisitingContext)
+    {
+      _LOG.warning("COMPONENT_NOT_IN_CHILDREN_VISITING_CONTEXT", getClientId(context));
+      if (_LOG.isFine())
+      {
+        Thread.currentThread().dumpStack();
+      }
+    }
+    _inChildrenVisitingContext = false;
   }
 
   @Deprecated
@@ -1020,6 +1054,15 @@ abstract public class UIXComponent extends UIComponent
    */
   protected void setupEncodingContext(FacesContext context, RenderingContext rc)
   {
+    if (_inEncodingContext)
+    {
+      _LOG.warning("COMPONENT_ALREADY_IN_ENCODING_CONTEXT", getClientId(context));
+      if (_LOG.isFine())
+      {
+        Thread.currentThread().dumpStack();
+      }
+    }
+
     setupVisitingContext(context);
 
     Renderer renderer = getRenderer(context);
@@ -1030,6 +1073,8 @@ abstract public class UIXComponent extends UIComponent
 
       coreRenderer.setupEncodingContext(context, rc, (UIComponent)this);
     }
+
+    _inEncodingContext = true;
   }
 
   /**
@@ -1043,6 +1088,15 @@ abstract public class UIXComponent extends UIComponent
    */
   public void setupChildrenEncodingContext(FacesContext context, RenderingContext rc)
   {
+    if (_inChildrenEncodingContext)
+    {
+      _LOG.warning("COMPONENT_ALREADY_IN_CHILDREN_ENCODING_CONTEXT", getClientId(context));
+      if (_LOG.isFine())
+      {
+        Thread.currentThread().dumpStack();
+      }
+    }
+
     setupChildrenVisitingContext(context);
 
     Renderer renderer = getRenderer(context);
@@ -1053,6 +1107,7 @@ abstract public class UIXComponent extends UIComponent
 
       coreRenderer.setupChildrenEncodingContext(context, rc, this);
     }
+    _inChildrenEncodingContext = true;
   }
 
   /**
@@ -1076,6 +1131,15 @@ abstract public class UIXComponent extends UIComponent
     FacesContext context,
     RenderingContext rc)
   {
+    if (!_inEncodingContext)
+    {
+      _LOG.warning("COMPONENT_NOT_IN_ENCODING_CONTEXT", getClientId(context));
+      if (_LOG.isFine())
+      {
+        Thread.currentThread().dumpStack();
+      }
+    }
+
     Renderer renderer = getRenderer(context);
 
     try
@@ -1090,6 +1154,7 @@ abstract public class UIXComponent extends UIComponent
     finally
     {
       tearDownVisitingContext(context);
+      _inEncodingContext = false;
     }
   }
 
@@ -1106,6 +1171,15 @@ abstract public class UIXComponent extends UIComponent
     FacesContext context,
     RenderingContext rc)
   {
+    if (!_inChildrenEncodingContext)
+    {
+      _LOG.warning("COMPONENT_NOT_IN_CHILDREN_ENCODING_CONTEXT", getClientId(context));
+      if (_LOG.isFine())
+      {
+        Thread.currentThread().dumpStack();
+      }
+    }
+
     Renderer renderer = getRenderer(context);
 
     try
@@ -1120,6 +1194,7 @@ abstract public class UIXComponent extends UIComponent
     finally
     {
       tearDownChildrenVisitingContext(context);
+      _inChildrenEncodingContext = false;
     }
   }
 
@@ -1257,6 +1332,11 @@ abstract public class UIXComponent extends UIComponent
     // inside of <f:facet>
     return UIPanel.class == componentClass;
   }
+
+  private boolean _inVisitingContext;
+  private boolean _inChildrenVisitingContext;
+  private boolean _inEncodingContext;
+  private boolean _inChildrenEncodingContext;
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(UIXComponent.class);
