@@ -477,6 +477,9 @@
 <!-- ROWKEY_NOT_RESET  -->
 <resource key="ROWKEY_NOT_RESET">row key might not be reset correctly at the end of the request. Component ID: {0} ViewId: {1}</resource>
 
+<!-- PATTERN_HAS_12HOURCLOCK_BUT_NO_AM/PM -->
+<resource key="PATTERN_HAS_12HOURCLOCK_BUT_NO_AM/PM">Pattern "{0}" uses a lower case 'h' for a 12 hour clock, but there is no 'a', so it does not show am/pm. Going forward pattern "{1}" will be used instead. If this pattern is not acceptable please fix your pattern to either use 'H' for a 24 hour clock, or add an 'a' to the pattern to show am/pm.</resource> 
+
 <!-- COLLECTION_CHANGE_TEARDOWN  -->
 <resource key="COLLECTION_CHANGE_TEARDOWN">The component change that was on the stack is not the required one to properly tear down the context of this component. The component tree is in an invalid state and further errors may result. Component ID: {0} Invalid component change: {1}</resource>
 

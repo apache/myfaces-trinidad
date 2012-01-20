@@ -844,13 +844,151 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   {
     Object patternObj = _facesBean.getProperty(_PATTERN_KEY);
     String pattern = ComponentUtils.resolveString(patternObj);
-
+         
     if (pattern != null && pattern.trim().isEmpty())
     {
       return null;
+      
     }
-
+    //check if pattern is already in map , if not then parse it and cache in map
+    String fixedPattern = _PATTERNS_MAP.get(pattern);
+          
+    if(fixedPattern == null)
+    {
+      fixedPattern = checkAndFixPattern(pattern);
+      //cache the pattern in the map
+      _PATTERNS_MAP.put(pattern , fixedPattern) ;  
+    }
+          
+    return fixedPattern;
+  }
+  /**
+  * <p>Return and validate the  pattern to be used .Currently only pattern
+  * we are validating is a 12 hour clock.</p>
+  */
+  public String checkAndFixPattern(String pattern) 
+  {
+    pattern = fix12HourPattern(pattern) ;
     return pattern;
+  }
+  
+  /**
+  * <p>Validating a pattern with 12 hour clock
+  * check if pattern is 12 hour clock and doesnot have  
+  * am/pm format then add an "a" at the end of the pattern  
+  * so that in 12 hour clock user is able to see am/pm.</p>
+  */ 
+  public static String fix12HourPattern(String pattern)
+  {
+    boolean is12HourClock = false;
+    boolean isAmPmPresent = false;
+    int lastIndexOfTime = -1;
+    boolean inQuotes = false;
+      
+    if (pattern != null && pattern.indexOf("h") != -1)
+    {
+      int currCharIndex = 0;
+      int patternLen = pattern.length();
+          
+      for (; currCharIndex < patternLen; currCharIndex++)
+      {
+        char currChar = pattern.charAt(currCharIndex);
+        
+        switch (currChar)
+        {
+          case 'a':
+          if (!inQuotes)
+          {
+            // it already has am/pm in it
+            isAmPmPresent = true;
+          }
+          break;
+          
+          case 'h':
+          if (!inQuotes)
+          {
+            // save the location of the last h and we are in 12 hour clock pattern
+            is12HourClock = true;
+            lastIndexOfTime = currCharIndex;
+          }
+          break;
+  
+          case 'm':
+          if (!inQuotes)
+          {
+            // save the location of the last m
+            lastIndexOfTime = currCharIndex;
+          }
+          break;
+          
+          case 's':
+          if (!inQuotes)
+          {
+            // save the location of the last s
+            lastIndexOfTime = currCharIndex;
+          }
+          break;
+  
+          case '\'':
+          if (inQuotes)
+          {
+            int nextCharIndex = currCharIndex + 1;
+            
+            if ((nextCharIndex < patternLen) &&('\'' == pattern.charAt(nextCharIndex)))
+            {
+              // this is just an escaped quote, so ignore
+              currCharIndex++;
+            }
+            else
+            {
+              // no longer quoted
+              inQuotes = false;
+            }
+  
+          }
+          else
+          {
+            // we're now in quotes
+            inQuotes = true;
+          }
+          // fall through
+          default:
+          {
+  
+          }
+  
+        }
+  
+      }
+      // if we are in 12 hour clock and am/pm is not there, we will append an 'a' to pattern
+      
+      if(is12HourClock && !isAmPmPresent)
+      {
+        StringBuffer newFormatPattern = new StringBuffer(patternLen + 2);
+        // append everything from the orginal string before lastIndexOfTime
+        newFormatPattern.append(pattern.substring(0, lastIndexOfTime + 1));
+        newFormatPattern.append(" a");
+        // append everything from the orginal string after lastIndexOfTime
+        // where we appended
+  
+        if (lastIndexOfTime + 1 < patternLen)
+        {
+          newFormatPattern.append(pattern.substring(lastIndexOfTime + 1,
+                                                                patternLen));
+        }
+        String formattedPattern = newFormatPattern.toString();
+        if(_LOG.isWarning())
+          {
+            _LOG.warning("PATTERN_HAS_12HOURCLOCK_BUT_NO_AM/PM" ,new Object[]{pattern, formattedPattern} );
+          }
+           
+        pattern = formattedPattern;
+      }  
+       
+    }
+  
+    return pattern;      
+  
   }
 
   /**
@@ -1984,6 +2122,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     new HashMap<Locale, List<String>>();
   private static final List<String> _US_CONVENIENCE_PATTERNS =
     Arrays.asList("MMMM dd, yy", "MMMM/dd/yy", "dd-MMMM-yy");
+  private static final  Map<String, String> _PATTERNS_MAP = new HashMap<String, String>();
 
   static
   {
