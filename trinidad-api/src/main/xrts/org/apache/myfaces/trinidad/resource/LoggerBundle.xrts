@@ -429,6 +429,9 @@
  <!-- RESOURCE_PATH_CONTAINS_DOTS -->
  <resource key="RESOURCE_PATH_DOTS">The resource path {0} contains "..". Browsers resolve out the "..", so this is a suspicious path.</resource>
 
+ <!-- VALIDATOR_FACTORY_UNAVAILABLE -->
+ <resource key="VALIDATOR_FACTORY_UNAVAILABLE">Could not build a default bean validator factory, therefore bean validation is disabled. Exception message is: {0}</resource>
+
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX">Could not find the component with scopedId {0} from {1} with the supported syntax. The component was found with the deprecated syntax. Please use the supported syntax.</resource>
 
