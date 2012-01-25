@@ -53,6 +53,7 @@ import org.apache.myfaces.trinidad.component.UIXComponentBase;
 import org.apache.myfaces.trinidad.component.core.CoreDocument;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.Window;
+import org.apache.myfaces.trinidad.context.WindowManager;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
@@ -529,6 +530,44 @@ public class StateManagerImpl extends StateManagerWrapper
   {
     _delegate.writeState(context, state);
   }
+  /**
+   * Returns whether a token is a currently valid View State Token
+   * @param external The ExternalContext
+   * @param token    The state token to check for validity
+   * @return
+   */
+  public static boolean isValidViewStateToken(ExternalContext external, String token)
+  {
+    if ((token != null) && _calculateTokenStateSaving(external))
+    {
+      return (_getPageState(external, token) != null);
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+
+  /**
+   * Returns the PageState for a state token
+   * @param external
+   * @param token
+   * @return
+   */
+  private static PageState _getPageState(ExternalContext external, String token)
+  {
+    // get view cache key with "." separator suffix to separate the SubKeyMap keys
+    String subkey = _getViewCacheKey(external,
+                                     RequestContext.getCurrentInstance(),
+                                     _SUBKEY_SEPARATOR);
+
+    Map<String, PageState> stateMap = new SubKeyMap<PageState>(
+                     external.getSessionMap(),
+                     subkey);
+    
+    return stateMap.get(token);
+  }
 
   @SuppressWarnings({"unchecked", "deprecation"})
   @Override
@@ -839,7 +878,11 @@ public class StateManagerImpl extends StateManagerWrapper
     String    prefix,
     Character suffix)
   {
-    Window currWindow = trinContext.getWindowManager().getCurrentWindow(eContext);
+    
+    Window currWindow = null;
+    // RequestContext.getWindowManager() uses the FacesContext
+    if (FacesContext.getCurrentInstance() != null)
+      currWindow = trinContext.getWindowManager().getCurrentWindow(eContext);
 
     // if we have a current window or a suffix, we need a StringBuilder to calculate the cache key
     if ((currWindow != null) || (suffix != null))
@@ -888,6 +931,75 @@ public class StateManagerImpl extends StateManagerWrapper
     {
       return prefix;
     }
+  }
+
+  /**
+   * Returns <code>true</code> if we should use token state saving rather than client state
+   * saving
+   * @param external
+   * @return
+   * @see #_saveAsToken
+   */
+  private static boolean _calculateTokenStateSaving(ExternalContext external)
+  {
+    Map initParameters = external.getInitParameterMap();
+
+    Object stateSavingMethod = initParameters.get(StateManager.STATE_SAVING_METHOD_PARAM_NAME);
+
+    // on "SERVER" state-saving we return TRUE, since we want send down a token string.
+    if ((stateSavingMethod == null) ||
+        StateManager.STATE_SAVING_METHOD_SERVER.equalsIgnoreCase((String) stateSavingMethod))
+    {
+      return true;
+    }
+
+    // if the user set state-saving to "CLIENT" *and* the client-state-method to "ALL"
+    // we return FALSE, since we want to save the ENTIRE state on the client...
+    Object clientMethod = initParameters.get(CLIENT_STATE_METHOD_PARAM_NAME);
+
+    if ((clientMethod != null) &&
+        CLIENT_STATE_METHOD_ALL.equalsIgnoreCase((String) clientMethod))
+    {
+      return false;
+    }
+
+    // if the user has used the <document> 'stateSaving' attribute to specify
+    // client, we force the state mananger (see above) to render the entire
+    // state on the client. The indicator is stashed on the FacesContext and
+    // is therefore NOT visible during "restoreView" phase. So if we reach this point
+    // here AND we are using "full" client-side-state-saving, this has been tweaked
+    // on the previous page rendering phase...
+    // In this case we return FALSE to indicate to restore the entire (serialized)
+    // state from the client!
+    //
+    // @see setPerViewStateSaving()
+    String viewStateValue =
+                      external.getRequestParameterMap().get(ResponseStateManager.VIEW_STATE_PARAM);
+
+    if (viewStateValue != null && !viewStateValue.startsWith("!"))
+    {
+      return false;
+    }
+
+    // In certain situations this method is called from a filter and there's no facesContext, so 
+    // make sure to check for a null context
+    FacesContext context = FacesContext.getCurrentInstance();
+
+    if (context != null)
+    {
+      // is vanilla JSF used? No Trinidad render-kit-id give? If so, we need to return FALSE,
+      // since we want to save the ENTIRE state on the client...
+      UIViewRoot viewRoot = context.getViewRoot();
+      
+      if (viewRoot != null && RenderKitFactory.HTML_BASIC_RENDER_KIT.equals(viewRoot.getRenderKitId()))
+      {
+        return false;
+      }
+    }
+
+    // Last missing option: state-saving is "CLIENT" and the client-state-method uses
+    // its default (token), so we return TRUE to send down a token string.
+    return true;
   }
 
   /**
