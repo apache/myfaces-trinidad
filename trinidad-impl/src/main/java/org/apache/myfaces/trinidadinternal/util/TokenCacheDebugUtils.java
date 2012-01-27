@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.util;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -25,6 +26,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -180,6 +182,37 @@ public final class TokenCacheDebugUtils
         logString.append(_getTokenToViewIdString(tokenToViewId, pinnedValueToken));
       }
     }    
+    
+    ExternalContext external = context.getExternalContext();
+    Object requestObject = external.getRequest();
+    
+    // TODO - is there a way to get these off the external context?
+    if (requestObject instanceof HttpServletRequest)
+    {
+      HttpServletRequest request = (HttpServletRequest)requestObject;
+      logString.append("\nrequest url is " + request.getRequestURL());
+      logString.append("\nrequest method is " + request.getMethod());
+    }
+    
+    logString.append("\nrequest map entries " );    
+    Iterator<String> names = external.getRequestParameterNames();
+    Map<String, String[]> requestParams = external.getRequestParameterValuesMap();
+    
+    while (names.hasNext())
+    {
+      String name = names.next();
+      String[] value = requestParams.get(name);
+      
+      if (value != null && value.length > 0)
+      {
+        logString.append("\n     " + name + " = " + value[0]);
+      }
+      else
+      {
+        logString.append("\n     " + name + " = null");
+      }
+    }
+    
   }  
 
 
@@ -254,8 +287,6 @@ public final class TokenCacheDebugUtils
     return buff;
   }  
 
-  /**
-   */
   private static void _logIdString(FacesContext context)
   {   
     ExternalContext externalContext = context.getExternalContext();    
@@ -290,10 +321,7 @@ public final class TokenCacheDebugUtils
       buff.append("\nWindow Id could not be determined, window manager null" ); 
     }
   }  
-  
-
-  /**
-   */
+    
   private static Map<String,String> _getTokenToViewIdMap(FacesContext context)
   {    
     Map<String,String> tokenToViewId = (Map<String, String>)context.getExternalContext().getSessionMap().get("org.apache.myfaces.trinidadinternal.util.TOKEN_FOR_VIEW_ID");
@@ -307,9 +335,6 @@ public final class TokenCacheDebugUtils
     return tokenToViewId;
   }  
 
-
-  /**
-   */
   private static String _getTokenToViewIdString(Map<String,String> tokenToViewId, String token)
   {      
     StringBuffer tokenBuffer = new StringBuffer();
