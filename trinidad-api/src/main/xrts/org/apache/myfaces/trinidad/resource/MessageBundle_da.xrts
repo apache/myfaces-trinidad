@@ -116,7 +116,7 @@
 <!-- {1} represent Date which the user has set     -->
 <!-- {2} represents the minimum allowed date       -->
 <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM" dnt="false">Datoen ligger før det gyldige interval.</resource>
-<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_detail" dnt="false">Datoen skal ligge den {2} eller efter .</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_detail" dnt="false">Datoen skal ligge den {2} eller efter.</resource>
 <!-- Date outside date range error               -->
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->

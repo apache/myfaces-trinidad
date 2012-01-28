@@ -69,8 +69,8 @@
 <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_HINT" dnt="false">{0}文字以上の文字を入力してください。</resource>
 <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.EXACT_HINT" dnt="false">{0}文字の文字を入力してください。</resource>
 <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.RANGE_HINT" dnt="false">{0}から{1}文字までの文字を入力してください。</resource>
-<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_HINT" dnt="false">{0}日以前の日付を入力してください。</resource>
-<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT" dnt="false">{0}日以降の日付を入力してください。</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_HINT" dnt="false">{0}以前の日付を入力してください。</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT" dnt="false">{0}以降の日付を入力してください。</resource>
 <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.RANGE_HINT" dnt="false">{0}と{1}の間の日付を入力してください。</resource>
 <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT" dnt="false">次のいずれかの日付を入力してください: {0}。</resource>
 <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT" dnt="false">次のいずれかの月から日付を入力してください: {0}</resource>
@@ -349,7 +349,7 @@
 <resource key="org.apache.myfaces.trinidad.convert.ALERT_FORMAT_detail" dnt="false">{0} - {1}</resource>
 <!-- message for error while downloading a file  -->
 <resource key="org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR" dnt="false">ファイルのダウンロード中にエラーが発生しました。</resource>
-<resource key="org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR_detail" dnt="false">ファイルはダウンロードされていないか、正しくダウンロールされませんでした。</resource>
+<resource key="org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR_detail" dnt="false">ファイルはダウンロードされていないか、正しくダウンロードされませんでした。</resource>
 <!-- message for error while uploading a file -->
 <resource key="org.apache.myfaces.trinidad.component.core.input.CoreInputFile.INPUT_FILE_ERROR" dnt="false">ファイルのアップロード中にエラーが発生しました。</resource>
 <resource key="org.apache.myfaces.trinidad.component.core.input.CoreInputFile.INPUT_FILE_ERROR_detail" dnt="false">ファイル・アップロード・エラーが発生しました。アップロード・データおよびファイル名を確認してください。</resource>

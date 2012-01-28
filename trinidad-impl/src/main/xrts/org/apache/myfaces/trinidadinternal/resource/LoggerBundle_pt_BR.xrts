@@ -101,11 +101,11 @@
 <!-- NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN -->
 <resource key="NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN" dnt="false">O componente é nulo, mas é necessário para o id de cliente, logo, não foi gravado um script</resource>
 <!-- NULL_CLIENT_ID_NO_SCRIPT_RENDERED -->
-<resource key="NULL_CLIENT_ID_NO_SCRIPT_RENDERED" dnt="false">O id do cliente é nulo, nenhum script convertido</resource>
+<resource key="NULL_CLIENT_ID_NO_SCRIPT_RENDERED" dnt="false">O id do cliente é nulo, nenhum script renderizado</resource>
 <!-- CANNOT_CREATE_CONVERTER_LIKELY_BECAUSE_NO_CONVERTER_REGISTERED -->
 <resource key="CANNOT_CREATE_CONVERTER_LIKELY_BECAUSE_NO_CONVERTER_REGISTERED" dnt="false">Tentou criar conversor para o tipo {0}, mas não conseguiu, provavelmente porque nenhum conversor está registrado.</resource>
 <!-- NULL_CLINET_ID_NO_SCRIPT_RENDERED -->
-<resource key="NULL_CLINET_ID_NO_SCRIPT_RENDERED" dnt="false">O id do cliente é nulo, nenhum script convertido</resource>
+<resource key="NULL_CLINET_ID_NO_SCRIPT_RENDERED" dnt="false">O id do cliente é nulo, nenhum script renderizado</resource>
 <!-- FAIL_INSTANTIATE_PROPERTY -->
 <resource key="FAIL_INSTANTIATE_PROPERTY" dnt="false">Falha na instanciação de Property {0}.</resource>
 <!-- CANNOT_GET_UNIQUE_NAME -->
@@ -168,9 +168,9 @@
 <!-- EXCEPTION_AT -->
 <resource key="EXCEPTION_AT" dnt="false">Exceção em {0}</resource>
 <!-- RENDERER_INSTANTIATION_FAILED -->
-<resource key="RENDERER_INSTANTIATION_FAILED" dnt="false">Falha na instanciação de Renderer {0}</resource>
+<resource key="RENDERER_INSTANTIATION_FAILED" dnt="false">Falha na instanciação do Renderizador {0}</resource>
 <!-- RENDERER_NOT_FOUND -->
-<resource key="RENDERER_NOT_FOUND" dnt="false">Não encontrado o renderer &apos;&apos;{0}&apos;&apos; para a família de componentes &apos;&apos;{1}&apos;&apos;</resource>
+<resource key="RENDERER_NOT_FOUND" dnt="false">Não encontrado o renderizador &apos;&apos;{0}&apos;&apos; para a família de componentes &apos;&apos;{1}&apos;&apos;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Não há SkinFactory</resource>
 <!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
@@ -244,7 +244,7 @@
 <!-- PANELACCORDION_MUST_INSIDE_FORM -->
 <resource key="PANELACCORDION_MUST_INSIDE_FORM" dnt="false">PanelAccordion deve ser usado dentro de um formulário</resource>
 <!-- ERR_PARTIAL_PAGE_RENDERING -->
-<resource key="ERR_PARTIAL_PAGE_RENDERING" dnt="false">Erro durante conversão de página parcial</resource>
+<resource key="ERR_PARTIAL_PAGE_RENDERING" dnt="false">Erro durante renderização de página parcial</resource>
 <!-- POLL_COMPOENT_MUST_INSIDE_FORM -->
 <resource key="POLL_COMPONENT_MUST_INSIDE_FORM" dnt="false">O componente do poll deve estar dentro de um formulário; desativando o poll {0}</resource>
 <!-- SELECTED_SHUTTLE_ITEMS_EXCEEDED_TOTAL_NUMBER -->
@@ -394,9 +394,9 @@
 <!-- CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN -->
 <resource key="CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN" dnt="false">Não foi possível fazer parse do valor {0} em uma Data usando o padrão &quot;aaaa-MM-dd&quot;;  ignorando.</resource>
 <!-- NO_RENDERERFACTORY_REGISTERED_COMPONENT -->
-<resource key="NO_RENDERERFACTORY_REGISTERED_COMPONENT" dnt="false">Nenhum RendererFactory registrado para componentes no namespace {0}</resource>
+<resource key="NO_RENDERERFACTORY_REGISTERED_COMPONENT" dnt="false">Nenhuma RendererFactory registrada para componentes no namespace {0}</resource>
 <!-- NO_RENDERER_REGISTERED -->
-<resource key="NO_RENDERER_REGISTERED" dnt="false">Nenhum Renderer registrado para {0}</resource>
+<resource key="NO_RENDERER_REGISTERED" dnt="false">Nenhum Renderizador registrado para {0}</resource>
 <!-- CANNOT_GET_IMAGE_CACHE -->
 <resource key="CANNOT_GET_IMAGE_CACHE" dnt="false">Não foi encontrado o cache de imagem</resource>
 <!-- CANNOT_CONVERT_INTO_DATAOBJECTLIST -->
@@ -416,7 +416,7 @@
 <!-- CANNOT_FIND_ICON_WITH_GIVEN_KEY -->
 <resource key="CANNOT_FIND_ICON_WITH_GIVEN_KEY" dnt="false">Não foi possível encontrar o ícone com a chave dada</resource>
 <!-- CANNOT_FIND_RENDERER -->
-<resource key="CANNOT_FIND_RENDERER" dnt="false">Não foi possível encontrar renderer para o apelido {0}</resource>
+<resource key="CANNOT_FIND_RENDERER" dnt="false">Não foi possível encontrar renderizador para o alias {0}</resource>
 <!-- UNABLE_FLIP_ICON -->
 <resource key="UNABLE_FLIP_ICON" dnt="false">Não é possível inverter o ícone &apos;&apos;{0}&apos;&apos; porque ele não está sob o contexto da solicitação atual, que é &apos;&apos;{1}&apos;&apos;</resource>
 <!-- CANNOT_LOCATE_PARENT_FORM -->
@@ -450,7 +450,7 @@
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Entrada de propriedade mal-formada: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
-<resource key="CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING" dnt="false">Não foi possível carregar o tipo de renderer para o mapeamento de nome local.</resource>
+<resource key="CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING" dnt="false">Não foi possível carregar o tipo de renderizador para o mapeamento de nome local.</resource>
 <!-- CLIENT_SIDE_ENCODING_NOT_SUPPORTED -->
 <resource key="CLIENT_SIDE_ENCODING_NOT_SUPPORTED" dnt="false">A codificação {0} não é suportada no lado do cliente. Isso ignorará a validação do lado do cliente.</resource>
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
@@ -522,7 +522,7 @@
 <!-- NO_RETURNID_AVAILABLE_FOR_RETURNING_FROM_DIALOG -->
 <resource key="NO_RETURNID_AVAILABLE_FOR_RETURNING_FROM_DIALOG" dnt="false">Nenhum returnId disponível para retornar do diálogo, isso geralmente significa que você não está em um diálogo, em primeiro lugar, ou que o pageFlowScope não está disponível.</resource>
 <!-- TRAINRENDERER_ONLY_RENDERS_INSTANCE -->
-<resource key="TRAINRENDERER_ONLY_RENDERS_INSTANCE" dnt="false">TrainRenderer só converte instâncias de {0}, encontradas {1}</resource>
+<resource key="TRAINRENDERER_ONLY_RENDERS_INSTANCE" dnt="false">TrainRenderer só renderiza instâncias de {0}, encontradas {1}</resource>
 <!-- SELECTONE_SUBMITTEDVALUE_INDEX_OUTSIDE_BOUNDS -->
 <resource key="SELECTONE_SUBMITTEDVALUE_INDEX_OUTSIDE_BOUNDS" dnt="false">O índice de SelectOne submittedValue {0} está fora dos limites. Ele deve estar entre 0 e {1}</resource>
 <!-- SELECTONE_CANNOT_CONVERT_SUBMITTEDVALUE_INDEX_INTO_INTEGER -->
@@ -601,6 +601,8 @@
 <resource key="NULL_STYLESHEETNAME" dnt="false">styleSheetName nulo</resource>
 <!-- NO_SKIN_SPECIFIED -->
 <resource key="NO_SKIN_SPECIFIED" dnt="false">Nenhum Skin especificado.</resource>
+<!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+<resource key="INVALID_INTEGER_MAX_SKINS_CACHED" dnt="false">Número inteiro {0} inválido para context-param org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED em web.xml. Por isso, o número inteiro default {1} será usado.</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">inputStream nulo</resource>
 <!-- NULL_PARSEMANAGER -->
@@ -666,7 +668,7 @@
 <!-- ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED -->
 <resource key="ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED" dnt="false">Apenas ContextBasedConfiguration é suportado</resource>
 <!-- FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED -->
-<resource key="FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED" dnt="false">O aspecto não pode ser definido depois do RendererManager ter sido atribuído.</resource>
+<resource key="FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED" dnt="false">O aspecto não pode ser definido após o RendererManager ter sido atribuído.</resource>
 <!-- ILLEGAL_TO_SET_CHILDREN -->
 <resource key="ILLEGAL_TO_SET_CHILDREN" dnt="false">É inválido definir o filho em um {0}</resource>
 <!-- ILLEGAL_TO_ADD_CHILDREN -->

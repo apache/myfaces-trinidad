@@ -36,11 +36,11 @@
 <!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">Mudar de Aplicações</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
-<resource key="af_menuChoice.GO_TIP" dnt="false">Ir para a Aplicação Seleccionada</resource>
+<resource key="af_menuChoice.GO_TIP" dnt="false">Ir para a Aplicação Selecionada</resource>
 <resource key="af_menuChoice.GO" dnt="false">Ir</resource>
 <!--resources for the column headers-->
-<resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">Seleccionar</resource>
-<resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">Seleccionar</resource>
+<resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">Selecionar</resource>
+<resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">Selecionar</resource>
 <!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">Detalhes</resource>
 <!-- Resource for Composite Table -->
@@ -62,7 +62,7 @@
 <resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Redimensionar Colunas...</resource>
 <resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Redefinir...</resource>
 <resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">Moldar</resource>
-<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Linhas Seleccionadas:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Linhas Selecionadas:</resource>
 <resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">Todas</resource>
 <resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">Colunas Ocultas:</resource>
 <resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">Colunas Congeladas:</resource>
@@ -114,22 +114,22 @@
 <resource key="af_table.SELECT_RANGE_DISABLED_PREVIOUS" dnt="false">Anterior</resource>
 <resource key="af_treeTable.DISABLED_PREVIOUS" dnt="false">Anterior</resource>
 <!--alternate text for a back arrow image link in the navigation bar-->
-<resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">Seleccione para visualizar o conjunto anterior</resource>
-<resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">Seleccione para visualizar o conjunto anterior</resource>
-<resource key="af_treeTable.PREVIOUS_TIP" dnt="false">Seleccione para visualizar o conjunto anterior</resource>
+<resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">Selecione para visualizar o conjunto anterior</resource>
+<resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">Selecione para visualizar o conjunto anterior</resource>
+<resource key="af_treeTable.PREVIOUS_TIP" dnt="false">Selecione para visualizar o conjunto anterior</resource>
 <!--alternate text for a forward arrow image link in the navigation bar-->
-<resource key="af_selectRangeChoiceBar.NEXT_TIP" dnt="false">Seleccione para visualizar o conjunto seguinte</resource>
-<resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">Seleccione para visualizar o conjunto seguinte</resource>
-<resource key="af_treeTable.NEXT_TIP" dnt="false">Seleccione para visualizar o conjunto seguinte</resource>
+<resource key="af_selectRangeChoiceBar.NEXT_TIP" dnt="false">Selecione para visualizar o conjunto seguinte</resource>
+<resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">Selecione para visualizar o conjunto seguinte</resource>
+<resource key="af_treeTable.NEXT_TIP" dnt="false">Selecione para visualizar o conjunto seguinte</resource>
 <!--alternate text for a disabled back arrow image link in the navigation bar-->
-<resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">Funcionalidade anterior desactivada</resource>
-<resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">Funcionalidade anterior desactivada</resource>
+<resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">Funcionalidade anterior desativada</resource>
+<resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">Funcionalidade anterior desativada</resource>
 <!--alternate text for a disabled forward arrow image link in the navigation bar-->
-<resource key="af_table.SELECT_RANGE_NEXT_DISABLED_TIP" dnt="false">Funcionalidade seguinte desactivada</resource>
-<resource key="af_selectRangeChoiceBar.NEXT_DISABLED_TIP" dnt="false">Funcionalidade seguinte desactivada</resource>
+<resource key="af_table.SELECT_RANGE_NEXT_DISABLED_TIP" dnt="false">Funcionalidade seguinte desativada</resource>
+<resource key="af_selectRangeChoiceBar.NEXT_DISABLED_TIP" dnt="false">Funcionalidade seguinte desativada</resource>
 <!-- roll over text for the choice in the multi step navbar -->
-<resource key="af_selectRangeChoiceBar.CHOICE_TIP" dnt="false">Seleccionar conjunto de registos</resource>
-<resource key="af_table.SELECT_RANGE_CHOICE_TIP" dnt="false">Seleccionar conjunto de registos</resource>
+<resource key="af_selectRangeChoiceBar.CHOICE_TIP" dnt="false">Selecionar conjunto de registos</resource>
+<resource key="af_table.SELECT_RANGE_CHOICE_TIP" dnt="false">Selecionar conjunto de registos</resource>
 <!-- Alternate choice text for displaying rows before first row in choice -->
 <resource key="af_selectRangeChoiceBar.PREVIOUS_OPTION" dnt="false">Anterior...</resource>
 <resource key="af_table.SELECT_RANGE_PREVIOUS_OPTION" dnt="false">Anterior...</resource>
@@ -200,7 +200,7 @@
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
 <resource key="af_chooseDate.CANCEL" dnt="false">Cance&amp;lar</resource>
 <!--Tooltip on the date picker button that launches the calendar dialog-->
-<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Seleccione para ter acesso ao selector de datas</resource>
+<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Selecione para ter acesso ao seletor de datas</resource>
 <!--Title of ColorPicker Dialog-->
 <resource key="af_inputColor.PICKER_TITLE" dnt="false">Escolher Cor</resource>
 <!--Text for transparent colors-->
@@ -208,7 +208,7 @@
 <!-- Prompt for color field in color picker dialog -->
 <resource key="af_inputColor.PICKER_PROMPT" dnt="false">Cor</resource>
 <!--Tooltip on the color picker button that launches the color palette dialog-->
-<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Seleccione para ter acesso ao selector de cores</resource>
+<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Selecione para ter acesso ao seletor de cores</resource>
 <!-- Text on the Apply/Cancel buttons on the selectInputColor dialog -->
 <resource key="af_inputColor.APPLY" dnt="false">Aplicar</resource>
 <resource key="af_inputColor.CANCEL" dnt="false">Cancelar</resource>
@@ -222,30 +222,30 @@
 <!--defaults strings for showDetail, showDetailHeader, and showDetail in table -->
 <resource key="af_showDetail.DISCLOSED" dnt="false">Ocultar</resource>
 <resource key="af_showDetail.UNDISCLOSED" dnt="false">Mostrar</resource>
-<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">Seleccione para ocultar as informações</resource>
-<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">Seleccione para mostrar as informações</resource>
+<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">Selecione para ocultar as informações</resource>
+<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">Selecione para mostrar as informações</resource>
 <resource key="af_showDetailHeader.DISCLOSED" dnt="false">Ocultar</resource>
 <resource key="af_showDetailHeader.UNDISCLOSED" dnt="false">Mostrar</resource>
-<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">Seleccione para ocultar as informações</resource>
-<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">Seleccione para mostrar as informações</resource>
+<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">Selecione para ocultar as informações</resource>
+<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">Selecione para mostrar as informações</resource>
 <resource key="af_table.DISCLOSED" dnt="false">Ocultar</resource>
 <resource key="af_table.UNDISCLOSED" dnt="false">Mostrar</resource>
-<resource key="af_table.DISCLOSED_TIP" dnt="false">Seleccione para ocultar as informações</resource>
-<resource key="af_table.UNDISCLOSED_TIP" dnt="false">Seleccione para mostrar as informações</resource>
+<resource key="af_table.DISCLOSED_TIP" dnt="false">Selecione para ocultar as informações</resource>
+<resource key="af_table.UNDISCLOSED_TIP" dnt="false">Selecione para mostrar as informações</resource>
 <!--defaults strings for show, hide in showOneAccordion -->
 <resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">Informações apresentadas</resource>
-<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">Seleccione para mostrar as informações</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">Selecione para mostrar as informações</resource>
 <!--defaults strings for show, hide in showOneAccordion -->
 <resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">Informações apresentadas</resource>
-<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">Seleccione para mostrar as informações</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">Selecione para mostrar as informações</resource>
 <!--Alt tag for reordering items up to top-->
-<resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">Deslocar os itens seleccionados para o início da lista</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">Deslocar os itens selecionados para o início da lista</resource>
 <!--Alt tag for reordering items up one-->
-<resource key="af_selectOrderShuttle.REORDER_UP_TIP" dnt="false">Deslocar os itens seleccionados um nível para cima na lista</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_TIP" dnt="false">Deslocar os itens selecionados um nível para cima na lista</resource>
 <!--Alt tag for reordering items down to bottom-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL_TIP" dnt="false">Deslocar os itens seleccionados para o fim da lista</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL_TIP" dnt="false">Deslocar os itens selecionados para o fim da lista</resource>
 <!--Alt tag for reordering items down one-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">Deslocar os itens seleccionados um nível para baixo na lista</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">Deslocar os itens selecionados um nível para baixo na lista</resource>
 <!--Text for reordering items to top of list-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">Início</resource>
 <!--Text for reordering items up one position in the list-->
@@ -262,14 +262,14 @@
 <resource key="af_selectManyShuttle.MOVE_ALL_TIP" dnt="false">Deslocar todos os itens para outra lista</resource>
 <resource key="af_selectOrderShuttle.MOVE_ALL_TIP" dnt="false">Deslocar todos os itens para outra lista</resource>
 <!--Alt tag for moving selected items-->
-<resource key="af_selectManyShuttle.MOVE_TIP" dnt="false">Deslocar os itens seleccionados para outra lista</resource>
-<resource key="af_selectOrderShuttle.MOVE_TIP" dnt="false">Deslocar os itens seleccionados para outra lista</resource>
+<resource key="af_selectManyShuttle.MOVE_TIP" dnt="false">Deslocar os itens selecionados para outra lista</resource>
+<resource key="af_selectOrderShuttle.MOVE_TIP" dnt="false">Deslocar os itens selecionados para outra lista</resource>
 <!--Alt tag for removing all the items-->
 <resource key="af_selectManyShuttle.REMOVE_ALL_TIP" dnt="false">Retirar todos os itens da lista</resource>
 <resource key="af_selectOrderShuttle.REMOVE_ALL_TIP" dnt="false">Retirar todos os itens da lista</resource>
 <!--Alt tag for removing selected items-->
-<resource key="af_selectManyShuttle.REMOVE_TIP" dnt="false">Retirar os itens seleccionados da lista</resource>
-<resource key="af_selectOrderShuttle.REMOVE_TIP" dnt="false">Retirar os itens seleccionados da lista</resource>
+<resource key="af_selectManyShuttle.REMOVE_TIP" dnt="false">Retirar os itens selecionados da lista</resource>
+<resource key="af_selectOrderShuttle.REMOVE_TIP" dnt="false">Retirar os itens selecionados da lista</resource>
 <!--Link text for moving all the items-->
 <resource key="af_selectManyShuttle.MOVE_ALL" dnt="false">Deslocar Todos</resource>
 <resource key="af_selectOrderShuttle.MOVE_ALL" dnt="false">Deslocar Todos</resource>
@@ -283,7 +283,7 @@
 <resource key="af_selectManyShuttle.REMOVE" dnt="false">Retirar</resource>
 <resource key="af_selectOrderShuttle.REMOVE" dnt="false">Retirar</resource>
 <!--Poll. The button text that the user presses to manually ask for a poll of the server -->
-<resource key="af_poll.MANUAL" dnt="false">Servidor de Chamada Selectiva</resource>
+<resource key="af_poll.MANUAL" dnt="false">Servidor de Chamada Seletiva</resource>
 <!--Progress-->
 <!--Format for the determinate progress icon's alt tag -->
 <resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">{0}% concluído</resource>
@@ -294,12 +294,12 @@
 <!--QuickLinks-->
 <!--Alt tag for returning to the top-->
 <!-- =-=jmw also used in af_page. @todo fix this. -->
-<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP_TIP" dnt="false">Seleccione para saltar para o início da página</resource>
+<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP_TIP" dnt="false">Selecione para saltar para o início da página</resource>
 <!--Link text for returning to the top-->
 <resource key="af_panelPage.QUICK_LINKS_RETURN_TOP" dnt="false">Regressar ao Início</resource>
 <!--Format for the quick links alt tag-->
 <!--{0} - the full name of the header-->
-<resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">Seleccione para saltar para &quot;{0}&quot; na página</resource>
+<resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">Selecione para saltar para &quot;{0}&quot; na página</resource>
 <!--Train-->
 <!--In all of the following three: {0} - the name of the step-->
 <!--alternate text for a visited-step image in a Train-->
@@ -307,7 +307,7 @@
 <resource key="af_train.VISITED_TIP" dnt="false">{0}: Passo visitado anteriormente</resource>
 <!--alternate text for the current-step image in a Train-->
 <!-- eg: Billing Information: Active step -->
-<resource key="af_train.ACTIVE_TIP" dnt="false">{0}: Passo activo</resource>
+<resource key="af_train.ACTIVE_TIP" dnt="false">{0}: Passo ativo</resource>
 <!--alternate text for the next-step images in a Train-->
 <!-- eg: Billing Information: Next step -->
 <resource key="af_train.NEXT_TIP" dnt="false">{0}: Passo seguinte</resource>
@@ -318,18 +318,18 @@
 <!--TabBar. For oracle.desktop skin -->
 <!--alternate text for the currently selected TabBar image-->
 <!--{0} - the tab name. eg: Electronics: Currently selected tab-->
-<resource key="af_menuTabs.SELECTED_TIP" dnt="false">{0}: Separador actualmente seleccionado</resource>
+<resource key="af_menuTabs.SELECTED_TIP" dnt="false">{0}: Separador atualmente selecionado</resource>
 <!--alternate text for an enabled unselected TabBar image-->
 <!--{0} - the tab name. eg: Electronics: Select to go to this tab-->
-<resource key="af_menuTabs.ENABLED_TIP" dnt="false">{0}: Seleccione para se deslocar para este separador</resource>
+<resource key="af_menuTabs.ENABLED_TIP" dnt="false">{0}: Selecione para se deslocar para este separador</resource>
 <!--alternate text for a disabled TabBar image-->
 <!--{0} - the tab name. eg: Electronics: Disabled tab-->
-<resource key="af_menuTabs.DISABLED_TIP" dnt="false">{0}: Separador desactivado</resource>
+<resource key="af_menuTabs.DISABLED_TIP" dnt="false">{0}: Separador desativado</resource>
 <!--Table/HGrid-->
 <!--Link text for selecting all rows-->
-<resource key="af_tableSelectMany.SELECT_ALL" dnt="false">Seleccionar Todos</resource>
+<resource key="af_tableSelectMany.SELECT_ALL" dnt="false">Selecionar Todos</resource>
 <!--Link text for deselecting all rows-->
-<resource key="af_tableSelectMany.SELECT_NONE" dnt="false">Não Seleccionar Nada</resource>
+<resource key="af_tableSelectMany.SELECT_NONE" dnt="false">Não Selecionar Nada</resource>
 <!--Link text for expanding all rows-->
 <resource key="af_treeTable.EXPAND_ALL" dnt="false">Expandir Todos</resource>
 <!--Link text for collapsing all rows-->
@@ -339,20 +339,20 @@
 <!--Link text for hiding all details-->
 <resource key="af_table.HIDE_ALL_DETAILS" dnt="false">Ocultar Todos os Detalhes</resource>
 <!--Alt text for the icon used to expand a tree node-->
-<resource key="af_tree.EXPAND_TIP" dnt="false">Seleccione para expandir</resource>
-<resource key="af_treeTable.EXPAND_TIP" dnt="false">Seleccione para expandir</resource>
-<resource key="af_navigationTree.EXPAND_TIP" dnt="false">Seleccione para expandir</resource>
+<resource key="af_tree.EXPAND_TIP" dnt="false">Selecione para expandir</resource>
+<resource key="af_treeTable.EXPAND_TIP" dnt="false">Selecione para expandir</resource>
+<resource key="af_navigationTree.EXPAND_TIP" dnt="false">Selecione para expandir</resource>
 <!--Alt text for the icon used to collapse a tree node-->
-<resource key="af_tree.COLLAPSE_TIP" dnt="false">Seleccione para contrair</resource>
-<resource key="af_treeTable.COLLAPSE_TIP" dnt="false">Seleccione para contrair</resource>
-<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">Seleccione para contrair</resource>
+<resource key="af_tree.COLLAPSE_TIP" dnt="false">Selecione para contrair</resource>
+<resource key="af_treeTable.COLLAPSE_TIP" dnt="false">Selecione para contrair</resource>
+<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">Selecione para contrair</resource>
 <!--Alt text for the icon used for an expanded tree node that cannot be -->
 <!-- collapsed -->
 <resource key="af_tree.DISABLED_COLLAPSE_TIP" dnt="false">Nó expandido</resource>
 <resource key="af_treeTable.DISABLED_COLLAPSE_TIP" dnt="false">Nó expandido</resource>
 <resource key="af_navigationTree.DISABLED_COLLAPSE_TIP" dnt="false">Nó expandido</resource>
 <!--Alt text for the focus icon-->
-<resource key="af_treeTable.FOCUS_TIP" dnt="false">Seleccione para focar</resource>
+<resource key="af_treeTable.FOCUS_TIP" dnt="false">Selecione para focar</resource>
 <!--Alt text for the bread crumb start icon-->
 <resource key="af_treeTable.BREADCRUMB_START_TIP" dnt="false">Início do Percurso da Hierarquia</resource>
 <!-- NODE_LEVEL_TEXT: Indicates the level of a node from root.   -->
@@ -365,13 +365,13 @@
 <resource key="af_treeTable.NODE_LEVEL" dnt="false">Nível {0}</resource>
 <resource key="af_navigationTree.NODE_LEVEL" dnt="false">Nível {0}</resource>
 <!-- alt text for the icon that indicates a readOnly checkbox in the checked state -->
-<resource key="af_selectBooleanCheckbox.READONLY_CHECKED_TIP" dnt="false">Caixa de Selecção Só de Leitura Seleccionada</resource>
+<resource key="af_selectBooleanCheckbox.READONLY_CHECKED_TIP" dnt="false">Caixa de Seleção Só de Leitura Selecionada</resource>
 <!-- alt text for the icon that indicates a readOnly checkbox in the unchecked state -->
-<resource key="af_selectBooleanCheckbox.READONLY_NOT_CHECKED_TIP" dnt="false">Caixa de Selecção Só de Leitura Não Seleccionada</resource>
+<resource key="af_selectBooleanCheckbox.READONLY_NOT_CHECKED_TIP" dnt="false">Caixa de Seleção Só de Leitura Não Selecionada</resource>
 <!-- alt text for the icon that indicates a readOnly radioButton in the selected state -->
-<resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Botão de Rádio Só de Leitura Seleccionado</resource>
+<resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Botão de Rádio Só de Leitura Selecionado</resource>
 <!-- alt text for the icon that indicates a readOnly radioButton in the unselected state -->
-<resource key="af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP" dnt="false">Botão de Rádio Só de Leitura Não Seleccionado</resource>
+<resource key="af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP" dnt="false">Botão de Rádio Só de Leitura Não Selecionado</resource>
 <!-- This is the title of the link at the top of a page that a screen-reader
        user would use to skip all the navigation links and jump to the
        content -->
@@ -429,18 +429,18 @@
 <!-- of span in conjuction with link element while rendering. -->
 <!-- Eg: <a href="www.oracle.com"><span class="x4h">Selected</span>Oracle</a> -->
 <!-- Thus the screen reader reads it as 'Selected Oracle Link' -->
-<resource key="STATUS_SELECTED" dnt="false">Seleccionado</resource>
+<resource key="STATUS_SELECTED" dnt="false">Selecionado</resource>
 <!-- This is the title of the link at start of each nav block that a screen-reader
        user would use to skip all the navigation links in current block only -->
 <!-- {0} - One of the strings from resource group *_BLOCK_TITLE below
        eg: Skip all Second level navigation elements -->
 <resource key="SKIP_CURRENT_NAVIGATION_BLOCK" dnt="false">Ignorar todos os {0}</resource>
 <!--Text to display in noscript tag -->
-<resource key="NO_SCRIPT_MESSAGE" dnt="false">Esta página utiliza JavaScript e requer um navegador activado para JavaScript. O navegador não está activado para JavaScript.</resource>
+<resource key="NO_SCRIPT_MESSAGE" dnt="false">Esta página utiliza JavaScript e requer um navegador ativado para JavaScript. O navegador não está ativado para JavaScript.</resource>
 <!-- Text of the ALT tag for the content frame of popup windows -->
 <resource key="FRAME_CONTENT" dnt="false">Conteúdo</resource>
 <!-- A message displayed when we think there's a popup blocker installed -->
-<resource key="WINDOW_CREATION_ERROR" dnt="false">Foi detectado um bloqueador de janelas sobrepostas no navegador. Os bloqueadores de janelas sobrepostas interferem com o funcionamento desta aplicação. Desactive o bloqueador de janelas ou permita a apresentação de janelas sobrepostas deste local.</resource>
+<resource key="WINDOW_CREATION_ERROR" dnt="false">Foi detetado um bloqueador de janelas sobrepostas no navegador. Os bloqueadores de janelas sobrepostas interferem com o funcionamento desta aplicação. Desactive o bloqueador de janelas ou permita a apresentação de janelas sobrepostas deste local.</resource>
 <!-- Text to display in noframes element. This message is set on noframes element,
        when page redirection happens for LOV selection. -->
 <resource key="NO_FRAMES_MESSAGE" dnt="false">O navegador não suporta molduras. O suporte a molduras é necessário para esta funcionalidade</resource>
@@ -448,7 +448,7 @@
 <!--Feedback in javascript alert when user tries to use move/remove buttons when there are no items-->
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">Não existem itens para deslocação.</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
-<resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">Em primeiro lugar, seleccione os itens para deslocação.</resource>
+<resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">Em primeiro lugar, selecione os itens para deslocação.</resource>
 <!--resource for af:chart -->
 <resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
 <![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
@@ -500,7 +500,7 @@
 <resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">Aumentar Indentação</resource>
 <resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">Criar Hiperreferência</resource>
 <resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Introduza a localização da referência (por exemplo: http://www.oracle.com)</resource>
-<resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">URL de Destino da Selecção com o Rato</resource>
+<resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">URL de Destino da Seleção com o Rato</resource>
 <resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">Importar Imagem</resource>
 <resource key="RTE_FONT_CHOICE_TEXT" dnt="false">Tipo de Letra</resource>
 <resource key="RTE_FONT_SIZE_CHOICE_TEXT" dnt="false">Tamanho do Tipo de Letra</resource>
@@ -512,7 +512,7 @@
 <!--ListOfValues Template-->
 <!--Text for main header LOV Window Header-->
 <!--{0}: The label for the search (the title attribute of the template) -->
-<resource key="SEARCH_AND_SELECT_FORMAT" dnt="false">Pesquisar e Seleccionar: {0}</resource>
+<resource key="SEARCH_AND_SELECT_FORMAT" dnt="false">Pesquisar e Selecionar: {0}</resource>
 <!--Text for sub header in LOV Window-->
 <resource key="SEARCH_TEXT" dnt="false">Pesquisar</resource>
 <!--Text for simple search half of the search area toggle button -->

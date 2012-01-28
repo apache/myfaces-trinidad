@@ -601,6 +601,8 @@
 <resource key="NULL_STYLESHEETNAME" dnt="false">styleSheetName خالٍ</resource>
 <!-- NO_SKIN_SPECIFIED -->
 <resource key="NO_SKIN_SPECIFIED" dnt="false">لم يتم تحديد مظهر.</resource>
+<!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+<resource key="INVALID_INTEGER_MAX_SKINS_CACHED" dnt="false">عدد صحيح غير صالح {0} للمعلمة السياق org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED في web.xml, لذا يتم استخدام العدد الصحيح الافتراضي {1} بدلاً منه.</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">inputStream خالٍ</resource>
 <!-- NULL_PARSEMANAGER -->

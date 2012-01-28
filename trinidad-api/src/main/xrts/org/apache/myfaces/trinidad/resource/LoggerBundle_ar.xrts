@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">حدث خطأ أثناء تكوين طبعة مكون جديدة لـ {0}</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">طبقة التحويل: {0} ليست من النوع {1}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">فشل تطبيق تغيير سمة المجموعة الرئيسية للصف. السبب : {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">يتعذر تكوين طبعة لـ converterClass: {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->

@@ -423,7 +423,7 @@
 <!--Alternate text for the "info" icon-->
 <resource key="INFO_TIP" dnt="false">Informações</resource>
 <!--Alternate text for the "required" icon-->
-<resource key="REQUIRED_TIP" dnt="false">Necessário</resource>
+<resource key="REQUIRED_TIP" dnt="false">Obrigatório</resource>
 <!--Link Selection Status-->
 <!-- This is used for better screen reader experience. It is identified by use -->
 <!-- of span in conjuction with link element while rendering. -->

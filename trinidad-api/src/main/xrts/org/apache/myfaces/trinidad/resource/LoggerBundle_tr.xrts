@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">{0} için yeni bir bileşen anı yaratılmaya çalışılırken hata oluştu</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">{0} dönüştürme sınıfı {1} türünde değil</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Satır anahtar kümesi özellik değişikliği uygulanamadı. Nedeni: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">converterClass ({0}) için örnek yaratılamıyor</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->

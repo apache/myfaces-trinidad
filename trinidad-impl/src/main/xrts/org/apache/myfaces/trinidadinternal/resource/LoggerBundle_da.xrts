@@ -174,7 +174,7 @@
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Der er ingen SkinFactory</resource>
 <!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Temaet {0}, der er angivet i requestMap, bruges, selv om forbrugerens temas styleSheetDocument-ID i requestMap ikke matcher det lokale temas styleSheetDocument-ID. Det vil påvirke ydelsen, da forbrugerens og producentens typografiark ikke kan deles. Producentens typografiklasser bliver ikke komprimerede for at undgå konflikter. En grund til, at ID&apos;&apos;erne ikke matcher kan være, fordi jar-filerne ikke er identiske for producenten og forbrugeren. En af dem kan f.eks. have trinidad-skins.xml&apos;&apos;s tematilføjelser i en jar-fil i klassestien, som den anden ikke har.</resource>
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Temaet {0}, der er angivet i requestMap, bruges, selv om forbrugerens temas styleSheetDocument-ID i requestMap ikke matcher det lokale temas styleSheetDocument-ID. Det vil påvirke ydelsen, da forbrugerens og producentens typografiark ikke kan deles. Producentens typografiklasser bliver ikke komprimerede for at undgå konflikter. En grund til, at ID&apos;&apos;erne ikke matcher kan være, fordi jar-filerne ikke er identiske for producenten og forbrugeren. En af dem kan for eksempel have trinidad-skins.xml&apos;&apos;s tematilføjelser i en jar-fil i klassestien, som den anden ikke har.</resource>
 <!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
 <resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Teamet {0}, der er angivet i requestMap, bruges, selv om forbrugerens temas styleSheetDocument-ID ikke var i requestMap. Det påvirker ydelsen, da typografiark ikke kan deles mellem producenten og forbrugeren.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
@@ -186,7 +186,7 @@
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Et NULL-SkinAddition-objekt blev videregivet til addSkinAddition.</resource>
 <!-- SKIN_CONFIG_PROCESS_FAILURE -->
-<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Kunne ikke behandle skemakonfigurationsfil: {0}.</resource>
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Kunne ikke behandle temakonfigurationsfil: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Temaets translation-source-ValueExpression er ikke af den forventede type, Map eller ResourceBundle, og ignoreres derfor.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -601,6 +601,8 @@
 <resource key="NULL_STYLESHEETNAME" dnt="false">NULL-styleSheetName</resource>
 <!-- NO_SKIN_SPECIFIED -->
 <resource key="NO_SKIN_SPECIFIED" dnt="false">Intet tema er angivet.</resource>
+<!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+<resource key="INVALID_INTEGER_MAX_SKINS_CACHED" dnt="false">Ugyldigt heltal {0} for context-param org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED i web.xml, så standardheltallet {1} bliver brugt i stedet.</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">NULL-inputStream</resource>
 <!-- NULL_PARSEMANAGER -->

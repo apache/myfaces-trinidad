@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">Er is een fout opgetreden tijdens het aanmaken van een nieuwe componentinstance voor {0}.</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">Conversieklasse {0} is niet van type {1}.</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Wijziging rijsleutelsetattribuut kan niet worden toegepast. Reden: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">Kan converterClass {0} niet instantiëren.</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->

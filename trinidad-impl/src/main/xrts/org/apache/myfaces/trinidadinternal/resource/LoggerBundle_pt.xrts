@@ -49,7 +49,7 @@
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Não foi possível encontrar o estado da vista gravado do símbolo {0}</resource>
 <!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
-<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE não é suportado e não deve ser utilizado, porque actualmente não funciona na maioria dos casos.</resource>
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE não é suportado e não deve ser utilizado, porque atualmente não funciona na maioria dos casos.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Não existe nenhuma estrutura nem nenhuma raiz disponível</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->
@@ -61,7 +61,7 @@
 <!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
 <resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">A ViewHandler do Trinidad está registada mais de uma vez. Para evitar problemas de inicialização, certifique-se de que só é carregado um jar de implementação do Trinidad</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
-<resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">O Apache Trinidad está em execução com a verificação da indicação de data/hora activada. Não deverá utilizá-la num ambiente de produção. Consulte a propriedade {0} em WEB-INF/web.xml</resource>
+<resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">O Apache Trinidad está em execução com a verificação da indicação de data/hora ativada. Não deverá utilizá-la num ambiente de produção. Consulte a propriedade {0} em WEB-INF/web.xml</resource>
 <!-- CANNOT_LOAD_URL -->
 <resource key="CANNOT_LOAD_URL" dnt="false">Não foi possível carregar {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
@@ -83,11 +83,11 @@
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
 <resource key="CONFIGURATOR_SERVICES_INITIALIZED" dnt="false">Os serviços do configurador já foram inicializados.</resource>
 <!-- REQUESTCONTEXT_NOT_PROPERLY_RELEASED -->
-<resource key="REQUESTCONTEXT_NOT_PROPERLY_RELEASED" dnt="false">O RequestContext não foi correctamente libertado num pedido anterior.</resource>
+<resource key="REQUESTCONTEXT_NOT_PROPERLY_RELEASED" dnt="false">O RequestContext não foi corretamente libertado num pedido anterior.</resource>
 <!-- UNABLE_SET_REQUEST_CHARACTER -->
 <resource key="UNABLE_SET_REQUEST_CHARACTER" dnt="false">Incapaz de definir a codificação de caracteres do pedido como {0}, porque os parâmetros do pedido já foram lidos.</resource>
 <!-- RETURNFROMDIALOG_KEY_NOT_AVAILABLE -->
-<resource key="RETURNFROMDIALOG_KEY_NOT_AVAILABLE" dnt="false">Não existe nenhuma chave &apos;DialogUsedRK&apos; disponível para returnFromDialog para efectuar o procedimento correcto!</resource>
+<resource key="RETURNFROMDIALOG_KEY_NOT_AVAILABLE" dnt="false">Não existe nenhuma chave &apos;DialogUsedRK&apos; disponível para returnFromDialog para efetuar o procedimento correto!</resource>
 <!-- CANNOT_QUEUE_RETURN_EVENT -->
 <resource key="CANNOT_QUEUE_RETURN_EVENT" dnt="false">Não foi possível colocar o evento de retorno na fila de espera: não existe nenhuma origem de lançamento</resource>
 <!-- RENDERKIT_NOT_SUPPORT_DIALOGRENDERKITSERVICE -->
@@ -117,7 +117,7 @@
 <!-- ILLEGAL_CHARACTER_IN_ATTRIBUTE -->
 <resource key="ILLEGAL_CHARACTER_IN_ATTRIBUTE" dnt="false">Carácter ilegal (espaço) no atributo &quot;name&quot;</resource>
 <!-- INCORRECTLY_SET_NAME_ATTRIBUTE -->
-<resource key="INCORRECTLY_SET_NAME_ATTRIBUTE" dnt="false">O atributo &quot;name&quot; foi definido incorrectamente como &quot;name&quot;</resource>
+<resource key="INCORRECTLY_SET_NAME_ATTRIBUTE" dnt="false">O atributo &quot;name&quot; foi definido incorretamente como &quot;name&quot;</resource>
 <!-- NAME_ATTRIBUTE_OF_TARGET_WILL_CAUSE_JAVASCRIPT_ERROR -->
 <resource key="NAME_ATTRIBUTE_OF_TARGET_WILL_CAUSE_JAVASCRIPT_ERROR" dnt="false">O atributo &quot;name&quot; foi definido como &quot;target&quot;, o que causará erros de Javascript.</resource>
 <!-- UNNECESSARY_NAME_ATTRIBUTE_START_WITH_JAVASCRIPT -->
@@ -148,9 +148,9 @@
 <!-- GROUPNODE_REFER_INVALID_GROUP_NODE -->
 <resource key="GROUPNODE_REFER_INVALID_GROUP_NODE" dnt="false">O GroupNode {0} não refere nenhum nó válido.</resource>
 <!-- CREATE_MODEL_EXCEPTION -->
-<resource key="CREATE_MODEL_EXCEPTION" dnt="false">Excepção na criação do modelo {0}</resource>
+<resource key="CREATE_MODEL_EXCEPTION" dnt="false">Exceção na criação do modelo {0}</resource>
 <!-- INVALID_EL_EXPRESSION -->
-<resource key="INVALID_EL_EXPRESSION" dnt="false">A Expressão de EL {0} é inválida ou devolveu um valor incorrecto.</resource>
+<resource key="INVALID_EL_EXPRESSION" dnt="false">A Expressão de EL {0} é inválida ou devolveu um valor incorreto.</resource>
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Não foi possível encontrar a agregação de recursos {0}.</resource>
 <!-- ERR_CLOSING_FILE -->
@@ -166,7 +166,7 @@
 <!-- MISSING_AT -->
 <resource key="MISSING_AT" dnt="false">Falta &lt;{0}&gt; em {1}</resource>
 <!-- EXCEPTION_AT -->
-<resource key="EXCEPTION_AT" dnt="false">Excepção em {0}</resource>
+<resource key="EXCEPTION_AT" dnt="false">Exceção em {0}</resource>
 <!-- RENDERER_INSTANTIATION_FAILED -->
 <resource key="RENDERER_INSTANTIATION_FAILED" dnt="false">Falha na colocação em instâncias do Apresentador {0}</resource>
 <!-- RENDERER_NOT_FOUND -->
@@ -182,9 +182,9 @@
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
 <resource key="CANNOT_GET_SKIN_FROM_SKINFACTORY" dnt="false">Não foi possível obter o esquema de cores {0} a partir da SkinFactory</resource>
 <!-- SKIN_CIRCULAR_INCLUDE_ERROR -->
-<resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Foi detectada uma dependência circular no ícone de referência do esquema de cores {0}</resource>
+<resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Foi detetada uma dependência circular no ícone de referência do esquema de cores {0}</resource>
 <!-- NULL_SKINADDITION -->
-<resource key="NULL_SKINADDITION" dnt="false">Foi transmitido um objecto SkinAddition nulo a addSkinAddition.</resource>
+<resource key="NULL_SKINADDITION" dnt="false">Foi transmitido um objeto SkinAddition nulo a addSkinAddition.</resource>
 <!-- SKIN_CONFIG_PROCESS_FAILURE -->
 <resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Falha no processamento do ficheiro de configuração do esquema de cores: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
@@ -226,7 +226,7 @@
 <!-- UNABLE_ENCODE_URL -->
 <resource key="UNABLE_ENCODE_URL" dnt="false">Incapaz de codificar o URL &apos;&apos;{0}&apos;&apos; com a codificação &apos;&apos;{1}&apos;&apos;</resource>
 <!-- SORTING_DISABLED_TABLE_NOT_IN_FORM -->
-<resource key="SORTING_DISABLED_TABLE_NOT_IN_FORM" dnt="false">A ordenação está desactivada; a tabela não está numa ficha</resource>
+<resource key="SORTING_DISABLED_TABLE_NOT_IN_FORM" dnt="false">A ordenação está desativada; a tabela não está numa ficha</resource>
 <!-- COMPONENT_COLUMN_OUTSIDE_TABLE -->
 <resource key="COMPONENT_COLUMN_OUTSIDE_TABLE" dnt="false">{0}: A coluna foi utilizada fora de uma Tabela</resource>
 <!-- NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR -->
@@ -238,7 +238,7 @@
 <!-- FRAME_MISSING_ATTRIBUTE -->
 <resource key="FRAME_MISSING_ATTRIBUTE" dnt="false">falta o atributo:{1} na moldura:{0}</resource>
 <!-- ILLEGAL_COMPONENT_HIERARCHY_UIXCOMMAND_EXPECTED -->
-<resource key="ILLEGAL_COMPONENT_HIERARCHY_UIXCOMMAND_EXPECTED" dnt="false">Aviso: Foi detectada uma hierarquia de componentes ilegal; era esperado o UIXCommand mas foi encontrado outro tipo de componente.</resource>
+<resource key="ILLEGAL_COMPONENT_HIERARCHY_UIXCOMMAND_EXPECTED" dnt="false">Aviso: Foi detetada uma hierarquia de componentes ilegal; era esperado o UIXCommand mas foi encontrado outro tipo de componente.</resource>
 <!-- NAVIGATIONLEVELRENDERER_NOT_FOUND_CHILD_PROPERTY -->
 <resource key="NAVIGATIONLEVELRENDERER_NOT_FOUND_CHILD_PROPERTY" dnt="false">Aviso: O NavigationLevelRenderer estava à procura de uma propriedade filho &quot;{0}&quot;, mas não foi encontrada nenhuma; é provável que tenha sido encontrado um componente filho inesperado (era esperado CommandNavigationItem).</resource>
 <!-- PANELACCORDION_MUST_INSIDE_FORM -->
@@ -246,15 +246,15 @@
 <!-- ERR_PARTIAL_PAGE_RENDERING -->
 <resource key="ERR_PARTIAL_PAGE_RENDERING" dnt="false">Erro durante a apresentação da página parcial</resource>
 <!-- POLL_COMPOENT_MUST_INSIDE_FORM -->
-<resource key="POLL_COMPONENT_MUST_INSIDE_FORM" dnt="false">É necessário que o componente de chamada selectiva esteja dentro de uma ficha; a desactivar a chamada selectiva {0}</resource>
+<resource key="POLL_COMPONENT_MUST_INSIDE_FORM" dnt="false">É necessário que o componente de chamada seletiva esteja dentro de uma ficha; a desativar a chamada seletiva {0}</resource>
 <!-- SELECTED_SHUTTLE_ITEMS_EXCEEDED_TOTAL_NUMBER -->
-<resource key="SELECTED_SHUTTLE_ITEMS_EXCEEDED_TOTAL_NUMBER" dnt="false">O número de itens seleccionados para a transferência &apos;&apos;{0}&apos;&apos; excede o número total de itens na transferência. Os itens seleccionados não serão devolvidos.</resource>
+<resource key="SELECTED_SHUTTLE_ITEMS_EXCEEDED_TOTAL_NUMBER" dnt="false">O número de itens selecionados para a transferência &apos;&apos;{0}&apos;&apos; excede o número total de itens na transferência. Os itens selecionados não serão devolvidos.</resource>
 <!-- SHOWDETAIL_NOT_IN_FORM_WILLNOT_FUNCTION_PROPERLY -->
-<resource key="SHOWDETAIL_NOT_IN_FORM_WILLNOT_FUNCTION_PROPERLY" dnt="false">showDetail não está numa ficha e não funcionará correctamente</resource>
+<resource key="SHOWDETAIL_NOT_IN_FORM_WILLNOT_FUNCTION_PROPERLY" dnt="false">showDetail não está numa ficha e não funcionará corretamente</resource>
 <!-- SOME_ENTRIES_NOT_FOUND_IN_SELECTITEMS -->
 <resource key="SOME_ENTRIES_NOT_FOUND_IN_SELECTITEMS" dnt="false">Algumas entradas no valor de {0} não foram encontradas em SelectItems: {1}</resource>
 <!-- CANNOT_FIND_SELECTED_ITEM_MATCHING_VALUE -->
-<resource key="CANNOT_FIND_SELECTED_ITEM_MATCHING_VALUE" dnt="false">Não foi possível encontrar o item seleccionado correspondente ao valor &quot;{0}&quot; em {1}</resource>
+<resource key="CANNOT_FIND_SELECTED_ITEM_MATCHING_VALUE" dnt="false">Não foi possível encontrar o item selecionado correspondente ao valor &quot;{0}&quot; em {1}</resource>
 <!-- TABLE_HAS_NO_VISIABLE_COLUMN -->
 <resource key="TABLE_HAS_NO_VISIABLE_COLUMN" dnt="false">A tabela com a ID: {0} não tem colunas visíveis!</resource>
 <!-- TREE_COMPONENT_MUST_INSIDE_FORM -->
@@ -282,7 +282,7 @@
 <!-- UNEXPECTED_TREE_STATE -->
 <resource key="UNEXPECTED_TREE_STATE" dnt="false">Estado da árvore inesperado: a rowKey de foco está vazia num pedido expandir/contrair todos.</resource>
 <!-- PAGE_NOT_CONTAIN_FORM_ELEMENT -->
-<resource key="PAGE_NOT_CONTAIN_FORM_ELEMENT" dnt="false">A página não contém nenhuma ficha; não funcionará correctamente</resource>
+<resource key="PAGE_NOT_CONTAIN_FORM_ELEMENT" dnt="false">A página não contém nenhuma ficha; não funcionará corretamente</resource>
 <!-- ONLY_SHOWDETAILITEM_ALLOWED_AS_PANELTABBED_CHILD -->
 <resource key="ONLY_SHOWDETAILITEM_ALLOWED_AS_PANELTABBED_CHILD" dnt="false">Só é permitido tr:showDetailItem como filho de tr:panelTabbed.</resource>
 <!-- COMPONENT_VALUE_IS_NOT_VALID_BOUNDEDRANGEMODEL_INSTANCE -->
@@ -310,11 +310,11 @@
 <!-- ERR_PARSING_SKIN_CSS_FILE -->
 <resource key="ERR_PARSING_SKIN_CSS_FILE" dnt="false">Erro na análise do ficheiro css do esquema de cores. Não é possível que o nome da propriedade seja nulo ou uma cadeia de caracteres vazia. O analisador ignorá-lo-á. O nome é &apos;&apos;{0}&apos;&apos; e o valor é &apos;&apos;{1}&apos;&apos;</resource>
 <!-- IGNORING_PROPERTIES_WITHOUT_SELECTOR -->
-<resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">A ignorar as propriedades {0}, porque não existe um selector correspondente.</resource>
+<resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">A ignorar as propriedades {0}, porque não existe um seletor correspondente.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Erro na leitura do ficheiro css do esquema de cores</resource>
 <!-- ERR_PARSING_SKIN_SELECTOR -->
-<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Erro na leitura do ficheiro css do esquema de cores. Existe uma vírgula adicional no selector: {0}</resource>
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Erro na leitura do ficheiro css do esquema de cores. Existe uma vírgula adicional no seletor: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Não é possível acrescentar o Esquema de Cores com uma skinId nula ou um esquema de cores nulo</resource>
 <!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
@@ -332,7 +332,7 @@
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Não foi possível obter a indicação de data/hora do documento da folha de estilos, porque não foi possível abrir a ligação.</resource>
 <!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
-<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">O selector do esquema de cores {0} não é um Objecto do Ícone do Esquema de Cores, porque não tem um atributo de conteúdo. Se tiver criado este selector, renomeie-o de modo a que termine em &quot;style&quot; em vez de &quot;icon&quot;, para que o Enquadramento do Esquema de Cores o trate como um estilo e não um ícone.</resource>
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">O seletor do esquema de cores {0} não é um Objeto do Ícone do Esquema de Cores, porque não tem um atributo de conteúdo. Se tiver criado este seletor, renomeie-o de modo a que termine em &quot;style&quot; em vez de &quot;icon&quot;, para que o Enquadramento do Esquema de Cores o trate como um estilo e não um ícone.</resource>
 <!-- AT_IMPORT_NOT_FIRST -->
 <resource key="AT_IMPORT_NOT_FIRST" dnt="false">É necessário que {0} esteja antes de todas as outras regras.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
@@ -352,13 +352,13 @@
 <!-- IOEXCEPTION_CREATING_FILE -->
 <resource key="IOEXCEPTION_CREATING_FILE" dnt="false">IOException na criação do ficheiro: {0}</resource>
 <!-- UNABLE_GENERATE_STYLE_SHEET -->
-<resource key="UNABLE_GENERATE_STYLE_SHEET" dnt="false">\nIncapaz de gerar a folha de estilos {0} no directório da cache \n{1}.\nCertifique-se de que o directório da cache existe e é passível de escrita.\n</resource>
+<resource key="UNABLE_GENERATE_STYLE_SHEET" dnt="false">\nIncapaz de gerar a folha de estilos {0} no diretório da cache \n{1}.\nCertifique-se de que o diretório da cache existe e é passível de escrita.\n</resource>
 <!-- IOEXCEPTION_OPENNING_FILE -->
 <resource key="IOEXCEPTION_OPENNING_FILE" dnt="false">IOException na abertura do ficheiro para escrita: {0}</resource>
 <!-- CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR -->
-<resource key="CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR" dnt="false">O ficheiro css atingiu o limite do IE de 4095 selectores de CSS. Tem {0} selectores. Os selectores a seguir serão ignorados.</resource>
+<resource key="CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR" dnt="false">O ficheiro css atingiu o limite do IE de 4095 seletores de CSS. Tem {0} seletores. Os seletores a seguir serão ignorados.</resource>
 <!-- UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX -->
-<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX" dnt="false">Foi utilizada uma sintaxe de subelemento consecutivo (::) no selector {0}. Esta operação não é suportada.</resource>
+<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX" dnt="false">Foi utilizada uma sintaxe de subelemento consecutivo (::) no seletor {0}. Esta operação não é suportada.</resource>
 <!-- URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET -->
 <resource key="URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET" dnt="false">É esperado um valor de URL delimitado por url() para a propriedade &apos;&apos;{0}&apos;&apos; na folha de estilos &apos;&apos;{1}&apos;&apos;. Foi encontrado: &apos;&apos;{2}&apos;&apos;.</resource>
 <!-- INVALID_IMAGE_URI_IN_STYLE_SHEET -->
@@ -366,7 +366,7 @@
 <!-- EMPTY_URL_IN_STYLE_SHEET -->
 <resource key="EMPTY_URL_IN_STYLE_SHEET" dnt="false">Foi encontrado um URL vazio na folha de estilos &apos;&apos;{0}&apos;&apos;</resource>
 <!-- ELEMENT_MUST_HAVE_NAME_ATTRIBUTE -->
-<resource key="ELEMENT_MUST_HAVE_NAME_ATTRIBUTE" dnt="false">É necessário que os elementos &lt;style&gt; tenham um atributo de nome ou de selector</resource>
+<resource key="ELEMENT_MUST_HAVE_NAME_ATTRIBUTE" dnt="false">É necessário que os elementos &lt;style&gt; tenham um atributo de nome ou de seletor</resource>
 <!-- CANNOT_PARSE_IMPORT -->
 <resource key="CANNOT_PARSE_IMPORT" dnt="false">Não foi possível analisar a importação: {0}</resource>
 <!-- MISSING_REQUIRED_HREF -->
@@ -418,7 +418,7 @@
 <!-- CANNOT_FIND_RENDERER -->
 <resource key="CANNOT_FIND_RENDERER" dnt="false">Não foi possível encontrar o apresentador do pseudónimo {0}</resource>
 <!-- UNABLE_FLIP_ICON -->
-<resource key="UNABLE_FLIP_ICON" dnt="false">Incapaz de inverter o ícone &apos;&apos;{0}&apos;&apos;, porque não está no contexto do pedido actual, o qual é &apos;&apos;{1}&apos;&apos;</resource>
+<resource key="UNABLE_FLIP_ICON" dnt="false">Incapaz de inverter o ícone &apos;&apos;{0}&apos;&apos;, porque não está no contexto do pedido atual, o qual é &apos;&apos;{1}&apos;&apos;</resource>
 <!-- CANNOT_LOCATE_PARENT_FORM -->
 <resource key="CANNOT_LOCATE_PARENT_FORM" dnt="false">Não foi possível localizar a ficha pai do formValue {0}</resource>
 <!-- NULL_COMPONENT_FOR_NODE -->
@@ -448,13 +448,13 @@
 <!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">O elemento filho necessário para &apos;version&apos;, &apos;name&apos; não foi encontrado.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
-<resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Entrada da propriedade incorrecta: {0}={1}</resource>
+<resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Entrada da propriedade incorreta: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
 <resource key="CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING" dnt="false">Não foi possível carregar o tipo de apresentador na correspondência do nome local.</resource>
 <!-- CLIENT_SIDE_ENCODING_NOT_SUPPORTED -->
 <resource key="CLIENT_SIDE_ENCODING_NOT_SUPPORTED" dnt="false">A codificação {0} não é suportada no cliente. Será ignorada a validação do cliente.</resource>
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
-<resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">O TrinidadFilter não foi instalado. O Apache Trinidad necessita deste filtro para uma execução correcta.</resource>
+<resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">O TrinidadFilter não foi instalado. O Apache Trinidad necessita deste filtro para uma execução correta.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">O valor &apos;&apos;{0}&apos;&apos; não é um valor legal para &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
 <resource key="INVALID_ACC_PROFILE" dnt="false">O valor &apos;&apos;{0}&apos;&apos; não é uma propriedade accessibility-profile válida</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
@@ -476,13 +476,13 @@
 <!-- UNEXPECTED_CHAR -->
 <resource key="UNEXPECTED_CHAR" dnt="false">Carácter inesperado</resource>
 <!-- INVALID_SAVED_STATE_OBJECT -->
-<resource key="INVALID_SAVED_STATE_OBJECT" dnt="false">O objecto de estado gravado é inválido</resource>
+<resource key="INVALID_SAVED_STATE_OBJECT" dnt="false">O objeto de estado gravado é inválido</resource>
 <!-- PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED -->
 <resource key="PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED" dnt="false">Foram excedidos os limites de espaço em disco por pedido.</resource>
 <!-- POPVIEW_NO_VIEW_PUSHED -->
-<resource key="POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): Não foi efectuado push da vista.</resource>
+<resource key="POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): Não foi efetuado push da vista.</resource>
 <!-- POPVIEW_NO_VIEW_PUSHED -->
-<resource key=">POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): Não foi efectuado push da vista.</resource>
+<resource key=">POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): Não foi efetuado push da vista.</resource>
 <!-- ONLY_HTTPSERVLETREQUEST_SUPPORTED -->
 <resource key="ONLY_HTTPSERVLETREQUEST_SUPPORTED" dnt="false">Só é suportado HttpServletRequest</resource>
 <!-- ONLY_HTTPSERVLETRESPONSE_SUPPORTED -->
@@ -508,7 +508,7 @@
 <!-- GRABBING_PIXELS -->
 <resource key="GRABBING_PIXELS" dnt="false">Na obtenção dos pixels:</resource>
 <!-- ERROR_FETCHING_IMAGE -->
-<resource key="ERROR_FETCHING_IMAGE" dnt="false">Erro na extracção da imagem. Foram obtidos {0} valores de pixel da imagem {1} x {2}.</resource>
+<resource key="ERROR_FETCHING_IMAGE" dnt="false">Erro na extração da imagem. Foram obtidos {0} valores de pixel da imagem {1} x {2}.</resource>
 <!-- EXCEEDED_GIF_COLOR_LIMIT -->
 <resource key="EXCEEDED_GIF_COLOR_LIMIT" dnt="false">Foi excedido o limite de cores do gif.</resource>
 <!-- NO_SPACE_LEFT_FOR_TRANSPARENCY -->
@@ -560,11 +560,11 @@
 <!-- USER_DEFINED_SUBCLASSES_NOT_SUPOORTED -->
 <resource key="USER_DEFINED_SUBCLASSES_NOT_SUPOORTED" dnt="false">Não são suportadas subclasses definidas pelo utilizador.</resource>
 <!-- UNKNOWN_READING_DIRECTION -->
-<resource key="UNKNOWN_READING_DIRECTION" dnt="false">Direcção de leitura desconhecida: {0}</resource>
+<resource key="UNKNOWN_READING_DIRECTION" dnt="false">Direção de leitura desconhecida: {0}</resource>
 <!-- FORMAT_PARSEOBJECT_FAIL -->
 <resource key="FORMAT_PARSEOBJECT_FAIL" dnt="false">Falha em Format.parseObject(String)</resource>
 <!-- CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR -->
-<resource key="CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR" dnt="false">Não é possível formatar o Objecto fornecido como Cor</resource>
+<resource key="CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR" dnt="false">Não é possível formatar o Objeto fornecido como Cor</resource>
 <!-- ILLEGAL_PATTERN_CHARACTER -->
 <resource key="ILLEGAL_PATTERN_CHARACTER" dnt="false">Carácter de padrão ilegal &apos;&apos;{0}&apos;&apos;</resource>
 <!-- >ILLEGAL_PATTERN_CHARACTER -->
@@ -590,7 +590,7 @@
 <!-- NULL_ROOTCLASS_ROOTPARSER -->
 <resource key="NULL_ROOTCLASS_ROOTPARSER" dnt="false">rootClass e rootParser são nulos</resource>
 <!-- CIRCULAR_INCLUDE_DETECTED -->
-<resource key="CIRCULAR_INCLUDE_DETECTED" dnt="false">Foi detectada uma inclusão circular de {0}!</resource>
+<resource key="CIRCULAR_INCLUDE_DETECTED" dnt="false">Foi detetada uma inclusão circular de {0}!</resource>
 <!-- NULL_SKIN_ID -->
 <resource key="NULL_SKIN_ID" dnt="false">ID nula</resource>
 <!-- NULL_LOCALE_CONTEXT -->
@@ -601,6 +601,8 @@
 <resource key="NULL_STYLESHEETNAME" dnt="false">styleSheetName nulo</resource>
 <!-- NO_SKIN_SPECIFIED -->
 <resource key="NO_SKIN_SPECIFIED" dnt="false">Não foi especificado nenhum Esquema de Cores.</resource>
+<!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+<resource key="INVALID_INTEGER_MAX_SKINS_CACHED" dnt="false">O número inteiro {0} é inválido para o context-param org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED do web.xml e, por isso, será utilizado o número inteiro por omissão {1}.</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">inputStream nulo</resource>
 <!-- NULL_PARSEMANAGER -->
@@ -694,7 +696,7 @@
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">Argumento de lista nulo</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
-<resource key="NULL_DATA_OBJECT_ARGUMENT" dnt="false">Argumento de objecto de dados nulo</resource>
+<resource key="NULL_DATA_OBJECT_ARGUMENT" dnt="false">Argumento de objeto de dados nulo</resource>
 <!-- NO_FACTORY_REGISTERED -->
 <resource key="NO_FACTORY_REGISTERED" dnt="false">Não existe nenhuma factory registada para {0}</resource>
 <!-- NULL_BASESCORER -->
@@ -716,7 +718,7 @@
 <!-- NOT_SUPERCLASS_OF -->
 <resource key="NOT_SUPERCLASS_OF" dnt="false">{0} não é uma superclasse de {1}</resource>
 <!-- UNEXPECTED_REFLECTION -->
-<resource key="UNEXPECTED_REFLECTION" dnt="false">Excepção de reflexão inesperada: {0}</resource>
+<resource key="UNEXPECTED_REFLECTION" dnt="false">Exceção de reflexão inesperada: {0}</resource>
 <!-- JAVASCRIPT_NOT_SUPPORT_NULL_KEYS -->
 <resource key="JAVASCRIPT_NOT_SUPPORT_NULL_KEYS" dnt="false">O Javascript não suporta chaves nulas</resource>
 <!-- ENCODING_UNSUPPORTED_BY_JVM -->
@@ -730,7 +732,7 @@
 <!-- STATUS_INDICATOR_MISSING_ICONS -->
 <resource key="STATUS_INDICATOR_MISSING_ICONS" dnt="false">O componente statusIndicator necessita de um ícone &apos;ready&apos; e um ícone &apos;busy&apos;; falta um deles.</resource>
 <!-- COMPONENT_REQUIRES_FORM -->
-<resource key="COMPONENT_REQUIRES_FORM" dnt="false">É necessário que o componente {0} esteja dentro de uma ficha para funcionar correctamente.</resource>
+<resource key="COMPONENT_REQUIRES_FORM" dnt="false">É necessário que o componente {0} esteja dentro de uma ficha para funcionar corretamente.</resource>
 <!-- CANNOT_FIND_TIMEZONE -->
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">Foi solicitado o fuso horário com a ID {0}, mas não está disponível através da API TimeZone.getTimeZone(String id). Verifique se a ID corresponde, incluindo maiúsculas/minúsculas, a uma ID devolvida por TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
@@ -738,22 +740,22 @@
 <!-- DEPRECATED_TRIGGER_SYNTAX -->
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Não foi possível encontrar o trigger parcial {0} a partir de {1} com a sintaxe partialTriggers suportada. O trigger parcial foi encontrado com a sintaxe recusada. Utilize a sintaxe suportada.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
-<resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">O DateTimeRangeValidator necessita que o componente seja um EditableValueHolder para que a validação do cliente funcione. A validação do cliente será desactivada para o componente {0}.</resource>
+<resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">O DateTimeRangeValidator necessita que o componente seja um EditableValueHolder para que a validação do cliente funcione. A validação do cliente será desativada para o componente {0}.</resource>
 <!-- INVALID_LOCALE_LANG_LENGTH  -->
-<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Língua inválida para o identificador de Definições Locais {0} - é necessário que o código da língua tenha 2 caracteres; consulte o javadoc das Definições Locais para obter o formato correcto. Serão utilizadas as definições locais da página actual.</resource>
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Língua inválida para o identificador de Definições Locais {0} - é necessário que o código da língua tenha 2 caracteres; consulte o javadoc das Definições Locais para obter o formato correto. Serão utilizadas as definições locais da página atual.</resource>
 <!-- INVALID_LOCALE_LANG_CASE  -->
-<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Língua inválida para o identificador de Definições Locais {0} - é necessário que o código da língua esteja em minúsculas; consulte o javadoc das Definições Locais para obter o formato correcto. Serão utilizadas as definições locais da página actual.</resource>
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Língua inválida para o identificador de Definições Locais {0} - é necessário que o código da língua esteja em minúsculas; consulte o javadoc das Definições Locais para obter o formato correto. Serão utilizadas as definições locais da página atual.</resource>
 <!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
-<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">País inválido para o identificador de Definições Locais {0} - é necessário que o código do país tenha 2 caracteres; consulte o javadoc das Definições Locais para obter o formato correcto. Será utilizada uma cadeia de caracteres vazia para o país</resource>
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">País inválido para o identificador de Definições Locais {0} - é necessário que o código do país tenha 2 caracteres; consulte o javadoc das Definições Locais para obter o formato correto. Será utilizada uma cadeia de caracteres vazia para o país</resource>
 <!-- INVALID_LOCALE_COUNTRY_CASE  -->
-<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">País inválido para o identificador de Definições Locais {0} - é necessário que o código do país esteja em maiúsculas; consulte o javadoc das Definições Locais para obter o formato correcto. Será utilizada uma cadeia de caracteres vazia para o país</resource>
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">País inválido para o identificador de Definições Locais {0} - é necessário que o código do país esteja em maiúsculas; consulte o javadoc das Definições Locais para obter o formato correto. Será utilizada uma cadeia de caracteres vazia para o país</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante inválida para o identificador de Definições Locais {0} - não é possível que contenha barras oblíquas para evitar um ataque de XSS. Será utilizada uma cadeia de caracteres vazia para a variante.</resource>
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Não foi possível apagar o ficheiro {0}</resource>
 <!-- UNEXPECTED_STATE -->
-<resource key="UNEXPECTED_STATE" dnt="false">É necessário que IState seja uma instância de StateManager.SerializedView ou uma matriz do Objecto de comprimento 2.</resource>
+<resource key="UNEXPECTED_STATE" dnt="false">É necessário que IState seja uma instância de StateManager.SerializedView ou uma matriz do Objeto de comprimento 2.</resource>
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
-<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">A gravação do estado parcial ainda não é suportada. Defina context-param javax.faces.PARTIAL_STATE_SAVING como false no web.xml.</resource>
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">A gravação do estado parcial ainda não é suportada. Defina o context-param javax.faces.PARTIAL_STATE_SAVING como false no web.xml.</resource>
 <!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
 <resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Erro na sequenciação do atributo {0}:{1} </resource>
 <!-- EXTRACT_SERIALIZATION_DETAIL -->
@@ -763,9 +765,9 @@
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Erro de failover: A sequenciação do atributo {0}:{1} foi alterada de {2} para {3} sem que o atributo fosse alterado</resource>
 <!-- SERIALIZATION_TESTING_FAILURE -->
-<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Falha no teste de sequenciação do atributo da sessão para {0}. É possível desactivar esta verificação através da remoção de &apos;&apos;REQUEST&apos;&apos; da propriedade do sistema &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Falha no teste de sequenciação do atributo da sessão para {0}. É possível desativar esta verificação através da remoção de &apos;&apos;REQUEST&apos;&apos; da propriedade do sistema &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
 <!-- SERIALIZATION_LOGGING_FAILURE -->
-<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Excepção na recolha da falha do teste de sequenciação do atributo da sessão</resource>
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Exceção na recolha da falha do teste de sequenciação do atributo da sessão</resource>
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atributo da sessão:{0} </resource>
 </resources>

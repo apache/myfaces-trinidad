@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">嘗試為 {0} 建立新元件執行處理時發生錯誤</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">轉換類型不是 {1} 的類別 {0}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">無法套用資料列索引鍵集屬性變更. 原因 : {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">無法建立 converterClass: {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->

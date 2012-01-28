@@ -32,10 +32,12 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">Erro na tentativa de criação da nova instância do componente para {0}</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">A classe de conversão: {0} não é do tipo {1}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Falha na aplicação da alteração do atributo do conjunto de chaves da linha. Motivo: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">Incapaz de colocar em instâncias a converterClass: {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->
-<resource key="SAVED_CHILD_COUNT_NOT_MATCH" dnt="false">A contagem de filhos gravada não corresponde à contagem actual (era {0}, agora é {1})</resource>
+<resource key="SAVED_CHILD_COUNT_NOT_MATCH" dnt="false">A contagem de filhos gravada não corresponde à contagem atual (era {0}, agora é {1})</resource>
 <!-- FACETS_STATE_MISSING_WILLNOT_RESTORE -->
 <resource key="FACETS_STATE_MISSING_WILLNOT_RESTORE" dnt="false">Falta o estado de algumas facetas de {0} e não serão repostas.</resource>
 <!-- DISCARDING_SAVED_STATE -->
@@ -73,11 +75,11 @@
 <!-- NULL_VIEWID -->
 <resource key="NULL_VIEWID" dnt="false">A propriedade viewId no ViewIdPropertyMenuModel é nula. A propriedade viewId é necessária para encontrar a rowKey de foco.</resource>
 <!-- INVALID_EL_EXPRESSION -->
-<resource key="INVALID_EL_EXPRESSION" dnt="false">A Expressão de EL {0} é inválida ou devolveu um valor incorrecto</resource>
+<resource key="INVALID_EL_EXPRESSION" dnt="false">A Expressão de EL {0} é inválida ou devolveu um valor incorreto</resource>
 <!-- OPEN_URI_EXCEPTION -->
-<resource key="OPEN_URI_EXCEPTION" dnt="false">Excepção na abertura do URI {0}</resource>
+<resource key="OPEN_URI_EXCEPTION" dnt="false">Exceção na abertura do URI {0}</resource>
 <!-- ERR_CREATE_MENU_MODEL -->
-<resource key="ERR_CREATE_MENU_MODEL" dnt="false">Excepção na criação do modelo do menu {0}</resource>
+<resource key="ERR_CREATE_MENU_MODEL" dnt="false">Exceção na criação do modelo do menu {0}</resource>
 <!-- RESOURCE_NOT_FOUND -->
 <resource key="RESOURCE_NOT_FOUND" dnt="false">O recurso &quot;{0}&quot; no percurso &quot;{1}&quot; não foi encontrado</resource>
 <!-- UNABLE_RETRIEVE_IMAGE_DATA -->
@@ -179,7 +181,7 @@
 <!-- INDEX_SIZE -->
 <resource key="INDEX_SIZE" dnt="false">índice:{0} dimensão:{1}</resource>
 <!-- BAD_PHASEID -->
-<resource key="BAD_PHASEID" dnt="false">PhaseId incorrecta:{0}</resource>
+<resource key="BAD_PHASEID" dnt="false">PhaseId incorreta:{0}</resource>
 <!-- ILLEGAL_ID -->
 <resource key="ILLEGAL_ID" dnt="false">ID ilegal: {0}</resource>
 <!-- WRAPPEDEVENT -->
@@ -187,9 +189,9 @@
 <!-- RENDERINGCONTEXT_ALREADY_RELEASED_OR_NEVER_ATTACHED -->
 <resource key="RENDERINGCONTEXT_ALREADY_RELEASED_OR_NEVER_ATTACHED" dnt="false">O RenderingContext já foi libertado ou nunca esteve anexado.</resource>
 <!-- TRY_RELEASING_DIFFERENT_RENDERINGCONTEXT -->
-<resource key="TRY_RELEASING_DIFFERENT_RENDERINGCONTEXT" dnt="false">Tentativa de libertação de um RenderingContext diferente do contexto actual.</resource>
+<resource key="TRY_RELEASING_DIFFERENT_RENDERINGCONTEXT" dnt="false">Tentativa de libertação de um RenderingContext diferente do contexto atual.</resource>
 <!-- RELEASE_DIFFERENT_REQUESTCONTEXT_THAN_CURRENT_ONE -->
-<resource key="RELEASE_DIFFERENT_REQUESTCONTEXT_THAN_CURRENT_ONE" dnt="false">Tentativa de libertação de um RequestContext diferente do contexto actual.</resource>
+<resource key="RELEASE_DIFFERENT_REQUESTCONTEXT_THAN_CURRENT_ONE" dnt="false">Tentativa de libertação de um RequestContext diferente do contexto atual.</resource>
 <!-- FACTORY_ALREADY_AVAILABLE_FOR_CLASS_LOADER -->
 <resource key="FACTORY_ALREADY_AVAILABLE_FOR_CLASS_LOADER" dnt="false">A factory já está disponível para este carregador de classes.</resource>
 <!-- NULL_FACESCONTEXT_OR_UICOMPONENT -->
@@ -197,7 +199,7 @@
 <!-- PATTERN_MUST_HAVE_VALUE -->
 <resource key="PATTERN_MUST_HAVE_VALUE" dnt="false">Os padrões devem conter, pelo menos, um valor e não é possível que sejam nulos</resource>
 <!-- CANNOT_FORMAT_GIVEN_OBJECT_AS_COLOR -->
-<resource key="CANNOT_FORMAT_GIVEN_OBJECT_AS_COLOR" dnt="false">Não é possível formatar o Objecto fornecido como Cor</resource>
+<resource key="CANNOT_FORMAT_GIVEN_OBJECT_AS_COLOR" dnt="false">Não é possível formatar o Objeto fornecido como Cor</resource>
 <!-- INVALID_ATTRIBUTE_NAME -->
 <resource key="INVALID_ATTRIBUTE_NAME" dnt="false">Nome do atributo inválido {0}</resource>
 <!-- VALUE_IS_NOT_DATE_TYPE_IT_IS -->
@@ -265,7 +267,7 @@
 <!-- FASTMESSAGEFORMAT_FIND_EMPTY_ARGUMENT -->
 <resource key="FASTMESSAGEFORMAT_FIND_EMPTY_ARGUMENT" dnt="false">FastMessageFormat: foi encontrado um argumento vazio - {}</resource>
 <!-- BUNDLE_NOT_FOUND -->
-<resource key="BUNDLE_NOT_FOUND" dnt="false">o agrupamento não foi encontrado</resource>
+<resource key="BUNDLE_NOT_FOUND" dnt="false">a agregação não foi encontrada</resource>
 <!-- NULL_RESOURCEID -->
 <resource key="NULL_RESOURCEID" dnt="false">resourceId é nula</resource>
 <!-- CANNOT_FIND_DEFAULT_FACESMESSAGE -->
@@ -275,7 +277,7 @@
 <!-- CUSTOM_MESSAGE_SHOULD_BE_VALUEBINDING_OR_STRING_TYPE -->
 <resource key="CUSTOM_MESSAGE_SHOULD_BE_VALUEBINDING_OR_STRING_TYPE" dnt="false">a mensagem personalizada deve ser do tipo ValueBinding ou String</resource>
 <!-- PROVIDER_NOT_RETURN_IMPLEMENTING_OBJECT -->
-<resource key="PROVIDER_NOT_RETURN_IMPLEMENTING_OBJECT" dnt="false">O fornecedor {0} não devolveu um objecto que implemente {1}</resource>
+<resource key="PROVIDER_NOT_RETURN_IMPLEMENTING_OBJECT" dnt="false">O fornecedor {0} não devolveu um objeto que implemente {1}</resource>
 <!-- OBTAIN_NULL_RENDERKIT_WHILE_GETTING_SERVICE -->
 <resource key="OBTAIN_NULL_RENDERKIT_WHILE_GETTING_SERVICE" dnt="false">FacesContext.getRenderKit() devolveu um valor nulo na tentativa de obtenção do serviço {0}; verifique a configuração.</resource>
 <!-- ENCODING_NOT_SUPPORTED_BY_JVM -->
@@ -287,7 +289,7 @@
 <!-- VIEW_TAG_NOT_PRESENT -->
 <resource key="VIEW_TAG_NOT_PRESENT" dnt="false">&lt;f:view&gt; não está presente nesta página; foi encontrado o identificador {0} sem ter sido processada uma &lt;f:view&gt;.</resource>
 <!-- RESOURCE_PATH_OUTSIDE_ROOT -->
-<resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">O percurso do recurso {0} contém &quot;..&quot; e é decifrado de modo a ficar fora do directório raiz, o que não é seguro. Assim, o percurso é ignorado.</resource>
+<resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">O percurso do recurso {0} contém &quot;..&quot; e é decifrado de modo a ficar fora do diretório raiz, o que não é seguro. Assim, o percurso é ignorado.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">O percurso do recurso {0} contém &quot;..&quot;. Os navegadores excluem os &quot;..&quot; e, por isso, este percurso é suspeito.</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
@@ -315,11 +317,11 @@
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">O tipo de &quot;{0}&quot; impede que seja comparado com &quot;{1}&quot;.</resource>
 <!-- ZIP_STATE_FAILED -->
-<resource key="ZIP_STATE_FAILED" dnt="false">Falha na compressão do estado da página. É necessário que o estado seja sequenciável para ser comprimido, pelo que um motivo comum da falha do estado da página é o facto de não ser sequenciável. É possível desactivar a compressão através da definição de org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE como false. Consulte o documento sobre a propriedade do sistema org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION para obter informações sobre como testar os vários aspectos da sequenciação.</resource>
+<resource key="ZIP_STATE_FAILED" dnt="false">Falha na compressão do estado da página. É necessário que o estado seja sequenciável para ser comprimido, pelo que um motivo comum da falha do estado da página é o facto de não ser sequenciável. É possível desativar a compressão através da definição de org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE como false. Consulte o documento sobre a propriedade do sistema org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION para obter informações sobre como testar os vários aspetos da sequenciação.</resource>
 <!-- UNZIP_STATE_FAILED -->
 <resource key="UNZIP_STATE_FAILED" dnt="false">Falha na descompressão do estado da página.</resource>
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">A getClientId não deve ser chamada enquanto a vista está a ser criada. ID do componente: {0}</resource>
 <!-- ROWKEY_NOT_RESET  -->
-<resource key="ROWKEY_NOT_RESET" dnt="false">é possível que a chave da linha não seja redefinida correctamente no fim do pedido. ID do componente: {0}, ViewId: {1}</resource>
+<resource key="ROWKEY_NOT_RESET" dnt="false">é possível que a chave da linha não seja redefinida corretamente no fim do pedido. ID do componente: {0}, ViewId: {1}</resource>
 </resources>

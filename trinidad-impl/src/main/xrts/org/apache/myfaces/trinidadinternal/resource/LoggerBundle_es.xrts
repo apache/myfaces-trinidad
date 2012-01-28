@@ -47,7 +47,7 @@
 <!-- INVALID_CAPABILITY_DATA_URL -->
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">La dirección URL de datos de capacidad {0} no es válida</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
-<resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">No se ha encontrado el estado de vista guardada para el elemento {0}</resource>
+<resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">No se ha encontrado el estado de vista guardada para el token {0}</resource>
 <!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
 <resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE no está soportado y no debe utilizarse, ya que no funciona en la mayoría de los casos.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
@@ -59,7 +59,7 @@
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">No se ha podido cargar ViewHandler {0}</resource>
 <!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
-<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">El ViewHandler de Trinidad se ha registrado más de una vez. Para evitar problemas de inicialización, asegúrese de que sólo se carga un archivo jar de implementación de Trinidad</resource>
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">El ViewHandler de Trinidad se ha registrado más de una vez. Para evitar problemas de inicialización, asegúrese de que sólo se carga un archivo jar de implantación de Trinidad</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad se está ejecutando con la comprobación de registro de hora activada. No se debe utilizar en un entorno de producción. Consulte la propiedad {0} en WEB-INF/web.xml</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -452,7 +452,7 @@
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
 <resource key="CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING" dnt="false">No se ha podido cargar el tipo de intérprete en la asignación de nombres locales.</resource>
 <!-- CLIENT_SIDE_ENCODING_NOT_SUPPORTED -->
-<resource key="CLIENT_SIDE_ENCODING_NOT_SUPPORTED" dnt="false">La codificación {0} no está soportada en el cliente. Se saltará la validación del cliente.</resource>
+<resource key="CLIENT_SIDE_ENCODING_NOT_SUPPORTED" dnt="false">La codificación {0} no está soportada en el cliente. Se omitirá la validación del cliente.</resource>
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">No se ha instalado TrinidadFilter. Apache Trinidad necesita este filtro para una correcta ejecución.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">El valor &apos;&apos;{0}&apos;&apos; no es un valor válido para &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
@@ -601,6 +601,8 @@
 <resource key="NULL_STYLESHEETNAME" dnt="false">styleSheetName nulo</resource>
 <!-- NO_SKIN_SPECIFIED -->
 <resource key="NO_SKIN_SPECIFIED" dnt="false">No se ha especificado ninguna máscara.</resource>
+<!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+<resource key="INVALID_INTEGER_MAX_SKINS_CACHED" dnt="false">Entero no válido {0} para el parámetro de contexto org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED en web.xml, por lo que se utilizará el entero {1} en su lugar.</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">inputStream nulo</resource>
 <!-- NULL_PARSEMANAGER -->

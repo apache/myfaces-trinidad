@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">Eroare la încercarea de creare a noii instanţe de componentă pentru {0}</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">Clasa de conversie {0} nu are tipul {1}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Aplicarea modificării atributului pt. setul de chei pt. rânduri a eşuat. Motiv: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">Nu se poate instanţia converterClass: {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->

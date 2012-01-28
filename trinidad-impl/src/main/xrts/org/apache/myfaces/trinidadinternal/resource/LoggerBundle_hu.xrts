@@ -601,6 +601,8 @@
 <resource key="NULL_STYLESHEETNAME" dnt="false">Null értékű styleSheetName</resource>
 <!-- NO_SKIN_SPECIFIED -->
 <resource key="NO_SKIN_SPECIFIED" dnt="false">Nem lett grafikus felület megadva.</resource>
+<!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+<resource key="INVALID_INTEGER_MAX_SKINS_CACHED" dnt="false">Érvénytelen {0} egész érték az org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED környezeti paraméter számára a web.xml fájlban, helyette az alapértelmezett {1} egész értéket használja a rendszer.</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">Null értékű inputStream</resource>
 <!-- NULL_PARSEMANAGER -->

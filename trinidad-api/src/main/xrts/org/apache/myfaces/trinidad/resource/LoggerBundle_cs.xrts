@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">Chyba při pokusu o vytvoření nové instance komponenty pro {0}</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">Třída převodu: {0} není typu {1}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Nepodařilo se použít změnu atributu klíčové řadové sady. Důvod: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">Nelze vytvořit instanci třídy converterClass: ({0})</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->

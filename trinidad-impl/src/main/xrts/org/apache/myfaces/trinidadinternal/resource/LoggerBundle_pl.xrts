@@ -27,7 +27,7 @@
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">nie udało się uzyskać możliwości z dokumentu możliwości</resource>
 <!-- CANNOT_LOCATE_CAPABILITIES_DOCUMENT -->
-<resource key="CANNOT_LOCATE_CAPABILITIES_DOCUMENT" dnt="false">Nie udało się zlokalizować dokumentu możliwości</resource>
+<resource key="CANNOT_LOCATE_CAPABILITIES_DOCUMENT" dnt="false">Nie odnaleziono dokumentu możliwości</resource>
 <!-- CANNOT_RESOLVE_CAPABILITIES_FILE -->
 <resource key="CANNOT_RESOLVE_CAPABILITIES_FILE" dnt="false">&quot;Nie można rozstrzygnąć pliku możliwości&quot;</resource>
 <!-- INVALID_DEPENDENCY -->
@@ -198,7 +198,7 @@
 <!-- RENDERINGCONTEXT_NOT_AVAILABLE -->
 <resource key="RENDERINGCONTEXT_NOT_AVAILABLE" dnt="false">Nie jest dostępny żaden kontekst wypełniania</resource>
 <!-- CANNOT_LOCATE_HTMLRENDERKIT -->
-<resource key="CANNOT_LOCATE_HTMLRENDERKIT" dnt="false">Nie udało się zlokalizować zestawu HTMLRenderKit</resource>
+<resource key="CANNOT_LOCATE_HTMLRENDERKIT" dnt="false">Nie odnaleziono zestawu HTMLRenderKit</resource>
 <!-- CANNOT_FIND_HTML_RENDERER -->
 <resource key="CANNOT_FIND_HTML_RENDERER" dnt="false">Nie znaleziono podstawowego wypełniacza HTML dla {0}, typ {1}</resource>
 <!-- CANNOT_GET_STYLESHEET_CACHE -->
@@ -420,7 +420,7 @@
 <!-- UNABLE_FLIP_ICON -->
 <resource key="UNABLE_FLIP_ICON" dnt="false">Nie można przerzucić ikony &quot;{0}&quot;, ponieważ nie znajduje się ona w bieżącym kontekście żądania (&quot;{1}&quot;)</resource>
 <!-- CANNOT_LOCATE_PARENT_FORM -->
-<resource key="CANNOT_LOCATE_PARENT_FORM" dnt="false">Nie udało się zlokalizować formularza nadrzędnego dla formValue {0}</resource>
+<resource key="CANNOT_LOCATE_PARENT_FORM" dnt="false">Nie odnaleziono formularza nadrzędnego dla formValue {0}</resource>
 <!-- NULL_COMPONENT_FOR_NODE -->
 <resource key="NULL_COMPONENT_FOR_NODE" dnt="false">Składnik ma wartość Null dla węzła o lokalnej nazwie {0}</resource>
 <!-- CANNOT_FLIP_ICON -->
@@ -601,6 +601,8 @@
 <resource key="NULL_STYLESHEETNAME" dnt="false">styleSheetName o wartości Null</resource>
 <!-- NO_SKIN_SPECIFIED -->
 <resource key="NO_SKIN_SPECIFIED" dnt="false">Nie określono żadnej nakładki.</resource>
+<!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+<resource key="INVALID_INTEGER_MAX_SKINS_CACHED" dnt="false">Niepoprawna wartość całkowitoliczbowa {0} dla context-param org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED w web.xml - zostanie użyta liczba całkowita {1}.</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">inputStream o wartości Null</resource>
 <!-- NULL_PARSEMANAGER -->

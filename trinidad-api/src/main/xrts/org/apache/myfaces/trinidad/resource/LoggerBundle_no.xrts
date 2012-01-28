@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">Feil ved forsøk på å opprette ny komponentforekomst for {0}</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">Konverteringsklassen {0} er ikke av typen {1}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Kan ikke gjennomføre endring av attributt for radnøkkelsett. Årsak: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">Kan ikke opprette forekomst for converterClass: {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->

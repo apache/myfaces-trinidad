@@ -601,6 +601,8 @@
 <resource key="NULL_STYLESHEETNAME" dnt="false">Tyhjä styleSheetName</resource>
 <!-- NO_SKIN_SPECIFIED -->
 <resource key="NO_SKIN_SPECIFIED" dnt="false">Olemusta ei määritetty.</resource>
+<!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+<resource key="INVALID_INTEGER_MAX_SKINS_CACHED" dnt="false">Virheellinen kokonaisluku {0} kontekstiparametrille org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED kohteessa web.xml, joten kokonaislukua {1} käytetään sen sijaan.</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">Tyhjä inputStream</resource>
 <!-- NULL_PARSEMANAGER -->

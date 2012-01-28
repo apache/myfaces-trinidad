@@ -489,7 +489,7 @@
 <resource key="RTE_BOLD_BUTTON_TEXT" dnt="false">Gras</resource>
 <resource key="RTE_ITALIC_BUTTON_TEXT" dnt="false">Italique</resource>
 <resource key="RTE_UNDERLINE_BUTTON_TEXT" dnt="false">Souligné</resource>
-<resource key="RTE_BREAK_BUTTON_TEXT" dnt="false">Ventiler</resource>
+<resource key="RTE_BREAK_BUTTON_TEXT" dnt="false">Rupture</resource>
 <resource key="RTE_LEFT_ALIGN_BUTTON_TEXT" dnt="false">Aligner à gauche</resource>
 <resource key="RTE_CENTER_ALIGN_BUTTON_TEXT" dnt="false">Centrer</resource>
 <resource key="RTE_RIGHT_ALIGN_BUTTON_TEXT" dnt="false">Aligner à droite</resource>

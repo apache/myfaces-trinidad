@@ -601,6 +601,8 @@
 <resource key="NULL_STYLESHEETNAME" dnt="false">styleSheetName เป็นนัล</resource>
 <!-- NO_SKIN_SPECIFIED -->
 <resource key="NO_SKIN_SPECIFIED" dnt="false">ไม่ได้ระบุสกิน</resource>
+<!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+<resource key="INVALID_INTEGER_MAX_SKINS_CACHED" dnt="false">จำนวนเต็ม {0} ไม่ถูกต้องสำหรับ context-param org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED ใน web.xml ระบบจะใช้จำนวนเต็มดีฟอลต์ {1} แทน</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">inputStream เป็นนัล</resource>
 <!-- NULL_PARSEMANAGER -->

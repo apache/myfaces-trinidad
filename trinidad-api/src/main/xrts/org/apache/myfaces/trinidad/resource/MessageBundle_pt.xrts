@@ -38,17 +38,17 @@
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED" dnt="false">É necessário um valor.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED_detail" dnt="false">É necessário introduzir um valor.</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED" dnt="false">É necessária uma selecção.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">É necessário efectuar, pelo menos, uma selecção.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED" dnt="false">É necessária uma seleção.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">É necessário efetuar, pelo menos, uma seleção.</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">É necessária uma selecção.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">É necessário efectuar uma selecção.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">É necessária uma seleção.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">É necessário efetuar uma seleção.</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">É necessária uma selecção de linha.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">É necessário seleccionar uma linha.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">É necessária uma seleção de linha.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">É necessário selecionar uma linha.</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED" dnt="false">É necessária uma selecção de linha.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED_detail" dnt="false">É necessário seleccionar uma ou várias linhas.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED" dnt="false">É necessária uma seleção de linha.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED_detail" dnt="false">É necessário selecionar uma ou várias linhas.</resource>
 <!-- SelectManyRenderer ConversionException messages -->
 <!-- {0} modelClass                                  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.UNSUPPORTED_MODEL_TYPE" dnt="false">O tipo de modelo não é suportado.</resource>
@@ -56,7 +56,7 @@
 <!-- {0} the label that identifies the component               -->
 <!-- {1} value entered by the user                             -->
 <!-- {2} the message string returned by the ConverterException -->
-<resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">O valor não está no formato correcto.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">O valor não está no formato correto.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">Introduza um valor que corresponda a este padrão: {2}</resource>
 <!-- Upload ConversionException messages -->
 <resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">Falha na importação do ficheiro.</resource>
@@ -181,8 +181,8 @@
 <!-- {0} the label that identifies the component     -->
 <!-- {1} value entered by the user                   -->
 <!-- {2} represents the required length              -->
-<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.EXACT" dnt="false">O número de caracteres está incorrecto.</resource>
-<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.EXACT_detail" dnt="false">Introduza exactamente {2} caracteres.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.EXACT" dnt="false">O número de caracteres está incorreto.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.EXACT_detail" dnt="false">Introduza exatamente {2} caracteres.</resource>
 <!-- Number exceeds number range error               -->
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
@@ -208,7 +208,7 @@
 <!-- {2} represents the 'pattern' expected in the input                   -->
 <!-- E.g. for input value "9912" and pattern "[9]*" the message would be: -->
 <!--  9912 does not match patern [9]*                                     -->
-<resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH" dnt="false">O formato está incorrecto.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH" dnt="false">O formato está incorreto.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_detail" dnt="false">É necessário que o valor corresponda a este padrão: {2}</resource>
 <!-- hints for converters -->
 <!-- default hint for DateTimeConverter-->
@@ -235,17 +235,17 @@
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
 <!-- {2} an example of the format the converter is expecting -->
-<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE" dnt="false">A data não está no formato correcto.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE" dnt="false">A data não está no formato correto.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_detail" dnt="false">Introduza uma data no mesmo formato que no seguinte exemplo: {2}</resource>
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
 <!-- {2} an example of the format the converter is expecting -->
-<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_TIME" dnt="false">A hora não está no formato correcto.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_TIME" dnt="false">A hora não está no formato correto.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_TIME_detail" dnt="false">Introduza a hora no mesmo formato que no seguinte exemplo: {2}</resource>
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
 <!-- {2} an example of the format the converter is expecting -->
-<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">A data e a hora não estão no formato correcto.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">A data e a hora não estão no formato correto.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">Introduza a data e a hora no mesmo formato que no seguinte exemplo: {2}</resource>
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
@@ -254,7 +254,7 @@
 <!-- {0} the label that identifies the component    -->
 <!-- {1} value entered by the user                  -->
 <!-- {2} the pattern the converter is expecting     -->
-<resource key="org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT" dnt="false">A cor não está no formato correcto.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT" dnt="false">A cor não está no formato correto.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT_detail" dnt="false">Introduza a cor no mesmo formato que no seguinte exemplo: {2}.</resource>
 <!-- Color converter transparent string -->
 <resource key="org.apache.myfaces.trinidad.convert.ColorConverter.TRANSPARENT" dnt="false">Transparente</resource>
@@ -289,7 +289,7 @@
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} the specified conversion pattern        -->
-<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PATTERN" dnt="false">O formato está incorrecto.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PATTERN" dnt="false">O formato está incorreto.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PATTERN_detail" dnt="false">É necessário que o formato do número corresponda ao seguinte padrão: {2}</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
@@ -297,11 +297,11 @@
 <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_NUMBER_detail" dnt="false">É necessário que o valor seja um número.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_CURRENCY" dnt="false">O formato de moeda está incorrecto.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_CURRENCY" dnt="false">O formato de moeda está incorreto.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_CURRENCY_detail" dnt="false">Introduza a moeda no mesmo formato que no seguinte exemplo: {2}</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PERCENT" dnt="false">A percentagem não está no formato correcto.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PERCENT" dnt="false">A percentagem não está no formato correto.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PERCENT_detail" dnt="false">Introduza a percentagem no mesmo formato que no seguinte exemplo: {2}</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
@@ -349,7 +349,7 @@
 <resource key="org.apache.myfaces.trinidad.convert.ALERT_FORMAT_detail" dnt="false">{0} - {1}</resource>
 <!-- message for error while downloading a file  -->
 <resource key="org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR" dnt="false">Ocorrência de erro na exportação do ficheiro.</resource>
-<resource key="org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR_detail" dnt="false">O ficheiro não foi exportado ou não foi exportado correctamente.</resource>
+<resource key="org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR_detail" dnt="false">O ficheiro não foi exportado ou não foi exportado corretamente.</resource>
 <!-- message for error while uploading a file -->
 <resource key="org.apache.myfaces.trinidad.component.core.input.CoreInputFile.INPUT_FILE_ERROR" dnt="false">Ocorrência de erro na importação do ficheiro.</resource>
 <resource key="org.apache.myfaces.trinidad.component.core.input.CoreInputFile.INPUT_FILE_ERROR_detail" dnt="false">Ocorrência de erro na importação do ficheiro. Verifique os dados da importação e o nome do ficheiro.</resource>

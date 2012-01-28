@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">Σφάλμα στην προσπάθεια δημιουργίας νέου στιγμιότυπου συστατικού στοιχείου για {0}</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">Η κλάση μετατροπής: {0} δεν είναι τύπου {1}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Αποτυχία εφαρμογής της αλλαγής παραμέτρου συνόλου κλειδιού σειράς. Αιτία: \&quot;{1}\&quot;</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">Δεν είναι δυνατή η δημιουργία στιγμιότυπου converterClass: {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->

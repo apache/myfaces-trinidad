@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">Fel vid försök att skapa ny komponentinstans för {0}</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">Konverteringsklassen: {0} inte av typen {1}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Kunde inte tillämpa attributändring för radnyckeluppsättning. Orsak: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">Kan inte skapa instans av converterClass: {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->
