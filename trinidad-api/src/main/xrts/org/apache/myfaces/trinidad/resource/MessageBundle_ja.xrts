@@ -349,7 +349,7 @@
 <resource key="org.apache.myfaces.trinidad.convert.ALERT_FORMAT_detail" dnt="false">{0} - {1}</resource>
 <!-- message for error while downloading a file  -->
 <resource key="org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR" dnt="false">ファイルのダウンロード中にエラーが発生しました。</resource>
-<resource key="org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR_detail" dnt="false">ファイルはダウンロードされていないか、正しくダウンロールされませんでした。</resource>
+<resource key="org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR_detail" dnt="false">ファイルはダウンロードされていないか、正しくダウンロードされませんでした。</resource>
 <!-- message for error while uploading a file -->
 <resource key="org.apache.myfaces.trinidad.component.core.input.CoreInputFile.INPUT_FILE_ERROR" dnt="false">ファイルのアップロード中にエラーが発生しました。</resource>
 <resource key="org.apache.myfaces.trinidad.component.core.input.CoreInputFile.INPUT_FILE_ERROR_detail" dnt="false">ファイル・アップロード・エラーが発生しました。アップロード・データおよびファイル名を確認してください。</resource>
