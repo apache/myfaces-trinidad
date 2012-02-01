@@ -18,64 +18,77 @@
  */
 package org.apache.myfaces.trinidad.component;
 
-import javax.faces.FacesException;
-import javax.faces.component.ContextCallback;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
+import java.util.ArrayDeque;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Queue;
+
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.ComponentContextManager;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.SuspendedContextChanges;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 public abstract class UIXDocumentTemplate
   extends UIXComponentBase
 {
+  /**
+   * Suspends any context changes before allowing invokeOnComponent or visitTree calls to continue,
+   * allowing components to undo any context changes during a re-entrant call.
+   * @param facesContext the faces context
+   * @see ComponentContextManager#suspend(FacesContext)
+   */
   @Override
-  public boolean visitTree(
-    VisitContext  visitContext,
-    VisitCallback callback)
+  protected void setupVisitingContext(FacesContext facesContext)
   {
     ComponentContextManager ctxMgr = RequestContext.getCurrentInstance()
       .getComponentContextManager();
-    FacesContext facesContext = visitContext.getFacesContext();
 
     // Suspend any current component context during a visit tree for re-entrant
     // component tree processing
     SuspendedContextChanges suspendedChanges = ctxMgr.suspend(facesContext);
 
-    try
+    Map<String, Object> reqMap = facesContext.getExternalContext().getRequestMap();
+    @SuppressWarnings("unchecked")
+    Queue<SuspendedContextChanges> suspendedChangesQueue = (Queue<SuspendedContextChanges>)
+      reqMap.get(_SUSPENDED_CHANGES_KEY);
+    if (suspendedChangesQueue == null)
     {
-      return super.visitTree(visitContext, callback);
+      suspendedChangesQueue = Collections.asLifoQueue(new ArrayDeque<SuspendedContextChanges>());
+      reqMap.put(_SUSPENDED_CHANGES_KEY, suspendedChangesQueue);
     }
-    finally
-    {
-      ctxMgr.resume(facesContext, suspendedChanges);
-    }
+
+    suspendedChangesQueue.offer(suspendedChanges);
+    _LOG.severe("UIXDocument suspended context changes in setupVisitingContext");
+
+    super.setupVisitingContext(facesContext);
   }
 
+  /**
+   * Re-applies the suspended context changes.
+   * @param facesContext the faces context
+   * @see #setupVisitingContext(FacesContext)
+   * @see ComponentContextManager#resume(FacesContext, SuspendedContextChanges)
+   */
   @Override
-  public boolean invokeOnComponent(
-    FacesContext    facesContext,
-    String          clientId,
-    ContextCallback callback
-    ) throws FacesException
+  protected void tearDownVisitingContext(FacesContext facesContext)
   {
+    super.tearDownVisitingContext(facesContext);
+
     ComponentContextManager ctxMgr = RequestContext.getCurrentInstance()
       .getComponentContextManager();
-
-    // Suspend any current component context during an invoke on component call for re-entrant
-    // component tree processing
-    SuspendedContextChanges suspendedChanges = ctxMgr.suspend(facesContext);
-
-    try
-    {
-      return super.invokeOnComponent(facesContext, clientId, callback);
-    }
-    finally
-    {
-      ctxMgr.resume(facesContext, suspendedChanges);
-    }
+    Map<String, Object> reqMap = facesContext.getExternalContext().getRequestMap();
+    @SuppressWarnings("unchecked")
+    Queue<SuspendedContextChanges> suspendedChangesQueue = (Queue<SuspendedContextChanges>)
+      reqMap.get(_SUSPENDED_CHANGES_KEY);
+    SuspendedContextChanges changes = suspendedChangesQueue.poll();
+    ctxMgr.resume(facesContext, changes);
+    _LOG.severe("UIXDocument resumed context changes in setupVisitingContext");
   }
+
+  private final static String _SUSPENDED_CHANGES_KEY = UIXDocument.class.getName() +
+                                                       ".SUSPENDED_CHANGES";
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXDocument.class);
 }
