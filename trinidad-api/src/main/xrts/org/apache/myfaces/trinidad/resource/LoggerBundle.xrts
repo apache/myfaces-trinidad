@@ -490,27 +490,30 @@
 <resource key="COLLECTION_NOT_IN_CONTEXT">The row key or row index of a UIXCollection component is being changed outside of the component's context. Changing the key or index of a collection when the collection is not currently being visited, invoked on, broadcasting an event or processing a lifecycle method, is not valid. Data corruption and errors may result from this call. Component ID: {0}. Turn on fine level logging for a stack trace of this call.</resource>
 
 <!-- COMPONENT_ALREADY_IN_CHILDREN_ENCODING_CONTEXT -->
-<resource key="COMPONENT_ALREADY_IN_CHILDREN_ENCODING_CONTEXT">setupChildrenEncodingContext called on a component that is already in context. Client ID: {0}. Turn on fine level logging for a stack trace of this call.</resource>
+<resource key="COMPONENT_ALREADY_IN_CHILDREN_ENCODING_CONTEXT">setupChildrenEncodingContext called on a component that is already in context. Client ID: {0}. Originally called by {1}.</resource>
 
 <!-- COMPONENT_ALREADY_IN_CHILDREN_VISITING_CONTEXT -->
-<resource key="COMPONENT_ALREADY_IN_CHILDREN_VISITING_CONTEXT">setupChildrenVisitingContext called on a component that is already in context. Client ID: {0}. Turn on fine level logging for a stack trace of this call.</resource>
+<resource key="COMPONENT_ALREADY_IN_CHILDREN_VISITING_CONTEXT">setupChildrenVisitingContext called on a component that is already in context. Client ID: {0}. Originally called by {1}.</resource>
 
 <!-- COMPONENT_NOT_IN_CHILDREN_ENCODING_CONTEXT -->
-<resource key="COMPONENT_NOT_IN_CHILDREN_ENCODING_CONTEXT">tearDownChildrenEncodingContext called on a component that is not in context. Client ID: {0}. Turn on fine level logging for a stack trace of this call.</resource>
+<resource key="COMPONENT_NOT_IN_CHILDREN_ENCODING_CONTEXT">tearDownChildrenEncodingContext called on a component that is not in context. Client ID: {0}. Originally called by {1}.</resource>
 
 <!-- COMPONENT_NOT_IN_CHILDREN_VISITING_CONTEXT -->
-<resource key="COMPONENT_NOT_IN_CHILDREN_VISITING_CONTEXT">tearDownChildrenVisitingContext called on a component that is not in context. Client ID: {0}. Turn on fine level logging for a stack trace of this call.</resource>
+<resource key="COMPONENT_NOT_IN_CHILDREN_VISITING_CONTEXT">tearDownChildrenVisitingContext called on a component that is not in context. Client ID: {0}. Originally called by {1}.</resource>
 
 <!-- COMPONENT_ALREADY_IN_ENCODING_CONTEXT -->
-<resource key="COMPONENT_ALREADY_IN_ENCODING_CONTEXT">setupEncodingContext called on a component that is already in context. Client ID: {0}. Turn on fine level logging for a stack trace of this call.</resource>
+<resource key="COMPONENT_ALREADY_IN_ENCODING_CONTEXT">setupEncodingContext called on a component that is already in context. Client ID: {0}. Originally called by {1}.</resource>
 
 <!-- COMPONENT_ALREADY_IN_VISITING_CONTEXT -->
-<resource key="COMPONENT_ALREADY_IN_VISITING_CONTEXT">setupVisitingContext called on a component that is already in context. Client ID: {0}. Turn on fine level logging for a stack trace of this call.</resource>
+<resource key="COMPONENT_ALREADY_IN_VISITING_CONTEXT">setupVisitingContext called on a component that is already in context. Client ID: {0}. Originally called by {1}.</resource>
 
 <!-- COMPONENT_NOT_IN_ENCODING_CONTEXT -->
-<resource key="COMPONENT_NOT_IN_ENCODING_CONTEXT">tearDownEncodingContext called on a component that is not in context. Client ID: {0}. Turn on fine level logging for a stack trace of this call.</resource>
+<resource key="COMPONENT_NOT_IN_ENCODING_CONTEXT">tearDownEncodingContext called on a component that is not in context. Client ID: {0}. Originally called by {1}.</resource>
 
 <!-- COMPONENT_NOT_IN_VISITING_CONTEXT -->
-<resource key="COMPONENT_NOT_IN_VISITING_CONTEXT">tearDownVisitingContext called on a component that is not in context. Client ID: {0}. Turn on fine level logging for a stack trace of this call.</resource>
+<resource key="COMPONENT_NOT_IN_VISITING_CONTEXT">tearDownVisitingContext called on a component that is not in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- INVALID_CONTEXT_CHANGE_FOUND -->
+<resource key="INVALID_CONTEXT_CHANGE_FOUND">An unexpected component context change was found. This is due to components not correctly maintaining the context change stack.</resource>
 
 </resources>

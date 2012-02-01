@@ -23,6 +23,11 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import javax.el.MethodExpression;
+
+import javax.faces.FactoryFinder;
+import javax.faces.application.Application;
+import javax.faces.application.ApplicationFactory;
+import javax.faces.application.ProjectStage;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.StateHelper;
 import javax.faces.component.UIComponent;
@@ -38,8 +43,11 @@ import javax.faces.render.Renderer;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.context.ComponentContextChange;
+import org.apache.myfaces.trinidad.context.ComponentContextManager;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
@@ -926,20 +934,28 @@ abstract public class UIXComponent extends UIComponent
    * @see #setupEncodingContext
    * @see #tearDownEncodingContext
    * @see #setupChildrenVistingContext
-   *
    */
   protected void setupVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
-    if (_inVisitingContext)
+    // If in testing phase, add code to determine if this function is being used correctly.
+    if (_inTestingPhase)
     {
-      _LOG.warning("COMPONENT_ALREADY_IN_VISITING_CONTEXT", getClientId(context));
-      if (_LOG.isFine())
+      // First, check to ensure that we are not already in context
+      if (_inVisitingContext)
       {
-        Thread.currentThread().dumpStack();
+        String errorMessage = _LOG.getMessage("COMPONENT_ALREADY_IN_VISITING_CONTEXT",
+                                new Object[] { getClientId(context), _setupVisitingCaller });
+        throw new IllegalStateException(errorMessage);
       }
-    }
 
-    _inVisitingContext = true;
+      // Next, add a context change so that the flags are reset during an invokeOnComponent,
+      // or a visitTree call:
+      ComponentContextManager componentContextManager =
+        RequestContext.getCurrentInstance().getComponentContextManager();
+      componentContextManager.pushChange(new DebugContextChange(this));
+      _inVisitingContext = true;
+      _setupVisitingCaller = _getStackTraceElementForCaller();
+    }
   }
 
   /**
@@ -957,16 +973,20 @@ abstract public class UIXComponent extends UIComponent
    */
   protected void setupChildrenVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
-    if (_inChildrenVisitingContext)
+    // If in testing phase, add code to determine if this function is being used correctly.
+    if (_inTestingPhase)
     {
-      _LOG.warning("COMPONENT_ALREADY_IN_CHILDREN_VISITING_CONTEXT", getClientId(context));
-      if (_LOG.isFine())
+      // Check to ensure that we are not already in context
+      if (_inChildrenVisitingContext)
       {
-        Thread.currentThread().dumpStack();
+        String errorMessage = _LOG.getMessage("COMPONENT_ALREADY_IN_CHILDREN_VISITING_CONTEXT",
+          new Object[] { getClientId(context), _setupChildrenVisitingCaller });
+        throw new IllegalStateException(errorMessage);
       }
-    }
 
-    _inChildrenVisitingContext = true;
+      _inChildrenVisitingContext = true;
+      _setupChildrenVisitingCaller = _getStackTraceElementForCaller();
+    }
   }
 
   /**
@@ -984,15 +1004,34 @@ abstract public class UIXComponent extends UIComponent
    */
   protected void tearDownVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
-    if (!_inVisitingContext)
+    // If in testing phase, add code to determine if this function is being used correctly.
+    if (_inTestingPhase)
     {
-      _LOG.warning("COMPONENT_NOT_IN_VISITING_CONTEXT", getClientId(context));
-      if (_LOG.isFine())
+      // First, check to ensure that we are not already in context
+      if (!_inVisitingContext)
       {
-        Thread.currentThread().dumpStack();
+        String errorMessage = _LOG.getMessage("COMPONENT_NOT_IN_VISITING_CONTEXT",
+                                new Object[] { getClientId(context), _tearDownVisitingCaller });
+        throw new IllegalStateException(errorMessage);
       }
+
+      // Next, remove the context change that was added in setupVisitingContext:
+      ComponentContextManager componentContextManager =
+        RequestContext.getCurrentInstance().getComponentContextManager();
+
+      ComponentContextChange contextChange = componentContextManager.popChange();
+
+      // Validate the state of the context change stack:
+      if (!(contextChange instanceof DebugContextChange) ||
+          ((DebugContextChange)contextChange)._component != this)
+      {
+        String errorMessage = _LOG.getMessage("INVALID_CONTEXT_CHANGE_FOUND");
+        throw new IllegalStateException(errorMessage);
+      }
+
+      _inVisitingContext = false;
+      _tearDownVisitingCaller = _getStackTraceElementForCaller();
     }
-    _inVisitingContext = false;
   }
 
   /**
@@ -1009,15 +1048,20 @@ abstract public class UIXComponent extends UIComponent
    */
   protected void tearDownChildrenVisitingContext(@SuppressWarnings("unused") FacesContext context)
   {
-    if (!_inChildrenVisitingContext)
+    // If in testing phase, add code to determine if this function is being used correctly.
+    if (_inTestingPhase)
     {
-      _LOG.warning("COMPONENT_NOT_IN_CHILDREN_VISITING_CONTEXT", getClientId(context));
-      if (_LOG.isFine())
+      // Check to ensure that we are not already in context
+      if (!_inChildrenVisitingContext)
       {
-        Thread.currentThread().dumpStack();
+        String errorMessage = _LOG.getMessage("COMPONENT_NOT_IN_CHILDREN_VISITING_CONTEXT",
+          new Object[] { getClientId(context), _tearDownChildrenVisitingCaller });
+        throw new IllegalStateException(errorMessage);
       }
+
+      _inChildrenVisitingContext = false;
+      _tearDownChildrenVisitingCaller = _getStackTraceElementForCaller();
     }
-    _inChildrenVisitingContext = false;
   }
 
   @Deprecated
@@ -1054,16 +1098,22 @@ abstract public class UIXComponent extends UIComponent
    */
   protected void setupEncodingContext(FacesContext context, RenderingContext rc)
   {
-    if (_inEncodingContext)
-    {
-      _LOG.warning("COMPONENT_ALREADY_IN_ENCODING_CONTEXT", getClientId(context));
-      if (_LOG.isFine())
-      {
-        Thread.currentThread().dumpStack();
-      }
-    }
-
     setupVisitingContext(context);
+
+    // If in testing phase, add code to determine if this function is being used correctly.
+    if (_inTestingPhase)
+    {
+      // Check to ensure that we are not already in context
+      if (_inEncodingContext)
+      {
+        String errorMessage = _LOG.getMessage("COMPONENT_ALREADY_IN_ENCODING_CONTEXT",
+                                new Object[] { getClientId(context), _setupEncodingCaller});
+        throw new IllegalStateException(errorMessage);
+      }
+
+      _inEncodingContext = true;
+      _setupEncodingCaller = _getStackTraceElementForCaller();
+    }
 
     Renderer renderer = getRenderer(context);
 
@@ -1088,16 +1138,22 @@ abstract public class UIXComponent extends UIComponent
    */
   public void setupChildrenEncodingContext(FacesContext context, RenderingContext rc)
   {
-    if (_inChildrenEncodingContext)
-    {
-      _LOG.warning("COMPONENT_ALREADY_IN_CHILDREN_ENCODING_CONTEXT", getClientId(context));
-      if (_LOG.isFine())
-      {
-        Thread.currentThread().dumpStack();
-      }
-    }
-
     setupChildrenVisitingContext(context);
+
+    // If in testing phase, add code to determine if this function is being used correctly.
+    if (_inTestingPhase)
+    {
+      // Check to ensure that we are not already in context
+      if (_inChildrenEncodingContext)
+      {
+        String errorMessage = _LOG.getMessage("COMPONENT_ALREADY_IN_CHILDREN_ENCODING_CONTEXT",
+          new Object[] { getClientId(context), _setupChildrenEncodingCaller });
+        throw new IllegalStateException(errorMessage);
+      }
+
+      _inChildrenEncodingContext = true;
+      _setupChildrenEncodingCaller = _getStackTraceElementForCaller();
+    }
 
     Renderer renderer = getRenderer(context);
 
@@ -1131,13 +1187,19 @@ abstract public class UIXComponent extends UIComponent
     FacesContext context,
     RenderingContext rc)
   {
-    if (!_inEncodingContext)
+    // If in testing phase, add code to determine if this function is being used correctly.
+    if (_inTestingPhase)
     {
-      _LOG.warning("COMPONENT_NOT_IN_ENCODING_CONTEXT", getClientId(context));
-      if (_LOG.isFine())
+      // Check to ensure that we are not already in context
+      if (!_inEncodingContext)
       {
-        Thread.currentThread().dumpStack();
+        String errorMessage = _LOG.getMessage("COMPONENT_NOT_IN_ENCODING_CONTEXT",
+                                new Object[] { getClientId(context), _tearDownEncodingCaller });
+        throw new IllegalStateException(errorMessage);
       }
+
+      _inEncodingContext = false;
+      _tearDownEncodingCaller = _getStackTraceElementForCaller();
     }
 
     Renderer renderer = getRenderer(context);
@@ -1154,7 +1216,6 @@ abstract public class UIXComponent extends UIComponent
     finally
     {
       tearDownVisitingContext(context);
-      _inEncodingContext = false;
     }
   }
 
@@ -1171,13 +1232,19 @@ abstract public class UIXComponent extends UIComponent
     FacesContext context,
     RenderingContext rc)
   {
-    if (!_inChildrenEncodingContext)
+    // If in testing phase, add code to determine if this function is being used correctly.
+    if (_inTestingPhase)
     {
-      _LOG.warning("COMPONENT_NOT_IN_CHILDREN_ENCODING_CONTEXT", getClientId(context));
-      if (_LOG.isFine())
+      // Check to ensure that we are not already in context
+      if (!_inChildrenEncodingContext)
       {
-        Thread.currentThread().dumpStack();
+        String errorMessage = _LOG.getMessage("COMPONENT_NOT_IN_CHILDREN_ENCODING_CONTEXT",
+          new Object[] { getClientId(context), _tearDownChildrenEncodingCaller });
+        throw new IllegalStateException(errorMessage);
       }
+
+      _inChildrenEncodingContext = false;
+      _tearDownChildrenEncodingCaller = _getStackTraceElementForCaller();
     }
 
     Renderer renderer = getRenderer(context);
@@ -1306,6 +1373,24 @@ abstract public class UIXComponent extends UIComponent
     throw new UnsupportedOperationException();
   }
 
+  private String _getStackTraceElementForCaller()
+  {
+    StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+
+    // 0 is the call to getStackTrace, 1 is this method, 2 is the calling method in UIXComponent
+    // so 3 (4th element) is the caller to the UIXComponent method, the one that is desired.
+
+    String lineSep = System.getProperty("line.separator");
+    StringBuilder stack = new StringBuilder();
+    for (int i = 3, size = elements.length; i < size && i < 10; ++i)
+    {
+      stack.append(elements[i].toString());
+      stack.append(lineSep);
+    }
+
+    return stack.toString();
+  }
+
   /**
    * Determine if we can flatten a core JSF component.
    * @param component The component
@@ -1333,11 +1418,108 @@ abstract public class UIXComponent extends UIComponent
     return UIPanel.class == componentClass;
   }
 
+  private static class DebugContextChange
+    extends ComponentContextChange
+  {
+    private DebugContextChange(
+      UIXComponent     component)
+    {
+      _component = component;
+    }
+
+    @Override
+    public void resume(FacesContext facesContext)
+    {
+      _component._inVisitingContext = _inVisitingContext;
+      _component._inChildrenVisitingContext = _inChildrenVisitingContext;
+      _component._inEncodingContext = _inEncodingContext;
+      _component._inChildrenEncodingContext = _inChildrenEncodingContext;
+      _component._setupVisitingCaller = _setupVisitingCaller;
+      _component._tearDownVisitingCaller = _tearDownVisitingCaller;
+      _component._setupEncodingCaller = _setupEncodingCaller;
+      _component._tearDownEncodingCaller = _tearDownEncodingCaller;
+      _component._setupChildrenEncodingCaller = _setupChildrenEncodingCaller;
+      _component._tearDownChildrenEncodingCaller = _tearDownChildrenEncodingCaller;
+      _component._setupChildrenVisitingCaller = _setupChildrenVisitingCaller;
+      _component._tearDownChildrenVisitingCaller = _tearDownChildrenVisitingCaller;
+    }
+
+    @Override
+    public void suspend(FacesContext facesContext)
+    {
+      _inVisitingContext = _component._inVisitingContext;
+      _inChildrenVisitingContext = _component._inChildrenVisitingContext;
+      _inEncodingContext = _component._inEncodingContext;
+      _inChildrenEncodingContext = _component._inChildrenEncodingContext;
+      _setupVisitingCaller = _component._setupVisitingCaller;
+      _tearDownVisitingCaller = _component._tearDownVisitingCaller;
+      _setupEncodingCaller = _component._setupEncodingCaller;
+      _tearDownEncodingCaller = _component._tearDownEncodingCaller;
+      _setupChildrenEncodingCaller = _component._setupChildrenEncodingCaller;
+      _tearDownChildrenEncodingCaller = _component._tearDownChildrenEncodingCaller;
+      _setupChildrenVisitingCaller = _component._setupChildrenVisitingCaller;
+      _tearDownChildrenVisitingCaller = _component._tearDownChildrenVisitingCaller;
+    }
+
+    private final UIXComponent _component;
+    private boolean _inVisitingContext;
+    private boolean _inChildrenVisitingContext;
+    private boolean _inEncodingContext;
+    private boolean _inChildrenEncodingContext;
+    private String _setupVisitingCaller;
+    private String _tearDownVisitingCaller;
+    private String _setupEncodingCaller;
+    private String _tearDownEncodingCaller;
+    private String _setupChildrenEncodingCaller;
+    private String _tearDownChildrenEncodingCaller;
+    private String _setupChildrenVisitingCaller;
+    private String _tearDownChildrenVisitingCaller;
+  }
+
+  private final static boolean _inTestingPhase;
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(UIXComponent.class);
+
+  static
+  {
+    // If Trinidad is to be ever shared with a shared class loader, we should change this
+    // static boolean flag to be non-class loader bound.
+    Application app = null;
+    try
+    {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      app = facesContext == null ? null : facesContext.getApplication();
+      if (app == null)
+      {
+        ApplicationFactory appFactory = (ApplicationFactory)
+          FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
+        app = appFactory.getApplication();
+      }
+    }
+    catch (Throwable t)
+    {
+      // This occurs during unit testing without a full JSF environment, ignore
+      ;
+    }
+
+    _inTestingPhase = app == null ? false : app.getProjectStage() == ProjectStage.UnitTest;
+    if (_inTestingPhase)
+    {
+      _LOG.info("Application is running in testing phase, UIXComponent will " +
+        "perform extra validation steps to ensure proper component usage");
+    }
+  };
+
+  private String _setupVisitingCaller;
+  private String _tearDownVisitingCaller;
+  private String _setupEncodingCaller;
+  private String _tearDownEncodingCaller;
+  private String _setupChildrenEncodingCaller;
+  private String _tearDownChildrenEncodingCaller;
+  private String _setupChildrenVisitingCaller;
+  private String _tearDownChildrenVisitingCaller;
   private boolean _inVisitingContext;
   private boolean _inChildrenVisitingContext;
   private boolean _inEncodingContext;
   private boolean _inChildrenEncodingContext;
-
-  private static final TrinidadLogger _LOG =
-    TrinidadLogger.createTrinidadLogger(UIXComponent.class);
 }
