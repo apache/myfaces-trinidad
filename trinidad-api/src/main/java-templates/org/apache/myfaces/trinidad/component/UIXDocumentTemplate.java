@@ -61,7 +61,7 @@ public abstract class UIXDocumentTemplate
     }
 
     suspendedChangesQueue.offer(suspendedChanges);
-    _LOG.severe("UIXDocument suspended context changes in setupVisitingContext");
+    _LOG.fine("UIXDocument suspended context changes in setupVisitingContext");
 
     super.setupVisitingContext(facesContext);
   }
@@ -85,7 +85,7 @@ public abstract class UIXDocumentTemplate
       reqMap.get(_SUSPENDED_CHANGES_KEY);
     SuspendedContextChanges changes = suspendedChangesQueue.poll();
     ctxMgr.resume(facesContext, changes);
-    _LOG.severe("UIXDocument resumed context changes in setupVisitingContext");
+    _LOG.fine("UIXDocument resumed context changes in setupVisitingContext");
   }
 
   private final static String _SUSPENDED_CHANGES_KEY = UIXDocument.class.getName() +
