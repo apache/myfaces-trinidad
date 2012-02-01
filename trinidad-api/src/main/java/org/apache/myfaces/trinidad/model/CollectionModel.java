@@ -143,11 +143,9 @@ public abstract class CollectionModel extends DataModel
   }
 
   /**
-   * Gets the rowData at the given row key.
-   * This method makes the given row current and calls
-   * {@link #getRowData()}.
-   * Finally, the row that was current before this method was called
-   * is made current again.
+   * Returns the rowData for the given rowKey without changing model currency.  
+   * Implementations may choose to implement this behavior by saving and restoring the currency.
+   *
    * @see CollectionModel#getRowData()
    * @param rowKey the row key of the row to get data from.
    * @return the data for the given row. 
