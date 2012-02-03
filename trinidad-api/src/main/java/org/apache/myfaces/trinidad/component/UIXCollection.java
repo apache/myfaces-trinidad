@@ -1201,6 +1201,8 @@ public abstract class UIXCollection extends UIXComponentBase
    * <li>index - returns the current rowIndex
    * <li>rowKey - returns the current rowKey
    * <li>current - returns the current rowData
+   * <li>"hierarchicalIndex" - returns an array containing zero based row index.</li>
+   * <li>"hierarchicalLabel" - returns a string label representing 1 based index of this row.</li>
    * </ul>
    */
   protected Map<String, Object> createVarStatusMap()
@@ -1218,6 +1220,16 @@ public abstract class UIXCollection extends UIXComponentBase
           return getRowKey();
         if ("index".equals(key)) // from jstl
           return Integer.valueOf(getRowIndex());
+        if("hierarchicalIndex".equals(key))
+        {
+          int rowIndex = getRowIndex();
+          return rowIndex>=0 ? new Integer[]{rowIndex}: new Integer[]{};
+        }
+        if("hierarchicalLabel".equals(key))
+        {
+          int rowIndex = getRowIndex();
+          return rowIndex>=0 ? Integer.toString(rowIndex+1): "";
+        }
         if ("current".equals(key)) // from jstl
           return getRowData();
         return null;
