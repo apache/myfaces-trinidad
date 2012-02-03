@@ -948,11 +948,11 @@ abstract public class UIXComponent extends UIComponent
         throw new IllegalStateException(errorMessage);
       }
 
-      // Next, add a context change so that the flags are reset during an invokeOnComponent,
-      // or a visitTree call:
+      // Next, add a context change so that the flags are reset during an
+      // invokeOnComponent(context, clientId, callback), or a visitTree call:
       ComponentContextManager componentContextManager =
         RequestContext.getCurrentInstance().getComponentContextManager();
-      componentContextManager.pushChange(new DebugContextChange(this));
+      componentContextManager.pushChange(new VisitDebugContextChange(this));
       _inVisitingContext = true;
       _setupVisitingCaller = _getStackTraceElementForCaller();
     }
@@ -984,6 +984,14 @@ abstract public class UIXComponent extends UIComponent
         throw new IllegalStateException(errorMessage);
       }
 
+      // Next, add a context change so that the flags are reset during an
+      // invokeOnComponent(context, clientId, callback), or a visitTree call
+      // (Note that a separate one is needed for the children due to the fact that currently
+      // the encoding context / visiting context is not set up during normal tree traversal,
+      // but the children encoding context is setup by the renderers):
+      ComponentContextManager componentContextManager =
+        RequestContext.getCurrentInstance().getComponentContextManager();
+      componentContextManager.pushChange(new VisitChildrenDebugContextChange(this));
       _inChildrenVisitingContext = true;
       _setupChildrenVisitingCaller = _getStackTraceElementForCaller();
     }
@@ -1022,8 +1030,8 @@ abstract public class UIXComponent extends UIComponent
       ComponentContextChange contextChange = componentContextManager.popChange();
 
       // Validate the state of the context change stack:
-      if (!(contextChange instanceof DebugContextChange) ||
-          ((DebugContextChange)contextChange)._component != this)
+      if (!(contextChange instanceof VisitDebugContextChange) ||
+          ((VisitDebugContextChange)contextChange)._component != this)
       {
         String errorMessage = _LOG.getMessage("INVALID_CONTEXT_CHANGE_FOUND");
         throw new IllegalStateException(errorMessage);
@@ -1056,6 +1064,19 @@ abstract public class UIXComponent extends UIComponent
       {
         String errorMessage = _LOG.getMessage("COMPONENT_NOT_IN_CHILDREN_VISITING_CONTEXT",
           new Object[] { getClientId(context), _tearDownChildrenVisitingCaller });
+        throw new IllegalStateException(errorMessage);
+      }
+
+      // Next, remove the context change that was added in setupChildrenVisitingContext:
+      ComponentContextManager componentContextManager =
+        RequestContext.getCurrentInstance().getComponentContextManager();
+
+      ComponentContextChange contextChange = componentContextManager.popChange();
+      // Validate the state of the context change stack:
+      if (!(contextChange instanceof VisitChildrenDebugContextChange) ||
+          ((VisitChildrenDebugContextChange)contextChange)._component != this)
+      {
+        String errorMessage = _LOG.getMessage("INVALID_CONTEXT_CHANGE_FOUND");
         throw new IllegalStateException(errorMessage);
       }
 
@@ -1418,10 +1439,10 @@ abstract public class UIXComponent extends UIComponent
     return UIPanel.class == componentClass;
   }
 
-  private static class DebugContextChange
+  private static class VisitDebugContextChange
     extends ComponentContextChange
   {
-    private DebugContextChange(
+    private VisitDebugContextChange(
       UIXComponent     component)
     {
       _component = component;
@@ -1431,13 +1452,54 @@ abstract public class UIXComponent extends UIComponent
     public void resume(FacesContext facesContext)
     {
       _component._inVisitingContext = _inVisitingContext;
-      _component._inChildrenVisitingContext = _inChildrenVisitingContext;
       _component._inEncodingContext = _inEncodingContext;
-      _component._inChildrenEncodingContext = _inChildrenEncodingContext;
       _component._setupVisitingCaller = _setupVisitingCaller;
       _component._tearDownVisitingCaller = _tearDownVisitingCaller;
       _component._setupEncodingCaller = _setupEncodingCaller;
       _component._tearDownEncodingCaller = _tearDownEncodingCaller;
+    }
+
+    @Override
+    public void suspend(FacesContext facesContext)
+    {
+      _inVisitingContext = _component._inVisitingContext;
+      _inEncodingContext = _component._inEncodingContext;
+      _setupVisitingCaller = _component._setupVisitingCaller;
+      _tearDownVisitingCaller = _component._tearDownVisitingCaller;
+      _setupEncodingCaller = _component._setupEncodingCaller;
+      _tearDownEncodingCaller = _component._tearDownEncodingCaller;
+
+      _component._inVisitingContext = false;
+      _component._inEncodingContext = false;
+      _component._setupVisitingCaller = null;
+      _component._tearDownVisitingCaller = null;
+      _component._setupEncodingCaller = null;
+      _component._tearDownEncodingCaller = null;
+    }
+
+    private final UIXComponent _component;
+    private boolean _inVisitingContext;
+    private boolean _inEncodingContext;
+    private String _setupVisitingCaller;
+    private String _tearDownVisitingCaller;
+    private String _setupEncodingCaller;
+    private String _tearDownEncodingCaller;
+  }
+
+  private static class VisitChildrenDebugContextChange
+    extends ComponentContextChange
+  {
+    private VisitChildrenDebugContextChange(
+      UIXComponent     component)
+    {
+      _component = component;
+    }
+
+    @Override
+    public void resume(FacesContext facesContext)
+    {
+      _component._inChildrenVisitingContext = _inChildrenVisitingContext;
+      _component._inChildrenEncodingContext = _inChildrenEncodingContext;
       _component._setupChildrenEncodingCaller = _setupChildrenEncodingCaller;
       _component._tearDownChildrenEncodingCaller = _tearDownChildrenEncodingCaller;
       _component._setupChildrenVisitingCaller = _setupChildrenVisitingCaller;
@@ -1447,29 +1509,24 @@ abstract public class UIXComponent extends UIComponent
     @Override
     public void suspend(FacesContext facesContext)
     {
-      _inVisitingContext = _component._inVisitingContext;
       _inChildrenVisitingContext = _component._inChildrenVisitingContext;
-      _inEncodingContext = _component._inEncodingContext;
       _inChildrenEncodingContext = _component._inChildrenEncodingContext;
-      _setupVisitingCaller = _component._setupVisitingCaller;
-      _tearDownVisitingCaller = _component._tearDownVisitingCaller;
-      _setupEncodingCaller = _component._setupEncodingCaller;
-      _tearDownEncodingCaller = _component._tearDownEncodingCaller;
       _setupChildrenEncodingCaller = _component._setupChildrenEncodingCaller;
       _tearDownChildrenEncodingCaller = _component._tearDownChildrenEncodingCaller;
       _setupChildrenVisitingCaller = _component._setupChildrenVisitingCaller;
       _tearDownChildrenVisitingCaller = _component._tearDownChildrenVisitingCaller;
+
+      _component._inChildrenVisitingContext = false;
+      _component._inChildrenEncodingContext = false;
+      _component._setupChildrenEncodingCaller = null;
+      _component._tearDownChildrenEncodingCaller = null;
+      _component._setupChildrenVisitingCaller = null;
+      _component._tearDownChildrenVisitingCaller = null;
     }
 
     private final UIXComponent _component;
-    private boolean _inVisitingContext;
     private boolean _inChildrenVisitingContext;
-    private boolean _inEncodingContext;
     private boolean _inChildrenEncodingContext;
-    private String _setupVisitingCaller;
-    private String _tearDownVisitingCaller;
-    private String _setupEncodingCaller;
-    private String _tearDownEncodingCaller;
     private String _setupChildrenEncodingCaller;
     private String _tearDownChildrenEncodingCaller;
     private String _setupChildrenVisitingCaller;
