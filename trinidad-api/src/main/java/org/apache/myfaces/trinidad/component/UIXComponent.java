@@ -943,9 +943,7 @@ abstract public class UIXComponent extends UIComponent
       // First, check to ensure that we are not already in context
       if (_inVisitingContext)
       {
-        String errorMessage = _LOG.getMessage("COMPONENT_ALREADY_IN_VISITING_CONTEXT",
-                                new Object[] { getClientId(context), _setupVisitingCaller });
-        throw new IllegalStateException(errorMessage);
+        _handleInvalidContextUsage("COMPONENT_ALREADY_IN_VISITING_CONTEXT", _setupVisitingCaller);
       }
 
       // Next, add a context change so that the flags are reset during an
@@ -979,9 +977,8 @@ abstract public class UIXComponent extends UIComponent
       // Check to ensure that we are not already in context
       if (_inChildrenVisitingContext)
       {
-        String errorMessage = _LOG.getMessage("COMPONENT_ALREADY_IN_CHILDREN_VISITING_CONTEXT",
-          new Object[] { getClientId(context), _setupChildrenVisitingCaller });
-        throw new IllegalStateException(errorMessage);
+        _handleInvalidContextUsage("COMPONENT_ALREADY_IN_CHILDREN_VISITING_CONTEXT",
+          _setupChildrenVisitingCaller);
       }
 
       // Next, add a context change so that the flags are reset during an
@@ -1018,9 +1015,7 @@ abstract public class UIXComponent extends UIComponent
       // First, check to ensure that we are not already in context
       if (!_inVisitingContext)
       {
-        String errorMessage = _LOG.getMessage("COMPONENT_NOT_IN_VISITING_CONTEXT",
-                                new Object[] { getClientId(context), _tearDownVisitingCaller });
-        throw new IllegalStateException(errorMessage);
+        _handleInvalidContextUsage("COMPONENT_NOT_IN_VISITING_CONTEXT", _tearDownVisitingCaller);
       }
 
       // Next, remove the context change that was added in setupVisitingContext:
@@ -1063,9 +1058,8 @@ abstract public class UIXComponent extends UIComponent
       // Check to ensure that we are not already in context
       if (!_inChildrenVisitingContext)
       {
-        String errorMessage = _LOG.getMessage("COMPONENT_NOT_IN_CHILDREN_VISITING_CONTEXT",
-          new Object[] { getClientId(context), _tearDownChildrenVisitingCaller });
-        throw new IllegalStateException(errorMessage);
+        _handleInvalidContextUsage("COMPONENT_NOT_IN_CHILDREN_VISITING_CONTEXT",
+          _tearDownChildrenVisitingCaller);
       }
 
       // Next, remove the context change that was added in setupChildrenVisitingContext:
@@ -1129,9 +1123,7 @@ abstract public class UIXComponent extends UIComponent
       // Check to ensure that we are not already in context
       if (_inEncodingContext)
       {
-        String errorMessage = _LOG.getMessage("COMPONENT_ALREADY_IN_ENCODING_CONTEXT",
-                                new Object[] { getClientId(context), _setupEncodingCaller});
-        throw new IllegalStateException(errorMessage);
+        _handleInvalidContextUsage("COMPONENT_ALREADY_IN_ENCODING_CONTEXT", _setupEncodingCaller);
       }
 
       _inEncodingContext = true;
@@ -1169,9 +1161,8 @@ abstract public class UIXComponent extends UIComponent
       // Check to ensure that we are not already in context
       if (_inChildrenEncodingContext)
       {
-        String errorMessage = _LOG.getMessage("COMPONENT_ALREADY_IN_CHILDREN_ENCODING_CONTEXT",
-          new Object[] { getClientId(context), _setupChildrenEncodingCaller });
-        throw new IllegalStateException(errorMessage);
+        _handleInvalidContextUsage("COMPONENT_ALREADY_IN_CHILDREN_ENCODING_CONTEXT",
+          _setupChildrenEncodingCaller);
       }
 
       _inChildrenEncodingContext = true;
@@ -1216,9 +1207,7 @@ abstract public class UIXComponent extends UIComponent
       // Check to ensure that we are not already in context
       if (!_inEncodingContext)
       {
-        String errorMessage = _LOG.getMessage("COMPONENT_NOT_IN_ENCODING_CONTEXT",
-                                new Object[] { getClientId(context), _tearDownEncodingCaller });
-        throw new IllegalStateException(errorMessage);
+        _handleInvalidContextUsage("COMPONENT_NOT_IN_ENCODING_CONTEXT", _tearDownEncodingCaller);
       }
 
       _inEncodingContext = false;
@@ -1261,9 +1250,8 @@ abstract public class UIXComponent extends UIComponent
       // Check to ensure that we are not already in context
       if (!_inChildrenEncodingContext)
       {
-        String errorMessage = _LOG.getMessage("COMPONENT_NOT_IN_CHILDREN_ENCODING_CONTEXT",
-          new Object[] { getClientId(context), _tearDownChildrenEncodingCaller });
-        throw new IllegalStateException(errorMessage);
+        _handleInvalidContextUsage("COMPONENT_NOT_IN_CHILDREN_ENCODING_CONTEXT",
+          _tearDownChildrenEncodingCaller);
       }
 
       _inChildrenEncodingContext = false;
@@ -1441,6 +1429,24 @@ abstract public class UIXComponent extends UIComponent
     return UIPanel.class == componentClass;
   }
 
+  private void _handleInvalidContextUsage(
+    String bundleKey,
+    String originalStackTrace
+    ) throws IllegalStateException
+  {
+    String errorMessage = _LOG.getMessage(bundleKey,
+      new Object[] { getClientId(), originalStackTrace });
+
+    if (_WARNING_INSTEAD_OF_EXCEPTION_FOR_CONTEXT_ISSUES)
+    {
+      _LOG.warning(errorMessage);
+    }
+    else
+    {
+      throw new IllegalStateException(errorMessage);
+    }
+  }
+
   private String _getInvalidContextChangeMessage(
     Class<? extends ComponentContextChange> expectedClass,
     ComponentContextChange                  foundChange)
@@ -1564,6 +1570,8 @@ abstract public class UIXComponent extends UIComponent
     private String _tearDownChildrenVisitingCaller;
   }
 
+  // Use logging for now until all issues are resolved
+  private final static boolean _WARNING_INSTEAD_OF_EXCEPTION_FOR_CONTEXT_ISSUES = true;
   private final static boolean _inTestingPhase;
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(UIXComponent.class);
