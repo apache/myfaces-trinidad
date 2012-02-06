@@ -456,10 +456,11 @@ af|navigationPane::bar-inactive-disabled af|navigationPane::bar-content,
 af|navigationPane::bar-active-disabled af|navigationPane::bar-content {
   -tr-rule-ref: selector(".AFMediumForeground:alias");
 }
-
-af|navigationPane::bar-active-enabled af|navigationPane::bar-content a:hover,
-af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content a:hover {
-  text-decoration:none;  
+@agent (touchScreen:none) {
+  af|navigationPane::bar-active-enabled af|navigationPane::bar-content a:hover,
+  af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content a:hover {
+    text-decoration:none;
+  }
 }
 
 af|navigationPane::bar-separator {

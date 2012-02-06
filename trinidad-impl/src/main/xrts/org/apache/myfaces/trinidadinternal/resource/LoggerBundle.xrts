@@ -1150,4 +1150,6 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE">Session attribute:{0} </resource>
 
+<resource key="INVALID_AGENT_PROPERTY">Not a valid @agent CSS property rule: {0}: {1}</resource>
+
 </resources>

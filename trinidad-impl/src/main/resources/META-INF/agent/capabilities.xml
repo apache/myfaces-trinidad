@@ -94,6 +94,20 @@
       <include src="email.xml" />
     </capabilities>
 
+    <capabilities id="ios" agents="webkit/500+" platforms="ipad iphone ipod">
+      <!-- note, version included to give it a higher score than the webkit312 below -->
+      <include refid="html" />
+      <include src="webkit312.xml"/>
+      <include src="ios.xml"/>
+    </capabilities>
+
+    <capabilities id="android" agents="webkit/500+" platforms="android">
+      <!-- note, version included to give it a higher score than the webkit312 below -->
+      <include refid="html" />
+      <include src="webkit312.xml"/>
+      <include src="android.xml"/>
+    </capabilities>
+
     <capabilities id="webkit" agents="webkit">
       <include refid="html" />
       <include src="webkit.xml"/>
