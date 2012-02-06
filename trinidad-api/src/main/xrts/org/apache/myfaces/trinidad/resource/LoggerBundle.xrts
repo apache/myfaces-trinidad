@@ -514,6 +514,6 @@
 <resource key="COMPONENT_NOT_IN_VISITING_CONTEXT">tearDownVisitingContext called on a component that is not in context. Client ID: {0}. Originally called by {1}.</resource>
 
 <!-- INVALID_CONTEXT_CHANGE_FOUND -->
-<resource key="INVALID_CONTEXT_CHANGE_FOUND">An unexpected component context change was found. This is due to components not correctly maintaining the context change stack.</resource>
+<resource key="INVALID_CONTEXT_CHANGE_FOUND">An unexpected component context change was found. This is due to components not correctly maintaining the context change stack. Expected change of type {0} for component {1} but received change {2}.</resource>
 
 </resources>

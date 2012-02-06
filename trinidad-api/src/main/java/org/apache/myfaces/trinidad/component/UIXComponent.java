@@ -1033,8 +1033,9 @@ abstract public class UIXComponent extends UIComponent
       if (!(contextChange instanceof VisitDebugContextChange) ||
           ((VisitDebugContextChange)contextChange)._component != this)
       {
-        String errorMessage = _LOG.getMessage("INVALID_CONTEXT_CHANGE_FOUND");
-        throw new IllegalStateException(errorMessage);
+        throw new IllegalStateException(_getInvalidContextChangeMessage(
+                                          VisitDebugContextChange.class,
+                                          contextChange));
       }
 
       _inVisitingContext = false;
@@ -1076,8 +1077,9 @@ abstract public class UIXComponent extends UIComponent
       if (!(contextChange instanceof VisitChildrenDebugContextChange) ||
           ((VisitChildrenDebugContextChange)contextChange)._component != this)
       {
-        String errorMessage = _LOG.getMessage("INVALID_CONTEXT_CHANGE_FOUND");
-        throw new IllegalStateException(errorMessage);
+        throw new IllegalStateException(_getInvalidContextChangeMessage(
+                                          VisitChildrenDebugContextChange.class,
+                                          contextChange));
       }
 
       _inChildrenVisitingContext = false;
@@ -1439,6 +1441,17 @@ abstract public class UIXComponent extends UIComponent
     return UIPanel.class == componentClass;
   }
 
+  private String _getInvalidContextChangeMessage(
+    Class<? extends ComponentContextChange> expectedClass,
+    ComponentContextChange                  foundChange)
+  {
+    String type = expectedClass.getName();
+    String id = (getParent() == null) ? getId() : getClientId();
+
+    return _LOG.getMessage("INVALID_CONTEXT_CHANGE_FOUND",
+      new Object[] { type, id, foundChange });
+  }
+
   private static class VisitDebugContextChange
     extends ComponentContextChange
   {
@@ -1475,6 +1488,15 @@ abstract public class UIXComponent extends UIComponent
       _component._tearDownVisitingCaller = null;
       _component._setupEncodingCaller = null;
       _component._tearDownEncodingCaller = null;
+    }
+
+    @Override
+    public String toString()
+    {
+      return String.format("VisitDebugContextChange(component: %s, id: %s)",
+               _component,
+               _component == null ? null :
+               _component.getParent() == null ? _component.getId() : _component.getClientId());
     }
 
     private final UIXComponent _component;
@@ -1522,6 +1544,15 @@ abstract public class UIXComponent extends UIComponent
       _component._tearDownChildrenEncodingCaller = null;
       _component._setupChildrenVisitingCaller = null;
       _component._tearDownChildrenVisitingCaller = null;
+    }
+
+    @Override
+    public String toString()
+    {
+      return String.format("VisitChildrenDebugContextChange(component: %s, id: %s)",
+               _component,
+               _component == null ? null :
+               _component.getParent() == null ? _component.getId() : _component.getClientId());
     }
 
     private final UIXComponent _component;
