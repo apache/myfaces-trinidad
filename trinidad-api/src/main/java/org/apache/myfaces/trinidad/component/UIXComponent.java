@@ -1437,13 +1437,13 @@ abstract public class UIXComponent extends UIComponent
     String errorMessage = _LOG.getMessage(bundleKey,
       new Object[] { getClientId(), originalStackTrace });
 
-    if (_WARNING_INSTEAD_OF_EXCEPTION_FOR_CONTEXT_ISSUES)
+    if (_treatContextualIssuesAsErrors)
     {
-      _LOG.warning(errorMessage);
+      throw new IllegalStateException(errorMessage);
     }
     else
     {
-      throw new IllegalStateException(errorMessage);
+      _LOG.warning(errorMessage);
     }
   }
 
@@ -1571,7 +1571,7 @@ abstract public class UIXComponent extends UIComponent
   }
 
   // Use logging for now until all issues are resolved
-  private final static boolean _WARNING_INSTEAD_OF_EXCEPTION_FOR_CONTEXT_ISSUES = true;
+  private final static boolean _treatContextualIssuesAsErrors;
   private final static boolean _inTestingPhase;
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(UIXComponent.class);
@@ -1604,6 +1604,9 @@ abstract public class UIXComponent extends UIComponent
       _LOG.info("Application is running in testing phase, UIXComponent will " +
         "perform extra validation steps to ensure proper component usage");
     }
+
+    _treatContextualIssuesAsErrors = "true".equals(
+      System.getProperty("uixcomponent.contextual.issue.throw"));
   };
 
   private String _setupVisitingCaller;
