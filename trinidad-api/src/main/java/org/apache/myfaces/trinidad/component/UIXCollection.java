@@ -271,9 +271,9 @@ public abstract class UIXCollection extends UIXComponentBase
     try
     {
       _stateSavingCurrencyKey = _resetCurrencyKeyForStateSaving(context);
-      
+
       Object savedState = super.processSaveState(context);
-      
+
       _restoreCurrencyKeyForStateSaving(_stateSavingCurrencyKey);
       _resetInternalState();
 
@@ -668,7 +668,7 @@ public abstract class UIXCollection extends UIXComponentBase
       _restoreCurrencyKeyForStateSaving(_stateSavingCurrencyKey);
       _resetInternalState();
     }
-    
+
     _tearDownContextChange();
     super.tearDownVisitingContext(context);
   }
@@ -1528,10 +1528,24 @@ public abstract class UIXCollection extends UIXComponentBase
       }
       else
       {
-        if (UIXComponent.visitTree(getWrapped(), component, callback))
-          return VisitResult.COMPLETE;
+        // Components do not expect to be visited twice, in fact with UIXComponent, it is illegal.
+        // This is due to the fact that UIXComponent has setup and tearDown methods for visiting.
+        // In order to avoid having the setup method called for the current visit context and
+        // the wrapped context we invoke the visit on the component and then separately on the
+        // children of the component
+        VisitContext wrappedContext = getWrapped();
+        VisitResult visitResult = wrappedContext.invokeVisitCallback(component, callback);
+
+        if (visitResult == VisitResult.ACCEPT)
+        {
+          // Let the visitation continue with the wrapped context
+          return (UIXComponent.visitChildren(wrappedContext, component, callback)) ?
+            VisitResult.COMPLETE : VisitResult.REJECT;
+        }
         else
-          return VisitResult.REJECT;
+        {
+            return visitResult;
+        }
       }
     }
 
@@ -1934,14 +1948,14 @@ public abstract class UIXCollection extends UIXComponentBase
   /**
    * reset the stamp state to pristine state. This pristine state when saved to the outer collection for null currency
    * will allow stamp state for UIXCollection with individual rows to be created
-   * 
+   *
    * This is to support iteration of children(column stamping) within the table.
    */
   void __resetMyStampState()
   {
     _state = null;
   }
-  
+
   /**
    * Returns true if an event (other than a selection event)
    * has been queued for this component.  This is a hack
@@ -2144,13 +2158,13 @@ public abstract class UIXCollection extends UIXComponentBase
   }
 
   /**
-   * during state saving, we want to reset the currency to null, but we want to 
+   * during state saving, we want to reset the currency to null, but we want to
    * remember the current currency, so that after state saving, we can set it back
-   * 
+   *
    * @param context faces context
    * @return the currency key
    */
-  private Object _resetCurrencyKeyForStateSaving(FacesContext context) 
+  private Object _resetCurrencyKeyForStateSaving(FacesContext context)
   {
     // If we saved state in the middle of processing a row,
     // then make sure that we revert to a "null" rowKey while
@@ -2177,30 +2191,30 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       setRowKey(initKey);
     }
-    
+
     return currencyKey;
   }
-  
+
   /**
    * restore the currency key after state saving
-   * 
+   *
    * @param key the currency key
    */
-  private void _restoreCurrencyKeyForStateSaving(Object key) 
+  private void _restoreCurrencyKeyForStateSaving(Object key)
   {
     Object currencyKey = key;
     Object initKey = _getCurrencyKeyForInitialStampState();
-    
+
     if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
     {
       setRowKey(currencyKey);
     }
   }
-  
+
   /**
-   * clean up any internal model state that we might be holding on to. 
+   * clean up any internal model state that we might be holding on to.
    */
-  private void _resetInternalState() 
+  private void _resetInternalState()
   {
     InternalState iState = _getInternalState(false);
     if (iState != null)
@@ -2443,7 +2457,7 @@ public abstract class UIXCollection extends UIXComponentBase
   private static final Object _NULL = new Object();
   private static final String _INVOKE_KEY =
     UIXCollection.class.getName() + ".INVOKE";
-  
+
   private transient Object _stateSavingCurrencyKey = null;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXCollection.class);
