@@ -54,7 +54,7 @@ public abstract class HtmlBodyTemplate
     @SuppressWarnings("unchecked")
     Queue<SuspendedContextChanges> suspendedChangesQueue = (Queue<SuspendedContextChanges>)
       reqMap.get(_SUSPENDED_CHANGES_KEY);
-    if (suspendedChanges == null)
+    if (suspendedChangesQueue == null)
     {
       suspendedChangesQueue = Collections.asLifoQueue(new ArrayDeque<SuspendedContextChanges>());
       reqMap.put(_SUSPENDED_CHANGES_KEY, suspendedChangesQueue);
