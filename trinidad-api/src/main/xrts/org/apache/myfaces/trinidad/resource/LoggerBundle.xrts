@@ -513,4 +513,7 @@
 <!-- INVALID_CONTEXT_CHANGE_FOUND -->
 <resource key="INVALID_CONTEXT_CHANGE_FOUND">An unexpected component context change was found. This is due to components not correctly maintaining the context change stack. Expected change of type {0} for component {1} but received change {2}.</resource>
 
+<!-- ILLEGAL_ENUM_ALIAS -->
+<resource key="ILLEGAL_ENUM_VALUE">No {0} enum constant for value "{1}".</resource>
+
 </resources>

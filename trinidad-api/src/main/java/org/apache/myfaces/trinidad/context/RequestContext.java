@@ -45,6 +45,7 @@ import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.event.WindowLifecycleListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
@@ -381,18 +382,72 @@ abstract public class RequestContext
      */
     SCREEN_READER("screenReader");
 
-    Accessibility(String name)
+    /**
+     * Creates an Accessibility constant.
+     * @param displayName a user-friendly display name for the constant.
+     */
+    Accessibility(String displayName)
     {
-      _name = name;
+      _displayName = displayName;
     }
 
     @Override
     public String toString()
     {
-      return _name;
+      return displayName();
     }
 
-    private final String _name;
+    /**
+     * Returns the display name for this enum constant.
+     */
+    public String displayName()
+    {
+      return _displayName;
+    }
+
+    /**
+     * Performs a reverse lookup of an Accessibilty constant based on
+     * its display name.
+     * 
+     * @param displayName the display name of the Accessibility constant to return.
+     * @return the non-null Accessibility constant associated with the display name.
+     * @throws IllegalArgumentException if displayName does not correspond
+     *   to some Accessibility constant.
+     * @throws NullPointerException if displayName is null. 
+     */
+    public static Accessibility valueOfDisplayName(String displayName)
+    {
+      if (displayName == null)
+      {
+        throw new NullPointerException();
+      }
+      
+      Accessibility accessibility = _displayNameMap.get(displayName);
+      
+      if (accessibility == null)
+      {
+        String message = _LOG.getMessage("ILLEGAL_ENUM_VALUE", 
+                           new Object[] { Accessibility.class.getName(), displayName });
+        throw new IllegalArgumentException(message);
+      }
+      
+      return accessibility;
+    }
+
+    private final String _displayName;
+    
+    private static final Map<String, Accessibility> _displayNameMap;
+    
+    static
+    {
+      Map<String, Accessibility> displayNameMap = new ArrayMap<String, Accessibility>(3);
+      for (Accessibility accessibility : Accessibility.values())
+      {
+        displayNameMap.put(accessibility.displayName(), accessibility);
+      }
+      
+      _displayNameMap = Collections.unmodifiableMap(displayNameMap);
+    }
   };
 
 
