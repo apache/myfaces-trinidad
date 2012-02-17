@@ -30,6 +30,8 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import javax.faces.event.PhaseId;
+
 import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -92,8 +94,19 @@ public class TrinidadComponentHandler extends ComponentHandler
     {
       if (component.getId() == null)
         component.setId(context.generateUniqueId(UIViewRoot.UNIQUE_ID_PREFIX));
-
-      ((UIXComponent) component).markInitialState();
+      
+      PhaseId phase = context.getFacesContext().getCurrentPhaseId();
+      
+      // In jsf2 markInitialState will be called by the framework during restore view, 
+      // and in fact the framework should always be the one
+      // calling markInitialState, but it doesn't always do that in render response, see
+      // http://java.net/jira/browse/JAVASERVERFACES-2285
+      // Also don't call markInitialState unless initialStateMarked returns false, otherwise
+      // any deltas previously saved may get blown away.
+      if (PhaseId.RENDER_RESPONSE.equals(phase) && !component.initialStateMarked())
+      {
+        component.markInitialState();
+      }
     }
   }
 
