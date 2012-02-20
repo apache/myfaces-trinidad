@@ -294,8 +294,9 @@ public class SortableModel extends CollectionModel
       SortCriterion sc = criteria.get(0);
       if ((_sortCriterion == null) || (!_sortCriterion.equals(sc)))
       {
+        // cache the latest sort criterion and do the sorting.
         _sortCriterion = sc;
-        _sort(_sortCriterion.getProperty(), _sortCriterion.isAscending());
+        _sort(_sortCriterion);
       }
     }
   }
@@ -345,7 +346,7 @@ public class SortableModel extends CollectionModel
 
     if (_sortCriterion != null && propertyName.equals(_sortCriterion.getProperty()))
     {
-      _sort(_sortCriterion.getProperty(), _sortCriterion.isAscending());
+      _sort(_sortCriterion);
     }
   }
 
@@ -399,24 +400,13 @@ public class SortableModel extends CollectionModel
 
   /**
    * Sorts the underlying collection by the given property, in the
-   * given direction.
-   * @param property The name of the property to sort by. The value of this
-   * property must implement java.lang.Comparable.
-   * @param isAscending true if the collection is to be sorted in
-   * ascending order.
+   * given direction, with the given strength.
+   * @param sortCriterion sort criterion controlling sort behavior.
    * @todo support -1 for rowCount
    */
-  private void _sort(String property, boolean isAscending)
+  private void _sort(SortCriterion sortCriterion)
   {
-//    if (property.equals(_sortBy) && (isAscending == _sortOrder))
-//    {
-//      return;
-//    }
-//
-//    _sortBy = property;
-//    _sortOrder = isAscending;
-
-      //TODO: support -1 for rowCount:
+    //TODO: support -1 for rowCount:
     int sz = getRowCount();
     if ((_baseIndicesList == null) || (_baseIndicesList.size() != sz))
     {
@@ -441,8 +431,9 @@ public class SortableModel extends CollectionModel
       ELContext elContext = _getELContext(context, resolver);
       Locale locale = _getLocale(rc, context);
       Comparator<Integer> comp =
-        new Comp(resolver, elContext, locale, property);
-      if (!isAscending)
+        new Comp(resolver, elContext, locale, sortCriterion.getProperty(),
+                 sortCriterion.getSortStrength());
+      if (!sortCriterion.isAscending())
         comp = new Inverter<Integer>(comp);
 
       Collections.sort(_baseIndicesList, comp);
@@ -525,17 +516,26 @@ public class SortableModel extends CollectionModel
   private final class Comp implements Comparator<Integer>
   {
     public Comp(
-      ELResolver resolver,
-      ELContext  context,
-      Locale     locale,
-      String     property)
+      ELResolver   resolver,
+      ELContext    context,
+      Locale       locale,
+      String       property,
+      SortStrength sortStrength)
     {
       _resolver = resolver;
       _context  = context;
 
-      if (locale != null)
+      // use Collator as comparator whenever locale or strength is available,
+      // so sorting is natural to that locale.
+      if (locale != null || sortStrength != null)
       {
-        _collator = Collator.getInstance(locale);
+        if (locale != null)
+          _collator = Collator.getInstance(locale);
+        else
+          _collator = Collator.getInstance();
+
+        if (sortStrength != null)
+          _collator.setStrength(sortStrength.getStrength());
       }
       else
       {

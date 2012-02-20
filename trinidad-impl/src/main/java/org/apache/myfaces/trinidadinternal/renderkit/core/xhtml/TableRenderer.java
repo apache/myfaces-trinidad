@@ -54,6 +54,7 @@ import org.apache.myfaces.trinidad.event.SortEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.SortCriterion;
+import org.apache.myfaces.trinidad.model.SortStrength;
 import org.apache.myfaces.trinidad.render.ClientRowKeyManager;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
@@ -244,7 +245,8 @@ abstract public class TableRenderer extends XhtmlRenderer
     String property = parameters.get(XhtmlConstants.VALUE_PARAM);
     Object state = parameters.get(XhtmlConstants.STATE_PARAM);
     boolean sortOrder = !XhtmlConstants.SORTABLE_ASCENDING.equals(state);
-    SortCriterion criterion = new SortCriterion(property, sortOrder);
+    SortStrength sortStrength = TableUtils.findSortStrength(table, property);
+    SortCriterion criterion = new SortCriterion(property, sortOrder, sortStrength);
 
     SortEvent event =
       new SortEvent(table, Collections.singletonList(criterion));

@@ -22,20 +22,48 @@ import java.io.Serializable;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
- * This class pairs together a property and a direction by which a 
+ * This class bundles together a property, a direction and strength by which a 
  * CollectionModel can be sorted.
  * @see CollectionModel#getSortCriteria
  */
 public class SortCriterion implements Serializable
 {
-  public SortCriterion(String property, boolean isAscending)
+  /**
+   * Construct SortCriterion instance by the given property and sort direction, 
+   * using default Identical sort strength.
+   * @param property sort property, name of the model that will be sorted on.
+   * @param isAscending whether to sort the property in ascending order or not.
+   */
+  public SortCriterion(
+    String  property,
+    boolean isAscending)
+  {
+    this(property, isAscending, SortStrength.IDENTICAL);
+  }
+
+  /**
+   * Construct SortCriterion instance by the given property, sort direction, 
+   * and sort strength.
+   * @param property sort property, name of the model that will be sorted on.
+   * @param isAscending whether to sort the property in ascending order or not.
+   * @param sortStrength sort strength value when performing sort.
+   */
+  public SortCriterion(
+    String       property,
+    boolean      isAscending,
+    SortStrength sortStrength)
   {
     if (property == null)
       throw new NullPointerException(_LOG.getMessage(
         "NULL_PROPERTY"));
 
+    if (sortStrength == null)
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_SORT_STRENGTH"));
+
     _property = property;
     _sortOrder = isAscending;
+    _sortStrength = sortStrength;
   }
 
   /**
@@ -61,6 +89,16 @@ public class SortCriterion implements Serializable
     return _property;
   }
 
+  /**
+   * Gets the sort strenght of this sort criterion. It controls how this column
+   * should be sorted, what level of difference considered significant during
+   * comparison.
+   */
+  public SortStrength getSortStrength()
+  {
+    return _sortStrength;
+  }
+
   @Override
   public boolean equals(Object obj)
   {
@@ -71,7 +109,8 @@ public class SortCriterion implements Serializable
     {
       SortCriterion that = (SortCriterion) obj;
       return (this.getProperty().equals(that.getProperty())) &&
-        (this.isAscending() == that.isAscending());
+        (this.isAscending() == that.isAscending()) && 
+        (this.getSortStrength() == that.getSortStrength());
     }
 
     return false;
@@ -81,11 +120,13 @@ public class SortCriterion implements Serializable
   public int hashCode()
   {
     int hc = getProperty().hashCode();
+    hc = hc * 37 + _sortStrength.hashCode();
     return isAscending() ? hc : -hc;
   }
   
   private final String _property;
   private final boolean _sortOrder;
+  private final SortStrength _sortStrength;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     SortCriterion.class);
 
