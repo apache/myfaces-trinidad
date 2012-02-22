@@ -30,37 +30,37 @@ public abstract class AbstractFeatureDemo implements IFeatureDemo {
 
     private static final String DEFAULT_VARIANT_NAME = "Default";
 
-	private FeatureDemoId id;
-	private String displayName;
+  private FeatureDemoId id;
+  private String displayName;
     private String title;
     private String pagePath;
-	private IFeatureDemoCategory category;
+  private IFeatureDemoCategory category;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param id the unique id of this feature demo.
-	 * @param displayName the display name of this feature demo.
+  /**
+   * Constructor.
+   *
+   * @param id the unique id of this feature demo.
+   * @param displayName the display name of this feature demo.
      * @param pagePath th entry page path to the corresponding JSF page.
-	 */
-	public AbstractFeatureDemo(FeatureDemoId id, String displayName, String pagePath) {
-		this.id = id;
-		this.displayName = displayName;
+   */
+  public AbstractFeatureDemo(FeatureDemoId id, String displayName, String pagePath) {
+    this.id = id;
+    this.displayName = displayName;
         this.pagePath = pagePath;
         title = getDisplayName();
-	}
+  }
 
-	public FeatureDemoId getId() {
-		return id;
-	}
+  public FeatureDemoId getId() {
+    return id;
+  }
 
     public String getTitle() {
-		return title;
-	}
+    return title;
+  }
 
-	public String getDisplayName() {
-		return displayName;
-	}
+  public String getDisplayName() {
+    return displayName;
+  }
 
     public String getDestination() {
         StringBuilder url = new StringBuilder();
@@ -71,33 +71,33 @@ public abstract class AbstractFeatureDemo implements IFeatureDemo {
     }
 
     public IFeatureDemoCategory getCategory() {
-		return category;
-	}
+    return category;
+  }
 
-	public void setCategory(IFeatureDemoCategory category) {
-		this.category = category;
-	}
+  public void setCategory(IFeatureDemoCategory category) {
+    this.category = category;
+  }
 
     public String getPagePath(){
         return pagePath;
     }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof AbstractFeatureDemo) {
-			return getId() == ((AbstractFeatureDemo)obj).getId();
-		}
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof AbstractFeatureDemo) {
+      return getId() == ((AbstractFeatureDemo)obj).getId();
+    }
 
-		return false;
-	}
+    return false;
+  }
 
-	@Override
-	public int hashCode() {
-		return getId() != null ? getId().hashCode() : super.hashCode();
-	}
+  @Override
+  public int hashCode() {
+    return getId() != null ? getId().hashCode() : super.hashCode();
+  }
 
-	@Override
-	public String toString() {
-		return getDisplayName();
-	}
+  @Override
+  public String toString() {
+    return getDisplayName();
+  }
 }

@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.util;
 
@@ -30,6 +30,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.faces.context.ExternalContext;
+
+import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -87,22 +89,12 @@ public class TokenCache implements Serializable
           if (cache == null)
           {
             // create the TokenCache with the crytographically random seed
-            cache = new TokenCache(defaultSize, _getSeed(), sessionMap, cacheName);
+            cache = new TokenCache(defaultSize, _getSeed(), cacheName);
     
             sessionMap.put(cacheName, cache);
           }
-          else
-          {
-            // make sure the existing cache has its own attached so it can dirty itself
-            cache.reattachOwner(sessionMap);
-          }
         }
       }
-    }
-    else
-    {
-      // make sure the existing cache has its own attached so it can dirty itself
-      cache.reattachOwner(sessionMap);
     }
 
     return cache;
@@ -141,7 +133,7 @@ public class TokenCache implements Serializable
    */
   TokenCache()
   {
-    this(_DEFAULT_SIZE, 0L, null, null);
+    this(_DEFAULT_SIZE, 0L, null);
   }   
 
   /**
@@ -152,7 +144,7 @@ public class TokenCache implements Serializable
    */
   public TokenCache(int size)
   {
-    this(size, 0L, null, null);
+    this(size, 0L, null);
   }
 
  /**
@@ -162,28 +154,13 @@ public class TokenCache implements Serializable
   * @patam owner      Optional Cache that stores the token cache
   * @param keyInOwner Optional Name under which this cache is stored in the owner
   */
-  private TokenCache(int size, long seed, Map<String, Object> owner, String keyInOwner)
+  private TokenCache(int size, long seed, String keyInOwner)
   {
     _cache      = new LRU(size);
     _pinned     = new ConcurrentHashMap<String, String>(size);
     _count      = new AtomicLong(seed);
-    _owner      = owner;
     _keyInOwner = keyInOwner;
   } 
-
-  /**
-   * Reattaches the owner after Serialization since the owner might not be Serializable or it
-   * might not be a good idea to serialize the owner.
-   * @param owner
-   * @throws NullPointerException if owner is null
-   */
-  public void reattachOwner(Map<String, Object> owner)
-  {
-    if (owner == null)
-      throw new NullPointerException("Can't set owner to null");
-      
-    _owner = owner;
-  }
 
   /**
    * Create a new token;  and use that token to store a value into
@@ -420,10 +397,30 @@ public class TokenCache implements Serializable
   {
     if (_keyInOwner != null)
     {
-      _owner.put(_keyInOwner, this);
+      _getOwner().put(_keyInOwner, this);
     }
   }
 
+
+  /**
+   * @return returns the current requests session map via the faces context
+   */
+  private Map<String, Object> _getOwner() 
+  {
+    // Getting a refrence to the session map must be dynamically established versus holding a
+    // transient reference.  This is because the SessionMap from the faces ExternalContext 
+    // needs a reference back to the request. The reason that the SessionMap has the backpointer 
+    // to the request is that JSF doesn't want to create a session object unless they need to, 
+    // (lazily created) so they call request.getSession(false) to get the session.  
+    // They need the backpointer to handle the case where the session gets created after the 
+    // SessionMap instance is created.
+    //
+    // Hanging on to a reference to the session map ends up pinning the request in memory
+    // which would otherwise be gc-ed.
+      
+    return FacesContext.getCurrentInstance().getExternalContext().getSessionMap();  
+  }
+  
   private class LRU extends LRUCache<String, String>
   {
     public LRU(int maxSize)
@@ -455,9 +452,6 @@ public class TokenCache implements Serializable
   // Hack instance parameter used to communicate between the LRU cache's
   // removing() method, and the addNewEntry() method that may trigger it
   private transient String _removed;
-
-  // owning cache
-  private transient Map<String, Object> _owner;
 
   static private final int _DEFAULT_SIZE = 15;
   static private final long serialVersionUID = 1L;

@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.model;
 
@@ -820,6 +820,11 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
         if(nextKey == null)
         {
           _currPath = null;
+          // Since, all the child nodes of the curent iterator are
+          // iterated by nextModelKey call updating the _currIterator here to avoid 
+          // looping through the same node again and again.  
+          if(_iteratorStack.size() > 0)
+            _currIterator = _iteratorStack.pop();
           _nextEntry();
         }
       }
@@ -831,17 +836,22 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
           nextNode = _currIterator.next();
           if(_isContained(nextNode.getKey()))
             nextKey = nextNode.getKey();
-          _iteratorStack.push(_currIterator);
-          _currIterator = nextNode.getValue().entrySet().iterator();
-          if(nextNode.getValue().isDefaultContained)
+          // When the currentNode has no child nodes, the 
+          // iterator instance is not pushed to iteratorStack.
+          if(!nextNode.getValue().isEmpty())
           {
-            _currPath = nextNode.getKey();
-            TreeModel model = getCollectionModel();
-            Object oldPath = model.getRowKey();
-            model.setRowKey(_currPath);
-            _minDepth = model.getDepth()+1;
-            model.setRowKey(oldPath);
-            return nextKey;
+            _iteratorStack.push(_currIterator);
+            _currIterator = nextNode.getValue().entrySet().iterator();
+            if(nextNode.getValue().isDefaultContained)
+            {
+              _currPath = nextNode.getKey();
+              TreeModel model = getCollectionModel();
+              Object oldPath = model.getRowKey();
+              model.setRowKey(_currPath);
+              _minDepth = model.getDepth() + 1;
+              model.setRowKey(oldPath);
+              return nextKey;
+            }
           }
         }
       }

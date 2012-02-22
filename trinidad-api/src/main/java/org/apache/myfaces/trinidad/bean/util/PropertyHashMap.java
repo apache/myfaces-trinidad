@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.bean.util;
 
@@ -156,6 +156,13 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
     if (_initialStateMarked)
     {    
       if (_deltas == null)
+      {
+        // if deltas is null still call _createDeltaPropertyMap but pass in false in case there
+        // are mutable or partialStateHolder attributes
+        _deltas = _createDeltaPropertyMap(false);
+      }
+      
+      if (_deltas == null)
         return null;
 
       return StateUtils.saveState(_deltas, context, getUseStateHolder());
@@ -176,28 +183,64 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
 
   protected PropertyMap createDeltaPropertyMap()
   {
-    PropertyHashMap map = new PropertyHashMap(2);
-    map.setUseStateHolder(getUseStateHolder());
-    map.setType(_type);
-
+    return _createDeltaPropertyMap(true);
+  }
+  
+  /**
+   *
+   * @param createAlways if createAlways is true then always create the map. 
+   *        If createAlways is false then only create the map if one of the trackers are empty
+   */
+  private PropertyMap _createDeltaPropertyMap(boolean createAlways)
+  {  
     PropertyTracker tracker = _getMutableTracker(false);
-    
-    if (tracker != null)
-    {      
-      for (PropertyKey key: tracker)
-      {
-        Object val = get(key);
+    PropertyTracker partialTracker = _getPartialStateHolderTracker(false);    
+   
+    // if createAlways is true then always create the map.
+    // if createAlways is false then only create the map if one of the trackers are empty
+    if (createAlways || tracker != null || partialTracker != null)
+    {
+      PropertyHashMap map = new PropertyHashMap(2);
+      map.setUseStateHolder(getUseStateHolder());
+      map.setType(_type);
         
-        if (val != null)
+      if (tracker != null)
+      {      
+        for (PropertyKey key: tracker)
         {
-          map.put(key, val);
+          Object val = get(key);
+          
+          if (val != null)
+          {
+            map.put(key, val);
+          }
         }
+        
+        _mutableTracker = null;
+      }
+  
+      
+      if (partialTracker != null)
+      {      
+        for (PropertyKey key: partialTracker)
+        {
+          // the key might have been in the mutable tracker, so check if the map already contains the key          
+          if(!map.containsKey(key))
+          {
+            Object val = get(key);
+            
+            if (val != null)
+            {
+              map.put(key, val);
+            }
+          }
+        }    
       }
       
-      _mutableTracker = null;
+      return map;
     }
     
-    return map;
+    return null;
   }
 
   public boolean getUseStateHolder()

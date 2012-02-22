@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.agent;
 
@@ -182,12 +182,14 @@ public abstract class TrinidadAgent implements Agent, Cloneable
   static public final CapabilityKey CAP_SUPPORTS_DISABLED_OPTIONS = CapabilityKey
     .getCapabilityKey("-adfinternal-supportsDisabledOptions", true);
 
-
+  // Code referring to this should be using real capabilities instead
+  @Deprecated
   static public final CapabilityKey CAP_IS_JDEV_VE = CapabilityKey
     .getCapabilityKey("-adfinternal-isJDevVE", true);
 
-  static public final CapabilityKey CAP_IS_JDEV_JAVASCRIPT_VE = CapabilityKey
-    .getCapabilityKey("-adfinternal-isJDevJavascriptVE", true);
+  /** returns the name of the visual editor, or null if no visual editor */
+  static public final CapabilityKey CAP_VE = CapabilityKey
+    .getCapabilityKey("-adfinternal-VE", true);
 
   // If this capability flag is true, it means that the request is from an agent
   // that is running in a narrow-screen PDA. Trinidad optimizes its rendering
@@ -394,7 +396,11 @@ public abstract class TrinidadAgent implements Agent, Cloneable
     /**
      * Application enum for Oracle SES.
      */
-    ORACLE_SES("oracle_ses", AGENT_ORACLE_SES);
+    ORACLE_SES("oracle_ses", AGENT_ORACLE_SES),
+    /**
+     * Application enum for Generic Desktop.
+     */
+    GENERIC_DESKTOP("genericDesktop", AGENT_GENERIC_DESKTOP);
 
     /**
      * Return the appropriate Application instance given the name of an Application
@@ -597,6 +603,11 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    */
   static public final int APPLICATION_ORACLE_SES = Application.ORACLE_SES.ordinal();
 
+  /**
+   * Application constant for a generic desktop application.
+   */
+  static public final int APPLICATION_GENERIC_DESKTOP = Application.GENERIC_DESKTOP.ordinal();
+  
   /**
    * OS constant for an unknown operating system.
    */

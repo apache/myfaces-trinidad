@@ -264,7 +264,12 @@
 to providing support for the standard HTML body functionality,
 the Trinidad body component enables partial-page rendering (PPR) support
 and assigning initial page focus.
-          </html:p>]]>
+          </html:p>
+<html:p>
+  The body component resets the Trinidad EL context when code re-enters the component via
+  an invoke on component call or a visit tree call. See the
+  org.apache.myfaces.trinidad.context.ComponentContextManager for more information.
+</html:p>]]>
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code>

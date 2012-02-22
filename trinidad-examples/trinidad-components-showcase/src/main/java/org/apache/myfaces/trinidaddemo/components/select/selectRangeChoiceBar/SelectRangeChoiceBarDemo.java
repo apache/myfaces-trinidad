@@ -31,14 +31,14 @@ public class SelectRangeChoiceBarDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1983061956813498310L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public SelectRangeChoiceBarDemo(){
-		super(ComponentDemoId.selectRangeChoiceBar, "Select Range Choice Bar");
+  /**
+   * Constructor.
+   */
+  public SelectRangeChoiceBarDemo(){
+    super(ComponentDemoId.selectRangeChoiceBar, "Select Range Choice Bar");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,13 +46,13 @@ public class SelectRangeChoiceBarDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectRangeChoiceBar/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/select/selectRangeChoiceBar/SelectRangeChoiceBarBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/select/selectRangeChoiceBar/SelectRangeChoiceBarBean.java";
+  }
 }

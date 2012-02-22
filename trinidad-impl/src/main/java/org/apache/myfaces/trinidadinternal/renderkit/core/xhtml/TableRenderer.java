@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
@@ -54,6 +54,7 @@ import org.apache.myfaces.trinidad.event.SortEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.SortCriterion;
+import org.apache.myfaces.trinidad.model.SortStrength;
 import org.apache.myfaces.trinidad.render.ClientRowKeyManager;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
@@ -244,7 +245,8 @@ abstract public class TableRenderer extends XhtmlRenderer
     String property = parameters.get(XhtmlConstants.VALUE_PARAM);
     Object state = parameters.get(XhtmlConstants.STATE_PARAM);
     boolean sortOrder = !XhtmlConstants.SORTABLE_ASCENDING.equals(state);
-    SortCriterion criterion = new SortCriterion(property, sortOrder);
+    SortStrength sortStrength = TableUtils.findSortStrength(table, property);
+    SortCriterion criterion = new SortCriterion(property, sortOrder, sortStrength);
 
     SortEvent event =
       new SortEvent(table, Collections.singletonList(criterion));

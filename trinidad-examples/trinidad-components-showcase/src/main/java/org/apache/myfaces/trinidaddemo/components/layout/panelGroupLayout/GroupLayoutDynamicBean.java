@@ -26,25 +26,25 @@ import java.util.List;
  */
 public class GroupLayoutDynamicBean {
 
-	private List<String> layoutItems;
+  private List<String> layoutItems;
 
-	/**
-	 * Constructor.
-	 */
-	public GroupLayoutDynamicBean() {
-		layoutItems = new ArrayList<String>();
+  /**
+   * Constructor.
+   */
+  public GroupLayoutDynamicBean() {
+    layoutItems = new ArrayList<String>();
 
-		layoutItems.add("Dynamic Item 1");
-		layoutItems.add("Dynamic Item 2");
-		layoutItems.add("Dynamic Item 3");
-		layoutItems.add("Dynamic Item 4");
-		layoutItems.add("Dynamic Item 5");
-	}
+    layoutItems.add("Dynamic Item 1");
+    layoutItems.add("Dynamic Item 2");
+    layoutItems.add("Dynamic Item 3");
+    layoutItems.add("Dynamic Item 4");
+    layoutItems.add("Dynamic Item 5");
+  }
 
-	/**
-	 * @return the layoutItems
-	 */
-	public List<String> getLayoutItems() {
-		return layoutItems;
-	}	
+  /**
+   * @return the layoutItems
+   */
+  public List<String> getLayoutItems() {
+    return layoutItems;
+  }  
 }

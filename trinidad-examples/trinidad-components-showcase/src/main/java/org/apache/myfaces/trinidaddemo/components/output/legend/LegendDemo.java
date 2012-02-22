@@ -34,11 +34,11 @@ public class LegendDemo extends AbstractComponentDemo {
         Default
     }
 
-	/**
-	 * Constructor.
-	 */
-	public LegendDemo() {
-		super(ComponentDemoId.legend, "Legend");
+  /**
+   * Constructor.
+   */
+  public LegendDemo() {
+    super(ComponentDemoId.legend, "Legend");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class LegendDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/output/legend/summary.xhtml";

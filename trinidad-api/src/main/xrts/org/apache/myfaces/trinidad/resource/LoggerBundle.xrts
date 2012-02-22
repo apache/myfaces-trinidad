@@ -362,6 +362,12 @@
  
  <!-- NULL_PROPERTY -->
  <resource key="NULL_PROPERTY">property is null</resource>
+
+ <!-- NULL_SORT_STRENGTH -->
+ <resource key="NULL_SORT_STRENGTH">sort strength is null</resource>
+
+ <!-- INVALID_SORT_STRENGTH_PROPERTY -->
+ <resource key="INVALID_SORT_STRENGTH_PROPERTY">Invalid sortStrength property value: {0}. The supported values are Primary, Secondary, Tertiary and Identical.</resource>
  
  <!-- NO_MENUCONTENTHANDLER_REGISTERED -->
  <resource key="NO_MENUCONTENTHANDLER_REGISTERED">No MenuContentHandler was registered.</resource>
@@ -429,6 +435,9 @@
  <!-- RESOURCE_PATH_CONTAINS_DOTS -->
  <resource key="RESOURCE_PATH_DOTS">The resource path {0} contains "..". Browsers resolve out the "..", so this is a suspicious path.</resource>
 
+ <!-- VALIDATOR_FACTORY_UNAVAILABLE -->
+ <resource key="VALIDATOR_FACTORY_UNAVAILABLE">Could not build a default bean validator factory, therefore bean validation is disabled. Exception message is: {0}</resource>
+
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX">Could not find the component with scopedId {0} from {1} with the supported syntax. The component was found with the deprecated syntax. Please use the supported syntax.</resource>
 
@@ -482,5 +491,35 @@
 
 <!-- COLLECTION_NOT_IN_CONTEXT  -->
 <resource key="COLLECTION_NOT_IN_CONTEXT">The row key or row index of a UIXCollection component is being changed outside of the component's context. Changing the key or index of a collection when the collection is not currently being visited, invoked on, broadcasting an event or processing a lifecycle method, is not valid. Data corruption and errors may result from this call. Component ID: {0}. Turn on fine level logging for a stack trace of this call.</resource>
+
+<!-- COMPONENT_ALREADY_IN_CHILDREN_ENCODING_CONTEXT -->
+<resource key="COMPONENT_ALREADY_IN_CHILDREN_ENCODING_CONTEXT">setupChildrenEncodingContext called on a component that is already in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_ALREADY_IN_CHILDREN_VISITING_CONTEXT -->
+<resource key="COMPONENT_ALREADY_IN_CHILDREN_VISITING_CONTEXT">setupChildrenVisitingContext called on a component that is already in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_NOT_IN_CHILDREN_ENCODING_CONTEXT -->
+<resource key="COMPONENT_NOT_IN_CHILDREN_ENCODING_CONTEXT">tearDownChildrenEncodingContext called on a component that is not in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_NOT_IN_CHILDREN_VISITING_CONTEXT -->
+<resource key="COMPONENT_NOT_IN_CHILDREN_VISITING_CONTEXT">tearDownChildrenVisitingContext called on a component that is not in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_ALREADY_IN_ENCODING_CONTEXT -->
+<resource key="COMPONENT_ALREADY_IN_ENCODING_CONTEXT">setupEncodingContext called on a component that is already in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_ALREADY_IN_VISITING_CONTEXT -->
+<resource key="COMPONENT_ALREADY_IN_VISITING_CONTEXT">setupVisitingContext called on a component that is already in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_NOT_IN_ENCODING_CONTEXT -->
+<resource key="COMPONENT_NOT_IN_ENCODING_CONTEXT">tearDownEncodingContext called on a component that is not in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_NOT_IN_VISITING_CONTEXT -->
+<resource key="COMPONENT_NOT_IN_VISITING_CONTEXT">tearDownVisitingContext called on a component that is not in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- INVALID_CONTEXT_CHANGE_FOUND -->
+<resource key="INVALID_CONTEXT_CHANGE_FOUND">An unexpected component context change was found. This is due to components not correctly maintaining the context change stack. Expected change of type {0} for component {1} but received change {2}.</resource>
+
+<!-- ILLEGAL_ENUM_ALIAS -->
+<resource key="ILLEGAL_ENUM_VALUE">No {0} enum constant for value "{1}".</resource>
 
 </resources>

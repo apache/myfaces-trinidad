@@ -30,59 +30,59 @@ import org.apache.myfaces.trinidaddemo.support.IComponentDemoCategory;
  */
 public class ComponentDemoCategoryImpl implements IComponentDemoCategory {
 
-	private static final long serialVersionUID = -7340858926729979482L;
+  private static final long serialVersionUID = -7340858926729979482L;
 
-	private ComponentDemoCategoryId id;
-	private String name;
+  private ComponentDemoCategoryId id;
+  private String name;
 
-	private List<IComponentDemo> componentDemos;
-	
-	/**
-	 * Constructor. 
-	 * 
-	 * @param id the unique id of this category.
-	 * @param name the name of this category.
-	 */
-	public ComponentDemoCategoryImpl(ComponentDemoCategoryId id, String name) {
-		this.id = id;
-		this.name = name;
+  private List<IComponentDemo> componentDemos;
+  
+  /**
+   * Constructor. 
+   * 
+   * @param id the unique id of this category.
+   * @param name the name of this category.
+   */
+  public ComponentDemoCategoryImpl(ComponentDemoCategoryId id, String name) {
+    this.id = id;
+    this.name = name;
 
-		componentDemos = new ArrayList<IComponentDemo>();
-	}
-	
-	public void addComponentDemo(IComponentDemo componentDemo) {
-		componentDemo.setCategory(this);
-		componentDemos.add(componentDemo);
-	}
+    componentDemos = new ArrayList<IComponentDemo>();
+  }
+  
+  public void addComponentDemo(IComponentDemo componentDemo) {
+    componentDemo.setCategory(this);
+    componentDemos.add(componentDemo);
+  }
 
-	public List<IComponentDemo> getComponentDemos() {
-		return componentDemos;
-	}
+  public List<IComponentDemo> getComponentDemos() {
+    return componentDemos;
+  }
 
-	public ComponentDemoCategoryId getId() {
-		return id;
-	}
+  public ComponentDemoCategoryId getId() {
+    return id;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
   
     @Override
-	public boolean equals(Object obj) {
-		if (obj instanceof ComponentDemoCategoryImpl) {
-			return getId() == ((ComponentDemoCategoryImpl)obj).getId();
-		}
-		
-		return false;
-	}
+  public boolean equals(Object obj) {
+    if (obj instanceof ComponentDemoCategoryImpl) {
+      return getId() == ((ComponentDemoCategoryImpl)obj).getId();
+    }
+    
+    return false;
+  }
 
-	@Override
-	public int hashCode() {
-		return getId() != null ? getId().hashCode() : super.hashCode();
-	}
+  @Override
+  public int hashCode() {
+    return getId() != null ? getId().hashCode() : super.hashCode();
+  }
 
-	@Override
-	public String toString() {
-		return getName();
-	}
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

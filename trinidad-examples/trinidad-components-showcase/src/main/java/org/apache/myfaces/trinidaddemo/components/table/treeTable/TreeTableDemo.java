@@ -31,19 +31,19 @@ public class TreeTableDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982064956883698710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		NoGridLines,
+    NoGridLines,
         SingleRowSelection,
         MultipleRowSelection,
         Simple,
         Detailed,
         PathStamp
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public TreeTableDemo() {
-		super(ComponentDemoId.treeTable, "Tree Table");
+  /**
+   * Constructor.
+   */
+  public TreeTableDemo() {
+    super(ComponentDemoId.treeTable, "Tree Table");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
                 new String[]{
@@ -71,13 +71,13 @@ public class TreeTableDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.Detailed);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/table/treeTable/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/table/treeTable/TreeTableBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/table/treeTable/TreeTableBean.java";
+  }
 }

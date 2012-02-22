@@ -25,26 +25,26 @@ import java.util.List;
  * This interface defines a category that groups together one or more component demos.
  */
 public interface IComponentDemoCategory extends Serializable  {
-	
-	/**
-	 * @return the name of this category.
-	 */
-	String getName();
-	
-	/**
-	 * @return the unique identifier of this category, unique across the whole application. 
-	 */
-	ComponentDemoCategoryId getId();
+  
+  /**
+   * @return the name of this category.
+   */
+  String getName();
+  
+  /**
+   * @return the unique identifier of this category, unique across the whole application. 
+   */
+  ComponentDemoCategoryId getId();
 
-	/**
-	 * Adds the specified component demo to this category.
-	 */
-	void addComponentDemo(IComponentDemo componentDemo);
-	
-	/**
-	 * Returns a list containing the component demos part of this category.
-	 * 
-	 * @return a list containing the component demos part of this category.
-	 */
-	List<IComponentDemo> getComponentDemos();
+  /**
+   * Adds the specified component demo to this category.
+   */
+  void addComponentDemo(IComponentDemo componentDemo);
+  
+  /**
+   * Returns a list containing the component demos part of this category.
+   * 
+   * @return a list containing the component demos part of this category.
+   */
+  List<IComponentDemo> getComponentDemos();
 }

@@ -30,6 +30,11 @@
       <include src="html.xml"/>
     </capabilities>
 
+    <capabilities id="genericDesktop" default="true" >
+      <include refid="html"/>
+      <include src="genericDesktop.xml"/>
+    </capabilities>
+
     <capabilities id="pda" platforms="palm">
       <include refid="htmlBasic"/>
       <include src ="pdaHtml.xml"/>
@@ -95,20 +100,6 @@
       <include src="email.xml" />
     </capabilities>
 
-    <capabilities id="ios" agents="webkit/533+" platforms="ipad iphone ipod">
-      <!-- note, version included to give it a higher score than the webkit312 below -->
-      <include refid="html" />
-      <include refid="webkit533"/>
-      <include src="ios.xml"/>
-    </capabilities>
-
-    <capabilities id="android" agents="webkit/533+" platforms="android">
-      <!-- note, version included to give it a higher score than the webkit312 below -->
-      <include refid="html" />
-      <include refid="webkit533"/>
-      <include src="android.xml"/>
-    </capabilities>
-    
     <capabilities id="webkit" agents="webkit">
       <include refid="html" />
       <include src="webkit.xml"/>
@@ -189,6 +180,29 @@
     <capabilities id="genericpda" agents="genericpda">
       <include refid="htmlBasic"/>
       <include src="pdaGeneric.xml"/>
+    </capabilities>
+
+    <!-- The following blocks are for touch screen agents. The multiple version selectors are
+         present due to the fact that the agent version selector is given much greater weight
+         than the platform selector. -->
+    <capabilities id="ios312" agents="webkit/312.1+" platforms="ipad iphone ipod">
+      <include refid="webkit312" />
+      <include src="ios.xml"/>
+    </capabilities>
+
+    <capabilities id="android312" agents="webkit/312.1+" platforms="android">
+      <include refid="webkit312" />
+      <include src="android.xml"/>
+    </capabilities>
+
+    <capabilities id="ios533" agents="webkit/533+" platforms="ipad iphone ipod">
+      <include refid="webkit533" />
+      <include src="ios.xml"/>
+    </capabilities>
+
+    <capabilities id="android533" agents="webkit/533+" platforms="android">
+      <include refid="webkit533" />
+      <include src="android.xml"/>
     </capabilities>
 
   </agentCapabilities>

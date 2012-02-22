@@ -35,11 +35,11 @@ public class SelectManyListboxDemo extends AbstractComponentDemo {
        Detailed
    }
 
-	/**
-	 * Constructor.
-	 */
-	public SelectManyListboxDemo() {
-		super(ComponentDemoId.selectManyListbox, "Select Many Listbox");
+  /**
+   * Constructor.
+   */
+  public SelectManyListboxDemo() {
+    super(ComponentDemoId.selectManyListbox, "Select Many Listbox");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
@@ -51,7 +51,7 @@ public class SelectManyListboxDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.Detailed);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectManyListbox/summary.xhtml";

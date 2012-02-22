@@ -31,14 +31,14 @@ public class OutputLabelDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982371956886492710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public OutputLabelDemo() {
-		super(ComponentDemoId.outputLabel, "Output Label");
+  /**
+   * Constructor.
+   */
+  public OutputLabelDemo() {
+    super(ComponentDemoId.outputLabel, "Output Label");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class OutputLabelDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/output/outputLabel/summary.xhtml";

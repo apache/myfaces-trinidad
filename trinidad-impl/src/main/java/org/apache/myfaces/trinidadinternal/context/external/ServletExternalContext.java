@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.context.external;
 
@@ -26,16 +26,25 @@ import java.io.Writer;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 import java.security.Principal;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import javax.faces.FacesException;
+import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -46,6 +55,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 
 /**
  * This class will implement the ExternalContext for use with Trinidad Configurations using the
@@ -69,14 +79,14 @@ public class ServletExternalContext extends ExternalContext
     {
       _httpServletRequest = (HttpServletRequest) servletRequest;
 
-      if(_servletResponse != null)
+      if (_servletResponse != null)
       {
         _httpServletResponse = (HttpServletResponse) servletResponse;
       }
     }
 
     if (_httpServletRequest != null)
-    {      
+    {
       _initHttpServletRequest();
     }
   }
@@ -391,7 +401,7 @@ public class ServletExternalContext extends ExternalContext
   {
     return _servletResponse;
   }
-  
+
   @Override
   public Writer getResponseOutputWriter() throws IOException
   {
@@ -476,9 +486,9 @@ public class ServletExternalContext extends ExternalContext
     if (_servletResponse instanceof HttpServletResponse)
     {
       _httpServletResponse.sendRedirect(url);
-      
+
       FacesContext fc = FacesContext.getCurrentInstance();
-      if(fc != null)
+      if (fc != null)
       {
         fc.responseComplete();
       }
@@ -531,8 +541,8 @@ public class ServletExternalContext extends ExternalContext
     {
       _httpServletRequest = null;
     }
-    
-    // And clear out any of the cached maps, since we should 
+
+    // And clear out any of the cached maps, since we should
     // go back and look in the map
     _requestCookieMap = null;
     _requestHeaderMap = null;
@@ -566,7 +576,7 @@ public class ServletExternalContext extends ExternalContext
     _servletResponse.setCharacterEncoding(string);
   }
 
-  
+
   public void release()
   {
     _servletContext = null;
@@ -583,6 +593,45 @@ public class ServletExternalContext extends ExternalContext
     _initParameterMap = null;
   }
 
+  @Override
+  public String encodePartialActionURL(String url)
+  {
+    _checkNull(url, "url");
+    _checkResponse();
+
+    if (_httpServletRequest == null)
+    {
+      throw new IllegalArgumentException("Only HttpServletRequest supported");
+    }
+    
+    return _httpServletResponse.encodeURL(url);
+  }
+
+  @Override
+  public String encodeBookmarkableURL(String url, Map<String, List<String>> params)
+  {
+    _checkNull(url, "url");
+
+    return _encodeURL(url, params);
+  }
+
+  @Override
+  public String encodeRedirectURL(String url, Map<String, List<String>> params)
+  {
+    _checkResponse();
+    _checkNull(url, "url");
+
+    if (_httpServletRequest == null)
+    {
+      throw new IllegalArgumentException("Only HttpServletRequest supported");
+    }
+
+    if (params == null)
+      return _httpServletResponse.encodeRedirectURL(url);
+    else    
+      return _httpServletResponse.encodeRedirectURL(_encodeURL(url, params));
+  }
+
   private void _checkNull(final Object o, final String param)
   {
     if (o == null)
@@ -594,7 +643,7 @@ public class ServletExternalContext extends ExternalContext
 
   private void _checkRequest()
   {
-    if(_servletRequest == null)
+    if (_servletRequest == null)
     {
       throw new UnsupportedOperationException(_LOG.getMessage(
         "NULL_REQUEST_ON_THIS_CONTEXT"));
@@ -603,7 +652,7 @@ public class ServletExternalContext extends ExternalContext
 
   private void _checkResponse()
   {
-    if(_servletResponse == null)
+    if (_servletResponse == null)
     {
       throw new UnsupportedOperationException(_LOG.getMessage(
         "NULL_RESPONSE_ON_THIS_CONTEXT"));
@@ -686,26 +735,185 @@ public class ServletExternalContext extends ExternalContext
     }
   }
 
-  private Map<String, Object>         _applicationMap;
-  private HttpServletRequest          _httpServletRequest;
-  private HttpServletResponse         _httpServletResponse;
-  private Map<String, String>         _initParameterMap;
-  private Map<String, Object>         _requestCookieMap;
-  private Map<String, String>         _requestHeaderMap;
-  private Map<String, String[]>       _requestHeaderValuesMap;
-  private Map<String, Object>         _requestMap;
-  private Map<String, String>         _requestParameterMap;
-  private Map<String, String[]>       _requestParameterValuesMap;
-  private String                      _requestPathInfo;
-  private String                      _requestServletPath;
-  private ServletContext              _servletContext;
-  private ServletRequest              _servletRequest;
-  private ServletResponse             _servletResponse;
-  private Map<String, Object>         _sessionMap;
-  private static final String         _INIT_PARAMETER_MAP_ATTRIBUTE =
-      ServletInitParameterMap.class.getName();
-  private static final String         _CHAR_ENCODING_CALLED = 
-    ServletExternalContext.class.getName() + ".CHAR_ENCODING_CALLED";
-  private static final TrinidadLogger _LOG
-      = TrinidadLogger.createTrinidadLogger(ServletExternalContext.class);
+  /**
+   * Cut-and-paste reuse from org/apache/myfaces/context/servlet/ServletExternalContextImpl.
+   *
+   * @param baseUrl
+   * @param parameters
+   * @return
+   */
+  private String _encodeURL(String baseUrl, Map<String, List<String>> parameters)
+  {
+
+    String fragment = null;
+    String queryString = null;
+    Map<String, List<String>> paramMap = new HashMap<String, List<String>>();
+
+    //extract any URL fragment
+    int index = baseUrl.indexOf(_URL_FRAGMENT_SEPERATOR);
+    if (index != -1)
+    {
+      fragment = baseUrl.substring(index + 1);
+      baseUrl = baseUrl.substring(0, index);
+    }
+
+    //extract the current query string and add the params to the paramMap
+    index = baseUrl.indexOf(_URL_QUERY_SEPERATOR);
+    if (index != -1)
+    {
+      queryString = baseUrl.substring(index + 1);
+      baseUrl = baseUrl.substring(0, index);
+      String[] nameValuePairs = queryString.split(_URL_PARAM_SEPERATOR);
+      for (int i = 0; i < nameValuePairs.length; i++)
+      {
+        String[] currentPair = nameValuePairs[i].split(_URL_NAME_VALUE_PAIR_SEPERATOR);
+
+        ArrayList<String> value = new ArrayList<String>(1);
+        try
+        {
+          value.add(currentPair.length > 1? URLDecoder.decode(currentPair[1], getResponseCharacterEncoding()): "");
+        }
+        catch (UnsupportedEncodingException e)
+        {
+          //shouldn't ever get here
+          throw new UnsupportedOperationException("Encoding type=" + getResponseCharacterEncoding() + " not supported",
+                                                  e);
+        }
+        paramMap.put(currentPair[0], value);
+      }
+    }
+
+    FacesContext context = FacesContext.getCurrentInstance();
+    //add/update with new params on the paramMap
+    if (parameters != null && parameters.size() > 0)
+    {
+      for (Map.Entry<String, List<String>> pair: parameters.entrySet())
+      {
+        if (pair.getKey() != null && pair.getKey().trim().length() != 0)
+        {
+          paramMap.put(pair.getKey(), _evaluateValueExpressions(context, pair.getValue()));
+        }
+      }
+    }
+
+    // start building the new URL
+    StringBuilder newUrl = new StringBuilder(baseUrl);
+
+    //now add the updated param list onto the url
+    if (paramMap.size() > 0)
+    {
+      boolean isFirstPair = true;
+      for (Map.Entry<String, List<String>> pair: paramMap.entrySet())
+      {
+        for (String value: pair.getValue())
+        {
+          if (!isFirstPair)
+          {
+            newUrl.append(_URL_PARAM_SEPERATOR);
+          }
+          else
+          {
+            newUrl.append(_URL_QUERY_SEPERATOR);
+            isFirstPair = false;
+          }
+
+          newUrl.append(pair.getKey());
+          newUrl.append(_URL_NAME_VALUE_PAIR_SEPERATOR);
+          try
+          {
+            newUrl.append(URLEncoder.encode(value, getResponseCharacterEncoding()));
+          }
+          catch (UnsupportedEncodingException e)
+          {
+            //shouldn't ever get here
+            throw new UnsupportedOperationException("Encoding type=" + getResponseCharacterEncoding() +
+                                                    " not supported", e);
+          }
+        }
+      }
+    }
+
+    //add the fragment back on (if any)
+    if (fragment != null)
+    {
+      newUrl.append(_URL_FRAGMENT_SEPERATOR + fragment);
+    }
+
+    return newUrl.toString();
+  }
+
+  /**
+   * Cut-and-paste reuse from org/apache/myfaces/context/servlet/ServletExternalContextImpl.
+   *
+   * Checks the Strings in the List for EL expressions and evaluates them.
+   * Note that the returned List will be a copy of the given List, because
+   * otherwise it will have unwanted side-effects.
+   * @param context faces context
+   * @param values from a query parameter that might have EL
+   * @return resultant list will have any embedded EL evaluated
+   */
+  private List<String> _evaluateValueExpressions(FacesContext context, List<String> values)
+  {
+    // note that we have to create a new List here, because if we
+    // change any value on the given List, it will be changed in the
+    // NavigationCase too and the EL expression won't be evaluated again
+    List<String> target = new ArrayList<String>(values.size());
+  
+    for (String value: values)
+    {
+      if (_isExpression(value))
+      {
+        if (context == null)
+          throw new UnsupportedOperationException("FacesContext not established yet. Unable to resolve EL bound query" + 
+                                                  "parameter value: \"" + value + "\"");
+        
+        Application app = context.getApplication();
+        String dynamicValue = app.evaluateExpressionGet(context, value, String.class);
+        target.add(dynamicValue);
+      }
+      else
+        target.add(value);
+    }
+    return target;
+  }
+
+  /**
+   * Cut-and-paste reuse from org/apache/myfaces/context/servlet/ServletExternalContextImpl.
+   *
+   * @param text of query parameter that might contain EL
+   * @return <code>true</code> if the value of <code>text</code> contains an EL expression.
+   */
+  private boolean _isExpression(String text)
+  {
+    return text.indexOf("#{") != -1;
+  }
+
+  private Map<String, Object> _applicationMap;
+  private HttpServletRequest _httpServletRequest;
+  private HttpServletResponse _httpServletResponse;
+  private Map<String, String> _initParameterMap;
+  private Map<String, Object> _requestCookieMap;
+  private Map<String, String> _requestHeaderMap;
+  private Map<String, String[]> _requestHeaderValuesMap;
+  private Map<String, Object> _requestMap;
+  private Map<String, String> _requestParameterMap;
+  private Map<String, String[]> _requestParameterValuesMap;
+  private String _requestPathInfo;
+  private String _requestServletPath;
+  private ServletContext _servletContext;
+  private ServletRequest _servletRequest;
+  private ServletResponse _servletResponse;
+  private Map<String, Object> _sessionMap;
+
+
+  private static final String _URL_PARAM_SEPERATOR = "&";
+  private static final String _URL_QUERY_SEPERATOR = "?";
+  private static final String _URL_FRAGMENT_SEPERATOR = "#";
+  private static final String _URL_NAME_VALUE_PAIR_SEPERATOR = "=";
+
+
+  private static final String _INIT_PARAMETER_MAP_ATTRIBUTE = ServletInitParameterMap.class.getName();
+  private static final String _CHAR_ENCODING_CALLED = ServletExternalContext.class.getName() + ".CHAR_ENCODING_CALLED";
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ServletExternalContext.class);
+
 }

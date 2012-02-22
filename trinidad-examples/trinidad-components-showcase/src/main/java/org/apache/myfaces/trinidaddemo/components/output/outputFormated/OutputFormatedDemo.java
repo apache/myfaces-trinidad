@@ -31,16 +31,16 @@ public class OutputFormatedDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982371956886498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		InContextBrandingStyle,
+    InContextBrandingStyle,
         InstructionStyle,
         PageStampStyle       
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public OutputFormatedDemo() {
-		super(ComponentDemoId.outputFormatted, "Output Formatted");
+  /**
+   * Constructor.
+   */
+  public OutputFormatedDemo() {
+    super(ComponentDemoId.outputFormatted, "Output Formatted");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.InContextBrandingStyle, "In context branding style", this,
                 new String[]{
@@ -56,7 +56,7 @@ public class OutputFormatedDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.InstructionStyle);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/output/outputFormated/summary.xhtml";

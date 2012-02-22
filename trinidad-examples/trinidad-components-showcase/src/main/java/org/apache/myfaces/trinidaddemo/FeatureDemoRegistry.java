@@ -126,6 +126,6 @@ public class FeatureDemoRegistry {
      * @return the collection containing all available feature demos.
      */
     public Collection<IFeatureDemo> getFeatureDemos() {
-		return featuresDemoRegistry.values();
-	}
+    return featuresDemoRegistry.values();
+  }
 }

@@ -131,7 +131,7 @@
              <comparisonArtifact> 	 
                <groupId>org.apache.myfaces.trinidad</groupId> 	 
                <artifactId>trinidad-api</artifactId> 	 
-               <version>1.2.15-SNAPSHOT</version> 	 
+               <version>1.2.15</version> 	 
              </comparisonArtifact> 	 
            </comparisonArtifacts> 	 
          </configuration> 	 
@@ -290,64 +290,64 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <reportPlugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin>
 
+            <plugin>
+              <groupId>org.apache.myfaces.trinidadbuild</groupId>
+              <artifactId>maven-tagdoc-plugin</artifactId>
+              <configuration>
+                <taglibs>
+                  <tr>http://myfaces.apache.org/trinidad</tr>
+                  <trh>http://myfaces.apache.org/trinidad/html</trh>
+                </taglibs>
+              </configuration>
+            </plugin>
+
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <configuration>
+                <showPackage>false</showPackage>
+                <showProtected>true</showProtected>
+                <!-- we should look up the new URLs -->
+                <!--links>
+                  <link>http://download.oracle.com/javase/1.5.0/docs/api</link>
+                  <link>http://download.oracle.com/javaee/1.4/api</link>
+                  <link>http://download.oracle.com/docs/cd/E17802_01/j2ee/javaee/javaserverfaces/2.0/docs/api</link>
+                  <link>http://download.oracle.com/javaee/5/api</link>
+                </links-->
+              </configuration>
+            </plugin>
+
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-changelog-plugin</artifactId>
+              <configuration>
+                <basedir>${basedir}</basedir>
+              </configuration>
+            </plugin>
+
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-pmd-plugin</artifactId>
+            </plugin>
+          </reportPlugins>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.myfaces.trinidadbuild</groupId>
-        <artifactId>maven-tagdoc-plugin</artifactId>
-        <configuration>
-          <taglibs>
-            <tr>http://myfaces.apache.org/trinidad</tr>
-            <trh>http://myfaces.apache.org/trinidad/html</trh>
-          </taglibs>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <showPackage>false</showPackage>
-          <showProtected>true</showProtected>
-          <!-- we should look up the new URLs -->
-          <!--links>
-            <link>http://download.oracle.com/javase/1.5.0/docs/api</link>
-            <link>http://download.oracle.com/javaee/1.4/api</link>
-            <link>http://download.oracle.com/docs/cd/E17802_01/j2ee/javaee/javaserverfaces/2.0/docs/api</link>
-            <link>http://download.oracle.com/javaee/5/api</link>
-          </links-->
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-changelog-plugin</artifactId>
-        <configuration>
-          <basedir>${basedir}</basedir>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-      </plugin>
-
-    </plugins>
-  </reporting>
 
   <!-- 
     This profile is for preparing a release....

@@ -1,25 +1,26 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.IOException;
 import java.io.Reader;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -61,7 +62,12 @@ public class SkinCSSParser
         if (currentType == CSSLexicalUnits.COMMENT)
           documentHandler.comment(scanner.getStringValue());
         else if (currentType == CSSLexicalUnits.AT_KEYWORD)
-          documentHandler.atRule(scanner.getStringValue());
+        {
+          // Remove any comments that are inside of the @rule
+          String atRule = scanner.getStringValue();
+          atRule = _COMMENT_PATTERN.matcher(atRule).replaceAll("");
+          documentHandler.atRule(atRule);
+        }
         else if (currentType == CSSLexicalUnits.LEFT_CURLY_BRACE)
         {
           documentHandler.startSelector();
@@ -130,7 +136,7 @@ public class SkinCSSParser
       else
         selectorList.add(trimmedSelector);
     }
-    
+
     return selectorList;
   }
 
@@ -152,7 +158,7 @@ public class SkinCSSParser
     // split into name and value (don't skip whitespace since properties like padding: 0px 5px
     // need the spaces)
     String[] property = _splitString(properties, ';', false);
-    
+
     for (int i=0; i < property.length; i++)
     {
       int indexOfColon = property[i].indexOf(':');
@@ -185,7 +191,7 @@ public class SkinCSSParser
     int length = in.length();
     StringBuffer buffer = new StringBuffer(length);
     List<String> splitList = new ArrayList<String>();
-    
+
     for (int i=0; i < length; i++)
     {
       char c = in.charAt(i);
@@ -202,7 +208,7 @@ public class SkinCSSParser
         if (!skipWhitespace || !(Character.isWhitespace(c)))
           buffer.append(c);
       }
-      
+
     }
     // we are done with all the characters
     String lastString = buffer.toString();
@@ -210,7 +216,7 @@ public class SkinCSSParser
       splitList.add(lastString);
     return splitList.toArray(_EMPTY_STRING_ARRAY);
   }
-  
+
   private static String _trimChar (
     String in,
     char   c)
@@ -320,21 +326,21 @@ public class SkinCSSParser
               {
                 // WE ARE IN A COMMENT
                 // loop and get characters into buffer until we get '*/'
-  
+
                 _nextChar();
                 int prevChar;
                 while (_currentChar != -1)
                 {
-  
+
                   prevChar = _currentChar;
                   _nextChar();
                   if ((prevChar == '*') && (_currentChar == '/'))
                     break;
                 }
-  
+
                 _type = CSSLexicalUnits.COMMENT;
                 return;
-  
+
               }
               // wasn't a comment, so keep going on, filling the buffer with
               // each _nextChar call.
@@ -380,6 +386,12 @@ public class SkinCSSParser
                 if (_currentChar == '}' && openBraceCountStarted)
                 {
                   openBraceCount--;
+                  // make sure openBraceCount never goes negative
+                  // if it does, then there was an extra right curly brace
+                  if (openBraceCount < 0)
+                  {
+                    _handleBraceMismatch();
+                  }
                   if (openBraceCountStarted && openBraceCount == 0)
                   {
                     break;
@@ -392,8 +404,13 @@ public class SkinCSSParser
                 _nextChar();
 
               }
-             
-  
+
+              // There should not be any closing braces pending at this point
+              if (openBraceCountStarted && openBraceCount != 0)
+              {
+                _handleBraceMismatch();
+              }
+
               _type = CSSLexicalUnits.AT_KEYWORD;
               return;
             }
@@ -405,6 +422,12 @@ public class SkinCSSParser
               // keep going until we have all the properties
               while ((_currentChar != -1) && (_currentChar != '}'))
               {
+                if (_currentChar == '{')
+                {
+                  // this is not expected. There is a right curly braces missing
+                  _handleBraceMismatch();
+                }
+
                 _nextChar();
               }
               _type = CSSLexicalUnits.RIGHT_CURLY_BRACE;
@@ -413,6 +436,11 @@ public class SkinCSSParser
             {
               while ((_currentChar != -1) && (_currentChar != '{'))
               {
+                // here we navigate to the opening curly braces
+                // there cannot be a closing curly brace here
+                if (_currentChar == '}')
+                  _handleBraceMismatch();
+
                 _nextChar();
               }
               _type = CSSLexicalUnits.LEFT_CURLY_BRACE;
@@ -432,6 +460,12 @@ public class SkinCSSParser
 
     }
 
+    private void _handleBraceMismatch()
+    {
+      // This log is dependent on LOG in StyleSheetEntry._createSkinStyleSheetFromCSS
+      // The skin file name is logged there.
+      _LOG.warning("CSS_SYNTAX_ERROR");
+    }
 
     // fill buffer with one more character
     private void _nextChar()
@@ -495,10 +529,10 @@ public class SkinCSSParser
   // comments from the properties, and we use this pattern to do it.
   private static final Pattern  _COMMENT_PATTERN =
      Pattern.compile("(?s)/\\*.*?\\*/");
-     
+
   private static final String[] _EMPTY_STRING_ARRAY = new String[0];
 
-     
+
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(SkinCSSParser.class);
 

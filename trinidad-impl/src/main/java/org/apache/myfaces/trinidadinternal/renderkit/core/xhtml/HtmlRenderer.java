@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.html.HtmlFrameBorderLayout;
 import org.apache.myfaces.trinidad.component.html.HtmlHtml;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidadinternal.util.FrameBustingUtils;
 
 
 /**
@@ -81,6 +82,34 @@ public class HtmlRenderer extends XhtmlRenderer
     FacesBean        bean
     ) throws IOException
   {
+    
+    // add response headers for framebusting if needed
+    String frameBusting = FrameBustingUtils.getFrameBustingValue(context, rc.getRequestContext());        
+    
+    if (! FrameBustingUtils.FRAME_BUSTING_NEVER.equalsIgnoreCase(frameBusting))
+    {
+      try
+      {
+        // TODO: Mozilla has introduced CSP
+        //     https://wiki.mozilla.org/Security/CSP/Specification
+        // which we may want to support at some point
+        
+        // the X-Frame-Options header doesn't work on all browsers, but we're adding it anyway
+        if (FrameBustingUtils.FRAME_BUSTING_ALWAYS.equalsIgnoreCase(frameBusting))
+        {
+          context.getExternalContext().addResponseHeader("X-Frame-Options", "deny");
+        }
+        else
+        {
+          context.getExternalContext().addResponseHeader("X-Frame-Options", "sameorigin");
+        }
+      }
+      catch(UnsupportedOperationException uoe)
+      {
+        // framebusting is also supported in the BodyRenderer
+      }
+    }
+    
     ResponseWriter writer = context.getResponseWriter();
 
     String docType = getDocType(context, comp, bean);
@@ -245,7 +274,7 @@ public class HtmlRenderer extends XhtmlRenderer
     )
   {
     String contentType = null;
-  	contentType = context.getResponseWriter().getContentType();
+    contentType = context.getResponseWriter().getContentType();
 
     return "text/xml".equals(contentType) ||
            "application/xhtml+xml".equals(contentType) ||

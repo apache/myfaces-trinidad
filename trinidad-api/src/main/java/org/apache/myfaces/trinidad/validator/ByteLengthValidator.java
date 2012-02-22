@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.validator;
 
@@ -226,7 +226,9 @@ public class ByteLengthValidator  implements StateHolder, Validator
     Object value
     ) throws ValidatorException
   {
-
+    if (isDisabled())
+      return;
+    
     if ((context == null) || (component == null))
     {
       throw new NullPointerException(_LOG.getMessage(
@@ -373,7 +375,8 @@ public class ByteLengthValidator  implements StateHolder, Validator
       String otherMsgMaxDet = other.getMessageDetailMaximum();
       String msgMaxDet = getMessageDetailMaximum();
 
-      if ( this.isTransient() == other.isTransient() &&
+      if ( this.isDisabled() == other.isDisabled() &&
+           this.isTransient() == other.isTransient() &&
             ValidatorUtils.equals(encoding, otherEncoding) &&
             ValidatorUtils.equals(msgMaxDet, otherMsgMaxDet) &&
             (getMaximum() == other.getMaximum())
@@ -397,10 +400,31 @@ public class ByteLengthValidator  implements StateHolder, Validator
     String encoding = getEncoding();
     result = 37 * result + (encoding == null? 0 : encoding.hashCode());
     result = 37 * result + (_isTransient ? 0 : 1);
+    result = 37 * result + (isDisabled() ? 1 : 0);
     result = 37 * result + getMaximum();
     result = 37 * result + (maximumMsgDet == null? 0 : maximumMsgDet.hashCode());
     return result;
   }
+
+  /**
+   * <p>Set the value to property <code>disabled</code>. Default value is false.</p>
+   * @param isDisabled <code>true</code> if it's disabled, <code>false</code> otherwise.
+   */   
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */   
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
+  }  
 
   /**
    * The {@link FacesMessage} to be returned if byte length validation fails.
@@ -447,6 +471,10 @@ public class ByteLengthValidator  implements StateHolder, Validator
 
   private static final PropertyKey  _HINT_MAXIMUM_KEY =
     _TYPE.registerKey("hintMaximum", String.class);
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 

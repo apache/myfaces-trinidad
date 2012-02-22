@@ -28,7 +28,7 @@ public enum ComponentDemoId {
     form,
     group,
     page,
-	panelAccordion,
+  panelAccordion,
     panelBox,
     panelButtonBar,
     panelCaptionGroup,
@@ -46,8 +46,8 @@ public enum ComponentDemoId {
     
     //  Layout cathegory components
     panelBorderLayout,
-	panelFormLayout,
-	panelGroupLayout,
+  panelFormLayout,
+  panelGroupLayout,
     panelHorizontalLayout,
     separator,
     spacer,

@@ -28,6 +28,13 @@
     <validator-id>org.apache.myfaces.trinidad.ByteLength</validator-id>
     <validator-class>org.apache.myfaces.trinidadinternal.validator.ByteLengthValidator</validator-class>
     <property>
+      <description><![CDATA[Whether the converter should be disabled, default to false.]]>
+      </description>
+      <property-name>disabled</property-name>
+      <property-class>boolean</property-class>
+      <default-value>false</default-value>
+    </property>  
+    <property>
       <description><![CDATA[maximum number of allowable bytes when the string is encoded]]></description>
       <property-name>maximum</property-name>
       <property-class>int</property-class>

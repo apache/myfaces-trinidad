@@ -31,14 +31,14 @@ public class ProgressIndicatorDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982371957886498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public ProgressIndicatorDemo() {
-		super(ComponentDemoId.progressIndicator, "Progress Indicator");
+  /**
+   * Constructor.
+   */
+  public ProgressIndicatorDemo() {
+    super(ComponentDemoId.progressIndicator, "Progress Indicator");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,13 +46,13 @@ public class ProgressIndicatorDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/output/progressIndicator/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/output/progessIndicator/ProgressIndicatorBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/output/progessIndicator/ProgressIndicatorBean.java";
+  }
 }

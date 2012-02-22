@@ -31,14 +31,14 @@ public class NavigationTreeDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982060956383408310L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}      
+    Default
+  }      
 
-	/**
-	 * Constructor.
-	 */
-	public NavigationTreeDemo() {
-		super(ComponentDemoId.navigationTree, "Navigation Tree");
+  /**
+   * Constructor.
+   */
+  public NavigationTreeDemo() {
+    super(ComponentDemoId.navigationTree, "Navigation Tree");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,13 +46,13 @@ public class NavigationTreeDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/navigation/navigationTree/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/navigation/navigationTree/NavigationTreeBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/navigation/navigationTree/NavigationTreeBean.java";
+  }
 }

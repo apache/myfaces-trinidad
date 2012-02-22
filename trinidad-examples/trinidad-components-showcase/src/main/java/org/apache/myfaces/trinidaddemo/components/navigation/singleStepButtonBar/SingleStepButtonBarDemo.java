@@ -31,14 +31,14 @@ public class SingleStepButtonBarDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982060956387098310L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public SingleStepButtonBarDemo() {
-		super(ComponentDemoId.singleStepButtonBar, "Single Step Button Bar");
+  /**
+   * Constructor.
+   */
+  public SingleStepButtonBarDemo() {
+    super(ComponentDemoId.singleStepButtonBar, "Single Step Button Bar");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class SingleStepButtonBarDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/navigation/singleStepButtonBar/summary.xhtml";

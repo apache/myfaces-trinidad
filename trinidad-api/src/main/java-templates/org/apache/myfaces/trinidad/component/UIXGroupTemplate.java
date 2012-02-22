@@ -59,11 +59,10 @@ abstract public class UIXGroupTemplate extends UIXComponentBase implements Flatt
 
     try
     {
-      setupVisitingContext(context);
-
+      setupFlattenedContext(context, cpContext);
       try
       {
-        setupChildrenVisitingContext(context);
+        setupFlattenedChildrenContext(context, cpContext);
 
         try
         {
@@ -76,12 +75,12 @@ abstract public class UIXGroupTemplate extends UIXComponentBase implements Flatt
         }
         finally
         {
-          tearDownChildrenVisitingContext(context);
+          tearDownFlattenedChildrenContext(context, cpContext);
         }
       }
       finally
       {
-        tearDownVisitingContext(context);
+        tearDownFlattenedContext(context, cpContext);
       }
     }
     finally

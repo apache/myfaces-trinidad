@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.context;
 
@@ -68,11 +68,14 @@ public class TrinidadPhaseListener implements PhaseListener
   @SuppressWarnings("unchecked")
   public void beforePhase(PhaseEvent event)
   {
+    
+    PhaseId phaseId = event.getPhaseId();
+    
     // Ensure that the implicit object gets created.  In general,
     // "restore view" would be sufficient, but someone can call
     // renderResponse() before even calling Lifecycle.execute(),
     // in which case RESTORE_VIEW doesn't actually run.
-    if (event.getPhaseId() == PhaseId.RESTORE_VIEW)
+    if (phaseId == PhaseId.RESTORE_VIEW)
     {
       FacesContext context = event.getFacesContext();
       ExternalContext ec = context.getExternalContext();
@@ -82,11 +85,11 @@ public class TrinidadPhaseListener implements PhaseListener
     // If we've reached "apply request values", this is definitely a
     // postback (the ViewHandler should have reached the same conclusion too,
     // but make sure)
-    else if (event.getPhaseId() == PhaseId.APPLY_REQUEST_VALUES)
+    else if (phaseId == PhaseId.APPLY_REQUEST_VALUES)
     {
       FacesContext context = event.getFacesContext();
       markPostback(context);
-    }
+    } 
   }
 
 

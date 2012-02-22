@@ -70,7 +70,12 @@
             current look-and-feel.  Page authors
             that use this do not need to use a styleSheet component, as it
             will automatically be included.
-          </html:p>]]>
+          </html:p>
+<html:p>
+  The head component resets the Trinidad EL context when code re-enters the component via
+  an invoke on component call or a visit tree call. See the
+  org.apache.myfaces.trinidad.context.ComponentContextManager for more information.
+</html:p>]]>
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code>

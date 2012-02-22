@@ -48,7 +48,7 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
     final S                     callbackContext
     ) throws IOException
   {
-    setupVisitingContext(context);
+    setupFlattenedContext(context, cpContext);
 
     boolean abort;
 
@@ -58,7 +58,7 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
 
       if (facet != null)
       {
-        setupChildrenVisitingContext(context);
+        setupFlattenedChildrenContext(context, cpContext);
 
         try
         {
@@ -70,7 +70,7 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
         }
         finally
         {
-          tearDownChildrenVisitingContext(context);
+          tearDownFlattenedChildrenContext(context, cpContext);
         }
       }
       else
@@ -80,7 +80,7 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
     }
     finally
     {
-      tearDownChildrenVisitingContext(context);
+      tearDownFlattenedContext(context, cpContext);
     }
 
     return abort;

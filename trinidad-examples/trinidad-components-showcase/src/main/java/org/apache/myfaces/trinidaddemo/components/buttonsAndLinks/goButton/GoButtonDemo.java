@@ -31,14 +31,14 @@ public class GoButtonDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061456883408710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}     
+    Default
+  }     
 
-	/**
-	 * Constructor.
-	 */
-	public GoButtonDemo() {
-		super(ComponentDemoId.goButton, "Go Button");
+  /**
+   * Constructor.
+   */
+  public GoButtonDemo() {
+    super(ComponentDemoId.goButton, "Go Button");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class GoButtonDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/buttonsAndLinks/goButton/summary.xhtml";

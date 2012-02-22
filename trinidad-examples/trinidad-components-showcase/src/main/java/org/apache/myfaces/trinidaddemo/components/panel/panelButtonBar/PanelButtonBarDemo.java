@@ -31,18 +31,18 @@ public class PanelButtonBarDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956882438710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Center,
+    Center,
         Left,
         Right,
         End,
         Start
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public PanelButtonBarDemo() {
-		super(ComponentDemoId.panelButtonBar, "Panel Button Bar");
+  /**
+   * Constructor.
+   */
+  public PanelButtonBarDemo() {
+    super(ComponentDemoId.panelButtonBar, "Panel Button Bar");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Center, "Center", this,
                 new String[]{
@@ -66,7 +66,7 @@ public class PanelButtonBarDemo extends AbstractComponentDemo {
                 }));
 
         setDefaultVariant(VARIANTS.Start);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelButtonBar/summary.xhtml";

@@ -650,9 +650,12 @@ abstract public class UIXEditableValueTemplate
           }
           catch (Exception validationException)
           {
-            // SPEC section 3.5.6.2:
-            // TODO do a i18n version of the error msg
-            throw new FacesException("A ValidatorFactory can not be retrieved", validationException);
+            // From section 3.5.6.2 of the spec 
+            // "If the BeanValidator is used an no ValidatorFactory can be retrieved, a FacesException is raised. " 
+            // Only BeanValidator needs to throw a FacesException, in this case just log the message
+            // and behave as if bean validation is disabled
+            _LOG.warning("VALIDATOR_FACTORY_UNAVAILABLE", validationException.getMessage());
+            couldLoadBeanValidationAPI = Boolean.FALSE;
           }
         }
       }

@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.component;
 
@@ -71,14 +71,15 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
 import org.apache.myfaces.trinidad.bean.util.ValueMap;
 import org.apache.myfaces.trinidad.change.AttributeComponentChange;
+import org.apache.myfaces.trinidad.change.ComponentChange;
 import org.apache.myfaces.trinidad.change.RowKeySetAttributeChange;
-import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.component.ComponentProcessingContext.ProcessingHint;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.render.ExtendedRenderer;
 import org.apache.myfaces.trinidad.render.LifecycleRenderer;
 import org.apache.myfaces.trinidad.util.CollectionUtils;
@@ -330,6 +331,98 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     _cacheRenderer(facesContext);
     return super.getRenderedFacetsAndChildren(facesContext);
+  }
+
+  /**
+   * Convenience method for implementors of {@link FlattenedComponent} to setup either the
+   * visiting context or the encoding context based on if the {@link ComponentProcessingContext}
+   * is processing for encoding or not.
+   * @param facesContext The faces context
+   * @param cpContext The component processing context passed to
+   *                  {@link FlattenedComponent#processFlattenedChildren}
+   */
+  protected void setupFlattenedContext(
+    FacesContext               facesContext,
+    ComponentProcessingContext cpContext
+    )
+  {
+    if (cpContext.getHints().contains(ProcessingHint.PROCESS_FOR_ENCODING))
+    {
+      setupEncodingContext(facesContext, RenderingContext.getCurrentInstance());
+    }
+    else
+    {
+      setupVisitingContext(facesContext);
+    }
+  }
+
+  /**
+   * Convenience method for implementors of {@link FlattenedComponent} to setup either the
+   * visiting context or the encoding context based on if the {@link ComponentProcessingContext}
+   * is processing for encoding or not.
+   * @param facesContext The faces context
+   * @param cpContext The component processing context passed to
+   *                  {@link FlattenedComponent#processFlattenedChildren}
+   */
+  protected void setupFlattenedChildrenContext(
+    FacesContext               facesContext,
+    ComponentProcessingContext cpContext
+    )
+  {
+    if (cpContext.getHints().contains(ProcessingHint.PROCESS_FOR_ENCODING))
+    {
+      setupChildrenEncodingContext(facesContext, RenderingContext.getCurrentInstance());
+    }
+    else
+    {
+      setupChildrenVisitingContext(facesContext);
+    }
+  }
+
+  /**
+   * Convenience method for implementors of {@link FlattenedComponent} to tear down either the
+   * visiting context or the encoding context based on if the {@link ComponentProcessingContext}
+   * is processing for encoding or not.
+   * @param facesContext The faces context
+   * @param cpContext The component processing context passed to
+   *                  {@link FlattenedComponent#processFlattenedChildren}
+   */
+  protected void tearDownFlattenedContext(
+    FacesContext               facesContext,
+    ComponentProcessingContext cpContext
+    )
+  {
+    if (cpContext.getHints().contains(ProcessingHint.PROCESS_FOR_ENCODING))
+    {
+      tearDownEncodingContext(facesContext, RenderingContext.getCurrentInstance());
+    }
+    else
+    {
+      tearDownVisitingContext(facesContext);
+    }
+  }
+
+  /**
+   * Convenience method for implementors of {@link FlattenedComponent} to tear down either the
+   * visiting context or the encoding context based on if the {@link ComponentProcessingContext}
+   * is processing for encoding or not.
+   * @param facesContext The faces context
+   * @param cpContext The component processing context passed to
+   *                  {@link FlattenedComponent#processFlattenedChildren}
+   */
+  protected void tearDownFlattenedChildrenContext(
+    FacesContext               facesContext,
+    ComponentProcessingContext cpContext
+    )
+  {
+    if (cpContext.getHints().contains(ProcessingHint.PROCESS_FOR_ENCODING))
+    {
+      tearDownChildrenEncodingContext(facesContext, RenderingContext.getCurrentInstance());
+    }
+    else
+    {
+      tearDownChildrenVisitingContext(facesContext);
+    }
   }
 
   // ------------------------------------------------------------- Properties
@@ -1305,27 +1398,102 @@ abstract public class UIXComponentBase extends UIXComponent
        getFacesBean().getEntries(_LISTENERS_KEY, clazz);
   }
 
+  /**
+   * Adds a change for a Component, or the Component's subtree, returning the change actually added,
+   * or <code>null</code>, if no change was added.  The proposed change may be rejected by the
+   * component itself, one of its ancestors, or the ChangeManager implementation.
+   * @param change     The change to add for this component
+   * @return The ComponentChange actually added, or
+   * <code>null</code> if no change was added.
+   * @see #addComponentChange(UIComponent, ComponentChange)
+   */
+  public final ComponentChange addComponentChange(ComponentChange change)
+  {
+    return addComponentChange(this, change);
+  }
+  
+  private UIXComponentBase _getNextUIXComponentBaseAnxcestor()
+  {
+    UIComponent parent = getParent();
+
+    while (parent != null)
+    {    
+      if (parent instanceof UIXComponentBase)
+      {
+        return (UIXComponentBase)parent;
+      }
+      
+      parent = parent.getParent();
+    }
+    
+    return null;
+  }
+
+  /**
+   * Called when adding a change to a Component, or the Component's subtree.
+   * The default implementation delegates the call to the parent, if possible, otherwise
+   * it adds the change to the ChangeManager directly.
+   * Subclasses can override this method to among other things, filter or transform the changes.
+   * @param component  The component that the change is for
+   * @param change     The change to add for this component
+   * @return The ComponentChange actually added, or
+   * <code>null</code> if no change was added.
+   * @see #addComponentChange(ComponentChange)
+   * @see #addAttributeChange
+   */
+  protected ComponentChange addComponentChange(UIComponent component, ComponentChange change)
+  {
+    // check moved from addAttributeChange(), as this is more central
+    if ((component == this) && (change instanceof AttributeComponentChange))
+    {
+      AttributeComponentChange aa             = (AttributeComponentChange)change;
+      Object                   attributeValue = aa.getAttributeValue();
+      
+      if (attributeValue instanceof RowKeySet)
+      {
+        change = new RowKeySetAttributeChange(getClientId(getFacesContext()),
+                                              aa.getAttributeName(),
+                                              attributeValue);
+      }
+    }
+    
+    // add the change unless changes for this subtree have suppressed
+    if (!Boolean.TRUE.equals(getAttributes().get(_NO_SUBTREE_CHANGE_ATTR)))
+    {
+      UIXComponentBase nextUIXParent = _getNextUIXComponentBaseAnxcestor();
+  
+      if (nextUIXParent != null)
+      {
+        return nextUIXParent.addComponentChange(component, change);
+      }
+      else
+      {
+        RequestContext trinContext = RequestContext.getCurrentInstance();
+        trinContext.getChangeManager().addComponentChange(getFacesContext(), component, change);
+        return change;
+      }
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+
+  /**
+   * Convenience function for
+   * <code>addComponentChange(new AttributeComponentChange(attributeName, attributeValue));</code>
+   * This function is not <code>final</code> for backwards compatibility reasons, however,
+   * existing subclassers whould override <code>addComponentChange</code> instead.
+   * @param attributeName
+   * @param attributeValue
+   * @see #addComponentChange(UIComponent, ComponentChange)
+   */
   protected void addAttributeChange(
     String attributeName,
     Object attributeValue)
   {
-    AttributeComponentChange aa;
-
-    FacesContext context = getFacesContext();
-
-    if (attributeValue instanceof RowKeySet)
-    {
-      aa = new RowKeySetAttributeChange(getClientId(context),
-                                        attributeName,
-                                        attributeValue);
-    }
-    else
-    {
-      aa = new AttributeComponentChange(attributeName, attributeValue);
-    }
-
-    RequestContext adfContext = RequestContext.getCurrentInstance();
-    adfContext.getChangeManager().addComponentChange(context, this, aa);
+    addComponentChange(new AttributeComponentChange(attributeName, attributeValue));
   }
 
   void __rendererDecode(FacesContext context)
@@ -2388,6 +2556,8 @@ abstract public class UIXComponentBase extends UIXComponent
     private Class<?> _componentClass;
   }
 
+  private static final String _NO_SUBTREE_CHANGE_ATTR = "_trinNoSubtreeChange";
+  
   private static final ClientIdCaching _CLIENT_ID_CACHING = _initClientIdCaching();
 
   // System property controlling whether client ID caching is enabled

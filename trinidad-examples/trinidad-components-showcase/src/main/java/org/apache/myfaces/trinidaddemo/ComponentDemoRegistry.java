@@ -126,6 +126,6 @@ public class ComponentDemoRegistry {
      * @return the collection containing all available component demos.
      */
     public Collection<IComponentDemo> getComponentDemos() {
-		return componentsDemoRegistry.values();
-	}
+    return componentsDemoRegistry.values();
+  }
 }

@@ -32,8 +32,8 @@ public class HighlightJavaSource extends JavaXhtmlRenderer {
     public String getXhtmlHeaderFragment(String name){
         if (null == name){
             name = "";
-		}
+    }
 
-	    return "<h3> "+name+" </h3>";
+      return "<h3> "+name+" </h3>";
     }
 }

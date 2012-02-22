@@ -31,14 +31,14 @@ public class FormDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956882498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public FormDemo() {
-		super(ComponentDemoId.form, "Form");
+  /**
+   * Constructor.
+   */
+  public FormDemo() {
+    super(ComponentDemoId.form, "Form");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class FormDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/form/summary.xhtml";

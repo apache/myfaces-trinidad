@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
@@ -128,7 +128,7 @@ class StyleContextImpl implements StyleContext
    */
   public boolean isDirty()
   {
-    if (Beans.isDesignTime())
+    if (_arc.isDesignTime())
     {
       // In Design Time mode, if we have a skin dirty flag on the request scope,
       // then this means the Design Time wants the skin to regenerate. To do this,
@@ -198,6 +198,17 @@ class StyleContextImpl implements StyleContext
   {
     return CoreRenderKit.OUTPUT_MODE_PORTLET.equals(_arc.getOutputMode());
   }
+  
+  @Override
+  public boolean isRequestSecure()
+  {
+    if (_isRequestSecure == null) 
+    {
+      String scheme = FacesContext.getCurrentInstance().getExternalContext().getRequestScheme();
+      _isRequestSecure =  "https".equals(scheme);
+    }
+    return _isRequestSecure;
+  }
 
   /**
    *
@@ -235,10 +246,10 @@ class StyleContextImpl implements StyleContext
       {
         _isDisableStyleCompression = Boolean.TRUE;
 
-        // if Apache MyFaces Trinidad is running in production stage and 
+        // if Apache MyFaces Trinidad is running in production stage and not design time and
         // running with content compression disabled we generate a WARNING
         // message
-        if (context.isProjectStage(ProjectStage.Production))
+        if (context.isProjectStage(ProjectStage.Production) && !_arc.isDesignTime())
         {
           _LOG.warning("DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE");
         }
@@ -333,6 +344,7 @@ class StyleContextImpl implements StyleContext
   private StyleProvider _styleProvider;
   private Styles _styles;
   private Boolean  _isDisableStyleCompression;
+  private Boolean _isRequestSecure;
   static private final String _SKIN_DIRTY_PARAM =
     "org.apache.myfaces.trinidad.skin.dirty";
 

@@ -80,14 +80,14 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
   {
     boolean processedChildren;
 
-    setupVisitingContext(context);
+    setupFlattenedContext(context, cpContext);
 
     try
     {
       // Mimic what would normally happen in the non-flattening case for encodeBegin():
       __processFlattenedChildrenBegin();
 
-      setupChildrenVisitingContext(context);
+      setupFlattenedChildrenContext(context, cpContext);
 
       try
       {
@@ -123,12 +123,12 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       }
       finally
       {
-        tearDownChildrenVisitingContext(context);
+        tearDownFlattenedChildrenContext(context, cpContext);
       }
     }
     finally
     {
-      tearDownVisitingContext(context);
+      tearDownFlattenedContext(context, cpContext);
     }
 
     return processedChildren;

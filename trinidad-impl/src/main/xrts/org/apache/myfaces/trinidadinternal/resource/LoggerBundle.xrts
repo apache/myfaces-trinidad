@@ -509,6 +509,9 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET">Could not load style sheet: {0}</resource>
 
+<!-- LOADING_STYLESHEET -->
+<resource key="LOADING_STYLESHEET">Loading style sheet: {0}</resource>
+
 <!-- IOEXCEPTION_IN_PHASE -->
 <resource key="IOEXCEPTION_IN_PHASE">IOException during parse of {0}</resource>
 
@@ -528,7 +531,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR">The css file has hit IE''s limit of 4095 CSS selectors. It has {0} selectors. The selectors after that will be ignored.</resource>
 
 <!-- UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX -->
-<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX">Consecutive sub-element (::) syntax used in selector {0}. This is not supported.</resource>
+<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX">Consecutive sub-element (::) syntax used in selector {0} in a pattern that is not supported.</resource>
 
 <!-- URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET -->
 <resource key="URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET">An url value delimited by url() is expected for the property ''{0}'' in style sheet ''{1}''. Found: ''{2}''.</resource>
@@ -1135,8 +1138,8 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- EXTRACT_SERIALIZATION_DETAIL -->
 <resource key="EXTRACT_SERIALIZATION_DETAIL"> failed value=</resource>
 
-<!-- ATTRIBUTE_NOT_SERIALIABLE -->
-<resource key="ATTRIBUTE_NOT_SERIALIABLE">Failover error: {0} attribute:{1} of type {2} is not Serializable</resource>
+<!-- ATTRIBUTE_NOT_SERIALIZABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIZABLE">Failover error: {0} attribute:{1} of type {2} is not Serializable</resource>
 
 <!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
 <resource key="SERIALIZABLE_ATTRIBUTE_MUTATED">Failover error: Serialization of {0} attribute:{1} has changed from {2} to {3} without the attribute being dirtied</resource>
@@ -1153,5 +1156,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="INVALID_STYLESHEET_TYPE">Parsing error: Unknown type of stylesheet '{0}'. Style sheets other than css are not supported. </resource>
 
 <resource key="INVALID_AGENT_PROPERTY">Not a valid @agent CSS property rule: {0}: {1}</resource>
+
+<resource key="CSS_SYNTAX_ERROR">Syntax error in skin file currently being processed due to mismatch in the number of open and close braces. The skin file will not be processed correctly. To know the name of file being processed, set log level to 'INFO'.</resource>
 
 </resources>

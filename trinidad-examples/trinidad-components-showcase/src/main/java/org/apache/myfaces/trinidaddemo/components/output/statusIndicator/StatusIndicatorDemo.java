@@ -31,14 +31,14 @@ public class StatusIndicatorDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982374957886498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public StatusIndicatorDemo() {
-		super(ComponentDemoId.statusIndicator, "Status Indicator");
+  /**
+   * Constructor.
+   */
+  public StatusIndicatorDemo() {
+    super(ComponentDemoId.statusIndicator, "Status Indicator");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,13 +46,13 @@ public class StatusIndicatorDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/output/statusIndicator/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/output/statusIndicator/StatusIndicatorBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/output/statusIndicator/StatusIndicatorBean.java";
+  }
 }

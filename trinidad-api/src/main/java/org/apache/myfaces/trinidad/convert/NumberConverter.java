@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.convert;
 
@@ -196,6 +196,9 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     if (null == value)
       return null;
 
+    if (isDisabled())
+      return value;
+
     value = value.trim();
     if (value.length() < 1)
       return null;
@@ -359,6 +362,9 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
     if(value instanceof String)
       return (String)value;
+
+    if (isDisabled())
+      return value.toString();
 
     if (!(value instanceof Number))
       throw new IllegalArgumentException(_LOG.getMessage(
@@ -780,6 +786,31 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     if (pattern == null)
       return null;
     
+    RequestContext reqCtx = RequestContext.getCurrentInstance();
+    String type = getType();
+    Locale locale = _getLocale(reqCtx, context);
+    DecimalFormat df = (DecimalFormat) _getNumberFormat(pattern, type, locale, reqCtx);
+    if (dfs == null)
+    {
+      dfs = df.getDecimalFormatSymbols();
+    }
+    
+    // If grouping and decimal separator have been customized then
+    // show them in the hint so that it's less confusing for the user.
+    char decSep = dfs.getDecimalSeparator();
+    char groupSep = dfs.getGroupingSeparator();
+
+    char[] patternArr = pattern.toCharArray();
+    for (int i = 0; i < patternArr.length; i++)
+    {
+      char c = patternArr[i];
+      if (c == '\u002E')
+        patternArr[i] = decSep;
+      else if (c == '\u002C')
+        patternArr[i] = groupSep;
+    }
+    pattern = new String(patternArr);
+    
     // If the pattern contains the generic currency sign, replace it with the localized 
     // currency symbol (if one exists), so that when the pattern is displayed (such as in an error 
     // message), it is more meaningful to the user.
@@ -791,16 +822,6 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     int idx = pattern.indexOf('\u00A4');
     if (idx == -1)
       return pattern;
-    
-    if (dfs == null)
-    {
-      String type = getType();
-      RequestContext reqCtx = RequestContext.getCurrentInstance();
-      Locale locale = _getLocale(reqCtx, context);
-      NumberFormat fmt = _getNumberFormat(pattern, type, locale, reqCtx);
-      DecimalFormat df = (DecimalFormat) fmt;
-      dfs = df.getDecimalFormatSymbols();
-    }
     
     if (idx + 1 < pattern.length() && pattern.charAt(idx + 1) == '\u00A4')
     {
@@ -850,6 +871,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     result = result * 37 + getMaxIntegerDigits();
     result = result * 37 + getMinFractionDigits();
     result = result * 37 + getMinIntegerDigits();
+    result = result * 37 + (isDisabled() ? 1 : 0);    
     result = result * 37 + (isGroupingUsed() ? 1: 0);
     result = result * 37 + (isIntegerOnly()? 1: 0);
     result = result * 37 + (isTransient() ? 1: 0);
@@ -879,6 +901,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
         getMaxIntegerDigits()  == nConv.getMaxIntegerDigits()   &&
         getMinFractionDigits() ==  nConv.getMinFractionDigits() &&
         getMinIntegerDigits()  ==  nConv.getMinIntegerDigits()  &&
+        isDisabled() == nConv.isDisabled() &&        
         isTransient() == nConv.isTransient() &&
         isGroupingUsed() ==  nConv.isGroupingUsed() &&
         isIntegerOnly()  == nConv.isIntegerOnly()   &&
@@ -899,6 +922,26 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     }
     return false;
   }
+
+  /**
+   * <p>Set the value to property <code>disabled</code>. Default value is false.</p>
+   * @param isDisabled <code>true</code> if it's disabled, <code>false</code> otherwise.
+   */  
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
+  }  
 
   private static int _getHashValue(Object obj)
   {
@@ -1399,6 +1442,10 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
   private static final PropertyKey  _TYPE_KEY
    = _TYPE.registerKey("type", String.class, "numeric");
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 

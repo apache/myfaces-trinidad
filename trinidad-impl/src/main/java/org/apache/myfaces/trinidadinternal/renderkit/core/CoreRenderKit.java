@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
@@ -69,7 +69,6 @@ import org.apache.myfaces.trinidadinternal.io.HtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.IndentingResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderKitDecorator;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContextImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
@@ -110,6 +109,21 @@ public class CoreRenderKit extends RenderKitDecorator
    * result in a version of page content optimized for use in e-mail.
    */
   static public final String OUTPUT_MODE_EMAIL = "email";
+  
+  /**
+   * An attachment browser output mode. Render the content such that the output can be sent as an 
+   * email attachment that can be viewed offline. Interactions requiring server communication 
+   * should be completely avoided.
+   */
+  static public final String OUTPUT_MODE_ATTACHMENT = "attachment";
+  
+  /**
+   * Web Creawler output mode.  Render the content for consumption by a web crawler
+   */
+  static public final String OUTPUT_MODE_WEB_CRAWLER = "webcrawler";
+  
+  public enum OutputMode {normal, portlet, printable, email, attachment}
+  
 
   static public final String RETURN_PARAM = "rtrn";
 
@@ -152,7 +166,7 @@ public class CoreRenderKit extends RenderKitDecorator
   }
 
   /**
-   * Returns true is this a PPR request sent by Trinidad (as opposed to a request sent with <f:ajax>)
+   * Returns true is this a PPR request sent by Trinidad (as opposed to a request sent with &lt;f:ajax&gt;)
    */
   static public boolean isLegacyPartialRequest(Map<String, String[]> parameters)
   {
@@ -160,7 +174,7 @@ public class CoreRenderKit extends RenderKitDecorator
   }
 
   /**
-   * Returns true is this a PPR request sent by Trinidad (as opposed to a request sent with <f:ajax>)
+   * Returns true is this a PPR request sent by Trinidad (as opposed to a request sent with &lt;f:ajax&gt;)
    */
   static public boolean isLegacyPartialRequest(ExternalContext ec)
   {
@@ -171,7 +185,7 @@ public class CoreRenderKit extends RenderKitDecorator
   }
   
   /**
-   * Returns true if this is a Trinidad PPR request or <f:ajax> request
+   * Returns true if this is a Trinidad PPR request or &lt;f:ajax&gt; request
    */
   static public boolean isPartialRequest(Map<String, String[]> parameters)
   {
@@ -184,7 +198,7 @@ public class CoreRenderKit extends RenderKitDecorator
   }
   
   /**
-   * Returns true if this is a Trinidad PPR request or <f:ajax> request
+   * Returns true if this is a Trinidad PPR request or &lt;f:ajax&gt; request
    */
   static public boolean isPartialRequest(ExternalContext ec)
   {

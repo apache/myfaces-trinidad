@@ -31,14 +31,14 @@ public class CommandNavigationItemDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956383498310L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Default
-	}
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public CommandNavigationItemDemo() {
-		super(ComponentDemoId.commandNavigationItem, "Command Navigation Item");
+  /**
+   * Constructor.
+   */
+  public CommandNavigationItemDemo() {
+    super(ComponentDemoId.commandNavigationItem, "Command Navigation Item");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
@@ -46,7 +46,7 @@ public class CommandNavigationItemDemo extends AbstractComponentDemo {
             }));
 
         setDefaultVariant(VARIANTS.Default);
-	}
+  }
 
     public String getSummaryResourcePath() {
         return "/components/navigation/commandNavigationItem/summary.xhtml";

@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.component;
 
@@ -270,46 +270,12 @@ public abstract class UIXCollection extends UIXComponentBase
     _setupContextChange();
     try
     {
-      // If we saved state in the middle of processing a row,
-      // then make sure that we revert to a "null" rowKey while
-      // saving state;  this is necessary to ensure that the
-      // current row's state is properly preserved, and that
-      // the children are reset to their default state.
-      Object currencyKey = _getCurrencyKey();
-
-      // since this is the end of the request, we expect the row currency to be reset back to null
-      // setting it and leaving it there might introduce multiple issues, so log a warning here
-      if (currencyKey != null)
-      {
-        if (_LOG.isWarning())
-        {
-          String scopedId = ComponentUtils.getScopedIdForComponent(this, context.getViewRoot());
-          String viewId = context.getViewRoot()==null?null:context.getViewRoot().getViewId();
-          _LOG.warning("ROWKEY_NOT_RESET", new Object[]{scopedId, viewId});
-        }
-      }
-
-      Object initKey = _getCurrencyKeyForInitialStampState();
-      if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
-      {
-        setRowKey(initKey);
-      }
+      _stateSavingCurrencyKey = _resetCurrencyKeyForStateSaving(context);
 
       Object savedState = super.processSaveState(context);
 
-      if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
-      {
-        setRowKey(currencyKey);
-      }
-
-      // Finally clean up any internal model state that we might be holding on to. We do not want to hold onto any
-      // application data in between requests
-      InternalState iState = _getInternalState(false);
-      if (iState != null)
-      {
-        iState._value = null;
-        iState._model= null;
-      }
+      _restoreCurrencyKeyForStateSaving(_stateSavingCurrencyKey);
+      _resetInternalState();
 
       return savedState;
     }
@@ -687,11 +653,22 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     super.setupVisitingContext(context);
     _setupContextChange();
+
+    if (Boolean.TRUE.equals(context.getAttributes().get("javax.faces.IS_SAVING_STATE")))
+    {
+      _stateSavingCurrencyKey = _resetCurrencyKeyForStateSaving(context);
+    }
   }
 
   @Override
   protected void tearDownVisitingContext(FacesContext context)
   {
+    if (Boolean.TRUE.equals(context.getAttributes().get("javax.faces.IS_SAVING_STATE")))
+    {
+      _restoreCurrencyKeyForStateSaving(_stateSavingCurrencyKey);
+      _resetInternalState();
+    }
+
     _tearDownContextChange();
     super.tearDownVisitingContext(context);
   }
@@ -1551,10 +1528,24 @@ public abstract class UIXCollection extends UIXComponentBase
       }
       else
       {
-        if (UIXComponent.visitTree(getWrapped(), component, callback))
-          return VisitResult.COMPLETE;
+        // Components do not expect to be visited twice, in fact with UIXComponent, it is illegal.
+        // This is due to the fact that UIXComponent has setup and tearDown methods for visiting.
+        // In order to avoid having the setup method called for the current visit context and
+        // the wrapped context we invoke the visit on the component and then separately on the
+        // children of the component
+        VisitContext wrappedContext = getWrapped();
+        VisitResult visitResult = wrappedContext.invokeVisitCallback(component, callback);
+
+        if (visitResult == VisitResult.ACCEPT)
+        {
+          // Let the visitation continue with the wrapped context
+          return (UIXComponent.visitChildren(wrappedContext, component, callback)) ?
+            VisitResult.COMPLETE : VisitResult.REJECT;
+        }
         else
-          return VisitResult.REJECT;
+        {
+            return visitResult;
+        }
       }
     }
 
@@ -1681,6 +1672,8 @@ public abstract class UIXCollection extends UIXComponentBase
    * <li>index - returns the current rowIndex
    * <li>rowKey - returns the current rowKey
    * <li>current - returns the current rowData
+   * <li>"hierarchicalIndex" - returns an array containing zero based row index.</li>
+   * <li>"hierarchicalLabel" - returns a string label representing 1 based index of this row.</li>
    * </ul>
    */
   protected Map<String, Object> createVarStatusMap()
@@ -1698,6 +1691,16 @@ public abstract class UIXCollection extends UIXComponentBase
           return getRowKey();
         if ("index".equals(key)) // from jstl
           return Integer.valueOf(getRowIndex());
+        if("hierarchicalIndex".equals(key))
+        {
+          int rowIndex = getRowIndex();
+          return rowIndex>=0 ? new Integer[]{rowIndex}: new Integer[]{};
+        }
+        if("hierarchicalLabel".equals(key))
+        {
+          int rowIndex = getRowIndex();
+          return rowIndex>=0 ? Integer.toString(rowIndex+1): "";
+        }
         if ("current".equals(key)) // from jstl
           return getRowData();
         return null;
@@ -1943,6 +1946,17 @@ public abstract class UIXCollection extends UIXComponentBase
   }
 
   /**
+   * reset the stamp state to pristine state. This pristine state when saved to the outer collection for null currency
+   * will allow stamp state for UIXCollection with individual rows to be created
+   *
+   * This is to support iteration of children(column stamping) within the table.
+   */
+  void __resetMyStampState()
+  {
+    _state = null;
+  }
+
+  /**
    * Returns true if an event (other than a selection event)
    * has been queued for this component.  This is a hack
    * to support validation in the tableSelectXyz components.
@@ -2140,6 +2154,73 @@ public abstract class UIXCollection extends UIXComponentBase
       {
         Thread.currentThread().dumpStack();
       }
+    }
+  }
+
+  /**
+   * during state saving, we want to reset the currency to null, but we want to
+   * remember the current currency, so that after state saving, we can set it back
+   *
+   * @param context faces context
+   * @return the currency key
+   */
+  private Object _resetCurrencyKeyForStateSaving(FacesContext context)
+  {
+    // If we saved state in the middle of processing a row,
+    // then make sure that we revert to a "null" rowKey while
+    // saving state;  this is necessary to ensure that the
+    // current row's state is properly preserved, and that
+    // the children are reset to their default state.
+    Object currencyKey = _getCurrencyKey();
+
+    // since this is the end of the request, we expect the row currency to be reset back to null
+    // setting it and leaving it there might introduce multiple issues, so log a warning here
+    if (currencyKey != null)
+    {
+      if (_LOG.isWarning())
+      {
+        String scopedId = ComponentUtils.getScopedIdForComponent(this, context.getViewRoot());
+        String viewId = context.getViewRoot() == null? null: context.getViewRoot().getViewId();
+        _LOG.warning("ROWKEY_NOT_RESET", new Object[]
+            { scopedId, viewId });
+      }
+    }
+
+    Object initKey = _getCurrencyKeyForInitialStampState();
+    if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
+    {
+      setRowKey(initKey);
+    }
+
+    return currencyKey;
+  }
+
+  /**
+   * restore the currency key after state saving
+   *
+   * @param key the currency key
+   */
+  private void _restoreCurrencyKeyForStateSaving(Object key)
+  {
+    Object currencyKey = key;
+    Object initKey = _getCurrencyKeyForInitialStampState();
+
+    if (currencyKey != initKey) // beware of null currencyKeys if equals() is used
+    {
+      setRowKey(currencyKey);
+    }
+  }
+
+  /**
+   * clean up any internal model state that we might be holding on to.
+   */
+  private void _resetInternalState()
+  {
+    InternalState iState = _getInternalState(false);
+    if (iState != null)
+    {
+      iState._value = null;
+      iState._model= null;
     }
   }
 
@@ -2376,6 +2457,8 @@ public abstract class UIXCollection extends UIXComponentBase
   private static final Object _NULL = new Object();
   private static final String _INVOKE_KEY =
     UIXCollection.class.getName() + ".INVOKE";
+
+  private transient Object _stateSavingCurrencyKey = null;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXCollection.class);
 
