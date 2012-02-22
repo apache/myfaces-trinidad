@@ -730,15 +730,6 @@ function _subparse(
           {
             year = _fix2DYear(year);
           }
-          else if (charCount == 4)
-          {
-            // Bug 2169562: For four-digit year formats, reject
-            // three-year entries.  Fair enough!
-            if (enteredChars == 3)
-              return false;    
-            if (enteredChars <= 2)
-              year = _fix2DYear(year);
-          }
 
           // There is no year "0"
           if (year == 0)
