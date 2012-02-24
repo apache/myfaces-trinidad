@@ -187,6 +187,7 @@
           </testSourceRoots>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
@@ -298,6 +299,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-faces-plugin</artifactId>
@@ -327,6 +329,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-i18n-plugin</artifactId>
@@ -343,6 +346,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-javascript-plugin</artifactId>
@@ -360,6 +364,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-xrts-plugin</artifactId>
@@ -372,6 +377,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <artifactId>maven-site-plugin</artifactId>
         <configuration>
@@ -391,6 +397,20 @@
           </reportPlugins>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <!-- Excludes the Golden files -->
+            <exclude>src/test/resources/*/</exclude>
+            <exclude>src/main/resources/META-INF/trinidad-version.txt</exclude>
+            <exclude>src/main/resources/META-INF/servlets/resources/adf.resources</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+
     </plugins>    
   </build>
 </project>

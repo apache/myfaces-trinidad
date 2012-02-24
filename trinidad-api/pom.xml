@@ -346,6 +346,19 @@
           </reportPlugins>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <includes>
+            <include>src/*/</include>
+            <include>pom.xml</include>
+          </includes>
+          <excludes>
+            <exclude>**/clirr-runner.txt</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
