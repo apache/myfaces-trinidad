@@ -171,22 +171,6 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     <url>http://svn.apache.org/viewvc/myfaces/trinidad/trunk</url>
   </scm>
 
-  <repositories>
-    <!-- needed for Bean Validation API -->
-    <repository>
-      <id>jboss</id>
-      <name>jboss nexus</name>
-      <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
-    </repository>
-
-    <!-- Needed for Mojarra -->
-    <repository>
-      <id>maven2-repository.dev.java.net</id>
-      <name>Java.net Repository for Maven</name>
-      <url>http://download.java.net/maven/2/</url>
-    </repository>
-  </repositories>
-
   <distributionManagement>
     <site>
       <id>apache-site</id>
@@ -700,6 +684,28 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
                 <addLicense>true</addLicense>
               </properties>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <includes>
+            <include>src/*/</include>
+            <include>pom.xml</include>
+          </includes>
+          <excludes>
+            <exclude>**/clirr-runner.txt</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
