@@ -470,6 +470,12 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
 <resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY">The previously added {0} skin has been added again. If you cached this skin in your application, you might get inconsistent results. Check for duplicate trinidad-skins.xml files on the classpath.</resource>
 
+<!-- SKIN_ADDITION_ATEMPT_WHEN_FACTORY_DIRTY -->
+<resource key="SKIN_ADDITION_ATEMPT_WHEN_FACTORY_DIRTY">There was an attempt to add a Skin to SkinFactory when the SkinFactory was in a dirty state.</resource>
+
+<!-- SKIN_RELOAD_FAILURE -->
+<resource key="SKIN_RELOAD_FAILURE">Error was encountered while reloading skins. Recovering to previous skin definitions.</resource>
+
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID">Can't get Skin with null skinId</resource>
 

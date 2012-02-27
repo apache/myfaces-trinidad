@@ -18,17 +18,18 @@
  */
 package org.apache.myfaces.trinidad.skin;
 
-import java.util.WeakHashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
  * Factory for creating Skin objects.
- * 
+ *
  */
 abstract public class SkinFactory
 {
@@ -60,7 +61,16 @@ abstract public class SkinFactory
       _FACTORIES.put(cl, factory);
     }
   }
-
+  
+  /**
+   * Reloads the skins that was registered with this factory. 
+   * Subclassers can choose to provide the implementation.
+   */
+  public void reload()
+  {
+    _LOG.warning("SKIN_FACTORY_NO_RELOAD_SUPPORT", this);
+  }
+  
   /**
    * <p>Register the specified {@link Skin} instance, associated with
    * the specified <code>skinId</code>, to be supported by this

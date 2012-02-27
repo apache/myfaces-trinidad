@@ -24,12 +24,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
+import org.apache.myfaces.trinidadinternal.config.GlobalConfiguratorImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
@@ -46,7 +48,7 @@ public class SkinFactoryImpl extends SkinFactory
   public SkinFactoryImpl()
   {
     super();
-    _skins = new LinkedHashMap<String, Skin>();
+    _initalizeSkins();
 
   }
   
@@ -73,8 +75,17 @@ public class SkinFactoryImpl extends SkinFactory
       return;
     }
 
-    synchronized (_skins)
+    synchronized (this)
     {
+      // we could be called when 
+      // 1. skin is in READY state -> allow skin addition
+      // 2. _reloadIfDirty() is in call stack (in which case we will be in RELOADABLE state) -> allow skin addition
+      // 3. _reloadIfDirty() is not in call stack, we could possibly be in DIRTY state -> do not allow skin addition
+      if (_skinsState == SkinsState.DIRTY)
+      {
+        throw new IllegalStateException(_LOG.getMessage("SKIN_ADDITION_ATEMPT_WHEN_FACTORY_DIRTY"));
+      }
+      
       Skin previousValue = _skins.put(skinId, skin);
       if (previousValue != null)
         _LOG.warning("DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY", skinId);
@@ -101,8 +112,14 @@ public class SkinFactoryImpl extends SkinFactory
     }
 
     Skin skin = null;
-    synchronized (_skins)
+    synchronized (this)
     {
+      // we can be called at deploy time, so, it is possible that faces context is null
+      if (context != null)
+      {
+        _reloadIfDirty(context.getExternalContext());
+      }
+
       if (_skins.containsKey(skinId))
       {
         skin = _skins.get(skinId);
@@ -166,6 +183,9 @@ public class SkinFactoryImpl extends SkinFactory
     // renderKitId (simple.desktop or simple.pda)
     if (family == null)
      throw new NullPointerException("Null skin family");
+    
+    // we are in JSF lifecycle when this method gets called, so this time we will have the faces context
+    _reloadIfDirty(context.getExternalContext());
 
     // default render-kit-id, if needed.
     if (renderKitId == null)
@@ -281,6 +301,58 @@ public class SkinFactoryImpl extends SkinFactory
     return (matchingSkin == null) ? null : new RequestSkinWrapper(matchingSkin); 
   }
 
+  @Override
+  public Iterator<String> getSkinIds()
+  {
+    return (_skins.keySet().iterator());
+  }
+
+  @Override
+  public void reload()
+  {
+    synchronized (this)
+    {
+      // just mark it dirty, we will do the reload on next request
+      _skinsState = SkinsState.DIRTY;
+    }
+  }
+  
+  private void _reloadIfDirty(ExternalContext context)
+  {
+    synchronized (this)
+    {
+      // dont try to reload if we are done with or in process of reloading
+      if (_skinsState == SkinsState.DIRTY)
+      {
+        _LOG.fine("Reloading skins begin");
+        _skinsState = SkinsState.RELOADING;
+        
+        // backup the old skins to help in recovery if need be
+        Map<String, Skin> oldSkins = _skins;
+        
+        _initalizeSkins();
+        
+        try
+        {
+          // give chance for configurator services to attach any skins that was not defined trinidad-skins.xml
+          GlobalConfiguratorImpl.getInstance().reloadSkins(context, this);
+        }
+        catch (Exception e)
+        {
+          _LOG.severe("SKIN_RELOAD_FAILURE", e);
+          
+          // recover to the skins before the reload attempt
+          _skins = oldSkins;
+        }
+        finally
+        {
+          _skinsState = SkinsState.READY;
+          _LOG.fine("Reloading skins complete");
+        }
+      }
+    }
+  }
+
   /**
    * Given a list of Skins, find the one that has its SkinVersion set to 'default', if it exists.
    * @param matchingSkinList A list of Skins that we will look through to find the 'default'.
@@ -303,16 +375,35 @@ public class SkinFactoryImpl extends SkinFactory
     }
     return matchingSkin;
   }
-
-  @Override
-  public Iterator<String> getSkinIds()
+  
+  private void _initalizeSkins()
   {
-    return (_skins.keySet().iterator());
+    _skins = new LinkedHashMap<String, Skin>();
+  }
+
+  /**
+   * State of the skins attached to this factory
+   */
+  private enum SkinsState
+  {
+    /**
+     * Ready to be used
+     */
+    READY,
+    /**
+     * Marked dirty, reload pending
+     */
+    DIRTY,
+    /**
+     * Reload in progress
+     */
+    RELOADING
   }
 
   // Stores all the Skins in this SkinFactory
   private Map<String, Skin> _skins = null;
-
+  private SkinsState _skinsState = SkinsState.READY;
+  
   static private final String _SIMPLE_PDA = "simple.pda";
   static private final String _SIMPLE_DESKTOP = "simple.desktop";
   static private final String _SIMPLE_PORTLET = "simple.portlet";
