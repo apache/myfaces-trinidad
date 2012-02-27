@@ -19,8 +19,10 @@
 package org.apache.myfaces.trinidad.config;
 
 import javax.faces.context.ExternalContext;
+
 import javax.servlet.ServletRequest;
 
+import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.util.RequestStateMap;
 
 /**
@@ -144,6 +146,14 @@ public abstract class Configurator
    * @param externalContext the external context
    */
   public void endRequest(ExternalContext externalContext){}
+  
+  /**
+    * The skinning framework calls this method to notify Configurators that the specified SkinFactory has been reloaded.
+    * In response the Configurators can add their skins to the specified SkinFactory.
+    * @param externalContext the external context
+    * @param factory the SkinFactory instance to which the skins can be reloaded
+    */
+  public void reloadSkins(ExternalContext externalContext, SkinFactory factory){}
 
   /**
    * Disables Configurator services for the current request.  When this method

@@ -374,7 +374,10 @@
  <!-- FACTORY_ALREADY_AVAILABlE_FOR_THIS_CLASS_LOADER -->
  <resource key="FACTORY_ALREADY_AVAILABlE_FOR_THIS_CLASS_LOADER">Factory already available for this class loader.</resource>
  
- <!-- BYTE_ARRAY_CANNOT_BE_NULL -->
+ <!-- SKIN_FACTORY_NO_RELOAD_SUPPORT -->
+<resource key="SKIN_FACTORY_NO_RELOAD_SUPPORT">There was an attempt to reload a SkinFactory implementation "{0}" that does not support reloading.</resource>
+
+<!-- BYTE_ARRAY_CANNOT_BE_NULL -->
  <resource key="BYTE_ARRAY_CANNOT_BE_NULL">byte[] cannot be null</resource>
  
  <!-- ACTUAL_LENGTH_OFFSET -->
