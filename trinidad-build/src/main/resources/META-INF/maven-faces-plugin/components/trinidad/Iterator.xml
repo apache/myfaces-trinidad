@@ -44,7 +44,15 @@ heirarchy. ]]></description>
           component to EL expressions. For components that iterate, varStatus
           also provides loop counter information.  Please see the this 
           component's documentation for the specific properties on the varStatus.
-          The common properties on varStatus include:<ul><li>"model" - returns the CollectionModel for this component</li><li>"index" - returns the zero based row index</li></ul></html>]]>
+          The common properties on varStatus include:
+          <ul>
+            <li>"model" - returns the CollectionModel for this component.</li>
+            <li>"index" - returns the zero based row index.</li>
+            <li>"hierarchicalIndex" - returns an array containing zero based row index.</li>
+            <li>"hierarchicalLabel" - returns a string label representing 1 based index of this row.</li>
+            <li>"rowKey" - returns the current rowKey in the collection.</li>
+            <li>"current" - returns the current row in the collection.</li>
+          </ul></html>]]>
       </description>
       <property-name>varStatus</property-name>
       <property-class>java.lang.String</property-class>

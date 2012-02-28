@@ -118,6 +118,28 @@ public abstract class CollectionModel extends DataModel
   }
 
   /**
+   * Returns the rowData for the given rowKey without changing model currency.  
+   * Implementations may choose to implement this behavior by saving and restoring the currency.
+   * 
+   * @see CollectionModel#getRowData()
+   * @param rowKey the row key of the row to get data from.
+   * @return the data for the given row. 
+   */
+  public Object getRowData(Object rowKey)
+  {
+    Object oldKey = getRowKey();
+    try
+    {
+      setRowKey(rowKey);
+      return getRowData();
+    }
+    finally
+    {
+      setRowKey(oldKey);
+    }
+  }
+
+  /**
    * Return true if this collection is sortable by the given property.
    * This implementation always returns false;
    */
