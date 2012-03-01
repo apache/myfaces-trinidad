@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidad.skin.SkinFactory;
 
 import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 
+import org.apache.myfaces.trinidadinternal.agent.AgentImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
 
@@ -76,6 +77,11 @@ public class RenderKitBootstrap
     return _pocketPCAgent;
   }
 
+  static public Agent getGenericDesktopAgent()
+  {
+    return _genericDesktopAgent;
+  }
+  
   static public RenderKit getRenderKit(FacesContext context)
   {
     RenderKitFactory factory = (RenderKitFactory)
@@ -176,8 +182,24 @@ public class RenderKitBootstrap
     headerMap.put("User-Agent","Mozilla/4.0 (compatible; MSIE 4.01; Windows CE; PPC; 240x320)");
     headerMap.put("UA-pixels","240x320");
     _pocketPCAgent = factory.createAgent(headerMap);
+    
+    // for the genericDesktop agent, we don't care about the user agent 
+    _genericDesktopAgent = _populateGenericDesktopAgentImpl();
   }
  
+  static private Agent _populateGenericDesktopAgentImpl()
+  {
+    AgentImpl agent = new AgentImpl();
+    agent.setType(Agent.TYPE_DESKTOP);
+    // Generic Desktop agent
+    agent.setAgent(Agent.AGENT_GENERIC_DESKTOP);
+    agent.setAgentVersion("0.0"); 
+    agent.setPlatform(Agent.PLATFORM_UNKNOWN);
+    agent.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
+    agent.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
+    
+    return agent;
+  }
 
   private FacesConfigInfo _facesConfigInfo;
   
@@ -189,6 +211,7 @@ public class RenderKitBootstrap
   static private Agent           _ieAgent;
   static private Agent           _safariAgent;
   static private Agent           _pocketPCAgent;
+  static private Agent           _genericDesktopAgent;
 
   static
   {

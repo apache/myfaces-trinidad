@@ -35,6 +35,7 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -109,7 +110,8 @@ abstract public class RenderKitTestCase extends TestSuite
            definition.getSkin(),
            definition.getAgent(),
            definition.getAccessibilityMode(),
-           definition.isRightToLeft());
+           definition.isRightToLeft(),
+           definition.getOutputMode());
     }
 
 
@@ -118,13 +120,15 @@ abstract public class RenderKitTestCase extends TestSuite
                     String skin,
                     Agent agent,
                     RequestContext.Accessibility accMode,
-                    boolean rightToLeft)
+                    boolean rightToLeft,
+                    String outputMode)
     {
       super(name + "-" + categoryName);
       _skin = skin;
       _agent = agent;
       _accMode = accMode;
       _rightToLeft = rightToLeft;
+      _outputMode = outputMode;
     }
 
     @Override
@@ -152,10 +156,11 @@ abstract public class RenderKitTestCase extends TestSuite
     @Override
     protected void setUp() throws IOException  
     {
-      _facesContext = new MFacesContext(MApplication.sharedInstance(), true);
+      _facesContext = createMockFacesContext(MApplication.sharedInstance(), true);
       _requestContext = new MRequestContext();
       _requestContext.setSkinFamily(_skin);
       _requestContext.setAgent(_agent);
+      _requestContext.setOutputMode(_outputMode);
       _requestContext.setRightToLeft(_rightToLeft);
       _requestContext.setAccessibilityMode(_accMode);
 
@@ -169,6 +174,13 @@ abstract public class RenderKitTestCase extends TestSuite
       if (service != null)
         service.encodeBegin(_facesContext);
         
+    }
+    
+    protected MFacesContext createMockFacesContext(
+      Application mockApplication,
+      boolean testMode)
+    {
+      return new MFacesContext(mockApplication, testMode);
     }
 
     @Override
@@ -252,10 +264,11 @@ abstract public class RenderKitTestCase extends TestSuite
     private TestResult    _result;
     private MFacesContext _facesContext;
     private MRequestContext _requestContext;
-    private String           _skin;
-    private Agent            _agent;
+    private String          _skin;
+    private String          _outputMode; 
+    private Agent           _agent;
     private RequestContext.Accessibility  _accMode;
-    private boolean          _rightToLeft;
+    private boolean         _rightToLeft;
   }
 
 
@@ -526,18 +539,24 @@ abstract public class RenderKitTestCase extends TestSuite
         {
           if (first)
           {
-            addTest(new RendererTest(name,
-                                     definition,
-                                     false));
+            addRendererTest(name, definition, false);
             first = false;
           }
           else
           {
-            addTest(new RendererTest(name, definition, lenient));
+            addRendererTest(name, definition, lenient);
           }
         }
       }
     }
+  }
+  
+  protected void addRendererTest(
+    String name, 
+    SuiteDefinition definition, 
+    boolean lenient) throws IOException, SAXException
+  {
+    addTest(new RendererTest(name, definition, lenient));
   }
 
   protected abstract UIComponent populateDefaultComponentTree(
@@ -556,12 +575,24 @@ abstract public class RenderKitTestCase extends TestSuite
       Agent  agent,
       boolean rightToLeft)
     {
+      this(category, skin, accessibilityMode, agent, rightToLeft, null);
+    }
+    
+    public SuiteDefinition(
+      String category,
+      String skin,
+      RequestContext.Accessibility accessibilityMode,
+      Agent  agent,
+      boolean rightToLeft,
+      String outputMode)
+    {
       _category = category;
       _skin     = skin;
       _accessibilityMode  = accessibilityMode;
       _agent    = agent;
       _rightToLeft = rightToLeft;
-    }
+      _outputMode = outputMode;
+    }    
 
     public String getCategory()
     {
@@ -571,6 +602,11 @@ abstract public class RenderKitTestCase extends TestSuite
     public String getSkin()
     {
       return _skin;
+    }
+    
+    public String getOutputMode()
+    {
+      return _outputMode;
     }
 
     public RequestContext.Accessibility getAccessibilityMode()
@@ -591,6 +627,7 @@ abstract public class RenderKitTestCase extends TestSuite
 
     private String _category;
     private String _skin;
+    private String _outputMode;
     private RequestContext.Accessibility _accessibilityMode;
     private Agent _agent;
     private boolean _rightToLeft;
