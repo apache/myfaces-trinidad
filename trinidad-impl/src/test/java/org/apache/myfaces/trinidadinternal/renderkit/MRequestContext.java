@@ -33,6 +33,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
+import org.apache.myfaces.trinidad.change.ComponentChange;
 import org.apache.myfaces.trinidad.config.RegionManager;
 
 import org.apache.myfaces.trinidad.component.visit.VisitContext;
@@ -72,6 +73,19 @@ public class MRequestContext extends RequestContext
   {
     return _agent;
   }
+  
+  // Support setting outputMode so we can render content for an output mode other than 'default'.
+  public void setOutputMode(String outputMode)
+  {
+    _outputMode = outputMode;
+  }
+  
+  @Override
+  public String getOutputMode()
+  {
+    return _outputMode;
+  }
+  
 
   @Override
   public PageResolver getPageResolver()
@@ -138,12 +152,6 @@ public class MRequestContext extends RequestContext
   public boolean isClientValidationDisabled()
   {
     return false;
-  }
-
-  @Override
-  public String getOutputMode()
-  {
-    return null;
   }
 
   public void setSkinFamily(String skin)
@@ -329,7 +337,8 @@ public class MRequestContext extends RequestContext
   @Override
   public void partialUpdateNotify(UIComponent updated)
   {
-    throw new UnsupportedOperationException("Should not be called during rendering");
+    // in some cases we allow adding partial targets during rendering 
+    // throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
   @Override
@@ -353,7 +362,12 @@ public class MRequestContext extends RequestContext
   @Override
   public ChangeManager getChangeManager()
   {
-    throw new UnsupportedOperationException("Not implemented yet");
+    if (_changeManager == null)
+    {
+      _changeManager = new NoOpChangeManager();
+    }
+    
+    return _changeManager;
   }
 
   @Override
@@ -426,6 +440,19 @@ public class MRequestContext extends RequestContext
 
     return viewMap;
   }
+  
+  // Added merely to have a noop implementation
+  public static class NoOpChangeManager extends ChangeManager
+  {
+
+    @Override
+    public void addComponentChange(FacesContext facesContext,
+                                   UIComponent uIComponent,
+                                   ComponentChange componentChange)
+    {
+      // do nothing
+    }
+  }
 
   private String _skin;
   private Long _maxMemory;
@@ -434,7 +461,9 @@ public class MRequestContext extends RequestContext
   private Accessibility _accMode;
   private AccessibilityProfile _accProfile;
   private ClientValidation _clientValidation = ClientValidation.ALERT;
+  private ChangeManager _changeManager;
   private Agent _agent;
+  private String _outputMode;
   private boolean _rtl = false;
   private boolean _animationEnabled = true;
 
