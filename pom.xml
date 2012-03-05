@@ -81,7 +81,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     <junit.version>4.4</junit.version>
     
     <!-- Plugins -->
-    <trinidad-plugins.version>2.0.7</trinidad-plugins.version>
+    <trinidad-plugins.version>2.0.8-SNAPSHOT</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
     <jetty-plugin.version>6.1.21</jetty-plugin.version>
     <pluto.version>1.1.6</pluto.version>
@@ -558,6 +558,21 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
         </plugin>  
 
         <plugin>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <version>0.7</version>
+          <configuration>
+            <includes>
+              <include>src/*/</include>
+              <include>pom.xml</include>
+            </includes>
+            <excludes>
+              <exclude>**/clirr-runner.txt</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-idea-plugin</artifactId>
           <version>2.2</version> 
@@ -687,28 +702,6 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
           </execution>
         </executions>
       </plugin>
-
-      <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-        <configuration>
-          <includes>
-            <include>src/*/</include>
-            <include>pom.xml</include>
-          </includes>
-          <excludes>
-            <exclude>**/clirr-runner.txt</exclude>
-          </excludes>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
 
@@ -752,6 +745,42 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
       <modules>
         <module>trinidad-assembly</module>
       </modules>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.rat</groupId>
+            <artifactId>apache-rat-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build> 
+    </profile>
+
+    <profile>
+      <id>enableRat</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.rat</groupId>
+            <artifactId>apache-rat-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
 
     <!--

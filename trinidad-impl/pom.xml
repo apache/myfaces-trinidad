@@ -135,6 +135,25 @@
   </dependencies>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <configuration>
+            <excludes>
+              <!-- Excludes the Golden files -->
+              <exclude>src/test/resources/*/</exclude>
+              <!-- Exclude a directory that jdev sometimes adds, should not be checked in -->            
+              <exclude>/src/webapp/</exclude>
+              <exclude>src/main/resources/META-INF/trinidad-version.txt</exclude>
+              <exclude>src/main/resources/META-INF/servlets/resources/adf.resources</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    
     <plugins>
       <plugin>
           <groupId>org.apache.myfaces.buildtools</groupId>
@@ -397,20 +416,6 @@
           </reportPlugins>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <!-- Excludes the Golden files -->
-            <exclude>src/test/resources/*/</exclude>
-            <exclude>src/main/resources/META-INF/trinidad-version.txt</exclude>
-            <exclude>src/main/resources/META-INF/servlets/resources/adf.resources</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-
     </plugins>    
   </build>
 </project>
