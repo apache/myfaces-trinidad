@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * @author Gabrielle Crawford
@@ -47,12 +48,51 @@ public class FrameBustingUtils
   //                     This is the default.
   //         always - always bust frames, meaning don't allow a page to be embedded in frames
   //         never - never bust frames, meaning always allow a page to be embedded in frames
-  static private final String _FRAME_BUSTING_PARAM = "org.apache.myfaces.trinidad.security.FRAME_BUSTING";
-  static public final String FRAME_BUSTING_NEVER = "never";
-  static public final String FRAME_BUSTING_ALWAYS = "always";
-  static public final String FRAME_BUSTING_DIFFERENT_ORIGIN = "differentOrigin";
+  static public final String FRAME_BUSTING_PARAM = "org.apache.myfaces.trinidad.security.FRAME_BUSTING";
   
-  public static String getFrameBustingValue(FacesContext context, RequestContext reqContext)
+  public static enum FrameBustingParamValue
+  {
+
+    FRAME_BUSTING_NEVER("never"),
+    FRAME_BUSTING_ALWAYS("always"),
+    FRAME_BUSTING_DIFFERENT_ORIGIN("differentOrigin");
+
+    FrameBustingParamValue(String value)
+    {
+      _value = value;
+    }
+    
+    /**
+     * toString returns the vary-type value.
+     * @return the vary-type value.
+     */
+    public String toString()
+    {
+      return _value;
+    }
+
+    public String displayName()
+    {
+      return _value;
+    }
+    
+    private String _value;
+    
+    public static FrameBustingParamValue valueOfDisplayName(String displayName) 
+    {
+      if (FRAME_BUSTING_NEVER.displayName().equalsIgnoreCase(displayName))
+        return FRAME_BUSTING_NEVER;
+      else if (FRAME_BUSTING_ALWAYS.displayName().equalsIgnoreCase(displayName))
+        return FRAME_BUSTING_ALWAYS;
+      else  if (FRAME_BUSTING_DIFFERENT_ORIGIN.displayName().equalsIgnoreCase(displayName))        
+        return FRAME_BUSTING_DIFFERENT_ORIGIN;
+      
+      return null;
+    }
+    
+  }
+  
+  public static FrameBustingParamValue getFrameBustingValue(FacesContext context, RequestContext reqContext)
   {   
     // Act as if the value is never if
     // 1. we're doing ppr, we should only need to bust frames on a full page render
@@ -68,26 +108,46 @@ public class FrameBustingUtils
     if ( reqContext.isPartialRequest(context) ||
          ExternalContextUtils.isPortlet(context.getExternalContext()))
     {
-      return FRAME_BUSTING_NEVER;    
+      return FrameBustingParamValue.FRAME_BUSTING_NEVER;    
     }    
     
     ConcurrentMap<String, Object> appMap = reqContext.getApplicationScopedConcurrentMap();
-    String frameBusting = (String)appMap.get(_FRAME_BUSTING_PARAM);
+    FrameBustingParamValue frameBusting = (FrameBustingParamValue)appMap.get(FRAME_BUSTING_PARAM);
     
     if (frameBusting == null)
     {
-      frameBusting = context.getExternalContext().getInitParameter(_FRAME_BUSTING_PARAM);
+      String frameBustingString = context.getExternalContext().getInitParameter(FRAME_BUSTING_PARAM);   
       
-      if (FRAME_BUSTING_NEVER.equalsIgnoreCase(frameBusting))
-        frameBusting = FRAME_BUSTING_NEVER;
-      else if (FRAME_BUSTING_ALWAYS.equalsIgnoreCase(frameBusting))
-        frameBusting = FRAME_BUSTING_ALWAYS;
-      else 
-        frameBusting = FRAME_BUSTING_DIFFERENT_ORIGIN;
+      if  (frameBustingString == null)
+      {
+        frameBusting = FrameBustingParamValue.FRAME_BUSTING_DIFFERENT_ORIGIN;
+      }
+      else
+      {        
+        frameBusting = FrameBustingParamValue.valueOfDisplayName(frameBustingString);   
+        
+        if (frameBusting == null)
+        {
+          frameBusting = FrameBustingParamValue.FRAME_BUSTING_DIFFERENT_ORIGIN;
+        
+          // if the context param was set but does not match a known legal value then log a warning
+          _LOG.warning("UNKNOWN_FRAME_BUSTING_VALUE");
+        }
+      }
       
-      appMap.put(_FRAME_BUSTING_PARAM, frameBusting);
+      appMap.put(FRAME_BUSTING_PARAM, frameBusting);
     }
 
     return frameBusting;
   }  
+  
+  public static void overrideFrameBustingValue(RequestContext reqContext, FrameBustingParamValue frameBusting)
+  {         
+    ConcurrentMap<String, Object> appMap = reqContext.getApplicationScopedConcurrentMap();      
+    appMap.put(FRAME_BUSTING_PARAM, frameBusting);
+  }    
+
+
+  static private final TrinidadLogger _LOG = 
+                             TrinidadLogger.createTrinidadLogger(FrameBustingUtils.class);  
 }

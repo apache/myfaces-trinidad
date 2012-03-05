@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.util.Service;
 import org.apache.myfaces.trinidadinternal.util.FrameBustingUtils;
+import org.apache.myfaces.trinidadinternal.util.FrameBustingUtils.FrameBustingParamValue;
 
 
 /**
@@ -596,9 +597,9 @@ public class BodyRenderer extends PanelPartialRootRenderer
   ) throws IOException
   {    
     // get the framebusting param set in web.xml
-    String frameBusting = FrameBustingUtils.getFrameBustingValue(context, rc.getRequestContext());
+    FrameBustingParamValue frameBusting = FrameBustingUtils.getFrameBustingValue(context, rc.getRequestContext());
     
-    if (! FrameBustingUtils.FRAME_BUSTING_NEVER.equalsIgnoreCase(frameBusting))
+    if (! FrameBustingParamValue.FRAME_BUSTING_NEVER.equals(frameBusting))
     {
       ResponseWriter out = context.getResponseWriter();
 

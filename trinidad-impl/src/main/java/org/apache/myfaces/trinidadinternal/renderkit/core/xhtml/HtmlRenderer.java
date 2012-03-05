@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.html.HtmlFrameBorderLayout;
 import org.apache.myfaces.trinidad.component.html.HtmlHtml;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.util.FrameBustingUtils;
 
 
 /**
@@ -82,34 +81,6 @@ public class HtmlRenderer extends XhtmlRenderer
     FacesBean        bean
     ) throws IOException
   {
-    
-    // add response headers for framebusting if needed
-    String frameBusting = FrameBustingUtils.getFrameBustingValue(context, rc.getRequestContext());        
-    
-    if (! FrameBustingUtils.FRAME_BUSTING_NEVER.equalsIgnoreCase(frameBusting))
-    {
-      try
-      {
-        // TODO: Mozilla has introduced CSP
-        //     https://wiki.mozilla.org/Security/CSP/Specification
-        // which we may want to support at some point
-        
-        // the X-Frame-Options header doesn't work on all browsers, but we're adding it anyway
-        if (FrameBustingUtils.FRAME_BUSTING_ALWAYS.equalsIgnoreCase(frameBusting))
-        {
-          context.getExternalContext().addResponseHeader("X-Frame-Options", "deny");
-        }
-        else
-        {
-          context.getExternalContext().addResponseHeader("X-Frame-Options", "sameorigin");
-        }
-      }
-      catch(UnsupportedOperationException uoe)
-      {
-        // framebusting is also supported in the BodyRenderer
-      }
-    }
-    
     ResponseWriter writer = context.getResponseWriter();
 
     String docType = getDocType(context, comp, bean);
