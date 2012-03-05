@@ -118,21 +118,6 @@
   </dependencies>
 
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.rat</groupId>
-          <artifactId>apache-rat-plugin</artifactId>
-          <configuration>
-            <excludes>
-              <exclude>**/clirr-runner.txt</exclude>
-              <!-- Sometimes added by jdev.  Should not ever be checked in. -->            
-              <exclude>/src/webapp/</exclude>
-            </excludes>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <plugins>
       <plugin>
          <groupId>org.codehaus.mojo</groupId> 	 
@@ -359,6 +344,18 @@
               <artifactId>maven-pmd-plugin</artifactId>
             </plugin>
           </reportPlugins>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/clirr-runner.txt</exclude>
+            <!-- Sometimes added by jdev.  Should not ever be checked in. -->            
+            <exclude>/src/webapp/</exclude>
+          </excludes>
         </configuration>
       </plugin>
     </plugins>

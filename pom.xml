@@ -90,7 +90,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
 
     <!-- Enforcer -->
     <maven.min-version>3.0</maven.min-version>
-    <jdk.min-version>1.5.0</jdk.min-version>
+    <jdk.min-version>1.6.0</jdk.min-version>
     
     <!-- Other -->
     <jdev.release>11.1.1.0.0</jdev.release>
@@ -558,21 +558,6 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
         </plugin>  
 
         <plugin>
-          <groupId>org.apache.rat</groupId>
-          <artifactId>apache-rat-plugin</artifactId>
-          <version>0.7</version>
-          <configuration>
-            <includes>
-              <include>src/*/</include>
-              <include>pom.xml</include>
-            </includes>
-            <excludes>
-              <exclude>**/clirr-runner.txt</exclude>
-            </excludes>
-          </configuration>
-        </plugin>
-
-        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-idea-plugin</artifactId>
           <version>2.2</version> 
@@ -584,6 +569,18 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
           </configuration>
         </plugin>
         
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>2.1.1</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-eclipse-plugin</artifactId>
+          <version>2.8</version>
+        </plugin>
+
       </plugins>
     </pluginManagement>
     
@@ -604,11 +601,16 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
             </goals>
             <configuration>
               <rules>
+                <requireJavaVersion>
+                  <message>Apache MyFaces Trinidad 2 needs to be compiled with Java 6</message>
+                  <version>1.6</version>
+                </requireJavaVersion>
                 <requireMavenVersion>
                   <!-- Require AT LEAST Maven 3.0 or higher -->
                   <version>[${maven.min-version},)</version>
                 </requireMavenVersion>
                 <requireJavaVersion>
+                  <message>Apache MyFaces Trinidad 2 needs to be compiled with at least JDK ${jdk.min-version}</message>                
                   <version>[${jdk.min-version},)</version>
                 </requireJavaVersion>
               </rules>    
@@ -625,27 +627,6 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
         </configuration>
       </plugin>
     
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>enforce-versions</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <requireJavaVersion>
-                  <message>Apache MyFaces Trinidad 2 needs to be compiled with Java 6</message>
-                  <version>1.6</version>
-                </requireJavaVersion>
-              </rules>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
@@ -701,6 +682,22 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      
+      <!-- Apache RAT Plugin - intentionally executed only on -PenableRat, -Papache-release, or rat:check -->      
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <version>0.7</version>
+        <configuration>
+          <includes>
+            <include>src/*/</include>
+            <include>pom.xml</include>
+          </includes>
+          <excludes>
+            <exclude>**/clirr-runner.txt</exclude>
+          </excludes>
+        </configuration>
       </plugin>
     </plugins>
   </build>
