@@ -1955,7 +1955,10 @@ abstract public class UIXComponentBase extends UIXComponent
       bean.setProperty(_SYSTEM_EVENT_LISTENERS_KEY, eventStorage);
     }
 
-    eventStorage.addAttachedObject(eventClass, new ComponentSystemEventListenerWrapper(componentListener, this));
+    if (componentListener instanceof SystemEventListener && componentListener instanceof StateHolder)
+      eventStorage.addAttachedObject(eventClass, (SystemEventListener) componentListener);
+    else
+      eventStorage.addAttachedObject(eventClass, new ComponentSystemEventListenerWrapper(componentListener, this));
   }
 
   @Override
@@ -1981,8 +1984,15 @@ abstract public class UIXComponentBase extends UIXComponent
       return;
     }
 
-    // ComponentSystemEventListenerWrapper implements equals() to compare listener and component
-    eventStorage.removeAttachedObject(eventClass, new ComponentSystemEventListenerWrapper(componentListener, this));
+    if (componentListener instanceof SystemEventListener && componentListener instanceof StateHolder)
+    {
+      eventStorage.removeAttachedObject(eventClass, (SystemEventListener) componentListener);    
+    }
+    else
+    {
+      // ComponentSystemEventListenerWrapper implements equals() to compare listener and component
+      eventStorage.removeAttachedObject(eventClass, new ComponentSystemEventListenerWrapper(componentListener, this));
+    }
   }
 
   @Override
@@ -2442,7 +2452,7 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
-  private static class ComponentSystemEventListenerWrapper implements SystemEventListener, StateHolder
+  private static class ComponentSystemEventListenerWrapper implements SystemEventListener, StateHolder, ComponentSystemEventListener
   {
     ComponentSystemEventListenerWrapper(ComponentSystemEventListener listener, UIComponent component)
     {
@@ -2483,7 +2493,13 @@ abstract public class UIXComponentBase extends UIXComponent
     public void processEvent(SystemEvent event) throws AbortProcessingException
     {
       assert (event instanceof ComponentSystemEvent);
-      _delegate.processEvent((ComponentSystemEvent)event);
+      processEvent((ComponentSystemEvent) event);
+    }
+
+    @Override
+    public void processEvent(ComponentSystemEvent event)
+    {
+      _delegate.processEvent((ComponentSystemEvent) event);
     }
 
     @Override
