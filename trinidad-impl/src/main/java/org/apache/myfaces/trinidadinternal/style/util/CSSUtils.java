@@ -1100,6 +1100,7 @@ public class CSSUtils
     _SPECIAL_URI_VALUES.add("none");
     _SPECIAL_URI_VALUES.add("inherit");
     _SPECIAL_URI_VALUES.add("-moz-linear-gradient");
+    _SPECIAL_URI_VALUES.add("-webkit-gradient");    
     _SPECIAL_URI_VALUES.add("-webkit-linear-gradient");
     _SPECIAL_URI_VALUES.add("radial-gradient");
     _SPECIAL_URI_VALUES.add("linear-gradient");
