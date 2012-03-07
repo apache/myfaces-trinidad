@@ -140,6 +140,7 @@ TrNumberFormat.prototype.setMaximumFractionDigits = function(number)
     {
       this._minFractionDigits = this._maxFractionDigits;
     }
+    this._isMaxFractionDigitsSet  = true;     
   }
 } 
 
@@ -395,7 +396,15 @@ TrNumberFormat.prototype.currencyToString = function(number)
 TrNumberFormat.prototype.percentageToString = function(number)
 {
   number = number * 100;
-  number = this.getRounded(number);
+  
+  // TRINIDAD-2139: getRounded calls Math.round() on number. Since number is
+  // multiplied by 100 before this call and later divided, the result will 
+  // have at most 2 fractional digits, regardless of the value of maxFractionDigits. 
+  // Hence, if maxFractionDigits is set, don't call this method and let 
+  // numberToString format the string appropriately. 
+  if (this._isMaxFractionDigitsSet == null)
+    number = this.getRounded(number);  
+  
   if (isNaN(number))
   {
     throw new TrParseException("not able to parse number");
