@@ -135,7 +135,7 @@ class PseudoFacesContext extends FacesContext
   @Override
   public boolean getResponseComplete()
   {
-    return false;
+    return _responseCompleted;
   }
 
   @Override
@@ -159,7 +159,7 @@ class PseudoFacesContext extends FacesContext
   @Override
   public void responseComplete()
   {
-    throw new UnsupportedOperationException();
+    _responseCompleted = true;    
   }
 
   @Override
@@ -238,4 +238,6 @@ class PseudoFacesContext extends FacesContext
   private final ExternalContext _external;
   private ELContext _elContext;
   private Application _application;
+  
+  private boolean _responseCompleted = false;
 }

@@ -173,6 +173,10 @@ public class TrinidadFilterImpl implements Filter
     GlobalConfiguratorImpl config = GlobalConfiguratorImpl.getInstance();
     config.beginRequest(externalContext);
     
+    // Allow Configurators to wrap response and request
+    request = (ServletRequest)externalContext.getRequest();
+    response = (ServletResponse)externalContext.getResponse();
+    
     String noJavaScript = request.getParameter(XhtmlConstants.NON_JS_BROWSER);
         
     // Wrap the request only for Non-javaScript browsers
@@ -190,13 +194,19 @@ public class TrinidadFilterImpl implements Filter
       FileUploadConfiguratorImpl.apply(externalContext);
       request = new UploadRequestWrapper((HttpServletRequest)request, addedParams);
     }
+    
+    boolean responseComplete = facesContext.getResponseComplete();
 
     // release the PseudoFacesContext, since _doFilterImpl() has its own FacesContext
     facesContext.release();
 
     try
     {
-      _doFilterImpl(request, response, chain);
+      // Abort processing if the response has been completed by Configurator
+      if (!responseComplete)
+      {
+        _doFilterImpl(request, response, chain);
+      }
     }
     // For PPR errors, handle the request specially
     catch (Throwable t)
@@ -246,7 +256,7 @@ public class TrinidadFilterImpl implements Filter
     ServletRequest  request,
     ServletResponse response,
     FilterChain     chain) throws IOException, ServletException
-  {
+  { 
     // -= Scott O'Bryan =-
     // Added for backward compatibility
     // potentially wrap the ServletContext to check ManagerBean HA

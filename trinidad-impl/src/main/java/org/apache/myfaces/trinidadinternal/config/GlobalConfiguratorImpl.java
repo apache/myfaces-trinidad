@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.config;
 
+import java.io.IOException;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +29,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.faces.context.FacesContext;
 import javax.faces.context.ExternalContext;
 
 import javax.servlet.ServletRequest;
@@ -37,6 +40,7 @@ import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.context.ExternalContextDecorator;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.RequestContextFactory;
+import org.apache.myfaces.trinidad.context.WindowManager;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
@@ -211,7 +215,19 @@ public final class GlobalConfiguratorImpl
 
         if (state.get(_IN_REQUEST) == null)
         {
-          _startConfiguratorServiceRequest(ec);
+          // Allow WindowManager to perform some processing at the beginning of request and optionally complete the response
+          if (!Boolean.TRUE.equals(state.get(_CONFIGURATORS_ABORTED)))
+          {
+            if (_beginWindowManagerRequest(ec))
+            {
+              _startConfiguratorServiceRequest(ec);
+            }
+            else
+            {
+              FacesContext.getCurrentInstance().responseComplete();
+              state.put(_CONFIGURATORS_ABORTED, Boolean.TRUE);
+            }
+          }
         }
       }
       else
@@ -301,7 +317,7 @@ public final class GlobalConfiguratorImpl
         {
           //Only end services at the end of a writable response.  This will
           //generally be RENDER, RESOURCE, and SERVLET.
-          if (ExternalContextUtils.isResponseWritable(ec))
+          if (ExternalContextUtils.isResponseWritable(ec) && !Boolean.TRUE.equals(state.get(_CONFIGURATORS_ABORTED)))
           {
             _endConfiguratorServiceRequest(ec);
           }
@@ -606,6 +622,23 @@ public final class GlobalConfiguratorImpl
       }
     }
   }
+  
+  private boolean _beginWindowManagerRequest(ExternalContext ec)
+  {
+    WindowManager wm = RequestContext.getCurrentInstance().getWindowManager();
+    boolean cont = true;  
+    
+    try
+    {
+      cont = wm.beginRequest(ec);
+    }
+    catch(IOException e)
+    {
+      _LOG.severe(e);
+    }
+                        
+    return cont;                    
+  }
 
   static private boolean _isSetRequestBugPresent(ExternalContext ec)
   {
@@ -779,6 +812,9 @@ public final class GlobalConfiguratorImpl
     GlobalConfiguratorImpl.class.getName() + ".REQUEST_CONTEXT";
   static private final String _REQUEST_TYPE =
     GlobalConfiguratorImpl.class.getName() + ".REQUEST_TYPE";
+  
+  static private final String _CONFIGURATORS_ABORTED =
+    GlobalConfiguratorImpl.class.getName() + ".CONFIGURATORS_ABORTED";
 
   static private class TestRequest
     extends ServletRequestWrapper

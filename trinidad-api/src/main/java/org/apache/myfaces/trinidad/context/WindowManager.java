@@ -85,4 +85,15 @@ abstract public class WindowManager
    * @throws IOException if an output exception occurs
    */
   public abstract void writeState(FacesContext context) throws IOException;
+  
+  /**
+   * Performs any necessary action at the very beginning of the request
+   * @param externalContext ExternalContext instance
+   * @return true if processing of the request should continue, false otherwise
+   */
+  public boolean beginRequest(ExternalContext externalContext) throws IOException
+  {
+    return true;
+  }
+
 }
