@@ -171,15 +171,20 @@ public class StyleSheetDocument
    */
   public Iterator<StyleSheetNode> getStyleSheets()
   {
+    return getStyleSheetsAsCollection().iterator();
+  }
+  
+  public Collection<StyleSheetNode> getStyleSheetsAsCollection()
+  {
     if(_styleSheets==null)
     {
       // -= Simon Lessard =- 
       // TODO: Collections.emptyList() maybe?
-      return  (Arrays.asList(new StyleSheetNode[0])).iterator();
+      return  (Arrays.asList(new StyleSheetNode[0]));
     }
     else
     {
-      return (Arrays.asList(_styleSheets)).iterator();
+      return (Arrays.asList(_styleSheets));
     }
   }
 
@@ -189,10 +194,14 @@ public class StyleSheetDocument
    */
   public Iterator<StyleSheetNode> getStyleSheets(StyleContext context)
   {
-    StyleSheetList styleSheets = _getStyleSheets(context);
-    return styleSheets.styleSheets().iterator();
+    return getStyleSheetsAsCollection(context).iterator();
   }
   
+  public Collection<StyleSheetNode> getStyleSheetsAsCollection(StyleContext context)
+  {
+    return _getStyleSheets(context).styleSheets();
+  }
+
   /**
    * Returns an Iterator of StyleNode objects for the specified context.
    */

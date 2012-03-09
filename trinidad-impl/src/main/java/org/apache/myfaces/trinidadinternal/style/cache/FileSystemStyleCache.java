@@ -59,9 +59,11 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
+import org.apache.myfaces.trinidadinternal.style.StyleSheetNamingStrategy;
 import org.apache.myfaces.trinidadinternal.style.UnmodifiableStyle;
 import org.apache.myfaces.trinidadinternal.style.util.CSSGenerationUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
+import org.apache.myfaces.trinidadinternal.style.util.StableNameUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleWriterFactory;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
@@ -250,6 +252,11 @@ public class FileSystemStyleCache implements StyleProvider
     StyleSheetDocument document
     )
   {
+    if (context.getNamingStrategy() == StyleSheetNamingStrategy.STABLE)
+    {
+      return StableNameUtils.getContextName(context, document);
+    }
+    
     StringBuilder buffer = new StringBuilder();
 
     String contextName = NameUtils.getContextName(context, document);
@@ -286,6 +293,50 @@ public class FileSystemStyleCache implements StyleProvider
     return buffer.toString();
   }
 
+  /**
+   * Specifies behavior in the event that the skin is reported
+   * as "dirty".
+   */
+  protected enum ClearOnDirty
+  {
+    /**
+     * Clear the entry cache, but leave other values alone.
+     * Used during skin pregeneration to free up entry cache
+     * memory without forcing skin documents to be reparsed.
+     */
+    ENTRIES,
+    
+    /**
+     * Clear all data.  This is the standard runtime behavior.
+     */
+    ALL;
+  }
+
+  /**
+   * Determines what data to clear when a "dirty" skin is detected - ie.
+   * when StyleContext.isDirty() returns true.
+   * 
+   * Typically when StyleContext reports that the skin has been dirtied, 
+   * we want to release all data, including the entry caches, the style
+   * sheet document, the short style class map, etc...
+   * 
+   * During skin pregeneration, in order to prevent the entry caches from
+   * becoming fully populated, we need to clear these out from time to time.
+   * The skin pregeneration service thus reports dirty == true periodically
+   * while pregeneration is being peformed.  When this occurs, we do not
+   * want to throw out all data - eg. we do not want to be forced to re-parse
+   * the skin document.  Instead, we simply want to clear the entry caches.
+   * This protected hook allows the skin pregeneration service to tune
+   * the dirty handling behavior.
+   * 
+   * @return by default, returns ClearOnDirty.ALL, forcing all data to be
+   *   cleared.
+   */
+  protected ClearOnDirty getClearOnDirty()
+  {
+    return ClearOnDirty.ALL;
+  }
+
   // Returns the current StyleSheetDocument - used by StyleMapImpl only
   StyleSheetDocument __getStyleSheetDocument()
   {
@@ -314,11 +365,19 @@ public class FileSystemStyleCache implements StyleProvider
       {
         _cache = null;
         _entryCache = null;
-        _document = null;
-        _reusableStyleMap = null;
-        _reusableSelectorMap = null;
-        _shortStyleClassMap = null;
-        _namespacePrefixes  = null;
+        
+        if (!isDirty || (getClearOnDirty() == ClearOnDirty.ALL))
+        {
+          _document = null;
+          _reusableStyleMap = null;
+          _reusableSelectorMap = null;
+          _shortStyleClassMap = null;
+          _namespacePrefixes  = null;
+        }
+        else
+        {
+          isDirty = false;
+        }
       }
 
       // We get references to our two caches (the "normal" cache,
@@ -1337,7 +1396,7 @@ public class FileSystemStyleCache implements StyleProvider
     {
       _styleSheets = new StyleSheetNode[styleSheets.length];
       System.arraycopy(styleSheets, 0, _styleSheets, 0, styleSheets.length);
-      _short = true;
+      _short = !context.isDisableStyleCompression();
       _portlet = context.isPortletMode();
       _secureRequest = context.isRequestSecure();
     }
