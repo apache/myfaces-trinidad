@@ -223,7 +223,7 @@ public final class AgentAtRuleMatcher
    * Returns a non-null Collection of agent applications that are matched by 
    * this matcher.
    */
-  public Collection<TrinidadAgent.Application> getMatchingApplications()
+  public Collection<TrinidadAgent.Application> getAllApplications()
   {
     return new ArrayList<TrinidadAgent.Application>(_selectorAgents.keySet());
   }
@@ -235,7 +235,7 @@ public final class AgentAtRuleMatcher
    * @param application the agent application for which matching version ranges
    *   should be returned.
    */
-  public Collection<Range<Version>> getVersionsForApplication(TrinidadAgent.Application application)
+  public Collection<Range<Version>> getAllVersionsForApplication(TrinidadAgent.Application application)
   {
     Collection<Range<Version>> ranges = new ArrayList<Range<Version>>();
 
@@ -252,6 +252,38 @@ public final class AgentAtRuleMatcher
     
     return ranges;
   }
+
+  /**
+   * Returns a non-null collection of agent version ranges that
+   * a) are matched by this matcher, and...
+   * b) contain the specified agent version.
+   * 
+   * @param application the agent application for which matching version ranges
+   *   should be returned.
+   * @param agentVersion only ranges that contain this version will be matched.
+   */  
+  public Collection<Range<Version>> getMatchingVersionsForApplication(
+    TrinidadAgent.Application application,
+    Version                   agentVersion
+    )
+  {
+    Collection<Range<Version>> allVersions = getAllVersionsForApplication(application);
+    Collection<Range<Version>> matchingVersions = 
+      new ArrayList<Range<Version>>(allVersions.size());
+    
+    for (Range<Version> range : allVersions)
+    {
+      // todo: Range.contains()
+      if ((range.getStart().compareTo(agentVersion) <= 0) &&
+          (range.getEnd().compareTo(agentVersion) >= 0))
+      {
+        matchingVersions.add(range);
+      }
+    }
+    
+    return matchingVersions;
+  }
+      
 
   private static Range<Version> _getVersionRange(AgentMatcher agentMatcher)
   {
@@ -544,7 +576,7 @@ public final class AgentAtRuleMatcher
   }
 
   /**
-   * Utility interface used by getVersionsForApplication() to extract
+   * Utility interface used by getAllVersionsForApplication() to extract
    * version info from agent matchers.
    */
   private interface Versioned

@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.Locale;
 
 import org.apache.myfaces.trinidad.context.Version;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent.Application;
 import org.apache.myfaces.trinidadinternal.skin.AgentAtRuleMatcher;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
@@ -196,7 +197,7 @@ public final class StableNameUtils
     {
       return Arrays.<NamingStyleSheetVisitor>asList(
                new PlatformNameExtractor(),
-               new ApplicationNameExtractor(),
+               new ApplicationNameExtractor(_context.getAgent().getVersion()),
                new LocaleNameExtractor(),
                new DirectionNameExtractor(),
                new AccessibilityNameExtractor());
@@ -452,9 +453,12 @@ public final class StableNameUtils
   // NamingStyleSheetVisitor that extracts the agent application name
   private static class ApplicationNameExtractor extends CollectionNameExtractor<Application>
   {
-    public ApplicationNameExtractor()
+    public ApplicationNameExtractor(Version agentVersion)
     {
-      _versionRange = Range.of(Version.MIN_VERSION, Version.MAX_VERSION);
+      assert(agentVersion != null);
+
+      _agentVersion = agentVersion;
+      _matchedVersions = Range.of(Version.MIN_VERSION, Version.MAX_VERSION);
     }
 
     @Override
@@ -466,7 +470,7 @@ public final class StableNameUtils
         return Collections.emptySet();
       }
       
-      return agentMatcher.getMatchingApplications();
+      return agentMatcher.getAllApplications();
     }
 
     @Override
@@ -489,13 +493,18 @@ public final class StableNameUtils
       assert(agentMatcher != null);
       assert(agentApplication != null);
 
-      Collection<Range<Version>> versionRanges = agentMatcher.getVersionsForApplication(agentApplication);
-      Range.intersect(_versionRange, versionRanges);
+      Collection<Range<Version>> versionRanges =
+        agentMatcher.getMatchingVersionsForApplication(agentApplication, _agentVersion);
+      Range.intersect(_matchedVersions, versionRanges);
 
-      if (_versionRange.getStart().compareTo(_versionRange.getEnd()) > 0)
+      if (_matchedVersions.getStart().compareTo(_matchedVersions.getEnd()) > 0)
       {
-        // todo: doc (eg. 1.9.0 vs. 1.9)
-        _versionRange.setEnd(_versionRange.getStart());
+        throw new IllegalStateException(
+          _LOG.getMessage("ILLEGAL_SKIN_AGENT_VERSION_RANGE",
+                                        new Object[] {
+                                          agentApplication,
+                                          _matchedVersions.getStart(),
+                                          _matchedVersions.getEnd() }));
       }
     }
 
@@ -522,8 +531,8 @@ public final class StableNameUtils
   
     private void _appendVersionName(StringBuilder builder)
     {
-      Version startVersion = _versionRange.getStart();
-      Version endVersion = _versionRange.getEnd();
+      Version startVersion = _matchedVersions.getStart();
+      Version endVersion = _matchedVersions.getEnd();
       boolean startMin = startVersion.equals(Version.MIN_VERSION);
       boolean endMax = endVersion.equals(Version.MAX_VERSION);
       
@@ -553,7 +562,8 @@ public final class StableNameUtils
       }
     }
 
-    private Range<Version> _versionRange;
+    private final Version  _agentVersion;
+    private Range<Version> _matchedVersions;
   }
 
   // NamingStyleSheetVisitor that extracts the locale name.
@@ -691,4 +701,8 @@ public final class StableNameUtils
   }
   
   private static final char _SEPARATOR = '-';
+
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(StableNameUtils.class);  
+  
 }

@@ -125,7 +125,7 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
     assert(agentMatcher != null);
     
     Collection<TrinidadAgent.Application> nodeApplications =
-      agentMatcher.getMatchingApplications();
+      agentMatcher.getAllApplications();
       
     for (TrinidadAgent.Application application : nodeApplications)
     {
@@ -134,7 +134,7 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
       
       if (supported)
       {
-        Collection<Range<Version>> versionRanges = agentMatcher.getVersionsForApplication(application);
+        Collection<Range<Version>> versionRanges = agentMatcher.getAllVersionsForApplication(application);
         _addVersions(application, versionRanges);        
       }
 
