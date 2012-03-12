@@ -135,30 +135,47 @@ public final class Version implements Comparable<Version>
     // equivalent
     return 0;
   }
-  
+
   /**
-   * Converts this Version to an equivalent instance with wildcard segements replaced
-   * by some concrete (non-wildcard) value.
-   *
-   * @return this, if no wildcards are present. Otherwise, a new Version instance
-   *         with wildcard segments replaced by some concrete value is returned.
+   * Converts this Version to an equivalent "minimum" instance.
+   * 
+   * Interior wildcard segements are replaced with "0".
+   * The trailing wildcard segment (if present) is dropped.
+   * Wildcard version padding is replaced with null padding.
+   * 
+   * If no wilcards are present, returns this Version instance.
    */
-  public Version toConcreteVersion()
+  public Version toMinimumVersion()
   {
     if (!_containsWildcard() && !_isWildcard(_versionPadding))
     {
       return this;
     }
     
-    // We don't make any guarantee about what value we'll use
-    // when replacing wildcards.  Zero is as good as any.
-    return new Version(_toString("0"));
+    return new Version(_toString("0", true));
+  }
+
+  /**
+   * Converts this Version to an equivalent "maximum" instance.
+   * 
+   * Both wildcard segements and wilcard padding are replaced with
+   * Integer.MAX_VALUE.
+   * If no wilcards are present, returns this Version instance.
+   */
+  public Version toMaximumVersion()
+  {
+    if (!_containsWildcard() && !_isWildcard(_versionPadding))
+    {
+      return this;
+    }
+    
+    return new Version(_toString(_MAX_STRING, false), _MAX_STRING);
   }
 
   @Override
   public String toString()
   {
-    return _toString(_WILDCARD);
+    return _toString(_WILDCARD, false);
   }
   
   @Override
@@ -264,9 +281,19 @@ public final class Version implements Comparable<Version>
     return (ourIntVersion < otherIntVersion) ? -1 : (ourIntVersion > otherIntVersion ? 1 : 0);
   }
 
-  // Returns the string representation of the this Version, replacing
-  // wildcards with the specified value.
-  private String _toString(String wildcardReplacement)
+  /**
+   * Returns the string representation of the this Version, replacing
+   * wildcards with the specified value.
+   *
+   * @param wildcardReplacement non-null String to substitute for wildcard
+   *   version segments.
+   * @param dropTrailingWildcard flag indicating whether trailing wildcards
+   *   should be dropped in the returned string.
+   */
+  private String _toString(
+    String  wildcardReplacement,
+    boolean dropTrailingWildcard
+    )
   {
     assert(wildcardReplacement != null);
 
@@ -287,7 +314,14 @@ public final class Version implements Comparable<Version>
       i++;
       
       if (i != versionCount)
+      {
+        if (dropTrailingWildcard && (i == versionCount - 1) && _isWildcard(_versions[i]))
+        {
+          break;
+        }
+
         versionBuilder.append('.');
+      }
       else
         break;
     }
@@ -360,6 +394,7 @@ public final class Version implements Comparable<Version>
   // Placeholder used by _intVersions[] for non-numeric/non-int segments.
   private static final int _NON_INT_VERSION = -1;
   
+  private static final String _MAX_STRING = Integer.toString(Integer.MAX_VALUE);
   /**
    * A constant value holding the minimum value a version can have: 0.
    */
@@ -374,5 +409,6 @@ public final class Version implements Comparable<Version>
    * a range of versions.  Version.MAX_VERSION specifies the Integer.MAX_VALUE
    * version for this purpose.
    */
-  public static final Version MAX_VERSION = new Version(Integer.toString(Integer.MAX_VALUE));
+  public static final Version MAX_VERSION =
+    new Version(_MAX_STRING, _MAX_STRING);
 }

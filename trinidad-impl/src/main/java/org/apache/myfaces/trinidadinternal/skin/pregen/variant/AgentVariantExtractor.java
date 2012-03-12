@@ -181,8 +181,8 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
       // Version's wildcard-sensitive natural ordering (ie.
       // a Set.add() might fail because a matching/wildcarded
       // version is already present.)
-      versions.add(versionRange.getStart().toConcreteVersion());
-      versions.add(versionRange.getEnd().toConcreteVersion());
+      versions.add(versionRange.getStart().toMinimumVersion());
+      versions.add(versionRange.getEnd().toMaximumVersion());
     }
   }
 
@@ -213,6 +213,7 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
   // Only extract version information for these applications.
   private final Collection<TrinidadAgent.Application> _supportedApplications;
 
+  // todo: doc
   private static final Version _UNKNOWN_VERSION = new Version("unknown");
   
 }

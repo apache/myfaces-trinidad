@@ -550,15 +550,9 @@ public final class StableNameUtils
         builder.append(startVersion);
         builder.append("p");
       }
-      else if (startVersion.equals(endVersion))
-      {
-        builder.append(startVersion);
-      }
       else
       {
         builder.append(startVersion);
-        builder.append("x");
-        builder.append(endVersion);
       }
     }
 

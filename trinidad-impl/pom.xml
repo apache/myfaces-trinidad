@@ -33,6 +33,10 @@
   <artifactId>trinidad-impl</artifactId>
   <packaging>jar</packaging>
 
+  <properties>
+    <jdev.project.has.tests>true</jdev.project.has.tests>
+  </properties>
+
   <dependencies>
 
     <dependency>

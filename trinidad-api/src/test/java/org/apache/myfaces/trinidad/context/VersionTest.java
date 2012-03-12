@@ -63,13 +63,44 @@ public class VersionTest extends TestCase
     assertTrue("v10 > v9.*", v10.compareTo(v9x) > 0);
   }
   
-  public void testConcreteVersion()
+  public void testMinimumVersion()
   {
     Version v9 = new Version("9");
     Version v9x = new Version("9.*");
 
-    assertTrue("non-wildcard concrete version identity", v9.toConcreteVersion() == v9);
-    assertTrue("wildcard present", v9x.toString().contains("*"));
-    assertFalse("wildcard removed", v9x.toConcreteVersion().toString().contains("*"));
+    assertTrue("trailing wildcard removal", v9x.toMinimumVersion().equals(v9));
+
+    Version v900 = new Version("9.0.0");
+    Version v9x0 = new Version("9.*.0");
+
+    assertTrue("interior wildcard removal", v9x0.toMinimumVersion().equals(v900));
+    
+    Version v9padded = new Version("9", "*");
+    assertTrue("wildcard padding match", v9padded.compareTo(v900) == 0);
+    
+    Version v9paddedMin = v9padded.toMinimumVersion();
+    assertTrue("wildcard padding removed", v9paddedMin.compareTo(v900) != 0);
+    assertTrue("wildcard padding removed equality ", v9paddedMin.equals(v9));
+  }
+  
+  public void testMaximumVersion()
+  {
+    String intMax = Integer.toString(Integer.MAX_VALUE);
+  
+    Version v9max = new Version("9." + intMax, intMax);
+    Version v9x = new Version("9.*");
+
+    assertTrue("trailing wildcard removal", v9x.toMaximumVersion().equals(v9max));
+
+    Version v9max0 = new Version("9." + intMax + ".0", intMax);
+    Version v9x0 = new Version("9.*.0");
+
+    assertTrue("interior wildcard removal", v9x0.toMaximumVersion().equals(v9max0));
+    
+    Version v9padded = new Version("9", "*");
+    Version v9paddedMax = v9padded.toMaximumVersion();    
+    assertTrue("wildcard padding match", v9padded.compareTo(v9max0) == 0);
+    assertTrue("wildcard padding removed non-match", v9paddedMax.compareTo(v9max0) != 0);
+    assertTrue("wildcard padding removed equality ", v9paddedMax.equals(new Version("9", intMax)));
   }
 }

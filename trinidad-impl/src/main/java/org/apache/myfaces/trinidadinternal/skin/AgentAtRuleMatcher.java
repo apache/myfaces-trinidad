@@ -648,20 +648,17 @@ public final class AgentAtRuleMatcher
       Version start = Version.MIN_VERSION;
       Version end = Version.MAX_VERSION;
       
-      // doc: concrete version
-      Version version = _version.toConcreteVersion();
-      
       switch (_comparison)
       {
         case MIN:
-          start = version;
+          start = _version.toMinimumVersion();
           break;
         case MAX:
-          end = version;
+          end = _version.toMaximumVersion();
           break;
         case EQUALS:
-          start = version;
-          end = version;
+          start = _version.toMinimumVersion();;
+          end = _version.toMaximumVersion();;
           break;
       }
       

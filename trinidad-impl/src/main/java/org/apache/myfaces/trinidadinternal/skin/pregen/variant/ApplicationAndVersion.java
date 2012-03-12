@@ -40,7 +40,7 @@ public final class ApplicationAndVersion implements Comparable<ApplicationAndVer
   public static final ApplicationAndVersion UNKNOWN = 
     new ApplicationAndVersion(
       TrinidadAgent.Application.UNKNOWN,
-      new Version("0"));
+      Version.MIN_VERSION);
   
   /**
    * Creates an AppplicationAndVersion instance for the
@@ -61,7 +61,9 @@ public final class ApplicationAndVersion implements Comparable<ApplicationAndVer
     assert(version != null);
 
     this.application = application;
-    this.version = version.toConcreteVersion();
+    
+    // Any concrete version will do, we'll go with the min.
+    this.version = version.toMinimumVersion();
   }
   
   @Override
