@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidad.context;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.Range;
 
 /**
@@ -83,10 +84,10 @@ public final class Version implements Comparable<Version>
    * versionPadding.
    * @param version The dot-separated version to represent
    * @param versionPadding The value to return for sub-version sections
-   * requested beyond the sub-version sections present in the version String
-   * @throws NullPointerException if version or versionPadding are null
-   * @throws IllegalArgumentException if version or versionPadding are the
-   * empty String
+   * requested beyond the sub-version sections present in the version String.
+   * If null or empty, no padding will be performed.
+   * @throws NullPointerException if version is null
+   * @throws IllegalArgumentException if version is the empty String
    */
   public Version(String version, String versionPadding)
   {
@@ -98,7 +99,13 @@ public final class Version implements Comparable<Version>
     
     // build the array of subversions
     _versions = _DOT_SPLITTER.split(version, 0);
-    _intVersions = _toIntVersions(_versions);
+    
+    // We also store away int representations of version strings, since
+    // this is necessary for more accurate comparison - ie. when comparing
+    // version segments, we want to compare int 9 vs 10, since comparing
+    // "9".compareTo("10") produces undesirable results.
+    _intVersions = _toIntVersions(_versions, version);
+
     _versionPadding = versionPadding;
     
     // since we're immutable, we might as well calculate this up front
@@ -128,28 +135,7 @@ public final class Version implements Comparable<Version>
     
     for (int versionIndex = 0; versionIndex < compareCount; versionIndex++)
     {
-      int result = 0;
-      
-      if (_isIntComparable(otherVersion, versionIndex))
-      {
-        result = _compareIntVersions(otherVersion, versionIndex);
-      }
-      else
-      {
-        String ourSubVersion = _getSubVersion(versionIndex);
-        String otherSubVersion = otherVersion._getSubVersion(versionIndex);
-      
-        // treat "*" wildcard as equals
-        if (_isWildcard(ourSubVersion) || _isWildcard(otherSubVersion))
-        {
-          continue;
-        }
-        else
-        {
-          // compare the sub-result
-          result = ourSubVersion.compareTo(otherSubVersion);
-        }
-      }
+      int result = _compareVersions(otherVersion, versionIndex);
 
       // not equal, so return the result
       if (result != 0)
@@ -159,7 +145,7 @@ public final class Version implements Comparable<Version>
     // equivalent
     return 0;
   }
-
+  
   /**
    * Converts this Version to an equivalent "minimum" instance.
    * 
@@ -236,14 +222,16 @@ public final class Version implements Comparable<Version>
   // fail to convert.  We identify these segments by setting
   // the int value to _NON_INT_VERSION.  We can then fall
   // back on using String comparisions for these segments.
-  private static int[] _toIntVersions(String[] versions)
+  //
+  // The fullVersion is provided for error handling only.
+  private static int[] _toIntVersions(String[] versions, String fullVersion)
   {
     assert(versions != null);
     int[] intVersions = new int[versions.length];
     
     for (int i = 0; i < versions.length; i++)
     {
-      intVersions[i] = _toIntVersion(versions[i]);
+      intVersions[i] = _toIntVersion(versions[i], fullVersion);
     }
     
     return intVersions;
@@ -252,23 +240,47 @@ public final class Version implements Comparable<Version>
   // Converts a String version segment to the corresponding
   // int.  Returns _NON_INT_VERSION if the String cannot be
   // converted (eg. wildcard character).
-  private static int _toIntVersion(String version)
+  //
+  // The fullVersion is provided for error handling only.
+  private static int _toIntVersion(String versionSegment, String fullVersion)
   {
-    if (_DIGITS_PATTERN.matcher(version).matches())
+    if (_DIGITS_PATTERN.matcher(versionSegment).matches())
     {
       try
       {
-        return Integer.parseInt(version);
+        return Integer.parseInt(versionSegment);
       }
       catch (NumberFormatException e)
       {
-        // no-op - return value below
+        // Since we already filtered out version strings
+        // that didn't match the _DIGITS_PATTERN, the only
+        // case where we should arrive here is if the version
+        // string overflows int.
+        _LOG.warning("UNEXPECTED_VERSION_VALUE", new Object[] { versionSegment, fullVersion });                
       }
     }
     
     return _NON_INT_VERSION;
   }
 
+  /**
+   * Compares the version segment at the specified index.
+   * 
+   * @param otherVersion the Version instance to which we are comparing.
+   * @param versionIndex the index of the version segment that we are testing
+   * @return < 0 if this Version's segment is < otherVersion's segment.  0 if 
+   *   equal.  Otherwise, > 1.
+   */
+  private int _compareVersions(Version otherVersion, int versionIndex)
+  {
+    if (_isIntComparable(otherVersion, versionIndex))
+    {
+      return _compareIntVersions(otherVersion, versionIndex);
+    }
+    
+    return _compareStringVersions(otherVersion, versionIndex);
+  }
+  
   /**
    * Tests whether an int comparison can be performed for a particular
    * version segment.
@@ -290,7 +302,8 @@ public final class Version implements Comparable<Version>
   }
 
   /**
-   * Compares the int version segments at the specified index
+   * Compares the int version segments at the specified index.
+   * 
    * @param otherVersion the Version instance to which we are comparing.
    * @param versionIndex the index of the version segment that we are testing.
    * @return < 0 if this Version's segment is < otherVersion's segment.  0 if 
@@ -303,6 +316,28 @@ public final class Version implements Comparable<Version>
     int otherIntVersion = otherVersion._intVersions[versionIndex];
     
     return (ourIntVersion < otherIntVersion) ? -1 : (ourIntVersion > otherIntVersion ? 1 : 0);
+  }
+
+  /**
+   * Compares the String version segment at the specified index.
+   * 
+   * @param otherVersion the Version instance to which we are comparing.
+   * @param versionIndex the index of the version segment that we are testing
+   * @return < 0 if this Version's segment is < otherVersion's segment.  0 if 
+   *   equal.  Otherwise, > 1.
+   */
+  private int _compareStringVersions(Version otherVersion, int versionIndex)
+  {
+    String ourSubVersion = _getSubVersion(versionIndex);
+    String otherSubVersion = otherVersion._getSubVersion(versionIndex);
+      
+    // treat "*" wildcard as equals
+    if (_isWildcard(ourSubVersion) || _isWildcard(otherSubVersion))
+    {
+      return 0;
+    }
+    
+    return ourSubVersion.compareTo(otherSubVersion);
   }
 
   /**
@@ -415,15 +450,22 @@ public final class Version implements Comparable<Version>
   // A pattern for testing whether a version string is numeric.
   private static final Pattern _DIGITS_PATTERN = Pattern.compile("\\d+");
   
-  // Placeholder used by _intVersions[] for non-numeric/non-int segments.
+  // Placeholder used by _intVersions[] for non-numeric/non-int segments.  Note
+  // that we can use -1 to mark non-int versions since the _DIGITS_PATTERN will
+  // filter out any negative values - ie. _intVersions[] will only contain
+  // non-negative version ints, plus _NON_INT_VERSION.
   private static final int _NON_INT_VERSION = -1;
   
   private static final String _MAX_STRING = Integer.toString(Integer.MAX_VALUE);
   
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(Version.class);
+
   static
   {
     MIN_VERSION = new Version("0");
     MAX_VERSION = new Version(_MAX_STRING, _MAX_STRING);
     ALL_VERSIONS = Range.of(MIN_VERSION, MAX_VERSION);
   }
+
 }
