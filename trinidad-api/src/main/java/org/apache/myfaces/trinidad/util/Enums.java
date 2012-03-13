@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Enum-related utilities.
  */
-public class Enums
+public final class Enums
 {
   /**
    * Single abstract method interface for converting Enum
@@ -78,7 +78,7 @@ public class Enums
       stringKeyMap.put(keyProducer.toString(enumValue), enumValue);
     }
 
-    return stringKeyMap;
+    return Collections.unmodifiableMap(stringKeyMap);
   }
   
   /**
@@ -172,7 +172,7 @@ public class Enums
    * 
    * @param valuesToParse string values to parse
    * @param enumClass target enum class
-   * @param defaultValue an enum value to include in the parsed collection if no
+   * @param defaultValue an enum value to include in the parsed collection if
    *   valueToParse is empty.
    * @param enumParser called for each string value to convert to an enum constant.
    * 
@@ -275,8 +275,12 @@ public class Enums
    * 
    * @param enumClass the class of the enum for which we want to produce strings.  This
    *   class must provide a public displayName() method.
+   *   
+   * @throws IllegalArgumentException if the enum class does not provide a publicly
+   *   accessible displayName() method.
    */
   public static <E extends Enum> StringProducer<E> displayNameStringProducer(Class<E> enumClass)
+    throws IllegalArgumentException
   {
     return methodNameStringProducer(enumClass, "displayName");
   }
@@ -287,6 +291,9 @@ public class Enums
    * 
    * @param enumClass the target class to which String values are parsed.  This
    *   class must provide a public static valueOfDisplayName(String) method.
+   *
+   * @throws IllegalArgumentException if the enum class does not provide a publicly
+   *   accessible valueOfDisplayName(String) method.
    */
   public static <E extends Enum> EnumParser<E> displayNameEnumParser(Class<E> enumClass)
   {
@@ -297,14 +304,16 @@ public class Enums
    * Returns a StringProducer uses reflection to produce Strings from
    * enum constant values.
    * 
-   * 
    * @param enumClass the enum class on which the StringProducer operates
    * @param methodName the name of the method which the StringProducer invokes
+   * 
+   * @throws IllegalArgumentException if the method specified by the 
+   *   methodName argument does not exist.
    */
   public static <E extends Enum> StringProducer<E> methodNameStringProducer(
     Class<E> enumClass,
     String   methodName
-    )
+    ) throws IllegalArgumentException
   {
     final Method method = _getMethod(enumClass, methodName);
       
@@ -324,11 +333,14 @@ public class Enums
    *
    * @param enumClass the target enum class
    * @param methodName the name of the method to invoke
+   * 
+   * @throws IllegalArgumentException if the method specified by the 
+   *   methodName argument does not exist.
    */
   public static <E extends Enum> EnumParser<E> methodNameEnumParser(
     final Class<E> enumClass,
     String   methodName
-    )
+    ) throws IllegalArgumentException
   {
     final Method method = _getMethod(enumClass, methodName, String.class);
     
@@ -342,11 +354,12 @@ public class Enums
   }
   
   // Wrapper for Class.getMethod() that adds exception handling.
+  // Throws IllegalArgumentException if the Method cannot be retreived.
   private static Method _getMethod(
     Class<?>    aClass,
     String      methodName,
     Class<?>... parameterTypes
-    )
+    ) throws IllegalArgumentException
   {
     try
     {
@@ -354,11 +367,12 @@ public class Enums
     }
     catch (Exception e)
     {
-      throw new IllegalStateException(e);
+      throw new IllegalArgumentException(e);
     }
   }
   
-  // Wrapper for Method.invoke() that adds exception handling.
+  // Wrapper for Method.invoke() that adds exception handling.  Checked
+  // exceptions are propagated out as runtime exceptions.
   private static Object _invokeMethod(
     Method    method,
     Object    obj,
@@ -382,12 +396,12 @@ public class Enums
       }
       else
       {
-        throw new IllegalStateException(ite);
+        throw new RuntimeException(ite);
       }
     }
     catch (Exception e)
     {
-      throw new IllegalStateException(e);    
+      throw new RuntimeException(e);    
     }
   }
 

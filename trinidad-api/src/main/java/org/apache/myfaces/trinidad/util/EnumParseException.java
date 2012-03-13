@@ -29,7 +29,7 @@ package org.apache.myfaces.trinidad.util;
  * 
  * @see Enums#parseEnumValues
  */
-public class EnumParseException extends RuntimeException
+public final class EnumParseException extends RuntimeException
 {
   /**
    * Creates the EnumParseException

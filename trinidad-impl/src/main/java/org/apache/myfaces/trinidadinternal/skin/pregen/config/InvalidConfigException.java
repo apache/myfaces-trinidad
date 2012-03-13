@@ -22,7 +22,7 @@ package org.apache.myfaces.trinidadinternal.skin.pregen.config;
  * Exception thrown from PregenConfig.parse() if a failure occurs during
  * parsing.
  */
-public class InvalidConfigException extends RuntimeException
+public final class InvalidConfigException extends RuntimeException
 {
   /**
    * Creates an InvalidConfigException with a message that is

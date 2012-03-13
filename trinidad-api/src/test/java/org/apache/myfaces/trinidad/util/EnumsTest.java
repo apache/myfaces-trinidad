@@ -141,7 +141,7 @@ public class EnumsTest extends TestCase
     }
   }
 
-  public void testIllegalStringToEnum()
+  public void testStringToEnumInvalidValue()
   {
     Map<String,Clash> clashMap = Enums.createStringKeyMap(Clash.class,
                                             new InstrumentStringProducer());
@@ -176,7 +176,7 @@ public class EnumsTest extends TestCase
     assertTrue(values.contains(Clash.PAUL));
   }
   
-  public void testIllegalParseEnumValues()
+  public void testlParseEnumValuesInvalidValues()
   {
     String harmonica = "harmonica";
 
@@ -237,7 +237,7 @@ public class EnumsTest extends TestCase
     }
   }
   
-  public void testIllegalDisplayNameEnumParser()
+  public void testDisplayNameEnumParserInvalidValue()
   {
     EnumParser<Clash> parser = Enums.displayNameEnumParser(Clash.class);
     
@@ -262,6 +262,19 @@ public class EnumsTest extends TestCase
     }
   }
   
+  public void testMethodNameStringProducerInvalidName()
+  {
+    try
+    {
+      Enums.methodNameStringProducer(Clash.class, "height");
+      fail("IllegalArgumentException expected");
+    }
+    catch (IllegalArgumentException e)
+    {
+      // this is expected
+    }
+  }
+
   public void testMethodNameEnumParser()
   {
     EnumParser<Clash> parser = Enums.methodNameEnumParser(Clash.class, "valueOfDisplayName");
@@ -272,13 +285,26 @@ public class EnumsTest extends TestCase
     }
   }
   
-  public void testIllegalMethodNameEnumParser()
+  public void testMethodNameEnumParserInvalidValue()
   {
     EnumParser<Clash> parser = Enums.methodNameEnumParser(Clash.class, "valueOfDisplayName");
 
     try
     {
       parser.parse("henry");
+      fail("IllegalArgumentException expected");
+    }
+    catch (IllegalArgumentException e)
+    {
+      // this is expected
+    }
+  }
+
+  public void testMethodNameEnumParserInvalidName()
+  {
+    try
+    {
+      Enums.methodNameEnumParser(Clash.class, "valueOfHeight");
       fail("IllegalArgumentException expected");
     }
     catch (IllegalArgumentException e)
