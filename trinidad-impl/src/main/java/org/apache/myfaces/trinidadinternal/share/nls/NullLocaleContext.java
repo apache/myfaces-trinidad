@@ -105,7 +105,7 @@ public final class NullLocaleContext extends LocaleContext
     _rightToLeft = rightToLeft;
   }
   
-  private boolean _rightToLeft;
+  private final boolean _rightToLeft;
   
   private static final LocaleContext _RTL_INSTANCE = new NullLocaleContext(true);
   private static final LocaleContext _LTR_INSTANCE = new NullLocaleContext(false);

@@ -239,29 +239,18 @@ public final class AgentAtRuleMatcher
    */
   public Collection<Range<Version>> getAllVersionsForApplication(TrinidadAgent.Application application)
   {
-    Collection<Range<Version>> ranges = new HashSet<Range<Version>>();
-    Set<AgentMatcher> agentMatchers = _selectorAgents.get(application);
+    Collection<Range<Version>> versionRanges = new HashSet<Range<Version>>();
+    Collection<AgentMatcher> agentMatchers = _selectorAgents.get(application);
     
     for (AgentMatcher agentMatcher : agentMatchers)
     {
-      Range<Version> range = _getVersionRange(agentMatcher);
-      assert(range != null);
+      Range<Version> versionRange = agentMatcher.getMatchedVersions();
+      assert(versionRange != null);
 
-      ranges.add(range);
+      versionRanges.add(versionRange);
     }
     
-    return ranges;
-  }
-
-  // Returns a non-null range of Versions for the specified matcher.
-  private static Range<Version> _getVersionRange(AgentMatcher agentMatcher)
-  {
-    if (agentMatcher instanceof Versioned)
-    {
-      return ((Versioned)agentMatcher).getMatchedVersions();
-    }
-
-    return Version.ALL_VERSIONS;
+    return versionRanges;
   }
 
   /**
@@ -567,6 +556,17 @@ public final class AgentAtRuleMatcher
      * @return <code>true</code> if the match succeeds
      */
     public abstract boolean match(TrinidadAgent agent);
+    
+    /**
+     * Returns the versions matched by this AgentMatcher.
+     * 
+     * By default, all versions are matched.  Subclasses should
+     * override to constrain to the versions that they match.
+     */
+    public Range<Version> getMatchedVersions()
+    {
+      return Version.ALL_VERSIONS;
+    }
 
     @Override
     public abstract int hashCode();
@@ -576,20 +576,10 @@ public final class AgentAtRuleMatcher
   }
 
   /**
-   * Utility interface used by getAllVersionsForApplication() to extract
-   * version info from agent matchers.
-   */
-  private interface Versioned
-  {
-    Range<Version> getMatchedVersions();    
-  }
-
-  /**
    * Immutable and thread-safe AgentMatcher that matches the supplied Version against the
    * version of a TrinidadAgent using the supplied, MAX, MIN, or EQUALS Comparison
    */
   private static final class VersionMatcher extends AgentMatcher
-    implements Versioned
   {
     /**
      * Creates a VersionMatcher
@@ -707,7 +697,7 @@ public final class AgentAtRuleMatcher
    * AgentMatcher that ANDs the results of all calling match() on its AgentMatchers together,
    * short-circuiting on the first AgentMatcher.match() that returns false.
    */
-  private static class AndMatcher extends AgentMatcher implements Versioned
+  private static class AndMatcher extends AgentMatcher
   {
     /**
      * Creates an AndMatcher
@@ -726,20 +716,20 @@ public final class AgentAtRuleMatcher
       for (AgentMatcher matcher : matchers)
       {
         if (matcher instanceof VersionMatcher)
-          hasVersionMatcher = true;
+          _hasVersionMatcher = true;
         if (matcher instanceof TouchScreenCapabilityMatcher)
-          hasTouchScreenCapabilityMatcher = true;
+          _hasTouchScreenCapabilityMatcher = true;
       }
     }
 
     protected boolean hasTouchScreenCapabilityMatcher()
     {
-      return hasTouchScreenCapabilityMatcher;
+      return _hasTouchScreenCapabilityMatcher;
     }
 
     protected boolean hasVersionMatcher()
     {
-      return hasVersionMatcher;
+      return _hasVersionMatcher;
     }
 
     /**
@@ -766,35 +756,14 @@ public final class AgentAtRuleMatcher
     @Override
     public Range<Version> getMatchedVersions()
     {
-      List<Range<Version>> versionRanges = new ArrayList<Range<Version>>(_matchers.size());
+      Range<Version> versionRange = Version.ALL_VERSIONS;
         
       for (AgentMatcher matcher : _matchers)
       {
-        if (matcher instanceof Versioned)
-        {
-          Range<Version> versionRange = ((Versioned)matcher).getMatchedVersions();
-          if (versionRange != null)
-          {
-            versionRanges.add(versionRange);
-          }
-        }
+        versionRange = versionRange.intersect(matcher.getMatchedVersions());
       }
         
-      return _intersectVersionRanges(versionRanges);
-    }
-
-    private static Range<Version> _intersectVersionRanges(
-      List<Range<Version>> versionRanges
-      )
-    {
-      Range<Version> intersectRange = Version.ALL_VERSIONS;
-      
-      for (Range versionRange : versionRanges)
-      {
-        intersectRange = intersectRange.intersect(versionRange);
-      }
-
-      return intersectRange;
+      return versionRange;
     }
 
     @Override
@@ -831,9 +800,8 @@ public final class AgentAtRuleMatcher
 
     private final List<AgentMatcher> _matchers;
     private final int _hashCode;
-    private boolean hasVersionMatcher;
-    private boolean hasTouchScreenCapabilityMatcher;
-
+    private boolean _hasVersionMatcher;
+    private boolean _hasTouchScreenCapabilityMatcher;
   }
 
   /**
