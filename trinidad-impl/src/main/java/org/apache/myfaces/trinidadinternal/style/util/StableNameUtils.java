@@ -506,6 +506,8 @@ public final class StableNameUtils
     @Override
     protected void appendNonSingleValueName(StringBuilder builder, Match match)
     {
+      // This super call will handle appending the agent name segment.
+      // However, we also need to ensure that the agent version is added.
       super.appendNonSingleValueName(builder, match);
       
       // Tack on a value for the version field.  (All stable names need to
@@ -580,15 +582,20 @@ public final class StableNameUtils
       )
     {
       assert(newLocale != null);
-
       if (oldLocale == null)
       {
         return newLocale;
       }
 
       assert(oldLocale.getLanguage().equals(newLocale.getLanguage()));
-
-      return (oldLocale.getCountry() == null ? newLocale : oldLocale);
+      String oldCountry = oldLocale.getCountry();
+      if (oldCountry == null)
+      {
+        return newLocale;
+      }
+      
+      assert(oldCountry.equals(newLocale.getCountry()));
+      return (oldLocale.getVariant() == null ? newLocale : oldLocale);
     }
 
     @Override
