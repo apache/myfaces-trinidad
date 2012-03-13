@@ -525,4 +525,6 @@
 <!-- ILLEGAL_ENUM_VALUE -->
 <resource key="ILLEGAL_ENUM_VALUE">No {0} enum constant for value "{1}".</resource>
 
+<resource key="ILLEGAL_NULL_VALUE">Illegal null value for {0}</resource>
+
 </resources>
