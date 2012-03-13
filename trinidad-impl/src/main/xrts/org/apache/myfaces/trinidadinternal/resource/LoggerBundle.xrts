@@ -1188,6 +1188,6 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <resource key="ILLEGAL_SYSTEM_PROPERTY_VALUE">{0} is not a valid value for system property {1}.  Valid values are: {2}</resource>
 
-<resource key="ILLEGAL_SKIN_AGENT_VERSION_RANGE">Illegal version range detected for agent {0}.  Version range start {1} is greater than end {2}.</resource>
+<resource key="SKIN_EMPTY_VERSION_RANGE">An unexecpted empty version range was detected during style sheet generation, possibly indicating a Trinidad skinning defect.</resource>
 
 </resources>

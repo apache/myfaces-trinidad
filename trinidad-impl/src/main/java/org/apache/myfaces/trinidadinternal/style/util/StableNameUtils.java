@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.Locale;
 
 import org.apache.myfaces.trinidad.context.Version;
+import org.apache.myfaces.trinidad.util.Range;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent.Application;
 import org.apache.myfaces.trinidadinternal.skin.AgentAtRuleMatcher;
@@ -36,7 +37,6 @@ import org.apache.myfaces.trinidadinternal.style.util.StyleSheetVisitUtils.Style
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
-import org.apache.myfaces.trinidadinternal.util.Range;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
@@ -458,7 +458,7 @@ public final class StableNameUtils
       assert(agentVersion != null);
 
       _agentVersion = agentVersion;
-      _matchedVersions = Range.of(Version.MIN_VERSION, Version.MAX_VERSION);
+      _matchedVersions = Version.ALL_VERSIONS;
     }
 
     @Override
@@ -493,18 +493,13 @@ public final class StableNameUtils
       assert(agentMatcher != null);
       assert(agentApplication != null);
 
-      Collection<Range<Version>> versionRanges =
-        agentMatcher.getMatchingVersionsForApplication(agentApplication, _agentVersion);
-      Range.intersect(_matchedVersions, versionRanges);
+      Range<Version> matchedVersions =
+        agentMatcher.getMatchedVersionsForApplication(agentApplication, _agentVersion);
+      _matchedVersions = _matchedVersions.intersect(matchedVersions);
 
-      if (_matchedVersions.getStart().compareTo(_matchedVersions.getEnd()) > 0)
+      if (_matchedVersions.isEmpty())
       {
-        throw new IllegalStateException(
-          _LOG.getMessage("ILLEGAL_SKIN_AGENT_VERSION_RANGE",
-                                        new Object[] {
-                                          agentApplication,
-                                          _matchedVersions.getStart(),
-                                          _matchedVersions.getEnd() }));
+        _LOG.warning("SKIN_EMPTY_VERSION_RANGE");
       }
     }
 

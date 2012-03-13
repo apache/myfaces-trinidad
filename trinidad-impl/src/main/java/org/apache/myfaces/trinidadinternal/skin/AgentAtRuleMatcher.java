@@ -32,10 +32,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.myfaces.trinidad.context.Version;
+import org.apache.myfaces.trinidad.util.Range;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
-import org.apache.myfaces.trinidadinternal.util.Range;
+
 
 /**
  * Threadsafe immutable class that stores the @agent rule for a particular @agent query string
@@ -237,24 +239,35 @@ public final class AgentAtRuleMatcher
    */
   public Collection<Range<Version>> getAllVersionsForApplication(TrinidadAgent.Application application)
   {
-    Collection<Range<Version>> ranges = new ArrayList<Range<Version>>();
-
+    Collection<Range<Version>> ranges = new HashSet<Range<Version>>();
     Set<AgentMatcher> agentMatchers = _selectorAgents.get(application);
     
     for (AgentMatcher agentMatcher : agentMatchers)
     {
       Range<Version> range = _getVersionRange(agentMatcher);
-      if (range != null)
-      {
-        ranges.add(range);
-      }
+      assert(range != null);
+
+      ranges.add(range);
     }
     
     return ranges;
   }
 
+  // Returns a non-null range of Versions for the specified matcher.
+  private static Range<Version> _getVersionRange(AgentMatcher agentMatcher)
+  {
+    if (agentMatcher instanceof Versioned)
+    {
+      return ((Versioned)agentMatcher).getMatchedVersions();
+    }
+
+    return Version.ALL_VERSIONS;
+  }
+
   /**
-   * Returns a non-null collection of agent version ranges that
+   * Returns a non-null range of versions that represent that intersection
+   * of all verions that:
+   * 
    * a) are matched by this matcher, and...
    * b) contain the specified agent version.
    * 
@@ -262,37 +275,24 @@ public final class AgentAtRuleMatcher
    *   should be returned.
    * @param agentVersion only ranges that contain this version will be matched.
    */  
-  public Collection<Range<Version>> getMatchingVersionsForApplication(
+  public Range<Version> getMatchedVersionsForApplication(
     TrinidadAgent.Application application,
     Version                   agentVersion
     )
   {
     Collection<Range<Version>> allVersions = getAllVersionsForApplication(application);
-    Collection<Range<Version>> matchingVersions = 
-      new ArrayList<Range<Version>>(allVersions.size());
+    
+    Range<Version> matchedVersions = Version.ALL_VERSIONS;
     
     for (Range<Version> range : allVersions)
     {
-      // todo: Range.contains()
-      if ((range.getStart().compareTo(agentVersion) <= 0) &&
-          (range.getEnd().compareTo(agentVersion) >= 0))
+      if (range.contains(agentVersion))
       {
-        matchingVersions.add(range);
+        matchedVersions = matchedVersions.intersect(range);
       }
     }
     
-    return matchingVersions;
-  }
-      
-
-  private static Range<Version> _getVersionRange(AgentMatcher agentMatcher)
-  {
-    if (agentMatcher instanceof Versioned)
-    {
-      return ((Versioned)agentMatcher).getMatchedVersion();
-    }
-
-    return null;
+    return matchedVersions;
   }
 
   /**
@@ -581,7 +581,7 @@ public final class AgentAtRuleMatcher
    */
   private interface Versioned
   {
-    Range<Version> getMatchedVersion();    
+    Range<Version> getMatchedVersions();    
   }
 
   /**
@@ -643,7 +643,7 @@ public final class AgentAtRuleMatcher
     }
 
     @Override
-    public Range<Version> getMatchedVersion()
+    public Range<Version> getMatchedVersions()
     {
       Version start = Version.MIN_VERSION;
       Version end = Version.MAX_VERSION;
@@ -764,7 +764,7 @@ public final class AgentAtRuleMatcher
     }
 
     @Override
-    public Range<Version> getMatchedVersion()
+    public Range<Version> getMatchedVersions()
     {
       List<Range<Version>> versionRanges = new ArrayList<Range<Version>>(_matchers.size());
         
@@ -772,7 +772,7 @@ public final class AgentAtRuleMatcher
       {
         if (matcher instanceof Versioned)
         {
-          Range<Version> versionRange = ((Versioned)matcher).getMatchedVersion();
+          Range<Version> versionRange = ((Versioned)matcher).getMatchedVersions();
           if (versionRange != null)
           {
             versionRanges.add(versionRange);
@@ -781,6 +781,20 @@ public final class AgentAtRuleMatcher
       }
         
       return _intersectVersionRanges(versionRanges);
+    }
+
+    private static Range<Version> _intersectVersionRanges(
+      List<Range<Version>> versionRanges
+      )
+    {
+      Range<Version> intersectRange = Version.ALL_VERSIONS;
+      
+      for (Range versionRange : versionRanges)
+      {
+        intersectRange = intersectRange.intersect(versionRange);
+      }
+
+      return intersectRange;
     }
 
     @Override
@@ -813,28 +827,7 @@ public final class AgentAtRuleMatcher
       return super.toString() + ", matchers=" + _matchers;
     }
 
-    private static Range<Version> _intersectVersionRanges(
-      List<Range<Version>> versionRanges
-      )
-    {
-      if (versionRanges.size() > 0)
-      {
-        Range<Version> mergedRange = Range.of(Version.MIN_VERSION, Version.MAX_VERSION);
-        Range.intersect(mergedRange, versionRanges);
 
-        return _validVersionRange(mergedRange);
-      }
-
-      return null;
-    }
-    
-    private static Range<Version> _validVersionRange(Range<Version> versionRange)
-    {
-      Version start = versionRange.getStart();
-      Version end = versionRange.getEnd();
-
-      return (start.compareTo(end) < 0) ? versionRange : null;
-    }
 
     private final List<AgentMatcher> _matchers;
     private final int _hashCode;

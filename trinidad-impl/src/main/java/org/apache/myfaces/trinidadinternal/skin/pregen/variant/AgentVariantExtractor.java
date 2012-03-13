@@ -33,10 +33,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.myfaces.trinidad.context.Version;
+import org.apache.myfaces.trinidad.util.Range;
+
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.skin.AgentAtRuleMatcher;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
-import org.apache.myfaces.trinidadinternal.util.Range;
 
 /**
  * An @-rule processor for extracting @agent rule metadata.
@@ -167,7 +168,7 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
     Collection<Range<Version>> versionRanges
     )
   {
-    Set<Version> versions = _appVersionsMap.get(application);
+    Collection<Version> versions = _appVersionsMap.get(application);
     assert(versions != null);
     
     for (Range<Version> versionRange : versionRanges)

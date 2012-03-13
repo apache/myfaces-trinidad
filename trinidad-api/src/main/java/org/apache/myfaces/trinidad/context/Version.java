@@ -21,9 +21,11 @@ package org.apache.myfaces.trinidad.context;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+import org.apache.myfaces.trinidad.util.Range;
+
 /**
  * Immutable Representation of a dot-separated version.
- * 
+ *
  * This representation
  * allows individual sections of the version to be wild-carded and allows
  * for comparisons between Versions with different numbers of version
@@ -33,7 +35,7 @@ import java.util.regex.Pattern;
  * is used for this comparison.  Version subsections with the wild-card value "*"
  * are considered equal.  The value returned by compareTo() is the value of the
  * first non-equal version subsection or zero if all subsections match.
- * 
+ *
  * Due to the support for wild-cards, this class has a natural ordering
  * that is inconsistent with equals.  For example,
  * <code>Version("5", "*").compareTo(Version("5.0", "*") == 0</code>
@@ -42,6 +44,28 @@ import java.util.regex.Pattern;
  */
 public final class Version implements Comparable<Version>
 {
+
+  /**
+   * A constant value holding the minimum value a version can have: 0.
+   */
+  public static final Version MIN_VERSION;
+  
+  /**
+   * A constant value holding a maximum upper bound for versions.
+   *
+   * In theory there is no upper limit to version string values, ie. version
+   * strings could be infinitely long.  However, in practice it can be
+   * helpful to have some way to identify a concrete maximum upper bound to
+   * a range of versions.  Version.MAX_VERSION specifies the Integer.MAX_VALUE
+   * version for this purpose.
+   */
+  public static final Version MAX_VERSION;
+  
+  /**
+   * A range of versions from MIN_VERSION to MAX_VERSION.
+   */
+  public static final Range<Version> ALL_VERSIONS;
+
   /**
    * Creates a Version instance from the dot-separated Version String using null as the padding
    * @param version The dot-separated version to represent
@@ -395,20 +419,11 @@ public final class Version implements Comparable<Version>
   private static final int _NON_INT_VERSION = -1;
   
   private static final String _MAX_STRING = Integer.toString(Integer.MAX_VALUE);
-  /**
-   * A constant value holding the minimum value a version can have: 0.
-   */
-  public static final Version MIN_VERSION = new Version("0");
   
-  /**
-   * A constant value holding a maximum upper bound for versions.
-   *
-   * In theory there is no upper limit to version string values, ie. version
-   * strings could be infinitely long.  However, in practice it can be
-   * helpful to have some way to identify a concrete maximum upper bound to
-   * a range of versions.  Version.MAX_VERSION specifies the Integer.MAX_VALUE
-   * version for this purpose.
-   */
-  public static final Version MAX_VERSION =
-    new Version(_MAX_STRING, _MAX_STRING);
+  static
+  {
+    MIN_VERSION = new Version("0");
+    MAX_VERSION = new Version(_MAX_STRING, _MAX_STRING);
+    ALL_VERSIONS = Range.of(MIN_VERSION, MAX_VERSION);
+  }
 }
