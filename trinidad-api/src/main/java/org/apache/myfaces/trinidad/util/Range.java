@@ -18,8 +18,6 @@
  */
 package org.apache.myfaces.trinidad.util;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 /**
  * Represents a range of comparable values with a specific start and end.
  * 
@@ -38,8 +36,8 @@ public final class Range<C extends Comparable>
    */
   public static <C extends Comparable> Range<C> of(C start, C end)
   {
-    _checkNull("start", start);
-    _checkNull("end", end);
+    Args.notNull(start, "start");
+    Args.notNull(end, "end");
 
     if (start.compareTo(end) > 0)
     {
@@ -116,7 +114,7 @@ public final class Range<C extends Comparable>
    */
   public Range<C> intersect(Range<C> otherRange)
   {
-    _checkNull("otherRange", otherRange);
+    Args.notNull(otherRange, "otherRange");
     
     if (isEmpty() || (otherRange.isEmpty()))
     {
@@ -198,17 +196,6 @@ public final class Range<C extends Comparable>
     return result;
   }
 
-  // Throws an IllegalArgumentException if the specified param value is null
-  private static <C extends Comparable> void _checkNull(String paramName, Object paramValue)
-    throws IllegalArgumentException
-  {
-    if (paramValue == null)
-    {
-      String message = _LOG.getMessage("ILLEGAL_NULL_VALUE", paramName);
-      throw new IllegalArgumentException(message);
-    }
-  }
-
   private Range(C start, C end)
   {
     _start = start;
@@ -222,7 +209,4 @@ public final class Range<C extends Comparable>
   // that we properly handle deserialization to this singleton instance.
   private static final Range<? extends Comparable> _EMPTY_RANGE = 
     new Range<Comparable>(null, null);
-  
-  private static final TrinidadLogger _LOG =
-    TrinidadLogger.createTrinidadLogger(Range.class);
 }

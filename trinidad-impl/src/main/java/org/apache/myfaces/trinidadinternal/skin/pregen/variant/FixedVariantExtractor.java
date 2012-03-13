@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.skin.pregen.variant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
@@ -73,7 +74,7 @@ final class FixedVariantExtractor <T> implements SkinVariantExtractor
   private FixedVariantExtractor(
     List<T> values)
   {
-    _values = values;
+    _values = Collections.unmodifiableList(values);
   }
   
   private final List<T> _values;

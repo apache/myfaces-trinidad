@@ -41,6 +41,11 @@ import org.apache.myfaces.trinidad.util.Range;
  * that is inconsistent with equals.  For example,
  * <code>Version("5", "*").compareTo(Version("5.0", "*") == 0</code>
  * <code>Version("5", "*").equals(Version("5.0", "*") == false;</code>
+ * 
+ * The concrete versions produced by toMinimumVersion() and toMaximumVersion()
+ * do have consistent compareTo()/equals() behavior, as these versions are
+ * guaranteed to not contain wildcards.
+ * 
  * @author Blake Sullivan
  */
 public final class Version implements Comparable<Version>

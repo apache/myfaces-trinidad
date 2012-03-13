@@ -407,5 +407,4 @@ public final class Enums
 
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(Enums.class);
-  
 }

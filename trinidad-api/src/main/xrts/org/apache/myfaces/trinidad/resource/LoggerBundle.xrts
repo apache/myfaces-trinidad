@@ -525,7 +525,7 @@
 <!-- ILLEGAL_ENUM_VALUE -->
 <resource key="ILLEGAL_ENUM_VALUE">No {0} enum constant for value "{1}".</resource>
 
-<resource key="ILLEGAL_NULL_VALUE">Illegal null value for {0}</resource>
+<resource key="ILLEGAL_NULL_ARGUMENT">A non-null value must be specified for the {0} argument.</resource>
 
 <resource key="UNEXPECTED_VERSION_VALUE">Unable to parse version segment {0} of version string {1}.</resource>
 

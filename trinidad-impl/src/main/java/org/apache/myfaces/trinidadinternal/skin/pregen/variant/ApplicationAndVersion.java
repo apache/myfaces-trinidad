@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.skin.pregen.variant;
 
 import org.apache.myfaces.trinidad.context.Version;
+import org.apache.myfaces.trinidad.util.Args;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 /**
@@ -26,7 +27,11 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
  * Version value.
  * 
  * Only note of interest: the AppicationAndVersion.version is guaranteed to
- * be concrete (ie. no wildcards).
+ * be concrete (ie. no wildcards).  As a result, although Version.equals()
+ * and Version.compareTo() are typically inconsistent, ApplicationAndVersion's
+ * equals() and compareTo() implementations are consistent - ie. if
+ * ApplicationAndVersion.compareTo() returns zero, equals() returns true
+ * (and vice versa).
  */
 public final class ApplicationAndVersion implements Comparable<ApplicationAndVersion>
 {
@@ -51,14 +56,16 @@ public final class ApplicationAndVersion implements Comparable<ApplicationAndVer
    * 
    * @param application a non-null TrinidadAgent.Application instance.
    * @param version a non-null Version instance.
+   * 
+   * @throws IllegalArgumentException if either application or version are null.
    */
   public ApplicationAndVersion(
     TrinidadAgent.Application application,
     Version version
-    )
+    ) throws IllegalArgumentException
   {
-    assert(application != null);
-    assert(version != null);
+    Args.notNull(application, "application");
+    Args.notNull(version, "version");
 
     this.application = application;
     
