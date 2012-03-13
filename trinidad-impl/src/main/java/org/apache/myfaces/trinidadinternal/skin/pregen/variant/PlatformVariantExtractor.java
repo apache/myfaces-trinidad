@@ -22,10 +22,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
-import java.util.TreeSet;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
 
  /**
@@ -35,7 +37,7 @@ final class PlatformVariantExtractor implements SkinVariantExtractor<Integer>
 {
    public PlatformVariantExtractor()
    {
-     _platforms = new TreeSet<Integer>();
+     _platforms = new HashSet<Integer>();
    }
 
    @Override
@@ -66,7 +68,27 @@ final class PlatformVariantExtractor implements SkinVariantExtractor<Integer>
     
     platforms.addAll(_platforms);
 
+    // Sort by name to make logger output/progress easier to monitor    
+    _sortByPlatformName(platforms);
+
     return Collections.unmodifiableList(platforms);
+  }
+  
+  private static void _sortByPlatformName(List<Integer> platforms)
+  {
+    Collections.sort(platforms,
+      new Comparator<Integer>() {
+        @Override
+        public int compare(Integer platform1, Integer platform2)
+        {
+          String name1 = NameUtils.getPlatformName(platform1);
+          String name2 = NameUtils.getPlatformName(platform2);
+          assert(name1 != null);
+          assert(name2 != null);
+          
+          return name1.compareTo(name2);
+        }
+      });
   }
 
   private final Collection<Integer> _platforms;

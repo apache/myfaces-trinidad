@@ -41,6 +41,18 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * Specifies configuration constraints for skin pregeneration.
+ * 
+ * For the moment, only two types of configurations are supported:
+ * 
+ * - all: All possible variants are pregenerated
+ * - common: Only the most common variants are pregenerated
+ * 
+ * The "variants" request parameter specifies which of these two
+ * configurations to use.
+ * 
+ * In the future, we can consider supporting finer-grained configuration
+ * specification - eg. we could allow specific platforms/agents/locales
+ * to be specified via an XML configuration file.
  */
 abstract public class PregenConfig
 {
