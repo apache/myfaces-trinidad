@@ -66,7 +66,7 @@ class AllVariantsSkinPregenerator implements SkinPregenerator
     StyleProvider  provider
     )
   {
-    Stats stats = new Stats(skin);
+    Stats stats = new Stats(skin, config);
     stats.start();
     
     try
@@ -186,9 +186,10 @@ class AllVariantsSkinPregenerator implements SkinPregenerator
   // # of generated style sheets, duration, etc...)
   private class Stats
   {
-    public Stats(Skin skin)
+    public Stats(Skin skin, PregenConfig config)
     {
       _skin = skin;
+      _targetDirectoryPath = config.getTargetDirectoryPath();
     }
 
     public void start()
@@ -236,7 +237,8 @@ class AllVariantsSkinPregenerator implements SkinPregenerator
                   _uris.size(),
                   _generatingVariantsCount,
                   _visitedVariantsCount,
-                  duration });
+                  duration,
+                  _targetDirectoryPath});
     }
     
     private void _logVariant(SkinVariant variant)
@@ -258,6 +260,7 @@ class AllVariantsSkinPregenerator implements SkinPregenerator
     }
 
     private final Skin        _skin;
+    private final String      _targetDirectoryPath;
     private final Set<String> _uris = new HashSet<String>(101);
     private int               _visitedVariantsCount = 0;
     private int               _generatingVariantsCount = 0;
