@@ -22,7 +22,6 @@ import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import java.util.Collections;
 import java.util.HashMap;
 
 import java.util.HashSet;
@@ -35,7 +34,7 @@ import java.util.TreeSet;
 import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.util.Range;
 
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent.Application;
 import org.apache.myfaces.trinidadinternal.skin.AgentAtRuleMatcher;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
 
@@ -53,27 +52,27 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
    * treated as supported.
    */
   public AgentVariantExtractor(
-    Collection<TrinidadAgent.Application> supportedApplications
+    Collection<Application> supportedApplications
     )
   {
     _appVersionsMap =
-      new HashMap<TrinidadAgent.Application, Set<Version>>();
+      new HashMap<Application, Set<Version>>();
     
     _supportedApplications = _initSupportedApplications(supportedApplications);
     
     // Seed the map with unknown agent.  This won't appear
     // in the skin definition, but we need to cover this case
     // during pregeneration.
-    _addApplicationIfSupported(TrinidadAgent.Application.UNKNOWN);  
+    _addApplicationIfSupported(Application.UNKNOWN);  
   }
   
-  private Collection<TrinidadAgent.Application> _initSupportedApplications(
-    Collection<TrinidadAgent.Application> supportedApplications
+  private Collection<Application> _initSupportedApplications(
+    Collection<Application> supportedApplications
     )
   {
     if ((supportedApplications == null) || supportedApplications.isEmpty())
     {
-      return new AbstractCollection<TrinidadAgent.Application>() {
+      return new AbstractCollection<Application>() {
         
           @Override
           public boolean contains(Object o)
@@ -82,7 +81,7 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
           }
           
           @Override
-          public Iterator<TrinidadAgent.Application> iterator()
+          public Iterator<Application> iterator()
           {
             throw new UnsupportedOperationException();
           }
@@ -95,7 +94,7 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
         };
     }
 
-    return new HashSet<TrinidadAgent.Application>(supportedApplications);
+    return new HashSet<Application>(supportedApplications);
   }
 
   @Override
@@ -110,7 +109,7 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
   }
 
   /**
-   * Returns an unmodifiable list containing ApplicationAndVersions
+   * Returns alist containing ApplicationAndVersions
    * corresponding to all processed @agent rules.
    */
   public List<ApplicationAndVersion> getVariants()
@@ -118,17 +117,17 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
     List<ApplicationAndVersion> appAndVersionsList =
       _toAppAndVersionsList(_appVersionsMap);
 
-    return Collections.unmodifiableList(appAndVersionsList);
+    return appAndVersionsList;
   }
   
   private void _addApplicationVersions(AgentAtRuleMatcher agentMatcher)
   {
     assert(agentMatcher != null);
     
-    Collection<TrinidadAgent.Application> nodeApplications =
+    Collection<Application> nodeApplications =
       agentMatcher.getAllApplications();
       
-    for (TrinidadAgent.Application application : nodeApplications)
+    for (Application application : nodeApplications)
     {
 
       boolean supported = _addApplicationIfSupported(application);
@@ -142,7 +141,7 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
     }    
   }
   
-  private boolean _addApplicationIfSupported(TrinidadAgent.Application application)
+  private boolean _addApplicationIfSupported(Application application)
   {
     if (!_supportedApplications.contains(application))
     {
@@ -164,7 +163,7 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
   }
   
   private void _addVersions(
-    TrinidadAgent.Application  application,
+    Application  application,
     Collection<Range<Version>> versionRanges
     )
   {
@@ -188,19 +187,17 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
   }
 
   private static List<ApplicationAndVersion> _toAppAndVersionsList(
-    Map<TrinidadAgent.Application, Set<Version>> appVersionsMap
+    Map<Application, Set<Version>> appVersionsMap
     )
   {
     ArrayList<ApplicationAndVersion> appAndVersions = 
       new ArrayList<ApplicationAndVersion>();
     
-    for (TrinidadAgent.Application application : appVersionsMap.keySet())
+    for (Map.Entry<Application, Set<Version>> entry : appVersionsMap.entrySet())
     {
-      Collection<Version> versions = appVersionsMap.get(application);
-      
-      for (Version version : versions)
+      for (Version version : entry.getValue())
       {
-        appAndVersions.add(new ApplicationAndVersion(application, version));
+        appAndVersions.add(new ApplicationAndVersion(entry.getKey(), version));
       }
     }
     
@@ -209,12 +206,13 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
 
   // Map of application to versions that have been encountered 
   // during processing
-  private final Map<TrinidadAgent.Application, Set<Version>> _appVersionsMap;
+  private final Map<Application, Set<Version>> _appVersionsMap;
   
   // Only extract version information for these applications.
-  private final Collection<TrinidadAgent.Application> _supportedApplications;
+  private final Collection<Application> _supportedApplications;
 
-  // todo: doc
+  // A Version that we use to ensure that we pregenerate style sheets
+  // for the case where the agent version does not match any version
+  // specified in the skin.
   private static final Version _UNKNOWN_VERSION = new Version("unknown");
-  
 }

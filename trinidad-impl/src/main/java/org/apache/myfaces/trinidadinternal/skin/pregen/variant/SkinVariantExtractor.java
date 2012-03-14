@@ -26,6 +26,10 @@ import org.apache.myfaces.trinidadinternal.style.util.StyleSheetVisitUtils.Style
  * StyleSheetVisitor that is used to extract variant (eg. @-rule)
  * metadata from a skin style sheet document.
  * 
+ * SkinVariantExtractors are typically single use - ie. they are 
+ * used for a single call to StyleSheetVisitUtils.visitStyleSheets(),
+ * after which visited variants are retrieved via a call to getVariants().
+ *
  * @see org.apache.myfaces.trinidadinternal.style.util.StyleSheetVisitUtils
  */
 interface SkinVariantExtractor <T> extends StyleSheetVisitor

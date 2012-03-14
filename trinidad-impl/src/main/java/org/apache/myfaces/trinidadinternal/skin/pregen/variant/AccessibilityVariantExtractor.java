@@ -61,19 +61,35 @@ final class AccessibilityVariantExtractor implements SkinVariantExtractor<Access
    */
   public List<AccessibilityProfile> getVariants()
   {
+    _addCompoundAccessibilityProfile();
+ 
+    List<AccessibilityProfile> accProfilesList =
+      new ArrayList<AccessibilityProfile>(_accProfiles);
+  
+    return accProfilesList;
+  }
+  
+  // Adds the compound high contrast + large fonts profile
+  // if necessary.
+  private void _addCompoundAccessibilityProfile()
+  {
+    // In cases where the skin contains both:
+    //
+    // - @accessibility-profile high-contrast, and...
+    // - @accessibility-profile large-fonts
+    //
+    // Then we need to generate a style sheet for end users
+    // that happen to run with both high contrast and large fonts
+    // enabled.  Thus, we add in a compound high contrast + large
+    // fonts profile if we've seen each property individually.
     if (_accProfiles.contains(_HIGH_CONTRAST_ONLY) &&
         _accProfiles.contains(_LARGE_FONTS_ONLY)   &&
         !_accProfiles.contains(_HIGH_CONTRAST_LARGE_FONTS))
     {
       _accProfiles.add(_HIGH_CONTRAST_LARGE_FONTS);
     }
-  
-    List<AccessibilityProfile> accProfilesList =
-      new ArrayList<AccessibilityProfile>(_accProfiles);
-  
-    return Collections.unmodifiableList(accProfilesList);
   }
-  
+
   private void _addAccessibilityProfile(String accProp)
   {
     AccessibilityProfile accProfile = _toAccessibilityProfile(accProp);

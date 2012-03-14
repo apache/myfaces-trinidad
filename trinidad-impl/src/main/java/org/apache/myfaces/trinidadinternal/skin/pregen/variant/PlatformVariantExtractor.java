@@ -52,7 +52,7 @@ final class PlatformVariantExtractor implements SkinVariantExtractor<Integer>
    }
 
   /**
-   * Returns un unmodifiable list containing platforms corresponding
+   * Returns a list containing platforms corresponding
    * to all processed @platform rules.
    */
   public List<Integer> getVariants()
@@ -71,7 +71,7 @@ final class PlatformVariantExtractor implements SkinVariantExtractor<Integer>
     // Sort by name to make logger output/progress easier to monitor    
     _sortByPlatformName(platforms);
 
-    return Collections.unmodifiableList(platforms);
+    return platforms;
   }
   
   private static void _sortByPlatformName(List<Integer> platforms)

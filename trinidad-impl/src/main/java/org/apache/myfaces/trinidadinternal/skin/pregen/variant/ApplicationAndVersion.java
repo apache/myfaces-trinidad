@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidadinternal.skin.pregen.variant;
 
 import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.util.Args;
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent.Application;
 
 /**
  * A convenience duple class that holds onto a TrinidadAgent.Application and
@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
  */
 public final class ApplicationAndVersion implements Comparable<ApplicationAndVersion>
 {
-  public final TrinidadAgent.Application application;
+  public final Application application;
   public final Version version;
 
   /**
@@ -44,7 +44,7 @@ public final class ApplicationAndVersion implements Comparable<ApplicationAndVer
    */
   public static final ApplicationAndVersion UNKNOWN = 
     new ApplicationAndVersion(
-      TrinidadAgent.Application.UNKNOWN,
+      Application.UNKNOWN,
       Version.MIN_VERSION);
   
   /**
@@ -60,7 +60,7 @@ public final class ApplicationAndVersion implements Comparable<ApplicationAndVer
    * @throws IllegalArgumentException if either application or version are null.
    */
   public ApplicationAndVersion(
-    TrinidadAgent.Application application,
+    Application application,
     Version version
     ) throws IllegalArgumentException
   {

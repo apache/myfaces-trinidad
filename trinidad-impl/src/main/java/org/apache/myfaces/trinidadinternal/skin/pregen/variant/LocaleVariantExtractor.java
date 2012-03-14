@@ -53,13 +53,13 @@ final class LocaleVariantExtractor implements SkinVariantExtractor<LocaleContext
   }
 
   /**
-   * Returns un unmodifiable list containing LocaleContexts corresponding
+   * Returns a list containing LocaleContexts corresponding
    * to all processed @locale rules.
    */
   public List<LocaleContext> getVariants()
   {
     List<LocaleContext> localeContexts = _toLocaleContexts(_locales);
-    return Collections.unmodifiableList(localeContexts);
+    return localeContexts;
   }
 
   // Converts from Locale to LocaleContext, from Collection -> List, and

@@ -420,9 +420,9 @@ abstract public class PregenConfig
     }
 
     @Override
-    public Collection<TrinidadAgent.Application> getAgentApplicationVariants()
+    public Collection<Application> getAgentApplicationVariants()
     {
-      return (Collection<TrinidadAgent.Application>)ALL_VARIANTS;
+      return (Collection<Application>)ALL_VARIANTS;
     }
 
     @Override
@@ -467,11 +467,11 @@ abstract public class PregenConfig
     }
 
     @Override
-    public Collection<TrinidadAgent.Application> getAgentApplicationVariants()
+    public Collection<Application> getAgentApplicationVariants()
     {
-      return Arrays.asList(TrinidadAgent.Application.GECKO,
-                           TrinidadAgent.Application.IEXPLORER,
-                           TrinidadAgent.Application.SAFARI);
+      return Arrays.asList(Application.GECKO,
+                           Application.IEXPLORER,
+                           Application.SAFARI);
     }
 
     @Override
@@ -504,7 +504,7 @@ abstract public class PregenConfig
     }
 
     @Override
-    public Collection<TrinidadAgent.Application> getAgentApplicationVariants()
+    public Collection<Application> getAgentApplicationVariants()
     {
       return Collections.emptySet();
     }
