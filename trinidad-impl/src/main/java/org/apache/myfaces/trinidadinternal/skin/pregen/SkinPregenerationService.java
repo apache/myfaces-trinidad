@@ -265,6 +265,7 @@ public class SkinPregenerationService extends InternalView
     rw.startElement("html", null);
     rw.startElement("head", null);
     rw.startElement("title", null);
+    rw.writeText(_LOG.getMessage("SKIN_PREGEN_RESPONSE_TITLE"), null);
     rw.endElement("title");
     rw.endElement("head");
     rw.startElement("body", null);

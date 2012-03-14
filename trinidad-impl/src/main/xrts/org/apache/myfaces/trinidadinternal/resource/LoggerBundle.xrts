@@ -1178,6 +1178,8 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <resource key="SKIN_PREGEN_NO_TARGET_DIRECTORY">No target directory found.  Please specify a target directory via the {0} system property.</resource>
 
+<resource key="SKIN_PREGEN_RESPONSE_TITLE">Skin Pregeneration Service</resource>
+
 <resource key="SKIN_PREGEN_RESPONSE">Skin pregeneration completed in {0}ms.</resource>
 
 <resource key="SKIN_PREGEN_NO_DOCUMENT">No StyleSheetDocument found for skin {0}.</resource>
