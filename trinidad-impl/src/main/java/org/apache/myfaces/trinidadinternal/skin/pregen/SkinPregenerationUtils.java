@@ -20,10 +20,18 @@ package org.apache.myfaces.trinidadinternal.skin.pregen;
 
 import java.beans.Beans;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.util.FileUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.skin.pregen.config.PregenConfig;
+import org.apache.myfaces.trinidadinternal.skin.pregen.context.PregenStyleProvider;
+import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 
 /**
  * Skin pregeneration utilities.
@@ -42,23 +50,42 @@ public final class SkinPregenerationUtils
     FacesContext    context,
     Skin            skin,
     PregenConfig    config
-    )
+    ) throws IOException
   {
     assert(skin != null);
     assert(config != null);
 
-    SkinPregenerator pregenerator = _getSkinPregenerator(context);
-    pregenerator.pregenerate(context, skin, config);
+    SkinPregenerator pregenerator = _getSkinPregenerator();
+    String stylesCacheDirectoryPath = _getStylesCacheDirectoryPath(config);
+    StyleProvider provider = new PregenStyleProvider(skin, stylesCacheDirectoryPath);
+
+    pregenerator.pregenerate(context, skin, config, provider);
   }
   
-  private static SkinPregenerator _getSkinPregenerator(FacesContext context)
+  private static SkinPregenerator _getSkinPregenerator()
   {
     if (Beans.isDesignTime())
     {
       return _NOOP_PREGENERATOR;
     }
 
-    return new AllVariantsSkinPregenerator(context);
+    return new AllVariantsSkinPregenerator();
+  }
+
+  // Returns the subdirectory for skin-specific generated files.
+  // Throws an IOException if the directory does not exist/cannot be
+  // created or is not writable.
+  private static String _getStylesCacheDirectoryPath(PregenConfig config)
+    throws IOException
+  {
+    String targetDirPath = config.getTargetDirectoryPath();
+    String subDirPath = TrinidadRenderingConstants.STYLES_CACHE_DIRECTORY;
+    String stylesCacheDirPath = targetDirPath + subDirPath;
+    
+    // Verify that the directory exists and is writable.
+    FileUtils.toWritableDirectory(stylesCacheDirPath);
+    
+    return stylesCacheDirPath;
   }
 
   private SkinPregenerationUtils()
@@ -72,7 +99,8 @@ public final class SkinPregenerationUtils
       public void pregenerate(
         FacesContext    context,
         Skin            skin, 
-        PregenConfig    config)
+        PregenConfig    config,
+        StyleProvider   provider)
       {
       }
     };

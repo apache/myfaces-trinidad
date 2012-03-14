@@ -18,6 +18,9 @@
  */
 package org.apache.myfaces.trinidadinternal.skin.pregen.config;
 
+import java.io.File;
+import java.io.IOException;
+
 import java.util.AbstractCollection;
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,13 +32,17 @@ import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 
+import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.EnumParseException;
 import org.apache.myfaces.trinidad.util.Enums;
+import org.apache.myfaces.trinidad.util.FileUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent.Application;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.share.nls.NullLocaleContext;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
@@ -97,16 +104,18 @@ abstract public class PregenConfig
    * 
    * Request parameters are documented in SkinPregenerationService class doc.
    * 
-   * @param external the ExternalContext to use for retreving request parameter
+   * @param context the FacesContext to use for retreving request parameter
    *   values.
    * @return
    */
-  public static PregenConfig parse(ExternalContext external)
+  public static PregenConfig parse(FacesContext context)
     throws InvalidConfigException
   {
+    ExternalContext external = context.getExternalContext();
+
     return _isAllVariantsRequest(external) ?
-      new AllPregenConfig(external) :
-      new CommonPregenConfig(external);
+      new AllPregenConfig(context) :
+      new CommonPregenConfig(context);
   }
 
   private static boolean _isAllVariantsRequest(ExternalContext external)
@@ -216,6 +225,16 @@ abstract public class PregenConfig
    * Returns the style class types to pregenerate.
    */
   abstract public Collection<StyleClassType> getStyleClassTypes();
+  
+  /**
+   * Returns the path of the target output directory.
+   * 
+   * This returns a non-null path to an existing, writable directory.
+   * 
+   * The returned path is guaranteed to not have a trailing file
+   * separator.
+   */
+  abstract public String getTargetDirectoryPath();
   
   // Utility enum class used to identify whether PregenConfig.parse() should
   // return a PregenConfig instance that is configured for generating
@@ -350,9 +369,11 @@ abstract public class PregenConfig
   // from request parameters.
   private static abstract class ParamPregenConfig extends PregenConfig
   {
-    public ParamPregenConfig(ExternalContext external)
+    public ParamPregenConfig(FacesContext context)
       throws InvalidConfigException
     {
+      ExternalContext external = context.getExternalContext();
+
       _containerTypes = _parseDisplayNameParam(external,
                                                "containerType",
                                                ContainerType.class,
@@ -366,7 +387,9 @@ abstract public class PregenConfig
       _styleClassTypes = _parseDisplayNameParam(external,
                                                 "styleClassType",
                                                 StyleClassType.class,
-                                                StyleClassType.COMPRESSED);      
+                                                StyleClassType.COMPRESSED);
+      
+      _targetDirectoryPath = _getTargetDirectoryPath(context);
     }
     
     @Override
@@ -387,18 +410,88 @@ abstract public class PregenConfig
       return _styleClassTypes;
     }
 
+    @Override
+    public String getTargetDirectoryPath()
+    {
+      return _targetDirectoryPath;
+    }
+
+    // Returns the target directory path.  Throws an InvalidConfigException
+    // if the target directory does not exist/cannot be created or is not
+    // writable.
+    private static String _getTargetDirectoryPath(FacesContext context)
+      throws InvalidConfigException
+    {
+      String targetDirectoryPath = _getNormalizedTargetDirectoryPath(context);
+      
+      try
+      {
+        FileUtils.toWritableDirectory(targetDirectoryPath);
+      }
+      catch (IOException e)
+      {
+        // The directory either does not exist/cannot be created or
+        // exists but is not writable.  Propagate this failure out.
+        throw new InvalidConfigException(e.getMessage());
+      }
+      
+      return targetDirectoryPath;
+    }
+
+    // Returns the target directory path in its normalized form.
+    private static String _getNormalizedTargetDirectoryPath(FacesContext context)
+    {
+      String targetDirectoryPath = System.getProperty(_TARGET_DIRECTORY_PROPERTY);
+    
+      if ((targetDirectoryPath == null) || targetDirectoryPath.isEmpty())
+      {
+        // Refactor to avoid dependency on core renderkit-specific API?
+        targetDirectoryPath = CoreRenderingContext.getTemporaryDirectory(context, false);
+      }
+    
+      return _normalizeDirectoryPath(targetDirectoryPath);
+    }
+    
+    // Normalizes the specified directory path by stripping off the trailing
+    // file separator, if present.
+    private static String _normalizeDirectoryPath(String path)
+      throws InvalidConfigException
+    {
+      if ((path == null) || path.isEmpty())
+      {
+        String message = _LOG.getMessage("SKIN_PREGEN_NO_TARGET_DIRECTORY", 
+                                         _TARGET_DIRECTORY_PROPERTY);
+        throw new InvalidConfigException(message);
+      }
+
+      return _hasTrailingSeparator(path) ? 
+        path.substring(0, path.length() - 1) :
+        path;
+    }
+    
+    private static boolean _hasTrailingSeparator(String path)
+    {
+      char lastChar = path.charAt(path.length() - 1);
+      
+      // Explicitly check '/' just in case someone happens to be using
+      // this as a separator in their sys property value (and we're on
+      // a platform that uses a different separator, eg. Windows).
+      return ((lastChar == File.separatorChar) || (lastChar == '/'));
+    }
+
     private final Collection<ContainerType>  _containerTypes;
     private final Collection<RequestType>    _requestTypes;
     private final Collection<StyleClassType> _styleClassTypes;
+    private final String                     _targetDirectoryPath;
   }
   
   // PregenConfig implementation that is used for pregeneration of
   // all possible variant values.
   private static class AllPregenConfig extends ParamPregenConfig
   {
-    public AllPregenConfig(ExternalContext external)
+    public AllPregenConfig(FacesContext context)
     {
-      super(external);
+      super(context);
     }
 
     @Override
@@ -436,9 +529,9 @@ abstract public class PregenConfig
   // only the most common variant values.
   private static class CommonPregenConfig extends ParamPregenConfig
   {
-    public CommonPregenConfig(ExternalContext external)
+    public CommonPregenConfig(FacesContext context)
     {
-      super(external);
+      super(context);
     }
 
     @Override
@@ -532,10 +625,19 @@ abstract public class PregenConfig
     {
       return Collections.emptySet();
     }
+    
+    @Override
+    public String getTargetDirectoryPath()
+    {
+      return null;
+    }
   }
 
   private static final PregenConfig _NULL_CONFIG = new NullPregenConfig();
-  
+
+  private static final String _TARGET_DIRECTORY_PROPERTY =
+    "org.apache.myfaces.trinidad.SKIN_PREGENERATION_SERVICE_TARGET_DIRECTORY";
+
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(PregenConfig.class);  
 }

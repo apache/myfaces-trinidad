@@ -29,12 +29,9 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Skin;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent.Application;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.skin.DocumentProviderSkin;
 import org.apache.myfaces.trinidadinternal.skin.pregen.config.PregenConfig;
 import org.apache.myfaces.trinidadinternal.skin.pregen.context.PregenStyleContext;
-import org.apache.myfaces.trinidadinternal.skin.pregen.context.PregenStyleProvider;
 import org.apache.myfaces.trinidadinternal.skin.pregen.variant.SkinVariant;
 import org.apache.myfaces.trinidadinternal.skin.pregen.variant.SkinVariants;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
@@ -51,26 +48,22 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
  */
 class AllVariantsSkinPregenerator implements SkinPregenerator
 {
-  public AllVariantsSkinPregenerator(FacesContext context)
-  {
-    _generatedFilesPath = _getGeneratedFilesPath(context);
-    _generatedSkinFilesPath = _getGeneratedSkinFilesPath(_generatedFilesPath);
-  }
-
   @Override
   public void pregenerate(
     FacesContext    context, 
     Skin            skin,
-    PregenConfig    config
+    PregenConfig    config,
+    StyleProvider   provider
     )
   {
-    _pregenerateWithStats(context, skin, config);
+    _pregenerateWithStats(context, skin, config, provider);
   }
  
   private void _pregenerateWithStats(
     FacesContext   context,
     Skin           skin,
-    PregenConfig   config
+    PregenConfig   config,
+    StyleProvider  provider
     )
   {
     Stats stats = new Stats(skin);
@@ -78,7 +71,7 @@ class AllVariantsSkinPregenerator implements SkinPregenerator
     
     try
     {
-      _pregenerate(context, skin, config, stats); 
+      _pregenerate(context, skin, config, provider, stats); 
     }
     finally
     {
@@ -90,22 +83,18 @@ class AllVariantsSkinPregenerator implements SkinPregenerator
     FacesContext    context,
     Skin            skin,
     PregenConfig    config,
+    StyleProvider   provider,
     Stats           stats
     )
   {
-    StyleProvider provider = _getStyleProviderForSkin(skin);
-    StyleSheetDocument document = _getDocumentForSkin(context, skin, provider);
-    _pregenerateAllVariants(context, provider, document, config, stats);     
-  }
-  
-  private StyleProvider _getStyleProviderForSkin(Skin skin)
-  {
-    return new PregenStyleProvider(skin, _generatedSkinFilesPath);
+    StyleSheetDocument document = _getDocumentForSkin(context, skin, config, provider);
+    _pregenerateAllVariants(context, config, provider, document, stats);     
   }
   
   private StyleSheetDocument _getDocumentForSkin(
     FacesContext  context,
     Skin          skin,
+    PregenConfig  config,
     StyleProvider provider
     )
   {
@@ -113,7 +102,8 @@ class AllVariantsSkinPregenerator implements SkinPregenerator
     
     if (skin instanceof DocumentProviderSkin)
     {
-      StyleContext styleContext = PregenStyleContext.documentContext(context, provider, _generatedFilesPath);
+      StyleContext styleContext =
+        PregenStyleContext.documentContext(context, provider, config.getTargetDirectoryPath());
       document = ((DocumentProviderSkin) skin).getStyleSheetDocument(styleContext);
     }
     
@@ -128,9 +118,9 @@ class AllVariantsSkinPregenerator implements SkinPregenerator
   
   private void _pregenerateAllVariants(
     FacesContext       context,
+    PregenConfig       config,    
     StyleProvider      provider,
     StyleSheetDocument document,
-    PregenConfig       config,
     Stats              stats
     )
   {
@@ -138,18 +128,20 @@ class AllVariantsSkinPregenerator implements SkinPregenerator
     
     for (SkinVariant variant : variants)
     {
-      _pregenerateVariant(context, provider, variant, stats);
+      _pregenerateVariant(context, config, provider, variant, stats);
     }
   }
 
   private void _pregenerateVariant(
     FacesContext           context,
+    PregenConfig           config,
     StyleProvider          provider,
     SkinVariant            variant,
     Stats                  stats
     )
   {
     StyleContext styleContext = _createStyleContext(context,
+                                                    config,
                                                     provider,
                                                     variant);
 
@@ -162,6 +154,7 @@ class AllVariantsSkinPregenerator implements SkinPregenerator
 
   private StyleContext _createStyleContext(
     FacesContext           context,
+    PregenConfig           config,
     StyleProvider          provider,
     SkinVariant            variant
     )
@@ -170,7 +163,7 @@ class AllVariantsSkinPregenerator implements SkinPregenerator
     
     return new PregenStyleContext(context, 
                                   provider,
-                                  _generatedFilesPath,
+                                  config.getTargetDirectoryPath(),
                                   variant,
                                   _isDirty(variant));
   }
@@ -187,30 +180,6 @@ class AllVariantsSkinPregenerator implements SkinPregenerator
     // the style provider reset its caches.  This promotes cache reuse within
     // each platform variant while not letting cache size get too out of control.
     return ((_variant != null) && (_variant.getPlatform() != variant.getPlatform()));
-  }
-
-  // Returns the root directory for generated files.
-  private static String _getGeneratedFilesPath(FacesContext context)
-  {
-    String targetDirectory = System.getProperty(_TARGET_DIRECTORY_PROPERTY);
-    
-    if ((targetDirectory == null) || targetDirectory.isEmpty())
-    {
-      // Refactor to avoid dependency on core renderkit-specific API?
-      targetDirectory = CoreRenderingContext.getTemporaryDirectory(context, false);
-    }
-    
-    return targetDirectory;
-  }
-
-  // Returns the subdirectory for skin-specific generated files.
-  private static String _getGeneratedSkinFilesPath(String generatedFilesPath)
-  {
-    assert(generatedFilesPath != null);
-    assert(!generatedFilesPath.isEmpty());
-    assert(generatedFilesPath.charAt(generatedFilesPath.length() - 1) != '/');
-    
-    return generatedFilesPath + TrinidadRenderingConstants.STYLES_CACHE_DIRECTORY;
   }
 
   // Little utility class for tracking statistics (eg.
@@ -295,20 +264,11 @@ class AllVariantsSkinPregenerator implements SkinPregenerator
     private long              _startTime = -1;    
   }
 
-  // Root directory for generated files
-  private final String _generatedFilesPath;
-  
-  // Subdirectory for skin-specific generated files.
-  private final String _generatedSkinFilesPath;
-  
   // The variant that we are currently processing
   private SkinVariant _variant;
   
   private static final StyleSheetDocument _EMPTY_DOCUMENT = 
     new StyleSheetDocument(new StyleSheetNode[0], null, StyleSheetDocument.UNKNOWN_TIMESTAMP);
-
-  private static final String _TARGET_DIRECTORY_PROPERTY =
-    "org.apache.myfaces.trinidad.SKIN_PREGENERATION_SERVICE_TARGET_DIRECTORY";
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(AllVariantsSkinPregenerator.class);

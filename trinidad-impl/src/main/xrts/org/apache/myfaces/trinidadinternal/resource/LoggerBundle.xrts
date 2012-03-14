@@ -1172,11 +1172,15 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <resource key="SKIN_PREGEN_DISABLED">Skin pregeneration failed: the skin pregeneration service is disabled.  To enable skin pregeneration, set the {0} system property to one of: {1}</resource>
 
-<resource key="SKIN_PREGEN_REQUESTED_SKIN_INVALID">Skin pregeneration failed: {0} is not valid skin id.</resource>
+<resource key="SKIN_PREGEN_FAILED">Skin pregeneration failed: {0}</resource>
+
+<resource key="SKIN_PREGEN_REQUESTED_SKIN_INVALID">{0} is not valid skin id.</resource>
+
+<resource key="SKIN_PREGEN_NO_TARGET_DIRECTORY">No target directory found.  Please specify a target directory via the {0} system property.</resource>
 
 <resource key="SKIN_PREGEN_RESPONSE">Skin pregeneration completed in {0}ms.</resource>
 
-<resource key="SKIN_PREGEN_NO_DOCUMENT">Pregeneration of skin {0} failed.  No StyleSheetDocument found for skin.</resource>
+<resource key="SKIN_PREGEN_NO_DOCUMENT">No StyleSheetDocument found for skin {0}.</resource>
 
 <resource key="SKIN_PREGEN_STARTING">Starting pregeneration of skin {0}</resource>
 

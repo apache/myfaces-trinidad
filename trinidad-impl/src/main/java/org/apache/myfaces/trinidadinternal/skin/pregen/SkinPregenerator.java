@@ -22,6 +22,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.pregen.config.PregenConfig;
+import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 
 /**
  * Interface for objects that perform skin pregeneration.
@@ -36,8 +37,9 @@ interface SkinPregenerator
    * @param config configuration info that influences pregeneration
    */
   public void pregenerate(
-    FacesContext context,
-    Skin         skin,
-    PregenConfig config
+    FacesContext  context,
+    Skin          skin,
+    PregenConfig  config,
+    StyleProvider provider
     );
 }

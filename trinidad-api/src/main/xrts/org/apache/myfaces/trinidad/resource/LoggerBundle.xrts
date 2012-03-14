@@ -529,4 +529,8 @@
 
 <resource key="UNEXPECTED_VERSION_VALUE">Unable to parse version segment {0} of version string {1}.</resource>
 
+<resource key="CANNOT_CREATE_DIRECTORY">The directory {0} does not exist and cannot be created.</resource>
+
+<resource key="DIRECTORY_NOT_WRITABLE">The directory {0} exists, but is not writable.</resource>
+
 </resources>

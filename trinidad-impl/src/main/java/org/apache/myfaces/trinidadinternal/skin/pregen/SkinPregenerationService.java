@@ -157,35 +157,27 @@ public class SkinPregenerationService extends InternalView
   // request parameters and returns the duration.
   private static long _pregenerateSkin(FacesContext context)
   {
-    PregenConfig config = _parsePregenConfig(context);
-    Skin skin = _parseSkin(context);
-    
     long startTime = System.currentTimeMillis();
 
-    if (skin != null)
+    try
     {
-      SkinPregenerationUtils.pregenerate(context, skin, config);
+      PregenConfig config = PregenConfig.parse(context);
+      Skin skin = _parseSkin(context);
+      SkinPregenerationUtils.pregenerate(context, skin, config);      
+    }
+    catch (Exception e)
+    {
+      _pregenFailed(context, e);
     }
 
     return (System.currentTimeMillis() - startTime);
   }
-
-  private static PregenConfig _parsePregenConfig(FacesContext context)
-  {
-    try
-    {
-      return PregenConfig.parse(context.getExternalContext());      
-    }
-    catch (InvalidConfigException e)
-    {
-      _LOG.severe(e);
-      _sendError(context, e.getMessage());
-    }
-    
-    return PregenConfig.nullInstance();
-  }
-
+  
+  // Returns a non-null Skin corresponding based on the "id"
+  // request parameter.  Throws InvalidConfigException if no
+  // skin is found.
   private static Skin _parseSkin(FacesContext context)
+    throws InvalidConfigException
   {
     String skinId = _getSkinId(context);
     if (skinId != null)
@@ -197,10 +189,10 @@ public class SkinPregenerationService extends InternalView
       }
     }
 
-    _handleInvalidSkin(context, skinId);
-    return null;
+    String message = _LOG.getMessage("SKIN_PREGEN_REQUESTED_SKIN_INVALID", skinId);
+    throw new InvalidConfigException(message);
   }
-
+  
   private static String _getSkinId(FacesContext context)
   {
     ExternalContext external = context.getExternalContext();
@@ -213,13 +205,10 @@ public class SkinPregenerationService extends InternalView
     return factory.getSkin(context, skinId);
   }
 
-  private static void _handleInvalidSkin(
-    FacesContext context,
-    String       skinId
-    )
+  private static void _pregenFailed(FacesContext context, Exception e)
   {
-    String message = _LOG.getMessage("SKIN_PREGEN_REQUESTED_SKIN_INVALID", skinId);
-    _LOG.severe(message);
+    String message = _LOG.getMessage("SKIN_PREGEN_FAILED", e.getMessage());
+    _LOG.severe(message, e);
     _sendError(context, message);
   }
 
@@ -241,6 +230,11 @@ public class SkinPregenerationService extends InternalView
 
   private static void _sendError(FacesContext context, String message)
   {
+    if (context.getResponseComplete())
+    {
+      return;
+    }
+
     ExternalContext external = context.getExternalContext();
     
     try
