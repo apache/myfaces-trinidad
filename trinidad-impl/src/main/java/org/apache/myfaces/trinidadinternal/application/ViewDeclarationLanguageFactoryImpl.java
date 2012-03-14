@@ -34,7 +34,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.faces.FacesException;
 import javax.faces.application.Resource;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
@@ -49,7 +48,6 @@ import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.InternalView;
-import org.apache.myfaces.trinidadinternal.skin.pregen.SkinPregenerationService;
 
 
 public class ViewDeclarationLanguageFactoryImpl
@@ -72,14 +70,11 @@ public class ViewDeclarationLanguageFactoryImpl
     
     _internalViewStrategy = new InternalViewHandlingStrategy(finder);
     
-    _skinPregenerationEnabled = SkinPregenerationService.isEnabled();
   }
 
   @Override
   public ViewDeclarationLanguage getViewDeclarationLanguage(String viewId)
   {
-    _checkSkinPregeneration(viewId);
-
     FacesContext context = FacesContext.getCurrentInstance();
     if (_getInternalView(context, viewId) != null)
       return _internalViewStrategy;
@@ -278,23 +273,9 @@ public class ViewDeclarationLanguageFactoryImpl
     return uri;
   }
   
-  // We do not allow random requests into the application when the skin
-  // pregeneration service is enabled.  Only skin pregeneration requests
-  // are allowed.
-  private void _checkSkinPregeneration(String viewId)
-  {
-    if (_skinPregenerationEnabled && !SkinPregenerationService.VIEW_ID.equals(viewId))
-    {
-      // Prevent further processing of this request - only skin pregeneration
-      // requests are allowed.
-      throw new FacesException(_LOG.getMessage("SKIN_PREGEN_ENABLED"));
-    }
-  }
-
   private final ViewDeclarationLanguageFactory _wrapped;
   private final InternalViewHandlingStrategy _internalViewStrategy;
   private Map<String, InternalView> _internalViews;
-  private final boolean _skinPregenerationEnabled;
   
   private final static Object _NOT_FOUND = new Object();
   private final static String _VIEWID_MAPPING = "org.apache.myfaces.trinidadinternal.application.viewIdMapping";
