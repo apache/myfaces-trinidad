@@ -533,4 +533,6 @@
 
 <resource key="DIRECTORY_NOT_WRITABLE">The directory {0} exists, but is not writable.</resource>
 
+<resource key="ILLEGAL_REQUEST_PARAMETER_VALUE">'{0}' is not a valid value for request parameter '{1}'.  Valid values are: {2}</resource>
+
 </resources>

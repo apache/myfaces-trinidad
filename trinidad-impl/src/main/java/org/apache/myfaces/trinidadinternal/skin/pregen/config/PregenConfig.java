@@ -138,35 +138,15 @@ abstract public class PregenConfig
   {
     try
     {
-      return Enums.parseEnumRequestParameter(external,
-                                             paramName,
-                                             enumClass,
-                                             Enums.displayNameEnumParser(enumClass),
-                                             defaultValue);
+      return Enums.parseDisplayNameEnumRequestParameter(external,
+                                                        paramName,
+                                                        enumClass,
+                                                        defaultValue);
     }
     catch (EnumParseException e)
     {
-      String message = _getIllegalDisplayNameRequestParamMessage(paramName,
-                                                                 e.getIllegalValue(),
-                                                                 enumClass);
-      throw new InvalidConfigException(message);
+      throw new InvalidConfigException(e.getMessage());
     }
-  }
-
-  private static <E extends Enum> String _getIllegalDisplayNameRequestParamMessage(
-    String   paramName,
-    String   paramValue,
-    Class<E> enumClass
-    )
-  {
-    String validValues = Enums.patternOf(enumClass,
-                                         Enums.displayNameStringProducer(enumClass));
-
-    return _LOG.getMessage("ILLEGAL_REQUEST_PARAMETER_VALUE",
-                           new Object[] {
-                             paramValue,
-                             paramName,                             
-                             validValues });
   }
 
   /**

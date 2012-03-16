@@ -1190,8 +1190,6 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <resource key="SKIN_PREGEN_COMPLETED">Completed pregeneration of skin {0}.  Generated {1} files for {2} of {3} skin variants in {4} ms.  (Pregeneration output written to {5}.)</resource>
 
-<resource key="ILLEGAL_REQUEST_PARAMETER_VALUE">{0} is not a valid value for request parameter {1}.  Valid values are: {2}</resource>
-
 <resource key="ILLEGAL_SYSTEM_PROPERTY_VALUE">{0} is not a valid value for system property {1}.  Valid values are: {2}</resource>
 
 <resource key="SKIN_EMPTY_VERSION_RANGE">An unexecpted empty version range was detected during style sheet generation, possibly indicating a Trinidad skinning defect.</resource>

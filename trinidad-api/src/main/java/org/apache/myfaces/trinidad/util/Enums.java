@@ -405,6 +405,47 @@ public final class Enums
     }
   }
 
+  /**
+   * Convenience for Enums.parseEnumRequestParameter() that uses a display name-based
+   * EnumParser to parse values.
+   * 
+   * In addition, a display name-based StringProducer is used to provide a more
+   * detailed error message in the event of a parse exception.
+   * 
+   * @see #parseEnumRequestParameter
+   * @see #displayNameEnumParser
+   * @see #displayNameStringProducer
+   */
+  public static <E extends Enum> Collection<E> parseDisplayNameEnumRequestParameter(
+    ExternalContext external,
+    String          paramName,
+    Class<E>        enumClass,
+    E               defaultValue
+    ) throws EnumParseException
+  {
+    Collection<String> paramValues = _getRequestParamValues(external, paramName);
+    EnumParser<E> enumParser = displayNameEnumParser(enumClass);
+    
+    try
+    {
+      return Enums.parseEnumValues(paramValues, enumClass, enumParser, defaultValue);
+    }
+    catch (EnumParseException e)
+    {
+      // Re-throw with a more detailed error message
+      String illegalValue = e.getIllegalValue();
+      String validValues = Enums.patternOf(enumClass,
+                                         Enums.displayNameStringProducer(enumClass));
+
+      String message = _LOG.getMessage("ILLEGAL_REQUEST_PARAMETER_VALUE",
+                           new Object[] {
+                             illegalValue,
+                             paramName,                             
+                             validValues });
+
+      throw new EnumParseException(message, illegalValue);
+    }
+  }
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(Enums.class);
 }
