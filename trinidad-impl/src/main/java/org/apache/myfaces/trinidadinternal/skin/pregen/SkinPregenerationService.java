@@ -109,18 +109,21 @@ import org.apache.myfaces.trinidadinternal.skin.pregen.config.PregenConfig;
  * can only be used for this single purpose.
  */
 public class SkinPregenerationService extends InternalView
-{
-  /**
-   * The view id for the pregeneration service.
-   */
-  public static final String VIEW_ID = "/-pregenerate-skins";
- 
+{ 
   /**
    * Tests whether the pregeneration service is enabled.
    */
   public static boolean isEnabled()
   {
     return (_getServiceStatus() == ServiceStatus.ON);
+  }
+
+  /**
+   * Tests whether the view id corresponds to a skin pregeneration request.
+   */
+  public static boolean isPregenerationRequest(String viewId)
+  {
+    return _VIEW_ID.equals(viewId);
   }
 
   @Override
@@ -367,6 +370,9 @@ public class SkinPregenerationService extends InternalView
 
   private static final String _RESPONSE_DOCTYPE =
     "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">";
+
+  // The view id for the pregeneration service.
+  private static final String _VIEW_ID = "/-pregenerate-skins";
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(SkinPregenerationService.class);

@@ -419,7 +419,7 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
   // are allowed.
   private void _checkSkinPregeneration(FacesContext context, String viewId)
   {
-    if (_skinPregenerationEnabled && !SkinPregenerationService.VIEW_ID.equals(viewId))
+    if (_skinPregenerationEnabled && !SkinPregenerationService.isPregenerationRequest(viewId))
     {
       ExternalContext external = context.getExternalContext();
       String message = _LOG.getMessage("SKIN_PREGEN_ENABLED");
