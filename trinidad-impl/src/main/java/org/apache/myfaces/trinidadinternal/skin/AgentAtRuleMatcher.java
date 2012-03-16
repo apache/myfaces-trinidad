@@ -713,13 +713,18 @@ public final class AgentAtRuleMatcher
       // their hash codes each time our hash code is called
       _hashCode = matchers.hashCode();
 
+      boolean hasVersionMatcher = false;
+      boolean hasTouchMatcher = false;
       for (AgentMatcher matcher : matchers)
       {
         if (matcher instanceof VersionMatcher)
-          _hasVersionMatcher = true;
+          hasVersionMatcher = true;
         if (matcher instanceof TouchScreenCapabilityMatcher)
-          _hasTouchScreenCapabilityMatcher = true;
+          hasTouchMatcher = true;
       }
+      
+      _hasVersionMatcher = hasVersionMatcher;
+      _hasTouchScreenCapabilityMatcher = hasTouchMatcher;
     }
 
     protected boolean hasTouchScreenCapabilityMatcher()
@@ -800,8 +805,8 @@ public final class AgentAtRuleMatcher
 
     private final List<AgentMatcher> _matchers;
     private final int _hashCode;
-    private boolean _hasVersionMatcher;
-    private boolean _hasTouchScreenCapabilityMatcher;
+    private final boolean _hasVersionMatcher;
+    private final boolean _hasTouchScreenCapabilityMatcher;
   }
 
   /**
