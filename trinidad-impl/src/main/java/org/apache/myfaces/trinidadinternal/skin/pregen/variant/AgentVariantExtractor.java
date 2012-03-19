@@ -22,6 +22,7 @@ import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 import java.util.HashSet;
@@ -190,7 +191,7 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
     Map<Application, Set<Version>> appVersionsMap
     )
   {
-    ArrayList<ApplicationAndVersion> appAndVersions = 
+    List<ApplicationAndVersion> appAndVersions = 
       new ArrayList<ApplicationAndVersion>();
     
     for (Map.Entry<Application, Set<Version>> entry : appVersionsMap.entrySet())
@@ -200,7 +201,10 @@ final class AgentVariantExtractor implements SkinVariantExtractor<ApplicationAnd
         appAndVersions.add(new ApplicationAndVersion(entry.getKey(), version));
       }
     }
-    
+
+    // Sort to make logger output/progress easier to monitor
+    Collections.sort(appAndVersions);
+
     return appAndVersions;
   }
 

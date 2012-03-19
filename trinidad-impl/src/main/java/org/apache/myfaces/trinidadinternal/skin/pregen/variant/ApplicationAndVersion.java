@@ -80,16 +80,18 @@ public final class ApplicationAndVersion implements Comparable<ApplicationAndVer
   }
 
   @Override
-  public int compareTo(ApplicationAndVersion appAndVersion)
+  public int compareTo(ApplicationAndVersion otherAppAndVersion)
   {
-    int appResult = this.application.compareTo(appAndVersion.application);
-    
-    if (appResult != 0)
+    String agentName = this.application.getAgentName();
+    String otherAgentName = otherAppAndVersion.application.getAgentName();
+
+    int nameResult = agentName.compareTo(otherAgentName);
+    if (nameResult != 0)
     {
-      return appResult;
+      return nameResult;
     }
     
-    return this.version.compareTo(appAndVersion.version);
+    return this.version.compareTo(otherAppAndVersion.version);
   }
   
   @Override
