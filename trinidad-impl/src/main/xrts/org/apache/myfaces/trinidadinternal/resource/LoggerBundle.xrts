@@ -1192,6 +1192,6 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <resource key="ILLEGAL_SYSTEM_PROPERTY_VALUE">{0} is not a valid value for system property {1}.  Valid values are: {2}</resource>
 
-<resource key="SKIN_EMPTY_VERSION_RANGE">An unexecpted empty version range was detected during style sheet generation, possibly indicating a Trinidad skinning defect.</resource>
+<resource key="SKIN_GENERATION_ERROR">An unexpected error occurred while generating a skin style sheet, possibly indicating a Trinidad defect.  Please report this failure to the Apache MyFaces development team.</resource>
 
 </resources>

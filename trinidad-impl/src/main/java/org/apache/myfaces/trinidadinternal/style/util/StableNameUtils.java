@@ -24,8 +24,11 @@ import java.util.Collection;
 
 import java.util.Collections;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
+
+import java.util.TreeSet;
 
 import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.util.Range;
@@ -101,19 +104,18 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
  * - accessibility: accessibility profile preferences (hc|lf|hclf for high contrast|
  *     large fonts|high contrast + large fonts).
  *     
- * These fields all support two additional values:
+ * In the event that no @-rule variant is expicitly matched, only default styles
+ * (ie. styles that apply to all requests) are included in the generated style sheet.
+ * The token "d" is used to identify this case.  For example, if the skin does not
+ * define any @locale rules, the locale portion of the file name will be "d".
  * 
- * - Default: in the event that no @-rule variant is expicitly matched, only default styles
- *    (ie. styles that apply to all requests) are included in the generated style sheet.
- *   The token "d" is used to identify this case.  For example, if the skin does not
- *   define any @locale rules, the locale portion of the file name will be "d".
- * 
- * - Multiple: In some cases it is not possible to determine a unique value
- *   for a particular variant, because only @-rules that specify multiple values
- *   are matched.  The token "x" is used to identify such cases.  For example, if the
- *   skin defines a single @locale rule matching the ja, cz, and ko locales, the 
- *   locale portion of the file name for generated style sheets corresponding to these
- *   locales will be "x".
+ * In some cases it is not possible to determine a unique value
+ * for a particular variant, because only @-rules that specify multiple values
+ * are matched.  In this case, a combination of the matched values will be used
+ * for the segment.  For example, if the
+ * skin defines a single @locale rule matching the ja, cz, and ko locales, the 
+ * locale portion of the file name for generated style sheets corresponding to these
+ * locales will be "ca_ja_ko".
  * 
  * The contextual identifiers section (section #3) contains the following subsections:
  * 
@@ -241,7 +243,7 @@ public final class StableNameUtils
     {
       for (NamingStyleSheetVisitor visitor : visitors)
       {
-        visitor.apppendName(builder);
+        visitor.appendName(builder);
         builder.append(_SEPARATOR);
       }
       
@@ -278,7 +280,7 @@ public final class StableNameUtils
      * Appends the the file name that is being built up in the specified
      * StringBuilder.
      */
-    public void apppendName(StringBuilder builder);
+    public void appendName(StringBuilder builder);
   }
 
   // Abstract base class for NamingStyleSheetVisitors that operate on the 
@@ -289,149 +291,121 @@ public final class StableNameUtils
   //    rules, so StyleSheetNode.getLocales() is always empty.  In this case,
   //    we always append the default match path token.
   // 2. There is a single match - eg. the skin defines "@locale ja" and this
-  //    StyleSheetNode is visited.  In this case, we call appendSingleValueName()
-  //    to get the variant-specific name.
+  //    StyleSheetNode is visited.  In this case, we append the string representation
+  //    of the matched value.
   // 3. There is a multiple match (and no single match) - eg. the skin defines
   //    "@locale ja, cz, ko" and this StyleSheetNode is visited.  In this case,
-  //    we always append the multiple match path token.
+  //    we append a concatenation of the string representation of each value,
+  //    separated by the underscore character.
   private abstract static class CollectionNameExtractor<E> implements NamingStyleSheetVisitor
   {
-    @Override
-    public final void visit(StyleSheetNode styleSheet)
-    {
-      Collection<E> values = getCollectionValues(styleSheet);
-      _match(styleSheet, values);
-    }
-
-    @Override
-    public final void apppendName(StringBuilder builder)
-    {
-      if (_match == Match.SINGLE)
-      {
-        appendSingleValueName(builder, _singleValue);
-      }
-      else
-      {
-        appendNonSingleValueName(builder, _match);
-      }
-    }
-    
     /**
-     * Returns the collection that this NamingStyleSheetVisitor will operate on.
-     * 
-     * For example, a subclass that wants to extract locale-specific names would
-     * override this to call styleSheet.getLocales().
-     * 
-     * @param styleSheet the style sheet that provides the collection
+     * Returns the collection of values that contribute to the name.
      */
     abstract protected Collection<E> getCollectionValues(StyleSheetNode styleSheet);
     
-    /**
-     * Called to append a name for single-value matches.
-     * 
-     * The subclass will translate the singly-matched value into a name.
-     * 
-     * (CollectionNameExtractor handles the default/multiple match cases automatically.)
-     * 
-     * @param builder the (non-null) StringBuilder to append to
-     * @param singleValue the most recent value returned from matchSingleValue().
-     */
-    abstract protected void appendSingleValueName(StringBuilder builder, E singleValue);
-
-    /**
-     * Appends a name for a non-single match.
-     *
-     * @param builder the (non-null) StringBuilder to append to
-     * @param match the type of match - either Match.DEFAULT or Match.MULTIPLE.
-     */
-    protected void appendNonSingleValueName(StringBuilder builder, Match match)
+    @Override
+    public void visit(StyleSheetNode styleSheet)
     {
-      builder.append(_match.pathToken());      
+      Collection<E> newValues = getCollectionValues(styleSheet);
+      if (!newValues.isEmpty())
+      {
+        if (_values == null)
+        {
+          // Need to make a copy since we'll be modifying this collection.
+          _values = new HashSet<E>(newValues);
+        }
+        else
+        {
+          mergeValues(styleSheet, _values, newValues);
+
+          // We should never reach a state where the collected values
+          // is empty.  This would indicate that our style sheet node
+          // matching logic is wrong - eg. we matched a style sheet
+          // node with "@locale ja" and a second style sheet node with
+          // "@locale ko".  Make some noise if we hit this.
+          if (_values.isEmpty())
+          {
+            _fail();
+          }
+        }
+      }
     }
 
     /**
-     * Called to notify the subclass that a collection with a single value has been
-     * matched.
+     * Merges previously collected values with a new collection of values,
+     * storing the result in oldValues.
      * 
-     * @param styleSheet the style sheet that is being processed
-     * @param oldValue the previously matched single value, or null if
-     *                 no single value has been matched.
-     * @param newValue the (non-null) newly matched single value
-     * @return the new single value to use for name generation. By default
-     *          this returns the newValue.  However, in some
-     *           cases, such as locale matching, the old value may be
-     *           more specific (eg. "en_US" vs "en") and thus preferred.
+     * By default, the intersection of the two collections is retained.
      */
-    protected E matchSingleValue(StyleSheetNode styleSheet, E oldValue, E newValue)
+    protected void mergeValues(
+      StyleSheetNode styleSheet,
+      Collection<E>  oldValues,
+      Collection<E>  newValues
+      )
     {
-      return newValue;
+      oldValues.retainAll(newValues);
     }
 
-    private void _match(StyleSheetNode styleSheet, Collection<E> values)
+    @Override
+    public void appendName(StringBuilder builder)
     {
-      int size = values.size();
+      if (_values == null)
+      {
+        builder.append(_DEFAULT_PATH_TOKEN);
+      }
+      else
+      {
+        assert(_values != null);
+        assert(!_values.isEmpty());
+        
+        Collection<String> names = _toNames(_values);
+        _appendNames(builder, names);
+      }
+    }
+    
+    private Collection<String> _toNames(Collection<E> values)
+    {
+      Collection<String> names = new TreeSet<String>();
       
-      if (size == 1)
+      for (E value : values)
       {
-        _matchSingle(styleSheet, values);
+        String name = toName(value);
+        assert(name != null);
+        
+        names.add(name);
       }
-      else if (size > 1)
-      {
-        _matchMultiple();
-      }      
-    }
-    
-    private void _matchSingle(StyleSheetNode styleSheet, Collection<E> values)
-    {
-      assert(values.size() == 1);
       
-      Iterator<E> iter = values.iterator();
-      if (iter.hasNext())
-      {
-        E newValue = iter.next();
-        assert(newValue != null);
+      return names;
+    }
 
-        _singleValue = matchSingleValue(styleSheet, _singleValue, newValue);
-        _match = Match.SINGLE;            
+    /**
+     * Converts the specified value to a name to include in the 
+     * file name.
+     */
+    protected String toName(E value)
+    {
+      return value.toString();
+    }
+
+    private void _appendNames(StringBuilder builder, Collection<String> names)
+    {
+      assert(names != null);
+      assert(!names.isEmpty());
+      
+      Iterator<String> iter = names.iterator();
+      while (iter.hasNext())
+      {
+        builder.append(iter.next());
+        
+        if (iter.hasNext())
+        {
+          builder.append("_");
+        }
       }
     }
     
-    private void _matchMultiple()
-    {
-      if (_match == Match.DEFAULT)
-      {
-        _match = Match.MULTIPLE;
-      }
-    }
-
-    private Match _match = Match.DEFAULT;
-    private E     _singleValue = null;
-  }
-
-  // Enum used by name extraction classes to track match state.
-  private static enum Match
-  {
-    // Indicates that we have not matched any @-rule
-    DEFAULT("d"),
-    
-    // Indicates that we have matched a single-valued @-rule 
-    SINGLE("s"),
-    
-    // Indicates that we have matched a multi-valued @-rule
-    MULTIPLE("x");
-    
-    Match(String pathToken)
-    {
-      _pathToken = pathToken;
-    }
-    
-    // Returns a token suitable for inclusion in a file name/path.
-    public String pathToken()
-    {
-      return _pathToken;      
-    }
-
-    private final String _pathToken;
+    private Collection<E> _values = null;
   }
 
   // NamingStyleSheetVisitor that extracts the platform name.
@@ -442,11 +416,11 @@ public final class StableNameUtils
     {
       return styleSheet.getPlatforms();
     }
-
+    
     @Override
-    protected void appendSingleValueName(StringBuilder builder, Integer platform)
+    protected String toName(Integer platform)
     {
-      builder.append(NameUtils.getPlatformName(platform));
+      return NameUtils.getPlatformName(platform);
     }
   }
 
@@ -462,6 +436,12 @@ public final class StableNameUtils
     }
 
     @Override
+    protected String toName(Application agentApplication)
+    {
+      return agentApplication.getAgentName();
+    }
+
+    @Override
     protected Collection<Application> getCollectionValues(StyleSheetNode styleSheet)
     {
       AgentAtRuleMatcher agentMatcher = styleSheet.getAgentMatcher();
@@ -474,18 +454,43 @@ public final class StableNameUtils
     }
 
     @Override
-    protected Application  matchSingleValue(
-      StyleSheetNode styleSheet,
-      Application oldAgentApplication,
-      Application newAgentApplication
+    protected void mergeValues(
+      StyleSheetNode          styleSheet,
+      Collection<Application> oldAgentApplications,
+      Collection<Application> newAgentApplications
       )
     {
-      _matchVersion(styleSheet.getAgentMatcher(), newAgentApplication);
-      
-      return newAgentApplication;
+      super.mergeValues(styleSheet, oldAgentApplications, newAgentApplications);
+
+      // In addition to merging application values, we also need to keep track of
+      // versions that we have seen, since this may be included in the generated
+      // file name.  Note that we only care about versions for cases where we've
+      // got an exact agent application match (ie. in cases where we actually know
+      // which application we are targeted.)
+      Application newAgentApplication = _getSingleAgentApplication(newAgentApplications);
+      if (newAgentApplication != null)
+      {
+        _mergeVersions(styleSheet.getAgentMatcher(), newAgentApplication);
+      }
     }
-    
-    private void _matchVersion(
+
+    // If the collection contains a single entry, returns the single value.
+    // Otherwise, returns null;
+    private Application _getSingleAgentApplication(Collection<Application> agentApplications)
+    {
+      if (agentApplications.size() == 1)
+      {
+         Iterator<Application> iter = agentApplications.iterator();
+         if (iter.hasNext())
+         {
+           return iter.next();
+         }
+      }
+      
+      return null;
+    }
+
+    private void _mergeVersions(
       AgentAtRuleMatcher agentMatcher,
       Application        agentApplication
       )
@@ -497,35 +502,28 @@ public final class StableNameUtils
         agentMatcher.getMatchedVersionsForApplication(agentApplication, _agentVersion);
       _matchedVersions = _matchedVersions.intersect(matchedVersions);
 
+      // We should never see an empty range at this point since the two
+      // ranges that we intersected both contains _agentVersion.
       if (_matchedVersions.isEmpty())
       {
-        _LOG.warning("SKIN_EMPTY_VERSION_RANGE");
+        _fail();
       }
     }
 
     @Override
-    protected void appendNonSingleValueName(StringBuilder builder, Match match)
+    public void appendName(StringBuilder builder)
     {
       // This super call will handle appending the agent name segment.
       // However, we also need to ensure that the agent version is added.
-      super.appendNonSingleValueName(builder, match);
+      super.appendName(builder);
       
       // Tack on a value for the version field.  (All stable names need to
       // have the same # of fields in order to support allow uris/names to
       // be easily targeted by uri rewriting regular expressions.)
       builder.append(_SEPARATOR);
-      builder.append(match.pathToken());
+      _appendVersionName(builder);      
     }
 
-    @Override
-    protected void appendSingleValueName(StringBuilder builder, Application agentApplication)
-    {
-      builder.append(agentApplication.getAgentName());
-      builder.append(_SEPARATOR);
-      
-      _appendVersionName(builder);
-    }
-  
     private void _appendVersionName(StringBuilder builder)
     {
       Version startVersion = _matchedVersions.getStart();
@@ -535,7 +533,7 @@ public final class StableNameUtils
       
       if (startMin && endMax)
       {
-        builder.append(Match.DEFAULT.pathToken());
+        builder.append(_DEFAULT_PATH_TOKEN);
       }
       else if (startMin)
       {
@@ -567,44 +565,57 @@ public final class StableNameUtils
     }
 
     @Override
-    protected Locale matchSingleValue(
-      StyleSheetNode styleSheet,
-      Locale         oldLocale,
-      Locale         newLocale
+    protected void mergeValues(
+      StyleSheetNode     styleSheet,
+      Collection<Locale> oldLocales,
+      Collection<Locale> newLocales
       )
     {
-      return _getMoreSpecificLocale(oldLocale, newLocale);
-    }
+      assert(oldLocales != null);
+      assert(newLocales != null);
 
-   private static Locale _getMoreSpecificLocale(
-      Locale oldLocale,
-      Locale newLocale
-      )
-    {
-      assert(newLocale != null);
-      if (oldLocale == null)
-      {
-        return newLocale;
-      }
-
-      assert(oldLocale.getLanguage().equals(newLocale.getLanguage()));
-      String oldCountry = oldLocale.getCountry();
-      if (oldCountry == null)
-      {
-        return newLocale;
-      }
+      // We can't simply use Collection.retainAll() because we need to
+      // compensate for partial locales - ie. if "ja" is present in
+      // oldLocales and we encounter "ja_JP", Collection.retainAll()
+      // would result in the empty set, where as we want to replace "ja"
+      // with "ja_JP".
       
-      assert(oldCountry.equals(newLocale.getCountry()));
-      return (oldLocale.getVariant() == null ? newLocale : oldLocale);
+      for (Locale newLocale : newLocales)
+      {
+        _retainLocale(oldLocales, newLocale); 
+      }
+    }
+    
+    // We only want to retain the new locale if:
+    //
+    // a) it exist in the old locales, or...
+    // b) one of its "super" locales exists in the old locales.
+    //
+    // In the case of b), we want to remove the super-locale and
+    // repalce it with the new, more-specific locale.
+    private void _retainLocale(Collection<Locale> oldLocales, Locale newLocale)
+    {
+      // We could optimize by explicitly checking whether the new locale actually
+      // specifies a country/variant, but prefer to keep the code simple.
+      Locale langOnlyLocale = _toLanguageOnlyLocale(newLocale);
+      Locale langAndCountryLocale = _toLanguageAndCountryLocale(newLocale);
+      
+      if (oldLocales.contains(langOnlyLocale) || oldLocales.contains(langAndCountryLocale))
+      {
+        oldLocales.remove(langOnlyLocale);
+        oldLocales.remove(langAndCountryLocale);
+        oldLocales.add(newLocale);
+      }
+    }
+    
+    private Locale _toLanguageOnlyLocale(Locale locale)
+    {
+      return new Locale(locale.getLanguage());
     }
 
-    @Override
-    protected void appendSingleValueName(
-      StringBuilder builder,
-      Locale        locale
-      )
+    private Locale _toLanguageAndCountryLocale(Locale locale)
     {
-      builder.append(locale.toString());
+      return new Locale(locale.getLanguage(), locale.getCountry());
     }
   }
   
@@ -623,10 +634,10 @@ public final class StableNameUtils
     }
 
     @Override
-    public void apppendName(StringBuilder builder)
+    public void appendName(StringBuilder builder)
     {
       String name = (_direction == LocaleUtils.DIRECTION_DEFAULT) ? 
-                      Match.DEFAULT.pathToken() : 
+                      _DEFAULT_PATH_TOKEN : 
                       NameUtils.getDirectionName(_direction);
       
       builder.append(name);
@@ -643,53 +654,41 @@ public final class StableNameUtils
     {
       return styleSheet.getAccessibilityProperties();
     }
-
-    @Override
-    protected String matchSingleValue(
+    
+    protected void mergeValues(
       StyleSheetNode styleSheet,
-      String oldAccessibilityProperty,
-      String newAccessibilityProperty
+      Collection<String> oldAccessibilityProperties,
+      Collection<String> newAccessibilityProperties
       )
     {
-      // We use contains() instead of equals() as the accessibility property might be a
-      // compund property (eg. "high-contrast&large-fonts").  We could attempt to do a
-      // more formal parse, but not much point.
-      if (newAccessibilityProperty.contains(XMLConstants.ACC_HIGH_CONTRAST))
-      {
-        _highContrastMatch = Match.SINGLE;
-      }
-        
-      if (newAccessibilityProperty.contains(XMLConstants.ACC_LARGE_FONTS))
-      {
-        _largeFontsMatch = Match.SINGLE;
-      }
-      
-      // We track the single value ourselves
-      return null;
-    }
-
-    @Override
-    protected void appendSingleValueName(
-      StringBuilder builder,
-      String        accessibilityProperty
-      )
-    {
-      assert((_highContrastMatch == Match.SINGLE) ||
-             (_largeFontsMatch == Match.SINGLE));
-      
-      if (_highContrastMatch == Match.SINGLE)
-      {
-        builder.append("hc");
-      }
-      
-      if (_largeFontsMatch == Match.SINGLE)
-      {
-        builder.append("lf");
-      }
+      oldAccessibilityProperties.addAll(newAccessibilityProperties);
     }
     
-    private Match _highContrastMatch = Match.DEFAULT;
-    private Match _largeFontsMatch = Match.DEFAULT;
+    @Override
+    protected String toName(String accessibilityProperty)
+    {
+      String name = null;
+      
+      if (XMLConstants.ACC_HIGH_CONTRAST.equals(accessibilityProperty))
+      {
+        name = "hc";
+      }
+      
+      if (XMLConstants.ACC_LARGE_FONTS.equals(accessibilityProperty))
+      {
+        name = "lf";
+      }
+      
+      assert(name != null);
+
+      return name;
+    }
+  }
+  
+  private static void _fail()
+  {
+    String message = _LOG.getMessage("SKIN_GENERATION_ERROR");
+    throw new IllegalStateException(message);
   }
 
   private StableNameUtils()
@@ -698,6 +697,8 @@ public final class StableNameUtils
   
   private static final char _SEPARATOR = '-';
 
+  private static final String _DEFAULT_PATH_TOKEN = "d";
+  
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(StableNameUtils.class);  
   
