@@ -72,6 +72,7 @@ import org.apache.myfaces.trinidad.bean.util.StateUtils;
 import org.apache.myfaces.trinidad.bean.util.ValueMap;
 import org.apache.myfaces.trinidad.change.AttributeComponentChange;
 import org.apache.myfaces.trinidad.change.ComponentChange;
+import org.apache.myfaces.trinidad.change.ComponentChangeFilter;
 import org.apache.myfaces.trinidad.change.RowKeySetAttributeChange;
 import org.apache.myfaces.trinidad.component.ComponentProcessingContext.ProcessingHint;
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -145,6 +146,8 @@ abstract public class UIXComponentBase extends UIXComponent
   static private final PropertyKey _SYSTEM_EVENT_LISTENERS_KEY =
     TYPE.registerKey("systemEventListeners", AttachedObjects.class,
                      PropertyKey.CAP_NOT_BOUND|PropertyKey.CAP_PARTIAL_STATE_HOLDER|PropertyKey.CAP_STATE_HOLDER);
+  static private final PropertyKey _COMPONENT_CHANGE_FILTERS_KEY =
+    TYPE.registerKey("componentChangeFilters", ComponentChangeFilter[].class, PropertyKey.CAP_LIST);
   // =-=AEW "parent", "rendersChildren", "childCount", "children",
   // "facets", "facetsAndChildren", "family" all are technically
   // bean properties, but they aren't exposed here...
@@ -323,6 +326,49 @@ abstract public class UIXComponentBase extends UIXComponent
       _init(null);
 
     return _attributes;
+  }
+
+  /**
+   * Adds a change for a Component, or the Component's subtree, returning the change actually added,
+   * or <code>null</code>, if no change was added.  The proposed change may be rejected by the
+   * component itself, one of its ancestors, or the ChangeManager implementation.
+   * @param change     The change to add for this component
+   * @return The ComponentChange actually added, or
+   * <code>null</code> if no change was added.
+   * @see #addComponentChange(UIComponent, ComponentChange)
+   */
+  public final ComponentChange addComponentChange(ComponentChange change)
+  {
+    return addComponentChange(this, change);
+  }
+  
+  /**
+   * Add a component change filter to this component.
+   * When <code>addComponentChange(ComponentChange)</code> method on this component is called, the ComponentChange will
+   * be added only if it is accepted by all the component change filters attached to this component as well as those
+   * attached to all its ancestors. 
+   * @param componentChangeFilter The ComponentChangeFilter instance to add to this component
+   * @see #addComponentChange(ComponentChange)
+   */
+  public final void addComponentChangeFilter(ComponentChangeFilter componentChangeFilter)
+  {
+    if (componentChangeFilter == null)
+      throw new NullPointerException();
+    
+    getFacesBean().addEntry(_COMPONENT_CHANGE_FILTERS_KEY, componentChangeFilter);
+  }
+  
+  /**
+   * Remove a component change filter to this component.
+   * @param componentChangeFilter The ComponentChangeFilter instance to remove from this component
+   * @see #addComponentChangeFilter(ComponentChangeFilter)
+   */
+  public final void removeComponentChangeFilter(ComponentChangeFilter componentChangeFilter)
+  {
+    if (componentChangeFilter == null)
+      throw new NullPointerException();
+    
+    getFacesBean().removeEntry(_COMPONENT_CHANGE_FILTERS_KEY, componentChangeFilter);
   }
 
   @Override
@@ -1399,17 +1445,29 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
   /**
-   * Adds a change for a Component, or the Component's subtree, returning the change actually added,
-   * or <code>null</code>, if no change was added.  The proposed change may be rejected by the
-   * component itself, one of its ancestors, or the ChangeManager implementation.
-   * @param change     The change to add for this component
-   * @return The ComponentChange actually added, or
-   * <code>null</code> if no change was added.
-   * @see #addComponentChange(UIComponent, ComponentChange)
+   * Checks if any of the ComponentChangeFilter instances that is attached to this component rejects the supplied
+   * change for the supplied component.
    */
-  public final ComponentChange addComponentChange(ComponentChange change)
+  private boolean _isAnyFilterRejectingChange(UIComponent uic, ComponentChange cc)
   {
-    return addComponentChange(this, change);
+    // assume we accept the change
+    boolean rejectsChange = false;
+    
+    Iterator<ComponentChangeFilter> iter =
+      (Iterator<ComponentChangeFilter>)getFacesBean().entries(_COMPONENT_CHANGE_FILTERS_KEY);
+
+    while (iter.hasNext())
+    {
+      ComponentChangeFilter currentFilter = iter.next();
+      if (currentFilter.accept(cc, uic) == ComponentChangeFilter.Result.REJECT)
+      {
+        // one of the filter rejected the change, look no further
+        rejectsChange = true;
+        break;
+      }
+    }
+    
+    return rejectsChange;
   }
   
   private UIXComponentBase _getNextUIXComponentBaseAnxcestor()
@@ -1457,8 +1515,8 @@ abstract public class UIXComponentBase extends UIXComponent
       }
     }
     
-    // add the change unless changes for this subtree have suppressed
-    if (!Boolean.TRUE.equals(getAttributes().get(_NO_SUBTREE_CHANGE_ATTR)))
+    // add the change unless we have a change filter that is attached to this component wants to supress the change
+    if (!_isAnyFilterRejectingChange(component, change))
     {
       UIXComponentBase nextUIXParent = _getNextUIXComponentBaseAnxcestor();
   
@@ -2572,8 +2630,6 @@ abstract public class UIXComponentBase extends UIXComponent
     private Class<?> _componentClass;
   }
 
-  private static final String _NO_SUBTREE_CHANGE_ATTR = "_trinNoSubtreeChange";
-  
   private static final ClientIdCaching _CLIENT_ID_CACHING = _initClientIdCaching();
 
   // System property controlling whether client ID caching is enabled
