@@ -150,7 +150,7 @@ public class ForEachTag extends TrinidadTagSupport
       //pu: If 'end' were specified, but is beyond the size of collection, limit
       //  the iteration to where the collection ends. A mimic of c:forEach and
       //  fix for bug 4029853.
-	  // Bug#13784413: Limit the iteration of the tag upto the size of the collection.
+      // Bug#13784413: Limit the iteration of the tag upto the size of the collection.
       if (length <= _currentEnd)
         _currentEnd = length - 1;
     }
