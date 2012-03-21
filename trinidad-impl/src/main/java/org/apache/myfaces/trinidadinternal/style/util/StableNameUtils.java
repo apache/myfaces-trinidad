@@ -125,16 +125,18 @@ public final class StableNameUtils
       // avoid reallocations.
       StringBuilder builder = new StringBuilder(100);
       
-      _appendDocumentName(builder);
-      _appendVisitNames(builder, visitors);
-      _appendNonVisitNames(builder);
+      _appendSkinIdentifierSection(builder);
+      _appendVariantsSection(builder, visitors);
+      _appendContextualSection(builder);
       _appendSuffix(builder);
       
       return builder.toString();
     }
 
-    private void _appendDocumentName(StringBuilder builder)
+    private void _appendSkinIdentifierSection(StringBuilder builder)
     {
+      // The document id is actually just the content/version hash.  The skin
+      // id is later prepended in SkinStyleProvider.getTargetStyleSheetName().
       builder.append(_documentId);
       
       // Double-separator to make it easier to write regular
@@ -144,7 +146,7 @@ public final class StableNameUtils
       builder.append(_SEPARATOR);      
     }
     
-    private void _appendVisitNames(
+    private void _appendVariantsSection(
       StringBuilder builder,
       Collection<NamingStyleSheetVisitor> visitors
       )
@@ -162,7 +164,7 @@ public final class StableNameUtils
       builder.append(_SEPARATOR);
     }
 
-    private void _appendNonVisitNames(StringBuilder builder)
+    private void _appendContextualSection(StringBuilder builder)
     {
       builder.append(_context.isPortletMode() ? "p" : "s");
       builder.append(_SEPARATOR);

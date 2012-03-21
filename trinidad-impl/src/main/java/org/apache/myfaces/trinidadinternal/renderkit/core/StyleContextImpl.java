@@ -351,7 +351,7 @@ class StyleContextImpl implements StyleContext
       }
     }
 
-    return StyleSheetNamingStrategy.SHORT;
+    return StyleSheetNamingStrategy.STABLE;
   }
 
   private ConcurrentMap<String, Object> _getConcurrentApplicationScopedMap()
@@ -419,7 +419,7 @@ class StyleContextImpl implements StyleContext
     "org.apache.myfaces.trinidad.skin.dirty";
   
   static private final String _NAMING_STRATEGY_PARAM =
-    "org.apache.myfaces.trinidad.STYLE_SHEET_NAMING_STRATEGY";
+    "org.apache.myfaces.trinidadinternal.STYLE_SHEET_NAMING_STRATEGY";
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(StyleContextImpl.class);
