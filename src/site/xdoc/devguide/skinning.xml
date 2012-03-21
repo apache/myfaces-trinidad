@@ -1585,13 +1585,13 @@ The "variants" request parameter can be used to force generation of all
 possible style sheets.  For example, specifying variants=all:
 </p>
 <source>
-/context root/faces/-pregenerate-skins?id=minimal.desktop?variants=all
+/context root/faces/-pregenerate-skins?id=minimal.desktop&amp;variants=all
 </source>
 <p>
 Will result in in pre-generation of every possible style sheet for the minimal.desktop skin.
 </p>
 <p>
-In addition to the "variants" request parameter, the following optional request may be used to provide information about how pre-generation should be performed:
+In addition to the "variants" request parameter, the following optional request parameters may be used to provide information about how pre-generation should be performed:
 </p>
 <p>
 <ul>
@@ -1607,7 +1607,7 @@ the following request:
 /context-root/-pregenerate-skins?id=minimal.desktop&amp;styleClassType=compressed&amp;styleClassType=uncompressed
 </source>
 <p> 
-Pre-generates both servlet and portlet style sheets for the common variants of the the minimal.desktop skin.
+Pre-generates style sheets for both compressed and uncompressed style class names for the common variants of the the minimal.desktop skin.
 </p>
 <p>
 By default, pre-generated style sheets are written into the web application's style sheet cache directory (typically, &lt;web app temp dir&gt;/adf/styles/cache).  However, an alternate target directory for the pre-generated output can be specified via the following system property:
@@ -1769,7 +1769,7 @@ Is composed of these pieces:
 </ul>
 </p>
 <p>
-When writing regulard expressions that target this structure, the following recommendations should be observed:
+When writing regular expressions that target this structure, the following recommendations should be observed:
 </p>
 <p>
 <ul>
