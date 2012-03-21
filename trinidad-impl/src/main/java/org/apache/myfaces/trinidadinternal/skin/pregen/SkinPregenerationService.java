@@ -41,72 +41,8 @@ import org.apache.myfaces.trinidadinternal.skin.pregen.config.PregenConfig;
 /**
  * InternalView implementation that provides skin pregeneration service.
  *
- * Skin pregeneration is enabled by specifying the following system
- * property:
- *
- *  -Dorg.apache.myfaces.trinidad.SKIN_PREGENERATION_SERVICE=on
- *
- * When enabled, a request to the "-pregenerate-skins" view id can be
- * used to force pregeneration for specific skins.  Each request must
- * specifiy a single "id" query parameter.  The value of this query parameter
- * must be an id of one of the skins registered with trinidad (eg. via
- * an "id" element in a trinidad-skins.xml file).
- *
- * For example, in an application that uses prefix mapping for the FacesServlet,
- * enabling the skin pregeneration service exposes the following uri:
- *
- *   - /context root/faces/-pregenerate-skins?id=minimal.desktop
- *
- * Which triggers pregeneration of style sheets for the minimal.desktop skin
- * when hit.
- * 
- * By default, only style sheets for common variant values are generated.
- * In particular:
- * 
- * - plaform: android | iphone | linux | macos | windows
- * - agent: ie | gecko | webkit
- * - locale: default (unmatched) locale
- * - reading direction: ltr
- * - accessibility: standard contrast, medium fonts
- *
- * The "variants" request parameter can be used to force generation of all
- * possible variants, eg:
- * 
- *    - "/context root/faces/-pregenerate-skins?id=minimal.desktop?variants=all
- *    
- * The following optional request parameters may also be used to provide contextual
- * information about how the pregeneration should be performed:
- *
- * - containerType: servlet | portlet. (Defaults to "servlet".)
- * - requestType: nonsecure | secure.  (Defaults to "nonsecure".)
- * - styleClassType: compressed | uncompressed.  (Defaults to "compressed".)
- *
- * All of the contextual request parameters support multiple values.  For example,
- * the following request:
- * 
- *  /-pregenerate-skins?id=minimal.desktop&styleClassType=compressed&styleClassType=uncompressed
- *  
- * Pregenerates both servlet and portlet style sheets for the common variants of the the
- * minimal.desktop skin.
- *
- * By default, pregenerated style sheets are written into the web application's
- * style sheet cache directory (typically, tmpdir/adf/styles/cache).  However,
- * a target directory for the pregenerated output can be specified via the
- * following system property:
- * 
- * -Dorg.apache.myfaces.trinidad.SKIN_PREGENERATION_SERVICE_TARGET_DIRECTORY=directory path
- * 
- * 
- * Requests that result in successful skin pregeneration result in status 200
- * responses.  Failed requests (eg. for invalid skin ids) result in non-200
- * status codes.
- * 
- * For security purposes, pregeneration must never be enabled in end user facing,
- * production deployments - ie. skin pregeneration is CPU and I/O intensive, and
- * must not be exposed to arbitrary users.  To avoid the potential for abuse,
- * enabling skin pregeneration has the side effect of disabling the rest of the
- * application.  As such, applications that are enabled for skin pregeneration 
- * can only be used for this single purpose.
+ * See the "Pre-generating Skin Style Sheets" section in the Skinning chapter
+ * of the Trinidad Developer's Guide for the specification of this service.
  */
 public class SkinPregenerationService extends InternalView
 { 
