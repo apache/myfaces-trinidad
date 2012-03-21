@@ -74,8 +74,7 @@
           <li>
             <a href="#Pregen">Pre-generating Skin Style Sheets</a>
             <ul>
-            <li><a href="#Stable_Names">Stable Names for Generated Style Sheet Files</a></li>
-            <li><a href="#Stable_Names_Structure">Structure of Stable Style Sheet File Names</a></li>
+            <li><a href="#Style_Sheet_Names">Style Sheet File Names</a></li>
             </ul>
           </li>
           <li>
@@ -1623,43 +1622,13 @@ status codes.
 <p>
 For security purposes, pre-generation must never be enabled in end user facing, production deployments - ie. skin pregeneration is CPU and I/O intensive, and must not be exposed to arbitrary users.  To avoid the potential for abuse, enabling skin pregeneration has the side effect of disabling the rest of the application.  As such, application servers that are enabled for skin pregeneration can only be used for this single purpose.
 </p>
-      <a name="Stable_Names"></a>
-      <subsection name="Stable Names for Generated Style Sheet Files">
+      <a name="Style_Sheet_Names"></a>
+      <subsection name="Style Sheet File Names">
 <p>
-By default, the file names that are used for generated style sheets are not guaranteed to be stable across runs.  In cases where a style sheet is shared across multiple variants, eg:
-</p>
-<source>
-  @locale ja, cz, ko {
-    /* Shared styles here */
-  }
-</source>
-<p>
-The file name may change after a server restart depending on which variant is requested first.
+Some applications may need to write regular expressions that target specific style sheet file names, eg. for selective uri rewriting purposes.  For such cases, applications may depend on the file name structure described below.
 </p>
 <p>
-The lack of consistent file names poses problems for cases where pre-generated style sheets are hosted on a remote server.  Since the file names are not predictable, it is not possible to ensure that the names used by the source application match the pre-generated file names hosted elsewhere.
-</p>
-<p>
-Trinidad provides the following servlet context initialization parameter for such scenarios:
-</p>
-<source>
-org.apache.myfaces.trinidad.STYLE_SHEET_NAMING_STRATEGY
-</source>
-<p>
-When this parameter is set to "stable", generated style sheets will use file names that are guaranteed to be consistent across runs.
-</p>
-<p>
-The style sheet naming strategy is automatically forced to "stable" during skin pre-generation.  Thus, the context parameter only needs to be set for applications that depend on previously generated style sheet files.
-</p>
-      </subsection>
-
-      <a name="Stable_Names_Structure"></a>
-      <subsection name="Structure of Stable Style Sheet Names">
-<p>
-Some applications may need to write regular expressions that target specific style sheet file names (eg. for selective uri rewriting purposes).  For such cases, applications may depend on the stable file name structure described below.
-</p>
-<p>
-Stable style sheet file names are broken up into three major sections:
+Generated style sheet file names are broken up into three major sections:
 </p>
 <p>
 <ol>
@@ -1733,7 +1702,7 @@ The contextual identifiers section (section #3) contains the following subsectio
 </ul>
 </p>
 <p>
-The following sample stable style sheet name:
+The following sample style sheet name:
 </p>
 <source>
 sample-desktop-jh4phm--linux-gecko-1.9.0-ja_ko_zh-ltr-lf--s-n-c.css
