@@ -191,6 +191,12 @@ public class MFacesContext extends MockFacesContext12
     // implementations as those expect a specific number of calls:
     return _kit;
   }
+  
+  @Override
+  public boolean isPostback()
+  {
+    return false;
+  }
 
   private RenderKit       _kit;
   private ExternalContext _external;
