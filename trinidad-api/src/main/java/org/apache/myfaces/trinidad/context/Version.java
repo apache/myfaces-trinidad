@@ -21,9 +21,12 @@ package org.apache.myfaces.trinidad.context;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.Range;
+
 /**
  * Immutable Representation of a dot-separated version.
- * 
+ *
  * This representation
  * allows individual sections of the version to be wild-carded and allows
  * for comparisons between Versions with different numbers of version
@@ -33,15 +36,42 @@ import java.util.regex.Pattern;
  * is used for this comparison.  Version subsections with the wild-card value "*"
  * are considered equal.  The value returned by compareTo() is the value of the
  * first non-equal version subsection or zero if all subsections match.
- * 
+ *
  * Due to the support for wild-cards, this class has a natural ordering
  * that is inconsistent with equals.  For example,
  * <code>Version("5", "*").compareTo(Version("5.0", "*") == 0</code>
  * <code>Version("5", "*").equals(Version("5.0", "*") == false;</code>
+ * 
+ * The concrete versions produced by toMinimumVersion() and toMaximumVersion()
+ * do have consistent compareTo()/equals() behavior, as these versions are
+ * guaranteed to not contain wildcards.
+ * 
  * @author Blake Sullivan
  */
 public final class Version implements Comparable<Version>
 {
+
+  /**
+   * A constant value holding the minimum value a version can have: 0.
+   */
+  public static final Version MIN_VERSION;
+  
+  /**
+   * A constant value holding a maximum upper bound for versions.
+   *
+   * In theory there is no upper limit to version string values, ie. version
+   * strings could be infinitely long.  However, in practice it can be
+   * helpful to have some way to identify a concrete maximum upper bound to
+   * a range of versions.  Version.MAX_VERSION specifies the Integer.MAX_VALUE
+   * version for this purpose.
+   */
+  public static final Version MAX_VERSION;
+  
+  /**
+   * A range of versions from MIN_VERSION to MAX_VERSION.
+   */
+  public static final Range<Version> ALL_VERSIONS;
+
   /**
    * Creates a Version instance from the dot-separated Version String using null as the padding
    * @param version The dot-separated version to represent
@@ -59,10 +89,10 @@ public final class Version implements Comparable<Version>
    * versionPadding.
    * @param version The dot-separated version to represent
    * @param versionPadding The value to return for sub-version sections
-   * requested beyond the sub-version sections present in the version String
-   * @throws NullPointerException if version or versionPadding are null
-   * @throws IllegalArgumentException if version or versionPadding are the
-   * empty String
+   * requested beyond the sub-version sections present in the version String.
+   * If null or empty, no padding will be performed.
+   * @throws NullPointerException if version is null
+   * @throws IllegalArgumentException if version is the empty String
    */
   public Version(String version, String versionPadding)
   {
@@ -74,6 +104,13 @@ public final class Version implements Comparable<Version>
     
     // build the array of subversions
     _versions = _DOT_SPLITTER.split(version, 0);
+    
+    // We also store away int representations of version strings, since
+    // this is necessary for more accurate comparison - ie. when comparing
+    // version segments, we want to compare int 9 vs 10, since comparing
+    // "9".compareTo("10") produces undesirable results.
+    _intVersions = _toIntVersions(_versions, version);
+
     _versionPadding = versionPadding;
     
     // since we're immutable, we might as well calculate this up front
@@ -103,49 +140,57 @@ public final class Version implements Comparable<Version>
     
     for (int versionIndex = 0; versionIndex < compareCount; versionIndex++)
     {
-      String ourSubVersion = _getSubVersion(versionIndex);
-      String otherSubVersion = otherVersion._getSubVersion(versionIndex);
-      
-      // treat "*" wildcard as equals
-      if ("*".equals(ourSubVersion) || "*".equals(otherSubVersion))
-      {
-        continue;
-      }
-      else
-      {
-        // compare the sub-result
-        int result = ourSubVersion.compareTo(otherSubVersion);
-        
-        // not equal, so return the result
-        if (result != 0)
-          return result;
-      }
+      int result = _compareVersions(otherVersion, versionIndex);
+
+      // not equal, so return the result
+      if (result != 0)
+        return result;
     }
     
     // equivalent
     return 0;
   }
   
+  /**
+   * Converts this Version to an equivalent "minimum" instance.
+   * 
+   * Interior wildcard segements are replaced with "0".
+   * The trailing wildcard segment (if present) is dropped.
+   * Wildcard version padding is replaced with null padding.
+   * 
+   * If no wilcards are present, returns this Version instance.
+   */
+  public Version toMinimumVersion()
+  {
+    if (!_containsWildcard() && !_isWildcard(_versionPadding))
+    {
+      return this;
+    }
+    
+    return new Version(_toString("0", true));
+  }
+
+  /**
+   * Converts this Version to an equivalent "maximum" instance.
+   * 
+   * Both wildcard segements and wilcard padding are replaced with
+   * Integer.MAX_VALUE.
+   * If no wilcards are present, returns this Version instance.
+   */
+  public Version toMaximumVersion()
+  {
+    if (!_containsWildcard() && !_isWildcard(_versionPadding))
+    {
+      return this;
+    }
+    
+    return new Version(_toString(_MAX_STRING, false), _MAX_STRING);
+  }
+
   @Override
   public String toString()
   {
-    // rebuild the initial version string from the split array
-    StringBuilder versionBuilder = new StringBuilder();
-    int versionCount = _versions.length;
-    
-    for (int i = 0;;)
-    {
-      versionBuilder.append(_versions[i]);
-      
-      i++;
-      
-      if (i != versionCount)
-        versionBuilder.append('.');
-      else
-        break;
-    }
-        
-    return versionBuilder.toString();
+    return _toString(_WILDCARD, false);
   }
   
   @Override
@@ -171,7 +216,183 @@ public final class Version implements Comparable<Version>
     // used cached version
     return _hashCode;
   }
+
+  // Converts an array of String version segments to
+  // an array of int versions more suitable for use in
+  // comparisons.
+  // 
+  // Note that not all version segments can be converted
+  // to an int.  For example, the version could include
+  // non-numeric characters.  Also wildcard segments will 
+  // fail to convert.  We identify these segments by setting
+  // the int value to _NON_INT_VERSION.  We can then fall
+  // back on using String comparisions for these segments.
+  //
+  // The fullVersion is provided for error handling only.
+  private static int[] _toIntVersions(String[] versions, String fullVersion)
+  {
+    assert(versions != null);
+    int[] intVersions = new int[versions.length];
+    
+    for (int i = 0; i < versions.length; i++)
+    {
+      intVersions[i] = _toIntVersion(versions[i], fullVersion);
+    }
+    
+    return intVersions;
+  }
   
+  // Converts a String version segment to the corresponding
+  // int.  Returns _NON_INT_VERSION if the String cannot be
+  // converted (eg. wildcard character).
+  //
+  // The fullVersion is provided for error handling only.
+  private static int _toIntVersion(String versionSegment, String fullVersion)
+  {
+    if (_DIGITS_PATTERN.matcher(versionSegment).matches())
+    {
+      try
+      {
+        return Integer.parseInt(versionSegment);
+      }
+      catch (NumberFormatException e)
+      {
+        // Since we already filtered out version strings
+        // that didn't match the _DIGITS_PATTERN, the only
+        // case where we should arrive here is if the version
+        // string overflows int.
+        _LOG.warning("UNEXPECTED_VERSION_VALUE", new Object[] { versionSegment, fullVersion });                
+      }
+    }
+    
+    return _NON_INT_VERSION;
+  }
+
+  /**
+   * Compares the version segment at the specified index.
+   * 
+   * @param otherVersion the Version instance to which we are comparing.
+   * @param versionIndex the index of the version segment that we are testing
+   * @return < 0 if this Version's segment is < otherVersion's segment.  0 if 
+   *   equal.  Otherwise, > 1.
+   */
+  private int _compareVersions(Version otherVersion, int versionIndex)
+  {
+    if (_isIntComparable(otherVersion, versionIndex))
+    {
+      return _compareIntVersions(otherVersion, versionIndex);
+    }
+    
+    return _compareStringVersions(otherVersion, versionIndex);
+  }
+  
+  /**
+   * Tests whether an int comparison can be performed for a particular
+   * version segment.
+   * 
+   * @param otherVersion the Version instance to which we are comparing.
+   * @param versionIndex the index of the version segment that we are testing
+   * @return true if both this Version and otherVersion have an int value
+   *   for the specified version index.
+   */
+  private boolean _isIntComparable(Version otherVersion, int versionIndex)
+  {
+    int[] ourIntVersions = _intVersions;
+    int[] otherIntVersions = otherVersion._intVersions;
+    
+    return ((versionIndex < ourIntVersions.length)             &&
+            (versionIndex < otherIntVersions.length)           &&
+            (ourIntVersions[versionIndex] != _NON_INT_VERSION) &&
+            (otherIntVersions[versionIndex] != _NON_INT_VERSION));
+  }
+
+  /**
+   * Compares the int version segments at the specified index.
+   * 
+   * @param otherVersion the Version instance to which we are comparing.
+   * @param versionIndex the index of the version segment that we are testing.
+   * @return < 0 if this Version's segment is < otherVersion's segment.  0 if 
+   *   equal.  Otherwise, > 1.
+   */
+  private int _compareIntVersions(Version otherVersion, int versionIndex)
+  {
+    assert(_isIntComparable(otherVersion, versionIndex));
+    int ourIntVersion = _intVersions[versionIndex];
+    int otherIntVersion = otherVersion._intVersions[versionIndex];
+    
+    return (ourIntVersion < otherIntVersion) ? -1 : (ourIntVersion > otherIntVersion ? 1 : 0);
+  }
+
+  /**
+   * Compares the String version segment at the specified index.
+   * 
+   * @param otherVersion the Version instance to which we are comparing.
+   * @param versionIndex the index of the version segment that we are testing
+   * @return < 0 if this Version's segment is < otherVersion's segment.  0 if 
+   *   equal.  Otherwise, > 1.
+   */
+  private int _compareStringVersions(Version otherVersion, int versionIndex)
+  {
+    String ourSubVersion = _getSubVersion(versionIndex);
+    String otherSubVersion = otherVersion._getSubVersion(versionIndex);
+      
+    // treat "*" wildcard as equals
+    if (_isWildcard(ourSubVersion) || _isWildcard(otherSubVersion))
+    {
+      return 0;
+    }
+    
+    return ourSubVersion.compareTo(otherSubVersion);
+  }
+
+  /**
+   * Returns the string representation of the this Version, replacing
+   * wildcards with the specified value.
+   *
+   * @param wildcardReplacement non-null String to substitute for wildcard
+   *   version segments.
+   * @param dropTrailingWildcard flag indicating whether trailing wildcards
+   *   should be dropped in the returned string.
+   */
+  private String _toString(
+    String  wildcardReplacement,
+    boolean dropTrailingWildcard
+    )
+  {
+    assert(wildcardReplacement != null);
+
+    // rebuild the initial version string from the split array
+    StringBuilder versionBuilder = new StringBuilder();
+    int versionCount = _versions.length;
+    
+    for (int i = 0;;)
+    {
+      String subVersion = _versions[i];
+      if (_isWildcard(subVersion))
+      {
+        subVersion = wildcardReplacement;
+      }
+
+      versionBuilder.append(subVersion);
+      
+      i++;
+      
+      if (i != versionCount)
+      {
+        if (dropTrailingWildcard && (i == versionCount - 1) && _isWildcard(_versions[i]))
+        {
+          break;
+        }
+
+        versionBuilder.append('.');
+      }
+      else
+        break;
+    }
+        
+    return versionBuilder.toString();    
+  }
+
   /**
    * Returns the contents of the sub-version section of the overall version,
    * padding the result with the version padding if the version section
@@ -200,10 +421,56 @@ public final class Version implements Comparable<Version>
       throw new IllegalArgumentException(identifier + " must be non-empty");
   }
   
+  // Tests wheter this version contains a wildcard segment
+  private boolean _containsWildcard()
+  {
+    for (int i = 0; i < _versions.length; i++)
+    {
+      if (_isWildcard(_versions[i]))
+      {
+        return true;
+      }
+    }
+    
+    return false;
+  }
+  
+  // Tests whether the specified version segment is the wildcard.
+  private static boolean _isWildcard(String subVersion)
+  {
+    return _WILDCARD.equals(subVersion);
+  }
+
   private final String[] _versions;
+  private final int[] _intVersions;
   private final String _versionPadding;
   private final int _hashCode;
-  
+
+  // Constant for the wildcard character  
+  private static final String _WILDCARD = "*";
+
   // cache the compiled splitter
   private static final Pattern _DOT_SPLITTER = Pattern.compile("\\.");
+  
+  // A pattern for testing whether a version string is numeric.
+  private static final Pattern _DIGITS_PATTERN = Pattern.compile("\\d+");
+  
+  // Placeholder used by _intVersions[] for non-numeric/non-int segments.  Note
+  // that we can use -1 to mark non-int versions since the _DIGITS_PATTERN will
+  // filter out any negative values - ie. _intVersions[] will only contain
+  // non-negative version ints, plus _NON_INT_VERSION.
+  private static final int _NON_INT_VERSION = -1;
+  
+  private static final String _MAX_STRING = Integer.toString(Integer.MAX_VALUE);
+  
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(Version.class);
+
+  static
+  {
+    MIN_VERSION = new Version("0");
+    MAX_VERSION = new Version(_MAX_STRING, _MAX_STRING);
+    ALL_VERSIONS = Range.of(MIN_VERSION, MAX_VERSION);
+  }
+
 }

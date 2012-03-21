@@ -25,11 +25,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.application.ProjectStage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
@@ -40,6 +42,7 @@ import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
+import org.apache.myfaces.trinidadinternal.style.StyleSheetNamingStrategy;
 
 
 class StyleContextImpl implements StyleContext
@@ -291,6 +294,71 @@ class StyleContextImpl implements StyleContext
 
   }
 
+  @Override
+  public StyleSheetNamingStrategy getNamingStrategy()
+  {
+    StyleSheetNamingStrategy namingStrategy = _getCachedFileNamingStrategy();
+    if (namingStrategy == null)
+    {
+      namingStrategy  = _getInitParamFileNamingStrategy();
+      assert(namingStrategy != null);
+      
+      _putCachedFileNamingStrategy(namingStrategy);
+    }
+    
+    return namingStrategy;
+  }
+  
+  private StyleSheetNamingStrategy _getCachedFileNamingStrategy()
+  {
+    if (_namingStrategy != null)
+    {
+      return _namingStrategy;
+    }
+
+    Map<String, Object> appMap = _getConcurrentApplicationScopedMap();
+    return (StyleSheetNamingStrategy)appMap.get(_NAMING_STRATEGY_PARAM);    
+  }
+  
+  private void _putCachedFileNamingStrategy(StyleSheetNamingStrategy namingStrategy)
+  {
+    Map<String, Object> appMap = _getConcurrentApplicationScopedMap();
+    appMap.put(_NAMING_STRATEGY_PARAM, namingStrategy);
+    
+    _namingStrategy = namingStrategy;
+  }
+  
+  private StyleSheetNamingStrategy _getInitParamFileNamingStrategy()
+  {
+    ExternalContext external = _arc.getFacesContext().getExternalContext();
+    String strategyParam = external.getInitParameter(_NAMING_STRATEGY_PARAM);
+      
+    if (strategyParam != null)
+    {
+      strategyParam = strategyParam.trim();
+
+      if (strategyParam.length() > 0)
+      {
+        try
+        {
+          return StyleSheetNamingStrategy.valueOfDisplayName(strategyParam);
+        }
+        catch (IllegalArgumentException e)
+        {
+          _LOG.warning("INVALID_ENUM_IN_CONFIG",
+                       new Object[] { strategyParam, _NAMING_STRATEGY_PARAM });;
+        }
+      }
+    }
+
+    return StyleSheetNamingStrategy.STABLE;
+  }
+
+  private ConcurrentMap<String, Object> _getConcurrentApplicationScopedMap()
+  {
+    return _arc.getRequestContext().getApplicationScopedConcurrentMap();
+  }
+
   // Implementation of StyleProvider which does nothing - used as a
   // placeholder when we can't get the real StyleProvider
   static private class NullStyleProvider implements StyleProvider
@@ -345,8 +413,13 @@ class StyleContextImpl implements StyleContext
   private Styles _styles;
   private Boolean  _isDisableStyleCompression;
   private Boolean _isRequestSecure;
+  private StyleSheetNamingStrategy _namingStrategy;
+
   static private final String _SKIN_DIRTY_PARAM =
     "org.apache.myfaces.trinidad.skin.dirty";
+  
+  static private final String _NAMING_STRATEGY_PARAM =
+    "org.apache.myfaces.trinidadinternal.STYLE_SHEET_NAMING_STRATEGY";
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(StyleContextImpl.class);

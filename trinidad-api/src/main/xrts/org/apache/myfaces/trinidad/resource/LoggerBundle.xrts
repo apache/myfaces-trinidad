@@ -522,7 +522,17 @@
 <!-- INVALID_CONTEXT_CHANGE_FOUND -->
 <resource key="INVALID_CONTEXT_CHANGE_FOUND">An unexpected component context change was found. This is due to components not correctly maintaining the context change stack. Expected change of type {0} for component {1} but received change {2}.</resource>
 
-<!-- ILLEGAL_ENUM_ALIAS -->
+<!-- ILLEGAL_ENUM_VALUE -->
 <resource key="ILLEGAL_ENUM_VALUE">No {0} enum constant for value "{1}".</resource>
+
+<resource key="ILLEGAL_NULL_ARGUMENT">A non-null value must be specified for the {0} argument.</resource>
+
+<resource key="UNEXPECTED_VERSION_VALUE">Unable to parse version segment {0} of version string {1}.</resource>
+
+<resource key="CANNOT_CREATE_DIRECTORY">The directory {0} does not exist and cannot be created.</resource>
+
+<resource key="DIRECTORY_NOT_WRITABLE">The directory {0} exists, but is not writable.</resource>
+
+<resource key="ILLEGAL_REQUEST_PARAMETER_VALUE">'{0}' is not a valid value for request parameter '{1}'.  Valid values are: {2}</resource>
 
 </resources>

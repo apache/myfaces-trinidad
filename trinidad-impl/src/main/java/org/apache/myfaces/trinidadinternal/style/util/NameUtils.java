@@ -206,7 +206,7 @@ public class NameUtils
       name = _PLATFORM_ANDROID;
       break;
     case TrinidadAgent.OS_UNKNOWN:
-      // This case is only here to avoid the default assertion
+      name = _PLATFORM_UNKNOWN;
       break;
     default:
       // New or invalid os id
@@ -704,6 +704,8 @@ public class NameUtils
   private static final String _PLATFORM_GENERICPDA = "genericpda";
   
   private static final String _PLATFORM_ANDROID = "android";
+
+  private static final String _PLATFORM_UNKNOWN = "unknown";
 
   // Accessibility constants
   private static final String _ACC_HIGH_CONTRAST = "hc";

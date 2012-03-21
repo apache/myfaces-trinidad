@@ -59,4 +59,10 @@ public interface StyleContext
    * @return true if the current request is secure (an https request), false otherwise
    */
   public boolean isRequestSecure();
+  
+  /**
+   * Returns a StyleSheetNamingStrategy value that indicates how generated
+   * style sheet files should be named.
+   */
+  public StyleSheetNamingStrategy getNamingStrategy();
 }

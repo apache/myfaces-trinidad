@@ -16,39 +16,27 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.trinidadinternal.util;
+package org.apache.myfaces.trinidadinternal.skin.pregen.variant;
 
+import java.util.List;
+
+import org.apache.myfaces.trinidadinternal.style.util.StyleSheetVisitUtils.StyleSheetVisitor;
 
 /**
- * Used for SelectRangeChoiceBar to allow the app developer to customize
- * the labels to not use numbers, but to use the data model.
- * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/util/Range.java#0 $) $Date: 10-nov-2005.18:49:12 $
+ * StyleSheetVisitor that is used to extract variant (eg. @-rule)
+ * metadata from a skin style sheet document.
  * 
- * @deprecated
- * @see org.apache.myfaces.trinidad.util.Range
+ * SkinVariantExtractors are typically single use - ie. they are 
+ * used for a single call to StyleSheetVisitUtils.visitStyleSheets(),
+ * after which visited variants are retrieved via a call to getVariants().
+ *
+ * @see org.apache.myfaces.trinidadinternal.style.util.StyleSheetVisitUtils
  */
-public final class Range
+interface SkinVariantExtractor <T> extends StyleSheetVisitor
 {
-  public Object getStart()
-  {
-    return _start;
-  }
-  
-  public void setStart(Object start)
-  {
-    _start = start;
-  } 
-  
-  public Object getEnd()
-  {
-    return _end;
-  }
-  
-  public void setEnd(Object end)
-  {
-    _end = end;
-  }  
-  
-  private Object _start;
-  private Object _end;
+  /**
+   * Called after the style sheet visit to retrieve the variants
+   * that were seen.
+   */
+  public List<T> getVariants();
 }

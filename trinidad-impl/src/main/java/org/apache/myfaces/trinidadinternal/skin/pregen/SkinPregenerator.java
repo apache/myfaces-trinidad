@@ -16,39 +16,30 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.trinidadinternal.util;
+package org.apache.myfaces.trinidadinternal.skin.pregen;
 
+import javax.faces.context.FacesContext;
+
+import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidadinternal.skin.pregen.config.PregenConfig;
+import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 
 /**
- * Used for SelectRangeChoiceBar to allow the app developer to customize
- * the labels to not use numbers, but to use the data model.
- * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/util/Range.java#0 $) $Date: 10-nov-2005.18:49:12 $
- * 
- * @deprecated
- * @see org.apache.myfaces.trinidad.util.Range
+ * Interface for objects that perform skin pregeneration.
  */
-public final class Range
+interface SkinPregenerator
 {
-  public Object getStart()
-  {
-    return _start;
-  }
-  
-  public void setStart(Object start)
-  {
-    _start = start;
-  } 
-  
-  public Object getEnd()
-  {
-    return _end;
-  }
-  
-  public void setEnd(Object end)
-  {
-    _end = end;
-  }  
-  
-  private Object _start;
-  private Object _end;
+
+  /**
+   * Pregenerate style sheets for the specified skin
+   * @param context the FacesContext for the current request
+   * @param skin the Skin to pregenerate
+   * @param config configuration info that influences pregeneration
+   */
+  public void pregenerate(
+    FacesContext  context,
+    Skin          skin,
+    PregenConfig  config,
+    StyleProvider provider
+    );
 }

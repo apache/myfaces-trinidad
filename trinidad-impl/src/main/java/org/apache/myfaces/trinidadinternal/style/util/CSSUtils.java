@@ -137,7 +137,15 @@ public class CSSUtils
     // applied in a non-Faces environment, this dependency seems
     // accpetable.
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    assert(facesContext != null);
+    
+    // We now have one use case where access to a FacesContext may
+    // not be available: unit tests.  For this case, any base uri
+    // will do, since we won't be requesting the style sheet via
+    // a uri.
+    if (facesContext == null)
+    {
+      return styleSheetName;
+    }
 
     ExternalContext externalContext = facesContext.getExternalContext();
     String contextPath = externalContext.getRequestContextPath();

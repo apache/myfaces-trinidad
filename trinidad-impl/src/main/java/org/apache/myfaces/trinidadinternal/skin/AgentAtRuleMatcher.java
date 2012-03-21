@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.skin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,9 +32,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.myfaces.trinidad.context.Version;
+import org.apache.myfaces.trinidad.util.Range;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
+
 
 /**
  * Threadsafe immutable class that stores the @agent rule for a particular @agent query string
@@ -44,7 +48,6 @@ import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
  */
 public final class AgentAtRuleMatcher
 {
-
   /**
    * Enumeration representing the result of a call to <code>match</code>.
    * @see #match
@@ -216,6 +219,69 @@ public final class AgentAtRuleMatcher
     _selectorAgents = selectorAgents;
     _capTouchMatchers = capTouchMatchers;
     _hashCode = _calculateStableHashCode(_selectorAgents, _capTouchMatchers);
+  }
+
+  /**
+   * Returns a non-null Collection of agent applications that are matched by 
+   * this matcher.
+   */
+  public Collection<TrinidadAgent.Application> getAllApplications()
+  {
+    return new ArrayList<TrinidadAgent.Application>(_selectorAgents.keySet());
+  }
+
+  /**
+   * Returns a non-null collection of agent version ranges that are matched by
+   * this matcher.
+   * 
+   * @param application the agent application for which matching version ranges
+   *   should be returned.
+   */
+  public Collection<Range<Version>> getAllVersionsForApplication(TrinidadAgent.Application application)
+  {
+    Collection<Range<Version>> versionRanges = new HashSet<Range<Version>>();
+    Collection<AgentMatcher> agentMatchers = _selectorAgents.get(application);
+    
+    for (AgentMatcher agentMatcher : agentMatchers)
+    {
+      Range<Version> versionRange = agentMatcher.getMatchedVersions();
+      assert(versionRange != null);
+
+      versionRanges.add(versionRange);
+    }
+    
+    return versionRanges;
+  }
+
+  /**
+   * Returns a non-null range of versions that represent that intersection
+   * of all verions that:
+   * 
+   * a) are matched by this matcher, and...
+   * b) contain the specified agent version.
+   * 
+   * @param application the agent application for which matching version ranges
+   *   should be returned.
+   * @param agentVersion only ranges that contain this version will be matched.
+   */  
+  public Range<Version> getMatchedVersionsForApplication(
+    TrinidadAgent.Application application,
+    Version                   agentVersion
+    )
+  {
+    Collection<Range<Version>> allVersions = getAllVersionsForApplication(application);
+    
+    Range<Version> matchedVersions = Version.ALL_VERSIONS;
+    
+    for (Range<Version> range : allVersions)
+    {
+      if (range.contains(agentVersion))
+      {
+        matchedVersions = matchedVersions.intersect(range);
+      }
+    }
+    
+    return matchedVersions;
   }
 
   /**
@@ -490,6 +556,17 @@ public final class AgentAtRuleMatcher
      * @return <code>true</code> if the match succeeds
      */
     public abstract boolean match(TrinidadAgent agent);
+    
+    /**
+     * Returns the versions matched by this AgentMatcher.
+     * 
+     * By default, all versions are matched.  Subclasses should
+     * override to constrain to the versions that they match.
+     */
+    public Range<Version> getMatchedVersions()
+    {
+      return Version.ALL_VERSIONS;
+    }
 
     @Override
     public abstract int hashCode();
@@ -556,6 +633,29 @@ public final class AgentAtRuleMatcher
     }
 
     @Override
+    public Range<Version> getMatchedVersions()
+    {
+      Version start = Version.MIN_VERSION;
+      Version end = Version.MAX_VERSION;
+      
+      switch (_comparison)
+      {
+        case MIN:
+          start = _version.toMinimumVersion();
+          break;
+        case MAX:
+          end = _version.toMaximumVersion();
+          break;
+        case EQUALS:
+          start = _version.toMinimumVersion();;
+          end = _version.toMaximumVersion();;
+          break;
+      }
+      
+      return Range.of(start, end);
+    }
+
+    @Override
     public final int hashCode()
     {
       return _hashCode;
@@ -613,23 +713,28 @@ public final class AgentAtRuleMatcher
       // their hash codes each time our hash code is called
       _hashCode = matchers.hashCode();
 
+      boolean hasVersionMatcher = false;
+      boolean hasTouchMatcher = false;
       for (AgentMatcher matcher : matchers)
       {
         if (matcher instanceof VersionMatcher)
           hasVersionMatcher = true;
         if (matcher instanceof TouchScreenCapabilityMatcher)
-          hasTouchScreenCapabilityMatcher = true;
+          hasTouchMatcher = true;
       }
+      
+      _hasVersionMatcher = hasVersionMatcher;
+      _hasTouchScreenCapabilityMatcher = hasTouchMatcher;
     }
 
     protected boolean hasTouchScreenCapabilityMatcher()
     {
-      return hasTouchScreenCapabilityMatcher;
+      return _hasTouchScreenCapabilityMatcher;
     }
 
     protected boolean hasVersionMatcher()
     {
-      return hasVersionMatcher;
+      return _hasVersionMatcher;
     }
 
     /**
@@ -651,6 +756,19 @@ public final class AgentAtRuleMatcher
 
       // all of the matchers matched.  Yay!
       return true;
+    }
+
+    @Override
+    public Range<Version> getMatchedVersions()
+    {
+      Range<Version> versionRange = Version.ALL_VERSIONS;
+        
+      for (AgentMatcher matcher : _matchers)
+      {
+        versionRange = versionRange.intersect(matcher.getMatchedVersions());
+      }
+        
+      return versionRange;
     }
 
     @Override
@@ -683,11 +801,12 @@ public final class AgentAtRuleMatcher
       return super.toString() + ", matchers=" + _matchers;
     }
 
+
+
     private final List<AgentMatcher> _matchers;
     private final int _hashCode;
-    private boolean hasVersionMatcher;
-    private boolean hasTouchScreenCapabilityMatcher;
-
+    private final boolean _hasVersionMatcher;
+    private final boolean _hasTouchScreenCapabilityMatcher;
   }
 
   /**

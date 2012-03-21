@@ -16,39 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.trinidadinternal.util;
-
+package org.apache.myfaces.trinidadinternal.skin.pregen.config;
 
 /**
- * Used for SelectRangeChoiceBar to allow the app developer to customize
- * the labels to not use numbers, but to use the data model.
- * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/util/Range.java#0 $) $Date: 10-nov-2005.18:49:12 $
- * 
- * @deprecated
- * @see org.apache.myfaces.trinidad.util.Range
+ * Exception thrown from PregenConfig.parse() if a failure occurs during
+ * parsing.
  */
-public final class Range
+public final class InvalidConfigException extends RuntimeException
 {
-  public Object getStart()
+  /**
+   * Creates an InvalidConfigException with a message that is
+   * suitable for publication to the end user.
+   */
+  public InvalidConfigException(String message)
   {
-    return _start;
+    super(message);
   }
-  
-  public void setStart(Object start)
-  {
-    _start = start;
-  } 
-  
-  public Object getEnd()
-  {
-    return _end;
-  }
-  
-  public void setEnd(Object end)
-  {
-    _end = end;
-  }  
-  
-  private Object _start;
-  private Object _end;
+
+  private static final long serialVersionUID = 1L;
 }

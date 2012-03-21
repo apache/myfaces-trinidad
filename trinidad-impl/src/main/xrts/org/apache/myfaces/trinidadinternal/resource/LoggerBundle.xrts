@@ -1168,4 +1168,30 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <resource key="CSS_SYNTAX_ERROR">Syntax error in skin file currently being processed due to mismatch in the number of open and close braces. The skin file will not be processed correctly. To know the name of file being processed, set log level to 'INFO'.</resource>
 
+<resource key="SKIN_PREGEN_ENABLED">A non-skin pregeneration request was received while skin pregeneration is enabled.  To interact with the application, please disable the skin pregeneration service.</resource>
+
+<resource key="SKIN_PREGEN_DISABLED">Skin pregeneration failed: the skin pregeneration service is disabled.  To enable skin pregeneration, set the {0} system property to one of: {1}</resource>
+
+<resource key="SKIN_PREGEN_FAILED">Skin pregeneration failed: {0}</resource>
+
+<resource key="SKIN_PREGEN_REQUESTED_SKIN_INVALID">{0} is not valid skin id.</resource>
+
+<resource key="SKIN_PREGEN_NO_TARGET_DIRECTORY">No target directory found.  Please specify a target directory via the {0} system property.</resource>
+
+<resource key="SKIN_PREGEN_RESPONSE_TITLE">Skin Pregeneration Service</resource>
+
+<resource key="SKIN_PREGEN_RESPONSE">Skin pregeneration completed in {0}ms.</resource>
+
+<resource key="SKIN_PREGEN_NO_DOCUMENT">No StyleSheetDocument found for skin {0}.</resource>
+
+<resource key="SKIN_PREGEN_STARTING">Starting pregeneration of skin {0}</resource>
+
+<resource key="SKIN_PREGEN_VARIANT">Pregenerating {0}/{1} style sheets for skin {2}.</resource>
+
+<resource key="SKIN_PREGEN_COMPLETED">Completed pregeneration of skin {0}.  Generated {1} files for {2} of {3} skin variants in {4} ms.  (Pregeneration output written to {5}.)</resource>
+
+<resource key="ILLEGAL_SYSTEM_PROPERTY_VALUE">{0} is not a valid value for system property {1}.  Valid values are: {2}</resource>
+
+<resource key="SKIN_GENERATION_ERROR">An unexpected error occurred while generating a skin style sheet, possibly indicating a Trinidad defect.  Please report this failure to the Apache MyFaces development team.</resource>
+
 </resources>

@@ -29,6 +29,7 @@ import javax.faces.application.ProjectStage;
 import javax.faces.application.ViewHandler;
 import javax.faces.application.ViewHandlerWrapper;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import javax.faces.view.ViewDeclarationLanguage;
@@ -41,6 +42,7 @@ import org.apache.myfaces.trinidad.util.URLUtils;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
+import org.apache.myfaces.trinidadinternal.skin.pregen.SkinPregenerationService;
 
 /**
  * ViewHandler that adds modification detection to the existing ViewHandler,
@@ -64,6 +66,7 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
   {
     _delegate = delegate;
     _timestamps = new HashMap<String, Long>();
+    _skinPregenerationEnabled = SkinPregenerationService.isEnabled();    
   }
 
   public ViewHandler getWrapped()
@@ -75,6 +78,8 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
   @Override
   public UIViewRoot createView(FacesContext context, String viewId)
   {
+    _checkSkinPregeneration(context, viewId);
+
     _initIfNeeded(context);
 
     if (_checkTimestamp(context, viewId))
@@ -409,12 +414,45 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
     return Long.valueOf(URLUtils.getLastModified(url));
   }
 
+  // We do not allow random requests into the application when the skin
+  // pregeneration service is enabled.  Only skin pregeneration requests
+  // are allowed.
+  private void _checkSkinPregeneration(FacesContext context, String viewId)
+  {
+    if (_skinPregenerationEnabled && !SkinPregenerationService.isPregenerationRequest(viewId))
+    {
+      ExternalContext external = context.getExternalContext();
+      String message = _LOG.getMessage("SKIN_PREGEN_ENABLED");
+      _LOG.severe(message);
+      _sendError(external, message);
+      
+      // We don't explicitly short-circuit/exception out.  Calling
+      // responseComplete() achieves the same result (ie. prevents
+      // subsequent processing/rendering) more gracefully.
+      context.responseComplete();
+    }
+  }
+
+  // Sends a response error to the client
+  private static void _sendError(ExternalContext external, String message)
+  {
+    try
+    {
+      external.responseSendError(500, message);
+    }
+    catch (IOException e)
+    {
+      _LOG.warning(e);
+    }
+  }
 
   private Boolean           _checkTimestamp;
   // Mostly final, but see _initIfNeeded()
   private ViewHandler       _delegate;
   private final Map<String, Long> _timestamps;
   private boolean           _inited;
+
+  private final boolean _skinPregenerationEnabled;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ViewHandlerImpl.class);
   private static final Long   _NOT_FOUND = Long.valueOf(0);
