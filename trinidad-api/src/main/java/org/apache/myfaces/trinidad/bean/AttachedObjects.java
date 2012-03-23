@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidad.bean.util.StateUtils;
 
 /**
  * Class for managing attached object on the component that are maintained as a Map of Lists
- *
  */
 public class AttachedObjects<K, T> implements PartialStateHolder
 {
