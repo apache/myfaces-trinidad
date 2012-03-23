@@ -23,6 +23,7 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 
@@ -59,8 +60,7 @@ class DateFormatInfoScriptlet extends Scriptlet
     ResponseWriter writer = context.getResponseWriter();
 
     writer.writeText("var _df2DYS=", null);
-    int twoDigitYearStart =
-      arc.getLocaleContext().getTwoDigitYearStart();
+    int twoDigitYearStart = RequestContext.getCurrentInstance().getTwoDigitYearStart();
     writer.writeText(IntegerUtils.getString(twoDigitYearStart), null);
     writer.writeText(";", null);
   }
