@@ -35,10 +35,12 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.faces.application.Resource;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import javax.faces.view.AttachedObjectHandler;
 import javax.faces.view.StateManagementStrategy;
 import javax.faces.view.ViewDeclarationLanguage;
 import javax.faces.view.ViewDeclarationLanguageFactory;
@@ -298,6 +300,7 @@ public class ViewDeclarationLanguageFactoryImpl
    * The VDL implementation that wraps an underlying VDL and additionally applies component changes based 
    * customization (usually SessionChangeManager). Note that this works both for Facelets and JSPs.
    */
+  // TODO: start using ViewDeclarationLanguageWrapper once we upgrade to JSF 2.2
   private static class ChangeApplyingVDLWrapper extends ViewDeclarationLanguage
   {
     ChangeApplyingVDLWrapper(ViewDeclarationLanguage wrapped)
@@ -359,6 +362,24 @@ public class ViewDeclarationLanguageFactoryImpl
     {
       return _wrapped.getStateManagementStrategy(facesContext, string);
     }
+    
+    @Override
+    public void retargetAttachedObjects(FacesContext context,
+                                        UIComponent topLevelComponent,
+                                        List<AttachedObjectHandler> handlers)  
+    {
+      _wrapped.retargetAttachedObjects(context, topLevelComponent, handlers);  
+    }
+    
+    @Override
+    public void retargetMethodExpressions(FacesContext context,
+                                          UIComponent topLevelComponent) 
+    {
+
+      _wrapped.retargetMethodExpressions(context, topLevelComponent);
+        
+    }
+    
     
     private final ViewDeclarationLanguage _wrapped;
   }
