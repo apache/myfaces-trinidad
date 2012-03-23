@@ -37,7 +37,6 @@ import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 
 /**
  * Base interface for FacesBean storage.
- *
  */
 public class FacesBeanFactory
 {
