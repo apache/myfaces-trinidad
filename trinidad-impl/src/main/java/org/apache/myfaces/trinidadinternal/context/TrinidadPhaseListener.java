@@ -24,6 +24,12 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidadinternal.util.FrameBustingUtils;
+import org.apache.myfaces.trinidadinternal.util.FrameBustingUtils.FrameBustingParamValue;
+
 /**
  * Performs some trinidad logic and provides some hooks.
  *
@@ -65,11 +71,14 @@ public class TrinidadPhaseListener implements PhaseListener
   @SuppressWarnings("unchecked")
   public void beforePhase(PhaseEvent event)
   {
+    
+    PhaseId phaseId = event.getPhaseId();
+    
     // Ensure that the implicit object gets created.  In general,
     // "restore view" would be sufficient, but someone can call
     // renderResponse() before even calling Lifecycle.execute(),
     // in which case RESTORE_VIEW doesn't actually run.
-    if (event.getPhaseId() == PhaseId.RESTORE_VIEW)
+    if (phaseId == PhaseId.RESTORE_VIEW)
     {
       FacesContext context = event.getFacesContext();
       ExternalContext ec = context.getExternalContext();
@@ -79,11 +88,37 @@ public class TrinidadPhaseListener implements PhaseListener
     // If we've reached "apply request values", this is definitely a
     // postback (the ViewHandler should have reached the same conclusion too,
     // but make sure)
-    else if (event.getPhaseId() == PhaseId.APPLY_REQUEST_VALUES)
+    else if (phaseId == PhaseId.APPLY_REQUEST_VALUES)
     {
       FacesContext context = event.getFacesContext();
       markPostback(context);
     }
+    else if (phaseId == PhaseId.RENDER_RESPONSE)
+    {    
+      FacesContext context = event.getFacesContext();
+      Object response = context.getExternalContext().getResponse();
+        
+      // frame busting is disabled for portlets, so it's fine to only handle
+      // case where response is HttpServletResponse
+      if (response instanceof HttpServletResponse)
+      {
+        // add response headers for framebusting if needed
+        FrameBustingParamValue frameBusting = FrameBustingUtils.getFrameBustingValue(context, RequestContext.getCurrentInstance());        
+  
+        if (! FrameBustingParamValue.FRAME_BUSTING_NEVER.equals(frameBusting))
+        {
+          // TODO: support CSP?
+          // https://dvcs.w3.org/hg/content-security-policy/raw-file/tip/csp-specification.dev.html 
+        
+          // the X-Frame-Options header doesn't work on all browsers, but we're adding it anyway
+          String xFrameOptions = (FrameBustingParamValue.FRAME_BUSTING_ALWAYS.equals(frameBusting))
+                                  ? "deny"
+                                  : "sameorigin";
+
+          ((HttpServletResponse)response).addHeader("X-Frame-Options", xFrameOptions); 
+        }
+      }
+    }    
   }
 
 
