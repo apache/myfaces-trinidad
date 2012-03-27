@@ -420,6 +420,25 @@ public final class GlobalConfiguratorImpl
   }
 
   /**
+   * @inheritDoc
+   */
+  @Override  
+  public void reloadSkins(ExternalContext externalContext, SkinFactory skinFactory)
+  {
+    // register trinidad's base skins
+    SkinUtils.registerBaseSkins();
+    
+    // ask all subordinate configurators to reload their skins
+    for (final Configurator config: _services)
+    {
+      config.reloadSkins(externalContext, skinFactory);
+    }
+    
+    // recompute skins from the various trinidad-skins.xml
+    SkinUtils.registerSkinExtensions(externalContext, skinFactory);
+  }
+  
+  /**
    * Hackily called by the ThreadLocalResetter to register itself so that the
    * GlobalConfiguratorImpl can tell the ThreadLocalResetter to clean up the
    * ThreadLocals at the appropriate time.

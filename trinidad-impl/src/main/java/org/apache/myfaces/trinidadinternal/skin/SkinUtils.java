@@ -109,6 +109,21 @@ public class SkinUtils
   
   /**
    * Register any custom skin extensions (and skin-additions) found in the
+   * trinidad-skins.xml file with the supplied SkinFactory.
+   * You should call registerBaseSkins() before calling this method.
+   * 
+   * @param context ServletContext, used to get the trinidad-skins.xml file.
+   * @param skinFactory the factory for which the skins are to be registered
+   */
+  static public void registerSkinExtensions(
+    ExternalContext context,
+    SkinFactory     skinFactory)
+  {
+    _registerSkinExtensionsAndAdditions(context, skinFactory);
+  }
+
+  /**
+   * Register any custom skin extensions (and skin-additions) found in the
    * trinidad-skins.xml file with the SkinFactory.
    * 
    * Make sure the SkinFactory.getFactory() does not return null before
@@ -129,9 +144,8 @@ public class SkinUtils
       SkinFactory.setFactory(new SkinFactoryImpl());
       skinFactory = SkinFactory.getFactory();
     }
-
-    _registerSkinExtensionsAndAdditions(context, skinFactory);
-
+    
+    registerSkinExtensions(context, skinFactory);
   }
 
   /**
