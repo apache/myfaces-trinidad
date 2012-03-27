@@ -121,6 +121,135 @@ public final class CollectionUtils
   }
   
   /**
+   * Return an iterator of the values in <code>map</code> with entries in <code>allowedLeys</code>
+   * @param <K> Map key type
+   * @param <V> Map value type
+   * @param map Map of keys and values
+   * @param allowedKeys Collection of keys to return values for if present in map
+   * @return Iterator of values for which the map contains a key from allowedKeys
+   */
+  public static <K,V> Iterator<V> subsetValueIterator(Map<? extends K, ? extends V> map,
+                                                      Collection<? extends K> allowedKeys)
+  {
+    if (map.isEmpty() || allowedKeys.isEmpty())
+    {
+      return emptyIterator();
+    }
+    else
+    {
+      return new SubsetValueIterator<K,V>(map, allowedKeys.iterator());
+    }
+  }
+
+  /**
+   * Return an iterator of the values in <code>map</code> with entries in <code>allowedLeys</code>
+   * The values returned in the iterator will be in the same order as their corresponding
+   * keys in allowedKeys.
+   * @param <K> Map key type
+   * @param <V> Map value type
+   * @param map Map of keys and values
+   * @param allowedKeys Iterator of keys to return values for if present in map
+   * @return Iterator of values for which the map contains a key from allowedKeys
+   */
+  public static <K,V> Iterator<V> subsetValueIterator(Map<? extends K, ? extends V> map,
+                                                      Iterator<? extends K> allowedKeys)
+  {
+    if (map.isEmpty() || !allowedKeys.hasNext())
+    {
+      return emptyIterator();
+    }
+    else
+    {
+      return new SubsetValueIterator<K,V>(map, allowedKeys);
+    }
+  }
+  
+  /**
+   * Return an iterator of the values in <code>map</code> with entries in <code>allowedLeys</code>
+   */
+  private static class SubsetValueIterator<K,V> implements Iterator<V>
+  {
+    public SubsetValueIterator(Map<? extends K, ? extends V> sourceMap,
+                               Iterator<? extends K> allowedkeys)
+    {
+      if ((sourceMap == null) || (allowedkeys == null))
+        throw new NullPointerException();
+      
+      _sourceMap = sourceMap;
+      _allowedkeys = allowedkeys;
+    }
+    
+    @Override
+    public boolean hasNext()
+    {      
+      return (_getKey() != null);
+    }
+    
+    @Override
+    public V next()
+    {
+      K key = _getKey();
+      
+      if (key == null)
+        throw new NoSuchElementException();
+      
+      // next call to _getKey() will nove to the next key
+      _calcNext = true;
+      
+      return _sourceMap.get(key);
+    }
+    
+    @Override
+    public void remove()
+    {
+      // make sure that we have called next() before remove()
+      if (_nextValidKey == null)
+        throw new IllegalStateException();
+      
+      try
+      {
+        _sourceMap.remove(_nextValidKey);
+      }
+      finally
+      {
+        _nextValidKey = null;
+        _calcNext = true;
+      } 
+    }
+
+    private K _getKey()
+    {
+      if ((_nextValidKey == null) || _calcNext)
+      {
+        _nextValidKey = _getNextContainedKey();
+        _calcNext = false;
+      }
+      
+      return _nextValidKey;
+    }
+        
+    private K _getNextContainedKey()
+    {
+      while (_allowedkeys.hasNext())
+      {
+        K nextKey = _allowedkeys.next();
+        
+        if (_sourceMap.containsKey(nextKey))
+        {
+          return nextKey;
+        }
+      }
+      
+      return null;
+    }
+        
+    private final Map<? extends K, ? extends V> _sourceMap;
+    private final Iterator<? extends K> _allowedkeys;
+    private K _nextValidKey;
+    private boolean _calcNext = true;
+  }
+  
+  /**
    * Returns a minimal Set containing the elements passed in.  There is no guarantee that the
    * returned set is mutable or immutable.
    * @param <T>
