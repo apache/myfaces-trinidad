@@ -1016,14 +1016,19 @@ function _decimalParse(
 
     // JIRA TRINIDAD-2219: When the string is a negative bidi number, e.g. "1-", the
     //(numberString*numberString) and (numberString / numberString) return NaN
-    // and is unable to parse it so additional handling is needed for such cases.
-    var negativeSuffix = symbols.getNegativeSuffix();
-    var numberStringLength = numberString.length ;
-  
-    if(negativeSuffix != null && numberString.lastIndexOf(negativeSuffix) ==  (numberStringLength - 1)) 
+    // and is unable to parse it so in Bidi, we check if the number is of the format "X-"
+    // and convert it to "-X" which Javascript can understands. .
+    var isLTR = document.documentElement["dir"].toUpperCase() == "LTR";
+
+    if(!isLTR)
     {
-      numberString = "-" + numberString.substring(0, numberStringLength - 1);
-    }
+      var numberStringLength = numberString.length ;
+  
+      if(numberString.lastIndexOf("-") ==  (numberStringLength - 1)) 
+      {
+        numberString = "-" + numberString.substring(0, numberStringLength - 1);
+      }
+    }//end of isLTR check
   }
 
   // OK; it's non-empty.  Now, disallow exponential
