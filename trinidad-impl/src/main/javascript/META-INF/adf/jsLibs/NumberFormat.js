@@ -35,7 +35,14 @@
   //default values, similar to JDK (values from Apache Harmony)
   this._maxFractionDigits = 3;
   this._maxIntegerDigits  = 40;
-  this._minFractionDigits = 0;
+  if(this._type=="currency")
+  {
+    this._minFractionDigits = 2;
+  }
+  else
+  {
+    this._minFractionDigits = 0;
+  }
   this._minIntegerDigits  = 1;
   this._groupingUsed = true;
   
@@ -140,6 +147,7 @@ TrNumberFormat.prototype.setMaximumFractionDigits = function(number)
     {
       this._minFractionDigits = this._maxFractionDigits;
     }
+    this._isMaxFractionDigitsSet  = true;    
   }
 } 
 
@@ -266,50 +274,38 @@ TrNumberFormat.prototype.stringToCurrency = function(numberString)
 {
   //is the string negative ?
   var negP = numberString.indexOf(this._nPre);
-  
-  if(negP != -1)
+  var nSufNoSpace = this._nSuf;
+  if (nSufNoSpace.charAt(0) == ' ' || nSufNoSpace.charAt(0) == '\xa0')
+    nSufNoSpace = nSufNoSpace.substring(1);
+  var negS = numberString.indexOf(nSufNoSpace);
+
+
+  // TRINIDAD-1958: In Arabic the values for negPrefix and posPrefix are the same, so it is insufficient to test for
+  // the presence of (only) negPrefix to determine if the number is negative. 
+  if(negP != -1 && negS != -1)
   {
-    numberString = numberString.substr(this._nPre.length, numberString.length);
-    var nSufNoSpace = this._nSuf;
-    if (nSufNoSpace.charAt(0) == ' ' || nSufNoSpace.charAt(0) == '\xa0')
-      nSufNoSpace = nSufNoSpace.substring(1);
-    var negS = numberString.indexOf(nSufNoSpace);
-    if(negS != -1)
-    {
-      numberString = numberString.substr(0, numberString.length - nSufNoSpace.length);
-      return (this.stringToNumber(numberString) * -1);
-    }
-    else
-    {
-      throw new TrParseException("not able to parse number");
-    }
+    numberString = numberString.substr(this._nPre.length, numberString.length - (this._nPre.length + nSufNoSpace.length));
+    return (this.stringToNumber(numberString) * -1);
   }
   else
   {
     var posP = numberString.indexOf(this._pPre);
-    if(posP != -1)
+    var pSufNoSpace = this._pSuf;
+    if (pSufNoSpace.charAt(0) == ' ' || pSufNoSpace.charAt(0) == '\xa0')
+      pSufNoSpace = pSufNoSpace.substring(1);
+    var posS = numberString.indexOf(pSufNoSpace);
+
+    if(posP != -1 && posS != -1)
     {
-      numberString = numberString.substr(this._pPre.length, numberString.length);
-      var pSufNoSpace = this._pSuf;
-      if (pSufNoSpace.charAt(0) == ' ' || pSufNoSpace.charAt(0) == '\xa0')
-        pSufNoSpace = pSufNoSpace.substring(1);
-      var posS = numberString.indexOf(pSufNoSpace);
-      if(posS != -1)
-      {
-        numberString = numberString.substr(0, numberString.length - pSufNoSpace.length);
-        numberString = this.stringToNumber(numberString);
-      }
-      else
-      {
-        throw new TrParseException("not able to parse number");
-      }
+      numberString = numberString.substr (this._pPre.length, numberString.length - (this._pPre.length + pSufNoSpace.length));
+      numberString = this.stringToNumber(numberString);
       return numberString;
     }
     else
     {
-      throw new TrParseException("not able to parse number");
-    }
-  }
+       throw new TrParseException("not able to parse number");
+    }//end-if we could not find a positive or negative prefix/suffix pair
+  }//end-if not negative
 }
 
 /**
@@ -399,7 +395,13 @@ TrNumberFormat.prototype.currencyToString = function(number)
 TrNumberFormat.prototype.percentageToString = function(number)
 {
   number = number * 100;
-  number = this.getRounded(number);
+  // TRINIDAD-2139: getRounded calls Math.round() on number. Since number is
+  // multiplied by 100 before this call and later divided, the result will 
+  // have at most 2 fractional digits, regardless of the value of maxFractionDigits. 
+  // Hence, if maxFractionDigits is set, don't call this method and let 
+  // numberToString format the string appropriately. 
+  if (this._isMaxFractionDigitsSet == null)
+    number = this.getRounded(number);
   if (isNaN(number))
   {
     throw new TrParseException("not able to parse number");
@@ -468,18 +470,18 @@ TrNumberFormat.scientificToExpanded = function(numberString)
 TrNumberFormat.trimLeadingZeroes = function(numberString)
 {
   var strbuf = [];
-  var i, char;
+  var i, ch;
   for (i = 0; i < numberString.length; ++i)
   {
-    char = numberString.charAt(i);
+    ch = numberString.charAt(i);
     
-    if ((char >= '1' && char <= '9') || char == '.')
+    if ((ch >= '1' && ch <= '9') || ch == '.')
       break;
       
-    if (char == '0' && i+1 < numberString.length && numberString.charAt(i+1) != '.')
+    if (ch == '0' && i+1 < numberString.length && numberString.charAt(i+1) != '.')
       continue;
       
-    strbuf.push(char);
+    strbuf.push(ch);
   }
   
   return strbuf.join('') + numberString.substring(i);
@@ -622,7 +624,7 @@ TrNumberFormat.prototype._formatFractions = function(fracs)
   var maxFra = this.getMaximumFractionDigits();
   var minFra = this.getMinimumFractionDigits();
 
-  if(fracsLength > maxFra && maxFra>minFra)
+  if(fracsLength > maxFra && maxFra >= minFra)
   {
     fracs = fracs.substring(0, maxFra);
   }

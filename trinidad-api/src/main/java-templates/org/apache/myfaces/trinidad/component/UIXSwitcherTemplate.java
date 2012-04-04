@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,9 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.io.IOException;
+
+import java.util.Collections;
+import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -36,60 +39,27 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
 /**/  abstract public String getDefaultFacet();
 
   /**
-   * Only decode the currently active facet.
-   */
-  @Override
-  public void processDecodes(FacesContext context)
-  {
-    UIComponent facet = _getFacet();
-    if (facet != null)
-      facet.processDecodes(context);
-  }
-
-  /**
-   * Only process validations on the currently active facet.
-   */
-  @Override
-  public void processValidators(FacesContext context)
-  {
-    UIComponent facet = _getFacet();
-    if (facet != null)
-      facet.processValidators(context);
-  }
-
-
-  /**
-   * Only process updates on the currently active facet.
-   */
-  @Override
-  public void processUpdates(FacesContext context)
-  {
-    UIComponent facet = _getFacet();
-    if (facet != null)
-      facet.processUpdates(context);
-  }
-
-  /**
    * Processes the selected switcher facet
    */
   public <S> boolean processFlattenedChildren(
-    final FacesContext context,
-    ComponentProcessingContext cpContext,
+    final FacesContext          context,
+    ComponentProcessingContext  cpContext,
     final ComponentProcessor<S> childProcessor,
-    final S callbackContext) throws IOException
+    final S                     callbackContext
+    ) throws IOException
   {
-    setupVisitingContext(context);
-   
+    setupFlattenedContext(context, cpContext);
+
     boolean abort;
-    
+
     try
     {
       UIComponent facet = _getFacet();
-      
+
       if (facet != null)
       {
-        setupChildrenVisitingContext(context);
-        
+        setupFlattenedChildrenContext(context, cpContext);
+
         try
         {
           abort = UIXComponent.processFlattenedChildren(context,
@@ -100,9 +70,9 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
         }
         finally
         {
-          tearDownChildrenVisitingContext(context);
+          tearDownFlattenedChildrenContext(context, cpContext);
         }
-      } 
+      }
       else
       {
         abort = false;
@@ -110,9 +80,9 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
     }
     finally
     {
-      tearDownChildrenVisitingContext(context);
+      tearDownFlattenedContext(context, cpContext);
     }
-    
+
     return abort;
   }
 
@@ -135,9 +105,10 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
   {
     UIComponent facet = _getFacet();
     if (facet != null)
-      __encodeRecursive(context, facet);
+    {
+      facet.encodeAll(context);
+    }
   }
-
 
   /**
    * Override to return true.
@@ -146,6 +117,19 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
   public boolean getRendersChildren()
   {
     return true;
+  }
+
+  protected Iterator<UIComponent> getRenderedFacetsAndChildren(FacesContext facesContext)
+  {
+    UIComponent facet = _getFacet();
+    if (facet == null)
+    {
+      return Collections.<UIComponent>emptyList().iterator();
+    }
+    else
+    {
+      return Collections.singleton(facet).iterator();
+    }
   }
 
   private UIComponent _getFacet()
@@ -167,7 +151,6 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase implements Fl
 
     return null;
   }
-
 }
 
 

@@ -27,6 +27,13 @@
     <validator-id>org.apache.myfaces.trinidad.DateTimeRange</validator-id>
     <validator-class>org.apache.myfaces.trinidadinternal.validator.DateTimeRangeValidator</validator-class>
     <property>
+      <description><![CDATA[Whether the converter should be disabled, default to false.]]>
+      </description>
+      <property-name>disabled</property-name>
+      <property-class>boolean</property-class>
+      <default-value>false</default-value>
+    </property>
+    <property>
       <description>
              <![CDATA[the maximum java.util.Date.
            ISO 8601 date strings, of the form 'yyyy-MM-dd'

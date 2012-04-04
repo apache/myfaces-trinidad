@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
@@ -42,10 +42,8 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
  * browsers, direction, versions, platforms and mode.  In addition, the StyleSheetNode
  * provides access to IconNodes representing the icons which were defined within
  * the context of this style sheet. StyleSheetNodes are contained in StyleSheetDocuments.
- * And a StyleSheetNode is created for both .xss skin files and .css files.
- * .xss skin files create StyleSheetNodes via StyleSheetNodeParser
+ * And a StyleSheetNode is created for .css files.
  * .css skin files create StyleSheetNodes via SkinStyleSheetParserUtils
- * @see StyleSheetNodeParser
  * @see org.apache.myfaces.trinidadinternal.skin.SkinStyleSheetParserUtils
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetNode.java#0 $) $Date: 10-nov-2005.18:58:46 $
  */
@@ -58,7 +56,6 @@ public class StyleSheetNode
   public StyleSheetNode(
     StyleNode[] styles,
     Collection<IconNode> icons,
-    Collection<SkinPropertyNode> skinProperties,
     Set<Locale> locales,
     int direction,
     AgentAtRuleMatcher agentMatcher,
@@ -77,13 +74,6 @@ public class StyleSheetNode
       _icons = Collections.unmodifiableList(new ArrayList<IconNode>(icons));
     else
       _icons = Collections.emptyList();
-
-
-    if (skinProperties != null)
-      _skinProperties = Collections.unmodifiableList(
-        new ArrayList<SkinPropertyNode>(skinProperties));
-    else
-      _skinProperties = Collections.emptyList();
 
     // locales, browsers, versions, platforms order does not matter, so these are Sets.
     if (locales != null)
@@ -131,19 +121,7 @@ public class StyleSheetNode
   {
     return _icons;
   }
-
-  /**
-   * Returns the SkinProperties List for this
-   * StyleSheetEntry. This is a list of SkinProperyNodes
-   * a node contains the selector, the -tr- property, and the value.
-   * e.g, selector: af|breadCrumbs, property: -tr-show-last-item,
-   * value: true
-   */
-  public Collection<SkinPropertyNode> getSkinProperties()
-  {
-    return _skinProperties;
-  }
-  
+ 
   /**
    * Implementation of StyleSheetNode.getReadingDirection();
    */
@@ -394,7 +372,7 @@ public class StyleSheetNode
     // On the other hand, if we do have a browser specified, but
     // the client browser is not known, we don't have a match
     if (application == TrinidadAgent.Application.UNKNOWN)
-      return 0;
+      return _NO_MATCH;
     
     Set<AgentAtRuleMatcher.Match> matches = _agentMatcher.match(agent);
     
@@ -410,6 +388,11 @@ public class StyleSheetNode
                            ? _VERSION_EXACT_MATCH
                            : _VERSION_UNKNOWN_MATCH;
       matchResult |= versionMatch;
+
+      int capTouchMatch = (matches.contains(AgentAtRuleMatcher.Match.CAP_TOUCH_SCREEN))
+                           ? _CAP_TOUCH_SCREEN_EXACT_MATCH
+                           : _CAP_TOUCH_SCREEN_UNKNOWN_MATCH; 
+      matchResult |= capTouchMatch;
     }
 
     return matchResult;
@@ -571,9 +554,6 @@ public class StyleSheetNode
 
   private final List<StyleNode> _styles;     // The styles contained within this node
   private final List<IconNode>  _icons;      // The icons contained within this node
-  // List of -tr- properties that the skin can be set on the skin.
-  // This is a List of SkinPropertyNodes
-  private List <SkinPropertyNode> _skinProperties;
   // Order does not matter for locales, browsers, versions, platforms
   private final Set<Locale>     _locales;    // The locale variants
   private final int             _direction;  // The reading direction
@@ -612,6 +592,10 @@ public class StyleSheetNode
   private static final int _VERSION_EXACT_MATCH     = 0x00000020;
   private static final int _VERSION_UNKNOWN_MATCH   = 0x00000010;
 
+  // Constants for capability touchScreen matches - 0x000000f0 bits
+  private static final int _CAP_TOUCH_SCREEN_EXACT_MATCH     = 0x00000040;
+  private static final int _CAP_TOUCH_SCREEN_UNKNOWN_MATCH   = 0x00000030;
+
   // Constants for os matches - 0x0000000f bits
   private static final int _OS_EXACT_MATCH          = 0x00000004;
   private static final int _OS_PARTIAL_MATCH        = 0x00000002;
@@ -629,9 +613,7 @@ public class StyleSheetNode
 
   // This special platform constant is used to indicate that the style sheet
   // is Unix-specific, but not specific to a particular Unix OS.  It is
-  // package private, as StyleSheetNodeParser references this when
-  // creating the int[] platforms array that gets passed in to StyleSheetNode.
-  // Agent.OS constants start from 0.  We use Integer.MAX_VALUE to avoid
-  // collisions
+  // package private. Agent.OS constants start from 0.
+  // We use Integer.MAX_VALUE to avoid collisions
   static final int __OS_UNIX = Integer.MAX_VALUE;
 }

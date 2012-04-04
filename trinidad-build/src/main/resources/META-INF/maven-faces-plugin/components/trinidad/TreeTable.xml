@@ -64,6 +64,7 @@
       <property-name>rowsByDepth</property-name>
       <property-class>int[]</property-class>
       <property-extension>
+        <mfp:mutable>sometimes</mfp:mutable>
         <mfp:property-metadata/>
         <fmd:property-metadata>
           <fmd:preferred>true</fmd:preferred>

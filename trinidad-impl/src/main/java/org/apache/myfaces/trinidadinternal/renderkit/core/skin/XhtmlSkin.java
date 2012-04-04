@@ -1,34 +1,35 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import java.util.HashMap;
 import java.util.Map;
 
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
-import org.apache.myfaces.trinidadinternal.style.CSSStyle;
-
+import org.apache.myfaces.trinidadinternal.style.UnmodifiableStyle;
 
 
 /**
@@ -111,18 +112,20 @@ public class XhtmlSkin extends BaseSkin
   
   static
   {
-    // does this matter if it's not an ArrayMap?
-    _spinboxTopStyleMap = new HashMap<String, String>();
+    // todo Use ArrayMap instead of ConcurrentHashMap
+    // We were using CSSStyle instead of UnmodifiableStyle and that class copied the properties 
+    // into a ConcurrentHashMap. Changing this to another map will change the spinbox golden files.
+    _spinboxTopStyleMap = new ConcurrentHashMap<String, String>();
     _spinboxTopStyleMap.put("display", "block");
     // this is needed for the image
-    _spinboxBottomStyleMap = new HashMap<String, String>();
+    _spinboxBottomStyleMap = new ConcurrentHashMap<String, String>();
     _spinboxBottomStyleMap.put("display", "block");
     _spinboxBottomStyleMap.put("padding-top", "2px");
 
   }
   
-  private static final CSSStyle spinboxTopStyle = new CSSStyle(_spinboxTopStyleMap);
-  private static final CSSStyle spinboxBottomStyle = new CSSStyle(_spinboxBottomStyleMap);
+  private static final Style spinboxTopStyle = new UnmodifiableStyle(_spinboxTopStyleMap);
+  private static final Style spinboxBottomStyle = new UnmodifiableStyle(_spinboxBottomStyleMap);
 
 
 

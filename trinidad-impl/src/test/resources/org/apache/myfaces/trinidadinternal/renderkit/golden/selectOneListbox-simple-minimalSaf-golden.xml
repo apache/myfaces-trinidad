@@ -274,6 +274,12 @@
             item8
           </option>
         </select>
+        <label
+             class="p_OraHiddenLabel"
+             for="mainId"
+            >
+          test-label
+        </label>
       </span>
 <!--AttributeTest[readOnly,false]-->
 
@@ -502,6 +508,12 @@
             item8
           </option>
         </select>
+        <label
+             class="p_OraHiddenLabel"
+             for="mainId"
+            >
+          test-shortDesc
+        </label>
       </span>
 <!--AttributeTest[onblur,null]-->
 

@@ -30,14 +30,15 @@
     </default-render-kit-id>
   </application>
 
-
-    <lifecycle>
-        <phase-listener>org.apache.myfaces.trinidaddemo.NavigationHandlerPhaseListener</phase-listener>
-    </lifecycle>
-
     <managed-bean>
         <managed-bean-name>navigationHandler</managed-bean-name>
         <managed-bean-class>org.apache.myfaces.trinidaddemo.NavigationHandlerBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>skinFamilySelection</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.trinidaddemo.support.util.SkinFamilySelection</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 
@@ -120,33 +121,12 @@
         <managed-bean-scope>none</managed-bean-scope>
     </managed-bean>
 
-
     <managed-bean>
         <managed-bean-name>tableColumn</managed-bean-name>
         <managed-bean-class>
-            java.util.ArrayList
-        </managed-bean-class>
-        <managed-bean-scope>
-            application
-        </managed-bean-scope>
-        <list-entries>
-            <value-class>
-                org.apache.myfaces.trinidaddemo.components.table.column.TableColumnBean
-            </value-class>
-            <value>#{tableColumnRowBean}</value>
-            <value>#{tableColumnRowBean}</value>
-            <value>#{tableColumnRowBean}</value>
-            <value>#{tableColumnRowBean}</value>
-            <value>#{tableColumnRowBean}</value>
-        </list-entries>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>tableColumnRowBean</managed-bean-name>
-        <managed-bean-class>
             org.apache.myfaces.trinidaddemo.components.table.column.TableColumnBean
         </managed-bean-class>
-        <managed-bean-scope>none</managed-bean-scope>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
@@ -154,13 +134,6 @@
         <managed-bean-class>org.apache.myfaces.trinidaddemo.components.table.treeTable.TreeTableBean
         </managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-
-
-    <managed-bean>
-        <managed-bean-name>pageBean</managed-bean-name>
-        <managed-bean-class>org.apache.myfaces.trinidaddemo.components.panel.page.PageBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
@@ -173,7 +146,7 @@
     <managed-bean>
         <managed-bean-name>trainBean</managed-bean-name>
         <managed-bean-class>org.apache.myfaces.trinidaddemo.components.navigation.train.TrainBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
@@ -187,7 +160,7 @@
     <managed-bean>
         <managed-bean-name>contactListBean</managed-bean-name>
         <managed-bean-class>
-            org.apache.myfaces.trinidaddemo.feature.ContactListBean
+            org.apache.myfaces.trinidaddemo.samples.email.ContactListBean
         </managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
@@ -195,7 +168,7 @@
     <managed-bean>
         <managed-bean-name>receivedEmailListBean</managed-bean-name>
         <managed-bean-class>
-            org.apache.myfaces.trinidaddemo.feature.ReceivedEmailListBean
+            org.apache.myfaces.trinidaddemo.samples.email.ReceivedEmailListBean
         </managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
@@ -203,7 +176,7 @@
     <managed-bean>
         <managed-bean-name>sentEmailListBean</managed-bean-name>
         <managed-bean-class>
-            org.apache.myfaces.trinidaddemo.feature.SentEmailListBean
+            org.apache.myfaces.trinidaddemo.samples.email.SentEmailListBean
         </managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
@@ -220,7 +193,6 @@
             <renderer-type>org.apache.myfaces.trinidad.OutputSource</renderer-type>
             <renderer-class>org.apache.myfaces.trinidaddemo.support.jsf.OutputSourceRenderer</renderer-class>
         </renderer>
-
     </render-kit>
 
     <navigation-rule>
@@ -232,7 +204,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>demoAppForm</from-outcome>
-            <to-view-id>/feature/e-mailTemplate.xhtml</to-view-id>
+            <to-view-id>/samples/email/e-mailTemplate.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
 
@@ -259,46 +231,51 @@
         <navigation-case>
             <from-outcome>trainGeneralInfo</from-outcome>
             <to-view-id>/components/navigation/train/generalInfo.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
 
         <navigation-case>
             <from-outcome>trainCompanyInfo</from-outcome>
             <to-view-id>/components/navigation/train/companyInfo.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
 
         <navigation-case>
             <from-outcome>trainJsfSurvey</from-outcome>
             <to-view-id>/components/navigation/train/jsfSurvey.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
 
         <navigation-case>
             <from-outcome>trainTrinidadSurvey</from-outcome>
             <to-view-id>/components/navigation/train/trinidadSurvey.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
 
         <navigation-case>
             <from-outcome>trainYouAreDone</from-outcome>
             <to-view-id>/components/navigation/train/youAreDone.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
 
         <navigation-case>
             <from-outcome>goToEMailContacts</from-outcome>
-            <to-view-id>/feature/e-mailContacts.xhtml</to-view-id>
+            <to-view-id>/samples/email/e-mailContacts.xhtml</to-view-id>
         </navigation-case>
 
         <navigation-case>
             <from-outcome>goToInbox</from-outcome>
-            <to-view-id>/feature/e-mailListReceived.xhtml</to-view-id>
+            <to-view-id>/samples/email/e-mailListReceived.xhtml</to-view-id>
         </navigation-case>
 
         <navigation-case>
             <from-outcome>goToSent</from-outcome>
-            <to-view-id>/feature/e-mailListSent.xhtml</to-view-id>
+            <to-view-id>/samples/email/e-mailListSent.xhtml</to-view-id>
         </navigation-case>
 
         <navigation-case>
             <from-outcome>goToNewMail</from-outcome>
-            <to-view-id>/feature/newEmail.xhtml</to-view-id>
+            <to-view-id>/samples/email/newEmail.xhtml</to-view-id>
         </navigation-case>
 
 

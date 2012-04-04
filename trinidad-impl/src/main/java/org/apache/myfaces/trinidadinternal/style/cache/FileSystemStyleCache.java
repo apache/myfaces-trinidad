@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.style.cache;
 
@@ -50,19 +50,23 @@ import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.style.Selector;
 import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidad.style.Styles;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 import org.apache.myfaces.trinidad.util.CollectionUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.style.CSSStyle;
+import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
+import org.apache.myfaces.trinidadinternal.style.StyleSheetNamingStrategy;
+import org.apache.myfaces.trinidadinternal.style.UnmodifiableStyle;
 import org.apache.myfaces.trinidadinternal.style.util.CSSGenerationUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
+import org.apache.myfaces.trinidadinternal.style.util.StableNameUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleWriterFactory;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
-import org.apache.myfaces.trinidadinternal.style.xml.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
@@ -71,7 +75,11 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * The FileSystemStyleCache is a StyleProvider implementation which
- * caches generated CSS style sheets on the file system.
+ * caches generated CSS style sheets on the file system. A FileSystemStyleCache object is for one Skin.
+ * The FileSystemStyleCache instance contains Entry objects for a Skin: one Entry
+ * object per unique generated CSS style sheet (e.g., gecko and ie will most
+ * likely have different generated CSS style sheets for the same Skin because these browsers tend to need
+ * different css rules).
  *
  * Note that StyleProviders are responsible for providing access
  * both to style information (eg. getStyleSheetURI(), getStyles()) as
@@ -120,7 +128,7 @@ public class FileSystemStyleCache implements StyleProvider
    * Implementation of StyleCache.getStyleSheetURI().
    */
   public List<String> getStyleSheetURIs(StyleContext context)
-  {
+  {    
     Entry entry = _getEntry(context);
 
     if (entry == null)
@@ -244,6 +252,11 @@ public class FileSystemStyleCache implements StyleProvider
     StyleSheetDocument document
     )
   {
+    if (context.getNamingStrategy() == StyleSheetNamingStrategy.STABLE)
+    {
+      return StableNameUtils.getContextName(context, document);
+    }
+    
     StringBuilder buffer = new StringBuilder();
 
     String contextName = NameUtils.getContextName(context, document);
@@ -268,10 +281,60 @@ public class FileSystemStyleCache implements StyleProvider
 
       buffer.append(_PORTLET);
     }
+    
+    if (context.isRequestSecure())
+    {
+      buffer.append(_NAME_SEPARATOR);
+      buffer.append(_SECURE);
+    }
 
     buffer.append(_CSS_EXTENSION);
 
     return buffer.toString();
+  }
+
+  /**
+   * Specifies behavior in the event that the skin is reported
+   * as "dirty".
+   */
+  protected enum ClearOnDirty
+  {
+    /**
+     * Clear the entry cache, but leave other values alone.
+     * Used during skin pregeneration to free up entry cache
+     * memory without forcing skin documents to be reparsed.
+     */
+    ENTRIES,
+    
+    /**
+     * Clear all data.  This is the standard runtime behavior.
+     */
+    ALL;
+  }
+
+  /**
+   * Determines what data to clear when a "dirty" skin is detected - ie.
+   * when StyleContext.isDirty() returns true.
+   * 
+   * Typically when StyleContext reports that the skin has been dirtied, 
+   * we want to release all data, including the entry caches, the style
+   * sheet document, the short style class map, etc...
+   * 
+   * During skin pregeneration, in order to prevent the entry caches from
+   * becoming fully populated, we need to clear these out from time to time.
+   * The skin pregeneration service thus reports dirty == true periodically
+   * while pregeneration is being peformed.  When this occurs, we do not
+   * want to throw out all data - eg. we do not want to be forced to re-parse
+   * the skin document.  Instead, we simply want to clear the entry caches.
+   * This protected hook allows the skin pregeneration service to tune
+   * the dirty handling behavior.
+   * 
+   * @return by default, returns ClearOnDirty.ALL, forcing all data to be
+   *   cleared.
+   */
+  protected ClearOnDirty getClearOnDirty()
+  {
+    return ClearOnDirty.ALL;
   }
 
   // Returns the current StyleSheetDocument - used by StyleMapImpl only
@@ -302,9 +365,19 @@ public class FileSystemStyleCache implements StyleProvider
       {
         _cache = null;
         _entryCache = null;
-        _document = null;
-        _shortStyleClassMap = null;
-        _namespacePrefixes  = null;
+        
+        if (!isDirty || (getClearOnDirty() == ClearOnDirty.ALL))
+        {
+          _document = null;
+          _reusableStyleMap = null;
+          _reusableSelectorMap = null;
+          _shortStyleClassMap = null;
+          _namespacePrefixes  = null;
+        }
+        else
+        {
+          isDirty = false;
+        }
       }
 
       // We get references to our two caches (the "normal" cache,
@@ -318,6 +391,10 @@ public class FileSystemStyleCache implements StyleProvider
         _cache = new ConcurrentHashMap<Key, Entry>();
       if (_entryCache == null)
         _entryCache = new ConcurrentHashMap<Object, Entry>(19);
+      if (_reusableStyleMap == null)
+        _reusableStyleMap = new ConcurrentHashMap<Style, Style>();
+      if (_reusableSelectorMap == null)
+        _reusableSelectorMap = new ConcurrentHashMap<Selector, Selector>();
 
       cache = _cache;
       entryCache = _entryCache;
@@ -435,11 +512,42 @@ public class FileSystemStyleCache implements StyleProvider
     // etc -- the info that is in the StyleContext.
     // These styles contain all the StyleNodes, that is, where selector or
     // name (aka alias) are non-null.
+    // If a selector has no properties at all (af|foo {}), it will not be returned in the list of
+    // StyleNodes. It gets into the shortStyleClassMap which has already happened, but
+    // it won't get written to the CSS File.
     StyleNode[] styleNodes = _getStyleContextResolvedStyles(context, document);
     if (styleNodes == null)
       return null;
 
+    /* This code fills in the <Selector, Style> resolvedSelectorStyleMap map. 
+     * We use _reusableStyleMap to reuse the Style objects when possible
+     * since we have a large number of Style objects. */
+    ConcurrentMap<Selector, Style> resolvedSelectorStyleMap = null;
+    for (int i=0; i < styleNodes.length; i++)
+    {
+      String selector = styleNodes[i].getSelector();
+      if (selector != null)
+      {
+        Style style = _convertStyleNodeToStyle(styleNodes[i], _reusableStyleMap);
+        if (resolvedSelectorStyleMap == null)
+          resolvedSelectorStyleMap = new ConcurrentHashMap<Selector, Style>();
 
+        // To save memory, we reuse Selector objects
+        Selector selectorCreated = Selector.createSelector(selector);
+        Selector cachedSelector = _reusableSelectorMap.get(selectorCreated);
+        if (cachedSelector == null)
+        {
+          _reusableSelectorMap.put(selectorCreated, selectorCreated);
+          resolvedSelectorStyleMap.put(selectorCreated, style);
+        }
+        else
+        {
+          resolvedSelectorStyleMap.put(cachedSelector, style);
+        }
+        
+      }
+    }
+    
     // Generate the style sheet file, if it isn't already generated,
     // and return the uri.
     // Only the StyleNodes with non-null selectors get written to the
@@ -463,13 +571,13 @@ public class FileSystemStyleCache implements StyleProvider
     ConcurrentMap<String, Icon> icons =
       _getStyleContextResolvedIcons(context, document);
     ConcurrentMap<Object, Object> skinProperties =
-      _getStyleContextResolvedSkinProperties(context, document);
+      _getStyleContextResolvedSkinProperties(styleNodes);
 
     // Create a new entry and cache it in the "normal" cache. The "normal" cache is one
     // where the key is the Key object which is built based on information from the StyleContext,
     // like browser, agent, locale, direction.
-    Styles styles = new StylesImpl(styleNodes, namespacePrefixes, _STYLE_KEY_MAP,
-                                   shortStyleClassMap,  _isCompressStyles(context));
+    Styles styles = new StylesImpl(namespacePrefixes, _STYLE_KEY_MAP,
+                                   shortStyleClassMap,  _isCompressStyles(context), resolvedSelectorStyleMap);
     Entry entry = new Entry(uris, styles, icons, skinProperties);
     cache.put(key, entry);
 
@@ -604,57 +712,77 @@ public class FileSystemStyleCache implements StyleProvider
    * styleSheetNodes that have been filtered from the StyleContext and StyleSheetDocument.
    */
   private ConcurrentMap<Object, Object> _getStyleContextResolvedSkinProperties(
-    StyleContext       context,
-    StyleSheetDocument document
+    StyleNode[] styleNodes
     )
   {
-    Iterator<StyleSheetNode> styleSheetNodes = document.getStyleSheets(context);
-
-    ConcurrentMap<Object, Object> skinProperties = new ConcurrentHashMap<Object, Object>();
-    while (styleSheetNodes.hasNext())
+    // Use the resolved StyleNode[] to get the skinProperties from them.
+    ConcurrentMap<Object, Object> skinPropertiesMap = new ConcurrentHashMap<Object, Object>();
+    for (StyleNode styleNode : styleNodes)
     {
-      StyleSheetNode styleSheetNode = styleSheetNodes.next();
-      Collection<SkinPropertyNode> skinPropertyNodes = styleSheetNode.getSkinProperties();
-
-      if (skinPropertyNodes != null)
+      Collection<PropertyNode> skinPropertyNodes = styleNode.getSkinProperties();
+      for (PropertyNode node : skinPropertyNodes)
       {
-        for (SkinPropertyNode skinPropertyNode : skinPropertyNodes)
+        // create SkinProperty key and SkinProperty value
+        String selectorName = styleNode.getSelector();
+        if (selectorName == null)
         {
-          skinProperties.put(skinPropertyNode.getKey(), skinPropertyNode.getValue());
+          selectorName = "." + styleNode.getName() + ":alias";
         }
+        String name = node.getName();
+
+        // Store the property selector + property Name as the Skin Property Key.
+        // e.g., use af|breadCrumbs-tr-show-last-item
+        StringBuilder keyBuilder = new StringBuilder(selectorName.length() + name.length());
+        keyBuilder.append(selectorName);
+        keyBuilder.append(name);
+        String key = keyBuilder.toString();
+
+        // look up in map to get conversion
+        Class<?> type = SkinProperties.PROPERTY_CLASS_TYPE_MAP.get(key);
+        Object propValueObj = null;
+        String value = node.getValue();
+        if (type != null)
+        {
+          try
+          {
+            // coerce the value to the type
+            propValueObj = Coercions.coerce(null, value, type);
+          }
+          catch (IllegalArgumentException ex)
+          {
+            if (_LOG.isWarning())
+              _LOG.warning(ex);
+          }
+        }
+        
+        skinPropertiesMap.put(key, (propValueObj != null ? propValueObj : value));
+
       }
     }
-
-    return skinProperties;
+    return skinPropertiesMap;
+    
   }
 
   /**
    * Returns a Map of icon names to Icons for the specified
-   * styleSheetNodes that have been filtered from the StyleContext and StyleSheetDocument.
+   * styleSheetNodes that have been filtered from the StyleContext and StyleSheetDocument
+   * and everything merged together.
    */
   private ConcurrentMap<String, Icon> _getStyleContextResolvedIcons(
     StyleContext       context,
     StyleSheetDocument document
     )
   {
-    Iterator<StyleSheetNode> styleSheetNodes = document.getStyleSheets(context);
 
-    ConcurrentMap<String, Icon> icons = new ConcurrentHashMap<String, Icon>();
-    while (styleSheetNodes.hasNext())
+    Iterator<IconNode> iconNodeIterator = document.getIcons(context);
+    ConcurrentMap<String, Icon> iconMap = new ConcurrentHashMap<String, Icon>();
+    while (iconNodeIterator.hasNext())
     {
-      StyleSheetNode styleSheetNode = styleSheetNodes.next();
-      Collection<IconNode> iconNodes = styleSheetNode.getIcons();
-
-      if (iconNodes != null)
-      {
-        for (IconNode iconNode : iconNodes)
-        {
-          icons.put(iconNode.getIconName(), iconNode.getIcon());
-        }
-      }
+      IconNode iconNode = iconNodeIterator.next();
+      iconMap.put(iconNode.getIconName(), iconNode.getIcon());
     }
 
-    return icons;
+    return iconMap;
   }
 
   /**
@@ -761,9 +889,9 @@ public class FileSystemStyleCache implements StyleProvider
         // I've seen the delete fail when we try to delete right after the file was created -
         // like if the skin css file is modified and the page refreshed immediately after the
         // app was initially run.
-        if (!success && _LOG.isWarning())
+        if (!success && _LOG.isInfo())
         {
-          _LOG.warning("COULD_NOT_DELETE_FILE", file.getName());
+          _LOG.info("COULD_NOT_DELETE_FILE", file.getName());
         }
       }
     }
@@ -864,9 +992,8 @@ public class FileSystemStyleCache implements StyleProvider
     {
       // This might happen if we couldn't delete the css file that was already there, so we 
       // are unable to recreate it.
-      if (_LOG.isWarning())
-        _LOG.warning("IOEXCEPTION_OPENNING_FILE", file);
-        _LOG.warning(e);
+      if (_LOG.isInfo())
+        _LOG.info("IOEXCEPTION_OPENNING_FILE", file);
     }
 
     return out;
@@ -1024,7 +1151,9 @@ public class FileSystemStyleCache implements StyleProvider
 
     emptySelectors.removeAll(nonEmptySelectors);
 
-    // Replace all empty keys with an empty string as the selector
+    // Replace all empty keys with an empty string as the selector. 
+    // The reason is to keep empty keys from getting written to the HTML.
+    // Empty keys get filtered out of the CSS file when we write to that.
     for (String emptyKey : emptySelectors)
       map.put(emptyKey, CoreRenderingContext.EMPTY_STYLE_CLASS);
 
@@ -1064,9 +1193,55 @@ public class FileSystemStyleCache implements StyleProvider
     return _SHORT_CLASS_PREFIX + Integer.toString(count, Character.MAX_RADIX);
   }
 
-
+  
   /**
-   * Key class used for hashing style sheet URIs
+   * Given a StyleNode object, which is an internal API that denotes a Style object
+   * with additional information like includedSelectors, create a simple public
+   * Style object which will be used in the SelectorStyleMap. When this method is called,
+   * the StyleNode object is already resolved (included selectors have been merged in)
+   * so that all the css properties are there.
+   * @param styleNode
+   * @param reusableStyleMap A Map<Style, Style>. This is 
+   *  used so that we can reuse Style objects in StylesImpl if they have the same list of style property
+   *  names and values.
+   * @return A Style object created from the information in the styleNode. We reuse
+   *  Style objects if the properties are the same.
+   */
+  public Style _convertStyleNodeToStyle(
+    StyleNode          styleNode, 
+    Map<Style, Style>  reusableStyleMap)
+  {
+    // Add in the properties for the style; PropertyNode interns the 'name' and the most common 'value's.
+    Collection<PropertyNode> propertyNodeList = styleNode.getProperties();
+    Map<String, String> styleProperties = new ArrayMap<String, String>(propertyNodeList.size());
+
+    for (PropertyNode property : propertyNodeList)
+    {
+      String name = property.getName();
+      String value = property.getValue();
+      if (name != null && value != null)
+      {
+        styleProperties.put(name, value);
+      }
+    }
+
+    // To save memory, we reuse Style objects for each FileSystemStyleCache instance.
+    Style style = new UnmodifiableStyle(styleProperties);
+    Style cachedStyle = reusableStyleMap.get(style);
+    if (cachedStyle == null)
+    {
+      reusableStyleMap.put(style, style);
+      return style;         
+    }
+    else
+    {
+      return cachedStyle;
+    }
+  }
+  
+  /**
+   * Key class used for hashing style sheet URIs. This key for the Entry
+   * cache is dependent on the agent, locale, direction, etc.
    */
   private static class Key
   {
@@ -1084,7 +1259,8 @@ public class FileSystemStyleCache implements StyleProvider
        agent.getAgentOS(),
        !context.isDisableStyleCompression(),
        accProfile,
-       context.isPortletMode());
+       context.isPortletMode(),
+       context.isRequestSecure());
     }
 
     @Override
@@ -1097,7 +1273,8 @@ public class FileSystemStyleCache implements StyleProvider
                        (_browser.ordinal() << 2)   ^
                        (_platform << 8)            ^
                        (_short ? 1 : 0)            ^
-                       (_portlet ? 1:0);
+                       ((_portlet ? 1:0) << 1)     ^
+                       ((_secureRequest ? 1: 0) << 3);
 
         if (_locale != null)     _hashCode ^= _locale.hashCode();
         if (_accProfile != null) _hashCode ^= _accProfile.hashCode();
@@ -1124,7 +1301,8 @@ public class FileSystemStyleCache implements StyleProvider
              (_portlet == key._portlet)         &&
              (_direction == key._direction)     &&
              (_browser == key._browser)         &&
-             (_platform == key._platform))
+             (_platform == key._platform)       &&
+             (_secureRequest == key._secureRequest))
         {
           // now check the optional objects
           if ((_version == null) || _version.equals(key._version))
@@ -1144,7 +1322,8 @@ public class FileSystemStyleCache implements StyleProvider
       int platform,
       boolean useShort,
       AccessibilityProfile accessibilityProfile,
-      boolean portlet
+      boolean portlet,
+      boolean secure
       )
     {
       // Make sure direction is non-null
@@ -1162,6 +1341,7 @@ public class FileSystemStyleCache implements StyleProvider
       _short = useShort;
       _accProfile = accessibilityProfile;
       _portlet     = portlet;
+      _secureRequest = secure;
     }
 
     //is immutable, we should cache this, will make things faster in the long run
@@ -1176,10 +1356,14 @@ public class FileSystemStyleCache implements StyleProvider
     private boolean        _short;  // Do we use short style classes?
     private AccessibilityProfile _accProfile;
     private boolean        _portlet; //kind of a hack but tells whether this was created in portal mode
+    private boolean        _secureRequest;
   }
 
   /**
-   * Cache entry class
+   * Cache entry class.
+   * The FileSystemStyleCache instance contains Entry objects: one Entry
+   * object per unique generated CSS style sheet (e.g., gecko and ie will most
+   * likely have different generated CSS style sheets).
    */
   private static class Entry
   {
@@ -1202,9 +1386,9 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   /**
-   * A key object which is used to hash Entrys in the entry cache.  The key for the entry
+   * A key object which is used to hash Entrys in the entry cache.  This key for the Entry
    * cache is the style sheet derivation list - that is a list of StyleSheetNodes, sorted
-   * by specficity.
+   * by specficity. It's not dependent on the agent, locale, direction like the Key object is.
    */
   private static class DerivationKey
   {
@@ -1212,8 +1396,9 @@ public class FileSystemStyleCache implements StyleProvider
     {
       _styleSheets = new StyleSheetNode[styleSheets.length];
       System.arraycopy(styleSheets, 0, _styleSheets, 0, styleSheets.length);
-      _short = true;
+      _short = !context.isDisableStyleCompression();
       _portlet = context.isPortletMode();
+      _secureRequest = context.isRequestSecure();
     }
 
     @Override
@@ -1228,6 +1413,7 @@ public class FileSystemStyleCache implements StyleProvider
 
         if ((_short != key._short) ||
             (_portlet != key._portlet) ||
+            (_secureRequest != key._secureRequest) ||
             (_styleSheets.length != key._styleSheets.length))
           return false;
 
@@ -1254,7 +1440,8 @@ public class FileSystemStyleCache implements StyleProvider
       {
         _hashCode = Arrays.hashCode(_styleSheets) ^
                     (_short ? 1 : 0)              ^
-                    (_portlet ? 1 : 0);
+                    (_portlet ? 1 : 0)            ^
+                    ((_secureRequest ? 1: 0) << 3);
         _noHash = false;
       }
 
@@ -1268,10 +1455,8 @@ public class FileSystemStyleCache implements StyleProvider
     private StyleSheetNode[] _styleSheets;
     private boolean _portlet;
     private boolean _short;   // Do we use short style classes?
+    private boolean _secureRequest;
   }
-
-
-
 
   /**
    * A Styles implementation that adds the resolved (merged together based on the StyleContext)
@@ -1287,20 +1472,20 @@ public class FileSystemStyleCache implements StyleProvider
      * StyleNode are all null. This way we do not have to resolve the
      * styles based on the StyleContext when someone calls getStyles,
      * etc.
-     * @param resolvedStyles
      * @param namespacePrefixArray an array of namespace prefixes that are used in the custom css
      * skinning selectors, like "af" in af|inputText.
      * @param afSelectorMap a map from one selector to another (like af|panelHeader::link maps to
      * af|panelHeader A
      * @param shortStyleClassMap a map from the  non-compressed styleclass
      * to a compressed styleclass.
+     * @param resolvedSelectorStyleMap
      */
     public StylesImpl(
-        StyleNode[]         resolvedStyles,
         String[]            namespacePrefixArray,
         Map<String, String> afSelectorMap,
         Map<String, String> shortStyleClassMap,
-        boolean             compress
+        boolean             compress,
+        Map<Selector, Style> resolvedSelectorStyleMap
       )
     {
       // store these local variables to be used in getNativeSelectorString
@@ -1308,44 +1493,7 @@ public class FileSystemStyleCache implements StyleProvider
       _afSelectorMap = afSelectorMap;
       _shortStyleClassMap = shortStyleClassMap;
       _compress = compress;
-      // create a Selector->Style map right here (aggressively versus lazily)
-      ConcurrentMap<Selector, Style> resolvedSelectorStyleMap = null;
 
-
-      // Loop through each StyleNode and use it to add to the StyleMap.
-      for (int i=0; i < resolvedStyles.length; i++)
-      {
-        String selector = resolvedStyles[i].getSelector();
-        if (selector != null)
-        {
-          Style style = _convertStyleNodeToStyle(resolvedStyles[i]);
-          if (resolvedSelectorStyleMap == null)
-            resolvedSelectorStyleMap = new ConcurrentHashMap<Selector, Style>();
-          resolvedSelectorStyleMap.put(Selector.createSelector(selector), style);
-        }
-        /*
-        else
-        {
-          // For now, do not add the named styles to the map. If we do add the named styles
-          // to the map then we should in SkinStyleSheetParserUtils put the full name in
-          // the StyleNode, not strip out the '.' or the ':alias'. However, in the XSS
-          // the named styles do not have the '.' or the ':alias' which is why we string them out.
-          // if we put them back, then things won't merge correctly. How do I workaround this?
-          // Do I change all the named styles in the XSS file?
-          // I think the best thing to do is to change the XSS file, since that is proprietary,
-          // and no one should be relying on it. If we instead kept stripping out the . and the alias
-          // and required the person to ask for the alias without this,
-          // that is much more confusing to the user.
-          String name = _resolvedStyles[i].getName();
-          if (name != null)
-          {
-            // create a Style Object from the StyleNode object
-            Style style = _convertStyleNode(resolvedStyles[i]);
-            resolvedSelectorStyleMap.put(name, style);
-          }
-        }
-        */
-      }
       if (resolvedSelectorStyleMap != null)
         _unmodifiableResolvedSelectorStyleMap =
           Collections.unmodifiableMap(resolvedSelectorStyleMap);
@@ -1401,98 +1549,15 @@ public class FileSystemStyleCache implements StyleProvider
     }
 
 
-    /**
-     * Given a StyleNode object, which is an internal API that denotes a Style object
-     * with additional information like includedSelectors, create a simple public
-     * Style object which will be used in the SelectorStyleMap. The StyleNode object
-     * should already be resolved (included selectors have been merged in)
-     * so that all the css properties are there.
-     * @param styleNode
-     * @return A Style object created from the information in the styleNode.
-     */
-    public Style _convertStyleNodeToStyle(StyleNode styleNode)
-    {
-      Map<String, String> styleProperties = new ConcurrentHashMap<String, String>();
-      // Add in the properties for the style
-      Iterable<PropertyNode> propertyNodeList = styleNode.getProperties();
-      for (PropertyNode property : propertyNodeList)
-      {
-        String name = property.getName();
-        String value = property.getValue();
-        // We get a NPE in CSSStyle(styleProperties) -> putAll if we add a value that is null.
-        // See the BaseStyle(Map<String, String> propertiesMap) constructor.
-        if (name != null && value != null)
-          styleProperties.put(name, value);
-      }
-      
-      // To save memory, we reuse CSSStyle objects if 
-      // they have the same list of style property names and values.
-      // StyleKey is the key into the StyleKey, CSSStyle map.
-      StyleKey key = new StyleKey(styleProperties);
-      Style cachedStyle = _styleNodeToStyleMap.get(key);
-      if (cachedStyle == null)
-      {
-        // no match is cached yet, so create a new CSSStyle and cache in the map.
-        Style style = new CSSStyle(styleProperties);
-        _styleNodeToStyleMap.put(key, style);
-        return style;         
-      }
-      else
-      {
-        return cachedStyle;
-      }
-    }
+
     
-    /**
-     * A StyleKey object is used as a key into a map so that we can share CSSStyle objects
-     * if they are equal and they have the same hashCode.
-     */
-    private static class StyleKey
-    {
-      public StyleKey(Map<String, String> styleProperties)
-      {
-        _styleProperties = styleProperties;
-      }
-      
-      @Override
-      public int hashCode()
-      {
-        int hash = 17;
-        // take each style property name and value and create a hashCode from it.
-        for (Map.Entry<String, String> e : _styleProperties.entrySet())
-        {
-          String name = e.getKey();
-          hash = 37*hash + ((null == name) ? 0 : name.hashCode());
 
-          String value = e.getValue();
-          hash = 37*hash + ((null == value) ? 0 : value.hashCode());
-
-        }
-        return hash;
-      }
-      @Override  
-      public boolean equals(Object obj)
-      {
-        if (this == obj)
-          return true;
-        if (!(obj instanceof StyleKey))
-          return false;
-          
-        // obj at this point must be a StyleKey
-        StyleKey test = (StyleKey)obj;
-        return test._styleProperties.equals(this._styleProperties);
-      }
-      
-      Map<String, String> _styleProperties;
-
-    }
 
     private final Map<Selector, Style> _unmodifiableResolvedSelectorStyleMap;
     private final Map<String, String>  _afSelectorMap;
     private final String[]             _namespacePrefixArray;
     private final Map<String, String>  _shortStyleClassMap;
     private final boolean              _compress;
-    private Map<StyleKey, Style> _styleNodeToStyleMap = new ConcurrentHashMap<StyleKey, Style>();
   }
 
   private class StyleWriterFactoryImpl
@@ -1540,12 +1605,23 @@ public class FileSystemStyleCache implements StyleProvider
       }
     }
   }
-
+  
   private final String _targetPath; // The location of the cache
 
   /** The parsed StyleSheetDocument */
   private StyleSheetDocument _document;
-
+  
+  /** Since each FileSystemStyleCache$Entry object holds a FileSystemStyleCache$StylesImpl object
+   *  which holds on to many Style objects, it reduces the memory consumption by about half
+   *  if we reuse Style objects per FileSystemStyleCache instance rather than per
+   *  FileSystemStyleCache$Entry instance. The is the map we use to store unique Style objects. */
+  private ConcurrentMap<Style, Style> _reusableStyleMap;
+  
+  /** Use this to store Selector objects so that they can be reused in all the FileSystemStyleCache$StylesImpl
+   * objects. A generated css file can contain 4533 selectors at 16 bytes each. The Selectors will largely
+   * be the same between FileSystemStyleCache$StylesImpl instances, so they should be shared. */
+  private ConcurrentMap<Selector, Selector> _reusableSelectorMap;
+  
   /** The cache of style sheet URIs */
   private ConcurrentMap<Key, Entry> _cache;
 
@@ -1565,6 +1641,7 @@ public class FileSystemStyleCache implements StyleProvider
   private static final char _NAME_SEPARATOR = '-';
   private static final String _COMPRESSED = "cmp";
   private static final String _PORTLET = "prtl";
+  private static final String _SECURE = "s";
 
   /** Extension for CSS files */
   private static final String _CSS_EXTENSION = ".css";

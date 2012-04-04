@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.skin.parse;
 
@@ -75,8 +75,8 @@ public class SkinNodeParser extends BaseNodeParser
       _translationSourceExpression = null;
     }
 
-    return new SkinNode(_id, _family, _renderKitId, _extends,
-                        _styleSheetName, _bundleName, _translationSourceExpression);
+    return new SkinNode(_id, _family, _renderKitId, _extends, _styleSheetName, 
+                        _bundleName, _translationSourceExpression, _skinVersionNode);
   }
 
   @Override
@@ -100,6 +100,10 @@ public class SkinNodeParser extends BaseNodeParser
 
     {
       return new StringParser();
+    }
+    else if ("version".equals(localName))
+    {
+      return context.getParser(SkinVersionNode.class, namespaceURI, localName);
     }
 
     return null;
@@ -128,8 +132,9 @@ public class SkinNodeParser extends BaseNodeParser
       _translationSourceExpression = (String) child;
     else if ("extends".equals(localName))
       _extends = (String) child;
+    else if ((child instanceof SkinVersionNode))    
+      _skinVersionNode = ((SkinVersionNode)child);
   }
-
 
   private String      _namespace;
   private String      _id;
@@ -139,7 +144,7 @@ public class SkinNodeParser extends BaseNodeParser
   private String      _bundleName;
   private String      _translationSourceExpression;
   private String      _extends;
-
+  private SkinVersionNode _skinVersionNode;
 
   private static final TrinidadLogger _LOG = 
     TrinidadLogger.createTrinidadLogger(SkinNodeParser.class);

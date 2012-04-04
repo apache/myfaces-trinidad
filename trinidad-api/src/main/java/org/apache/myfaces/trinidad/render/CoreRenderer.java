@@ -1,23 +1,25 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.render;
 
+
+import java.beans.Beans;
 
 import java.io.IOException;
 
@@ -26,7 +28,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
 import java.util.Map;
 
 import javax.faces.application.ResourceHandler;
@@ -36,15 +37,14 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.ExternalContext;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -64,6 +64,23 @@ public class CoreRenderer extends Renderer
 
   protected CoreRenderer()
   {
+  }
+
+  /**
+   * Allows the rendered to specify what components should be involved with rendered children
+   * life-cycle operations and methods.
+   *
+   * @param facesContext the faces context
+   * @param component the component from which to get the rendered facets and children
+   * @see UIXComponentBase#getRenderedFacetsAndChildren(FacesContext)
+   * @return A list of components to process as rendered components. Defaults to all facets and
+   * children of a component
+   */
+  public Iterator<UIComponent> getRenderedFacetsAndChildren(
+    FacesContext facesContext,
+    UIComponent  component)
+  {
+    return component.getFacetsAndChildren();
   }
 
   /**
@@ -184,6 +201,37 @@ public class CoreRenderer extends Renderer
     // TODO Remove after one release
     if (component instanceof UIXComponent)
       tearDownEncodingContext(context, rc, (UIXComponent)component);
+  }
+
+  /**
+   * Hook to allow the renderer to customize the visitation of the children components
+   * of a component during the visitation of a component during rendering.
+   *
+   * @param component the component which owns the children to visit
+   * @param visitContext the visitation context
+   * @param callback the visit callback
+   * @return <code>true</code> if the visit is complete.
+   * @see UIXComponent#visitChildren(VisitContext, VisitCallback)
+   */
+  public boolean visitChildrenForEncoding(
+    UIXComponent  component,
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
+    // visit the children of the component
+    Iterator<UIComponent> kids = getRenderedFacetsAndChildren(
+                                   visitContext.getFacesContext(), component);
+
+    while (kids.hasNext())
+    {
+      // If any kid visit returns true, we are done.
+      if (kids.next().visitTree(visitContext, callback))
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   // TODO Remove after one release
@@ -454,16 +502,43 @@ public class CoreRenderer extends Renderer
         "NO_RENDERINGCONTEXT"));
 
     FacesBean bean = getFacesBean(component);
-    if (getRendersChildren())
+    RuntimeException re = null;
+    try
     {
-      beforeEncode(context, rc, component, bean);
-      encodeAll(context, rc, component, bean);
+      if (getRendersChildren())
+      {
+        beforeEncode(context, rc, component, bean);
+        encodeAll(context, rc, component, bean);
+      }
+      else
+      {
+        encodeEnd(context, rc, component, bean);
+      }
     }
-    else
+    catch (RuntimeException ex)
     {
-      encodeEnd(context, rc, component, bean);
+      re = ex;
     }
-    afterEncode(context, rc, component, bean);
+    finally
+    {
+      try
+      {
+        afterEncode(context, rc, component, bean);
+      }
+      catch (RuntimeException ex)
+      {
+        if (re == null)
+        {
+          throw ex;
+        }
+        _LOG.warning(ex);
+      }
+
+      if (re != null)
+      {
+        throw re;
+      }
+    }
   }
 
   /**
@@ -546,23 +621,7 @@ public class CoreRenderer extends Renderer
     ) throws IOException
   {
     assert(child.isRendered());
-    child.encodeBegin(context);
-    if (child.getRendersChildren())
-    {
-      child.encodeChildren(context);
-    }
-    else
-    {
-      if (child.getChildCount() > 0)
-      {
-        for(UIComponent subChild : (List<UIComponent>)child.getChildren())
-        {
-          RenderUtils.encodeRecursive(context, subChild);
-        }
-      }
-    }
-
-    child.encodeEnd(context);
+    child.encodeAll(context);
   }
 
   @SuppressWarnings("unchecked")
@@ -575,7 +634,7 @@ public class CoreRenderer extends Renderer
     if (childCount == 0)
       return;
 
-    for(UIComponent child : (List<UIComponent>)component.getChildren())
+    for (UIComponent child : (List<UIComponent>)component.getChildren())
     {
       if (child.isRendered())
       {
@@ -928,7 +987,7 @@ public class CoreRenderer extends Renderer
 
     // Check if there are client behaviors first as it should be faster to access then
     // getting the behavior event from the request parameter map (fewer method calls)
-    Map<String, List<ClientBehavior>> behaviorsMap = bean.getClientBehaviors();
+    Map<String, List<ClientBehavior>> behaviorsMap = ((ClientBehaviorHolder)component).getClientBehaviors();
     if (behaviorsMap.isEmpty())
     {
       return null;
@@ -943,8 +1002,8 @@ public class CoreRenderer extends Renderer
     }
 
     // Does the component have behaviors for this event type?
-    List<ClientBehavior> behaviors = bean.getClientBehaviors().get(event);
-    if (behaviors.isEmpty())
+    List<ClientBehavior> behaviors = behaviorsMap.get(event);
+    if (behaviors == null || behaviors.isEmpty())
     {
       return null;
     }
@@ -1037,8 +1096,11 @@ public class CoreRenderer extends Renderer
   {
     if (styleClass != null)
     {
-      styleClass = rc.getStyleClass(styleClass);
-      context.getResponseWriter().writeAttribute("class", styleClass, null);
+      String compressedStyleClass = rc.getStyleClass(styleClass);
+      context.getResponseWriter().writeAttribute("class", compressedStyleClass, null);
+
+      if (rc.isDesignTime())
+        context.getResponseWriter().writeAttribute("rawClass", styleClass, null);
     }
   }
 
@@ -1092,6 +1154,28 @@ public class CoreRenderer extends Renderer
     }
 
     context.getResponseWriter().writeAttribute("class", value, null);
+
+    if (rc.isDesignTime())
+    {
+      StringBuilder builder = new StringBuilder();
+      for (int i = 0; i < length; i++)
+      {
+        if (styleClasses[i] != null)
+        {
+          String styleClass = styleClasses[i];
+          if (styleClass != null)
+          {
+            if (builder.length() != 0)
+              builder.append(' ');
+            builder.append(styleClass);
+          }
+        }
+      }
+
+      if (builder.length() > 0)
+        context.getResponseWriter().writeAttribute("rawClass", builder.toString(), null);
+    }
+
   }
 
   // Heuristic guess of the maximum length of a typical compressed style

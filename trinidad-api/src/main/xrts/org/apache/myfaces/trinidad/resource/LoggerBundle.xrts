@@ -39,6 +39,9 @@
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE">Conversion class: {0} not of type {1}</resource>
 
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE">Failed to apply row key set attribute change. Reason : {1}</resource>
+
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS">Unable to instantiate converterClass: {0}</resource>
 
@@ -118,7 +121,7 @@
 <resource key="ERR_PARSING_URL">Error parsing:{0}</resource>
 
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE">error loading resource:{0}</resource>
+<resource key="ERR_LOADING_RESROUCE">Error loading resource:{0}</resource>
 
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE">Resource name "{0}" begins with a slash, which is not portable.</resource>
@@ -178,10 +181,13 @@
  <resource key="INVALID_INDEX">Invalid index</resource>
  
  <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
- <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID">Adding a child when a child with same ID already exists. Old child will be removed and new child added. {0}</resource>
+ <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID">Change manager failed to apply AddChildComponentChange because a child component with the same id already exists. {0}</resource>
  
  <!-- NO_NODE_SPECIFIED -->
  <resource key="NO_NODE_SPECIFIED">No node specified</resource>
+
+ <!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+ <resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR">We don't want to persist stamped component inside an iterator</resource>
  
  <!-- COMPONENT_REQUIRED -->
  <resource key="COMPONENT_REQUIRED">Component required</resource>
@@ -225,6 +231,9 @@
  <!-- FACET_NAME_MUST_SPECIFIED -->
  <resource key="FACET_NAME_MUST_SPECIFIED">Facet name must be specified</resource>
  
+ <!-- FACET_ALREADY_PRESENT -->
+ <resource key="FACET_ALREADY_PRESENT">Change manager failed to apply SetFacetChildComponentChange because a facet with the same name already exists. {0}</resource>
+
  <!-- MOVABLE_CHILD_REQUIRED -->
  <resource key="MOVABLE_CHILD_REQUIRED">Child component to be moved is required.</resource>
 
@@ -242,6 +251,9 @@
 
  <!-- DESTINATION_CONTAINER_NOT_FOUND -->
  <resource key="DESTINATION_CONTAINER_NOT_FOUND">Destination container could not be found: {0}.</resource>
+
+ <!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+ <resource key="MOVABLE_CHILD_SAME_ID_FOUND">A different component with same id was found in the destination container. Move operation aborted: {0}.</resource>
 
  <!-- INSERT_BEFORE_NOT_FOUND -->
  <resource key="INSERT_BEFORE_NOT_FOUND">Insert before component or node could not be found: {0}.</resource>
@@ -350,6 +362,12 @@
  
  <!-- NULL_PROPERTY -->
  <resource key="NULL_PROPERTY">property is null</resource>
+
+ <!-- NULL_SORT_STRENGTH -->
+ <resource key="NULL_SORT_STRENGTH">sort strength is null</resource>
+
+ <!-- INVALID_SORT_STRENGTH_PROPERTY -->
+ <resource key="INVALID_SORT_STRENGTH_PROPERTY">Invalid sortStrength property value: {0}. The supported values are Primary, Secondary, Tertiary and Identical.</resource>
  
  <!-- NO_MENUCONTENTHANDLER_REGISTERED -->
  <resource key="NO_MENUCONTENTHANDLER_REGISTERED">No MenuContentHandler was registered.</resource>
@@ -363,7 +381,10 @@
  <!-- FACTORY_ALREADY_AVAILABlE_FOR_THIS_CLASS_LOADER -->
  <resource key="FACTORY_ALREADY_AVAILABlE_FOR_THIS_CLASS_LOADER">Factory already available for this class loader.</resource>
  
- <!-- BYTE_ARRAY_CANNOT_BE_NULL -->
+ <!-- SKIN_FACTORY_NO_RELOAD_SUPPORT -->
+<resource key="SKIN_FACTORY_NO_RELOAD_SUPPORT">There was an attempt to reload a SkinFactory implementation "{0}" that does not support reloading.</resource>
+
+<!-- BYTE_ARRAY_CANNOT_BE_NULL -->
  <resource key="BYTE_ARRAY_CANNOT_BE_NULL">byte[] cannot be null</resource>
  
  <!-- ACTUAL_LENGTH_OFFSET -->
@@ -417,6 +438,9 @@
  <!-- RESOURCE_PATH_CONTAINS_DOTS -->
  <resource key="RESOURCE_PATH_DOTS">The resource path {0} contains "..". Browsers resolve out the "..", so this is a suspicious path.</resource>
 
+ <!-- VALIDATOR_FACTORY_UNAVAILABLE -->
+ <resource key="VALIDATOR_FACTORY_UNAVAILABLE">Could not build a default bean validator factory, therefore bean validation is disabled. Exception message is: {0}</resource>
+
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX">Could not find the component with scopedId {0} from {1} with the supported syntax. The component was found with the deprecated syntax. Please use the supported syntax.</resource>
 
@@ -452,5 +476,63 @@
 
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH">The type for "{0}" prevents it from being compared to "{1}".</resource>
+
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED">Failed to zip the page state. The state must be serializable to be zipped, so a common reason the page state fails to zip is that the page state is not serializable.  You can turn off zipping by setting org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE to false. See the doc about system property org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION for how to test various aspects of serialization.</resource>
+
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED">Failed to unzip the page state.</resource>
+
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID">getClientId should not be called while the view is being constructed. Component ID: {0}</resource>
+
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET">row key might not be reset correctly at the end of the request. Component ID: {0} ViewId: {1}</resource>
+
+<!-- COLLECTION_CHANGE_TEARDOWN  -->
+<resource key="COLLECTION_CHANGE_TEARDOWN">The component change that was on the stack is not the required one to properly tear down the context of this component. The component tree is in an invalid state and further errors may result. Component ID: {0} Invalid component change: {1}</resource>
+
+<!-- COLLECTION_NOT_IN_CONTEXT  -->
+<resource key="COLLECTION_NOT_IN_CONTEXT">The row key or row index of a UIXCollection component is being changed outside of the component's context. Changing the key or index of a collection when the collection is not currently being visited, invoked on, broadcasting an event or processing a lifecycle method, is not valid. Data corruption and errors may result from this call. Component ID: {0}. Turn on fine level logging for a stack trace of this call.</resource>
+
+<!-- COMPONENT_ALREADY_IN_CHILDREN_ENCODING_CONTEXT -->
+<resource key="COMPONENT_ALREADY_IN_CHILDREN_ENCODING_CONTEXT">setupChildrenEncodingContext called on a component that is already in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_ALREADY_IN_CHILDREN_VISITING_CONTEXT -->
+<resource key="COMPONENT_ALREADY_IN_CHILDREN_VISITING_CONTEXT">setupChildrenVisitingContext called on a component that is already in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_NOT_IN_CHILDREN_ENCODING_CONTEXT -->
+<resource key="COMPONENT_NOT_IN_CHILDREN_ENCODING_CONTEXT">tearDownChildrenEncodingContext called on a component that is not in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_NOT_IN_CHILDREN_VISITING_CONTEXT -->
+<resource key="COMPONENT_NOT_IN_CHILDREN_VISITING_CONTEXT">tearDownChildrenVisitingContext called on a component that is not in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_ALREADY_IN_ENCODING_CONTEXT -->
+<resource key="COMPONENT_ALREADY_IN_ENCODING_CONTEXT">setupEncodingContext called on a component that is already in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_ALREADY_IN_VISITING_CONTEXT -->
+<resource key="COMPONENT_ALREADY_IN_VISITING_CONTEXT">setupVisitingContext called on a component that is already in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_NOT_IN_ENCODING_CONTEXT -->
+<resource key="COMPONENT_NOT_IN_ENCODING_CONTEXT">tearDownEncodingContext called on a component that is not in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- COMPONENT_NOT_IN_VISITING_CONTEXT -->
+<resource key="COMPONENT_NOT_IN_VISITING_CONTEXT">tearDownVisitingContext called on a component that is not in context. Client ID: {0}. Originally called by {1}.</resource>
+
+<!-- INVALID_CONTEXT_CHANGE_FOUND -->
+<resource key="INVALID_CONTEXT_CHANGE_FOUND">An unexpected component context change was found. This is due to components not correctly maintaining the context change stack. Expected change of type {0} for component {1} but received change {2}.</resource>
+
+<!-- ILLEGAL_ENUM_VALUE -->
+<resource key="ILLEGAL_ENUM_VALUE">No {0} enum constant for value "{1}".</resource>
+
+<resource key="ILLEGAL_NULL_ARGUMENT">A non-null value must be specified for the {0} argument.</resource>
+
+<resource key="UNEXPECTED_VERSION_VALUE">Unable to parse version segment {0} of version string {1}.</resource>
+
+<resource key="CANNOT_CREATE_DIRECTORY">The directory {0} does not exist and cannot be created.</resource>
+
+<resource key="DIRECTORY_NOT_WRITABLE">The directory {0} exists, but is not writable.</resource>
+
+<resource key="ILLEGAL_REQUEST_PARAMETER_VALUE">'{0}' is not a valid value for request parameter '{1}'.  Valid values are: {2}</resource>
 
 </resources>

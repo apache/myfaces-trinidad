@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
@@ -69,7 +69,6 @@ import org.apache.myfaces.trinidadinternal.io.HtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.IndentingResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderKitDecorator;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContextImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
@@ -110,6 +109,21 @@ public class CoreRenderKit extends RenderKitDecorator
    * result in a version of page content optimized for use in e-mail.
    */
   static public final String OUTPUT_MODE_EMAIL = "email";
+  
+  /**
+   * An attachment browser output mode. Render the content such that the output can be sent as an 
+   * email attachment that can be viewed offline. Interactions requiring server communication 
+   * should be completely avoided.
+   */
+  static public final String OUTPUT_MODE_ATTACHMENT = "attachment";
+  
+  /**
+   * Web Creawler output mode.  Render the content for consumption by a web crawler
+   */
+  static public final String OUTPUT_MODE_WEB_CRAWLER = "webcrawler";
+  
+  public enum OutputMode {normal, portlet, printable, email, attachment}
+  
 
   static public final String RETURN_PARAM = "rtrn";
 
@@ -143,25 +157,56 @@ public class CoreRenderKit extends RenderKitDecorator
     return "org.apache.myfaces.trinidad.core.desktop";
   }
 
-  static public boolean isAjaxRequest(ExternalContext ec)
+  /**
+   * Returns true if this is a Trinidad PPR Ajax request sent over with the legacy (non-JSF2 Ajax) mechanism
+   */
+  static public boolean isLegacyAjaxRequest(ExternalContext ec)
   {
     return "true".equals(ec.getRequestHeaderMap().get(_PPR_REQUEST_HEADER));
   }
 
-  static public boolean isPartialRequest(Map<String, String[]> parameters)
+  /**
+   * Returns true is this a PPR request sent by Trinidad (as opposed to a request sent with &lt;f:ajax&gt;)
+   */
+  static public boolean isLegacyPartialRequest(Map<String, String[]> parameters)
   {
-    String[] array = parameters.get(_PPR_REQUEST_HEADER);
-    if ((array == null) || (array.length != 1))
-      return false;
-    return "true".equals(array[0]);
+    return _checkParameter(parameters, _PPR_REQUEST_HEADER, "true");
   }
 
-  static public boolean isPartialRequest(ExternalContext ec)
+  /**
+   * Returns true is this a PPR request sent by Trinidad (as opposed to a request sent with &lt;f:ajax&gt;)
+   */
+  static public boolean isLegacyPartialRequest(ExternalContext ec)
   {
     // A partial request could be an AJAX request, or it could
     // be an IFRAME-postback to handle file upload
-    return isAjaxRequest(ec) ||
+    return isLegacyAjaxRequest(ec) ||
            "true".equals(ec.getRequestParameterMap().get(_PPR_REQUEST_HEADER));    
+  }
+  
+  /**
+   * Returns true if this is a Trinidad PPR request or &lt;f:ajax&gt; request
+   */
+  static public boolean isPartialRequest(Map<String, String[]> parameters)
+  {
+    if (isLegacyPartialRequest(parameters))
+    {
+      return true;
+    }
+    // Check for the jsf:ajax requests too
+    return _checkParameter(parameters, _FACES_REQUEST, _PARTIAL_AJAX);
+  }
+  
+  /**
+   * Returns true if this is a Trinidad PPR request or &lt;f:ajax&gt; request
+   */
+  static public boolean isPartialRequest(ExternalContext ec)
+  {
+    if (isLegacyPartialRequest(ec))
+    {
+      return true;
+    }
+    return _isJsf2Ajax(ec);
   }
   
   public CoreRenderKit()
@@ -597,16 +642,11 @@ public class CoreRenderKit extends RenderKitDecorator
         rw = new HtmlResponseWriter(writer, characterEncoding);
       }
       
-      RenderingContext rc = RenderingContext.getCurrentInstance();
-      if (rc == null)
+      // JIRA 2107 - jsf.js cannot handle HTML comments in the <update> element, so we need to suppress debug output
+      // if we are generating response that will be handled by JSF2.0 Ajax
+      if (_isJsf2Ajax(fContext.getExternalContext()))
       {
-        // TODO: is this always indicative of something being very wrong?
-        _LOG.severe("No RenderingContext has been created.");
-      }
-      else
-      {
-        if (isPartialRequest(fContext.getExternalContext()))
-          rw = new PPRResponseWriter(rw, rc);
+        return rw;
       }
       
       return _addDebugResponseWriters(rw);
@@ -791,6 +831,19 @@ public class CoreRenderKit extends RenderKitDecorator
     // Default to HTML if we couldn't find anything directly applicable
     return _HTML_MIME_TYPE;
   }
+  
+  private static boolean _checkParameter(Map<String, String[]> parameters, String name, String value)
+  {
+    String[] array = parameters.get(name);
+    if ((array == null) || (array.length != 1))
+      return false;
+    return value.equals(array[0]);
+  }
+  
+  private static boolean _isJsf2Ajax(ExternalContext ec)
+  {
+    return _PARTIAL_AJAX.equals(ec.getRequestHeaderMap().get(_FACES_REQUEST));
+  }
 
   private static final String _XHTML_MIME_TYPE = "application/xhtml+xml";
   private static final String _APPLICATION_XML_MIME_TYPE = "application/xml";
@@ -803,6 +856,8 @@ public class CoreRenderKit extends RenderKitDecorator
   static private final String _SCRIPT_LIST_KEY =
     "org.apache.myfaces.trinidadinternal.renderkit.ScriptList";
   static private final String _PPR_REQUEST_HEADER = "Tr-XHR-Message";
+  private static final String _FACES_REQUEST = "Faces-Request";
+  private static final String _PARTIAL_AJAX = "partial/ajax";
 
   static private final String _USE_DIALOG_POPUP_INIT_PARAM =
     "org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS";

@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.output.outputLabel;
 
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 
 /**
  *
@@ -28,17 +30,29 @@ public class OutputLabelDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982371956886492710L;
 
-	/**
-	 * Constructor.
-	 */
-	public OutputLabelDemo() {
-		super(ComponentDemoId.outputLabel, "Output Label",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public OutputLabelDemo() {
+    super(ComponentDemoId.outputLabel, "Output Label");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/output/outputLabel/outputLabel.xhtml"
-            });
-	}
+                    "/components/output/outputLabel/outputLabel.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/output/outputLabel/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

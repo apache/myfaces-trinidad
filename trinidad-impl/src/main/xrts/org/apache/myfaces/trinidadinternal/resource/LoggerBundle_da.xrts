@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Kunne ikke indlæse {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Kunne ikke instantiere UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Filen kunne ikke uploades, fordi den er for stor.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad kører i debug-tilstand. Må ikke bruges i et produktionsmiljø. Se: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">Elementet {0} understøtter ikke EL-udtryk.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">Elementet {0} accepterer kun heltalsværdier</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">Elementet {0} accepterer kun lange værdier</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Kunne ikke finde kontekstklasseindlæser.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -150,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Ressourcepakken {0} blev ikke fundet.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">fejl under lukning af fil: {0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Fejl under lukning af fil: {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Fejl under hentning af områdemetadatafiler:{0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -181,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Cirkulær afhængighed blev fundet i temareferenceikon {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Et NULL-SkinAddition-objekt blev videregivet til addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Kunne ikke behandle skemakonfigurationsfil: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Temaets translation-source-ValueExpression er ikke af den forventede type, Map eller ResourceBundle, og ignoreres derfor.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -259,6 +265,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Kan ikke hente ressourcen {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad kører med debug-javascript. Må ikke bruges i et produktionsmiljø. Se &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot;-parameteren i /WEB-INF/web.xml</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Miljøet er konfigureret som produktion, og Apache Trinidad kører med debug-javascript. Se parameteren &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; i /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Miljøet er konfigureret som produktion, og Apache Trinidad kører med ikke-komprimeret CSS. Se parameteren &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; i /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Miljøet er konfigureret som produktion, og Apache Trinidad kører med debug-output TRUE. Se elementet &quot;debug-output&quot; i trinidad-config.xml-filen.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Ulovlig værdi: {0} for {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +313,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ignorerer egenskaberne {0}, fordi der ikke er nogen tilsvarende selektor.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Fejl under læsning fra tema-css-filen</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Fejl under læsning fra tema-css-filen. Der er et ekstra komma i selektor: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Kan ikke tilføje tema med NULL-skinId eller NULL-tema</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Det tidligere tilføjede tema, {0}, er blevet tilføjet igen. Hvis du har cachet dette tema i din applikation, kan du få et inkonsistent resultat. Tjek for dublerede trinidad-skins.xml-filer i klassestien.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Kan ikke hente tema med NULL-skinId</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Kan ikke finde et tema, der matcher gruppen {0} og gengivelsessættet {1}, så vi bruger det simple tema</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Fandt et tema, som matcher gruppen {0} og version {1}. Vi bruger temaet {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Kan ikke finde et tema, som matcher gruppen {0} og version {1}. Vi bruger temaet {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Kan ikke finde et ikke-versioneret tema for gruppen {0}. Vi bruger det versionerede tema {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Kunne ikke hente typografiarkdokumentets tidsstempel, fordi vi ikke kunne åbne forbindelsen.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">Temavælgeren {0} er ikke et temaikonobjekt, eftersom det ikke har en indholdsattribut. Hvis du har oprettet vælgeren, skal du give den et nyt navn, der slutter på &quot;style&quot; i stedet for &quot;icon&quot;, så framework for udseende opfatter den som en typografi og ikke som et ikon.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} skal komme før alle andre regler.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Følgende temaer udvider hinanden på en cirkulær måde, eller det tema, de udvider, findes ikke: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -316,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Fejl under analyse af: {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">fejl under indlæsning af fil: {0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Fejl under indlæsning af fil: {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Kunne ikke indlæse typografiark: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -419,6 +445,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Det påkrævede element-&apos;ID&apos; blev ikke fundet.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Den påkrævede element-&apos;gruppe&apos; blev ikke fundet.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Det påkrævede underordnede element for &apos;version&apos;, &apos;navn&apos; blev ikke fundet.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Forkert udformet egenskabspost: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -662,7 +690,7 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Ukendt sammenligning</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">test-BoundValue er påkrævet</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">Test-BoundValue er påkrævet</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">NULL-listeargument</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
@@ -721,4 +749,23 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ugyldigt land for identifikator for landestandard {0} - landekoden skal være med store bogstaver. Javadoc for landestandard indeholder det korrekte format. Vil bruge en tom streng til land</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ugyldig variant for identifikator for landestandard {0} - må ikke indeholde skråstreger, hvis XSS-angreb skal undgås. Vil bruge en tom streng til variant.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Kunne ikke slette filen {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState skal være en forekomst af StateManager.SerializedView eller en objektmatrix med en længde på 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Lagring af delvise tilstande understøttes ikke endnu. Sæt context-param javax.faces.PARTIAL_STATE_SAVING til false i web.xml.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Fejl under serialisering af {0}-attributten: {1}</resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> fejlet værdi=</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failover-fejl: {0}, attributten: {1} af typen {2} kan ikke serialiseres</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failover-fejl: Serialisering af {0}-attributten: {1} er ændret fra {2} til {3}, uden at attributten er beskadiget</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Serialiseringstest af sessionsattribut fejlede for {0}. Dette tjek kan deaktiveres ved at fjerne &apos;&apos;REQUEST&apos;&apos; fra systemegenskaben &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Undtagelse under indhentning af testfejl ved serialisering af sessionsattribut</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Sessionsattribut: {0} </resource>
 </resources>

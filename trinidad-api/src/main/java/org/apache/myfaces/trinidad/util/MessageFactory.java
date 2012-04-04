@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.util;
 
@@ -56,7 +56,7 @@ public final class MessageFactory
     }
     // bug 4733165:
     FacesMessage message =
-      new FacesMessage(FacesMessage.SEVERITY_ERROR, detail, detail);
+      new FacesMessage(FacesMessage.SEVERITY_ERROR, null, detail);
     return message;
   }
 
@@ -420,7 +420,7 @@ public final class MessageFactory
           context = FacesContext.getCurrentInstance();
         o = ((ValueExpression) o).getValue(context.getELContext());
       }
-      
+
       resolvedParameters[i] = o;
     }
     return resolvedParameters;
@@ -621,22 +621,22 @@ public final class MessageFactory
       String detailMsgPattern = (String)_customDetailErrorMessage.getValue(context.getELContext());
       if(detailMsgPattern == null)
       {
-        // Set a default message that might get used by FacesException 
-        // constructor for example. This will often happen because 
-        // ValidatorException constructor will call this method to 
-        // get the exception message for its parent. So by default 
+        // Set a default message that might get used by FacesException
+        // constructor for example. This will often happen because
+        // ValidatorException constructor will call this method to
+        // get the exception message for its parent. So by default
         // we'll use the EL String.
-        // Note that by default 
+        // Note that by default
         detailMsgPattern = _customDetailErrorMessage.getExpressionString();
-        
-        // Since that string will get parsed by FastMessageFormat, the { } 
+
+        // Since that string will get parsed by FastMessageFormat, the { }
         // of the EL must be escaped
         //detailMsgPattern = '\'' + detailMsgPattern + '\'';
-        
+
         // No need to format this string, just return it here.
         return detailMsgPattern;
       }
-      
+
       Object[] params = super.getParameters();
 
       if (_hasBoundParameters)

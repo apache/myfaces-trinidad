@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidaddemo.support;
 
 import org.apache.myfaces.trinidaddemo.NavigationHandlerBean;
 import org.apache.myfaces.trinidaddemo.ComponentDemoRegistry;
+import org.apache.myfaces.trinidaddemo.FeatureDemoRegistry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.Filter;
@@ -43,21 +44,38 @@ import java.util.logging.Level;
  */
 public class PrettyUrlFilter implements Filter {
 
+    private enum TYPES{
+    component,
+    feature
+  }
+
     private static final Logger _LOG = Logger.getLogger(PrettyUrlFilter.class.getName());
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         String requestURI = getRequestURI(request);
-        IComponentVariantDemo resultingDemo = getComponentVariantDemo(requestURI);
 
         FacesContext fc = getFacesContext(request, response);
         NavigationHandlerBean navigationHandler = (NavigationHandlerBean) fc.getApplication().getELResolver().getValue(fc.getELContext(), null, "navigationHandler");
 
-        navigationHandler.setCurrentComponentVariantDemo(resultingDemo);
+        if (getDemoType(requestURI).equals(TYPES.component)){
+            IComponentVariantDemo componentVariantDemo = getComponentVariantDemo(requestURI);
+            navigationHandler.setCurrentComponentVariantDemo(componentVariantDemo);
 
-        _LOG.log(Level.INFO,"Forwarding request [" + requestURI + "] to view [" + resultingDemo.getEntryPagePath()+"]");
-        if (!response.isCommitted()) {
-            request.getRequestDispatcher("/faces"+resultingDemo.getEntryPagePath()).forward(request, response);
-        }       
+            _LOG.log(Level.INFO,"Forwarding request [" + requestURI + "] to view [" + componentVariantDemo.getEntryPagePath()+"]");
+            if (!response.isCommitted()) {
+                request.getRequestDispatcher("/faces"+componentVariantDemo.getEntryPagePath()).forward(request, response);
+            }
+        }
+
+        if (getDemoType(requestURI).equals(TYPES.feature)){
+            IFeatureDemo featureDemo = getFeatureDemo(requestURI);
+            navigationHandler.setCurrentFeatureDemo(featureDemo);
+
+            _LOG.log(Level.INFO,"Forwarding request [" + requestURI + "] to view [" + featureDemo.getPagePath()+"]");
+            if (!response.isCommitted()) {
+                request.getRequestDispatcher("/faces"+featureDemo.getPagePath()).forward(request, response);
+            }
+        }
     }
 
     /**
@@ -74,6 +92,11 @@ public class PrettyUrlFilter implements Filter {
         return requestURI;
     }
 
+    private TYPES getDemoType(String requestURI) {
+        String demoType = requestURI.substring(1,requestURI.indexOf("-"));
+        
+        return TYPES.valueOf(demoType);
+    }
     /**
      * @param requestURI
      * @return
@@ -95,6 +118,19 @@ public class PrettyUrlFilter implements Filter {
 
         return resultingDemo;
     }        
+
+    private IFeatureDemo getFeatureDemo(String requestURI) {
+        int idPathIndex = requestURI.lastIndexOf("/");
+        if (idPathIndex == -1) {
+            return null;
+        }
+
+        String idPath = requestURI.substring(idPathIndex+1);
+        FeatureDemoId featureDemoId = FeatureDemoId.valueOf(idPath);
+
+        return FeatureDemoRegistry.getInstance().getFeatureDemo(featureDemoId);
+
+    }
 
     /**
      * @param request

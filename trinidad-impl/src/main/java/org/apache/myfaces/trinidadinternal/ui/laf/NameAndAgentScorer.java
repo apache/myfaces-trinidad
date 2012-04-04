@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.ui.laf;
 
@@ -40,14 +40,14 @@ public class NameAndAgentScorer extends LookAndFeelScorer
    */
   public NameAndAgentScorer(
     String  requiredLafName,
-    Integer requiredAgentType,
     Integer requiredAgentApplication,
     Integer requiredAgentMajorVersion,
-    Integer requiredAgentOS
+    Integer requiredAgentOS,
+    Integer... requiredAgentTypes
     )
   {
     _lafName           = requiredLafName;
-    _agentType         = requiredAgentType;
+    _agentTypes        = requiredAgentTypes;
     _agentApplication  = requiredAgentApplication;
     _agentMajorVersion = requiredAgentMajorVersion;
     _agentOS           = requiredAgentOS;
@@ -76,7 +76,14 @@ public class NameAndAgentScorer extends LookAndFeelScorer
     int nameScore = _scoreName(lafName);
 
     TrinidadAgent agent = context. getAgent();
-    int typeScore = _score(_agentType, agent.getAgentType());
+    
+    int typeScore = NO_MATCH;
+    int agentType = agent.getAgentType();
+    for (int type: _agentTypes)
+    {
+      typeScore = Math.max(typeScore, _score(type, agentType));
+    }
+    
     int appScore = _score(_agentApplication, agent.getAgentApplication().ordinal());
     int versScore = _score(_agentMajorVersion, agent.getAgentMajorVersion());
     int osScore = _score(_agentOS, agent.getAgentOS());
@@ -124,7 +131,7 @@ public class NameAndAgentScorer extends LookAndFeelScorer
   }
   
   private String  _lafName;
-  private Integer _agentType;
+  private Integer _agentTypes[];
   private Integer _agentApplication;
   private Integer _agentMajorVersion;
   private Integer _agentOS;

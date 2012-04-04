@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.panel.form;
 
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 
 /**
  *
@@ -28,15 +30,23 @@ public class FormDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982061956882498710L;
 
-	/**
-	 * Constructor.
-	 */
-	public FormDemo() {
-		super(ComponentDemoId.form, "Form",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public FormDemo() {
+    super(ComponentDemoId.form, "Form");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/panel/form/form.xhtml"
-            });
-	}
+                    "/components/panel/form/form.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/form/summary.xhtml";

@@ -40,30 +40,29 @@ public class PanelBoxDemo extends AbstractComponentDemo {
      * Constructor.
      */
     public PanelBoxDemo() {
-        super(ComponentDemoId.panelBox, "Panel Box",
-            new String[]{
-                "/components/panel/panelBox/panelBox.xhtml"
-            });
+        super(ComponentDemoId.panelBox, "Panel Box");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Dark, this,
                 new String[]{
                         "/components/panel/panelBox/panelBoxDark.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Light, this,
                 new String[]{
                         "/components/panel/panelBox/panelBoxLight.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Medium, this,
                 new String[]{
                         "/components/panel/panelBox/panelBoxMedium.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Transparent, this,
                 new String[]{
                         "/components/panel/panelBox/panelBoxTransparent.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+
+        setDefaultVariant(VARIANTS.Light);
     }
 
     public String getSummaryResourcePath() {

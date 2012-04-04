@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.model;
 
@@ -428,78 +428,78 @@ public class ProcessUtils
     String    maxPathKey
   )
   {
-    //TODO - what if maxPathKey is null
+    assert(maxPathKey != null);
+    
     ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
     Map<String, Object> requestMap = externalContext.getRequestMap();
 
+    Object maxRowKey = requestMap.get(maxPathKey);
+    boolean mustCompareWithFocusRow = true;
 
+    //TODO - if I change this to use pageFlowScope it doesn't work.
+    // figure out why.
+    Map<String,Object> sessionMap  = externalContext.getSessionMap();
+    Map<Object,Object> maxPathMap = (Map<Object,Object>)sessionMap.get(maxPathKey);
+    if (maxPathMap == null)
+      maxPathMap = new HashMap<Object,Object>();
 
-    Object maxPath = requestMap.get(maxPathKey);
+    Object focusRowKey = model.getFocusRowKey();
+    Object parentRowKey = model.getContainerRowKey(focusRowKey);
 
-    if (maxPath == null)
+    if (parentRowKey == null)
+      parentRowKey = _MAX_PATH_TOP;
+
+    if (maxRowKey == null)
     {
-
-      //TODO - if I change this to use pageFlowScope it doesn't work.
-      // figure out why.
-      Map<String,Object> sessionMap  = externalContext.getSessionMap();
-
-      Map<Object,Object> maxPathMap = (Map<Object,Object>)sessionMap.get(maxPathKey);
-      if (maxPathMap == null)
-        maxPathMap = new HashMap<Object,Object>();
-
-      Object focusRowKey = model.getFocusRowKey();
-      Object parentRowKey = model.getContainerRowKey(focusRowKey);
-
-      if (parentRowKey == null)
-        parentRowKey = _MAX_PATH_TOP;
-
-      maxPath = maxPathMap.get(parentRowKey);
-      if (maxPath == null)
+      maxRowKey = maxPathMap.get(parentRowKey);
+      if (maxRowKey == null)
       {
-        maxPath = model.getFocusRowKey();
-        maxPathMap.put(parentRowKey, maxPath);
+        maxRowKey = focusRowKey;
+        maxPathMap.put(parentRowKey, maxRowKey);
         sessionMap.put(maxPathKey, maxPathMap);
-        requestMap.put(maxPathKey, maxPath);
+        
+        // for fast access store maxRowKey in the requestMap
+        requestMap.put(maxPathKey, maxRowKey);
+        mustCompareWithFocusRow = false;
+      }
+    }
+    
+    if (mustCompareWithFocusRow)
+    {
+      // figure out if focusRowKey > maxPath, if so set a new maxPath,
+      // the result is set on the request so we do this once per request.
+      Object currPath = model.getRowKey();
+      boolean hasDifferentAncestors = _hasDifferentAncestors(model,
+                                                   focusRowKey,
+                                                   maxRowKey);
+
+      //TODO - should I default this to focusPath?
+      if (hasDifferentAncestors)
+      {
+        model.setRowKey(currPath);
+        return null;
+      }
+
+      model.setRowKey(focusRowKey);
+      int focusRowIndex = model.getRowIndex();
+      model.setRowKey(maxRowKey);
+      int maxRowIndex = model.getRowIndex();
+
+      if (focusRowIndex > maxRowIndex)
+      {
+        maxPathMap.put(parentRowKey, focusRowKey);
+        sessionMap.put(maxPathKey, maxPathMap);
+        requestMap.put(maxPathKey, focusRowKey);
       }
       else
       {
-        // figure out if focusPath > maxPath, if so set a new maxPath,
-        // the result is set on the request so we do this once per request.
-        Object currPath = model.getRowKey();
-        Object focusPath = model.getFocusRowKey();
-        boolean hasDifferentAncestors = _hasDifferentAncestors(model,
-                                                     focusPath,
-                                                     maxPath);
-
-        //TODO - should I default this to focusPath?
-        if (hasDifferentAncestors)
-        {
-          model.setRowKey(currPath);
-          return null;
-        }
-
-
-        model.setRowKey(focusPath);
-        int focusRowIndex = model.getRowIndex();
-        model.setRowKey(maxPath);
-        int maxRowIndex = model.getRowIndex();
-
-        if (focusRowIndex > maxRowIndex)
-        {
-          maxPathMap.put(parentRowKey, focusPath);
-          sessionMap.put(maxPathKey, maxPathMap);
-          requestMap.put(maxPathKey, focusPath);
-        }
-        else
-        {
-          requestMap.put(maxPathKey, maxPath);
-        }
-
-        model.setRowKey(currPath);
+        requestMap.put(maxPathKey, maxRowKey);
       }
+
+      model.setRowKey(currPath);
     }
 
-    return maxPath;
+    return maxRowKey;
   }
 
   @SuppressWarnings("unchecked")
@@ -541,3 +541,4 @@ public class ProcessUtils
   private static final Object _MAX_PATH_TOP = new Object();
 
 }
+

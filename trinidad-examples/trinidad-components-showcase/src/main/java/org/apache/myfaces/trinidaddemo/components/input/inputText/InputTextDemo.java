@@ -31,28 +31,27 @@ public class InputTextDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956883498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Detailed,
+    Detailed,
         Simple
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public InputTextDemo() {
-		super(ComponentDemoId.inputText, "Input Text",
-            new String[]{
-                "/components/input/inputText/inputText.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public InputTextDemo() {
+    super(ComponentDemoId.inputText, "Input Text");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
                         "/components/input/inputText/inputTextSimple.xhtml"
-                }, getSummaryResourcePath()));
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
                 new String[]{
                         "/components/input/inputText/inputTextDetailed.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.Detailed);        
+  }
 
     public String getSummaryResourcePath() {
         return "/components/input/inputText/summary.xhtml";

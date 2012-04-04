@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.validator;
 
@@ -32,6 +32,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
@@ -75,6 +77,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/validator/ByteLengthValidator.java#0 $) $Date: 10-nov-2005.19:08:32 $
  */
+@JSFValidator(configExcluded=true)
 public class ByteLengthValidator  implements StateHolder, Validator
 {
 
@@ -131,6 +134,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    * <p>Return the character encoding set for this {@link Validator} or
    * <code>iso-8859-1</code> if it has not been set.</p>
    */
+  @JSFProperty(defaultValue="iso-8859-1")
   public String getEncoding()
   {
     Object encoding = _facesBean.getProperty(_ENCODING_KEY);
@@ -153,6 +157,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    * Validator} or <code>zero</code> if it has not been
    * set.</p>
    */
+  @JSFProperty
   public int getMaximum()
   {
     return ComponentUtils.resolveInteger(_facesBean.getProperty(_MAXIMUM_KEY));
@@ -175,6 +180,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    * @return Custom error message.
    * @see  #setMessageDetailMaximum(String)
    */
+  @JSFProperty
   public String getMessageDetailMaximum()
   {
     Object obj = _facesBean.getProperty(_MAXIMUM_MESSAGE_DETAIL_KEY);
@@ -196,6 +202,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    * @return Custom hint message.
    * @see  #setHintMaximum(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintMaximum()
   {
     Object obj = _facesBean.getProperty(_HINT_MAXIMUM_KEY);
@@ -219,7 +226,9 @@ public class ByteLengthValidator  implements StateHolder, Validator
     Object value
     ) throws ValidatorException
   {
-
+    if (isDisabled())
+      return;
+    
     if ((context == null) || (component == null))
     {
       throw new NullPointerException(_LOG.getMessage(
@@ -259,6 +268,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
     _facesBean.restoreState(context, state);
   }
 
+  @JSFProperty(istransient=true, tagExcluded=true)
   public boolean isTransient()
   {
     return (_isTransient);
@@ -365,7 +375,8 @@ public class ByteLengthValidator  implements StateHolder, Validator
       String otherMsgMaxDet = other.getMessageDetailMaximum();
       String msgMaxDet = getMessageDetailMaximum();
 
-      if ( this.isTransient() == other.isTransient() &&
+      if ( this.isDisabled() == other.isDisabled() &&
+           this.isTransient() == other.isTransient() &&
             ValidatorUtils.equals(encoding, otherEncoding) &&
             ValidatorUtils.equals(msgMaxDet, otherMsgMaxDet) &&
             (getMaximum() == other.getMaximum())
@@ -389,10 +400,31 @@ public class ByteLengthValidator  implements StateHolder, Validator
     String encoding = getEncoding();
     result = 37 * result + (encoding == null? 0 : encoding.hashCode());
     result = 37 * result + (_isTransient ? 0 : 1);
+    result = 37 * result + (isDisabled() ? 1 : 0);
     result = 37 * result + getMaximum();
     result = 37 * result + (maximumMsgDet == null? 0 : maximumMsgDet.hashCode());
     return result;
   }
+
+  /**
+   * <p>Set the value to property <code>disabled</code>. Default value is false.</p>
+   * @param isDisabled <code>true</code> if it's disabled, <code>false</code> otherwise.
+   */   
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */   
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
+  }  
 
   /**
    * The {@link FacesMessage} to be returned if byte length validation fails.
@@ -432,13 +464,17 @@ public class ByteLengthValidator  implements StateHolder, Validator
     _TYPE.registerKey("encoding", String.class, "iso-8859-1");
 
   private static final PropertyKey _MAXIMUM_KEY =
-    _TYPE.registerKey("maximumBytes", int.class, 0);
+    _TYPE.registerKey("maximum", int.class, 0);
 
   private static final PropertyKey  _MAXIMUM_MESSAGE_DETAIL_KEY =
     _TYPE.registerKey("messageDetailMaximum", String.class);
 
   private static final PropertyKey  _HINT_MAXIMUM_KEY =
     _TYPE.registerKey("hintMaximum", String.class);
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 

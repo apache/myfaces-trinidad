@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.model;
 
@@ -144,6 +144,17 @@ public class XMLMenuModel extends BaseMenuModel
   {
     super();
     _modelId = Integer.valueOf(System.identityHashCode(this)).toString();
+  }
+  
+  /**
+   * This needs to be overriden by classes extending XmlMenuModel and using APIs for the nodes
+   * of XmlMenuModel. Default value returned is true for backward compatibilty. The models using
+   * the external APIs for their nodes must return false.
+   * @return boolean
+   */
+  protected boolean isCompatibilityMode()
+  {
+    return true;
   }
 
   /**
@@ -706,8 +717,16 @@ public class XMLMenuModel extends BaseMenuModel
           throw new IllegalStateException(_LOG.getMessage(
             "NO_MENUCONTENTHANDLER_REGISTERED"));
         }
-
-        _contentHandler = services.get(0);
+        
+        if(isCompatibilityMode())
+        {
+          _contentHandler = services.get(0);
+        }
+        else
+        {
+          _contentHandler = services.get(1);
+        }
+        
         if (_contentHandler == null)
         {
           throw new NullPointerException();

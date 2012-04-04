@@ -31,35 +31,32 @@ public class PanelTabbedDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982041956382498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Above,
+    Above,
         Below,
         Both,
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public PanelTabbedDemo() {
-		super(ComponentDemoId.panelTabbed, "Panel Tabbed",
-            new String[]{
-                "/components/panel/panelTabbed/panelTabbed.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public PanelTabbedDemo() {
+    super(ComponentDemoId.panelTabbed, "Panel Tabbed");
         
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Above, this,
                 new String[]{
                         "/components/panel/panelTabbed/panelTabbedAbove.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Below, this,
                 new String[]{
                         "/components/panel/panelTabbed/panelTabbedBelow.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Both, this,
                 new String[]{
                         "/components/panel/panelTabbed/panelTabbedBoth.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.Both);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelTabbed/summary.xhtml";

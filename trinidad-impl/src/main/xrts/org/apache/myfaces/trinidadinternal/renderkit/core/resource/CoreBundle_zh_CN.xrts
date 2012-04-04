@@ -247,11 +247,11 @@
 <!--Alt tag for reordering items down one-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">将所选项在列表中下移一行</resource>
 <!--Text for reordering items to top of list-->
-<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">顶部</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">移至顶部</resource>
 <!--Text for reordering items up one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">上移</resource>
 <!--Text for reordering items to bottom of list-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">底部</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">移至底部</resource>
 <!--Text for reordering items down one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN" dnt="false">下移</resource>
 <!-- selectOrderShuttle and selectManyShuttle keys-->
@@ -289,7 +289,7 @@
 <resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">{0}% 已完成</resource>
 <!--Header text when messageType is processing -->
 <!--also, Alt text for the progressIndicator component -->
-<resource key="af_progressIndicator.PROCESSING" dnt="false">处理</resource>
+<resource key="af_progressIndicator.PROCESSING" dnt="false">正在处理</resource>
 <resource key="af_panelTip.TIP" dnt="false">提示</resource>
 <!--QuickLinks-->
 <!--Alt tag for returning to the top-->
@@ -401,7 +401,7 @@
 <!--title above a confirmation message box-->
 <resource key="af_messages.CONFIRMATION" dnt="false">确认</resource>
 <!-- text when the processing component is in indeterminate mode in simple skin -->
-<resource key="af_panelHeader.PROCESSING" dnt="false">处理</resource>
+<resource key="af_panelHeader.PROCESSING" dnt="false">正在处理</resource>
 <!--error string for form submission-->
 <resource key="af_form.SUBMIT_ERRORS" dnt="false">表单验证失败:</resource>
 <!--resource strings for afh:frameBorderLayout-->

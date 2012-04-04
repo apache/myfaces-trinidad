@@ -1,32 +1,32 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.bean.util;
 
 import java.util.AbstractMap;
 import java.util.AbstractSet;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.util.CollectionUtils;
 
 /**
  * Map implementation that exposes the properties of a FacesBean
@@ -84,24 +84,35 @@ public class ValueMap extends AbstractMap<String, Object>
     PropertyKey propertyKey = _getPropertyKey(key);
     Object oldValue = _bean.getProperty(propertyKey);
     _bean.setProperty(propertyKey, null);
-    if (_entries != null)
-      _entries._keys.remove(propertyKey);
 
     return oldValue;
+  }
+
+  /**
+   * Override for better performance
+   * @param key
+   * @return
+   */
+  @Override
+  public boolean containsKey(Object key)
+  {
+    if (key == null)
+      throw new NullPointerException();
+
+    PropertyKey propertyKey = _getPropertyKey(key);
+    
+    if (_bean.keySet().contains(propertyKey))
+      return true;
+    else
+      return _bean.bindingKeySet().contains(propertyKey);    
   }
 
   @Override
   public Set<Map.Entry<String, Object>> entrySet()
   {
-    if (_entries == null)
-    {
-      HashSet<PropertyKey> keySet = new HashSet<PropertyKey>();
-      keySet.addAll(_bean.keySet());
-      keySet.addAll(_bean.bindingKeySet());
-      _entries = new MakeEntries(keySet);
-    }
-
-    return _entries;
+    return CollectionUtils.overlappingCompositeSet(
+             new MakeEntries(_bean.keySet()),
+             new MakeEntries(_bean.bindingKeySet()));
   }
   
   private Object _putInternal(PropertyKey propertyKey, Object value)
@@ -110,13 +121,6 @@ public class ValueMap extends AbstractMap<String, Object>
 
     Object oldValue = _bean.getProperty(propertyKey);
     _bean.setProperty(propertyKey, value);
-    if (_entries != null)
-    {
-      if (value == null)
-        _entries._keys.remove(propertyKey);
-      else
-        _entries._keys.add(propertyKey);
-    }
 
     return oldValue;
   }
@@ -132,16 +136,6 @@ public class ValueMap extends AbstractMap<String, Object>
     public int size()
     {
       return _keys.size();
-    }
-
-    @Override
-    public boolean remove(Object o)
-    {
-      if (!(o instanceof EntryImpl))
-        return false;
-
-      String keyName = ((EntryImpl) o).getKey();
-      return (ValueMap.this.remove(keyName) != null);
     }
 
     @Override
@@ -166,17 +160,14 @@ public class ValueMap extends AbstractMap<String, Object>
           if (_lastEntry == null)
             throw new IllegalStateException();
           base.remove();
-          ValueMap.this.remove(_lastEntry.getKey());
           _lastEntry = null;
-          //          throw new UnsupportedOperationException();
-          
         }
         
         private EntryImpl _lastEntry;
       };
     }
 
-    private Set<PropertyKey> _keys;
+    private final Set<PropertyKey> _keys;
   }
 
   private class EntryImpl implements Entry<String, Object>
@@ -244,7 +235,7 @@ public class ValueMap extends AbstractMap<String, Object>
       String keyString = (String) key;
       PropertyKey propertyKey = _bean.getType().findKey(keyString);
       if (propertyKey == null)
-        propertyKey = PropertyKey.createPropertyKey(keyString);
+        propertyKey = PropertyKey.getDefaultPropertyKey(keyString);
       
       return propertyKey;
     }
@@ -258,5 +249,4 @@ public class ValueMap extends AbstractMap<String, Object>
   }
 
   private FacesBean    _bean;
-  private MakeEntries  _entries;
 }

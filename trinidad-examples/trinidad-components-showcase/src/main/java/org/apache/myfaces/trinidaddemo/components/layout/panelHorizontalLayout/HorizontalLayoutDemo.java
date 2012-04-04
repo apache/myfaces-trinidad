@@ -28,46 +28,49 @@ import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
  */
 public class HorizontalLayoutDemo extends AbstractComponentDemo {
 
-	private static final long serialVersionUID = -1982071956823498710L;
+  private static final long serialVersionUID = -1982071956823498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Left,
-		Middle,
+    Left,
+    Middle,
         Right,
         Top
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public HorizontalLayoutDemo() {
-		super(ComponentDemoId.panelHorizontalLayout, "Horizontal Layout",
-            new String[]{
-                "/components/layout/horizontalLayout/panelHorizontalLayout.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public HorizontalLayoutDemo() {
+    super(ComponentDemoId.panelHorizontalLayout, "Horizontal Layout");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Left, this,
                 new String[]{
                         "/components/layout/horizontalLayout/panelHorizontalLayoutLeft.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Middle, this,
                 new String[]{
                         "/components/layout/horizontalLayout/panelHorizontalLayoutMiddle.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Right, this,
                 new String[]{
                         "/components/layout/horizontalLayout/panelHorizontalLayoutRight.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Top, this,
                 new String[]{
                         "/components/layout/horizontalLayout/panelHorizontalLayoutTop.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.Left);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/layout/horizontalLayout/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

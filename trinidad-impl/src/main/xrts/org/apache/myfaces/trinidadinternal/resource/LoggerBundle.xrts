@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL">The agent type is unknown; creating an agent with null agent attributes.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE">The web.xml context param org.apache.myfaces.trinidad.security.FRAME_BUSTING is set to an unknow value, the legal value are 'never', 'always', or 'differentOrigin'.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES">could not get capabilities from capabilities document</resource>
 
@@ -90,6 +93,9 @@
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR">Could not instantiate UploadedFileProcessor</resource>
 
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE">The file could not be uploaded because it is too large.</resource>
+
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE">Trinidad is running in debug mode. Do not use in a production environment. See:{0}</resource>
 
@@ -101,6 +107,9 @@
 
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER">Element {0} only accepts integer values</resource>
+
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG">Element {0} only accepts long values</resource>
 
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER">Could not find context class loader.</resource>
@@ -212,7 +221,7 @@
 <resource key="RESOURCE_BUNDLE_NOT_FOUND">Resource bundle {0} could not be found.</resource>
 
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE">error closing file:{0}</resource>
+<resource key="ERR_CLOSING_FILE">Error closing file:{0}</resource>
 
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE">Error getting region-metadata files:{0}</resource>
@@ -261,6 +270,9 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION">A null SkinAddition object was passed to addSkinAddition.</resource>
+
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE">Failed to process skin config file: {0}.</resource>
 
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE">The skin's translation-source ValueExpression is not of the expected type Map or ResourceBundle, so it will be ignored.</resource>
@@ -384,7 +396,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE">Your environment is configured as production and Apache Trinidad is running with debug javascript. See the "org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT" parameter in /WEB-INF/web.xml</resource>
 
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
-<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE">Your environment is configured as production and Apache Trinidad is running with debug javascript. See the "org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT" parameter in /WEB-INF/web.xml</resource>
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE">Your environment is configured as production and Apache Trinidad is running with uncompressed CSS. See the "org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION" parameter in /WEB-INF/web.xml</resource>
 
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
 <resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE">Your environment is configured as production and Apache Trinidad is running with debug-output TRUE. See the "debug-output" element in trinidad-config.xml file.</resource>
@@ -452,8 +464,20 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE">Error reading from the skin css file</resource>
 
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR">Error reading from the skin css file. There is an extra comma in selector: {0}</resource>
+
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN">Can't add Skin with null skinId or null skin</resource>
+
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY">The previously added {0} skin has been added again. If you cached this skin in your application, you might get inconsistent results. Check for duplicate trinidad-skins.xml files on the classpath.</resource>
+
+<!-- SKIN_ADDITION_ATEMPT_WHEN_FACTORY_DIRTY -->
+<resource key="SKIN_ADDITION_ATEMPT_WHEN_FACTORY_DIRTY">There was an attempt to add a Skin to SkinFactory when the SkinFactory was in a dirty state.</resource>
+
+<!-- SKIN_RELOAD_FAILURE -->
+<resource key="SKIN_RELOAD_FAILURE">Error was encountered while reloading skins. Recovering to previous skin definitions.</resource>
 
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID">Can't get Skin with null skinId</resource>
@@ -461,8 +485,23 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN">Can''t find a skin that matches family {0} and renderkit {1}, so we will use the simple skin</resource>
 
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION">Found a skin that matches family {0} and version {1}. We will use skin {2}.</resource>
+
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION">Cannot find a skin that matches family {0} and version {1}. We will use the skin {2}.</resource>
+
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION">Cannot find an unversioned skin for family {0}. We will use the versioned skin {1}.</resource>
+
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP">Could not get the stylesheet document's timestamp because we couldn't open the connection.</resource>
+
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON">The skin selector {0} is not a Skin Icon Object since it does not have a content attribute. If you created this selector, please rename it to end with "style" instead of "icon" so that the Skinning Framework will treat it as a style, not an icon.</resource>
+
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST">{0} must come before all other rules.</resource>
 
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN">The following skins extend each other in a circular fashion or the skin they extend does not exist:{0}</resource>
@@ -474,10 +513,13 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="ERR_PARSING">Error parsing:{0}</resource>
 
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE">error loading file:{0}</resource>
+<resource key="ERR_LOADING_FILE">Error loading file:{0}</resource>
 
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET">Could not load style sheet: {0}</resource>
+
+<!-- LOADING_STYLESHEET -->
+<resource key="LOADING_STYLESHEET">Loading style sheet: {0}</resource>
 
 <!-- IOEXCEPTION_IN_PHASE -->
 <resource key="IOEXCEPTION_IN_PHASE">IOException during parse of {0}</resource>
@@ -498,7 +540,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR">The css file has hit IE''s limit of 4095 CSS selectors. It has {0} selectors. The selectors after that will be ignored.</resource>
 
 <!-- UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX -->
-<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX">Consecutive sub-element (::) syntax used in selector {0}. This is not supported.</resource>
+<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX">Consecutive sub-element (::) syntax used in selector {0} in a pattern that is not supported.</resource>
 
 <!-- URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET -->
 <resource key="URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET">An url value delimited by url() is expected for the property ''{0}'' in style sheet ''{1}''. Found: ''{2}''.</resource>
@@ -628,6 +670,9 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND">Required element 'family' not found.</resource>
+
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND">Required child element for 'version', 'name' not found.</resource>
 
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY">Malformed property entry: {0}={1}</resource>
@@ -863,6 +908,9 @@ The skin {0} specified on the requestMap will be used even though the consumer''
  <!-- NO_SKIN_SPECIFIED -->
  <resource key="NO_SKIN_SPECIFIED">No Skin specified.</resource>
 
+ <!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+ <resource key="INVALID_INTEGER_MAX_SKINS_CACHED">Invalid integer {0} for context-param org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED in web.xml, so the default integer {1} is used instead.</resource>
+
  <!-- NO_INPUTSTREAM -->
  <resource key="NO_INPUTSTREAM">Null inputStream</resource>
 
@@ -996,7 +1044,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
  <resource key="UNKNOWN_COMPARISON">Unknown comparison</resource>
 
  <!-- TEST_BOUNDVALUE_REQUIRED -->
- <resource key="TEST_BOUNDVALUE_REQUIRED">test BoundValue required</resource>
+ <resource key="TEST_BOUNDVALUE_REQUIRED">Test BoundValue required</resource>
 
  <!-- NULL_LIST_ARGUMENT -->
  <resource key="NULL_LIST_ARGUMENT">Null list argument</resource>
@@ -1051,7 +1099,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
  <!-- FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION -->
  <resource key="FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION">fileDownloadActionListener's 'method' attribute must be an EL expression.</resource>
-
+ 
 <!-- STATUS_INDICATOR_MISSING_ICONS -->
 <resource key="STATUS_INDICATOR_MISSING_ICONS">The statusIndicator component requires both a 'ready' and 'busy' icon;  one is missing.</resource>
 
@@ -1092,5 +1140,58 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
 <resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED">Partial state saving is not yet supported. Please set context-param javax.faces.PARTIAL_STATE_SAVING to false in your web.xml.</resource>
+
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE">Error serializing {0} attribute:{1} </resource>
+
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL"> failed value=</resource>
+
+<!-- ATTRIBUTE_NOT_SERIALIZABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIZABLE">Failover error: {0} attribute:{1} of type {2} is not Serializable</resource>
+
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED">Failover error: Serialization of {0} attribute:{1} has changed from {2} to {3} without the attribute being dirtied</resource>
+
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE">Session attribute serialization testing failed for {0}. This check can be disabled by removing 'REQUEST' from the 'org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION' system property</resource>
+
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE">Exception gathering session attribute serialization testing failure</resource>
+
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE">Session attribute:{0} </resource>
+
+<resource key="INVALID_STYLESHEET_TYPE">Parsing error: Unknown type of stylesheet '{0}'. Style sheets other than css are not supported. </resource>
+
+<resource key="INVALID_AGENT_PROPERTY">Not a valid @agent CSS property rule: {0}: {1}</resource>
+
+<resource key="CSS_SYNTAX_ERROR">Syntax error in skin file currently being processed due to mismatch in the number of open and close braces. The skin file will not be processed correctly. To know the name of file being processed, set log level to 'INFO'.</resource>
+
+<resource key="SKIN_PREGEN_ENABLED">A non-skin pregeneration request was received while skin pregeneration is enabled.  To interact with the application, please disable the skin pregeneration service.</resource>
+
+<resource key="SKIN_PREGEN_DISABLED">Skin pregeneration failed: the skin pregeneration service is disabled.  To enable skin pregeneration, set the {0} system property to one of: {1}</resource>
+
+<resource key="SKIN_PREGEN_FAILED">Skin pregeneration failed: {0}</resource>
+
+<resource key="SKIN_PREGEN_REQUESTED_SKIN_INVALID">{0} is not valid skin id.</resource>
+
+<resource key="SKIN_PREGEN_NO_TARGET_DIRECTORY">No target directory found.  Please specify a target directory via the {0} system property.</resource>
+
+<resource key="SKIN_PREGEN_RESPONSE_TITLE">Skin Pregeneration Service</resource>
+
+<resource key="SKIN_PREGEN_RESPONSE">Skin pregeneration completed in {0}ms.</resource>
+
+<resource key="SKIN_PREGEN_NO_DOCUMENT">No StyleSheetDocument found for skin {0}.</resource>
+
+<resource key="SKIN_PREGEN_STARTING">Starting pregeneration of skin {0}</resource>
+
+<resource key="SKIN_PREGEN_VARIANT">Pregenerating {0}/{1} style sheets for skin {2}.</resource>
+
+<resource key="SKIN_PREGEN_COMPLETED">Completed pregeneration of skin {0}.  Generated {1} files for {2} of {3} skin variants in {4} ms.  (Pregeneration output written to {5}.)</resource>
+
+<resource key="ILLEGAL_SYSTEM_PROPERTY_VALUE">{0} is not a valid value for system property {1}.  Valid values are: {2}</resource>
+
+<resource key="SKIN_GENERATION_ERROR">An unexpected error occurred while generating a skin style sheet, possibly indicating a Trinidad defect.  Please report this failure to the Apache MyFaces development team.</resource>
 
 </resources>

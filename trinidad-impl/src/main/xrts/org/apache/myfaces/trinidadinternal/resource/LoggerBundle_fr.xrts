@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Impossible de charger {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Impossible d&apos;instancier UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Le fichier n&apos;a pas pu être téléchargé car il est trop volumineux.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad est en cours d&apos;&apos;exécution en mode de débogage. A ne pas utiliser en environnement de production. Consultez : {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">L&apos;&apos;élément {0} ne prend pas en charge les expressions EL.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">L&apos;&apos;élément {0} accepte uniquement les entiers</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">L&apos;&apos;élément {0} accepte uniquement les valeurs Long</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Chargeur de classe de contexte introuvable.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -148,9 +152,9 @@
 <!-- INVALID_EL_EXPRESSION -->
 <resource key="INVALID_EL_EXPRESSION" dnt="false">L&apos;&apos;expression EL {0} est non valide ou a renvoyé une valeur incorrecte.</resource>
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
-<resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Groupe de ressources {0} introuvable.</resource>
+<resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Regroupement de ressources {0} introuvable.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">erreur lors de la fermeture du fichier : {0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Erreur lors de la fermeture du fichier : {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Erreur lors de l&apos;&apos;obtention des fichiers de métadonnées de région : {0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -181,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Détection d&apos;&apos;une dépendance circulaire dans l&apos;&apos;icône de référence de l&apos;&apos;apparence {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Un objet SkinAddition NULL a été transmis à addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Echec du traitement du fichier de configuration d&apos;&apos;apparence : {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">La source de traduction ValueExpression de l&apos;apparence n&apos;appartient pas à la correspondance de type ni au groupe de ressources attendu. Par conséquent, elle ne sera pas prise en compte.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -224,9 +230,9 @@
 <!-- COMPONENT_COLUMN_OUTSIDE_TABLE -->
 <resource key="COMPONENT_COLUMN_OUTSIDE_TABLE" dnt="false">{0} : colonne utilisée hors d&apos;&apos;un tableau</resource>
 <!-- NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR -->
-<resource key="NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR" dnt="false">Impossible d&apos;ajouter des convertisseurs et des logiques de validation côté client car le nom de noeud est NULL</resource>
+<resource key="NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR" dnt="false">Impossible d&apos;ajouter des convertisseurs et des contrôles de validation côté client car le nom de noeud est NULL</resource>
 <!-- NULL_VALIDATORS_ITERATOR -->
-<resource key="NULL_VALIDATORS_ITERATOR" dnt="false">Itérateur de logiques de validation NULL pour {0}</resource>
+<resource key="NULL_VALIDATORS_ITERATOR" dnt="false">Itérateur de contrôles de validation NULL pour {0}</resource>
 <!-- DUPLICATE_CONVERTER_ONE_PER_COMPONENT -->
 <resource key="DUPLICATE_CONVERTER_ONE_PER_COMPONENT" dnt="false">Il y a déjà un convertisseur pour &quot;{0}&quot;. Il ne doit y avoir qu&apos;&apos;un seul convertisseur par composant.</resource>
 <!-- FRAME_MISSING_ATTRIBUTE -->
@@ -259,6 +265,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Impossible d&apos;&apos;obtenir la ressource {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad est exécuté avec le script Java de débogage. A ne pas utiliser en environnement de production. Consultez le paramètre &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; dans /WEB-INF/web.xml</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Votre environnement est configuré en tant que production et Apache Trinidad est exécuté avec le script Java de débogage. Consultez le paramètre org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT dans /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Votre environnement est configuré en tant que production et Apache Trinidad est exécuté avec le fichier CSS (Cascading Style Sheet) non compressé. Consultez le paramètre &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; dans /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Votre environnement est configuré en tant que production et Apache Trinidad est exécuté avec l&apos;élément debug-output défini sur TRUE. Consultez l&apos;élément debug-output dans le fichier trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Valeur interdite : {0} pour {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +313,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Non-prise en compte des propriétés {0} car il n&apos;&apos;y a pas de sélecteur correspondant.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Erreur de lecture depuis le fichier CSS d&apos;apparence</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Erreur de lecture depuis le fichier CSS d&apos;&apos;apparence. Le sélecteur comporte une virgule de trop : {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Impossible d&apos;ajouter l&apos;apparence avec des valeurs skinId ou skin NULL</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">L&apos;&apos;apparence {0} ajoutée précédemment a été ajoutée à nouveau. Si vous avez mis cette apparence en mémoire cache dans l&apos;&apos;application, vous risquez d&apos;&apos;obtenir des résultats incohérents. Recherchez les fichiers trinidad-skins.xml dans la variable d&apos;&apos;environnement CLASSPATH.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Impossible d&apos;obtenir l&apos;apparence avec une valeur skinId NULL</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Impossible de trouver une apparence correspondant à la famille {0} et au kit renderkit {1}. Utilisation de l&apos;&apos;apparence simple</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Une apparence correspondant à la famille {0} et à la version {1} a été trouvée. Nous utiliserons l&apos;&apos;apparence {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">L&apos;&apos;apparence correspondant à la famille {0} et à la version {1} est introuvable. Nous utiliserons l&apos;&apos;apparence {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">L&apos;&apos;apparence avec numéro de version pour la famille {0} est introuvable. Nous utiliserons l&apos;&apos;apparence avec numéro de version {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Impossible d&apos;obtenir l&apos;horodatage du document de feuille de style car il est impossible d&apos;ouvrir la connexion.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">Le sélecteur d&apos;&apos;apparence {0} n&apos;&apos;est pas un objet d&apos;&apos;icône d&apos;&apos;apparence car il ne possède pas d&apos;&apos;attribut de contenu. Si vous avez créé ce sélecteur, renommez-le pour que son nom se termine par &quot;style&quot; au lieu de &quot;icon&quot;. Ainsi, la structure d&apos;&apos;apparence le considérera comme un style et non comme une icône.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} doit passer avant toutes les autres règles.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Les apparences suivantes s&apos;&apos;étendent mutuellement de façon circulaire ou l&apos;&apos;apparence qu&apos;&apos;elles étendent n&apos;&apos;existe pas : {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -316,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Erreurs lors de l&apos;&apos;analyse : {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">erreur lors du chargement du fichier : {0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Erreur lors du chargement du fichier : {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Impossible de charger la feuille de style : {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -362,7 +388,7 @@
 <!-- VALIDATOR_NOT_INSIDE_UICOMPONENT -->
 <resource key="VALIDATOR_NOT_INSIDE_UICOMPONENT" dnt="false">la balise de validation ne se trouve pas dans un UIComponent.</resource>
 <!-- CANNOT_CREATE_VALIDATOR -->
-<resource key="CANNOT_CREATE_VALIDATOR" dnt="false">impossible de créer une logique de validation pour le validatorId {0} et la liaison {1}</resource>
+<resource key="CANNOT_CREATE_VALIDATOR" dnt="false">impossible de créer un contrôle de validation pour le validatorId {0} et la liaison {1}</resource>
 <!-- MISSING_VALIDATORID -->
 <resource key="MISSING_VALIDATORID" dnt="false">attribut validatorId manquant</resource>
 <!-- CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN -->
@@ -400,7 +426,7 @@
 <!-- CANNOT_FLIP_ICON -->
 <resource key="CANNOT_FLIP_ICON" dnt="false">Impossible d&apos;&apos;obtenir l&apos;&apos;icône retournée pour : {0}</resource>
 <!-- NULL_NODE_NAME_NO_VALIDATOR_ADDED -->
-<resource key="NULL_NODE_NAME_NO_VALIDATOR_ADDED" dnt="false">Le nom du noeud est NULL : aucune logique de validation obligatoire côté client n&apos;&apos;a été ajoutée pour le noeud avec le nom local {0}</resource>
+<resource key="NULL_NODE_NAME_NO_VALIDATOR_ADDED" dnt="false">Le nom du noeud est NULL : aucun contrôle de validation obligatoire côté client n&apos;&apos;a été ajouté pour le noeud avec le nom local {0}</resource>
 <!-- CANNOT_FIND_CLASS -->
 <resource key="CANNOT_FIND_CLASS" dnt="false">Classe {0} introuvable</resource>
 <!-- CANNOT_LOAD_CLASS -->
@@ -419,6 +445,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Elément obligatoire &apos;id&apos; introuvable.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Elément obligatoire &apos;family&apos; introuvable.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">L&apos;élément enfant obligatoire pour &apos;version&apos;, &apos;name&apos; est introuvable.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Entrée de propriété de format incorrect : {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -696,7 +724,7 @@
 <!-- FILE_DOWNLOAD_LISTENER_REQUIRES_SERVLET -->
 <resource key="FILE_DOWNLOAD_LISTENER_REQUIRES_SERVLET" dnt="false">fileDownloadActionListener prend uniquement en charge l&apos;API de servlet.</resource>
 <!-- FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG -->
-<resource key="FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG" dnt="false">fileDownloadActionListener doit être à l&apos;&apos;intérieur d&apos;&apos;une balise UIComponent pour un composant &quot;commande&quot;</resource>
+<resource key="FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG" dnt="false">fileDownloadActionListener doit être à l&apos;intérieur d&apos;une balise UIComponent pour un composant &quot;commande&quot;</resource>
 <!-- FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION -->
 <resource key="FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION" dnt="false">L&apos;attribut &apos;method&apos; fileDownloadActionListener doit être une expression EL.</resource>
 <!-- STATUS_INDICATOR_MISSING_ICONS -->
@@ -721,4 +749,23 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Pays non valide pour l&apos;&apos;identificateur de paramètres locaux {0} : le code pays doit être en majuscules. Consultez le fichier javadoc des paramètres locaux pour connaître le format correct. Une chaîne vide sera utilisée pour le pays</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante non valide pour l&apos;&apos;identificateur de paramètres locaux {0} : il ne peut pas contenir de barre oblique pour éviter les attaques XSS. Une chaîne vide sera utilisée comme variante.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Impossible de supprimer le fichier {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState doit être une instance de StateManager.SerializedView ou un tableau d&apos;objets de longueur 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">L&apos;enregistrement partiel de l&apos;état n&apos;est pas encore pris en charge. Définissez context-param javax.faces.PARTIAL_STATE_SAVING sur False dans le fichier web.xml.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Erreur lors de la sérialisation de l&apos;&apos;attribut {0} : {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> valeur ayant échoué =</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Erreur de basculement en cas d&apos;&apos;incident : l&apos;&apos;attribut {0} {1} de type {2} n&apos;&apos;est pas sérialisable</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Erreur de basculement en cas d&apos;&apos;incident : la sérialisation de l&apos;&apos;attribut {0} {1} est passée de {2} à {3} alors que l&apos;&apos;attribut n&apos;&apos;a pas été modifié</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Echec du test de sérialisation de l&apos;&apos;attribut de session pour {0}. Vous pouvez désactiver ce contrôle en enlevant &apos;&apos;REQUEST&apos;&apos; de la propriété système &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Exception lors de la collecte - Echec du test de sérialisation de l&apos;attribut de session</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Attribut de session : {0} </resource>
 </resources>

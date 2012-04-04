@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
@@ -54,6 +54,7 @@ import org.apache.myfaces.trinidad.event.SortEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.SortCriterion;
+import org.apache.myfaces.trinidad.model.SortStrength;
 import org.apache.myfaces.trinidad.render.ClientRowKeyManager;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
@@ -111,7 +112,14 @@ abstract public class TableRenderer extends XhtmlRenderer
     Map<String, String> parameters =
       facesContext.getExternalContext().getRequestParameterMap();
 
-    String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+    Object source = parameters.get("javax.faces.source");
+
+    // Support the legacy as well as JSF2 parameter name
+    if (source == null)
+    {
+      source = parameters.get("source");
+    }
+
     String id = clientId == null ? component.getClientId(facesContext) : clientId;
     if (!id.equals(source))
       return;
@@ -237,7 +245,8 @@ abstract public class TableRenderer extends XhtmlRenderer
     String property = parameters.get(XhtmlConstants.VALUE_PARAM);
     Object state = parameters.get(XhtmlConstants.STATE_PARAM);
     boolean sortOrder = !XhtmlConstants.SORTABLE_ASCENDING.equals(state);
-    SortCriterion criterion = new SortCriterion(property, sortOrder);
+    SortStrength sortStrength = TableUtils.findSortStrength(table, property);
+    SortCriterion criterion = new SortCriterion(property, sortOrder, sortStrength);
 
     SortEvent event =
       new SortEvent(table, Collections.singletonList(criterion));
@@ -386,6 +395,12 @@ abstract public class TableRenderer extends XhtmlRenderer
       // 2. render the table content
       renderTableContent(context, rc, tContext, component);
 
+      // 3. render the footer bars (controlbar) if applicable
+      if (_shouldRepeatControlBar(rc))
+      {
+        renderNavigationFooterBars(context, rc, tContext, component, bean);
+      }
+
       // end the outertable:
       rw.endElement(XhtmlConstants.TABLE_ELEMENT);
 
@@ -417,6 +432,7 @@ abstract public class TableRenderer extends XhtmlRenderer
           rw.writeText(tContext.getJSVarName()+"="+
                  TreeUtils.createNewJSCollectionComponentState(formName, tid)+";", null);
           rw.endElement(XhtmlConstants.SCRIPT_ELEMENT);
+
         }
       }
 
@@ -691,6 +707,35 @@ abstract public class TableRenderer extends XhtmlRenderer
     //   render the sub control bar. we need to to this even if the table is empty
     // because we need to render the filter area. bug 3757395
     renderSubControlBar(context, rc, tContext, component, true);
+  }
+
+  /**
+   * Render the navigation header bars, i.e. all the bars that appear above the
+   * actual data table. eg. title, controlbar and subcontrolbar
+   */
+  protected void renderNavigationFooterBars(
+    FacesContext          context,
+    RenderingContext      rc,
+    TableRenderingContext tContext,
+    UIComponent           component,
+    FacesBean             bean
+    ) throws IOException
+  {
+    // Render the lower control bar - must render tableActions even if table is empty.
+    _renderControlBar(context, rc, tContext, component, false); //isUpper
+  }
+
+  private boolean _shouldRepeatControlBar(RenderingContext rc)
+  {
+    Object propValue =
+      rc.getSkin().getProperty(SkinProperties.AF_TABLE_REPEAT_CONTROL_BAR);
+
+    if (propValue == null)
+    {
+      return DEFAULT_REPEAT_CONTROL_BAR;
+    }
+
+    return Boolean.TRUE.equals(propValue);
   }
 
   /**
@@ -1066,6 +1111,12 @@ abstract public class TableRenderer extends XhtmlRenderer
   private static final Object _UPPER_NAV_BAR_ID_PROPERTY = new Object();
 
   private static final String _VALUE_FIELD_NAME      = "_value";
+
+  /**
+   * Whether the table should repeat its control bars above and below the table by default if not
+   * specified by the -tr-repeat-control-bar skin property.
+   */
+  public static final boolean DEFAULT_REPEAT_CONTROL_BAR = false;
 
   private final SpecialColumnRenderer _detailRenderer = new DetailColumnRenderer();
 

@@ -21,85 +21,46 @@ package org.apache.myfaces.trinidaddemo.components.navigation.train;
 import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
 import org.apache.myfaces.trinidad.model.ProcessMenuModel;
 import org.apache.myfaces.trinidaddemo.NavigationHandlerBean;
-import org.apache.myfaces.trinidaddemo.support.jsf.JsfHelper;
 
-import java.beans.IntrospectionException;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 /**
  *
  */
 public class TrainBean extends ProcessMenuModel /*implements java.io.Serializable*/ {
-    private ArrayList<TrainNavigationItem> arrayList = new ArrayList<TrainNavigationItem>();
-    private NavigationHandlerBean navigationHandler = (NavigationHandlerBean) JsfHelper.getBean("navigationHandler");
-
 
     public TrainBean() {
-        super();
-        addList();      
-    }
 
-    public TrainBean(Object instance, String viewIdProperty) throws IntrospectionException {
-        super(instance, viewIdProperty);
-        addList();
-    }
+        ArrayList<TrainNavigationItem> arrayList = new ArrayList<TrainNavigationItem>();
 
-    public TrainBean(Object instance, String viewIdProperty, String maxPathKey) throws IntrospectionException {
-        super(instance, viewIdProperty);
-        setMaxPathKey(maxPathKey);
-        addList();
-    }
-
-    public void addList() {
-        TrainNavigationItem page1 = new TrainNavigationItem("General info", "trainGeneralInfo");
-        page1.setViewId("/components/navigation/train/generalInfo.xhtml");
-        TrainNavigationItem page2 = new TrainNavigationItem("Company info", "trainCompanyInfo");
-        page2.setViewId("/components/navigation/train/companyInfo.xhtml");
-        TrainNavigationItem page3 = new TrainNavigationItem("JSF survey", "trainJsfSurvey");
-        page3.setViewId("/components/navigation/train/jsfSurvey.xhtml");
-        TrainNavigationItem page4 = new TrainNavigationItem("Trinidad survey", "trainTrinidadSurvey");
-        page4.setViewId("/components/navigation/train/trinidadSurvey.xhtml");
-        TrainNavigationItem page5 = new TrainNavigationItem("You are done!", "trainYouAreDone");
-        page5.setViewId("/components/navigation/train/youAreDone.xhtml");
-
-        arrayList.add(page1);
-        arrayList.add(page2);
-        arrayList.add(page3);
-        arrayList.add(page4);
-        arrayList.add(page5);
+        arrayList.add(new TrainNavigationItem("1.  General info", "trainGeneralInfo", "/components/navigation/train/generalInfo.xhtml"));
+        arrayList.add(new TrainNavigationItem("2.  Company info", "trainCompanyInfo", "/components/navigation/train/companyInfo.xhtml"));
+        arrayList.add(new TrainNavigationItem("3.  JSF survey", "trainJsfSurvey", "/components/navigation/train/jsfSurvey.xhtml"));
+        arrayList.add(new TrainNavigationItem("4.  Trinidad survey", "trainTrinidadSurvey", "/components/navigation/train/trinidadSurvey.xhtml"));
+        arrayList.add(new TrainNavigationItem("5.  You are done!", "trainYouAreDone", "/components/navigation/train/youAreDone.xhtml"));
 
         setViewIdProperty("viewId");
 
-        ChildPropertyTreeModel childProperty = new ChildPropertyTreeModel();
-        childProperty.setChildProperty("children");
-        childProperty.setWrappedData(arrayList);
+        FacesContext fc = FacesContext.getCurrentInstance();
+        NavigationHandlerBean navigationHandler = (NavigationHandlerBean) FacesContext.getCurrentInstance().getApplication().getELResolver().getValue(fc.getELContext(), null, "navigationHandler");
 
-        this.setWrappedData(childProperty);
-    }
-
-    public ArrayList<TrainNavigationItem> getArrayList() {
-        return arrayList;
-    }
-
-
-    public static class TrainNavigationItem implements java.io.Serializable {
-        
-        private static final long serialVersionUID = 375702448013892058L;
-
-        private String _label = null;
-        private String _viewId = null;
-        private String _destination = null;
-        private List<?> _children = null;
-        private String _outcome = null;
-
-
-        public TrainNavigationItem() {
+        if (TrainDemo.VARIANTS.MaxVisited == navigationHandler.getCurrentComponentVariantDemo().getVariantId()) {
+            setMaxPathKey("TRAIN_DEMO_MAX_PATH_KEY");
         }
+        
+        setWrappedData(new ChildPropertyTreeModel(arrayList,null));
+    }
 
-        public TrainNavigationItem(String _label, String _outcome) {
+
+    public class TrainNavigationItem implements Serializable {
+
+        public TrainNavigationItem(String _label, String _outcome, String _viewId) {
             setLabel(_label);
             setOutcome(_outcome);
+            setViewId (_viewId);
         }
 
         public void setLabel(String label) {
@@ -126,21 +87,10 @@ public class TrainBean extends ProcessMenuModel /*implements java.io.Serializabl
             return _viewId;
         }
 
-        public void setDestination(String destination) {
-            _destination = destination;
-        }
 
-        public String getDestination() {
-            return _destination;
-        }
-
-        public List<?> getChildren() {
-            return _children;
-        }
-
-        public void setChildren(List<?> children) {
-            _children = children;
-        }
-
+        private String _viewId = null;
+        private String _label = null;
+        private String _outcome = null;
+        private static final long serialVersionUID = 375702448013892058L;
     }
 }

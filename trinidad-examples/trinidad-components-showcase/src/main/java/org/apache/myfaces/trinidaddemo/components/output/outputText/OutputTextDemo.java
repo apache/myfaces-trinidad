@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidaddemo.components.output.outputText;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
 import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 
 /**
  *
@@ -30,20 +31,28 @@ public class OutputTextDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982371956886494710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-        Default
-    };
+    Default
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public OutputTextDemo() {
-		super(ComponentDemoId.outputText, "Output Text", VARIANTS.Default, "Default",
+  /**
+   * Constructor.
+   */
+  public OutputTextDemo() {
+    super(ComponentDemoId.outputText, "Output Text");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/output/outputText/outputText.xhtml"
-            });
-	}
+                    "/components/output/outputText/outputText.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/output/outputText/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

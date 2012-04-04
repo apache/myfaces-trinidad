@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.model;
 
@@ -23,8 +23,10 @@ import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
@@ -47,6 +49,60 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 public class SortableModel extends CollectionModel
 {
+  /**
+   * This class provides an enumeration to work with the integer values of the
+   * {@link Collator} strength values.
+   */
+  public enum Strength
+  {
+    /** @see Collator#IDENTICAL */
+    IDENTICAL(Collator.IDENTICAL),
+    /** @see Collator#PRIMARY */
+    PRIMARY(Collator.PRIMARY),
+    /** @see Collator#SECONDARY */
+    SECONDARY(Collator.SECONDARY),
+    /** @see Collator#TERTIARY */
+    TERTIARY(Collator.TERTIARY);
+
+    private Strength(int strength)
+    {
+      _strength = strength;
+    }
+
+    public int getIntValue()
+    {
+      return _strength;
+    }
+
+    private final int _strength;
+  }
+
+  /**
+   * This class provides an enumeration to work with the integer values of the
+   * {@link Collator} decomposition values.
+   */
+  public enum Decomposition
+  {
+    /** @see Collator#PRIMARY */
+    NO_DECOMPOSITION(Collator.NO_DECOMPOSITION),
+    /** @see Collator#SECONDARY */
+    CANONICAL_DECOMPOSITION(Collator.CANONICAL_DECOMPOSITION),
+    /** @see Collator#TERTIARY */
+    FULL_DECOMPOSITION(Collator.FULL_DECOMPOSITION);
+
+    private Decomposition(int decomposition)
+    {
+      _decomposition = decomposition;
+    }
+
+    public int getIntValue()
+    {
+      return _decomposition;
+    }
+
+    private final int _decomposition;
+  }
+
   /**
    * Create a new SortableModel from the given instance.
    * @param model This will be converted into a {@link DataModel}
@@ -204,7 +260,7 @@ public class SortableModel extends CollectionModel
     //simple property -> resolve value directly
     if (!property.contains( "." ))
       return resolver.getValue(context, base, property );
-    
+
     int index = property.indexOf( '.' );
     Object newBase = resolver.getValue(context, base, property.substring( 0, index ) );
 
@@ -238,10 +294,102 @@ public class SortableModel extends CollectionModel
       SortCriterion sc = criteria.get(0);
       if ((_sortCriterion == null) || (!_sortCriterion.equals(sc)))
       {
+        // cache the latest sort criterion and do the sorting.
         _sortCriterion = sc;
-        _sort(_sortCriterion.getProperty(), _sortCriterion.isAscending());
+        _sort(_sortCriterion);
       }
     }
+  }
+
+  /**
+   * Get the comparator associated with the given property.
+   *
+   * @param propertyName the property
+   * @return the comparator or null if one has not been set
+   */
+  public Comparator getComparator(
+    String propertyName)
+  {
+    return _propertyComparators == null ?
+      null :
+      _propertyComparators.get(propertyName);
+  }
+
+  /**
+   * Set a custom comparator to use to sort the given property name.
+   *
+   * @param propertyName the property with which to associate the comparator
+   * @param comparator the comparator to use, or null to remove one
+   */
+  public void setComparator(
+    String     propertyName,
+    Comparator comparator)
+  {
+    assert propertyName != null : "Property name may not be null";
+
+    if (comparator == null && _propertyComparators != null)
+    {
+      _propertyComparators.remove(propertyName);
+      if (_propertyComparators.isEmpty())
+      {
+        _propertyComparators = null;
+      }
+    }
+    else if (comparator != null)
+    {
+      if (_propertyComparators == null)
+      {
+        _propertyComparators = new HashMap<String, Comparator>();
+      }
+      _propertyComparators.put(propertyName, comparator);
+    }
+
+    if (_sortCriterion != null && propertyName.equals(_sortCriterion.getProperty()))
+    {
+      _sort(_sortCriterion);
+    }
+  }
+
+  /**
+   * Convenience method to set a compatator for a property using a {@link Collator} setup with
+   * the given strength and decomposition values.
+   *
+   * @param propertyName the property
+   * @param collatorStrength the stregth to use or null to leave as the default for the
+   * default locale
+   * @param collatorDecomposition the decomposition to use or null to leave as the default for the
+   * default locale
+   * @see #setComparator(String, Comparator)
+   */
+  public void setCollator(
+    String        propertyName,
+    Strength      collatorStrength,
+    Decomposition collatorDecomposition)
+  {
+    Locale locale = null;
+
+    RequestContext reqCtx = RequestContext.getCurrentInstance();
+    if (reqCtx != null)
+    {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      if (facesContext != null)
+      {
+        locale = _getLocale(reqCtx, facesContext);
+      }
+    }
+
+    Collator collator = locale == null ? Collator.getInstance() : Collator.getInstance(locale);
+    if (collatorDecomposition != null)
+    {
+      collator.setDecomposition(collatorDecomposition.getIntValue());
+    }
+
+    if (collatorStrength != null)
+    {
+      collator.setStrength(collatorStrength.getIntValue());
+    }
+
+    setComparator(propertyName, collator);
   }
 
   @Override
@@ -252,24 +400,13 @@ public class SortableModel extends CollectionModel
 
   /**
    * Sorts the underlying collection by the given property, in the
-   * given direction.
-   * @param property The name of the property to sort by. The value of this
-   * property must implement java.lang.Comparable.
-   * @param isAscending true if the collection is to be sorted in
-   * ascending order.
+   * given direction, with the given strength.
+   * @param sortCriterion sort criterion controlling sort behavior.
    * @todo support -1 for rowCount
    */
-  private void _sort(String property, boolean isAscending)
+  private void _sort(SortCriterion sortCriterion)
   {
-//    if (property.equals(_sortBy) && (isAscending == _sortOrder))
-//    {
-//      return;
-//    }
-//
-//    _sortBy = property;
-//    _sortOrder = isAscending;
-
-      //TODO: support -1 for rowCount:
+    //TODO: support -1 for rowCount:
     int sz = getRowCount();
     if ((_baseIndicesList == null) || (_baseIndicesList.size() != sz))
     {
@@ -294,8 +431,9 @@ public class SortableModel extends CollectionModel
       ELContext elContext = _getELContext(context, resolver);
       Locale locale = _getLocale(rc, context);
       Comparator<Integer> comp =
-        new Comp(resolver, elContext, locale, property);
-      if (!isAscending)
+        new Comp(resolver, elContext, locale, sortCriterion.getProperty(),
+                 sortCriterion.getSortStrength());
+      if (!sortCriterion.isAscending())
         comp = new Inverter<Integer>(comp);
 
       Collections.sort(_baseIndicesList, comp);
@@ -355,7 +493,7 @@ public class SortableModel extends CollectionModel
   }
 
 
-  
+
   private static final class IntList extends ArrayList<Integer>
   {
     public IntList(int size)
@@ -377,14 +515,27 @@ public class SortableModel extends CollectionModel
 
   private final class Comp implements Comparator<Integer>
   {
-    public Comp(ELResolver resolver, ELContext context, Locale locale, String property)
+    public Comp(
+      ELResolver   resolver,
+      ELContext    context,
+      Locale       locale,
+      String       property,
+      SortStrength sortStrength)
     {
       _resolver = resolver;
       _context  = context;
 
-      if (locale != null)
+      // use Collator as comparator whenever locale or strength is available,
+      // so sorting is natural to that locale.
+      if (locale != null || sortStrength != null)
       {
-        _collator = Collator.getInstance(locale);
+        if (locale != null)
+          _collator = Collator.getInstance(locale);
+        else
+          _collator = Collator.getInstance();
+
+        if (sortStrength != null)
+          _collator.setStrength(sortStrength.getStrength());
       }
       else
       {
@@ -395,7 +546,9 @@ public class SortableModel extends CollectionModel
     }
 
     @SuppressWarnings("unchecked")
-    public int compare(Integer o1, Integer o2)
+    public int compare(
+      Integer o1,
+      Integer o2)
     {
       int index1 = o1.intValue();
       int index2 = o2.intValue();
@@ -414,30 +567,40 @@ public class SortableModel extends CollectionModel
       if (value2 == null)
         return 1;
 
-      // bug 4545164. Sometimes, isSortable returns true
-      // even if the underlying object is not a Comparable.
-      // This happens if the object at rowIndex zero is null.
-      // So test before we cast:
-      if (value1 instanceof Comparable)
+      Comparator comparator = getComparator(_prop);
+      if (comparator == null)
       {
-        if ((value1 instanceof String) && (value2 instanceof String)) 
+        // bug 4545164. Sometimes, isSortable returns true
+        // even if the underlying object is not a Comparable.
+        // This happens if the object at rowIndex zero is null.
+        // So test before we cast:
+        if (value1 instanceof Comparable)
         {
-          return compare((String) value1, (String) value2);
+          if ((value1 instanceof String) && (value2 instanceof String))
+          {
+            return _compare((String) value1, (String) value2);
+          }
+          else
+          {
+            return ((Comparable<Object>) value1).compareTo(value2);
+          }
         }
-        else 
+        else
         {
-          return ((Comparable<Object>) value1).compareTo(value2);
+          // if the object is not a Comparable, then
+          // the best we can do is string comparison:
+          return _compare(value1.toString(), value2.toString());
         }
       }
       else
       {
-        // if the object is not a Comparable, then
-        // the best we can do is string comparison:
-        return compare(value1.toString(), value2.toString());
+        return comparator.compare(value1, value2);
       }
     }
 
-    private int compare(String s1, String s2) 
+    private int _compare(
+      String s1,
+      String s2)
     {
       if (_collator != null)
       {
@@ -480,7 +643,7 @@ public class SortableModel extends CollectionModel
     {
       _resolver = resolver;
     }
-    
+
     @Override
     public ELResolver getELResolver()
     {
@@ -502,7 +665,7 @@ public class SortableModel extends CollectionModel
       // to an ELResolver, no VariableMapper is needed
       return null;
     }
-    
+
     private final ELResolver _resolver;
   }
 
@@ -522,7 +685,7 @@ public class SortableModel extends CollectionModel
     if (context != null)
       return context.getELContext();
 
-    return new ELContextImpl(resolver); 
+    return new ELContextImpl(resolver);
   }
 
   static private ELResolver _getELResolver(FacesContext context)
@@ -537,10 +700,10 @@ public class SortableModel extends CollectionModel
     ApplicationFactory factory = (ApplicationFactory)
       FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
     return factory.getApplication().getELResolver();
-    
+
   }
 
-  static private Locale _getLocale(RequestContext requestContext, FacesContext facesContext) 
+  static private Locale _getLocale(RequestContext requestContext, FacesContext facesContext)
   {
     if (requestContext != null)
       return requestContext.getFormattingLocale();
@@ -555,6 +718,8 @@ public class SortableModel extends CollectionModel
 
   private DataModel _model = null;
   private Object _wrappedData = null;
+
+  private Map<String, Comparator> _propertyComparators;
 
   private IntList _sortedIndicesList = null, // from baseIndex to sortedIndex
     _baseIndicesList = null; // from sortedIndex to baseIndex

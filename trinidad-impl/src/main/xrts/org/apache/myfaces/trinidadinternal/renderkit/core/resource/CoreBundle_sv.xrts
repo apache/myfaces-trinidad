@@ -57,7 +57,7 @@
 <resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Sortera om..</resource>
 <resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Verktygsfält</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Standard</resource>
-<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Fråga per exempel</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Fråga genom exempel</resource>
 <resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Format</resource>
 <resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Ändra storlek på kolumner..</resource>
 <resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Återställ..</resource>
@@ -200,7 +200,7 @@
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
 <resource key="af_chooseDate.CANCEL" dnt="false">&amp;Avbryt</resource>
 <!--Tooltip on the date picker button that launches the calendar dialog-->
-<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Välj för tillgång till datumval</resource>
+<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Öppna datumväljare</resource>
 <!--Title of ColorPicker Dialog-->
 <resource key="af_inputColor.PICKER_TITLE" dnt="false">Välj en färg</resource>
 <!--Text for transparent colors-->
@@ -208,7 +208,7 @@
 <!-- Prompt for color field in color picker dialog -->
 <resource key="af_inputColor.PICKER_PROMPT" dnt="false">Färg</resource>
 <!--Tooltip on the color picker button that launches the color palette dialog-->
-<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Välj för att få tillgång till färgväljare</resource>
+<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Öppna färgväljare</resource>
 <!-- Text on the Apply/Cancel buttons on the selectInputColor dialog -->
 <resource key="af_inputColor.APPLY" dnt="false">Använd</resource>
 <resource key="af_inputColor.CANCEL" dnt="false">Avbryt</resource>
@@ -283,7 +283,7 @@
 <resource key="af_selectManyShuttle.REMOVE" dnt="false">Ta bort</resource>
 <resource key="af_selectOrderShuttle.REMOVE" dnt="false">Ta bort</resource>
 <!--Poll. The button text that the user presses to manually ask for a poll of the server -->
-<resource key="af_poll.MANUAL" dnt="false">Omröstningsserver</resource>
+<resource key="af_poll.MANUAL" dnt="false">Avfrågningsserver</resource>
 <!--Progress-->
 <!--Format for the determinate progress icon's alt tag -->
 <resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">{0}% slutfört</resource>
@@ -522,7 +522,7 @@
 <!--Text for search category choice in  LOV Window Header-->
 <resource key="SEARCH_BY_TEXT" dnt="false">Sök per</resource>
 <!--Text for search text field ALT tag in LOV Window-->
-<resource key="SEARCH_FIELD_SHORT_DESC_TEXT" dnt="false">Sökbegrepp</resource>
+<resource key="SEARCH_FIELD_SHORT_DESC_TEXT" dnt="false">Sökord</resource>
 <!--Text for results table header in LOV window-->
 <resource key="RESULTS_TEXT" dnt="false">Resultat</resource>
 <!--navigation bar format mask for a range of strings;  for -->

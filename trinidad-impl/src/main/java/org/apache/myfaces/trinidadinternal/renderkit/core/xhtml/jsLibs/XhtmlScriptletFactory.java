@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs;
 
@@ -77,6 +77,7 @@ public class XhtmlScriptletFactory
     ConfigurationScriptlet.sharedInstance().registerSelf();
     GlobalVariablesScriptlet.sharedInstance().registerSelf();
     DialogStyleScriptlet.sharedInstance().registerSelf();
+    PanelBorderIE6Scriptlet.sharedInstance().registerSelf();
   }
 
 
@@ -100,7 +101,7 @@ public class XhtmlScriptletFactory
   static
   {
     _sLocaleScriptlet =
-        new AliasedScriptlet(LOCALE_LIB, new String[]{
+        new LibraryScriptlet(LOCALE_LIB, new String[]{
                               "getUserLanguage()",
                               "getJavaLanguage()",
                               "TrConverter()", 
@@ -113,11 +114,8 @@ public class XhtmlScriptletFactory
                               "isUpperCase()",
                               "isNotUpperCase()",
                               "isLetter()",
-                              "getLocaleSymbols()"},
-                            new String[]
-                            {
-                              CORE_LIB
-                            });
+                              "getLocaleSymbols()"}
+                             );
 
     //    new LocaleInfoScriptlet();
     //new DateFormatInfoScriptlet();
@@ -139,7 +137,8 @@ public class XhtmlScriptletFactory
                            },
                            new String[]
                            {
-                             GlobalVariablesScriptlet.GLOBAL_VARIABLES_KEY
+                             GlobalVariablesScriptlet.GLOBAL_VARIABLES_KEY,
+                             LOCALE_LIB
                            })
       {
         // =-=AEW  The Core library needs to be rendered even
@@ -153,7 +152,7 @@ public class XhtmlScriptletFactory
       };
 
     _sDateFormatScriptlet =
-      new AliasedScriptlet(DATE_FORMAT_LIB,
+      new LibraryScriptlet(DATE_FORMAT_LIB,
                            new String[]
                            {
                              "TrDateTimeConverter()",
@@ -189,6 +188,7 @@ public class XhtmlScriptletFactory
                            new String[]
                            {
                              "TrValidator()",
+                             LocaleInfoScriptlet.LOCALE_INFO_KEY
                            });
 
     _sShuttleScriptlet =
@@ -216,7 +216,7 @@ public class XhtmlScriptletFactory
                              "TableProxy()",
                            });
    _sColorFormatScriptlet =
-      new AliasedScriptlet(COLOR_FORMAT_LIB,
+      new LibraryScriptlet(COLOR_FORMAT_LIB,
                            new String[]
                            {
                              "TrColor()",

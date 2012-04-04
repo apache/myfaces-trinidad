@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import javax.faces.component.UIComponent;
@@ -55,15 +56,14 @@ abstract public class UIXGroupTemplate extends UIXComponentBase implements Flatt
     ) throws IOException
   {
     cpContext.pushGroup();
-    
+
     try
     {
-      setupVisitingContext(context);
-      
+      setupFlattenedContext(context, cpContext);
       try
       {
-        setupChildrenVisitingContext(context);
-        
+        setupFlattenedChildrenContext(context, cpContext);
+
         try
         {
           // bump up the group depth and render all of the children
@@ -75,17 +75,17 @@ abstract public class UIXGroupTemplate extends UIXComponentBase implements Flatt
         }
         finally
         {
-          tearDownChildrenVisitingContext(context);
+          tearDownFlattenedChildrenContext(context, cpContext);
         }
       }
       finally
       {
-        tearDownVisitingContext(context);
+        tearDownFlattenedContext(context, cpContext);
       }
     }
     finally
     {
-      cpContext.popGroup();      
+      cpContext.popGroup();
     }
   }
 
@@ -119,7 +119,7 @@ abstract public class UIXGroupTemplate extends UIXComponentBase implements Flatt
     {
       for(UIComponent child : (List<UIComponent>)getChildren())
       {
-        __encodeRecursive(context, child);
+        child.encodeAll(context);
       }
     }
   }

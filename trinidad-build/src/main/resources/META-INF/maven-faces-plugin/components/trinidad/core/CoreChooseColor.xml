@@ -35,6 +35,7 @@
       <property-name>colorData</property-name>
       <property-class><![CDATA[java.util.List<java.awt.Color>]]></property-class>
       <property-extension>
+        <mfp:mutable>sometimes</mfp:mutable>
         <mfp:property-metadata/>
         <fmd:property-metadata>
           <fmd:preferred>true</fmd:preferred>
@@ -46,6 +47,7 @@
       <property-name>customColorData</property-name>
       <property-class><![CDATA[java.util.List<java.awt.Color>]]></property-class>
       <property-extension>
+        <mfp:mutable>sometimes</mfp:mutable>
         <mfp:property-metadata/>
         <fmd:property-metadata>
           <fmd:preferred>true</fmd:preferred>

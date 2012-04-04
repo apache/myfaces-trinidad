@@ -31,23 +31,27 @@ public class SelectManyShuttleDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1989061956014398310L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		ShowDescription
-	}
+    HideDescription,
+        ShowDescription
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public SelectManyShuttleDemo() {
-		super(ComponentDemoId.selectManyShuttle, "Select Many Shuttle",
-            new String[]{
-                "/components/select/selectManyShuttle/selectManyShuttle.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public SelectManyShuttleDemo() {
+    super(ComponentDemoId.selectManyShuttle, "Select Many Shuttle");
 
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.HideDescription, "Hide description", this,
+                new String[]{
+                        "/components/select/selectManyShuttle/selectManyShuttleHideDescription.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ShowDescription, "Show description", this,
                 new String[]{
                         "/components/select/selectManyShuttle/selectManyShuttleShowDescription.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.HideDescription);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectManyShuttle/summary.xhtml";

@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">{0} konnte nicht geladen werden</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">UploadedFileProcessor konnte nicht instanziiert werden</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Die Datei konnte nicht hochgeladen werden, weil sie zu groß ist.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad wird im Debug-Modus ausgeführt. Nicht in einer Production-Umgebung verwenden. Siehe: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">Element {0} unterstützt keine EL-Ausdrücke.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">Element {0} akzeptiert nur ganzzahlige Werte</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">Element {0} akzeptiert nur lange Werte</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Context Class Loader konnte nicht gefunden werden.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -181,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Zyklische Abhängigkeit in Skin-Referenzsymbol {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Ein leeres SkinAddition-Objekt wurde an addSkinAddition übergeben.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Skin-Konfigurationsdatei konnte nicht verarbeitet werden: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Der translation-source ValueExpression der Skin hat nicht den erwarteten Typ, d.h. Map oder ResourceBundle. Deshalb wird er ignoriert.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -259,6 +265,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Ressource {0} kann nicht abgerufen werden</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad wird mit JavaScript im Debug-Modus ausgeführt. Nicht in einer Production-Umgebung verwenden. Siehe Parameter \&quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT\&quot; in /WEB-INF/web.xml</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Die Umgebung ist für die Produktion konfiguriert, und Apache Trinidad wird mit Debug-Javascript ausgeführt. Siehe Parameter &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; in /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Die Umgebung ist für die Production konfiguriert, und Apache Trinidad wird mit unkomprimiertem CSS ausgeführt. Siehe Parameter &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; in /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Die Umgebung ist für die Produktion konfiguriert, und Apache Trinidad wird mit debug-output &quot;TRUE&quot; ausgeführt. Siehe Element &quot;debug-output&quot; in der Datei &quot;trinidad-config.xml&quot;.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Ungültiger Wert: {0} für {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +313,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Eigenschaften {0} werden ignoriert, weil kein entsprechender Selector vorhanden ist.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Fehler beim Lesen aus der Skin-CSS-Datei</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Fehler beim Lesen aus der Skin-CSS-Datei. Ein zusätzliches Komma ist enthalten im Selektor: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Skin mit Null-skinId oder Null-Skin kann nicht hinzugefügt werden</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Die bereits hinzugefügte Skin {0} wurde erneut hinzugefügt. Wenn Sie diese Skin in Ihrer Anwendung im Cache haben, erhalten Sie keine konsistenten Ergebnisse. Prüfen Sie doppelte trinidad-skins.xml-Dateien im Klassenpfad.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Skin mit Null-skinId kann nicht abgerufen werden</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Es kann keine Skin gefunden werden, die Familie {0} und Render Kit {1} entspricht, daher wird die einfache Skin verwendet</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Es wurde eine Skin gefunden, die Familie {0} und Version {1} entspricht. Wir werden Skin {2} verwenden.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Es wurde keine Skin gefunden, die Familie {0} und Version {1} entspricht. Wir werden Skin {2} verwenden.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Es wurde keine unversionierte Skin für Familie {0} gefunden. Wir werden die versionierte Skin {1} verwenden.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Zeitstempel des Stylesheet-Dokuments konnte nicht abgerufen werden, weil die Verbindung nicht hergestellt werden konnte.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">Der Skin-Selector {0} ist kein Skin-Symbolobjekt, da er über kein Contentattribut verfügt. Wenn Sie diesen Selector erstellt haben, benennen Sie ihn um, sodass er mit &quot;style&quot; anstelle von &quot;icon&quot; endet. Dadurch wird er vom Skinning Framework als Stil und nicht als Symbol behandelt.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} muss vor allen anderen Regeln Vorrang gewährt werden.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Die folgenden Skins erweitern einander zyklisch, oder die Skin, die sie erweitern, ist nicht vorhanden: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -316,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Fehler beim Parsen von {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">Fehler beim Laden der Datei {0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Fehler beim Laden der Datei: {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Stylesheet {0} konnte nicht geladen werden</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -419,6 +445,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Erforderliches Element \&apos;&apos;id\&apos;&apos; nicht gefunden.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Erforderliches Element \&apos;&apos;family\&apos;&apos; nicht gefunden.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Erforderliches untergeordnetes Element für \&apos;&apos;version\&apos;&apos;, \&apos;&apos;name\&apos;&apos; nicht gefunden.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Eigenschaftseintrag mit fehlerhaftem Format: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -450,7 +478,7 @@
 <!-- INVALID_SAVED_STATE_OBJECT -->
 <resource key="INVALID_SAVED_STATE_OBJECT" dnt="false">Ungültiges gespeichertes Statusobjekt</resource>
 <!-- PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED -->
-<resource key="PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED" dnt="false">Grenzwerte für Plattenspeicherplatz pro Anforderung überschritten.</resource>
+<resource key="PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED" dnt="false">Grenzwerte für Datenträgerspeicherplatz pro Anforderung überschritten.</resource>
 <!-- POPVIEW_NO_VIEW_PUSHED -->
 <resource key="POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): Es wurde keine View weitergereicht.</resource>
 <!-- POPVIEW_NO_VIEW_PUSHED -->
@@ -721,4 +749,23 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ungültiges Land für Gebietsschemabezeichner {0} - Landescode muss in Großbuchstaben angegeben werden. In der Javadoc für das Gebietsschema wird das richtige Format angegeben. Leere Zeichenfolge wird für Land verwendet.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ungültige Variante für den Gebietsschemabezeichner {0} - Sie darf keine  Schrägstriche enthalten, um XSS-Angriffe zu vermeiden. Leere Zeichenfolge wird für Variante verwendet.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Die Datei {0} konnte nicht gelöscht werden</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState muss eine Instanz von StateManager.SerializedView oder ein Objekt-Array mit der Länge 2 sein.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Teilstatusspeicherung wird noch nicht unterstützt. Setzen Sie context-param javax.faces.PARTIAL_STATE_SAVING in web.xml auf &quot;false&quot;.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Fehler beim Serialisieren von {0}-Attribut:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> nicht erfolgreicher Wert=</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failover-Fehler: {0} Attribut:{1} vom Typ {2} ist nicht serialisierbar</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failover-Fehler: Serialisierung von {0}-Attribut:{1} wurde von {2} in {3} geändert, ohne dass das Attribut zum ersten Mal verändert wurde</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Testen der Sessionattributserialisierung nicht erfolgreich für {0}. Diese Prüfung kann deaktiviert werden, indem Sie &quot;REQUEST&quot; aus der Systemeigenschaft &quot;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&quot; entfernen</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Exception beim Erfassen des Testfehlers der Sessionattributserialisierung</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Sessionattribut: {0} </resource>
 </resources>

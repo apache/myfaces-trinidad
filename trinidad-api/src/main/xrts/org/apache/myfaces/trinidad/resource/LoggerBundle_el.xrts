@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">Σφάλμα κατά την ανάλυση: {0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">Σφάλμα στη φόρτωση πόρου: {0}</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">Σφάλμα στη φόρτωση πόρου:{0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">Το όνομα πόρου &quot;{0}&quot; αρχίζει με κάθετο (/) , η οποία δεν έχει δυνατότητα μεταφοράς.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
@@ -125,9 +125,11 @@
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Μη αποδεκτό ευρετήριο</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Προστίθεται θυγατρικό στοιχείο όταν υπάρχει θυγατρικό στοιχείο με το ίδιο αναγνωριστικό. Το παλιό θυγατρικό στοιχείο θα καταργηθεί και θα προστεθεί το νέο. {0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Ο διαχειριστής αλλαγών δεν μπόρεσε να εφαρμόσει το AddChildComponentChange επειδή υπάρχει ήδη θυγατρικό συστατικό με το ίδιο αναγνωριστικό. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Δεν έχει καθοριστεί κόμβος</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Δεν επιτρέπεται η διατήρηση συστατικού στοιχείου με χρονοσήμανση εντός μιας λειτουργίας επανάληψης</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Απαιτείται συστατικό στοιχείο</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -156,6 +158,8 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">Δεν είναι δυνατή η δόμηση AddFacetChange με μη ορισμένο (null) είτε facetName είτε facetComponent.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Πρέπει να προσδιοριστεί όνομα επιμέρους στοιχείου</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">Ο διαχειριστής αλλαγών δεν μπόρεσε να εφαρμόσει το SetFacetChildComponentChange επειδή υπάρχει ήδη επιμέρους στοιχείο με το ίδιο όνομα. {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Απαιτείται το θυγατρικό συστατικό στοιχείο που θα μετακινηθεί.</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -168,6 +172,8 @@
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Δεν ήταν δυνατό να βρεθεί το θυγατρικό στοιχείο προς μετακίνηση: {0}.</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
 <resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Δεν ήταν δυνατό να βρεθεί το κοντέινερ προορισμού: {0}.</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">Βρέθηκε άλλο συστατικό με το ίδιο αναγνωριστικό στο κοντέινερ προορισμού. Η μετακίνηση ματαιώθηκε: {0}.</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Δεν ήταν δυνατό να βρεθεί το συστατικό στοιχείο ή ο κόμβος που θα εισαχθεί πριν: {0}.</resource>
 <!-- INDEX_SIZE -->
@@ -308,4 +314,12 @@
 <resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">Δεν ήταν δυνατή η ρύθμιση παραμέτρων απόδοσης συστατικού στοιχείου πύλης λόγω αποτυχίας ανάκλασης</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">Ο τύπος για \&quot;{0}\&quot; παρεμποδίζει τη σύγκρισή του με το \&quot;{1}&quot;\.</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">Απέτυχε η συμπίεση της κατάστασης της σελίδας. Για να εκτελεστεί η συμπίεση, πρέπει να υπάρχει δυνατότητα σειριοποίησης της κατάστασης. Αυτό συνήθως δεν συμβαίνει και είναι η συνήθης αιτία για την οποία αποτυγχάνει η συμπίεση της κατάστασης της σελίδας. Μπορείτε να απενεργοποιήσετε τη συμπίεση ορίζοντας την τιμή &quot;ψευδής&quot; στην ιδιότητα org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE. Ανατρέξτε στην τεκμηρίωση της ιδιότητας συστήματος org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION για πληροφορίες σχετικά με τη δοκιμή των διαφορετικών επιλογών σειριοποίησης.</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">Απέτυχε η αποσυμπίεση της κατάστασης της σελίδας.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">Δεν θα πρέπει να γίνει κλήση του getClientId κατά τη δημιουργία της προβολής. Αναγνωριστικό συστατικού στοιχείου: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">ενδέχεται να μην γίνει σωστή επαναφορά του κλειδιού σειράς στο τέλος της αίτησης. Αναγνωριστικό συστατικού στοιχείου: {0} ViewId: {1}</resource>
 </resources>

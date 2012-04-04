@@ -30,29 +30,28 @@ public class InputDateDemo extends AbstractComponentDemo  {
     
     private static final long serialVersionUID = -1982071956883498710L;
 
-    private enum VARIANTS implements IComponentDemoVariantId {	
-		Detailed,
+    private enum VARIANTS implements IComponentDemoVariantId {  
+    Detailed,
         Simple
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public InputDateDemo() {
-		super(ComponentDemoId.inputDate, "Input Date",
-            new String[]{
-                "/components/input/inputDate/inputDate.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public InputDateDemo() {
+    super(ComponentDemoId.inputDate, "Input Date");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, "Simple", this,
                 new String[]{
                         "/components/input/inputDate/inputDateSimple.xhtml"
-                }, getSummaryResourcePath()));
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, "Detailed", this,
                 new String[]{
                         "/components/input/inputDate/inputDateDetailed.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.Detailed);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/input/inputDate/summary.xhtml";

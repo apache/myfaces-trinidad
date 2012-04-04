@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.convert;
 
@@ -47,6 +47,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -172,6 +174,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/convert/DateTimeConverter.java#0 $) $Date: 10-nov-2005.19:09:11 $
  */
+@JSFConverter(configExcluded=true)
 public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
                                implements Converter, StateHolder
 
@@ -284,7 +287,10 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     FacesContext context,
     UIComponent component,
     String value)
-  {
+  { 
+    if (isDisabled())
+      return value;
+    
     Date date = _getParsedDate(context, component, value);
     if (date != null)
     {
@@ -317,7 +323,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     UIComponent component,
     Object value
     )
-  {
+  { 
     if (context == null || component == null)
       throw new NullPointerException(_LOG.getMessage(
         "NULL_FACESCONTEXT_OR_UICOMPONENT"));
@@ -327,6 +333,9 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
     if (value instanceof String)
       return (String)value;
+
+    if (isDisabled())
+      return value.toString();
 
     if (!(value instanceof Date))
       throw new ClassCastException(_LOG.getMessage(
@@ -358,6 +367,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @return custom error message that was set.
    * @see #setMessageDetailConvertDate(String)
    */
+  @JSFProperty
   public String getMessageDetailConvertDate()
   {
     Object msg = _facesBean.getProperty(_CONVERT_DATE_MESSAGE_DETAIL_KEY);
@@ -383,6 +393,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @return custom error message that was set.</p>
    * @see #setMessageDetailConvertTime(java.lang.String)
    */
+  @JSFProperty
   public String getMessageDetailConvertTime()
   {
     Object msg =_facesBean.getProperty(_CONVERT_TIME_MESSAGE_DETAIL_KEY);
@@ -409,6 +420,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @return custom error message that was set.
    * @see #setMessageDetailConvertBoth(java.lang.String)
    */
+  @JSFProperty
   public String getMessageDetailConvertBoth()
   {
      Object msg = _facesBean.getProperty(_CONVERT_BOTH_MESSAGE_DETAIL_KEY);
@@ -799,6 +811,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   * request is used during call to <code>getAsObject</code> and
   * <code>getAsString</code>.</p>
   */
+  @JSFProperty
   @Override
   public Locale getLocale()
   {
@@ -825,11 +838,19 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * <p>Return the format pattern to be used when formatting and
    * parsing dates and times.</p>
    */
+  @JSFProperty
   @Override
   public String getPattern()
   {
-    Object pattern = _facesBean.getProperty(_PATTERN_KEY);
-    return ComponentUtils.resolveString(pattern);
+    Object patternObj = _facesBean.getProperty(_PATTERN_KEY);
+    String pattern = ComponentUtils.resolveString(patternObj);
+
+    if (pattern != null && pattern.trim().isEmpty())
+    {
+      return null;
+    }
+
+    return pattern;
   }
 
   /**
@@ -850,6 +871,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   * for the web-app is used. If time zone is not set for the web-app then
   * the default time zone of <code>GMT</code> is used.</p>
   */
+  @JSFProperty
   @Override
   public TimeZone getTimeZone()
   {
@@ -877,6 +899,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * If not explicitly set, the default type, <code>date</code>
    * is returned.</p>
    */
+  @JSFProperty(defaultValue="date")
   @Override
   public String getType()
   {
@@ -906,6 +929,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @see #setDateStyle(java.lang.String)
    * @return date style
    */
+  @JSFProperty(defaultValue="shortish")
   @Override
   public String getDateStyle()
   {
@@ -932,6 +956,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * <p>Return the style to be used to format or parse times.  If not set,
    * the default value, <code>short</code>, is returned.</p>
    */
+  @JSFProperty(defaultValue="short")
   @Override
   public String getTimeStyle()
   {
@@ -956,6 +981,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * <p>Return the secondary pattern used to parse string when parsing by
    * pattern or style fails.</p>
    */
+  @JSFProperty
   public String getSecondaryPattern()
   {
     Object secPattern = _facesBean.getProperty(_SECONDARY_PATTERN_KEY);
@@ -1077,7 +1103,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     {
       DateTimeConverter other = (DateTimeConverter)object;
 
-      if ( (isTransient() == other.isTransient())
+      if ( (isDisabled() == other.isDisabled())
+           && (isTransient() == other.isTransient())
            && ConverterUtils.equals(getDateStyle(), other.getDateStyle())
            && ConverterUtils.equals(getLocale(), other.getLocale())
            && ConverterUtils.equals(getPattern(), other.getPattern())
@@ -1107,6 +1134,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   public int hashCode()
   {
     int result = 17;
+    result = result * 37 + (isDisabled() ? 1 : 0);    
     result = result * 37 + (isTransient()? 1 : 0);
     result = result * 37 + _getHashValue(getDateStyle());
     result = result * 37 + _getHashValue(getLocale());
@@ -1119,6 +1147,26 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     result = result * 37 + _getHashValue(getMessageDetailConvertTime());
     result = result * 37 + _getHashValue(getMessageDetailConvertBoth());
     return result;
+  }
+
+  /**
+   * <p>Set the value to property <code>disabled</code>. Default value is false.</p>
+   * @param isDisabled <code>true</code> if it's disabled, <code>false</code> otherwise.
+   */  
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */  
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
   }
 
   protected final DateFormat getDateFormat(
@@ -1736,43 +1784,52 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
         format = _getSimpleDateFormat(pattern, locale);
       }
 
-      if (format instanceof SimpleDateFormat && !forParsing)
+      if (format instanceof SimpleDateFormat)
       {
         SimpleDateFormat simpleFormat = (SimpleDateFormat)format;
-
-        // make sure that we have a 4 digit year for "shortish"
-        // dates
-        // DO NOT CHANGE THE FOLLOWING LINE to "dateStyle";  this
-        // must be retrieved from the instance variable!  (See above)
-        // and we need to apply shortish only if it is of date type or
-        // type is date and time.
-        if (null == pattern && "shortish".equals(getDateStyle()) )
-        {
-          int type = _getType(getType());
-          if (type == _TYPE_DATE || type == _TYPE_BOTH )
+        
+        if (!forParsing)
+        {  
+          // make sure that we have a 4 digit year for "shortish"
+          // dates
+          // DO NOT CHANGE THE FOLLOWING LINE to "dateStyle";  this
+          // must be retrieved from the instance variable!  (See above)
+          // and we need to apply shortish only if it is of date type or
+          // type is date and time.
+          if (null == pattern && "shortish".equals(getDateStyle()) )
           {
-            simpleFormat = _get4YearFormat(simpleFormat, locale);
-            format = simpleFormat;
+            int type = _getType(getType());
+        
+            if (type == _TYPE_DATE || type == _TYPE_BOTH )
+            {
+              simpleFormat = _get4YearFormat(simpleFormat, locale);
+              format = simpleFormat;
+            }
           }
-        }
-
-        Calendar cal;
-        RequestContext reqContext = RequestContext.getCurrentInstance();
-        if (reqContext == null)
-        {
-          cal = null;
-          if(_LOG.isWarning())
-          {
-            _LOG.warning("NO_REQUESTCONTEXT_TWO_DIGIT_YEAR_START_DEFAULT");
-          }
-        }
+        }//end-if for formatting
         else
         {
-          cal = new GregorianCalendar(reqContext.getTwoDigitYearStart(), 0, 0);
-        }
-        if (cal != null)
-          simpleFormat.set2DigitYearStart(cal.getTime());
-      }
+          Calendar cal;
+          RequestContext reqContext = RequestContext.getCurrentInstance();
+          
+          if (reqContext == null)
+          {
+            cal = null;
+        
+            if(_LOG.isWarning())
+            {
+              _LOG.warning("NO_REQUESTCONTEXT_TWO_DIGIT_YEAR_START_DEFAULT");
+            }
+          }
+          else
+          {
+            cal = new GregorianCalendar(reqContext.getTwoDigitYearStart(), 0, 0);
+          }
+          
+          if (cal != null)
+            simpleFormat.set2DigitYearStart(cal.getTime());
+        }//end-if for parsing
+      }//end-if using SimpleDateFormat
 
       // Bug 2002065
       format.setLenient(false);
@@ -1894,6 +1951,10 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
   private static final PropertyKey  _HINT_BOTH_KEY =
     _TYPE.registerKey("hintBoth", String.class);
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 

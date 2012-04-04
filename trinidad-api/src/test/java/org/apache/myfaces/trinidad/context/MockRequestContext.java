@@ -20,7 +20,6 @@ package org.apache.myfaces.trinidad.context;
 
 import java.awt.Color;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -30,12 +29,7 @@ import java.util.TimeZone;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
-
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
-
 import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.config.RegionManager;
@@ -342,7 +336,7 @@ public class MockRequestContext extends RequestContext
   @Override
   public void partialUpdateNotify(UIComponent updated)
   {
-    throw new UnsupportedOperationException("Should not be called during rendering");
+    // Do nothing
   }
 
   @Override

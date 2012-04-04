@@ -97,6 +97,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -530,6 +536,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -963,6 +975,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -1396,6 +1414,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -1829,6 +1853,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="test-id-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -2263,6 +2293,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -2697,6 +2733,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -3130,6 +3172,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -3563,6 +3611,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -4023,6 +4077,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -4483,6 +4543,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -4872,6 +4938,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -5306,6 +5378,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -5740,6 +5818,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -6174,6 +6258,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -6608,6 +6698,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -7042,6 +7138,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -7476,6 +7578,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -7910,6 +8018,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -8344,6 +8458,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -8778,6 +8898,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -9212,6 +9338,12 @@
                               2-2 of 2
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >

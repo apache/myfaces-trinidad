@@ -1,3 +1,7 @@
+@import url("purpleBigFontSkinThree.css");
+@import url("purpleBigFontSkinTwo.css");
+
+
 /*
  *  Licensed to the Apache Software Foundation (ASF) under one
  *  or more contributor license agreements.  See the NOTICE file
@@ -22,4 +26,23 @@
 
 .AFDefaultFont:alias {
 	font-size: 18pt;
+}
+
+/* This tests that the other css properties are picked up from the base skin, in this case purple */
+/* This tests that the -tr-rule-ref does not yet work for icons. See TRINIDAD-17 */
+af|selectOrderShuttle::reorder-up-icon {
+  content: url(/skins/purple/images/prev.png);
+  -tr-rule-ref: selector(".AFDefaultFont:alias");
+  -tr-inhibit: border;
+}
+
+af|someRandomStyle { color: red;}
+
+
+af|breadCrumbs {
+  border: 1px solid green;
+}
+
+af|someNewStyle {
+border: 1px solid green;  
 }

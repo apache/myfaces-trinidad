@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.menu;
 
@@ -33,7 +33,6 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ContainerUtils;
-import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 
 /**
  * Menu Utilities used by the Menu Model internal code.
@@ -201,20 +200,19 @@ class MenuUtils
     }
     return Integer.parseInt(propVal);
   }
-  
+
   /**
-   * Create a ResourceBundle and put it on the Session map.
-   * 
-   * @param resBundle - String containing name of class containing the resource
-   *                    bundle.
-   * @param key - ThreadLocal key for the resource bundle being put on the
-   *              requestMap
+   * Create a ResourceBundle and put it in an EL-reachable scope.
+   *
+   * @param resBundleName - String containing name of class containing the 
+   *                        resource bundle.
+   * @param resBundleKey - String key for the resource bundle
    */
   @SuppressWarnings("unchecked")
-  static void loadBundle(String resBundle, ThreadLocal<String> key)
+  static void loadBundle(String resBundleName, String resBundleKey)
   {
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    Map<String, Object> applicationMap = 
+    Map<String, Object> applicationMap =
       facesContext.getExternalContext().getApplicationMap();
 
     // Get the view root locale
@@ -225,22 +223,22 @@ class MenuUtils
     {
       requestLocale = facesContext.getApplication().getDefaultLocale();
     }
-    
+
     // Is there a bundle with this key already on the session map?
-    _BundleMap bundleMap = (_BundleMap) applicationMap.get(key.get());
-    
-    // if so, get its locale.  If the locale has not 
+    _BundleMap bundleMap = (_BundleMap) applicationMap.get(resBundleKey);
+
+    // if so, get its locale.  If the locale has not
     // changed, just return, i.e. use the existing bundle
     if (bundleMap != null)
     {
       Locale bundleLocale = bundleMap.getLocale();
-      
+
       if (bundleLocale == null)
       {
         ResourceBundle rb = bundleMap.getBundle();
         bundleLocale = rb.getLocale();
       }
-      
+
       if (requestLocale == bundleLocale)
       {
         // the bundle on the applicationMap is ok so just return
@@ -250,21 +248,21 @@ class MenuUtils
 
     String bundleName = null;
 
-    if (resBundle != null) 
+    if (resBundleName != null)
     {
       // if _bundleName is an EL, then get its value
-      if (ContainerUtils.isValueReference(resBundle)) 
+      if (ContainerUtils.isValueReference(resBundleName))
       {
-        bundleName = MenuUtils.getBoundValue(resBundle, String.class);
-      } 
+        bundleName = MenuUtils.getBoundValue(resBundleName, String.class);
+      }
       else
       {
-        bundleName = resBundle ;
+        bundleName = resBundleName ;
       }
     }
 
     final ResourceBundle bundle;
-    
+
     try
     {
       bundle = ResourceBundle.getBundle(bundleName, requestLocale);
@@ -275,30 +273,11 @@ class MenuUtils
       _LOG.severe(e);
       return;
     }
- 
-    // Put the bundle in the map.  At this point the key is 
+
+    // Put the bundle in the map.  At this point the key is
     // unique because of the handler Id we inserted when loadBundle
     // was called.
-    applicationMap.put(key.get(), new _BundleMap(bundle, requestLocale));
-  }
-
-  /**
-   * Create a ResourceBundle and put it on the Session map.
-   * The key is made into a ThreadLocal to ensure that this the resource
-   * bundle is threadsafe.
-   * 
-   * @param resBundleName - String containing name of class containing the 
-   *                        resource bundle.
-   * @param resBundleKey - String key for the resource bundle being put on the
-   *                       requestMap
-   */
-  @SuppressWarnings("unchecked")
-  static void loadBundle(String resBundleName, String resBundleKey)
-  {
-    ThreadLocal<String> bundleKey = ThreadLocalUtils.newRequestThreadLocal();
-    
-    bundleKey.set(resBundleKey);    
-    loadBundle(resBundleName, bundleKey);
+    applicationMap.put(resBundleKey, new _BundleMap(bundle, requestLocale));
   }
   
   /**

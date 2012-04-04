@@ -19,5 +19,7 @@
 	   
 -->
 <trinidad-config xmlns="http://myfaces.apache.org/trinidad/config">
+
+  <skin-family>#{skinFamilySelection.skinFamily}</skin-family>
     
 </trinidad-config>

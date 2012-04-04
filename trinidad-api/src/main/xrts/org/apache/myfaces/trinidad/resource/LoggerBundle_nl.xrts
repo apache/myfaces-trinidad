@@ -113,7 +113,7 @@
 <!-- TYPE_ALREADY_LOCKED -->
 <resource key="TYPE_ALREADY_LOCKED" dnt="false">Het type is al vergrendeld.</resource>
 <!-- CANNOT_FIND_PROPERTY -->
-<resource key="CANNOT_FIND_PROPERTY" dnt="false">Eigenschap &quot;{0&quot;} kan niet worden gebonden.</resource>
+<resource key="CANNOT_FIND_PROPERTY" dnt="false">Eigenschap &quot;{0}&quot; kan niet worden gebonden.</resource>
 <!-- >KEY_CANNOT_BE_USED_FOR_LISTS -->
 <resource key=">KEY_CANNOT_BE_USED_FOR_LISTS" dnt="false">Sleutel {0} kan niet worden gebruikt voor lijsten.</resource>
 <!-- KEY_IS_LIST_KEY -->
@@ -125,9 +125,11 @@
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Ongeldige index</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Er wordt een onderliggend item toegevoegd terwijl er al een onderliggend item met dezelfde ID bestaat. Het oude onderliggende item wordt verwijderd en het nieuwe wordt toegevoegd. {0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">De wijzigingsmanager kan AddChildComponentChange niet toepassen omdat er al een onderliggende component bestaat met dezelfde ID. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Er is geen node opgegeven.</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Wij willen een component met een stempel niet persistent maken binnen een iterator.</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Component is verplicht.</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -156,6 +158,8 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">Kan AddFacetChange niet samenstellen als facetName of facetComponent NULL is.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">De facetnaam is verplicht.</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">De wijzigingsmanager kan SetFacetChildComponentChange niet toepassen omdat er al een facet bestaat met dezelfde naam. {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Te verplaatsen onderliggende component is verplicht.</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -168,6 +172,8 @@
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Te verplaatsen onderliggend item is niet gevonden: {0}.</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
 <resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Bestemmingscontainer is niet gevonden: {0}.</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">Er is een andere component met dezelfde ID gevonden in de bestemmingscontainer. De verplaatsbewerking is afgebroken: {0}.</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Component of node waarvoor moet worden ingevoegd is niet gevonden: {0}.</resource>
 <!-- INDEX_SIZE -->
@@ -308,4 +314,12 @@
 <resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">Kan weergaveparameters portlet niet instellen vanwege mislukte reflectie.</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">Het type voor &quot;{0}&quot; verhindert de vergelijking met &quot;{1}&quot;.</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">Het comprimeren van de paginastatus is mislukt. De status moet serialiseerbaar zijn om te kunnen worden gecomprimeerd. Vaak mislukt het comprimeren van de paginastatus omdat de paginastatus niet serialiseerbaar is. U kunt het comprimeren uitzetten door org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE in te stellen op &apos;Onwaar&apos;. Raadpleeg de documentatie over de eigenschap org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION voor informatie over het testen van diverse aspecten van serialisatie.</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">Het decomprimeren van de paginastatus is mislukt.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">getClientId mag niet worden aangeroepen terwijl de view wordt geconstrueerd. Component-ID: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">Rijsleutel wordt mogelijk niet correct opnieuw ingesteld aan het einde van de aanvraag. Component-ID: {0} ViewId: {1}</resource>
 </resources>

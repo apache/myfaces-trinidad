@@ -31,28 +31,27 @@ public class SelectBooleanCheckboxDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956813398110L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Simple,
+    Simple,
         Detailed
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public SelectBooleanCheckboxDemo() {
-		super(ComponentDemoId.selectBooleanCheckbox, "Select Boolean Checkbox",
-            new String[]{
-                "/components/select/selectBooleanCheckbox/selectBooleanCheckbox.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public SelectBooleanCheckboxDemo() {
+    super(ComponentDemoId.selectBooleanCheckbox, "Select Boolean Checkbox");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
                 new String[]{
                         "/components/select/selectBooleanCheckbox/selectBooleanCheckboxDetailed.xhtml"
-                }, getSummaryResourcePath()));
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
                         "/components/select/selectBooleanCheckbox/selectBooleanCheckboxSimple.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.Detailed);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectBooleanCheckbox/summary.xhtml";

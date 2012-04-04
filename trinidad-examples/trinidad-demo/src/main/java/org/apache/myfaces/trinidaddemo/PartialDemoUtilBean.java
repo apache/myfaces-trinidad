@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidaddemo;
 
@@ -27,6 +27,8 @@ import javax.faces.event.ValueChangeEvent;
 
 import org.apache.myfaces.trinidad.component.UIXOutput;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.model.UploadedFile;
+
 
 public class PartialDemoUtilBean
 {
@@ -41,6 +43,11 @@ public class PartialDemoUtilBean
   {
     _status.reset();
     _resetList();
+  }
+  
+  public void prevalidateField()
+  {
+    _status.incrementPrevalidateEventCount();
   }
 
   public void valueChanged(ValueChangeEvent vce)
@@ -121,6 +128,31 @@ public class PartialDemoUtilBean
     }
   }
 
+  public void setRenderInputFile(boolean renderInputFile)
+  {
+    this._renderInputFileTemp = renderInputFile;
+  }
+
+  public boolean isRenderInputFile()
+  {
+    Boolean value = (Boolean)
+      FacesContext.getCurrentInstance().getViewRoot().getViewMap().get(
+        _RENDER_INPUT_FILE_KEY);
+    return value != null && value;
+  }
+
+  public void fileUploaded(ValueChangeEvent event)
+  {
+    _status.setUploadFile((UploadedFile) event.getNewValue());
+  }
+
+  public void updateRenderInputFileState(ActionEvent event)
+  {
+    FacesContext.getCurrentInstance().getViewRoot().getViewMap().put(
+      _RENDER_INPUT_FILE_KEY, _renderInputFileTemp);
+    _renderInputFileTemp = null;
+  }
+
   private void _resetList()
   {
     _listUpdate.setValue("nothing yet.");
@@ -135,4 +167,7 @@ public class PartialDemoUtilBean
 
   private PartialDemoStatusBean _status;
   private UIXOutput _listUpdate;
+  private Boolean _renderInputFileTemp;
+  private final static String _RENDER_INPUT_FILE_KEY = PartialDemoUtilBean.class.getName() +
+                                                       ".renderInputFile";
 }

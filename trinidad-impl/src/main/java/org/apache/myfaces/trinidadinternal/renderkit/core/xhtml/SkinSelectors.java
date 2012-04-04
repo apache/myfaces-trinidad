@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
@@ -1352,6 +1352,10 @@ public final class SkinSelectors
      "af|table::disclosed-icon";
    public static final String AF_TABLE_SD_UNDISCLOSED_ICON_NAME =
      "af|table::undisclosed-icon";
+   public static final String AF_TABLE_SELECT_ALL_ICON_NAME =
+     "af|table::select-all-icon";
+   public static final String AF_TABLE_SELECT_NONE_ICON_NAME =
+     "af|table::select-none-icon";
 
    //                                                                         //
    //                                                                         //
@@ -1542,6 +1546,10 @@ public final class SkinSelectors
      "af|treeTable::expand-all-icon";
    public static final String AF_TREE_TABLE_COLLAPSE_ALL_ICON_NAME =
      "af|treeTable::collapse-all-icon";
+   public static final String AF_TREE_TABLE_SELECT_ALL_ICON_NAME =
+     "af|treeTable::select-all-icon";
+   public static final String AF_TREE_TABLE_SELECT_NONE_ICON_NAME =
+     "af|treeTable::select-none-icon";    
    public static final String AF_TREE_TABLE_NODE_ICON =
      "af|treeTable::node-icon";
 

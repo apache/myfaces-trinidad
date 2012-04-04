@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.navigation.navigationTree;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,21 +30,29 @@ public class NavigationTreeDemo extends AbstractComponentDemo {
     
     private static final long serialVersionUID = -1982060956383408310L;
 
-	/**
-	 * Constructor.
-	 */
-	public NavigationTreeDemo() {
-		super(ComponentDemoId.navigationTree, "Navigation Tree",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }      
+
+  /**
+   * Constructor.
+   */
+  public NavigationTreeDemo() {
+    super(ComponentDemoId.navigationTree, "Navigation Tree");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/navigation/navigationTree/navigationTree.xhtml"
-            });
-	}
+                    "/components/navigation/navigationTree/navigationTree.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/navigation/navigationTree/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/navigation/navigationTree/NavigationTreeBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/navigation/navigationTree/NavigationTreeBean.java";
+  }
 }

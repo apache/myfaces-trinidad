@@ -403,7 +403,7 @@
       <mfp:example>
         <mfp:source-code>
           <![CDATA[
-<tr:panelBorderLayoutLayout>
+<tr:panelBorderLayout>
   <f:facet name="top">
     <tr:image source="/images/globalhelp.gif"/>
   </f:facet>
@@ -422,7 +422,7 @@
 
   <tr:outputText value="Here is some content"
                  styleClass="AFInstructionText"/>
-</tr:panelBorderLayoutLayout>
+</tr:panelBorderLayout>
           ]]>
         </mfp:source-code>
       </mfp:example>

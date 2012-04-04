@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.buttonsAndLinks.goButton;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,15 +30,23 @@ public class GoButtonDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982061456883408710L;
 
-	/**
-	 * Constructor.
-	 */
-	public GoButtonDemo() {
-		super(ComponentDemoId.goButton, "Go Button",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }     
+
+  /**
+   * Constructor.
+   */
+  public GoButtonDemo() {
+    super(ComponentDemoId.goButton, "Go Button");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/buttonsAndLinks/goButton/goButton.xhtml"
-            });
-	}
+                    "/components/buttonsAndLinks/goButton/goButton.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/buttonsAndLinks/goButton/summary.xhtml";

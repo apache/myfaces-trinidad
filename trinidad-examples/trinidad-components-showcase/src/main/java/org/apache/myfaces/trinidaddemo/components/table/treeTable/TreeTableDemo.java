@@ -31,53 +31,53 @@ public class TreeTableDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982064956883698710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		NoGridLines,
+    NoGridLines,
         SingleRowSelection,
         MultipleRowSelection,
         Simple,
-        Detailed
-	}
+        Detailed,
+        PathStamp
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public TreeTableDemo() {
-		super(ComponentDemoId.treeTable, "Tree Table",
-            new String[]{
-                "/components/table/treeTable/treeTable.xhtml"
-            });
-
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.SingleRowSelection, "Single selection", this,
-                new String[]{
-                        "/components/table/treeTable/treeTableSingleRowSelection.xhtml"
-                }, getSummaryResourcePath()));
-
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MultipleRowSelection, "Multiple selection", this,
-                new String[]{
-                        "/components/table/treeTable/treeTableMultipleRowSelection.xhtml"
-                }, getSummaryResourcePath()));
-
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoGridLines, "No grid lines", this,
-                new String[]{
-                        "/components/table/treeTable/treeTableNoGridLines.xhtml"
-                }, getSummaryResourcePath()));
-
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
-                new String[]{
-                        "/components/table/treeTable/treeTableSimple.xhtml"
-                }, getSummaryResourcePath()));
+  /**
+   * Constructor.
+   */
+  public TreeTableDemo() {
+    super(ComponentDemoId.treeTable, "Tree Table");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
                 new String[]{
                         "/components/table/treeTable/treeTableDetailed.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
+                new String[]{
+                        "/components/table/treeTable/treeTableSimple.xhtml"
+                }));
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoGridLines, "No grid lines", this,
+                new String[]{
+                        "/components/table/treeTable/treeTableNoGridLines.xhtml"
+                }));
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.SingleRowSelection, "Single selection", this,
+                new String[]{
+                        "/components/table/treeTable/treeTableSingleRowSelection.xhtml"
+                }));
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MultipleRowSelection, "Multiple selection", this,
+                new String[]{
+                        "/components/table/treeTable/treeTableMultipleRowSelection.xhtml"
+                }));
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.PathStamp, "Path Stamp", this,
+                new String[]{
+                        "/components/table/treeTable/treeTablePathStamp.xhtml"
+                }));
+
+        setDefaultVariant(VARIANTS.Detailed);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/table/treeTable/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/table/treeTable/TreeTableBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/table/treeTable/TreeTableBean.java";
+  }
 }

@@ -30,25 +30,42 @@ public class TrainDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982060956387098910L;
 
-	/**
-	 * Constructor.
-	 */
-	public TrainDemo() {
-		super(ComponentDemoId.train, "Train",
-            new String[]{
-                "/components/navigation/train/generalInfo.xhtml",
-                "/components/navigation/train/companyInfo.xhtml",
-                "/components/navigation/train/jsfSurvey.xhtml",
-                "/components/navigation/train/trinidadSurvey.xhtml",
-                "/components/navigation/train/youAreDone.xhtml"
-            });
-	}
+    static enum VARIANTS implements IComponentDemoVariantId {
+    PlusOne,
+        MaxVisited
+  }
+
+  /**
+   * Constructor.
+   */
+  public TrainDemo() {
+    super(ComponentDemoId.train, "Train");
+        
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.PlusOne, "Plus One", this,
+                new String[]{
+                    "/components/navigation/train/generalInfo.xhtml",
+                    "/components/navigation/train/companyInfo.xhtml",
+                    "/components/navigation/train/jsfSurvey.xhtml",
+                    "/components/navigation/train/trinidadSurvey.xhtml",
+                    "/components/navigation/train/youAreDone.xhtml"
+                }));
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MaxVisited, "Max Visited", this,
+                new String[]{
+                    "/components/navigation/train/generalInfo.xhtml",
+                    "/components/navigation/train/companyInfo.xhtml",
+                    "/components/navigation/train/jsfSurvey.xhtml",
+                    "/components/navigation/train/trinidadSurvey.xhtml",
+                    "/components/navigation/train/youAreDone.xhtml"
+                }));
+
+        setDefaultVariant(VARIANTS.PlusOne);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/navigation/train/summary.xhtml";
     }
     
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/navigation/train/TrainBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/navigation/train/TrainBean.java";
+  }
 }

@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-     
+
 -->
 <document>
   <properties>
@@ -44,7 +44,7 @@
     <a name="Overview"></a>
     <section name="Overview">
      <p>This document lists the selectors that can be used in an Trinidad
-     skin .css file to skin Trinidad components.  <strong>NOTE:</strong>  This 
+     skin .css file to skin Trinidad components.  <strong>NOTE:</strong>  This
      document is not currently up-to-date!
      </p>
      <p>
@@ -286,16 +286,16 @@
           <tr>
             <td>.AFEndPadding:alias</td>
             <td>Sets the padding property to pad on the "right" for the left-to-right
-                reading direction and "left" for right-to-left reading direction.  
+                reading direction and "left" for right-to-left reading direction.
                 e.g,: padding: 0px 8px 0px 0px; (for 'right' padding).</td>
-          </tr> 
+          </tr>
           <tr>
             <td>.AFStartPadding:alias</td>
             <td>Sets the padding property to pad on the "left" left-to-right
-                reading direction and "right" for right-to-left reading direction.  
+                reading direction and "right" for right-to-left reading direction.
                 e.g,: padding: 0px 0px 0px 8px; (for 'left' padding).</td>
-          </tr>           
-          
+          </tr>
+
           <tr>
             <td>.AFLeftTextAlign:alias</td>
             <td>Sets the text-align property to "left" regardless of the reading
@@ -336,7 +336,7 @@
                 style property to set is text-align. This is used in select*
                 components and panelLabelAndMessage.
                 Also can be used as a value for the styleClass attribute
-                in outputFormatted and outputText.</td>               
+                in outputFormatted and outputText.</td>
           </tr>
           <tr>
             <td>.AFLabelTextForeground:alias</td>
@@ -367,7 +367,7 @@
                 way to style disabled form components' labels the same, instead
                 of for each component: .AFLabelDisabled:alias instead of
                 e.g., "af|inputText:disabled af|inputText::label".</td>
-          </tr>           
+          </tr>
           <tr>
             <td>.AFErrorIconStyle</td>
             <td>Style class that styles the .AFErrorIcon:alias icons.</td>
@@ -382,14 +382,14 @@
           </tr>
           <tr>
             <td>.AFRequiredIconStyle</td>
-            <td>Style class that styles the .AFRequiredIcon icon.</td>           
+            <td>Style class that styles the .AFRequiredIcon icon.</td>
           </tr>
           <tr>
             <td>.AFRequiredIconStyle:alias</td>
             <td>Alias style class that styles the required icon for form components.
-            It is included in the ::required-icon-style pseudo-element for the 
+            It is included in the ::required-icon-style pseudo-element for the
             form components (e.g. af|inputText::required-icon-style)</td>
-          </tr>          
+          </tr>
            <tr>
             <td>.AFLinkForeground:alias</td>
             <td>The default foreground color for inactive, unvisited links.</td>
@@ -434,11 +434,11 @@
    AFFieldNumberDisabled,
           AFLabelTextDisabled</td>
       <td>Built-in styles that can be used as a styleClass attribute value.<br/>
-      
-      Please note: For the tr:inputText components, 
+
+      Please note: For the tr:inputText components,
       you should use the styleClasses that end in 'Marker'
-      instead. The style classes listed here will affect the entire 
-      tr:inputText components, and 
+      instead. The style classes listed here will affect the entire
+      tr:inputText components, and
       the 'Marker' styles affect only the 'content' piece
       of the components.
       See af|inputText below for the list of public styleClasses to use
@@ -775,12 +775,12 @@
           </tr>
           <tr>
             <td>af|column::sortable-header-text</td>
-            <td>Styles the sortable column headers. 
+            <td>Styles the sortable column headers.
             You can style the borders with this selector as well.</td>
           </tr>
           <tr>
             <td>af|column::sortable-header-number</td>
-            <td>Styles the numeric sortable column headers. 
+            <td>Styles the numeric sortable column headers.
             This includes the af|column::sortable-header-text selector.</td>
           </tr>
           <tr>
@@ -905,14 +905,14 @@
           </tr>
           <tr>
             <td>af|inputColor:disabled</td>
-            <td>Style on the root element of the tr:inputColor component when its disabled attribute 
-            is set to 'true'.  For example, you can style the label when the component is 
+            <td>Style on the root element of the tr:inputColor component when its disabled attribute
+            is set to 'true'.  For example, you can style the label when the component is
             disabled by using this selector: "af|inputColor:disabled::label"</td>
           </tr>
           <tr>
             <td>af|inputColor:read-only</td>
-            <td>Style on the root element of the tr:inputColor component when its readOnly attribute 
-            is set to 'true'. For example, you can style the label when the component is 
+            <td>Style on the root element of the tr:inputColor component when its readOnly attribute
+            is set to 'true'. For example, you can style the label when the component is
             readOnly by using this selector: "af|inputColor:read-only::label"</td>
           </tr>
           <tr>
@@ -966,14 +966,14 @@
           </tr>
           <tr>
             <td>af|inputDate:disabled</td>
-            <td>Style on the root element of the tr:inputDate component when its disabled attribute 
-            is set to 'true'.  For example, you can style the label when the component is 
+            <td>Style on the root element of the tr:inputDate component when its disabled attribute
+            is set to 'true'.  For example, you can style the label when the component is
             disabled by using this selector: "af|inputDate:disabled::label"</td>
           </tr>
           <tr>
             <td>af|inputDate:read-only</td>
-            <td>Style on the root element of the tr:inputDate component when its readOnly attribute 
-            is set to 'true'. For example, you can style the label when the component is 
+            <td>Style on the root element of the tr:inputDate component when its readOnly attribute
+            is set to 'true'. For example, you can style the label when the component is
             readOnly by using this selector: "af|inputDate:read-only::label"</td>
           </tr>
           <tr>
@@ -1037,14 +1037,14 @@
           </tr>
           <tr>
             <td>af|inputListOfValues:disabled</td>
-            <td>Style on the root element of the tr:inputListOfValues component when its disabled attribute 
-            is set to 'true'.  For example, you can style the label when the component is 
+            <td>Style on the root element of the tr:inputListOfValues component when its disabled attribute
+            is set to 'true'.  For example, you can style the label when the component is
             disabled by using this selector: "af|inputListOfValues:disabled::label"</td>
           </tr>
           <tr>
             <td>af|inputListOfValues:read-only</td>
-            <td>Style on the root element of the tr:inputListOfValues component when its readOnly attribute 
-            is set to 'true'. For example, you can style the label when the component is 
+            <td>Style on the root element of the tr:inputListOfValues component when its readOnly attribute
+            is set to 'true'. For example, you can style the label when the component is
             readOnly by using this selector: "af|inputListOfValues:read-only::label"</td>
           </tr>
           <tr>
@@ -1071,7 +1071,7 @@
           </tr>
         </table>
       </subsection>
-      
+
       <a name="inputNumberSpinbox"></a>
       <subsection name="tr:inputNumberSpinbox Component">
         <table>
@@ -1091,14 +1091,14 @@
 
           <tr>
             <td>af|inputNumberSpinbox:disabled</td>
-            <td>Style on the root element of the tr:inputNumberSpinbox component when its disabled attribute 
-            is set to 'true'.  For example, you can style the label when the component is 
+            <td>Style on the root element of the tr:inputNumberSpinbox component when its disabled attribute
+            is set to 'true'.  For example, you can style the label when the component is
             disabled by using this selector: "af|inputNumberSpinbox:disabled::label"</td>
           </tr>
           <tr>
             <td>af|inputNumberSpinbox:read-only</td>
-            <td>Style on the root element of the tr:inputNumberSpinbox component when its readOnly attribute 
-            is set to 'true'. For example, you can style the label when the component is 
+            <td>Style on the root element of the tr:inputNumberSpinbox component when its readOnly attribute
+            is set to 'true'. For example, you can style the label when the component is
             readOnly by using this selector: "af|inputNumberSpinbox:read-only::label"</td>
           </tr>
 
@@ -1111,20 +1111,20 @@
             <td>af|inputNumberSpinbox::label</td>
             <td>Style on the label of the tr:inputNumberSpinbox component.
                 This includes .AFLabel:alias style selector.</td>
-          </tr>                      
+          </tr>
           <tr>
-            <td>To style the input piece of inputNumberSpinbox without creating a skin definition, 
+            <td>To style the input piece of inputNumberSpinbox without creating a skin definition,
             you can set the following public style classes on the styleClass attribute. The 'Marker' style classes are
              rendered on the root dom element, they have no style properties of its own, and they map the content
             piece of the component's styling to the public style class without the 'Marker'.  For example, we map AFFieldNumberMarker
             to AFFieldNumber by defining this skin definition for you in our base skin:
-            af|inputNumberSpinbox.AFFieldNumberMarker af|inputNumberSpinbox::content {-tr-rule-ref: selector(".AFFieldNumber")}. 
+            af|inputNumberSpinbox.AFFieldNumberMarker af|inputNumberSpinbox::content {-tr-rule-ref: selector(".AFFieldNumber")}.
             If you set styleClass="AFFieldNumber", the entire component will be affected, including the label.
             If you want to affect only the 'content' piece, use one of these marker style classes</td>
             <td>AFFieldTextMarker, AFFieldTextLTRMarker, AFFieldNumberMarker</td>
           </tr>
         </table>
-      </subsection> 
+      </subsection>
       <a name="inputText"></a>
       <subsection name="tr:inputText Component">
         <table>
@@ -1144,14 +1144,14 @@
 
           <tr>
             <td>af|inputText:disabled</td>
-            <td>Style on the root element of the tr:inputText component when its disabled attribute 
-            is set to 'true'.  For example, you can style the label when the component is 
+            <td>Style on the root element of the tr:inputText component when its disabled attribute
+            is set to 'true'.  For example, you can style the label when the component is
             disabled by using this selector: "af|inputText:disabled::label"</td>
           </tr>
           <tr>
             <td>af|inputText:read-only</td>
-            <td>Style on the root element of the tr:inputText component when its readOnly attribute 
-            is set to 'true'. For example, you can style the label when the component is 
+            <td>Style on the root element of the tr:inputText component when its readOnly attribute
+            is set to 'true'. For example, you can style the label when the component is
             readOnly by using this selector: "af|inputText:read-only::label"</td>
           </tr>
 
@@ -1164,21 +1164,21 @@
             <td>af|inputText::label</td>
             <td>Style on the label of the tr:inputText component.
                 This includes .AFLabel:alias style selector.</td>
-          </tr>                      
+          </tr>
           <tr>
-            <td>To style the input piece of inputText without creating a skin definition, 
+            <td>To style the input piece of inputText without creating a skin definition,
             you can set the following public style classes on the styleClass attribute. The 'Marker' style classes are
              rendered on the root dom element, they have no style properties of its own, and they map the content
             piece of the component's styling to the public style class without the 'Marker'.  For example, we map AFFieldTextMarker
             to AFFieldText by defining this skin definition for you in our base skin:
-            af|inputText.AFFieldTextMarker af|inputText::content {-tr-rule-ref: selector(".AFFieldText")}. 
+            af|inputText.AFFieldTextMarker af|inputText::content {-tr-rule-ref: selector(".AFFieldText")}.
             If you set styleClass="AFFieldText", the entire component will be affected, including the label.
             If you want to affect only the 'content' piece, use one of these marker style classes</td>
             <td>AFFieldTextMarker, AFFieldTextLTRMarker, AFPhoneFieldTextMarker, AFPostalCodeFieldTextMarker, AFAddressFieldTextMarker,
              AFFieldNumberMarker</td>
           </tr>
         </table>
-      </subsection> 
+      </subsection>
       <a name="messages"></a>
       <subsection name="tr:messages Component">
         <p>This tr:messages component is implemented using an inner div nested
@@ -1206,9 +1206,9 @@
           <tr>
             <td>af|messages</td>
             <td>Styles the messages's outer table. The overall width of the
-                outer table is also configured through this selector. Since 
-                the messages's icons are rendered within the outer table, the 
-                af|messages::body selector is probably a better choice for 
+                outer table is also configured through this selector. Since
+                the messages's icons are rendered within the outer table, the
+                af|messages::body selector is probably a better choice for
                 specifying the messages's background color, padding, etc...</td>
           </tr>
           <tr>
@@ -1226,7 +1226,7 @@
           </tr>
           <tr>
             <td>af|messages::list-single</td>
-            <td>This selector is used in addition to af|messages::list when there 
+            <td>This selector is used in addition to af|messages::list when there
                 is only a single message displayed.  It can be used to remove the
                 numbering from the list.</td>
           </tr>
@@ -1325,7 +1325,7 @@
           </tr>
         </table>
       </subsection>
-      
+
       <a name="navigationPane"></a>
       <subsection name="tr:navigationPane hint='bar'">
         <table>
@@ -1357,7 +1357,7 @@
           <tr>
             <td style="white-space: nowrap">af|navigationPane::bar-inactive-enabled</td>
             <td>The style on a table around the item when the item is inactive and enabled.</td>
-          </tr> 
+          </tr>
           <tr>
             <td style="white-space: nowrap">af|navigationPane::bar-content</td>
             <td>Styles the cell of the bar content. To change the style (like font-style) of the active disabled
@@ -1368,7 +1368,7 @@
           <tr>
             <td style="white-space: nowrap">af|navigationPane::bar-separator</td>
             <td>Styles the separator between items in the navigationPane bar.</td>
-          </tr>             
+          </tr>
         </table>
       </subsection>
       <a name="navigationPane"></a>
@@ -1398,7 +1398,7 @@
           <tr>
             <td>af|navigationPane::buttons-inactive-disabled</td>
             <td>The style on a table around the item when the item is inactive and disabled.</td>
-          </tr>          
+          </tr>
           <tr>
             <td>af|navigationPane::buttons-inactive-enabled</td>
             <td>The style on a table around the item when the item is inactive and enabled.</td>
@@ -1412,7 +1412,7 @@
             <td>Styles the separator bar between the items in the navigationPane buttons.</td>
           </tr>
         </table>
-      </subsection> 
+      </subsection>
       <a name="navigationPane"></a>
       <subsection name="tr:navigationPane hint='choice'">
         <table>
@@ -1438,7 +1438,7 @@
             <td>The style on the button item of navigationPane hint="choice".</td>
           </tr>
         </table>
-      </subsection> 
+      </subsection>
       <subsection name="tr:navigationPane hint='list'">
         <table>
           <tr>
@@ -1457,38 +1457,38 @@
           <tr>
             <td>af|navigationPane::list-active-disabled</td>
             <td>The style on a table around the item when the item is active and disabled.</td>
-          </tr>          
+          </tr>
           <tr>
             <td>af|navigationPane::list-active-enabled</td>
             <td>The style on a table around the item when the item is active and enabled.</td>
-          </tr>          
+          </tr>
           <tr>
             <td>af|navigationPane::list-inactive-disabled</td>
             <td>The style on a table around the item when the item is inactive and disabled.</td>
-          </tr>          
+          </tr>
           <tr>
             <td>af|navigationPane::list-inactive-enabled</td>
             <td>The style on a table around the item when the item is inactive and enabled.</td>
-          </tr>          
+          </tr>
           <tr>
             <td>af|navigationPane::list-content</td>
             <td>Styles the cell of the list content. To change the style of an individual item eg. an active and disabled item, you can use descendent selectors such as "af|navigationPane::list-active-disabled af|navigationPane::list-content".</td>
-          </tr>          
+          </tr>
           <tr>
             <td>af|navigationPane::list-bullet</td>
             <td>The style on the cell which contains the bullet for list of the component with hint "list".</td>
-          </tr>          
+          </tr>
         </table>
       </subsection>
-      
+
       <subsection name="tr:navigationPane hint='tabs'">
       <p>The navigationPane hint="tabs" renders nested tables. The af|navigationPane::tabs is the root dom
       element style selector. Within the root dom element are tables denoting af|navigationPane::tabs-active
       and af|navigationPane::tabs-inactive. Within each of these tables are more tables that break the
       active or inactive tab into skinnable pieces, so you can skin the start 1/3, the middle, or the
       end 1/3 of the tab, and each of these pieces have a top and a bottom row..
-      There are also hooks for joining an active tab to an inactive tab or 
-      an inactive tab to another inactive tab, hooks for the very first tab shown and hooks for the 
+      There are also hooks for joining an active tab to an inactive tab or
+      an inactive tab to another inactive tab, hooks for the very first tab shown and hooks for the
       very last tab shown.
       </p>
       <p>
@@ -1498,14 +1498,14 @@
       images that are used by default or in the beach skin.
       </p>
       <p>
-      For help in skinning the tabs, look at one of the demos: purple skin or beach skin. 
-      Also, it will help to view the html and selectors that are rendered when the active tab is the 
-      first tab, a middle tab, or an end tab, because the selectors change slightly. Make sure the 
+      For help in skinning the tabs, look at one of the demos: purple skin or beach skin.
+      Also, it will help to view the html and selectors that are rendered when the active tab is the
+      first tab, a middle tab, or an end tab, because the selectors change slightly. Make sure the
       styleclass compression that is on by default is turned off as this will help your debugging.
       This is one of the most complicated components to skin. Looking at the examples or at the base
       skin's css (see generated css file or base-desktop.xss) will help. Also, hopefully this documentation
       will help.
-      
+
       </p>
         <table>
           <tr>
@@ -1519,10 +1519,10 @@
           </tr>
           <tr>
             <td style="white-space: nowrap">af|navigationPane::tabs</td>
-            <td>The style root dom element of the tabs. It is unlikely you'll need to use 
+            <td>The style root dom element of the tabs. It is unlikely you'll need to use
             this selector to skin the tabs, unless you want to skin an instance of a tab component
             using composite selectors, like af|navigationPane::tabs.MyStyleClass</td>
-          </tr> 
+          </tr>
           <tr>
             <td style="white-space: nowrap">af|navigationPane::tabs-active</td>
             <td>The style on the root of the active tab. Available pseudo-class is :disabled.
@@ -1551,36 +1551,36 @@
             ::tabs-start-join-from-inactive and ::tabs-start-join-from-active
             Examples:
             af|navigationPane::tabs-active af|navigationPane::tabs-start {background-image: url('darkrampup.gif');}
-            af|navigationPane::tabs-inactive af|navigationPane::tabs-start {background-image: url('lightrampup.gif');}           
+            af|navigationPane::tabs-inactive af|navigationPane::tabs-start {background-image: url('lightrampup.gif');}
             </td>
-          </tr>  
+          </tr>
           <tr>
             <td style="white-space: nowrap">af|navigationPane::tabs-mid</td>
             <td>This styles the middle/top portion of all tabs.
-            This is typically the part that holds the text of the tab and 
-            it usually has a background-image or background-color.       
+            This is typically the part that holds the text of the tab and
+            it usually has a background-image or background-color.
             </td>
           </tr>
           <tr>
             <td style="white-space: nowrap">af|navigationPane::tabs-end</td>
-            <td>This selector is for the LAST tab in all the tabs and it is the end 1/3 of that last tab.  
+            <td>This selector is for the LAST tab in all the tabs and it is the end 1/3 of that last tab.
             There is a different selector for the 'end' piece of tabs that are not the last tab.
             The end piece of the tab that comes before an inactive tab
             has pseudo-element ::tabs-end-join-to-inactive. There is no 'end' piece for an inactive
             tab that comes before an active tab.
             </td>
-          </tr> 
-          
+          </tr>
+
           <tr>
             <td style="white-space: nowrap">af|navigationPane::tabs-start-join</td>
             <td>This styles a tab when it isn't the first tab and it isn't the last tab.
-            Use like this: af|navigationPane::tabs-active af|navigationPane::tabs-start-join{} to 
+            Use like this: af|navigationPane::tabs-active af|navigationPane::tabs-start-join{} to
             style the start of a selected tab when the previous tab is unselected. By default it contain an image
             that depicts the end of the unselected tab image (light accent color)
             and the start of a selected tab (dark color) where the
-            start of the selected tab overlaps in front of the end of the unselected tab.       
+            start of the selected tab overlaps in front of the end of the unselected tab.
             </td>
-          </tr>  
+          </tr>
           <tr>
             <td style="white-space: nowrap">af|navigationPane::tabs-start-join-from-active</td>
             <td>This styles an  inactive tab when it follows an active tab.
@@ -1588,7 +1588,7 @@
             By default, this image is only 14 pixels wide. It's similar to ::tabs-start, but
             that is for the FIRST tab, and thus that image is probably wider.
             </td>
-          </tr>    
+          </tr>
           <tr>
             <td style="white-space: nowrap">af|navigationPane::tabs-start-join-from-inactive</td>
             <td>This styles an inactive tab when it follows an inactive tab.
@@ -1600,10 +1600,10 @@
             <td style="white-space: nowrap">af|navigationPane::tabs-end-join-to-inactive</td>
             <td>This styles last 1/3 of a tab that isn't the LAST tab. By default, this is the
             end background-image of a tab.
-            Note: there is no ::end-join-to-active selector because an inactive tab that precedes 
+            Note: there is no ::end-join-to-active selector because an inactive tab that precedes
             an active tab only has 2 pieces (start and mid). Instead you'd use ::tabs-start-join
             </td>
-          </tr>          
+          </tr>
           <tr>
             <td style="white-space: nowrap">af|navigationPane::tabs-bottom-start</td>
             <td>This selector styles the bottom bit of the first 1/3 of a tab that is either
@@ -1618,8 +1618,8 @@
           <tr>
             <td style="white-space: nowrap">af|navigationPane::tabs-bottom-start-content</td>
             <td>This selector is the empty div inside of tabs-bottom-start. The best thing
-            to do is set background-image to none and let the container style take over.</td>            
-          </tr> 
+            to do is set background-image to none and let the container style take over.</td>
+          </tr>
           <tr>
             <td style="white-space: nowrap">af|navigationPane::tabs-bottom-end</td>
             <td>The bottom portion, start 1/3 a tab as long as it isn't the FIRST tab. If the
@@ -1627,31 +1627,31 @@
             <i>This key name and its usage needs to be cleaned up, since it is obviously confusing.</i>
             (The start 1/3 of the FIRST tab is af|navigatonPane::tabs-inactive af|navigationPane::tabs-bottom-start.)
             In the active tab, this is only the last 1/3 on the LAST tab. Otherwise it is nothing.
-            (see ::tabs-bottom-end-join)</td>            
-          </tr> 
+            (see ::tabs-bottom-end-join)</td>
+          </tr>
          <tr>
             <td style="white-space: nowrap">af|navigationPane::tabs-bottom-end-content</td>
             <td>This selector is the empty div inside of tabs-bottom-end. The best thing
-            to do is set background-image to none and let the container style take over.</td>            
-          </tr>    
+            to do is set background-image to none and let the container style take over.</td>
+          </tr>
           <tr>
             <td style="white-space: nowrap">af|navigationPane::tabs-bottom-end-join</td>
             <td>This is the last 1/3 of a tab, the bottom portion, when it is joining another tab.
-            In the active tab, this is the bottom portion, the last 1/3 that isn't the LAST tab. 
-            In the inactive tab, this is the bottom portion, the last 1/3 
+            In the active tab, this is the bottom portion, the last 1/3 that isn't the LAST tab.
+            In the inactive tab, this is the bottom portion, the last 1/3
             when joining to another inactive tab (therefore it can't be the LAST tab).
             For an inactive tab that is joining an active tab, the active tab's bottom
-            start overlaps, so there is no ::tabs-bottom-end-join selector.</td>            
+            start overlaps, so there is no ::tabs-bottom-end-join selector.</td>
           </tr>
           <tr>
             <td style="white-space: nowrap">af|navigationPane::tabs-bottom-mid</td>
             <td>This is the middle 1/3 of a tab, the bottom bit. If you want to style an inactive
-            tab's middle portion differently than an active tab, then you set af|navigatonPane::tabs-inactive 
-            before it.</td>            
-          </tr>          
-          
+            tab's middle portion differently than an active tab, then you set af|navigatonPane::tabs-inactive
+            before it.</td>
+          </tr>
+
         </table>
-      </subsection> 
+      </subsection>
       <a name="navigationTree"></a>
       <subsection name="tr:navigationTree">
         <table>
@@ -1689,8 +1689,8 @@
           </tr>
         </table>
       </subsection>
-      
-      
+
+
       <a name="outputDocument"></a>
       <subsection name="tr:outputDocument Component">
         <table>
@@ -1834,28 +1834,28 @@
       <subsection name="tr:panelBox">
         <p>The panelBox contains the body region, which
            contains the panelBox header which contains
-           the panelBox header text (set by the text attribute on tr:panelBox) 
+           the panelBox header text (set by the text attribute on tr:panelBox)
            and the panelBox contents.
            Styles can be applied to the body region via the af|panelBox::content
            selector. Similarly, styles for the header region are specified via
-           the af|panelBox::header selector. Both section can be skinned with the 
+           the af|panelBox::header selector. Both section can be skinned with the
            af|panelBox::body selector</p>
-        <p>The content is rendered within a layout container that allow round 
-           edges and such. You can access this container using af|panelBox::top, 
-           af|panelBox::bottom, af|panelBox::start, af|panelBox::end, 
-           af|panelBox::top-start, af|panelBox::top-end, af|panelBox::bottom-start  
-           and af|panelBox::bottom-end. To use round edges, set a background 
-           image on each of the corners and set the width and height of those 
-           corners to the used image's size. Here're some conditions for it to 
+        <p>The content is rendered within a layout container that allow round
+           edges and such. You can access this container using af|panelBox::top,
+           af|panelBox::bottom, af|panelBox::start, af|panelBox::end,
+           af|panelBox::top-start, af|panelBox::top-end, af|panelBox::bottom-start
+           and af|panelBox::bottom-end. To use round edges, set a background
+           image on each of the corners and set the width and height of those
+           corners to the used image's size. Here're some conditions for it to
            work properly:</p>
         <ul>
-          <li>The top edge background image should have the same height as both 
+          <li>The top edge background image should have the same height as both
               top corner images.</li>
-          <li>The bottom edge background image should have the same height as both 
+          <li>The bottom edge background image should have the same height as both
               bottom corner images.</li>
-          <li>The start edge background image should have the same width as the 
+          <li>The start edge background image should have the same width as the
               top start corner image and the bottom start corner widths.</li>
-          <li>The end edge background image should have the same width as the 
+          <li>The end edge background image should have the same width as the
               top end corner image and the bottom end corner widths.</li>
         </ul>
         <p>In order to apply a style to the panelBox body or header for a
@@ -1898,7 +1898,7 @@
             <td>af|panelBox::body</td>
             <td>Styles the body region, that is the central frame of the box,
                 including both the header and the content. To skin the body of a particular
-                background panelBox, you can do use descendent selectors like: 
+                background panelBox, you can do use descendent selectors like:
                 af|panelBox::light af|panelBox::body.
                 </td>
           </tr>
@@ -1909,11 +1909,11 @@
           <tr>
             <td>af|panelBox::content</td>
             <td>Styles the content region within the body.</td>
-          </tr>          
+          </tr>
           <tr>
             <td>af|panelBox::top-start</td>
-            <td>Styles the top start corner of the box's container. In LTR this is 
-                the upper left corner. For rounded-corners you can set background-image and 
+            <td>Styles the top start corner of the box's container. In LTR this is
+                the upper left corner. For rounded-corners you can set background-image and
                 width and height css properties.</td>
           </tr>
           <tr>
@@ -1922,24 +1922,24 @@
           </tr>
           <tr>
             <td>af|panelBox::top-end</td>
-            <td>Styles the top end corner of the box's container. In LTR this is 
-                the upper right corner. . For rounded-corners you can set background-image and 
+            <td>Styles the top end corner of the box's container. In LTR this is
+                the upper right corner. . For rounded-corners you can set background-image and
                 width and height css properties.</td>
           </tr>
           <tr>
             <td>af|panelBox::start</td>
-            <td>Styles the start edge of the box's container. In LTR this is 
+            <td>Styles the start edge of the box's container. In LTR this is
                 the left side of the box.</td>
           </tr>
           <tr>
             <td>af|panelBox::end</td>
-            <td>Styles the end edge of the box's container. In LTR this is 
+            <td>Styles the end edge of the box's container. In LTR this is
                 the right side of the box.</td>
           </tr>
           <tr>
             <td>af|panelBox::bottom-start</td>
-            <td>Styles the bottom start corner of the box's container. In LTR this is 
-                the lower left corner. . For rounded-corners you can set background-image and 
+            <td>Styles the bottom start corner of the box's container. In LTR this is
+                the lower left corner. . For rounded-corners you can set background-image and
                 width and height css properties.</td>
           </tr>
           <tr>
@@ -1948,26 +1948,26 @@
           </tr>
           <tr>
             <td>af|panelBox::bottom-end</td>
-            <td>Styles the bottom end corner of the box's container. In LTR this is 
-                the lower right corner. . For rounded-corners you can set background-image and 
+            <td>Styles the bottom end corner of the box's container. In LTR this is
+                the lower right corner. . For rounded-corners you can set background-image and
                 width and height css properties.</td>
           </tr>
           <tr>
             <td>.AFPanelBox:alias</td>
             <td>Alias style that styles the root dom element of the panelBox for all values of the background
-            attribute. It is 
+            attribute. It is
             included in af|panelBox::transparent, af|panelBox::light, af|panelBox::medium,
             and af|panelBox::dark. Use this to add styles common to all panelBoxes.</td>
           </tr>
           <tr>
             <td>.AFPanelBoxBody:alias</td>
             <td>Alias style that styles the af|panelBox::body dom element for all
-            values of the background attribute. It is 
+            values of the background attribute. It is
             included in af|panelBox::body, af|panelBox::transparent af|panelBox::body, af|panelBox::light  af|panelBox::body, af|panelBox::medium  af|panelBox::body,
             and af|panelBox::dark  af|panelBox::body. Use this to add styles common to all 'af|panelBox::body' regardless
             of the panelBox background attribute.</td>
-          </tr>          
-          
+          </tr>
+
         </table>
       </subsection>
       <a name="panelCaptionGroup"></a>
@@ -2030,7 +2030,7 @@
           <tr>
             <td>af|panelFormLayout::content-cell</td>
             <td>Specifies the style information for the input cell of the
-                panelForm when side-by-side with content.  Use this in combination with 
+                panelForm when side-by-side with content.  Use this in combination with
                 af|panelFormLayout::label-cell to space out the inputs horizontally.
                 This includes .AFEndTextAlign:alias.</td>
           </tr>
@@ -2205,7 +2205,7 @@
           </tr>
           <tr>
             <td>af|panelLabelAndMessage::help-facet</td>
-            <td>Specifies the style information for the help-facet text of a 
+            <td>Specifies the style information for the help-facet text of a
             panelLabelAndMessage.</td>
           </tr>
         </table>
@@ -2299,17 +2299,17 @@
           </tr>
           <tr>
             <td>af|panelPopup::trigger</td>
-            <td>Styles the trigger facet of the panelPopup.  Use this selector to control border and margin/padding 
+            <td>Styles the trigger facet of the panelPopup.  Use this selector to control border and margin/padding
             around the trigger.</td>
           </tr>
           <tr>
             <td>af|panelPopup::link</td>
-            <td>Styles the link element of the trigger.  Use this selector to control border, color and background 
+            <td>Styles the link element of the trigger.  Use this selector to control border, color and background
             around the trigger-link.</td>
           </tr>
           <tr>
             <td>af|panelPopup::container</td>
-            <td>Styles the outer element of the popup.  Use this selector to control border and margin/padding 
+            <td>Styles the outer element of the popup.  Use this selector to control border and margin/padding
             around the entire popup.</td>
           </tr>
           <tr>
@@ -2665,16 +2665,16 @@
           </tr>
           <tr>
             <td>af|selectBooleanCheckbox:disabled</td>
-            <td>Style on the root element of the tr:selectBooleanCheckbox component when its disabled attribute 
-            is set to 'true'.  For example, you can style the label when the component is 
-            disabled by using this selector: 
+            <td>Style on the root element of the tr:selectBooleanCheckbox component when its disabled attribute
+            is set to 'true'.  For example, you can style the label when the component is
+            disabled by using this selector:
             "af|selectBooleanCheckbox:disabled af|selectBooleanCheckbox::label"</td>
           </tr>
           <tr>
             <td>af|selectBooleanCheckbox:read-only</td>
-            <td>Style on the root element of the tr:selectBooleanCheckbox component when its readOnly attribute 
-            is set to 'true'. For example, you can style the label when the component is 
-            readOnly by using this selector: 
+            <td>Style on the root element of the tr:selectBooleanCheckbox component when its readOnly attribute
+            is set to 'true'. For example, you can style the label when the component is
+            readOnly by using this selector:
             "af|selectBooleanCheckbox:read-only af|selectBooleanCheckbox::label"</td>
           </tr>
           <tr>
@@ -2735,16 +2735,16 @@
           </tr>
           <tr>
             <td>af|selectBooleanRadio:disabled</td>
-            <td>Style on the root element of the tr:selectBooleanRadio component when its disabled attribute 
-            is set to 'true'.  For example, you can style the label when the component is 
-            disabled by using this selector: 
+            <td>Style on the root element of the tr:selectBooleanRadio component when its disabled attribute
+            is set to 'true'.  For example, you can style the label when the component is
+            disabled by using this selector:
             "af|selectBooleanRadio:disabled af|selectBooleanRadio::label"</td>
           </tr>
           <tr>
             <td>af|selectBooleanRadio:read-only</td>
-            <td>Style on the root element of the tr:selectBooleanRadio component when its readOnly attribute 
-            is set to 'true'. For example, you can style the label when the component is 
-            readOnly by using this selector: 
+            <td>Style on the root element of the tr:selectBooleanRadio component when its readOnly attribute
+            is set to 'true'. For example, you can style the label when the component is
+            readOnly by using this selector:
             "af|selectBooleanRadio:read-only af|selectBooleanRadio::label"</td>
           </tr>
           <tr>
@@ -2805,16 +2805,16 @@
           </tr>
           <tr>
             <td>af|selectManyCheckbox:disabled</td>
-            <td>Style on the root element of the tr:selectManyCheckbox component when its disabled attribute 
-            is set to 'true'.  For example, you can style the label when the component is 
-            disabled by using this selector: 
+            <td>Style on the root element of the tr:selectManyCheckbox component when its disabled attribute
+            is set to 'true'.  For example, you can style the label when the component is
+            disabled by using this selector:
             "af|selectManyCheckbox:disabled af|selectManyCheckbox::label"</td>
           </tr>
           <tr>
             <td>af|selectManyCheckbox:read-only</td>
-            <td>Style on the root element of the tr:selectManyCheckbox component when its readOnly attribute 
-            is set to 'true'. For example, you can style the label when the component is 
-            readOnly by using this selector: 
+            <td>Style on the root element of the tr:selectManyCheckbox component when its readOnly attribute
+            is set to 'true'. For example, you can style the label when the component is
+            readOnly by using this selector:
             "af|selectManyCheckbox:read-only af|selectManyCheckbox::label"</td>
           </tr>
           <tr>
@@ -2825,7 +2825,7 @@
             <td>af|selectManyCheckbox::label</td>
             <td>Style on the label of the tr:selectManyCheckbox component.
                 This includes .AFLabel:alias style selector.</td>
-          </tr>                                      
+          </tr>
         </table>
       </subsection>
       <a name="selectManyListbox"></a>
@@ -2846,16 +2846,16 @@
           </tr>
           <tr>
             <td>af|selectManyListbox:disabled</td>
-            <td>Style on the root element of the tr:selectManyListbox component when its disabled attribute 
-            is set to 'true'.  For example, you can style the label when the component is 
-            disabled by using this selector: 
+            <td>Style on the root element of the tr:selectManyListbox component when its disabled attribute
+            is set to 'true'.  For example, you can style the label when the component is
+            disabled by using this selector:
             "af|selectManyListbox:disabled af|selectManyListbox::label"</td>
           </tr>
           <tr>
             <td>af|selectManyListbox:read-only</td>
-            <td>Style on the root element of the tr:selectManyListbox component when its readOnly attribute 
-            is set to 'true'. For example, you can style the label when the component is 
-            readOnly by using this selector: 
+            <td>Style on the root element of the tr:selectManyListbox component when its readOnly attribute
+            is set to 'true'. For example, you can style the label when the component is
+            readOnly by using this selector:
             "af|selectManyListbox:read-only af|selectManyListbox::label"</td>
           </tr>
           <tr>
@@ -2866,7 +2866,7 @@
             <td>af|selectManyListbox::label</td>
             <td>Style on the label of the tr:selectManyListbox component.
                 This includes .AFLabel:alias style selector.</td>
-          </tr>                   
+          </tr>
         </table>
       </subsection>
       <a name="selectManyShuttle"></a>
@@ -3045,16 +3045,16 @@
           </tr>
           <tr>
             <td>af|selectOneChoice:disabled</td>
-            <td>Style on the root element of the tr:selectOneChoice component when its disabled attribute 
-            is set to 'true'.  For example, you can style the label when the component is 
-            disabled by using this selector: 
+            <td>Style on the root element of the tr:selectOneChoice component when its disabled attribute
+            is set to 'true'.  For example, you can style the label when the component is
+            disabled by using this selector:
             "af|selectOneChoice:disabled af|selectOneChoice::label"</td>
           </tr>
           <tr>
             <td>af|selectOneChoice:read-only</td>
-            <td>Style on the root element of the tr:selectOneChoice component when its readOnly attribute 
-            is set to 'true'. For example, you can style the label when the component is 
-            readOnly by using this selector: 
+            <td>Style on the root element of the tr:selectOneChoice component when its readOnly attribute
+            is set to 'true'. For example, you can style the label when the component is
+            readOnly by using this selector:
             "af|selectOneChoice:read-only af|selectOneChoice::label"</td>
           </tr>
           <tr>
@@ -3065,7 +3065,7 @@
             <td>af|selectOneChoice::label</td>
             <td>Style on the label of the tr:selectOneChoice component.
                 This includes .AFLabel:alias style selector.</td>
-          </tr>                         
+          </tr>
         </table>
       </subsection>
       <a name="selectOneListbox"></a>
@@ -3086,16 +3086,16 @@
           </tr>
           <tr>
             <td>af|selectOneListbox:disabled</td>
-            <td>Style on the root element of the tr:selectOneListbox component when its disabled attribute 
-            is set to 'true'.  For example, you can style the label when the component is 
-            disabled by using this selector: 
+            <td>Style on the root element of the tr:selectOneListbox component when its disabled attribute
+            is set to 'true'.  For example, you can style the label when the component is
+            disabled by using this selector:
             "af|selectOneListbox:disabled af|selectOneListbox::label"</td>
           </tr>
           <tr>
             <td>af|selectOneListbox:read-only</td>
-            <td>Style on the root element of the tr:selectOneListbox component when its readOnly attribute 
-            is set to 'true'. For example, you can style the label when the component is 
-            readOnly by using this selector: 
+            <td>Style on the root element of the tr:selectOneListbox component when its readOnly attribute
+            is set to 'true'. For example, you can style the label when the component is
+            readOnly by using this selector:
             "af|selectOneListbox:read-only af|selectOneListbox::label"</td>
           </tr>
           <tr>
@@ -3106,7 +3106,7 @@
             <td>af|selectOneListbox::label</td>
             <td>Style on the label of the tr:selectOneListbox component.
                 This includes .AFLabel:alias style selector.</td>
-          </tr>                         
+          </tr>
         </table>
       </subsection>
       <a name="selectOneRadio"></a>
@@ -3127,16 +3127,16 @@
           </tr>
           <tr>
             <td>af|selectOneRadio:disabled</td>
-            <td>Style on the root element of the tr:selectOneRadio component when its disabled attribute 
-            is set to 'true'.  For example, you can style the label when the component is 
-            disabled by using this selector: 
+            <td>Style on the root element of the tr:selectOneRadio component when its disabled attribute
+            is set to 'true'.  For example, you can style the label when the component is
+            disabled by using this selector:
             "af|selectOneRadio:disabled af|selectOneRadio::label"</td>
           </tr>
           <tr>
             <td>af|selectOneRadio:read-only</td>
-            <td>Style on the root element of the tr:selectOneRadio component when its readOnly attribute 
-            is set to 'true'. For example, you can style the label when the component is 
-            readOnly by using this selector: 
+            <td>Style on the root element of the tr:selectOneRadio component when its readOnly attribute
+            is set to 'true'. For example, you can style the label when the component is
+            readOnly by using this selector:
             "af|selectOneRadio:read-only af|selectOneRadio::label"</td>
           </tr>
           <tr>
@@ -3147,7 +3147,7 @@
             <td>af|selectOneRadio::label</td>
             <td>Style on the label of the tr:selectOneListbox component.
                 This includes .AFLabel:alias style selector.</td>
-          </tr>                       
+          </tr>
         </table>
       </subsection>
       <a name="selectOrderShuttle"></a>
@@ -3558,28 +3558,28 @@
           </tr>
           <tr>
             <td>af|statusIndicator::busy-icon</td>
-            <td>The icon that is displayed when the page is busy. The icon 
-                will only be rendered if no facet was specified. Simple skin 
+            <td>The icon that is displayed when the page is busy. The icon
+                will only be rendered if no facet was specified. Simple skin
                 references the ".AFBusyIcon:alias" icon.</td>
           </tr>
           <tr>
             <td>af|statusIndicator::ready-icon</td>
-            <td>The icon that is displayed when the page is not busy. The icon 
-                will only be rendered if no facet was specified. Simple skin 
+            <td>The icon that is displayed when the page is not busy. The icon
+                will only be rendered if no facet was specified. Simple skin
                 references the ".AFReadyIcon:alias" icon.</td>
           </tr>
           <tr>
             <td>.AFBusyIcon:alias</td>
-            <td>A named icon that's used by af|statusIndicator::busy-icon and 
-                is also usable in with &lt;tr:icon&gt;. That ability is important 
-                to include the icon even when a facet is specified on the 
+            <td>A named icon that's used by af|statusIndicator::busy-icon and
+                is also usable in with &lt;tr:icon&gt;. That ability is important
+                to include the icon even when a facet is specified on the
                 statusIndicator.</td>
           </tr>
           <tr>
             <td>.AFReadyIcon:alias</td>
-            <td>A named icon that's used by af|statusIndicator::ready-icon and 
-                is also usable in with &lt;tr:icon&gt;. That ability is important 
-                to include the icon even when a facet is specified on the 
+            <td>A named icon that's used by af|statusIndicator::ready-icon and
+                is also usable in with &lt;tr:icon&gt;. That ability is important
+                to include the icon even when a facet is specified on the
                 statusIndicator.</td>
           </tr>
         </table>
@@ -3587,6 +3587,22 @@
 
       <a name="table"></a>
       <subsection name="tr:table Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Properties</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>-tr-repeat-control-bar</td>
+            <td>Boolean value that specifies whether the the table navigation bar appears on
+                both the bottom and top of the table.</td>
+          </tr>
+        </table>
         <table>
           <tr>
             <th colspan="2">
@@ -3692,6 +3708,14 @@
             <td>af|table::next-disabled-icon</td>
             <td>The next icon disabled.</td>
           </tr>
+          <tr>
+            <td>af|table::select-all-icon</td>
+            <td>The select-all link icon.</td>
+          </tr>
+          <tr>
+            <td>af|table::select-none-icon</td>
+            <td>The select-none link icon.</td>
+          </tr>
         </table>
       </subsection>
       <a name="train"></a>
@@ -3708,13 +3732,13 @@
           </tr>
           <tr>
             <td>-tr-render-parent-train</td>
-            <td>Boolean value that specifies if parent train icons should be 
+            <td>Boolean value that specifies if parent train icons should be
                 rendered if this train is a sub-train. A sub-train is a process
                 not located at the root of its TreeModel.</td>
           </tr>
           <tr>
             <td>-tr-visible-stop-count</td>
-            <td>Strictly positive integer value specifying the maximum amount of 
+            <td>Strictly positive integer value specifying the maximum amount of
                 stops visible at a time.</td>
           </tr>
         </table>
@@ -3758,9 +3782,9 @@
           <tr>
             <td>af|train::stop</td>
             <td>Styles a train stop. A stop include both the icon and its content.
-                This selector is often combined with one or more station pseudo-classes like 
-                :selected, :unvisited, :disabled, :read-only and .p_AFVisited and 
-                used in descendant selector, e.g. "af|train::stop:unvisited af|train::link" 
+                This selector is often combined with one or more station pseudo-classes like
+                :selected, :unvisited, :disabled, :read-only and .p_AFVisited and
+                used in descendant selector, e.g. "af|train::stop:unvisited af|train::link"
                 would style the link generated for an unvisited stop.</td>
           </tr>
           <tr>
@@ -3777,16 +3801,16 @@
           </tr>
           <tr>
             <td>af|train::join</td>
-            <td>Styles the join between stop icons. This selector is combinable with state 
+            <td>Styles the join between stop icons. This selector is combinable with state
                 pseudo-classes, except :selected. This selector includes .AFTrainJoin:alias.
                 </td>
           </tr>
           <tr>
             <td>af|train::overflow-start</td>
-            <td>Styles a train start overflow. A start overflow is generated when the amount 
+            <td>Styles a train start overflow. A start overflow is generated when the amount
                 of steps in the process is higher than the amount of visibled stop defined by
-                the -tr-visible-stop-count property. In LTR mode, this selector represents 
-                the left side overflow (previous step group). This selector includes both the 
+                the -tr-visible-stop-count property. In LTR mode, this selector represents
+                the left side overflow (previous step group). This selector includes both the
                 icon and its content. This selector is combinable with state pseudo-classes.</td>
           </tr>
           <tr>
@@ -3803,10 +3827,10 @@
           </tr>
           <tr>
             <td>af|train::overflow-end</td>
-            <td>Styles a train end overflow. A end overflow is generated when the amount 
+            <td>Styles a train end overflow. A end overflow is generated when the amount
                 of steps in the process is higher than the amount of visibled stop defined by
-                the -tr-visible-stop-count property. In LTR mode, this selector represents 
-                the right side overflow (next step group). This selector includes both the 
+                the -tr-visible-stop-count property. In LTR mode, this selector represents
+                the right side overflow (next step group). This selector includes both the
                 icon and its content. This selector is combinable with state pseudo-classes.</td>
           </tr>
           <tr>
@@ -3830,9 +3854,9 @@
           <tr>
             <td>af|train::parent-start</td>
             <td>Styles a train start parent. A parent is generated when the current train is
-                not located at the root of its TreeModel and that -tr-render-parent-train 
-                property is set to true. In LTR mode this will be rendered to the left of the 
-                first step's stop. This selector includes both the icon and its content. 
+                not located at the root of its TreeModel and that -tr-render-parent-train
+                property is set to true. In LTR mode this will be rendered to the left of the
+                first step's stop. This selector includes both the icon and its content.
                 This selector is NOT combinable with state pseudo-classes.</td>
           </tr>
           <tr>
@@ -3850,9 +3874,9 @@
           <tr>
             <td>af|train::parent-end</td>
             <td>Styles a train end parent. A parent is generated when the current train is
-                not located at the root of its TreeModel and that -tr-render-parent-train 
-                property is set to true. In LTR mode this will be rendered to the right of 
-                the last step's stop. This selector includes both the icon and its content. 
+                not located at the root of its TreeModel and that -tr-render-parent-train
+                property is set to true. In LTR mode this will be rendered to the right of
+                the last step's stop. This selector includes both the icon and its content.
                 This selector is NOT combinable with state pseudo-classes.</td>
           </tr>
           <tr>
@@ -3890,24 +3914,24 @@
           </tr>
           <tr>
             <td colspan="2">
-              Stop and overflow icons are combinable with one or more state pseudo-classes. 
-              For example, it's possible to build icons for a very specific situations like 
-              a read-only visited stop being different from a read-only unvisited stop. The 
+              Stop and overflow icons are combinable with one or more state pseudo-classes.
+              For example, it's possible to build icons for a very specific situations like
+              a read-only visited stop being different from a read-only unvisited stop. The
               valid classes are:
               <ul>
-                <li>:visited for steps that were already completed (assumed to be all steps 
+                <li>:visited for steps that were already completed (assumed to be all steps
                     before the current one, this might change in the future);</li>
                 <li>:selected for the current step. This state is not available to overflows;
                     </li>
-                <li>:unvisited for steps that were not completed by the user (assumed to be 
+                <li>:unvisited for steps that were not completed by the user (assumed to be
                     all steps after the current one, this might change in the future);</li>
-                <li>:read-only for steps that cannot be accessed directly by the user by 
-                    clicking on the link (clicking on the icon is not implemented at this 
-                    time). This state is combinable with any of the previous three states, 
-                    but must be placed after them, e.g. :selected:read-only-icon is valid, 
+                <li>:read-only for steps that cannot be accessed directly by the user by
+                    clicking on the link (clicking on the icon is not implemented at this
+                    time). This state is combinable with any of the previous three states,
+                    but must be placed after them, e.g. :selected:read-only-icon is valid,
                     while :read-only:selected is not;</li>
                 <li>:disabled for steps that cannot be accessed by the user using the link
-                    and should theorically not be accessible at all until some condition is 
+                    and should theorically not be accessible at all until some condition is
                     met. This state has absolute priority and is not combinable with any other
                     state.</li>
               </ul>
@@ -3915,7 +3939,7 @@
           </tr>
           <tr>
             <td>af|train::stop&lt;states&gt;-icon</td>
-            <td>Define the icons for stops. At least one state must be specified. 
+            <td>Define the icons for stops. At least one state must be specified.
                 For example:
                 <ul>
                   <li>VALID: af|train::stop:selected-icon;</li>
@@ -3924,8 +3948,8 @@
           </tr>
           <tr>
             <td>af|train::overflow-start&lt;states&gt;-icon</td>
-            <td>Define the icons for overflows toward the previous step group. At least one 
-                state must be specified. 
+            <td>Define the icons for overflows toward the previous step group. At least one
+                state must be specified.
                 For example:
                 <ul>
                   <li>VALID: af|train::overflow-start:read-only-icon;</li>
@@ -3934,8 +3958,8 @@
           </tr>
           <tr>
             <td>af|train::overflow-end&lt;states&gt;-icon</td>
-            <td>Define the icons for overflows toward the next step group. At least one 
-                state must be specified. 
+            <td>Define the icons for overflows toward the next step group. At least one
+                state must be specified.
                 For example:
                 <ul>
                   <li>VALID: af|train::overflow-end:read-only-icon;</li>
@@ -3945,8 +3969,8 @@
           <tr>
             <td>af|train::parent-start&lt;states&gt;-icon</td>
             <td>Define the icons for the parent train that include this train.
-                It appears before the first stop's icon. This icon is NOT 
-                combinable with state pseudo-classes. For example: 
+                It appears before the first stop's icon. This icon is NOT
+                combinable with state pseudo-classes. For example:
                 <ul>
                   <li>VALID: af|train::parent-start-icon;</li>
                   <li>INVALID: af|train::parent-start:read-only-icon;</li>
@@ -3955,8 +3979,8 @@
           <tr>
             <td>af|train::parent-end&lt;states&gt;-icon</td>
             <td>Define the icons for the parent train that follow the parent train
-                including this train. It appears after the last stop's icon. This 
-                icon is NOT combinable with state pseudo-classes. For example: 
+                including this train. It appears after the last stop's icon. This
+                icon is NOT combinable with state pseudo-classes. For example:
                 <ul>
                   <li>VALID: af|train::parent-end-icon;</li>
                   <li>INVALID: af|train::parent-end:read-only-icon;</li>
@@ -4151,7 +4175,7 @@
           <tr>
             <td>af|treeTable::next-disabled-icon</td>
             <td>The next icon disabled.</td>
-          </tr>        
+          </tr>
           <tr>
             <td>.AFPathSeparatorIcon:alias</td>
             <td>Changing this icon changes both af|breadCrumbs::separator-icon and
@@ -4164,6 +4188,14 @@
           <tr>
             <td>af|treeTable::collapse-all-icon</td>
             <td>The collapse-all link icon.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::select-all-icon</td>
+            <td>The select-all link icon.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::select-none-icon</td>
+            <td>The select-none link icon.</td>
           </tr>
           <tr>
             <td>af|treeTable::node-icon</td>
@@ -4179,7 +4211,7 @@
           </tr>
         </table>
       </subsection>
-      
+
     </section>
     <a name="MiscSelectors"></a>
     <section name="Miscellaneous Selectors">
@@ -4199,7 +4231,7 @@
           </tr>
           <tr>
             <td>af|dialog::container</td>
-            <td>Styles the outer element of the dialog.  Use this selector to control border and margin/padding 
+            <td>Styles the outer element of the dialog.  Use this selector to control border and margin/padding
             around the entire dialog, including title-bar.</td>
           </tr>
           <tr>

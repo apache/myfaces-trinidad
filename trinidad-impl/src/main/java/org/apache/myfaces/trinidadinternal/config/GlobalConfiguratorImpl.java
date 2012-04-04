@@ -1,29 +1,35 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
-
 package org.apache.myfaces.trinidadinternal.config;
 
+import java.io.IOException;
+
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
+import java.util.concurrent.locks.ReentrantLock;
+
+import javax.faces.context.FacesContext;
 import javax.faces.context.ExternalContext;
 
 import javax.servlet.ServletRequest;
@@ -34,9 +40,11 @@ import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.context.ExternalContextDecorator;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.RequestContextFactory;
+import org.apache.myfaces.trinidad.context.WindowManager;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ComponentReference;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidad.util.RequestStateMap;
 import org.apache.myfaces.trinidad.util.RequestType;
@@ -49,7 +57,6 @@ import org.apache.myfaces.trinidadinternal.context.external.ServletRequestParame
 import org.apache.myfaces.trinidadinternal.context.external.ServletRequestParameterValuesMap;
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
-
 
 /**
  * This is the implementation of the Trinidad's Global configurator. It provides the entry point for
@@ -199,7 +206,7 @@ public final class GlobalConfiguratorImpl
       if (!_isDisabled(ec))
       {
         // If this hasn't been initialized then please initialize
-        if (!_initialized)
+        if (!_initialized.get())
         {
           init(ec);
         }
@@ -208,7 +215,19 @@ public final class GlobalConfiguratorImpl
 
         if (state.get(_IN_REQUEST) == null)
         {
-          _startConfiguratorServiceRequest(ec);
+          // Allow WindowManager to perform some processing at the beginning of request and optionally complete the response
+          if (!Boolean.TRUE.equals(state.get(_CONFIGURATORS_ABORTED)))
+          {
+            if (_beginWindowManagerRequest(ec))
+            {
+              _startConfiguratorServiceRequest(ec);
+            }
+            else
+            {
+              FacesContext.getCurrentInstance().responseComplete();
+              state.put(_CONFIGURATORS_ABORTED, Boolean.TRUE);
+            }
+          }
         }
       }
       else
@@ -242,29 +261,38 @@ public final class GlobalConfiguratorImpl
   @Override
   public void destroy()
   {
-    if (_initialized)
-    {
+    
+    if (_initialized.get())
+    { 
       try
       {
-        for (final Configurator config: _services)
+        //Forces atomic operations with init.  If we are in the middle of an init or another destroy, we'll
+        //wait on this lock until our operations are complete.  We then have to recheck our initialized state.
+        
+        _initLock.lock();
+        if(_initialized.get())
         {
-          try
+          for (final Configurator config: _services)
           {
-            config.destroy();
+            try
+            {
+              config.destroy();
+            }
+            catch (final Throwable t)
+            {
+              // we always want to continue to destroy things, so log errors and continue
+              _LOG.severe(t);
+            }
           }
-          catch (final Throwable t)
-          {
-            // we always want to continue to destroy things, so log errors and continue
-            _LOG.severe(t);
-          }
+          _services = null;
+          _initialized.set(false);
         }
-        _services = null;
-        _initialized = false;
       }
       finally
       {
         //release any managed threadlocals that may have been used durring destroy
         _releaseManagedThreadLocals();
+        _initLock.unlock();
       }
     }
   }
@@ -289,7 +317,7 @@ public final class GlobalConfiguratorImpl
         {
           //Only end services at the end of a writable response.  This will
           //generally be RENDER, RESOURCE, and SERVLET.
-          if (ExternalContextUtils.isResponseWritable(ec))
+          if (ExternalContextUtils.isResponseWritable(ec) && !Boolean.TRUE.equals(state.get(_CONFIGURATORS_ABORTED)))
           {
             _endConfiguratorServiceRequest(ec);
           }
@@ -371,46 +399,54 @@ public final class GlobalConfiguratorImpl
   public void init(ExternalContext ec)
   {
     assert ec != null;
-
-    if (!_initialized)
+    
+    if (!_initialized.get())
     {
       try
       {
-        _services = ClassLoaderUtils.getServices(Configurator.class.getName());
-
-        // Create a new RequestContextFactory is needed
-        if (RequestContextFactory.getFactory() == null)
+        //For thread saftey.  It is possible for two threads to enter this code at the same time.  When
+        //the do the second one will wait at the lock until initialization is complete.  Then the AtomicBoolean
+        //is checked again for validity.
+        _initLock.lock();
+        //Check the AtomicBoolean for a change
+        if(!_initialized.get())
         {
-          RequestContextFactory.setFactory(new RequestContextFactoryImpl());
+          _services = ClassLoaderUtils.getServices(Configurator.class.getName());
+  
+          // Create a new RequestContextFactory is needed
+          if (RequestContextFactory.getFactory() == null)
+          {
+            RequestContextFactory.setFactory(new RequestContextFactoryImpl());
+          }
+  
+          // Create a new SkinFactory if needed.
+          if (SkinFactory.getFactory() == null)
+          {
+            SkinFactory.setFactory(new SkinFactoryImpl());
+          }
+  
+          // register the base skins
+          SkinUtils.registerBaseSkins();
+  
+          for (final Configurator config: _services)
+          {
+            config.init(ec);
+          }
+  
+          // after the 'services' filters are initialized, then register
+          // the skin extensions found in trinidad-skins.xml. This
+          // gives a chance to the 'services' filters to create more base
+          // skins that the skins in trinidad-skins.xml can extend.
+          SkinUtils.registerSkinExtensions(ec);
+          _initialized.set(true);
         }
-
-        // Create a new SkinFactory if needed.
-        if (SkinFactory.getFactory() == null)
-        {
-          SkinFactory.setFactory(new SkinFactoryImpl());
-        }
-
-        // register the base skins
-        SkinUtils.registerBaseSkins();
-
-        for (final Configurator config: _services)
-        {
-          config.init(ec);
-        }
-
-        // after the 'services' filters are initialized, then register
-        // the skin extensions found in trinidad-skins.xml. This
-        // gives a chance to the 'services' filters to create more base
-        // skins that the skins in trinidad-skins.xml can extend.
-        SkinUtils.registerSkinExtensions(ec);
-        _initialized = true;
       }
       finally
       {
-
         //Do cleanup of anything which may have use the thread local manager during
         //init.
         _releaseManagedThreadLocals();
+        _initLock.unlock();
       }
     }
     else
@@ -419,6 +455,25 @@ public final class GlobalConfiguratorImpl
     }
   }
 
+  /**
+   * @inheritDoc
+   */
+  @Override  
+  public void reloadSkins(ExternalContext externalContext, SkinFactory skinFactory)
+  {
+    // register trinidad's base skins
+    SkinUtils.registerBaseSkins();
+    
+    // ask all subordinate configurators to reload their skins
+    for (final Configurator config: _services)
+    {
+      config.reloadSkins(externalContext, skinFactory);
+    }
+    
+    // recompute skins from the various trinidad-skins.xml
+    SkinUtils.registerSkinExtensions(externalContext, skinFactory);
+  }
+  
   /**
    * Hackily called by the ThreadLocalResetter to register itself so that the
    * GlobalConfiguratorImpl can tell the ThreadLocalResetter to clean up the
@@ -462,6 +517,7 @@ public final class GlobalConfiguratorImpl
     if (cachedRequestContext instanceof RequestContext)
     {
       context = (RequestContext) cachedRequestContext;
+      context.attach();
     }
     else
     {
@@ -470,7 +526,6 @@ public final class GlobalConfiguratorImpl
       context = factory.createContext(ec);
       RequestStateMap.getInstance(ec).put(_REQUEST_CONTEXT, context);
     }
-    assert RequestContext.getCurrentInstance() == context;
   }
 
   private void _releaseRequestContext(ExternalContext ec)
@@ -478,12 +533,19 @@ public final class GlobalConfiguratorImpl
     RequestContext context = RequestContext.getCurrentInstance();
     if (context != null)
     {
+      // ensure that any deferred ComponentReferences are initialized
+      _finishComponentReferenceInitialization(ec);
+
       context.release();
       _releaseManagedThreadLocals();
+
       assert RequestContext.getCurrentInstance() == null;
     }
   }
 
+  /**
+   * Ensure that any ThreadLocals initialized during this request are cleared
+   */
   private void _releaseManagedThreadLocals()
   {
     ThreadLocalResetter resetter = _threadResetter.get();
@@ -491,6 +553,29 @@ public final class GlobalConfiguratorImpl
     if (resetter != null)
     {
       resetter.__removeThreadLocals();
+    }
+  }
+
+  /**
+   * Ensure that all DeferredComponentReferences are fully initialized before the
+   * request completes
+   */
+  private void _finishComponentReferenceInitialization(ExternalContext ec)
+  {
+    Map<String, Object> requestMap = ec.getRequestMap();
+    
+    Collection<ComponentReference<?>> initializeList = (Collection<ComponentReference<?>>)
+                                             requestMap.get(_FINISH_INITIALIZATION_LIST_KEY);
+    
+    if ((initializeList != null) && !initializeList.isEmpty())
+    {
+      for (ComponentReference<?> reference : initializeList)
+      {
+        reference.ensureInitialization();
+      }
+      
+      // we've initialized everything, so we're done
+      initializeList.clear();
     }
   }
 
@@ -536,6 +621,23 @@ public final class GlobalConfiguratorImpl
         _LOG.severe(t);
       }
     }
+  }
+  
+  private boolean _beginWindowManagerRequest(ExternalContext ec)
+  {
+    WindowManager wm = RequestContext.getCurrentInstance().getWindowManager();
+    boolean cont = true;  
+    
+    try
+    {
+      cont = wm.beginRequest(ec);
+    }
+    catch(IOException e)
+    {
+      _LOG.severe(e);
+    }
+                        
+    return cont;                    
   }
 
   static private boolean _isSetRequestBugPresent(ExternalContext ec)
@@ -697,8 +799,10 @@ public final class GlobalConfiguratorImpl
 
   private static volatile boolean _sSetRequestBugTested = false;
   private static boolean _sHasSetRequestBug = false;
+  
+  private final ReentrantLock _initLock = new ReentrantLock();
 
-  private boolean _initialized;
+  private AtomicBoolean _initialized = new AtomicBoolean(false);
   private List<Configurator> _services;
   static private final Map<ClassLoader, GlobalConfiguratorImpl> _CONFIGURATORS =
     new HashMap<ClassLoader, GlobalConfiguratorImpl>();
@@ -708,6 +812,9 @@ public final class GlobalConfiguratorImpl
     GlobalConfiguratorImpl.class.getName() + ".REQUEST_CONTEXT";
   static private final String _REQUEST_TYPE =
     GlobalConfiguratorImpl.class.getName() + ".REQUEST_TYPE";
+  
+  static private final String _CONFIGURATORS_ABORTED =
+    GlobalConfiguratorImpl.class.getName() + ".CONFIGURATORS_ABORTED";
 
   static private class TestRequest
     extends ServletRequestWrapper
@@ -735,6 +842,10 @@ public final class GlobalConfiguratorImpl
 
     static private String _TEST_PARAM = TestRequest.class.getName() + ".TEST_PARAM";
   }
+
+  // skanky duplication of key from ComponentReference Class
+  private static final String _FINISH_INITIALIZATION_LIST_KEY = ComponentReference.class.getName() +
+                                                                "#FINISH_INITIALIZATION";
 
   // hacky reference to the ThreadLocalResetter used to clean up request-scoped
   // ThreadLocals

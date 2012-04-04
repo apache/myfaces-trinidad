@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.output.statusIndicator;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,21 +30,29 @@ public class StatusIndicatorDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982374957886498710L;
 
-	/**
-	 * Constructor.
-	 */
-	public StatusIndicatorDemo() {
-		super(ComponentDemoId.statusIndicator, "Status Indicator",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public StatusIndicatorDemo() {
+    super(ComponentDemoId.statusIndicator, "Status Indicator");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/output/statusIndicator/statusIndicator.xhtml"
-            });
-	}
+                    "/components/output/statusIndicator/statusIndicator.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/output/statusIndicator/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/output/statusIndicator/StatusIndicatorBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/output/statusIndicator/StatusIndicatorBean.java";
+  }
 }

@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.panel.group;
 
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 
 /**
  *
@@ -28,17 +30,29 @@ public class GroupDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982064956882498710L;
 
-	/**
-	 * Constructor.
-	 */
-	public GroupDemo() {
-		super(ComponentDemoId.group, "Group",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public GroupDemo() {
+    super(ComponentDemoId.group, "Group");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/panel/group/group.xhtml"
-            });
-	}
+                    "/components/panel/group/group.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/group/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

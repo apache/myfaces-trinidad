@@ -31,41 +31,32 @@ public class PanelPopupDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982064956382498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Hover,
+    Hover,
         Centered,
-        Relatve,
-        Click
-	}
+        Relative
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public PanelPopupDemo() {
-		super(ComponentDemoId.panelPopup, "Panel Popup",
-            new String[]{
-                "/components/panel/panelPopup/panelPopup.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public PanelPopupDemo() {
+    super(ComponentDemoId.panelPopup, "Panel Popup");
 
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Relative, this,
+                new String[]{
+                        "/components/panel/panelPopup/panelPopupRelative.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Centered, this,
                 new String[]{
                         "/components/panel/panelPopup/panelPopupCentered.xhtml"
-                }, getSummaryResourcePath()));
-
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Click, this,
-                new String[]{
-                        "/components/panel/panelPopup/panelPopupClick.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Hover, this,
                 new String[]{
                         "/components/panel/panelPopup/panelPopupHover.xhtml"
-                }, getSummaryResourcePath()));
-        
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Relatve, this,
-                new String[]{
-                        "/components/panel/panelPopup/panelPopupRelative.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.Relative);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelPopup/summary.xhtml";

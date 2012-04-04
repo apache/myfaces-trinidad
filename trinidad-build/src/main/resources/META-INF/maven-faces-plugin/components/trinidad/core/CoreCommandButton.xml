@@ -140,6 +140,7 @@
 
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
+    <xi:include href="includes/FocusJSEvents.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/LaunchSource.xml" xpointer="/faces-config/component/*"/>
 
     <component-extension>

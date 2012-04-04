@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Δεν ήταν δυνατή η φόρτωση του &quot;{0}&quot;</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Δεν ήταν δυνατή η δημιουργία στιγμιότυπου για UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Δεν ήταν δυνατή η αποστολή του αρχείου επειδή έχει υπερβολικά μεγάλο μέγεθος.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Το Trinidad εκτελείται σε κατάσταση εντοπισμού σφαλμάτων. Μην το χρησιμοποιείτε σε περιβάλλον παραγωγής. Δείτε: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">Το στοιχείο {0} δεν υποστηρίζει εκφράσεις EL.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">Το στοιχείο &quot;{0}&quot; δέχεται μόνο ακέραιες τιμές</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">Το στοιχείο {0} δέχεται μόνο τιμές μεγάλου μήκους</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Δεν ήταν δυνατή η εύρεση του προγράμματος φόρτωσης κλάσης περιβάλλοντος.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -181,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Εντοπίστηκε κυκλική αναφορά στο εικονίδιο αναφοράς του τρόπου εμφάνισης {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Μεταβιβάστηκε μη ορισμένο (null) αντικείμενο SkinAddition στη μέθοδο addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Απέτυχε η επεξεργασία του αρχείου διαμόρφωσης εμφάνισης: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Το ValueExpression της προέλευσης μετάφρασης για τον τρόπο εμφάνισης δεν είναι του αναμενόμενου τύπου Map ή ResourceBundle, και επομένως δεν θα ληφθεί υπόψη.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -259,6 +265,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Δεν είναι δυνατή η λήψη του πόρου &quot;{0}&quot;</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Το Apache Trinidad εκτελείται σε κατάσταση εντοπισμού σφαλμάτων javascript. Μην το χρησιμοποιείτε σε περιβάλλον παραγωγής. Δείτε την παράμετρο &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; στο /WEB-INF/web.xml.</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Το περιβάλλον που χρησιμοποιείτε δεν έχει διαμορφωθεί ως περιβάλλον παραγωγής και το Apache Trinidad εκτελείται σε κατάσταση εντοπισμού σφαλμάτων javascript. Ελέγξτε την παράμετρο &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; στο αρχείο /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Το περιβάλλον που χρησιμοποιείτε δεν έχει διαμορφωθεί ως περιβάλλον παραγωγής και το Apache Trinidad εκτελείται με μη συμπιεσμένο CSS. Ανατρέξτε στην παράμετρο &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; στο αρχείο /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Το περιβάλλον που χρησιμοποιείτε έχει διαμορφωθεί ως περιβάλλον παραγωγής και το Apache Trinidad εκτελείται σε κατάσταση εντοπισμού σφαλμάτων με αποτέλεσμα TRUE. Δείτε το στοιχείο &quot;debug-output&quot; στο αρχείο trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Μη αποδεκτή τιμή: ({0}) για {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +313,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Παράβλεψη ιδιοτήτων &quot;{0}&quot; επειδή δεν υπάρχει αντίστοιχη λειτουργία επιλογής.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Σφάλμα στην ανάγνωση από το αρχείο skin css</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Σφάλμα ανάγνωσης από το αρχείο css εμφάνισης. Υπάρχει ένα επιπλέον κόμμα στην παράμετρο επιλογής: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Δεν είναι δυνατή η προσθήκη μη ορισμένου (null) τρόπου εμφάνισης ή με μη ορισμένο (null) αναγνωριστικό</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Η εμφάνιση {0} που προστέθηκε προηγουμένως προστέθηκε ξανά. Εάν αποθηκεύσατε αυτήν την εμφάνιση στην κρυφή μνήμη της εφαρμογής, ενδέχεται τα αποτελέσματα να μην είναι συνεπή. Ελέγξτε για διπλότυπα αρχεία trinidad-skins.xml στη διαδρομή κλάσης.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Δεν είναι δυνατή η λήψη τρόπου εμφάνισης με μη ορισμένο (null) αναγνωριστικό</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Δεν είναι δυνατή η εύρεση τρόπου εμφάνισης που να συμφωνεί με την οικογένεια &quot;{0}&quot; και το renderkit &quot;{1}&quot;, για το λόγο αυτό θα χρησιμοποιηθεί ο απλός τρόπος εμφάνισης</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Βρέθηκε μια εμφάνιση που συμφωνεί με την οικογένεια {0} και την έκδοση {1}. Θα χρησιμοποιηθεί η εμφάνιση {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Δεν είναι δυνατή η εύρεση εμφάνισης που συμφωνεί με την οικογένεια {0} και την έκδοση {1}. Θα χρησιμοποιηθεί η εμφάνιση {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Δεν είναι δυνατή η εύρεση εμφάνισης στην οποία δεν έχει αποδοθεί η ιδιότητα τήρησης εκδόσεων για την οικογένεια {0}. Θα χρησιμοποιηθεί η εμφάνιση με ιδιότητα τήρησης εκδόσεων {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Δεν ήταν δυνατή η λήψη της χρονικής ένδειξης του εγγράφου φύλλου στυλ επειδή δεν ήταν δυνατό να ανοίξει η σύνδεση.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">Η λειτουργία επιλογής τρόπου εμφάνισης {0} δεν είναι αντικείμενο εικονιδίου τρόπου εμφάνισης εφόσον δεν διαθέτει χαρακτηριστικό περιβάλλοντος. Εάν εσείς δημιουργήσατε τη λειτουργία επιλογής, μετονομάστε την ώστε το όνομα να λήγει σε &quot;style&quot; αντί για &quot;icon&quot;, για να είναι δυνατή η αντιμετώπισή της από το πλαίσιο εργασίας τρόπου εμφάνισης ως στυλ και όχι ως εικονίδιο.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">Το {0} πρέπει να προηγείται όλων των άλλων κανόνων.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Οι παρακάτω τρόποι εμφάνισης επεκτείνουν ο ένας τον άλλον με κυκλικό τρόπο ή ο τρόπος εμφάνισης που επεκτείνουν δεν υπάρχει:{0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -316,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Σφάλμα κατά την ανάλυση: {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">Σφάλμα κατά τη φόρτωση του αρχείου :{0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Σφάλμα κατά τη φόρτωση του αρχείου:{0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Δεν ήταν δυνατή η φόρτωση του φύλλου στυλ: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -419,6 +445,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Το απαιτούμενο στοιχείο &quot;id&quot; δεν βρέθηκε.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Το απαιτούμενο στοιχείο &quot;family&quot; δεν βρέθηκε.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Το απαιτούμενο θυγατρικό στοιχείο για &apos;version&apos;, &apos;name&apos; δεν βρέθηκε.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Λανθασμένη μορφή καταχώρισης σε ιδιότητα: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -721,4 +749,23 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Μη έγκυρη χώρα για το αναγνωριστικό τοπικών ρυθμίσεων {0} - ο κωδικός χώρας πρέπει να είναι με πεζά. Για τη σωστή μορφή, ανατρέξτε στο javadoc. Θα χρησιμοποιηθεί κενή συμβολοσειρά για τη χώρα</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Μη έγκυρη μεταβλητή για το αναγνωριστικό τοπικών ρυθμίσεων {0} - δεν είναι δυνατόν να περιέχονται κάθετοι για να αποφευχθεί επίθεση XSS. Θα χρησιμοποιηθεί κενή συμβολοσειρά για τη μεταβλητή.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Δεν ήταν δυνατή η διαγραφή του αρχείου {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">Το στοιχείο IState θα πρέπει να είναι παρουσία του StateManager.SerializedView ή πίνακας αντικειμένων με μήκος 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Η αποθήκευση της κατάστασης \&quot;μερική\&quot; δεν υποστηρίζεται ακόμη. Ορίστε την παράμετρο περιβάλλοντος javax.faces.PARTIAL_STATE_SAVING στην τιμή false στο αρχείο σας web.xml.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Προέκυψε σφάλμα κατά τη σειριοποίηση της παραμέτρου {0}: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> τιμή αποτυχίας=</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Σφάλμα αντιμετώπισης: {0} η παράμετρος:{1} τύπου {2} δεν μπορεί να μετατραπεί σε σειριακή μορφή</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Σφάλμα αντιμετώπισης: Η σειριοποίηση της παραμέτρου {0}:{1} άλλαξε από {2} σε {3} χωρίς η παράμετρος να μεταβληθεί</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Η δοκιμή σειριοποίησης παραμέτρων της περιόδου λειτουργίας απέτυχε για το {0}. Η απενεργοποίηση αυτού του έλεγχου μπορεί να γίνει καταργώντας το στοιχείο &apos;&apos;REQUEST&apos;&apos; από την ιδιότητα συστήματος &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Εξαίρεση κατά τη συγκέντρωση αποτυχιών δοκιμής σειριοποίησης παραμέτρων περιόδου λειτουργίας</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Παράμετρος περιόδου λειτουργίας:{0} </resource>
 </resources>

@@ -125,9 +125,11 @@
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">인덱스가 부적합합니다.</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">ID가 동일한 하위 항목이 존재하는 경우 하위 항목을 추가합니다. 기존 하위 항목이 제거되고 새 하위 항목이 추가됩니다. {0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">ID가 동일한 하위 구성 요소가 존재하여 변경 관리자가 AddChildComponentChange 적용을 실패했습니다. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">지정된 노드가 없습니다.</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">이터레이터 내에 스탬프 처리된 구성 요소를 저장하지 않습니다.</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">구성 요소가 필요합니다.</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -156,6 +158,8 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">널 facetName 또는 facetComponent를 사용하여 AddFacetChange를 생성할 수 없습니다.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">면 이름을 지정해야 합니다.</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">이름이 동일한 면이 존재하여 변경 관리자가 SetFacetChildComponentChange 적용을 실패했습니다. {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">이동할 하위 구성 요소가 필요합니다.</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -168,6 +172,8 @@
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">이동할 하위 항목을 찾을 수 없음: {0}.</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
 <resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">대상 컨테이너를 찾을 수 없음: {0}.</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">ID가 동일한 다른 구성 요소가 대상 컨테이너에서 발견되었습니다. 이동 작업이 중단됨: {0}.</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">구성 요소 또는 노드 앞의 삽입을 찾을 수 없음: {0}.</resource>
 <!-- INDEX_SIZE -->
@@ -308,4 +314,12 @@
 <resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">실패한 리플렉션으로 인해 포틀릿 렌더링 매개변수를 설정할 수 없습니다.</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">&quot;{0}&quot;에 대한 유형으로 인해 &quot;{1}&quot;과(와) 비교되지 않습니다.</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">페이지 상태 압축을 실패했습니다. 상태를 압축하려면 직렬화해야 합니다. 페이지 상태 압축을 실패하는 일반적인 이유는 페이지 상태를 직렬화할 수 없기 때문입니다. org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE를 false로 설정하여 압축을 해제할 수 있습니다. 직렬화와 관련된 여러 가지 요소를 테스트하는 방법은 org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION 시스템 속성에 관한 문서를 참조하십시오.</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">페이지 상태의 압축 해제를 실패했습니다.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">뷰를 생성하는 동안에는 getClientId가 호출되지 않아야 합니다. 구성 요소 ID: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">요청 종료 시 행 키가 제대로 재설정되지 않았을 수 있습니다. 구성 요소 ID: {0} ViewId: {1}</resource>
 </resources>

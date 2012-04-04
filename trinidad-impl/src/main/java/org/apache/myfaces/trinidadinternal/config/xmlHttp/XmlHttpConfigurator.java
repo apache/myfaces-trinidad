@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.config.xmlHttp;
 
@@ -90,12 +90,11 @@ public class XmlHttpConfigurator extends Configurator
   {
     XmlResponseWriter rw = new XmlResponseWriter(writer, "UTF-8");
     rw.startDocument();
-    // Add another PI indicating that this is a rich response
-    // FIXME: this code is duplicated in PPRResponseWriter - fix that
-    rw.write("<?Tr-XHR-Response-Type ?>\n");
+    rw.startElement("partial-response", null);
     rw.startElement("redirect", null);
-    rw.writeText(url, null);
+    rw.writeAttribute("url", url, null);
     rw.endElement("redirect");
+    rw.endElement("partial-response");
     rw.endDocument();
     rw.close();
   }
@@ -115,13 +114,16 @@ public class XmlHttpConfigurator extends Configurator
     PrintWriter writer = response.getWriter();
     XmlResponseWriter rw = new XmlResponseWriter(writer, "UTF-8");
     rw.startDocument();
-    // Add another PI indicating that this is a rich response
-    // FIXME: this code is duplicated in PPRResponseWriter - fix that
-    rw.write("<?Tr-XHR-Response-Type ?>\n");
+    rw.startElement("partial-response", null);
     rw.startElement("error", null);
-    rw.writeAttribute("status", HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null);
+    rw.startElement("error-name", null);
+    rw.writeText(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null);
+    rw.endElement("error-name");
+    rw.startElement("error-message", null);
     rw.writeText(_getExceptionString(t) + _PLEASE_SEE_ERROR_LOG + error, null);
+    rw.endElement("error-message");
     rw.endElement("error");
+    rw.endElement("partial-response");
     rw.endDocument();
     rw.close();
   }

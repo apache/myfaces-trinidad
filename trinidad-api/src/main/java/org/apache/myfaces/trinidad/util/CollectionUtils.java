@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.util;
 
@@ -24,11 +24,8 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.reflect.Array;
-
 import java.util.AbstractQueue;
-import java.util.AbstractSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -43,9 +40,9 @@ import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.RandomAccess;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.myfaces.trinidad.component.CompositeIterator;
-import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -121,6 +118,135 @@ public final class CollectionUtils
   public static <T> ListIterator<T> emptyListIterator()
   {
     return (ListIterator<T>)_EMPTY_LIST_ITERATOR;
+  }
+  
+  /**
+   * Return an iterator of the values in <code>map</code> with entries in <code>allowedLeys</code>
+   * @param <K> Map key type
+   * @param <V> Map value type
+   * @param map Map of keys and values
+   * @param allowedKeys Collection of keys to return values for if present in map
+   * @return Iterator of values for which the map contains a key from allowedKeys
+   */
+  public static <K,V> Iterator<V> subsetValueIterator(Map<? extends K, ? extends V> map,
+                                                      Collection<? extends K> allowedKeys)
+  {
+    if (map.isEmpty() || allowedKeys.isEmpty())
+    {
+      return emptyIterator();
+    }
+    else
+    {
+      return new SubsetValueIterator<K,V>(map, allowedKeys.iterator());
+    }
+  }
+
+  /**
+   * Return an iterator of the values in <code>map</code> with entries in <code>allowedLeys</code>
+   * The values returned in the iterator will be in the same order as their corresponding
+   * keys in allowedKeys.
+   * @param <K> Map key type
+   * @param <V> Map value type
+   * @param map Map of keys and values
+   * @param allowedKeys Iterator of keys to return values for if present in map
+   * @return Iterator of values for which the map contains a key from allowedKeys
+   */
+  public static <K,V> Iterator<V> subsetValueIterator(Map<? extends K, ? extends V> map,
+                                                      Iterator<? extends K> allowedKeys)
+  {
+    if (map.isEmpty() || !allowedKeys.hasNext())
+    {
+      return emptyIterator();
+    }
+    else
+    {
+      return new SubsetValueIterator<K,V>(map, allowedKeys);
+    }
+  }
+  
+  /**
+   * Return an iterator of the values in <code>map</code> with entries in <code>allowedLeys</code>
+   */
+  private static class SubsetValueIterator<K,V> implements Iterator<V>
+  {
+    public SubsetValueIterator(Map<? extends K, ? extends V> sourceMap,
+                               Iterator<? extends K> allowedkeys)
+    {
+      if ((sourceMap == null) || (allowedkeys == null))
+        throw new NullPointerException();
+      
+      _sourceMap = sourceMap;
+      _allowedkeys = allowedkeys;
+    }
+    
+    @Override
+    public boolean hasNext()
+    {      
+      return (_getKey() != null);
+    }
+    
+    @Override
+    public V next()
+    {
+      K key = _getKey();
+      
+      if (key == null)
+        throw new NoSuchElementException();
+      
+      // next call to _getKey() will nove to the next key
+      _calcNext = true;
+      
+      return _sourceMap.get(key);
+    }
+    
+    @Override
+    public void remove()
+    {
+      // make sure that we have called next() before remove()
+      if (_nextValidKey == null)
+        throw new IllegalStateException();
+      
+      try
+      {
+        _sourceMap.remove(_nextValidKey);
+      }
+      finally
+      {
+        _nextValidKey = null;
+        _calcNext = true;
+      } 
+    }
+
+    private K _getKey()
+    {
+      if ((_nextValidKey == null) || _calcNext)
+      {
+        _nextValidKey = _getNextContainedKey();
+        _calcNext = false;
+      }
+      
+      return _nextValidKey;
+    }
+        
+    private K _getNextContainedKey()
+    {
+      while (_allowedkeys.hasNext())
+      {
+        K nextKey = _allowedkeys.next();
+        
+        if (_sourceMap.containsKey(nextKey))
+        {
+          return nextKey;
+        }
+      }
+      
+      return null;
+    }
+        
+    private final Map<? extends K, ? extends V> _sourceMap;
+    private final Iterator<? extends K> _allowedkeys;
+    private K _nextValidKey;
+    private boolean _calcNext = true;
   }
   
   /**
@@ -214,17 +340,43 @@ public final class CollectionUtils
    * the disjoint invariant.  If both Sets are Serializable, the returned
    * implementation will be Serializable as well.  The returned Set implementation is
    * not thread safe.
-   * @param primarySet The Set that adds will be applied to
-   * @param secondarySet The other Set
+   * @param primarySet The Set that modifications will be applied to
+   * @param secondarySet The other Set.  Modifications will be applied in response to changes
+   * to the primary set to ensure that the disjoint invariant is maintained
    * @return The composition of the two disjoint Sets
    * @throws NullPointerException of primarySet or secondarySet are <code>null</code>
+   * @see #overlappingCompositeSet
    */
   public static <T> Set<T> compositeSet(Set<T> primarySet, Set<T> secondarySet)
   {
     if ((primarySet instanceof Serializable) && (secondarySet instanceof Serializable))
-      return new SerializableFixedCompositeSet(primarySet, secondarySet);
+      return new SerializableFixedCompositeSet<T>(primarySet, secondarySet);
     else
-      return new FixedCompositeSet(primarySet, secondarySet);
+      return new FixedCompositeSet<T>(primarySet, secondarySet);
+  }
+
+  /**
+   * Given two possibly overlapping sets, returns a live composition of the two Sets.
+   * If both Sets are Serializable, the returned
+   * implementation will be Serializable as well.  The lack of the disjoint invariant makes
+   * operations such as calculating the size of the Set expensive.  If the disjoint invariant
+   * can be guaranteed, <code>compositeSet</code> should be used instead.
+   * The returned Set implementation is
+   * not thread safe.
+   * @param primarySet The Set that modifications will be applied to
+   * @param secondarySet The other Set.  If a removal is performed on the primarySet, it will
+   * also be applied to the secondarySet to ensure that the element is logically removed from the
+   * Set.
+   * @return The composition of the two possibly overallping Sets
+   * @throws NullPointerException of primarySet or secondarySet are <code>null</code>
+   * @see #compositeSet
+   */
+  public static <T> Set<T> overlappingCompositeSet(Set<T> primarySet, Set<T> secondarySet)
+  {
+    if ((primarySet instanceof Serializable) && (secondarySet instanceof Serializable))
+      return new SerializableLenientFixedCompositeSet<T>(primarySet, secondarySet);
+    else
+      return new LenientFixedCompositeSet<T>(primarySet, secondarySet);
   }
 
   /**
@@ -328,7 +480,62 @@ public final class CollectionUtils
       return newSerializableList(l);
     }
   }
-  
+
+  /**
+   * Interface for trapping mutations to a Map.
+   * @param <K> the type of the keys of the Map that MapMutationHooks are associated with
+   * @param <V> the type of the values of the Map that MapMutationHooks are associated with
+   * @see #newMutationHookedMap
+   */
+  public interface MapMutationHooks<K, V>
+  {
+    /**
+     * Called when the associated Map of the MapMutationHooks is written to
+     * @param map   Map the write occurred on
+     * @param key   key of entry that has changed
+     * @param value value of entry that has changed
+     */
+    public void writeNotify(Map<K,V> map, K key, V value);
+
+    /**
+     * Called when an entry is removed from the associated Map of the MapMutationHooks
+     * @param map   Map the removal occurred on
+     * @param key   key of entry that has been removed
+     */
+    public void removeNotify(Map<K,V> map, Object key);
+    
+    /**
+     * Called when all entries are removed from the Map associated with the MapMutationHooks
+     * @param map   Map the clear occurred on
+     */
+    public void clearNotify(Map<K,V> map);
+  }
+
+  /**
+   * Creates a new Map that informs the MapMutationHooks of any direct mutations.  Mutations to
+   * the underlying Map will not be caught.
+   * If the base map is Serializable, the returned Map will be Serializable
+   * @param <K> type of the keys of the Map
+   * @param <V> type of the values of the Map
+   * @param map Underlying map to trap mutations of
+   * @param hooks MapMutationHooks to inform of mutations to the returned Map
+   * @return a new Map that traps the mutations to the underlying Map
+   * @throws NullPointerException if map or hooks are null
+   */
+  public static <K,V> Map<K, V> newMutationHookedMap(Map<K, V> map, MapMutationHooks<K, V> hooks)
+  {
+    if (map == null)
+      throw new NullPointerException();
+    
+    if (hooks == null)
+      throw new NullPointerException();
+    
+    if (map instanceof Serializable)
+      return new SerializableExternalAccessHookMap<K, V>(map, hooks);
+    else
+      return new ExternalAccessHookMap<K, V>(map, hooks);
+  }
+
   /**
    * Creates a Map that dynamically verifies that all keys and values added to it will
    * succeed Serialization.  The validations checks not only that the keys and values added
@@ -340,15 +547,91 @@ public final class CollectionUtils
    * </p>
    * @param map Map to wrap for Serialization validation
    * @return Map where all modifications are checked to ensure that they will succeeed if
-   * Serialized
+   * serialized
    */
   public static <K,V> Map<K, V> getCheckedSerializationMap(Map<K, V> map)
+  {
+    return getCheckedSerializationMap(map, true);
+  }
+
+  /**
+   * Creates a Map that dynamically verifies that all keys and values added to it will
+   * succeed Serialization.  The validations checks not only that the keys and values added
+   * to the Map implement Serializable, but that these instances will actually succeed
+   * Serialization.
+   * <p>
+   * This checking can be defeated by either modifying the backing map directly or by modifying
+   * an object added to the checked Map after adding it.
+   * </p>
+   * @param map Map to wrap for Serialization validation
+   * @param requireSerializable if <code>true</code>, require that all values in the map implement
+   *                            Serializable.
+   * @return Map where  modifications are checked to ensure that they will succeeed if
+   * serialized
+   */
+  public static <K,V> Map<K, V> getCheckedSerializationMap(
+    Map<K, V> map,
+    boolean   requireSerializable)
   {
     if (map instanceof CheckedSerializationMap)
       return map;
     else
-      return new CheckedSerializationMap<K,V>(map);
+      return new CheckedSerializationMap<K,V>(map, requireSerializable);
   }
+
+  /**
+   * Given two Collections, return the size of their union
+   * @param firstCollection The first collection.  <code>null</code> is allowed.
+   * @param secondCollection The second collection.  <code>null</code> is allowed.
+   * @return
+   */
+  public static <E> int getUnionSize(
+    Collection<? extends E> firstCollection,
+    Collection<? extends E> secondCollection)
+  {    
+    int firstSize = (firstCollection != null)
+                        ? firstCollection.size()
+                        : 0;
+    
+    int secondSize = (secondCollection != null)
+                        ? secondCollection.size()
+                        : 0;
+    
+    if (firstSize == 0)
+      return secondSize;
+    
+    if (secondSize == 0)
+      return firstSize;
+    
+    // determine the size of the union by iterating over the smaller collection
+    int size;
+    Collection<? extends E> iteratingCollection;
+    Collection<? extends E> baseCollection;
+    
+    if (firstSize >= secondSize)
+    {
+      baseCollection      = firstCollection;
+      iteratingCollection = secondCollection;
+      size                = firstSize;
+    }
+    else
+    {
+      baseCollection      = secondCollection;
+      iteratingCollection = firstCollection;
+      size                = secondSize;
+    }
+    
+    for (E currValue : iteratingCollection)
+    {
+      if (!baseCollection.contains(currValue))
+      {
+        size++;
+      }
+    }
+    
+    return size; 
+  }
+  
   
   protected static <T> T[] copyOf(T[] original, int newLength)
   {
@@ -471,7 +754,7 @@ public final class CollectionUtils
 
     public boolean isEmpty()
     {
-      return getPrimaryDelegate().isEmpty() || getSecondaryDelegate().isEmpty();
+      return getPrimaryDelegate().isEmpty() && getSecondaryDelegate().isEmpty();
     }
 
     public boolean contains(Object o)
@@ -481,8 +764,8 @@ public final class CollectionUtils
 
     public Iterator<E> iterator()
     {
-      return new CompositeIterator(getPrimaryDelegate().iterator(),
-                                   getSecondaryDelegate().iterator());
+      return new CompositeIterator<E>(getPrimaryDelegate().iterator(),
+                                      getSecondaryDelegate().iterator());
     }
 
     public Object[] toArray()
@@ -532,7 +815,16 @@ public final class CollectionUtils
 
     public boolean add(E e)
     {
-      return getPrimaryDelegate().add(e);
+      boolean modified = getPrimaryDelegate().add(e);
+      
+      if (modified)
+      {
+        // maintain disjointness.  If the secondary delegate already contained this element
+        // then we didn't really change
+        modified = !getSecondaryDelegate().remove(e);
+      }
+      
+      return modified;
     }
 
     public boolean remove(Object o)
@@ -606,6 +898,124 @@ public final class CollectionUtils
              getSecondaryDelegate() +
              "]";
     }
+  }
+  
+  /**
+   * Iterator that guarantees that removals are also performed on the non-disjoint Collection
+   * @param <E>
+   */
+  private static class RemovingIterator<E> implements Iterator<E>
+  {    
+    public RemovingIterator(Iterator<E> baseIterator, Collection<E> disjointCollection)
+    {
+      _baseIterator = baseIterator;
+      _disjointCollection = disjointCollection;
+    }
+
+    public boolean hasNext()
+    {
+      return _baseIterator.hasNext();
+    }
+    
+    public E next()
+    {
+      _last = _baseIterator.next();
+      
+      return _last;
+    }
+ 
+    public void remove()
+    {
+      _baseIterator.remove();
+      
+      // ensure that the removed element is also removed from the disjoint collection
+      // so that removing the element from the primary collection doesn't accidentally
+      // expose it in the secondary collection
+      _disjointCollection.remove(_last);
+      _last = null;
+    }
+    
+    private final Iterator<E> _baseIterator;
+    private final Collection<E> _disjointCollection;
+    private E _last;
+  }
+  
+  
+  /**
+   * Iterator returning only the elements in the disjoint Collection that aren't in the
+   * checked Collection
+   */
+  private static class DisjointIterator<E> implements Iterator<E>
+  {    
+    public DisjointIterator(Collection<E> checkedCollection, Collection<E> disjointCollection)
+    {
+      _checkedCollection = checkedCollection;
+      _disjointIterator = disjointCollection.iterator();
+    }
+
+    public boolean hasNext()
+    {
+      if (_nextHolder == null)
+      {
+        do
+        {
+          if (_disjointIterator.hasNext())
+          {
+            E next = _disjointIterator.next();
+            
+            if (!_checkedCollection.contains(next))
+            {
+              // found it
+              _nextHolder = new AtomicReference<E>(next);
+              break;
+            }
+          }
+          else
+          {
+            return false;
+          }
+        }
+        while (true);
+      }
+      
+      return true;
+    }
+
+    public E next()
+    {
+      // check if we have another value and if we do, populate _nextHolder
+      if (hasNext())
+      {
+        E value = _nextHolder.get();
+        
+        // clear so we know that we need to recalculate next time
+        _nextHolder = null;
+        return value;
+      }
+      else
+      {
+        throw new NoSuchElementException();
+      }
+    }
+
+    public void remove()
+    {
+      // make sure that have have called next() before removing.  In the case where
+      // next() has never been called, the _disjointIterator should blow up on its own.
+      // one problem we have is that this code won't work correctly if the call order
+      // is next(), hasNext(), remove(), since hasNext() calls next() as a side-effect.
+      // In this case we will throw an IllegalStateException(), which is probably
+      // preferable to removing the wrong element, which is what would happen if we
+      // didn't have the (_nextHolder == null) check.
+      if (_nextHolder == null)
+        _disjointIterator.remove();
+      else
+        throw new IllegalStateException();
+    }
+
+    private final Collection<E> _checkedCollection;
+    private final Iterator<E> _disjointIterator;
+    private AtomicReference<E> _nextHolder;
   }
   
   /**
@@ -720,6 +1130,170 @@ public final class CollectionUtils
 
     private static final long serialVersionUID = 0L;
   }
+
+  /**
+   * Live composite set where both sets are allowed to be disjoint.
+   * @param <E>
+   */
+  protected abstract static class LenientCompositeSet<E> extends CompositeSet<E>
+  {
+    @Override
+    public int size()
+    {
+      return CollectionUtils.getUnionSize(getPrimaryDelegate(), getSecondaryDelegate());
+    }
+
+    @Override
+    public Iterator<E> iterator()
+    {
+      // create a CompositeIterator of the primary and secondary Sets such that all of the
+      // elements of the bigger Set are returned directly and the smaller Collection returns
+      // only the elements not present in the larger Collection
+      Set<E> primaryDelegate = getPrimaryDelegate();
+      Set<E> secondaryDelegate = getSecondaryDelegate();
+      
+      if (primaryDelegate.size() >= secondaryDelegate.size())
+      {
+        return new CompositeIterator<E>(
+                        new RemovingIterator<E>(primaryDelegate.iterator(), secondaryDelegate),
+                        new DisjointIterator<E>(primaryDelegate, secondaryDelegate));
+      }
+      else
+      {
+        return new CompositeIterator<E>(
+                        new RemovingIterator<E>(secondaryDelegate.iterator(), primaryDelegate),
+                        new DisjointIterator<E>(secondaryDelegate, primaryDelegate));
+      }
+    }
+
+    @Override
+    public boolean add(E e)
+    {
+      boolean modified = getPrimaryDelegate().add(e);
+      
+      if (modified)
+      {
+        // If the secondary delegate already contained this element
+        // then we didn't really change.  Since we don't need to maintain the disjoint
+        // property, we don't have to remove the item from the secondaryDelegate.
+        modified = !getSecondaryDelegate().contains(e);
+      }
+      
+      return modified;
+    }
+
+    @Override
+    public boolean remove(Object o)
+    {
+      // override to remove from both Sets to ensure that removing from the first
+      // doesn't cause the same value to no longer be eclipsed in the second
+      boolean removed = getPrimaryDelegate().remove(0);
+      removed |= getSecondaryDelegate().remove(0);
+      
+      return removed;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends E> c)
+    {
+      // determine the result ahead of time
+      boolean changed = !containsAll(c);
+      
+      // We don't need to remove the items from the secondaryDelegate because we don't
+      // need to maintain disjointness
+      getPrimaryDelegate().addAll(c);
+      
+      return changed;
+    }
+
+    /**
+     * Implement Set-defined equals behavior 
+     */
+    @Override
+    public int hashCode()
+    {
+      // Set defines hashCode() as additive based on the contents
+      
+      // create a CompositeIterator of the primary and secondary Sets such that all of the
+      // elements of the bigger Set are returned directly and the smaller Collection returns
+      // only the elements not present in the larger Collection
+      Set<E> primaryDelegate = getPrimaryDelegate();
+      Set<E> secondaryDelegate = getSecondaryDelegate();
+      
+      int hashCode;
+      Iterator<E> disjointElements;
+      
+      if (primaryDelegate.size() >= secondaryDelegate.size())
+      {
+        hashCode = primaryDelegate.hashCode();
+        disjointElements = new DisjointIterator<E>(primaryDelegate, secondaryDelegate);
+      }
+      else
+      {
+        hashCode = secondaryDelegate.hashCode();
+        disjointElements = new DisjointIterator<E>(secondaryDelegate, primaryDelegate);
+      }
+      
+      while (disjointElements.hasNext())
+      {
+        E currElement = disjointElements.next();
+        
+        if (currElement != null)
+          hashCode += currElement.hashCode();
+      }
+      
+      return hashCode;
+    }
+  }
+  
+  /**
+   * Concrete Composite Set that takes the two sets to compose
+   */
+  private static class LenientFixedCompositeSet<E> extends LenientCompositeSet<E>
+  {
+    LenientFixedCompositeSet(Set<E> primarySet, Set<E> secondarySet)
+    {
+      if (primarySet == null)
+        throw new NullPointerException();
+
+      if (secondarySet == null)
+        throw new NullPointerException();
+            
+      _primarySet   = primarySet;
+      _secondarySet = secondarySet;
+    }
+
+    @Override
+    protected Set<E> getPrimaryDelegate()
+    {
+      return _primarySet;
+    }
+    
+    @Override
+    protected Set<E> getSecondaryDelegate()
+    {
+      return _secondarySet;
+    }
+    
+    private final Set<E> _primarySet;
+    private final Set<E> _secondarySet;
+  }
+
+  /**
+   * Serializable version of LenientFixedCompositeSet
+   * @param <E>
+   */
+  private static final class SerializableLenientFixedCompositeSet<E> extends
+     LenientFixedCompositeSet<E> implements Serializable
+  {
+    SerializableLenientFixedCompositeSet(Set<E> primarySet, Set<E> secondarySet)
+    {
+      super(primarySet, secondarySet);
+    }
+
+    private static final long serialVersionUID = 0L;
+  }
+
 
   private static class SerializableCollection<E> extends DelegatingCollection<E>
                                                  implements Serializable
@@ -936,118 +1510,68 @@ public final class CollectionUtils
       return getDelegate().hashCode();
     }
   }
+  
+  protected static abstract class AccessHookMap<K,V> extends DelegatingMap<K, V>
+  {     
+    protected abstract void writeNotify(K key, V value);
 
-  // Map that validates that the keys and values added to the map are Serializable
-  private final static class CheckedSerializationMap<K, V> extends DelegatingMap<K,V>
-                                                           implements Serializable
-  {
+    protected abstract void removeNotify(Object key);
 
-    public CheckedSerializationMap(Map<K, V> delegate)
-    {
-      if (delegate == null)
-        throw new NullPointerException();
-      
-      if (delegate instanceof Serializable)
-        throw new IllegalArgumentException("Unserializable delegate");
-      
-      _delegate = delegate;
-    }
+    protected abstract void clearNotify();
 
-    protected Map<K, V> getDelegate()
-    {
-      return _delegate;
-    }
-
+    @Override
     public V put(K key, V value)
     {
-      _checkSerialization(key, value);
+      writeNotify(key, value);
       
       return super.put(key, value);
     }
 
-    public void putAll(Map<? extends K, ? extends V> m)
+    @Override
+    public V remove(Object key)
     {
+      removeNotify(key);
       
-      Object[] keys = m.keySet().toArray();
-      Object[] values = m.values().toArray();
-      
-      int keyCount = keys.length;
-      
-      // in case an entry was added or removed between to tow toArray calls above
-      if (keyCount != values.length)
-        throw new ConcurrentModificationException();
-      
-      // atomically check for serializability before adding
-      for (int k = 0; k < keyCount; k++)
-      {
-        _checkSerialization(keys[k], values[k]);        
-      }
-
-      // add the contents we checked rather that calling super.putAll(m), in case
-      // the map changed after we checked its contents above
-      Map<K, V> delegate = getDelegate();
-      
-      for (int k = 0; k < keyCount; k++)
-      {
-        delegate.put((K)keys[k], (V)values[k]);
-      }
+      return super.remove(key);
     }
 
-    public Set<Map.Entry<K, V>> entrySet()
-    {
-      return new CheckedSerializationEntrySet(getDelegate().entrySet());      
+    @Override
+    public void putAll(Map<? extends K, ? extends V> m)
+    {      
+      for (Map.Entry<? extends K, ? extends V> entry : m.entrySet())
+      {        
+        K key   = entry.getKey();
+        V value = entry.getValue();
+        
+        writeNotify(key, value);
+        super.put(key, value);
+      }
     }
     
-    private void _checkSerialization(Object key, Object value)
+    @Override
+    public void clear()
     {
-      if (!(key instanceof Serializable))
-        throw new ClassCastException(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_KEY",
-                                                     new Object[]{key, this}));
-
-      if (!(value instanceof Serializable))
-        throw new ClassCastException(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_VALUE",
-                                                     new Object[]{value, key, this}));
-
+      clearNotify();
+      super.clear();
+    }
  
-      // don't bother checking common case of String
-      if (!(key instanceof String))
-      {
-        // verify that the contents of the key are in fact Serializable
-        try
-        {
-          new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(key);
-        }
-        catch (IOException e)
-        {          
-          throw new IllegalArgumentException(_LOG.getMessage("FAILED_SERIALIZATION_PROPERTY_KEY",
-                                                     new Object[]{key, this}),
-                                                     e);
-        }
-      }
-      
-      // verify that the contents of the value are in fact Serializable
-      try
-      {
-        new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(value);
-      }
-      catch (IOException e)
-      {          
-        throw new IllegalArgumentException(_LOG.getMessage("FAILED_SERIALIZATION_PROPERTY_VALUE",
-                                                   new Object[]{value, key, this}),
-                                                   e);
-      }
+    public Set<Map.Entry<K, V>> entrySet()
+    {
+      return new MutationHookedEntrySet<K, V>(this);      
     }
 
+
     // Entry Set returns CheckedSerializationEntry Objects
-    private class CheckedSerializationEntrySet extends DelegatingCollection<Entry<K,V>>
-                                                            implements Set<Entry<K, V>>
+    private static class MutationHookedEntrySet<K, V> extends DelegatingCollection<Entry<K,V>>
+                                         implements Set<Entry<K, V>>
     {
-      private CheckedSerializationEntrySet(Set<Entry<K, V>> delegate)
+      private MutationHookedEntrySet(AccessHookMap<K, V> accessHookMap)
       {
-        if (delegate == null)
+        if (accessHookMap == null)
           throw new NullPointerException();
         
-        _delegate = delegate;
+        _accessHookMap = accessHookMap;
+        _delegate = accessHookMap.getDelegate().entrySet();
       }
 
       protected Set<Entry<K, V>> getDelegate()
@@ -1057,7 +1581,7 @@ public final class CollectionUtils
 
       public Iterator<Entry<K,V>> iterator()
       {
-        return new CheckedSerializationEntrySetIterator(super.iterator());
+        return new MutationHookedEntrySetIterator<K, V>(super.iterator(), _accessHookMap);
       }
       
       public Object[] toArray()
@@ -1074,7 +1598,7 @@ public final class CollectionUtils
                          : new Entry[entryCount];
                         
         for (int i = 0; i < entryCount; i++)
-          entries[i] = new CheckedSerializationEntry((Entry<K,V>)delegateEntries[i]);
+          entries[i] = new MutationHookedEntry((Entry<K,V>)delegateEntries[i], _accessHookMap);
         
         return entries;
       }
@@ -1096,7 +1620,8 @@ public final class CollectionUtils
         int entryCount = delegateEntries.length;
         
         for (int i = 0; i < entryCount; i++)
-          delegateEntries[i] = new CheckedSerializationEntry((Entry<K,V>)delegateEntries[i]);
+          delegateEntries[i] = new MutationHookedEntry<K, V>((Entry<K,V>)delegateEntries[i],
+                                                             _accessHookMap);
         
         // now figure out whether we have to copy the entries into the passed in array or not
         if (entryCount > inputSize)
@@ -1112,12 +1637,14 @@ public final class CollectionUtils
         return a;
       }
 
-      // Iterator for CheckedSerializationEntrySet that returns CheckedSerializationEntry
-      private class CheckedSerializationEntrySetIterator implements Iterator<Entry<K,V>>
+      // Iterator for MutationHookedEntrySet that returns MutationHookedEntry
+      private static final class MutationHookedEntrySetIterator<K, V> implements Iterator<Entry<K,V>>
       {
-        private CheckedSerializationEntrySetIterator(Iterator<Entry<K, V>> delegate)
+        private MutationHookedEntrySetIterator(Iterator<Entry<K, V>> delegate,
+                                               AccessHookMap<K, V>   accessHookMap)
         {
-          _delegate = delegate;
+          _delegate      = delegate;
+          _accessHookMap = accessHookMap;
         }
 
         public boolean hasNext()
@@ -1127,26 +1654,50 @@ public final class CollectionUtils
 
         public Map.Entry<K,V> next()
         {
-          return new CheckedSerializationEntry<K,V>(_delegate.next());
+          Map.Entry<K,V> nextEntry = _delegate.next();
+          
+          // update the current key
+          _currKey = nextEntry.getKey();
+          
+          // return wrapped entry
+          return new MutationHookedEntry<K,V>(nextEntry, _accessHookMap);
         }
 
         public void remove()
         {
+          if (_currKey == _NO_KEY)
+            throw new IllegalStateException();
+          
+          // notify listener of removal
+          _accessHookMap.removeNotify(_currKey);
+          
+          // let the delegate remove the entry
           _delegate.remove();
+          
+          // no more entry to remove until next call to next()
+          _currKey = _NO_KEY;
         }
-
+ 
+        private static final Object _NO_KEY = new Object();
+       
+        // either _NO_KEY or the current key.  We use volatile to ensure safe publication for
+        // thread use
+        private volatile Object _currKey = _NO_KEY;
+        
         private final Iterator<Entry<K, V>> _delegate;
+        private final AccessHookMap<K, V> _accessHookMap;
       }
 
-      // Entry implementation that checks calls to setValue
-      private class CheckedSerializationEntry<K, V> extends DelegatingEntry<K, V>
+      // Entry implementation that hooks calls to setValue
+      private static class MutationHookedEntry<K, V> extends DelegatingEntry<K, V>
       {
-        private CheckedSerializationEntry(Entry<K, V> delegate)
+        private MutationHookedEntry(Entry<K, V> delegate, AccessHookMap<K, V> accessHookMap)
         {
           if (delegate == null)
             throw new NullPointerException();
           
           _delegate = delegate;
+          _accessHookMap = accessHookMap;
         }
         
         protected Entry<K, V> getDelegate()
@@ -1156,17 +1707,201 @@ public final class CollectionUtils
         
         public V setValue(V value)
         {
-          _checkSerialization(getKey(), value);
+          _accessHookMap.writeNotify(getKey(), value);
           return super.setValue(value);
         }
       
         private final Entry<K, V> _delegate;
-      }
+        private final AccessHookMap<K, V> _accessHookMap;
+     }
 
+      private final AccessHookMap<K, V> _accessHookMap;
       private final Set<Entry<K, V>> _delegate;
     }
+  }
+
+  protected static class ExternalAccessHookMap<K,V> extends AccessHookMap<K, V>
+  {
+    protected ExternalAccessHookMap(Map<K, V> delegate, MapMutationHooks<K, V> mutationHooks)
+    {
+      if (delegate == null)
+        throw new NullPointerException("delegate is null");
+      
+      if (mutationHooks == null)
+        throw new NullPointerException("accessHooks is null");
+      
+      _delegate = delegate;
+      _mutationHooks = mutationHooks;
+    }
+    
+    protected final Map<K, V> getDelegate()
+    {
+      return _delegate;
+    }
+    
+    protected final void writeNotify(K key, V value)
+    {
+      _mutationHooks.writeNotify(this, key, value);      
+    }
+  
+    protected final void removeNotify(Object key)
+    {
+      _mutationHooks.removeNotify(this, key);      
+    }
+
+    protected final void clearNotify()
+    {
+      _mutationHooks.clearNotify(this);      
+    }
+
+    private static final long serialVersionUID = 1L;
 
     private final Map<K, V> _delegate;
+    private final MapMutationHooks<K, V> _mutationHooks;
+  }
+
+  private static final class SerializableExternalAccessHookMap<K, V> 
+                                                     extends ExternalAccessHookMap<K, V>
+                                                     implements Serializable
+  {
+    private SerializableExternalAccessHookMap(
+      Map<K, V> delegate,
+      MapMutationHooks<K, V> mutationHooks)
+    {
+      super(delegate, mutationHooks); 
+
+      if (!(delegate instanceof Serializable))
+        throw new IllegalArgumentException("Delegate must be Serializable");
+  
+      if (!(mutationHooks instanceof Serializable))
+        throw new IllegalArgumentException("mutation hooka must be Serializable");
+    }
+    
+    private static final long serialVersionUID = 1L;
+  }
+
+
+  // Map that validates that the keys and values added to the map are Serializable
+  private final static class CheckedSerializationMap<K, V> extends AccessHookMap<K,V>
+                                                           implements Serializable
+  {
+    /**
+     * @param requireSerializable if <code>true</code>, require that all values in the map implement
+     *                            Serializable.
+     * @param delegate we do not check whether the delegate itself is Serializable. We just check its contents.
+     */
+    public CheckedSerializationMap(
+      Map<K, V> delegate,
+      boolean   requireSerializable)
+    {
+      if (delegate == null)
+        throw new NullPointerException();
+
+      _delegate = delegate;
+      _requireSerializable = requireSerializable;
+    }
+
+    protected Map<K, V> getDelegate()
+    {
+      return _delegate;
+    }
+
+    protected void writeNotify(K key, V value)
+    {
+      // don't bother checking common case of String
+      if (!(key instanceof String))
+      {
+        if (key instanceof Serializable)
+        {
+          // verify that the contents of the key are in fact Serializable
+          try
+          {
+            new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(key);
+          }
+          catch (IOException e)
+          {          
+            throw new IllegalArgumentException(_LOG.getMessage("FAILED_SERIALIZATION_PROPERTY_KEY",
+                                                       new Object[]{key, this}),
+                                                       e);
+          }
+        }
+        else
+        {
+          if (_requireSerializable)
+          {
+            throw new ClassCastException(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_KEY",
+                                                         new Object[]{key, this}));
+          }
+        }
+      }
+      
+      if (value instanceof Serializable)
+      {
+        // verify that the contents of the value are in fact Serializable
+        try
+        {
+          new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(value);
+        }
+        catch (IOException e)
+        {          
+          throw new IllegalArgumentException(_LOG.getMessage("FAILED_SERIALIZATION_PROPERTY_VALUE",
+                                                     new Object[]{value, key, this}),
+                                                     e);
+        }
+      }
+      else if (value != null)
+      {
+        if (_requireSerializable)
+        {
+          throw new ClassCastException(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_VALUE",
+                                                       new Object[]{value, key, this}));
+        }
+      }
+    }
+
+    protected void removeNotify(Object key)
+    {
+      // do nothing
+    }
+    
+    protected void clearNotify()
+    {
+      // do nothing
+    }
+
+    @Override
+    public void putAll(Map<? extends K, ? extends V> m)
+    {
+      
+      Object[] keys = m.keySet().toArray();
+      Object[] values = m.values().toArray();
+      
+      int keyCount = keys.length;
+      
+      // in case an entry was added or removed between to tow toArray calls above
+      if (keyCount != values.length)
+        throw new ConcurrentModificationException();
+      
+      // atomically check for serializability before adding
+      for (int k = 0; k < keyCount; k++)
+      {
+        writeNotify((K)keys[k], (V)values[k]);        
+      }
+
+      // add the contents we checked rather that calling super.putAll(m), in case
+      // the map changed after we checked its contents above
+      Map<K, V> delegate = getDelegate();
+      
+      for (int k = 0; k < keyCount; k++)
+      {
+        delegate.put((K)keys[k], (V)values[k]);
+      }
+    }
+
+    private static final long serialVersionUID = 1L;
+
+    private final Map<K, V> _delegate;
+    private final boolean   _requireSerializable;
   }
 
   private static class EmptyIterator implements Iterator

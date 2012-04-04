@@ -119,15 +119,17 @@
 <!-- KEY_IS_LIST_KEY -->
 <resource key="KEY_IS_LIST_KEY" dnt="false">索引鍵 {0} 是一個清單索引鍵</resource>
 <!-- DEFAULT_VALUE_IS_NOT_ASSIGNED_TO_TYPE -->
-<resource key="DEFAULT_VALUE_IS_NOT_ASSIGNED_TO_TYPE" dnt="false">預設值 {0} 無法指派給類型 {1}</resource>
+<resource key="DEFAULT_VALUE_IS_NOT_ASSIGNED_TO_TYPE" dnt="false">預設值 {0} 無法指定給類型 {1}</resource>
 <!-- CAPABILITY_MASK_NOT_UNDERSTOOD -->
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">無法理解功能遮罩 {0}</resource>
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">無效的索引</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">在已經有相同 ID 的子項存在時新增子項. 將會移除舊的子項然後新增新的子項. {0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">變更管理程式無法套用 AddChildComponentChange, 因為已有相同 ID 的子項元件存在. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">未指定節點</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">不要將加上戳記的元件保存於重複程式中</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">必須要有元件</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -156,6 +158,8 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">若 facetName 或 facetComponent 之中的其中一項為空值, 便無法建構 AddFacetChange.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">必須指定 Facet 名稱</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">變更管理程式無法套用 SetFacetChildComponentChange, 因為已有相同名稱的 Facet 存在. {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">必須有要移動的子項元件.</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -168,6 +172,8 @@
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">找不到要移動的子項: {0}.</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
 <resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">找不到目的地容器: {0}.</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">在目的地容器中發現相同 ID 的不同元件. 已中止移動作業: {0}.</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">插入元件之前, 或找不到節點: {0}.</resource>
 <!-- INDEX_SIZE -->
@@ -257,7 +263,7 @@
 <!-- END_OF_PATTERN_NOT_FOUND -->
 <resource key="END_OF_PATTERN_NOT_FOUND" dnt="false">找不到樣式結尾</resource>
 <!-- FASTMESSAGEFORMAT_FIND_EMPTY_ARGUMENT -->
-<resource key="FASTMESSAGEFORMAT_FIND_EMPTY_ARGUMENT" dnt="false">FastMessageFormat: 發現空的引數 - {} - </resource>
+<resource key="FASTMESSAGEFORMAT_FIND_EMPTY_ARGUMENT" dnt="false">FastMessageFormat: 發現空引數 - {} - </resource>
 <!-- BUNDLE_NOT_FOUND -->
 <resource key="BUNDLE_NOT_FOUND" dnt="false">找不到組合</resource>
 <!-- NULL_RESOURCEID -->
@@ -305,7 +311,15 @@
 <!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
 <resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">無法序列化元件樹狀結構狀態</resource>
 <!-- UNABLE_TO_SET_RENDER_PARAMETERS -->
-<resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">因為反映失敗, 無法設定入口網站應用程式顯示參數</resource>
+<resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">無法設定 Portlet 顯示參數, 因為反映失敗</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">&quot;{0}&quot; 的類型使它無法與 &quot;{1}&quot; 比較.</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">無法壓縮頁面狀態. 狀態必須為可序列化才能夠壓縮, 因此通常頁面狀態無法壓縮的原因即是頁面狀態不可序列化. 您可以將 org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE 設為 false, 將壓縮功能關閉. 請參閱系統特性 org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION 的相關文件, 瞭解如何測試序列化的各個層面.</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">無法解壓縮頁面狀態.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">建構視觀表時不可呼叫 getClientId. 元件 ID: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">要求結尾處未正確重設資料列索引鍵. 元件 ID: {0} ViewId: {1}</resource>
 </resources>

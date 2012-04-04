@@ -31,37 +31,34 @@ public class InputListOfValuesDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956883498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Detailed,
+    Detailed,
         Simple
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public InputListOfValuesDemo() {
-		super(ComponentDemoId.inputListOfValues, "Input List Of Values",
-            new String[]{
-                "/components/input/inputListOfValues/inputListOfValues.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public InputListOfValuesDemo() {
+    super(ComponentDemoId.inputListOfValues, "Input List Of Values");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
                         "/components/input/inputListOfValues/inputListOfValuesSimple.xhtml"
-                }, getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/input/inputListOfValues/InputListOfValuesBean.java"));
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
                 new String[]{
                         "/components/input/inputListOfValues/inputListOfValuesDetailed.xhtml"
-                }, getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/input/inputListOfValues/InputListOfValuesBean.java"));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.Detailed);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/input/inputListOfValues/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/input/inputListOfValues/InputListOfValuesBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/input/inputListOfValues/InputListOfValuesBean.java";
+  }
 
 }

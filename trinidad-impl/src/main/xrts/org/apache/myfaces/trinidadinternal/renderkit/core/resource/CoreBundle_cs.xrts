@@ -474,14 +474,14 @@
 <!--table add row button text for adding one row-->
 <resource key="TABLE_ADD_ROW_SINGLE_TEXT" dnt="false">Přidat další řádek</resource>
 <!--table add row button text for adding more than one row-->
-<resource key="TABLE_ADD_ROW_MULTI_TEXT" dnt="false">Přidat {0} řádků</resource>
+<resource key="TABLE_ADD_ROW_MULTI_TEXT" dnt="false">Přidat {0} řádků </resource>
 <!--table total row button text for updating display-->
 <resource key="TABLE_TOTAL_ROW_BUTTON_TEXT" dnt="false">Přepočítat</resource>
 <!--table add row button text for adding more than one row-->
 <resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">Celkem</resource>
 <!--LOVChoice-->
 <!--Text for the lovChoice More... option  -->
-<resource key="LOV_CHOICE_MORE_OPTION" dnt="false">Více...</resource>
+<resource key="LOV_CHOICE_MORE_OPTION" dnt="false">Další...</resource>
 <!-- Resources added for the Apps RichTextEditor -->
 <resource key="RTE_CUT_BUTTON_TEXT" dnt="false">Vyjmout</resource>
 <resource key="RTE_COPY_BUTTON_TEXT" dnt="false">Kopírovat</resource>

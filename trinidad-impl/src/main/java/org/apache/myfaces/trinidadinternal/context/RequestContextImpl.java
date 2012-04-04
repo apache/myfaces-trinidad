@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.context;
 
@@ -22,7 +22,6 @@ import java.awt.Color;
 
 import java.io.Serializable;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,16 +36,15 @@ import javax.faces.application.ProjectStage;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.visit.VisitContext;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewDeclarationLanguage;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.change.NullChangeManager;
 import org.apache.myfaces.trinidad.change.SessionChangeManager;
 import org.apache.myfaces.trinidad.component.UIXComponent;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.view.ViewDeclarationLanguage;
-
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.Agent;
@@ -68,7 +66,6 @@ import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
 import org.apache.myfaces.trinidadinternal.application.InternalViewHandlingStrategy;
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
-import org.apache.myfaces.trinidadinternal.application.ViewHandlerImpl;
 import org.apache.myfaces.trinidadinternal.el.FormatterMap;
 import org.apache.myfaces.trinidadinternal.el.HelpProvider;
 import org.apache.myfaces.trinidadinternal.el.OracleHelpProvider;
@@ -218,7 +215,7 @@ public class RequestContextImpl extends RequestContext
   @Override
   public boolean isPartialRequest(FacesContext context)
   {
-    return CoreRenderKit.isPartialRequest(context.getExternalContext());
+    return context.getPartialViewContext().isAjaxRequest();
   }
 
 
@@ -230,11 +227,11 @@ public class RequestContextImpl extends RequestContext
       _bean.getProperty(RequestContextBean.DEBUG_OUTPUT_KEY));
 
     FacesContext fc = FacesContext.getCurrentInstance();
-    
+
     if (fc.isProjectStage(ProjectStage.Production))
     {
-      // on production we always want FALSE, unless the 
-      // user explicitly set the config to TRUE, but 
+      // on production we always want FALSE, unless the
+      // user explicitly set the config to TRUE, but
       // generate a WARNING message for that.
       if (debugOutput)
       {
@@ -278,6 +275,12 @@ public class RequestContextImpl extends RequestContext
   {
     return (String) _bean.getProperty(RequestContextBean.SKIN_FAMILY_KEY);
   }
+  
+  @Override
+  public String getSkinVersion()
+  {
+    return (String) _bean.getProperty(RequestContextBean.SKIN_VERSION_KEY);
+  } 
 
   @Override
   public Accessibility getAccessibilityMode()
@@ -602,7 +605,7 @@ public class RequestContextImpl extends RequestContext
 
       if (master == null)
       {
-        _LOG.warning("CANNOT_FIND_PARTIAL_TRIGGER", new Object[] {trigger, listener});
+        _LOG.fine("CANNOT_FIND_PARTIAL_TRIGGER", new Object[] {trigger, listener});
       }
       else
       {
@@ -638,7 +641,7 @@ public class RequestContextImpl extends RequestContext
       // _addTargets(_GLOBAL_TRIGGER);
 
       // now do all listeners
-      _addTargets(updated);
+      _addTargets(updated, new HashSet<UIComponent>());
     }
   }
 
@@ -727,8 +730,8 @@ public class RequestContextImpl extends RequestContext
       return false;
 
     ViewDeclarationLanguage strategy = context.getApplication().
-                          getViewHandler().getViewDeclarationLanguage(context, root.getViewId()); 
-    
+                          getViewHandler().getViewDeclarationLanguage(context, root.getViewId());
+
     return (strategy instanceof InternalViewHandlingStrategy);
   }
 
@@ -787,27 +790,28 @@ public class RequestContextImpl extends RequestContext
     return lifetimeObj.intValue();
   }
 
-  private void _addTargets(UIComponent key)
+  private void _addTargets(
+    UIComponent      key,
+    Set<UIComponent> visitedComponents)
   {
     Map<UIComponent, Set<UIComponent>> pl = _getPartialListeners();
     Set<UIComponent> listeners = pl.get(key);
-    if (listeners != null)
+    if (listeners != null && !listeners.isEmpty())
     {
-      // protect from infinite recursion
-      pl.remove(key);
+      // protect from infinite recursion by making sure we do not
+      // process the same component twice
+      if (!visitedComponents.add(key))
+      {
+        return;
+      }
 
-      for(UIComponent listener : listeners)
+      for (UIComponent listener : listeners)
       {
         addPartialTarget(listener);
         // This target will be re-rendered, re-render anything that's
         // listening on it also.
-        partialUpdateNotify(listener);
+        _addTargets(listener, visitedComponents);
       }
-      
-      // TRINIDAD-1545
-      // Re-add listeners to the map to accommodate partial targets for different stamps of 
-      // the same component
-      pl.put(key, listeners);
     }
   }
 

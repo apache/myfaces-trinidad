@@ -29,7 +29,14 @@
     <display-name>Date Time Converter</display-name>
     <converter-id>org.apache.myfaces.trinidad.DateTime</converter-id>
     <converter-class>org.apache.myfaces.trinidadinternal.convert.DateTimeConverter</converter-class>
-        <property>
+    <property>
+      <description><![CDATA[Whether the converter should be disabled, default to false.]]>
+      </description>
+      <property-name>disabled</property-name>
+      <property-class>boolean</property-class>
+      <default-value>false</default-value>
+    </property>
+    <property>
       <description><![CDATA[<html><p>
               Custom error message to be used, for creating detail part of
               faces message, for values that cannot be converted to date when
@@ -194,7 +201,7 @@
       <description><![CDATA[Time zone in which to interpret any time information in the date
                string. If not set here, picks this value from
                trinidad-config.xml configuration file. If not defined there, then
-               it is defaulted to GMT.]]>
+               it is defaulted to the value returned by TimeZone.getDefault() which is usually the server JVM timezone.]]>
       </description>
       <property-name>timeZone</property-name>
       <property-class>java.util.TimeZone</property-class>

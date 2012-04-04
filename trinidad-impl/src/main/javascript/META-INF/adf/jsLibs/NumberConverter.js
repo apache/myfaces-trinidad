@@ -219,7 +219,9 @@ TrNumberConverter.prototype.getAsObject = function(
   label
   )
 {
-  if(this._isConvertible())
+  numberString = TrFormatUtils.trim(numberString);
+  
+  if(this._isConvertible(numberString))
   {
     // The following are from the javadoc for Number and DateTimeConverter.
     // If the specified String is null, return a null. Otherwise, trim leading and trailing whitespace before proceeding.
@@ -227,7 +229,6 @@ TrNumberConverter.prototype.getAsObject = function(
     if (numberString == null)
       return null;
     
-    numberString = TrUIUtils.trim(numberString);
     if (numberString.length == 0)
       return null
 
@@ -325,10 +326,15 @@ TrNumberConverter.prototype.getAsObject = function(
  * Checks if this converter can convert the value, which
  * is only true, if no pattern is set and the type is a number
  */
-TrNumberConverter.prototype._isConvertible = function()
+TrNumberConverter.prototype._isConvertible = function(numberString)
 {
   // The locale attribute is now supported on convertNumber.
-  return (this._pattern == null);
+  if (this._pattern != null)
+    return false;
+
+  // check other common criteria as well.
+  return TrFormatUtils.isNumberConvertible(numberString);   
+
 }
 
 /**

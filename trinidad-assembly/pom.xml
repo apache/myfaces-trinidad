@@ -26,7 +26,7 @@
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad</artifactId>
-    <version>2.0.0.2-SNAPSHOT</version>
+    <version>2.0.2-SNAPSHOT</version>
   </parent>
 
   <artifactId>trinidad-assembly</artifactId>
@@ -35,108 +35,28 @@
   <build>
     <plugins>
       <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptors>
-            <descriptor>src/main/assembly/dep.xml</descriptor>
-            <descriptor>src/main/assembly/src-all.xml</descriptor>
-          </descriptors>
-          <finalName>trinidad-${project.version}</finalName>
-          <outputDirectory>target/assembly/out</outputDirectory>
-          <workDirectory>target/assembly/work</workDirectory>
-        </configuration>
-      </plugin>
-
-      <!-- todo: what does this do and how is it activated? -->      
-      <plugin>
-        <groupId>org.apache.myfaces.maven</groupId>
-        <artifactId>wagon-maven-plugin</artifactId>
-        <configuration>
-          <inputDirectory>target/assembly/out</inputDirectory>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
-  <profiles>
-    <profile>
-      <id>assemble</id>
-      <activation>
-        <property>
-          <name>!prepareRelease</name>
-        </property>
-      </activation>
-
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.trinidad</groupId>
-          <artifactId>trinidad-build</artifactId>
-          <exclusions>
-            <exclusion>
-              <groupId>javax.servlet</groupId>
-              <artifactId>jsp-api</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>javax.servlet</groupId>
-              <artifactId>servlet-api</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.trinidad</groupId>
-          <artifactId>trinidad-api</artifactId>
-          <exclusions>
-            <exclusion>
-              <groupId>javax.servlet</groupId>
-              <artifactId>jsp-api</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>javax.servlet</groupId>
-              <artifactId>servlet-api</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.trinidad</groupId>
-          <artifactId>trinidad-impl</artifactId>
-          <exclusions>
-            <exclusion>
-              <groupId>javax.servlet</groupId>
-              <artifactId>jsp-api</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>javax.servlet</groupId>
-              <artifactId>servlet-api</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-      </dependencies>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>dependency-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>copy-javadoc</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>unpack</goal>
-                </goals>
-                <configuration>
-                  <artifactItems>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>trinidad-api</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>javadoc</classifier>
-                      <outputDirectory>${project.build.directory}/javadoc</outputDirectory>
-                    </artifactItem>
-                  </artifactItems>
-                </configuration>
-              </execution>
-              <execution>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>dependency-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-javadoc</id>
+            <phase>package</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                    <artifactId>trinidad-api</artifactId>
+                    <version>${project.version}</version>
+                    <classifier>javadoc</classifier>
+                    <outputDirectory>${project.build.directory}/javadoc</outputDirectory>
+                  </artifactItem>
+                </artifactItems>
+              </configuration>
+            </execution>
+            <execution>
                 <id>copy-source</id>
                 <phase>package</phase>
                 <goals>
@@ -170,8 +90,74 @@
               </execution>
             </executions>
           </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.2</version>
+        <executions>
+          <execution>
+            <id>make_assembly_trinidad</id>
+            <configuration>
+              <descriptors>
+                <descriptor>src/main/assembly/dep.xml</descriptor>
+              </descriptors>
+              <appendAssemblyId>true</appendAssemblyId>  <!-- adds "-bin" and "-src" -->
+              <tarLongFileMode>gnu</tarLongFileMode>
+            </configuration>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.myfaces.trinidad</groupId>
+      <artifactId>trinidad-build</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jsp-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.trinidad</groupId>
+      <artifactId>trinidad-api</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jsp-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.trinidad</groupId>
+      <artifactId>trinidad-impl</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jsp-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
 </project>

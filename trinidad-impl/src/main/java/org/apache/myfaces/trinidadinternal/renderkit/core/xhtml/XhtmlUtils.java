@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
@@ -173,35 +173,35 @@ public class XhtmlUtils
     // problems when resizing windows - but we're done with Netscape 4)
     libURL = context.getExternalContext().encodeResourceURL(libURL.toString());
 
-    if (XhtmlConstants.FACET_PORTLET.equals(rc.getOutputMode()))
-    {
-      if (rc.getProperties().get(_PORTLET_LIB_TABLE_KEY) == null)
-      {
-        rc.getProperties().put(_PORTLET_LIB_TABLE_KEY, Boolean.TRUE);
-        writer.writeText("var _uixJSL;" +
-                         "if(!_uixJSL)_uixJSL={};" +
-                         "function _addJSL(u)" +
-                         "{" +
-                           "if(!_uixJSL[u])" +
-                           "{" +
-                             "_uixJSL[u]=1;" +
-                             "document.write(\"<scrip\"+" +
-                                            "\"t src=\\\"\"+u+" +
-                                            "\"\\\"></scrip\"+" +
-                                            "\"t>\")" +
-                           "}" +
-                         "}",
-             null);
-      }
-      writer.writeText("_addJSL(\"", null);
-      writer.writeText(libURL, null);
-      writer.writeText("\")", null);
-    }
-    else
-    {
+//    if (XhtmlConstants.FACET_PORTLET.equals(rc.getOutputMode()))
+//    {
+//      if (rc.getProperties().get(_PORTLET_LIB_TABLE_KEY) == null)
+//      {
+//        rc.getProperties().put(_PORTLET_LIB_TABLE_KEY, Boolean.TRUE);
+//        writer.writeText("var _uixJSL;" +
+//                         "if(!_uixJSL)_uixJSL={};" +
+//                         "function _addJSL(u)" +
+//                         "{" +
+//                           "if(!_uixJSL[u])" +
+//                           "{" +
+//                             "_uixJSL[u]=1;" +
+//                             "document.write(\"<scrip\"+" +
+//                                            "\"t src=\\\"\"+u+" +
+//                                            "\"\\\"></scrip\"+" +
+//                                            "\"t>\")" +
+//                           "}" +
+//                         "}",
+//             null);
+//      }
+//      writer.writeText("_addJSL(\"", null);
+//      writer.writeText(libURL, null);
+//      writer.writeText("\")", null);
+//    }
+//    else
+//    {
       // The "safe" case: just write out the source
       writer.writeURIAttribute("src", libURL, null);
-    }
+//    }
 
     writer.endElement("script");
   }
@@ -694,11 +694,6 @@ public class XhtmlUtils
     else if (!hasUserHandler && !hasHandler && hasBehaviors && data.behaviorScripts.size() == 1)
     {
       script = data.behaviorScripts.get(0);
-      if ("action".equals(secondaryEventName) && data.submitting)
-      {
-        // prevent the default click action if submitting
-        script += ";return false;";
-      }
     }
     else
     {
@@ -709,7 +704,6 @@ public class XhtmlUtils
       if (hasUserHandler) { ++length; }
       String[] scripts = new String[length];
       int index = 0;
-      boolean submitting = false;
       if (hasUserHandler)
       {
         scripts[0] = userHandlerScript;
@@ -728,11 +722,6 @@ public class XhtmlUtils
       }
 
       script = getChainedJS(true, scripts);
-      if (submitting && "click".equals(eventName))
-      {
-        // prevent the default click action if submitting
-        script += ";return false;";
-      }
     }
 
     return script;
@@ -762,8 +751,7 @@ public class XhtmlUtils
     {
       // if params are not null, a submitting behavior was found in a previous call to this
       // function, so we do not need to check for submitting here
-      data.submitting = data.submitting || _hasSubmittingBehavior(behaviors);
-      if (data.params == null && data.submitting)
+      if (data.params == null && _hasSubmittingBehavior(behaviors))
       {
         // We only need to gather the parameters if there is a submitting behavior, so do
         // not incur the performance overhead if not needed
@@ -780,7 +768,15 @@ public class XhtmlUtils
 
       for (ClientBehavior behavior : behaviors)
       {
-        data.behaviorScripts.add(behavior.getScript(behaviorContext));
+        String behaviorScript = behavior.getScript(behaviorContext);
+        if (data.params != null && // if there are no params, there are no submitting behaviors,
+          // so do not check
+          behavior.getHints().contains(ClientBehaviorHint.SUBMITTING)
+          && ("action".equals(eventName) || "click".equals(eventName)))
+        {
+          behaviorScript += ";return false"; // prevent any further JS execution
+        }
+        data.behaviorScripts.add(behaviorScript);
       }
     }
   }
@@ -802,7 +798,6 @@ public class XhtmlUtils
   {
     Collection<ClientBehaviorContext.Parameter> params;
     List<String>                                behaviorScripts;
-    boolean                                     submitting;
   }
 
   private static final Object _CLIENT_BEHAVIORS_KEY = new Object();

@@ -1,26 +1,28 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.config;
 
 import javax.faces.context.ExternalContext;
+
 import javax.servlet.ServletRequest;
 
+import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.util.RequestStateMap;
 
 /**
@@ -144,6 +146,14 @@ public abstract class Configurator
    * @param externalContext the external context
    */
   public void endRequest(ExternalContext externalContext){}
+  
+  /**
+    * The skinning framework calls this method to notify Configurators that the specified SkinFactory has been reloaded.
+    * In response the Configurators can add their skins to the specified SkinFactory.
+    * @param externalContext the external context
+    * @param factory the SkinFactory instance to which the skins can be reloaded
+    */
+  public void reloadSkins(ExternalContext externalContext, SkinFactory factory){}
 
   /**
    * Disables Configurator services for the current request.  When this method

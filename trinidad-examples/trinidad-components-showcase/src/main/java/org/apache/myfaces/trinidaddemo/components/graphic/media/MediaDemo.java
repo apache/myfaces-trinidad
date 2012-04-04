@@ -31,54 +31,65 @@ public class MediaDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982063956893498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		AllControls,
+        Typical,
+    AllControls,
         Link,
         NoControls,
         Quicktime,
         Real,
         Windows
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public MediaDemo() {
-		super(ComponentDemoId.media, "Media",
-            new String[]{
-                "/components/graphic/media/media.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public MediaDemo() {
+    super(ComponentDemoId.media, "Media");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Typical, "Typical", this,
+                new String[]{
+                        "/components/graphic/media/mediaTypical.xhtml"
+                }));
+
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.AllControls, "All controls", this,
                 new String[]{
                         "/components/graphic/media/mediaAllControls.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Link, this,
                 new String[]{
                         "/components/graphic/media/mediaLink.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoControls, "No controls", this,
                 new String[]{
                         "/components/graphic/media/mediaNoControls.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Quicktime, this,
                 new String[]{
                         "/components/graphic/media/mediaQuicktime.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Real, this,
                 new String[]{
                         "/components/graphic/media/mediaReal.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Windows, this,
                 new String[]{
                         "/components/graphic/media/mediaWindows.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.Typical);
+
+  }
 
     public String getSummaryResourcePath() {
         return "/components/graphic/media/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

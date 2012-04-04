@@ -198,6 +198,12 @@
                 More...
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainId__xc_c"
+                >
+              Select record set
+            </label>
             <script
                  type="text/javascript"
                 >
@@ -432,6 +438,12 @@
                 More...
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainId__xc_c"
+                >
+              Select record set
+            </label>
             <script
                  type="text/javascript"
                 >
@@ -668,6 +680,12 @@
                 More...
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainId__xc_c"
+                >
+              Select record set
+            </label>
             <script
                  type="text/javascript"
                 >
@@ -904,6 +922,12 @@
                 More...
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainId__xc_c"
+                >
+              Select record set
+            </label>
             <script
                  type="text/javascript"
                 >
@@ -1110,6 +1134,12 @@
                 9981-10000 of 10000
               </option>
             </select>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainId__xc_c"
+                >
+              Select record set
+            </label>
             <script
                  type="text/javascript"
                 >

@@ -31,18 +31,15 @@ public class SelectOneListboxDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1989061956014398580L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Simple,
+    Simple,
         Detailed
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public SelectOneListboxDemo() {
-		super(ComponentDemoId.selectOneListbox, "Select One Listbox",
-            new String[]{
-                "/components/select/selectOneListbox/selectOneListbox.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public SelectOneListboxDemo() {
+    super(ComponentDemoId.selectOneListbox, "Select One Listbox");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
@@ -52,7 +49,9 @@ public class SelectOneListboxDemo extends AbstractComponentDemo {
                 new String[]{
                         "/components/select/selectOneListbox/selectOneListboxDetailed.xhtml"
                 }, getSummaryResourcePath()));
-	}
+
+        setDefaultVariant(VARIANTS.Detailed);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectOneListbox/summary.xhtml";

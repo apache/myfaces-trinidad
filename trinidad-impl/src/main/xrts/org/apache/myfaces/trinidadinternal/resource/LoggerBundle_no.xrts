@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Kan ikke laste {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Kan ikke opprette forekomst for UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Filen kan ikke lastes fordi den er for stor.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad kjører i feilletingsmodus. Må ikke brukes i et produksjonsmiljø. Se: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">Elementet {0} støtter ikke EL-uttrykk.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">Elementet {0} godtar bare heltallsverdier</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">Elementet {0} godtar bare lange verdier</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Finner ikke kontekstklasselasteren.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -150,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Finner ikke ressurspakken {0}.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">feil ved lukking av filen {0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Feil ved lukking av filen: {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Feil ved henting av region-metadatafiler: {0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -181,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Det ble oppdaget en sirkulær avhengighet i utseendereferanseikonet {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Det ble sendt et SkinAddition-objekt med nullverdi til addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Kan ikke behandle konfigurasjonsfil for skall: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Utseendets translation-source ValueExpression er ikke av den forventede typen Map eller ResourceBundle, og vil bli ignorert.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -254,11 +260,17 @@
 <!-- TREE_COMPONENT_MUST_INSIDE_FORM -->
 <resource key="TREE_COMPONENT_MUST_INSIDE_FORM" dnt="false">Trekomponenten må brukes innenfor et skjema.</resource>
 <!-- CANNOT_FIND_SCRIPTLET -->
-<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">Finner ikke skriptleten: {0}</resource>
+<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">Finner ikke skriptletten: {0}</resource>
 <!-- UNABLE_GET_RESOURCE -->
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Kan ikke hente ressursen {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad kjører med feilletings-javascript. Må ikke brukes i et produksjonsmiljø. Se parameteren org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT i /WEB-INF/web.xml</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Miljøet er konfigurert som produksjon, og Apache Trinidad kjører med Java-skript for feilleting. Se parameteren org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT i /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Miljøet er konfigurert som produksjon, og Apache Trinidad kjører med ukomprimert CSS. Se parameteren org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION i /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Miljøet er konfigurert som produksjon, og Apache Trinidad kjører med debug-output satt til TRUE. Se elementet debug-output i filen trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Ugyldig verdi: {0} for {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -298,17 +310,31 @@
 <!-- ERR_PARSING_SKIN_CSS_FILE -->
 <resource key="ERR_PARSING_SKIN_CSS_FILE" dnt="false">Feil ved analyse av CSS-skallfilen. Navnet på egenskapen kan ikke være null og strengen kan ikke være tom. Analysatoren vil ignorere den. Navnet er {0} og verdien er {1}</resource>
 <!-- IGNORING_PROPERTIES_WITHOUT_SELECTOR -->
-<resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ignorerer egenskapene {0} fordi det ikke finnes noen tilsvarende velger.</resource>
+<resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ignorerer egenskapene {0} fordi det ikke finnes noen tilsvarende utvelger.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Feil ved lesing fra CSS-skallfilen</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Feil ved lesing fra CSS-skallfilen. Det er et ekstra komma i utvelgeren: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Kan ikke legge til skallet med en skinId eller et utseende med nullverdi</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">{0}-skallet som er lagt til tidligere, er lagt til på nytt. Hvis du mellomlagret dette skallet i applikasjonen, kan det hende at du får inkonsekvente resultater. Se etter dupliserte trinidad-skins.xml-filer i klassebanen.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Kan ikke hente skall med null-skinId</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Finner ikke et utseende som samsvarer med familien {0} og gjengiversamlingen {1}, så vi bruker det enkle skallet</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Fant et skall som samsvarer med familien {0} og versjonen {1}. Vi bruker skallet {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Finner ikke et skall som samsvarer med familien {0} og versjonen {1}. Vi bruker skallet {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Finner ikke et skall uten versjoner for familien {0}. Vi bruker versjonsskallet {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Kan ikke hente stilarkdokumentets tidsstempel, fordi vi ikke kan åpne tilkoblingen.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">Skallutvelgeren {0} er ikke et skallikonobjekt fordi den ikke har et innholdsattributt. Hvis du opprettet denne utvelgeren, gir du den nytt navn slik at det slutter med style i stedet for icon, slik at skallrammeverket vil behandle den som en stil, og ikke som et ikon.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} må komme foran alle andre regler.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Følgende skall utvider hverandre på en sirkulær måte, eller så finnes ikke skallet som de utvider: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -316,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Feil ved analyse av: {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">feil ved lasting av filen: {0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Feil ved lasting av filen: {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Kan ikke laste stilark: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -330,9 +356,9 @@
 <!-- IOEXCEPTION_OPENNING_FILE -->
 <resource key="IOEXCEPTION_OPENNING_FILE" dnt="false">IOException ved åpning av filen for skriving: {0}</resource>
 <!-- CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR -->
-<resource key="CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR" dnt="false">CSS-filen har nådd Internet Explorers grense på 4095 CSS-velgere. Den har {0} velgere. Velgerne etter dette vil bli ignorert.</resource>
+<resource key="CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR" dnt="false">CSS-filen har nådd Internet Explorers grense på 4095 CSS-utvelgere. Den har {0} utvelgere. Utvelgerne etter dette vil bli ignorert.</resource>
 <!-- UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX -->
-<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX" dnt="false">Syntaks for etterfølgende underelement (::) er brukt i velgeren {0}. Dette støttes ikke.</resource>
+<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX" dnt="false">Syntaks for etterfølgende underelement (::) er brukt i utvelgeren {0}. Dette støttes ikke.</resource>
 <!-- URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET -->
 <resource key="URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET" dnt="false">En URL-verdi avgrenset av url() er forventet for egenskapen {0} i stilarket {1}. Fant: {2}.</resource>
 <!-- INVALID_IMAGE_URI_IN_STYLE_SHEET -->
@@ -340,7 +366,7 @@
 <!-- EMPTY_URL_IN_STYLE_SHEET -->
 <resource key="EMPTY_URL_IN_STYLE_SHEET" dnt="false">Fant en tom URL i stilarket {0}</resource>
 <!-- ELEMENT_MUST_HAVE_NAME_ATTRIBUTE -->
-<resource key="ELEMENT_MUST_HAVE_NAME_ATTRIBUTE" dnt="false">&lt;style&gt;-elementer må enten ha et navn- eller velgerattributt</resource>
+<resource key="ELEMENT_MUST_HAVE_NAME_ATTRIBUTE" dnt="false">&lt;style&gt;-elementer må enten ha et navn- eller utvelgerattributt</resource>
 <!-- CANNOT_PARSE_IMPORT -->
 <resource key="CANNOT_PARSE_IMPORT" dnt="false">Kan ikke analysere importen: {0}</resource>
 <!-- MISSING_REQUIRED_HREF -->
@@ -419,6 +445,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Finner ikke nødvendig ID for elementet.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Finner ikke nødvendig family for elementet.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Finner ikke nødvendig underordnet element for version, name.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Misformet egenskapsoppføring: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -662,7 +690,7 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Ukjent sammenligning</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">test-BoundValue er nødvendig</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">Test-BoundValue er nødvendig</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">Nullisteargument</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
@@ -704,7 +732,7 @@
 <!-- COMPONENT_REQUIRES_FORM -->
 <resource key="COMPONENT_REQUIRES_FORM" dnt="false">{0}-komponenten må være i et skjema for å fungere på riktig måte.</resource>
 <!-- CANNOT_FIND_TIMEZONE -->
-<resource key="CANNOT_FIND_TIMEZONE" dnt="false">Tidssonen med ID-en {0} ble forespurt, men er ikke tilgjengelig via API-en TimeZone.getTimeZone(String id). Kontroller at ID-en, også med hensyn til store og små bokstaver, samsvarer med en ID som blir returnert av TimeZone.getAvailableIDs()</resource>
+<resource key="CANNOT_FIND_TIMEZONE" dnt="false">Tidssonen med ID-en {0} ble forespurt, men er ikke tilgjengelig via API-et TimeZone.getTimeZone(String id). Kontroller at ID-en, også med hensyn til store og små bokstaver, samsvarer med en ID som blir returnert av TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">Filen trinidad-config.xml inneholder en ugyldig verdi for tidssone ({0}). Standardtidssonen vil bli brukt i stedet.</resource>
 <!-- DEPRECATED_TRIGGER_SYNTAX -->
@@ -721,4 +749,23 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ugyldig land for identifikatoren {0} for regional innstilling. Landskoden må bestå av store bokstaver. Du finner riktig format i javadoc for regional innstilling. Bruker en tom streng for landet</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ugyldig variant for identifikatoren {0} for regional innstilling. Kan ikke inneholde skråstreker for å unngå XSS-angrep. Bruker en tom streng for varianten.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Kan ikke slette filen {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState må være en forekomst av StateManager.SerializedView eller en objektmatrise med lengden 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Delvis lagring av tilstand støttes ikke ennå. Sett context-param javax.faces.PARTIAL_STATE_SAVING til usann i web.xml.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Feil ved serialisering av {0}-attributt: {1}</resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> mislykket verdi =</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Failover-feil: {0}-attributt: {1} av typen {2} er ikke serialiserbart</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Failover-feil: Serialisering av {0}-attributtet {1} er endret fra {2} til {3} uten at attributtet er skadet</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Serialiseringstesting for øktattributt mislyktes for {0}. Denne kontrollen kan deaktiveres ved å fjerne REQUEST fra systemegenskapen org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Unntak ved innhenting av mislykket serialiseringstesting av øktattributt</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Øktattributt: {0} </resource>
 </resources>

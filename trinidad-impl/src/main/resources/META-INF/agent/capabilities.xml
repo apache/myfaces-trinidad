@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-     
+
 -->
 <capabilitiesDocument xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
   <agentCapabilities>
@@ -28,6 +28,11 @@
     <capabilities id="html" default="true" >
       <include refid="htmlBasic"/>
       <include src="html.xml"/>
+    </capabilities>
+
+    <capabilities id="genericDesktop" default="true" >
+      <include refid="html"/>
+      <include src="genericDesktop.xml"/>
     </capabilities>
 
     <capabilities id="pda" platforms="palm">
@@ -69,8 +74,28 @@
       <include src="gecko.xml" />
     </capabilities>
     
-    
+    <capabilities id="gecko4" agents="gecko/4+">
+      <include refid="gecko" />
+      <include src="gecko4.xml" />
+    </capabilities>
+
+
     <capabilities id="email" agents="email">
+      <include refid="html" />
+      <include src="email.xml" />
+    </capabilities>
+
+    <capabilities id="googlebot" agents="googlebot">
+      <include refid="html" />
+      <include src="email.xml" />
+    </capabilities>
+
+    <capabilities id="msnbot" agents="msnbot">
+      <include refid="html" />
+      <include src="email.xml" />
+    </capabilities>
+
+    <capabilities id="oracle_ses" agents="oracle_ses">
       <include refid="html" />
       <include src="email.xml" />
     </capabilities>
@@ -84,6 +109,11 @@
       <include refid="webkit" />
       <include src="webkit312.xml"/>
     </capabilities>
+    
+    <capabilities id="webkit533" agents="webkit/533+">
+      <include refid="webkit312" />
+      <include src="webkit533.xml"/>
+    </capabilities>
 
     <capabilities id="nokia_s60" agents="nokia_s60">
       <include refid="webkit312"/>
@@ -94,8 +124,8 @@
       <include refid="html" />
       <include src="netscape.xml"/>
     </capabilities>
-    
-    <!-- Netfront browser is treated as basic HTML browser for 
+
+    <!-- Netfront browser is treated as basic HTML browser for
          performance
     <capabilities id="netfront" agents="netfront/3+ webpro blazer/3+">
       <include refid="pda" />
@@ -119,8 +149,8 @@
       <include refid="pocketie"/>
       <include src="wm6.xml"/>
     </capabilities>
-   
-   
+
+
     <!-- BlackBerry Browser pre-4.0; 3.6 and 3.7 include support for
     XHTML Basic; 3.2 and 3.3 support cHTML; we do not provide
     explicit support for these browsers, but we use the "pda"
@@ -131,9 +161,9 @@
       <include src="pdaGeneric.xml"/>
     </capabilities>
 
-    
+
     <!-- BlackBerry Browser BlackBerry Curve and Perl devices -->
-    <!-- BlackBerry Curve and Perl are treated as basic HTML browsers for 
+    <!-- BlackBerry Curve and Perl are treated as basic HTML browsers for
          performance
     <capabilities id="blackberry4" agents="blackberry/4+" platforms="blackberry">
       <include refid="pda"/>
@@ -150,6 +180,29 @@
     <capabilities id="genericpda" agents="genericpda">
       <include refid="htmlBasic"/>
       <include src="pdaGeneric.xml"/>
+    </capabilities>
+
+    <!-- The following blocks are for touch screen agents. The multiple version selectors are
+         present due to the fact that the agent version selector is given much greater weight
+         than the platform selector. -->
+    <capabilities id="ios312" agents="webkit/312.1+" platforms="ipad iphone ipod">
+      <include refid="webkit312" />
+      <include src="ios.xml"/>
+    </capabilities>
+
+    <capabilities id="android312" agents="webkit/312.1+" platforms="android">
+      <include refid="webkit312" />
+      <include src="android.xml"/>
+    </capabilities>
+
+    <capabilities id="ios533" agents="webkit/533+" platforms="ipad iphone ipod">
+      <include refid="webkit533" />
+      <include src="ios.xml"/>
+    </capabilities>
+
+    <capabilities id="android533" agents="webkit/533+" platforms="android">
+      <include refid="webkit533" />
+      <include src="android.xml"/>
     </capabilities>
 
   </agentCapabilities>

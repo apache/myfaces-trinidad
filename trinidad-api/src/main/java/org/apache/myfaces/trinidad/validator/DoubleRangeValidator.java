@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.validator;
 
@@ -27,6 +27,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
@@ -37,6 +39,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * <p>Implementation for <code>java.lang.Double</code> values.</p>
  *
  */
+@JSFValidator(configExcluded=true)
 public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValidator
 {
   
@@ -120,6 +123,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * Validator} or null if it has not been
    * set.
    */
+  @JSFProperty
   @Override
   public double getMaximum()
   {
@@ -147,6 +151,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * Validator}, or null if it has not been
    * set.
    */
+  @JSFProperty
   @Override
   public double getMinimum()
   {
@@ -185,6 +190,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @return Custom error message.
    * @see #setMessageDetailMaximum(String)
    */
+  @JSFProperty
   public String getMessageDetailMaximum()
   {
     Object maxMsgDet = _facesBean.getProperty(_MAXIMUM_MESSAGE_DETAIL_KEY);
@@ -209,6 +215,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @return Custom error message.
    * @see #setMessageDetailMinimum(String)
    */
+  @JSFProperty
   public String getMessageDetailMinimum()
   {
     Object minMsgDet = _facesBean.getProperty(_MINIMUM_MESSAGE_DETAIL_KEY);
@@ -234,6 +241,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @return Custom error message.
    * @see #setMessageDetailNotInRange(String)
    */
+  @JSFProperty
   public String getMessageDetailNotInRange()
   {
     Object notInRngMsg = _facesBean.getProperty(_NOT_IN_RANGE_MESSAGE_DETAIL_KEY);
@@ -255,6 +263,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @return Custom hint message.
    * @see  #setHintMaximum(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintMaximum()
   {
     Object obj = _facesBean.getProperty(_HINT_MAXIMUM_KEY);
@@ -266,6 +275,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * Overrides default hint message
    * @param hintMinimum Custom hint message.
    */
+  @JSFProperty(tagExcluded=true)
   public void setHintMinimum(String hintMinimum)
   {
     _facesBean.setProperty(_HINT_MINIMUM_KEY, hintMinimum);
@@ -297,6 +307,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @return Custom hint message.
    * @see  #setHintNotInRange
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintNotInRange()
   {
     Object obj = _facesBean.getProperty(_HINT_NOT_IN_RANGE);
@@ -310,6 +321,9 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
     Object value
     ) throws ValidatorException
   {
+    if (isDisabled())
+      return;
+    
     if ((context == null) || (component == null))
     {
       throw new NullPointerException();
@@ -448,18 +462,75 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
     return ValidatorUtils.getValueBinding(_facesBean, name);
   }
   
+  @JSFProperty(istransient=true, tagExcluded=true)
   @Override
   public boolean isTransient()
   {
     return (_transientValue);
   }
 
-
   @Override
   public void setTransient(boolean transientValue)
   {
     _transientValue = transientValue;
   }
+
+  @Override
+  public boolean equals(Object otherObj) {
+    if (!(otherObj instanceof DoubleRangeValidator)) 
+    {
+      return false;
+    }
+      
+    DoubleRangeValidator other = (DoubleRangeValidator) otherObj;
+    
+    return ((this.getMaximum() == other.getMaximum())
+            && (this.getMinimum() == other.getMinimum())
+            && (this.isMaximumSet() == other.isMaximumSet())
+            && (this.isMinimumSet() == other.isMinimumSet())
+            && (this.isDisabled() == other.isDisabled())
+            && (this.isTransient() == other.isTransient()));
+  }
+
+  @Override
+  public int hashCode() {
+    int result = 17;
+    Object maxMsgDet        =  getMessageDetailMaximum();
+    Object minMsgDet        =  getMessageDetailMinimum();
+    Object notInRangeMsgDet =  getMessageDetailNotInRange();
+    
+    result = result * 37 + (isDisabled() ? 1 : 0);
+    result = result * 37 + (isTransient() ? 1 : 0);
+    result = result * 37 + Double.valueOf(this.getMinimum()).hashCode(); 
+    result = result * 37 + Double.valueOf(this.getMaximum()).hashCode();
+    result = result * 37 + Boolean.valueOf(isMinimumSet()).hashCode();
+    result = result * 37 + Boolean.valueOf(isMaximumSet()).hashCode();
+    result = result * 37 + ( maxMsgDet == null ? 0 : maxMsgDet.hashCode());
+    result = result * 37 + ( minMsgDet == null ? 0 : minMsgDet.hashCode());
+    result = result * 37 + ( notInRangeMsgDet == null ? 0 : notInRangeMsgDet.hashCode());
+    
+    return result;
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */ 
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */  
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
+  }  
 
   protected boolean isMaximumSet()
   {
@@ -596,6 +667,10 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
 
   private static final PropertyKey  _HINT_NOT_IN_RANGE =
     _TYPE.registerKey("hintNotInRange", String.class);
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 

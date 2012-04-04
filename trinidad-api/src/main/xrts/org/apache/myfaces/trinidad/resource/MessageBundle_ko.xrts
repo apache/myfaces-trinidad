@@ -42,7 +42,7 @@
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">적어도 하나를 선택해야 합니다.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">선택이 필요합니다.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">적어도 하나를 선택해야 합니다.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">항목을 선택해야 합니다.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">행 선택이 필요합니다.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">행을 선택해야 합니다.</resource>
@@ -59,8 +59,8 @@
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">값이 올바른 형식이 아닙니다.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">다음 패턴과 일치하는 값 입력: {2}</resource>
 <!-- Upload ConversionException messages -->
-<resource key="org.apache.myfaces.trinidad.UPLOAD" dnt="false">파일이 너무 큽니다.</resource>
-<resource key="org.apache.myfaces.trinidad.UPLOAD_detail" dnt="false">파일이 너무 커서 업로드할 수 없습니다.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">파일 업로드를 실패했습니다.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}</resource>
 <!-- hints for validators -->
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">{0}보다 작거나 같은 숫자를 입력하십시오.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">{0}보다 크거나 같은 숫자를 입력하십시오.</resource>
@@ -247,6 +247,10 @@
 <!-- {2} an example of the format the converter is expecting -->
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">날짜 및 시간이 올바른 형식이 아닙니다.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">다음 예와 동일한 형식으로 날짜 및 시간 입력: {2}</resource>
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE" dnt="false">입력한 날짜 또는 시간이 부적합합니다.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE_detail" dnt="false">적합한 날짜 또는 시간을 입력하십시오.</resource>
 <!-- {0} the label that identifies the component    -->
 <!-- {1} value entered by the user                  -->
 <!-- {2} the pattern the converter is expecting     -->

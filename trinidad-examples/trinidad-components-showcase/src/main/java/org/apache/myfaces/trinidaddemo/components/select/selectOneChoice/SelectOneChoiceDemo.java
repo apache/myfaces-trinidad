@@ -31,28 +31,27 @@ public class SelectOneChoiceDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1989061956014398510L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Simple,
+    Simple,
         Detailed
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public SelectOneChoiceDemo() {
-		super(ComponentDemoId.selectOneChoice, "Select One Choice",
-            new String[]{
-                "/components/select/selectOneChoice/selectOneChoice.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public SelectOneChoiceDemo() {
+    super(ComponentDemoId.selectOneChoice, "Select One Choice");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
                         "/components/select/selectOneChoice/selectOneChoiceSimple.xhtml"
-                }, getSummaryResourcePath()));
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
                 new String[]{
                         "/components/select/selectOneChoice/selectOneChoiceDetailed.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.Detailed);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectOneChoice/summary.xhtml";

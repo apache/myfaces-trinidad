@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
@@ -44,7 +44,8 @@ class SkinStyleSheetNode
     int                              direction,
     Set<Locale>                      locales,
     AgentAtRuleMatcher               agentMatcher,
-    Set<String>                      accProperties)
+    Set<String>                      accProperties,
+    int                              mode)
   {
     _skinSelectorNodeList = skinSelectorNodeList;
     _namespaceMap = namespaceMap;
@@ -53,6 +54,7 @@ class SkinStyleSheetNode
     _agentMatcher = agentMatcher;
     _platforms     = null;
     _accProperties = accProperties;
+    _mode = mode;
   }
 
   SkinStyleSheetNode(
@@ -61,7 +63,8 @@ class SkinStyleSheetNode
     Set<Locale>                locales,
     AgentAtRuleMatcher         agentMatcher,
     int[]                      platforms,
-    Set<String>                accProperties)
+    Set<String>                accProperties,
+    int                        mode)
   {
     _namespaceMap = namespaceMap;
     _direction = direction;
@@ -69,6 +72,7 @@ class SkinStyleSheetNode
     _agentMatcher = agentMatcher;
     _platforms = platforms;
     _accProperties = accProperties;
+    _mode = mode;
   }
 
   public void add(SkinSelectorPropertiesNode node)
@@ -123,6 +127,11 @@ class SkinStyleSheetNode
     return _locales;
   }
 
+  public int getMode()
+  {
+    return _mode;
+  }
+
   public Set<String> getAcessibilityProperties()
   {
     return _accProperties;
@@ -133,7 +142,8 @@ class SkinStyleSheetNode
     AgentAtRuleMatcher         agentMatcher,
     int[]                      platforms,
     Set<Locale>                locales,
-    Set<String>                accProperties)
+    Set<String>                accProperties,
+    int                        mode)
   {
     if (direction == _direction)
     {
@@ -149,7 +159,11 @@ class SkinStyleSheetNode
           {
             boolean accMatch = _setsEqual(accProperties, _accProperties);
             if (accMatch)
-             return true;
+            {
+              boolean modeMatch = (mode == _mode);
+              if (modeMatch)
+                return true;
+            }
           }
         }
       }
@@ -183,4 +197,5 @@ class SkinStyleSheetNode
   private final int[] _platforms;
   private final Set<Locale> _locales;
   private final Set<String> _accProperties;
+  private final int _mode;
 }

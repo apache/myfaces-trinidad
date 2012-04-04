@@ -25,7 +25,6 @@ import javax.el.MethodExpression;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
-
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
@@ -33,11 +32,11 @@ import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetTreeImpl;
 import org.apache.myfaces.trinidad.model.TreeModel;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 
 /**
@@ -98,13 +97,19 @@ abstract public class UIXNavigationTreeTemplate extends UIXNavigationHierarchy
     // this component has no facets that need to be processed once.
     // instead process the "nodeStamp" facet as many times as necessary:
     Object oldPath = getRowKey();
-    HierarchyUtils.__setStartDepthPath(this, getStartLevel());
-    HierarchyUtils.__iterateOverTree(context,
-                                      phaseId,
-                                      this,
-                                      getDisclosedRowKeys(),
-                                      true);
-    setRowKey(oldPath);
+    try
+    {
+      HierarchyUtils.__setStartDepthPath(this, getStartLevel());
+      HierarchyUtils.__iterateOverTree(context,
+                                        phaseId,
+                                        this,
+                                        getDisclosedRowKeys(),
+                                        true);
+    }
+    finally
+    {
+      setRowKey(oldPath);
+    }
   }
 
   @Override
@@ -112,9 +117,16 @@ abstract public class UIXNavigationTreeTemplate extends UIXNavigationHierarchy
     VisitContext  visitContext,
     VisitCallback callback)
   {
-    return visitData(visitContext, callback);
+    if (ComponentUtils.isSkipIterationVisit(visitContext))
+    {
+      return visitChildrenWithoutIterating(visitContext, callback);
+    }
+    else
+    {
+      return visitData(visitContext, callback);
+    }
   }
-  
+
   @Override
   protected boolean visitData(
     VisitContext  visitContext,
@@ -127,7 +139,7 @@ abstract public class UIXNavigationTreeTemplate extends UIXNavigationHierarchy
     RowKeySet disclosedRowKeys = (visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED))
                                    ? getDisclosedRowKeys()
                                    : null;
-    
+
     boolean done;
 
     HierarchyUtils.__setStartDepthPath(this, getStartLevel());
@@ -140,10 +152,10 @@ abstract public class UIXNavigationTreeTemplate extends UIXNavigationHierarchy
     {
       setRowKey(oldRowKey);
     }
-    
+
     return done;
   }
-  
+
   @Override
   void __encodeBegin(FacesContext context) throws IOException
   {
@@ -191,6 +203,7 @@ abstract public class UIXNavigationTreeTemplate extends UIXNavigationHierarchy
           RowKeySet rowKeys = (RowKeySet) value;
           // row key sets need the most recent collection model, but there is no one common entry
           // point to set this on the set besides when code asks for the value from the bean
+          __flushCachedModel();  //insist that we populate with the very lastest instance of the collection model
           rowKeys.setCollectionModel(getCollectionModel());
         }
         finally

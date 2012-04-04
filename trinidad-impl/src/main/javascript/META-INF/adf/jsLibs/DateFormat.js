@@ -21,7 +21,7 @@
 //  _df2DYS: Sets the two-digit year start.
 
 var _AD_ERA = null;
-
+var _THAI_BUDDHIST_YEAR_OFFSET = 543;
 
 function _getADEra()
 {
@@ -69,6 +69,7 @@ function _isStrict(
 function _doClumping(
   formatPattern,
   localeSymbols,
+  locale,
   subFunction,
   param,
   outValue
@@ -79,6 +80,7 @@ function _doClumping(
   var kindCount    = 0;
   var lastChar     = void 0;
   var startIndex   = 0;
+  var quoteIndex = null;
   
   for (var i = 0; i < formatLength; i++)
   {
@@ -88,11 +90,17 @@ function _doClumping(
     {
       if (currChar == "\'")
       {
+        // test strings to test escaping working properly
+        // "'one '' two '' three''' 'four '' five'"   ->     "one ' two ' three' four ' five
+        // "HH:mm:ss 'o''clock' z"                    ->     "[time] o'clock [timezone]"
+        // "HH:mm:ss 'oclock' z"                      ->     "[time] oclock [timezone]"
+        // "HH:mm:ss '' z"                            ->     "[time] ' [timezone]"
+        
         inQuote = false;
         
         // handle to single quotes in a row as escaping the quote
         // by not skipping it when outputting
-        if (kindCount != 1)
+        if (kindCount != 1 && startIndex != quoteIndex)
         {
           startIndex++;
           kindCount--;
@@ -101,6 +109,7 @@ function _doClumping(
         // output the quoted text
         if (!subFunction(formatPattern,
                          localeSymbols,
+                         locale,
                          "\'",
                          startIndex,
                          kindCount,
@@ -111,9 +120,21 @@ function _doClumping(
           // alert("failure at " + startIndex + " with " + lastChar);
           return false;
         }
+               
+        var nextIndex = i + 1;
+    
+        if (nextIndex < formatLength)
+        {
+          var nextChar = formatPattern.charAt(nextIndex);
+          
+          if (nextChar == "\'")
+          {
+            quoteIndex = nextIndex;
+          }
+        } 
         
         kindCount = 0;
-        lastChar  = void 0;
+        lastChar  = void 0; 
       }
       else
       {
@@ -131,6 +152,7 @@ function _doClumping(
           // output the previously collected string
           if (!subFunction(formatPattern,
                            localeSymbols,
+                           locale,
                            lastChar,
                            startIndex,
                            kindCount,
@@ -165,6 +187,7 @@ function _doClumping(
   {
     if (!subFunction(formatPattern,
                      localeSymbols,
+                     locale,
                      lastChar,
                      startIndex,
                      kindCount,
@@ -188,6 +211,7 @@ function _doClumping(
 function _subformat(
   inString,
   localeSymbols,
+  locale,
   formatType,
   startIndex,
   charCount,
@@ -328,6 +352,10 @@ function _subformat(
       {
         var year = time.getFullYear();
         
+        // Trinidad-2013: Thai Buddhist Calendar is offset by 543 years
+        if (locale == "th_TH")
+          year += _THAI_BUDDHIST_YEAR_OFFSET;
+        
         // truncate 2 and 1 digit years to that number of digits
         var maxDigits = (charCount <= 2)
                           ? charCount
@@ -451,6 +479,7 @@ function _getLocaleTimeZoneDifference()
 function _subparse(
   inString,      // the pattern string, such as "yyMMdd"
   localeSymbols,
+  locale,
   formatType,    // the current format char, such as 'y'
   startIndex,    // index into inString
   charCount,     // the number of chars of type formatType
@@ -519,7 +548,7 @@ function _subparse(
         {
           if (eraIndex == 0)
           {
-            parseContext.isBC = true;
+            parseContext.parsedBC = true;
           }
         }
         else
@@ -699,22 +728,17 @@ function _subparse(
           }
           else if ((charCount <= 2) && (year >= 0) && (year <= 100))
           {
-            year = _fix2DYear(year);
-          }
-          else if (charCount == 4)
-          {
-            // Bug 2169562: For four-digit year formats, reject
-            // three-year entries.  Fair enough!
-            if (enteredChars == 3)
-              return false;    
-            if (enteredChars <= 2)
-              year = _fix2DYear(year);
+            year = _fix2DYear(year, locale);
           }
 
           // There is no year "0"
           if (year == 0)
             return false;
-
+            
+          // Trinidad-2013: Thai Buddhist Calendar is offset by 543 years
+          if (locale == "th_TH")
+            year -= _THAI_BUDDHIST_YEAR_OFFSET;
+            
           parseContext.parsedFullYear = year;
         }
         else
@@ -817,8 +841,9 @@ function _subparse(
 
 /**
  * Fix two-digit years.
+ * 
  */
-function _fix2DYear(year)
+function _fix2DYear(year, locale)
 {
   var defaultCentury;
 
@@ -830,6 +855,12 @@ function _fix2DYear(year)
     // year             1951  1901
     // year             1951  2001
     var offsetYear = _df2DYS;
+    
+    // Trinidad-2224: _fix2DYear should take into account the Thai Buddhist calendar.
+    // Here, two-digit-year-start is specified as a Gregorian year, so if the
+    // locale is Thai Buddhist, it needs to be translated into the Thai equivalent
+    if (locale == "th_TH")
+      offsetYear += _THAI_BUDDHIST_YEAR_OFFSET;
     defaultCentury = offsetYear - (offsetYear % 100);
 
     year += defaultCentury;
@@ -839,7 +870,13 @@ function _fix2DYear(year)
   else
   {
     var currentYear = new Date().getFullYear();
+
+    // Trinidad-2224: _fix2DYear should take into account the Thai Buddhist calendar. 
+    // Here, currentYear is a Gregorian Year, so it needs to be translated into the Thai equivalent
+    if (locale == "th_TH")
+      currentYear += _THAI_BUDDHIST_YEAR_OFFSET;
     defaultCentury = currentYear - (currentYear % 100) - 100;
+
 
     year += defaultCentury;
  
@@ -851,6 +888,7 @@ function _fix2DYear(year)
       year += 100;
     }
   }
+
 
   return year;
 }
@@ -1071,6 +1109,8 @@ function TrDateTimeConverter(
 
   // Stash away the patterns for later use.
   this._pattern = patterns;
+  
+  this._locale = (locale != null) ? locale : getJavaLanguage(locale);
 }
 
 TrDateTimeConverter.prototype = new TrConverter();
@@ -1115,6 +1155,7 @@ TrDateTimeConverter.prototype.getAsString = function(
     
   _doClumping(pattern,
               this._localeSymbols,
+              this._locale,
               _subformat,
               formatTime,
               stringHolder);
@@ -1164,7 +1205,7 @@ TrDateTimeConverter.prototype.getAsObject  = function(
   if (parseString == null)
     return null;
 
-  parseString = TrUIUtils.trim(parseString);
+  parseString = TrFormatUtils.trim(parseString);
   if (parseString.length == 0)
     return null;
 
@@ -1197,6 +1238,7 @@ TrDateTimeConverter.prototype.getAsObject  = function(
     return this._simpleDateParseImpl(parseString,
                                 pattern,
                                 this._localeSymbols,
+                                this._locale,
                                 invalidFormatMsg,
                                 invalidDateMsg);
   }
@@ -1209,6 +1251,7 @@ TrDateTimeConverter.prototype.getAsObject  = function(
         var date = this._simpleDateParseImpl(parseString,
                                         pattern[i],
                                         this._localeSymbols,
+                                        this._locale,
                                         invalidFormatMsg,
                                         invalidDateMsg);
         return date;
@@ -1349,6 +1392,7 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
   parseString,
   parsePattern,
   localeSymbols,
+  locale,
   invalidFormatMsg,
   invalidDateMsg)
 {
@@ -1382,6 +1426,7 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
   // parse the time
   if (_doClumping(parsePattern,
                   localeSymbols,
+                  locale,
                   _subparse,
                   parseContext,
                   parsedTime))

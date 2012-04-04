@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.style.xml;
 
@@ -28,9 +28,8 @@ import java.util.List;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-
+import org.apache.myfaces.trinidad.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
-import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 
 import org.apache.myfaces.trinidadinternal.share.xml.ClassParserFactory;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
@@ -55,69 +54,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 public class StyleSheetDocumentUtils
 {
-  /**
-   * Creates a StyleSheetDocument from the specified InputSource (.xss file)
-   *
-   * @param provider The XMLProvider to use to parse the source document
-   * @param source The InputSource for the source document.  The system
-   *         id of the InputSource must be the file system path of the
-   *         source document.
-   */
-  public static StyleSheetDocument createStyleSheetDocument(
-    XMLProvider  provider,
-    InputSource  source
-    ) throws IOException, SAXException
-  {
-    // Make sure we've got a source file
-    String sourceName = source.getSystemId();
-    if ((sourceName == null)) 
-    {
-      throw new IllegalArgumentException(_LOG.getMessage(
-        "NULL_SOURCENAME"));
-    }
-
-    return createStyleSheetDocument(
-                          provider,
-                          new DefaultNameResolver(new File(sourceName), null),
-                          sourceName);
-
-  }
-
-  /**
-   * Creates a StyleSheetDocument from the specified InputSource (.xss file)
-   * @param xmlProvider The XMLProvider to use to parse the source document
-   * @param resolver The NameResolver to use to locate the source document.
-   *                 This must be a non-null instance.
-   * @param sourceName The name of the source XSS document.  This value
-   *                 must resolve to a valid document via the provided
-   *                 NameResolver.
-   */
-  public static StyleSheetDocument createStyleSheetDocument(
-    XMLProvider  xmlProvider,
-    NameResolver resolver,
-    String       sourceName
-    ) throws IOException, SAXException
-  {
-    // We always require a source name and a resolver
-    if ((sourceName == null)||(resolver == null)) 
-    {
-      throw new NullPointerException(_LOG.getMessage(
-        "NULL_ARGUMENT"));
-    }
-
-    // Gather all of the the objects that we need for the parse
-    ParserManager manager = _getDefaultParserManager();
-    ParseContextImpl parseContext = new ParseContextImpl();
-
-    // Parse it!
-    return (StyleSheetDocument)XMLUtils.parseSource(parseContext,
-                                                    xmlProvider,
-                                                    manager,
-                                                    resolver,
-                                                    sourceName,
-                                                    StyleSheetDocument.class);
-  }
-
   /**
    * Merges two StyleSheetDocuments to produce a new StyleSheetDocuments
    * which combines styles from both documents.  If styles appear in

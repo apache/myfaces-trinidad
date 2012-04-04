@@ -31,24 +31,27 @@ public class SelectBooleanRadioDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1989061956813398110L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Simple,
+    Simple,
         Detailed
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public SelectBooleanRadioDemo() {
-		super(ComponentDemoId.selectBooleanRadio, "Select Boolean Radio", VARIANTS.Simple, "Simple",
-            new String[]{
-                "/components/select/selectBooleanRadio/selectBooleanRadioSimple.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public SelectBooleanRadioDemo() {
+    super(ComponentDemoId.selectBooleanRadio, "Select Boolean Radio");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, "Detailed", this,
                 new String[]{
                         "/components/select/selectBooleanRadio/selectBooleanRadioDetailed.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, "Simple", this,
+                new String[]{
+                        "/components/select/selectBooleanRadio/selectBooleanRadioSimple.xhtml"
+                }));
+
+        setDefaultVariant(VARIANTS.Detailed);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectBooleanRadio/summary.xhtml";

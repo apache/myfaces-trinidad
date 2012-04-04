@@ -29,6 +29,7 @@ public class ComponentShowcaseContextListener implements ServletContextListener 
     
     public void contextInitialized(ServletContextEvent sce) {
         ComponentDemoInitializer.getInstance().init();
+        FeatureDemoInitializer.getInstance().init();
     }
 
     public void contextDestroyed(ServletContextEvent sce) {}

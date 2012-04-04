@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.panel.panelTip;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,15 +30,23 @@ public class PanelTipDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982061356382498740L;
 
-	/**
-	 * Constructor.
-	 */
-	public PanelTipDemo() {
-		super(ComponentDemoId.panelTip, "Panel Tip",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public PanelTipDemo() {
+    super(ComponentDemoId.panelTip, "Panel Tip");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/panel/panelTip/panelTip.xhtml"
-            });
-	}
+                    "/components/panel/panelTip/panelTip.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelTip/summary.xhtml";

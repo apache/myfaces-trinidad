@@ -28,33 +28,36 @@ import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
  */
 public class GroupLayoutDemo extends AbstractComponentDemo {
 
-	private static final long serialVersionUID = 2660360384187454374L;
+  private static final long serialVersionUID = 2660360384187454374L;
 
-    private enum VARIANTS implements IComponentDemoVariantId {		
-		Horizontal,
-		Vertical,
-		Dynamic
-	}
+    private enum VARIANTS implements IComponentDemoVariantId {    
+    Horizontal,
+    Vertical,
+    Dynamic
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public GroupLayoutDemo() {
-		super(ComponentDemoId.panelGroupLayout, "Group Layout",
-            new String[]{
-                "/components/layout/groupLayout/panelGroupLayout.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public GroupLayoutDemo() {
+    super(ComponentDemoId.panelGroupLayout, "Group Layout");
 
-		addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Horizontal, this,
+    addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Horizontal, this,
                 new String[]{
                         "/components/layout/groupLayout/panelGroupLayoutHorizontal.xhtml"
-                }, getSummaryResourcePath()));
+                }));
+    addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Vertical, this,
+                new String[]{
+                        "/components/layout/groupLayout/panelGroupLayoutVertical.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Dynamic,this,
                 new String[]{
                         "/components/layout/groupLayout/panelGroupLayoutDynamic.xhtml"
                 }, getSummaryResourcePath(),
                 "/org/apache/myfaces/trinidaddemo/components/layout/panelGroupLayout/GroupLayoutDynamicBean.java"));
-	}
+
+        setDefaultVariant(VARIANTS.Vertical);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/layout/groupLayout/summary.xhtml";

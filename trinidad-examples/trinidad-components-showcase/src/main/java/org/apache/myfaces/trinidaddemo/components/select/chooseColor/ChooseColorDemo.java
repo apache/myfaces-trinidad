@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.select.chooseColor;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,17 +30,29 @@ public class ChooseColorDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982061956883398710L;
 
-	/**
-	 * Constructor.
-	 */
-	public ChooseColorDemo() {
-		super(ComponentDemoId.chooseColor, "Choose Color",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public ChooseColorDemo() {
+    super(ComponentDemoId.chooseColor, "Choose Color");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/select/chooseColor/chooseColor.xhtml"
-            });
-	}
+                    "/components/select/chooseColor/chooseColor.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);        
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/chooseColor/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

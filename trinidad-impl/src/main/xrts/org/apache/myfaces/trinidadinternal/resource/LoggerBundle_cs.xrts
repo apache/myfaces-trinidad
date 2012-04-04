@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Nelze načíst {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Není možné vytvořit instanci UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Soubor nebylo možné odeslat na server, protože je příliš velký.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Modul Trinidad je spuštěn v režimu ladění. Nepoužívejte jej ve výrobním prostředí. Viz:{0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">Prvek {0} nepodporuje výrazy EL.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">Prvek {0} přijímá pouze celočíselné hodnoty</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">Element {0} může obsahovat pouze hodnoty datového typu Long</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Nelze najít zavaděč třídy obsahu.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -150,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Svazek zdrojů {0} nebyl nalezen.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">chyba při zavírání souboru:{0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Chyba při zavírání souboru:{0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Chyba při získávání souborů metadat oblasti:{0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -181,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">V ikoně {0} odkazující na vzhled byla zjištěna cyklická závislost</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Do addSkinAddition byl předán objekt SkinAddition s hodnotou null.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Selhalo zpracování vzhledu konfiguračního souboru: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Překlad-zdroj ValueExpression tohoto vzhledu není očekávaného typu Map nebo ResourceBundle a bude proto ignorován.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -259,6 +265,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Nelze získat zdroj {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Modul Apache Trinidad je spuštěn se skriptem javascript ladění. Nepoužívejte jej ve výrobním prostředí. Viz parametr &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; v souboru /WEB-INF/web.xml</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Vaše prostředí je nakonfigurováno jako provozní a modul Apache Trinidad běží s laděním javaskriptů. Viz parametr org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT v souboru /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Vaše prostředí je konfigurováno jako provozní a modul Apache Trinidad běží s dekomprimovaným CSS. Viz parametr org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION v souboru /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Vaše prostředí je nakonfigurováno jako provozní a modul Apache Trinidad běží s hodnotou TRUE prvku konfigurace debug-output. Viz prvek debug-output v souboru trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Neplatná hodnota:{0} pro {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +313,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Vlastnosti {0} budou ignorovány, protože neexistuje odpovídající modul pro výběr.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Chyba při čtení ze souboru CSS vzhledu</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Chyba při čtení ze souboru vzhledu CSS. V selektoru: {0} je čárka navíc</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Nelze přidat vzhled s hodnotou null u skinID nebo null u vzhledu</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Dříve přidaný vzhled {0} byl přidán znovu. Pokud jste tento vzhled uložili do paměti cache ve vaší aplikaci, můžete získat nekonzistentní výsledky. Zkontrolujte, zda nejsou duplikované soubory trinidad-skins.xml v cestě třídy.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Nelze získat vzhled s hodnotou null u SkinID</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Nelze nalézt vzhled odpovídající řadě {0} a sadě vykreslení {1}, bude tedy použit jednoduchý vzhled</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Byl nalezen vzhled, který odpovídá řadě {0} a verzi {1}. Použijeme vzhled {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Nelze najít vzhled, který odpovídá řadě {0} a verzi {1}. Použijeme vzhled {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Nelze najít vzhled bez verze pro řadu {0}. Použijeme vzhled s verzí {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Nelze získat časové razítko dokumentu stylu šablon, protože nemůžeme otevřít připojení.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">Objekt pro výběr vzhledu {0} není objekt ikony vzhledu, protože nemá atribut obsahu. Pokud jste tento objekt pro výběr vytvořili vy, přejmenujte ho tak, aby končil řetězcem &quot;style&quot; namísto &quot;icon&quot;, aby ho architektura vzhledů považovala za styl, nikoli za ikonu.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} musí být umístěno před všemi ostatními pravidly.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Následující vzhledy se vzájemně rozšiřují jiným způsobem než kruhovým nebo vzhled, který rozšiřují, neexistuje {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -316,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Chyba při syntaktické analýze:{0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">chyba při načítání souboru:{0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Chyba při načítání souboru:{0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Nelze načíst šablonu stylů: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -419,6 +445,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Nebylo nalezeno ID požadovaného prvku.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Nebyla nalezena skupina požadovaného prvku.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Nebyl nalezen povinný podřízený element pro elementy &apos;version&apos; a &apos;name&apos;.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Chybně formátované zadání vlastnosti: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -432,7 +460,7 @@
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">Atribut mergeCapabilities() může být použit pouze u agentů vytvořených touto třídou.</resource>
 <!-- INVALID_NAMESPACE -->
-<resource key="INVALID_NAMESPACE" dnt="false">Neplatný obor názvů: {0}</resource>
+<resource key="INVALID_NAMESPACE" dnt="false">Neplatný prostor názvů: {0}</resource>
 <!-- INVALID_ROOT_ELEMENT -->
 <resource key="INVALID_ROOT_ELEMENT" dnt="false">Neplatný kořenový prvek: {0} {1}</resource>
 <!-- UNEXPECTED -->
@@ -522,9 +550,9 @@
 <!-- NULL_TYPE -->
 <resource key="NULL_TYPE" dnt="false">typ má hodnotu null</resource>
 <!-- CANNOT_COERCE_VALUE_OF_TYPE -->
-<resource key="CANNOT_COERCE_VALUE_OF_TYPE" dnt="false">Nelze vynutit hodnotu typu {0} do typu {1}</resource>
+<resource key="CANNOT_COERCE_VALUE_OF_TYPE" dnt="false">Nelze nuceně převést hodnotu typu {0} do typu {1}</resource>
 <!-- CANNOT_BE_COERCED -->
-<resource key="CANNOT_BE_COERCED" dnt="false">{0} nelze vynutit do souboru java.awt.Color</resource>
+<resource key="CANNOT_BE_COERCED" dnt="false">{0} nelze nuceně převést do souboru java.awt.Color</resource>
 <!-- CANNOT_FIND_FILE -->
 <resource key="CANNOT_FIND_FILE" dnt="false">Nelze nalézt {1}</resource>
 <!-- DECIMALFORMATCONTEXT_NOT_CLONEABLE -->
@@ -721,4 +749,23 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Neplatná země pro ID místního nastavení {0} - kód země musí být psán velkými písmeny, viz javadoc místního nastavení pro správný formát. Pro zemi bude použit prázdný řetězec</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Neplatná varianta ID místního nastavení {0} - kvůli ochraně proti XSS nesmí obsahovat lomítka. Pro variantu bude použit prázdný řetězec.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Nelze odstranit soubor {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState musí být instancí StateManager.SerializedView nebo pole objektů o délce 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Částečné ukládání stavů ještě není podporováno. Nastavte parametr context-param javax.faces.PARTIAL_STATE_SAVING v souboru web.xml na hodnotu False.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Chyba při serializaci atributu {0}:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> hodnota selhání =</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Chyba zotavení: {0} atribut:{1} typu {2} není serializovatelný</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Chyba zotavení: Serializace atributu {0}:{1} se změnila z {2} na {3} bez modifikace atributu</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Selhalo testování serializace relace atributu pro {0}. Tuto kontrolu lze dezaktivovat odebráním hodnoty &apos;&apos;REQUEST&apos;&apos; ze systémové vlastnosti &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Selhání při testování výjimky shromažďování serializace atributu relace</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atribut relace:{0} </resource>
 </resources>

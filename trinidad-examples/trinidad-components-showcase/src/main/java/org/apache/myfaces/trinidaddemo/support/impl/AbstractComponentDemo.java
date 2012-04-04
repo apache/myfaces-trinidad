@@ -37,197 +37,139 @@ import org.apache.myfaces.trinidaddemo.support.IComponentVariantDemo;
  */
 public abstract class AbstractComponentDemo implements IComponentDemo {
 
-    private static final String DEFAULT_VARIANT_NAME = "Default";
+  private ComponentDemoId id;
+  private String displayName;
+    private IComponentVariantDemo defaultVariant;
+  private IComponentDemoCategory category;
+    private static final String tagDocPrefix = "http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_";
+    private static final String skinDocPrefix = "http://myfaces.apache.org/trinidad/skin-selectors.html#";
+  
+  private Map<String, IComponentVariantDemo> variantsByName;
+  private List<IComponentVariantDemo> variants;
 
-	private ComponentDemoId id;
-	private String displayName;
-    private IComponentDemoVariantId variantId;
-    private String variantDisplayName;
-    private String[] jsfResourcePaths;
-    private String title;
+  /**
+   * Constructor.
+   * 
+   * @param id the unique id of this component demo.
+   * @param displayName the display name of this component demo.
+   */
+  public AbstractComponentDemo(ComponentDemoId id, String displayName) {
 
-    private enum VARIANTS implements IComponentDemoVariantId {
-        Default
-    }
-	
-	private IComponentDemoCategory category;
-	
-	private Map<String, IComponentVariantDemo> variantsByName;
-	private List<IComponentVariantDemo> variants;
+    this.id = id;
+    this.displayName = displayName;
 
-    /**
-     * Constructor.
-     * 
-     * @param id
-     * @param displayName
-     */
-    public AbstractComponentDemo(ComponentDemoId id, String displayName) {
-        this(id, displayName, VARIANTS.Default, DEFAULT_VARIANT_NAME, new String[]{});
-    }
+    this.variantsByName = new HashMap<String, IComponentVariantDemo>();
+    this.variants = new ArrayList<IComponentVariantDemo>();
 
-    public AbstractComponentDemo(ComponentDemoId id, String displayName, String[] jsfResourcePaths) {
-        this(id, displayName, VARIANTS.Default, DEFAULT_VARIANT_NAME, jsfResourcePaths);
-    }
+  }
 
-    /**
-     * Constructor.
-     * 
-     * @param id
-     * @param displayName
-     * @param variantId
-     */
-    public AbstractComponentDemo(ComponentDemoId id, String displayName, IComponentDemoVariantId variantId) {
-        this(id, displayName, variantId, variantId.toString(), new String[]{});
+    public void setDefaultVariant(IComponentDemoVariantId defaultVariantId){
+        IComponentVariantDemo defVariant = getVariant(defaultVariantId.toString());
+
+        if (defVariant == null )
+            return;
+
+        this.defaultVariant = defVariant;
     }
 
-    public AbstractComponentDemo(ComponentDemoId id, String displayName, IComponentDemoVariantId variantId, String[] jsfResourcePaths) {
-        this(id, displayName, variantId, variantId.toString(), jsfResourcePaths);
+    public IComponentVariantDemo getDefaultVariant(){
+
+        if (defaultVariant != null)
+            return defaultVariant;
+        else if (variants.size() != 0)
+            return variants.get(0);
+        else
+            throw new UnsupportedOperationException("No demo variants declared for "+ this + " component");
     }
 
-    public AbstractComponentDemo(ComponentDemoId id, String displayName, IComponentDemoVariantId variantId, String variantDisplayName) {
-        this(id, displayName, variantId, variantDisplayName, new String[]{});
-    }
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param id the unique id of this component demo.
-	 * @param displayName the display name of this component demo.
-     * @param variantId the id of the variant this component demo represents.
-     * @param variantDisplayName the display name of the variant this component demo represents.
-	 */
-	public AbstractComponentDemo(ComponentDemoId id, String displayName,
-            IComponentDemoVariantId variantId, String variantDisplayName, String[] jsfResourcePaths) {
-
-		this.id = id;
-		this.displayName = displayName;
-        this.variantId = variantId;
-        this.variantDisplayName = variantDisplayName;
-		this.jsfResourcePaths = jsfResourcePaths;
-
-		this.variantsByName = new HashMap<String, IComponentVariantDemo>();
-		this.variants = new ArrayList<IComponentVariantDemo>();
-		
-		//by default the component demo itself is a variant, might be the only one in the end
-		addComponentDemoVariant(this);
-
-        //determine the title to show at the top of the corresponding component demo page
-        if (DEFAULT_VARIANT_NAME.equals(DEFAULT_VARIANT_NAME)) {
-            title = getDisplayName();
-        }
-        else {
-            title = getDisplayName() + " - " + getVariantDisplayName();
-        }
-	}
-	
-	public ComponentDemoId getId() {
-		return id;
-	}
+  public ComponentDemoId getId() {
+    return id;
+  }
 
     public String getDestination() {
         StringBuilder url = new StringBuilder();
         url.append("/component-demo/");
         url.append(getId().toString());
         url.append("-");
-        url.append(getVariantId());       
+        url.append(getDefaultVariant().getVariantId());
 
         return url.toString();
     }
 
-	public String getDisplayName() {
-		return displayName;
-	}
-	
-	public IComponentDemoVariantId getVariantId() {
-        return variantId;
-    }
-
-    public String getVariantDisplayName() {
-        return variantDisplayName;
-    }
-
-    public String getTitle() {
-		return title;
-	}
-
-    public String getDescription() {
-        return ComponentVariantDemoDescriptionProvider.getDescription(FacesContext.getCurrentInstance(), this);
-    }
+  public String getDisplayName() {
+    return displayName;
+  }
 
     public IComponentDemoCategory getCategory() {
-		return category;
-	}
-	
-	public void setCategory(IComponentDemoCategory category) {
-		this.category = category;
-	}
-	
-	public void addComponentDemoVariant(IComponentVariantDemo variant) {
-		if (variantsByName.get(variant.getVariantId()) != null) {
-			throw new IllegalArgumentException("Variant with name '"+variant.getVariantId()+"' already added to '"+getId()+"' demo!");
-		}
-		
-		variants.add(variant);
-		variantsByName.put(variant.getVariantId().toString(), variant);
-	}
+    return category;
+  }
+  
+  public void setCategory(IComponentDemoCategory category) {
+    this.category = category;
+  }
+  
+  public void addComponentDemoVariant(IComponentVariantDemo variant) {
+    if (variantsByName.get(variant.getVariantId().toString()) != null) {
+      throw new IllegalArgumentException("Variant with name '"+variant.getVariantId()+"' already added to '"+getId()+"' demo!");
+    }
+    
+    variants.add(variant);
+    variantsByName.put(variant.getVariantId().toString(), variant);
+  }
 
-	public List<IComponentVariantDemo> getVariants() {
-		return variants;
-	}
-	
-	public IComponentVariantDemo getVariant(String name) {
-		return variantsByName.get(name);
-	}
+  public List<IComponentVariantDemo> getVariants() {
+    return variants;
+  }
+  
+  public IComponentVariantDemo getVariant(String name) {
+    return variantsByName.get(name);
+  }
 
+  public boolean isSupportsMultipleVariants() {
+        
+    return getVariants().size() > 1;
+  }
+  
+  public String getColumnStyleClassNames() {
+    if (isSupportsMultipleVariants()) {
+      return "column75percent2,column25percent2";
+    }
+    
+    return "column100percent";
+  }
 
-	public String[] getJsfResourcePaths(){
-        return jsfResourcePaths;
+    public String getTagDocumentationLink(){
+        return tagDocPrefix + this.getId().toString() + ".html";
     }
 
-	public String getEntryPagePath(){
-        return jsfResourcePaths.length != 0 ? jsfResourcePaths[0] : "";
+    public String getSkinDocumentationLink(){
+        return skinDocPrefix + this.getId().toString();
     }
 
-	public boolean isSupportsMultipleVariants() {
-		if (getVariants().size() > 1) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	public String getColumnStyleClassNames() {
-		if (isSupportsMultipleVariants()) {
-			return "column75percent2,column25percent2";
-		}
-		
-		return "column100percent";
-	}
-	
-	public String getBackingBeanResourcePath() {
-		return null;
-	}
+    public String getSummaryResourcePath() {
+        return null;
+    }
 
-	public boolean isStatic() {
-		return getBackingBeanResourcePath() == null;
-	}
+    public String getBackingBeanResourcePath() {
+    return null;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof AbstractComponentDemo) {
-			return getId() == ((AbstractComponentDemo)obj).getId();
-		}
-		
-		return false;
-	}
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof AbstractComponentDemo) {
+      return getId() == ((AbstractComponentDemo)obj).getId();
+    }
+    
+    return false;
+  }
 
-	@Override
-	public int hashCode() {
-		return getId() != null ? getId().hashCode() : super.hashCode();
-	}
+  @Override
+  public int hashCode() {
+    return getId() != null ? getId().hashCode() : super.hashCode();
+  }
 
-	@Override
-	public String toString() {
-		return getDisplayName();
-	}
+  @Override
+  public String toString() {
+    return getDisplayName();
+  }
 }

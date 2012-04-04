@@ -1,36 +1,44 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.component;
 
+import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import java.util.Map;
+import java.util.Set;
 
 import javax.faces.component.UIComponent;
 
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
+
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.LocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.ModelUtils;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.TreeLocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.TreeModel;
+import org.apache.myfaces.trinidad.util.StringUtils;
 
 
 /**
@@ -38,6 +46,7 @@ import org.apache.myfaces.trinidad.model.TreeModel;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/UIXHierarchy.java#0 $) $Date: 10-nov-2005.19:09:52 $
  */
+@JSFComponent
 public abstract class UIXHierarchy extends UIXCollection implements CollectionComponent, LocalRowKeyIndex, 
              TreeLocalRowKeyIndex
 {
@@ -265,6 +274,93 @@ public abstract class UIXHierarchy extends UIXCollection implements CollectionCo
     return getTreeModel().areRowsLocallyAvailable(rowCount, disclosedRowKeys);
   }
 
+
+  /**
+   * Enhances the varStatusMap created by the super class to include:<ul>
+   * <li>"hierarchicalIndex" - returns an array containing the row indices of heirarchy of the currrent row, for e.g. [0,1,2]
+   *      This attribute is expensive to compute because of moving currency to calculate the row index for 
+   *      each parent collection in the tree hierarchy.
+   * </li>
+   * <li>"hierarchicalLabel" - returns a string label representing the hierarchy of that row, for e.g. 1.1, 1.1.1. 
+   *      The labels are 1 based vs 0 based for rowIndex. 
+   *      This attribute is expensive to compute because of moving currency to calculate the row index for 
+   *      each parent collection in the tree hierarchy.
+   * </li>
+   * </ul>
+   */
+  @Override
+  protected Map<String, Object> createVarStatusMap()
+  {
+    final Map<String, Object> map = super.createVarStatusMap();
+    return new AbstractMap<String, Object>()
+    {
+      @Override
+      public Object get(Object key)
+      {
+        if("hierarchicalIndex".equals(key))
+        {
+          return _getHierarchicalIndex().toArray();
+        }
+        if("hierarchicalLabel".equals(key)) 
+        {
+          List<Integer> rowIndices = _getHierarchicalIndex();
+          if(rowIndices.size() == 0)
+            return "";
+          
+          Integer[] indexArray = new Integer[rowIndices.size()];
+          
+          for(int i = 0; i < rowIndices.size(); i++)
+          {
+            indexArray[i] = Integer.valueOf(rowIndices.get(i).intValue()+1);
+          }
+          return StringUtils.join(indexArray, '.');
+        }
+        return map.get(key);
+      }
+      
+      /**
+       * Returns an array of row indexes for the hierarchy of that row
+       */
+      private List<Integer> _getHierarchicalIndex()
+      {
+        Object rowKey = getRowKey();
+        if(rowKey == null)
+          return Collections.emptyList();
+        
+        TreeModel treeModel = getTreeModel();
+        List<Integer> rowIndices = new ArrayList<Integer>();
+        
+        // Use model APIs for moving currency(setRowIndex/Key) vs component API to avoid performance issue 
+        // associated with stamp state saving
+        try
+        {
+          rowIndices.add(treeModel.getRowIndex());
+          
+          Object childRowKey = treeModel.getContainerRowKey(rowKey);
+          while(childRowKey != null)
+          {
+            treeModel.setRowKey(childRowKey);
+            rowIndices.add(treeModel.getRowIndex());
+            childRowKey = treeModel.getContainerRowKey(childRowKey);
+          }
+          Collections.reverse(rowIndices);
+        }
+        finally
+        {
+          // make sure that we restore our currency to the original state
+          treeModel.setRowKey(rowKey);
+        }
+        return rowIndices;
+      }
+      
+      @Override
+      public Set<Map.Entry<String, Object>> entrySet()
+      {
+        return map.entrySet();
+      }
+    };
+  }
+  
   /**
    * Gets the TreeModel that this tree is displaying.
    */
@@ -355,7 +451,7 @@ public abstract class UIXHierarchy extends UIXCollection implements CollectionCo
           try
           {
             // visit this container.  If we have visited all of the visit targets then return early
-            if (visitHierarchy(visitContext, callback, stamps, disclosedRowKeys));
+            if (visitHierarchy(visitContext, callback, stamps, disclosedRowKeys))
               return true;
           }
           finally

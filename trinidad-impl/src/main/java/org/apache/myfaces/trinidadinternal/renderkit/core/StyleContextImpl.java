@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
@@ -25,11 +25,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.application.ProjectStage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
@@ -40,6 +42,7 @@ import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
+import org.apache.myfaces.trinidadinternal.style.StyleSheetNamingStrategy;
 
 
 class StyleContextImpl implements StyleContext
@@ -128,18 +131,17 @@ class StyleContextImpl implements StyleContext
    */
   public boolean isDirty()
   {
-    if (Beans.isDesignTime())
+    if (_arc.isDesignTime())
     {
-      // In Design Time mode, if we have a skin-id on the request scope,
+      // In Design Time mode, if we have a skin dirty flag on the request scope,
       // then this means the Design Time wants the skin to regenerate. To do this,
-      // we say the skin is dirtys
+      // we call the skin.setDirty API.
       FacesContext context = FacesContext.getCurrentInstance();
-      Object requestSkinId = 
-        ((CoreRenderingContext) _arc).getRequestMapSkinId(context);
-      if (requestSkinId != null)
+      Object requestSkinDirty = _getRequestMapSkinDirty(context);
+      if (Boolean.TRUE.equals(requestSkinDirty))
       {
-        // set the skin to dirty as well for double insurance, like if someone checks the 
-        // skin directly to see if it is dirty.
+
+        // set the skin to dirty
         _arc.getSkin().setDirty(true); 
         return true;
       }
@@ -175,10 +177,40 @@ class StyleContextImpl implements StyleContext
     // Return a non-null StyleProvider instance
     return NullStyleProvider.getInstance();
   }
+  
+  /**
+   * Look on the requestMap for "org.apache.myfaces.trinidad.skin.dirty", and return
+   * the Object (true/false/null).
+   * This is for clients who want to send to the server that the skin is dirty rather
+   * than using the skin.setDirty API. The design time client cannot call the APIs, so this
+   * is for anyone that cannot call the APIs.
+   * @param facesContext
+   * @return the skin dirty Object that is on the request map.
+   */
+  private Object _getRequestMapSkinDirty(FacesContext facesContext)
+  {
+    Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+
+    // Get the requested Skin Dirty flag from the request Map
+    Object requestedSkinDirty = requestMap.get(_SKIN_DIRTY_PARAM);
+
+    return requestedSkinDirty;
+  }
 
   public boolean isPortletMode()
   {
     return CoreRenderKit.OUTPUT_MODE_PORTLET.equals(_arc.getOutputMode());
+  }
+  
+  @Override
+  public boolean isRequestSecure()
+  {
+    if (_isRequestSecure == null) 
+    {
+      String scheme = FacesContext.getCurrentInstance().getExternalContext().getRequestScheme();
+      _isRequestSecure =  "https".equals(scheme);
+    }
+    return _isRequestSecure;
   }
 
   /**
@@ -217,10 +249,10 @@ class StyleContextImpl implements StyleContext
       {
         _isDisableStyleCompression = Boolean.TRUE;
 
-        // if Apache MyFaces Trinidad is running in production stage and 
+        // if Apache MyFaces Trinidad is running in production stage and not design time and
         // running with content compression disabled we generate a WARNING
         // message
-        if (context.isProjectStage(ProjectStage.Production))
+        if (context.isProjectStage(ProjectStage.Production) && !_arc.isDesignTime())
         {
           _LOG.warning("DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE");
         }
@@ -260,6 +292,71 @@ class StyleContextImpl implements StyleContext
 
     return Boolean.TRUE.equals(_isDisableStyleCompression);
 
+  }
+
+  @Override
+  public StyleSheetNamingStrategy getNamingStrategy()
+  {
+    StyleSheetNamingStrategy namingStrategy = _getCachedFileNamingStrategy();
+    if (namingStrategy == null)
+    {
+      namingStrategy  = _getInitParamFileNamingStrategy();
+      assert(namingStrategy != null);
+      
+      _putCachedFileNamingStrategy(namingStrategy);
+    }
+    
+    return namingStrategy;
+  }
+  
+  private StyleSheetNamingStrategy _getCachedFileNamingStrategy()
+  {
+    if (_namingStrategy != null)
+    {
+      return _namingStrategy;
+    }
+
+    Map<String, Object> appMap = _getConcurrentApplicationScopedMap();
+    return (StyleSheetNamingStrategy)appMap.get(_NAMING_STRATEGY_PARAM);    
+  }
+  
+  private void _putCachedFileNamingStrategy(StyleSheetNamingStrategy namingStrategy)
+  {
+    Map<String, Object> appMap = _getConcurrentApplicationScopedMap();
+    appMap.put(_NAMING_STRATEGY_PARAM, namingStrategy);
+    
+    _namingStrategy = namingStrategy;
+  }
+  
+  private StyleSheetNamingStrategy _getInitParamFileNamingStrategy()
+  {
+    ExternalContext external = _arc.getFacesContext().getExternalContext();
+    String strategyParam = external.getInitParameter(_NAMING_STRATEGY_PARAM);
+      
+    if (strategyParam != null)
+    {
+      strategyParam = strategyParam.trim();
+
+      if (strategyParam.length() > 0)
+      {
+        try
+        {
+          return StyleSheetNamingStrategy.valueOfDisplayName(strategyParam);
+        }
+        catch (IllegalArgumentException e)
+        {
+          _LOG.warning("INVALID_ENUM_IN_CONFIG",
+                       new Object[] { strategyParam, _NAMING_STRATEGY_PARAM });;
+        }
+      }
+    }
+
+    return StyleSheetNamingStrategy.STABLE;
+  }
+
+  private ConcurrentMap<String, Object> _getConcurrentApplicationScopedMap()
+  {
+    return _arc.getRequestContext().getApplicationScopedConcurrentMap();
   }
 
   // Implementation of StyleProvider which does nothing - used as a
@@ -315,6 +412,14 @@ class StyleContextImpl implements StyleContext
   private StyleProvider _styleProvider;
   private Styles _styles;
   private Boolean  _isDisableStyleCompression;
+  private Boolean _isRequestSecure;
+  private StyleSheetNamingStrategy _namingStrategy;
+
+  static private final String _SKIN_DIRTY_PARAM =
+    "org.apache.myfaces.trinidad.skin.dirty";
+  
+  static private final String _NAMING_STRATEGY_PARAM =
+    "org.apache.myfaces.trinidadinternal.STYLE_SHEET_NAMING_STRATEGY";
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(StyleContextImpl.class);

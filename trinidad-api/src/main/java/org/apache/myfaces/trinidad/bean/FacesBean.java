@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.bean;
 
@@ -139,21 +139,6 @@ public interface FacesBean
    * @deprecated
    */
   public void setValueBinding(PropertyKey key, ValueBinding binding);
-
-  /**
-   * Add a client behavior for a bean of a component that is a
-   * {@link javax.faces.component.behavior.ClientBehaviorHolder}
-   * @param eventName the event name
-   * @param behavior the behavior
-   */
-  public void addClientBehavior(String eventName, ClientBehavior behavior);
-
-  /**
-   * Get a map of event name to list of client behaviors for a bean of a component that is a
-   * {@link javax.faces.component.behavior.ClientBehaviorHolder}
-   * @return Non-null map of client behaviors (will return an empty map if none are present)
-   */
-  public Map<String, List<ClientBehavior>> getClientBehaviors();
 
   /**
    * Add an entry to a list.  The same value may be added
@@ -353,6 +338,15 @@ public interface FacesBean
       return registerKey(name, type, null, capabilities);
     }
 
+    public PropertyKey registerKey(
+      String   name,
+      Class<?> type,
+      Object   defaultValue,
+      int      capabilities)
+    {
+      return registerKey(name, type, defaultValue, capabilities, null);
+    }
+
     /**
      * Add an alias to an existing PropertyKey.
      * @exception IllegalStateException if the type is already locked,
@@ -376,19 +370,24 @@ public interface FacesBean
      *    or the key already exists.
      */
     public PropertyKey registerKey(
-      String   name,
-      Class<?> type,
-      Object   defaultValue,
-      int      capabilities)
+      String              name,
+      Class<?>            type,
+      Object              defaultValue,
+      int                 capabilities,
+      PropertyKey.Mutable mutable)
     {
       _checkLocked();
       _checkName(name);
+
+      if (mutable == null)
+        mutable = PropertyKey.Mutable.IMMUTABLE;
 
       PropertyKey key = createPropertyKey(name,
                                           type,
                                           defaultValue,
                                           capabilities,
-                                          getNextIndex());
+                                          getNextIndex(),
+                                          mutable);
       addKey(key);
       return key;
     }
@@ -444,13 +443,25 @@ public interface FacesBean
       int      capabilities,
       int      index)
     {
+      return createPropertyKey(name, type, defaultValue, capabilities, index, 
+                                                                    PropertyKey.Mutable.IMMUTABLE);
+    }
+
+    protected PropertyKey createPropertyKey(
+      String              name,
+      Class<?>            type,
+      Object              defaultValue,
+      int                 capabilities,
+      int                 index,
+      PropertyKey.Mutable mutable)
+    {      
       if (_superType != null)
       {
         return _superType.createPropertyKey(name, type, defaultValue,
-                                            capabilities, index);
+                                            capabilities, index, mutable);
       }
 
-      return new PropertyKey(name, type, defaultValue, capabilities, index);
+      return new PropertyKey(name, type, defaultValue, capabilities, index, mutable);
     }
 
     /**

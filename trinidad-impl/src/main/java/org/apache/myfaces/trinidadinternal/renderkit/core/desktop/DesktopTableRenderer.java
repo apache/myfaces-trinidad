@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.desktop;
 
@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.io.RepeatIdResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
@@ -234,7 +235,16 @@ public class DesktopTableRenderer extends TableRenderer
     renderStyleClass(context, rc, SkinSelectors.NAV_BAR_ALINK_STYLE_CLASS);
     writer.writeAttribute("onclick", onclick, null);
     writer.writeURIAttribute("href", "#", null);
-    writer.writeText(rc.getTranslatedString(translationKey), null);
+
+    Icon icon = rc.getIcon(getControlLinkIconName(translationKey));
+    if (icon != null)
+    {
+      OutputUtils.renderIcon(context, rc, icon, rc.getTranslatedString(translationKey),
+                             null);
+    } else
+    {
+      writer.writeText(rc.getTranslatedString(translationKey), null);
+    }
     writer.endElement("a");
 
     if (hasDivider)
@@ -1119,6 +1129,15 @@ public class DesktopTableRenderer extends TableRenderer
     }
   }
 
+  protected String getControlLinkIconName(String translationKey)
+  {
+    if (translationKey == null)
+      return null;
+
+    return translationKey.equals(_SELECT_ALL_TEXT_KEY) ? SkinSelectors.AF_TABLE_SELECT_ALL_ICON_NAME
+                                                       : SkinSelectors.AF_TABLE_SELECT_NONE_ICON_NAME;
+  }    
+
   protected String getSummary(
     UIComponent component,
     FacesBean   bean)
@@ -1254,8 +1273,8 @@ public class DesktopTableRenderer extends TableRenderer
 
   private static final String _SHOW_ALL_DETAILS_TEXT_KEY = "af_table.SHOW_ALL_DETAILS";
   private static final String _HIDE_ALL_DETAILS_TEXT_KEY = "af_table.HIDE_ALL_DETAILS";
-  private static final String _SELECT_ALL_TEXT_KEY = "af_tableSelectMany.SELECT_ALL";
-  private static final String _SELECT_NONE_TEXT_KEY = "af_tableSelectMany.SELECT_NONE";
+  protected static final String _SELECT_ALL_TEXT_KEY = "af_tableSelectMany.SELECT_ALL";
+  protected static final String _SELECT_NONE_TEXT_KEY = "af_tableSelectMany.SELECT_NONE";
   private static final Object _IE_SCROLL_KEY = new Object();
   public static final String LINKS_DIVIDER_TEXT = "\u00a0|\u00a0";
 

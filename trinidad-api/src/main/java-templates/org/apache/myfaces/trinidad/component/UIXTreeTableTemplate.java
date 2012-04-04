@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.component;
 
@@ -345,25 +345,25 @@ abstract public class UIXTreeTableTemplate extends UIXTree
 
   @SuppressWarnings("unchecked")
   @Override
-  protected final void processFacetsAndChildren(
+  protected void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)
   {
     // process all the facets of this hgrid just once
     // (except for the "nodeStamp" facet which must be processed once
     // per row):
-    TableUtils.__processFacets(context, this, this, phaseId,
+    TableUtils.processFacets(context, this, this, phaseId,
       UIXTreeTable.NODE_STAMP_FACET);
 
     UIComponent nodeStamp = getNodeStamp();
     // process any facets of the nodeStamp column:
-    TableUtils.__processFacets(context, this, nodeStamp, phaseId, null);
+    TableUtils.processFacets(context, this, nodeStamp, phaseId, null);
 
     // process all the facets of this table's column children:
-    TableUtils.__processColumnFacets(context, this, this, phaseId);
+    TableUtils.processColumnFacets(context, this, this, phaseId);
 
     // recursively process any grandchild columns of the nodeStamp column:
-    TableUtils.__processColumnFacets(context, this, nodeStamp, phaseId);
+    TableUtils.processColumnFacets(context, this, nodeStamp, phaseId);
 
     Object oldPath = getRowKey();
     RowKeySet state = getDisclosedRowKeys();
@@ -382,7 +382,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
       }
       else
       {
-        TableUtils.__processStampedChildren(context, this, phaseId);
+        TableUtils.processStampedChildren(context, this, phaseId);
         processComponent(context, nodeStamp, phaseId); // bug 4688568
   
         if (state.isContained())
@@ -547,6 +547,13 @@ abstract public class UIXTreeTableTemplate extends UIXTree
       _firstMap = Collections.emptyMap();
   }
 
+  @Override
+  void __resetMyStampState()
+  {
+    super.__resetMyStampState();
+    _firstMap = Collections.emptyMap();
+  }
+  
   private Map<Object, Integer> _firstMap = Collections.emptyMap();
   // cache of child components inside this treeTable header/footer facets and column header/footer
   // facets

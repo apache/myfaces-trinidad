@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.validator;
 
@@ -33,6 +33,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
@@ -79,6 +81,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 // TODO The error message date/time reads
 // "Date cannot be before Mon Feb 16 16:11:13 PST 2004", but the
 // date should probably be in the format of the converter....
+@JSFValidator(configExcluded=true)
 public class DateTimeRangeValidator implements Validator, StateHolder {
 
 
@@ -160,6 +163,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * Validator} or null if it has not been
    * set.
    */
+  @JSFProperty
   public Date getMaximum()
   {
     Object maxDate = _facesBean.getProperty(_MAXIMUM_KEY);
@@ -183,6 +187,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * Validator}, or null if it has not been
    * set.
    */
+  @JSFProperty
   public Date getMinimum()
   {
     Object minDate = _facesBean.getProperty(_MINIMUM_KEY);
@@ -217,6 +222,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom error message.
    * @see #setMessageDetailMaximum(String)
    */
+  @JSFProperty
   public String getMessageDetailMaximum()
   {
     Object maxMsgDet = _facesBean.getProperty(_MAXIMUM_MESSAGE_DETAIL_KEY);
@@ -241,6 +247,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom error message.
    * @see #setMessageDetailMinimum(String)
    */
+  @JSFProperty
   public String getMessageDetailMinimum()
   {
     Object minMsgDet = _facesBean.getProperty(_MINIMUM_MESSAGE_DETAIL_KEY);
@@ -266,6 +273,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom error message.
    * @see #setMessageDetailNotInRange(String)
    */
+  @JSFProperty
   public String getMessageDetailNotInRange()
   {
     Object notInRngMsg = _facesBean.getProperty(_NOT_IN_RANGE_MESSAGE_DETAIL_KEY);
@@ -287,6 +295,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom hint message.
    * @see  #setHintMaximum(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintMaximum()
   {
     Object obj = _facesBean.getProperty(_HINT_MAXIMUM_KEY);
@@ -308,6 +317,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom hint message.
    * @see  #setHintMinimum(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintMinimum()
   {
     Object obj = _facesBean.getProperty(_HINT_MINIMUM_KEY);
@@ -329,6 +339,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom hint message.
    * @see  #setHintNotInRange(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHintNotInRange()
   {
     Object obj = _facesBean.getProperty(_HINT_NOT_IN_RANGE);
@@ -344,6 +355,9 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     UIComponent  component,
     Object       value) throws ValidatorException
   {
+    if (isDisabled())
+      return;
+    
     if ((context == null) || (component == null))
     {
       throw new NullPointerException(_LOG.getMessage(
@@ -486,6 +500,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
       DateTimeRangeValidator that = (DateTimeRangeValidator)o;
 
       if ( _transientValue == that._transientValue &&
+           isDisabled() == that.isDisabled() &&
            (ValidatorUtils.equals(getMinimum(), that.getMinimum())) &&
            (ValidatorUtils.equals(getMaximum(), that.getMaximum())) &&
            (ValidatorUtils.equals(getMessageDetailMaximum(),
@@ -515,22 +530,43 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     result = 37 * result + ( max == null ? 0 : max.hashCode());
     result = 37 * result + ( min == null ? 0 : min.hashCode());
     result = 37 * result + ( _transientValue ? 0 : 1);
+    result = 37 * result + (isDisabled() ? 1 : 0);
     result = 37 * result + ( maxMsgDet == null ? 0: maxMsgDet.hashCode());
     result = 37 * result + ( minMsgDet == null ? 0: minMsgDet.hashCode());
     result = 37 * result + ( notInRangeMsgDet == null ? 0: notInRangeMsgDet.hashCode());
     return result;
   }
 
+  @JSFProperty(istransient=true,tagExcluded=true)
   public boolean isTransient()
   {
     return (_transientValue);
   }
 
-
   public void setTransient(boolean transientValue)
   {
     _transientValue = transientValue;
   }
+  
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */ 
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */  
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
+  }    
 
   private static Date _getDateValue(
     Object value) throws IllegalArgumentException
@@ -687,6 +723,10 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
 
   private static final PropertyKey  _HINT_NOT_IN_RANGE =
     _TYPE.registerKey("hintNotInRange", String.class);
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 

@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.panel.panelCaptionGroup;
 
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 
 /**
  *
@@ -28,15 +30,23 @@ public class PanelCaptionGroupDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982061956882438710L;
 
-	/**
-	 * Constructor.
-	 */
-	public PanelCaptionGroupDemo() {
-		super(ComponentDemoId.panelCaptionGroup, "Panel Caption Group",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public PanelCaptionGroupDemo() {
+    super(ComponentDemoId.panelCaptionGroup, "Panel Caption Group");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/panel/panelCaptionGroup/panelCaptionGroup.xhtml"
-            });
-	}
+                    "/components/panel/panelCaptionGroup/panelCaptionGroup.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelCaptionGroup/summary.xhtml";

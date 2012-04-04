@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.bean;
 
@@ -175,51 +175,6 @@ abstract public class FacesBeanImpl implements FacesBean
     setValueExpression(key, ve);
   }
 
-  final public void addClientBehavior(
-    String         eventName,
-    ClientBehavior behavior)
-  {
-    if (_behaviors != null)
-    {
-      if (_behaviors.initialStateMarked())
-      {
-        // Resest the state of the behaviors so that their full state is saved when the
-        // behaviors of this component have been changed
-        _behaviors.clearInitialState();
-      }
-    }
-    else
-    {
-      _behaviors = new BehaviorMap();
-      _behaviorsReadOnly = null;
-    }
-
-    List<ClientBehavior> list = _behaviors.get(eventName);
-    if (list == null)
-    {
-      // Use a small number here as it will not be likely to have many behaviors for a component
-      // per event (probably 1)
-      list = new ArrayList<ClientBehavior>(5);
-      _behaviors.put(eventName, list);
-    }
-    list.add(behavior);
-  }
-
-  public Map<String, List<ClientBehavior>> getClientBehaviors()
-  {
-    if (_behaviors == null)
-    {
-      // never return null, per the spec.
-      return Collections.emptyMap();
-    }
-
-    if (_behaviorsReadOnly == null)
-    {
-      _behaviorsReadOnly = Collections.unmodifiableMap(_behaviors);
-    }
-    return _behaviorsReadOnly;
-  }
-
   @SuppressWarnings("unchecked")
   final public void addEntry(PropertyKey listKey, Object value)
   {
@@ -373,9 +328,6 @@ abstract public class FacesBeanImpl implements FacesBean
 
     if (_expressions != null)
       _expressions.markInitialState();
-
-    if (_behaviors != null)
-      _behaviors.markInitialState();
   }
 
   public void clearInitialState()
@@ -387,9 +339,6 @@ abstract public class FacesBeanImpl implements FacesBean
 
     if (_expressions != null)
       _expressions.clearInitialState();
-
-    if (_behaviors != null)
-      _behaviors.clearInitialState();
   }
 
   public boolean initialStateMarked()
@@ -407,20 +356,7 @@ abstract public class FacesBeanImpl implements FacesBean
     if (state instanceof Object[])
     {
       Object[] asArray = (Object[]) state;
-      if (asArray.length == 3)
-      {
-        Object propertyState = asArray[0];
-        Object bindingsState = asArray[1];
-        Object behaviorState = asArray[2];
-        _getPropertyMap().restoreState(context, getType(), propertyState);
-        if (bindingsState != null)
-        {
-          _getExpressionsMap(true).restoreState(context, getType(), bindingsState);
-        }
-        _getBehaviors(true).restoreState(context, behaviorState);
-        return;
-      }
-      else if (asArray.length == 2)
+      if (asArray.length == 2)
       {
         Object propertyState = asArray[0];
         Object bindingsState = asArray[1];
@@ -453,12 +389,6 @@ abstract public class FacesBeanImpl implements FacesBean
                             ? null
                             : _expressions.saveState(context);
 
-    Object behaviorState = _behaviors == null ? null : _behaviors.saveState(context);
-
-    if (behaviorState != null)
-    {
-      return new Object[] { propertyState, bindingsState, behaviorState };
-    }
     if (bindingsState != null)
     {
       return new Object[] { propertyState, bindingsState };
@@ -503,7 +433,13 @@ abstract public class FacesBeanImpl implements FacesBean
 
   protected PropertyMap createPropertyMap()
   {
-    return new FlaggedPropertyMap();
+    FlaggedPropertyMap map =  new FlaggedPropertyMap();
+    // We are providing Type information to the Map implementation
+    // to enable tracking certain properties in a bitmask.
+    // For now, the properties we are tracking will never be specified
+    // as expressions
+    map.setType(getType());
+    return map;
   }
 
   protected PropertyMap createExpressionsMap()
@@ -558,17 +494,7 @@ abstract public class FacesBeanImpl implements FacesBean
     return _properties;
   }
 
-  private BehaviorMap _getBehaviors(
-    boolean create)
-  {
-    if (_behaviors == null && create)
-    {
-      _behaviors = new BehaviorMap();
-    }
-
-    return _behaviors;
-  }
-
+ 
   private PropertyMap _getExpressionsMap(boolean createIfNew)
   {
     if (_expressions == null)
@@ -598,171 +524,10 @@ abstract public class FacesBeanImpl implements FacesBean
         "KEY_IS_LIST_KEY", key));
   }
 
-  private static class BehaviorMap
-    extends HashMap<String, List<ClientBehavior>>
-    implements PartialStateHolder
-  {
-    BehaviorMap()
-    {
-      // We do not expect many event types to be present on the component and we will assume 5
-      // to avoid the overhead of actually checking the number by calling the component method
-      this(5);
-    }
-
-    BehaviorMap(int initialCapacity)
-    {
-      super(initialCapacity, 1.0f);
-    }
-
-    public void markInitialState()
-    {
-      for (Map.Entry<String, List<ClientBehavior>> e : this.entrySet())
-      {
-        for (ClientBehavior behavior : e.getValue())
-        {
-          if (behavior instanceof PartialStateHolder)
-          {
-            ((PartialStateHolder)behavior).markInitialState();
-          }
-        }
-      }
-      _initialStateMarked = true;
-    }
-
-    public void clearInitialState()
-    {
-      _initialStateMarked = false;
-      for (Map.Entry<String, List<ClientBehavior>> e : this.entrySet())
-      {
-        for (ClientBehavior behavior : e.getValue())
-        {
-          if (behavior instanceof PartialStateHolder)
-          {
-            ((PartialStateHolder)behavior).clearInitialState();
-          }
-        }
-      }
-    }
-
-    public boolean initialStateMarked()
-    {
-      return _initialStateMarked;
-    }
-
-    public Object saveState(
-      FacesContext facesContext)
-    {
-      Map<String, Object[]> state = new HashMap<String, Object[]>(this.size());
-      for (Map.Entry<String, List<ClientBehavior>> e : this.entrySet())
-      {
-        List<ClientBehavior> l = e.getValue();
-        Object[] entryState = new Object[l.size()];
-        boolean stateWasSaved = false;
-        for (int i = 0, size = entryState.length; i < size; ++i)
-        {
-          ClientBehavior behavior = l.get(i);
-          if (_initialStateMarked)
-          {
-            // JSF 2 state saving, only save the behavior's state if it is a state holder,
-            // otherwise the re-application of the template will handle the re-creation of the
-            // client behavior in the correct state
-            if (behavior instanceof StateHolder)
-            {
-              entryState[i] = ((StateHolder)behavior).saveState(facesContext);
-            }
-          }
-          else
-          {
-            // Use JSF <= 1.2 state saving method as the initial state was not marked
-            entryState[i] = StateUtils.saveStateHolder(facesContext, behavior);
-          }
-
-          stateWasSaved &= (entryState[i] != null);
-        }
-
-        if (stateWasSaved)
-        {
-          state.put(e.getKey(), entryState);
-        }
-      }
-      return state.isEmpty() ? null : state;
-    }
-
-    public void restoreState(
-      FacesContext facesContext,
-      Object       state)
-    {
-      @SuppressWarnings("unchecked")
-      Map<String, Object[]> savedState = (Map<String, Object[]>) state;
-
-      if (_initialStateMarked)
-      {
-        // In JSF 2 state saving, we only need to super impose the state onto the existing
-        // client behavior list of the current map as the behaviors will already be restored in
-        // the same order that they were in the previous request (if not there is an application
-        // bug).
-        for (Map.Entry<String, Object[]> e : savedState.entrySet())
-        {
-          // Assume that the behaviors were correctly re-attached to the component and we only
-          // need to restore the state onto the objects. The order must be maintained.
-          List<ClientBehavior> behaviors = get(e.getKey());
-          Object[] entryState = e.getValue();
-          for (int i = 0, size = entryState.length; i < size; ++i)
-          {
-            if (entryState[i] != null)
-            {
-              ClientBehavior behavior = behaviors.get(i);
-              if (behavior instanceof StateHolder)
-              {
-                ((StateHolder)behavior).restoreState(facesContext, entryState[i]);
-              }
-            }
-          }
-        }
-      }
-      else
-      {
-        // For JSF <= 1.2 style state saving, we should ensure that we are empty and then
-        // re-hydrate the behaviors directly from the state
-        this.clear();
-
-        for (Map.Entry<String, Object[]> e : savedState.entrySet())
-        {
-          Object[] entryState = e.getValue();
-          // Assume the list is not going to grow in this request, so only allocate the size
-          // of the list from the previous request
-          List<ClientBehavior> list = new ArrayList<ClientBehavior>(entryState.length);
-          for (int i = 0, size = entryState.length; i < size; ++i)
-          {
-            list.add((ClientBehavior)StateUtils.restoreStateHolder(facesContext, entryState[i]));
-          }
-
-          this.put(e.getKey(), list);
-        }
-      }
-    }
-
-    public boolean isTransient()
-    {
-      return _transient;
-    }
-
-    public void setTransient(
-      boolean newTransientValue)
-    {
-      _transient = newTransientValue;
-    }
-
-    private boolean _transient;
-    private boolean _initialStateMarked;
-  }
-
   private PropertyMap _properties;
   private PropertyMap _expressions;
-  private BehaviorMap _behaviors;
-
+ 
   private transient boolean                           _initialStateMarked;
-  private transient Map<String, List<ClientBehavior>> _behaviorsReadOnly;
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
                                                FacesBeanImpl.class);

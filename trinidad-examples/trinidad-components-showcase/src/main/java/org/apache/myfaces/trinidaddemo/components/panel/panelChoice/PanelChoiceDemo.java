@@ -31,43 +31,43 @@ public class PanelChoiceDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956882438710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Buttom,
+    Buttom,
         Center,
         Start,
         Top
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public PanelChoiceDemo() {
-		super(ComponentDemoId.panelChoice, "Panel Choice",
-            new String[]{
-                "/components/panel/panelChoice/panelChoice.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public PanelChoiceDemo() {
+    super(ComponentDemoId.panelChoice, "Panel Choice");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Buttom, this,
                 new String[]{
                         "/components/panel/panelChoice/panelChoiceButtom.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Center, this,
                 new String[]{
                         "/components/panel/panelChoice/panelChoiceCenter.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Start, this,
                 new String[]{
                         "/components/panel/panelChoice/panelChoiceStart.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Top, this,
                 new String[]{
                         "/components/panel/panelChoice/panelChoiceTop.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.Center);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelChoice/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

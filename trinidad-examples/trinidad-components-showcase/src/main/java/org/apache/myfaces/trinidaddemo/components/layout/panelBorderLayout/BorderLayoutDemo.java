@@ -28,27 +28,30 @@ import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
  */
 public class BorderLayoutDemo extends AbstractComponentDemo {
 
- 	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Expanded,
-		Positioned
-	}
+    Expanded,
+    Positioned
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public BorderLayoutDemo() {
-		super(ComponentDemoId.panelBorderLayout, "Border Layout", VARIANTS.Expanded,
-            new String[]{
-                "/components/layout/borderLayout/panelBorderLayout.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public BorderLayoutDemo() {
+    super(ComponentDemoId.panelBorderLayout, "Border Layout");
 
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Expanded, this,
+                new String[]{
+                        "/components/layout/borderLayout/panelBorderLayout.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Positioned, this,
                 new String[]{
                         "/components/layout/borderLayout/panelBorderLayoutPositioned.xhtml"
-                }, getSummaryResourcePath()));
-	}    
+                }));
+
+        setDefaultVariant(VARIANTS.Expanded);
+  }    
 
     public String getSummaryResourcePath() {
         return "/components/layout/borderLayout/summary.xhtml";

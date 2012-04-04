@@ -35,25 +35,23 @@ public class SelectManyListboxDemo extends AbstractComponentDemo {
        Detailed
    }
 
-	/**
-	 * Constructor.
-	 */
-	public SelectManyListboxDemo() {
-		super(ComponentDemoId.selectManyListbox, "Select Many Listbox",
-            new String[]{
-                "/components/select/selectManyListbox/selectManyListbox.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public SelectManyListboxDemo() {
+    super(ComponentDemoId.selectManyListbox, "Select Many Listbox");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
                         "/components/select/selectManyListbox/selectManyListboxSimple.xhtml"
-                }, getSummaryResourcePath()));
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
                 new String[]{
                         "/components/select/selectManyListbox/selectManyListboxDetailed.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
-	}
+        setDefaultVariant(VARIANTS.Detailed);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectManyListbox/summary.xhtml";

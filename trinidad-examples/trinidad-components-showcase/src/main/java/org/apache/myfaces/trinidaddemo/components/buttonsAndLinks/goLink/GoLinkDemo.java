@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.buttonsAndLinks.goLink;
 
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 
 /**
  *
@@ -27,17 +29,29 @@ import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
 public class GoLinkDemo extends AbstractComponentDemo{
     private static final long serialVersionUID = -1982061956883108710L;
 
-	/**
-	 * Constructor.
-	 */
-	public GoLinkDemo() {
-		super(ComponentDemoId.goLink , "Go Link",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }    
+
+  /**
+   * Constructor.
+   */
+  public GoLinkDemo() {
+    super(ComponentDemoId.goLink , "Go Link");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/buttonsAndLinks/goLink/goLink.xhtml"
-            });
-	}
+                    "/components/buttonsAndLinks/goLink/goLink.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/buttonsAndLinks/goLink/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

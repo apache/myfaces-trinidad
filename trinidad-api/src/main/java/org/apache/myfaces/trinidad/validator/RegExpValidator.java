@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.validator;
 
@@ -32,6 +32,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
@@ -62,6 +64,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/validator/RegExpValidator.java#0 $) $Date: 10-nov-2005.19:08:34 $
  */
+@JSFValidator(configExcluded=true)
 public class RegExpValidator implements StateHolder, Validator
 {
   /**
@@ -108,7 +111,9 @@ public class RegExpValidator implements StateHolder, Validator
     Object value
     ) throws ValidatorException
   {
-
+    if (isDisabled())
+      return;
+    
     if ((context == null) || (component == null))
     {
       throw new NullPointerException(_LOG.getMessage(
@@ -151,6 +156,7 @@ public class RegExpValidator implements StateHolder, Validator
     }
   }
 
+  @JSFProperty(istransient=true, tagExcluded=true)
   public boolean isTransient()
   {
     return (_isTransient);
@@ -263,7 +269,8 @@ public class RegExpValidator implements StateHolder, Validator
     {
       RegExpValidator other = (RegExpValidator) object;
 
-      if ( this.isTransient() == other.isTransient() &&
+      if ( this.isDisabled() == other.isDisabled() &&
+           this.isTransient() == other.isTransient() &&
            ValidatorUtils.equals(getPattern(), other.getPattern()) &&
            ValidatorUtils.equals(getMessageDetailNoMatch(),
                                    other.getMessageDetailNoMatch())
@@ -283,11 +290,14 @@ public class RegExpValidator implements StateHolder, Validator
   public int hashCode()
   {
     int result = 17;
+    
     String pattern = getPattern();
     String noMesgDetail = getMessageDetailNoMatch();
     result = 37 * result + (pattern == null? 0 : pattern.hashCode());
+    result = 37 * result + (isDisabled() ? 1 : 0);    
     result = 37 * result + (isTransient() ? 0 : 1);
     result = 37 * result + (noMesgDetail == null ? 0 : noMesgDetail.hashCode());
+    
     return result;
   }
 
@@ -306,6 +316,7 @@ public class RegExpValidator implements StateHolder, Validator
    * @return Custom hint message.
    * @see  #setHint(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHint()
   {
     Object obj = _facesBean.getProperty(_HINT_PATTERN_KEY);
@@ -333,6 +344,7 @@ public class RegExpValidator implements StateHolder, Validator
    * <p>Return the pattern value to be enforced by this {@link
    * Validator}
    */
+  @JSFProperty
   public String getPattern()
   {
     Object obj = _facesBean.getProperty(_PATTERN_KEY);
@@ -356,11 +368,32 @@ public class RegExpValidator implements StateHolder, Validator
    * @return Custom error message
    * @see #setMessageDetailNoMatch(String)
    */
+  @JSFProperty
   public String getMessageDetailNoMatch()
   {
     Object obj = _facesBean.getProperty(_NO_MATCH_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(obj);
   }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */ 
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */  
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
+  }    
 
   /**
    * @todo custom message should be evaluated lazily and then be used for
@@ -397,6 +430,10 @@ public class RegExpValidator implements StateHolder, Validator
 
   private static final PropertyKey  _HINT_PATTERN_KEY =
     _TYPE.registerKey("hint", String.class);
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 

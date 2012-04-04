@@ -30,24 +30,27 @@ public class BreadCrumbsDemo extends AbstractComponentDemo{
     private static final long serialVersionUID = -1982061956383498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Horizontal,
+    Horizontal,
         Vertical
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public BreadCrumbsDemo() {
-		super(ComponentDemoId.breadCrumbs, "Bread Crumbs", VARIANTS.Horizontal,
-            new String[]{
-                "/components/navigation/breadCrumbs/breadCrumbsHorizontal.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public BreadCrumbsDemo() {
+    super(ComponentDemoId.breadCrumbs, "Bread Crumbs");
 
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Horizontal, this,
+                new String[]{
+                        "/components/navigation/breadCrumbs/breadCrumbsHorizontal.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Vertical, this,
                 new String[]{
                         "/components/navigation/breadCrumbs/breadCrumbsVertical.xhtml"
-                }, "/components/navigation/breadCrumbs/summary.xhtml"));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.Horizontal);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/navigation/breadCrumbs/summary.xhtml";

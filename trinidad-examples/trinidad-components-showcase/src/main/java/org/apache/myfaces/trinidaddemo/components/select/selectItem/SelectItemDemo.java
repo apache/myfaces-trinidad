@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.select.selectItem;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,17 +30,29 @@ public class SelectItemDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1989061956813398310L;
 
-	/**
-	 * Constructor.
-	 */
-	public SelectItemDemo() {
-		super(ComponentDemoId.selectItem, "Select Item",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public SelectItemDemo() {
+    super(ComponentDemoId.selectItem, "Select Item");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/select/selectItem/selectItem.xhtml"
-            });
-	}
+                    "/components/select/selectItem/selectItem.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectItem/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

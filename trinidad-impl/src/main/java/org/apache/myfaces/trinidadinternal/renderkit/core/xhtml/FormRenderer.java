@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
@@ -31,6 +31,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.validator.Validator;
@@ -360,6 +361,17 @@ public class FormRenderer extends XhtmlRenderer
       _renderNeededValues(context, rc);
     }
 
+    // Windows Mobile (WM) 6.1 doesn't support executing JS which are sent along
+    // a PPR response, so components which have their own JS will not work in
+    // WM 6.1 if it is injected during a PPR.
+    // To fix this issue, we need to render the script used by other components. 
+    if ((Agent.PLATFORM_PPC.equalsIgnoreCase(rc.getAgent().getPlatformName()))  
+        && Boolean.TRUE.equals(rc.getAgent().
+                     getCapabilities().get(TrinidadAgent.CAP_PARTIAL_RENDERING)))
+    {
+      _renderOtherComponentScripts(context, rc, writer);
+    }
+      
     // Render submitFormCheck js function --
     // checks if submitForm was rejected because form was incomplete
     // when it was called, and thus calls submitForm again.
@@ -405,10 +417,31 @@ public class FormRenderer extends XhtmlRenderer
       });
       rw.writeAttribute("id", postscriptId, null);
     }
-
-    // Include JSF state.
-    context.getApplication().getViewHandler().writeState(context);
-
+     
+    // PDA's JavaScript-DOM is not capable of updating the ViewState just by 
+    // using ViewState's value, so for PDAs, FormRenderer will again render 
+    // the ViewState as a hidden element
+    if (isPDA(rc) &&
+          RequestContext.getCurrentInstance().isPartialRequest(context))
+    {
+      String state = 
+            context.getApplication().getStateManager().getViewState(context);
+      rw.startElement("input", null);
+      rw.writeAttribute("type", "hidden", null);
+      rw.writeAttribute("name", 
+          PartialResponseWriter.VIEW_STATE_MARKER , null);
+      rw.writeAttribute("value", state, null);
+      rw.endElement("input");
+    }
+    else
+    {
+      // Include JSF state.
+      // Note that MultiViewHandler in JSF RI will not write the state
+      // for any AJAX requests. PartialViewContextImpl will write out the state
+      // for these requets
+      context.getApplication().getViewHandler().writeState(context);
+    }
+    
     // Include the Window state, if any
     RequestContext.getCurrentInstance().getWindowManager().writeState(context);
 
@@ -1251,6 +1284,29 @@ public class FormRenderer extends XhtmlRenderer
         }
       }
     }
+  }
+
+  /**
+   * Render the JavaScript needed by other components.
+   * @param: context - FacesContext
+   * @param: arc - RenderingContext
+   * @param: writer - ResponseWriter
+   */
+  private void _renderOtherComponentScripts(
+    FacesContext  context,
+    RenderingContext arc,
+    ResponseWriter writer) throws IOException
+  {
+    // Script for show/hide funtionality in detailStamp facet
+    writer.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
+    renderScriptDeferAttribute(context, arc);
+    renderScriptTypeAttribute(context, arc);
+    writer.writeText(ShowDetailRenderer.PARTIAL_JS, null);
+    writer.endElement(XhtmlConstants.SCRIPT_ELEMENT);
+      
+    // Script for a table's pagination
+    ProcessUtils.renderNavSubmitScript(context, arc);
+    ProcessUtils.renderNavChoiceSubmitScript(context, arc);  
   }
 
   // key used to indicate whether or not usesUpload is used:

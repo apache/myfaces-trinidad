@@ -25,7 +25,7 @@
 <!-- CANNOT_CREATE_FACESBEAN_INSTANCE -->
 <resource key="CANNOT_CREATE_FACESBEAN_INSTANCE" dnt="false">Kunde inte skapa instans av FacesBean {0}</resource>
 <!-- NO_FACES_BEAN_PROPERTIES_FILES_LOCATED -->
-<resource key="NO_FACES_BEAN_PROPERTIES_FILES_LOCATED" dnt="false">Kan inte hitta filen faces-bean.properties</resource>
+<resource key="NO_FACES_BEAN_PROPERTIES_FILES_LOCATED" dnt="false">Hittar inte filen faces-bean.properties</resource>
 <!-- CANNOT_LOAD_URL -->
 <resource key="CANNOT_LOAD_URL" dnt="false">Kan inte ladda {0}</resource>
 <!-- ERR_CREATE_NEW_COMPONENT_INSTANCE -->
@@ -37,9 +37,9 @@
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->
 <resource key="SAVED_CHILD_COUNT_NOT_MATCH" dnt="false">Sparat antal underordnade matchar inte aktuellt antal (var {0}, nu {1})</resource>
 <!-- FACETS_STATE_MISSING_WILLNOT_RESTORE -->
-<resource key="FACETS_STATE_MISSING_WILLNOT_RESTORE" dnt="false">Status för vissa komponenter av {0} saknas och återställs inte.</resource>
+<resource key="FACETS_STATE_MISSING_WILLNOT_RESTORE" dnt="false">Status för vissa aspekter av {0} saknas och återställs inte.</resource>
 <!-- DISCARDING_SAVED_STATE -->
-<resource key="DISCARDING_SAVED_STATE" dnt="false">Sparad komponentstatus innehåller status för komponenten &quot;{0}&quot; som inte finns i återställt träd; ignorerar denna status.</resource>
+<resource key="DISCARDING_SAVED_STATE" dnt="false">Sparad aspektstatus innehåller status för aspekten &quot;{0}&quot; som inte finns i återställt träd; ignorerar denna status.</resource>
 <!-- SAVED_STATE_INCLUDE_TRANSIENT_COMPONENT_STATE -->
 <resource key="SAVED_STATE_INCLUDE_TRANSIENT_COMPONENT_STATE" dnt="false">Sparad status innehåller status för en tillfällig komponent: {0}</resource>
 <!-- CANNOT_FIND_ROWKEY -->
@@ -55,9 +55,9 @@
 <!-- TRYING_ATTACH_RENDERERINGCONTEXT -->
 <resource key="TRYING_ATTACH_RENDERERINGCONTEXT" dnt="false">Försöker koppla RenderingContext till en tråd som redan har en.</resource>
 <!-- NO_REQUESTCONTEXT_TWO_DIGIT_YEAR_START_DEFAULT -->
-<resource key="NO_REQUESTCONTEXT_TWO_DIGIT_YEAR_START_DEFAULT" dnt="false">Kan inte hitta RequestContext; standard blir tvåsiffrig årtalsstart</resource>
+<resource key="NO_REQUESTCONTEXT_TWO_DIGIT_YEAR_START_DEFAULT" dnt="false">Hittar inte RequestContext; standard blir tvåsiffrig årtalsstart</resource>
 <!-- NO_REQUESTCONTEXT_TIMEZONE_DEFAULT -->
-<resource key="NO_REQUESTCONTEXT_TIMEZONE_DEFAULT" dnt="false">Kan inte hitta RequestContext; TimeZone blir standard.</resource>
+<resource key="NO_REQUESTCONTEXT_TIMEZONE_DEFAULT" dnt="false">Hittar inte RequestContext; TimeZone blir standard.</resource>
 <!-- FAIL_HOLD_DECIMALFORMAT -->
 <resource key="FAIL_HOLD_DECIMALFORMAT" dnt="false">Kunde inte hämta decimalformat av typen: {0} decimaltecken, talgruppsavgränsare och valutakod får standard baserat på språket {1}</resource>
 <!-- NULL_REQUESTCONTEXT -->
@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">Fel vid tolkning av:{0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">fel vid laddning av resursen:{0}</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">Fel vid laddning av resurs:{0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">Resursnamnet &quot;{0}&quot; börjar med ett snedstreck, vilket inte kan flyttas.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
@@ -93,7 +93,7 @@
 <!-- UNABLE_LOAD_FACES_BUNDLE -->
 <resource key="UNABLE_LOAD_FACES_BUNDLE" dnt="false">Kan inte ladda komponentpaketet {0}</resource>
 <!-- RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER -->
-<resource key="RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER" dnt="false">Kan inte hitta ResourceLoader för ResourceServlet på servlet-sökvägen:{0} Orsak: Kunde inte hitta resursen:{1}</resource>
+<resource key="RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER" dnt="false">Hittar inte ResourceLoader för ResourceServlet på servlet-sökvägen:{0} Orsak: Kunde inte hitta resursen:{1}</resource>
 <!-- RESOURCESERVLET_IN_DEBUG_MODE -->
 <resource key="RESOURCESERVLET_IN_DEBUG_MODE" dnt="false">Trinidad ResourceServlet körs i felsökningsläge. Använd inte i produktionsmiljö. Se parametern {0} i /WEB-INF/web.xml</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
@@ -125,9 +125,11 @@
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Ogiltigt index</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Lägger till underordnad när underordnad med samma id redan finns. Gammal underordnad tas bort och ny underordnad läggs till. {0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Ändringshanterare kunde inte använda AddChildComponentChange eftersom det redan finns en underordnad komponent med samma id. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Ingen nod har angetts</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Vi vill inte behålla en stämplad komponent inuti en iterator</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Komponent måste anges</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -155,11 +157,13 @@
 <!-- CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT -->
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">Kan inte konstruera en AddFacetChange om något av facetName eller facetComponent är null.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
-<resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Facet-namn måste anges</resource>
+<resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Aspekt måste anges</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">Ändringshanterare kunde inte använda SetFacetChildComponentChange eftersom det redan finns en aspekt med samma namn. {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Underordnad komponent som ska flyttas måste anges.</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
-<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">Målcontainerkomponent måste anges.</resource>
+<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">Destinationscontainerkomponent måste anges.</resource>
 <!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
 <resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">En eller flera av komponenterna som deltar i MoveChildComponentChange har inget id.</resource>
 <!-- COMMON_PARENT_NOT_FOUND -->
@@ -167,7 +171,9 @@
 <!-- MOVABLE_CHILD_NOT_FOUND -->
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Underordnad som ska flyttas kunde inte hittas: {0}.</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
-<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Målcontainer kunde inte hittas: {0}.</resource>
+<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Destinationscontainer kunde inte hittas: {0}.</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">En annan komponent med samma id har hittats i destinationscontainern. Flyttningsåtgärden avbröts: {0}.</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Infogning före komponent eller nod kunde inte hittas: {0}.</resource>
 <!-- INDEX_SIZE -->
@@ -263,7 +269,7 @@
 <!-- NULL_RESOURCEID -->
 <resource key="NULL_RESOURCEID" dnt="false">resourceId är null</resource>
 <!-- CANNOT_FIND_DEFAULT_FACESMESSAGE -->
-<resource key="CANNOT_FIND_DEFAULT_FACESMESSAGE" dnt="false">Kan inte hitta standard för FacesMessage.FACES_MESSAGES</resource>
+<resource key="CANNOT_FIND_DEFAULT_FACESMESSAGE" dnt="false">Hittar inte standard för FacesMessage.FACES_MESSAGES</resource>
 <!-- NULL_FACESCONTEXT -->
 <resource key="NULL_FACESCONTEXT" dnt="false">FacesContext är null</resource>
 <!-- CUSTOM_MESSAGE_SHOULD_BE_VALUEBINDING_OR_STRING_TYPE -->
@@ -308,4 +314,12 @@
 <resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">Kan inte ange portletåtergivningsparametrar på grund av att återspegling inte utfördes</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">Typen av &quot;{0}&quot; förhindrar den att jämföras med &quot;{1}&quot;.</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">Sidstatus zippades inte. Status måste vara serialiserbart om det ska kunna zippas. En vanlig orsak till att sidstatus inte zippas är alltså att det inte är serialiserbart. Du kan inaktivera zippning genom att ställa in org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE på falskt. Information om hur du testar olika aspekter av serialisering finns i dokumentet om systemegenskapen org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION.</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">Kunde inte zippa upp sidstatus.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">getClientId ska inte anropas under tiden vyn konstrueras. Komponent-id: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">radnyckel kanske inte återställs korrekt i slutet av begäran. Komponent-id: {0} ViewId: {1}</resource>
 </resources>

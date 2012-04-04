@@ -42,7 +42,7 @@
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">Trzeba dokonać co najmniej jednego wyboru.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">Trzeba dokonać wyboru.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">Trzeba dokonać co najmniej jednego wyboru.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">Trzeba dokonać wyboru.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">Trzeba dokonać wyboru wiersza.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">Trzeba wybrać wiersz.</resource>
@@ -59,8 +59,8 @@
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">Format wartości jest niepoprawny.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">Proszę podać wartość zgodną z następującym wzorcem: {2}</resource>
 <!-- Upload ConversionException messages -->
-<resource key="org.apache.myfaces.trinidad.UPLOAD" dnt="false">Plik jest zbyt duży.</resource>
-<resource key="org.apache.myfaces.trinidad.UPLOAD_detail" dnt="false">Nie można było wysłać pliku, ponieważ jest on zbyt duży.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">Nie udało się wysłać pliku.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}</resource>
 <!-- hints for validators -->
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">Proszę podać liczbę mniejszą lub równą {0}.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">Proszę podać liczbę większą lub równą {0}.</resource>
@@ -247,6 +247,10 @@
 <!-- {2} an example of the format the converter is expecting -->
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">Data i godzina mają niepoprawny format.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">Proszę podać datę i godzinę w formacie tego przykładu: {2}</resource>
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE" dnt="false">Podana data lub godzina jest niepoprawna.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE_detail" dnt="false">Proszę podać poprawną datę lub godzinę. </resource>
 <!-- {0} the label that identifies the component    -->
 <!-- {1} value entered by the user                  -->
 <!-- {2} the pattern the converter is expecting     -->

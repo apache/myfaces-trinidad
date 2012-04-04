@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.uinode;
 
@@ -86,8 +86,21 @@ public class UINodeFacesBean extends FacesBeanImpl
       int      capabilities,
       int      index)
     {
-      return new UINodePropertyKey(name, type, defaultValue, 
+      return new UINodePropertyKey(name, type, defaultValue,
                                    capabilities, index);
+    }
+
+    @Override
+    protected PropertyKey createPropertyKey(
+      String              name,
+      Class<?>            type,
+      Object              defaultValue,
+      int                 capabilities,
+      int                 index,
+      PropertyKey.Mutable mutable)
+    {
+      return new UINodePropertyKey(name, type, defaultValue,
+                                   capabilities, index, mutable);
     }
   }
 
@@ -147,6 +160,10 @@ public class UINodeFacesBean extends FacesBeanImpl
   {
     return new FlaggedPropertyMap()
     {
+      {
+        setType(UINodeFacesBean.this.getType());
+      }
+
       @Override
       public Object put(PropertyKey key, Object value)
       {
@@ -325,7 +342,7 @@ public class UINodeFacesBean extends FacesBeanImpl
     _HAS_ICON_URL.add(UIXPanel.COMPONENT_FAMILY);
     // For "header"
     _HAS_ICON_URL.add(UIXShowDetail.COMPONENT_FAMILY);
-    
+
     // One reason components need ids when they submit events with source.
     // Another is PPR support.
     _ALWAYS_RENDER_ID.add(UIXShowDetail.COMPONENT_FAMILY);

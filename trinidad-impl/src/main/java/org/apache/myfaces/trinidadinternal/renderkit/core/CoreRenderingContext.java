@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
@@ -95,11 +95,14 @@ public class CoreRenderingContext extends RenderingContext
     _accessibilityProfile = afContext.getAccessibilityProfile();
     if (_accessibilityProfile == null)
       _accessibilityProfile = AccessibilityProfile.getDefaultInstance();
+    
+    _isDesignTime = _isDesignTime(_agent);
   }
   
   /**
    * Cached access to FacesContext.
    */
+  @Override
   public final FacesContext getFacesContext()
   {
     return _facesContext;
@@ -108,6 +111,7 @@ public class CoreRenderingContext extends RenderingContext
   /**
    * Cached access to RequestContext
    */
+  @Override
   public final RequestContext getRequestContext()
   {
     return _requestContext;
@@ -220,6 +224,17 @@ public class CoreRenderingContext extends RenderingContext
     return _animationEnabled;
   }
 
+  @Override
+  public boolean isDesignTime()
+  {
+    return _isDesignTime;
+  }
+
+  private static boolean _isDesignTime(Agent agent)
+  {
+    return (agent.getCapabilities().get(TrinidadAgent.CAP_VE) != null);
+  }
+
   /**
    * This can return null if there is no form data
    */
@@ -281,7 +296,8 @@ public class CoreRenderingContext extends RenderingContext
   {
     if (_styleContext == null)
     {
-      _styleContext = new StyleContextImpl(this, getTemporaryDirectory(getFacesContext()));
+      _styleContext = new StyleContextImpl(this,
+                                          getTemporaryDirectory(getFacesContext(), isDesignTime()));
     }
 
     return _styleContext;
@@ -465,7 +481,7 @@ public class CoreRenderingContext extends RenderingContext
       return _requestMapSkin;
     _checkedRequestMapSkin = true;
 
-    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()) || Beans.isDesignTime())
+    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()) || isDesignTime())
     {
       FacesContext context = getFacesContext();
       Object requestedSkinId = getRequestMapSkinId(context);
@@ -606,10 +622,13 @@ public class CoreRenderingContext extends RenderingContext
     FacesContext   context,
     RequestContext afContext)
   {
-    // get skinFamily
+    // get skin-family
     String skinFamily = afContext.getSkinFamily();
     if (skinFamily == null)
       skinFamily = getDefaultSkinFamily();
+    
+    // get skin-version
+    String skinVersionString = afContext.getSkinVersion();
 
     // get renderKitId, default is desktop renderKit
     String renderKitId = TrinidadRenderingConstants.APACHE_TRINIDAD_DESKTOP;
@@ -632,7 +651,7 @@ public class CoreRenderingContext extends RenderingContext
       return;
     }
 
-    Skin skin = factory.getSkin(null, skinFamily, renderKitId);
+    Skin skin = factory.getSkin(context, skinFamily, renderKitId, skinVersionString);
 
     if (skin == null)
     {
@@ -684,6 +703,14 @@ public class CoreRenderingContext extends RenderingContext
         return AgentUtil.mergeCapabilities(agent, _PORTLET_CAPABILITIES);
       }
     }
+    else if (CoreRenderKit.OUTPUT_MODE_ATTACHMENT.equals(outputMode))
+    {
+      return AgentUtil.mergeCapabilities(agent, _ATTACHMENT_CAPABILITIES);
+    }
+    else if (CoreRenderKit.OUTPUT_MODE_WEB_CRAWLER.equals(outputMode))
+    {
+      return AgentUtil.mergeCapabilities(agent, _WEB_CRAWLER_CAPABILITIES);
+    }    
     else
     {
       return agent;
@@ -713,7 +740,7 @@ public class CoreRenderingContext extends RenderingContext
    * @todo: move into the util package?
    */
   @SuppressWarnings("unchecked")
-  static public String getTemporaryDirectory(FacesContext fContext)
+  static public String getTemporaryDirectory(FacesContext fContext, boolean isDesignTime)
   {
     String path = null;
 
@@ -735,7 +762,7 @@ public class CoreRenderingContext extends RenderingContext
       {
         // In design-time land, just write to the temporary directory.
         // But what
-        if (Beans.isDesignTime() ||
+        if (isDesignTime ||
             !(external.getContext() instanceof ServletContext))
         {
           tempdir = new File(System.getProperty("java.io.tmpdir"));
@@ -808,6 +835,7 @@ public class CoreRenderingContext extends RenderingContext
   private boolean             _isLinkDisabled = false;
   private final FacesContext _facesContext;
   private final RequestContext _requestContext;
+  private final boolean        _isDesignTime;
 
   static private final String _SKIN_ID_PARAM =
     "org.apache.myfaces.trinidad.skin.id";
@@ -831,6 +859,13 @@ public class CoreRenderingContext extends RenderingContext
   
   static private final Map<Object, Object> _ENHANCED_PORTLET_CAPABILITIES =
     new HashMap<Object, Object>();
+
+  static private final Map<Object, Object> _ATTACHMENT_CAPABILITIES =
+    new HashMap<Object, Object>();
+
+  static private final Map<Object, Object> _WEB_CRAWLER_CAPABILITIES =
+    new HashMap<Object, Object>();
+
 
   static
   {
@@ -860,6 +895,19 @@ public class CoreRenderingContext extends RenderingContext
     _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
                             Boolean.FALSE);
 
+    // for now, the Web Crawler capabilities are the same as the EMail capabilities
+    _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_INTRINSIC_EVENTS,
+                            Boolean.FALSE);
+    _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_SCRIPTING_SPEED,
+                            TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);
+    _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_EDITING,
+                            Boolean.FALSE);
+    // =-= bts I wouldn't think that we would output any style sheets for a web crawler
+    _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_STYLE_ATTRIBUTES,
+                                  TrinidadAgent.STYLES_INTERNAL);
+    _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
+                                  Boolean.FALSE);
+    
     _PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
                             Boolean.FALSE);
     _PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_MULTIPLE_WINDOWS,
@@ -867,6 +915,10 @@ public class CoreRenderingContext extends RenderingContext
     
     _ENHANCED_PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_MULTIPLE_WINDOWS,
                               Boolean.FALSE);
+    
+
+    // turn off PPR
+    _ATTACHMENT_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING, Boolean.FALSE);    
   }
 
   static private final TrinidadLogger _LOG =

@@ -221,21 +221,21 @@
     border-width: 1px ! important;
     border-style: solid ! important;
 }
-.CBTopBoderLook:alias {
-    border-top-width: 1px;
-    border-top-style: solid;
+.CBTopBorderLook:alias {
+    border-top-width: 1px ! important;
+    border-top-style: solid ! important;
 }
-.CBRightBoderLook:alias {
-    border-right-width: 1px;
-    border-right-style: solid;
+.CBRightBorderLook:alias {
+    border-right-width: 1px ! important;
+    border-right-style: solid ! important;
 }
 .CBBottomBorderLook:alias {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
+    border-bottom-width: 1px ! important;
+    border-bottom-style: solid ! important;
 }
 .CBLeftBorderLook:alias {
-    border-left-width: 1px;
-    border-left-style: solid;
+    border-left-width: 1px ! important;
+    border-left-style: solid ! important;
 }
 
 /* Borders Styles --------------------------------------------------------------------------------------------------- */
@@ -289,6 +289,14 @@
 .CBBorderAccentedSolidLookSelectedHover:alias {
     -tr-rule-ref: selector(".CBBorderSolidLook:alias");
     border-color: #699ABB;
+}
+.CBBorderAccentedSolidLookVisited:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+    border-color: #B5ABA2;
+}
+.CBBorderAccentedSolidLookVisitedHover:alias {
+    -tr-rule-ref: selector(".CBBorderSolidLook:alias");
+    border-color: #9A8D84;
 }
 
 /* Strong borders -------------------------------------- */
@@ -354,7 +362,7 @@
     -tr-rule-ref: selector(".CBDefaultFontLook:alias");
 }
 .AFDefaultBoldFont:alias {
-    f-tr-rule-ref: selector(".CBDefaultStrongFontLook:alias");
+    -tr-rule-ref: selector(".CBDefaultStrongFontLook:alias");
 }
 
 /* Header Font Styles ------------------------------------------------------------------------------------------------------ */
@@ -457,6 +465,16 @@
     -tr-rule-ref: selector(".CBButtonLookCommon:alias");
     -tr-rule-ref: selector(".CBBorderAccentedSolidLookSelectedHover:alias");
     background: white url(/adf/images/casablanca/backgrounds/buttonLikeHeadSelectedHover.png) repeat-x top left;
+}
+.CBButtonLookVisited:alias {
+    -tr-rule-ref: selector(".CBButtonLookCommon:alias");
+    -tr-rule-ref: selector(".CBBorderAccentedSolidLookVisited:alias");
+    background: white url(/adf/images/casablanca/backgrounds/buttonLikeHeadVisited.png) repeat-x top left;
+}
+.CBButtonLookVisitedHover:alias {
+    -tr-rule-ref: selector(".CBButtonLookCommon:alias");
+    -tr-rule-ref: selector(".CBBorderAccentedSolidLookVisitedHover:alias");
+    background: white url(/adf/images/casablanca/backgrounds/buttonLikeHeadVisitedHover.png) repeat-x top left;
 }
 .CBButtonLookDisabled:alias {
     -tr-rule-ref: selector(".CBButtonLookCommon:alias");
@@ -573,6 +591,8 @@
     width: 20px;
     height: 20px;
     font-size: 0;
+    line-height: 0;
+    color: transparent;
     overflow: hidden;
 }
 
@@ -583,7 +603,7 @@
 }
 @agent ie and (version: 5), ie and (version: 6) {
     .CBIconLook:alias {
-        background: transparent url(/skins/casablanca/images/icons/iconsNormal_8bit.png) no-repeat top left;
+        background: transparent url(/adf/images/casablanca/icons/iconsNormal_8bit.png) no-repeat top left;
     }
 }
 .CBIconLookHover:alias {
@@ -759,7 +779,7 @@
 .CBButtonCommon:alias {
     -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
 }
-@agent ie and (version: 5), ie and (version: 6), ie and (version: 7) {
+@agent ie and (version: 5), ie and (version: 6) {
     .CBButtonCommon:alias {
         width: 1%;
         overflow: visible;
@@ -899,7 +919,7 @@
     -tr-rule-ref: selector(".CBButtonLookHover:alias");
     border-width: 0 0 1px 0;
 }
-.CBDialogHeadCloseIcon:alias {
+.CBDialogHeadCloseIconStyle:alias {
     -tr-rule-ref: selector(".CBIconLook:alias");
     -tr-rule-ref: selector(".CBIconError:alias");
 }
@@ -1096,21 +1116,21 @@
 }
 .CBTableCellTopLine:alias {
     -tr-rule-ref: selector(".CBClearBordersLook:alias");
-    -tr-rule-ref: selector(".CBTopBoderLook:alias");
+    -tr-rule-ref: selector(".CBTopBorderLook:alias");
 }
 .CBTableCellTopRighCorner:alias {
     -tr-rule-ref: selector(".CBClearBordersLook:alias");
-    -tr-rule-ref: selector(".CBTopBoderLook:alias ");
-    -tr-rule-ref: selector(".CBRightBoderLook:alias");
+    -tr-rule-ref: selector(".CBTopBorderLook:alias ");
+    -tr-rule-ref: selector(".CBRightBorderLook:alias");
 }
 .CBTableCellRightLine:alias {
     -tr-rule-ref: selector(".CBClearBordersLook:alias");
-    -tr-rule-ref: selector(".CBRightBoderLook:alias");
+    -tr-rule-ref: selector(".CBRightBorderLook:alias");
 }
 .CBTableCellBottomRightCorner:alias {
     -tr-rule-ref: selector(".CBClearBordersLook:alias");
     -tr-rule-ref: selector(".CBBottomBorderLook:alias");
-    -tr-rule-ref: selector(".CBRightBoderLook:alias");
+    -tr-rule-ref: selector(".CBRightBorderLook:alias");
 }
 .CBTableCellBottomLine:alias {
     -tr-rule-ref: selector(".CBClearBordersLook:alias");
@@ -1127,7 +1147,17 @@
 }
 .CBTableCellTopLeftCorner:alias {
     -tr-rule-ref: selector(".CBClearBordersLook:alias");
-    -tr-rule-ref: selector(".CBTopBoderLook:alias");
+    -tr-rule-ref: selector(".CBTopBorderLook:alias");
+    -tr-rule-ref: selector(".CBLeftBorderLook:alias");
+}
+.CBTableCellHorizontalLines:alias {
+    -tr-rule-ref: selector(".CBClearBordersLook:alias");
+    -tr-rule-ref: selector(".CBTopBorderLook:alias");
+    -tr-rule-ref: selector(".CBBottomBorderLook:alias");
+}
+.CBTableCellVerticalLines:alias {
+    -tr-rule-ref: selector(".CBClearBordersLook:alias");
+    -tr-rule-ref: selector(".CBRightBorderLook:alias");
     -tr-rule-ref: selector(".CBLeftBorderLook:alias");
 }
 .CBTableCellHover:alias {
@@ -1159,8 +1189,40 @@
     -tr-rule-ref: selector(".CBTableCellCommon:alias");
     padding: 4px;
 }
+.CBTableControlBarTop:alias {
+    -tr-rule-ref: selector(".CBTableControlBar:alias");
+    border-width: 1px 1px 0 1px;
+}
+/* fix a Webkit problem */
+@agent webkit {
+    .CBTableControlBarTop:alias {
+        width: auto;
+    }
+}
+.CBTableControlBarBottom:alias {
+    -tr-rule-ref: selector(".CBTableControlBar:alias");
+    border-width: 0 1px 1px 1px;
+}
 .CBTableSubControlBar:alias {
     -tr-rule-ref: selector(".CBTableControlBar:alias");
+    border-width: 1px 1px 0 1px;
+    padding: 4px;
+}
+/* fix a Webkit problem */
+@agent webkit {
+    .CBTableSubControlBar:alias {
+        width: auto;
+    }
+}
+.CBTablePathBar:alias {
+    -tr-rule-ref: selector(".CBTableControlBar:alias");
+    border-width: 1px 1px 0 1px;
+}
+/* Fix a Firefox3 problem */
+@agent mozilla {
+    .CBTablePathBar:alias {
+        width: auto;
+    }
 }
 .CBTableFooterBar:alias {
     -tr-rule-ref: selector(".CBTableControlBar:alias");
@@ -1172,13 +1234,47 @@
 .CBTableBody:alias {
     -tr-rule-ref: selector(".CBTextCellLookCommon:alias");
 }
-
+/* Table icons */
+.CBTableSelectAllIconStyle:alias {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconSelectAll:alias");
+}
+.CBTableSelectAllIconHoverStyle:alias {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconSelectAll:alias");
+}
+.CBTableSelectNoneIconStyle:alias {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconSelectNone:alias");
+}
+.CBTableSelectNoneIconHoverStyle:alias {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconSelectNone:alias");
+}
+.CBTableSelectExpandAllIconStyle:alias {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconExpandAll:alias");
+}
+.CBTableSelectExpandAllIconHoverStyle:alias {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconExpandAll:alias");
+}
+.CBTableSelectCollapseAllIconStyle:alias {
+    -tr-rule-ref: selector(".CBIconLook:alias");
+    -tr-rule-ref: selector(".CBIconCollapseAll:alias");
+}
+.CBTableSelectCollapseAllIconHoverStyle:alias {
+    -tr-rule-ref: selector(".CBIconLookHover:alias");
+    -tr-rule-ref: selector(".CBIconCollapseAll:alias");
+}
 /* Train Control ---------------------------------------------------------------------------------------------------- */
 .CBTrain:alias {
-    
+    background: white url(/adf/images/casablanca/backgrounds/trainConnector.png) repeat-x center left;    
 }
 .CBTrainStopCommon:alias {
     -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
+    padding: 8px 8px;
+    white-space: nowrap;
 }
 .CBTrainStopUnvisited:alias {
     -tr-rule-ref: selector(".CBButtonLook:alias");
@@ -1189,11 +1285,11 @@
     -tr-rule-ref: selector(".CBTrainStopCommon:alias");
 }
 .CBTrainStopVisited:alias {
-    -tr-rule-ref: selector(".CBButtonLookSelected:alias");
+    -tr-rule-ref: selector(".CBButtonLookVisited:alias");
     -tr-rule-ref: selector(".CBTrainStopCommon:alias");
 }
 .CBTrainStopVisitedHover:alias {
-    -tr-rule-ref: selector(".CBButtonLookSelectedHover:alias");
+    -tr-rule-ref: selector(".CBButtonLookVisitedHover:alias");
     -tr-rule-ref: selector(".CBTrainStopCommon:alias");
 }
 .CBTrainStopSelected:alias {
@@ -1494,7 +1590,7 @@
 }
 
 /* Tree Control ----------------------------------------------------------------------------------------------------- */
-.CBTreeDiscloseIcon:alias {
+.CBTreeDiscloseIconStyle:alias {
     -tr-rule-ref: selector(".CBIconLook:alias");
     -tr-rule-ref: selector(".CBIconArrowDown:alias");
     /*-tr-rule-ref: selector(".CBIconArrowRight:alias");*/
@@ -1528,18 +1624,21 @@
 
 /* Breadcrumbs component -------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBBreadcrumbStep {
+.CBBreadcrumbStep:alias {
     -tr-rule-ref: selector(".CBLinkLook:alias");
 }
-.CBBreadcrumbStepHover {
+.CBBreadcrumbStepHover:alias {
     -tr-rule-ref: selector(".CBLinkLookHover:alias");
 }
 /* Inject CasaBlanca styles */
 af|breadCrumbs af|breadCrumbs::step {
-    -tr-rule-ref: selector("..CBBreadcrumbStep");
+    -tr-rule-ref: selector("..CBBreadcrumbStep:alias");
 }
-af|breadCrumbs af|breadCrumbs::step:hover {
-    -tr-rule-ref: selector(".CBBreadcrumbStepHover");
+
+@agent (touchScreen:none) {
+	af|breadCrumbs af|breadCrumbs::step:hover {
+	    -tr-rule-ref: selector(".CBBreadcrumbStepHover:alias");
+	}
 }
 
 /* Chart component -------------------------------------------------------------------------------------------------- */
@@ -1547,134 +1646,138 @@ af|breadCrumbs af|breadCrumbs::step:hover {
 
 /* Choice component ------------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBChoiceBox {
+.CBChoiceBox:alias {
     -tr-rule-ref: selector(".CBChoiceChoiceBox:alias");
 }
-.CBChoiceOptionText {
+.CBChoiceChoiceOptionText:alias {
     -tr-rule-ref: selector(".CBChoiceOptionText:alias");
 }
 /* Inject CasaBlanca styles */
 select.AFFieldText {
-    -tr-rule-ref: selector(".CBChoiceBox");    
+    -tr-rule-ref: selector(".CBChoiceBox:alias");
 }
 select.AFFieldText option {
-    -tr-rule-ref: selector(".CBChoiceOptionText");
+    -tr-rule-ref: selector(".CBChoiceChoiceOptionText:alias");
 }
 
 /* Choose Color component ------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBChooseColorPanel {
+.CBChooseColorPanel:alias {
     padding: 2px;
     -tr-rule-ref: selector(".CBPanelAccented:alias");
 }
-.CBChooseColorGrid {
+.CBChooseColorGrid:alias {
     padding: 0;
 }
-.CBChooseColorCell {    
+.CBChooseColorCell:alias {
 }
 /* Inject CasaBlanca styles */
 .p_OraColorPalette {
-    -tr-rule-ref: selector(".CBChooseColorPanel");
+    -tr-rule-ref: selector(".CBChooseColorPanel:alias");
 }
 .p_OraColorPalette tbody {
-    -tr-rule-ref: selector(".CBChooseColorGrid");
+    -tr-rule-ref: selector(".CBChooseColorGrid:alias");
 }
 .p_OraColorPalette tbody td {
-    -tr-rule-ref: selector(".CBChooseColorCell");
+    -tr-rule-ref: selector(".CBChooseColorCell:alias");
 }
 
 /* Choose Date component -------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBDateCommon {
+.CBDateCommon:alias {
 }
-.CBDate {
+.CBDate:alias {
     -tr-rule-ref: selector(".CBTable:alias");
     padding: 0;
 }
-.CBDateCell {
+.CBDateCell:alias {
     -tr-rule-ref: selector(".CBTableCell:alias");
 }
-.CBDateCellHover {
+.CBDateCellHover:alias {
     -tr-rule-ref: selector(".CBTableCellHover:alias");
 }
-.CBDateCellSelected {
+.CBDateCellSelected:alias {
     -tr-rule-ref: selector(".CBTableCellSelected:alias");
     display: block;
 }
-.CBDateCellDisabled {
+.CBDateCellDisabled:alias {
     -tr-rule-ref: selector(".CBTableCellDisabled:alias");
 }
-.CBDateHeadCell {
+.CBDateHeadCell:alias {
     -tr-rule-ref: selector(".CBTableHeadCell:alias");
     display: table-cell;
     border: 0;
 }
-.CBDateNavPrevMonth {
+.CBDateNavPrevMonth:alias {
     -tr-rule-ref: selector(".CBIconLook:alias");
     -tr-rule-ref: selector(".CBIconArrowLeftNegative:alias");
     display: block;
 }
-.CBDateNavNextMonth {
+.CBDateNavNextMonth:alias {
     -tr-rule-ref: selector(".CBIconLook:alias");
     -tr-rule-ref: selector(".CBIconArrowRightNegative:alias");
     display: block;
 }
-.CBDateNavPrevMonthHover {
+.CBDateNavPrevMonthHover:alias {
     -tr-rule-ref: selector(".CBIconLookHover:alias");
     -tr-rule-ref: selector(".CBIconArrowLeftNegative:alias");
     display: block;
 }
-.CBDateNavNextMonthHover {
+.CBDateNavNextMonthHover:alias {
     -tr-rule-ref: selector(".CBIconLookHover:alias");
     -tr-rule-ref: selector(".CBIconArrowRightNegative:alias");
 }
-.CBDateChoiceBox {
+.CBDateChoiceBox:alias {
     -tr-rule-ref: selector(".CBChoiceChoiceBox:alias");
 }
 /* Inject CasaBlanca styles */
 af|chooseDate::title select.AFFieldText {
-    -tr-rule-ref: selector(".CBDateChoiceBox");    
+    -tr-rule-ref: selector(".CBDateChoiceBox:alias");
 }
 af|chooseDate::content {
-    -tr-rule-ref: selector(".CBDate");
+    -tr-rule-ref: selector(".CBDate:alias");
 }
 af|chooseDate::content af|chooseDate::header th {
-    -tr-rule-ref: selector(".CBDateHeadCell");    
+    -tr-rule-ref: selector(".CBDateHeadCell:alias");
 }
 af|chooseDate::content tr td {
-    -tr-rule-ref: selector(".CBDateCell");
+    -tr-rule-ref: selector(".CBDateCell:alias");
     padding: 0;
 }
 af|chooseDate::content tr td a {
-    -tr-rule-ref: selector(".CBDateCell");
+    -tr-rule-ref: selector(".CBDateCell:alias");
     border: none;
     display: block;
 }
-af|chooseDate::content tr td a:hover {
-    -tr-rule-ref: selector(".CBDateCellHover");
-    border: none;
-    display: block;
+@agent (touchScreen:none) {
+  af|chooseDate::content tr td a:hover {
+      -tr-rule-ref: selector(".CBDateCellHover:alias");
+      border: none;
+      display: block;
+  }
+  af|chooseDate::content tr af|chooseDate::disabled:hover {
+      -tr-rule-ref: selector(".CBDateCellDisabled:alias");
+  }
+  af|chooseDate::nav[align="left"] a:hover {
+      -tr-rule-ref: selector(".CBDateNavPrevMonthHover:alias");
+  }
+  af|chooseDate::nav[align="right"] a:hover {
+      -tr-rule-ref: selector(".CBDateNavNextMonthHover:alias");
+  }
 }
 af|chooseDate::content tr td af|chooseDate::selected {
-    -tr-rule-ref: selector(".CBDateCellSelected");
+    -tr-rule-ref: selector(".CBDateCellSelected:alias");
     /*padding: 0;*/
 }
-af|chooseDate::content tr af|chooseDate::disabled,
-af|chooseDate::content tr af|chooseDate::disabled:hover {
-    -tr-rule-ref: selector(".CBDateCellDisabled");
+af|chooseDate::content tr af|chooseDate::disabled {
+    -tr-rule-ref: selector(".CBDateCellDisabled:alias");
 }
 /* month navigation controls */
 af|chooseDate::nav[align="left"] a {
-    -tr-rule-ref: selector(".CBDateNavPrevMonth");
+    -tr-rule-ref: selector(".CBDateNavPrevMonth:alias");
 }
 af|chooseDate::nav[align="right"] a {
-    -tr-rule-ref: selector(".CBDateNavNextMonth");
-}
-af|chooseDate::nav[align="left"] a:hover {
-    -tr-rule-ref: selector(".CBDateNavPrevMonthHover");
-}
-af|chooseDate::nav[align="right"] a:hover {
-    -tr-rule-ref: selector(".CBDateNavNextMonthHover");
+    -tr-rule-ref: selector(".CBDateNavNextMonth:alias");
 }
 af|chooseDate::nav[align="left"] a span {
     display: none;   
@@ -1685,78 +1788,83 @@ af|chooseDate::nav[align="right"] a span {
 
 /* Command button component ----------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBCommandButton {
+.CBCommandButton:alias {
     -tr-rule-ref: selector(".CBButton:alias");
 }
-.CBCommandButtonHover {
+.CBCommandButtonHover:alias {
     -tr-rule-ref: selector(".CBButtonHover:alias");
 }
-.CBCommandButtonDisabled {
+.CBCommandButtonDisabled:alias {
     -tr-rule-ref: selector(".CBButtonDisabled:alias");
 }
-.CBCommandButtonDisabledHover {
+.CBCommandButtonDisabledHover:alias {
     -tr-rule-ref: selector(".CBButtonDisabledHover:alias");
 }
 /* Inject CasaBlanca styles */
 af|commandButton, af|goButton, af|resetButton, button, button.OraLink, .OraNavBarActiveLink {
-    -tr-rule-ref: selector(".CBCommandButton");
+    -tr-rule-ref: selector(".CBCommandButton:alias");
 }
-af|commandButton:hover, af|goButton:hover, af|resetButton:hover, button:hover, button.OraLink:hover,
-.OraNavBarActiveLink:hover {
-    -tr-rule-ref: selector(".CBCommandButtonHover");
+
+@agent (touchScreen:none) {
+  af|commandButton:hover, af|goButton:hover, af|resetButton:hover, button:hover, button.OraLink:hover,
+  .OraNavBarActiveLink:hover {
+      -tr-rule-ref: selector(".CBCommandButtonHover:alias");
+  }
 }
 af|commandButton.p_AFDisabled {
-    -tr-rule-ref: selector(".CBCommandButtonDisabled");
+    -tr-rule-ref: selector(".CBCommandButtonDisabled:alias");
 }
 
 /* Command link component ------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
 /* Normal links style */
-.CBCommandLink {
+.CBCommandLink:alias {
     -tr-rule-ref: selector(".CBLink:alias");
 }
 /* Hover links style */
-.CBCommandLinkHover {
+.CBCommandLinkHover:alias {
     -tr-rule-ref: selector(".CBLinkHover:alias");
 }
 /* Disabled links style */
-.CBCommandLinkDisabled {
+.CBCommandLinkDisabled:alias {
     -tr-rule-ref: selector(".CBLinkDisabled:alias");
 }
 /* Disabled-hover links style */
-.CBCommandLinkDisabledHover {
+.CBCommandLinkDisabledHover:alias {
     -tr-rule-ref: selector(".CBLinkDisabledHover:alias");
 }
 /* Inject CasaBlanca styles */
 a, .OraLink, .OraLink:link, .OraLink:active, .OraLink:visited, .AFLinkForeground:alias {
-    -tr-rule-ref: selector(".CBCommandLink");
+    -tr-rule-ref: selector(".CBCommandLink:alias");
 }
-a:hover, .OraLink:hover, .OraLink:link:hover {
-    -tr-rule-ref: selector(".CBCommandLinkHover");
+@agent (touchScreen:none) {
+  a:hover, .OraLink:hover, .OraLink:link:hover {
+      -tr-rule-ref: selector(".CBCommandLinkHover:alias");
+  }
+  .OraLinkDisabled:hover {
+      -tr-rule-ref: selector(".CBCommandLinkDisabledHover:alias");
+  }
 }
 .OraLinkDisabled {
-    -tr-rule-ref: selector(".CBCommandLinkDisabled");
-}
-.OraLinkDisabled:hover {
-    -tr-rule-ref: selector(".CBCommandLinkDisabledHover");
+    -tr-rule-ref: selector(".CBCommandLinkDisabled:alias");
 }
 
 /* Command Navigation Item component -------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
 /* Normal links style */
-.CBCommandNavigationItem {
+.CBCommandNavigationItem:alias {
     -tr-rule-ref: selector(".CBLink:alias");
 }
 /* Hover links style */
-.CBCommandNavigationItemHover {
+.CBCommandNavigationItemHover:alias {
     -tr-rule-ref: selector(".CBLinkHover:alias");
 }
 /* Disabled links style */
-.CBCommandNavigationItemDisabled {
+.CBCommandNavigationItemDisabled:alias {
     -tr-rule-ref: selector(".CBLinkDisabled:alias");
 }
 /* Disabled-hover links style */
-.CBCommandNavigationItemDisabledHover {
+.CBCommandNavigationItemDisabledHover:alias {
     -tr-rule-ref: selector(".CBLinkDisabledHover:alias");
 }
 /* No any skining specific selectors to inject CasaBlanca styles */
@@ -1766,90 +1874,93 @@ a:hover, .OraLink:hover, .OraLink:link:hover {
 
 /* Go Button component ---------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBGoButton {
+.CBGoButton:alias {
     -tr-rule-ref: selector(".CBButton:alias");
 }
-.CBGoButtonHover {
+.CBGoButtonHover:alias {
     -tr-rule-ref: selector(".CBButtonHover:alias");
 }
-.CBGoButtonDisabled {
+.CBGoButtonDisabled:alias {
     -tr-rule-ref: selector(".CBButtonDisabled:alias");
 }
-.CBGoButtonDisabledHover {
+.CBGoButtonDisabledHover:alias {
     -tr-rule-ref: selector(".CBButtonDisabledHover:alias");
 }
 /* Inject CasaBlanca styles */
 af|goButton {
-    -tr-rule-ref: selector(".CBGoButton");        
+    -tr-rule-ref: selector(".CBGoButton:alias");
 }
-af|goButton:hover {
-    -tr-rule-ref: selector(".CBGoButtonHover");      
+
+@agent (touchScreen:none) {
+  af|goButton:hover {
+      -tr-rule-ref: selector(".CBGoButtonHover:alias");
+  }
 }
 
 /* Go Link component ------------------------------------------------------------------------------------------------ */
 /* CasaBlanca styles */
 /* Normal links style */
-.CBGoLink {
+.CBGoLink:alias {
     -tr-rule-ref: selector(".CBLink:alias");
 }
 /* Hover links style */
-.CBGoLinkHover {
+.CBGoLinkHover:alias {
     -tr-rule-ref: selector(".CBLinkHover:alias");
 }
 /* Disabled links style */
-.CBGoLinkDisabled {
+.CBGoLinkDisabled:alias {
     -tr-rule-ref: selector(".CBLinkDisabled:alias");
 }
 /* Disabled-hover links style */
-.CBGoLinkDisabledHover {
+.CBGoLinkDisabledHover:alias {
     -tr-rule-ref: selector(".CBLinkDisabledHover:alias");
 }
 /* No any skining specific selectors to inject CasaBlanca styles */
 
 /* Icon component --------------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBIconCommon {
+.CBIconCommon:alias {
     float: none;    
 }
-.CBIconErrorIcon {
+.CBIconErrorIconStyle:alias {
     -tr-rule-ref: selector(".CBIconLook:alias");
     -tr-rule-ref: selector(".CBIconError:alias");
-    -tr-rule-ref: selector(".CBIconCommon");
+    -tr-rule-ref: selector(".CBIconCommon:alias");
 }
-.CBIconInfoIcon {
+.CBIconInfoIconStyle:alias {
     -tr-rule-ref: selector(".CBIconLook:alias");
     -tr-rule-ref: selector(".CBIconInfo:alias");
-    -tr-rule-ref: selector(".CBIconCommon");
+    -tr-rule-ref: selector(".CBIconCommon:alias");
 }
-.CBIconWarningIcon {
+.CBIconWarningIconStyle:alias {
     -tr-rule-ref: selector(".CBIconLook:alias");
     -tr-rule-ref: selector(".CBIconWarning:alias");
-    -tr-rule-ref: selector(".CBIconCommon");
+    -tr-rule-ref: selector(".CBIconCommon:alias");
 }
-.CBIconRequiredIcon {
+.CBIconRequiredIconStyle:alias {
 }
-.CBIconQuickSelectIcon {
+.CBIconQuickSelectIconStyle:alias {
 }
-.CBIconQuickSelectDisabledIcon {   
+.CBIconQuickSelectDisabledIconStyle:alias {
 }
 /* Inject CasaBlanca styles */
 .AFErrorIconStyle {
-    -tr-rule-ref: selector(".CBIconErrorIcon");
+    -tr-rule-ref: selector(".CBIconErrorIconStyle:alias");
 }
 .AFInfoIconStyle {
-    -tr-rule-ref: selector(".CBIconInfoIcon");
+    -tr-rule-ref: selector(".CBIconInfoIconStyle:alias");
 }
 .AFWarningIconStyle {
-    -tr-rule-ref: selector(".CBIconWarningIcon");
+    -tr-rule-ref: selector(".CBIconWarningIconStyle:alias");
 }
 .AFRequiredIconStyle {
-    -tr-rule-ref: selector(".CBIconRequiredIcon");
+    -tr-rule-ref: selector(".CBIconRequiredIconStyle:alias");
 }
 .AFQuickSelectIconStyle {
-    -tr-rule-ref: selector(".CBIconQuickSelectIcon");
+    -tr-rule-ref: selector(".CBIconQuickSelectIconStyle:alias");
 }
 .AFQuickSelectDisabledIconStyle {
-    -tr-rule-ref: selector(".CBIconQuickSelectDisabledIcon");
+    -tr-rule-ref: selector(".CBIconQuickSelectDisabledIconStyle:alias");
 }
 
 /* Image component -------------------------------------------------------------------------------------------------- */
@@ -1857,10 +1968,10 @@ af|goButton:hover {
 
 /* Input color component -------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBInputColorInputBox {
+.CBInputColorInputBox:alias {
     -tr-rule-ref: selector(".CBInputTextInputBox:alias");
 }
-.CBInputColorCurrentColorCommon {
+.CBInputColorCurrentColorCommon:alias {
     width: 8px;
     height: 8px;
     position: relative;
@@ -1869,23 +1980,25 @@ af|goButton:hover {
     border-style: solid;
     border-width: 2px 2px 6px 6px;
 }
-.CBInputColorCurrentColor {
-    -tr-rule-ref: selector(".CBInputColorCurrentColorCommon");
+.CBInputColorCurrentColor:alias {
+    -tr-rule-ref: selector(".CBInputColorCurrentColorCommon:alias");
     border-color: #685951;
 }
-.CBInputColorCurrentColorHover {
-    -tr-rule-ref: selector(".CBInputColorCurrentColorCommon");
+.CBInputColorCurrentColorHover:alias {
+    -tr-rule-ref: selector(".CBInputColorCurrentColorCommon:alias");
     border-color: #4E3625;
 }
 /* Inject CasaBlanca styles */
 af|inputColor::content {
-    -tr-rule-ref: selector(".CBInputColorInputBox");
+    -tr-rule-ref: selector(".CBInputColorInputBox:alias");
 }
 af|inputColor a .p_OraColorFieldSwatch {
-    -tr-rule-ref: selector(".CBInputColorCurrentColor");    
+    -tr-rule-ref: selector(".CBInputColorCurrentColor:alias");
 }
-af|inputColor a:hover .p_OraColorFieldSwatch {
-    -tr-rule-ref: selector(".CBInputColorCurrentColorHover");    
+@agent (touchScreen:none) {
+  af|inputColor a:hover .p_OraColorFieldSwatch {
+      -tr-rule-ref: selector(".CBInputColorCurrentColorHover:alias");
+  }
 }
 /* Clear some legacy stuff */
 af|inputColor af|inputColor::swatch-overlay {
@@ -1895,40 +2008,42 @@ af|inputColor af|inputColor::swatch-overlay {
 
 /* Input date component --------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBInputDate {
+.CBInputDate:alias {
     position: relative;
 }
-.CBInputDateInputBox {
+.CBInputDateInputBox:alias {
     -tr-rule-ref: selector(".CBInputTextInputBox:alias");
 }
-.CBInputDateIconCommon {
+.CBInputDateIconCommon:alias {
     position: absolute;
     display: inline;
     font-size: 1em;
     margin-left: 4px;
 }
-.CBInputDateIcon {
+.CBInputDateIconStyle:alias {
     -tr-rule-ref: selector(".CBIconLook:alias");   
     -tr-rule-ref: selector(".CBIconCalendar:alias");
-    -tr-rule-ref: selector(".CBInputDateIconCommon");
+    -tr-rule-ref: selector(".CBInputDateIconCommon:alias");
 }
-.CBInputDateIconHover {
+.CBInputDateIconHover:alias {
     -tr-rule-ref: selector(".CBIconLookHover:alias");
     -tr-rule-ref: selector(".CBIconCalendar:alias");
-    -tr-rule-ref: selector(".CBInputDateIconCommon");
+    -tr-rule-ref: selector(".CBInputDateIconCommon:alias");
 }
 /* Inject CasaBlanca styles */
 af|inputDate {
-    -tr-rule-ref: selector(".CBInputDate");    
+    -tr-rule-ref: selector(".CBInputDate:alias");
 }
 af|inputDate::content {
-    -tr-rule-ref: selector(".CBInputDateInputBox");
+    -tr-rule-ref: selector(".CBInputDateInputBox:alias");
 }
 af|inputDate a {
-    -tr-rule-ref: selector(".CBInputDateIcon");    
+    -tr-rule-ref: selector(".CBInputDateIconStyle:alias");
 }
-af|inputDate a:hover {
-    -tr-rule-ref: selector(".CBInputDateIconHover");    
+@agent (touchScreen:none) {
+  af|inputDate a:hover {
+      -tr-rule-ref: selector(".CBInputDateIconHover:alias");
+  }
 }
 /* Clear some legacy stuff */
 af|inputDate img {
@@ -1941,47 +2056,49 @@ af|inputDate img {
 
 /* Input list of values component ----------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBListOfValues {
+.CBListOfValues:alias {
     position: relative;    
 }
-.CBListOfValuesPanelButtonBar {
+.CBListOfValuesPanelButtonBar:alias {
     padding: 8px 0;
 }
-.CBListOfValuesInputBox {
+.CBListOfValuesInputBox:alias {
     -tr-rule-ref: selector(".CBInputTextInputBox:alias");
 }
-.CBListOfValuesIconCommon {
+.CBListOfValuesIconCommon:alias {
     position: absolute;
     display: inline;
     font-size: 1em;
     margin-left: 4px;
 }
-.CBListOfValuesIcon {
+.CBListOfValuesIconStyle:alias {
     -tr-rule-ref: selector(".CBIconLook:alias");
     -tr-rule-ref: selector(".CBIconList:alias");
-    -tr-rule-ref: selector(".CBListOfValuesIconCommon");
+    -tr-rule-ref: selector(".CBListOfValuesIconCommon:alias");
 }
-.CBListOfValuesIconHover {
+.CBListOfValuesIconHover:alias {
     -tr-rule-ref: selector(".CBIconLookHover:alias");
     -tr-rule-ref: selector(".CBIconList:alias");
-    -tr-rule-ref: selector(".CBListOfValuesIconCommon");
+    -tr-rule-ref: selector(".CBListOfValuesIconCommon:alias");
 }
 /* Inject CasaBlanca styles */
 af|inputListOfValues  {
-    -tr-rule-ref: selector(".CBListOfValues");
+    -tr-rule-ref: selector(".CBListOfValues:alias");
 }
 af|inputListOfValues a {
-    -tr-rule-ref: selector(".CBListOfValuesIcon");    
+    -tr-rule-ref: selector(".CBListOfValuesIconStyle:alias");
 }
-af|inputListOfValues a:hover {
-    -tr-rule-ref: selector(".CBListOfValuesIconHover");    
+@agent (touchScreen:none) {
+  af|inputListOfValues a:hover {
+      -tr-rule-ref: selector(".CBListOfValuesIconHover:alias");
+  }
 }
 af|inputListOfValues af|inputListOfValues::content {
-    -tr-rule-ref: selector(".CBListOfValuesInputBox");
+    -tr-rule-ref: selector(".CBListOfValuesInputBox:alias");
 }
-/* It’s not a specific enough selector, but is all we can do and it works */
+/* It's not a specific enough selector, but is all we can do and it works */
 af|panelButtonBar {
-    -tr-rule-ref: selector(".CBListOfValuesPanelButtonBar");
+    -tr-rule-ref: selector(".CBListOfValuesPanelButtonBar:alias");
 }
 /* Clear some legacy stuff */
 af|inputListOfValues img {
@@ -1991,33 +2108,33 @@ af|inputListOfValues img {
 
 /* Input Text component --------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBInputTextInputBox {
+.CBInputTextInputInputBox:alias {
     -tr-rule-ref: selector(".CBInputTextInputBox:alias");
 }
 /* Inject CasaBlanca styles */
 af|inputText::content {
-    -tr-rule-ref: selector(".CBInputTextInputBox");
+    -tr-rule-ref: selector(".CBInputTextInputInputBox:alias");
 }
 
 /* Message component ------------------------------------------------------------------------------------------------ */
 /* CasaBlanca styles */
-.CBMessageTextCommon {
+.CBMessageMessageTextCommon:alias {
 }
-.CBMessageText {
+.CBMessageMessageText:alias {
     -tr-rule-ref: selector(".CBMessageText:alias");
 }
-.CBMessageTextInfo {
+.CBMessageMessageTextInfo:alias {
     -tr-rule-ref: selector(".CBMessageTextInfo:alias");
 }
-.CBMessageTextError {
+.CBMessageMessageTextError:alias {
     -tr-rule-ref: selector(".CBMessageTextError:alias");
 }
 /* Inject CasaBlanca styles */
 .OraInlineInfoText {
-    -tr-rule-ref: selector(".CBMessageTextInfo");
+    -tr-rule-ref: selector(".CBMessageMessageTextInfo:alias");
 }
 .OraInlineErrorText {
-    -tr-rule-ref: selector(".CBMessageTextError");
+    -tr-rule-ref: selector(".CBMessageMessageTextError:alias");
 }
 af|outputLabel span a.AFErrorIconStyle, af|inputText::label a.AFErrorIconStyle {
     display: none;    
@@ -2025,89 +2142,106 @@ af|outputLabel span a.AFErrorIconStyle, af|inputText::label a.AFErrorIconStyle {
 
 /* Messages component ----------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBMessagesTitle {
+.CBMessagesMessagesTitle:alias {
     -tr-rule-ref: selector(".CBMessagesTitle:alias");
 }
-.CBMessagesList {
+.CBMessagesMessagesList:alias {
     -tr-rule-ref: selector(".CBMessagesList:alias");
 }
-.CBMessagesListItem {
+.CBMessagesMessagesListItem:alias {
     -tr-rule-ref: selector(".CBMessagesListItem:alias");    
 }
-.CBMessagesBox {
+.CBMessagesMessagesBox:alias {
     -tr-rule-ref: selector(".CBMessagesBox:alias");
 }
-.CBMessagesTextInfo {
+.CBMessagesMessagesTextInfo:alias {
     -tr-rule-ref: selector(".CBMessagesTextInfo:alias");
 }
 /* Inject CasaBlanca styles */
 af|panelFormLayout::message-cell .OraInlineInfoText {
-    -tr-rule-ref: selector(".CBMessagesTextInfo");
+    -tr-rule-ref: selector(".CBMessagesMessagesTextInfo:alias");
 }
 af|messages::body {
-    -tr-rule-ref: selector(".CBMessagesBox");
+    -tr-rule-ref: selector(".CBMessagesMessagesBox:alias");
 }
 af|messages::body af|messages::header span, af|messages::body af|messages::header {
-    -tr-rule-ref: selector(".CBMessagesTitle");
+    -tr-rule-ref: selector(".CBMessagesMessagesTitle:alias");
 }
 af|messages::body ol {
-    -tr-rule-ref: selector(".CBMessagesList");
+    -tr-rule-ref: selector(".CBMessagesMessagesList:alias");
 }
 af|messages::body ol li {
-    -tr-rule-ref: selector(".CBMessagesListItem");
+    -tr-rule-ref: selector(".CBMessagesMessagesListItem:alias");
 }
 /* Navigation Pane component -----------------------------------------------------------------------------------------*/
 /* Bar style ------------------------ */
 /* CasaBlanca styles */
-.CBNavPaneBarOptionCommon {
+.CBNavPaneBarOptionCommon:alias {
 }
-.CBNavPaneBarOption {
+.CBNavPaneBarOption:alias {
     -tr-rule-ref: selector(".CBSlotBarOption:alias");
-    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon:alias");
 }
-.CBNavPaneBarOptionHover {
+.CBNavPaneBarOptionHover:alias {
     -tr-rule-ref: selector(".CBSlotBarOptionHover:alias");
-    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon:alias");
 }
-.CBNavPaneBarOptionSelected {
+.CBNavPaneBarOptionSelected:alias {
     -tr-rule-ref: selector(".CBSlotBarOptionSelected:alias");
-    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon:alias");
 }
-.CBNavPaneBarOptionSelectedHover {
+.CBNavPaneBarOptionSelectedHover:alias {
     -tr-rule-ref: selector(".CBSlotBarOptionSelectedHover:alias");
-    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon:alias");
 }
-.CBNavPaneBarOptionDisabled {
+.CBNavPaneBarOptionDisabled:alias {
     -tr-rule-ref: selector(".CBSlotBarOptionDisabled:alias");
-    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon:alias");
 }
-.CBNavPaneBarOptionDisabledHover {
+.CBNavPaneBarOptionDisabledHover:alias {
     -tr-rule-ref: selector(".CBSlotBarOptionDisabledHover:alias");
-    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionCommon:alias");
 }
-.CBNavPaneBar {
+.CBNavPaneBar:alias {
     -tr-rule-ref: selector(".CBSlotBarBar:alias");
 }
 /* Inject CasaBlanca styles */
 af|navigationPane::bar {
-    -tr-rule-ref: selector(".CBNavPaneBar");
+    -tr-rule-ref: selector(".CBNavPaneBar:alias");
     padding: 0;
 }
 af|navigationPane::bar-active-enabled af|navigationPane::bar-content a {
-    -tr-rule-ref: selector(".CBNavPaneBarOptionSelected");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionSelected:alias");
 }
-af|navigationPane::bar-active-enabled af|navigationPane::bar-content a:hover {
-    -tr-rule-ref: selector(".CBNavPaneBarOptionSelectedHover");
+@agent (touchScreen:none) {
+  af|navigationPane::bar-active-enabled af|navigationPane::bar-content a:hover {
+      -tr-rule-ref: selector(".CBNavPaneBarOptionSelectedHover:alias");
+  }
+  af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content a:hover {
+      -tr-rule-ref: selector(".CBNavPaneBarOptionHover:alias");
+  }
+  af|navigationPane::buttons-inactive-enabled af|navigationPane::buttons-content a:hover {
+      -tr-rule-ref: selector(".CBNavPaneButtonOptionHover:alias");
+  }
+  af|navigationPane::buttons-active-enabled af|navigationPane::buttons-content a:hover {
+      -tr-rule-ref: selector(".CBNavPaneButtonOptionSelectedHover:alias");
+  }
+  af|navigationPane::list-inactive-enabled af|navigationPane::list-content a:hover {
+      -tr-rule-ref: selector(".CBNavPaneListOptionHover:alias");
+  }
+  af|navigationPane::list-active-enabled af|navigationPane::list-content a:hover {
+      -tr-rule-ref: selector(".CBNavPaneListOptionSelectedHover:alias");
+  }
+  af|navigationPane af|navigationPane::choice-button:hover {
+      -tr-rule-ref: selector(".CBNavPaneChoiceButtonHover:alias");
+  }
 }
 af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content a {
-    -tr-rule-ref: selector(".CBNavPaneBarOption");
-}
-af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content a:hover {
-    -tr-rule-ref: selector(".CBNavPaneBarOptionHover");
+    -tr-rule-ref: selector(".CBNavPaneBarOption:alias");
 }
 af|navigationPane::bar-active-disabled af|navigationPane::bar-content,
 af|navigationPane::bar-inactive-disabled af|navigationPane::bar-content {
-    -tr-rule-ref: selector(".CBNavPaneBarOptionDisabled");
+    -tr-rule-ref: selector(".CBNavPaneBarOptionDisabled:alias");
 }
 
 /* Clear some legacy stuff */
@@ -2123,49 +2257,43 @@ af|navigationPane::bar-content img {
 
 /* Button style ---------------------------------------- */
 /* CasaBlanca styles */
-.CBNavPaneButtonOptionCommon {
+.CBNavPaneButtonOptionCommon:alias {
     -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
 }
-.CBNavPaneButtonOption {
+.CBNavPaneButtonOption:alias {
     -tr-rule-ref: selector(".CBButtonBarOption:alias");
-    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon:alias");
 }
-.CBNavPaneButtonOptionHover {
+.CBNavPaneButtonOptionHover:alias {
     -tr-rule-ref: selector(".CBButtonBarOptionHover:alias");
-    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon:alias");
 }
-.CBNavPaneButtonOptionSelected {
+.CBNavPaneButtonOptionSelected:alias {
     -tr-rule-ref: selector(".CBButtonBarOptionSelected:alias");
-    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon:alias");
 }
-.CBNavPaneButtonOptionSelectedHover {
+.CBNavPaneButtonOptionSelectedHover:alias {
     -tr-rule-ref: selector(".CBButtonBarOptionSelectedHover:alias");
-    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon:alias");
 }
-.CBNavPaneButtonOptionDisabled {
+.CBNavPaneButtonOptionDisabled:alias {
     -tr-rule-ref: selector(".CBButtonBarOptionDisabled:alias");
-    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon:alias");
 }
-.CBNavPaneButtonOptionDisabledHover {
+.CBNavPaneButtonOptionDisabledHover:alias {
     -tr-rule-ref: selector(".CBButtonBarOptionDisabledHover:alias");
-    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionCommon:alias");
 }
 /* Inject CasaBlanca styles */
 af|navigationPane::buttons-active-enabled af|navigationPane::buttons-content a {
-    -tr-rule-ref: selector(".CBNavPaneButtonOptionSelected");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionSelected:alias");
 }
 af|navigationPane::buttons-inactive-enabled af|navigationPane::buttons-content a {
-    -tr-rule-ref: selector(".CBNavPaneButtonOption");
-}
-af|navigationPane::buttons-inactive-enabled af|navigationPane::buttons-content a:hover {
-    -tr-rule-ref: selector(".CBNavPaneButtonOptionHover");
-}
-af|navigationPane::buttons-active-enabled af|navigationPane::buttons-content a:hover {
-    -tr-rule-ref: selector(".CBNavPaneButtonOptionSelectedHover");
+    -tr-rule-ref: selector(".CBNavPaneButtonOption:alias");
 }
 af|navigationPane::buttons-active-disabled af|navigationPane::buttons-content,
 af|navigationPane::buttons-inactive-disabled af|navigationPane::buttons-content {
-    -tr-rule-ref: selector(".CBNavPaneButtonOptionDisabled");
+    -tr-rule-ref: selector(".CBNavPaneButtonOptionDisabled:alias");
 }
 
 /* Clear some legacy stuff */
@@ -2182,35 +2310,35 @@ af|navigationPane::buttons-content img {
 
 /* List style ------------------------------------------ */
 /* CasaBlanca styles */
-.CBNavPaneListOptionCommon {
+.CBNavPaneListOptionCommon:alias {
 }
-.CBNavPaneListOption {
+.CBNavPaneListOption:alias {
     -tr-rule-ref: selector(".CBNavListOption:alias");
-    -tr-rule-ref: selector(".CBNavPaneListOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneListOptionCommon:alias");
 }
-.CBNavPaneListOptionHover {
+.CBNavPaneListOptionHover:alias {
     -tr-rule-ref: selector(".CBNavListOptionHover:alias");
-    -tr-rule-ref: selector(".CBNavPaneListOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneListOptionCommon:alias");
 }
-.CBNavPaneListOptionSelected {
+.CBNavPaneListOptionSelected:alias {
     -tr-rule-ref: selector(".CBNavListOptionSelected:alias");
-    -tr-rule-ref: selector(".CBNavPaneListOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneListOptionCommon:alias");
 }
-.CBNavPaneListOptionSelectedHover {
+.CBNavPaneListOptionSelectedHover:alias {
     -tr-rule-ref: selector(".CBNavListOptionSelectedHover:alias");
-    -tr-rule-ref: selector(".CBNavPaneListOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneListOptionCommon:alias");
 }
-.CBNavPaneListOptionDisabled {
+.CBNavPaneListListOptionDisabled:alias {
     -tr-rule-ref: selector(".CBNavListOptionDisabled:alias");
-    -tr-rule-ref: selector(".CBNavPaneListOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneListOptionCommon:alias");
 }
-.CBNavPaneListOptionDisabledHover {
+.CBNavPaneListListOptionDisabledHover:alias {
     -tr-rule-ref: selector(".CBNavListOptionDisabledHover:alias");
-    -tr-rule-ref: selector(".CBNavPaneListOptionCommon");
+    -tr-rule-ref: selector(".CBNavPaneListOptionCommon:alias");
 }
 /* Inject CasaBlanca styles */
 af|navigationPane::list-active-enabled af|navigationPane::list-content a {
-    -tr-rule-ref: selector(".CBNavPaneListOptionSelected");
+    -tr-rule-ref: selector(".CBNavPaneListOptionSelected:alias");
 }
 
 @agent ie and (version: 5), ie and (version: 6), ie and (version: 7), ie and (version: 8){
@@ -2223,17 +2351,11 @@ af|navigationPane::list-active-enabled af|navigationPane::list-content a {
 }
 
 af|navigationPane::list-inactive-enabled af|navigationPane::list-content a {
-    -tr-rule-ref: selector(".CBNavPaneListOption");
-}
-af|navigationPane::list-inactive-enabled af|navigationPane::list-content a:hover {
-    -tr-rule-ref: selector(".CBNavPaneListOptionHover");
-}
-af|navigationPane::list-active-enabled af|navigationPane::list-content a:hover {
-    -tr-rule-ref: selector(".CBNavPaneListOptionSelectedHover");
+    -tr-rule-ref: selector(".CBNavPaneListOption:alias");
 }
 af|navigationPane::list-active-disabled af|navigationPane::list-content,
 af|navigationPane::list-inactive-disabled af|navigationPane::list-content {
-    -tr-rule-ref: selector(".CBNavPaneListOptionDisabled");
+    -tr-rule-ref: selector(".CBNavPaneListListOptionDisabled:alias");
 }
 
 /* Clear some legacy stuff */
@@ -2268,68 +2390,65 @@ tbody tr af|navigationPane::list-bullet {
 
 /* Choice style ---------------------------------------- */
 /* CasaBlanca styles */
-.CBNavPaneChoiceButtonCommon {
+.CBNavPaneChoiceButtonCommon:alias {
     padding: 4px 8px;
     display: inline;
     -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
 }
-.CBNavPaneChoiceButton {
+.CBNavPaneChoiceButton:alias {
     -tr-rule-ref: selector(".CBButton:alias");
-    -tr-rule-ref: selector(".CBNavPaneChoiceButtonCommon");
+    -tr-rule-ref: selector(".CBNavPaneChoiceButtonCommon:alias");
 }
-.CBNavPaneChoiceButtonHover {
+.CBNavPaneChoiceButtonHover:alias {
     -tr-rule-ref: selector(".CBButtonHover:alias");
-    -tr-rule-ref: selector(".CBNavPaneChoiceButtonCommon");
+    -tr-rule-ref: selector(".CBNavPaneChoiceButtonCommon:alias");
 }
-.CBNavPaneChoiceBox {
+.CBNavPaneChoiceBox:alias {
     -tr-rule-ref: selector(".CBChoiceChoiceBox:alias");
 }
-.CBNavPaneChoiceOptionText {
+.CBNavPaneChoiceOptionText:alias {
     -tr-rule-ref: selector(".CBChoiceOptionText:alias");    
 }
 /* Inject CasaBlanca styles */
 af|navigationPane::choice-options {
-    -tr-rule-ref: selector(".CBNavPaneChoiceBox");
+    -tr-rule-ref: selector(".CBNavPaneChoiceBox:alias");
 }
 af|navigationPane::choice-options option {
-    -tr-rule-ref: selector(".CBNavPaneChoiceOptionText");  
+    -tr-rule-ref: selector(".CBNavPaneChoiceOptionText:alias");  
 }
 af|navigationPane af|navigationPane::choice-button {
-    -tr-rule-ref: selector(".CBNavPaneChoiceButton");
-}
-af|navigationPane af|navigationPane::choice-button:hover {
-    -tr-rule-ref: selector(".CBNavPaneChoiceButtonHover");
+    -tr-rule-ref: selector(".CBNavPaneChoiceButton:alias");
 }
 
 /* Tabs style --------------------------------------------*/
-.CBNavPane {
+.CBNavPane:alias {
     -tr-rule-ref: selector(".CBTabsHeads:alias");
 }
-.CBNavPaneTabsCommon {
+.CBNavPaneTabsCommon:alias {
 }
-.CBNavPaneTabs {
+.CBNavPaneTabs:alias {
     -tr-rule-ref: selector(".CBTabHeadTop:alias");
-    -tr-rule-ref: selector(".CBNavPaneTabsCommon");
+    -tr-rule-ref: selector(".CBNavPaneTabsCommon:alias");
 }
-.CBNavPaneTabsHover {
+.CBNavPaneTabsHover:alias {
     -tr-rule-ref: selector(".CBTabHeadTopHover:alias");
-    -tr-rule-ref: selector(".CBNavPaneTabsCommon");
+    -tr-rule-ref: selector(".CBNavPaneTabsCommon:alias");
 }
-.CBNavPaneTabsSelected {
+.CBNavPaneTabsSelected:alias {
     -tr-rule-ref: selector(".CBTabHeadTopSelected:alias");
-    -tr-rule-ref: selector(".CBNavPaneTabsCommon");
+    -tr-rule-ref: selector(".CBNavPaneTabsCommon:alias");
 }
-.CBNavPaneTabsSelectedHover {
+.CBNavPaneTabsSelectedHover:alias {
     -tr-rule-ref: selector(".CBTabHeadSelectedTopHover:alias");
-    -tr-rule-ref: selector(".CBNavPaneTabsCommon");
+    -tr-rule-ref: selector(".CBNavPaneTabsCommon:alias");
 }
-.CBNavPaneTabsDisabled {
+.CBNavPaneTabsDisabled:alias {
     -tr-rule-ref: selector(".CBTabHeadTopDisabled:alias");
-    -tr-rule-ref: selector(".CBNavPaneTabsCommon");
+    -tr-rule-ref: selector(".CBNavPaneTabsCommon:alias");
 }
-.CBNavPaneTabsDisabledHover {
+.CBNavPaneTabsDisabledHover:alias {
     -tr-rule-ref: selector(".CBTabHeadDisabledTopHover:alias");
-    -tr-rule-ref: selector(".CBNavPaneTabsCommon");
+    -tr-rule-ref: selector(".CBNavPaneTabsCommon:alias");
 }
 
 /* Clear some legacy stuff */
@@ -2357,52 +2476,54 @@ af|navigationPane::tabs af|navigationPane::tabs-bottom-end-content {
 
 /* Inject CasaBlanca styles */
 af|navigationPane::tabs {
-    -tr-rule-ref: selector(".CBNavPane");
+    -tr-rule-ref: selector(".CBNavPane:alias");
 }
 af|navigationPane::tabs-inactive af|navigationPane::tabs-mid a {
-    -tr-rule-ref: selector(".CBNavPaneTabs");
+    -tr-rule-ref: selector(".CBNavPaneTabs:alias");
 }
-af|navigationPane::tabs-inactive af|navigationPane::tabs-mid a:hover {
-    -tr-rule-ref: selector(".CBNavPaneTabsHover");
+@agent (touchScreen:none) {
+  af|navigationPane::tabs-inactive af|navigationPane::tabs-mid a:hover {
+      -tr-rule-ref: selector(".CBNavPaneTabsHover:alias");
+  }
+  af|navigationPane::tabs-active af|navigationPane::tabs-mid a:hover {
+      -tr-rule-ref: selector(".CBNavPaneTabsSelectedHover:alias");
+  }
+  af|navigationPane::tabs .p_AFDisabled af|navigationPane::tabs-mid:hover {
+      -tr-rule-ref: selector(".CBNavPaneTabsDisabledHover:alias");
+  }
 }
 af|navigationPane::tabs-active af|navigationPane::tabs-mid a {
-    -tr-rule-ref: selector(".CBNavPaneTabsSelected");      
-}
-af|navigationPane::tabs-active af|navigationPane::tabs-mid a:hover {
-    -tr-rule-ref: selector(".CBNavPaneTabsSelectedHover");      
+    -tr-rule-ref: selector(".CBNavPaneTabsSelected:alias");
 }
 af|navigationPane::tabs .p_AFDisabled af|navigationPane::tabs-mid {
-    -tr-rule-ref: selector(".CBNavPaneTabsDisabled");
-}
-af|navigationPane::tabs .p_AFDisabled af|navigationPane::tabs-mid:hover {
-    -tr-rule-ref: selector(".CBNavPaneTabsDisabledHover");       
+    -tr-rule-ref: selector(".CBNavPaneTabsDisabled:alias");
 }
 
 /* Navigation Tree component -----------------------------------------------------------------------------------------*/
 /* Also valable for the tree component because the lack of CSS class hooks */
 /* CasaBlanca styles */
-.CBNavigationTreeDiscloseIcon {
-    -tr-rule-ref: selector(".CBTreeDiscloseIcon:alias");
+.CBNavigationTreeDiscloseIconStyle:alias {
+    -tr-rule-ref: selector(".CBTreeDiscloseIconStyle:alias");
 }
-.CBNavigationTreeLinkCommon {
+.CBNavigationTreeLinkCommon:alias {
 }
-.CBNavigationTreeLink {
+.CBNavigationTreeLink:alias {
     -tr-rule-ref: selector(".CBTreeLink:alias");
 }
-.CBNavigationTreeLinkHover {
+.CBNavigationTreeLinkHover:alias {
     -tr-rule-ref: selector(".CBTreeLinkHover:alias");
 }
-.CBNavigationTreeExpandCollapseItem {
+.CBNavigationTreeExpandCollapseItem:alias {
     -tr-rule-ref: selector(".CBTreeLink:alias");
 }
-.CBNavigationTreeExpandCollapseItemHover {
+.CBNavigationTreeExpandCollapseItemHover:alias {
     -tr-rule-ref: selector(".CBTreeLinkHover:alias");
     text-decoration: none;
 }
-.CBNavigationTreeLinkDisabled {
+.CBNavigationTreeLinkDisabled:alias {
     -tr-rule-ref: selector(".CBTreeLinkDisabled:alias");
 }
-.CBNavigationTreeLinkDisabledHover {
+.CBNavigationTreeLinkDisabledHover:alias {
     -tr-rule-ref: selector(".CBTreeLinkDisabledHover:alias");
 }
 /* Inject CasaBlanca styles */
@@ -2413,84 +2534,86 @@ af|navigationPane::tabs .p_AFDisabled af|navigationPane::tabs-mid:hover {
 .p_OraTreeRowSelected a:link,
 .p_OraTreeRowSelected a:active,
 .p_OraTreeRowSelected a:visited {
-    -tr-rule-ref: selector(".CBNavigationTreeLink");
+    -tr-rule-ref: selector(".CBNavigationTreeLink:alias");
 }
-.p_OraTreeRow a:hover,
-.p_OraTreeRow a:link:hover,
-.p_OraTreeRow a:active:hover,
-.p_OraTreeRow a:visited:hover,
-.p_OraTreeRowSelected a:hover,
-.p_OraTreeRowSelected a:link:hover,
-.p_OraTreeRowSelected a:active:hover,
-.p_OraTreeRowSelected a:visited:hover,
-.p_OraTreeRow a.OraLink:hover,
-.p_OraTreeRowSelected a.OraLink:hover {
-    -tr-rule-ref: selector(".CBNavigationTreeLinkHover");
+@agent (touchScreen:none) {
+  .p_OraTreeRow a:hover,
+  .p_OraTreeRow a:link:hover,
+  .p_OraTreeRow a:active:hover,
+  .p_OraTreeRow a:visited:hover,
+  .p_OraTreeRowSelected a:hover,
+  .p_OraTreeRowSelected a:link:hover,
+  .p_OraTreeRowSelected a:active:hover,
+  .p_OraTreeRowSelected a:visited:hover,
+  .p_OraTreeRow a.OraLink:hover,
+  .p_OraTreeRowSelected a.OraLink:hover {
+      -tr-rule-ref: selector(".CBNavigationTreeLinkHover:alias");
+  }
+  .p_OraTreeDisclosedSymbol a:hover,
+  .p_OraTreeDisclosedSymbol a:link:hover,
+  .p_OraTreeDisclosedSymbol a:active:hover,
+  .p_OraTreeDisclosedSymbol a:visited:hover,
+  .p_OraTreeDisclosedSymbol a.OraLink:hover {
+      -tr-rule-ref: selector(".CBNavigationTreeExpandCollapseItemHover:alias");
+  }
+  .p_OraTreeDisclosedSymbol .OraLinkDisabled:hover,
+  .p_OraTreeRow .OraLinkDisabled:hover,
+  .p_OraTreeRowSelected .OraLinkDisabled:hover {
+      -tr-rule-ref: selector(".CBNavigationTreeLinkDisabledHover:alias") ;
+  }
 }
 .p_OraTreeDisclosedSymbol a,
 .p_OraTreeDisclosedSymbol a:link,
 .p_OraTreeDisclosedSymbol a:active,
 .p_OraTreeDisclosedSymbol a:visited {
-    -tr-rule-ref: selector(".CBNavigationTreeExpandCollapseItem");
-}
-.p_OraTreeDisclosedSymbol a:hover,
-.p_OraTreeDisclosedSymbol a:link:hover,
-.p_OraTreeDisclosedSymbol a:active:hover,
-.p_OraTreeDisclosedSymbol a:visited:hover,
-.p_OraTreeDisclosedSymbol a.OraLink:hover {
-    -tr-rule-ref: selector(".CBNavigationTreeExpandCollapseItemHover");
+    -tr-rule-ref: selector(".CBNavigationTreeExpandCollapseItem:alias");
 }
 .p_OraTreeDisclosedSymbol .OraLinkDisabled,
 .p_OraTreeRow .OraLinkDisabled,
 .p_OraTreeRowSelected .OraLinkDisabled {
-    -tr-rule-ref: selector(".CBNavigationTreeLinkDisabled") ;
-}
-.p_OraTreeDisclosedSymbol .OraLinkDisabled:hover,
-.p_OraTreeRow .OraLinkDisabled:hover,
-.p_OraTreeRowSelected .OraLinkDisabled:hover {
-    -tr-rule-ref: selector(".CBNavigationTreeLinkDisabledHover") ;
+    -tr-rule-ref: selector(".CBNavigationTreeLinkDisabled:alias") ;
 }
 
 /* Output Document componnet ---------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBDocumentTitle {
+.CBDocumentTitle:alias {
     -tr-rule-ref: selector(".CBHeaderLevel1Look:alias");
 }
-.CBDocumentParagraph {
+.CBDocumentParagraph:alias {
     text-align: left;
 }
-.CBDocumentHeaderLevel1 {
+.CBDocumentHeaderLevel1:alias {
     -tr-rule-ref: selector(".CBHeaderLevel2Look:alias");
 }
-.CBDocumentHeaderLevel2 {
+.CBDocumentHeaderLevel2:alias {
     -tr-rule-ref: selector(".CBHeaderLevel3Look:alias");
 }
-.CBDocumentHeaderLevel3 {
+.CBDocumentHeaderLevel3:alias {
     -tr-rule-ref: selector(".CBHeaderLevel4Look:alias");
 }
-.CBDocumentNormalText {
+.CBDocumentNormalText:alias {
     -tr-rule-ref: selector(".CBDefaultFontLook:alias");
     -tr-rule-ref: selector(".CBParagraphLineHeight:alias");
 }
 /* Inject CasaBlanca styles */
 af|outputDocument {
-    -tr-rule-ref: selector(".CBDocumentNormalText");
+    -tr-rule-ref: selector(".CBDocumentNormalText:alias");
 }
 af|outputDocument af|outputDocument::title {
-    -tr-rule-ref: selector(".CBDocumentTitle");
+    -tr-rule-ref: selector(".CBDocumentTitle:alias");
 }
 af|outputDocument::paragraph {
-    -tr-rule-ref: selector(".CBDocumentParagraph");
+    -tr-rule-ref: selector(".CBDocumentParagraph:alias");
 }
 
 /* Output Label component ------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBOutputLabel {
+.CBOutputLabel:alias {
     -tr-rule-ref: selector(".CBLabel:alias");
 }
 /* Inject CasaBlanca styles */
 af|outputLabel label {
-    -tr-rule-ref: selector(".CBOutputLabel");
+    -tr-rule-ref: selector(".CBOutputLabel:alias");
 }
 
 /* Output Formated component ---------------------------------------------------------------------------------------- */
@@ -2501,33 +2624,33 @@ af|outputLabel label {
 
 /* Panel Accordion component ---------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBAccordionPanelHeadCommon {
+.CBAccordionPanelHeadCommon:alias {
 }
-.CBAccordionPanelHead {
+.CBAccordionPanelHead:alias {
     -tr-rule-ref: selector(".CBAccordionHead:alias");
-    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon");
+    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon:alias");
 }
-.CBAccordionPanelHeadHover {
+.CBAccordionPanelHeadHover:alias {
     -tr-rule-ref: selector(".CBAccordionHeadHover:alias");
-    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon");
+    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon:alias");
 }
-.CBAccordionPanelHeadSelected {
+.CBAccordionPanelHeadSelected:alias {
     -tr-rule-ref: selector(".CBAccordionHeadSelected:alias");
-    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon");
+    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon:alias");
 }
-.CBAccordionPanelHeadSelectedHover {
+.CBAccordionPanelHeadSelectedHover:alias {
     -tr-rule-ref: selector(".CBAccordionHeadSelectedHover:alias");
-    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon");
+    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon:alias");
 }
-.CBAccordionPanelHeadDisabled {
+.CBAccordionPanelHeadDisabled:alias {
     -tr-rule-ref: selector(".CBAccordionHeadDisabled:alias");
-    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon");
+    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon:alias");
 }
-.CBAccordionPanelHeadDisabledHover {
+.CBAccordionPanelHeadDisabledHover:alias {
     -tr-rule-ref: selector(".CBAccordionHeadDisabledHover:alias");
-    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon");
+    -tr-rule-ref: selector(".CBAccordionPanelHeadCommon:alias");
 }
-.CBAccordionPanelBody {
+.CBAccordionPanelBody:alias {
     -tr-rule-ref: selector(".CBAccordionBody:alias");
 }
 /* Inject CasaBlanca styles */
@@ -2545,43 +2668,45 @@ af|panelAccordion::title-link .p_OraHideShowDisclosedSymbol {
     margin-top: -3px;
 }
 af|panelAccordion::header-collapsed af|panelAccordion::title-link {
-    -tr-rule-ref: selector(".CBAccordionPanelHead");
+    -tr-rule-ref: selector(".CBAccordionPanelHead:alias");
 }
 af|panelAccordion::header-collapsed af|panelAccordion::title-link .p_OraHideShowDisclosedSymbol {
     -tr-rule-ref: selector(".CBIconLook:alias");
     -tr-rule-ref: selector(".CBIconArrowDown:alias");
 }
-af|panelAccordion::header-collapsed af|panelAccordion::title-link:hover {
-    -tr-rule-ref: selector(".CBAccordionPanelHeadHover");
-}
-af|panelAccordion::header-collapsed af|panelAccordion::title-link:hover .p_OraHideShowDisclosedSymbol {
-    -tr-rule-ref: selector(".CBIconLookHover:alias");
-    -tr-rule-ref: selector(".CBIconArrowDown:alias");
+@agent (touchScreen:none) {
+  af|panelAccordion::header-collapsed af|panelAccordion::title-link:hover {
+      -tr-rule-ref: selector(".CBAccordionPanelHeadHover:alias");
+  }
+  af|panelAccordion::header-collapsed af|panelAccordion::title-link:hover .p_OraHideShowDisclosedSymbol {
+      -tr-rule-ref: selector(".CBIconLookHover:alias");
+      -tr-rule-ref: selector(".CBIconArrowDown:alias");
+  }
+  af|panelAccordion::header-expanded af|panelAccordion::title-link:hover .p_OraHideShowDisclosedSymbol {
+      -tr-rule-ref: selector(".CBIconLookSelectedHover:alias");
+      -tr-rule-ref: selector(".CBIconArrowUp:alias");
+  }
+  af|panelAccordion::header-expanded af|panelAccordion::title-link:hover {
+      -tr-rule-ref: selector(".CBAccordionPanelHeadSelectedHover:alias");
+      margin-bottom: 0;
+  }
+  af|panelAccordion::header-disabled af|panelAccordion::title-disabled-link:hover {
+      -tr-rule-ref: selector(".CBAccordionPanelHeadDisabledHover:alias");
+  }
 }
 af|panelAccordion::header-expanded af|panelAccordion::title-link {
-    -tr-rule-ref: selector(".CBAccordionPanelHeadSelected");
+    -tr-rule-ref: selector(".CBAccordionPanelHeadSelected:alias");
     margin-bottom: 0;
 }
 af|panelAccordion::header-expanded af|panelAccordion::title-link .p_OraHideShowDisclosedSymbol {
     -tr-rule-ref: selector(".CBIconLookSelected:alias");
     -tr-rule-ref: selector(".CBIconArrowUp:alias");
 }
-af|panelAccordion::header-expanded af|panelAccordion::title-link:hover {
-    -tr-rule-ref: selector(".CBAccordionPanelHeadSelectedHover");
-    margin-bottom: 0;
-}
-af|panelAccordion::header-expanded af|panelAccordion::title-link:hover .p_OraHideShowDisclosedSymbol {
-    -tr-rule-ref: selector(".CBIconLookSelectedHover:alias");
-    -tr-rule-ref: selector(".CBIconArrowUp:alias");
-}
 af|panelAccordion::header-disabled af|panelAccordion::title-disabled-link {
-    -tr-rule-ref: selector(".CBAccordionPanelHeadDisabled");   
-}
-af|panelAccordion::header-disabled af|panelAccordion::title-disabled-link:hover {
-    -tr-rule-ref: selector(".CBAccordionPanelHeadDisabledHover");   
+    -tr-rule-ref: selector(".CBAccordionPanelHeadDisabled:alias");
 }
 af|panelAccordion::content {
-    -tr-rule-ref: selector(".CBAccordionPanelBody");
+    -tr-rule-ref: selector(".CBAccordionPanelBody:alias");
 }
 af|panelAccordion::content af|panelFormLayout::label-cell {
 }
@@ -2593,19 +2718,19 @@ af|panelAccordion::content af|panelHeader::level-one {
 
 /* Panel Box component ---------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBPanelBoxHeadCommon {
+.CBPanelBoxHeadCommon:alias {
     width: auto;
 }
-.CBPanelBoxHead {
+.CBPanelBoxHead:alias {
     -tr-rule-ref: selector(".CBPanelHead:alias");
-    -tr-rule-ref: selector(".CBPanelBoxHeadCommon");
+    -tr-rule-ref: selector(".CBPanelBoxHeadCommon:alias");
     -tr-rule-ref: selector(".CBRoundedTopCornersLook:alias");
 }
-.CBPanelBoxBodyCommon {
+.CBPanelBoxBodyCommon:alias {
 }
-.CBPanelBoxBody {
+.CBPanelBoxBody:alias {
     -tr-rule-ref: selector(".CBPanelBodyEmbossed:alias");
-    -tr-rule-ref: selector(".CBPanelBoxBodyCommon");
+    -tr-rule-ref: selector(".CBPanelBoxBodyCommon:alias");
 }
 /* Clear some legacy stuff */
 af|panelBox::light af|panelBox::body {
@@ -2618,34 +2743,34 @@ af|panelBox::body af|panelBox::header img {
 }
 /* Inject CasaBlanca styles */
 af|panelBox::light af|panelBox::body af|panelBox::header {
-    -tr-rule-ref: selector(".CBPanelBoxHead");
+    -tr-rule-ref: selector(".CBPanelBoxHead:alias");
 }
 af|panelBox::light af|panelBox::body af|panelBox::content {
-    -tr-rule-ref: selector(".CBPanelBoxBody");
+    -tr-rule-ref: selector(".CBPanelBoxBody:alias");
 }
 
 /* Panel Button Bar component --------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBPanelButtonBarButtonCommon {
+.CBPanelButtonBarButtonCommon:alias {
     padding: 6px 11px;    
 }
-.CBPanelButtonBarButton {
+.CBPanelButtonBarButton:alias {
     -tr-rule-ref: selector(".CBButtonBarOption:alias");
-    -tr-rule-ref: selector(".CBPanelButtonBarButtonCommon");
+    -tr-rule-ref: selector(".CBPanelButtonBarButtonCommon:alias");
 }
-.CBPanelButtonBarButtonHover {
+.CBPanelButtonBarButtonHover:alias {
     -tr-rule-ref: selector(".CBButtonBarOptionHover:alias");
-    -tr-rule-ref: selector(".CBPanelButtonBarButtonCommon");
+    -tr-rule-ref: selector(".CBPanelButtonBarButtonCommon:alias");
 }
-.CBPanelButtonBarButtonDisabled {
+.CBPanelButtonBarButtonDisabled:alias {
     -tr-rule-ref: selector(".CBButtonBarOptionDisabled:alias");
-    -tr-rule-ref: selector(".CBPanelButtonBarButtonCommon");
+    -tr-rule-ref: selector(".CBPanelButtonBarButtonCommon:alias");
 }
-.CBPanelButtonBarButtonDisabledHover {
+.CBPanelButtonBarButtonDisabledHover:alias {
     -tr-rule-ref: selector(".CBButtonBarOptionDisabledHover:alias");
-    -tr-rule-ref: selector(".CBPanelButtonBarButtonCommon");
+    -tr-rule-ref: selector(".CBPanelButtonBarButtonCommon:alias");
 }
-.CBPanelButtonBarLabel {
+.CBPanelButtonBarLabel:alias {
     -tr-rule-ref: selector(".CBButtonBarLabel:alias");
 }
 /* Clear some legacy stuff */
@@ -2657,13 +2782,33 @@ af|panelButtonBar td img {
 }
 /* Inject CasaBlanca styles */
 af|panelButtonBar af|commandButton {
-    -tr-rule-ref: selector(".CBPanelButtonBarButton");
+    -tr-rule-ref: selector(".CBPanelButtonBarButton:alias");
 }
-af|panelButtonBar af|commandButton:hover {
-    -tr-rule-ref: selector(".CBPanelButtonBarButtonHover");
+@agent (touchScreen:none) {
+  af|panelButtonBar af|commandButton:hover {
+      -tr-rule-ref: selector(".CBPanelButtonBarButtonHover:alias");
+  }
+  af|panelTabbed::orientation-top af|panelTabbed::tab a:hover {
+      -tr-rule-ref: selector(".CBPanelTabTopHover:alias");
+  }
+  af|panelTabbed::orientation-top af|panelTabbed::tab-selected a:hover {
+      -tr-rule-ref: selector(".CBPanelTabTopSelectedHover:alias");
+  }
+  af|panelTabbed::orientation-top af|panelTabbed::tab a.p_OraDisabled:hover {
+      -tr-rule-ref: selector(".CBPanelTabTopDisabledHover:alias");
+  }
+  af|panelTabbed::orientation-bottom af|panelTabbed::tab-selected a:hover {
+      -tr-rule-ref: selector(".CBPanelTabBottomSelectedHover:alias");
+  }
+  af|panelTabbed::orientation-bottom af|panelTabbed::tab a:hover {
+      -tr-rule-ref: selector(".CBPanelTabBottomHover:alias");
+  }
+  af|panelTabbed::orientation-bottom af|panelTabbed::tab a.p_OraDisabled:hover {
+      -tr-rule-ref: selector(".CBPanelTabBottomDisabledHover:alias");
+  }
 }
 af|panelButtonBar af|singleStepButtonBar::label {
-    -tr-rule-ref: selector(".CBPanelButtonBarLabel");
+    -tr-rule-ref: selector(".CBPanelButtonBarLabel:alias");
 }
 
 /* Panel CaptionGroup component ------------------------------------------------------------------------------------- */
@@ -2691,57 +2836,57 @@ af|panelCaptionGroup af|panelCaptionGroup::caption {
 
 /* Panel Header component ------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBPanelHeaderCommon {
+.CBPanelHeaderCommon:alias {
 }
-.CBHeaderNest {
+.CBHeaderNest:alias {
     margin: 0;
     padding: 10px 0 0;
 }
-.CBPanelHeaderLevel1 {
+.CBPanelHeaderLevel1:alias {
     -tr-rule-ref: selector(".CBHeaderLevel1Look:alias");
-    -tr-rule-ref: selector(".CBPanelHeaderCommon");
+    -tr-rule-ref: selector(".CBPanelHeaderCommon:alias");
 }
-.CBPanelHeaderLevel2 {
+.CBPanelHeaderLevel2:alias {
     -tr-rule-ref: selector(".CBHeaderLevel2Look:alias");
-    -tr-rule-ref: selector(".CBPanelHeaderCommon");
+    -tr-rule-ref: selector(".CBPanelHeaderCommon:alias");
 }
-.CBPanelHeaderLevel3 {
+.CBPanelHeaderLevel3:alias {
     -tr-rule-ref: selector(".CBHeaderLevel3Look:alias");
-    -tr-rule-ref: selector(".CBPanelHeaderCommon");
+    -tr-rule-ref: selector(".CBPanelHeaderCommon:alias");
 }
-.CBPanelHeaderLevel4 {
+.CBPanelHeaderLevel4:alias {
     -tr-rule-ref: selector(".CBHeaderLevel4Look:alias");
-    -tr-rule-ref: selector(".CBPanelHeaderCommon");
+    -tr-rule-ref: selector(".CBPanelHeaderCommon:alias");
 }
-.CBPanelHeaderLevel5 {
+.CBPanelHeaderLevel5:alias {
     -tr-rule-ref: selector(".CBHeaderLevel5Look:alias");
-    -tr-rule-ref: selector(".CBPanelHeaderCommon");
+    -tr-rule-ref: selector(".CBPanelHeaderCommon:alias");
 }
-.CBPanelHeaderLevel6 {
+.CBPanelHeaderLevel6:alias {
     -tr-rule-ref: selector(".CBHeaderLevel6Look:alias");
-    -tr-rule-ref: selector(".CBPanelHeaderCommon");
+    -tr-rule-ref: selector(".CBPanelHeaderCommon:alias");
 }
 /* Inject CasaBlanca styles */
 .p_OraHeaderNest {
-    -tr-rule-ref: selector(".CBHeaderNest");    
+    -tr-rule-ref: selector(".CBHeaderNest:alias");    
 }
 af|panelHeader::level-one {
-    -tr-rule-ref: selector(".CBPanelHeaderLevel1");
+    -tr-rule-ref: selector(".CBPanelHeaderLevel1:alias");
 }
 af|panelHeader::level-two {
-    -tr-rule-ref: selector(".CBPanelHeaderLevel2");
+    -tr-rule-ref: selector(".CBPanelHeaderLevel2:alias");
 }
 af|panelHeader::level-three {
-    -tr-rule-ref: selector(".CBPanelHeaderLevel3");
+    -tr-rule-ref: selector(".CBPanelHeaderLevel3:alias");
 }
 af|panelHeader::level-four {
-    -tr-rule-ref: selector(".CBPanelHeaderLevel4");
+    -tr-rule-ref: selector(".CBPanelHeaderLevel4:alias");
 }
 af|panelHeader::level-five {
-    -tr-rule-ref: selector(".CBPanelHeaderLevel5");
+    -tr-rule-ref: selector(".CBPanelHeaderLevel5:alias");
 }
 af|panelHeader::level-six {
-    -tr-rule-ref: selector(".CBPanelHeaderLevel6");
+    -tr-rule-ref: selector(".CBPanelHeaderLevel6:alias");
 }
 
 /* Panel Horizontal Layout component -------------------------------------------------------------------------------- */
@@ -2751,27 +2896,27 @@ af|panelHeader::level-six {
 /* Not applicable yet */
 
 /* Panel List component --------------------------------------------------------------------------------------------- */
-.CBPanelListBorder {
+.CBPanelListBorder:alias {
 }
-.CBPanelListList {
+.CBPanelListList:alias {
     margin: 4px 0;
 }
 af|panelList {
-    -tr-rule-ref: selector(".CBPanelListBorder");    
+    -tr-rule-ref: selector(".CBPanelListBorder:alias");    
 }
 af|panelList ul {
-    -tr-rule-ref: selector(".CBPanelListList");
+    -tr-rule-ref: selector(".CBPanelListList:alias");
 }
 
 /* Panel Page component --------------------------------------------------------------------------------------------- */
 /* Not applicable yet */
 
 /* Page TopBar component -------------------------------------------------------------------------------------------- */
-.CBTopBar {
+.CBTopTopBar:alias {
     -tr-rule-ref: selector(".CBTopBar:alias");
 }
 .p_OraQuickSearchBox {
-    -tr-rule-ref: selector(".CBTopBar");
+    -tr-rule-ref: selector(".CBTopTopBar:alias");
 }
 af|menuBar::empty {
     display: none;
@@ -2779,15 +2924,15 @@ af|menuBar::empty {
 
 /* Panel Popup component -------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBPanelPopUpBodyCommon {
+.CBPanelPopUpBodyCommon:alias {
 }
-.CBPanelPopUpBody {
+.CBPanelPopUpBody:alias {
     -tr-rule-ref: selector(".CBPanelAccented:alias");
-    -tr-rule-ref: selector(".CBPanelPopUpBodyCommon");
+    -tr-rule-ref: selector(".CBPanelPopUpBodyCommon:alias");
 }
 /* Inject CasaBlanca styles */
 af|panelPopup::container {
-    -tr-rule-ref: selector(".CBPanelPopUpBody");
+    -tr-rule-ref: selector(".CBPanelPopUpBody:alias");
 }
 af|panelPopup::container af|panelPopup::content {
     background: transparent;
@@ -2795,75 +2940,75 @@ af|panelPopup::container af|panelPopup::content {
 
 /* Panel Radio component -------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBPanelSidebar {
+.CBPanelSidebar:alias {
     -tr-rule-ref: selector(".CBPanelAccented:alias");  
 }
-.CBPanelSidebarBody {
+.CBPanelSidebarBody:alias {
     background: none;
 }
 /* Inject CasaBlanca styles */
 af|panelSideBar {
-    -tr-rule-ref: selector(".CBPanelSidebar");
+    -tr-rule-ref: selector(".CBPanelSidebar:alias");
 }
 af|panelSideBar::body {
-    -tr-rule-ref: selector(".CBPanelSidebarBody");
+    -tr-rule-ref: selector(".CBPanelSidebarBody:alias");
 }
 
 /* Panel Tabbed component ------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBPanelTabTopCommon {
+.CBPanelTabTopCommon:alias {
 }
-.CBPanelTabBottomCommon {
+.CBPanelTabBottomCommon:alias {
 }
-.CBPanelTabTop {
+.CBPanelTabTop:alias {
     -tr-rule-ref: selector(".CBTabHeadTop:alias");
-    -tr-rule-ref: selector(".CBPanelTabTopCommon");
+    -tr-rule-ref: selector(".CBPanelTabTopCommon:alias");
 }
-.CBPanelTabTopHover {
+.CBPanelTabTopHover:alias {
     -tr-rule-ref: selector(".CBTabHeadTopHover:alias");
-    -tr-rule-ref: selector(".CBPanelTabTopCommon");
+    -tr-rule-ref: selector(".CBPanelTabTopCommon:alias");
 }
-.CBPanelTabTopSelected {
+.CBPanelTabTopSelected:alias {
     -tr-rule-ref: selector(".CBTabHeadTopSelected:alias");
-    -tr-rule-ref: selector(".CBPanelTabTopCommon");
+    -tr-rule-ref: selector(".CBPanelTabTopCommon:alias");
 }
-.CBPanelTabTopSelectedHover {
+.CBPanelTabTopSelectedHover:alias {
     -tr-rule-ref: selector(".CBTabHeadSelectedTopHover:alias");
-    -tr-rule-ref: selector(".CBPanelTabTopCommon");
+    -tr-rule-ref: selector(".CBPanelTabTopCommon:alias");
 }
-.CBPanelTabTopDisabled {
+.CBPanelTabTopDisabled:alias {
     -tr-rule-ref: selector(".CBTabHeadTopDisabled:alias");
-    -tr-rule-ref: selector(".CBPanelTabTopCommon");
+    -tr-rule-ref: selector(".CBPanelTabTopCommon:alias");
 }
-.CBPanelTabTopDisabledHover {
+.CBPanelTabTopDisabledHover:alias {
     -tr-rule-ref: selector(".CBTabHeadDisabledTopHover:alias");
-    -tr-rule-ref: selector(".CBPanelTabTopCommon");
+    -tr-rule-ref: selector(".CBPanelTabTopCommon:alias");
 }
-.CBPanelTabBottom {
+.CBPanelTabBottom:alias {
     -tr-rule-ref: selector(".CBTabHeadBottom:alias");
-    -tr-rule-ref: selector(".CBPanelTabBottomCommon");
+    -tr-rule-ref: selector(".CBPanelTabBottomCommon:alias");
 }
-.CBPanelTabBottomHover {
+.CBPanelTabBottomHover:alias {
     -tr-rule-ref: selector(".CBTabHeadBottomHover:alias");
-    -tr-rule-ref: selector(".CBPanelTabBottomCommon");
+    -tr-rule-ref: selector(".CBPanelTabBottomCommon:alias");
 }
-.CBPanelTabBottomSelected {
+.CBPanelTabBottomSelected:alias {
     -tr-rule-ref: selector(".CBTabHeadBottomSelected:alias");
-    -tr-rule-ref: selector(".CBPanelTabBottomCommon");
+    -tr-rule-ref: selector(".CBPanelTabBottomCommon:alias");
 }
-.CBPanelTabBottomSelectedHover {
+.CBPanelTabBottomSelectedHover:alias {
     -tr-rule-ref: selector(".CBTabHeadBottomSelectedHover:alias");
-    -tr-rule-ref: selector(".CBPanelTabBottomCommon");
+    -tr-rule-ref: selector(".CBPanelTabBottomCommon:alias");
 }
-.CBPanelTabBottomDisabled {
+.CBPanelTabBottomDisabled:alias {
     -tr-rule-ref: selector(".CBTabHeadBottomDisabled:alias");
-    -tr-rule-ref: selector(".CBPanelTabBottomCommon");
+    -tr-rule-ref: selector(".CBPanelTabBottomCommon:alias");
 }
-.CBPanelTabBottomDisabledHover {
+.CBPanelTabBottomDisabledHover:alias {
     -tr-rule-ref: selector(".CBTabHeadBottomDisabledHover:alias");
-    -tr-rule-ref: selector(".CBPanelTabBottomCommon");
+    -tr-rule-ref: selector(".CBPanelTabBottomCommon:alias");
 }
-.CBPanelTabBody {
+.CBPanelTabBody:alias {
     -tr-rule-ref: selector(".CBPanelBodySelected:alias");
     -tr-rule-ref: selector(".CBClearRoundCornersLook:alias");
     -tr-rule-ref: selector(".CBRoundedRightCornersLook:alias");
@@ -2883,60 +3028,42 @@ af|panelTabbed::orientation-top af|panelTabbed::tab, af|panelTabbed::tab-selecte
     padding: 0 1px 0 0;    
 }
 af|panelTabbed::orientation-top af|panelTabbed::tab a {
-    -tr-rule-ref: selector(".CBPanelTabTop");
-}
-af|panelTabbed::orientation-top af|panelTabbed::tab a:hover {
-    -tr-rule-ref: selector(".CBPanelTabTopHover");
+    -tr-rule-ref: selector(".CBPanelTabTop:alias");
 }
 af|panelTabbed::orientation-top af|panelTabbed::tab-selected a {
-    -tr-rule-ref: selector(".CBPanelTabTopSelected");
-}
-af|panelTabbed::orientation-top af|panelTabbed::tab-selected a:hover {
-    -tr-rule-ref: selector(".CBPanelTabTopSelectedHover");
+    -tr-rule-ref: selector(".CBPanelTabTopSelected:alias");
 }
 af|panelTabbed::orientation-top af|panelTabbed::tab a.p_OraDisabled {
-    -tr-rule-ref: selector(".CBPanelTabTopDisabled");
-}
-af|panelTabbed::orientation-top af|panelTabbed::tab a.p_OraDisabled:hover {
-    -tr-rule-ref: selector(".CBPanelTabTopDisabledHover");
+    -tr-rule-ref: selector(".CBPanelTabTopDisabled:alias");
 }
 af|panelTabbed::orientation-bottom af|panelTabbed::tab, af|panelTabbed::tab-selected {
     padding: 0 1px 0 0;
 }
 af|panelTabbed::orientation-bottom af|panelTabbed::tab a {
-    -tr-rule-ref: selector(".CBPanelTabBottom");
-}
-af|panelTabbed::orientation-bottom af|panelTabbed::tab a:hover {
-    -tr-rule-ref: selector(".CBPanelTabBottomHover");
+    -tr-rule-ref: selector(".CBPanelTabBottom:alias");
 }
 af|panelTabbed::orientation-bottom af|panelTabbed::tab-selected a {
-    -tr-rule-ref: selector(".CBPanelTabBottomSelected");
-}
-af|panelTabbed::orientation-bottom af|panelTabbed::tab-selected a:hover {
-    -tr-rule-ref: selector(".CBPanelTabBottomSelectedHover");
+    -tr-rule-ref: selector(".CBPanelTabBottomSelected:alias");
 }
 af|panelTabbed::orientation-bottom af|panelTabbed::tab a.p_OraDisabled {
-    -tr-rule-ref: selector(".CBPanelTabBottomDisabled");
-}
-af|panelTabbed::orientation-bottom af|panelTabbed::tab a.p_OraDisabled:hover {
-    -tr-rule-ref: selector(".CBPanelTabBottomDisabledHover");
+    -tr-rule-ref: selector(".CBPanelTabBottomDisabled:alias");
 }
 af|panelTabbed::body {
-    -tr-rule-ref: selector(".CBPanelTabBody");
+    -tr-rule-ref: selector(".CBPanelTabBody:alias");
 }
 
 /* Panel Tip component ---------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBPanelTipLabel {
+.CBPanelTipLabel:alias {
 }
-.CBPanelTipContent {   
+.CBPanelTipContent:alias {
 }
 /* Inject CasaBlanca styles */
 af|panelTip::label {
-    -tr-rule-ref: selector(".CBPanelTipLabel");
+    -tr-rule-ref: selector(".CBPanelTipLabel:alias");
 }
 af|panelTip::content {
-    -tr-rule-ref: selector(".CBPanelTipContent");
+    -tr-rule-ref: selector(".CBPanelTipContent:alias");
 }
 
 /* Process Choicebar component -------------------------------------------------------------------------------------- */
@@ -2944,189 +3071,190 @@ af|panelTip::content {
 
 /* Progress Indicator component ------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBProgressIndicator {
+.CBProgressIndicator:alias {
    -tr-rule-ref: selector(".CBTextCellRaisedLook:alias");
    -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
    padding: 2px 15px;
 }
 /* Inject CasaBlanca styles */
 .p_OraProcessingStatus {
-   -tr-rule-ref: selector(".CBProgressIndicator"); 
+   -tr-rule-ref: selector(".CBProgressIndicator:alias");
 }
 
 /* Reset Button component ------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBResetButton {
+.CBResetButton:alias {
    -tr-rule-ref: selector(".CBButton:alias");
 }
-.CBResetButtonHover {
+.CBResetButtonHover:alias {
    -tr-rule-ref: selector(".CBButtonHover:alias");
 }
-.CBResetButtonDisabled {
+.CBResetButtonDisabled:alias {
 }
-.CBResetButtonDisabledHover {
+.CBResetButtonDisabledHover:alias {
 }
 /* Inject CasaBlanca styles */
 af|resetButton {
-   -tr-rule-ref: selector(".CBResetButton");
+   -tr-rule-ref: selector(".CBResetButton:alias");
 }
-af|resetButton:hover {
-   -tr-rule-ref: selector(".CBResetButtonHover"); 
+@agent (touchScreen:none) {
+  af|resetButton:hover {
+     -tr-rule-ref: selector(".CBResetButtonHover:alias");
+  }
 }
-
 /* Select Boolean CheckBox component -------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBSelectBooleanCheckBox {
+.CBSelectBooleanCheckBox:alias {
     -tr-rule-ref: selector(".CBCheckBox:alias");
 }
-.CBSelectBooleanCheckBoxMainLabel {
+.CBSelectBooleanCheckBoxMainLabel:alias {
     -tr-rule-ref: selector(".CBCheckBoxMainLabel:alias");
 }
-.CBSelectBooleanChechBoxCheckLabel {
+.CBSelectBooleanChechBoxCheckLabel:alias {
     -tr-rule-ref: selector(".CBChechBoxCheckLabel:alias");
 }
 /* Inject CasaBlanca styles */
 af|selectBooleanCheckbox {
-    -tr-rule-ref: selector(".CBSelectBooleanCheckBox");
+    -tr-rule-ref: selector(".CBSelectBooleanCheckBox:alias");
 }
 af|selectBooleanCheckbox af|selectBooleanCheckbox::label {
-    -tr-rule-ref: selector(".CBSelectBooleanCheckBoxMainLabel");
+    -tr-rule-ref: selector(".CBSelectBooleanCheckBoxMainLabel:alias");
 }
 af|selectBooleanCheckbox af|selectBooleanCheckbox::content label {
-    -tr-rule-ref: selector(".CBSelectBooleanChechBoxCheckLabel");
+    -tr-rule-ref: selector(".CBSelectBooleanChechBoxCheckLabel:alias");
 }
 
 /* Select Boolean Radio component ----------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBSelectBooleanRadio {
+.CBSelectBooleanRadio:alias {
     -tr-rule-ref: selector(".CBRadio:alias");
 }
-.CBSelectBooleanRadioMainLabel {
+.CBSelectBooleanRadioMainLabel:alias {
     -tr-rule-ref: selector(".CBRadioMainLabel:alias");
 }
-.CBSelectBooleanRadioRadioLabel {
+.CBSelectBooleanRadioRadioLabel:alias {
     -tr-rule-ref: selector(".CBRadioRadioLabel:alias");
 }
 /* Inject CasaBlanca styles */
 af|selectBooleanRadio {
-    -tr-rule-ref: selector(".CBSelectBooleanRadio");
+    -tr-rule-ref: selector(".CBSelectBooleanRadio:alias");
 }
 af|selectBooleanRadio af|selectBooleanRadio::label {
-    -tr-rule-ref: selector(".CBSelectBooleanRadioMainLabel");
+    -tr-rule-ref: selector(".CBSelectBooleanRadioMainLabel:alias");
 }
 af|selectBooleanRadio af|selectBooleanRadio::content label {
-    -tr-rule-ref: selector(".CBSelectBooleanRadioRadioLabel");
+    -tr-rule-ref: selector(".CBSelectBooleanRadioRadioLabel:alias");
 }
 
 /* Select Item component -------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBSelectItem {
+.CBSelectItem:alias {
     -tr-rule-ref: selector(".CBChoice:alias");    
 }
-.CBSelectItemLabel {
+.CBSelectItemLabel:alias {
     -tr-rule-ref: selector(".CBChoiceLabel:alias");
 }
-.CBSelectItemOptionText {
+.CBSelectItemOptionText:alias {
     -tr-rule-ref: selector(".CBChoiceOptionText:alias");
 }
-.CBSelectItemChoiceBox {
+.CBSelectItemChoiceBox:alias {
     -tr-rule-ref: selector(".CBChoiceChoiceBox:alias");    
 }
-.CBSelectItemChoiceBoxElementsSpacing {
+.CBSelectItemChoiceBoxElementsSpacing:alias {
     -tr-rule-ref: selector(".CBFormVerticalSpacingLook:alias");
     display: block;
 }
 /* Inject CasaBlanca styles */
 af|selectOneChoice {
-    -tr-rule-ref: selector(".CBSelectItem");
+    -tr-rule-ref: selector(".CBSelectItem:alias");
 }
 af|selectOneChoice af|selectOneChoice::label label {
-    -tr-rule-ref: selector(".CBSelectItemLabel");
+    -tr-rule-ref: selector(".CBSelectItemLabel:alias");
 }
 af|selectOneChoice af|selectOneChoice::content option {
-    -tr-rule-ref: selector(".CBSelectItemOptionText");
+    -tr-rule-ref: selector(".CBSelectItemOptionText:alias");
 }
 af|selectOneChoice af|selectOneChoice::content {
-    -tr-rule-ref: selector(".CBSelectItemChoiceBox");      
+    -tr-rule-ref: selector(".CBSelectItemChoiceBox:alias");
 }
 af|selectOneRadio af|selectOneRadio::content br {
-    -tr-rule-ref: selector(".CBSelectItemChoiceBoxElementsSpacing");       
+    -tr-rule-ref: selector(".CBSelectItemChoiceBoxElementsSpacing:alias");       
 }
 
 /* Select Many CheckBox component ----------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBSelectManyCheckBox {
+.CBSelectManyCheckBox:alias {
     -tr-rule-ref: selector(".CBCheckBox:alias");
 }
-.CBSelectManyCheckBoxMainLabel {
+.CBSelectManyCheckBoxMainLabel:alias {
     -tr-rule-ref: selector(".CBCheckBoxMainLabel:alias");
 }
-.CBSelectManyChechBoxCheckLabel {
+.CBSelectManyChechBoxCheckLabel:alias {
     -tr-rule-ref: selector(".CBChechBoxCheckLabel:alias");
 }
 /* Inject CasaBlanca styles */
 af|selectManyCheckbox {
-    -tr-rule-ref: selector(".CBSelectManyCheckBox");
+    -tr-rule-ref: selector(".CBSelectManyCheckBox:alias");
 }
 af|selectManyCheckbox af|selectManyCheckbox::label {
-    -tr-rule-ref: selector(".CBSelectManyCheckBoxMainLabel");
+    -tr-rule-ref: selector(".CBSelectManyCheckBoxMainLabel:alias");
 }
 af|selectManyCheckbox af|selectManyCheckbox::content label {
-    -tr-rule-ref: selector(".CBSelectManyChechBoxCheckLabel");
+    -tr-rule-ref: selector(".CBSelectManyChechBoxCheckLabel:alias");
 }
 
 /* Select Many ListBox ---------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBSelectManyListBox {
+.CBSelectManyListBox:alias {
     -tr-rule-ref: selector(".CBListBox:alias");    
 }
-.CBSelectManyListBoxMainLabel {
+.CBSelectManyListBoxMainLabel:alias {
     -tr-rule-ref: selector(".CBListBoxMainLabel:alias");
 }
-.CBSelectManyListBoxOptionBox {
+.CBSelectManyListBoxOptionBox:alias {
     -tr-rule-ref: selector(".CBListBoxOptionBox:alias");
 }
-.CBSelectManyListBoxOptionText {
+.CBSelectManyListBoxOptionText:alias {
     -tr-rule-ref: selector(".CBListBoxOptionText:alias");
 }
 /* Inject CasaBlanca styles */
 af|selectManyListbox {
-    -tr-rule-ref: selector(".CBSelectManyListBox");
+    -tr-rule-ref: selector(".CBSelectManyListBox:alias");
 }
 af|selectManyListbox af|selectManyListbox::label {
-    -tr-rule-ref: selector(".CBSelectManyListBoxMainLabel");
+    -tr-rule-ref: selector(".CBSelectManyListBoxMainLabel:alias");
 }
 af|selectManyListbox af|selectManyListbox::content {
-    -tr-rule-ref: selector(".CBSelectManyListBoxOptionBox");
+    -tr-rule-ref: selector(".CBSelectManyListBoxOptionBox:alias");
 }
 af|selectManyListbox af|selectManyListbox::content option {
-    -tr-rule-ref: selector(".CBSelectManyListBoxOptionText");
+    -tr-rule-ref: selector(".CBSelectManyListBoxOptionText:alias");
 }
 
 /* Select Many Shuttle ---------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBSelectManyShuttle {
+.CBSelectManyShuttle:alias {
     -tr-rule-ref: selector(".CBShuttle:alias");
 }
-.CBSelectManyShuttleButton {
+.CBSelectManyShuttleButton:alias {
     -tr-rule-ref: selector(".CBShuttleButton:alias");
 }
-.CBSelectManyShuttleButtonHover {
+.CBSelectManyShuttleButtonHover:alias {
     -tr-rule-ref: selector(".CBShuttleButtonHover:alias");
 }
-.CBSelectManyShuttleListBox {
+.CBSelectManyShuttleListBox:alias {
     -tr-rule-ref: selector(".CBShuttleListBox:alias");
 }
-.CBSelectManyShuttleListBoxContainer {
+.CBSelectManyShuttleListBoxContainer:alias {
     -tr-rule-ref: selector(".CBShuttleListBoxContainer:alias");
 }
-.CBSelectManyShuttleButtonSpacer {
+.CBSelectManyShuttleButtonSpacer:alias {
     -tr-rule-ref: selector(".CBShuttleButtonSpacer:alias");
 }
-.CBSelectManyShuttleDisplayBox {
+.CBSelectManyShuttleDisplayBox:alias {
     -tr-rule-ref: selector(".CBShuttleDisplayBox:alias");
 }
-.CBSelectManyShuttleLabel {
+.CBSelectManyShuttleLabel:alias {
     -tr-rule-ref: selector(".CBShuttleLabel:alias");
 }
 /* Clear some legacy stuff */
@@ -3135,126 +3263,128 @@ af|selectManyShuttle::box-content af|selectManyListbox::content option[value=""]
 }
 /* Inject CasaBlanca styles */
 af|selectManyShuttle a.OraLink {
-    -tr-rule-ref: selector(".CBSelectManyShuttleButton");
+    -tr-rule-ref: selector(".CBSelectManyShuttleButton:alias");
 }
-af|selectManyShuttle a.OraLink:hover {
-    -tr-rule-ref: selector(".CBSelectManyShuttleButtonHover");
+@agent (touchScreen:none) {
+  af|selectManyShuttle a.OraLink:hover {
+      -tr-rule-ref: selector(".CBSelectManyShuttleButtonHover:alias");
+  }
 }
 af|selectManyShuttle::box-content af|selectManyListbox {
-    -tr-rule-ref: selector(".CBSelectManyShuttleListBoxContainer");
+    -tr-rule-ref: selector(".CBSelectManyShuttleListBoxContainer:alias");
 }
 af|selectManyShuttle::box-content af|selectManyListbox::content {
-    -tr-rule-ref: selector(".CBSelectManyShuttleListBox");
+    -tr-rule-ref: selector(".CBSelectManyShuttleListBox:alias");
 }
 af|selectManyShuttle div {
-    -tr-rule-ref: selector(".CBSelectManyShuttleButtonSpacer");
+    -tr-rule-ref: selector(".CBSelectManyShuttleButtonSpacer:alias");
 }
 af|selectManyShuttle af|selectManyShuttle::box-content {
-    -tr-rule-ref: selector(".CBSelectManyShuttleDisplayBox");
+    -tr-rule-ref: selector(".CBSelectManyShuttleDisplayBox:alias");
 }
 af|selectManyShuttle .OraShuttleHeader {
-   -tr-rule-ref: selector(".CBSelectManyShuttleLabel");
+   -tr-rule-ref: selector(".CBSelectManyShuttleLabel:alias");
 }
 
 /* Select One Choice ------------------------------------------------------------------------------------------------ */
 /* CasaBlanca styles */
-.CBSelectOneChoice {
+.CBSelectOneChoice:alias {
     -tr-rule-ref: selector(".CBChoice:alias");
 }
-.CBSelectOneChoiceLabel {
+.CBSelectOneChoiceLabel:alias {
     -tr-rule-ref: selector(".CBChoiceLabel:alias");
 }
-.CBSelectOneChoiceOptionText {
+.CBSelectOneChoiceOptionText:alias {
     -tr-rule-ref: selector(".CBChoiceOptionText:alias");
 }
 /* Inject CasaBlanca styles */
 af|selectOneChoice {
-    -tr-rule-ref: selector(".CBSelectOneChoice");
+    -tr-rule-ref: selector(".CBSelectOneChoice:alias");
 }
 af|selectOneChoice af|selectOneChoice::label label {
-    -tr-rule-ref: selector(".CBSelectOneChoiceLabel");
+    -tr-rule-ref: selector(".CBSelectOneChoiceLabel:alias");
 }
 af|selectOneChoice af|selectOneChoice::content, af|selectOneChoice af|selectOneChoice::content option {
-    -tr-rule-ref: selector(".CBSelectOneChoiceOptionText");
+    -tr-rule-ref: selector(".CBSelectOneChoiceOptionText:alias");
 }
 
 /* Select One ListBox ----------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBSelectOneListBox {
+.CBSelectOneListBox:alias {
     -tr-rule-ref: selector(".CBListBox:alias");
 }
-.CBSelectOneListBoxLabel {
+.CBSelectOneListBoxLabel:alias {
     -tr-rule-ref: selector(".CBListBoxMainLabel:alias");
 }
-.CBSelectOneListBoxOptionBox {
+.CBSelectOneListBoxOptionBox:alias {
     -tr-rule-ref: selector(".CBListBoxOptionBox:alias");
 }
-.CBSelectOneListBoxOptionText {
+.CBSelectOneListBoxOptionText:alias {
     -tr-rule-ref: selector(".CBListBoxOptionText:alias");
 }
-.CBSelectOneListBoxElementsSpacing {
+.CBSelectOneListBoxElementsSpacing:alias {
     -tr-rule-ref: selector(".CBFormVerticalSpacingLook:alias");
 }
 /* Inject CasaBlanca styles */
 af|selectOneListbox {
-    -tr-rule-ref: selector(".CBSelectOneListBox");
+    -tr-rule-ref: selector(".CBSelectOneListBox:alias");
 }
 af|selectOneListbox af|selectOneListbox::label label {
-    -tr-rule-ref: selector(".CBSelectOneListBoxLabel");
+    -tr-rule-ref: selector(".CBSelectOneListBoxLabel:alias");
 }
 af|selectOneListbox af|selectOneListbox::content {
-    -tr-rule-ref: selector(".CBSelectOneListBoxOptionBox");    
+    -tr-rule-ref: selector(".CBSelectOneListBoxOptionBox:alias");
 }
 af|selectOneListbox af|selectOneListbox::content option {
-    -tr-rule-ref: selector(".CBSelectOneListBoxOptionText");
+    -tr-rule-ref: selector(".CBSelectOneListBoxOptionText:alias");
 }
 
 /* Select One Radio ------------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBSelectOneRadio {
+.CBSelectOneRadio:alias {
     -tr-rule-ref: selector(".CBRadio:alias");
 }
-.CBSelectOneRadioMainLabel {
+.CBSelectOneRadioMainLabel:alias {
     -tr-rule-ref: selector(".CBRadioMainLabel:alias");
 }
-.CBSelectOneRadioRadioLabel {
+.CBSelectOneRadioRadioLabel:alias {
     -tr-rule-ref: selector(".CBRadioRadioLabel:alias");
 }
 /* Inject CasaBlanca styles */
 af|selectOneRadio {
-    -tr-rule-ref: selector(".CBSelectOneRadio");
+    -tr-rule-ref: selector(".CBSelectOneRadio:alias");
 }
 af|selectOneRadio af|selectOneRadio::label {
-    -tr-rule-ref: selector(".CBSelectOneRadioMainLabel");       
+    -tr-rule-ref: selector(".CBSelectOneRadioMainLabel:alias");
 }
 af|selectOneRadio af|selectOneRadio::content label {
-   -tr-rule-ref: selector(".CBSelectOneRadioRadioLabel");
+   -tr-rule-ref: selector(".CBSelectOneRadioRadioLabel:alias");
 }
 
 /* Select Order Shuttle --------------------------------------------------------------------------------------------- */
 /* Inject CasaBlanca styles */
-.CBSelectOrderShuttle {
+.CBSelectOrderShuttle:alias {
     -tr-rule-ref: selector(".CBShuttle:alias");
 }
-.CBSelectOrderShuttleButton {
+.CBSelectOrderShuttleButton:alias {
     -tr-rule-ref: selector(".CBShuttleButton:alias");
 }
-.CBSelectOrderShuttleButtonHover {
+.CBSelectOrderShuttleButtonHover:alias {
     -tr-rule-ref: selector(".CBShuttleButtonHover:alias");
 }
-.CBSelectOrderShuttleListBox {
+.CBSelectOrderShuttleListBox:alias {
     -tr-rule-ref: selector(".CBShuttleListBox:alias");
 }
-.CBSelectOrderShuttleListBoxContainer {
+.CBSelectOrderShuttleListBoxContainer:alias {
     -tr-rule-ref: selector(".CBShuttleListBoxContainer:alias");
 }
-.CBSelectOrderShuttleButtonSpacer {
+.CBSelectOrderShuttleButtonSpacer:alias {
     -tr-rule-ref: selector(".CBShuttleButtonSpacer:alias");
 }
-.CBSelectOrderShuttleDisplayBox {
+.CBSelectOrderShuttleDisplayBox:alias {
     -tr-rule-ref: selector(".CBShuttleDisplayBox:alias");
 }
-.CBSelectOrderShuttleLabel {
+.CBSelectOrderShuttleLabel:alias {
     -tr-rule-ref: selector(".CBShuttleLabel:alias");
 }
 /* Clear some legacy stuff */
@@ -3263,22 +3393,24 @@ af|selectOrderShuttle::box-content af|selectManyListbox::content option[value=""
 }
 /* Inject CasaBlanca styles */
 af|selectOrderShuttle::box-content a {
-    -tr-rule-ref: selector(".CBSelectOrderShuttleButton");
+    -tr-rule-ref: selector(".CBSelectOrderShuttleButton:alias");
 }
-af|selectOrderShuttle::box-content a:hover {
-    -tr-rule-ref: selector(".CBSelectOrderShuttleButtonHover");
+@agent (touchScreen:none) {
+  af|selectOrderShuttle::box-content a:hover {
+      -tr-rule-ref: selector(".CBSelectOrderShuttleButtonHover:alias");
+  }
 }
 af|selectOrderShuttle::box-content af|selectManyListbox {
-    -tr-rule-ref: selector(".CBSelectOrderShuttleListBoxContainer");
+    -tr-rule-ref: selector(".CBSelectOrderShuttleListBoxContainer:alias");
 }
 af|selectOrderShuttle::box-content af|selectManyListbox::content {
-    -tr-rule-ref: selector(".CBSelectOrderShuttleListBox");
+    -tr-rule-ref: selector(".CBSelectOrderShuttleListBox:alias");
 }
 af|selectOrderShuttle::box-content br, af|selectOrderShuttle::box-content img {
-    -tr-rule-ref: selector(".CBSelectOrderShuttleButtonSpacer");
+    -tr-rule-ref: selector(".CBSelectOrderShuttleButtonSpacer:alias");
 }
 af|selectManyShuttle af|selectOrderShuttle::box-content {
-    -tr-rule-ref: selector(".CBSelectOrderShuttleDisplayBox");
+    -tr-rule-ref: selector(".CBSelectOrderShuttleDisplayBox:alias");
 }
 
 /* Select Range ChoiceBar ------------------------------------------------------------------------------------------- */
@@ -3286,7 +3418,7 @@ af|selectManyShuttle af|selectOrderShuttle::box-content {
 
 /* Separator component ---------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBSeparator {
+.CBSeparator:alias {
     height: auto;
     margin: 15px 0 0;
     border-width: 1px 0 0 0;
@@ -3296,96 +3428,101 @@ af|selectManyShuttle af|selectOrderShuttle::box-content {
 }
 /* Inject CasaBlanca styles */
 .af|separator, .p_OraContentFooterRule, af|panelFormLayout::separator {
-    -tr-rule-ref: selector(".CBSeparator");
+    -tr-rule-ref: selector(".CBSeparator:alias");
 }
 
 /* Show Detail Header component ------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBShowDetailHeader {
+.CBShowDetailHeader:alias {
     -tr-rule-ref: selector(".CBHeaderLevel1Look:alias");
 }
-.CBShowDetailHeaderExpandCollapseItem {
+.CBShowDetailHeaderExpandCollapseItem:alias {
     -tr-rule-ref: selector(".CBLinkLook:alias");
 }
-.CBShowDetailHeaderExpandCollapseItemHover {
+.CBShowDetailHeaderExpandCollapseItemHover:alias {
     -tr-rule-ref: selector(".CBLinkLookHover:alias");
     text-decoration: none;
 }
 /* Inject CasaBlanca styles */
 h1.af|showDetailHeader {
-    -tr-rule-ref: selector(".CBShowDetailHeader");
+    -tr-rule-ref: selector(".CBShowDetailHeader:alias");
 }
 h1.af|showDetailHeader af|showDetail::disclosure-icon-link span {
-    -tr-rule-ref: selector(".CBShowDetailHeaderExpandCollapseItem");
+    -tr-rule-ref: selector(".CBShowDetailHeaderExpandCollapseItem:alias");
 }
-h1.af|showDetailHeader af|showDetail::disclosure-icon-link:hover,
-h1.af|showDetailHeader af|showDetail::disclosure-icon-link span:hover {
-    -tr-rule-ref: selector(".CBShowDetailHeaderExpandCollapseItemHover");
+@agent (touchScreen:none) {
+  h1.af|showDetailHeader af|showDetail::disclosure-icon-link:hover,
+  h1.af|showDetailHeader af|showDetail::disclosure-icon-link span:hover {
+      -tr-rule-ref: selector(".CBShowDetailHeaderExpandCollapseItemHover:alias");
+  }
 }
-
 
 /* Show Detail Item component --------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBShowDetailItem {
+.CBShowDetailItem:alias {
 }
-.CBShowDetailTitle {
+.CBShowDetailTitle:alias {
     -tr-rule-ref: selector(".CBLinkLook:alias");
 }
-.CBShowDetailTitleHover {
+.CBShowDetailTitleHover:alias {
     -tr-rule-ref: selector(".CBLinkLookHover:alias");  
 }
-.CBShowDetailExpandCollapseItem {
+.CBShowDetailExpandCollapseItem:alias {
     -tr-rule-ref: selector(".CBLinkLook:alias");
 }
-.CBShowDetailExpandCollapseItemHover {
+.CBShowDetailExpandCollapseItemHover:alias {
     -tr-rule-ref: selector(".CBLinkLookHover:alias");
     text-decoration: none; 
 }
 /* Inject CasaBlanca styles */
 af|showDetail::disclosure-icon-link .p_OraHideShowDisclosedSymbol {
-    -tr-rule-ref: selector(".CBShowDetailExpandCollapseItem");
+    -tr-rule-ref: selector(".CBShowDetailExpandCollapseItem:alias");
 }
-af|showDetail::prompt-undisclosed af|showDetail::disclosure-icon-link:hover,
-af|showDetail::prompt-disclosed af|showDetail::disclosure-icon-link:hover {
-    -tr-rule-ref: selector(".CBShowDetailExpandCollapseItemHover");
+@agent (touchScreen:none) {
+  af|showDetail::prompt-undisclosed af|showDetail::disclosure-icon-link:hover,
+  af|showDetail::prompt-disclosed af|showDetail::disclosure-icon-link:hover {
+      -tr-rule-ref: selector(".CBShowDetailExpandCollapseItemHover:alias");
+  }
+  af|showDetail::prompt-undisclosed af|showDetail::prompt-link:hover,
+  af|showDetail::prompt-disclosed af|showDetail::prompt-link:hover {
+      -tr-rule-ref: selector(".CBShowDetailTitleHover:alias");
+  }
 }
 af|showDetail::prompt-undisclosed af|showDetail::prompt-link,
 af|showDetail::prompt-disclosed af|showDetail::prompt-link {
-    -tr-rule-ref: selector(".CBShowDetailTitle");
-}
-af|showDetail::prompt-undisclosed af|showDetail::prompt-link:hover,
-af|showDetail::prompt-disclosed af|showDetail::prompt-link:hover {
-    -tr-rule-ref: selector(".CBShowDetailTitleHover");    
+    -tr-rule-ref: selector(".CBShowDetailTitle:alias");
 }
 
 /* Single step Button Bar component --------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBSingleStepButtonBar {
+.CBSingleStepButtonBar:alias {
 }
-.CBSingleStepButtonBarButton {
+.CBSingleStepButtonBarButton:alias {
     -tr-rule-ref: selector(".CBButton:alias");
 }
-.CBSingleStepButtonBarButtonHover {
+.CBSingleStepButtonBarButtonHover:alias {
     -tr-rule-ref: selector(".CBButtonHover:alias");
 }
-.CBSingleStepButtonBarButtonDisabled {
+.CBSingleStepButtonBarButtonDisabled:alias {
     -tr-rule-ref: selector(".CBButtonDisabled:alias");
 }
-.CBSingleStepButtonBarLabel {
+.CBSingleStepButtonBarLabel:alias {
     -tr-rule-ref: selector(".CBLabel:alias");
 }
 /* Inject CasaBlanca styles */
 af|singleStepButtonBar {
-    -tr-rule-ref: selector(".CBSingleStepButtonBar");
+    -tr-rule-ref: selector(".CBSingleStepButtonBar:alias");
 }
 af|singleStepButtonBar af|commandButton {
-    -tr-rule-ref: selector(".CBSingleStepButtonBarButton");
+    -tr-rule-ref: selector(".CBSingleStepButtonBarButton:alias");
 }
-af|singleStepButtonBar af|commandButton:hover {
-    -tr-rule-ref: selector(".CBSingleStepButtonBarButtonHover");
+@agent (touchScreen:none) {
+  af|singleStepButtonBar af|commandButton:hover {
+      -tr-rule-ref: selector(".CBSingleStepButtonBarButtonHover:alias");
+  }
 }
 af|singleStepButtonBar af|singleStepButtonBar::label {
-    -tr-rule-ref: selector(".CBSingleStepButtonBarLabel");    
+    -tr-rule-ref: selector(".CBSingleStepButtonBarLabel:alias");
 }
 
 /* Spacer component ------------------------------------------------------------------------------------------------- */
@@ -3399,294 +3536,513 @@ af|singleStepButtonBar af|singleStepButtonBar::label {
 
 /* Train component -------------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBTrain {
+.CBTrainTrain:alias {
     -tr-rule-ref: selector(".CBTrain:alias");
 }
-.CBTrainStop {
+.CBTrainStop:alias {
     padding-right: 5px;
 }
-.CBTrainStopUnvisited {
+.CBTrainTrainStopUnvisited:alias {
     -tr-rule-ref: selector(".CBTrainStopUnvisited:alias");
 }
-.CBTrainStopUnvisitedHover {
+.CBTrainTrainStopUnvisitedHover:alias {
     -tr-rule-ref: selector(".CBTrainStopUnvisitedHover:alias");
 }
-.CBTrainStopVisited {
+.CBTrainTrainStopVisited:alias {
     -tr-rule-ref: selector(".CBTrainStopVisited:alias");
 }
-.CBTrainStopVisitedHover {
+.CBTrainTrainStopVisitedHover:alias {
     -tr-rule-ref: selector(".CBTrainStopVisitedHover:alias");
 }
-.CBTrainStopSelected {
+.CBTrainTrainStopSelected:alias {
     -tr-rule-ref: selector(".CBTrainStopSelected:alias");
 }
-.CBTrainStopSelectedHover {
+.CBTrainTrainStopSelectedHover:alias {
     -tr-rule-ref: selector(".CBTrainStopSelectedHover:alias");
 }
 /* Inject CasaBlanca styles */
+af|train {
+    -tr-rule-ref: selector(".CBTrainTrain:alias");
+}
 af|train::stop {
-    -tr-rule-ref: selector(".CBTrainStop");    
+    -tr-rule-ref: selector(".CBTrainStop:alias");
 }
 .p_AFSelected af|train::link {
-    -tr-rule-ref: selector(".CBTrainStopSelected");
+    -tr-rule-ref: selector(".CBTrainTrainStopSelected:alias");
 }
-.p_AFSelected af|train::link:hover {
-    -tr-rule-ref: selector(".CBTrainStopSelectedHover");
+@agent (touchScreen:none) {
+  .p_AFSelected af|train::link:hover {
+      -tr-rule-ref: selector(".CBTrainTrainStopSelectedHover:alias");
+  }
+  .p_AFVisited af|train::link:hover {
+      -tr-rule-ref: selector(".CBTrainTrainStopVisitedHover:alias");
+  }
+  .p_AFUnvisited af|train::link:hover {
+      -tr-rule-ref: selector(".CBTrainTrainStopUnvisitedHover:alias");
+  }
 }
 .p_AFVisited af|train::link {
-    -tr-rule-ref: selector(".CBTrainStopVisited");
-}
-.p_AFVisited af|train::link:hover {
-    -tr-rule-ref: selector(".CBTrainStopVisitedHover");
+    -tr-rule-ref: selector(".CBTrainTrainStopVisited:alias");
 }
 .p_AFUnvisited af|train::link {
-    -tr-rule-ref: selector(".CBTrainStopUnvisited");
+    -tr-rule-ref: selector(".CBTrainTrainStopUnvisited:alias");
 }
-.p_AFUnvisited af|train::link:hover {
-    -tr-rule-ref: selector(".CBTrainStopUnvisitedHover");
+/* Clear some legacy stuff */
+af|train::join {
+    display: none ! important;
+}
+af|train::stop-icon-cell {
+    display: none ! important;
+}
+af|train table {
+    width: auto ! important;
 }
 
 /* Table component -------------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBTableCell {
+.CBTableTableCell:alias {
     -tr-rule-ref: selector(".CBTableCell:alias");
 }
-.CBTableCellInside {
+.CBTableTableCellInside:alias {
     -tr-rule-ref: selector(".CBTableCellInside:alias");
 }
-.CBTableCellAll {
+.CBTableTableCellAll:alias {
     -tr-rule-ref: selector(".CBTableCellAll:alias");    
 }
-.CBTableCellTopLine {
+.CBTableTableCellTopLine:alias {
     -tr-rule-ref: selector(".CBTableCellTopLine:alias");
 }
-.CBTableCellTopRighCorner {
+.CBTableTableCellTopRighCorner:alias {
     -tr-rule-ref: selector(".CBTableCellTopRighCorner:alias");
 }
-.CBTableCellRightLine {
+.CBTableTableCellRightLine:alias {
     -tr-rule-ref: selector(".CBTableCellRightLine:alias");
 }
-.CBTableCellBottomRightCorner {
+.CBTableTableCellBottomRightCorner:alias {
     -tr-rule-ref: selector(".CBTableCellBottomRightCorner:alias");
 }
-.CBTableCellBottomLine {
+.CBTableTableCellBottomLine:alias {
     -tr-rule-ref: selector(".CBTableCellBottomLine:alias");
 }
-.CBTableCellBottomLeftCorner {
+.CBTableTableCellBottomLeftCorner:alias {
     -tr-rule-ref: selector(".CBTableCellBottomLeftCorner:alias");
 }
-.CBTableCellLeftLine {
+.CBTableTableCellLeftLine:alias {
     -tr-rule-ref: selector(".CBTableCellLeftLine:alias");
 }
-.CBTableCellTopLeftCorner {
+.CBTableTableCellTopLeftCorner:alias {
     -tr-rule-ref: selector(".CBTableCellTopLeftCorner:alias");
 }
-.CBTableHeadCell {
+.CBTableTableCellHorizontalLines:alias {
+    -tr-rule-ref: selector(".CBTableCellHorizontalLines:alias");
+}
+.CBTableTableCellVerticalLines:alias {
+    -tr-rule-ref: selector(".CBTableCellVerticalLines:alias");
+}
+.CBTableTableHeadCell:alias {
     -tr-rule-ref: selector(".CBTableHeadCell:alias");
 }
-.CBTableFooterCell {
+.CBTableTableFooterCell:alias {
     -tr-rule-ref: selector(".CBTableFooterCell:alias");
 }
-.CBTableControlBarTop {
-    -tr-rule-ref: selector(".CBTableControlBar:alias");
-    border-width: 1px 1px 0 1px;
+.CBTableTableControlBarTop:alias {
+    -tr-rule-ref: selector(".CBTableControlBarTop:alias");
 }
-.CBTableControlBarBottom {
-    -tr-rule-ref: selector(".CBTableControlBar:alias");
-    border-width: 0 1px 1px 1px;
+.CBTableTableControlBarBottom:alias {
+    -tr-rule-ref: selector(".CBTableControlBarBottom:alias");
 }
-.CBTableSubControlBar {
+.CBTableTableSubControlBar:alias {
     -tr-rule-ref: selector(".CBTableSubControlBar:alias");
-    border-width: 1px 1px 0 1px;
 }
-.CBTableBody {
+.CBTableTablePathBar:alias {
+    -tr-rule-ref: selector(".CBTablePathBar:alias");
+}                                                   
+.CBTableTableBody:alias {
     -tr-rule-ref: selector(".CBTableBody:alias");
 }
-.CBTableBarButton {
+.CBTableBarButton:alias {
     -tr-rule-ref: selector(".CBButton:alias") ;
     display: inline;
 }
-.CBTableBarButtonHover {
+.CBTableBarButtonHover:alias {
     -tr-rule-ref: selector(".CBButtonHover:alias");
     display: inline;
 }
-.CBTableBarButtonDisabled {
+.CBTableBarButtonDisabled:alias {
     -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
     -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
 }
 /* Inject CasaBlanca styles */
 af|table::control-bar-top {
-    -tr-rule-ref: selector(".CBTableControlBarTop");
+    -tr-rule-ref: selector(".CBTableTableControlBarTop:alias");
 }
 af|table::control-bar-bottom {
-    -tr-rule-ref: selector(".CBTableControlBarBottom");
-}
-af|table::sub-control-bar, .OraHGridLocatorHeader {
-    -tr-rule-ref: selector(".CBTableSubControlBar");
-}
-.OraHGridLocatorHeader {
-    padding: 0;
+    -tr-rule-ref: selector(".CBTableTableControlBarBottom:alias");
 }
 af|table::sub-control-bar {
-    padding: 8px 3px;
+    -tr-rule-ref: selector(".CBTableTableSubControlBar:alias");
+}
+.OraHGridLocatorHeader {
+    -tr-rule-ref: selector(".CBTableTablePathBar:alias");
+    padding: 0;
 }
 /* active navigation buttons */
 af|table::sub-control-bar .OraLink,                                                     
 af|table::sub-control-bar af|showDetail::prompt-link {
-   -tr-rule-ref: selector(".CBTableBarButton") ;
+    -tr-rule-ref: selector(".CBTableBarButton:alias") ;
 }
 /* active hover navigation buttons */
-af|table::sub-control-bar .OraLink:hover,
-af|table::sub-control-bar af|showDetail::prompt-link:hover {
-   -tr-rule-ref: selector(".CBTableBarButtonHover");
+@agent (touchScreen:none) {
+  af|table::sub-control-bar .OraLink:hover,
+  af|table::sub-control-bar af|showDetail::prompt-link:hover {
+      -tr-rule-ref: selector(".CBTableBarButtonHover:alias");
+  }
+  af|table::sub-control-bar .OraNavBarActiveLink:hover,
+  af|table::sub-control-bar af|showDetail::prompt-link:hover {
+      -tr-rule-ref: selector(".CBTableBarButtonHover:alias");
+  }
 }
 /* inactive navigation buttons */
 af|table::control-bar-top table td span,
 af|table::control-bar-bottom table td span,
 af|table::sub-control-bar table td span {
-    -tr-rule-ref: selector(".CBTableBarButtonDisabled");
+    -tr-rule-ref: selector(".CBTableBarButtonDisabled:alias");
 }
 /* header */
 af|column::header-text {
-    -tr-rule-ref: selector(".CBTableHeadCell");
+    -tr-rule-ref: selector(".CBTableTableHeadCell:alias");
     display: table-cell;
 }
 /* sub control bar link like buttons */
 af|table::sub-control-bar .OraNavBarActiveLink,
 af|table::sub-control-bar af|showDetail::prompt-link {
-   -tr-rule-ref: selector(".CBTableBarButton");
+    -tr-rule-ref: selector(".CBTableBarButton:alias");
 }
-af|table::sub-control-bar .OraNavBarActiveLink:hover,
-af|table::sub-control-bar af|showDetail::prompt-link:hover {
-   -tr-rule-ref: selector(".CBTableBarButtonHover");
+af|table::sub-control-bar .OraNavBarActiveLink {
+    float: left;
+    display: block;
+    margin-right: 2px;
+}
+af|table::select-all-icon {
+    content:url(/adf/images/casablanca/icons/selectAll.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|table::select-all-icon {
+        content:url(/adf/images/casablanca/icons/selectAll_8bit.png);
+    }
+}
+af|table::select-none-icon {
+    content:url(/adf/images/casablanca/icons/selectNone.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|table::select-none-icon {
+        content:url(/adf/images/casablanca/icons/selectNone_8bit.png);
+    }
 }
 .AFTableCellDataBorderColor:alias, TableCellHeaderBorderColor, af|column::header-text,
 af|table::content {
-    -tr-rule-ref: selector(".CBTableBody");
+    -tr-rule-ref: selector(".CBTableTableBody:alias");
 }
-af|table::content af|column::cell-text, af|column::cell-number, af|table::content af|column::cell-icon-format,
-af|tableSelectMany::cell-icon-format, af|tableSelectOne::cell-icon-format {
-    -tr-rule-ref: selector(".CBTableCell");
-    -tr-rule-ref: selector(".CBTableCellInside"); 
+af|table::content af|column::cell-text, af|table::content af|column::cell-number,
+af|table::content af|column::cell-icon-format, af|table::content af|tableSelectOne::cell-icon-format,
+af|table::content af|tableSelectMany::cell-icon-format {
+    -tr-rule-ref: selector(".CBTableTableCell:alias");
+    -tr-rule-ref: selector(".CBTableTableCellInside:alias");
 }
 /* borders types */
 af|table::content .OraTableBorder1111 {
-    -tr-rule-ref: selector(".CBTableCellAll");    
+    -tr-rule-ref: selector(".CBTableTableCellAll:alias");
 }
 af|table::content .OraTableBorder1000 {
-    -tr-rule-ref: selector(".CBTableCellTopLine");    
+    -tr-rule-ref: selector(".CBTableTableCellTopLine:alias");
+}
+af|table::content .OraTableBorder1010 {
+    -tr-rule-ref: selector(".CBTableTableCellHorizontalLines:alias");
 }
 af|table::content .OraTableBorder1100 {
-    -tr-rule-ref: selector(".CBTableCellTopRighCorner");
+    -tr-rule-ref: selector(".CBTableTableCellTopRighCorner:alias");
 }
 af|table::content .OraTableBorder0100 {
-    -tr-rule-ref: selector(".CBTableCellRightLine");    
+    -tr-rule-ref: selector(".CBTableTableCellRightLine:alias");
+}
+af|table::content .OraTableBorder0101 {
+    -tr-rule-ref: selector(".CBTableTableCellVerticalLines:alias");
 }
 af|table::content .OraTableBorder0110 {
-    -tr-rule-ref: selector(".CBTableCellBottomRightCorner");
+    -tr-rule-ref: selector(".CBTableTableCellBottomRightCorner:alias");
 }
 af|table::content .OraTableBorder0010 {
-    -tr-rule-ref: selector(".CBTableCellBottomLine");
+    -tr-rule-ref: selector(".CBTableTableCellBottomLine:alias");
 }
 af|table::content .OraTableBorder0011 {
-    -tr-rule-ref: selector(".CBTableCellBottomLeftCorner");
+    -tr-rule-ref: selector(".CBTableTableCellBottomLeftCorner:alias");
 }
 af|table::content .OraTableBorder0001 {
-    -tr-rule-ref: selector(".CBTableCellLeftLine");
+    -tr-rule-ref: selector(".CBTableTableCellLeftLine:alias");
 }
 af|table::content .OraTableBorder1001 {
-    -tr-rule-ref: selector(".CBTableCellTopLeftCorner");
+    -tr-rule-ref: selector(".CBTableTableCellTopLeftCorner:alias");
 }
-
+/* Force bottom line for headers */
+af|table::content af|column::header-text {
+    -tr-rule-ref: selector(".CBTableTableCellBottomLine:alias");
+}
 /* footer cells */
 af|table::content af|table::column-footer, af|table::content af|column::total-text {
     display: table-cell;
-    -tr-rule-ref: selector(".CBTableFooterCell");
+    -tr-rule-ref: selector(".CBTableTableFooterCell:alias");
+}
+/* Clear some legacy stuff */
+af|table::control-bar-top tbody tr td,
+af|table::control-bar-bottom tbody tr td,
+af|table::sub-control-bar tbody tr td {
+    font-size: 0px;
+    line-height: 0px;
+    color: transparent; /* Fix a WebKit problem */
 }
 
 /* Tree table component --------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBTreeTableCell {
+.CBTreeTableCell:alias {
     -tr-rule-ref: selector(".CBTableCell:alias");
 }
-.CBTreeTableHeadCell {
+.CBTreeTableCellInside:alias {
+    -tr-rule-ref: selector(".CBTableCellInside:alias");
+}
+.CBTreeTableCellAll:alias {
+    -tr-rule-ref: selector(".CBTableCellAll:alias");
+}
+.CBTreeTableCellTopLine:alias {
+    -tr-rule-ref: selector(".CBTableCellTopLine:alias");
+}
+.CBTreeTableCellTopRighCorner:alias {
+    -tr-rule-ref: selector(".CBTableCellTopRighCorner:alias");
+}
+.CBTreeTableCellRightLine:alias {
+    -tr-rule-ref: selector(".CBTableCellRightLine:alias");
+}
+.CBTreeTableCellBottomRightCorner:alias {
+    -tr-rule-ref: selector(".CBTableCellBottomRightCorner:alias");
+}
+.CBTreeTableCellBottomLine:alias {
+    -tr-rule-ref: selector(".CBTableCellBottomLine:alias");
+}
+.CBTreeTableCellBottomLeftCorner:alias {
+    -tr-rule-ref: selector(".CBTableCellBottomLeftCorner:alias");
+}
+.CBTreeTableCellLeftLine:alias {
+    -tr-rule-ref: selector(".CBTableCellLeftLine:alias");
+}
+.CBTreeTableCellTopLeftCorner:alias {
+    -tr-rule-ref: selector(".CBTableCellTopLeftCorner:alias");
+}
+.CBTreeTableCellHorizontalLines:alias {
+    -tr-rule-ref: selector(".CBTableCellHorizontalLines:alias");
+}
+.CBTreeTableCellVerticalLines:alias {
+    -tr-rule-ref: selector(".CBTableCellVerticalLines:alias");
+}
+.CBTreeTableHeadCell:alias {
     -tr-rule-ref: selector(".CBTableHeadCell:alias");
 }
-.CBTreeTableFooterCell {
+.CBTreeTableFooterCell:alias {
     -tr-rule-ref: selector(".CBTableFooterCell:alias");
 }
-.CBTreeTableControlBarTop {
-    -tr-rule-ref: selector(".CBTableControlBar:alias");
-    border-width: 1px 1px 0 1px;
+.CBTreeTableControlBarTop:alias {
+    -tr-rule-ref: selector(".CBTableControlBarTop:alias");
 }
-.CBTreeTableControlBarBottom {
-    -tr-rule-ref: selector(".CBTableControlBar:alias");
-    border-width: 0 1px 1px 1px;
+.CBTreeTableControlBarBottom:alias {
+    -tr-rule-ref: selector(".CBTableControlBarBottom:alias");
 }
-.CBTreeTableSubControlBar {
+.CBTreeTableSubControlBar:alias {
     -tr-rule-ref: selector(".CBTableSubControlBar:alias");
-    border-width: 1px 1px 0 1px;
 }
-.CBTreeTableBody {
+.CBTreeTablePathBar:alias {
+    -tr-rule-ref: selector(".CBTablePathBar:alias");
+}
+.CBTreeTableBody:alias {
     -tr-rule-ref: selector(".CBTableBody:alias");
 }
-.CBTreeTableBarButton {
+.CBTreeTableExpansionButton:alias {
+    top: -2px; /* overwrite the default position */
+}
+.CBTreeTableBarButton:alias {
     -tr-rule-ref: selector(".CBButton:alias") ;
     display: inline;
 }
-.CBTreeTableBarButtonHover {
+.CBTreeTableBarButtonHover:alias {
     -tr-rule-ref: selector(".CBButtonHover:alias");
     display: inline;
 }
-.CBTreeTableBarButtonDisabled {
+.CBTreeTableBarButtonDisabled:alias {
     -tr-rule-ref: selector(".CBButtonLookDisabled:alias");
     -tr-rule-ref: selector(".CBRoundedAllCornersLook:alias");
 }
 /* Inject CasaBlanca styles */
 af|treeTable::control-bar-top {
-    -tr-rule-ref: selector(".CBTreeTableControlBarTop");
+    -tr-rule-ref: selector(".CBTreeTableControlBarTop:alias");
 }
 af|treeTable::control-bar-bottom {
-    -tr-rule-ref: selector(".CBTreeTableControlBarBottom");
+    -tr-rule-ref: selector(".CBTreeTableControlBarBottom:alias");
 }
 af|treeTable::sub-control-bar {
-    -tr-rule-ref: selector(".CBTreeTableSubControlBar");
-}
-af|treeTable::sub-control-bar {
-    padding: 8px 3px;
+    -tr-rule-ref: selector(".CBTreeTableSubControlBar:alias");
+    padding: 4px;
 }
 /* inactive navigation like buttons */
 af|treeTable::control-bar-top table td span,
 af|treeTable::control-bar-bottom table td span,
 af|treeTable::sub-control-bar table td span {
-    -tr-rule-ref: selector(".CBTreeTableBarButtonDisabled");
+    -tr-rule-ref: selector(".CBTreeTableBarButtonDisabled:alias");
 }
 /* sub control bar link like buttons */
 af|treeTable::sub-control-bar .OraNavBarActiveLink,
 af|treeTable::sub-control-bar af|showDetail::prompt-link {
-   -tr-rule-ref: selector(".CBTreeTableBarButton");
+    -tr-rule-ref: selector(".CBTreeTableBarButton:alias");
 }
-af|treeTable::sub-control-bar .OraNavBarActiveLink:hover,
-af|treeTable::sub-control-bar af|showDetail::prompt-link:hover {
-   -tr-rule-ref: selector(".CBTreeTableBarButtonHover");
+af|treeTable::sub-control-bar .OraNavBarActiveLink {
+    float: left;
+    display: block;
+    margin-right: 2px;
+}
+@agent (touchScreen:none) {
+  af|treeTable::sub-control-bar .OraNavBarActiveLink:hover,
+  af|treeTable::sub-control-bar af|showDetail::prompt-link:hover {
+      -tr-rule-ref: selector(".CBTreeTableBarButtonHover:alias");
+  }
+}
+af|treeTable::select-all-icon {
+    content:url(/adf/images/casablanca/icons/selectAll.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|treeTable::select-all-icon {
+        content:url(/adf/images/casablanca/icons/selectAll_8bit.png);
+    }
+}
+af|treeTable::select-none-icon {
+    content:url(/adf/images/casablanca/icons/selectNone.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|treeTable::select-none-icon {
+        content:url(/adf/images/casablanca/icons/selectNone_8bit.png);
+    }
+}
+af|treeTable::collapse-all-icon {
+    content:url(/adf/images/casablanca/icons/collapseAll.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|treeTable::collapse-all-icon {
+        content:url(/adf/images/casablanca/icons/collapseAll_8bit.png);
+    }
+}
+af|treeTable::expand-all-icon {
+    content:url(/adf/images/casablanca/icons/expandAll.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|treeTable::expand-all-icon {
+        content:url(/adf/images/casablanca/icons/expandAll_8bit.png);
+    }
+}
+af|treeTable::expanded-icon {
+    content:url(/adf/images/casablanca/icons/nav-minus.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|treeTable::expanded-icon {
+        content:url(/adf/images/casablanca/icons/nav-minus_8bit.png);
+    }
+}
+af|treeTable::collapsed-icon {
+    content:url(/adf/images/casablanca/icons/nav-plus.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|treeTable::collapsed-icon {
+        content:url(/adf/images/casablanca/icons/nav-plus_8bit.png);
+    }
 }
 af|treeTable::content {
-    -tr-rule-ref: selector(".CBTreeTableBody");
+    -tr-rule-ref: selector(".CBTreeTableBody:alias");
 }
-af|treeTable::content af|column::cell-text, af|treeTable::content af|column::cell-icon-format,
-af|tableSelectMany::cell-icon-format, af|tableSelectOne::cell-icon-format {
-    -tr-rule-ref: selector(".CBTableCell");
+af|treeTable::expansion {       
+    -tr-rule-ref: selector(".CBTreeTableExpansionButton:alias");
+}
+af|treeTable::content af|column::cell-text, af|treeTable::content af|column::cell-number,
+af|treeTable::content af|column::cell-icon-format, af|treeTable::content af|tableSelectOne::cell-icon-format,
+af|treeTable::content af|tableSelectMany::cell-icon-format {
+    -tr-rule-ref: selector(".CBTreeTableCell:alias");
+    -tr-rule-ref: selector(".CBTreeTableCellInside:alias");
+}
+/* borders types */
+af|treeTable::content .OraTableBorder1111 {
+    -tr-rule-ref: selector(".CBTreeTableCellAll:alias");
+}
+af|treeTable::content .OraTableBorder1000 {
+    -tr-rule-ref: selector(".CBTreeTableCellTopLine:alias");
+}
+af|treeTable::content .OraTableBorder1010 {
+    -tr-rule-ref: selector(".CBTreeTableCellHorizontalLines:alias");
+}
+af|treeTable::content .OraTableBorder1100 {
+    -tr-rule-ref: selector(".CBTreeTableCellTopRighCorner:alias");
+}
+af|treeTable::content .OraTableBorder0100 {
+    -tr-rule-ref: selector(".CBTreeTableCellRightLine:alias");
+}
+af|treeTable::content .OraTableBorder0101 {
+    -tr-rule-ref: selector(".CBTreeTableCellVerticalLines:alias");
+}
+af|treeTable::content .OraTableBorder0110 {
+    -tr-rule-ref: selector(".CBTreeTableCellBottomRightCorner:alias");
+}
+af|treeTable::content .OraTableBorder0010 {
+    -tr-rule-ref: selector(".CBTreeTableCellBottomLine:alias");
+}
+af|treeTable::content .OraTableBorder0011 {
+    -tr-rule-ref: selector(".CBTreeTableCellBottomLeftCorner:alias");
+}
+af|treeTable::content .OraTableBorder0001 {
+    -tr-rule-ref: selector(".CBTreeTableCellLeftLine:alias");
+}
+af|treeTable::content .OraTableBorder1001 {
+    -tr-rule-ref: selector(".CBTreeTableCellTopLeftCorner:alias");
+}
+/* Force bottom line for headers */
+af|treeTable::content af|column::header-text {
+    -tr-rule-ref: selector(".CBTreeTableCellBottomLine:alias");
 }
 /* footer cells */
 af|treeTable::content af|treeTable::column-footer, af|treeTable::content af|column::total-text {
     display: table-cell;
-    -tr-rule-ref: selector(".CBTreeTableFooterCell");
+    -tr-rule-ref: selector(".CBTreeTableFooterCell:alias");
+}
+/* Clear some legacy stuff */
+af|treeTable::control-bar-top tbody tr td,
+af|treeTable::control-bar-bottom tbody tr td,
+af|treeTable::sub-control-bar tbody tr td {
+    font-size: 0px;
+    line-height: 0px;
+    color: transparent; /* Fix a WebKit problem */
 }
 
 /* Tree component --------------------------------------------------------------------------------------------------- */
 /* No any class hooks for some particular overwritings.
 /* We will go on the Navigation Tree component styles
  */
+af|tree::expanded-icon {
+    content:url(/adf/images/casablanca/icons/nav-minus.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|tree::expanded-icon {
+        content:url(/adf/images/casablanca/icons/nav-minus_8bit.png);
+    }
+}
+af|tree::collapsed-icon {
+    content:url(/adf/images/casablanca/icons/nav-plus.png);
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    af|tree::collapsed-icon {
+        content:url(/adf/images/casablanca/icons/nav-plus_8bit.png);
+    }
+}
 
 /* Layouts ---------------------------------------------------------------------------------------------------------- */
 /* Define styles used in:
@@ -3694,34 +4050,34 @@ af|treeTable::content af|treeTable::column-footer, af|treeTable::content af|colu
 /* ------------------------------------------------------------------------------------------------------------------ */
 /* Tree table component --------------------------------------------------------------------------------------------- */
 /* CasaBlanca styles */
-.CBFormControlSpacing {
+.CBFormControlSpacing:alias {
     -tr-rule-ref: selector(".CBFormVerticalSpacingLook:alias");
 }
 /* Inject CasaBlanca styles */
 af|panelFormLayout::content-cell {
-    -tr-rule-ref: selector(".CBFormControlSpacing");
+    -tr-rule-ref: selector(".CBFormControlSpacing:alias");
 }
 /* Dialog window component ------------------------------------------------------------------------------------------ */
-.CBDialog {
+.CBDialogDialog:alias {
     -tr-rule-ref: selector(".CBDialog:alias");
 }
-.CBDialogHead {
+.CBDialogDialogHead:alias {
     -tr-rule-ref: selector(".CBDialogHead:alias");
 }
-.CBDialogHeadCloseIcon {
-    -tr-rule-ref: selector(".CBDialogHeadCloseIcon:alias");
+.CBDialogDialogHeadCloseIconStyle:alias {
+    -tr-rule-ref: selector(".CBDialogHeadCloseIconStyle:alias");
 }
-.CBDialogHeadCloseIconHover {
+.CBDialogDialogHeadCloseIconHover:alias {
     -tr-rule-ref: selector(".CBDialogHeadCloseIconHover:alias");
 }
 af|dialog::title-bar {
-    -tr-rule-ref: selector(".CBDialogHead");
+    -tr-rule-ref: selector(".CBDialogDialogHead:alias");
 }
 af|dialog::close-icon {
-    -tr-rule-ref: selector(".CBDialogHeadCloseIcon");
+    -tr-rule-ref: selector(".CBDialogDialogHeadCloseIconStyle:alias");
 }
 af|dialog::container {
-    -tr-rule-ref: selector(".CBDialog");
+    -tr-rule-ref: selector(".CBDialogDialog:alias");
 }
 
 

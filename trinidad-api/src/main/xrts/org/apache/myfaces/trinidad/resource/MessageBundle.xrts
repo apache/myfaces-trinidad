@@ -46,7 +46,7 @@
   
   <!-- {0} the label that identifies the selection  -->
   <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED">A selection is required.</resource>
-  <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail">You must make at least one selection.</resource>
+  <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail">You must make a selection.</resource>
   
 
   <!-- {0} the label that identifies the selection  -->
@@ -71,8 +71,8 @@
   <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail">Enter a value that matches this pattern: {2}</resource>
 
   <!-- Upload ConversionException messages -->
-  <resource key="org.apache.myfaces.trinidad.UPLOAD">The file is too large.</resource>
-  <resource key="org.apache.myfaces.trinidad.UPLOAD_detail">The file could not be uploaded because it is too large.</resource>
+  <resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE">The file upload failed.</resource>
+  <resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail">{0}</resource>
 
   <!-- hints for validators -->
   <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT">Enter a number less than or equal to {0}.</resource>

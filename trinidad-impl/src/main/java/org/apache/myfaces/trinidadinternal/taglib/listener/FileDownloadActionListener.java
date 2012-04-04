@@ -1,24 +1,25 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.taglib.listener;
 
 import java.io.BufferedOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 import java.util.Map;
@@ -117,8 +118,17 @@ public class FileDownloadActionListener extends FacesBeanImpl
 
         }
         MethodExpression method = getMethod();
-        OutputStream out = new BufferedOutputStream(hsr.getOutputStream());
-        method.invoke(context.getELContext(), new Object[]{context, out});
+        OutputStream out = new BufferedOutputStream(new OnDemandOutputStream(hsr));
+        try
+        {
+          method.invoke(context.getELContext(), new Object[]{context, out});
+        }
+        catch (Exception e)
+        {
+          FacesMessage error = MessageFactory.getMessage(e);
+          context.addMessage(null, error);
+          throw e;
+        }
         out.close();
          
       }
@@ -182,6 +192,73 @@ public class FileDownloadActionListener extends FacesBeanImpl
   public void setTransient(boolean newTransientValue)
   {
     throw new UnsupportedOperationException();
+  }
+  
+  /**
+   * The purpose of this class is to avoid retrieving OutputStream from the response
+   * until we are actually ready to write something. This solves the problem of not being
+   * able to retrieve a Writer from the response later in case an exception was thrown
+   * before anything was written into the stream
+   * 
+   * This class retrieves an OutputStream from the response
+   * 'on demand' - whenever we are trying to write anything into the stream.
+   */
+  static class OnDemandOutputStream extends OutputStream 
+  {
+    OnDemandOutputStream(HttpServletResponse hsr)
+    {
+      _hsr = hsr;
+    }
+    
+    public void write(int b) throws IOException    
+    {
+      _getOutputStream(true).write(b);
+    }
+    
+    public void write(byte[] b) throws IOException
+    {
+      _getOutputStream(true).write(b);
+    }
+    
+    public void write(byte[] b, int off, int len) throws IOException
+    {
+      _getOutputStream(true).write(b, off, len);
+    }
+    
+    public void flush() throws IOException
+    {
+      // If we have not written anything, don't bother retrieving a delegate
+      // stream and flushing it
+      OutputStream delegate = _getOutputStream(false);
+      if (delegate != null)
+      {
+        delegate.flush();
+      }
+    }
+    
+    public void close() throws IOException
+    {
+      // If we have not written anything, don't bother retrieving a delegate
+      // stream and closing it
+      OutputStream delegate = _getOutputStream(false);
+      if (delegate != null)
+      {
+        delegate.close();
+      }
+    }
+    
+    private OutputStream _getOutputStream(boolean create) throws IOException
+    {
+      if (create && _delegate == null)
+      {
+        _delegate = _hsr.getOutputStream();
+      }
+      return _delegate;
+    }
+    
+    private final HttpServletResponse _hsr;
+    
+    private OutputStream _delegate = null;
   }
 
   // saveState() and restoreState() come from FacesBeanImpl

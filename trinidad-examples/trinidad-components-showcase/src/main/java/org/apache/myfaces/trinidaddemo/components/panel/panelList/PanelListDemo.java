@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidaddemo.components.panel.panelList;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
 import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 
 /**
  *
@@ -33,15 +34,19 @@ public class PanelListDemo extends AbstractComponentDemo {
         Default
     }
 
-	/**
-	 * Constructor.
-	 */
-	public PanelListDemo() {
-		super(ComponentDemoId.panelList, "Panel List", VARIANTS.Default, "Default",
+  /**
+   * Constructor.
+   */
+  public PanelListDemo() {
+    super(ComponentDemoId.panelList, "Panel List");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/panel/panelList/panelList.xhtml"
-            });
-	}
+                    "/components/panel/panelList/panelList.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelList/summary.xhtml";

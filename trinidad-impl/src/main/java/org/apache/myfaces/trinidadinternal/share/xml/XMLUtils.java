@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.share.xml;
 
@@ -32,14 +32,14 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidad.share.io.NameResolver;
 
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.config.ConfigurationImpl;
 
 import org.apache.myfaces.trinidadinternal.share.io.CachingInputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
-import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 
 import org.apache.myfaces.trinidadinternal.share.expl.JavaMethod;
 
@@ -50,70 +50,6 @@ import org.apache.myfaces.trinidadinternal.share.expl.JavaMethod;
  */
 public class XMLUtils
 {
-  /**
-   * Parses an XML file, like the skinning .xss file.  For includes, see parseInclude().
-   * @param context the current ParseContext, which will be cloned
-   * @param xmlProvider an XML provider
-   * @param manager a ParserManager
-   * @param resolver a NameResolver to locate the target
-   * @param sourceName the name of the target, relative to the current file
-   * @param expectedType the expected Java type of the target.
-   */
-  static public Object parseSource(
-    ParseContext  context,
-    XMLProvider   xmlProvider,
-    ParserManager manager,
-    NameResolver  resolver,
-    String        sourceName,
-    Class<?>      expectedType) throws IOException, SAXException
-  {
-    if (manager == null)
-      throw new NullPointerException();
-    if (expectedType == null)
-      throw new NullPointerException();
-    if (resolver == null)
-      throw new NullPointerException();
-    if (sourceName == null)
-      throw new NullPointerException();
-    if (context == null)
-      throw new NullPointerException();
-
-    if (xmlProvider == null)
-      xmlProvider = new JaxpXMLProvider();
-
-    InputStreamProvider provider = resolver.getProvider(sourceName);
-    Object cached = provider.getCachedResult();
-    if ((cached != null) && expectedType.isInstance(cached))
-      return cached;
-
-    TreeBuilder builder = new TreeBuilder(manager, expectedType);
-    InputStream stream = provider.openInputStream();
-
-    try
-    {
-      InputSource source = new InputSource(stream);
-      source.setSystemId(sourceName);
-
-      // Store a resolver relative to the file we're about to parse
-      setResolver(context, resolver.getResolver(sourceName));
-      setInputStreamProvider(context, provider);
-
-      // Step 6. Parse!
-      Object value = builder.parse(xmlProvider, source, context);
-
-      // Step 7. Store the cached result (if successful)
-      if (value != null)
-        provider.setCachedResult(value);
-
-      return value;
-    }
-    finally
-    {
-      stream.close();
-    }
-  }
-
-
   /**
    * Parses an include of an XML file.  The include will be located using
    * an already-stored NameResolver object.
@@ -144,6 +80,8 @@ public class XMLUtils
     InputStreamProvider baseProvider = getInputStreamProvider(context);
     if (baseProvider instanceof CachingInputStreamProvider)
     {
+      // set the dependency; hasSourceChanged also checks if the 
+      // dependencies have changed
       ((CachingInputStreamProvider) baseProvider).addCacheDependency(provider);
     }
 
@@ -151,7 +89,7 @@ public class XMLUtils
     ArrayList<Object> list = 
       (ArrayList<Object>) context.getProperty(_SHARE_NAMESPACE, "_includeStack");
     Object identifier = provider.getIdentifier();
-
+    
     if ((list != null) && (list.contains(identifier)))
     {
       // =-=AEW Just logging an error isn't really enough - the include
@@ -162,6 +100,8 @@ public class XMLUtils
     }
 
     // Step 4. Try to get a cached version
+    // =-=jmw I don't see when this cached gets a non-null value other than if the same file
+    // is included twice.
     Object cached = provider.getCachedResult();
     if ((cached != null) && expectedType.isInstance(cached))
       return cached;

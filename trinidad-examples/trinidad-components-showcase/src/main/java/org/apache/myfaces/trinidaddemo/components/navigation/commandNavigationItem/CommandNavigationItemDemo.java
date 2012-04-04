@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.navigation.commandNavigationItem;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,17 +30,29 @@ public class CommandNavigationItemDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982061956383498310L;
 
-	/**
-	 * Constructor.
-	 */
-	public CommandNavigationItemDemo() {
-		super(ComponentDemoId.commandNavigationItem, "Command Navigation Item",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public CommandNavigationItemDemo() {
+    super(ComponentDemoId.commandNavigationItem, "Command Navigation Item");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/navigation/commandNavigationItem/commandNavigationItem.xhtml"
-            });
-	}
+                     "/components/navigation/commandNavigationItem/commandNavigationItem.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/navigation/commandNavigationItem/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

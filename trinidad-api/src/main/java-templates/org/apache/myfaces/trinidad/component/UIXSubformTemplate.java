@@ -63,10 +63,15 @@ abstract public class UIXSubformTemplate extends UIXComponentBase
   @Override
   public void processValidators(FacesContext context)
   {
-    if (!isSubmitted() && isDefault() && !_isSomethingSubmitted(context))
-      setSubmitted(true);
+    boolean submitted = isSubmitted();
 
-    if (isSubmitted())
+    if (!submitted && isDefault() && !_isSomethingSubmitted(context))
+    {
+    submitted = true;
+      setSubmitted(true);
+    }
+
+    if (submitted)
       super.processValidators(context);
   }
 
@@ -103,6 +108,42 @@ abstract public class UIXSubformTemplate extends UIXComponentBase
                                getRequestMap().get(_SOMETHING_SUBMITTED));
   }
 
+  /**
+   * Sets whether the subform was submitted on this request
+   *
+   * @param submitted  the new submitted value
+   */
+  final public void setSubmitted(boolean submitted)
+  {
+    String clientId = getClientId();
+    FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put(
+                                                     _SUBMITTED_PREFIX + clientId,
+                                                     submitted ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+  /**
+   * Gets whether the subform was submitted on this request
+   *
+   * @return  the new submitted value
+   */
+  final public boolean isSubmitted()
+  {
+    String clientId = getClientId();
+    Object submitted = FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(
+                                                                     _SUBMITTED_PREFIX + clientId);
+    return ComponentUtils.resolveBoolean(submitted, false);
+  }
+
+
   static private final String _SOMETHING_SUBMITTED =
     "org.apache.myfaces.trinidad.component.UIXSubformSubmitted";
+  static private final String _SUBMITTED_PREFIX =
+    "org.apache.myfaces.trinidad.component.UIXSubform.";
+
+ /**
+  * @deprecated submitted is request scope, and therefore will not be saved on the faces bean as a property
+  */
+  @Deprecated
+  static public final PropertyKey SUBMITTED_KEY =
+    TYPE.registerKey("submitted", Boolean.class, Boolean.FALSE, PropertyKey.CAP_NOT_BOUND | PropertyKey.CAP_TRANSIENT);
 }

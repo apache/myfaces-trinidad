@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.util;
 
@@ -104,7 +104,7 @@ final public class SubKeyMap<V> extends AbstractMap<String, V>
   public Set<Map.Entry<String, V>> entrySet()
   {
     if (_entrySet == null)
-      _entrySet = new Entries<V>();
+      _entrySet = new Entries();
     return _entrySet;
   }
 
@@ -131,7 +131,7 @@ final public class SubKeyMap<V> extends AbstractMap<String, V>
   //
   // Set implementation for SubkeyMap.entrySet()
   //
-  private class Entries<V> extends AbstractSet<Map.Entry<String, V>>
+  private class Entries extends AbstractSet<Map.Entry<String, V>>
   {
     public Entries()
     {
@@ -145,7 +145,7 @@ final public class SubKeyMap<V> extends AbstractMap<String, V>
       // exceptions.  Consequently, gather the keys in a list
       // and iterator over that.
       List<String> keyList = _gatherKeys();
-      return new EntryIterator<V>(keyList.iterator());
+      return new EntryIterator(keyList.iterator());
     }
 
     @Override
@@ -193,7 +193,7 @@ final public class SubKeyMap<V> extends AbstractMap<String, V>
     }
   }
 
-  private class EntryIterator<V> implements Iterator<Map.Entry<String, V>>
+  private class EntryIterator implements Iterator<Map.Entry<String, V>>
   {
     public EntryIterator(Iterator<String> iterator)
     {
@@ -209,7 +209,7 @@ final public class SubKeyMap<V> extends AbstractMap<String, V>
     {
       String baseKey = _iterator.next();
       _currentKey = baseKey;
-      return new Entry<V>(baseKey);
+      return new Entry(baseKey);
     }
 
     public void remove()
@@ -226,7 +226,7 @@ final public class SubKeyMap<V> extends AbstractMap<String, V>
     private String    _currentKey;
   }
 
-  private class Entry<V> implements Map.Entry<String, V>
+  private class Entry implements Map.Entry<String, V>
   {
     public Entry(String baseKey)
     {

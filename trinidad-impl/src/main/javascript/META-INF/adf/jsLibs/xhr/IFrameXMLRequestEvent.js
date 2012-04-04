@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,16 +19,29 @@
 
 /**
  * Iframe base Data Transfer Request Event class. This object is passed back to the listeners
- * of a Data Transfer Service Request. This object and TrXMLRequestEvent 
+ * of a Data Transfer Service Request. This object and TrXMLRequestEvent
  * support ITrXMLRequestEvent pseudo-interface
  * @ see TrXMLRequestEvent
  */
 function TrIFrameXMLRequestEvent(
-  iframeDoc)
+  iframeDoc,
+  source,
+  formId)
 {
   this._iframeDoc = iframeDoc;
+  this._source = source;
+  this._formId = formId;
 }
 
+TrIFrameXMLRequestEvent.prototype.getSource = function()
+{
+  return this._source;
+}
+
+TrIFrameXMLRequestEvent.prototype.getFormId = function()
+{
+  return this._formId;
+}
 
 TrIFrameXMLRequestEvent.prototype.getStatus = function()
 {
@@ -45,29 +58,41 @@ TrIFrameXMLRequestEvent.prototype.getResponseXML = function()
 {
   var agentIsIE = _agent.isIE;
   var iframeDoc = this._iframeDoc;
-  if(agentIsIE && iframeDoc.XMLDocument)
+  if (agentIsIE && iframeDoc.XMLDocument)
     return iframeDoc.XMLDocument;
   else
     return iframeDoc;
 }
-
 
 /**
 * Returns the response of the Data Transfer Request as text.
 * NOTE: this method is valid only for TrXMLRequestEvent.STATUS_COMPLETE
 **/
 TrIFrameXMLRequestEvent.prototype.getResponseText = function()
-{  
+{
   var agentIsIE = _agent.isIE;
   var iframeDoc = this._iframeDoc, xmlDocument = null;
 
-  if(agentIsIE && iframeDoc.XMLDocument)
+  if (agentIsIE && iframeDoc.XMLDocument)
     xmlDocument = iframeDoc.XMLDocument;
-  else if(window.XMLDocument && (iframeDoc instanceof XMLDocument))
+  else if (window.XMLDocument && this._isResponseValidXML())
     xmlDocument = iframeDoc;
-    
+
   if(xmlDocument)
-    return AdfAgent.AGENT.getNodeXml(xmlDocument);
+  {
+    if (typeof XMLSerializer != "undefined")
+    {
+      return (new XMLSerializer()).serializeToString(xmlDocument);
+    }
+    else if (agentIsIE)
+    {
+      return xmlDocument.xml;
+    }
+    else
+    {
+      return null;
+    }
+  }
   else
     return iframeDoc.documentElement.innerHTML;
 }
@@ -77,9 +102,11 @@ TrIFrameXMLRequestEvent.prototype._isResponseValidXML = function()
   var agentIsIE = _agent.isIE;
   var iframeDoc = this._iframeDoc;
 
-  if(agentIsIE && iframeDoc.XMLDocument)
+  if (agentIsIE && iframeDoc.XMLDocument)
     return true;
-  else if(window.XMLDocument && (iframeDoc instanceof XMLDocument))
+  else if (window.XMLDocument && (iframeDoc instanceof XMLDocument))
+    return true;
+  else if (_agent.isSafari && iframeDoc.xmlVersion != null)
     return true;
   else
     return false;
@@ -96,30 +123,30 @@ TrIFrameXMLRequestEvent.prototype.getResponseStatusCode = function()
 }
 
 /**
-* Returns if whether if is a rich response
+* Returns if whether if is a PPR response
 * NOTE: this method is valid only for TrXMLRequestEvent.STATUS_COMPLETE
 **/
 TrIFrameXMLRequestEvent.prototype.isPprResponse = function()
 {
   var agentIsIE = _agent.isIE;
   var iframeDoc = this._iframeDoc;
-  var isRichReponse = false;
-  
-  // Look for "Adf-Rich-Response-Type" PI
-  if(agentIsIE && iframeDoc.XMLDocument)
+  var pprResponse = false;
+
+  // Look for "Tr-XHR-Response-Type" PI
+  if (agentIsIE && iframeDoc.XMLDocument)
   {
     var xmlDocument = iframeDoc.XMLDocument, childNodes = xmlDocument.childNodes;
     // In IE the xml PI is the first node
-    if(childNodes.length >= 2 && childNodes[1].nodeName ==  "Tr-XHR-Response-Type")
-      isRichReponse = true;
+    if(childNodes.length >= 2 && childNodes[1].nodeName ==  "partial-response")
+      pprResponse = true;
   }
   else
   {
-    if(iframeDoc.firstChild && iframeDoc.firstChild.nodeName ==  "Tr-XHR-Response-Type")
-      isRichReponse = true;
+    if (iframeDoc.firstChild && iframeDoc.firstChild.nodeName ==  "partial-response")
+      pprResponse = true;
   }
-  
-  return isRichReponse;
+
+  return pprResponse;
 }
 
 /**
@@ -130,6 +157,14 @@ TrIFrameXMLRequestEvent.prototype.getResponseContentType = function()
 {
   if(this._isResponseValidXML())
     return "text/xml";
-    
+
   return "text/html";
 }
+
+/**
+ * Returns if the request was made by the built in JSF AJAX APIs
+ */
+TrIFrameXMLRequestEvent.prototype.isJsfAjaxRequest = function()
+{
+  return false;
+};

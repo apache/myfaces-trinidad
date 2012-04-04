@@ -103,6 +103,12 @@
                               4-6 of 6
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -189,6 +195,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:0"
+                        >
+                      Select
+                    </label>
                   </td>
                   <td
                        class="af_column_cell-text OraTableBorder1111"
@@ -212,6 +224,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:1"
+                        >
+                      Select
+                    </label>
                   </td>
                   <td
                        class="af_column_cell-text OraTableBorder1111"
@@ -235,6 +253,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:2"
+                        >
+                      Select
+                    </label>
                   </td>
                   <td
                        class="af_column_cell-text OraTableBorder1111"
@@ -365,6 +389,12 @@
                               4-6 of 6
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -451,6 +481,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:0"
+                        >
+                      Select
+                    </label>
                   </td>
                   <td
                        class="af_column_cell-text OraTableBorder1111"
@@ -474,6 +510,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:1"
+                        >
+                      Select
+                    </label>
                   </td>
                   <td
                        class="af_column_cell-text OraTableBorder1111"
@@ -497,6 +539,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:2"
+                        >
+                      Select
+                    </label>
                   </td>
                   <td
                        class="af_column_cell-text OraTableBorder1111"
@@ -627,6 +675,12 @@
                               4-6 of 6
                             </option>
                           </select>
+                          <label
+                               class="p_OraHiddenLabel"
+                               for="mainId-nb__xc_c"
+                              >
+                            Select record set
+                          </label>
                           <script
                                type="text/javascript"
                               >
@@ -719,6 +773,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:0"
+                        >
+                      Select
+                    </label>
                   </td>
                   <td
                        class="af_column_cell-text OraTableBorder1111"
@@ -743,6 +803,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:1"
+                        >
+                      Select
+                    </label>
                   </td>
                   <td
                        class="af_column_cell-text OraTableBorder1111"
@@ -767,6 +833,12 @@
                         >
                       
                     </input>
+                    <label
+                         class="p_OraHiddenLabel"
+                         for="mainId:2"
+                        >
+                      Select
+                    </label>
                   </td>
                   <td
                        class="af_column_cell-text OraTableBorder1111"

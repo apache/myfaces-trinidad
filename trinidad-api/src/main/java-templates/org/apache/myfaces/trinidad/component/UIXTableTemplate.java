@@ -21,9 +21,12 @@ package org.apache.myfaces.trinidad.component;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import java.util.Map;
 
 import javax.el.MethodExpression;
 
@@ -54,6 +57,15 @@ import org.apache.myfaces.trinidad.model.SortCriterion;
 abstract public class UIXTableTemplate extends UIXIteratorTemplate
   implements CollectionComponent
 {
+/**/  static public final FacesBean.Type TYPE = new FacesBean.Type(UIXIterator.TYPE);
+
+  // These are "fake" properties that allow the table to get the disclosed row keys and the
+  // selected row key without triggering the call to getCollectionModel from the
+  // RowKeyFacesBeanWrapper class. See the stamp state saving code for its usage.
+  static private final PropertyKey _DISCLOSED_ROW_KEYS_WITHOUT_MODEL_KEY =
+    TYPE.registerKey("disclosedRowKeysWithoutModel", RowKeySet.class);
+  static private final PropertyKey _SELECTED_ROW_KEYS_WITHOUT_MODEL_KEY =
+    TYPE.registerKey("selectedRowKeysWithoutModel", RowKeySet.class);
 
 
   /**
@@ -302,21 +314,21 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   }
 
   @Override
-  protected final void processFacetsAndChildren(
+  protected void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)
   {
     // process all the facets of this table just once
     // (except for the "detailStamp" facet which must be processed once
     // per row):
-    TableUtils.__processFacets(context, this, this, phaseId,
+    TableUtils.processFacets(context, this, this, phaseId,
       UIXTable.DETAIL_STAMP_FACET);
 
     // process all the facets of this table's column children:
-    TableUtils.__processColumnFacets(context, this, this, phaseId);
+    TableUtils.processColumnFacets(context, this, this, phaseId);
 
     // process all the children and the detailStamp as many times as necessary
-    _processStamps(context, phaseId);
+    processStamps(context, phaseId);
   }
 
   /**
@@ -353,7 +365,41 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       return StampState.saveChildStampState(context, stamp, this);
     }
     else
-      return super.saveStampState(context, stamp);
+    {
+      Object stampState = super.saveStampState(context, stamp);
+      
+      // Support for column stamping. Before this fix, nested UIXCollection can never be processed without setting 
+      // currency on the outer iterator. The inner collection's stamp state is only created if it is null. The inner 
+      // collection depends on the outer collection to save and restore the nested stamp state to null as it moves it 
+      // currency  during saveStampState and restoreStampState.
+      
+      // Now if the columns are stamped using an iterator, there could be state associated with the column headers, 
+      // footers etc and this is when the currency is null. So it is possible to process/iterate the af:iterator when 
+      // the currency on the outer table is null. This could be for layout of columns etc.
+      
+      // The following fix uses the internal _movingToNonNullCurrency variable to know that we are ready to start 
+      // iterating the stamps. If so, it saves off the state associated with  the null currency in a temporary map that 
+      // is restored when we are done processing our stamps (also see restoreStampState).
+      if(stamp instanceof UIXIterator && _movingToNonNullCurrency)
+      {
+        // JIT create our temporary map
+        if(_iteratorStampMap == null)
+        {
+          _iteratorStampMap = new HashMap<String, Object>();
+        }
+        
+        // save off the state associated with the null currency
+        _iteratorStampMap.put(stamp.getClientId(context), stampState);
+        
+        // reset the state of the iterator to the prestine state for null currency
+        ((UIXIterator)stamp).__resetMyStampState();
+        
+        // now save the pristine state to the null currency so that when fresh stamp states can be created if necessary
+        stampState = super.saveStampState(context, stamp);
+      }
+      
+      return stampState;
+    }
   }
 
   /**
@@ -361,8 +407,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
    * This method avoids changing the state of facets on columns.
    */
   @Override
-  protected final void restoreStampState(FacesContext context, UIComponent stamp,
-                                         Object stampState)
+  protected final void restoreStampState(FacesContext context, UIComponent stamp, Object stampState)
   {
     if (stamp instanceof UIXColumn)
     {
@@ -371,7 +416,17 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       StampState.restoreChildStampState(context, stamp, this, stampState);
     }
     else
+    {
+      // If we are done processing our stamps and are moving back to null currency, restore the stamp state to the
+      // one saved off before processing our stamps
+      if(stamp instanceof UIXIterator && _movingBackToNullCurrency && _iteratorStampMap != null)
+      {
+        // clear the cached client id of the iterator so that we can get the one without currency
+        stamp.setId(stamp.getId());
+        stampState = _iteratorStampMap.get(stamp.getClientId(context));        
+      }
       super.restoreStampState(context, stamp, stampState);
+    }
   }
 
   @Override
@@ -379,8 +434,12 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     CollectionModel current,
     Object value)
   {
-    CollectionModel model = super.createCollectionModel(current, value);
+    return super.createCollectionModel(current, value);
+  }
 
+  @Override
+  protected void postCreateCollectionModel(CollectionModel model)
+  {
     RowKeySet selectedRowKeys = getSelectedRowKeys();
 
     if (selectedRowKeys == null)
@@ -405,8 +464,6 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     {
       model.setSortCriteria(_sortCriteria);
     }
-
-    return model;
   }
 
   /**
@@ -420,8 +477,17 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     state[1] = super.__getMyStampState();
     state[2] = Integer.valueOf(getFirst());
     state[3] = Boolean.valueOf(isShowAll());
-    state[4] = getSelectedRowKeys();
-    state[5] = getDisclosedRowKeys();
+
+    // Use "hidden" property keys to allow the row key sets to be retrieved without the
+    // RowKeyFacesBeanWrapper trying to resolve the collection model to be set into the row key
+    // set. This is needed to stop the unnecessary lookup of the collection model when it is not
+    // needed during stamp state saving of the table.
+    RowKeySet selectedRowKeys = (RowKeySet)getProperty(_SELECTED_ROW_KEYS_WITHOUT_MODEL_KEY);
+    RowKeySet disclosedRowKeys = (RowKeySet)getProperty(_DISCLOSED_ROW_KEYS_WITHOUT_MODEL_KEY);
+
+    state[4] = selectedRowKeys;
+    state[5] = disclosedRowKeys;
+
     return state;
   }
 
@@ -442,7 +508,18 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     setDisclosedRowKeys((RowKeySet) state[5]);
   }
 
-  private void _processStamps(
+  @Override
+  void __resetMyStampState()
+  {
+    super.__resetMyStampState();
+    _sortCriteria = null;
+    setFirst((Integer)FIRST_KEY.getDefault());
+    setShowAll(Boolean.TRUE == SHOW_ALL_KEY.getDefault());
+    setSelectedRowKeys(null);
+    setDisclosedRowKeys(null);
+  }
+  
+  protected void processStamps(
     FacesContext context,
     PhaseId phaseId)
   {
@@ -460,12 +537,15 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       for (int i = startIndex; i <= endIndex; i++)
       {
         setRowIndex(i);
-        TableUtils.__processStampedChildren(context, this, phaseId);
-
-        if ((disclosureState != null) && disclosureState.isContained())
+        if (isRowAvailable())
         {
-          assert getRowIndex() == i;
-          processComponent(context, detail, phaseId);
+          TableUtils.processStampedChildren(context, this, phaseId);
+
+          if ((disclosureState != null) && disclosureState.isContained())
+          {
+            assert getRowIndex() == i;
+            processComponent(context, detail, phaseId);
+          }
         }
       }
 
@@ -531,6 +611,25 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     @Override
     public Object getProperty(PropertyKey key)
     {
+      if (key == _DISCLOSED_ROW_KEYS_WITHOUT_MODEL_KEY)
+      {
+        // This case is only true if the table is trying to serialize the disclosed row keys to
+        // the stamp state of a parent UIXCollection. This work-around prevents EL evaluation to
+        // get the collection model during stamp state saving. This should be permissible as the
+        // state saving code does not need the collection model to be set in the row key set in
+        // order to save its state.
+        return super.getProperty(DISCLOSED_ROW_KEYS_KEY);
+      }
+      else if (key == _SELECTED_ROW_KEYS_WITHOUT_MODEL_KEY)
+      {
+        // This case is only true if the table is trying to serialize the selected row keys to
+        // the stamp state of a parent UIXCollection. This work-around prevents EL evaluation to
+        // get the collection model during stamp state saving. This should be permissible as the
+        // state saving code does not need the collection model to be set in the row key set in
+        // order to save its state.
+        return super.getProperty(SELECTED_ROW_KEYS_KEY);
+      }
+
       Object value = super.getProperty(key);
       if (key == DISCLOSED_ROW_KEYS_KEY)
       {
@@ -545,6 +644,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
             RowKeySet rowKeys = (RowKeySet) value;
             // row key sets need the most recent collection model, but there is no one common entry
             // point to set this on the set besides when code asks for the value from the bean
+            __flushCachedModel();  //insist that we populate with the very lastest instance of the collection model
             rowKeys.setCollectionModel(getCollectionModel());
           }
           finally
@@ -566,6 +666,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
             RowKeySet rowKeys = (RowKeySet) value;
             // row key sets need the most recent collection model, but there is no one common entry
             // point to set this on the set besides when code asks for the value from the bean
+            __flushCachedModel();  //insist that we populate with the very lastest instance of the collection model
             rowKeys.setCollectionModel(getCollectionModel());
           }
           finally
@@ -597,8 +698,79 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     }
   }
 
+  @Override
+  public void setRowKey(Object rowKey)
+  {
+    _preCurrencyChange(rowKey == null);
+    try
+    {
+      super.setRowKey(rowKey);
+    }
+    finally
+    {
+      _postCurrencyChange();
+    }
+  }
+
+  @Override
+  public void setRowIndex(int rowIndex)
+  {
+    _preCurrencyChange(rowIndex == -1);
+    try
+    {
+      super.setRowIndex(rowIndex);
+    }
+    finally
+    {
+      _postCurrencyChange();
+    }
+  }
+  
+  /**
+   * When the currency changes keep track of the fact that we are ready to start iterating the stamps vs setting
+   * currency to process headers etc. If the new curency is not null but the old one was, 
+   * we are ready to start processing the stamps.
+   * 
+   * Similary keep track of the fact that we are done processing the our stamps. In this case the currency moves back to
+   * null after being set previously
+   */
+  private void _preCurrencyChange(boolean isNewCurrencyNull)
+  {
+    Object currencyObj = getRowKey();    
+    if(currencyObj == null && !isNewCurrencyNull)
+    {
+      _movingToNonNullCurrency = true;
+    }
+    
+    if(currencyObj != null && isNewCurrencyNull)
+    {
+      _movingBackToNullCurrency = true;
+    }
+  }
+  
+  /**
+   * Clean up variables setup during _preCurrencyChange.
+   */
+  private void _postCurrencyChange()
+  {
+    _movingToNonNullCurrency = false;
+    
+    if(_movingBackToNullCurrency)
+    {
+      _iteratorStampMap = null;
+    }
+    _movingBackToNullCurrency = false;
+  }
+  
   transient private List<SortCriterion> _sortCriteria = null;
   // cache of child components inside this table header/footer facets and column header/footer
   // facets
   transient private IdentityHashMap<UIComponent, Boolean> _containerClientIdCache = null;
+  
+  // transient variables used to track when are going to start processing the stamps and when we are done.
+  transient private boolean _movingToNonNullCurrency = false;
+  transient private boolean _movingBackToNullCurrency = false;
+  
+  // map used to support iterator stamping of columns
+  transient private Map<String, Object> _iteratorStampMap = null;
 }

@@ -42,7 +42,7 @@
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">Tee ainakin yksi valinta.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">Valinta on pakollinen.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">Tee ainakin yksi valinta.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">Tee valinta.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">Rivi on pakollinen.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">Valitse rivi.</resource>
@@ -59,8 +59,8 @@
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">Arvon muoto on virheellinen.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">Syötä tätä mallia vastaava arvo: {2}</resource>
 <!-- Upload ConversionException messages -->
-<resource key="org.apache.myfaces.trinidad.UPLOAD" dnt="false">Tiedosto on liian suuri.</resource>
-<resource key="org.apache.myfaces.trinidad.UPLOAD_detail" dnt="false">Tiedostoa ei voi avata, koska se on liian suuri.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">Tiedoston lataus epäonnistui.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}</resource>
 <!-- hints for validators -->
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">Syötä luku, joka on pienempi tai yhtä suuri kuin {0}.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">Syötä luku, joka on suurempi tai yhtä suuri kuin {0}.</resource>
@@ -247,6 +247,10 @@
 <!-- {2} an example of the format the converter is expecting -->
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">Päivämäärän ja ajan muoto on virheellinen.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">Syötä päivämäärä ja aika tämän esimerkin mukaisessa muodossa: {2}</resource>
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE" dnt="false">Syötetty päivämäärä tai aika on virheellinen.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE_detail" dnt="false">Syötä sallittu päivämäärä tai aika. </resource>
 <!-- {0} the label that identifies the component    -->
 <!-- {1} value entered by the user                  -->
 <!-- {2} the pattern the converter is expecting     -->

@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Não foi possível carregar {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Não foi possível instanciar UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Não foi possível fazer upload do arquivo porque ele é muito grande.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad está executando em modo de depuração. Não use em um ambiente de produção. Consulte:{0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">O elemento {0} não suporta expressões EL.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">O elemento {0} só aceita valores inteiros</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">O elemento {0} só aceita valores longos</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Não encontrado o carregador de classe de contexto.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -150,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">O pacote de recursos {0} não foi encontrado.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">erro ao fechar o arquivo:{0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Erro ao fechar o arquivo: {0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Erro ao obter arquivos region-metadata: {0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -181,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Dependência circular detectada no ícone de referência de skin {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Um objeto SkinAddition nulo foi informado ao addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Falha ao processar o arquivo de configuração do skin: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">A ValueExpression de tradução-origem do skin não é o Mapa ou ResourceBundle do tipo esperado, por isso será ignorada.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -254,11 +260,17 @@
 <!-- TREE_COMPONENT_MUST_INSIDE_FORM -->
 <resource key="TREE_COMPONENT_MUST_INSIDE_FORM" dnt="false">O componente de árvore deve ser usado dentro de um formulário.</resource>
 <!-- CANNOT_FIND_SCRIPTLET -->
-<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">Não encontrado o scriptlet: {0}</resource>
+<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">Não foi possível localizar scriptlet: {0}</resource>
 <!-- UNABLE_GET_RESOURCE -->
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Não é possível obter o recurso {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">O Apache Trinidad está executando com javascript de depuração. Não use em um ambiente de produção. Consulte o parâmetro &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; em /WEB-INF/web.xml</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Seu ambiente está configurado como produção e Apache Trinidad está sendo executado com javascript de depuração. Consulte o parâmetro &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; no /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Seu ambiente está configurado como produção e Apache Trinidad está sendo executado com CSS não compactado. Consulte o parâmetro &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; no /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Seu ambiente está configurado como produção e Apache Trinidad está sendo executado com saída de depuração TRUE. Consulte o parâmetro &quot;debug-output&quot; no arquivo config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Valor inválido:{0} para {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +313,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ignorando propriedades {0} porque não existe um seletor correspondente.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Erro ao ler arquivo css do skin</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Erro ao ler o arquivo css do skin. Há uma vírgula extra no seletor: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Não é possível adicionar Skin com skinId nulo ou skin nulo</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">O skin {0} adicionado anteriormente foi adicionado novamente. Se você armazenou em cache este skin em sua aplicação, você pode obter resultados inconsistentes. Verifique os arquivos trinidad-skins.xml no classpath.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Não é possível obter Skin com skinId nulo</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Não encontrado skin correspondente a família {0} e renderkit {1}, então usaremos o skin simples</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Encontrado skin correspondente à família {0} e à versão {1}. Usaremos o skin {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Não encontrado skin correspondente à família {0} e à versão {1}. Usaremos o skin {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Não é possível localizar um skin sem controle de versão da família {0}. Usaremos o skin com controle de versão {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Não foi obtida a marca de hora do documento da folha de estilo porque não foi possível abrir a conexão.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">O seletor de skin {0} não é um Objeto do Ícone de Skin, pois ele não tem um atributo de conteúdo. Se você criou este seletor, renomeie-o para o fim com &quot;estilo&quot; em vez de &quot;ícone&quot;, de forma que a Estrutura de Skinning trate-o como estilo, não como ícone.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} deve vir antes de todas as outras regras.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Os seguintes skins estendem-se cada qual de modo circular ou o skin que eles estendem não existe:{0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -316,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Erro de parse:{0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">erro ao carregar o arquivo:{0}.</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Erro ao carregar o arquivo: {0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Não foi possível carregar a folha de estilo: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -419,6 +445,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">&apos;Id&apos; do elemento obrigatório não encontrado.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Não encontrado o elemento obrigatório &apos;family&apos;.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Elemento filho obrigatório para &apos;versão&apos;; &apos;nome&apos; não encontrado.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Entrada de propriedade mal-formada: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -662,13 +690,13 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Comparação desconhecida</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">test BoundValue obrigatório</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">Teste de BoundValue obrigatório</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">Argumento de lista nulo</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
 <resource key="NULL_DATA_OBJECT_ARGUMENT" dnt="false">Argumento de objeto de dados nulo</resource>
 <!-- NO_FACTORY_REGISTERED -->
-<resource key="NO_FACTORY_REGISTERED" dnt="false">Nenhum factory foi registrado para {0}</resource>
+<resource key="NO_FACTORY_REGISTERED" dnt="false">Nenhuma factory foi registrada para {0}</resource>
 <!-- NULL_BASESCORER -->
 <resource key="NULL_BASESCORER" dnt="false">baseScorer nulo</resource>
 <!-- NULL_BASESCORE -->
@@ -721,4 +749,23 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">País inválido para o identificador da Localidade {0} - o código de país deve estar em letras maiúsculas, consulte o javadoc de Localidade para obter o formato correto. A string vazia do país será usada</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante inválida para o identificador de Localidade {0} - não é possível conter barras para evitar ataque de XSS. A string vazia da variante será usada.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Não é possível deletar o arquivo {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState deve ser uma instância de StateManager.SerializedView ou um array do Objeto de tamanho 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Salvar estado parcial não suportado. Defina o parâmetro de contexto javax.faces.PARTIAL_STATE_SAVING para falso em seu web.xml.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Erro ao serializar {0} atributo:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> valor com falha=</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Erro de failover: {0} atributo:{1} do tipo {2} não pode ser Serializado</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Erro de failover: A serialização do {0} atributo:{1} foi alterada de {2} para {3} sem a contaminação do atributo</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Falha no teste de serialização do atributo da sessão de {0}. Esta verificação pode ser desativada através da remoção de &apos;&apos;REQUEST&apos;&apos; da propriedade do sistema &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Falha na exceção ao obter o teste de serialização do atributo da sessão</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atributo da sessão: {0} </resource>
 </resources>

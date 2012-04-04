@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
@@ -39,9 +39,30 @@ public class HiddenLabelUtils
     if (XhtmlRenderer.isInaccessibleMode(arc))
       return false;
 
+    // Though the method is named "supports" hidden labels, it's really being called and used in
+    // the sense of "do we want to render" hidden labels, and if this method returns false no label
+    // is written at all. We always want labels in screen reader mode, so return true.
+    if (XhtmlRenderer.isScreenReaderMode(arc))
+      return true;
+
     // For this switch - and for getting the major version - tunnel
     // to CoreRenderingContext
     TrinidadAgent agent = ((CoreRenderingContext) arc).getTrinidadAgent();
+    
+    return agentSupportsHiddenLabels(agent);
+  }
+  
+  /**
+   * Returns <code>true</code> if the Agent supports hidden labels.  Since more than
+   * just the agent is involved, <code>supportsHiddenLabels</code> should be called in addition
+   * to this method.
+   * This method is public to share implementation with the old UIX code
+   * @param agent
+   * @return
+   * @see #supportsHiddenLabels
+   */
+  public static boolean agentSupportsHiddenLabels(TrinidadAgent agent)
+  {
     switch (agent.getAgentApplication())
     {
       case IEXPLORER:
@@ -51,26 +72,26 @@ public class HiddenLabelUtils
           if (agent.getAgentMajorVersion() == 4)
             return false;
 
-          // JDev VE masquerades as IE Windows, but doesn't support this
-          if (agent.getCapability(TrinidadAgent.CAP_IS_JDEV_VE) != null)
+          // The old JDev VE masquerades as IE Windows, but doesn't support this
+          if (Boolean.TRUE.equals(agent.getCapability(TrinidadAgent.CAP_IS_JDEV_VE)))
             return false;
 
-          // IE 5 and 6 do.
+          // IE 5+ supports hidden labels
           return true;
         }
 
-        // IE on the Mac doesn't support the label hack
+        // IE on the Mac (which got as far as IE5 before Mac IE was dropped) doesn't support hidden labels
         return false;
 
-      // Mozilla does support the label hack
+      // Mozilla, Safari, and Chrome supports hidden labels
       case GECKO:
+      case SAFARI:
         return true;
 
-      // Assume everyone else doesn't.
-      case NETSCAPE:
+      // Assume everyone else doesn't (important for the many mobile agents)
       default:
         return false;
-    }
+    }    
   }
 
   /**

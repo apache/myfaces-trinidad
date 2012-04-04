@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
@@ -69,7 +69,7 @@ public class BaseDesktopUtils extends XhtmlLafUtils
 
   // We use a scorer which matches base/desktop - but not Netscape
   private static final NameAndAgentScorer _SCORER =
-    new NoNetscapeScorer("base");
+    new NoNetscapeScorer("base", TrinidadAgent.TYPE_DESKTOP, TrinidadAgent.TYPE_WEBCRAWLER);
 
   /**
    * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
@@ -77,14 +77,15 @@ public class BaseDesktopUtils extends XhtmlLafUtils
   @Deprecated
   private static class NoNetscapeScorer extends NameAndAgentScorer
   {
-    public NoNetscapeScorer(String lafName)
+    public NoNetscapeScorer(String lafName, int type1, int type2)
     {
-      // Initialize the NameAndAgentScorer for base/desktop
+      // Initialize the NameAndAgentScorer for base
       super(lafName,
-            TrinidadAgent.TYPE_DESKTOP,
             null,
             null,
-            null);
+            null,
+            type1,
+            type2);
     }
 
     @Override

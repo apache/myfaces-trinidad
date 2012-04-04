@@ -39,29 +39,25 @@ public class PageDemo extends AbstractComponentDemo {
      * Constructor.
      */
     public PageDemo() {
-        super(ComponentDemoId.page, "Page",
-            new String[]{
-                "/components/panel/page/page.xhtml"
-            });
+        super(ComponentDemoId.page, "Page");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Compact, this,
                 new String[]{
-                        "/components/panel/page/pageExpanded.xhtml"
-                }, getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/panel/page/PageBean.java"));
-        
+                        "/components/panel/page/pageCompact.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Expanded, this,
                 new String[]{
                         "/components/panel/page/pageExpanded.xhtml"
-                }, getSummaryResourcePath(),
-                "/org/apache/myfaces/trinidaddemo/components/panel/page/PageBean.java"));
+                }));
+
+        setDefaultVariant(VARIANTS.Compact);
     }
 
     public String getSummaryResourcePath() {
         return "/components/panel/page/summary.xhtml";
     }
 
-    public String getBackingBeanResourcePath() {
-        return "/org/apache/myfaces/trinidaddemo/components/panel/page/PageBean.java";
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

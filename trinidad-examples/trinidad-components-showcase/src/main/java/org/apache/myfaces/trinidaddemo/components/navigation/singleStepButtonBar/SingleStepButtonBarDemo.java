@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.navigation.singleStepButtonBar;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,17 +30,29 @@ public class SingleStepButtonBarDemo extends AbstractComponentDemo {
     
     private static final long serialVersionUID = -1982060956387098310L;
 
-	/**
-	 * Constructor.
-	 */
-	public SingleStepButtonBarDemo() {
-		super(ComponentDemoId.singleStepButtonBar, "Single Step Button Bar",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public SingleStepButtonBarDemo() {
+    super(ComponentDemoId.singleStepButtonBar, "Single Step Button Bar");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/navigation/singleStepButtonBar/singleStepButtonBar.xhtml"
-            });
-	}
+                    "/components/navigation/singleStepButtonBar/singleStepButtonBar.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/navigation/singleStepButtonBar/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }    
 }

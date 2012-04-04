@@ -31,28 +31,27 @@ public class FormLayoutDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -72121986754092646L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		LabelLeft,
-		LabelTop
-	}
+    LabelLeft,
+    LabelTop
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public FormLayoutDemo() {
-		super(ComponentDemoId.panelFormLayout, "Form Layout",
-            new String[]{
-                "/components/layout/formLayout/panelFormLayout.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public FormLayoutDemo() {
+    super(ComponentDemoId.panelFormLayout, "Form Layout");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.LabelLeft, "Label left", this,
                 new String[]{
                         "/components/layout/formLayout/panelFormLayoutLabelLeft.xhtml"
-                }, getSummaryResourcePath()));
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.LabelTop, "Label top", this,
                 new String[]{
                         "/components/layout/formLayout/panelFormLayoutLabelTop.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.LabelLeft);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/layout/formLayout/summary.xhtml";

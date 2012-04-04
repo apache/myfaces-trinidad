@@ -28,6 +28,13 @@
     <converter-id>org.apache.myfaces.trinidad.Color</converter-id>
     <converter-class>org.apache.myfaces.trinidadinternal.convert.ColorConverter</converter-class>
     <property>
+      <description><![CDATA[Whether the converter should be disabled, default to false.]]>
+      </description>
+      <property-name>disabled</property-name>
+      <property-class>boolean</property-class>
+      <default-value>false</default-value>
+    </property>
+    <property>
       <description><![CDATA[The set of acceptable patterns, as a whitespace sepa
 rated list.
               The first pattern in the list will be used for formatting

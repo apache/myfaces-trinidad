@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.graphic.image;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,17 +30,29 @@ public class ImageDemo extends AbstractComponentDemo {
     
     private static final long serialVersionUID = -1982061956893494710L;
 
-	/**
-	 * Constructor.
-	 */
-	public ImageDemo() {
-		super(ComponentDemoId.image, "Image",
-            new String[]{
-                "/components/graphic/image/image.xhtml"
-            });
-	}
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public ImageDemo() {
+    super(ComponentDemoId.image, "Image");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
+                new String[]{
+                        "/components/graphic/image/image.xhtml"
+                }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/graphic/image/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

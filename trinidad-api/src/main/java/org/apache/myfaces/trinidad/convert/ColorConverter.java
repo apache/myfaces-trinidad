@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.convert;
 
@@ -32,6 +32,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
@@ -114,6 +116,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/convert/ColorConverter.java#0 $) $Date: 10-nov-2005.19:09:09 $
  */
+@JSFConverter(configExcluded=true)
 public class ColorConverter implements Converter, StateHolder
 {
 
@@ -231,11 +234,14 @@ public class ColorConverter implements Converter, StateHolder
     if (value == null)
       return null;
 
+    if (isDisabled())
+      return value;
+
     value = value.trim();
 
     if (0 == value.length())
      return null;
-
+    
     try
     {
       return _parseString(context, value);
@@ -286,6 +292,8 @@ public class ColorConverter implements Converter, StateHolder
      if (value instanceof String)
        return (String) value;
 
+    if (isDisabled())
+      return value.toString();
 
     if (value instanceof Color)
     {
@@ -332,6 +340,7 @@ public class ColorConverter implements Converter, StateHolder
    * <p>Retrun the patterns set for this converter.</p>
    * @return patterns
    */
+  @JSFProperty
   public String[] getPatterns()
   {
     return ComponentUtils.resolveStringArray(_facesBean.getProperty(_PATTERNS_KEY));
@@ -341,6 +350,7 @@ public class ColorConverter implements Converter, StateHolder
    * <p>Return if localized transparent text should be supported by this
    * converter.</p>
    */
+  @JSFProperty(defaultValue="false")
   public boolean isTransparentAllowed()
   {
     return ComponentUtils.resolveBoolean(_facesBean.getProperty(_TRANSPARENT_ALLOWED_KEY));
@@ -368,6 +378,7 @@ public class ColorConverter implements Converter, StateHolder
 
     return ( ( this.isTransient() == other.isTransient() ) &&
              ( this.isTransparentAllowed() == other.isTransparentAllowed()) &&
+             ( this.isDisabled() == other.isDisabled()) &&
              ( _isEqualPatterns(other.getPatterns())) &&
              ( ConverterUtils.equals(getMessageDetailConvert(),
                                      other.getMessageDetailConvert()))
@@ -384,6 +395,7 @@ public class ColorConverter implements Converter, StateHolder
     int result = 17;
     result = 37 * result + (isTransient() ? 1 : 0);
     result = 37 * result + (isTransparentAllowed() ? 1 : 0 );
+    result = 37 * result + (isDisabled() ? 1 : 0 );
     String[] patterns = getPatterns();
     for (int i = 0; i < patterns.length; i++)
     {
@@ -506,6 +518,7 @@ public class ColorConverter implements Converter, StateHolder
    * @return Custom error message.
    * @see #setMessageDetailConvert(String)
    */
+  @JSFProperty
   public String getMessageDetailConvert()
   {
     return ComponentUtils.resolveString(_facesBean.getProperty(_CONVERT_MESSAGE_DETAIL_KEY));
@@ -526,12 +539,33 @@ public class ColorConverter implements Converter, StateHolder
    * @return Custom hint message.
    * @see  #setHint(String)
    */
+  @JSFProperty(tagExcluded=true)
   public String getHint()
   {
     Object obj = _facesBean.getProperty(_HINT_FORMAT_KEY);
     return ComponentUtils.resolveString(obj);
   }
 
+  /**
+   * <p>Set the value to property <code>disabled</code>. Default value is false.</p>
+   * @param isDisabled <code>true</code> if it's disabled, <code>false</code> otherwise.
+   */  
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */  
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
+  }
+  
   protected String getTransparentString(FacesContext context)
   {
     String msg = MessageFactory.getString(context, TRANSPARENT);
@@ -690,6 +724,10 @@ public class ColorConverter implements Converter, StateHolder
 
   private static final PropertyKey  _HINT_FORMAT_KEY =
     _TYPE.registerKey("hint", String.class);
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 

@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.webapp;
 
@@ -26,9 +26,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.faces.FactoryFinder;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.FacesContextFactory;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -39,11 +41,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidad.util.RequestStateMap;
+import org.apache.myfaces.trinidadinternal.config.CheckSerializationConfigurator;
 import org.apache.myfaces.trinidadinternal.config.GlobalConfiguratorImpl;
 import org.apache.myfaces.trinidadinternal.config.dispatch.DispatchResponseConfiguratorImpl;
 import org.apache.myfaces.trinidadinternal.config.dispatch.DispatchServletResponse;
@@ -94,13 +99,30 @@ public class TrinidadFilterImpl implements Filter
 
   public void init(FilterConfig filterConfig) throws ServletException
   {
+    // potentially wrap the FilterConfig to catch Serialization changes
+    filterConfig = CheckSerializationConfigurator.getFilterConfig(filterConfig);
+    
     _servletContext = filterConfig.getServletContext();
             
     //There is some functionality that still might require servlet-only filter services.
     _filters = ClassLoaderUtils.getServices(TrinidadFilterImpl.class.getName());
-    for(Filter f:_filters)
+
+    ExternalContext externalContext = new ServletExternalContext(
+                                        _servletContext, null, null);
+
+    PseudoFacesContext facesContext = new PseudoFacesContext(externalContext);
+    facesContext.setAsCurrentInstance();
+
+    try
     {
-      f.init(filterConfig);
+      for(Filter f:_filters)
+      {
+        f.init(filterConfig);
+      }
+    }
+    finally
+    {
+      facesContext.release();
     }
   }
 
@@ -128,11 +150,32 @@ public class TrinidadFilterImpl implements Filter
 
     // Set a flag so that we can detect if the filter has been
     // properly installed.
-    request.setAttribute(_FILTER_EXECUTED_KEY, Boolean.TRUE);
+    request.setAttribute(_FILTER_EXECUTED_KEY, Boolean.TRUE);                                                                     
 
-    ExternalContext externalContext = new ServletExternalContext(_servletContext, request, response);    
+    // potentially wrap the request in order to check managed bean HA
+    if (request instanceof HttpServletRequest)
+    {
+      request = CheckSerializationConfigurator.getHttpServletRequest(
+                                    new ServletExternalContext(_servletContext, request, response),
+                                    (HttpServletRequest)request);
+    }
+    
+    // potentially wrap the ServletContext in order to check managed bean HA
+    ExternalContext externalContext = new ServletExternalContext(
+                                        _getPotentiallyWrappedServletContext(request),
+                                        request,
+                                        response);
+
+    // provide a (Pseudo-)FacesContext for configuration tasks
+    PseudoFacesContext facesContext = new PseudoFacesContext(externalContext);
+    facesContext.setAsCurrentInstance();
+    
     GlobalConfiguratorImpl config = GlobalConfiguratorImpl.getInstance();
     config.beginRequest(externalContext);
+    
+    // Allow Configurators to wrap response and request
+    request = (ServletRequest)externalContext.getRequest();
+    response = (ServletResponse)externalContext.getResponse();
     
     String noJavaScript = request.getParameter(XhtmlConstants.NON_JS_BROWSER);
         
@@ -142,7 +185,7 @@ public class TrinidadFilterImpl implements Filter
     {
       request = new BasicHTMLBrowserRequestWrapper((HttpServletRequest)request);
     } 
-    
+
     //To maintain backward compatibilty, wrap the request at the filter level
     Map<String, String[]> addedParams = FileUploadConfiguratorImpl.getAddedParameters(externalContext);
     
@@ -151,10 +194,19 @@ public class TrinidadFilterImpl implements Filter
       FileUploadConfiguratorImpl.apply(externalContext);
       request = new UploadRequestWrapper((HttpServletRequest)request, addedParams);
     }
+    
+    boolean responseComplete = facesContext.getResponseComplete();
+
+    // release the PseudoFacesContext, since _doFilterImpl() has its own FacesContext
+    facesContext.release();
 
     try
     {
-      _doFilterImpl(request, response, chain);
+      // Abort processing if the response has been completed by Configurator
+      if (!responseComplete)
+      {
+        _doFilterImpl(request, response, chain);
+      }
     }
     // For PPR errors, handle the request specially
     catch (Throwable t)
@@ -204,10 +256,14 @@ public class TrinidadFilterImpl implements Filter
     ServletRequest  request,
     ServletResponse response,
     FilterChain     chain) throws IOException, ServletException
-  {
+  { 
     // -= Scott O'Bryan =-
     // Added for backward compatibility
-    ExternalContext ec = new ServletExternalContext(_servletContext, request, response);
+    // potentially wrap the ServletContext to check ManagerBean HA
+    ExternalContext ec = new ServletExternalContext(_getPotentiallyWrappedServletContext(request),
+                                                    request,
+                                                    response);
+    
     boolean isHttpReq = ExternalContextUtils.isHttpServletRequest(ec);
     
     if(isHttpReq)
@@ -421,6 +477,24 @@ public class TrinidadFilterImpl implements Filter
 
       _filters.get(_index).doFilter(request, response, next);
     }
+  }
+  
+  /**
+   * Returns a potentially wrapped ServletContext for ManagedBean HA
+   */
+  private ServletContext _getPotentiallyWrappedServletContext(ServletRequest request)
+  {
+    if (request instanceof HttpServletRequest)
+    {
+      HttpSession session = ((HttpServletRequest)request).getSession(false);
+      
+      if (session != null)
+      {
+        return session.getServletContext();
+      }
+    }
+    
+    return _servletContext;
   }
 
   private ServletContext _servletContext;

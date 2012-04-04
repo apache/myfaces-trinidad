@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.model;
 
@@ -40,6 +40,11 @@ public interface UploadedFile
 
   /**
    * Returns the total length (in bytes) of the file.
+   * A length of -1 is interpreted as an error situation, and will be treated as JSF convertor 
+   * failure. When this happens, the details of this error is expected to be in the toString() 
+   * implementation of the object returned through getOpaqueData(). This detail will be displayed 
+   * to the user as a conversion failure message.
+   * @see UploadedFile#getOpaqueData()
    */
   public long getLength();
 
@@ -54,6 +59,7 @@ public interface UploadedFile
    * cannot guarantee that the  instance returned from
    * code>UploadedFileProcessor</code> is the same one made available
    * later.
+   * @see UploadedFile#getLength()
    */
   public Object getOpaqueData();
 

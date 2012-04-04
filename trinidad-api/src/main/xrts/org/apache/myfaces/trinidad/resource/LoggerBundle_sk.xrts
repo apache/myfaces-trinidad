@@ -51,7 +51,7 @@
 <!-- CANNOT_LOAD_TYPE_PROPERTIES -->
 <resource key="CANNOT_LOAD_TYPE_PROPERTIES" dnt="false">Nepodarilo sa zaviesť vlastnosti typu</resource>
 <!-- CANNOT_GET_RESOURCE_KEY -->
-<resource key="CANNOT_GET_RESOURCE_KEY" dnt="false">Nepodarilo sa načítať kľúč prostriedku {0} z obalu {1}</resource>
+<resource key="CANNOT_GET_RESOURCE_KEY" dnt="false">Nepodarilo sa načítať kľúč prostriedku {0} zo skinu {1}</resource>
 <!-- TRYING_ATTACH_RENDERERINGCONTEXT -->
 <resource key="TRYING_ATTACH_RENDERERINGCONTEXT" dnt="false">Došlo k pokusu o pripojenie kontextu RenderingContext k vláknu, ktoré už jeden kontext obsahuje.</resource>
 <!-- NO_REQUESTCONTEXT_TWO_DIGIT_YEAR_START_DEFAULT -->
@@ -85,7 +85,7 @@
 <!-- ERR_PARSING_URL -->
 <resource key="ERR_PARSING_URL" dnt="false">Chyba pri syntaktickej analýze: {0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
-<resource key="ERR_LOADING_RESROUCE" dnt="false">chyba pri zavádzaní prostriedku: {0}</resource>
+<resource key="ERR_LOADING_RESROUCE" dnt="false">Chyba pri zavádzaní prostriedku: {0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
 <resource key="RESOURCE_NAME_NOT_PORTABLE" dnt="false">Názov prostriedku {0} začína lomkou, čo nie je portovateľné.</resource>
 <!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
@@ -125,9 +125,11 @@
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Neplatný index</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Pridáva sa podradený komponent, pričom podradený komponent s rovnakým ID už existuje. Starý podradený komponent sa odstráni a pridá sa nový podradený komponent. {0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Správcovi zmeny sa nepodarilo aplikovať zmenu AddChildComponentChange, pretože podradený komponent s rovnakým ID už existuje. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Nie je zadaný žiadny uzol</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Nie je potrebné perzistovať generovaný (stamped) komponent vnútri iterátora.</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Vyžaduje sa komponent</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -156,6 +158,8 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">Atribút AddFacetChange nie je možné skonštruovať s komponentom facetName alebo facetComponent, ktorý je null.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Je potrebné zadať názov aspektu</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">Správcovi zmeny sa nepodarilo aplikovať zmenu SetFacetChildComponentChange, pretože aspekt s rovnakým názvom už existuje. {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Požaduje sa podradený komponent na presunutie.</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -168,6 +172,8 @@
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Podradený komponent na presun sa nenašiel: {0}.</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
 <resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Cieľový kontajner sa nenašiel: {0}.</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">V cieľovom kontajneri sa našiel iný komponent s rovnakým ID. Operácia presunu prerušená: {0}.</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Vloženie pred komponentom alebo uzlom sa nenašlo: {0}.</resource>
 <!-- INDEX_SIZE -->
@@ -308,4 +314,12 @@
 <resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">Nemožno nastaviť parametre vykreslenia portletu v dôsledku neúspešnej reflexie</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">Typ pre \&quot;{0}\&quot; zabraňuje porovnaniu s \&quot;{1}\&quot;.</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">Nepodarilo sa komprimovať stav stránky. Stav musí byť serializovateľný, aby ho bolo možné komprimovať. Bežným dôvodom, prečo stav stránky nie je možné komprimovať, je neserializovateľný stav stránky. Komprimovanie môžete vypnúť nastavením vlastnosti org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE na hodnotu false. Pozrite si časť dokumentácie venovanú systémovej vlastnosti org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION a spôsobu testovania rôznych aspektov serializácie.</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">Nepodarilo sa dekomprimovať stav stránky.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">Počas vytvárania pohľadu by nemala byť volaná metóda getClientId. ID komponentu: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">kľúč riadka mohol byť nesprávne znovunastavený na konci požiadavky. ID komponentu: {0} ViewId: {1}</resource>
 </resources>

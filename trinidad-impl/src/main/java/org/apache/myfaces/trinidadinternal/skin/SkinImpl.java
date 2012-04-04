@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
@@ -49,6 +49,7 @@ import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 
 import org.apache.myfaces.trinidad.skin.SkinAddition;
+import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
@@ -98,6 +99,12 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   {
     return null;
   }
+  
+  @Override
+  public SkinVersion getVersion()
+  {
+    return SkinVersion.EMPTY_SKIN_VERSION;
+  }  
 
   /**
    * Returns the renderKitId for the Skin.
@@ -312,7 +319,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
      )
    {
      FacesContext context = FacesContext.getCurrentInstance();
-     if (!_isDisableContentCompressionParameterTrue(context))
+     if (!_isDisableContentCompressionParameterTrue(context, arc))
      {
         StyleContext sContext = ((CoreRenderingContext)arc).getStyleContext();
         StyleProvider sProvider = sContext.getStyleProvider();  
@@ -946,7 +953,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   
   // returns true if the web.xml explicitly has DISABLE_CONTENT_COMPRESSION set to true.
   // else return false.
-  private boolean _isDisableContentCompressionParameterTrue(FacesContext context)
+  private boolean _isDisableContentCompressionParameterTrue(FacesContext context, RenderingContext arc)
   {
     // TODO: this section needs to be MOVED up, perhaps to API,
     // as the StyleContextIMPL.java has exactly the same code;
@@ -971,10 +978,11 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
       disableContentCompressionBoolean = !(context.isProjectStage(ProjectStage.Production));
     }
 
-    // if Apache MyFaces Trinidad is running in production stage and 
+    // if Apache MyFaces Trinidad is running in production stage and not design time and
     // running with content compression disabled we generate a WARNING
     // message
-    if (disableContentCompressionBoolean && context.isProjectStage(ProjectStage.Production))
+    if (disableContentCompressionBoolean && context.isProjectStage(ProjectStage.Production)
+          && !arc.isDesignTime())
     {
       _LOG.warning("DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE");
     }

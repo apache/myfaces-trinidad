@@ -185,7 +185,7 @@ TrPanelPopup.prototype.setModal = function(modal)
  **/
 TrPanelPopup.prototype.setRelativeOffsetX = function(x)
 {
-  this._relativeOffsetX = parseInt(x);
+  this._relativeOffsetX = parseInt(x, 10);
 }
 
 /**
@@ -203,7 +203,7 @@ TrPanelPopup.prototype.getRelativeOffsetX = function()
  **/
 TrPanelPopup.prototype.setRelativeOffsetY = function(y)
 {
-  this._relativeOffsetY = parseInt(y);
+  this._relativeOffsetY = parseInt(y, 10);
 }
 
 /**
@@ -320,13 +320,13 @@ TrPanelPopup.prototype.setSize = function(width, height)
 {
   if (width)
   {
-    var i = parseInt(width);
+    var i = parseInt(width, 10);
     if (i > 0)
       this.getContent().style.width = i + "px";
   }
   if (height)
   {
-    var i = parseInt(height);
+    var i = parseInt(height, 10);
     if (i > 0)
       this.getContent().style.height = i + "px";
   }
@@ -609,7 +609,7 @@ TrPanelPopup.prototype._getSideOffset = function(elem, side)
   for (var i = 0; i < arr.length; ++i)
   {
     var o = TrUIUtils._getStyle(elem, arr[i] + side);
-    o = parseInt(o);
+    o = parseInt(o, 10);
     if (!isNaN(o))
     {
       val += o;

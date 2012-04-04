@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
@@ -23,6 +23,7 @@ import java.beans.Beans;
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
@@ -34,6 +35,8 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.util.Service;
+import org.apache.myfaces.trinidadinternal.util.FrameBustingUtils;
+import org.apache.myfaces.trinidadinternal.util.FrameBustingUtils.FrameBustingParamValue;
 
 
 /**
@@ -98,6 +101,8 @@ public class BodyRenderer extends PanelPartialRootRenderer
     context.getResponseWriter().endElement("body");
 
     _renderInitialFocusScript(context, rc);
+    
+    _renderDisableJsfAjaxScript(context, rc);
   }
 
   @Override
@@ -138,8 +143,12 @@ public class BodyRenderer extends PanelPartialRootRenderer
 
     if (supportsScripting(rc))
     {
+      // this sets display:none on body and removes it with javascript. If no javascript is supported,
+      // no need to render the script. (it breaks emailable page mode because display:none is never cleared) 
+      _renderFrameBustingScript(context, rc); 
+      
       _renderNoScript(context, rc);
-      _storeInitialFocus(rc, component, bean);
+      _storeInitialFocus(rc, component, bean);  
     }
 
     if (!isPartialPass)
@@ -304,7 +313,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     // largely there for JDev 10.1.3 preview, which was rendering
     // the contents of any NOSCRIPT tags in the VE, but it's
     // a check that does no harm.
-    if (!isInaccessibleMode(rc) && !Beans.isDesignTime())
+    if (!isInaccessibleMode(rc) && !rc.isDesignTime())
     {
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("noscript",null);
@@ -376,6 +385,27 @@ public class BodyRenderer extends PanelPartialRootRenderer
       writer.writeText("_initialFocusID='", null);
       writer.writeText(initialFocusID, null);
       writer.writeText("';", null);
+      writer.endElement("script");
+    }
+  }
+  
+  // Reverts to the legacy PPR channel (disables PPR over JSF Ajax)
+  // if teh conetxt parameter is set
+  private void _renderDisableJsfAjaxScript(
+    FacesContext     context,
+    RenderingContext rc
+    ) throws IOException 
+  {
+    if (!supportsScripting(rc))
+    {
+      return;
+    }
+    ExternalContext extContext = context.getExternalContext();
+    if ("off".equalsIgnoreCase(extContext.getInitParameter(_PPR_OVER_JSF_AJAX)))
+    {
+      ResponseWriter writer = context.getResponseWriter();
+      writer.startElement("script", null);
+      writer.write("TrPage.getInstance().__disablePprOverJsfAjax()");
       writer.endElement("script");
     }
   }
@@ -560,6 +590,47 @@ public class BodyRenderer extends PanelPartialRootRenderer
     return "(" + versionInfo + apiSpecTitle  + " - " + apiVersion  + "/"
                              + implSpecTitle + " - " + implVersion + ")";
   }
+  
+  private void _renderFrameBustingScript(
+    FacesContext     context,
+    RenderingContext rc
+  ) throws IOException
+  {    
+    // get the framebusting param set in web.xml
+    FrameBustingParamValue frameBusting = FrameBustingUtils.getFrameBustingValue(context, rc.getRequestContext());
+    
+    if (! FrameBustingParamValue.FRAME_BUSTING_NEVER.equals(frameBusting))
+    {
+      ResponseWriter out = context.getResponseWriter();
+
+      // Add a style to hide the body tag, if the framebusting code runs and decides it does not
+      // need to bust frames then it will remove the style dom node, which will make the content
+      // visible.
+      //
+      // We are using a style element instead of setting a style/class directly on the
+      // body tag because if we ever added a splash screen it would not show.
+      // We are setting an id on the style so that it can be removed on the client,
+      // which will make the content visible.
+      //
+      // We had previously tried to use javascript to add display:block to the
+      // style attribute of the body tag, but the style attribute of the body tag can get removed,
+      // for example when you do ppr nav or you ppr the document. Therefore we are now
+      // removing the style element on the client.
+      //
+      out.startElement("style", null);
+      // an id cannot start with an underscore
+      out.writeAttribute("id", "trinFrameBustStyle", null);
+      out.writeText("body {display:none}", null);
+      out.endElement("style");
+
+      out.startElement("script", null);
+      XhtmlRenderer.renderScriptTypeAttribute(context, rc);
+      out.writeText("TrPage.__frameBusting(\"", null);
+      out.writeText(frameBusting, null);
+      out.writeText("\");", null);
+      out.endElement("script");
+    }
+  }  
 
   private PropertyKey _firstClickPassedKey;
   private PropertyKey _initialFocusIdKey;
@@ -577,4 +648,6 @@ public class BodyRenderer extends PanelPartialRootRenderer
   static private final String _PPR_BACK_SAVE_CONTENT_ID = "_pprSavePage";
   static private final String _PPR_BACK_SAVE_SCRIPT_ID = "_pprSaveScript";
   static private final String _PPR_BACK_SAVE_LIBRARY_ID = "_pprSaveLib";
+  
+  static private final String _PPR_OVER_JSF_AJAX = "org.apache.myfaces.trinidadinternal.PPR_OVER_JSF_AJAX";
 }

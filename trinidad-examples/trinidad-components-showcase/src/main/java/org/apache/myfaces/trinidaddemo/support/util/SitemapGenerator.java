@@ -30,27 +30,33 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.util.List;
-import java.util.Iterator;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.Map;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Utility class for generating the corresponding sitemap.xml for this demo app.
  *
- * Example mvn command:
- *  mvn exec:java
+ * Example mvn commands:
+ *   -> mvn exec:java
  *      -Dexec.args="http://example.irian.at/trinidad-components-showcase"
  *      -Dexec.mainClass="org.apache.myfaces.trinidaddemo.support.util.SitemapGenerator"
+ *
+ *   -> mvn clean package -P generateSitemap -DsitemapUrlBasePath=http://example.irian.at/trinidad-components-showcase
  */
 public class SitemapGenerator {
 
     private static final String DEFAULT_PAGE_PATH = "/faces/pages/demoStart.xhtml";
     private static final String COMPONENT_DEMO_PAGE_PATH = "/component-demo";
 
+    private String targetDir;
     private String loc;
     private String priority;
     private String changeFreq;
@@ -58,31 +64,36 @@ public class SitemapGenerator {
     /**
      * Constructor.
      *
+     * @param targetDir
      * @param loc
      */
-    public SitemapGenerator(String loc) {
-        this(loc, "0.5", "daily");
+    public SitemapGenerator(String targetDir, String loc) {
+        this(targetDir, loc, "0.5", "daily");
     }
 
     /**
      * Constructor.
      *
+     * @param targetDir
      * @param loc
      * @param priority
      * @param changeFreq
      */
-    public SitemapGenerator(String loc, String priority, String changeFreq) {
+    public SitemapGenerator(String targetDir, String loc, String priority, String changeFreq) {
+        this.targetDir = targetDir;
         this.loc = loc;
         this.priority = priority;
         this.changeFreq = changeFreq;
     }
 
+    /**
+     * Performs the generation of the sitemap.xml file.
+     */
     public void generateSitemap() {
         List<String> urls = getSitemapUrls();
 
         try {
-            String userDir = System.getProperty("user.dir");
-            File outputDir = new File(userDir, "src/main/webapp");
+            File outputDir = new File(targetDir);
             if (!outputDir.exists()) {
                 outputDir.mkdirs();
             }
@@ -99,7 +110,7 @@ public class SitemapGenerator {
                 out.write(urlsIterator.next());
             }
 
-            out.write(getSitemapUrl(getLoc() + DEFAULT_PAGE_PATH));
+            out.write(getSitemapUrl(loc + DEFAULT_PAGE_PATH));
             out.write("</urlset>");
 
             out.flush();
@@ -113,7 +124,7 @@ public class SitemapGenerator {
     /**
      * @return
      */
-    protected List<String> getSitemapUrls() {
+    private List<String> getSitemapUrls() {
         List<String> list = new ArrayList<String>();
 
         ComponentDemoInitializer initializer = ComponentDemoInitializer.getInstance();
@@ -136,11 +147,6 @@ public class SitemapGenerator {
                     variantsAdded.put(aComponentDemo.getId(), alreadyAddedVariants);
                 }
 
-                if (!alreadyAddedVariants.contains(aComponentDemo.getVariantId())) {
-                    list.add(getSitemapUrl(getUrl(aComponentDemo)));
-                    alreadyAddedVariants.add(aComponentDemo.getVariantId());
-                }
-
                 Iterator<IComponentVariantDemo> variants = aComponentDemo.getVariants().iterator();
                 while (variants.hasNext()) {
                     IComponentVariantDemo aVariantDemo = variants.next();
@@ -160,9 +166,9 @@ public class SitemapGenerator {
      * @param componentVariantDemo
      * @return
      */
-    protected String getUrl(IComponentVariantDemo componentVariantDemo) {
+    private String getUrl(IComponentVariantDemo componentVariantDemo) {
         StringBuilder builder = new StringBuilder();
-        builder.append(getLoc());
+        builder.append(loc);
         builder.append(COMPONENT_DEMO_PAGE_PATH);
         builder.append("/");
         builder.append(componentVariantDemo.getId());
@@ -176,7 +182,7 @@ public class SitemapGenerator {
      * @param url
      * @return
      */
-    protected String getSitemapUrl(String url) {
+    private String getSitemapUrl(String url) {
         StringBuilder builder = new StringBuilder();
 
         builder.append("<url>").append("\n");
@@ -185,50 +191,35 @@ public class SitemapGenerator {
             builder.append("</loc>").append("\n");        
 
             builder.append("\t<priority>");
-            builder.append(getPriority());
+            builder.append(priority);
             builder.append("</priority>").append("\n");
 
             builder.append("\t<changefreq>");
-            builder.append(getChangeFreq());
+            builder.append(changeFreq);
             builder.append("</changefreq>").append("\n");
         builder.append("</url>").append("\n");
 
         return builder.toString();
-    }
-
-    public String getLoc() {
-        return loc;
-    }
-
-    public void setLoc(String loc) {
-        this.loc = loc;
-    }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
-
-    public String getChangeFreq() {
-        return changeFreq;
-    }
-
-    public void setChangeFreq(String changeFreq) {
-        this.changeFreq = changeFreq;
-    }
+    }    
 
     public static void main(String[] args) {
-        //expected arg example : ""http://test.codebeat.ro/trinidad-components-demo"
-        //to specify baseURL for the links in the generated sitemap
-        String loc = "http://test.codebeat.ro/trinidad-components-demo"; //default value
-        if (args != null && args.length > 0) {
-            loc = args[0];
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        String date = dateFormat.format(Calendar.getInstance().getTime());
+
+        String targetDir = "/src/main/webapp"; //default value
+        String loc = "http://example.irian.at/trinidad-components-showcase-"+date; //default value        
+
+        if (args != null && args.length == 2) {
+            if (args[0] != null) {
+                targetDir = args[0];
+            }
+
+            if (args[1] != null) {
+                loc = args[1];
+            }
         }
 
-        SitemapGenerator generator = new SitemapGenerator(loc);
+        SitemapGenerator generator = new SitemapGenerator(targetDir, loc);
         generator.generateSitemap();        
     }
 }

@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">{0} yüklenemedi</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">UploadedFileProcessor başlatılamadı.</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Dosya çok büyük olduğundan karşıya yüklenemedi.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad hata ayıklama modunda çalışıyor. Üretim ortamında kullanmayın. Bkz:{0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">{0} öğesi EL ifadelerini desteklemiyor.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">{0} öğesi sadece tamsayı değerlerini kabul eder</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">{0} öğesi sadece uzun değerleri kabul eder</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Sınıf yükleyicisi bulunamadı.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -172,7 +176,7 @@
 <!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
 <resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> requestMap&apos;&apos;te belirtilen {0} dış görünümü, requestMap&apos;&apos;teki tüketici dış görünümünün styleSheetDocumentId değeri yerel dış görünümün styleSheetDocument no&apos;&apos;suyla eşleşmese bile kullanılacak. Stil tabloları tüketici ve üretici arasında paylaşılamayacağından, bu durum performansı etkileyecektir. Çakışmaları önlemek için, üretici stil sınıfları sıkıştırılmayacaktır. No&apos;&apos;ların eşleşmeme nedenlerinden biri jar dosyalarının üretici ve tüketicide aynı olmamasıdır. Örneğin, birinde sınıf dizin yolundaki jar dosyasında trinidad-skins.xml skin-additions varken diğerinde olmayabilir.</resource>
 <!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> requestMap&apos;&apos;te belirtilen {0} dış görünümü, tüketici dış görünümünün styleSheetDocumentId değeri requestMap&apos;&apos;te olmasa bile kullanılacak. Stil tabloları tüketici ve üretici arasında paylaşılamayacağından, bu durum performansı etkileyecektir. </resource>
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> requestMap&apos;&apos;te belirtilen {0} dış görünümü, tüketici dış görünümünün styleSheetDocumentId değeri requestMap&apos;&apos;te olmasa bile kullanılacak. Stil tabloları tüketici ve üretici arasında paylaşılamayacağından, bu durum performansı etkileyecektir.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Mevcut olmadığından, requestMap&apos;&apos;te belirtilen {0} dış görünümü kullanılmayacak.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -181,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Kaplama referans simgesinde ({0}) çevrimsel bağımlılık algılandı</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">addSkinAddition özelliğine boş bir SkinAddition nesnesi iletildi.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">{0} dış görünüm konfigürasyon dosyası işlenemedi.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">Kaplamanın translation-source Değer İfadesi, beklenen Harita veya Kaynak Deste türünde değil; Değer İfadesi yok sayılacak.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -254,11 +260,17 @@
 <!-- TREE_COMPONENT_MUST_INSIDE_FORM -->
 <resource key="TREE_COMPONENT_MUST_INSIDE_FORM" dnt="false">Ağaç bileşeni form içinde kullanılmalıdır.</resource>
 <!-- CANNOT_FIND_SCRIPTLET -->
-<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">Küçük komut listesi ({0}) bulunamadı</resource>
+<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">Komut listesi bulunamadı: {0}</resource>
 <!-- UNABLE_GET_RESOURCE -->
 <resource key="UNABLE_GET_RESOURCE" dnt="false">{0} kaynağı alınamıyor</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad, hata ayıklama javascript ile çalışıyor. Üretim ortamında kullanmayın. /WEB-INF/web.xml içindeki &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; parametresine bakın.</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Ortamınız üretim olarak konfigüre edilmiş ve Apache Trinidad hata ayıklama javascript&apos;i ile çalışıyor. /WEB-INF/web.xml yolundaki &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; parametresine bakın</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Ortamınız üretim olarak konfigüre edilmiş ve Apache Trinidad sıkıştırılmamış CSS ile çalışıyor. /WEB-INF/web.xml yolundaki &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; parametresine bakın</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Ortamınız üretim olarak konfigüre edilmiş ve Apache Trinidad TRUE hata ayıklama çıktısı ile çalışıyor. trinidad-config.xml dosyasındaki &quot;debug-output&quot; (hata ayıklama çıktısı) öğesine bakın.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">{1} için {0} değeri geçersiz</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +313,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">İlgili seçici mevcut olmadığından {0} nitelikleri yoksayılıyor.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Dış görünüm css dosyasından okunurken hata oluştu</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Dış görünüm css dosyasından okunurken hata oluştu. Seçicide fazladan virgül var: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Boş skinId veya boş skin değerine sahip bir Dış Görünüm eklenemez</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Önceden eklenen {0} dış görünümü yeniden eklendi. Bu dış görünümü uygulamanızda önbellekte sakladıysanız, tutarsız sonuçlar alabilirsiniz. Sınıf dizin yolunda tekrarlanan trinidad-skins.xml dosyaları olup olmadığını kontrol edin.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">skinId değeri boş olan bir Dış Görünüm alınamaz</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">{0} ailesi ve {1} dönüştürme setiyle eşleşen bir dış görünüm bulunamıyor. Bu nedenle basit dış görünüm kullanılacak</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">{0} ailesi ve {1} sürümüyle eşleşen bir dış görünüm bulundu. {2} dış görünümü kullanılacak.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">{0} ailesi ve {1} sürümüyle eşleşen bir dış görünüm bulunamıyor. {2} dış görünümü kullanılacak.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">{0} ailesi için sürümlendirilmemiş bir dış görünüm bulunamıyor. Sürümlendirilmiş {1} dış görünümü kullanılacak.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Bağlantı açılamadığından, stil sayfası dokümanının zaman damgası kullanılacak.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">{0} dış görünüm seçicisi, bir içerik özelliği içermediğinden bir Dış Görünüm Simge Nesnesi değil. Bu seçiciyi siz yarattıysanız, Skinning Framework&apos;&apos;un bir simge olarak değil, bir stil olarak algılaması için lütfen sonunu &quot;simge&quot; yerine &quot;stil&quot; olarak değiştirerek yeniden adlandırın.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0}, tüm diğer kurallardan önce gelmelidir.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Bu dış görünümler döngüsel bir şekilde birbiriyle çakışıyor veya çakıştıkları dış görünüm mevcut değil: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -419,6 +445,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Gerekli &apos;id&apos; öğesi bulunamadı.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Gerekli &apos;family&apos; öğesi bulunamadı.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">&apos;sürüm&apos;, &apos;ad&apos; için gereken alt öğe bulunamadı.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Hatalı nitelik girişi: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -662,7 +690,7 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Bilinmeyen karşılaştırma</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">test BoundValue gerekli</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">Test BoundValue gerekli</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">Boş (null) liste bağımsız değişkeni</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
@@ -721,4 +749,23 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">{0} Yerel ayar tanımlayıcısı için geçersiz ülke - ülke kodu büyük harf olmalıdır, Doğru format için yerel ayar javadoc&apos;&apos;a bakın. Ülke için boş dize kullanılacak.</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">{0} Yerel ayar tanımlayıcısı için geçersiz varyant - XSS saldırısından kaçınmak için eğik çizgi içeremez. Varyant için boş dize kullanılacak.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">{0} dosyası silinemedi</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState, bir StateManager.SerializedView anı veya 2 uzunluğunda bir Nesne dizisi olmalıdır.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Kısmi durum kaydetme henüz desteklenmiyor. Lütfen javax.faces.PARTIAL_STATE_SAVING içerik parametresini web.xml dosyanızda false olarak ayarlayın.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">{0} özelliği seriye dönüştürülürken hata oluştu: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> failed value=</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Adres devri hatası: {0} {2} türündeki {1} özelliği Seriye Dönüştürülebilir değil</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Adres Devri Hatası: {0} öğesiyle ilgili {1} özelliğinin seriye dönüştürme işlemi, özellik kirletilmeksizin {2} iken {3} olarak değiştirildi.</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">{0} için oturum özelliği seriye dönüştürme testi başarısız oldu. Bu kontrol &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos; sistem niteliğinden &apos;&apos;REQUEST&apos;&apos; kaldırılarak devre dışı bırakılabilir</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Oturum özelliği seriye dönüştürme testi başarısızlığı toplanırken istisna oluştu</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Oturum özelliği:{0} </resource>
 </resources>

@@ -367,6 +367,12 @@
                 >
               Text
             </textarea>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainId"
+                >
+              shortDesc_val
+            </label>
           </td>
         </tr>
       </table>

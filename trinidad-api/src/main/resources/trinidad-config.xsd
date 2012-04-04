@@ -87,11 +87,28 @@ output mode used by Apache MyFaces Trinidad.
         <element name="skin-family" minOccurs="0" maxOccurs="1"
                  type="config:stringExpressionType">
           <annotation>
-            <documentation>The &lt;skin-family&gt; element controls the skin used for output.
+            <documentation>The &lt;skin-family&gt; element is used to pick a skin during render.
+            The skin picking logic looks at the skin-family and finds a skin that matches that
+            skin-family. This element is required to get a skin that isn't the simple skin.
+            You can optionally add the skin-version to pick a particular version of a skin
+            with the same skin-family.
             </documentation>
           </annotation>
         </element>
 
+        <element name="skin-version" minOccurs="0" maxOccurs="1"
+                 type="config:stringExpressionType">
+          <annotation>
+            <documentation>The &lt;skin-version&gt; element is used to pick a skin during render.
+            A skin is picked by matching the skin-family (required), and if specified here, the
+            skin-version. If you want the skin that is marked default, you set the skin-version to
+            "default". If you want a skin with a specific version, then you set the version here. 
+            If you don't care about the version, or if your skin does not have a version, you leave
+            this blank.
+            </documentation>
+          </annotation>
+        </element>
+        
         <element name="accessibility-mode" minOccurs="0" maxOccurs="1"
                  type="config:accessibilityModeExpressionType">
           <annotation>
@@ -127,6 +144,20 @@ the time zone used for date processing and output.
             </documentation>
           </annotation>
         </element>
+        
+        <element name="two-digit-year-start" minOccurs="0" maxOccurs="1"
+                 type="config:integerExpressionType">
+          <annotation>
+            <documentation>The &lt;two-digit-year-start&gt; element sets the 100-year period used by the 
+            DateTimeConverter when parsing a string with 2-digit years. The parsed date will be placed in the
+           range startDate to startDate + 100 years.  
+           For example, when the string is "1/1/11" and the two-digit-year-start is set to 1900, the 
+           DateTimeConverter will parse it into the Date equivalent to 1st January 1911. 
+           The default value for two-digit-year-start is 1950.  
+            </documentation>
+          </annotation>
+        </element>
+        
 
         <element name="right-to-left" minOccurs="0" maxOccurs="1"
                  type="config:booleanExpressionType">
@@ -282,6 +313,10 @@ override the locale that converters use for date time, number and currency.
 
   <simpleType name="longExpressionType">
     <union memberTypes="long config:expressionType" />
+  </simpleType>
+
+  <simpleType name="integerExpressionType">
+    <union memberTypes="integer config:expressionType" />
   </simpleType>
 
   <simpleType name="booleanExpressionType">

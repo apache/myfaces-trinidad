@@ -80,15 +80,15 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
   {
     boolean processedChildren;
 
-    setupVisitingContext(context);
-    
+    setupFlattenedContext(context, cpContext);
+
     try
     {
       // Mimic what would normally happen in the non-flattening case for encodeBegin():
       __processFlattenedChildrenBegin();
-  
-      setupChildrenVisitingContext(context);
-      
+
+      setupFlattenedChildrenContext(context, cpContext);
+
       try
       {
         Runner runner = new IndexedRunner(cpContext)
@@ -97,25 +97,25 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
           protected void process(UIComponent kid, ComponentProcessingContext cpContext) throws IOException
           {
             kid.pushComponentToEL(context, null);
-    
+
             try
             {
               childProcessor.processComponent(context, cpContext, kid, callbackContext);
             }
             finally
             {
-              kid.popComponentFromEL(context);         
+              kid.popComponentFromEL(context);
             }
           }
         };
-        
+
         processedChildren = runner.run();
         Exception exp = runner.getException();
         if (exp != null)
         {
           if (exp instanceof RuntimeException)
             throw (RuntimeException) exp;
-    
+
           if (exp instanceof IOException)
             throw (IOException) exp;
           throw new IllegalStateException(exp);
@@ -123,14 +123,14 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       }
       finally
       {
-        tearDownChildrenVisitingContext(context);
+        tearDownFlattenedChildrenContext(context, cpContext);
       }
     }
     finally
     {
-      tearDownVisitingContext(context);
+      tearDownFlattenedContext(context, cpContext);
     }
-    
+
     return processedChildren;
   }
 
@@ -169,10 +169,12 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       Runner runner = new IndexedRunner()
       {
         @Override
-        protected void process(UIComponent kid,
-                               ComponentProcessingContext cpContext) throws IOException
+        protected void process(
+          UIComponent                kid,
+          ComponentProcessingContext cpContext
+          ) throws IOException
         {
-          __encodeRecursive(context, kid);
+          kid.encodeAll(context);
         }
       };
       runner.run();
@@ -229,7 +231,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
         }
         return map.get(key);
       }
-    
+
       @Override
       public Set<Map.Entry<String, Object>> entrySet()
       {
@@ -268,13 +270,13 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     };
     runner.run();
   }
-  
+
   // Extract the current row token from the clientId
   private String _getClientToken(String clientIdPrefix, String cellClientId)
   {
     int tokenStartIndex = clientIdPrefix.length() + 1;
     int tokenEndIndex = cellClientId.indexOf(':', tokenStartIndex);
-    
+
     if (tokenEndIndex != -1)
     {
       return cellClientId.substring(tokenStartIndex, tokenEndIndex);
@@ -284,21 +286,21 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       return null;
     }
   }
-  
+
   @Override
   protected boolean visitData(
     final VisitContext  visitContext,
     final VisitCallback visitCallback)
   {
     Collection<String> subtreeIds = visitContext.getSubtreeIdsToVisit(this);
-  
+
     // create a special VisitContext that doesn't visit the Facets
     // of column components since they aren't visited on each row
     final VisitContext noColumnFacetContext = new NoColumnFacetsVisitContext(visitContext);
 
     // runner to use to process the rows
     Runner runner;
-    
+
     if (VisitContext.ALL_IDS.equals(subtreeIds))
     {
       // we're processing all of the rows, so use the indexed runner (plus, we can't call size() on
@@ -308,15 +310,9 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
         @Override
         protected void process(UIComponent kid, ComponentProcessingContext cpContext)
         {
-          if (kid.getChildCount() > 0)
+          if (UIXComponent.visitTree(noColumnFacetContext, kid, visitCallback))
           {
-            for (UIComponent grandKid : kid.getChildren())
-            {
-              if (UIXComponent.visitTree(noColumnFacetContext, grandKid, visitCallback))
-              {
-                throw new AbortProcessingException();
-              }
-            }
+            throw new AbortProcessingException();
           }
         }
       };
@@ -324,26 +320,26 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     else
     {
       // We are only visiting a subset of the tree, so figure out which rows to visit
-      
+
       String ourClientIdPrefix = getClientId(visitContext.getFacesContext());
-     
+
       int subtreeIdCount = subtreeIds.size();
-      
+
       // build up a set of the row keys to visit rather than iterating
       // and visiting every row
       Set<String> rowsToVisit;
-      
+
       if (subtreeIdCount > 1)
       {
         rowsToVisit = new HashSet<String>(subtreeIdCount);
-  
+
         for (String currClientId : subtreeIds)
         {
           String clientToken = _getClientToken(ourClientIdPrefix, currClientId);
-          
+
           if (clientToken != null)
           {
-            rowsToVisit.add(clientToken);          
+            rowsToVisit.add(clientToken);
           }
         }
       }
@@ -351,7 +347,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       {
         String clientToken = _getClientToken(ourClientIdPrefix,
                                              subtreeIds.iterator().next());
-        
+
         if (clientToken != null)
         {
           rowsToVisit = Collections.singleton(clientToken);
@@ -361,7 +357,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
           rowsToVisit = Collections.emptySet();
         }
       }
-      
+
       // we didn't visit any data
       if (rowsToVisit.isEmpty())
         return false;
@@ -375,20 +371,14 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
           ComponentProcessingContext cpContext
           ) throws IOException
         {
-          if (kid.getChildCount() > 0)
+          if (UIXComponent.visitTree(noColumnFacetContext, kid, visitCallback))
           {
-            for (UIComponent grandKid : kid.getChildren())
-            {
-              if (UIXComponent.visitTree(noColumnFacetContext, grandKid, visitCallback))
-              {
-                throw new AbortProcessingException();
-              }
-            }
+            throw new AbortProcessingException();
           }
         }
       };
     }
-        
+
     try
     {
       runner.run();
@@ -413,7 +403,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     {
       _cpContext = cpContext;
     }
-    
+
     public abstract boolean run();
 
     /**
@@ -436,7 +426,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       catch (AbortProcessingException ape)
       {
         // we're done, so abort
-        _exception = ape;        
+        _exception = ape;
         throw ape;
       }
       catch (Exception e)
@@ -444,7 +434,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
         _exception = e;
       }
     }
-    
+
     public Exception getException()
     {
       return _exception;
@@ -462,7 +452,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     {
       _exception = e;
     }
-    
+
     private Exception _exception = null;
 
     private final ComponentProcessingContext _cpContext;
@@ -482,12 +472,12 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     {
       super(cpContext);
     }
-    
+
     public final boolean run()
     {
       FacesContext context = FacesContext.getCurrentInstance();
       ComponentProcessingContext cpContext = getComponentProcessingContext();
-      
+
       List<UIComponent> stamps = getStamps();
       int oldIndex = getRowIndex();
       int first = getFirst();
@@ -495,9 +485,9 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       int end = (rows <= 0) //show everything
         ? Integer.MAX_VALUE
         : first + rows;
-      
+
       boolean processedChild = false;
-      
+
       try
       {
         for(int i=first; i<end; i++)
@@ -522,7 +512,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       {
         setRowIndex(oldIndex);
       }
-      
+
       return processedChild;
     }
   }
@@ -537,16 +527,16 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       super();
       _clientKeys = clientKeys;
     }
-    
+
     public final boolean run()
     {
       FacesContext context = FacesContext.getCurrentInstance();
-     
+
       List<UIComponent> stamps = getStamps();
       int oldIndex = getRowIndex();
-            
+
       boolean processedChild = false;
-            
+
       try
       {
         // need to convert row key tokens to row keys
@@ -555,7 +545,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
         for(String clientKey : _clientKeys)
         {
           Object rowKey = rowKeyManager.getRowKey(context, UIXIterator.this, clientKey);
-          
+
           if (rowKey != null)
           {
             setRowKey(rowKey);
@@ -575,13 +565,13 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       {
         setRowIndex(oldIndex);
       }
-      
+
       return processedChild;
     }
-    
+
     private final Iterable<String> _clientKeys;
   }
-  
+
   @Override
   void __encodeBegin(FacesContext context) throws IOException
   {

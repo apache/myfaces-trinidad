@@ -40,6 +40,7 @@ import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetTreeImpl;
 import org.apache.myfaces.trinidad.model.TreeModel;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 
 /**
@@ -126,6 +127,20 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
     VisitContext  visitContext,
     VisitCallback callback)
   {
+    if (ComponentUtils.isSkipIterationVisit(visitContext))
+    {
+      return visitChildrenWithoutIterating(visitContext, callback);
+    }
+    else
+    {
+      return _visitChildrenIterating(visitContext, callback);
+    }
+  }
+  
+  private boolean _visitChildrenIterating(
+    VisitContext  visitContext,
+    VisitCallback callback)
+  {
     boolean done = visitData(visitContext, callback);
     
     if (!done)
@@ -173,7 +188,7 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
       }
     }
     
-    return done;
+    return done;    
   }
   
   @Override
@@ -252,6 +267,7 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
           RowKeySet rowKeys = (RowKeySet) value;
           // row key sets need the most recent collection model, but there is no one common entry
           // point to set this on the set besides when code asks for the value from the bean
+          __flushCachedModel();  //insist that we populate with the very lastest instance of the collection model
           rowKeys.setCollectionModel(getCollectionModel());
         }
         finally

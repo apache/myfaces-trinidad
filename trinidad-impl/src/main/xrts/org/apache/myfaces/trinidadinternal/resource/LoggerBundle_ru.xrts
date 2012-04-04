@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">Невозможно загрузить {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">Невозможно создать экземпляр UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">Невозможно загрузить в сеть файл, т.к. его размер слишком велик.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad выполняется в режиме отладки. Не используйте в коммерческой версии. См.:{0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">Элемент {0} не поддерживает выражения EL.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">Элемент {0} принимает только целочисленные значения</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">Элемент {0} принимает только длинные значения</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Невозможно найти загрузчик класса контекста.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -150,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Невозможно найти набор ресурсов {0}.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">ошибка при закрытии файла:{0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Ошибка при закрытии файла:{0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Ошибка при получении файлов метаданных области:{0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -170,9 +174,9 @@
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Отсутствует SkinFactory</resource>
 <!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Оформление {0}, заданное для данного requestMap, будет использоваться несмотря на то, что styleSheetDocument оформления потребителя для данного requestMap не соответствует идентификатору styleSheetDocument локального оформления. Это снизит производительность, т.к. таблицы стилей потребителя и производителя не могут использоваться совместно. Классы стилей производителя не будут сжиматься во избежание конфликтов. Причиной несоответствия идентификаторов могут являться файлы jar, которые для производителя и потребителя отличаются. Например, один из них может содержать в файле jar на пути к классам добавления оформлений trinidad-skins.xml, которые отсутствуют у другого файла jar.</resource>
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Оформление {0}, заданное для данного requestMap, будет использоваться несмотря на то, что styleSheetDocument оформления потребителя для данного requestMap не соответствует идентификатору styleSheetDocument локального оформления. Это снизит производительность, т.к. таблицы стилей потребителя и производителя не могут совместно использоваться. Классы стилей производителя не будут сжиматься во избежание конфликтов. Причиной несоответствия идентификаторов могут являться файлы jar, которые для производителя и потребителя отличаются. Например, один из них может содержать в файле jar на пути к классам добавления оформлений trinidad-skins.xml, которые отсутствуют у другого файла jar.</resource>
 <!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> Оформление {0}, заданное для данного requestMap, будет использоваться даже несмотря на то, что styleSheetDocumentId оформления потребителя отсутствовал в данном requestMap. Это снизит производительность, т.к. таблицы стилей не могут использоваться совместно потребителем и производителем.</resource>
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> Оформление {0}, заданное для данного requestMap, будет использоваться даже несмотря на то, что styleSheetDocumentId оформления потребителя отсутствовал в данном requestMap. Это снизит производительность, т.к. таблицы стилей не могут совместно использоваться потребителем и производителем.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Оформление {0}, заданное для данного requestMap, не будет использоваться, т.к. оно не существует.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -181,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">В значке ссылки на оформление {0} обнаружена циклическая зависимость</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">В addSkinAddition передан неопределенный объект SkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Сбой при обработке файла конфигурации оформления: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">ValueExpression для translation-source имеет тип, отличающийся от ожидаемого типа Map или ResourceBundle, поэтому он будет проигнорирован.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -259,6 +265,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Невозможно получить ресурс ({0})</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad выполняется с отладочным javascript. Не используйте в коммерческой версии. См. параметр &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; в /WEB-INF/web.xml</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Среда настроена как коммерческая версия. Apache Trinidad выполняется с отладочным JavaScript. См. параметр &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; в /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Среда настроена в производственном режиме. Apache Trinidad выполняется с CSS без сжатия. См. параметр \&quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION\&quot; в /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Среда настроена как коммерческая версия. Apache Trinidad выполняется с отладочным выводом TRUE. См. элемент &quot;debug-output&quot; в файле trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Недопустимое значение, {0}, для {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +313,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Свойства {0} игнорируются, т.к. отсутствует соответствующий инструмент выбора.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Ошибка при чтении из файла css оформления.</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Ошибка при чтении из файла css оформления. Лишняя запятая в селекторе: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">Невозможно добавить оформление с неопределенным skinId или неопределенным skin</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Добавленное ранее оформление {0} добавлено повторно. При выполнении кэширования этого оформления в приложении возможно получение несогласованных результатов. Проверьте наличие повторяющихся файлов trinidad-skins.xml на пути классов.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">Невозможно получить оформление с неопределенным skinId</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">Невозможно найти оформление, соответствующее семейству {0} и renderkit {1}, поэтому будет использоваться простое оформление</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Обнаружено оформление, соответствующее семейству {0} версии {1}. Будет использовано оформление {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">Не удается найти оформление, соответствующее семейству {0} версии {1}. Будет использовано оформление {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">Не удается найти оформление без версии для семейства {0}. Будет использовано оформление {1}, которое имеет версию.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">Невозможно получить отметку времени документа таблицы стилей, т.к. невозможно открыть соединение.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">Выбор оформления {0} не является объектом значка оформления, так как не имеет атрибута содержимого. Если данный выбор создан вами, переименуйте его, используя в окончании слово &quot;style&quot; вместо &quot;icon&quot;, чтобы программа Skinning Framework принимала его за стиль, а не за значок.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} должно предшествовать всем другим правилам.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Следующие оформления являются расширениями друг друга, циклически ссылающимися друг на друга, либо оформление, которое они расширяют, не существует:{0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -316,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Ошибка при синтаксическом анализе: {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">ошибка при загрузке файла:{0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Ошибка при загрузке файла:{0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Невозможно загрузить таблицу стилей: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -419,6 +445,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">Не найден обязательный элемент &apos;id&apos;.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Не найден обязательный элемент &apos;family&apos;.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">Требуемый дочерний элемент для &apos;версии&apos; и &apos;имени&apos; не найден.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Неверно сформированная запись свойства: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -510,7 +538,7 @@
 <!-- REGISTERED_NULL_URI -->
 <resource key="REGISTERED_NULL_URI" dnt="false">Зарегистрирован неопределенный URI</resource>
 <!-- NULL_PATH_REGISTERED -->
-<resource key="NULL_PATH_REGISTERED" dnt="false">зарегистрирован неопределенный путь для {0}</resource>
+<resource key="NULL_PATH_REGISTERED" dnt="false">Зарегистрирован неопределенный путь для {0}</resource>
 <!-- NO_BASE_PATH_REGISTERED -->
 <resource key="NO_BASE_PATH_REGISTERED" dnt="false">Не зарегистрирован базовый путь</resource>
 <!-- KEYS_AND_VALUES_MUST_MATCH -->
@@ -662,7 +690,7 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Неизвестное сравнение</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">требуется проверка BoundValue</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">Требуется проверка BoundValue</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">Неопределенный аргумент списка</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
@@ -721,4 +749,23 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Недопустимая страна для идентификатора национальных настроек {0} - код страны должен быть задан в верхнем регистре, верный формат см. в javadoc национальных настроек. Для страны будет использована пустая строка</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Недопустимая разновидность для идентификатора национальных настроек {0} - во избежание атак XSS он не может содержать символов косой черты. Для разновидности будет использована пустая строка.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">Невозможно удалить файл {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">Параметр IState должен быть экземпляром StateManager.SerializedView или массивом области с длиной 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">Сохранение частичного состояния еще не поддерживается. Задайте для параметра context-param javax.faces.PARTIAL_STATE_SAVING значение FALSE в файле web.xml.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Ошибка при сериализации атрибута {0}:{1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> сбой значения=</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Ошибка восстановления соединения: {0} атрибут:{1} типа {2} не является сериализуемым</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Ошибка восстановления соединения: сериализация атрибута {0}:{1} изменена с {2} на {3}, атрибут не поврежден</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Сбой при проверке сериализации атрибута сеанса для {0}. Эту проверку можно отключить, удалив &apos;&apos;REQUEST&apos;&apos; из системного свойства &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Исключение при сборе данных о сбое проверки сериализации атрибута сеанса</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Атрибут сеанса:{0}</resource>
 </resources>

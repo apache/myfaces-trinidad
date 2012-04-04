@@ -1,32 +1,30 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.component.visit;
 
 import java.util.Collection;
 import java.util.Collections;
-
+import java.util.EnumSet;
 import java.util.Set;
 
-import javax.faces.FactoryFinder;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitContextFactory;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.context.FacesContext;
 
@@ -39,11 +37,18 @@ import org.apache.myfaces.trinidad.context.RequestContext;
  */
 public final class VisitTreeUtils
 {
+  /**
+   * Set of {@link VisitHint#SKIP_UNRENDERED} and {@link VisitHint#SKIP_TRANSIENT} provided
+   * for convenience as it is a common use case.
+   */
+  public static final Set<VisitHint> NON_TRANSIENT_RENDERED_HINTS =
+    EnumSet.of(VisitHint.SKIP_UNRENDERED, VisitHint.SKIP_TRANSIENT);
+
   private VisitTreeUtils() {}
 
   /**
    * <p>Creates a VisitContext instance for use with
-   * {@link org.apache.myfaces.trinidad.component.UIXComponent#visitTree UIComponent.visitTree()}.</p>
+   * {@link javax.faces.component.UIComponent#visitTree}.</p>
    *
    * @param context the FacesContext for the current request
    * @param ids the client ids of the components to visit.  If null,
@@ -51,16 +56,16 @@ public final class VisitTreeUtils
    * @param hints the VisitHints to apply to the visit
    * @return a VisitContext instance that is initialized with the
    *   specified ids and hints.
+   * @deprecated Method is no longer needed and duplicates the functionality provided by
+   *   {@link VisitContext#createVisitContext(FacesContext, Collection<String>, Set<VisitHint>)}
    */
+  @Deprecated
   public static VisitContext createVisitContext(
     FacesContext context,
     Collection<String> ids,
     Set<VisitHint> hints)
   {
-    VisitContextFactory factory = (VisitContextFactory)
-                                  FactoryFinder.getFactory(FactoryFinder.VISIT_CONTEXT_FACTORY);
-    
-    return factory.getVisitContext(context, ids, hints);
+    return VisitContext.createVisitContext(context, ids, hints);
   }
 
   /**
@@ -77,7 +82,8 @@ public final class VisitTreeUtils
     String        clientId,
     VisitCallback visitCallback)
   {
-    VisitContext visitContext = createVisitContext(facesContext, Collections.singleton(clientId), null);
+    VisitContext visitContext = VisitContext.createVisitContext(facesContext,
+                                  Collections.singleton(clientId), null);
     return UIXComponent.visitTree(visitContext, facesContext.getViewRoot(), visitCallback);
   }
 }

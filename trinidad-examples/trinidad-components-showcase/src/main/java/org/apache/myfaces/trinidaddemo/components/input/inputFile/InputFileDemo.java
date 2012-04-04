@@ -31,30 +31,33 @@ public class InputFileDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956883492710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Detailed,
+    Detailed,
         Simple
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public InputFileDemo() {
-		super(ComponentDemoId.inputFile, "Input File",
-            new String[]{
-                "/components/input/inputFile/inputFile.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public InputFileDemo() {
+    super(ComponentDemoId.inputFile, "Input File");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
                         "/components/input/inputFile/inputFileSimple.xhtml"
-                }, getSummaryResourcePath()));
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
                 new String[]{
                         "/components/input/inputFile/inputFileDetailed.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.Detailed);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/input/inputFile/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

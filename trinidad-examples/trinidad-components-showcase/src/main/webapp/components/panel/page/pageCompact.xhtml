@@ -1,3 +1,22 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -6,28 +25,23 @@
 
     <ui:define name="demoContent">
 
-        <tr:page var="foo" value="#{pageBean.model}" styleClass="page_page" chromeType="compact">
+        <tr:page styleClass="page_page" chromeType="compact">
 
-            <f:facet name="nodeStamp">
-            <tr:navigationPane hint="bar">
-                <!--<tr:commandNavigationItem text="#{foo.label}" action="#{foo.doAction}"/>-->
-                <tr:commandNavigationItem text="Apps" action="#{foo.doAction}"/>
-                <tr:commandNavigationItem text="Support" action="#{foo.doAction}"/>
-                <tr:commandNavigationItem text="About Us" action="#{foo.doAction}"/>
-                <tr:commandNavigationItem text="Contact" action="#{foo.doAction}"/>
-            </tr:navigationPane>
+           <f:facet name="menuSwitch">
+                <tr:navigationPane hint="bar">
+                    <tr:commandNavigationItem text="Apps"/>
+                    <tr:commandNavigationItem text="Support"/>
+                    <tr:commandNavigationItem text="About Us"/>
+                    <tr:commandNavigationItem text="Contact"/>
+                </tr:navigationPane>
             </f:facet>
 
             <f:facet name="appCopyright">
-                <tr:panelGroupLayout>
-                    <tr:outputText value="Copyright info"/>
-                </tr:panelGroupLayout>
+                <tr:outputText value="Copyright info"/>
             </f:facet>
 
             <f:facet name="branding">
-                <tr:panelGroupLayout>
-                    <tr:outputFormatted styleUsage="instruction" value=""/>
-                </tr:panelGroupLayout>
+                <tr:outputFormatted styleUsage="instruction" value=""/>
             </f:facet>
 
             <tr:separator/>

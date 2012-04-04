@@ -30,51 +30,59 @@ import javax.faces.context.FacesContext;
  * component variant demos.
  */
 public abstract class AbstractComponentVariantDemo implements IComponentVariantDemo {
-	
-	private IComponentDemoVariantId variantId;
+
+    private final static String DEFAULT = "default";
+
+  private IComponentDemoVariantId variantId;
     private String variantDisplayName;
-	
-	private AbstractComponentDemo componentDemo;
-	
-	/**
-	 * Constructor.
-	 * 
-	 * @param variantId the name of this component variant demo.
+
+  private AbstractComponentDemo componentDemo;
+  
+  /**
+   * Constructor.
+   * 
+   * @param variantId the name of this component variant demo.
      * @param variantDisplayName the display name of this component variant demo.
-	 * @param componentDemo the component demo owning this variant demo.
-	 */
-	public AbstractComponentVariantDemo(IComponentDemoVariantId variantId, String variantDisplayName,
+   * @param componentDemo the component demo owning this variant demo.
+   */
+  public AbstractComponentVariantDemo(IComponentDemoVariantId variantId, String variantDisplayName,
             AbstractComponentDemo componentDemo) {
         
-		this.variantId = variantId;
+    this.variantId = variantId;
         this.variantDisplayName = variantDisplayName;
-		this.componentDemo = componentDemo;
-	}
+    this.componentDemo = componentDemo;
+  }
 
-	public ComponentDemoId getId() {
-		return componentDemo.getId();
-	}
+  public ComponentDemoId getId() {
+    return componentDemo.getId();
+  }
 
     public IComponentDemoVariantId getVariantId() {
-		return variantId;
-	}
+    return variantId;
+  }
 
     public String getVariantDisplayName() {
-        return variantDisplayName;
+        return variantDisplayName + getDefault();
     }
 
     public IComponentDemoCategory getCategory() {
-		return componentDemo.getCategory();
-	}
+    return componentDemo.getCategory();
+  }
+
+    public AbstractComponentDemo getComponentDemo(){
+        return componentDemo;
+    }
 
     public String getTitle() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(componentDemo.getTitle());
-		builder.append(" - ");
-		builder.append(getVariantDisplayName());
-		
-		return builder.toString();
-	}
+    StringBuilder builder = new StringBuilder();
+    builder.append(componentDemo.getDisplayName());
+        if (componentDemo.getVariants().size() > 1){
+        builder.append(" - ");
+        builder.append(getVariantDisplayName());
+        }
+    
+    return builder.toString();
+  }
 
     public String getDescription() {
         return ComponentVariantDemoDescriptionProvider.getDescription(FacesContext.getCurrentInstance(), this);
@@ -89,12 +97,19 @@ public abstract class AbstractComponentVariantDemo implements IComponentVariantD
 
         return url.toString();
     }
-	
-	public String getBackingBeanResourcePath() {
-		return null;
-	}
+  
+  public String getBackingBeanResourcePath() {
+    return null;
+  }
 
-	public boolean isStatic() {
-		return getBackingBeanResourcePath() == null;
-	}
+  public boolean isStatic() {
+    return getBackingBeanResourcePath() == null;
+  }
+
+    private String getDefault() {
+        if (componentDemo.getDefaultVariant().equals(this))
+            return " ("+DEFAULT+")";
+        else
+            return "";
+    }
 }

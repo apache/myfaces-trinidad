@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.panel.panelSideBar;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,15 +30,23 @@ public class PanelSideBarDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982061956382492710L;
 
-	/**
-	 * Constructor.
-	 */
-	public PanelSideBarDemo() {
-		super(ComponentDemoId.panelSideBar, "Panel Side Bar",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public PanelSideBarDemo() {
+    super(ComponentDemoId.panelSideBar, "Panel Side Bar");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/panel/panelSideBar/panelSideBar.xhtml"
-            });
-	}
+                    "/components/panel/panelSideBar/panelSideBar.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);        
+  }
 
     public String getSummaryResourcePath() {
         return "/components/panel/panelSideBar/summary.xhtml";

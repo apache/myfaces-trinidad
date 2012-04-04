@@ -1,4 +1,23 @@
 /*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
+/*
  * Designed and implemented by ADONIS RADUCA,
  * under the effort to give a new, more modern, look to the Trinidad library.
  * Other notable effort comes from:
@@ -133,11 +152,15 @@ playground .component_look_changer {
     padding-left: 34px;
     padding-right: 34px;
 }
-
-.page_bottom {
+.page_bottom, .column_page_bottom {
     display: block;
     height: 20px;
+}
+.page_bottom {
     background: url("/skins/slices/page_bottom.png") no-repeat bottom left;
+}
+.column_page_bottom {
+    background: url("/skins/slices/column_page_bottom.png") no-repeat bottom left;
 }
 .demo_selector {
     position: absolute;
@@ -159,18 +182,26 @@ playground .component_look_changer {
 .email_app .page_container {
     padding-top: 4px;
 }
-
-.page_top {
+.page_top, .column_page_top {
     display: block;
-    height: 20px;
+}
+.page_top {
     background: url("/skins/slices/page_top.png") no-repeat top left;
 }
+.column_page_top {
+    background: url("/skins/slices/column_page_top.png") no-repeat top left;
+}
 
-.page_middle {
+.page_middle, .column_page_middle {
     display: block;
     height: auto;
     width: 1008px;
+}
+.page_middle {
     background: url("/skins/slices/page_middle.png") repeat-y top left;
+}
+.column_page_middle {
+    background: url("/skins/slices/column_page_middle.png") repeat-y top left;
 }
 
 p {
@@ -492,7 +523,6 @@ code {
 /* ------------------------------------------------------------------------------------------------------------------ */
 /* Casablanca skin overwritings.                                                                                      */
 /* ------------------------------------------------------------------------------------------------------------------ */
-
 /* Navigation List -------------------------------------------------------------------------------------------------- */
 .CBNavPaneListOptionCommon_Custom {
     border-color: #BED6E6;
@@ -514,18 +544,19 @@ code {
 .CBNavPaneListOptionDisabled_Custom {
     -tr-rule-ref: selector(".CBNavPaneListOptionCommon_Custom");
 }
-
 .components_list af|navigationPane::list-active-enabled af|navigationPane::list-content a {
     -tr-rule-ref: selector(".CBNavPaneListOptionSelected_Custom");
 }
 .components_list af|navigationPane::list-inactive-enabled af|navigationPane::list-content a {
     -tr-rule-ref: selector(".CBNavPaneListOption_Custom");
 }
-.components_list af|navigationPane::list-inactive-enabled af|navigationPane::list-content a:hover {
-    -tr-rule-ref: selector(".CBNavPaneListOptionHover_Custom");
-}
-.components_list af|navigationPane::list-active-enabled af|navigationPane::list-content a:hover {
-    -tr-rule-ref: selector(".CBNavPaneListOptionSelectedHover_Custom");
+@agent (touchScreen:none) {
+  .components_list af|navigationPane::list-inactive-enabled af|navigationPane::list-content a:hover {
+      -tr-rule-ref: selector(".CBNavPaneListOptionHover_Custom");
+  }
+  .components_list af|navigationPane::list-active-enabled af|navigationPane::list-content a:hover {
+      -tr-rule-ref: selector(".CBNavPaneListOptionSelectedHover_Custom");
+  }
 }
 .components_list af|navigationPane::list-active-disabled af|navigationPane::list-content,
     af|navigationPane::list-inactive-disabled af|navigationPane::list-content {
@@ -640,6 +671,342 @@ code {
 }
 
 /* ------------------------------------------------------------------------------------------------------------------ */
+/* Main menu.                                                                                                         */
+/* ------------------------------------------------------------------------------------------------------------------ */
+.page_bar_container {
+    padding: 5px 5px 0;    
+}
+#page_bar {
+	border-top: 1px solid #8B8580;
+	border-bottom: 1px solid #56524E;
+	border-left: 1px solid #8B8580;
+	border-right: 1px solid #8B8580;
+	background: #8B8580 url("/skins/slices/bar.png") repeat-x bottom left;
+    text-align: left;
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    #page_bar {
+        height: 1%;
+    }
+}
+#main_menu {
+	float: left;
+}
+#skin_menu {
+	float: right;
+}
+/* Page Bar --------------------------------------------------------------------------------------------------------- */
+#page_bar .top_bevel {
+	background: transparent url("/skins/slices/bar_top_bevel.png") repeat-x top left;
+}
+#page_bar ul {
+    margin: 0;
+    padding: 0;
+}
+#page_bar a {
+	display: block;
+	color: #E4E3E2;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	background: #8B8580 url("/skins/slices/menu.png") no-repeat bottom right;
+}
+@agent ie and (version: 5), ie and (version: 6), ie and (version: 7) {
+    #page_bar a {
+        float: left;
+        height: 1%;
+    }
+}
+@agent ie and (version: 5), ie and (version: 6), ie and (version: 7) {
+    #page_bar a a {
+        float: none;
+    }
+}
+@agent (touchScreen:none) {
+  #page_bar a:hover {
+    text-decoration: none;
+    color: white;
+    background: #7D7873 url("/skins/slices/menu_hover.png") no-repeat bottom right;
+  }
+  #page_bar a:hover span {
+    border-top: 1px solid #88847F;
+    border-bottom: 1px solid #423F3B;
+  }
+  #page_bar .menu_anchor, #page_bar a:hover .menu_anchor {
+  	display: block;
+	position: relative;
+    z-index: 10000;
+	border: none;
+	padding: 0;
+  }
+  #main_menu li a:hover {
+  }
+  #page_bar .expand:hover .submenu {
+	display: block;
+  }
+
+}
+#page_bar a span {
+	display: block;
+	border-top: 1px solid #96918C;
+	border-bottom: 1px solid #7B7773;
+	padding: 7px 12px;
+	white-space: nowrap;
+    line-height: 1em;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+#page_bar a.expand span {
+	padding-right: 24px;
+	background: url("/skins/slices/expand_arrow.png") no-repeat center right;
+}
+#page_bar .submenu span {
+	border: none;
+}
+#page_bar .expand .submenu span {
+	padding-right: 12px;
+	background: none;
+}
+/* Main Menu -------------------------------------------------------------------------------------------------------- */
+#main_menu li {
+	float: left;
+    list-style: none;
+}
+#main_menu li a {
+    text-decoration: none;
+}
+/* Submenu ---------------------------------------------------------------------------------------------------------- */
+#page_bar .submenu_container {
+    min-width: 100%;
+    position: absolute;
+    z-index: 10000;
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    #page_bar .submenu_container {
+        width: 100%;
+    }
+}
+#page_bar #skin_menu .submenu_container {
+    right: -1px;
+}
+#page_bar #skin_menu li {
+    list-style: none;
+}
+#page_bar .expand .submenu {
+	display: none;
+	width: auto;
+	background: #615D59;     
+	border: 1px solid #56524E;
+}
+@agent ie and (version: 5), ie and (version: 6), ie and (version: 7), ie and (version: 8) {
+    #page_bar .expand:hover .submenu {
+        width: 100%;
+    }
+}
+#page_bar .expand .submenu a {
+	background: #78736E;
+}
+@agent (touchScreen:none) {
+  #page_bar .expand .submenu a:hover {
+      background: #7D7873 url("/skins/slices/menu_hover.png") no-repeat bottom center;
+  }
+}
+#page_bar .expand .submenu a span {
+	border-bottom: none;
+}
+#page_bar .expand .submenu, #page_bar .expand .submenu tbody,
+#page_bar .expand .submenu tr, #page_bar .expand .submenu td {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    border-spacing: 0; 
+}
+#page_bar .expand .submenu tbody,
+#page_bar .expand .submenu tr, #page_bar .expand .submenu td {
+    display: block;
+}
+/* Skin Menu --------------------------------------------------------------- */
+#skin_menu a {
+	background-position: bottom left;
+}
+#skin_menu li a {
+	text-decoration: none;
+}
+@agent (touchScreen:none) {
+  #skin_menu a:hover {
+    background-position: bottom left;
+  }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* Main menu.                                                                                                         */
+/* ------------------------------------------------------------------------------------------------------------------ */
+.page_bar_container {
+    padding: 5px 5px 0;    
+}
+#page_bar {
+	border-top: 1px solid #8B8580;
+	border-bottom: 1px solid #56524E;
+	border-left: 1px solid #8B8580;
+	border-right: 1px solid #8B8580;
+	background: #8B8580 url("/skins/slices/bar.png") repeat-x bottom left;
+    text-align: left;
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    #page_bar {
+        height: 1%;
+    }
+}
+#main_menu {
+	float: left;
+}
+#skin_menu {
+	float: right;
+}
+/* Page Bar --------------------------------------------------------------------------------------------------------- */
+#page_bar .top_bevel {
+	background: transparent url("/skins/slices/bar_top_bevel.png") repeat-x top left;
+}
+#page_bar ul {
+    margin: 0;
+}
+#page_bar a {
+	display: block;
+	color: #E4E3E2;
+	background: #8B8580 url("/skins/slices/menu.png") no-repeat bottom right;
+}
+@agent ie and (version: 5), ie and (version: 6), ie and (version: 7) {
+    #page_bar a {
+        float: left;
+        height: 1%;
+    }
+}
+@agent ie and (version: 5), ie and (version: 6), ie and (version: 7) {
+    #page_bar a a {
+        float: none;
+    }
+}
+@agent (touchScreen:none) {
+  #page_bar a:hover {
+    text-decoration: none;
+    color: white;
+    background: #7D7873 url("/skins/slices/menu_hover.png") no-repeat bottom right;
+  }
+}
+#page_bar a span {
+	display: block;
+	border-top: 1px solid #96918C;
+	border-bottom: 1px solid #7B7773;
+	padding: 7px 12px;
+	white-space: nowrap;
+}
+@agent (touchScreen:none) {
+  #page_bar a:hover span {
+    border-top: 1px solid #88847F;
+    border-bottom: 1px solid #423F3B;
+  }
+}
+#page_bar a.expand span {
+	padding-right: 24px;
+	background: url("/skins/slices/expand_arrow.png") no-repeat center right;
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    #page_bar a.expand span {
+        background: url("/skins/slices/expand_arrow_8bit.png") no-repeat center right;
+    }
+}
+#page_bar .submenu span {
+	border: none;
+}
+#page_bar .expand .submenu span {
+	padding-right: 12px;
+	background: none;
+}
+
+#page_bar .menu_anchor {
+	display: block;
+	position: relative;
+    z-index: 10000;
+	border: none;
+	padding: 0;
+}
+@agent (touchScreen:none) {
+  #page_bar a:hover .menu_anchor {
+    display: block;
+    position: relative;
+      z-index: 10000;
+    border: none;
+    padding: 0;
+  }
+}
+/* Main Menu -------------------------------------------------------------------------------------------------------- */
+#main_menu li {
+	float: left;
+}
+@agent (touchScreen:none) {
+  #main_menu li a:hover {
+  }
+}
+/* Submenu ---------------------------------------------------------------------------------------------------------- */
+#page_bar .submenu_container {
+    min-width: 100%;
+    position: absolute;
+    z-index: 10000;
+}
+@agent ie and (version: 5), ie and (version: 6) {
+    #page_bar .submenu_container {
+        width: 100%;
+    }
+}
+#page_bar #skin_menu .submenu_container {
+    right: -1px;
+}
+#page_bar .expand .submenu {
+	display: none;
+	width: auto;
+	background: #615D59;     
+	border: 1px solid #56524E;
+}
+@agent (touchScreen:none) {
+  #page_bar .expand:hover .submenu {
+    display: block;
+  }
+}
+@agent ie and (version: 5), ie and (version: 6), ie and (version: 7), ie and (version: 8) {
+    #page_bar .expand:hover .submenu {
+        width: 100%;
+    }
+}
+#page_bar .expand .submenu a {
+	background: #78736E;
+}
+@agent (touchScreen:none) {
+  #page_bar .expand .submenu a:hover {
+      background: #7D7873 url("/skins/slices/menu_hover.png") no-repeat bottom center;
+  }
+}
+#page_bar .expand .submenu a span {
+	border-bottom: none;
+}
+#page_bar .expand .submenu, #page_bar .expand .submenu tbody,
+#page_bar .expand .submenu tr, #page_bar .expand .submenu td {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    border-spacing: 0; 
+}
+#page_bar .expand .submenu tbody,
+#page_bar .expand .submenu tr, #page_bar .expand .submenu td {
+    display: block;
+}
+/* Skin Menu --------------------------------------------------------------- */
+#skin_menu a {
+	background-position: bottom left;
+}
+@agent (touchScreen:none) {
+  #skin_menu a:hover {
+    background-position: bottom left;
+  }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
 /* Skin overwritings.                                                                                                 */
 /* ------------------------------------------------------------------------------------------------------------------ */
 /* Footer ----------------------------------------------------------------------------------------------------------- */
@@ -652,7 +1019,7 @@ code {
     height: 50px;
     width: 150px;
     overflow: hidden;
-    background: url("/components/panel/panelPageHeader/corporateBrand.gif") no-repeat top left;
+    background: url("/resources/corporateBrand.gif") no-repeat top left;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------ */
@@ -666,8 +1033,16 @@ code {
     color: #0C87D1;
     text-decoration: none;
 }
-.gs-result a.gs-title:hover {
-    text-decoration: underline;
+@agent (touchScreen:none) {
+  .gs-result a.gs-title:hover {
+      text-decoration: underline;
+  }
+  .gsc-cursor .gsc-cursor-page:hover {
+      -tr-rule-ref: selector(".CBPaginatorScrollerHover:alias");
+  }
+  .gsc-cursor .gsc-cursor-current-page:hover {
+      -tr-rule-ref: selector(".CBPaginatorScrollerSelectedHover:alias");
+  }
 }
 /* Search-result item body */
 .gs-result .gs-snippet {
@@ -677,12 +1052,6 @@ code {
     text-decoration: none;
     -tr-rule-ref: selector(".CBPaginatorScroller:alias");
 }
-.gsc-cursor .gsc-cursor-page:hover {
-    -tr-rule-ref: selector(".CBPaginatorScrollerHover:alias");
-}
 .gsc-cursor .gsc-cursor-current-page {
     -tr-rule-ref: selector(".CBPaginatorScrollerSelected:alias");
-}
-.gsc-cursor .gsc-cursor-current-page:hover {
-    -tr-rule-ref: selector(".CBPaginatorScrollerSelectedHover:alias");
 }

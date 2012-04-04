@@ -89,6 +89,8 @@
                   <tr:selectItem label="locale" value="localeDemo"/>
                 </tr:selectOneChoice>
                 <tr:commandButton text="Go"/>
+                <tr:commandButton text="Set Skin Dirty" actionListener="#{skinDirty.buttonAction}"/>
+                <tr:outputText value="(to immediately see skin's css changes)" />
                 <tr:goLink id="goLinkId" text="EmailablePageMode" 
                   destination="panelPageSkinDemo.jspx?org.apache.myfaces.trinidad.agent.email=true" />
                 <tr:selectBooleanCheckbox text="true" label="Label (red in purple skin + email mode):" value="true"/>

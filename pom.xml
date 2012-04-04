@@ -17,6 +17,29 @@
     specific language governing permissions and limitations
     under the License.
 -->
+
+<!--
+This pom file has been optimized for Maven3.  Usage of the various targets/tasks is below.
+
+Build:
+  mvn3 [install]
+  mvn3 clean install
+ 
+Prepare Release
+  mvn3 release:prepare
+  
+Perform Release
+  mvn3 release:perform
+
+Change Version Number (http://maven.apache.org/plugins/maven-release-plugin/examples/update-versions.html)
+  mvn3 release:update-versions
+  mvn3 release:update-versions -DautoVersionSubmodules=true
+
+Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/branch.html)
+  mvn3 release:branch -DbranchName=my-branch
+  mvn3 release:branch -DbranchName=my-branch -DupdateBranchVersions=true -DupdateWorkingCopyVersions=false
+-->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -28,12 +51,12 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>6</version>
+    <version>11</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
   <artifactId>trinidad</artifactId>
-  <version>2.0.0.2-SNAPSHOT</version>
+  <version>2.0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -45,12 +68,11 @@
     <jsp.version>2.1</jsp.version>
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>2.0</jsf-spec.version>
-    <jsf-ri.version>2.0.1</jsf-ri.version>
-    <jsf-myfaces.version>2.0.0-beta-2</jsf-myfaces.version>
-    <!--jsf-ri.version>2.0.3-SNAPSHOT</jsf-ri.version-->
-    <!--jsf-facelets.version>1.1.14</jsf-facelets.version-->
-    <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
+    <jsf-ri.version>2.0.4-b09</jsf-ri.version>
+    <jsf-myfaces.version>2.0.7</jsf-myfaces.version>
+    <portlet-bridge.version>2.0.0</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
+    <commons-io.version>2.0</commons-io.version>
     <pluto-embedded.version>1.0.1</pluto-embedded.version>
     
     <!-- Testing -->
@@ -59,14 +81,20 @@
     <junit.version>4.4</junit.version>
     
     <!-- Plugins -->
-    <trinidad-plugins.version>2.0.2-SNAPSHOT</trinidad-plugins.version>
+    <trinidad-plugins.version>2.0.8-SNAPSHOT</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
     <jetty-plugin.version>6.1.21</jetty-plugin.version>
     <pluto.version>1.1.6</pluto.version>
     <pluto.package>org.apache.pluto</pluto.package>
+    <myfaces-builder-plugin.version>1.0.9</myfaces-builder-plugin.version>
+
+    <!-- Enforcer -->
+    <maven.min-version>3.0</maven.min-version>
+    <jdk.min-version>1.6.0</jdk.min-version>
     
     <!-- Other -->
     <jdev.release>11.1.1.0.0</jdev.release>
+    <myfaces-builder-annotations.version>1.0.8</myfaces-builder-annotations.version>
   </properties>
 
   <issueManagement>
@@ -143,53 +171,12 @@
     <url>http://svn.apache.org/viewvc/myfaces/trinidad/branches/trinidad-2.0.x</url>
   </scm>
 
-  <repositories>
-    <!--Fixme: This repository is pretty bad.  We should move require artifacts to repo1. -->
-    <repository>
-      <id>java.net</id>
-      <url>http://download.java.net/maven/1</url>
-      <layout>legacy</layout>
-    </repository>
-    <repository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-    </repository>
-    <!-- needed for Bean Validation API -->
-    <repository>
-      <id>jboss releases</id>
-      <name>JBoss Releases</name>
-      <url>http://repository.jboss.org/maven2/</url>
-      <layout>default</layout>
-    </repository>
-    <repository>
-      <id>maven2-repository.dev.java.net</id>
-      <name>Java.net Repository for Maven</name>
-      <url>http://download.java.net/maven/2/</url>
-      <layout>default</layout>
-    </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-    </pluginRepository>
-  </pluginRepositories>
-
   <distributionManagement>
     <site>
       <id>apache-site</id>
       <name>Apache Website</name>
-      <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
+      <url>scp://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
     </site>
-    <snapshotRepository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>apache-maven-snapshots</id>
-      <name>Apache Maven Snapshot Repository</name>
-      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
-    </snapshotRepository>
   </distributionManagement>
 
   <dependencyManagement>
@@ -273,13 +260,6 @@
         <scope>provided</scope>
       </dependency>
       
-      <!--dependency>
-        <groupId>com.sun.facelets</groupId>
-        <artifactId>jsf-facelets</artifactId>
-        <version>${jsf-facelets.version}</version>
-        <scope>provided</scope>
-      </dependency-->
-
       <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
@@ -287,28 +267,41 @@
       </dependency>
 
       <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.myfaces.buildtools</groupId>
+        <artifactId>myfaces-builder-annotations</artifactId>
+        <version>${myfaces-builder-annotations.version}</version>
+        <scope>provided</scope>
+      </dependency>
+    
+      <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-build</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-api</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-impl</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-api</artifactId>
-        <version>${pom.version}</version>
+        <version>${project.version}</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
@@ -366,9 +359,52 @@
       <plugins>
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
+          <version>3.0</version>
           <inherited>true</inherited>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.maven.wagon</groupId>
+              <artifactId>wagon-ssh</artifactId>
+              <version>1.0-beta-7</version>
+            </dependency>
+          </dependencies>
           <configuration>
             <outputEncoding>UTF-8</outputEncoding>
+            <reportPlugins>
+              <!--plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>2.0</version>
+                <configuration>
+                  <threshold>Low</threshold>
+                </configuration>
+              </plugin-->
+
+              <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rat-maven-plugin</artifactId>
+              </plugin>
+
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.0.1</version>
+              </plugin>
+
+              <!--plugin>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                  <rulesets>
+                    <ruleset>/rulesets/basic.xml</ruleset>
+                    <ruleset>/rulesets/unusedcode.xml</ruleset>
+                  </rulesets>
+                  <linkXref>true</linkXref>
+                  <minimumTokens>100</minimumTokens>
+                  <targetJdk>${jdk.version}</targetJdk>
+                </configuration>
+              </plugin -->
+            </reportPlugins>
           </configuration>
         </plugin>
 
@@ -376,9 +412,6 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <inherited>true</inherited>
           <configuration>
-            <!-- set the forkMode to "always" to validate new tests,
-              and "never" otherwise for performance -->
-            <forkMode>never</forkMode>
             <parallel>true</parallel>
           </configuration>
         </plugin>
@@ -399,6 +432,12 @@
           <artifactId>maven-xrts-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
+          <configuration>
+            <defaultLocales>
+              <defaultLocale>en</defaultLocale>
+              <defaultLocale>en_US</defaultLocale>
+            </defaultLocales>
+          </configuration>
         </plugin>
         
         <plugin>
@@ -409,6 +448,7 @@
           <configuration>
             <force>true</force>
             <jsfVersion>${jsf-spec.version}</jsfVersion>
+            <metadataComplete>true</metadataComplete>
           </configuration>
         </plugin>
 
@@ -437,6 +477,12 @@
           <artifactId>maven-tagdoc-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
         </plugin>
+        
+        <plugin>
+          <groupId>org.apache.myfaces.buildtools</groupId>
+          <artifactId>myfaces-builder-plugin</artifactId>
+          <version>${myfaces-builder-plugin.version}</version>
+        </plugin>
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -456,6 +502,7 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
           <inherited>true</inherited>
+          <version>2.6</version>
           <configuration>
             <targetJdk>${jdk.version}</targetJdk>
           </configuration>
@@ -513,6 +560,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-idea-plugin</artifactId>
+          <version>2.2</version> 
           <configuration>
             <jdkName>${maven.compile.source}</jdkName>
             <linkModules>true</linkModules>
@@ -521,16 +569,33 @@
           </configuration>
         </plugin>
         
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>2.1.1</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-eclipse-plugin</artifactId>
+          <version>2.8</version>
+        </plugin>
+
       </plugins>
     </pluginManagement>
     
     <plugins>
+      <!--
+        Trinidad must now be built with a minimum of Maven 3.0 and Java 5.0 because
+        of some oddities with the checkstyle plugin 
+      -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
+        <version>1.0.1</version>
         <executions>
           <execution>
-            <id>enforce-versions</id>
+            <id>enforce-maven</id>
             <goals>
               <goal>enforce</goal>
             </goals>
@@ -540,17 +605,35 @@
                   <message>Apache MyFaces Trinidad 2 needs to be compiled with Java 6</message>
                   <version>1.6</version>
                 </requireJavaVersion>
-              </rules>
+                <requireMavenVersion>
+                  <!-- Require AT LEAST Maven 3.0 or higher -->
+                  <version>[${maven.min-version},)</version>
+                </requireMavenVersion>
+                <requireJavaVersion>
+                  <message>Apache MyFaces Trinidad 2 needs to be compiled with at least JDK ${jdk.min-version}</message>                
+                  <version>[${jdk.min-version},)</version>
+                </requireJavaVersion>
+              </rules>    
             </configuration>
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>default/myfaces-checks-minimal.xml</configLocation>
+          <headerLocation>default/myfaces-header.txt</headerLocation>
+        </configuration>
+      </plugin>
+    
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
           <preparationGoals>clean verify install</preparationGoals>
-          <tagBase>https://svn.apache.org//repos/asf/myfaces/trinidad/tags/</tagBase>
+          <tagBase>https://svn.apache.org/repos/asf/myfaces/trinidad/tags</tagBase>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
 
@@ -600,46 +683,24 @@
           </execution>
         </executions>
       </plugin>
+      
+      <!-- Apache RAT Plugin - intentionally executed only on -PenableRat, -Papache-release, or rat:check -->      
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <version>0.7</version>
+        <configuration>
+          <includes>
+            <include>src/*/</include>
+            <include>pom.xml</include>
+          </includes>
+          <excludes>
+            <exclude>**/clirr-runner.txt</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>2.0</version>
-        <configuration>
-          <threshold>Low</threshold>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>rat-maven-plugin</artifactId>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.0.1</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>2.3</version>
-        <configuration>
-          <rulesets>
-            <ruleset>/rulesets/basic.xml</ruleset>
-            <ruleset>/rulesets/unusedcode.xml</ruleset>
-          </rulesets>
-          <linkXref>true</linkXref>
-          <minimumTokens>100</minimumTokens>
-          <targetJdk>${jdk.version}</targetJdk>
-        </configuration>
-      </plugin>
-    </plugins>
-  </reporting>
 
   <profiles>
     <!--
@@ -660,74 +721,57 @@
       </modules>
     </profile>
 
-    <profile>
-      <id>partial-lifecycle</id>
-      <modules>
-        <module>trinidad-partial-lifecycle</module>
-      </modules>
-    </profile>
+   <!--
+     To create a new branch, use the following command:
+     mvn release:branch -DprepareRelease=true -DbranchName=my-branch -DupdateBranchVersions=true -DupdateWorkingCopyVersions=false
+   -->
 
     <!-- 
-      This profile is for preparing a release.  Execute this profile like this:
+      Add the assembly module when performing an apache-release
       
-      mvn release:prepare -DprepareRelease=true
+      USAGE:
+       - mvn release:prepare -Papache-release
+       - mvn release:perform -Papache-release
+
+      NOTE that for the maven lifecycle invoked by the release plugin, -Papache-release will
+      be added automatically because of the config in apache-parent-7.
     -->
     <profile>
-      <id>prepare-release</id>
+      <id>apache-release</id>
 
-      <activation>
-        <property>
-          <name>prepareRelease</name>
-        </property>
-      </activation>
-           
       <modules>
         <module>trinidad-assembly</module>
       </modules>
-    </profile>
-
-    <!-- 
-      This profile is for building the release artifacts for review.  Execute this profile 
-      like this:
-      
-      mvn clean source:jar install deploy -DaltDeploymentRepository=matzew::default::file://FOLDER -DperformRelease=true
-      
-      Issuing this command will also perform the "sign-artifacts" profile from the master pom.
-    -->
-    <profile>
-      <id>release</id>
-      <activation>
-        <property>
-          <name>performRelease</name>
-          <value>true</value>
-        </property>
-      </activation>
       <build>
         <plugins>
           <plugin>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <configuration>
-              <excludePackageNames>org.apache.myfaces.trinidadinternal.*</excludePackageNames>
-            </configuration>
+            <groupId>org.apache.rat</groupId>
+            <artifactId>apache-rat-plugin</artifactId>
             <executions>
               <execution>
-                <id>attach-javadocs</id>
+                <phase>verify</phase>
                 <goals>
-                  <goal>jar</goal>
+                  <goal>check</goal>
                 </goals>
               </execution>
             </executions>
           </plugin>
+        </plugins>
+      </build> 
+    </profile>
 
+    <profile>
+      <id>enableRat</id>
+      <build>
+        <plugins>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-scm-plugin</artifactId>
+            <groupId>org.apache.rat</groupId>
+            <artifactId>apache-rat-plugin</artifactId>
             <executions>
               <execution>
-                <phase>validate</phase>
-                <id>getting-scm.revision</id>
+                <phase>verify</phase>
                 <goals>
-                  <goal>update</goal>
+                  <goal>check</goal>
                 </goals>
               </execution>
             </executions>

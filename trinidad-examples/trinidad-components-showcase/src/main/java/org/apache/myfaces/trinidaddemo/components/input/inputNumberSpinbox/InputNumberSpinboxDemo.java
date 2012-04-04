@@ -31,24 +31,27 @@ public class InputNumberSpinboxDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982061956883498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Simple,
+    Simple,
         Detailed
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public InputNumberSpinboxDemo() {
-		super(ComponentDemoId.inputNumberSpinbox, "Input Number Spinbox", VARIANTS.Simple, "Simple",
-            new String[]{
-                "/components/input/inputNumberSpinbox/inputNumberSpinboxSimple.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public InputNumberSpinboxDemo() {
+    super(ComponentDemoId.inputNumberSpinbox, "Input Number Spinbox");
 
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, "Simple", this,
+                new String[]{
+                        "/components/input/inputNumberSpinbox/inputNumberSpinboxSimple.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, "Detailed", this,
                 new String[]{
                         "/components/input/inputNumberSpinbox/inputNumberSpinboxDetailed.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.Detailed);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/input/inputNumberSpinbox/summary.xhtml";

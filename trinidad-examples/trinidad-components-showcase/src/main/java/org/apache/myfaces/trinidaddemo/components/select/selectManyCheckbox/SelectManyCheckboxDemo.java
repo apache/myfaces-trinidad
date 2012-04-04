@@ -31,41 +31,32 @@ public class SelectManyCheckboxDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1989061956814398310L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		Simple,
+    Simple,
         Detailed,
-        Vertical,
         Horizontal
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public SelectManyCheckboxDemo() {
-		super(ComponentDemoId.selectManyCheckbox, "Select Many Checkbox",
-            new String[]{
-                "/components/select/selectManyCheckbox/selectManyCheckbox.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public SelectManyCheckboxDemo() {
+    super(ComponentDemoId.selectManyCheckbox, "Select Many Checkbox");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Simple, this,
                 new String[]{
                         "/components/select/selectManyCheckbox/selectManyCheckboxSimple.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Detailed, this,
                 new String[]{
                         "/components/select/selectManyCheckbox/selectManyCheckboxDetailed.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Horizontal, this,
                 new String[]{
                         "/components/select/selectManyCheckbox/selectManyCheckboxHorizontal.xhtml"
-                }, getSummaryResourcePath()));
+                }));
 
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Vertical, this,
-                new String[]{
-                        "/components/select/selectManyCheckbox/selectManyCheckboxVertical.xhtml"
-                }, getSummaryResourcePath()));
-	}
+        setDefaultVariant(VARIANTS.Detailed);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectManyCheckbox/summary.xhtml";

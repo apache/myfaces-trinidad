@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.pages;
 
@@ -64,7 +64,6 @@ public class FredJSP
    * @param viewRoot the UIViewRoot that will subsequently displayed.
    *    The viewRoot itself is not saved, but values like the locale
    *    and viewId are saved.
-   * @param savedPageFlowScope the process scope to use for the dialog
    * @param minWidth the minimum width for the target page.
    * @param minHeight the minimum height for the target page.
    */
@@ -93,7 +92,6 @@ public class FredJSP
     return EncoderUtils.appendURLArguments(baseURL, args);
   }
 
-
   @SuppressWarnings("unchecked")
   static void service(FacesContext context) throws IOException
   {
@@ -109,10 +107,21 @@ public class FredJSP
     
     // Save the return ID - and do so before generating the
     // link to the frames!
-    String returnId = requestParameters.get(_RETURN_ID_PARAM);
+    // We parse to a long to help avoid cross-site scripting attacks
+    Long returnId = JspUtils.longValueOfParam(requestParameters, _RETURN_ID_PARAM);
+    
+    String returnIdString;
+    
     if (returnId != null)
-      CoreRenderKit.saveDialogPostbackValues(returnId);
-
+    {
+      returnIdString = returnId.toString();
+      CoreRenderKit.saveDialogPostbackValues(returnIdString);
+    }
+    else
+    {
+      returnIdString = null;
+    }
+    
     CoreOutputText headStart = new CoreOutputText();
     root.getChildren().add(headStart);
     headStart.setEscape(false);
@@ -150,12 +159,13 @@ public class FredJSP
     String queryString = _getQueryString(
        context.getExternalContext().getRequestParameterValuesMap());
 
-    // grab any sizing parameters
-    String widthParam = requestParameters.get(_MIN_WIDTH_PARAM);
-    boolean gotWidth = (widthParam != null);
+    // grab any sizing parameters.  We convert these to their parsed parameters to avoid
+    // cross site scripting injects attacks
+    Integer width = JspUtils.integerValueOfParam(requestParameters, _MIN_WIDTH_PARAM);
+    boolean gotWidth = (width != null);
 
-    String heightParam = requestParameters.get(_MIN_HEIGHT_PARAM);
-    boolean gotHeight = (heightParam != null);
+    Integer height = JspUtils.integerValueOfParam(requestParameters, _MIN_HEIGHT_PARAM);
+    boolean gotHeight = (height != null);
 
     String viewIdRedirect = requestParameters.get(_VIEW_ID_REDIRECT_PARAM);
     if (viewIdRedirect != null)
@@ -202,14 +212,10 @@ public class FredJSP
 
     // Bug #2464627: Allow support for forcing a minimum size
     StringBuilder onload = new StringBuilder(_FRAMESET_ONLOAD_TEXT.length()
-                                           // space for the param plus the 'W:'
-                                           + (gotWidth
-                                              ? widthParam.length() + 2
-                                              : 0)
-                                           // space for the param plus the 'H:'
-                                           + (gotHeight
-                                              ? heightParam.length() + 2
-                                              : 0)
+                                           // space for the max param (5 digits) plus the 'W:'
+                                           + 7
+                                           // space for the max param (5 digits) plus the 'H:'
+                                           + 7
                                            // space for commas, brackets,
                                            // and closing paren
                                            + 5);
@@ -223,7 +229,7 @@ public class FredJSP
       {
         // add in the width parameter
         onload.append("W:");
-        onload.append(widthParam);
+        onload.append(width);
       }
       if (gotHeight)
       {
@@ -231,7 +237,7 @@ public class FredJSP
         if (gotWidth)
           onload.append(",");
         onload.append("H:");
-        onload.append(heightParam);
+        onload.append(height);
       }
       // close the parameter object
       onload.append("}");
@@ -246,10 +252,10 @@ public class FredJSP
 
     if (returnId != null)
     {
-      StringBuilder onunload = new StringBuilder(53 + returnId.length());
+      StringBuilder onunload = new StringBuilder(53 + 20); // allow 20 digits for the returnId
       onunload.append(_FRAMESET_ONUNLOAD_TEXT);
       onunload.append(";window.opener.setTimeout(");
-      onunload.append("'ADFDialogReturn[").append(returnId).append("]();'");
+      onunload.append("'ADFDialogReturn[").append(returnIdString).append("]();'");
       onunload.append(",1)");
       frameSet.setOnunload(onunload.toString());
     }

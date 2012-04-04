@@ -57,7 +57,7 @@
 <resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">重新排列..</resource>
 <resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">工具列</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">預設</resource>
-<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">按範例查詢</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">依範例查詢</resource>
 <resource key="afr_compositeTable.MENU_FORMAT" dnt="false">格式</resource>
 <resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">重新調整資料欄大小..</resource>
 <resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">重設..</resource>
@@ -241,11 +241,11 @@
 <!--Alt tag for reordering items up to top-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">將選取的項目移至清單最上方</resource>
 <!--Alt tag for reordering items up one-->
-<resource key="af_selectOrderShuttle.REORDER_UP_TIP" dnt="false">將清單中選取的項目向上移動一個位置</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_TIP" dnt="false">將清單中選取的項目上移一個位置</resource>
 <!--Alt tag for reordering items down to bottom-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN_ALL_TIP" dnt="false">將選取的項目移至清單最下方</resource>
 <!--Alt tag for reordering items down one-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">將清單中選取的項目向下移動一個位置</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">將清單中選取的項目下移一個位置</resource>
 <!--Text for reordering items to top of list-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">最上方</resource>
 <!--Text for reordering items up one position in the list-->
@@ -256,8 +256,8 @@
 <resource key="af_selectOrderShuttle.REORDER_DOWN" dnt="false">下移</resource>
 <!-- selectOrderShuttle and selectManyShuttle keys-->
 <!--Text above description area-->
-<resource key="af_selectManyShuttle.DESCRIPTION_LABEL" dnt="false">說明</resource>
-<resource key="af_selectOrderShuttle.DESCRIPTION_LABEL" dnt="false">說明</resource>
+<resource key="af_selectManyShuttle.DESCRIPTION_LABEL" dnt="false">描述</resource>
+<resource key="af_selectOrderShuttle.DESCRIPTION_LABEL" dnt="false">描述</resource>
 <!--Alt tag for moving all the items-->
 <resource key="af_selectManyShuttle.MOVE_ALL_TIP" dnt="false">將所有項目移至其他清單</resource>
 <resource key="af_selectOrderShuttle.MOVE_ALL_TIP" dnt="false">將所有項目移至其他清單</resource>

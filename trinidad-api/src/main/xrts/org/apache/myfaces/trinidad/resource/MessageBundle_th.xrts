@@ -42,7 +42,7 @@
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">คุณต้องเลือกอย่างน้อยหนึ่งรายการ</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">ต้องเลือกข้อมูล</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">คุณต้องเลือกอย่างน้อยหนึ่งรายการ</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">คุณต้องเลือกข้อมูล</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">ต้องเลือกแถว</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">คุณต้องเลือกแถว</resource>
@@ -59,8 +59,8 @@
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">ค่ามีรูปแบบไม่ถูกต้อง</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">ป้อนค่าที่ตรงกับรูปแบบนี้: {2}</resource>
 <!-- Upload ConversionException messages -->
-<resource key="org.apache.myfaces.trinidad.UPLOAD" dnt="false">ไฟล์ใหญ่เกินไป</resource>
-<resource key="org.apache.myfaces.trinidad.UPLOAD_detail" dnt="false">ไม่สามารถอัปโหลดไฟล์ เนื่องจากมีขนาดใหญ่เกินไป</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">การอัปโหลดไฟล์ล้มเหลว</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}</resource>
 <!-- hints for validators -->
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">ป้อนตัวเลขที่น้อยกว่าหรือเท่ากับ {0}</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">ป้อนตัวเลขที่มากกว่าหรือเท่ากับ {0}</resource>
@@ -247,6 +247,10 @@
 <!-- {2} an example of the format the converter is expecting -->
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">วันที่และเวลาอยู่ในรูปแบบที่ไม่ถูกต้อง</resource>
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">ป้อนวันที่และเวลาในรูปแบบเดียวกับตัวอย่างนี้: {2}</resource>
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE" dnt="false">วันที่หรือเวลาที่ป้อนไม่ถูกต้อง</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE_detail" dnt="false">ป้อนวันที่หรือเวลาที่ถูกต้อง</resource>
 <!-- {0} the label that identifies the component    -->
 <!-- {1} value entered by the user                  -->
 <!-- {2} the pattern the converter is expecting     -->

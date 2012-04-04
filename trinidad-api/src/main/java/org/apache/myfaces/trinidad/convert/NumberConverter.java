@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.convert;
 
@@ -38,6 +38,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
 import javax.faces.el.ValueBinding;
+
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -115,6 +118,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  *
  * <p>
  */
+@JSFConverter(configExcluded=true)
 public class NumberConverter extends javax.faces.convert.NumberConverter
 {
 
@@ -191,6 +195,9 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
     if (null == value)
       return null;
+
+    if (isDisabled())
+      return value;
 
     value = value.trim();
     if (value.length() < 1)
@@ -356,6 +363,9 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     if(value instanceof String)
       return (String)value;
 
+    if (isDisabled())
+      return value.toString();
+
     if (!(value instanceof Number))
       throw new IllegalArgumentException(_LOG.getMessage(
         "VALUE_NOT_JAVA_LANG_NUMBER_TYPE"));
@@ -491,6 +501,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @see #setMessageDetailConvertPattern(String)
    *
    */
+  @JSFProperty
   public String getMessageDetailConvertPattern()
   {
     Object msg = _facesBean.getProperty(_CONVERT_PATTERN_MESSAGE_DETAIL_KEY);
@@ -517,6 +528,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @return Custom error message.
    * @see #setMessageDetailConvertNumber(String)
    */
+  @JSFProperty
   public String getMessageDetailConvertNumber()
   {
     Object msg = _facesBean.getProperty(_CONVERT_NUMBER_MESSAGE_DETAIL_KEY);
@@ -544,6 +556,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @return Custom error message.
    * @see #setMessageDetailConvertCurrency(String)
    */
+  @JSFProperty
   public String getMessageDetailConvertCurrency()
   {
     Object msg = _facesBean.getProperty(_CONVERT_CURRENCY_MESSAGE_DETAIL_KEY);
@@ -571,6 +584,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @return Custom error message.
    * @see #setMessageDetailConvertPercent(String)
    */
+  @JSFProperty
   public String getMessageDetailConvertPercent()
   {
     Object msg = _facesBean.getProperty(_CONVERT_PERCENT_MESSAGE_DETAIL_KEY);
@@ -606,6 +620,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_CURRENCY_CODE_KEY, currencyCode);
   }
 
+  @JSFProperty
   @Override
   public String getCurrencyCode()
   {
@@ -619,6 +634,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_CURRENCY_SYMBOL_KEY, currencySymbol);
   }
 
+  @JSFProperty
   @Override
   public String getCurrencySymbol()
   {
@@ -633,6 +649,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_GROUPING_USED_KEY, grpUsed);
   }
 
+  @JSFProperty(defaultValue="true")
   @Override
   public  boolean isGroupingUsed()
   {
@@ -646,6 +663,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_INTEGER_ONLY_KEY, _getBooleanValue(integerOnly));
   }
 
+  @JSFProperty(defaultValue="false")
   @Override
   public boolean isIntegerOnly()
   {
@@ -674,6 +692,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * in the {@link javax.faces.component.UIViewRoot} for the current request
    * will be utilized during parsing.</p>
    */
+  @JSFProperty
   @Override
   public Locale getLocale()
   {
@@ -690,6 +709,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_MAX_FRACTION_DIGITS_KEY, _getIntValue(maxFractionDigits));
   }
 
+  @JSFProperty
   @Override
   public int getMaxFractionDigits()
   {
@@ -703,6 +723,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_MAX_INTEGER_DIGITS_KEY, _getIntValue(maxIntegerDigits));
   }
 
+  @JSFProperty
   @Override
   public int getMaxIntegerDigits()
   {
@@ -716,6 +737,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_MIN_FRACTION_DIGITS_KEY, _getIntValue(minFractionDigits));
   }
 
+  @JSFProperty
   @Override
   public int getMinFractionDigits()
   {
@@ -729,6 +751,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_MIN_INTEGER_DIGITS_KEY, _getIntValue(minIntegerDigits));
   }
 
+  @JSFProperty
   @Override
   public int getMinIntegerDigits()
   {
@@ -742,11 +765,12 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_PATTERN_KEY, pattern);
   }
 
+  @JSFProperty
   @Override
   public String getPattern()
   {
     Object pattern = _facesBean.getProperty(_PATTERN_KEY);
-    return ComponentUtils.resolveString(pattern);
+    return ComponentUtils.resolveString(pattern, true);
   }
 
   /**
@@ -762,6 +786,31 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     if (pattern == null)
       return null;
     
+    RequestContext reqCtx = RequestContext.getCurrentInstance();
+    String type = getType();
+    Locale locale = _getLocale(reqCtx, context);
+    DecimalFormat df = (DecimalFormat) _getNumberFormat(pattern, type, locale, reqCtx);
+    if (dfs == null)
+    {
+      dfs = df.getDecimalFormatSymbols();
+    }
+    
+    // If grouping and decimal separator have been customized then
+    // show them in the hint so that it's less confusing for the user.
+    char decSep = dfs.getDecimalSeparator();
+    char groupSep = dfs.getGroupingSeparator();
+
+    char[] patternArr = pattern.toCharArray();
+    for (int i = 0; i < patternArr.length; i++)
+    {
+      char c = patternArr[i];
+      if (c == '\u002E')
+        patternArr[i] = decSep;
+      else if (c == '\u002C')
+        patternArr[i] = groupSep;
+    }
+    pattern = new String(patternArr);
+    
     // If the pattern contains the generic currency sign, replace it with the localized 
     // currency symbol (if one exists), so that when the pattern is displayed (such as in an error 
     // message), it is more meaningful to the user.
@@ -773,16 +822,6 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     int idx = pattern.indexOf('\u00A4');
     if (idx == -1)
       return pattern;
-    
-    if (dfs == null)
-    {
-      String type = getType();
-      RequestContext reqCtx = RequestContext.getCurrentInstance();
-      Locale locale = _getLocale(reqCtx, context);
-      NumberFormat fmt = _getNumberFormat(pattern, type, locale, reqCtx);
-      DecimalFormat df = (DecimalFormat) fmt;
-      dfs = df.getDecimalFormatSymbols();
-    }
     
     if (idx + 1 < pattern.length() && pattern.charAt(idx + 1) == '\u00A4')
     {
@@ -808,6 +847,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.setProperty(_TYPE_KEY, type);
   }
 
+  @JSFProperty(defaultValue="number")
   @Override
   public String getType()
   {
@@ -831,6 +871,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     result = result * 37 + getMaxIntegerDigits();
     result = result * 37 + getMinFractionDigits();
     result = result * 37 + getMinIntegerDigits();
+    result = result * 37 + (isDisabled() ? 1 : 0);    
     result = result * 37 + (isGroupingUsed() ? 1: 0);
     result = result * 37 + (isIntegerOnly()? 1: 0);
     result = result * 37 + (isTransient() ? 1: 0);
@@ -860,6 +901,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
         getMaxIntegerDigits()  == nConv.getMaxIntegerDigits()   &&
         getMinFractionDigits() ==  nConv.getMinFractionDigits() &&
         getMinIntegerDigits()  ==  nConv.getMinIntegerDigits()  &&
+        isDisabled() == nConv.isDisabled() &&        
         isTransient() == nConv.isTransient() &&
         isGroupingUsed() ==  nConv.isGroupingUsed() &&
         isIntegerOnly()  == nConv.isIntegerOnly()   &&
@@ -880,6 +922,26 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     }
     return false;
   }
+
+  /**
+   * <p>Set the value to property <code>disabled</code>. Default value is false.</p>
+   * @param isDisabled <code>true</code> if it's disabled, <code>false</code> otherwise.
+   */  
+  public void setDisabled(boolean isDisabled)
+  {
+    _facesBean.setProperty(_DISABLED_KEY, Boolean.valueOf(isDisabled));
+  }
+
+  /**
+    * Return whether it is disabled.
+    * @return true if it's disabled and false if it's enabled. 
+    */
+  public boolean isDisabled()
+  {
+    Boolean disabled = (Boolean) _facesBean.getProperty(_DISABLED_KEY);
+    
+    return (disabled != null) ? disabled.booleanValue() : false;
+  }  
 
   private static int _getHashValue(Object obj)
   {
@@ -1294,23 +1356,39 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       throw new IllegalArgumentException(_LOG.getMessage(
         "NOT_VALID_TYPE", type));
   }
-
-  protected boolean isMaximumFractionDigitsSet()
+ 
+ /**
+   * Return true if the maximum fraction digits have been set. If not set, return false;
+   * @return true, if the maximum fraction digits have been set. 
+   */
+  public boolean isMaximumFractionDigitsSet()
   {
     return _facesBean.getProperty(_MAX_FRACTION_DIGITS_KEY) != null;
   }
 
-  protected boolean isMinimumFractionDigitsSet()
+ /**
+   * Return true if the minimum fraction digits have been set. If not set, return false;
+   * @return true, if the minimum fraction digits have been set. 
+   */
+  public boolean isMinimumFractionDigitsSet()
   {
     return _facesBean.getProperty(_MIN_FRACTION_DIGITS_KEY) != null;
   }
 
-  protected boolean isMaximumIntegerDigitsSet()
+ /**
+   * Return true if the maximum integer digits have been set. If not set, return false;
+   * @return true, if the maximum integer digits have been set. 
+   */
+  public boolean isMaximumIntegerDigitsSet()
   {
     return _facesBean.getProperty(_MAX_INTEGER_DIGITS_KEY) != null;
   }
 
-  protected boolean isMinimumIntegerDigitsSet()
+ /**
+   * Return true if the minimum integer digits have been set. If not set, return false;
+   * @return true, if the minimum integer digits have been set. 
+   */
+  public boolean isMinimumIntegerDigitsSet()
   {
     return _facesBean.getProperty(_MIN_INTEGER_DIGITS_KEY) != null;
   }
@@ -1364,6 +1442,10 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
   private static final PropertyKey  _TYPE_KEY
    = _TYPE.registerKey("type", String.class, "numeric");
+  
+  // Default is false
+  private static final PropertyKey _DISABLED_KEY =
+    _TYPE.registerKey("disabled", Boolean.class, Boolean.FALSE);
 
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 

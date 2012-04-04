@@ -61,19 +61,23 @@
 <!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
 <resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Trinidad 的 ViewHandler 已多次注册。要避免初始化问题, 请确保只加载了一个 Trinidad 实施 jar</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
-<resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad 正在启用了时间戳检查的情况下运行。这不应当在生产环境中使用。请查看 WEB-INF/web.xml 中的 {0} 属性</resource>
+<resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad 正在启用了时间戳检查的情况下运行。这不应当在正式版环境中使用。请查看 WEB-INF/web.xml 中的 {0} 属性</resource>
 <!-- CANNOT_LOAD_URL -->
 <resource key="CANNOT_LOAD_URL" dnt="false">无法加载 {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">无法实例化 UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">由于文件太大, 无法上载。</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
-<resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad 正在调试模式下运行。请勿在生产环境中使用。请查看 {0}</resource>
+<resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad 正在调试模式下运行。请勿在正式版环境中使用。请查看 {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
 <resource key="ELEMENT_NOT_UNDERSTOOD" dnt="false">无法理解元素 {0}</resource>
 <!-- NOT_SUPPORT_EL_EXPRESSION -->
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">元素 {0} 不支持 EL 表达式。</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">元素 {0} 仅接受整数值</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">元素{0}仅接受长整型值</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">找不到上下文类加载程序。</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -150,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">无法找到资源捆绑 {0}。</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">关闭文件 {0} 时出错</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">关闭文件{0}时出错</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">获取区域元数据文件 {0} 时出错</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -181,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">在外观引用图标 {0} 中检测到循环相关性</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">将空的 SkinAddition 对象传递到了 addSkinAddition。</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">无法处理外观配置文件{0}。</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">外观的转换源 ValueExpression 不是预期的映射类型或 ResourceBundle 类型, 因此将忽略。</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -254,11 +260,17 @@
 <!-- TREE_COMPONENT_MUST_INSIDE_FORM -->
 <resource key="TREE_COMPONENT_MUST_INSIDE_FORM" dnt="false">树组件必须在表单内部使用。</resource>
 <!-- CANNOT_FIND_SCRIPTLET -->
-<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">无法找到 scriptlet: {0}</resource>
+<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">找不到 scriptlet: {0}</resource>
 <!-- UNABLE_GET_RESOURCE -->
 <resource key="UNABLE_GET_RESOURCE" dnt="false">无法获取资源 {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
-<resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad 正在使用调试 javascript 运行。请勿在生产环境中使用。请查看 /WEB-INF/web.xml 中的 &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; 参数</resource>
+<resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad 正在使用调试 javascript 运行。请勿在正式版环境中使用。请查看 /WEB-INF/web.xml 中的 &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; 参数</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">您的环境配置为正式版环境, 而 Apache Trinidad 正在使用调试 javascript 运行。请查看 /WEB-INF/web.xml 中的 &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; 参数</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">您的环境配置为正式版环境, 而 Apache Trinidad 正在使用未压缩的 CSS 运行。请查看 /WEB-INF/web.xml 中的 &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; 参数</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">您的环境配置为正式版环境, 而 Apache Trinidad 正在 debug-output 为“真”的情况下运行。请查看 trinidad-config.xml 文件中的 &quot;debug-output&quot; 元素。</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">{1} 的值 {0} 非法</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +313,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">忽略属性 {0}, 因为不存在相应的选择器。</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">读取外观 css 文件时出错</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">读取外观 css 文件时出错。选择器中有额外的逗号: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">无法添加具有空 skinId 的外观或空的外观</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">以前添加的{0}外观已重新添加。如果在应用程序中高速缓存此外观, 则可能会获得不一致的结果。请查看类路径中是否有重复的 trinidad-skins.xml 文件。</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">无法获取具有空 skinId 的外观</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">找不到匹配系列 {0} 和呈现工具包 {1} 的外观, 因此将使用简单外观</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">找到了与系列{0}和版本 {1} 匹配的外观。将使用外观{2}。</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">找不到与系列{0}和版本 {1} 匹配的外观。将使用外观{2}。</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">找不到系列{0}的未版本化外观。将使用版本化外观{1}。</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">由于无法打开连接, 因此无法获取样式表文档的时间戳。</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">由于外观选择器{0}没有内容属性, 因此它不是外观图标对象。如果已创建此选择器, 请将其重命名为以 &quot;style&quot; 而不是 &quot;icon&quot; 结尾, 以便外观框架将其视为样式而不是图标。</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0}必须在所有其他规则之前。</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">以下外观以循环方式相互扩展, 或者它们扩展的外观不存在: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -316,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">对 {0} 进行语法分析时出错</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">加载文件 {0} 时出错</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">加载文件{0}时出错</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">无法加载样式表: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -419,6 +445,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">找不到必需的元素 &apos;id&apos;。</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">找不到必需的元素 &apos;family&apos;。</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">找不到 &apos;version&apos;, &apos;name&apos; 的必需子元素。</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">属性条目格式错误: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -721,4 +749,23 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">区域设置标识符 {0} 的国家/地区无效 - 国家/地区代码必须大写, 请查看区域设置 Javadoc 以了解正确格式。国家/地区将使用空字符串</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">区域设置标识符 {0} 的变体无效 - 不能包含斜杠, 以避免 XSS 攻击。变体将使用空字符串。</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">无法删除文件 {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState 必须是 StateManager.SerializedView 的实例或长度为 2 的对象数组。</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">尚不支持部分状态保存。请在 web.xml 中将 context-param javax.faces.PARTIAL_STATE_SAVING 设置为“假”。</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">串行化{0}属性{1}时出错</resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> 失败的值=</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">故障转移错误: 不能对类型为{2}的{0}属性{1}进行串行化</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">故障转移错误: 对{0}属性{1}的串行化已从{2}更改为{3}, 且不会更新属性</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">{0}的会话属性串行化测试失败。可以通过从 &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos; 系统属性删除 &apos;&apos;REQUEST&apos;&apos; 来禁用此检查</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">收集会话属性串行化测试故障时出现异常错误</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">会话属性: {0}</resource>
 </resources>

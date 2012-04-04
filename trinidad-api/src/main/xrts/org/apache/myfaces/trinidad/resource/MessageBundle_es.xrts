@@ -42,7 +42,7 @@
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">Debe seleccionar al menos una opción.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">Se necesita una selección.</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">Debe seleccionar al menos una opción.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">Debe realizar una selección.</resource>
 <!-- {0} the label that identifies the selection  -->
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">Se necesita una selección de fila.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">Debe seleccionar una fila.</resource>
@@ -59,8 +59,8 @@
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">El valor no tiene el formato correcto.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">Introduzca un valor que coincida con este patrón: {2}</resource>
 <!-- Upload ConversionException messages -->
-<resource key="org.apache.myfaces.trinidad.UPLOAD" dnt="false">El archivo es demasiado grande.</resource>
-<resource key="org.apache.myfaces.trinidad.UPLOAD_detail" dnt="false">No se ha podido cargar el archivo porque es demasiado grande.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">Fallo al cargar el archivo.</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}</resource>
 <!-- hints for validators -->
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">Introduzca un número menor o igual que {0}.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">Introduzca un número mayor o igual que {0}.</resource>
@@ -247,6 +247,10 @@
 <!-- {2} an example of the format the converter is expecting -->
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">La fecha y la hora no tienen el formato correcto.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">Introduzca una fecha y hora en el mismo formato que en este ejemplo: {2}</resource>
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE" dnt="false">La fecha o la hora introducida no es válida.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE_detail" dnt="false">Introduzca una fecha u hora válida. </resource>
 <!-- {0} the label that identifies the component    -->
 <!-- {1} value entered by the user                  -->
 <!-- {2} the pattern the converter is expecting     -->

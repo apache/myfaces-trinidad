@@ -23,7 +23,15 @@
           xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <tr:document title="Apache Trinidad Demo Index">
+    <tr:document title="Apache Trinidad Demo Index" stateSaving="client">
+       <f:facet name="metaContainer">
+         <tr:group id="metaContainer">
+           <tr:outputText id="metaLink1" escape="false"
+                          value='&lt;link rel="icon" type="image/png" href="#{facesContext.externalContext.requestContextPath}/adf/images/trfavicon.png">'/>
+           <tr:outputText id="metaLink2" escape="false"
+                          value='&lt;link rel="apple-touch-icon" href="#{facesContext.externalContext.requestContextPath}/adf/images/trtouchicon.png">'/>
+         </tr:group>
+       </f:facet>
        <tr:form>
        
         <tr:panelPage>

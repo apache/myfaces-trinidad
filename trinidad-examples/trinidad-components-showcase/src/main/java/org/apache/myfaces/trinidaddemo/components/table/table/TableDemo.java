@@ -31,48 +31,54 @@ public class TableDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982064950883398710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-		NoGridLines,
+        GridLines,
+    NoGridLines,
         SingleRowSelection,
         MultipleRowSelection,
+        ShowHide,
         Pagination
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public TableDemo() {
-		super(ComponentDemoId.table, "Table",
-            new String[]{
-                "/components/table/table/table.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public TableDemo() {
+    super(ComponentDemoId.table, "Table");
 
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.SingleRowSelection, "Single Row Selection", this,
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.GridLines, "Grid lines", this,
                 new String[]{
-                        "/components/table/table/tableSingleRowSelection.xhtml"
-                }, getSummaryResourcePath()));
-
-        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MultipleRowSelection, "Multiple Row Selection", this,
-                new String[]{
-                        "/components/table/table/tableMultipleRowSelection.xhtml"
-                }, getSummaryResourcePath()));
-
+                        "/components/table/table/tableGridLines.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.NoGridLines, "No grid lines", this,
                 new String[]{
                         "/components/table/table/tableNoGridLines.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.SingleRowSelection, "Single Row Selection", this,
+                new String[]{
+                        "/components/table/table/tableSingleRowSelection.xhtml"
+                }));
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.MultipleRowSelection, "Multiple Row Selection", this,
+                new String[]{
+                        "/components/table/table/tableMultipleRowSelection.xhtml"
+                }));
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.ShowHide, "Show / Hide", this,
+                new String[]{
+                        "/components/table/table/tableShowHide.xhtml"
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Pagination, this,
                 new String[]{
                         "/components/table/table/tablePaginated.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.GridLines);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/table/table/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/table/column/TableColumnBean.java";
+  }
 
 }

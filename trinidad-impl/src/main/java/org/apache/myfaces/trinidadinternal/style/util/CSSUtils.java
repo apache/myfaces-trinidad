@@ -1,24 +1,29 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.style.util;
 
 import java.awt.Color;
+
+import java.net.URI;
+
+import java.net.URISyntaxException;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -76,11 +81,21 @@ public class CSSUtils
     else 
     {
       if (_URI_PROPERTIES.contains(propertyName))
-      { 
-        // Make sure it's a legit value for an URL
-        if (!_SPECIAL_URI_VALUES.contains(propertyValue))
+      {
+        // gradients are specified by syntax: gradient (color details)
+        // We cut the string to get the gradient part
+        String specialUriValue = propertyValue;
+        int parenthesesBeginIndex = specialUriValue.indexOf(_PARENTHESES_BEGIN);
+
+        if (parenthesesBeginIndex != -1)
         {
-          // TODO: Add a list of property names expecting an URL here, 
+          specialUriValue = propertyValue.substring(0, parenthesesBeginIndex).trim();
+        }
+
+        // Make sure it's a legit value for an URL
+        if (!_SPECIAL_URI_VALUES.contains(specialUriValue))
+        {
+          // TODO: Add a list of property names expecting an URL here,
           // "content" maybe?
           _LOG.warning("URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET", new Object[]{propertyName, styleSheetName, propertyValue});
         }
@@ -122,7 +137,15 @@ public class CSSUtils
     // applied in a non-Faces environment, this dependency seems
     // accpetable.
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    assert(facesContext != null);
+    
+    // We now have one use case where access to a FacesContext may
+    // not be available: unit tests.  For this case, any base uri
+    // will do, since we won't be requesting the style sheet via
+    // a uri.
+    if (facesContext == null)
+    {
+      return styleSheetName;
+    }
 
     ExternalContext externalContext = facesContext.getExternalContext();
     String contextPath = externalContext.getRequestContextPath();
@@ -162,6 +185,26 @@ public class CSSUtils
       buffer.append(styleSheetName.substring(0, lastSepIndex));
       return buffer.toString();
     }
+  }
+  
+  public static boolean isAbsoluteURI(String uriString)
+  {
+    if (uriString == null)
+      return false;
+    if (uriString.indexOf(':') == -1)
+      return false;
+    
+    URI uri;
+    try
+    {
+      uri = new URI(uriString);
+      return uri.isAbsolute();
+    }
+    catch (URISyntaxException e)
+    {
+      _LOG.warning("The URI syntax is incorrect, and can not be verified.");
+    }
+    return false;
   }
   
   /**
@@ -941,7 +984,8 @@ public class CSSUtils
     return value.indexOf("url(") >= 0;
   }  
   
-  
+
+  private static final String _PARENTHESES_BEGIN = "(";
 
   // CSS values
   private static final String _NORMAL_STYLE   = "normal";
@@ -1063,8 +1107,15 @@ public class CSSUtils
   {
     _SPECIAL_URI_VALUES.add("none");
     _SPECIAL_URI_VALUES.add("inherit");
-  }  
-  
+    _SPECIAL_URI_VALUES.add("-moz-linear-gradient");
+    _SPECIAL_URI_VALUES.add("-webkit-gradient");    
+    _SPECIAL_URI_VALUES.add("-webkit-linear-gradient");
+    _SPECIAL_URI_VALUES.add("radial-gradient");
+    _SPECIAL_URI_VALUES.add("linear-gradient");
+    _SPECIAL_URI_VALUES.add("repeating-linear-gradient");
+    _SPECIAL_URI_VALUES.add("repeating-radial-gradient");
+  }
+
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CSSUtils.class);
 
 }

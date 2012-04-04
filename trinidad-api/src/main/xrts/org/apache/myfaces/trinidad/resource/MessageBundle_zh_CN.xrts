@@ -35,19 +35,19 @@
 <!-- value will be of the form <classname>.MSG_KEY, and the detailed     -->
 <!-- message will be of the form <classname>.MSG_KEY_detail.             -->
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED" dnt="false">要求提供值。</resource>
+<resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED" dnt="false">必须提供值。</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED_detail" dnt="false">必须输入一个值。</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED" dnt="false">要求进行选择。</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED" dnt="false">必须进行选择。</resource>
 <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">必须至少做一个选择。</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">要求进行选择。</resource>
-<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">必须至少做一个选择。</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">必须进行选择。</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">必须进行选择。</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">要求选择行。</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">必须选择行。</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">必须选择一行。</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED" dnt="false">要求选择行。</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED" dnt="false">必须选择行。</resource>
 <resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED_detail" dnt="false">必须选择一行或多行。</resource>
 <!-- SelectManyRenderer ConversionException messages -->
 <!-- {0} modelClass                                  -->
@@ -59,8 +59,8 @@
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">值的格式不正确。</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">输入与此模式匹配的值: {2}</resource>
 <!-- Upload ConversionException messages -->
-<resource key="org.apache.myfaces.trinidad.UPLOAD" dnt="false">文件太大。</resource>
-<resource key="org.apache.myfaces.trinidad.UPLOAD_detail" dnt="false">由于文件太大, 无法上载。</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">文件上载失败。</resource>
+<resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}</resource>
 <!-- hints for validators -->
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">请输入小于或等于 {0} 的数字。</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">请输入大于或等于 {0} 的数字。</resource>
@@ -247,6 +247,10 @@
 <!-- {2} an example of the format the converter is expecting -->
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">日期和时间的格式不正确。</resource>
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">请以此示例中的格式输入日期和时间: {2}</resource>
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE" dnt="false">输入的日期或时间无效。</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE_detail" dnt="false">请输入有效的日期或时间。</resource>
 <!-- {0} the label that identifies the component    -->
 <!-- {1} value entered by the user                  -->
 <!-- {2} the pattern the converter is expecting     -->

@@ -30,4 +30,13 @@
         </style-sheet-name>
     </skin-addition>
 
+    <skin-addition>
+	    <skin-id>
+	        minimal.desktop
+	    </skin-id>
+	    <style-sheet-name>
+            skins/layout.css
+        </style-sheet-name>
+    </skin-addition>
+    
 </skins>

@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.convert;
 
@@ -27,15 +27,21 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFConverter;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFJspProperty;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.share.text.RGBColorFormat;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 /**
  */
+@JSFConverter(
+        name="tr:convertColor",
+        bodyContent="empty",
+        id="org.apache.myfaces.trinidad.Color",
+        tagClass="org.apache.myfaces.trinidadinternal.taglib.convert.ConvertColorTag")
 public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorConverter
                             implements ClientConverter
 {
@@ -81,9 +87,17 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
       {
         requestMap.put( _PATTERN_WRITTEN_KEY, Boolean.TRUE);
 
-        buff.append("_cfTrans=\"");
-        buff.append(XhtmlUtils.escapeJS(getTransparentString(context)));
-        buff.append("\";");
+        buff.append("_cfTrans=");
+        try
+        {
+          // Call JsonUtils.writeString to encode Transparent string
+          JsonUtils.writeString(buff, getTransparentString(context), true);
+        }
+        catch (IOException e)
+        {
+          _LOG.severe(e);
+        }
+        buff.append(";");
 
         // only create the _cfs object if it doesn't exist, so we don't
         // wipe out _cfs[xxx] values if we ppr the first color field on a

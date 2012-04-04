@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.select.chooseDate;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,15 +30,23 @@ public class ChooseDateDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982061956813398710L;
 
-	/**
-	 * Constructor.
-	 */
-	public ChooseDateDemo() {
-		super(ComponentDemoId.chooseDate, "Choose Date",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public ChooseDateDemo() {
+    super(ComponentDemoId.chooseDate, "Choose Date");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/select/chooseDate/chooseDate.xhtml"
-            });
-	}
+                    "/components/select/chooseDate/chooseDate.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/chooseDate/summary.xhtml";

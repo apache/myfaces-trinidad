@@ -31,38 +31,38 @@ public class OutputFormatedDemo extends AbstractComponentDemo {
     private static final long serialVersionUID = -1982371956886498710L;
 
     private enum VARIANTS implements IComponentDemoVariantId {
-        Default,
-		InContextBrandingStyle,
+    InContextBrandingStyle,
         InstructionStyle,
         PageStampStyle       
-	}
+  }
 
-	/**
-	 * Constructor.
-	 */
-	public OutputFormatedDemo() {
-		super(ComponentDemoId.outputFormated, "Output Formated", VARIANTS.Default, "Default",
-            new String[]{
-                "/components/output/outputFormated/outputFormated.xhtml"
-            });
+  /**
+   * Constructor.
+   */
+  public OutputFormatedDemo() {
+    super(ComponentDemoId.outputFormatted, "Output Formatted");
 
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.InContextBrandingStyle, "In context branding style", this,
                 new String[]{
                         "/components/output/outputFormated/outputFormatedInContextBrandingStyle.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.InstructionStyle, "Instruction style", this,
                 new String[]{
                         "/components/output/outputFormated/outputFormatedInstructionStyle.xhtml"
-                }, getSummaryResourcePath()));
-
+                }));
         addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.PageStampStyle, "Page stamp style", this,
                 new String[]{
                         "/components/output/outputFormated/outputFormatedPageStampStyle.xhtml"
-                }, getSummaryResourcePath()));
-	}
+                }));
+
+        setDefaultVariant(VARIANTS.InstructionStyle);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/output/outputFormated/summary.xhtml";
     }
+
+    public String getSkinDocumentationLink(){
+        return null;
+    }    
 }

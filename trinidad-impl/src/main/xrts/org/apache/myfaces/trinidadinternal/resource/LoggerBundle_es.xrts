@@ -66,6 +66,8 @@
 <resource key="CANNOT_LOAD_URL" dnt="false">No se ha podido cargar {0}</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">No se ha podido instanciar UploadedFileProcessor</resource>
+<!-- UPLOADED_FILE_LARGE -->
+<resource key="UPLOADED_FILE_LARGE" dnt="false">No se ha podido cargar el archivo porque es demasiado grande.</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
 <resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad se está ejecutando en modo de depuración. No se debe utiliza en un entorno de producción. Consulte: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
@@ -74,6 +76,8 @@
 <resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">El elemento {0} no soporta las expresiones EL.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">El elemento {0} sólo acepta valores enteros</resource>
+<!-- ELEMENT_ONLY_ACCEPT_LONG -->
+<resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">El elemento {0} sólo acepta valores largos</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">No se ha encontrado el cargador de clase de contexto.</resource>
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
@@ -150,7 +154,7 @@
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">No se ha encontrado el grupo de recursos {0}.</resource>
 <!-- ERR_CLOSING_FILE -->
-<resource key="ERR_CLOSING_FILE" dnt="false">error al cerrar el archivo: {0}</resource>
+<resource key="ERR_CLOSING_FILE" dnt="false">Error al cerrar el archivo:{0}</resource>
 <!-- ERR_GET_REGION_METADATA_FILE -->
 <resource key="ERR_GET_REGION_METADATA_FILE" dnt="false">Error al obtener los archivos de metadatos de región: {0}</resource>
 <!-- ERR_READ_REGION_METADATA_FILE -->
@@ -181,6 +185,8 @@
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR" dnt="false">Se ha detectado una dependencia circular en el icono de referencia de máscara {0}</resource>
 <!-- NULL_SKINADDITION -->
 <resource key="NULL_SKINADDITION" dnt="false">Se ha transferido un objeto SkinAddition nulo a addSkinAddition.</resource>
+<!-- SKIN_CONFIG_PROCESS_FAILURE -->
+<resource key="SKIN_CONFIG_PROCESS_FAILURE" dnt="false">Fallo al analizar el archivo de configuración de máscara: {0}.</resource>
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE" dnt="false">ValueExpression de translation-source de la máscara no tiene el tipo esperado Map ni ResourceBundle, por lo que se ignorará.</resource>
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
@@ -259,6 +265,12 @@
 <resource key="UNABLE_GET_RESOURCE" dnt="false">No se ha podido obtener el recurso {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad se está ejecutando con javascript de depuración. No se debe utilizar en un entorno de producción. Consulte el parámetro &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; en /WEB-INF/web.xml</resource>
+<!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">El entorno está configurado como producción y Apache Trinidad se está ejecutando con javascript de depuración. Consulte el parámetro &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; en /WEB-INF/web.xml</resource>
+<!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
+<resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">El entorno está configurado como producción y Apache Trinidad se está ejecutando con CSS sin comprimir. Consulte el parámetro &quot;org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION&quot; en /WEB-INF/web.xml</resource>
+<!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">El entorno está configurado como producción y Apache Trinidad se está ejecutando con salida de depuración TRUE. Consulte el elemento &quot;debug-output&quot; en el archivo trinidad-config.xml.</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Valor no válido: {0} para {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -301,14 +313,28 @@
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ignorando propiedades {0} porque no hay ningún selector correspondiente.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
 <resource key="ERR_READING_SKIN_CSS_FILE" dnt="false">Error al leer del archivo CSS de la máscara</resource>
+<!-- ERR_PARSING_SKIN_SELECTOR -->
+<resource key="ERR_PARSING_SKIN_SELECTOR" dnt="false">Error al leer del archivo CSS de la máscara. Hay una coma adicional en el selector: {0}</resource>
 <!-- CANNOT_ADD_SKIN -->
 <resource key="CANNOT_ADD_SKIN" dnt="false">No se puede agregar la máscara con un valor nulo de skinId o de skin</resource>
+<!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
+<resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY" dnt="false">Se ha vuelto a agregar la máscara {0} agregada previamente. Si ha almacenado esta máscara en la caché de la aplicación, puede obtener resultados inconsistentes. Compruebe si hay archivos trinidad-skins.xml duplicados en la classpath.</resource>
 <!-- CANNOT_GET_SKIN_WITH_NULL_SKINID -->
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID" dnt="false">No se puede obtener la máscara con un valor nulo de skinId</resource>
 <!-- CANNOT_FIND_MATCHING_SKIN -->
 <resource key="CANNOT_FIND_MATCHING_SKIN" dnt="false">No se ha encontrado una máscara que coincida con la familia {0} y el kit de presentación {1}, por lo tanto se utilizará la máscara simple</resource>
+<!-- GET_SKIN_FOUND_SKIN_VERSION -->
+<resource key="GET_SKIN_FOUND_SKIN_VERSION" dnt="false">Se ha encontrado una máscara que coincide con la familia {0} y con la versión {1}. Se utilizará la máscara {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_SKIN_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_SKIN_VERSION" dnt="false">No se ha encontrado una máscara que coincida con la familia {0} y con la versión {1}. Se utilizará la máscara {2}.</resource>
+<!-- GET_SKIN_CANNOT_FIND_NO_VERSION -->
+<resource key="GET_SKIN_CANNOT_FIND_NO_VERSION" dnt="false">No se ha encontrado una máscara no versionada para la familia {0}. Se utilizará la máscara versionada {1}.</resource>
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP" dnt="false">No se ha podido obtener el registro de hora del documento de hoja de estilo porque no se ha podido abrir la conexión.</resource>
+<!-- SELECTOR_SHOULD_NOT_END_IN_ICON -->
+<resource key="SELECTOR_SHOULD_NOT_END_IN_ICON" dnt="false">El selector de máscara {0} no es un objeto de icono de máscara porque no tiene un atributo de contenido. Si ha creado este selector, cámbiele el nombre para que termine con &quot;estilo&quot; en lugar de con &quot;icono&quot; para que el marco de enmascaramiento lo trate como estilo y no como icono.</resource>
+<!-- AT_IMPORT_NOT_FIRST -->
+<resource key="AT_IMPORT_NOT_FIRST" dnt="false">{0} debe ir antes que cualquier otra regla.</resource>
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN" dnt="false">Las siguientes máscaras se amplían entre sí de forma circular o la máscara que amplían no existe: {0}</resource>
 <!-- UNABLE_LOCATE_BASE_SKIN -->
@@ -316,7 +342,7 @@
 <!-- ERR_PARSING -->
 <resource key="ERR_PARSING" dnt="false">Error al analizar: {0}</resource>
 <!-- ERR_LOADING_FILE -->
-<resource key="ERR_LOADING_FILE" dnt="false">error al cargar el archivo: {0}</resource>
+<resource key="ERR_LOADING_FILE" dnt="false">Error al cargar el archivo:{0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">No se ha podido cargar la hoja de estilo: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
@@ -419,6 +445,8 @@
 <resource key="REQUIRED_ELEMENT_ID_NOT_FOUND" dnt="false">No se ha encontrado el elemento &apos;id&apos; necesario.</resource>
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">No se ha encontrado el elemento &apos;family&apos; necesario.</resource>
+<!-- REQURIED_ELEMENT_SKINVERSION_NOT_FOUND -->
+<resource key="REQURIED_ELEMENT_SKINVERSION_NOT_FOUND" dnt="false">No se ha encontrado el elemento secundario para &apos;version&apos;, &apos;name&apos; necesario.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Entrada de propiedad con formato incorrecto: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
@@ -662,7 +690,7 @@
 <!-- UNKNOWN_COMPARISON -->
 <resource key="UNKNOWN_COMPARISON" dnt="false">Comparación desconocida</resource>
 <!-- TEST_BOUNDVALUE_REQUIRED -->
-<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">se necesita probar BoundValue</resource>
+<resource key="TEST_BOUNDVALUE_REQUIRED" dnt="false">Se necesita probar BoundValue</resource>
 <!-- NULL_LIST_ARGUMENT -->
 <resource key="NULL_LIST_ARGUMENT" dnt="false">Argumento de lista nulo</resource>
 <!-- NULL_DATA_OBJECT_ARGUMENT -->
@@ -721,4 +749,23 @@
 <resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">País no válido para el identificador de configuración regional {0}: El código de país debe estar en mayúscula, consulte la documentación Java sobre configuración regional para conocer el formato correcto. Se utilizará una cadena vacía para el país</resource>
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
 <resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante no válida para el identificador de configuración regional {0}: No puede contener barras para evitar el ataque de XSS. Se utilizará una cadena vacía para la variante.</resource>
+<resource key="COULD_NOT_DELETE_FILE" dnt="false">No se ha podido suprimir el archivo {0}</resource>
+<!-- UNEXPECTED_STATE -->
+<resource key="UNEXPECTED_STATE" dnt="false">IState debe ser una instancia de StateManager.SerializedView o una matriz de objeto de longitud 2.</resource>
+<!-- PARTIAL_STATE_SAVING_NOT_SUPPORTED -->
+<resource key="PARTIAL_STATE_SAVING_NOT_SUPPORTED" dnt="false">El almacenamiento de estado parcial aún no está soportado. Defina context-param javax.faces.PARTIAL_STATE_SAVING como falso en web.xml.</resource>
+<!-- ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE -->
+<resource key="ATTRIBUTE_SERIALIZATION_FAILED_KEY_VALUE" dnt="false">Error al serializar el atributo {0}: {1} </resource>
+<!-- EXTRACT_SERIALIZATION_DETAIL -->
+<resource key="EXTRACT_SERIALIZATION_DETAIL" dnt="false"> valor fallido=</resource>
+<!-- ATTRIBUTE_NOT_SERIALIABLE -->
+<resource key="ATTRIBUTE_NOT_SERIALIABLE" dnt="false">Error de failover: {0} atributo: {1} de tipo {2} no serializable</resource>
+<!-- SERIALIZABLE_ATTRIBUTE_MUTATED -->
+<resource key="SERIALIZABLE_ATTRIBUTE_MUTATED" dnt="false">Error de failover: La serialización de {0} atributo: {1} ha cambiado de {2} a {3} sin que se haya ensuciado el atributo.</resource>
+<!-- SERIALIZATION_TESTING_FAILURE -->
+<resource key="SERIALIZATION_TESTING_FAILURE" dnt="false">Fallo de prueba de serialización de atributo de sesión para {0}. Esta comprobación se puede desactivar eliminando &apos;&apos;REQUEST&apos;&apos; de la propiedad del sistema &apos;&apos;org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION&apos;&apos;</resource>
+<!-- SERIALIZATION_LOGGING_FAILURE -->
+<resource key="SERIALIZATION_LOGGING_FAILURE" dnt="false">Excepción al recoger el fallo de prueba de serialización de atributo de sesión</resource>
+<!-- SESSION_SERIALIZATION_ATTRIBUTE -->
+<resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atributo de Sesión: {0} </resource>
 </resources>

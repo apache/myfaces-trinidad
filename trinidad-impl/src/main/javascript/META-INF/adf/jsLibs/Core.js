@@ -229,6 +229,10 @@ function _agentInit()
   // Indicate browser's PPR capability support
   var pprUnsupported    = false;
 
+  // Indicate whether the browser and platform are capable of
+  // sending PPR requests via JSF Ajax
+  var useJsfAjax = true;
+
   // Flag to indicate that document object is sufficiently implemented to
   // provide good level of access to HTML, XHTML and XML document.
   // For example, Windows Mobile 5 and Blackberry does not implement
@@ -277,6 +281,9 @@ function _agentInit()
         // A new kind string was given to WM6 browser as the
         // capability is significantly different from predecessors.
         kind = "iemobile";
+        // Switch off JSF ajax for time being. There are still unresolved
+        // issues with Mojarra in supporting mobile-browsers
+        useJsfAjax = false;
       }
     }
     else
@@ -339,6 +346,9 @@ function _agentInit()
 
     isBlackBerry = true;
     kind = "blackberry";
+    // Switch off the JSF ajax for time being. There are still unresolved
+    // issues with Mojarra in supporting mobile browsers
+    useJsfAjax = false;
   }
   else if ((agentString.indexOf('mozilla')    != -1) &&
            (agentString.indexOf('spoofer')    == -1) &&
@@ -390,6 +400,7 @@ function _agentInit()
   _agent.isWindowsMobile6       = isWindowsMobile6;
   _agent.kind                   = kind;
   _agent.pprUnsupported         = pprUnsupported;
+  _agent.useJsfAjax             = useJsfAjax;
   _agent.supportsDomDocument    = supportsDomDocument;
   _agent.supportsNodeType       = supportsNodeType;
   _agent.supportsValidation     = supportsValidation;
@@ -1701,7 +1712,8 @@ function submitForm(
   form,
   doValidate,
   parameters,
-  isPartial
+  isPartial,
+  event
   )
 {
   // If we've delayed any sort of event submission, we won't want to do it at
@@ -1862,7 +1874,7 @@ function submitForm(
       }
       else
       {
-        TrPage.getInstance().sendPartialFormPost(form, parameters);
+        TrPage.getInstance().sendPartialFormPost(form, parameters, null, event);
       }
     }
     else
@@ -2695,63 +2707,6 @@ function _multiValidate(
   return failureMap;
 }
 
-/**
- * Used for the converters and validators we provide which all have the form
- *
- * {0} - label
- * {1} - string value
- * {2} - extra param
- * {3} - extra param
- */
-function _createFacesMessage(
-  key,
-  label,
-  value,
-  param2,
-  param3
-)
-{
-  var summary = TrMessageFactory.getSummaryString(key);
-  var detail = TrMessageFactory.getDetailString(key);
-  // format the detail error string
-  if (detail != null)
-  {
-    detail = TrFastMessageFormatUtils.format(detail, label, value, param2, param3);
-  }
-  return new TrFacesMessage(summary,
-                          detail,
-                          TrFacesMessage.SEVERITY_ERROR);
-}
-
-/**
- * Used for the converters and validators we provide which all have the form
- *
- * {0} - label
- * {1} - string value
- * {2} - extra param
- * {3} - extra param
- */
-function _createCustomFacesMessage(
-  summary,
-  detail,
-  label,
-  value,
-  param2,
-  param3
-)
-{
-
-  // format the detail error string
-  if (detail != null)
-  {
-    detail = TrFastMessageFormatUtils.format(detail, label, value, param2, param3);
-  }
-
-  return new TrFacesMessage(summary,
-                          detail,
-                          TrFacesMessage.SEVERITY_ERROR);
-}
-
 
 function _getGlobalErrorString(
   input,
@@ -3490,40 +3445,9 @@ function _pprInstallBlockingHandlers(win, install)
     return;
   }
 
-  if (doc.attachEvent) // IE
+  if (_agent.isIE) // IE
   {
-    var el = win._pprConsumeFirstClick;
-    if (install)
-    {
-      // See comment in _pprConsumeFirstClick().
-      // If the event that started this PPR chain was an onChange or onBlur,
-      // AND the event location is the element on which the change happened
-      // (i.e. the user didn't click somewhere outside the element)
-      // then we want to make sure that the blocking starts immediately.
-      var ev = win.event;
-      if (ev != (void 0))
-      {
-        var destElt = document.elementFromPoint(ev.x, ev.y);
-        if (!win._pprFirstClickPass // never attach unless passing first click
-            || (((ev.type == 'change') || (ev.type == 'blur'))
-                && (ev.srcElement == destElt))
-            || (!_isSubmittingElement(destElt)))
-        {
-          _pprControlCapture(win, true);
-          return;
-        }
-      }
-
-      // If we're here, we didn't set up a capture.
-      // For an onClick, we have to pass on the first click,
-      // then we'll capture every subsequent event.
-      doc.attachEvent('onclick', el);
-    }
-    else
-    {
-      doc.detachEvent('onclick', el);
-      _pprControlCapture(win, false);
-    }
+    _pprControlCapture(win, install);
   }
   else // Gecko or other standards based browser
   {
@@ -3593,7 +3517,10 @@ function _doPprStartBlocking (win)
 {
   // Clean up timeout set in _pprStartBlocking()
   if (win._pprTimeoutFunc)
+  {
     win.clearTimeout(win._pprTimeoutFunc);
+    win._pprTimeoutFunc = null;
+  }
 
   // In order to force the user to allow a PPR update to complete, we
   // block all mouse clicks between the start of a PPR update, and the end.
@@ -3636,7 +3563,14 @@ function _doPprStartBlocking (win)
 //
 function _pprStopBlocking(win)
 {
-
+  // see TRINIDAD-1833. If _pprStartBlocking() was delayed with setTimeout(),
+  // we need to clear it here. Otherwise _pprStartBlocking() will be called later,
+  // and will end up winning
+  if (win._pprTimeoutFunc)
+  {
+    win.clearTimeout(win._pprTimeoutFunc);
+    win._pprTimeoutFunc = null;
+  }
   // No blocking is performed on Nokia, PPC and BlackBerry devices
   if (_agent.isPIE || _agent.isNokiaPhone || _agent.isBlackBerry)
     return;
@@ -3741,32 +3675,6 @@ function _pprConsumeBlockedEvent(evt)
   return rv;
 }
 
-
-//
-// _pprConsumeFirstClick: Helps implement blocking.
-//
-// On IE, the capture doesn't allow us to hand off the first click - we can
-// only eat it, but attachEvent only allows us to do something with the event
-// AFTER it's been delivered to the element. There's no way to make a decision
-// whether or not to deliver a particular event. Therefore, since we want to
-// deliver the first click, and block everything else, we attachEvent using
-// this handler. This handler then just immediately switches over the the
-// capture. This function is only used on IE.
-//
-function _pprConsumeFirstClick(event)
-{
-  // This is an IE only function
-  if (_agent.isIE)
-  {
-    // switch over to capture
-    _pprControlCapture(window, true);
-    // and remove this one-time function
-    window.document.detachEvent('onclick', _pprConsumeFirstClick);
-  }
-  return false;
-}
-
-
 //
 // _pprControlCapture: Set up the pprDivElement to capture all
 //                     mouse events. It will then ignore them.
@@ -3787,7 +3695,17 @@ function _pprControlCapture(win, set)
         // If we've got an element to return focus to,
         // then capture keyboard events also.
         if (win._pprEventElement)
+        {
+          // save and restore the scroll location before and after setting focus on the div
+          var docElement = win.document.documentElement;
+          var oldLeft = docElement.scrollLeft;
+          var oldTop = docElement.scrollTop;
+          
           divElement.focus();
+          
+          docElement.scrollLeft = oldLeft;
+          docElement.scrollTop = oldTop;
+        }
         // save current cursor and display a wait cursor
         win._pprSavedCursor = body.style.cursor;
         body.style.cursor = "wait";
@@ -3868,7 +3786,8 @@ function _firePartialChange(url)
 function _submitPartialChange(
   form,
   doValidate,
-  parameters)
+  parameters,
+  event)
 {
   // If there's no PPR iframe, then just perform a normal,
   // full-page submission.
@@ -3882,14 +3801,20 @@ function _submitPartialChange(
   if (!form)
     return false;
 
+  // Prevent a submission if we are currently blocking or if we have a timeout set to do blocking
+  // In IE8 the JS engine is very slow and form submission takes time and if the user clicks a link again, the second
+  // click can sneek in before the timeout function is called
+  if(window._pprBlocking || window._pprTimeoutFunc)
+    return false;
+    
   // Tack on the "partial" event parameter parameter
   parameters = _addFormParameter(parameters, "partial", "true");
 
   // block all mouse clicks until the submit is done
-    _pprStartBlocking(window);
+  _pprStartBlocking(window);
 
   // Submit the form
-  var submitted = submitForm(form, doValidate, parameters, true);
+  var submitted = submitForm(form, doValidate, parameters, true, event);
 
   // If the form wasn't actually submitted, update the ref count
   if (!submitted)
@@ -4763,21 +4688,6 @@ function _getEventObj()
  */
 var TrUIUtils = new Object();
 
-/**
- * Remove leading and trailing whitespace
- */
-TrUIUtils.trim = function(
-data)
-{
-  if (data != null && (typeof data) == 'string')
-    return data.replace(TrUIUtils._TRIM_ALL_RE, '');
-
-  return data;
-}
-
-// regular expression to gather whitespace at beginning and end of line
-TrUIUtils._TRIM_ALL_RE = /^\s*|\s*$/g;
-
 
 /**
  * Creates a function instance that will callback the passed in function
@@ -4906,7 +4816,7 @@ TrUIUtils._getElementLocation = function(elem)
           box = doc.getBoxObjectFor(doc.documentElement);
           loc.x -= box.screenX;
           loc.y -= box.screenY;
-          return loc;        
+          return loc;
         }
       }
     }
@@ -5001,3 +4911,4 @@ TrUIUtils._getStyle = function(element, prop)
   }
   return '';
 }
+

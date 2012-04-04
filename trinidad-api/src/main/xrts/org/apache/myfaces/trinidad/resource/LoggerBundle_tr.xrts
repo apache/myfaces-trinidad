@@ -125,9 +125,11 @@
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Geçersiz dizin</resource>
 <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
-<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Bir alt öğe aynı no ile bir alt öğe varken eklenmeye çalışıldı. Eski alt öğe kaldırılacak ve yeni alt öğe eklenecek. {0}</resource>
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Değişiklik yöneticisi AddChildComponentChange uygulamayamadı, çünkü aynı kimliğe sahip bir bağımlı öğe bileşen zaten var. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Hiçbir düğüm belirlenmedi</resource>
+<!-- DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR-->
+<resource key="DONT_PERSIST_STAMPED_COMPONENT_INSIDE_ITERATOR" dnt="false">Tekrarlayıcı içinde damgalı bileşeni sürdürmek istemeyiz.</resource>
 <!-- COMPONENT_REQUIRED -->
 <resource key="COMPONENT_REQUIRED" dnt="false">Bileşen gerekli</resource>
 <!-- DOCUMENTFRAGMENT_REQUIRED -->
@@ -156,6 +158,8 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">facetName veya facetComponent öğelerinden biri boş (null) olduğunda bir AddFacetChange yapılandırılamaz.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Yön adı belirtilmelidir</resource>
+<!-- FACET_ALREADY_PRESENT -->
+<resource key="FACET_ALREADY_PRESENT" dnt="false">Değişiklik yöneticisi SetFacetChildComponentChange uygulayamadı, çünkü aynı ada sahip bir yön zaten var. {0}</resource>
 <!-- MOVABLE_CHILD_REQUIRED -->
 <resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Taşınacak alt bileşen gerekli.</resource>
 <!-- DESTINATION_CONTAINER_REQUIRED -->
@@ -168,6 +172,8 @@
 <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Taşınacak alt öğe bulunamadı: {0}.</resource>
 <!-- DESTINATION_CONTAINER_NOT_FOUND -->
 <resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Hedef kapsayıcı bulunamadı: {0}.</resource>
+<!-- MOVABLE_CHILD_SAME_ID_FOUND -->
+<resource key="MOVABLE_CHILD_SAME_ID_FOUND" dnt="false">Hedef kapsayıcıda aynı kimliğe sahip farklı bir bileşen bulundu. Taşıma işlemi iptal edildi: {0}.</resource>
 <!-- INSERT_BEFORE_NOT_FOUND -->
 <resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Bileşen veya düğüm öncesine eklenecek öğe bulunamadı: {0}.</resource>
 <!-- INDEX_SIZE -->
@@ -308,4 +314,12 @@
 <resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">Yansıtma başarısız olduğundan portlet dönüştürme parametreleri ayarlanamıyor</resource>
 <!-- COMPARETO_TYPE_MISMATCH -->
 <resource key="COMPARETO_TYPE_MISMATCH" dnt="false">&quot;{0}&quot; öğesinin türü bunun &quot;{1}&quot; ile karşılaştırılmasını engelliyor.</resource>
+<!-- ZIP_STATE_FAILED -->
+<resource key="ZIP_STATE_FAILED" dnt="false">Sayfa durumu zip ile arşivlenemedi. Bunun gerçekleştirilebilmesi için durumun seriye dönüştürülebilir olması gerekir, bu nedenle, sayfa durumunun zip ile arşivlenememesinin sık karşılaşılan nedenlerden biri seriye dönüştürülebilir olmamasıdır. org.apache.myfaces.trinidad.COMPRESS_VIEW_STATE ayarını yanlış seçeneğine ayarlayarak zip işlevini kapatabilirsiniz. Seriye dönüştürme işleminin çeşitli yönlerinin nasıl test edileceği ile ilgili bilgi için sistem özelliği org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION ile ilgili belgeye bakın.</resource>
+<!-- UNZIP_STATE_FAILED -->
+<resource key="UNZIP_STATE_FAILED" dnt="false">Sayfa durumu unzip ile açılamadı.</resource>
+<!-- INVALID_CALL_TO_GETCLIENTID -->
+<resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">Görünüm yapılandırılırken getClientId çağrılmamalıdır. Bileşen No: {0}</resource>
+<!-- ROWKEY_NOT_RESET  -->
+<resource key="ROWKEY_NOT_RESET" dnt="false">satır anahtarı isteğin sonunda doğru sıfırlanmamış olabilir. Bileşen No: {0} Görünüm No: {1}</resource>
 </resources>

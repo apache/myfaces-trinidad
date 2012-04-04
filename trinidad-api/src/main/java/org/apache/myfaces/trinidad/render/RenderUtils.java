@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.render;
 
@@ -25,6 +25,8 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
+
+import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.component.UIXForm;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -217,6 +219,34 @@ public class RenderUtils
 
   }
 
+  /**
+   * Returns the clientId used by the renderer in place of the clientId used by the component.
+   * Certain renderers render their root element with a clientId that differs from the one
+   * used by the component.
+   * @param context FacesContent.
+   * @param component UIComponent.
+   * @return component clientId if the renderer clientId is null. Otherwise clientId used by 
+   * renderer.
+   */
+  public static String getRendererClientId(
+    FacesContext context, 
+    UIComponent component) 
+  {
+    String clientId = component.getClientId(context);
+    String family = component.getFamily();
+    String rendererType = component.getRendererType();
+    if (rendererType != null)
+    {
+      Renderer renderer = context.getRenderKit().getRenderer(family, rendererType);
+      if (renderer instanceof CoreRenderer)
+      {
+        CoreRenderer coreRenderer = (CoreRenderer) renderer;
+        String rendererClientId = coreRenderer.getClientId(context, component);
+        return rendererClientId == null ? clientId : rendererClientId;
+      }
+    }
+    return clientId;
+  }
 
   // This does NOT use findComponent
   // ComponentUtils.findRelativeComponent finds the component, whereas
@@ -300,6 +330,7 @@ public class RenderUtils
     }
     return colonCount;
   }
+  
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(RenderUtils.class);
 

@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidaddemo.components.showDetail.showDetailItem;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
 import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
@@ -31,19 +32,27 @@ public class ShowDetailItemDemo extends AbstractComponentDemo {
 
     private enum VARIANTS implements IComponentDemoVariantId {
         Default
-    };
+    }
 
-	/**
-	 * Constructor.
-	 */
-	public ShowDetailItemDemo() {
-		super(ComponentDemoId.showDetailItem, "Show Detail Item", VARIANTS.Default, "Default",
+  /**
+   * Constructor.
+   */
+  public ShowDetailItemDemo() {
+    super(ComponentDemoId.showDetailItem, "Show Detail Item");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/showDetail/showDetailItem/showDetailItem.xhtml"
-            });
-	}
+                    "/components/showDetail/showDetailItem/showDetailItem.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/showDetail/showDetailItem/summary.xhtml";
+    }
+
+    public String getSkinDocumentationLink(){
+        return null;
     }
 }

@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.context;
 
@@ -24,6 +24,7 @@ import java.io.IOException;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -34,18 +35,17 @@ import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
-
-import org.apache.myfaces.trinidad.component.visit.VisitTreeUtils;
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.event.WindowLifecycleListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
@@ -142,6 +142,31 @@ abstract public class RequestContext
    * @param create if the map should be created if it already does not exist.
    */
   public abstract Map<String, Object> getViewMap(boolean create);
+
+  /**
+   * Returns a Map of objects associated with the current window if any.  If there is no
+   * current window, the Session Map is returned.
+   * @return Map for storing objects associated with the current window.
+   * @see org.apache.myfaces.trinidad.context.Window#getWindowMap
+   */
+  public Map<String, Object> getWindowMap()
+  {
+    WindowManager wm = getWindowManager();
+
+    ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
+
+    Window window = wm.getCurrentWindow(extContext);
+
+    if (window != null)
+    {
+
+      return window.getWindowMap();
+    }
+    else
+    {
+      return extContext.getSessionMap();
+    }
+  }
 
   //
   // Dialog APIs
@@ -246,6 +271,14 @@ abstract public class RequestContext
    */
   public abstract String getOutputMode();
 
+  /**
+   * Returns the OutputMode enumeration
+   * @return OutputMode
+   */
+  public OutputMode getOutputModeEnum()
+  {
+    return OutputMode.fromId(getOutputMode());
+  }
 
   /**
    * Returns the name of the preferred skin family.
@@ -253,11 +286,83 @@ abstract public class RequestContext
   public abstract String getSkinFamily();
 
   /**
+   * Returns the name of the skin version that goes with the skin-family.
+   */
+  public String getSkinVersion()
+  {
+    return null;
+  }
+
+  /**
    * Determines whether the current View Root is an internal view
    * @param context Faces context
    * @return true if the current View Root is an internal view, false otherwise
    */
   public abstract boolean isInternalViewRequest(FacesContext context);
+
+  /**
+   * Enumeration representing OutputModes
+   */
+  public enum OutputMode
+  {
+    DEFAULT("default"), PORTLET("portlet"), PRINTABLE("printable"), EMAIL("email"),
+    ATTACHMENT("attachment"), WEB_CRAWLER("webcrawler");
+
+    private OutputMode(String id)
+    {
+      if (id == null) throw new NullPointerException();
+
+      _id = id;
+    }
+
+    /**
+     * @return the id of this OutputMode.
+     */
+    public String id()
+    {
+      return _id;
+    }
+
+    @Override
+    public String toString()
+    {
+      return _id;
+    }
+
+    /**
+     * Returns the OutputMode isntance of <code>null</code> if no id matches.
+     * @param id of OutputMode to return
+     * @return The OutputMode with the specified id
+     * @throws NullPointerException if <code>id</code> is null.
+     * @throws IllegalArgumentException if there is no enum with the specified name.
+     */
+    public static OutputMode fromId(String id)
+    {
+      if (id == null)
+        throw new NullPointerException();
+
+      OutputMode outputMode = ID_TO_OUTPUT_MODE.get(id);
+
+      if (outputMode == null)
+        throw new IllegalArgumentException();
+
+      return outputMode;
+    }
+
+    private static final Map<String, OutputMode> ID_TO_OUTPUT_MODE = new HashMap<String, OutputMode>();
+
+    static
+    {
+      OutputMode[] instances = OutputMode.class.getEnumConstants();
+
+      for (int i = 0; i < instances.length; i++)
+      {
+        ID_TO_OUTPUT_MODE.put(instances[i].toString(), instances[i]);
+      }
+    }
+
+    private final String _id;
+  }
 
   public enum Accessibility
   {
@@ -277,18 +382,72 @@ abstract public class RequestContext
      */
     SCREEN_READER("screenReader");
 
-    Accessibility(String name)
+    /**
+     * Creates an Accessibility constant.
+     * @param displayName a user-friendly display name for the constant.
+     */
+    Accessibility(String displayName)
     {
-      _name = name;
+      _displayName = displayName;
     }
 
     @Override
     public String toString()
     {
-      return _name;
+      return displayName();
     }
 
-    private final String _name;
+    /**
+     * Returns the display name for this enum constant.
+     */
+    public String displayName()
+    {
+      return _displayName;
+    }
+
+    /**
+     * Performs a reverse lookup of an Accessibilty constant based on
+     * its display name.
+     * 
+     * @param displayName the display name of the Accessibility constant to return.
+     * @return the non-null Accessibility constant associated with the display name.
+     * @throws IllegalArgumentException if displayName does not correspond
+     *   to some Accessibility constant.
+     * @throws NullPointerException if displayName is null. 
+     */
+    public static Accessibility valueOfDisplayName(String displayName)
+    {
+      if (displayName == null)
+      {
+        throw new NullPointerException();
+      }
+      
+      Accessibility accessibility = _displayNameMap.get(displayName);
+      
+      if (accessibility == null)
+      {
+        String message = _LOG.getMessage("ILLEGAL_ENUM_VALUE", 
+                           new Object[] { Accessibility.class.getName(), displayName });
+        throw new IllegalArgumentException(message);
+      }
+      
+      return accessibility;
+    }
+
+    private final String _displayName;
+    
+    private static final Map<String, Accessibility> _displayNameMap;
+    
+    static
+    {
+      Map<String, Accessibility> displayNameMap = new ArrayMap<String, Accessibility>(3);
+      for (Accessibility accessibility : Accessibility.values())
+      {
+        displayNameMap.put(accessibility.displayName(), accessibility);
+      }
+      
+      _displayNameMap = Collections.unmodifiableMap(displayNameMap);
+    }
   };
 
 
@@ -514,16 +673,16 @@ abstract public class RequestContext
 
   /**
    * <p>Creates a VisitContext instance for use with
-   * {@link org.apache.myfaces.trinidad.component.UIXComponent#visitTree UIComponent.visitTree()}.</p>
+   * {@link UIComponent#visitTree}.</p>
    *
    * @param context the FacesContext for the current request
    * @param ids the client ids of the components to visit.  If null,
    *   all components will be visited.
    * @param hints the VisitHints to apply to the visit
-   * @param phaseId.  ignored.  
+   * @param phaseId.  ignored.
    * @return a VisitContext instance that is initialized with the
    *   specified ids and hints.
-   *@deprecated use org.apache.component.visit.VisitTreeUtils#createVisitContext(FacesContext, Collection<String>, Set<VisitHint>)
+   * @deprecated use {@link VisitContext#createVisitContext(FacesContext, Collection<String>, Set<VisitHint>)} instead
    */
   public final VisitContext createVisitContext(
     FacesContext context,
@@ -531,7 +690,7 @@ abstract public class RequestContext
     Set<VisitHint> hints,
     PhaseId phaseId)
   {
-    return VisitTreeUtils.createVisitContext(context, ids, hints);
+    return VisitContext.createVisitContext(context, ids, hints);
   }
 
   public abstract UploadedFileProcessor getUploadedFileProcessor();
@@ -606,54 +765,74 @@ abstract public class RequestContext
     // get instance using the WindowManagerFactory
     if (windowManager == null)
     {
-      // check if we have cached it per session
-      ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
+      FacesContext context = FacesContext.getCurrentInstance();
 
-      // create a new instance using the WindowManagerFactory
-      ConcurrentMap<String, Object> concurrentAppMap =
-                                         getCurrentInstance().getApplicationScopedConcurrentMap();
-
-      WindowManagerFactory windowManagerFactory = (WindowManagerFactory)concurrentAppMap.get(
-                                                            _WINDOW_MANAGER_FACTORY_CLASS_NAME);
-
-      if (windowManagerFactory == null)
+      // just in case we're called before the real JSF lifecycle starts
+      if (context != null)
       {
-        // we haven't registered a WindowManagerFactory yet, so use the services api to see
-        // if a factory has been registered
-        List<WindowManagerFactory> windowManagerFactories =
-                                ClassLoaderUtils.getServices(_WINDOW_MANAGER_FACTORY_CLASS_NAME);
+        // check if we have cached it per session
+        ExternalContext extContext = context.getExternalContext();
 
-        if (windowManagerFactories.isEmpty())
+        // create a new instance using the WindowManagerFactory
+        ConcurrentMap<String, Object> concurrentAppMap = getApplicationScopedConcurrentMap();
+
+        WindowManagerFactory windowManagerFactory = (WindowManagerFactory)concurrentAppMap.get(
+                                                              _WINDOW_MANAGER_FACTORY_CLASS_NAME);
+
+        if (windowManagerFactory == null)
         {
-          // no factory registered so use the factory that returns dummy stub WindowManagers
-          windowManagerFactory = _STUB_WINDOW_MANAGER_FACTORY;
-        }
-        else
-        {
-          // only one WindowManager is allowed, use it
-          windowManagerFactory = windowManagerFactories.get(0);
-        }
+          // we haven't registered a WindowManagerFactory yet, so use the services api to see
+          // if a factory has been registered
+          List<WindowManagerFactory> windowManagerFactories =
+                                  ClassLoaderUtils.getServices(_WINDOW_MANAGER_FACTORY_CLASS_NAME);
 
-        // save the WindowManagerFactory to the application if it hasn't already been saved
-        // if it has been saved, use the previously registered WindowManagerFactory
-        WindowManagerFactory oldWindowManagerFactory = (WindowManagerFactory)
-                            concurrentAppMap.putIfAbsent(_WINDOW_MANAGER_FACTORY_CLASS_NAME,
-                                                         windowManagerFactory);
+          if (windowManagerFactories.isEmpty())
+          {
+            // no factory registered so use the factory that returns dummy stub WindowManagers
+            windowManagerFactory = _STUB_WINDOW_MANAGER_FACTORY;
+          }
+          else
+          {
+            // only one WindowManager is allowed, use it
+            windowManagerFactory = windowManagerFactories.get(0);
+          }
 
-        if (oldWindowManagerFactory != null)
-          windowManagerFactory = oldWindowManagerFactory;
-      } // create WindowManagerFactory
+          // save the WindowManagerFactory to the application if it hasn't already been saved
+          // if it has been saved, use the previously registered WindowManagerFactory
+          WindowManagerFactory oldWindowManagerFactory = (WindowManagerFactory)
+                              concurrentAppMap.putIfAbsent(_WINDOW_MANAGER_FACTORY_CLASS_NAME,
+                                                           windowManagerFactory);
 
-      // get the WindowManager from the factory.  The factory will create a new instance
-      // for this session if necessary
-      windowManager = windowManagerFactory.getWindowManager(extContext);
+          if (oldWindowManagerFactory != null)
+            windowManagerFactory = oldWindowManagerFactory;
+        } // create WindowManagerFactory
 
-      // remember for the next call on this thread
-      _windowManager = windowManager;
+        // get the WindowManager from the factory.  The factory will create a new instance
+        // for this session if necessary
+        windowManager = windowManagerFactory.getWindowManager(extContext);
+
+        // remember for the next call on this thread
+        _windowManager = windowManager;
+      }
     }
 
     return windowManager;
   }
+
+  /**
+   * Get the component context manager.
+   * @return The manager of component context changes to be used to suspend and resume
+   * component specific context changes.
+   */
+   public ComponentContextManager getComponentContextManager()
+   {
+     if (_componentContextManager == null)
+     {
+       _componentContextManager = new ComponentContextManagerImpl();
+     }
+
+     return _componentContextManager;
+   }
 
   /**
    * Releases the RequestContext object.  This method must only
@@ -791,6 +970,8 @@ abstract public class RequestContext
     new ThreadLocal<RequestContext>();
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(RequestContext.class);
+
+  private ComponentContextManager _componentContextManager;
 
   // window manager for this request
   private WindowManager _windowManager;

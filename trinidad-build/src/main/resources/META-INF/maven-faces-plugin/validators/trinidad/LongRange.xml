@@ -27,6 +27,13 @@
     <validator-id>org.apache.myfaces.trinidad.LongRange</validator-id>
     <validator-class>org.apache.myfaces.trinidadinternal.validator.LongRangeValidator</validator-class>
     <property>
+      <description><![CDATA[Whether the converter should be disabled, default to false.]]>
+      </description>
+      <property-name>disabled</property-name>
+      <property-class>boolean</property-class>
+      <default-value>false</default-value>
+    </property>
+    <property>
       <description><![CDATA[The maximum long value of the entered value.]]>
       </description>
       <property-name>maximum</property-name>

@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.navigation.tree;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,14 +30,22 @@ public class TreeDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982060956387090010L;
 
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
     /**
      * Constructor.
      */
     public TreeDemo() {
-        super(ComponentDemoId.tree, "Tree",
+        super(ComponentDemoId.tree, "Tree");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/navigation/tree/tree.xhtml"
-            });
+                    "/components/navigation/tree/tree.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
     }
 
     public String getSummaryResourcePath() {

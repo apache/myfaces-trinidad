@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.select.selectRangeChoiceBar;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,21 +30,29 @@ public class SelectRangeChoiceBarDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1983061956813498310L;
 
-	/**
-	 * Constructor.
-	 */
-	public SelectRangeChoiceBarDemo(){
-		super(ComponentDemoId.selectRangeChoiceBar, "Select Range Choice Bar",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public SelectRangeChoiceBarDemo(){
+    super(ComponentDemoId.selectRangeChoiceBar, "Select Range Choice Bar");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/select/selectRangeChoiceBar/selectRangeChoiceBar.xhtml"
-            });
-	}
+                    "/components/select/selectRangeChoiceBar/selectRangeChoiceBar.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/select/selectRangeChoiceBar/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/select/selectRangeChoiceBar/SelectRangeChoiceBarBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/select/selectRangeChoiceBar/SelectRangeChoiceBarBean.java";
+  }
 }

@@ -31,6 +31,7 @@ Each entry in the set is a rowKey.]]>
       <property-name>disclosedRowKeys</property-name>
       <property-class>org.apache.myfaces.trinidad.model.RowKeySet</property-class>
       <property-extension>
+        <mfp:mutable>often</mfp:mutable>
         <mfp:property-metadata/>
         <fmd:property-metadata>
           <fmd:preferred>true</fmd:preferred>

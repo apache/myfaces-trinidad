@@ -1,25 +1,27 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import java.io.Writer;
 
 import java.lang.reflect.Method;
 
@@ -224,7 +226,7 @@ public final class ExternalContextUtils
       return null;
     }
   }
-
+  
   /**
    * Returns the contextPath of the ServletRequest or <code>null</code> for portlet requests
    *
@@ -266,6 +268,43 @@ public final class ExternalContextUtils
     {
       return null;
     }
+  }
+  
+  /**
+   * Wrapper for ExternalContext.getRequestScheme().
+   * 
+   * @param ec the current external context
+   * @return the result of ExternalContext.getRequestScheme()
+   *
+   * @deprecated replaced by ExternalContext.getRequestScheme().
+   */
+  @Deprecated
+  public static String getRequestScheme(ExternalContext ec)
+  { 
+    return ec.getRequestScheme();
+  }
+
+  /**
+   * Returns the writer appropriate for the current response or <code>null</code> if one is
+   * not available.  This will always be available in a servlet request, but will only be available
+   * for resource or render responses in a portal environments
+   * 
+   * @param ec the current externalContext
+   * @return a writer appropriate for the current response
+   * @see ExternalContext#getResponseOutputWriter()
+   * 
+   * @deprecated replaced by an API in JSF.  Use ExternalContext.getResponseOutputWriter()
+   */
+  @Deprecated
+  public static Writer getResponseWriter(ExternalContext ec)
+    throws IOException
+  {
+    if (isResponseWritable(ec))
+    {
+      return ec.getResponseOutputWriter();
+    }
+    
+    return null;
   }
 
   /**

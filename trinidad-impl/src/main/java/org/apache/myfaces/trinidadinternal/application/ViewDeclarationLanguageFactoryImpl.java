@@ -1,22 +1,24 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.application;
+
+import java.beans.BeanInfo;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,17 +32,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.faces.application.Resource;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+import javax.faces.view.AttachedObjectHandler;
+import javax.faces.view.StateManagementStrategy;
 import javax.faces.view.ViewDeclarationLanguage;
 import javax.faces.view.ViewDeclarationLanguageFactory;
+import javax.faces.view.ViewMetadata;
 
+import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.render.InternalView;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.render.InternalView;
+
 
 public class ViewDeclarationLanguageFactoryImpl
   extends ViewDeclarationLanguageFactory
@@ -67,14 +77,20 @@ public class ViewDeclarationLanguageFactoryImpl
   @Override
   public ViewDeclarationLanguage getViewDeclarationLanguage(String viewId)
   {
-    if (_getInternalView(FacesContext.getCurrentInstance(), viewId) != null)
+    FacesContext context = FacesContext.getCurrentInstance();
+    if (_getInternalView(context, viewId) != null)
       return _internalViewStrategy;
     
     // TRINIDAD-1703 - use physical URI (retrieved from the PageResolver) before calling the delegate's 
     // implementation
-    viewId = _getPath(viewId);
+    viewId = _getPath(context, viewId);
     
-    return getWrapped().getViewDeclarationLanguage(viewId);
+    ViewDeclarationLanguage vdl = getWrapped().getViewDeclarationLanguage(viewId);
+    // Possiblity of nested VDLs of the same kind
+    if (vdl instanceof ChangeApplyingVDLWrapper) 
+      return vdl;
+
+    return new ChangeApplyingVDLWrapper(getWrapped().getViewDeclarationLanguage(viewId));
   }
   
   @Override
@@ -220,12 +236,39 @@ public class ViewDeclarationLanguageFactoryImpl
   /**
    * Return the physical path of a particular URI
    */
-  static private String _getPath(String uri)
+  static private String _getPath(FacesContext context, String uri)
   {
+    UIViewRoot viewRoot = context.getViewRoot();
+    boolean viewMatch = false;
+    Map<String, String> viewIdMap = (Map<String, String>)context.getAttributes().get(_VIEWID_MAPPING);
+    if (viewRoot != null && viewRoot.getViewId().equals(uri))
+    {
+      viewMatch = true;
+      // Only return from cache if requested for the current viewRoot and it matches the arg. 
+      // Same rule applies when storing into viewMap
+      if (viewIdMap != null)
+      {
+        String cachedPhysicalURI = viewIdMap.get(uri);
+        if (cachedPhysicalURI != null)
+          return cachedPhysicalURI;
+      }
+    }
+    
     RequestContext afc = RequestContext.getCurrentInstance();
     if (afc != null)
     {
-      return afc.getPageResolver().getPhysicalURI(uri);
+      String physicalURI = afc.getPageResolver().getPhysicalURI(uri);
+      if (viewMatch)
+      {
+        // Store the viewId 
+        if (viewIdMap == null)
+        {
+          viewIdMap = new HashMap<String, String>();
+          context.getAttributes().put(_VIEWID_MAPPING, viewIdMap);
+        }
+        viewIdMap.put(uri, physicalURI);
+      }
+      return physicalURI;
     }
 
     // No RequestContext?  Just return the URI
@@ -237,6 +280,7 @@ public class ViewDeclarationLanguageFactoryImpl
   private Map<String, InternalView> _internalViews;
   
   private final static Object _NOT_FOUND = new Object();
+  private final static String _VIEWID_MAPPING = "org.apache.myfaces.trinidadinternal.application.viewIdMapping";
   private final Map<String, Object> _internalViewCache = 
                               new ConcurrentHashMap<String, Object>();
   
@@ -250,5 +294,93 @@ public class ViewDeclarationLanguageFactoryImpl
   interface InternalViewFinder
   {
     public InternalView getInternalView(FacesContext context, String viewId);
+  }
+  
+  /**
+   * The VDL implementation that wraps an underlying VDL and additionally applies component changes based 
+   * customization (usually SessionChangeManager). Note that this works both for Facelets and JSPs.
+   */
+  // TODO: start using ViewDeclarationLanguageWrapper once we upgrade to JSF 2.2
+  private static class ChangeApplyingVDLWrapper extends ViewDeclarationLanguage
+  {
+    ChangeApplyingVDLWrapper(ViewDeclarationLanguage wrapped)
+    {
+      _wrapped = wrapped;
+    }
+
+    @Override
+    public BeanInfo getComponentMetadata(FacesContext facesContext, Resource resource)
+    {
+      return _wrapped.getComponentMetadata(facesContext, resource);
+    }
+
+    @Override
+    public ViewMetadata getViewMetadata(FacesContext facesContext, String string)
+    {
+      return _wrapped.getViewMetadata(facesContext, string);
+    }
+
+    @Override
+    public Resource getScriptComponentResource(FacesContext facesContext, Resource resource)
+    {
+      return _wrapped.getScriptComponentResource(facesContext, resource);
+    }
+
+    @Override
+    public UIViewRoot createView(FacesContext facesContext, String string)
+    {
+      return _wrapped.createView(facesContext, string);
+    }
+
+    @Override
+    public UIViewRoot restoreView(FacesContext facesContext, String string)
+    {
+      return _wrapped.restoreView(facesContext, string);
+    }
+
+    @Override
+    public void buildView(FacesContext facesContext, UIViewRoot uiViewRoot)
+      throws IOException
+    {
+      _wrapped.buildView(facesContext, uiViewRoot);
+      if(PhaseId.RENDER_RESPONSE.equals(FacesContext.getCurrentInstance().getCurrentPhaseId()))
+      {          
+        ChangeManager cm = RequestContext.getCurrentInstance().getChangeManager();
+        cm.applyComponentChangesForCurrentView(FacesContext.getCurrentInstance());
+      }
+    }
+
+    @Override
+    public void renderView(FacesContext facesContext, UIViewRoot uiViewRoot)
+      throws IOException
+    {
+      _wrapped.renderView(facesContext, uiViewRoot);
+    }
+
+    @Override
+    public StateManagementStrategy getStateManagementStrategy(FacesContext facesContext, String string)
+    {
+      return _wrapped.getStateManagementStrategy(facesContext, string);
+    }
+    
+    @Override
+    public void retargetAttachedObjects(FacesContext context,
+                                        UIComponent topLevelComponent,
+                                        List<AttachedObjectHandler> handlers)  
+    {
+      _wrapped.retargetAttachedObjects(context, topLevelComponent, handlers);  
+    }
+    
+    @Override
+    public void retargetMethodExpressions(FacesContext context,
+                                          UIComponent topLevelComponent) 
+    {
+
+      _wrapped.retargetMethodExpressions(context, topLevelComponent);
+        
+    }
+    
+    
+    private final ViewDeclarationLanguage _wrapped;
   }
 }

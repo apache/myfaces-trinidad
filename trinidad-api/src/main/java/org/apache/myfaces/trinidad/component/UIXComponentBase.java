@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.component;
 
@@ -26,12 +26,11 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 import javax.el.ELContext;
 import javax.el.ELException;
@@ -39,35 +38,49 @@ import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 
 import javax.faces.FacesException;
+import javax.faces.application.ProjectStage;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
+import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRemoveFromViewEvent;
 import javax.faces.event.PreRenderComponentEvent;
+import javax.faces.event.SystemEvent;
+import javax.faces.event.SystemEventListener;
 import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
+import org.apache.myfaces.trinidad.bean.AttachedObjects;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.FacesBeanFactory;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
 import org.apache.myfaces.trinidad.bean.util.ValueMap;
 import org.apache.myfaces.trinidad.change.AttributeComponentChange;
+import org.apache.myfaces.trinidad.change.ComponentChange;
+import org.apache.myfaces.trinidad.change.ComponentChangeFilter;
+import org.apache.myfaces.trinidad.change.RowKeySetAttributeChange;
+import org.apache.myfaces.trinidad.component.ComponentProcessingContext.ProcessingHint;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.render.ExtendedRenderer;
 import org.apache.myfaces.trinidad.render.LifecycleRenderer;
 import org.apache.myfaces.trinidad.util.CollectionUtils;
@@ -103,6 +116,7 @@ import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
  */
 // TODO Write Class Javadoc
 // TODO Thorough review against UIComponentBase
+@JSFComponent
 abstract public class UIXComponentBase extends UIXComponent
 {
   // Created up top to ensure it's present while we're processing
@@ -126,6 +140,14 @@ abstract public class UIXComponentBase extends UIXComponent
     TYPE.registerKey("listeners", FacesListener[].class, PropertyKey.CAP_LIST);
   static private final PropertyKey _ATTRIBUTE_CHANGE_LISTENER_KEY =
     TYPE.registerKey("attributeChangeListener", MethodExpression.class);
+  static private final PropertyKey _CLIENT_BEHAVIORS_KEY =
+    TYPE.registerKey("clientBehaviors", AttachedObjects.class,
+                     PropertyKey.CAP_NOT_BOUND|PropertyKey.CAP_PARTIAL_STATE_HOLDER|PropertyKey.CAP_STATE_HOLDER);
+  static private final PropertyKey _SYSTEM_EVENT_LISTENERS_KEY =
+    TYPE.registerKey("systemEventListeners", AttachedObjects.class,
+                     PropertyKey.CAP_NOT_BOUND|PropertyKey.CAP_PARTIAL_STATE_HOLDER|PropertyKey.CAP_STATE_HOLDER);
+  static private final PropertyKey _COMPONENT_CHANGE_FILTERS_KEY =
+    TYPE.registerKey("componentChangeFilters", ComponentChangeFilter[].class, PropertyKey.CAP_LIST);
   // =-=AEW "parent", "rendersChildren", "childCount", "children",
   // "facets", "facetsAndChildren", "family" all are technically
   // bean properties, but they aren't exposed here...
@@ -306,6 +328,149 @@ abstract public class UIXComponentBase extends UIXComponent
     return _attributes;
   }
 
+  /**
+   * Adds a change for a Component, or the Component's subtree, returning the change actually added,
+   * or <code>null</code>, if no change was added.  The proposed change may be rejected by the
+   * component itself, one of its ancestors, or the ChangeManager implementation.
+   * @param change     The change to add for this component
+   * @return The ComponentChange actually added, or
+   * <code>null</code> if no change was added.
+   * @see #addComponentChange(UIComponent, ComponentChange)
+   */
+  public final ComponentChange addComponentChange(ComponentChange change)
+  {
+    return addComponentChange(this, change);
+  }
+  
+  /**
+   * Add a component change filter to this component.
+   * When <code>addComponentChange(ComponentChange)</code> method on this component is called, the ComponentChange will
+   * be added only if it is accepted by all the component change filters attached to this component as well as those
+   * attached to all its ancestors. 
+   * @param componentChangeFilter The ComponentChangeFilter instance to add to this component
+   * @see #addComponentChange(ComponentChange)
+   */
+  public final void addComponentChangeFilter(ComponentChangeFilter componentChangeFilter)
+  {
+    if (componentChangeFilter == null)
+      throw new NullPointerException();
+    
+    getFacesBean().addEntry(_COMPONENT_CHANGE_FILTERS_KEY, componentChangeFilter);
+  }
+  
+  /**
+   * Remove a component change filter to this component.
+   * @param componentChangeFilter The ComponentChangeFilter instance to remove from this component
+   * @see #addComponentChangeFilter(ComponentChangeFilter)
+   */
+  public final void removeComponentChangeFilter(ComponentChangeFilter componentChangeFilter)
+  {
+    if (componentChangeFilter == null)
+      throw new NullPointerException();
+    
+    getFacesBean().removeEntry(_COMPONENT_CHANGE_FILTERS_KEY, componentChangeFilter);
+  }
+
+  @Override
+  protected Iterator<UIComponent> getRenderedFacetsAndChildren(
+    FacesContext facesContext)
+  {
+    _cacheRenderer(facesContext);
+    return super.getRenderedFacetsAndChildren(facesContext);
+  }
+
+  /**
+   * Convenience method for implementors of {@link FlattenedComponent} to setup either the
+   * visiting context or the encoding context based on if the {@link ComponentProcessingContext}
+   * is processing for encoding or not.
+   * @param facesContext The faces context
+   * @param cpContext The component processing context passed to
+   *                  {@link FlattenedComponent#processFlattenedChildren}
+   */
+  protected void setupFlattenedContext(
+    FacesContext               facesContext,
+    ComponentProcessingContext cpContext
+    )
+  {
+    if (cpContext.getHints().contains(ProcessingHint.PROCESS_FOR_ENCODING))
+    {
+      setupEncodingContext(facesContext, RenderingContext.getCurrentInstance());
+    }
+    else
+    {
+      setupVisitingContext(facesContext);
+    }
+  }
+
+  /**
+   * Convenience method for implementors of {@link FlattenedComponent} to setup either the
+   * visiting context or the encoding context based on if the {@link ComponentProcessingContext}
+   * is processing for encoding or not.
+   * @param facesContext The faces context
+   * @param cpContext The component processing context passed to
+   *                  {@link FlattenedComponent#processFlattenedChildren}
+   */
+  protected void setupFlattenedChildrenContext(
+    FacesContext               facesContext,
+    ComponentProcessingContext cpContext
+    )
+  {
+    if (cpContext.getHints().contains(ProcessingHint.PROCESS_FOR_ENCODING))
+    {
+      setupChildrenEncodingContext(facesContext, RenderingContext.getCurrentInstance());
+    }
+    else
+    {
+      setupChildrenVisitingContext(facesContext);
+    }
+  }
+
+  /**
+   * Convenience method for implementors of {@link FlattenedComponent} to tear down either the
+   * visiting context or the encoding context based on if the {@link ComponentProcessingContext}
+   * is processing for encoding or not.
+   * @param facesContext The faces context
+   * @param cpContext The component processing context passed to
+   *                  {@link FlattenedComponent#processFlattenedChildren}
+   */
+  protected void tearDownFlattenedContext(
+    FacesContext               facesContext,
+    ComponentProcessingContext cpContext
+    )
+  {
+    if (cpContext.getHints().contains(ProcessingHint.PROCESS_FOR_ENCODING))
+    {
+      tearDownEncodingContext(facesContext, RenderingContext.getCurrentInstance());
+    }
+    else
+    {
+      tearDownVisitingContext(facesContext);
+    }
+  }
+
+  /**
+   * Convenience method for implementors of {@link FlattenedComponent} to tear down either the
+   * visiting context or the encoding context based on if the {@link ComponentProcessingContext}
+   * is processing for encoding or not.
+   * @param facesContext The faces context
+   * @param cpContext The component processing context passed to
+   *                  {@link FlattenedComponent#processFlattenedChildren}
+   */
+  protected void tearDownFlattenedChildrenContext(
+    FacesContext               facesContext,
+    ComponentProcessingContext cpContext
+    )
+  {
+    if (cpContext.getHints().contains(ProcessingHint.PROCESS_FOR_ENCODING))
+    {
+      tearDownChildrenEncodingContext(facesContext, RenderingContext.getCurrentInstance());
+    }
+    else
+    {
+      tearDownChildrenVisitingContext(facesContext);
+    }
+  }
+
   // ------------------------------------------------------------- Properties
 
   /**
@@ -351,34 +516,49 @@ abstract public class UIXComponentBase extends UIXComponent
   @Override
   public String getClientId(FacesContext context)
   {
-    if (_isClientIdCachingEnabled(context))
+    if (_isClientIdCachingEnabled())
     {
       String clientId = _clientId;
-      
+
       if (clientId == null)
       {
+        // This should not be called when the parent has not been set. Should it be
+        // called, the value will not be re-calculated correctly. This will be the case
+        // if someone attempts to invoke this function during facelets view construction.
+        if (_parent == null)
+        {
+          _LOG.warning("INVALID_CALL_TO_GETCLIENTID", getId());
+          // Return the value, even if not valid, for backward compatibility
+          return _calculateClientId(context);
+        }
+
         clientId = _calculateClientId(context);
-        
+
         if (_usesFacesBeanImpl)
         {
           _clientId = clientId;
         }
       }
-      else
+      else if (_isClientIdDebuggingEnabled())
       {
+        _warnClientIdCachingConfig(context);
+
         // for now validate success by checking the cached result against the dynamically
         // generated result
         String realID = _calculateClientId(context);
-        
+
         if (!clientId.equals(realID))
           throw new IllegalStateException(
-        "cached client id " + clientId + " for " + this + " doesn't match client id:" + realID);
+            String.format("Cached client id %s for %s doesn't match client id: %s",
+              clientId, this, realID));
       }
-    
+
       return clientId;
     }
     else
     {
+      _warnClientIdCachingConfig(context);
+
       return _calculateClientId(context);
     }
   }
@@ -398,7 +578,7 @@ abstract public class UIXComponentBase extends UIXComponent
       // make sure that we always have an id
       if (_id == null)
       {
-        _id = FacesContext.getCurrentInstance().getViewRoot().createUniqueId();        
+        _id = FacesContext.getCurrentInstance().getViewRoot().createUniqueId();
       }
 
       return _id;
@@ -454,12 +634,12 @@ abstract public class UIXComponentBase extends UIXComponent
         {
           clearCachedClientIds(this);
         }
-      }      
+      }
     }
     else
     {
       _validateId(id);
-      facesBean.setProperty(ID_KEY, id);      
+      facesBean.setProperty(ID_KEY, id);
     }
 
     _clientId = null;
@@ -491,13 +671,14 @@ abstract public class UIXComponentBase extends UIXComponent
       {
         // set the reference
         _parent = parent;
+        _resetClientId();
 
         if (parent.isInView())
         {
           // trigger the ADD_EVENT and call setInView(true)
           // recursive for all kids/facets...
-          // Application.publishEvent(java.lang.Class, java.lang.Object)  must be called, passing 
-          // PostAddToViewEvent.class as the first argument and the newly added component as the second 
+          // Application.publishEvent(java.lang.Class, java.lang.Object)  must be called, passing
+          // PostAddToViewEvent.class as the first argument and the newly added component as the second
           // argument.
           _publishPostAddToViewEvent(getFacesContext(), this);
         }
@@ -514,21 +695,25 @@ abstract public class UIXComponentBase extends UIXComponent
 
         // (un)set the reference
         _parent = parent;
+        _resetClientId();
       }
+    }
+  }
 
-      // clear cached client ids if necessary
-      if (_clientId != null)
+  private void _resetClientId()
+  {
+    // clear cached client ids if necessary
+    if (_clientId != null)
+    {
+      String newClientId = _calculateClientId(FacesContext.getCurrentInstance());
+
+      // if our clientId changed as a result of being reparented (because we moved
+      // between NamingContainers for instance) then we need to clear out
+      // all of the cached client ids for our subtree
+      if (!_clientId.equals(newClientId))
       {
-        String newClientId = _calculateClientId(FacesContext.getCurrentInstance());
-        
-        // if our clientId changed as a result of being reparented (because we moved
-        // between NamingContainers for instance) then we need to clear out
-        // all of the cached client ids for our subtree
-        if (!_clientId.equals(newClientId))
-        {
-          clearCachedClientIds();
-          _clientId = newClientId;
-        }
+        clearCachedClientIds();
+        _clientId = newClientId;
       }
     }
   }
@@ -889,24 +1074,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-  /**
-   * Encodes a component and all of its children, whether
-   * getRendersChildren() is true or false.  When rendersChildren
-   * is false, each child whose "rendered" property is true
-   * will be sequentially rendered;  facets will be ignored.
-   */
-  @Override
-  public void encodeAll(FacesContext context) throws IOException
-  {
-    if (context == null)
-      throw new NullPointerException();
-
-    // This code ends up calling isRendered() once overall,
-    // plus up to three times more for encodeBegin(),
-    // encodeChildren(), and encodeEnd().
-    __encodeRecursive(context, this);
-  }
-
   @Override
   public void queueEvent(FacesEvent event)
   {
@@ -1036,24 +1203,6 @@ abstract public class UIXComponentBase extends UIXComponent
       popComponentFromEL(context);
     }
 
-    // if component state serialization checking is on, attempt to Serialize the
-    // component state immediately in order to determine which component's state
-    // failed state saving.  Note that since our parent will attempt this same
-    // serialization, turning this on is expensive and should only be used once
-    // a serialization error has been detected and we want to know which
-    // component's state failed
-    if (StateUtils.checkComponentStateSerialization(context))
-    {
-      try
-      {
-        new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(state);
-      }
-      catch (IOException e)
-      {
-        throw new RuntimeException(_LOG.getMessage("COMPONENT_SAVED_STATE_FAILED", this), e);
-      }
-    }
-
     return state;
   }
 
@@ -1115,7 +1264,24 @@ abstract public class UIXComponentBase extends UIXComponent
 
   public Object saveState(FacesContext facesContext)
   {
-    return getFacesBean().saveState(facesContext);
+    Object state = getFacesBean().saveState(facesContext);
+
+    // if component state serialization checking is on, attempt to Serialize the
+    // component state immediately in order to determine which component's state
+    // failed state saving.
+    if (StateUtils.checkComponentStateSerialization(facesContext))
+    {
+      try
+      {
+        new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(state);
+      }
+      catch (IOException e)
+      {
+        throw new RuntimeException(_LOG.getMessage("COMPONENT_SAVED_STATE_FAILED", this), e);
+      }
+    }
+
+    return state;
   }
 
   public void restoreState(
@@ -1174,7 +1340,7 @@ abstract public class UIXComponentBase extends UIXComponent
    */
   protected void decodeChildrenImpl(FacesContext context)
   {
-    Iterator<UIComponent> kids = getFacetsAndChildren();
+    Iterator<UIComponent> kids = getRenderedFacetsAndChildren(context);
     while (kids.hasNext())
     {
       UIComponent kid = kids.next();
@@ -1209,7 +1375,7 @@ abstract public class UIXComponentBase extends UIXComponent
   protected void validateChildrenImpl(FacesContext context)
   {
     // Process all the facets and children of this component
-    Iterator<UIComponent> kids = getFacetsAndChildren();
+    Iterator<UIComponent> kids = getRenderedFacetsAndChildren(context);
     while (kids.hasNext())
     {
       UIComponent kid = kids.next();
@@ -1239,7 +1405,7 @@ abstract public class UIXComponentBase extends UIXComponent
   protected void updateChildrenImpl(FacesContext context)
   {
     // Process all the facets and children of this component
-    Iterator<UIComponent> kids = getFacetsAndChildren();
+    Iterator<UIComponent> kids = getRenderedFacetsAndChildren(context);
     while (kids.hasNext())
     {
       UIComponent kid = kids.next();
@@ -1278,14 +1444,114 @@ abstract public class UIXComponentBase extends UIXComponent
        getFacesBean().getEntries(_LISTENERS_KEY, clazz);
   }
 
+  /**
+   * Checks if any of the ComponentChangeFilter instances that is attached to this component rejects the supplied
+   * change for the supplied component.
+   */
+  private boolean _isAnyFilterRejectingChange(UIComponent uic, ComponentChange cc)
+  {
+    // assume we accept the change
+    boolean rejectsChange = false;
+    
+    Iterator<ComponentChangeFilter> iter =
+      (Iterator<ComponentChangeFilter>)getFacesBean().entries(_COMPONENT_CHANGE_FILTERS_KEY);
+
+    while (iter.hasNext())
+    {
+      ComponentChangeFilter currentFilter = iter.next();
+      if (currentFilter.accept(cc, uic) == ComponentChangeFilter.Result.REJECT)
+      {
+        // one of the filter rejected the change, look no further
+        rejectsChange = true;
+        break;
+      }
+    }
+    
+    return rejectsChange;
+  }
+  
+  private UIXComponentBase _getNextUIXComponentBaseAnxcestor()
+  {
+    UIComponent parent = getParent();
+
+    while (parent != null)
+    {    
+      if (parent instanceof UIXComponentBase)
+      {
+        return (UIXComponentBase)parent;
+      }
+      
+      parent = parent.getParent();
+    }
+    
+    return null;
+  }
+
+  /**
+   * Called when adding a change to a Component, or the Component's subtree.
+   * The default implementation delegates the call to the parent, if possible, otherwise
+   * it adds the change to the ChangeManager directly.
+   * Subclasses can override this method to among other things, filter or transform the changes.
+   * @param component  The component that the change is for
+   * @param change     The change to add for this component
+   * @return The ComponentChange actually added, or
+   * <code>null</code> if no change was added.
+   * @see #addComponentChange(ComponentChange)
+   * @see #addAttributeChange
+   */
+  protected ComponentChange addComponentChange(UIComponent component, ComponentChange change)
+  {
+    // check moved from addAttributeChange(), as this is more central
+    if ((component == this) && (change instanceof AttributeComponentChange))
+    {
+      AttributeComponentChange aa             = (AttributeComponentChange)change;
+      Object                   attributeValue = aa.getAttributeValue();
+      
+      if (attributeValue instanceof RowKeySet)
+      {
+        change = new RowKeySetAttributeChange(getClientId(getFacesContext()),
+                                              aa.getAttributeName(),
+                                              attributeValue);
+      }
+    }
+    
+    // add the change unless we have a change filter that is attached to this component wants to supress the change
+    if (!_isAnyFilterRejectingChange(component, change))
+    {
+      UIXComponentBase nextUIXParent = _getNextUIXComponentBaseAnxcestor();
+  
+      if (nextUIXParent != null)
+      {
+        return nextUIXParent.addComponentChange(component, change);
+      }
+      else
+      {
+        RequestContext trinContext = RequestContext.getCurrentInstance();
+        trinContext.getChangeManager().addComponentChange(getFacesContext(), component, change);
+        return change;
+      }
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+
+  /**
+   * Convenience function for
+   * <code>addComponentChange(new AttributeComponentChange(attributeName, attributeValue));</code>
+   * This function is not <code>final</code> for backwards compatibility reasons, however,
+   * existing subclassers whould override <code>addComponentChange</code> instead.
+   * @param attributeName
+   * @param attributeValue
+   * @see #addComponentChange(UIComponent, ComponentChange)
+   */
   protected void addAttributeChange(
     String attributeName,
     Object attributeValue)
   {
-    AttributeComponentChange aa =
-      new AttributeComponentChange(attributeName, attributeValue);
-    RequestContext adfContext = RequestContext.getCurrentInstance();
-    adfContext.getChangeManager().addComponentChange(getFacesContext(), this, aa);
+    addComponentChange(new AttributeComponentChange(attributeName, attributeValue));
   }
 
   void __rendererDecode(FacesContext context)
@@ -1301,7 +1567,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
   /**
    * Publish PostAddToViewEvent to the component and all facets and children.
-   * 
+   *
    * @param context the current FacesContext
    * @param component the current UIComponent
    */
@@ -1324,7 +1590,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
         // Iterate over the same index if the component was removed
         // This prevents skip components when processing
-        do 
+        do
         {
           _publishPostAddToViewEvent(context, child);
           currentChild = child;
@@ -1342,11 +1608,11 @@ abstract public class UIXComponentBase extends UIXComponent
         _publishPostAddToViewEvent(context, child);
       }
     }
-  } 
+  }
 
   /**
    * Publish PreRemoveFromViewEvent to the component and all facets and children.
-   * 
+   *
    * @param context the current FacesContext
    * @param component the current UIComponent
    */
@@ -1585,8 +1851,7 @@ abstract public class UIXComponentBase extends UIXComponent
     try
     {
       Iterator<UIComponent> children = getFacetsAndChildren();
-  
-  
+
       while (children.hasNext() && !found)
       {
         found = children.next().invokeOnComponent(context, clientId, callback);
@@ -1596,7 +1861,7 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       tearDownChildrenVisitingContext(context);
     }
-    
+
     return found;
   }
 
@@ -1607,7 +1872,7 @@ abstract public class UIXComponentBase extends UIXComponent
    * NamingContainer's children is skipped.
    * </p>
    * <p>Subclasses implementing NamingContainer should override
-   * <code>invokeOnComponent</code> and delegate to this method.
+   * <code>invokeOnComponent</code> and delegate to this method.</p>
    */
   protected final boolean invokeOnNamingContainerComponent(
     FacesContext context,
@@ -1620,15 +1885,15 @@ abstract public class UIXComponentBase extends UIXComponent
     boolean invokedComponent;
 
     setupVisitingContext(context);
-    
+
     try
     {
       String thisClientId = getClientId(context);
-  
+
       if (clientId.equals(thisClientId))
       {
         pushComponentToEL(context, null);
-        
+
         try
         {
           // this is the component we want, so invoke the callback
@@ -1638,7 +1903,7 @@ abstract public class UIXComponentBase extends UIXComponent
         {
           popComponentFromEL(context);
         }
-  
+
         invokedComponent = true;
       }
       else
@@ -1652,7 +1917,7 @@ abstract public class UIXComponentBase extends UIXComponent
         }
         else
         {
-          // setup the children visiting context and iterate through children.
+          // iterate through children.
           // We inline this code instead of calling super in order
           // to avoid making an extra call to getClientId().
           invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
@@ -1661,6 +1926,7 @@ abstract public class UIXComponentBase extends UIXComponent
     }
     finally
     {
+      // teardown the context now that we have visited the children
       tearDownVisitingContext(context);
     }
 
@@ -1681,18 +1947,18 @@ abstract public class UIXComponentBase extends UIXComponent
     throws FacesException
   {
     boolean invokedComponent;
-    
+
     // set up the context for visiting the children
     setupVisitingContext(context);
 
     try
     {
       String thisClientId = getClientId(context);
-  
+
       if (clientId.equals(thisClientId))
       {
         pushComponentToEL(context, null);
-        
+
         try
         {
           // this is the component we want, so invoke the callback
@@ -1702,7 +1968,7 @@ abstract public class UIXComponentBase extends UIXComponent
         {
           popComponentFromEL(context);
         }
-  
+
         // we found the component
         invokedComponent = true;
       }
@@ -1717,10 +1983,90 @@ abstract public class UIXComponentBase extends UIXComponent
     finally
     {
       // teardown the context now that we have visited the component
-      tearDownVisitingContext(context);      
+      tearDownVisitingContext(context);
     }
-    
+
     return invokedComponent;
+  }
+
+
+  @Override
+  public void subscribeToEvent(Class<? extends SystemEvent> eventClass, ComponentSystemEventListener componentListener)
+  {
+    if (eventClass == null)
+    {
+        throw new NullPointerException("eventClass required");
+    }
+    if (componentListener == null)
+    {
+        throw new NullPointerException("componentListener required");
+    }
+
+    FacesBean bean = getFacesBean();
+
+    AttachedObjects<Class<? extends SystemEvent>, SystemEventListener> eventStorage =
+      (AttachedObjects<Class<? extends SystemEvent>, SystemEventListener>)bean.getProperty(_SYSTEM_EVENT_LISTENERS_KEY);
+
+    if (eventStorage == null)
+    {
+      eventStorage = new AttachedObjects<Class<? extends SystemEvent>, SystemEventListener>();
+      bean.setProperty(_SYSTEM_EVENT_LISTENERS_KEY, eventStorage);
+    }
+
+    if (componentListener instanceof SystemEventListener && componentListener instanceof StateHolder)
+      eventStorage.addAttachedObject(eventClass, (SystemEventListener) componentListener);
+    else
+      eventStorage.addAttachedObject(eventClass, new ComponentSystemEventListenerWrapper(componentListener, this));
+  }
+
+  @Override
+  public void unsubscribeFromEvent(Class<? extends SystemEvent> eventClass,
+                                   ComponentSystemEventListener componentListener)
+  {
+    if (eventClass == null)
+    {
+        throw new NullPointerException("eventClass required");
+    }
+    if (componentListener == null)
+    {
+        throw new NullPointerException("componentListener required");
+    }
+
+    FacesBean bean = getFacesBean();
+
+    AttachedObjects<Class<? extends SystemEvent>, SystemEventListener> eventStorage =
+      (AttachedObjects<Class<? extends SystemEvent>, SystemEventListener>)bean.getProperty(_SYSTEM_EVENT_LISTENERS_KEY);
+
+    if (eventStorage == null)
+    {
+      return;
+    }
+
+    if (componentListener instanceof SystemEventListener && componentListener instanceof StateHolder)
+    {
+      eventStorage.removeAttachedObject(eventClass, (SystemEventListener) componentListener);    
+    }
+    else
+    {
+      // ComponentSystemEventListenerWrapper implements equals() to compare listener and component
+      eventStorage.removeAttachedObject(eventClass, new ComponentSystemEventListenerWrapper(componentListener, this));
+    }
+  }
+
+  @Override
+  public List<SystemEventListener> getListenersForEventClass(Class<? extends SystemEvent> eventClass)
+  {
+    FacesBean bean = getFacesBean();
+
+    AttachedObjects<Class<? extends SystemEvent>, SystemEventListener> eventStorage =
+      (AttachedObjects<Class<? extends SystemEvent>, SystemEventListener>)bean.getProperty(_SYSTEM_EVENT_LISTENERS_KEY);
+
+    if (eventStorage == null)
+    {
+      return Collections.emptyList();
+    }
+
+    return eventStorage.getAttachedObjectList(eventClass);
   }
 
   // ------------------------- Client behavior holder methods -------------------------
@@ -1751,7 +2097,18 @@ abstract public class UIXComponentBase extends UIXComponent
       return;
     }
 
-    getFacesBean().addClientBehavior(eventName, behavior);
+    FacesBean bean = getFacesBean();
+
+    AttachedObjects<String, ClientBehavior> behaviors = (
+            AttachedObjects<String, ClientBehavior>)bean.getProperty(_CLIENT_BEHAVIORS_KEY);
+
+    if (behaviors == null)
+    {
+      behaviors = new AttachedObjects<String, ClientBehavior>();
+      bean.setProperty(_CLIENT_BEHAVIORS_KEY, behaviors);
+    }
+
+    behaviors.addAttachedObject(eventName, behavior);
   }
 
   // Note, we do not need to provide a default implementation for the event names, as client
@@ -1772,7 +2129,15 @@ abstract public class UIXComponentBase extends UIXComponent
    */
   protected Map<String, List<ClientBehavior>> getClientBehaviors()
   {
-    return getFacesBean().getClientBehaviors();
+    AttachedObjects<String, ClientBehavior> behaviors = (
+            AttachedObjects<String, ClientBehavior>)getFacesBean().getProperty(_CLIENT_BEHAVIORS_KEY);
+
+    if (behaviors == null)
+    {
+      return Collections.emptyMap();
+    }
+
+    return behaviors.getAttachedObjectMap();
   }
 
   /**
@@ -1852,30 +2217,13 @@ abstract public class UIXComponentBase extends UIXComponent
   /**
    * render a component. this is called by renderers whose
    * getRendersChildren() return true.
+   * @deprecated {@link UIComponent#encodeAll(FacesContext)} should be used instead of this method
    */
+  @Deprecated
   void __encodeRecursive(FacesContext context, UIComponent component)
     throws IOException
   {
-    if (component.isRendered())
-    {
-      component.encodeBegin(context);
-      if (component.getRendersChildren())
-      {
-        component.encodeChildren(context);
-      }
-      else
-      {
-        if (component.getChildCount() > 0)
-        {
-          for(UIComponent child : component.getChildren())
-          {
-            __encodeRecursive(context, child);
-          }
-        }
-      }
-
-      component.encodeEnd(context);
-    }
+    component.encodeAll(context);
   }
 
   static private UIComponent _findInsideOf(
@@ -2060,43 +2408,239 @@ abstract public class UIXComponentBase extends UIXComponent
   {
   }
 
-  /**
-   * Temporary function controlling whether clientId caching is enabled
-   */
-  private static boolean _isClientIdCachingEnabled(FacesContext context)
+  private static boolean _isClientIdCachingEnabled()
   {
-    if (context == null)
-      throw new IllegalArgumentException("FacesContext is null");
+    return (_CLIENT_ID_CACHING != ClientIdCaching.OFF);
+  }
 
-    Boolean cacheClientIds = _sClientIdCachingEnabled.get();
-    
-    if (cacheClientIds == null)
+  private static boolean _isClientIdDebuggingEnabled()
+  {
+    return (_CLIENT_ID_CACHING == ClientIdCaching.DEBUG);
+  }
+
+  // Warn if caching is disabled + production environment since this is
+  // undesirable from a performance perspective.
+  private static void _warnClientIdCachingConfig(FacesContext context)
+  {
+    if (_CLIENT_ID_CACHING != ClientIdCaching.ON &&
+         context.isProjectStage(ProjectStage.Production) &&
+         !_warnedClientIdCachingConfig(context))
     {
-      // get the servlet initialization parameter
-      String cachingParam = context.getExternalContext().getInitParameter(
-                                                             _INIT_PROP_CLIENT_ID_CACHING_ENABLED);
-      
-      Boolean cachingEnabled  = (cachingParam != null)
-                                  ? Boolean.valueOf(cachingParam)
-                                  : Boolean.FALSE;  // default to false
+      _LOG.warning(
+        "The org.apache.myfaces.trinidad.CLIENT_ID_CACHING system property is set to: " +
+         _CLIENT_ID_CACHING +
+        ".  For best performance, client id caching should be ON in production environments.");
 
-      // cache the servlet initialization value
-      _sClientIdCachingEnabled.set(cachingEnabled ? Boolean.TRUE : Boolean.FALSE);
-
-      return cachingEnabled;
-    }
-    else
-    {
-      return cacheClientIds.booleanValue();
+      _clientIdCachingConfigWarned(context);
     }
   }
-  
-  private static AtomicReference<Boolean> _sClientIdCachingEnabled = 
-                                                                 new AtomicReference<Boolean>(null);
-  
-  // temporary servlet initialization flag controlling whether client ID caching is enabled
-  private static final String _INIT_PROP_CLIENT_ID_CACHING_ENABLED = 
-                                      "org.apache.myfaces.trinidadinternal.ENABLE_CLIENT_ID_CACHING";
+
+  // Tests whether we have already warned about the caching config.
+  // We only want to warn once per run.
+  private static boolean _warnedClientIdCachingConfig(FacesContext context)
+  {
+    ExternalContext external = context.getExternalContext();
+    Map<String, Object> appMap = external.getApplicationMap();
+
+    return Boolean.TRUE.equals(appMap.get(_WARNED_CLIENT_ID_CACHING_KEY));
+  }
+
+  // Marks the fact that we have now warned about the caching config.
+  private static void _clientIdCachingConfigWarned(FacesContext context)
+  {
+    ExternalContext external = context.getExternalContext();
+    Map<String, Object> appMap = external.getApplicationMap();
+
+    appMap.put(_WARNED_CLIENT_ID_CACHING_KEY, Boolean.TRUE);
+  }
+
+  // Utility for deriving initial CLIENT_ID_CACHING value.
+  private static ClientIdCaching _initClientIdCaching()
+  {
+    String cachingProperty = _getClientIdCachingSystemProperty();
+    ClientIdCaching caching = _toClientIdCachingEnum(cachingProperty);
+
+    _LOG.config("Client id caching configuration: " + caching);
+
+    return caching;
+  }
+
+  private static String _getClientIdCachingSystemProperty()
+  {
+    try
+    {
+      return System.getProperty(_SYSTEM_PROP_CLIENT_ID_CACHING);
+    }
+    catch (Throwable t)
+    {
+      _LOG.warning(t);
+    }
+
+    return null;
+  }
+
+  private static ClientIdCaching _toClientIdCachingEnum(String cachingProperty)
+  {
+    try
+    {
+      return Enum.valueOf(ClientIdCaching.class,
+                           (cachingProperty == null) ?
+                             "ON" :
+                             cachingProperty.toUpperCase());
+    }
+    catch (IllegalArgumentException e)
+    {
+      _LOG.warning("Invalid value specified for " +
+                   _SYSTEM_PROP_CLIENT_ID_CACHING +
+                   " system property: " +
+                   cachingProperty +
+                   ". Valid values are: on | off | debug.");
+
+    }
+
+    return ClientIdCaching.ON;
+  }
+
+  // Little enum for tracking the client id caching behavior.
+  private enum ClientIdCaching
+  {
+    ON,
+    OFF,
+    DEBUG
+  }
+
+
+  private static class ComponentSystemEventListenerWrapper implements SystemEventListener, StateHolder, ComponentSystemEventListener
+  {
+    ComponentSystemEventListenerWrapper(ComponentSystemEventListener listener, UIComponent component)
+    {
+      _delegate = listener;
+      _componentClass = component.getClass();
+    }
+
+    // Default constructor for state restoration
+    public ComponentSystemEventListenerWrapper()
+    {
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+      if (o == this)
+      {
+        return true;
+      }
+      else if (o instanceof ComponentSystemEventListenerWrapper)
+      {
+        ComponentSystemEventListenerWrapper other = (ComponentSystemEventListenerWrapper) o;
+        return _componentClass.equals(other._componentClass) && _delegate.equals(other._delegate);
+      }
+
+      return false;
+    }
+
+    @Override
+    public int hashCode()
+    {
+      return _componentClass.hashCode() + _delegate.hashCode();
+    }
+
+    // SystemEventListener implementation
+
+    @Override
+    public void processEvent(SystemEvent event) throws AbortProcessingException
+    {
+      assert (event instanceof ComponentSystemEvent);
+      processEvent((ComponentSystemEvent) event);
+    }
+
+    @Override
+    public void processEvent(ComponentSystemEvent event)
+    {
+      _delegate.processEvent((ComponentSystemEvent) event);
+    }
+
+    @Override
+    public boolean isListenerForSource(Object source)
+    {
+      if (_delegate instanceof SystemEventListener)
+      {
+        return ((SystemEventListener)_delegate).isListenerForSource(source);
+      }
+
+      // From the spec: and its implementation of SystemEventListener.isListenerForSource(java.lang.Object) must return true
+      // if the instance class of this UIComponent is assignable from the argument to isListenerForSource.
+      return _componentClass.isAssignableFrom(source.getClass());
+    }
+
+    // StateHolder Implementation
+
+    @Override
+    public Object saveState(FacesContext context)
+    {
+      if (_delegate instanceof UIComponent)
+      {
+        return null;
+      }
+
+      Object[] state = new Object[2];
+      state[0] = StateUtils.saveStateHolder(context, _delegate);
+      state[1] = _componentClass;
+
+      return state;
+    }
+
+    @Override
+    public void restoreState(FacesContext context, Object state)
+    {
+      if (state == null)
+      {
+        return;
+      }
+
+      Object[] stateArr = (Object[]) state;
+      Object saved = stateArr[0];
+
+      _delegate = (ComponentSystemEventListener) ((saved == null) ? UIComponent .getCurrentComponent(context)
+                                                : StateUtils.restoreStateHolder(context, saved));
+      _componentClass = (Class<?>)stateArr[1];
+    }
+
+    @Override
+    public boolean isTransient()
+    {
+      if (_delegate instanceof StateHolder)
+      {
+          return ((StateHolder)_delegate).isTransient();
+      }
+      return false;
+    }
+
+    @Override
+    public void setTransient(boolean isTransient)
+    {
+      if (_delegate instanceof StateHolder)
+      {
+        ((StateHolder)_delegate).setTransient(isTransient);
+      }
+    }
+
+
+    private ComponentSystemEventListener _delegate;
+    private Class<?> _componentClass;
+  }
+
+  private static final ClientIdCaching _CLIENT_ID_CACHING = _initClientIdCaching();
+
+  // System property controlling whether client ID caching is enabled
+  private static final String _SYSTEM_PROP_CLIENT_ID_CACHING =
+    "org.apache.myfaces.trinidad.CLIENT_ID_CACHING";
+
+  // Application map key indicating that we've already warned once
+  // that the client id caching configuration is not optimized for
+  // production mode.
+  private static final String _WARNED_CLIENT_ID_CACHING_KEY =
+    "org.apache.myfaces.trinidad.WARNED_CLIENT_ID_CACHING";
 
   static private final LifecycleRenderer _UNDEFINED_LIFECYCLE_RENDERER =
                                                 new ExtendedRendererImpl();

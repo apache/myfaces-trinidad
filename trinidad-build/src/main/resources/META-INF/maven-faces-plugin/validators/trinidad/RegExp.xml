@@ -30,6 +30,13 @@
     <validator-id>org.apache.myfaces.trinidad.RegExp</validator-id>
     <validator-class>org.apache.myfaces.trinidadinternal.validator.RegExpValidator</validator-class>
     <property>
+      <description><![CDATA[Whether the converter should be disabled, default to false.]]>
+      </description>
+      <property-name>disabled</property-name>
+      <property-class>boolean</property-class>
+      <default-value>false</default-value>
+    </property>
+    <property>
       <description><![CDATA[pattern to be matched in the input value.]]></description>
       <property-name>pattern</property-name>
       <property-class>java.lang.String</property-class>

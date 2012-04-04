@@ -68,7 +68,7 @@ horizontal line, or vertically.]]>
       <mfp:example>
         <mfp:source-code>
           <![CDATA[
-<tr:panelGroupLayoutLayout layout="horizontal">
+<tr:panelGroupLayout layout="horizontal">
   <f:facet name="separator">
     <tr:spacer width="10" height="1"/>
   </f:facet>
@@ -78,7 +78,7 @@ horizontal line, or vertically.]]>
         destination="http://myfaces.apache.org"/>
   <tr:goLink text="Apache Trinidad 3"
         destination="http://myfaces.apache.org"/>
-</tr:panelGroupLayoutLayout>
+</tr:panelGroupLayout>
           ]]>
         </mfp:source-code>
       </mfp:example>

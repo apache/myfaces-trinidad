@@ -19,7 +19,9 @@
 package org.apache.myfaces.trinidaddemo.components.output.progessIndicator;
 
 import org.apache.myfaces.trinidaddemo.support.impl.AbstractComponentDemo;
+import org.apache.myfaces.trinidaddemo.support.impl.ComponentVariantDemoImpl;
 import org.apache.myfaces.trinidaddemo.support.ComponentDemoId;
+import org.apache.myfaces.trinidaddemo.support.IComponentDemoVariantId;
 
 /**
  *
@@ -28,21 +30,29 @@ public class ProgressIndicatorDemo extends AbstractComponentDemo {
 
     private static final long serialVersionUID = -1982371957886498710L;
 
-	/**
-	 * Constructor.
-	 */
-	public ProgressIndicatorDemo() {
-		super(ComponentDemoId.progressIndicator, "Progress Indicator",
+    private enum VARIANTS implements IComponentDemoVariantId {
+    Default
+  }
+
+  /**
+   * Constructor.
+   */
+  public ProgressIndicatorDemo() {
+    super(ComponentDemoId.progressIndicator, "Progress Indicator");
+
+        addComponentDemoVariant(new ComponentVariantDemoImpl(VARIANTS.Default, "Default", this,
             new String[]{
-                "/components/output/progressIndicator/progressIndicator.xhtml"
-            });
-	}
+                    "/components/output/progressIndicator/progressIndicator.xhtml"
+            }));
+
+        setDefaultVariant(VARIANTS.Default);
+  }
 
     public String getSummaryResourcePath() {
         return "/components/output/progressIndicator/summary.xhtml";
     }
 
     public String getBackingBeanResourcePath() {
-		return "/org/apache/myfaces/trinidaddemo/components/output/progessIndicator/ProgressIndicatorBean.java";
-	}
+    return "/org/apache/myfaces/trinidaddemo/components/output/progessIndicator/ProgressIndicatorBean.java";
+  }
 }

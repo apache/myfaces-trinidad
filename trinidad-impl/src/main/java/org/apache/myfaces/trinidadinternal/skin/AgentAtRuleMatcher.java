@@ -1,26 +1,27 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -31,9 +32,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.myfaces.trinidad.context.Version;
-import org.apache.myfaces.trinidad.util.CollectionUtils;
+import org.apache.myfaces.trinidad.util.Range;
+
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
+
 
 /**
  * Threadsafe immutable class that stores the @agent rule for a particular @agent query string
@@ -53,74 +57,10 @@ public final class AgentAtRuleMatcher
     /** The Match matched the agent applications */
     APPLICATION,
     /** The Match matched the agent version */
-    VERSION
+    VERSION,
+    /** the Match matched capability touchScreen */
+    CAP_TOUCH_SCREEN
   };
-    
-  /**
-   * Constructor used by bogus XSS files to create a version matcher for a list of browsers and
-   * versions. Since XSS has no syntax to specify separate versions for each browser, all
-   * browsers share the same version and only Version equality comparison is supported, though
-   * since Version equality comparisons support wild-cards, this isn't as limiting as it might
-   * seem.
-   * @param browsers List of TrinidadAgent.Applications representing the browsers that this matcher
-   * matches
-   * @param versions Optional array of Version objects of the Versions to match
-   */
-  public AgentAtRuleMatcher(List<TrinidadAgent.Application> browsers, Version[] versions)
-  {
-    //
-    // create the Set of VersionMatchers shared by all of the browsers
-    //
-    int versionCount = (versions != null) ? versions.length : 0;
-    
-    AgentMatcher[] versionMatchers;
-    
-    if (versionCount == 0)
-    {
-      versionMatchers = null;
-    }
-    else
-    {
-      versionMatchers = new AgentMatcher[versionCount];
-      
-      for (int i = 0; i < versionCount; i++)
-      {
-        // XSS only supports equals comparisons
-        versionMatchers[i] = new VersionMatcher(versions[i], Comparison.EQUALS);
-      }
-    }
-      
-    Set<AgentMatcher> versionSet = CollectionUtils.asSet(versionMatchers);
-    
-    //
-    // Create the Map from TrinidadAgent.Application to the Set of AgentMatchers we created
-    // above.  Since the most common cases are to have 0 or  1 entry, we special case to reduce
-    // memory consumption.
-    // ==-= btsulliv Actually, we should really further optimize the 0 case and create a single
-    //               constant empty matcher and check for that case and return it at the top
-    //               of this function.
-    int browserCount = browsers.size();
-    
-    Map<TrinidadAgent.Application, Set<AgentMatcher>> browserMap;
-    
-    if (browserCount == 0)
-      browserMap = Collections.emptyMap();
-    else if (browserCount == 1)
-      browserMap = Collections.singletonMap(browsers.get(0), versionSet);
-    else
-    {
-      browserMap = new HashMap<TrinidadAgent.Application, Set<AgentMatcher>>(browserCount);
-
-      //in XSS there's now way of having multiple browsers and multiple versions
-      //if encountered, we map all versions to each browser (it works for 1 browser)
-      for (int i=0; i < browserCount ; i++)
-      {
-        browserMap.put(browsers.get(i), versionSet);
-      }
-    }
-    
-    _selectorAgents = browserMap;
-  }
 
   /**
    * Creates an AgentAtRuleMatcher from an @agent query string.  if the @agent rule were
@@ -147,7 +87,8 @@ public final class AgentAtRuleMatcher
   public AgentAtRuleMatcher(String[] selectors)
   {
     Map<TrinidadAgent.Application, Set<AgentMatcher>> selectorAgents = Collections.emptyMap();
-    
+    Set<AgentMatcher> capTouchMatchers = new HashSet<AgentMatcher>();
+
     // process each of the selectors to build the Map of the AgentMatchers to run for any
     // particular agent in this array of rules.
     for (int selectorIndex = 0; selectorIndex < selectors.length; selectorIndex++)
@@ -157,30 +98,41 @@ public final class AgentAtRuleMatcher
       // @agent ie and (version:6.*)
       // @agent ie and (version:5.0.*)
       // @agent ie and (min-version:5.*) and (max-version:6)
-      // @agent ie and (version:6), ie and (version:7), gecko and (version:1.1) 
-            
-      String currSelector = selectors[selectorIndex];
-      
+      // @agent ie and (version:6), ie and (version:7), gecko and (version:1.1)
+      // @agent (touchScreen)
+      // @agent (touchScreen:none)
+      // @agent (touchScreen:none), ie and (version:6)
+      // @agent webkit and (version:6), (touchScreen)
+      // @agent webkit and (touchScreen:single)
+      // @agent webkit and (version:9) and (touchScreen:multiple)
+
+      String currSelector = selectors[selectorIndex].trim();
+      if (currSelector.startsWith(TOUCH_SCREEN_RULE_STR))
+      {
+        capTouchMatchers.add(_getTouchScreenMatcher(currSelector));
+        continue;
+      }
+
       // split each of the sections between the "and"s.  For example
       // gecko and (min-version:1.5) and (max-version:1.9) would result in
       // {"gecko", "(min-version:1.5)", "(max-version:1.9)"}
       String[] sections = _AND_SPLITTER.split(currSelector);
-   
+
       // the agent is always the first section and is required.
       // We trim because we are often passed strings with trailing whitespace
       String agentName = sections[0].trim();
-      
+
       // convert the name of the agent to its TrinidadAgent.Application enum
       TrinidadAgent.Application browser = NameUtils.getAgentApplication(agentName);
-      
+
       // turn the array of sections into the Set of AgentMatchers
       //
       if (browser != TrinidadAgent.Application.UNKNOWN)
       {
         int sectionCount = sections.length;
-        
+
         Set<AgentMatcher> agentMatchers;
-        
+
         if (sectionCount == 1)
         {
           // we only have the agent identifier, so no matchers
@@ -188,51 +140,53 @@ public final class AgentAtRuleMatcher
         }
         else
         {
-          AgentMatcher newVersionMatcher;
-          
+          AgentMatcher newAgentMatcher;
+
           if (sectionCount > 2)
           {
             // we have multiple ands, so we need to build up the list of sections to pass to
             // to the AndMatcher, which will AND the results of each of the matches together
             List<AgentMatcher> andedMatchers = new ArrayList<AgentMatcher>(sectionCount - 1);
-            
-            // create version matchers for each section
+
+            // create agent matchers for each section
+            // this could be version matcher or touchScreen matcher
             for (int sectionIndex = 1; sectionIndex < sectionCount; sectionIndex++)
             {
-              andedMatchers.add(_getVersionMatcher(sections[sectionIndex]));
+              andedMatchers.add(_getAgentMatcher(sections[sectionIndex]));
             }
-            
-            newVersionMatcher = new AndMatcher(andedMatchers);
+
+            newAgentMatcher = new AndMatcher(andedMatchers);
           }
           else
           {
-            // only a single and with a version match, so return that matcher directly
-            newVersionMatcher = _getVersionMatcher(sections[1]);
+            // only a single and with a agent match, so return that matcher directly
+            // this could be version matcher or touchScreen matcher
+            newAgentMatcher = _getAgentMatcher(sections[1]);
           }
- 
+
           // if you have selectors that repeat the browser, then get the agentMatchers that
-          // you have so far for that browser so you can append to it. 
+          // you have so far for that browser so you can append to it.
           // @agent ie and (version: 6), ie and (version: 7), gecko and (version: 1.9)
           // Th comma ORs the rules together.
           agentMatchers = selectorAgents.get(browser);
-  
+
           // create the Version Set if it doesn't already exist, or add the Version to the
           // current Version Set if it isn't already in there.  Since most Version entries are
           // a single value, we optimize for that case
           if ((agentMatchers == null) || agentMatchers.isEmpty())
-            agentMatchers = Collections.singleton(newVersionMatcher);
-          else if (!agentMatchers.contains(newVersionMatcher))
+            agentMatchers = Collections.singleton(newAgentMatcher);
+          else if (!agentMatchers.contains(newAgentMatcher))
           {
             // we didn't already have an entry for this matcher.  If the old size is 1, then
             // the current set is going to be a Collections.singleton(), which is immutable,
             // so we need to copy the the singleton Set into a HashSet, which IS mutable
             if (agentMatchers.size() == 1)
               agentMatchers = new HashSet<AgentMatcher>(agentMatchers);
-            
-            agentMatchers.add(newVersionMatcher);
+
+            agentMatchers.add(newAgentMatcher);
           }
         }
-               
+
         // optimize the size of the SelectorAgents Map when we add the new Versions
         if (selectorAgents.isEmpty())
           selectorAgents = Collections.singletonMap(browser, agentMatchers);
@@ -246,25 +200,177 @@ public final class AgentAtRuleMatcher
             // a size of 3 seems a good start.
             Map<TrinidadAgent.Application, Set<AgentMatcher>> newSelectorAgents =
                                    new HashMap<TrinidadAgent.Application, Set<AgentMatcher>>(3);
-            
+
             // get the single entry out of here so we can add it into the new mutable map
-            Map.Entry<TrinidadAgent.Application, Set<AgentMatcher>> singleEntry = 
+            Map.Entry<TrinidadAgent.Application, Set<AgentMatcher>> singleEntry =
                                                        selectorAgents.entrySet().iterator().next();
-            
+
             newSelectorAgents.put(singleEntry.getKey(), singleEntry.getValue());
-            
+
             selectorAgents = newSelectorAgents;
           }
-          
+
           // add the new mapping
-          selectorAgents.put(browser, agentMatchers);         
+          selectorAgents.put(browser, agentMatchers);
         }
       }
     }
-    
+
     _selectorAgents = selectorAgents;
+    _capTouchMatchers = capTouchMatchers;
+    _hashCode = _calculateStableHashCode(_selectorAgents, _capTouchMatchers);
   }
-  
+
+  /**
+   * Returns a non-null Collection of agent applications that are matched by 
+   * this matcher.
+   */
+  public Collection<TrinidadAgent.Application> getAllApplications()
+  {
+    return new ArrayList<TrinidadAgent.Application>(_selectorAgents.keySet());
+  }
+
+  /**
+   * Returns a non-null collection of agent version ranges that are matched by
+   * this matcher.
+   * 
+   * @param application the agent application for which matching version ranges
+   *   should be returned.
+   */
+  public Collection<Range<Version>> getAllVersionsForApplication(TrinidadAgent.Application application)
+  {
+    Collection<Range<Version>> versionRanges = new HashSet<Range<Version>>();
+    Collection<AgentMatcher> agentMatchers = _selectorAgents.get(application);
+    
+    for (AgentMatcher agentMatcher : agentMatchers)
+    {
+      Range<Version> versionRange = agentMatcher.getMatchedVersions();
+      assert(versionRange != null);
+
+      versionRanges.add(versionRange);
+    }
+    
+    return versionRanges;
+  }
+
+  /**
+   * Returns a non-null range of versions that represent that intersection
+   * of all verions that:
+   * 
+   * a) are matched by this matcher, and...
+   * b) contain the specified agent version.
+   * 
+   * @param application the agent application for which matching version ranges
+   *   should be returned.
+   * @param agentVersion only ranges that contain this version will be matched.
+   */  
+  public Range<Version> getMatchedVersionsForApplication(
+    TrinidadAgent.Application application,
+    Version                   agentVersion
+    )
+  {
+    Collection<Range<Version>> allVersions = getAllVersionsForApplication(application);
+    
+    Range<Version> matchedVersions = Version.ALL_VERSIONS;
+    
+    for (Range<Version> range : allVersions)
+    {
+      if (range.contains(agentVersion))
+      {
+        matchedVersions = matchedVersions.intersect(range);
+      }
+    }
+    
+    return matchedVersions;
+  }
+
+  /**
+   * Parses touchScreen rule and creates appropriate AgentMatcher
+   * @param currSelector
+   */
+  private TouchScreenCapabilityMatcher _getTouchScreenMatcher(String currSelector) {
+    // split out the separate <capability> and <value> parts of the property selector.  The
+    // <capability> will be in the first group, the <value> in the second.
+    Matcher m = _PROPERTY_SPLITTER.matcher(currSelector);
+    String[] capTouchArray = new String[]{};
+
+    if (m.find())
+    {
+      String propName = m.group(1);
+      String propValue = m.group(2);
+
+      // Needless to check if propName is touchScreen or not. It is already done in the caller side.
+      if (propValue != null)
+      {
+        String capValue = propValue.trim();
+        if (_ALL_TOUCH_CAPABILITIES.contains(capValue))
+          capTouchArray = new String[] {capValue};
+        else
+        {
+          _LOG.warning("INVALID_AGENT_PROPERTY", new Object[]{propName, capValue});
+        }
+      }
+    }
+    else
+    {
+      // when (touchScreen) is specified _PROPERTY_SPLITTER fails to match
+      // in this case add single and multiple
+      capTouchArray = _AFFIRMATIVE_TOUCH_CAPABILITIES;
+    }
+
+    if (capTouchArray.length > 0) {
+      Set<String> capTouchValues = Collections.unmodifiableSet(new HashSet<String>(Arrays.<String>asList(capTouchArray)));
+      TouchScreenCapabilityMatcher matcher = new TouchScreenCapabilityMatcher(capTouchValues);
+      return matcher;
+    }
+
+    // If touchScreen syntax was not parsed and no AgentMatcher was created.
+    throw new IllegalArgumentException("Invalid @agent rule specified: " + currSelector);
+  }
+
+
+
+  /**
+   * Because Enums don't have stable hash codes, we can't use their hash code directly.  Instead
+   * we want to use the has code of the enum's name, which should be stable.  Here we essentially
+   * duplicate the hash code calculation of Map, using the stable hash code instead
+   * @return stable hash code
+   */
+  private static int _calculateStableHashCode(final Map<TrinidadAgent.Application, Set<AgentMatcher>> selectorAgents,
+                                              final Set<AgentMatcher> capTouchMatchers)
+  {
+    int hashCode = 0;
+
+    // Map hash code is defined as the additive hash code of the entries
+    for (Map.Entry<TrinidadAgent.Application, Set<AgentMatcher>> entry : selectorAgents.entrySet())
+    {
+      // use the enum's name to have a stable hash code
+      int stableKeyHashCode = entry.getKey().name().hashCode();
+
+      // entry hash code is defined as the XOR of the key and value.
+      int entryHashCode = stableKeyHashCode ^ entry.getValue().hashCode();
+
+      hashCode += entryHashCode;
+    }
+
+    hashCode += capTouchMatchers.hashCode();
+
+    return hashCode;
+  }
+
+  private AgentMatcher _getAgentMatcher(String propertySelector)
+  {
+    propertySelector = propertySelector.trim();
+    if (propertySelector.startsWith(TOUCH_SCREEN_RULE_STR))
+    {
+      return _getTouchScreenMatcher(propertySelector);
+    } else
+    {
+      return _getVersionMatcher(propertySelector);
+    }
+
+  }
+
   /**
    * Given a property selector of the form
    * (<opt whitespace><identifier><opt whitespace>:<opt whitespace><version><opt whitespace>)
@@ -280,32 +386,32 @@ public final class AgentAtRuleMatcher
     // split out the separate <identifier> and <version> parts of the property selector.  The
     // <identifier> will be in the first group, the <version> in the second.
     Matcher m = _PROPERTY_SPLITTER.matcher(propertySelector);
-    
+
     if (m.find())
     {
       String propName = m.group(1);
       String version = m.group(2);
-      
+
       // turn the property name--either "min-version", "max-version" or "version" into the
       // type of comparison to perform
       Comparison comparison = _COMPARISON_PARSER.get(propName);
-      
+
       if (comparison == null)
       {
         throw new IllegalArgumentException("Invalid @agent property name: " + propName);
       }
-      
+
       // create the new Version, padding the version number out with wildcards
       Version newVersion = new Version(version, "*");
-      
-      return new VersionMatcher(newVersion, comparison);      
+
+      return new VersionMatcher(newVersion, comparison);
     }
     else
     {
       throw new IllegalArgumentException("Invalid @agent property selector: " + propertySelector);
     }
   }
-  
+
   /**
    * <p>
    * Called to actually determine if this AgentAtRuleMatcher applies to the current agent.  The
@@ -329,27 +435,62 @@ public final class AgentAtRuleMatcher
    */
   public Set<Match> match(TrinidadAgent agent)
   {
+    Set<Match> matches = new HashSet<Match>();
     // If we have browser exact match, compare versions
     TrinidadAgent.Application browser = agent.getAgentApplication();
-    
+
     if (_selectorAgents.containsKey(browser))
     {
+      matches.add(Match.APPLICATION);
       Set<AgentMatcher> agentMatchers = _selectorAgents.get(browser);
-      if (agentMatchers.isEmpty())
-        return _APPLICATION_ONLY_MATCH;
-              
-      for (AgentMatcher currMatcher : agentMatchers)
+      if (!agentMatchers.isEmpty())
       {
-        if (currMatcher.match(agent))
+        for (AgentMatcher currMatcher : agentMatchers)
         {
-          return _APPLICATION_AND_VERSION_MATCH;
+          if (currMatcher.match(agent))
+          {
+            if (currMatcher instanceof VersionMatcher)
+              matches.add(Match.VERSION);
+            else if (currMatcher instanceof TouchScreenCapabilityMatcher)
+              matches.add(Match.CAP_TOUCH_SCREEN);
+            else if (currMatcher instanceof AndMatcher)
+            {
+               AndMatcher andMatcher = (AndMatcher) currMatcher;
+                if (andMatcher.hasVersionMatcher())
+                  matches.add(Match.VERSION);
+                if (andMatcher.hasTouchScreenCapabilityMatcher())
+                  matches.add(Match.CAP_TOUCH_SCREEN);
+            }
+          }
+        }
+
+        // Expect at least one match from the matchers
+        if (!matches.contains(Match.CAP_TOUCH_SCREEN) && !matches.contains(Match.VERSION))
+        {
+          // There were one or many matchers but none matched, so remove all matchers.
+          matches.clear();
         }
       }
     }
 
-    return _NO_MATCH;
+    // If touchScreen is already matched then no need to check further.
+    if (!matches.contains(Match.CAP_TOUCH_SCREEN) && !_capTouchMatchers.isEmpty())
+    {
+      for (AgentMatcher currMatcher : _capTouchMatchers)
+      {
+        if (currMatcher.match(agent))
+        {
+          // If there is a capability matching then APPLICATION match should be by default.
+          matches.add(Match.APPLICATION);
+          matches.add(Match.CAP_TOUCH_SCREEN);
+          break;
+        }
+      }
+    }
+
+    return Collections.unmodifiableSet(matches);
   }
-  
+
   @Override
   public boolean equals(Object other)
   {
@@ -359,7 +500,9 @@ public final class AgentAtRuleMatcher
     {
       if (other instanceof AgentAtRuleMatcher)
       {
-        return _selectorAgents.equals(((AgentAtRuleMatcher)other)._selectorAgents);
+        AgentAtRuleMatcher otherAgentMatcher = (AgentAtRuleMatcher) other;
+        return (_selectorAgents.equals(otherAgentMatcher._selectorAgents))
+                && (_capTouchMatchers.equals(otherAgentMatcher._capTouchMatchers));
       }
       else
       {
@@ -367,17 +510,17 @@ public final class AgentAtRuleMatcher
       }
     }
   }
-  
+
   @Override
-  public int hashCode()
+  public final int hashCode()
   {
-    return _selectorAgents.hashCode();
+    return _hashCode;
   }
-  
+
   @Override
   public String toString()
   {
-    return super.toString() + "agents=" + _selectorAgents.toString();
+    return super.toString() + "agents=" + _selectorAgents.toString() + "touchScreenCap=" + _capTouchMatchers.toString();
   }
 
   // the type of comparison to perform on the version
@@ -399,7 +542,7 @@ public final class AgentAtRuleMatcher
    * implement <code>equals</code> and <code>hashCode</code>
    * </p>
    * <p>
-   * While used to hide the differences between VersionMatchers and AndMatchers, 
+   * While used to hide the differences between VersionMatchers and AndMatchers,
    * this class should be abstract enough to support any new types of Agent matchers that we might
    * want to add in the future.
    * </p>
@@ -414,18 +557,29 @@ public final class AgentAtRuleMatcher
      */
     public abstract boolean match(TrinidadAgent agent);
     
+    /**
+     * Returns the versions matched by this AgentMatcher.
+     * 
+     * By default, all versions are matched.  Subclasses should
+     * override to constrain to the versions that they match.
+     */
+    public Range<Version> getMatchedVersions()
+    {
+      return Version.ALL_VERSIONS;
+    }
+
     @Override
     public abstract int hashCode();
-    
-    @Override    
+
+    @Override
     public abstract boolean equals(Object o);
   }
-  
+
   /**
    * Immutable and thread-safe AgentMatcher that matches the supplied Version against the
    * version of a TrinidadAgent using the supplied, MAX, MIN, or EQUALS Comparison
    */
-  private static class VersionMatcher extends AgentMatcher
+  private static final class VersionMatcher extends AgentMatcher
   {
     /**
      * Creates a VersionMatcher
@@ -436,8 +590,12 @@ public final class AgentAtRuleMatcher
     {
       _version = version;
       _comparison = comparison;
+
+      // cache the hash code.  Because enums don't have stable hash codes,
+      // we use the hash code of the name of the enum, which is stable
+      _hashCode = _version.hashCode() * 37 + _comparison.name().hashCode();
     }
-    
+
     /**
      * Matches the Version of this VersionMatcher against the Version of the supplied Agent,
      * using the VersionMatcher's comparison
@@ -449,7 +607,7 @@ public final class AgentAtRuleMatcher
     {
       // use the Version's comparator
       int result = _version.compareTo(agent.getVersion());
-      
+
       // since MIN means less than or equal to and MAX means greater than or equal to, a result
       // of equality always means success
       if (result == 0)
@@ -460,26 +618,49 @@ public final class AgentAtRuleMatcher
         {
           case MIN:
             return result < 0; // min version has to be less than current version
-            
+
           case MAX:
             return result > 0; // max version has to be bigger than current version
-          
+
           case EQUALS:
             return false; // if the result were equal, we wouldn't have gotten this far
-          
+
           default:
             assert false : "Unknown comparison type " + _comparison;
             return false; // this should never happen, but the compiler doesn't know that
         }
       }
     }
- 
+
     @Override
-    public int hashCode()
+    public Range<Version> getMatchedVersions()
     {
-      return _version.hashCode() * 37 + _comparison.hashCode();
+      Version start = Version.MIN_VERSION;
+      Version end = Version.MAX_VERSION;
+      
+      switch (_comparison)
+      {
+        case MIN:
+          start = _version.toMinimumVersion();
+          break;
+        case MAX:
+          end = _version.toMaximumVersion();
+          break;
+        case EQUALS:
+          start = _version.toMinimumVersion();;
+          end = _version.toMaximumVersion();;
+          break;
+      }
+      
+      return Range.of(start, end);
     }
-    
+
+    @Override
+    public final int hashCode()
+    {
+      return _hashCode;
+    }
+
     @Override
     public boolean equals(Object other)
     {
@@ -490,7 +671,7 @@ public final class AgentAtRuleMatcher
         if (other instanceof VersionMatcher)
         {
           VersionMatcher otherVersionMatcher = (VersionMatcher)other;
-          
+
           return _version.equals(otherVersionMatcher._version) &&
                  _comparison.equals(otherVersionMatcher._comparison);
         }
@@ -500,17 +681,18 @@ public final class AgentAtRuleMatcher
         }
       }
     }
-    
+
     @Override
     public String toString()
     {
       return super.toString() + ", version=" + _version + ", comparison=" + _comparison;
     }
-   
+
     private final Version _version;
     private final Comparison _comparison;
+    private final int _hashCode;
   }
-  
+
   /**
    * AgentMatcher that ANDs the results of all calling match() on its AgentMatchers together,
    * short-circuiting on the first AgentMatcher.match() that returns false.
@@ -526,12 +708,35 @@ public final class AgentAtRuleMatcher
       // =-= btsulliv should we do anything if matchers contains fewer than two items?  The code
       //              will still work, it just suggests a lack of optimization in the caller
       _matchers = matchers;
-      
+
       // cache the hashcode so we don't traverse the list asking all of the other matchers for
       // their hash codes each time our hash code is called
       _hashCode = matchers.hashCode();
+
+      boolean hasVersionMatcher = false;
+      boolean hasTouchMatcher = false;
+      for (AgentMatcher matcher : matchers)
+      {
+        if (matcher instanceof VersionMatcher)
+          hasVersionMatcher = true;
+        if (matcher instanceof TouchScreenCapabilityMatcher)
+          hasTouchMatcher = true;
+      }
+      
+      _hasVersionMatcher = hasVersionMatcher;
+      _hasTouchScreenCapabilityMatcher = hasTouchMatcher;
     }
-    
+
+    protected boolean hasTouchScreenCapabilityMatcher()
+    {
+      return _hasTouchScreenCapabilityMatcher;
+    }
+
+    protected boolean hasVersionMatcher()
+    {
+      return _hasVersionMatcher;
+    }
+
     /**
      * @param agent Agent to match againt
      * @return <code>true</code> if all of the matchers matched the Agent
@@ -540,7 +745,7 @@ public final class AgentAtRuleMatcher
     public boolean match(TrinidadAgent agent)
     {
       int matcherCount = _matchers.size();
-      
+
       for (int i = 0; i < matcherCount; i++)
       {
         // a matcher failed, so no sense in trying to match any more.  Let's pick up our
@@ -548,17 +753,30 @@ public final class AgentAtRuleMatcher
         if (!_matchers.get(i).match(agent))
           return false;
       }
-      
+
       // all of the matchers matched.  Yay!
       return true;
     }
-  
+
+    @Override
+    public Range<Version> getMatchedVersions()
+    {
+      Range<Version> versionRange = Version.ALL_VERSIONS;
+        
+      for (AgentMatcher matcher : _matchers)
+      {
+        versionRange = versionRange.intersect(matcher.getMatchedVersions());
+      }
+        
+      return versionRange;
+    }
+
     @Override
     public int hashCode()
     {
       return _hashCode;
     }
-    
+
     @Override
     public boolean equals(Object other)
     {
@@ -567,7 +785,7 @@ public final class AgentAtRuleMatcher
       else
       {
         if (other instanceof AndMatcher)
-        {          
+        {
           return _matchers.equals(((AndMatcher)other)._matchers);
         }
         else
@@ -576,14 +794,92 @@ public final class AgentAtRuleMatcher
         }
       }
     }
-    
+
     @Override
     public String toString()
     {
       return super.toString() + ", matchers=" + _matchers;
     }
-   
+
+
+
     private final List<AgentMatcher> _matchers;
+    private final int _hashCode;
+    private final boolean _hasVersionMatcher;
+    private final boolean _hasTouchScreenCapabilityMatcher;
+  }
+
+  /**
+   * Immutable and thread-safe AgentMatcher that matches the supplied touchScreen capability against the
+   * that of the agent's.
+   */
+  private static final class TouchScreenCapabilityMatcher extends AgentMatcher
+  {
+    /**
+     * Creates a TouchScreenCapabilityMatcher
+     * @param touchCapabilities
+     */
+    public TouchScreenCapabilityMatcher(Set<String> touchCapabilities)
+    {
+      if (touchCapabilities == null)
+        throw new NullPointerException("touchCapabilities must be non-null");
+
+      _touchCapabilities = touchCapabilities;
+      _hashCode = _touchCapabilities.hashCode();
+    }
+
+    /**
+     * Matches the  TouchScreenCapabilityMatcher against the touchScreen capability of the supplied Agent
+     * @param agent Agent to check the touchScreen capability of
+     * @return <code>true</code> if the comparison is successful
+     */
+    @Override
+    public boolean match(TrinidadAgent agent)
+    {
+      String capTouchScreen = (String) agent.getCapabilities().get(TrinidadAgent.CAP_TOUCH_SCREEN);
+      for (String touchCap : _touchCapabilities)
+      {
+        if (capTouchScreen.equals(touchCap))
+        {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    @Override
+    public final int hashCode()
+    {
+      return _hashCode;
+    }
+
+    @Override
+    public boolean equals(Object other)
+    {
+      if (this == other)
+        return true;
+      else
+      {
+        if (other instanceof TouchScreenCapabilityMatcher)
+        {
+          TouchScreenCapabilityMatcher otherMatcher = (TouchScreenCapabilityMatcher)other;
+          return _touchCapabilities.equals(otherMatcher._touchCapabilities);
+        }
+        else
+        {
+          return false;
+        }
+      }
+    }
+
+    @Override
+    public String toString()
+    {
+      return super.toString() + ", touchCapabilities=" + _touchCapabilities;
+    }
+
+    private final Set<String> _touchCapabilities;
     private final int _hashCode;
   }
 
@@ -612,30 +908,41 @@ public final class AgentAtRuleMatcher
   // is added later, we require the "and" to be surrounded with whitespace.
   private static final Pattern _AND_SPLITTER = Pattern.compile("\\s+and\\s+");
 
-  // constants representing the three types of Match sets match returns
-  private static final Set<Match> _NO_MATCH = Collections.emptySet();
-  private static final Set<Match> _APPLICATION_ONLY_MATCH = Collections.singleton(Match.APPLICATION);
-  
-  private static final Set<Match> _APPLICATION_AND_VERSION_MATCH = 
-                         Collections.unmodifiableSet(EnumSet.of(Match.APPLICATION, Match.VERSION));
+  private static final String[] _AFFIRMATIVE_TOUCH_CAPABILITIES =
+    new String[]
+    { TrinidadAgent.TOUCH_SCREEN_MULTIPLE.toString(),
+      TrinidadAgent.TOUCH_SCREEN_SINGLE.toString()
+    };
 
-  
+  private static final Set<String> _ALL_TOUCH_CAPABILITIES =
+    new HashSet<String>(Arrays.<String>asList(new String[]
+        { TrinidadAgent.TOUCH_SCREEN_MULTIPLE.toString(),
+          TrinidadAgent.TOUCH_SCREEN_SINGLE.toString(),
+          TrinidadAgent.TOUCH_SCREEN_NONE.toString()
+        }));
+
   // map of property names to the types of comparison to use for each name
   private static final Map<String, Comparison> _COMPARISON_PARSER;
-  
+
   static
   {
     // initialize property-name to Comparison type Map.  Thread-safe because the Map is not
     // modified after initialization
     _COMPARISON_PARSER = new HashMap<String, Comparison>(4);
-    
+
     _COMPARISON_PARSER.put("version", Comparison.EQUALS);
     _COMPARISON_PARSER.put("max-version", Comparison.MAX);
     _COMPARISON_PARSER.put("min-version", Comparison.MIN);
   }
 
   // As we need to be able to have multiple version matching rules for the same agent:
-  // @agent ie and (version:5), ie and (version:6), gecko. 
+  // @agent ie and (version:5), ie and (version:6), gecko.
   // We store a map of agents and their version sets
   private final Map<TrinidadAgent.Application, Set<AgentMatcher>> _selectorAgents;
+  private final Set<AgentMatcher> _capTouchMatchers;
+
+  // cached hash code
+  private final int _hashCode;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentAtRuleMatcher.class);
+  private static final String TOUCH_SCREEN_RULE_STR = "(" + TrinidadAgent.CAP_TOUCH_SCREEN.getCapabilityName();
 }

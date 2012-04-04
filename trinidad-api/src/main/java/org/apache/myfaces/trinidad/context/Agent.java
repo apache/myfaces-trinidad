@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidad.context;
 
@@ -60,6 +60,11 @@ public interface Agent
    * Constant for Phone sized devices
    */
   public static final Object TYPE_PHONE = "phone";
+  
+  /**
+   * Constant for Web Crawlers
+   */
+  public static final Object TYPE_WEBCRAWLER = "webcrawler";
 
   /**
    * Constant for unknown platform
@@ -89,7 +94,7 @@ public interface Agent
   public static final String  PLATFORM_MAC = PLATFORM_MACOS;
 
   /**
-   * Constant for iPhone platform
+   * Constant for the iOS (iPhone/iPod touch/iPad) platform
    */
   public static final String  PLATFORM_IPHONE = "iphone";
 
@@ -123,6 +128,11 @@ public interface Agent
    * Constant for generic PDA device browser
    */
   public static final String PLATFORM_GENERICPDA = "genericpda";
+  
+  /**
+   * Constant for android device browsers
+   */
+  public static final String PLATFORM_ANDROID = "android";
 
   /**
    * Constant for unknown platform version
@@ -148,6 +158,11 @@ public interface Agent
    * Constant for Gecko agent. Used for all Gecko based agents like Mozilla, Netscape 6+
    */
   public static final String AGENT_GECKO = "gecko";
+  
+  /**
+   * Constant for a generic desktop agent that is unknown but relatively powerful
+   */
+  public static final String AGENT_GENERIC_DESKTOP = "genericDesktop";  
 
   /**
    * Constant for Opera agent.
@@ -183,6 +198,21 @@ public interface Agent
    * Constant for basic HTML (without JavaScript) Browser agent.
    */
   public static final String AGENT_GENERICPDA = "genericpda";
+  
+  /**
+   * Constant for MSN web crawler (currently used by Bing and Yahoo)
+   */
+  public static final String AGENT_MSNBOT = "msnbot";
+  
+  /**
+   * Constant for Google web crawler
+   */
+  public static final String AGENT_GOOGLEBOT = "googlebot";
+  
+  /**
+   * Constant for Oracle SES web crawler
+   */
+  public static final String AGENT_ORACLE_SES = "oracle_ses";
 
   /**
    * Constant for unknown Agent version

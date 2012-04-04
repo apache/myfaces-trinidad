@@ -71,6 +71,23 @@
         </fmd:property-metadata>
       </property-extension>
     </property>
+    <property>
+      <description><![CDATA[The sorting strength for this column. It controls how this column should
+      be sorted, what level of difference considered significant during comparison. Currently the
+      values supported are: "Primary", "Secondary", "Tertiary" and "Identical". Default value is
+      "Identical".]]>
+      </description>
+      <property-name>sortStrength</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>Identical</default-value>
+      <property-extension>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+          <fmd:property-values>Primary Secondary Tertiary Identical</fmd:property-values>
+        </fmd:property-metadata>
+      </property-extension>
+    </property>
     <component-extension>
       <mfp:component-family>org.apache.myfaces.trinidad.Column</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>

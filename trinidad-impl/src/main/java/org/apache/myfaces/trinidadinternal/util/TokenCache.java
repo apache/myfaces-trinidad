@@ -1,20 +1,20 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- * 
- *  http://www.apache.org/licenses/LICENSE-2.0
- * 
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.myfaces.trinidadinternal.util;
 
@@ -26,12 +26,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import java.util.Map;
-
 import java.util.concurrent.ConcurrentHashMap;
-
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.faces.context.ExternalContext;
+
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -66,33 +65,41 @@ public class TokenCache implements Serializable
    */
   @SuppressWarnings("unchecked")
   static public TokenCache getTokenCacheFromSession(
-    FacesContext context,
-    String       cacheName,
-    boolean      createIfNeeded,
-    int          defaultSize)
+    ExternalContext extContext,
+    String          cacheName,
+    boolean         createIfNeeded,
+    int             defaultSize)
   {
-    ExternalContext external = context.getExternalContext();
-    Object session = external.getSession(true);
-    assert(session != null);
+    Map<String, Object> sessionMap = extContext.getSessionMap();
 
-    TokenCache cache;
-    // Synchronize on the session object to ensure that
-    // we don't ever create two different caches
-    synchronized (session)
+    TokenCache cache = (TokenCache)sessionMap.get(cacheName);
+    
+    if (cache == null)
     {
-      cache = (TokenCache) external.getSessionMap().get(cacheName);
-      if ((cache == null) && createIfNeeded)
+      if (createIfNeeded)
       {
-        // create the TokenCache with the crytographically random seed
-        cache = new TokenCache(defaultSize, _getSeed());
-
-        external.getSessionMap().put(cacheName, cache);
+        Object session = extContext.getSession(true);
+  
+        // Synchronize on the session object to ensure that
+        // we don't ever create two different caches
+        synchronized (session)
+        {
+          cache = (TokenCache)sessionMap.get(cacheName);
+          
+          if (cache == null)
+          {
+            // create the TokenCache with the crytographically random seed
+            cache = new TokenCache(defaultSize, _getSeed(), cacheName);
+    
+            sessionMap.put(cacheName, cache);
+          }
+        }
       }
     }
 
     return cache;
   }
-  
+    
   /**
    * Returns a cryptographically secure random number to use as the TokenCache seed
    */
@@ -124,11 +131,10 @@ public class TokenCache implements Serializable
   /**
    * For serialization only
    */
-  public TokenCache()
+  TokenCache()
   {
-    this(_DEFAULT_SIZE, 0L);
-  }
-
+    this(_DEFAULT_SIZE, 0L, null);
+  }   
 
   /**
    * Create a TokenCache that will store the last "size" entries.  This version should
@@ -138,31 +144,23 @@ public class TokenCache implements Serializable
    */
   public TokenCache(int size)
   {
-    this(size, 0L);
-  }
-
-  /**
-   * Create a TokenCache that will store the last "size" entries,
-   * and begins its tokens based on the seed (instead of always
-   * starting at "0").
-   * @Deprecated Use version using a long size instead for greater security
-   */
-  public TokenCache(int size, int seed)
-  {
-    this(size, (long)seed);
+    this(size, 0L, null);
   }
 
  /**
   * Create a TokenCache that will store the last "size" entries,
   * and begins its tokens based on the seed (instead of always
   * starting at "0").
+  * @patam owner      Optional Cache that stores the token cache
+  * @param keyInOwner Optional Name under which this cache is stored in the owner
   */
- public TokenCache(int size, long seed)
+  private TokenCache(int size, long seed, String keyInOwner)
   {
-    _cache = new LRU(size);
-    _pinned = new ConcurrentHashMap<String, String>(size);
-    _count = new AtomicLong(seed);
-  }
+    _cache      = new LRU(size);
+    _pinned     = new ConcurrentHashMap<String, String>(size);
+    _count      = new AtomicLong(seed);
+    _keyInOwner = keyInOwner;
+  } 
 
   /**
    * Create a new token;  and use that token to store a value into
@@ -209,6 +207,21 @@ public class TokenCache implements Serializable
       // NOTE: this put() has a side-effect that can result
       // in _removed being non-null afterwards
       _cache.put(token, token);
+
+      if(TokenCacheDebugUtils.debugTokenCache())
+      {
+        TokenCacheDebugUtils.startLog("Add New Entry");
+        TokenCacheDebugUtils.addTokenToViewIdMap(token);
+
+        if (pinnedToken != null)
+        {
+          TokenCacheDebugUtils.addToLog("\nPINNING " + 
+                      TokenCacheDebugUtils.getTokenToViewIdString(token) + 
+                      " to " + 
+                      TokenCacheDebugUtils.getTokenToViewIdString(pinnedToken));  
+        }
+      }
+      
       remove = _removed;
       _removed = null;
     }
@@ -217,14 +230,23 @@ public class TokenCache implements Serializable
     // assert above.
     if (remove != null)
     {
-      _removeTokenIfReady(targetStore, remove);
+      _removeTokenIfReady(targetStore, remove);        
     }
     
     targetStore.put(token, value);
 
+    // our contents have changed, so mark ourselves as dirty in our owner
+    _dirty();
+
+    if(TokenCacheDebugUtils.debugTokenCache())
+    {
+      TokenCacheDebugUtils.logCacheInfo(targetStore, _pinned, "After Additions"); 
+      _LOG.severe(TokenCacheDebugUtils.getLogString());
+      
+    }
+
     return token;
   }
-
 
   /**
    * Returns true if an entry is still available.  This
@@ -262,21 +284,42 @@ public class TokenCache implements Serializable
     {
       _LOG.finest("Removing token ''{0}''", token);
       // Remove it from the target store
+
+      if (TokenCacheDebugUtils.debugTokenCache())
+      {
+        TokenCacheDebugUtils.removeTokenFromViewIdMap(token);
+      }
+      
       removedValue = targetStore.remove(token);
       // Now, see if that key was pinning anything else
       String wasPinned = _pinned.remove(token);
       if (wasPinned != null)
+      {
+
+        if (TokenCacheDebugUtils.debugTokenCache())
+        {
+          TokenCacheDebugUtils.addToLog("\nREMOVING pinning of token " + token + " to " + 
+                      TokenCacheDebugUtils.getTokenToViewIdString(wasPinned));  
+        }        
+        
         // Yup, so see if we can remove that token
         _removeTokenIfReady(targetStore, wasPinned);
+      }
     }
     else
     {
+      if (TokenCacheDebugUtils.debugTokenCache())
+      {
+        TokenCacheDebugUtils.addToLog("\nNOT removing pinned token from target store " + 
+                    TokenCacheDebugUtils.getTokenToViewIdString(token) );  
+      }
+      
       _LOG.finest("Not removing pinned token ''{0}''", token);
       // TODO: is this correct?  We're not really removing
       // the target value.
       removedValue = targetStore.get(token);
     }
-    
+
     return removedValue;
   }
 
@@ -289,14 +332,33 @@ public class TokenCache implements Serializable
       String token, 
       Map<String, V> targetStore)
   {
+    V oldValue;
+    
     synchronized (this)
     {
+      if(TokenCacheDebugUtils.debugTokenCache())
+      {
+        TokenCacheDebugUtils.startLog("Remove Old Entry");
+      }
+      
       _LOG.finest("Removing token {0} from cache", token);
       _cache.remove(token);
+      
       // TODO: should removing a value that is "pinned" take?
       // Or should it stay in memory?
-      return _removeTokenIfReady(targetStore, token);
+      oldValue = _removeTokenIfReady(targetStore, token);
+      
+      if (TokenCacheDebugUtils.debugTokenCache())
+      {
+        TokenCacheDebugUtils.logCacheInfo(targetStore, _pinned, "After removing old entry:");
+        _LOG.severe(TokenCacheDebugUtils.getLogString());
+      }
     }
+
+    // our contents have changed, so mark ourselves as dirty in our owner
+    _dirty();
+    
+    return oldValue;
   }
 
   /**
@@ -314,6 +376,9 @@ public class TokenCache implements Serializable
 
       _cache.clear();
     }
+
+    // our contents have changed, so mark ourselves as dirty in our owner
+    _dirty();
   }
 
   private String _getNextToken()
@@ -324,7 +389,38 @@ public class TokenCache implements Serializable
     // convert using base 36 because it is a fast efficient subset of base-64
     return Long.toString(nextToken, 36);
   }
+  
+  /**
+   * Mark the cache as dirty in the owner
+   */
+  private void _dirty()
+  {
+    if (_keyInOwner != null)
+    {
+      _getOwner().put(_keyInOwner, this);
+    }
+  }
 
+
+  /**
+   * @return returns the current requests session map via the faces context
+   */
+  private Map<String, Object> _getOwner() 
+  {
+    // Getting a refrence to the session map must be dynamically established versus holding a
+    // transient reference.  This is because the SessionMap from the faces ExternalContext 
+    // needs a reference back to the request. The reason that the SessionMap has the backpointer 
+    // to the request is that JSF doesn't want to create a session object unless they need to, 
+    // (lazily created) so they call request.getSession(false) to get the session.  
+    // They need the backpointer to handle the case where the session gets created after the 
+    // SessionMap instance is created.
+    //
+    // Hanging on to a reference to the session map ends up pinning the request in memory
+    // which would otherwise be gc-ed.
+      
+    return FacesContext.getCurrentInstance().getExternalContext().getSessionMap();  
+  }
+  
   private class LRU extends LRUCache<String, String>
   {
     public LRU(int maxSize)
@@ -351,6 +447,8 @@ public class TokenCache implements Serializable
   // the current token value
   private final AtomicLong _count;
 
+  private final String _keyInOwner;
+  
   // Hack instance parameter used to communicate between the LRU cache's
   // removing() method, and the addNewEntry() method that may trigger it
   private transient String _removed;
