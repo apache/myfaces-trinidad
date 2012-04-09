@@ -113,6 +113,10 @@ public class CommandLinkRenderer extends GoLinkRenderer
     {
       AutoSubmitUtils.writeDependencies(context, rc);
     }
+    else
+    {
+      XhtmlUtils.addLib(context, rc, "submitForm()");
+    }
 
     String clientId = getClientId(context, comp);
     // Make sure we don't have anything to save

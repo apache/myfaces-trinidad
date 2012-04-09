@@ -83,6 +83,8 @@ public class HtmlCommandButtonRenderer extends Renderer
       writer.writeAttribute("value", label, "value");
     }
 
+    boolean needsSubmitScript = false;
+
     RenderingContext arc = RenderingContext.getCurrentInstance();
     String script;
     // If it's an image, we can't really go through the full-page submit
@@ -100,6 +102,8 @@ public class HtmlCommandButtonRenderer extends Renderer
               null/*no event*/,
               null,
               false/* return false*/);
+      
+      needsSubmitScript = true;
     }
 
     String onclick = CoreRenderer.toString(attrs.get("onclick"));
@@ -118,6 +122,11 @@ public class HtmlCommandButtonRenderer extends Renderer
     }
 
     writer.endElement("input");
+    
+    if (needsSubmitScript)
+    {
+      XhtmlUtils.addLib(context, arc,"submitForm()");
+    }
   }
 
   @Override
