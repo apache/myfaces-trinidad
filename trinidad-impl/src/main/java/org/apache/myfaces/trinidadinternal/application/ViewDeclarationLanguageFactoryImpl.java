@@ -50,6 +50,7 @@ import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.InternalView;
+import org.apache.myfaces.trinidad.view.ViewDeclarationLanguageWrapper;
 
 
 public class ViewDeclarationLanguageFactoryImpl
@@ -301,7 +302,7 @@ public class ViewDeclarationLanguageFactoryImpl
    * customization (usually SessionChangeManager). Note that this works both for Facelets and JSPs.
    */
   // TODO: start using ViewDeclarationLanguageWrapper once we upgrade to JSF 2.2
-  private static class ChangeApplyingVDLWrapper extends ViewDeclarationLanguage
+  private static class ChangeApplyingVDLWrapper extends ViewDeclarationLanguageWrapper
   {
     ChangeApplyingVDLWrapper(ViewDeclarationLanguage wrapped)
     {
@@ -309,40 +310,16 @@ public class ViewDeclarationLanguageFactoryImpl
     }
 
     @Override
-    public BeanInfo getComponentMetadata(FacesContext facesContext, Resource resource)
+    public ViewDeclarationLanguage getWrapped()
     {
-      return _wrapped.getComponentMetadata(facesContext, resource);
-    }
-
-    @Override
-    public ViewMetadata getViewMetadata(FacesContext facesContext, String string)
-    {
-      return _wrapped.getViewMetadata(facesContext, string);
-    }
-
-    @Override
-    public Resource getScriptComponentResource(FacesContext facesContext, Resource resource)
-    {
-      return _wrapped.getScriptComponentResource(facesContext, resource);
-    }
-
-    @Override
-    public UIViewRoot createView(FacesContext facesContext, String string)
-    {
-      return _wrapped.createView(facesContext, string);
-    }
-
-    @Override
-    public UIViewRoot restoreView(FacesContext facesContext, String string)
-    {
-      return _wrapped.restoreView(facesContext, string);
+      return _wrapped;
     }
 
     @Override
     public void buildView(FacesContext facesContext, UIViewRoot uiViewRoot)
       throws IOException
     {
-      _wrapped.buildView(facesContext, uiViewRoot);
+      getWrapped().buildView(facesContext, uiViewRoot);
       if(PhaseId.RENDER_RESPONSE.equals(FacesContext.getCurrentInstance().getCurrentPhaseId()))
       {          
         ChangeManager cm = RequestContext.getCurrentInstance().getChangeManager();
@@ -350,37 +327,6 @@ public class ViewDeclarationLanguageFactoryImpl
       }
     }
 
-    @Override
-    public void renderView(FacesContext facesContext, UIViewRoot uiViewRoot)
-      throws IOException
-    {
-      _wrapped.renderView(facesContext, uiViewRoot);
-    }
-
-    @Override
-    public StateManagementStrategy getStateManagementStrategy(FacesContext facesContext, String string)
-    {
-      return _wrapped.getStateManagementStrategy(facesContext, string);
-    }
-    
-    @Override
-    public void retargetAttachedObjects(FacesContext context,
-                                        UIComponent topLevelComponent,
-                                        List<AttachedObjectHandler> handlers)  
-    {
-      _wrapped.retargetAttachedObjects(context, topLevelComponent, handlers);  
-    }
-    
-    @Override
-    public void retargetMethodExpressions(FacesContext context,
-                                          UIComponent topLevelComponent) 
-    {
-
-      _wrapped.retargetMethodExpressions(context, topLevelComponent);
-        
-    }
-    
-    
     private final ViewDeclarationLanguage _wrapped;
   }
 }
