@@ -3801,6 +3801,12 @@ function _submitPartialChange(
   if (!form)
     return false;
 
+  // Prevent a submission if we are currently blocking or if we have a timeout set to do blocking
+  // In IE8 the JS engine is very slow and form submission takes time and if the user clicks a link again, the second
+  // click can sneek in before the timeout function is called
+  if(window._pprBlocking || window._pprTimeoutFunc)
+    return false;
+    
   // Tack on the "partial" event parameter parameter
   parameters = _addFormParameter(parameters, "partial", "true");
 
