@@ -20,4 +20,5 @@
 -->
 <capabilityData xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
   <capability name="touchScreen" value="single"/>
+  <capability name="historyManagement" value="none"/>
 </capabilityData>

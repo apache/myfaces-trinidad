@@ -280,6 +280,12 @@ public abstract class TrinidadAgent implements Agent, Cloneable
   static public final Object HISTORY_MANAGEMENT_FULL =
           CapabilityValue.getCapabilityValue (CAP_HISTORY_MANAGEMENT, "full");
   
+  /**
+   * Agent doe snot support Session History Management (HTML5 History) APIs
+   */
+  static public final Object HISTORY_MANAGEMENT_NONE =
+          CapabilityValue.getCapabilityValue (CAP_HISTORY_MANAGEMENT, "none");
+  
 
   /**
    * Application constant for Desktop devices
