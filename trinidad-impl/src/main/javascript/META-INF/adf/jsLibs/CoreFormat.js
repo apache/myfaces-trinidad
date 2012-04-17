@@ -980,6 +980,23 @@ function _decimalParse(
     // decimal separator allowed by JS
     var decimal = new RegExp("\\" + symbols.getDecimalSeparator(),  "g");
     numberString = numberString.replace(decimal, ".");
+    
+    // JIRA TRINIDAD-2219: When the string is a negative bidi number, e.g. "1-", the
+    //(numberString*numberString) and (numberString / numberString) return NaN
+    // and is unable to parse it so in Bidi, we check if the number is of the format "X-"
+    // and convert it to "-X" which Javascript can understands. 
+   
+    var isLTR = document.documentElement["dir"].toUpperCase() == "LTR";
+
+    if(!isLTR)
+    {
+      var numberStringLength = numberString.length ;
+  
+      if(numberString.lastIndexOf("-") ==  (numberStringLength - 1)) 
+      {
+        numberString = "-" + numberString.substring(0, numberStringLength - 1);
+      }
+    }//end of isLTR check
   }
 
 
