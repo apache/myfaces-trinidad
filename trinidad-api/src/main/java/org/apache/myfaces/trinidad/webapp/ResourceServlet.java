@@ -56,7 +56,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.resource.CachingResourceLoader;
-import org.apache.myfaces.trinidad.resource.DirectoryResourceLoader;
 import org.apache.myfaces.trinidad.resource.ResourceLoader;
 import org.apache.myfaces.trinidad.resource.ServletContextResourceLoader;
 import org.apache.myfaces.trinidad.util.URLUtils;
@@ -309,10 +308,9 @@ public class ResourceServlet extends HttpServlet
               try
               {
                 Constructor<?> decorator = clazz.getConstructor(_DECORATOR_SIGNATURE);
-                ServletContext context = getServletContext();
-                File tempdir = (File)
-                context.getAttribute("javax.servlet.context.tempdir");
-                ResourceLoader delegate = new DirectoryResourceLoader(tempdir);
+                // We are now calling a special temp directory version of DirectoryResourceLoader to
+                // assure that the servlet context's temp directory doesn't change on us.
+                ResourceLoader delegate = new TempDirectoryResourceLoader(getServletContext());
                 loader = (ResourceLoader)
                 decorator.newInstance(new Object[]{delegate});
               }

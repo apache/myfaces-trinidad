@@ -522,6 +522,9 @@
 <!-- INVALID_CONTEXT_CHANGE_FOUND -->
 <resource key="INVALID_CONTEXT_CHANGE_FOUND">An unexpected component context change was found. This is due to components not correctly maintaining the context change stack. Expected change of type {0} for component {1} but received change {2}.</resource>
 
+<!-- TEMPDIR_CHANGED -->
+<resource key="TEMPDIR_CHANGED">Cached temp directory doesn't match the current. Current temp directory: "{0}" Cached temp directory: "{1}"</resource>
+
 <!-- ILLEGAL_ENUM_VALUE -->
 <resource key="ILLEGAL_ENUM_VALUE">No {0} enum constant for value "{1}".</resource>
 
