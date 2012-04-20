@@ -327,5 +327,17 @@ public abstract class CollectionModel extends DataModel
   {
     return LocalRowKeyIndex.LocalCachingStrategy.NONE;
   }
+
+  /**
+   * Ensure that the model has at least rowCount number of rows. This is especially
+   * useful for collection model that support paging. The default implementation
+   * is a no-op.
+   *
+   * @param rowCount the number of rows the model should hold.
+   */   
+  public void ensureRowsAvailable(int rowCount)
+  {
+    return;
+  }
   
 }
