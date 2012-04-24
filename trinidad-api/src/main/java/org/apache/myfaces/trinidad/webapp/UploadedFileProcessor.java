@@ -41,8 +41,12 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
  * <li>org.apache.myfaces.trinidad.UPLOAD_MAX_DISK_SPACE: the maximum amount of
  *  disk space that can be used in a single request to store
  *  uploaded files.  (Default of 2000K)
+ * <li>org.apache.myfaces.trinidad.UPLOAD_MAX_FILE_SIZE: the maximum
+ *  file size that can be uploaded.  (Default of 2000K)
  * <li>org.apache.myfaces.trinidad.UPLOAD_TEMP_DIR: the name of a directory
  *   to store temporary files.  (Defaults to the user's temporary directory)
+ * <li>org.apache.myfaces.trinidad.UPLOAD_MAX_CHUNK_SIZE: the maximum
+ *  chunk size that large files will be split into during upload.  (Default of 2000M)
  * </ul>
  * 
  * @see org.apache.myfaces.trinidad.model.UploadedFile
@@ -87,6 +91,38 @@ public interface UploadedFileProcessor
    * on that request.
    */
   public static final String MAX_FILE_SIZE_PARAM_NAME = "org.apache.myfaces.trinidad.UPLOAD_MAX_FILE_SIZE";
+  
+  /**
+   * Initialization parameter for the default
+   * <code>UploadedFileProcessor</code> that configures the maximum
+   * chunk size that large files will be split into during upload. 
+   * The default is 2000M and is also the maximum allowed value.
+   */
+  public static final String MAX_CHUNK_SIZE_PARAM_NAME = "org.apache.myfaces.trinidad.UPLOAD_MAX_CHUNK_SIZE";
+  
+  /**
+   * Initialization parameter default value of 100 kilobytes for the default
+   * <code>UploadedFileProcessor</code> parameter MAX_MEMORY_PARAM_NAME.
+   */
+  public static final long DEFAULT_MAX_MEMORY = 102400L;
+  
+  /**
+   * Initialization parameter default value of 2000 kilobytes for the default
+   * <code>UploadedFileProcessor</code> parameter MAX_DISK_SPACE_PARAM_NAME.
+   */
+  public static final long DEFAULT_MAX_DISK_SPACE = 2048000L;
+  
+  /**
+   * Initialization parameter default value of 2000 kilobytes for the default
+   * <code>UploadedFileProcessor</code> parameter MAX_FILE_SIZE_PARAM_NAME.
+   */
+  public static final long DEFAULT_MAX_FILE_SIZE = 2048000L;
+  
+  /**
+   * Initialization parameter default value of 2000 megabytes for the default
+   * <code>UploadedFileProcessor</code> parameter MAX_CHUNK_PARAM_NAME.
+   */
+  public static final long DEFAULT_MAX_CHUNK_SIZE = 2000000000L;
   
   /**
    * Initialize the UploadedFileProcessor with access to the current

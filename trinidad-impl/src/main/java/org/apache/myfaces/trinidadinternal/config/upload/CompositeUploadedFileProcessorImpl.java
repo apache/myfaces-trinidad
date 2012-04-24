@@ -229,12 +229,12 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
         }
         catch (NumberFormatException nfe)
         {
-          _maxMemory = _DEFAULT_MAX_MEMORY;
+          _maxMemory = DEFAULT_MAX_MEMORY;
         }
       }
       else
       {
-        _maxMemory = _DEFAULT_MAX_MEMORY;
+        _maxMemory = DEFAULT_MAX_MEMORY;
       }
     }
 
@@ -249,12 +249,12 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
         }
         catch (NumberFormatException nfe)
         {
-          _maxDiskSpace = _DEFAULT_MAX_DISK_SPACE;
+          _maxDiskSpace = DEFAULT_MAX_DISK_SPACE;
         }
       }
       else
       {
-        _maxDiskSpace = _DEFAULT_MAX_DISK_SPACE;
+        _maxDiskSpace = DEFAULT_MAX_DISK_SPACE;
       }
     }
 
@@ -283,12 +283,12 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
         }
         catch (NumberFormatException nfe)
         {
-          _maxFileSize = _DEFAULT_MAX_FILE_SIZE;
+          _maxFileSize = DEFAULT_MAX_FILE_SIZE;
         }
       }
       else
       {
-        _maxFileSize = _DEFAULT_MAX_FILE_SIZE;
+        _maxFileSize = DEFAULT_MAX_FILE_SIZE;
       }
     }
   }
@@ -482,10 +482,6 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
   private long   _maxDiskSpace = -1;
   private long   _maxFileSize = -1;
   private String _tempDir = null;
-
-  private static final long _DEFAULT_MAX_MEMORY = 102400;
-  private static final long _DEFAULT_MAX_DISK_SPACE = 2048000;
-  private static final long _DEFAULT_MAX_FILE_SIZE = 2048000;
 
   private static final String _REQUEST_INFO_KEY = CompositeUploadedFileProcessorImpl.class.getName()+
     ".UploadedFilesInfo";

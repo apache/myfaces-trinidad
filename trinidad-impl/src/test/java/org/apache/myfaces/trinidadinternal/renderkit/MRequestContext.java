@@ -280,6 +280,28 @@ public class MRequestContext extends RequestContext
   {
     return _maxDiskSpace;
   }
+  
+  public void setUploadedFileMaxFileSize(Long maxFileSize)
+  {
+    _maxFileSize = maxFileSize;
+  }
+  
+  @Override
+  public Long getUploadedFileMaxFileSize()
+  {
+    return _maxFileSize;
+  }
+  
+  public void setUploadedFileMaxChunkSize(Long maxChunkSize)
+  {
+    _maxChunkSize = maxChunkSize;
+  }
+
+  @Override
+  public Long getUploadedFileMaxChunkSize()
+  {
+    return _maxChunkSize;
+  }
 
   public void setUploadedFileTempDir(String tempDir)
   {
@@ -413,6 +435,8 @@ public class MRequestContext extends RequestContext
   private String _skin;
   private Long _maxMemory;
   private Long _maxDiskSpace;
+  private Long _maxFileSize;
+  private Long _maxChunkSize;
   private String _tempDir;
   private Accessibility _accMode;
   private AccessibilityProfile _accProfile;

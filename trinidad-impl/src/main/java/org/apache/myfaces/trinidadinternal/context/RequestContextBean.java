@@ -78,6 +78,10 @@ public class RequestContextBean extends FacesBeanImpl
     TYPE.registerKey("uploaded-file-max-memory", Long.class);
   static public final PropertyKey UPLOADED_FILE_MAX_DISK_SPACE_KEY = 
     TYPE.registerKey("uploaded-file-max-disk-space", Long.class);
+  static public final PropertyKey UPLOADED_FILE_MAX_FILE_SIZE_KEY = 
+    TYPE.registerKey("uploaded-file-max-file-size", Long.class);
+  static public final PropertyKey UPLOADED_FILE_MAX_CHUNK_SIZE_KEY = 
+    TYPE.registerKey("uploaded-file-max-chunk-size", Long.class);
   static public final PropertyKey UPLOADED_FILE_TEMP_DIR_KEY = 
     TYPE.registerKey("uploaded-file-temp-dir");
   static public final PropertyKey REMOTE_DEVICE_REPOSITORY_URI =

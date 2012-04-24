@@ -698,6 +698,10 @@ abstract public class RequestContext
   public abstract Long getUploadedFileMaxMemory();
 
   public abstract Long getUploadedFileMaxDiskSpace();
+  
+  public abstract Long getUploadedFileMaxFileSize();
+  
+  public abstract Long getUploadedFileMaxChunkSize();
 
   public abstract String getUploadedFileTempDir();
 

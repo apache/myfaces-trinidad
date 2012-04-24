@@ -175,6 +175,18 @@ public class RequestContextImpl extends RequestContext
   {
     return (Long) _bean.getProperty(RequestContextBean.UPLOADED_FILE_MAX_DISK_SPACE_KEY);
   }
+  
+  @Override
+  public Long getUploadedFileMaxFileSize()
+  {
+    return (Long) _bean.getProperty(RequestContextBean.UPLOADED_FILE_MAX_FILE_SIZE_KEY);
+  }
+  
+  @Override
+  public Long getUploadedFileMaxChunkSize()
+  {
+    return (Long) _bean.getProperty(RequestContextBean.UPLOADED_FILE_MAX_CHUNK_SIZE_KEY);
+  }
 
   @Override
   public String getUploadedFileTempDir()
