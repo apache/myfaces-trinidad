@@ -1620,7 +1620,6 @@ abstract public class UIXComponentBase extends UIXComponent
     FacesContext context,
     UIComponent component)
   {
-    component.setInView(false);
     context.getApplication().publishEvent(context, PreRemoveFromViewEvent.class, UIComponent.class, component);
 
     if (component.getChildCount() > 0)
@@ -1638,6 +1637,8 @@ abstract public class UIXComponentBase extends UIXComponent
         _publishPreRemoveFromViewEvent(context, child);
       }
     }
+    
+    component.setInView(false);
   }
 
   private void _cacheRenderer(FacesContext context)
