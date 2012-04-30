@@ -83,4 +83,22 @@ public abstract class PageFlowScopeProvider
   public abstract String encodeCurrentPageFlowScopeURL(
      FacesContext context,
      String url);
+  
+  /**
+   * Encode the page flow scope into the dialog URL
+   * 
+   * Note that the Dialog Framework may first call ViewHandler.getActionURL(), which in turn will 
+   * call encodeCurrentPageFlowScopeURL(). Then this method will be given a chance to encode any dialog-specific 
+   * information. The dafault implementation does not modify the URL. 
+   * 
+   * @param context the current FacesContext
+   * @param url an URL (which may already contain query parameters)
+   * @return encoded URL
+   */
+  public String encodeDialogPageFlowScopeURL(
+     FacesContext context,
+     String url)
+  {
+    return url;
+  }
 }

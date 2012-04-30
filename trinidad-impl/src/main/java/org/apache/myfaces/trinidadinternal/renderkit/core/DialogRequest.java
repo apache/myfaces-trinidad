@@ -28,6 +28,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.FredJSP;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
@@ -60,17 +62,23 @@ class DialogRequest
 
     FacesContext context = FacesContext.getCurrentInstance();
 
+    String url;
+    
     if (usePopup)
     {
-      _url = context.getExternalContext().encodeActionURL(context.getApplication().getViewHandler().getActionURL(context, targetRoot.getViewId()));
+      url = context.getApplication().getViewHandler().getActionURL(context, targetRoot.getViewId());
     }
     else
     {
-      _url = context.getExternalContext().encodeActionURL(FredJSP.getRedirectURL(context,
+      url = FredJSP.getRedirectURL(context,
                                   targetRoot,
                                   CoreRenderer.toString(width),
-                                  CoreRenderer.toString(height)));
+                                  CoreRenderer.toString(height));
     }
+    
+    PageFlowScopeProvider provider = RequestContext.getCurrentInstance().getPageFlowScopeProvider();
+    _url = context.getExternalContext().encodeActionURL(provider.encodeDialogPageFlowScopeURL(context, url));
+    
     _dialogProperties  = dialogProperties;
   }
 
