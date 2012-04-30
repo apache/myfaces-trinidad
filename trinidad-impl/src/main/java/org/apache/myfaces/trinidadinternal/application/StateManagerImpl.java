@@ -212,7 +212,7 @@ public class StateManagerImpl extends StateManagerWrapper
       contextAttributes.remove("javax.faces.IS_SAVING_STATE");
     }
 
-    if (_saveAsToken(context))
+    if (_saveAsToken(context, false))
     {
       viewState = _saveStateToCache(context, viewState, viewRoot);
     }
@@ -509,7 +509,7 @@ public class StateManagerImpl extends StateManagerWrapper
    */
   public static boolean isValidViewStateToken(ExternalContext external, String token)
   {
-    if ((token != null) && _calculateTokenStateSaving(external))
+    if ((token != null) && _calculateTokenStateSaving(external, true))
     {
       return (_getPageState(external, token) != null);
     }
@@ -633,7 +633,7 @@ public class StateManagerImpl extends StateManagerWrapper
 
     ResponseStateManager rsm = _getResponseStateManager(context, renderKitId);
 
-    if (_saveAsToken(context))
+    if (_saveAsToken(context, true))
     {
       // we saved the token in the structure portion of the state, so retrieve the
       // structure portion of the state to get the token.
@@ -1025,7 +1025,7 @@ public class StateManagerImpl extends StateManagerWrapper
    * @return
    * @see #_saveAsToken
    */
-  private static boolean _calculateTokenStateSaving(ExternalContext external)
+  private static boolean _calculateTokenStateSaving(ExternalContext external, boolean checkRequestToken)
   {
     Map initParameters = external.getInitParameterMap();
 
@@ -1048,22 +1048,25 @@ public class StateManagerImpl extends StateManagerWrapper
       return false;
     }
 
-    // if the user has used the <document> 'stateSaving' attribute to specify
-    // client, we force the state mananger (see above) to render the entire
-    // state on the client. The indicator is stashed on the FacesContext and
-    // is therefore NOT visible during "restoreView" phase. So if we reach this point
-    // here AND we are using "full" client-side-state-saving, this has been tweaked
-    // on the previous page rendering phase...
-    // In this case we return FALSE to indicate to restore the entire (serialized)
-    // state from the client!
-    //
-    // @see setPerViewStateSaving()
-    String viewStateValue =
-                      external.getRequestParameterMap().get(ResponseStateManager.VIEW_STATE_PARAM);
-
-    if (viewStateValue != null && !viewStateValue.startsWith("!"))
+    if (checkRequestToken)
     {
-      return false;
+      // if the user has used the <document> 'stateSaving' attribute to specify
+      // client, we force the state mananger (see above) to render the entire
+      // state on the client. The indicator is stashed on the FacesContext and
+      // is therefore NOT visible during "restoreView" phase. So if we reach this point
+      // here AND we are using "full" client-side-state-saving, this has been tweaked
+      // on the previous page rendering phase...
+      // In this case we return FALSE to indicate to restore the entire (serialized)
+      // state from the client!
+      //
+      // @see setPerViewStateSaving()
+      String viewStateValue =
+                        external.getRequestParameterMap().get(ResponseStateManager.VIEW_STATE_PARAM);
+  
+      if (viewStateValue != null && !viewStateValue.startsWith("!"))
+      {
+        return false;
+      }
     }
 
     // In certain situations this method is called from a filter and there's no facesContext, so 
@@ -1093,7 +1096,7 @@ public class StateManagerImpl extends StateManagerWrapper
    * @return true, if the small string token is to be sent to the client-side.
    * @see #_calculateTokenStateSaving
    */
-  private boolean _saveAsToken(FacesContext context)
+  private boolean _saveAsToken(FacesContext context, boolean checkRequestToken)
   {
     // the setPerViewStateSaving() method stores the PER_PAGE_STATE_SAVING value on the
     // FacesContext attribute map, during rendering
@@ -1123,7 +1126,7 @@ public class StateManagerImpl extends StateManagerWrapper
       return forceStateSavingPerView.booleanValue();
     }
 
-    return _calculateTokenStateSaving(context.getExternalContext());
+    return _calculateTokenStateSaving(context.getExternalContext(), checkRequestToken);
   }
 
   private int _getCacheSize(ExternalContext extContext)
