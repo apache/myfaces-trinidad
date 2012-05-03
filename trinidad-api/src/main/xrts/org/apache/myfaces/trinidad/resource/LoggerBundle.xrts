@@ -473,5 +473,7 @@
 <!-- UNZIP_STATE_FAILED -->
 <resource key="UNZIP_STATE_FAILED">Failed to unzip the page state.</resource>
 
+<!-- TEMPDIR_CHANGED -->
+<resource key="TEMPDIR_CHANGED">Cached temp directory doesn't match the current. Current temp directory: "{0}" Cached temp directory: "{1}"</resource>
 
 </resources>

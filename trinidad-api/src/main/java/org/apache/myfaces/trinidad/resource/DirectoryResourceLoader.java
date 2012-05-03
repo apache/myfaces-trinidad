@@ -114,6 +114,11 @@ public class DirectoryResourceLoader extends ResourceLoader
     //             preferred way as of JDK 6.0.
     return (isContained && file.exists()) ? file.toURI().toURL() : null;
   }
+  
+  protected final String getDirectoryPath()
+  {
+    return _directoryPath;
+  }
 
   private final File _directory;
   private final String _directoryPath;
