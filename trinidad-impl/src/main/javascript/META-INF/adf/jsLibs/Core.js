@@ -2707,63 +2707,6 @@ function _multiValidate(
   return failureMap;
 }
 
-/**
- * Used for the converters and validators we provide which all have the form
- *
- * {0} - label
- * {1} - string value
- * {2} - extra param
- * {3} - extra param
- */
-function _createFacesMessage(
-  key,
-  label,
-  value,
-  param2,
-  param3
-)
-{
-  var summary = TrMessageFactory.getSummaryString(key);
-  var detail = TrMessageFactory.getDetailString(key);
-  // format the detail error string
-  if (detail != null)
-  {
-    detail = TrFastMessageFormatUtils.format(detail, label, value, param2, param3);
-  }
-  return new TrFacesMessage(summary,
-                          detail,
-                          TrFacesMessage.SEVERITY_ERROR);
-}
-
-/**
- * Used for the converters and validators we provide which all have the form
- *
- * {0} - label
- * {1} - string value
- * {2} - extra param
- * {3} - extra param
- */
-function _createCustomFacesMessage(
-  summary,
-  detail,
-  label,
-  value,
-  param2,
-  param3
-)
-{
-
-  // format the detail error string
-  if (detail != null)
-  {
-    detail = TrFastMessageFormatUtils.format(detail, label, value, param2, param3);
-  }
-
-  return new TrFacesMessage(summary,
-                          detail,
-                          TrFacesMessage.SEVERITY_ERROR);
-}
-
 
 function _getGlobalErrorString(
   input,
@@ -4786,21 +4729,6 @@ function _getEventObj()
  */
 var TrUIUtils = new Object();
 
-/**
- * Remove leading and trailing whitespace
- */
-TrUIUtils.trim = function(
-data)
-{
-  if (data != null && (typeof data) == 'string')
-    return data.replace(TrUIUtils._TRIM_ALL_RE, '');
-
-  return data;
-}
-
-// regular expression to gather whitespace at beginning and end of line
-TrUIUtils._TRIM_ALL_RE = /^\s*|\s*$/g;
-
 
 /**
  * Creates a function instance that will callback the passed in function
@@ -5023,43 +4951,5 @@ TrUIUtils._getStyle = function(element, prop)
       .getPropertyValue(prop);
   }
   return '';
-}
-
-/**
- * Check whether a number string can be converted or not.
- *
- * javascript numbers are really doubles, and as such can accurately support 15 digits, see
- * http://en.wikipedia.org/wiki/Double_precision
- *
- * this means in certain cases a long value that will be fine on the server will be
- * rounded by the client converter. To avoid this parse the number string, and don't
- * try to convert on the client if the number of digits is greater than 15.
- *
- * Of course this is an imperfect fix, but since the vast majority of
- * numbers entered are less than 15 digits numbers are still converted on the client most
- * of the time.
- */
-TrUIUtils.isNumberConvertible = function(numberString)
-{
-  if (numberString != null)
-  {
-    var nums = 0;
-
-    for (var i = 0; i < numberString.length; i++)
-    {
-      var charCode = numberString.charCodeAt(i);
-      // the charcode for "0" is 48, the charcode for "9" is 57, so count anything between these
-      // as a number
-      if (charCode > 47 && charCode < 58)
-      {
-        nums++;
-      }
-    }
-
-    if (nums > 15)
-      return false;
-  }
-
-  return true;
 }
 

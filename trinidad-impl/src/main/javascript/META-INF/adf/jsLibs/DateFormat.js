@@ -1183,7 +1183,7 @@ TrDateTimeConverter.prototype.getAsObject  = function(
   if (parseString == null)
     return null;
 
-  parseString = TrUIUtils.trim(parseString);
+  parseString = TrFormatUtils.trim(parseString);
   if (parseString.length == 0)
     return null;
 

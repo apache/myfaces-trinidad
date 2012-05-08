@@ -36,22 +36,25 @@ import org.apache.myfaces.trinidad.resource.ResourceLoader;
  */
 public class LocaleElementsResourceLoader extends AggregatingResourceLoader
 {
-  public LocaleElementsResourceLoader(
-    String  path)
+  public LocaleElementsResourceLoader()
   {
-    super(path,
+    super("",
           _INIT_LIBRARIES,
           new ClassLoaderResourceLoader());
           
     setSeparator(_NEWLINE_SEPARATOR);
   }
   
+  /**
+   * Since CoreRenderKitResourceLoader already does the matching, this method is overridden
+   * to just call getURL()
+   */
   @Override
-  protected URL findResource(
-    String path) throws IOException
+  protected URL findResource(String path) throws IOException
   {
     return getURL(path);
   }
+  
   
   /**
    * Returns a URL which is an aggregate of all the paths.
