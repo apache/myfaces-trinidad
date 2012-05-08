@@ -21,5 +21,6 @@
 .AFPurpleBigFontSkinTwo {color: green; background-color: purple }
 .AFPurpleBigFontSkinTwo {color: green; background-color: purple }
 
-
-af|panelList:hover {color: orange;}
+@agent (touchScreen:none) {
+  af|panelList:hover {color: orange;}
+}

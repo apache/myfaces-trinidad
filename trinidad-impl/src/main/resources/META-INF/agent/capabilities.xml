@@ -176,5 +176,28 @@
       <include src="pdaGeneric.xml"/>
     </capabilities>
 
+    <!-- The following blocks are for touch screen agents. The multiple version selectors are
+         present due to the fact that the agent version selector is given much greater weight
+         than the platform selector. -->
+    <capabilities id="ios312" agents="webkit/312.1+" platforms="ipad iphone ipod">
+      <include refid="webkit312" />
+      <include src="ios.xml"/>
+    </capabilities>
+
+    <capabilities id="android312" agents="webkit/312.1+" platforms="android">
+      <include refid="webkit312" />
+      <include src="android.xml"/>
+    </capabilities>
+
+    <capabilities id="ios533" agents="webkit/533+" platforms="ipad iphone ipod">
+      <include refid="webkit533" />
+      <include src="ios.xml"/>
+    </capabilities>
+
+    <capabilities id="android533" agents="webkit/533+" platforms="android">
+      <include refid="webkit533" />
+      <include src="android.xml"/>
+    </capabilities>
+
   </agentCapabilities>
 </capabilitiesDocument>
