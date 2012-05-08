@@ -274,6 +274,12 @@ public class FileSystemStyleCache implements StyleProvider
 
       buffer.append(_PORTLET);
     }
+    
+    if (context.isRequestSecure())
+    {
+      buffer.append(_NAME_SEPARATOR);
+      buffer.append(_SECURE);
+    }
 
     buffer.append(_CSS_EXTENSION);
 
@@ -1194,7 +1200,8 @@ public class FileSystemStyleCache implements StyleProvider
        agent.getAgentOS(),
        !context.isDisableStyleCompression(),
        accProfile,
-       context.isPortletMode());
+       context.isPortletMode(),
+       context.isRequestSecure());
     }
 
     @Override
@@ -1207,7 +1214,8 @@ public class FileSystemStyleCache implements StyleProvider
                        (_browser.ordinal() << 2)   ^
                        (_platform << 8)            ^
                        (_short ? 1 : 0)            ^
-                       (_portlet ? 1:0);
+                       ((_portlet ? 1:0) << 1)     ^
+                       ((_secureRequest ? 1: 0) << 3);
 
         if (_locale != null)     _hashCode ^= _locale.hashCode();
         if (_accProfile != null) _hashCode ^= _accProfile.hashCode();
@@ -1234,7 +1242,8 @@ public class FileSystemStyleCache implements StyleProvider
              (_portlet == key._portlet)         &&
              (_direction == key._direction)     &&
              (_browser == key._browser)         &&
-             (_platform == key._platform))
+             (_platform == key._platform)       &&
+             (_secureRequest == key._secureRequest))
         {
           // now check the optional objects
           if ((_version == null) || _version.equals(key._version))
@@ -1254,7 +1263,8 @@ public class FileSystemStyleCache implements StyleProvider
       int platform,
       boolean useShort,
       AccessibilityProfile accessibilityProfile,
-      boolean portlet
+      boolean portlet,
+      boolean secure
       )
     {
       // Make sure direction is non-null
@@ -1272,6 +1282,7 @@ public class FileSystemStyleCache implements StyleProvider
       _short = useShort;
       _accProfile = accessibilityProfile;
       _portlet     = portlet;
+      _secureRequest = secure;
     }
 
     //is immutable, we should cache this, will make things faster in the long run
@@ -1286,6 +1297,7 @@ public class FileSystemStyleCache implements StyleProvider
     private boolean        _short;  // Do we use short style classes?
     private AccessibilityProfile _accProfile;
     private boolean        _portlet; //kind of a hack but tells whether this was created in portal mode
+    private boolean        _secureRequest;
   }
 
   /**
@@ -1327,6 +1339,7 @@ public class FileSystemStyleCache implements StyleProvider
       System.arraycopy(styleSheets, 0, _styleSheets, 0, styleSheets.length);
       _short = true;
       _portlet = context.isPortletMode();
+      _secureRequest = context.isRequestSecure();
     }
 
     @Override
@@ -1341,6 +1354,7 @@ public class FileSystemStyleCache implements StyleProvider
 
         if ((_short != key._short) ||
             (_portlet != key._portlet) ||
+            (_secureRequest != key._secureRequest) ||
             (_styleSheets.length != key._styleSheets.length))
           return false;
 
@@ -1367,7 +1381,8 @@ public class FileSystemStyleCache implements StyleProvider
       {
         _hashCode = Arrays.hashCode(_styleSheets) ^
                     (_short ? 1 : 0)              ^
-                    (_portlet ? 1 : 0);
+                    (_portlet ? 1 : 0)            ^
+                    ((_secureRequest ? 1: 0) << 3);
         _noHash = false;
       }
 
@@ -1381,6 +1396,7 @@ public class FileSystemStyleCache implements StyleProvider
     private StyleSheetNode[] _styleSheets;
     private boolean _portlet;
     private boolean _short;   // Do we use short style classes?
+    private boolean _secureRequest;
   }
 
   /**
@@ -1566,6 +1582,7 @@ public class FileSystemStyleCache implements StyleProvider
   private static final char _NAME_SEPARATOR = '-';
   private static final String _COMPRESSED = "cmp";
   private static final String _PORTLET = "prtl";
+  private static final String _SECURE = "s";
 
   /** Extension for CSS files */
   private static final String _CSS_EXTENSION = ".css";
