@@ -25,6 +25,7 @@ import java.io.ObjectOutputStream;
 
 import java.net.URL;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -369,6 +370,20 @@ abstract public class UIXComponentBase extends UIXComponent
       throw new NullPointerException();
     
     getFacesBean().removeEntry(_COMPONENT_CHANGE_FILTERS_KEY, componentChangeFilter);
+  }
+  
+  /**
+  * Returns all the ComponentChangeFilters that are registered with this component.
+  *
+  * @return An array of registered ComponentChangeFilters
+  */
+  public final ComponentChangeFilter[] getComponentChangeFilters()
+  {
+    Iterator<ComponentChangeFilter> filterIter = 
+      (Iterator<ComponentChangeFilter>)getFacesBean().entries(_COMPONENT_CHANGE_FILTERS_KEY);
+    
+    ArrayList<ComponentChangeFilter> filterList = CollectionUtils.arrayList(filterIter);
+    return filterList.toArray(new ComponentChangeFilter[filterList.size()]);
   }
 
   @Override
