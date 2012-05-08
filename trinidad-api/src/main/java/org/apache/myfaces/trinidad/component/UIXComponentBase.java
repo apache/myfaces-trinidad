@@ -72,11 +72,13 @@ import org.apache.myfaces.trinidad.bean.util.StateUtils;
 import org.apache.myfaces.trinidad.bean.util.ValueMap;
 import org.apache.myfaces.trinidad.change.AttributeComponentChange;
 import org.apache.myfaces.trinidad.change.RowKeySetAttributeChange;
+import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
+import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.render.ExtendedRenderer;
 import org.apache.myfaces.trinidad.render.LifecycleRenderer;
 import org.apache.myfaces.trinidad.util.CollectionUtils;
@@ -320,6 +322,14 @@ abstract public class UIXComponentBase extends UIXComponent
       _init(null);
 
     return _attributes;
+  }
+
+  @Override
+  protected Iterator<UIComponent> getRenderedFacetsAndChildren(
+    FacesContext facesContext)
+  {
+    _cacheRenderer(facesContext);
+    return super.getRenderedFacetsAndChildren(facesContext);
   }
 
   // ------------------------------------------------------------- Properties
@@ -1187,7 +1197,7 @@ abstract public class UIXComponentBase extends UIXComponent
    */
   protected void decodeChildrenImpl(FacesContext context)
   {
-    Iterator<UIComponent> kids = getFacetsAndChildren();
+    Iterator<UIComponent> kids = getRenderedFacetsAndChildren(context);
     while (kids.hasNext())
     {
       UIComponent kid = kids.next();
@@ -1222,7 +1232,7 @@ abstract public class UIXComponentBase extends UIXComponent
   protected void validateChildrenImpl(FacesContext context)
   {
     // Process all the facets and children of this component
-    Iterator<UIComponent> kids = getFacetsAndChildren();
+    Iterator<UIComponent> kids = getRenderedFacetsAndChildren(context);
     while (kids.hasNext())
     {
       UIComponent kid = kids.next();
@@ -1252,7 +1262,7 @@ abstract public class UIXComponentBase extends UIXComponent
   protected void updateChildrenImpl(FacesContext context)
   {
     // Process all the facets and children of this component
-    Iterator<UIComponent> kids = getFacetsAndChildren();
+    Iterator<UIComponent> kids = getRenderedFacetsAndChildren(context);
     while (kids.hasNext())
     {
       UIComponent kid = kids.next();
