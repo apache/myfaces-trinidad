@@ -69,6 +69,10 @@
       <include src="gecko.xml" />
     </capabilities>
     
+    <capabilities id="gecko4" agents="gecko/4+">
+      <include refid="gecko" />
+      <include src="gecko4.xml" />
+    </capabilities>
     
     <capabilities id="email" agents="email">
       <include refid="html" />
@@ -98,6 +102,11 @@
     <capabilities id="webkit312" agents="webkit/312.1+">
       <include refid="webkit" />
       <include src="webkit312.xml"/>
+    </capabilities>
+    
+    <capabilities id="webkit533" agents="webkit/533+">
+      <include refid="webkit312" />
+      <include src="webkit533.xml"/>
     </capabilities>
 
     <capabilities id="nokia_s60" agents="nokia_s60">
