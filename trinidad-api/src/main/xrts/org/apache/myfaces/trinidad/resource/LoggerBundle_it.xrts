@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">Errore durante il tentativo di creazione una nuova istanza componente per {0}</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">Classe di conversione: {0} non del tipo {1}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Applicazione della modifica di attributo per il set di chiavi di riga non riuscita. Causa: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">Impossibile creare un&apos;&apos;istanza di converterClass: {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->

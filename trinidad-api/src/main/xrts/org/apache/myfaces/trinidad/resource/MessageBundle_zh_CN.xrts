@@ -62,7 +62,7 @@
 <resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE" dnt="false">文件上载失败。</resource>
 <resource key="org.apache.myfaces.trinidad.UPLOAD_FAILURE_detail" dnt="false">{0}</resource>
 <!-- hints for validators -->
-<resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">请输入小于或等于 {0} 的数字。</resource>
+<resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">请输入小于等于 {0} 的数字。</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">请输入大于或等于 {0} 的数字。</resource>
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.RANGE_HINT" dnt="false">请输入介于 {0} 和 {1} 之间的数字。</resource>
 <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_HINT" dnt="false">请输入 {0} 个或更少的字符。</resource>
@@ -88,7 +88,7 @@
 <!-- {1} value entered by the user               -->
 <!-- {2} the maximum number allowed              -->
 <resource key="javax.faces.validator.LongRangeValidator.MAXIMUM" dnt="false">数字太大。</resource>
-<resource key="javax.faces.validator.LongRangeValidator.MAXIMUM_detail" dnt="false">该数字必须小于或等于 {2}。</resource>
+<resource key="javax.faces.validator.LongRangeValidator.MAXIMUM_detail" dnt="false">该数字必须小于等于 {2}。</resource>
 <!-- {0} the label that identifies the component  -->
 <!-- {1} value entered by the user                -->
 <!-- NOTE: The format of this message must match the format of the    -->
@@ -144,7 +144,7 @@
 <!-- {1} value entered by the user               -->
 <!-- {2} represents the maximum allowed number     -->
 <resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MAXIMUM" dnt="false">数字太大。</resource>
-<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MAXIMUM_detail" dnt="false">该数字必须小于或等于 {2}。</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MAXIMUM_detail" dnt="false">该数字必须小于等于 {2}。</resource>
 <!-- Number exceeds number range error                -->
 <!-- {0} the label that identifies the component   -->
 <!-- {1} represent Number which the user has set     -->
@@ -188,7 +188,7 @@
 <!-- {1} value entered by the user               -->
 <!-- {2} represents the maximum allowed number     -->
 <resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM" dnt="false">数字太大。</resource>
-<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM_detail" dnt="false">该数字必须小于或等于 {2}。</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM_detail" dnt="false">该数字必须小于等于 {2}。</resource>
 <!-- Number exceeds number range error                -->
 <!-- {0} the label that identifies the component   -->
 <!-- {1} represent Number which the user has set     -->
@@ -271,7 +271,7 @@
 <!-- {1} value entered by the user               -->
 <!-- {2} the maximum number allowed              -->
 <resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MAXIMUM" dnt="false">数字太大。</resource>
-<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MAXIMUM_detail" dnt="false">该数字必须小于或等于 {2}。</resource>
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MAXIMUM_detail" dnt="false">该数字必须小于等于 {2}。</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <resource key="org.apache.myfaces.trinidad.convert.LongConverter.CONVERT" dnt="false">该数字不是整数。</resource>
@@ -285,7 +285,7 @@
 <!-- {1} value entered by the user               -->
 <!-- {2} the maximum number allowed              -->
 <resource key="org.apache.myfaces.trinidad.convert.LongConverter.MAXIMUM" dnt="false">数字太大。</resource>
-<resource key="org.apache.myfaces.trinidad.convert.LongConverter.MAXIMUM_detail" dnt="false">该数字必须小于或等于 {2}。</resource>
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.MAXIMUM_detail" dnt="false">该数字必须小于等于 {2}。</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} the specified conversion pattern        -->
@@ -316,7 +316,7 @@
 <!-- {1} value entered by the user               -->
 <!-- {2} the maximum number allowed              -->
 <resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MAXIMUM" dnt="false">数字太大。</resource>
-<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MAXIMUM_detail" dnt="false">该数字必须小于或等于 {2}。</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MAXIMUM_detail" dnt="false">该数字必须小于等于 {2}。</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <resource key="org.apache.myfaces.trinidad.convert.ByteConverter.CONVERT" dnt="false">该数字不是整数。</resource>
@@ -330,7 +330,7 @@
 <!-- {1} value entered by the user               -->
 <!-- {2} the maximum number allowed              -->
 <resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MAXIMUM" dnt="false">数字太大。</resource>
-<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MAXIMUM_detail" dnt="false">该数字必须小于或等于 {2}。</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MAXIMUM_detail" dnt="false">该数字必须小于等于 {2}。</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <resource key="org.apache.myfaces.trinidad.convert.DoubleConverter.CONVERT" dnt="false">该值不是一个数字。</resource>

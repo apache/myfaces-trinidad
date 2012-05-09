@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">เกิดข้อผิดพลาดขณะพยายามสร้างอินสแตนซ์ขององค์ประกอบใหม่สำหรับ {0}</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">คลาสการแปลง: {0} ไม่ใช่ประเภท {1}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">ไม่สามารถใช้การเปลี่ยนแปลงแอททริบิวชุดคีย์ของแถว สาเหตุ: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">ไม่สามารถเริ่มต้นอินสแตนซ์ converterClass: {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->

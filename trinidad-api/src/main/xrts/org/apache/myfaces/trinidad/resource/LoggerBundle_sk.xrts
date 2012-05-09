@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">Pri pokuse o vytvorenie novej inštancie komponentu pre {0} sa vyskytla chyba</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">Typ triedy konverzie {0} nie je {1}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Zmenu atribútu množiny kľúčov riadka sa nepodarilo aplikovať. Dôvod: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">Nemožno vytvoriť inštanciu converterClass: {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->

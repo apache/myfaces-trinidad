@@ -498,7 +498,7 @@
 <resource key="RTE_BULLETS_BUTTON_TEXT" dnt="false">Madde İşaretli Liste</resource>
 <resource key="RTE_DECREASE_INDENT_BUTTON_TEXT" dnt="false">Girintiyi Azalt</resource>
 <resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">Girintiyi Artır</resource>
-<resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">Köprü Oluştur</resource>
+<resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">Köprü Yarat</resource>
 <resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Bağlantı konumu girin (örn. http://www.oracle.com)</resource>
 <resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">Tıklama Hedef URL&apos;si</resource>
 <resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">Resim Yükle</resource>

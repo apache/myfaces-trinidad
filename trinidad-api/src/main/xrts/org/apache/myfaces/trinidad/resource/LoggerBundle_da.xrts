@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">Fejl under forsøg på at oprette ny komponentinstans for {0}</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">Konverteringsklassen: {0} er ikke af typen {1}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Kunne ikke anvende attributændring for rækkenøglesæt. Årsag: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">Kan ikke instantiere converterClass: {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->

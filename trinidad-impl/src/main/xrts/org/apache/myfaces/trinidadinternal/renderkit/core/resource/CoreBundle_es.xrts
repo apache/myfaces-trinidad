@@ -375,7 +375,7 @@
 <!-- This is the title of the link at the top of a page that a screen-reader
        user would use to skip all the navigation links and jump to the
        content -->
-<resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Saltar elementos de navegación al contenido de página</resource>
+<resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Omitir elementos de navegación al contenido de página</resource>
 <resource key="af_panelPopup.CLOSE" dnt="false">Ocultar</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Botones Globales</resource>
@@ -434,7 +434,7 @@
        user would use to skip all the navigation links in current block only -->
 <!-- {0} - One of the strings from resource group *_BLOCK_TITLE below
        eg: Skip all Second level navigation elements -->
-<resource key="SKIP_CURRENT_NAVIGATION_BLOCK" dnt="false">Saltar Todo {0}</resource>
+<resource key="SKIP_CURRENT_NAVIGATION_BLOCK" dnt="false">Omitir Todo {0}</resource>
 <!--Text to display in noscript tag -->
 <resource key="NO_SCRIPT_MESSAGE" dnt="false">Esta página utiliza JavaScript y necesita un explorador activado para JavaScript. Su explorador no está activado para JavaScript.</resource>
 <!-- Text of the ALT tag for the content frame of popup windows -->
@@ -498,7 +498,7 @@
 <resource key="RTE_BULLETS_BUTTON_TEXT" dnt="false">Lista con Viñetas</resource>
 <resource key="RTE_DECREASE_INDENT_BUTTON_TEXT" dnt="false">Disminuir Sangrado</resource>
 <resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">Aumentar Sangrado</resource>
-<resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">Crear Enlace de Hipertexto</resource>
+<resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">Crear Hiperenlace</resource>
 <resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Introduzca la ubicación del enlace (p. ej. http://www.oracle.com)</resource>
 <resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">URL de Destino mediante Clics</resource>
 <resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">Cargar Imagen</resource>

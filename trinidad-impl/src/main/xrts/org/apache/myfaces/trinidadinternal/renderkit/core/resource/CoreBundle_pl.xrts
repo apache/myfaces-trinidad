@@ -54,7 +54,7 @@
 <resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">Rosnąco</resource>
 <resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">Malejąco</resource>
 <resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Zaawansowane...</resource>
-<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Zmień porządek...</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Zmień kolejność...</resource>
 <resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Paski narzędzi</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Domyślnie</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Zapytanie przez przykład</resource>

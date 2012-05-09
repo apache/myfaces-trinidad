@@ -64,13 +64,13 @@
 <resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">换行</resource>
 <resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">所选行: </resource>
 <resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">全部</resource>
-<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">隐藏的列:</resource>
-<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">冻结的列:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">已隐藏列:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">已冻结列:</resource>
 <!-- Resource for Composite Tree Table -->
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">展开</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">隐藏</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">在下面全部展开</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">在下面全部隐藏</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">展开全部下级</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">隐藏全部下级</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">全部展开</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">全部隐藏</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">向上</resource>

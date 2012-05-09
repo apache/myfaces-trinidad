@@ -601,6 +601,8 @@
 <resource key="NULL_STYLESHEETNAME" dnt="false">Null styleSheetName</resource>
 <!-- NO_SKIN_SPECIFIED -->
 <resource key="NO_SKIN_SPECIFIED" dnt="false">לא צוינה מעטפת.</resource>
+<!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+<resource key="INVALID_INTEGER_MAX_SKINS_CACHED" dnt="false">ערך integer {0} לא תקף ל-context-param org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED בקובץ web.xml. על כן נעשה שימוש בברירת המחדל של integer {1}.</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">Null inputStream</resource>
 <!-- NULL_PARSEMANAGER -->

@@ -601,6 +601,8 @@
 <resource key="NULL_STYLESHEETNAME" dnt="false">NullのstyleSheetName</resource>
 <!-- NO_SKIN_SPECIFIED -->
 <resource key="NO_SKIN_SPECIFIED" dnt="false">スキンが指定されていません。</resource>
+<!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+<resource key="INVALID_INTEGER_MAX_SKINS_CACHED" dnt="false">web.xmlのcontext-param org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHEDの整数{0}が無効であるため、デフォルトの整数{1}がかわりに使用されます。</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">NullのinputStream</resource>
 <!-- NULL_PARSEMANAGER -->

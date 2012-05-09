@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">Błąd podczas próby utworzenia nowej instancji składnika dla {0}</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">Klasa konwersji {0} nie jest typu {1}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Nie udało się zastosować zmiany atrybutu zbioru kluczy wierszy. Powód: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">Nie można utworzyć instancji klasy konwertera (converterClass): {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->
@@ -321,5 +323,5 @@
 <!-- INVALID_CALL_TO_GETCLIENTID -->
 <resource key="INVALID_CALL_TO_GETCLIENTID" dnt="false">Metody getClientId nie należy wywoływać podczas konstruowania perspektywy. Identyfikator składnika: {0}</resource>
 <!-- ROWKEY_NOT_RESET  -->
-<resource key="ROWKEY_NOT_RESET" dnt="false">klucz wiersza może nie być zresetowany poprawnie na końcu żądania. Identyfikator składnika: {0} ViewId: {1}</resource>
+<resource key="ROWKEY_NOT_RESET" dnt="false">klucz wiersza prawdopodobnie nie został poprawnie zresetowany na końcu żądania. ID składnika: {0}, ID perspektywy (ViewId): {1}</resource>
 </resources>

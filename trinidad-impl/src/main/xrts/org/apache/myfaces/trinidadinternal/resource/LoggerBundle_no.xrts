@@ -601,6 +601,8 @@
 <resource key="NULL_STYLESHEETNAME" dnt="false">Null-styleSheetName</resource>
 <!-- NO_SKIN_SPECIFIED -->
 <resource key="NO_SKIN_SPECIFIED" dnt="false">Det er ikke angitt noe skall.</resource>
+<!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+<resource key="INVALID_INTEGER_MAX_SKINS_CACHED" dnt="false">Ugyldig heltall, {0}, for kontekstparameteren org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED i web.xml, så standard heltall, {1}, brukes i stedet.</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">Null-inputStream</resource>
 <!-- NULL_PARSEMANAGER -->

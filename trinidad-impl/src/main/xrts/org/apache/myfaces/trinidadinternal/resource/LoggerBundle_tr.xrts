@@ -601,6 +601,8 @@
 <resource key="NULL_STYLESHEETNAME" dnt="false">Boş styleSheetName</resource>
 <!-- NO_SKIN_SPECIFIED -->
 <resource key="NO_SKIN_SPECIFIED" dnt="false">Hiçbir Dış Görünüm belirtilmedi.</resource>
+<!-- INVALID_INTEGER_MAX_SKINS_CACHED -->
+<resource key="INVALID_INTEGER_MAX_SKINS_CACHED" dnt="false">web.xml dosyasındaki org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED içerik parametresi için geçersiz tamsayı: {0}. Bunun yerine tamsayı öndeğeri {1} kullanılır.</resource>
 <!-- NO_INPUTSTREAM -->
 <resource key="NO_INPUTSTREAM" dnt="false">Boş inputStream</resource>
 <!-- NULL_PARSEMANAGER -->

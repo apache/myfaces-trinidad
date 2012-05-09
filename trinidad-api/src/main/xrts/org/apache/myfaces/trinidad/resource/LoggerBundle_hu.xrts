@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">Hiba {0} új összetevőpéldányának létrehozásakor</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">A(z) {0} konverziós osztály nem {1} típusú</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Nem sikerült alkalmazni a sorkulcskészlet attribútumának módosítását. Ok: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">Nem hozható létre a következő converterClass példánya: {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->

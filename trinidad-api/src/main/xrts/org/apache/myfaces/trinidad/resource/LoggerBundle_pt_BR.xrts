@@ -32,6 +32,8 @@
 <resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE" dnt="false">Erro ao tentar criar nova instância do componente para {0}</resource>
 <!-- CONVERSION_CLASS_TYPE -->
 <resource key="CONVERSION_CLASS_TYPE" dnt="false">A classe de conversão: {0} não é do tipo {1}</resource>
+<!-- FAILED_ROWKEYSETATTRIBUTECHANGE -->
+<resource key="FAILED_ROWKEYSETATTRIBUTECHANGE" dnt="false">Falha ao aplicar a alteração de atributo do conjunto de chaves de linhas. Motivo: {1}</resource>
 <!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
 <resource key="UNABLE_INSTANTIATE_CONVERTERCLASS" dnt="false">Não é possível instanciar converterClass: {0}</resource>
 <!-- SAVED_CHILD_COUNT_NOT_MATCH -->
@@ -47,7 +49,7 @@
 <!-- NO_INITIAL_STAMP_STATE -->
 <resource key="NO_INITIAL_STAMP_STATE" dnt="false">Mão existia estado de marcação inicial para currencyKey:{0} e currencyKeyForInitialStampState:{1} e stampId:{2}</resource>
 <!-- CANNOT_FIND_RENDERER -->
-<resource key="CANNOT_FIND_RENDERER" dnt="false">Não encontrado renderer para {0} rendererType = {1}</resource>
+<resource key="CANNOT_FIND_RENDERER" dnt="false">Não encontrado renderizador para {0} rendererType = {1}</resource>
 <!-- CANNOT_LOAD_TYPE_PROPERTIES -->
 <resource key="CANNOT_LOAD_TYPE_PROPERTIES" dnt="false">Não foi possível carregar as propriedades do tipo</resource>
 <!-- CANNOT_GET_RESOURCE_KEY -->
