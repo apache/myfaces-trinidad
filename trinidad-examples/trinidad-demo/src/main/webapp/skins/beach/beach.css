@@ -134,9 +134,31 @@ af|panelTabbed::tab-link {
   text-decoration: none;
 }
 
-af|panelTabbed::tab-link:hover
-{
-  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+@agent (touchScreen:none) {
+  af|panelTabbed::tab-link:hover
+  {
+    -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+  }
+  af|menuTabs::enabled-link:hover, af|menuTabs::selected-link:hover
+  {
+    -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+  }
+  af|menuBar::enabled-link:hover
+  {
+    -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+  }
+  af|menuButtons::text:hover
+  {
+    -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+  }
+  af|menuButtons::text-selected:hover
+  {
+    -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+  }
+  af|menuButtons::text-disabled:hover
+  {
+    -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+  }
 }
 
 /* put some space in the
@@ -209,10 +231,6 @@ af|menuTabs::selected-link
 {
   COLOR: black;
 }
-af|menuTabs::enabled-link:hover, af|menuTabs::selected-link:hover
-{
-  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
-}
 
 
 
@@ -238,10 +256,6 @@ af|menuBar::body
   background-color:#02B0AE;
 }
 
-af|menuBar::enabled-link:hover
-{
-  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
-}
 af|menuBar::separator
 {
     padding: 0px 2px 0px 2px;
@@ -265,18 +279,6 @@ af|menuBar::separator
   text-decoration:none;
 }
 
-af|menuButtons::text:hover
-{
-  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
-}
-af|menuButtons::text-selected:hover
-{
-  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
-}
-af|menuButtons::text-disabled:hover
-{
-  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
-}
 
 
 /** panelBox **/

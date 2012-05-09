@@ -24,8 +24,9 @@
   <capability name="textPresentation" value="false"/>  
   <capability name="tables" value="basic"/>
   <capability name="frames" value="false"/>  
-  <capability name="iframes" value="false"/>  
-  <capability name="-adfinternal-id" value="true"/>    
+  <capability name="iframes" value="false"/>
+  <capability name="touchScreen" value="none" />
+  <capability name="-adfinternal-id" value="true"/>
   <capability name="-adfinternal-advancedForms" value="false"/>
   <capability name="-adfinternal-target" value="false"/>  
   <capability name="-adfinternal-intrinsicEvents" value="false"/>
