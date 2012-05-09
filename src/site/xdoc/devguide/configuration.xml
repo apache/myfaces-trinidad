@@ -351,6 +351,32 @@ Some Apache Trinidad configuration options are set instead with
 <code>&lt;context-param&gt;</code> elements in your
 <code>WEB-INF/web.xml</code>file.
 </p>
+
+<subsection name="org.apache.myfaces.trinidad.security.FRAME_BUSTING">
+
+<p>
+The parameter "org.apache.myfaces.trinidad.security.FRAME_BUSTING" controls the framebusting feature. 
+Framebusting stops content from running inside frames (meaning a frame or iframe tag).
+</p>
+<p>
+This context parameter is ignored when org.apache.myfaces.trinidad.util.ExternalContextUtils.isPortlet is true,
+and will behave as if the context parameter is set to 'never'.
+</p>
+<p>
+Possible values are:
+<ul>
+<li>differentOrigin - only bust frames if the an ancestor window origin and the
+                      frame origin are different. If the ancestor windows and frame have
+                      the same origin then allow the content to run in a frame. This is the default.
+</li>
+<li>always - always bust frames, meaning don't allow a page to be embedded in frames
+</li>
+<li>never - never bust frames, meaning always allow a page to be embedded in frames
+</li>
+</ul>
+</p>
+</subsection>
+
 <subsection name="org.apache.myfaces.trinidad.CACHE_VIEW_ROOT">
 <p>
 Enables or disables UIViewRoot caching;  defaults to true.

@@ -1020,3 +1020,65 @@ TrPage.prototype._getDomToBeUpdated = function (status, responseXML)
 
   return oldElements;
 }
+
+
+// static method called on server
+TrPage.__frameBusting = function(frameBusting)
+{
+
+  if ( !(self == top || frameBusting == "never"))
+  {
+    if (frameBusting == "always")
+    {
+      top.location.href = location.href;
+    }
+    else
+    {
+      var topNotProcessed = true;
+      var parentWindow = parent;
+
+      while (topNotProcessed)
+      {
+        try
+        {
+          // if we have a different origin parentWindow.location.href will throw an exception
+          // in firefox and IE
+          var parentWindowLocation = parentWindow.location.href;
+
+          // in safari and google chrome no exception is thrown for referring to
+          // parentWindow.location.href, instead the parent window location is undefined
+          if (parentWindowLocation == null)
+          {
+            top.location.href = location.href;
+            return;
+          }
+        }
+        catch(e)
+        {
+          // the content has different origin, redirect 
+          top.location.href = location.href;
+          return;
+        }
+
+        if (parentWindow == top)
+          topNotProcessed = false;
+
+        parentWindow = parentWindow.parent;
+      }
+    }
+  }
+
+  // we didn't end up framebusting, so show the content
+  //
+  // We had previously tried to use javascript to add display:block to the
+  // style attribute of the body tag, but the style attribute of the body tag can get removed,
+  // for example when you do ppr nav or you ppr the document. Therefore we are now
+  // removing the style element on the client.
+  var styleNode = document.getElementById("trinFrameBustStyle");
+
+  if (styleNode)
+  {
+    styleNode.parentNode.removeChild(styleNode);
+  }
+}
+
