@@ -3445,40 +3445,9 @@ function _pprInstallBlockingHandlers(win, install)
     return;
   }
 
-  if (doc.attachEvent) // IE
+  if (_agent.isIE) // IE
   {
-    var el = win._pprConsumeFirstClick;
-    if (install)
-    {
-      // See comment in _pprConsumeFirstClick().
-      // If the event that started this PPR chain was an onChange or onBlur,
-      // AND the event location is the element on which the change happened
-      // (i.e. the user didn't click somewhere outside the element)
-      // then we want to make sure that the blocking starts immediately.
-      var ev = win.event;
-      if (ev != (void 0))
-      {
-        var destElt = document.elementFromPoint(ev.x, ev.y);
-        if (!win._pprFirstClickPass // never attach unless passing first click
-            || (((ev.type == 'change') || (ev.type == 'blur'))
-                && (ev.srcElement == destElt))
-            || (!_isSubmittingElement(destElt)))
-        {
-          _pprControlCapture(win, true);
-          return;
-        }
-      }
-
-      // If we're here, we didn't set up a capture.
-      // For an onClick, we have to pass on the first click,
-      // then we'll capture every subsequent event.
-      doc.attachEvent('onclick', el);
-    }
-    else
-    {
-      doc.detachEvent('onclick', el);
-      _pprControlCapture(win, false);
-    }
+    _pprControlCapture(win, install);
   }
   else // Gecko or other standards based browser
   {
@@ -3706,32 +3675,6 @@ function _pprConsumeBlockedEvent(evt)
   return rv;
 }
 
-
-//
-// _pprConsumeFirstClick: Helps implement blocking.
-//
-// On IE, the capture doesn't allow us to hand off the first click - we can
-// only eat it, but attachEvent only allows us to do something with the event
-// AFTER it's been delivered to the element. There's no way to make a decision
-// whether or not to deliver a particular event. Therefore, since we want to
-// deliver the first click, and block everything else, we attachEvent using
-// this handler. This handler then just immediately switches over the the
-// capture. This function is only used on IE.
-//
-function _pprConsumeFirstClick(event)
-{
-  // This is an IE only function
-  if (_agent.isIE)
-  {
-    // switch over to capture
-    _pprControlCapture(window, true);
-    // and remove this one-time function
-    window.document.detachEvent('onclick', _pprConsumeFirstClick);
-  }
-  return false;
-}
-
-
 //
 // _pprControlCapture: Set up the pprDivElement to capture all
 //                     mouse events. It will then ignore them.
@@ -3752,7 +3695,17 @@ function _pprControlCapture(win, set)
         // If we've got an element to return focus to,
         // then capture keyboard events also.
         if (win._pprEventElement)
+        {
+          // save and restore the scroll location before and after setting focus on the div
+          var docElement = win.document.documentElement;
+          var oldLeft = docElement.scrollLeft;
+          var oldTop = docElement.scrollTop;
+          
           divElement.focus();
+          
+          docElement.scrollLeft = oldLeft;
+          docElement.scrollTop = oldTop;
+        }
         // save current cursor and display a wait cursor
         win._pprSavedCursor = body.style.cursor;
         body.style.cursor = "wait";
