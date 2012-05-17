@@ -333,7 +333,7 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
       return new ErrorFile(tempFile.getFilename(), _LOG.getMessage("UPLOADED_FILE_LARGE"));
     }
     // If the file is too large throw error
-    if(contentLength>_maxFileSize)
+    if(_maxFileSize > 0 && contentLength>_maxFileSize)
     {
       return new ErrorFile(tempFile.getFilename(), _LOG.getMessage("UPLOADED_FILE_LARGE"));
     }

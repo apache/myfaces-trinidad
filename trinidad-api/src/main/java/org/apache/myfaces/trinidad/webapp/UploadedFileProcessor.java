@@ -86,7 +86,7 @@ public interface UploadedFileProcessor
   /**
    * Initialization parameter for the default
    * <code>UploadedFileProcessor</code> that configures the maximum
-   * file size that can be uploaded. The default is 2000 kilobytes.  Any requests that
+   * file size that can be uploaded. The default is -1 (unlimited).  Any requests that
    * exceed this size will result in an EOFException being thrown
    * on that request.
    */
@@ -116,7 +116,7 @@ public interface UploadedFileProcessor
    * Initialization parameter default value of 2000 kilobytes for the default
    * <code>UploadedFileProcessor</code> parameter MAX_FILE_SIZE_PARAM_NAME.
    */
-  public static final long DEFAULT_MAX_FILE_SIZE = 2048000L;
+  public static final long DEFAULT_MAX_FILE_SIZE = -1L;
   
   /**
    * Initialization parameter default value of 2000 megabytes for the default
