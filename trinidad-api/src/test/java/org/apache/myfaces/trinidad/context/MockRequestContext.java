@@ -299,6 +299,28 @@ public class MockRequestContext extends RequestContext
     return _maxDiskSpace;
   }
 
+  public void setUploadedFileMaxFileSize(Long maxFileSize)
+  {
+    _maxFileSize = maxFileSize;
+  }
+
+  @Override
+  public Long getUploadedFileMaxFileSize()
+  {
+    return _maxFileSize;
+  }
+
+  public void setUploadedFileMaxChunkSize(Long maxChunkSize)
+  {
+    _maxChunkSize = maxChunkSize;
+  }
+
+  @Override
+  public Long getUploadedFileMaxChunkSize()
+  {
+    return _maxChunkSize;
+  }
+
   public void setUploadedFileTempDir(String tempDir)
   {
     _tempDir= tempDir;
@@ -459,5 +481,7 @@ public class MockRequestContext extends RequestContext
   private Locale _formattingLocale;
   private Long _maxMemory;
   private Long _maxDiskSpace;
+  private Long _maxFileSize;
+  private Long _maxChunkSize;
   private String _tempDir;
 }

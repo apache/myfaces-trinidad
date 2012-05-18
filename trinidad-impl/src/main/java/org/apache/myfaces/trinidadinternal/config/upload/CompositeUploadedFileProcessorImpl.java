@@ -110,7 +110,7 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
         catch (IOException ioe)
         {
           _LOG.severe(ioe);
-          original = new ErrorFile(ioe.getLocalizedMessage());
+          original = new ErrorFile(tempFile.getFilename(), ioe.getLocalizedMessage());
           // The chain breaks if one of the chained processor throws an IOException, if the intent
           //  is to allow rest of the processors in chain to process, they could return custom 
           //  UploadedFile instance with length -1 and opaqueData having the failure details.
@@ -228,12 +228,12 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
         }
         catch (NumberFormatException nfe)
         {
-          _maxMemory = _DEFAULT_MAX_MEMORY;
+          _maxMemory = DEFAULT_MAX_MEMORY;
         }
       }
       else
       {
-        _maxMemory = _DEFAULT_MAX_MEMORY;
+        _maxMemory = DEFAULT_MAX_MEMORY;
       }
     }
 
@@ -248,12 +248,12 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
         }
         catch (NumberFormatException nfe)
         {
-          _maxDiskSpace = _DEFAULT_MAX_DISK_SPACE;
+          _maxDiskSpace = DEFAULT_MAX_DISK_SPACE;
         }
       }
       else
       {
-        _maxDiskSpace = _DEFAULT_MAX_DISK_SPACE;
+        _maxDiskSpace = DEFAULT_MAX_DISK_SPACE;
       }
     }
 
@@ -268,6 +268,26 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
           info.attributes.get("javax.servlet.context.tempdir");
         if (tempDirFile != null)
           _tempDir = tempDirFile.getAbsolutePath();
+      }
+    }
+    
+    if (_maxFileSize == -1)
+    {
+      String maxFileSize = info.initParams.get(MAX_FILE_SIZE_PARAM_NAME);
+      if (maxFileSize != null)
+      {
+        try
+        {
+          _maxFileSize = Long.parseLong(maxFileSize);
+        }
+        catch (NumberFormatException nfe)
+        {
+          _maxFileSize = DEFAULT_MAX_FILE_SIZE;
+        }
+      }
+      else
+      {
+        _maxFileSize = DEFAULT_MAX_FILE_SIZE;
       }
     }
   }
@@ -287,7 +307,8 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
     Long maxMemory = (Long)requestMap.get(MAX_MEMORY_PARAM_NAME);
     Long maxDiskSpace = (Long)requestMap.get(MAX_DISK_SPACE_PARAM_NAME);
     String tempDir = (String)requestMap.get(TEMP_DIR_PARAM_NAME);
-
+    Long maxFileSizeSpace = (Long)requestMap.get(MAX_FILE_SIZE_PARAM_NAME);
+    
     if (maxMemory != null)
     {
       _maxMemory = maxMemory;
@@ -301,9 +322,19 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
     if (tempDir != null)
       _tempDir = tempDir;
 
+    if (maxFileSizeSpace != null)
+    {
+      _maxFileSize = maxFileSizeSpace;
+    }
+    
     if(contentLength>_maxDiskSpace)
     {
-      return new ErrorFile(_LOG.getMessage("UPLOADED_FILE_LARGE"));
+      return new ErrorFile(tempFile.getFilename(), _LOG.getMessage("UPLOADED_FILE_LARGE"));
+    }
+    // If the file is too large throw error
+    if(_maxFileSize > 0 && contentLength>_maxFileSize)
+    {
+      return new ErrorFile(tempFile.getFilename(), _LOG.getMessage("UPLOADED_FILE_LARGE"));
     }
     // Process one new file, loading only as much as can fit
     // in the remaining memory and disk space.
@@ -318,7 +349,7 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
     catch(IOException ioe)
     {
       _LOG.severe(ioe);
-      return new ErrorFile(ioe.getLocalizedMessage());
+      return new ErrorFile(tempFile.getFilename(), ioe.getLocalizedMessage());
     }
 
     // Keep a tally of how much we've stored in memory and on disk.
@@ -448,10 +479,8 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
 
   private long   _maxMemory = -1;
   private long   _maxDiskSpace = -1;
+  private long   _maxFileSize = -1;
   private String _tempDir = null;
-
-  private static final long _DEFAULT_MAX_MEMORY = 102400;
-  private static final long _DEFAULT_MAX_DISK_SPACE = 2048000;
 
   private static final String _REQUEST_INFO_KEY = CompositeUploadedFileProcessorImpl.class.getName()+
     ".UploadedFilesInfo";
