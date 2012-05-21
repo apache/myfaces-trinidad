@@ -804,9 +804,9 @@ TrDateRestrictionValidator.prototype.getHints = function(
   
   //if needed, remove the submitted values, which are invalid, to display only the valid ones
   if(this._weekdaysValue)
-    TrCollections.removeValuesFromArray(this._weekdaysValue, allWeekdays);
+    this._removeDisabledValues(this._weekdaysValue, allWeekdays);
   if(this._monthValue)
-  TrCollections.removeValuesFromArray(this._monthValue, allMonth);
+    this._removeDisabledValues(this._monthValue, allMonth);
   
   return _returnHints(
     this._messages,
@@ -840,6 +840,34 @@ TrDateRestrictionValidator.prototype._translate = function(
     return values;
   }
 }
+
+/**
+ * For all values in allValueArray, check if it is disabled by looking up
+ * map disabledValueMap, if so, remove it from allValueArray
+ */
+TrDateRestrictionValidator.prototype._removeDisabledValues = function(
+  disabledValueMap,
+  allValueArray
+  )
+{
+  if(disabledValueMap && allValueArray)
+  {
+    for (i=0; i<allValueArray.length; i++)
+    {
+      if(disabledValueMap[allValueArray[i].toLowerCase()] != undefined)
+      {
+        allValueArray.splice(i,1);
+
+        // the element originally at index i is removed, and 
+        // we now have a new element at index i, thus we need
+        // to stay on the same position to check whether we
+        // need to remove it.
+        i--;
+      }
+    }
+  }
+}
+
 TrDateRestrictionValidator.prototype.validate  = function(
   value,
   label,
@@ -856,7 +884,7 @@ TrDateRestrictionValidator.prototype.validate  = function(
       if(weekDaysArray[i].toLowerCase() == dayString)
       {
         var allWeekdays = ['mon','tue','wed','thu','fri','sat','sun'];
-        TrCollections.removeValuesFromArray(this._weekdaysValue, allWeekdays);
+        this._removeDisabledValues(this._weekdaysValue, allWeekdays);
         var days = _trToString(this._translate(allWeekdays, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()));
 
         var facesMessage;
