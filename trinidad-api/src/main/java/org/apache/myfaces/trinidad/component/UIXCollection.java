@@ -1851,7 +1851,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * Ensure that the model has at least rowCount number of rows.
    *
    * @param rowCount the number of rows the model should hold.
-   */  
+   */
   public void ensureRowsAvailable(int rowCount)
   {
     getCollectionModel().ensureRowsAvailable(rowCount);
@@ -2158,10 +2158,13 @@ public abstract class UIXCollection extends UIXComponentBase
     if (!(change instanceof CollectionComponentChange) ||
         ((CollectionComponentChange)change)._component != this)
     {
-      _LOG.warning("COLLECTION_NOT_IN_CONTEXT", getId());
-      if (_LOG.isFine())
+      if (_LOG.isWarning())
       {
-        Thread.currentThread().dumpStack();
+        _LOG.warning("COLLECTION_NOT_IN_CONTEXT", getClientId());
+        if (_LOG.isFine())
+        {
+          Thread.currentThread().dumpStack();
+        }
       }
     }
   }
