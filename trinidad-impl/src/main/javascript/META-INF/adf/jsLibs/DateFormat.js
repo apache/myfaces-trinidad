@@ -905,19 +905,35 @@ function _fix2DYear(year, locale)
 
 /**
  * Match the current text against an array of possibilities, returning
- * the index of the succesful match, or undefined if no match succeeded.
+ * the index of the longest succesful match, or undefined if no match succeeded.
  */
 function _matchArray(
   parseContext,
   matchArray
   )
 {
+  var longestMatchLength = 0;
+  var longestMatchIndex = -1;
   for (var i = 0; i < matchArray.length; i++)
   {
-    if (_matchText(parseContext, matchArray[i]))
+    if (_matchText(parseContext, matchArray[i], false))
     {
-      return i;
-    }
+      // TRINIDAD-2269: In some locales, the matchArray contains strings which are substrings of later entries
+      // When the parseContext's string is actually the longer string, returning for the first match is incorrect and
+      // we should instead keep walking the array for the full match. 
+      if (matchArray[i].length > longestMatchLength)
+      {
+        longestMatchIndex  = i;
+        longestMatchLength = matchArray[i].length;
+      }
+    }//end-if _matchText succeeds
+  }// end-for all matchArray
+  
+  if (longestMatchIndex != -1)
+  {
+    // update the parse context manually
+    parseContext.currIndex += longestMatchLength;
+    return longestMatchIndex; 
   }
   
   // no match
@@ -932,9 +948,11 @@ function _matchArray(
  */
 function _matchText(
   parseContext,
-  text
+  text,
+  updateParseContext
   )
 {
+  
   // if no text to match then match will fail
   if (!text)
     return false;
@@ -966,7 +984,11 @@ function _matchText(
     return false;
     
   // update the current parseContext
-  parseContext.currIndex += textLength;
+  // TRINIDAD-2269: When called from _matchArray, _matchText may return prematurely (when the current string is
+  // a substring of the string to match). Thus we have to scan the whole array against the original parseContext
+  // before declaring a match, at which point _matchArray will update parseContext manually. 
+  if (updateParseContext != false)
+    parseContext.currIndex += textLength;
   
   return true;
 }
