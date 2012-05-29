@@ -2160,7 +2160,8 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       if (_LOG.isWarning())
       {
-        _LOG.warning("COLLECTION_NOT_IN_CONTEXT", getClientId());
+        _LOG.warning("COLLECTION_NOT_IN_CONTEXT", (Object)(getParent() == null ? 
+          getId() : getClientId()));
         if (_LOG.isFine())
         {
           Thread.currentThread().dumpStack();
