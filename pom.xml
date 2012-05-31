@@ -699,7 +699,32 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     </plugins>
   </build>
 
+  <!--
+    This profile will build a snapshot.  It is primarily used for the Jenkins snapshot builds.
+    This profile allows access to the apache snapshot repository (for plugin snapshots) and
+    will not build any of the examples.
+  -->
   <profiles>
+    <profile>
+      <id>buildSnapshot</id>
+      <!-- Add the snapshot repository -->
+      <repositories>
+        <repository>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+            <checksumPolicy>fail</checksumPolicy>
+          </snapshots>
+          <id>Apache Snapshots</id>
+          <url>https://repository.apache.org/content/groups/snapshots</url>
+          <layout>default</layout>
+        </repository>
+      </repositories>
+    </profile>
+
     <!--
       This profile builds the examples when NOT performing a release.  Execute this profile
       by making sure that there is no -DperformRelease property on the maven command.  If
@@ -891,4 +916,5 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     </profile>
 
   </profiles>
+
 </project>
