@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
@@ -56,7 +57,12 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.Window;
 import org.apache.myfaces.trinidad.context.WindowManager;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.ref.PseudoReference;
+import org.apache.myfaces.trinidad.util.ref.PseudoReferenceFactory;
+import org.apache.myfaces.trinidad.util.ref.SoftPseudoReferenceFactory;
+import org.apache.myfaces.trinidad.util.ref.StrongPseudoReferenceFactory;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 import org.apache.myfaces.trinidadinternal.util.ObjectInputStreamResolveClass;
@@ -147,6 +153,11 @@ public class StateManagerImpl extends StateManagerWrapper
 
   }
 
+  private boolean _useViewRootCache(FacesContext context, RequestContext trinContext)
+  {
+    return _getOrCreateViewRootStateRefFactory(context, trinContext) != null;
+  }
+      
   @SuppressWarnings("deprecation")
   @Override
   public Object saveView(FacesContext context)
@@ -187,7 +198,7 @@ public class StateManagerImpl extends StateManagerWrapper
           // Force view root to use full state saving
           // This is necessary because we recreate the view root on postback when view root caching
           // is enabled and assume that that we can apply the full state
-          if (_useViewRootCache(context))
+          if (_useViewRootCache(context, RequestContext.getCurrentInstance()))
           {
             viewRoot.clearInitialState();
           }
@@ -231,7 +242,10 @@ public class StateManagerImpl extends StateManagerWrapper
     // Don't remove transient components...
     Object structure = new Structure(component);
     Object state = component.processSaveState(context);
-    return new PageState(context, new Object[]{structure, state}, null);
+    return new PageState(context,
+                         _getViewRootStateRefFactory(context, RequestContext.getCurrentInstance()),
+                         new Object[]{structure, state},
+                         null);
   }
 
   /**
@@ -280,7 +294,11 @@ public class StateManagerImpl extends StateManagerWrapper
 
     Object structure = new Structure(root);
     Object state = root.processSaveState(context);
-    return new PageState(context,  new Object[]{structure, state}, root);
+
+    return new PageState(context,
+                         _getViewRootStateRefFactory(context, RequestContext.getCurrentInstance()),
+                         new Object[]{structure, state},
+                         root);
   }
 
   static public UIViewRoot restoreViewRoot(
@@ -335,10 +353,11 @@ public class StateManagerImpl extends StateManagerWrapper
     // inner class of StateManager
     PageState pageState = new PageState(
         context,
+        _getOrCreateViewRootStateRefFactory(context, trinContext),
         viewState,
         // Save the view root into the page state as a transient
         // if this feature has not been disabled
-        _useViewRootCache(context) ? root : null);
+        root);
 
     String requestToken = _getRequestTokenForResponse(context);
     String token;
@@ -1150,21 +1169,125 @@ public class StateManagerImpl extends StateManagerWrapper
     return _DEFAULT_CACHE_SIZE;
   }
 
-
-  private boolean _useViewRootCache(FacesContext context)
+  private PseudoReferenceFactory<ViewRootState> _getOrCreateViewRootStateRefFactory(
+    FacesContext context, RequestContext trinContext)
   {
-    if (_useViewRootCache == null)
-    {
-      String s = context.getExternalContext().getInitParameter(
-                        CACHE_VIEW_ROOT_INIT_PARAM);
-      _useViewRootCache =
-      (!"false".equalsIgnoreCase(s)) ? Boolean.TRUE : Boolean.FALSE;
-    }
+    if (_viewRootStateRefFactory == null)
+      _viewRootStateRefFactory = _getViewRootStateRefFactory(context, trinContext);
 
-    return _useViewRootCache.booleanValue();
+    return _viewRootStateRefFactory;
+  }
+  
+  /**
+   * @return the factory to use for creating references to the UIViewRootState.  If
+   * <code>null</code>, no UIViewRoot caching should be performed.
+   */
+  private static PseudoReferenceFactory<ViewRootState> _getViewRootStateRefFactory(
+    FacesContext context,
+    RequestContext trinContext)
+  {
+    ConcurrentMap<String, Object> sharedAppMap = trinContext.getApplicationScopedConcurrentMap();
+    
+    if (sharedAppMap.containsKey(CACHE_VIEW_ROOT_INIT_PARAM))
+    {
+      return (PseudoReferenceFactory<ViewRootState>)sharedAppMap.get(CACHE_VIEW_ROOT_INIT_PARAM);
+    }
+    else
+    {
+      PseudoReferenceFactory<ViewRootState> factory = null;
+      
+      ExternalContext extContext = context.getExternalContext();
+    
+      String viewRootCaching = extContext.getInitParameter(CACHE_VIEW_ROOT_INIT_PARAM);
+    
+      if ((viewRootCaching != null) && (viewRootCaching.length() > 0))
+      {    
+        String caseInsensitiveViewRootCaching = viewRootCaching.toLowerCase();
+    
+        if ("false".equals(caseInsensitiveViewRootCaching))
+        {
+          // factory is already null
+        }
+        else if ("strong".equals(caseInsensitiveViewRootCaching))
+          factory = new StrongPseudoReferenceFactory<ViewRootState>();
+        else if ("soft".equals(caseInsensitiveViewRootCaching))
+          factory = new SoftPseudoReferenceFactory<ViewRootState>();
+        else if ("true".equals(caseInsensitiveViewRootCaching))
+        {
+          factory = _instantiateDefaultPseudoReferenceFactory();
+        }
+        else
+        {
+          factory = _instantiatePseudoReferenceFactoryFromClass(viewRootCaching);
+        }
+        
+        sharedAppMap.put(CACHE_VIEW_ROOT_INIT_PARAM, factory);
+      }
+      
+      return factory;
+    }    
   }
 
+  private static PseudoReferenceFactory<ViewRootState> _instantiateDefaultPseudoReferenceFactory()
+  {
+    PseudoReferenceFactory<ViewRootState> factory = new StrongPseudoReferenceFactory<ViewRootState>();        
+    
+    Object service = ClassLoaderUtils.getService(CACHE_VIEW_ROOT_INIT_PARAM);
+      
+    if (service != null)
+    {
+      try
+      {
+        factory = (PseudoReferenceFactory<ViewRootState>)service;
+      }
+      catch (ClassCastException e)
+      {
+        _LOG.warning("Default service registered for " + CACHE_VIEW_ROOT_INIT_PARAM +
+                   " is not of the correct type.", e);      
+      }
+    }
+    
+    return factory;
+  }
+  
+  private static PseudoReferenceFactory<ViewRootState> _instantiatePseudoReferenceFactoryFromClass(
+    String className)
+  {
+    PseudoReferenceFactory<ViewRootState> factory = new StrongPseudoReferenceFactory<ViewRootState>();            
 
+    try
+    {
+      Class<? extends PseudoReferenceFactory<ViewRootState>> factoryClass = 
+        (Class<? extends PseudoReferenceFactory<ViewRootState>>)ClassLoaderUtils.loadClass(className);
+      factory = factoryClass.newInstance();
+    }
+    catch (ClassNotFoundException e)
+    {
+      _LOG.warning("Could not find PseudoReferenceFactory class " + className + " for " +
+                   " Servlet Initialization Parameter " + CACHE_VIEW_ROOT_INIT_PARAM);
+    }
+    catch (InstantiationException e)
+    {
+      _logInstantiationError(className, e);
+    }
+    catch (IllegalAccessException e)
+    {
+      _logInstantiationError(className, e);
+    }
+    catch (ClassCastException e)
+    {
+      _logInstantiationError(className, e);      
+    }
+    
+    return factory;
+  }
+
+  private static void _logInstantiationError(String className, Throwable e)
+  {
+    _LOG.warning("Could not instantiate a PseudoReferenceFactory for Servlet Initialization" +
+                 " Parameter " + CACHE_VIEW_ROOT_INIT_PARAM + " with value " +
+                 className, e);
+  }
 
   private boolean _needStructure(FacesContext context)
   {
@@ -1311,12 +1434,16 @@ public class StateManagerImpl extends StateManagerWrapper
 
     private Object _viewState;
 
-    // use transient since UIViewRoots are not Serializable.
-    private transient ViewRootState _cachedState;
+    // use transient since UIViewRoots are not Serializable.  We use a PseudReference so that
+    // we can support either soft or strong references
+    private transient PseudoReference<ViewRootState> _cachedState;
 
-    public PageState(FacesContext context, Object viewState, UIViewRoot root)
+    public PageState(
+      FacesContext context, PseudoReferenceFactory<ViewRootState> viewRootStateRefFactory, 
+      Object viewState, UIViewRoot root)
     {
-      _viewState = viewState;
+      if (!(viewState instanceof Serializable))
+        throw new IllegalArgumentException("Viewstate " + viewState + " is not a Serializable");
 
       boolean zipState = _zipState(context);
 
@@ -1326,10 +1453,12 @@ public class StateManagerImpl extends StateManagerWrapper
         if (zipState)
         {
           // zip the page state. This will also catch any serialization problems.
-          _zipToBytes(context, viewState);
+          _viewState = _zipToBytes(viewState);
         }
         else
         {
+          _viewState = viewState;
+
           // if component tree serialization checking is on (in order to validate
           // fail over support, attempt to Serialize all of the component state
           //  immediately
@@ -1343,11 +1472,15 @@ public class StateManagerImpl extends StateManagerWrapper
           }
         }
       }
+      else
+      {
+        _viewState = viewState;        
+      }
 
       // we need this state, as we are going to recreate the UIViewRoot later. see
       // the popRoot() method:
-      _cachedState = (root != null)
-                       ? new ViewRootState(context, root)
+      _cachedState = ((root !=  null) && (viewRootStateRefFactory != null))
+                       ? viewRootStateRefFactory.create(new ViewRootState(context, root), null)
                        : null;
     }
 
@@ -1355,7 +1488,7 @@ public class StateManagerImpl extends StateManagerWrapper
     {
       if (_zipState(context))
       {
-        return _unzipBytes(context, (byte[])_viewState);
+        return _unzipBytes((byte[])_viewState);
       }
 
       return _viewState;
@@ -1380,8 +1513,14 @@ public class StateManagerImpl extends StateManagerWrapper
       {
         if (_cachedState != null)
         {
-          root = _cachedState.getViewRoot();
-          viewRootState = _cachedState.getViewRootState();
+          ViewRootState rootState = _cachedState.get();
+          
+          if (rootState != null)
+          {
+            root          = rootState.getViewRoot();
+            viewRootState = rootState.getViewRootState();
+          }
+          
           // we must clear the cached viewRoot. This is because UIComponent trees
           // are mutable and if the back button
           // is used to come back to an old PageState, then it would be
@@ -1454,7 +1593,7 @@ public class StateManagerImpl extends StateManagerWrapper
       return zipStateObject.toString().equalsIgnoreCase("true");
     }
 
-    private Object _unzipBytes(FacesContext context, byte[] zippedBytes)
+    private Object _unzipBytes(byte[] zippedBytes)
     {
       Inflater decompressor = new Inflater();
 
@@ -1497,18 +1636,20 @@ public class StateManagerImpl extends StateManagerWrapper
       }
     }
 
-    private void _zipToBytes(FacesContext context, Object state)
+    /**
+     * Returned the zipped version of the viewState
+     */
+    private byte[] _zipToBytes(Object viewState)
     {
       Deflater compresser = new Deflater(Deflater.BEST_SPEED);
 
       try
       {
-
         //Serialize state
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
 
-        oos.writeObject(state);
+        oos.writeObject(viewState);
         oos.flush();
         oos.close();
 
@@ -1525,8 +1666,7 @@ public class StateManagerImpl extends StateManagerWrapper
           baos.write(buf, 0, count);
         }
 
-        _viewState = baos.toByteArray();
-
+        return baos.toByteArray();
       }
       catch (IOException e)
       {
@@ -1559,7 +1699,7 @@ public class StateManagerImpl extends StateManagerWrapper
   // TODO - we used to delegate to the RI when the stateManagement method was server,
   // but we no longer do that, do we really need _delegate any more?
   private final StateManager _delegate;
-  private       Boolean      _useViewRootCache;
+  private volatile PseudoReferenceFactory<ViewRootState> _viewRootStateRefFactory;
 
   private static final Character _SUBKEY_SEPARATOR = new Character('.');
 

@@ -217,7 +217,49 @@ public final class ClassLoaderUtils
   }
 
   /**
-   * Instantiate a service from a file in /META-INF/services.
+   * Instantiate the first registered services from a file in /META-INF/services.
+   * @param service the classname of the abstract service class.
+   * eg: javax.servlet.Filter
+   * @see #getService(String)
+   * @see #getServices(Class)
+   * @see #getServices(String)
+   */
+  public static <T> T getService(Class<T> service)
+  {
+    return getService(service.getName());
+  }
+
+  /**
+   * Instantiate the first registered services from a file in /META-INF/services.
+   * @param service the classname of the abstract service class.
+   * eg: javax.servlet.Filter
+   * @see #getService(Class)
+   * @see #getServices(String)
+   * @see #getServices(Class)
+   */
+  public static <T> T getService(String service)
+  {
+    List<T> services = _getServices(service, 1);
+    
+    if (services.isEmpty())
+      return null;
+    else
+      return services.get(0);
+  }
+
+  /**
+   * Instantiate all available services from a file in /META-INF/services.
+   * @see #getServices(String)
+   * @see #getService(String)
+   * @see #getService(Class)
+   */
+  public static <T> List<T> getServices(Class<T> service)
+  {
+    return getServices(service.getName());
+  }
+
+  /**
+   * Instantiate all available services from a file in /META-INF/services.
    * <P>
    * The following is an excerpt from the JAR File specification:
    * A service provider identifies itself by placing a provider-configuration file 
@@ -230,12 +272,21 @@ public final class ClassLoaderUtils
    * 
    * @param service the classname of the abstract service class.
    * eg: javax.servlet.Filter
+   * @see #getServices(Class)
+   * @see #getService(Class)
+   * @see #getService(String)
    */
-  @SuppressWarnings("unchecked")
   public static <T> List<T> getServices(String service)
+  {
+    return _getServices(service, Integer.MAX_VALUE);
+  }
+  
+  @SuppressWarnings("unchecked")
+  private static <T> List<T> _getServices(String service, int maxServiceCount)
   {
     String serviceUri ="META-INF/services/" + service;
     ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    
     try
     {
       Enumeration<URL> urls = loader.getResources(serviceUri);
@@ -262,8 +313,13 @@ public final class ClassLoaderUtils
                 
                 if(className!=null && keys.add(className))
                 {
-                  T instance = (T) _getClass(loader, className);
+                  T instance = (T) _newInstance(loader, className);
                   services.add(instance);
+                  
+                  if (services.size() >= maxServiceCount)
+                  {
+                    break;
+                  }
                 }                
               }
             }
@@ -312,7 +368,7 @@ public final class ClassLoaderUtils
     return null;
   }
   
-  private static Object _getClass(ClassLoader loader, String className)
+  private static Object _newInstance(ClassLoader loader, String className)
     throws ClassNotFoundException, InstantiationException,
            IllegalAccessException
   {
