@@ -27,16 +27,16 @@
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad</artifactId>
-    <version>1.2.12.6.3-SNAPSHOT</version>
+    <version>1.2.12.6.3-scotty-SNAPSHOT</version>
   </parent>
 
   <artifactId>trinidad-sandbox</artifactId>
   <packaging>pom</packaging>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox/branches/1.2.12.6.3-branch</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox/branches/1.2.12.6.3-branch</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox/branches/1.2.12.6.3-branch</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox/branches/sobryan-experimental-url-encoding-2</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox/branches/sobryan-experimental-url-encoding-2</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox/branches/sobryan-experimental-url-encoding-2</url>
   </scm>
 
   <issueManagement>
