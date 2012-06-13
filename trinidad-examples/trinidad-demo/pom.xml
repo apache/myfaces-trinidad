@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-example</artifactId>
-    <version>1.2.12.6.3-scotty-SNAPSHOT</version>
+    <version>1.2.12.6.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>trinidad-demo</artifactId>
