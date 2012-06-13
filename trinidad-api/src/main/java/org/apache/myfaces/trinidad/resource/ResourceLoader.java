@@ -49,10 +49,9 @@ public class ResourceLoader
    * <p> The name of a resource is a '<tt>/</tt>'-separated path name that
    * identifies the resource.
    *
-   * <p> This method will first search the this resource loader for the
-   * resource.  That failing, this method will invoke 
-   * {@link #findResource(String)} to on the parent resource loader to
-   * find the resource.  </p>
+   * <p> This method will first invoke {@link #findResource(String)} to find the
+   * resource.  Failing that, the method will invoke <code>getResource(String)</code>
+   * on the parent.</p>
    *
    * @param  name  the resource name
    *
