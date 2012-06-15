@@ -255,7 +255,7 @@ public final class ClassLoaderUtils
    */
   public static <T> List<T> getServices(Class<T> service)
   {
-    return (T) getServices(service.getName());
+    return getServices(service.getName());
   }
 
   /**
