@@ -1223,6 +1223,11 @@ public class StateManagerImpl extends StateManagerWrapper
         
         sharedAppMap.put(CACHE_VIEW_ROOT_INIT_PARAM, factory);
       }
+      else
+      {
+        // "true" is the default
+        factory = _instantiateDefaultPseudoReferenceFactory();
+      }
       
       return factory;
     }    
