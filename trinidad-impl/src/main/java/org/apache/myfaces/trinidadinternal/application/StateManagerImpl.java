@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
@@ -1172,67 +1173,92 @@ public class StateManagerImpl extends StateManagerWrapper
   private PseudoReferenceFactory<ViewRootState> _getOrCreateViewRootStateRefFactory(
     FacesContext context, RequestContext trinContext)
   {
-    if (_viewRootStateRefFactory == null)
-      _viewRootStateRefFactory = _getViewRootStateRefFactory(context, trinContext);
+    if (_viewRootStateRefFactoryHolder == null)
+      _viewRootStateRefFactoryHolder = _getViewRootStateRefFactoryHolder(context, trinContext);
 
-    return _viewRootStateRefFactory;
+    return _viewRootStateRefFactoryHolder.get();
   }
-  
+
   /**
    * @return the factory to use for creating references to the UIViewRootState.  If
    * <code>null</code>, no UIViewRoot caching should be performed.
    */
   private static PseudoReferenceFactory<ViewRootState> _getViewRootStateRefFactory(
-    FacesContext context,
-    RequestContext trinContext)
+    FacesContext context, RequestContext trinContext)
+  {
+    return _getViewRootStateRefFactoryHolder(context, trinContext).get();
+  }
+  
+  /**
+   * @return the holder for the factory to use for creating references to the UIViewRootState.  If
+   * <code>null</code>, no UIViewRoot caching should be performed.
+   */
+  private static AtomicReference<PseudoReferenceFactory<ViewRootState>> 
+    _getViewRootStateRefFactoryHolder(FacesContext context, RequestContext trinContext)
   {
     ConcurrentMap<String, Object> sharedAppMap = trinContext.getApplicationScopedConcurrentMap();
+
+    AtomicReference<PseudoReferenceFactory<ViewRootState>> factoryHolder = 
+       (AtomicReference<PseudoReferenceFactory<ViewRootState>>)sharedAppMap.get(CACHE_VIEW_ROOT_INIT_PARAM);
     
-    if (sharedAppMap.containsKey(CACHE_VIEW_ROOT_INIT_PARAM))
+    if (factoryHolder != null)
     {
-      return (PseudoReferenceFactory<ViewRootState>)sharedAppMap.get(CACHE_VIEW_ROOT_INIT_PARAM);
+      return factoryHolder;
     }
     else
-    {
-      PseudoReferenceFactory<ViewRootState> factory = null;
-      
+    {      
       ExternalContext extContext = context.getExternalContext();
     
       String viewRootCaching = extContext.getInitParameter(CACHE_VIEW_ROOT_INIT_PARAM);
-    
+
+      String caseInsensitiveViewRootCaching;
+      
       if ((viewRootCaching != null) && (viewRootCaching.length() > 0))
-      {    
-        String caseInsensitiveViewRootCaching = viewRootCaching.toLowerCase();
-    
-        if ("false".equals(caseInsensitiveViewRootCaching))
-        {
-          // factory is already null
-        }
-        else if ("strong".equals(caseInsensitiveViewRootCaching))
-          factory = new StrongPseudoReferenceFactory<ViewRootState>();
-        else if ("soft".equals(caseInsensitiveViewRootCaching))
-          factory = new SoftPseudoReferenceFactory<ViewRootState>();
-        else if ("true".equals(caseInsensitiveViewRootCaching))
-        {
-          factory = _instantiateDefaultPseudoReferenceFactory();
-        }
-        else
-        {
-          factory = _instantiatePseudoReferenceFactoryFromClass(viewRootCaching);
-        }
-        
-        sharedAppMap.put(CACHE_VIEW_ROOT_INIT_PARAM, factory);
+        caseInsensitiveViewRootCaching = viewRootCaching.toLowerCase();
+      else
+        caseInsensitiveViewRootCaching = "true"; // the default
+      
+      PseudoReferenceFactory<ViewRootState> factory;
+  
+      if ("false".equals(caseInsensitiveViewRootCaching))
+      {
+        factory = null;
+      }
+      else if ("strong".equals(caseInsensitiveViewRootCaching))
+        factory = new StrongPseudoReferenceFactory<ViewRootState>();
+      else if ("soft".equals(caseInsensitiveViewRootCaching))
+        factory = new SoftPseudoReferenceFactory<ViewRootState>();
+      else if ("true".equals(caseInsensitiveViewRootCaching))
+      {
+        factory = _instantiateDefaultPseudoReferenceFactory();
       }
       else
       {
-        // "true" is the default
-        factory = _instantiateDefaultPseudoReferenceFactory();
+        factory = _instantiatePseudoReferenceFactoryFromClass(viewRootCaching);
+        
+        if (factory == null)
+        {
+          // we had an error, so use the default
+          factory = _instantiateDefaultPseudoReferenceFactory();
+        }
       }
       
-      return factory;
+      // use a placeholder for null, since ConcurrentHashMap can't store null;
+      factoryHolder = new AtomicReference<PseudoReferenceFactory<ViewRootState>>(factory);
+      
+      sharedAppMap.put(CACHE_VIEW_ROOT_INIT_PARAM, factoryHolder);
+      
+      return factoryHolder;
     }    
   }
 
+  /**
+   * Attempt to instantiate a PseudoReferenceFactory<ViewRootState> from the
+   * CACHE_VIEW_ROOT_INIT_PARAM service, using a StrongPseudoReferenceFactory if no service
+   * is specified or the service is not of the correct type.
+   * <code>null</code> if any errors occur.
+   * @return
+   */
   private static PseudoReferenceFactory<ViewRootState> _instantiateDefaultPseudoReferenceFactory()
   {
     PseudoReferenceFactory<ViewRootState> factory = new StrongPseudoReferenceFactory<ViewRootState>();        
@@ -1255,16 +1281,20 @@ public class StateManagerImpl extends StateManagerWrapper
     return factory;
   }
   
+  /**
+   * Attempt to instantiate a PseudoReferenceFactory<ViewRootState> from a class name, returning
+   * <code>null</code> if any errors occur.
+   * @param className
+   * @return
+   */
   private static PseudoReferenceFactory<ViewRootState> _instantiatePseudoReferenceFactoryFromClass(
     String className)
   {
-    PseudoReferenceFactory<ViewRootState> factory = new StrongPseudoReferenceFactory<ViewRootState>();            
-
     try
     {
       Class<? extends PseudoReferenceFactory<ViewRootState>> factoryClass = 
         (Class<? extends PseudoReferenceFactory<ViewRootState>>)ClassLoaderUtils.loadClass(className);
-      factory = factoryClass.newInstance();
+      return factoryClass.newInstance();
     }
     catch (ClassNotFoundException e)
     {
@@ -1284,7 +1314,7 @@ public class StateManagerImpl extends StateManagerWrapper
       _logInstantiationError(className, e);      
     }
     
-    return factory;
+    return null;
   }
 
   private static void _logInstantiationError(String className, Throwable e)
@@ -1704,7 +1734,7 @@ public class StateManagerImpl extends StateManagerWrapper
   // TODO - we used to delegate to the RI when the stateManagement method was server,
   // but we no longer do that, do we really need _delegate any more?
   private final StateManager _delegate;
-  private volatile PseudoReferenceFactory<ViewRootState> _viewRootStateRefFactory;
+  private AtomicReference<PseudoReferenceFactory<ViewRootState>> _viewRootStateRefFactoryHolder;
 
   private static final Character _SUBKEY_SEPARATOR = new Character('.');
 
