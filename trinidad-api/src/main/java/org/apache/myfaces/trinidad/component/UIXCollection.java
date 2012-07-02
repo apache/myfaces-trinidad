@@ -1376,15 +1376,6 @@ public abstract class UIXCollection extends UIXComponentBase
     return getCollectionModel().getCachingStrategy();
   }
   
-  /**
-   * Ensure that the model has at least rowCount number of rows.
-   *
-   * @param rowCount the number of rows the model should hold.
-   */  
-  public void ensureRowsAvailable(int rowCount)
-  {
-    getCollectionModel().ensureRowsAvailable(rowCount);
-  }
 
   /**
    * override this method to place initialization code that must run

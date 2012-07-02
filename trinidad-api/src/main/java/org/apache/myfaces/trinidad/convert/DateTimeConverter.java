@@ -1935,7 +1935,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
   static
   {
-    Calendar dateFactory = Calendar.getInstance (Locale.US);
+    Calendar dateFactory = Calendar.getInstance();
     dateFactory.set(1998, 10, 29, 15, 45);
     _EXAMPLE_DATE = dateFactory.getTime();
     

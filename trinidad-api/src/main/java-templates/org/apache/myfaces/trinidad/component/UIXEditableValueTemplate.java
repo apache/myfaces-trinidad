@@ -25,7 +25,6 @@ import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.EditableValueHolder;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
@@ -63,8 +62,7 @@ abstract public class UIXEditableValueTemplate
     "org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED";
   static public final String CONVERSION_MESSAGE_ID =
     "org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION";
-  static public final String VALIDATE_EMPTY_FIELDS_PARAM_NAME =
-    "org.apache.myfaces.trinidad.UIXEditableValue.VALIDATE_EMPTY_FIELDS";
+
 
 
   /**
@@ -286,17 +284,18 @@ abstract public class UIXEditableValueTemplate
     if (!isValid())
       return;
 
-    // If our value is empty, check the required property
-    boolean isEmpty = isEmpty(newValue);
-    if (isEmpty && isRequired())
+    // If our value is empty, only check the required property
+    if (isEmpty(newValue))
     {
-      FacesMessage message = _getRequiredFacesMessage(context);
-      context.addMessage(getClientId(context), message);
-      setValid(false);
+      if (isRequired())
+      {
+        FacesMessage message = _getRequiredFacesMessage(context);
+        context.addMessage(getClientId(context), message);
+        setValid(false);
+      }
     }
-
-    // If our value is not empty, OR we should do empty field validation, call all validators
-    if (!isEmpty || shouldValidateEmptyFields(context))
+    // If our value is not empty, call all validators
+    else
     {
       Iterator<Validator> validators = (Iterator<Validator>)getFacesBean().entries(VALIDATORS_KEY);
       while (validators.hasNext())
@@ -452,49 +451,6 @@ abstract public class UIXEditableValueTemplate
 
     return ((value instanceof String) &&
             (((String) value).trim().length() == 0));
-  }
-
-  /**
-   * Checks if the <code>validateValue()</code> should handle
-   * empty field validation.
-   *
-   * @return a (cached) boolean to identify empty field validation
-   */
-  public static boolean shouldValidateEmptyFields(FacesContext context)
-  {
-    ExternalContext ec = context.getExternalContext();
-    Boolean shouldValidateEmptyFields = (Boolean)ec.getApplicationMap().get(VALIDATE_EMPTY_FIELDS_PARAM_NAME);
-
-    // not yet cached...
-    if (shouldValidateEmptyFields == null)
-    {
-      String param = ec.getInitParameter(VALIDATE_EMPTY_FIELDS_PARAM_NAME);
-
-      // If there is no value under that key, use the same key and look in the
-      // application map from the ExternalContext.
-      if (param == null)
-      {
-        param = (String) ec.getApplicationMap().get(VALIDATE_EMPTY_FIELDS_PARAM_NAME);
-      }
-
-      if (param == null)
-      {
-        param = "false";
-      }
-      else
-      {
-        // The environment variables are case insensitive...
-        param = param.toLowerCase();
-      }
-
-      // "true".equalsIgnoreCase(param) is faster than Boolean.valueOf()
-      shouldValidateEmptyFields = "true".equalsIgnoreCase(param);
-
-      // cache the parsed value
-      ec.getApplicationMap().put(VALIDATE_EMPTY_FIELDS_PARAM_NAME, shouldValidateEmptyFields);
-    }
-
-    return shouldValidateEmptyFields;
   }
 
 

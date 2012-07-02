@@ -327,29 +327,6 @@ abstract public class UIXComponent extends UIComponent
   }
 
   /**
-   * Specifies what facets and children components should be processed as rendered for life-cycle
-   * methods. Any components not returned will not be processed during methods such as decoding,
-   * validating, updating the model, rendered-only tree visiting, etc.
-   *
-   * @param facesContext the facesContext
-   * @return An iterator of components to process. Must not return null (return an empty iterator
-   * if no children components should be processed).
-   */
-  protected Iterator<UIComponent> getRenderedFacetsAndChildren(
-    FacesContext facesContext)
-  {
-    Renderer renderer = getRenderer(facesContext);
-    if (renderer instanceof CoreRenderer)
-    {
-      return ((CoreRenderer)renderer).getRenderedFacetsAndChildren(facesContext, this);
-    }
-    else
-    {
-      return getFacetsAndChildren();
-    }
-  }
-
-  /**
   * <p>Perform a tree visit starting at the specified node in the tree.</p>
   *
   * <p>UIXComponent.visitTree() implementations do not invoke the
@@ -449,10 +426,7 @@ abstract public class UIXComponent extends UIComponent
       // visit the children of the component
       try
       {
-        Iterator<UIComponent> kids =
-          uixComponent != null && visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED) ?
-          uixComponent.getRenderedFacetsAndChildren(context) :
-          component.getFacetsAndChildren();
+        Iterator<UIComponent> kids = component.getFacetsAndChildren();
 
         while(kids.hasNext())
         {

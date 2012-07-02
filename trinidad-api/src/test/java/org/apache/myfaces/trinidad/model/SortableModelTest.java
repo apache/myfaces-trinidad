@@ -73,10 +73,6 @@ public class SortableModelTest extends AbstractJsfTestCase
     assertTrue(sModel.getRowData() == _bean2);
     sModel.setRowIndex(2);
     assertTrue(sModel.getRowData() == _bean3);
-    sModel.setRowIndex(3);
-    assertTrue(sModel.getRowData() == _bean4);
-    sModel.setRowIndex(4);
-    assertTrue(sModel.getRowData() == _bean5);
   }
   
   public void testRowCount()
@@ -97,7 +93,7 @@ public class SortableModelTest extends AbstractJsfTestCase
     assertFalse(sModel.isSortable("object"));
   }
 
-  public void testSortAscendingDefault()
+  public void testSortAscending()
   {
     DataModel dModel = _createTestDataModel();
     SortableModel sModel = new SortableModel(dModel);
@@ -113,51 +109,11 @@ public class SortableModelTest extends AbstractJsfTestCase
     sModel.setRowIndex(0);
     assertTrue(sModel.getRowData() == _bean2);
     sModel.setRowIndex(1);
-    assertTrue(sModel.getRowData() == _bean5);
-    sModel.setRowIndex(2);
-    assertTrue(sModel.getRowData() == _bean4);
-    sModel.setRowIndex(3);
     assertTrue(sModel.getRowData() == _bean1);
-    sModel.setRowIndex(4);
+    sModel.setRowIndex(2);
     assertTrue(sModel.getRowData() == _bean3);
   }
   
-  public void testSortAscendingCaseInsensitive()
-  {
-    DataModel dModel = _createTestDataModel();
-    SortableModel sModel = new SortableModel(dModel);
-    _sort(sModel, "name", true, "Primary");
-
-    sModel.setRowIndex(0);
-    assertTrue(sModel.getRowData() == _bean2);
-    sModel.setRowIndex(1);
-    assertTrue(sModel.getRowData() == _bean5);
-    sModel.setRowIndex(2);
-    assertTrue(sModel.getRowData() == _bean4);
-    sModel.setRowIndex(3);
-    assertTrue(sModel.getRowData() == _bean1);
-    sModel.setRowIndex(4);
-    assertTrue(sModel.getRowData() == _bean3);
-  }
-
-  public void testSortAscendingCaseSensitive()
-  {
-    DataModel dModel = _createTestDataModel();
-    SortableModel sModel = new SortableModel(dModel);
-    _sort(sModel, "name", true, "Identical");
-
-    sModel.setRowIndex(0);
-    assertTrue(sModel.getRowData() == _bean2);
-    sModel.setRowIndex(1);
-    assertTrue(sModel.getRowData() == _bean5);
-    sModel.setRowIndex(2);
-    assertTrue(sModel.getRowData() == _bean4);
-    sModel.setRowIndex(3);
-    assertTrue(sModel.getRowData() == _bean1);
-    sModel.setRowIndex(4);
-    assertTrue(sModel.getRowData() == _bean3);
-  }
-
   public void testUnsort()
   {
     DataModel dModel = _createTestDataModel();
@@ -172,17 +128,12 @@ public class SortableModelTest extends AbstractJsfTestCase
   {
     DataModel dModel = _createTestDataModel();
     SortableModel sModel = new SortableModel(dModel);
-    _sort(sModel, "age", false);
-  
+    _sort(sModel, "age", false);    
     sModel.setRowIndex(0);
     assertTrue(sModel.getRowData() == _bean2);
     sModel.setRowIndex(1);
-    assertTrue(sModel.getRowData() == _bean5);
-    sModel.setRowIndex(2);
     assertTrue(sModel.getRowData() == _bean3);
-    sModel.setRowIndex(3);
-    assertTrue(sModel.getRowData() == _bean4);
-    sModel.setRowIndex(4);
+    sModel.setRowIndex(2);
     assertTrue(sModel.getRowData() == _bean1);
   }
   
@@ -202,15 +153,11 @@ public class SortableModelTest extends AbstractJsfTestCase
     _sort(sModel, "age", true);    
 
     dModel.setRowIndex(2); //Zach
-    assertTrue(sModel.getRowIndex() == 2);
+    assertTrue(sModel.getRowIndex() == 1);
     dModel.setRowIndex(0); //Tracy
     assertTrue(sModel.getRowIndex() == 0);
-    dModel.setRowIndex(4); //ANNE
-    assertTrue(sModel.getRowIndex() == 3);
-    dModel.setRowIndex(3); //timmy
-    assertTrue(sModel.getRowIndex() == 1);
-    dModel.setRowIndex(1); //anne
-    assertTrue(sModel.getRowIndex() == 4);
+    dModel.setRowIndex(1); //Anne
+    assertTrue(sModel.getRowIndex() == 2);
   }
 
   public void testSetRowIndex()
@@ -219,15 +166,11 @@ public class SortableModelTest extends AbstractJsfTestCase
     SortableModel sModel = new SortableModel(dModel);
     _sort(sModel, "age", true);    
 
-    sModel.setRowIndex(2); //Zach
+    sModel.setRowIndex(1); //Zach
     assertTrue(dModel.getRowIndex() == 2);
     sModel.setRowIndex(0); //Tracy
     assertTrue(dModel.getRowIndex() == 0);
-    sModel.setRowIndex(3); //ANNE
-    assertTrue(dModel.getRowIndex() == 4);
-    sModel.setRowIndex(1); //timmy
-    assertTrue(dModel.getRowIndex() == 3);
-    sModel.setRowIndex(4); //anne
+    sModel.setRowIndex(2); //Anne
     assertTrue(dModel.getRowIndex() == 1);
   }
   
@@ -237,43 +180,19 @@ public class SortableModelTest extends AbstractJsfTestCase
     list.add(_bean1);
     list.add(_bean2);
     list.add(_bean3);
-    list.add(_bean4);
-    list.add(_bean5);
     return new ListDataModel(Collections.unmodifiableList(list));
   }
 
-  private void _sort(
-    CollectionModel model, 
-    String          property,
-    boolean         isAscending)
+  private void _sort(CollectionModel model, 
+                     String property, boolean isAscending)
   {
-    _sort(model, property, isAscending, null);
-  }
-
-  private void _sort(
-    CollectionModel model, 
-    String          property,
-    boolean         isAscending,
-    String          strength)
-  {
-    SortStrength sortStrength = null;
-
-    if (strength != null)
-    {
-      sortStrength = SortStrength.valueOf(strength.toUpperCase());
-    }
-
-    SortCriterion criterion = sortStrength == null ?
-                              new SortCriterion(property, isAscending) :
-                              new SortCriterion(property, isAscending, sortStrength);
+    SortCriterion criterion = new SortCriterion(property, isAscending);
     model.setSortCriteria(Collections.singletonList(criterion));
   }
   
   private final Bean _bean1 = new Bean(10, "Tracy");
-  private final Bean _bean2 = new Bean(15, "anne");
+  private final Bean _bean2 = new Bean(15, "Anne");
   private final Bean _bean3 = new Bean(12, "Zach");
-  private final Bean _bean4 = new Bean(11, "timmy");
-  private final Bean _bean5 = new Bean(14, "ANNE");
   
   public static final class Bean
   {

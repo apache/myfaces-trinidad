@@ -145,19 +145,6 @@ the time zone used for date processing and output.
           </annotation>
         </element>
 
-        <element name="two-digit-year-start" minOccurs="0" maxOccurs="1"
-                 type="config:integerExpressionType">
-          <annotation>
-            <documentation>The &lt;two-digit-year-start&gt; element sets the 100-year period used by the 
-            DateTimeConverter when parsing a string with 2-digit years. The parsed date will be placed in the
-           range startDate to startDate + 100 years.  
-           For example, when the string is "1/1/11" and the two-digit-year-start is set to 1900, the 
-           DateTimeConverter will parse it into the Date equivalent to 1st January 1911. 
-           The default value for two-digit-year-start is 1950.  
-            </documentation>
-         </annotation>
-        </element>
-
         <element name="right-to-left" minOccurs="0" maxOccurs="1"
                  type="config:booleanExpressionType">
           <annotation>
@@ -312,10 +299,6 @@ override the locale that converters use for date time, number and currency.
 
   <simpleType name="longExpressionType">
     <union memberTypes="long config:expressionType" />
-  </simpleType>
-
- <simpleType name="integerExpressionType">
-    <union memberTypes="integer config:expressionType" />
   </simpleType>
 
   <simpleType name="booleanExpressionType">

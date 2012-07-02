@@ -804,9 +804,9 @@ TrDateRestrictionValidator.prototype.getHints = function(
   
   //if needed, remove the submitted values, which are invalid, to display only the valid ones
   if(this._weekdaysValue)
-    this._removeDisabledValues(this._weekdaysValue, allWeekdays);
+    TrCollections.removeValuesFromArray(this._weekdaysValue, allWeekdays);
   if(this._monthValue)
-    this._removeDisabledValues(this._monthValue, allMonth);
+  TrCollections.removeValuesFromArray(this._monthValue, allMonth);
   
   return _returnHints(
     this._messages,
@@ -840,34 +840,6 @@ TrDateRestrictionValidator.prototype._translate = function(
     return values;
   }
 }
-
-/**
- * For all values in allValueArray, check if it is disabled by looking up
- * map disabledValueMap, if so, remove it from allValueArray
- */
-TrDateRestrictionValidator.prototype._removeDisabledValues = function(
-  disabledValueMap,
-  allValueArray
-  )
-{
-  if(disabledValueMap && allValueArray)
-  {
-    for (i=0; i<allValueArray.length; i++)
-    {
-      if(disabledValueMap[allValueArray[i].toLowerCase()] != undefined)
-      {
-        allValueArray.splice(i,1);
-
-        // the element originally at index i is removed, and 
-        // we now have a new element at index i, thus we need
-        // to stay on the same position to check whether we
-        // need to remove it.
-        i--;
-      }
-    }
-  }
-}
-
 TrDateRestrictionValidator.prototype.validate  = function(
   value,
   label,
@@ -884,7 +856,7 @@ TrDateRestrictionValidator.prototype.validate  = function(
       if(weekDaysArray[i].toLowerCase() == dayString)
       {
         var allWeekdays = ['mon','tue','wed','thu','fri','sat','sun'];
-        this._removeDisabledValues(this._weekdaysValue, allWeekdays);
+        TrCollections.removeValuesFromArray(this._weekdaysValue, allWeekdays);
         var days = _trToString(this._translate(allWeekdays, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()));
 
         var facesMessage;
@@ -1008,23 +980,6 @@ function _decimalParse(
     // decimal separator allowed by JS
     var decimal = new RegExp("\\" + symbols.getDecimalSeparator(),  "g");
     numberString = numberString.replace(decimal, ".");
-    
-    // JIRA TRINIDAD-2219: When the string is a negative bidi number, e.g. "1-", the
-    //(numberString*numberString) and (numberString / numberString) return NaN
-    // and is unable to parse it so in Bidi, we check if the number is of the format "X-"
-    // and convert it to "-X" which Javascript can understands. 
-   
-    var isLTR = document.documentElement["dir"].toUpperCase() == "LTR";
-
-    if(!isLTR)
-    {
-      var numberStringLength = numberString.length ;
-  
-      if(numberString.lastIndexOf("-") ==  (numberStringLength - 1)) 
-      {
-        numberString = "-" + numberString.substring(0, numberStringLength - 1);
-      }
-    }//end of isLTR check
   }
 
 

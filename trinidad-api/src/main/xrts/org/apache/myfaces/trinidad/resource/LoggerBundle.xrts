@@ -362,12 +362,6 @@
  <!-- NULL_PROPERTY -->
  <resource key="NULL_PROPERTY">property is null</resource>
  
- <!-- NULL_SORT_STRENGTH -->
- <resource key="NULL_SORT_STRENGTH">sort strength is null</resource>
-
- <!-- INVALID_SORT_STRENGTH_PROPERTY -->
- <resource key="INVALID_SORT_STRENGTH_PROPERTY">Invalid sortStrength property value: {0}. The supported values are Primary, Secondary, Tertiary and Identical.</resource>
-
  <!-- NO_MENUCONTENTHANDLER_REGISTERED -->
  <resource key="NO_MENUCONTENTHANDLER_REGISTERED">No MenuContentHandler was registered.</resource>
  

@@ -32,12 +32,6 @@ public class ErrorFile implements UploadedFile, Serializable
     _errorMessage = errorMessage;
   }
 
-  public ErrorFile(String filename, String errorMessage)
-  {
-    _filename = filename;
-    _errorMessage = errorMessage;
-  }
-  
   public void dispose()
   {
   }
@@ -49,7 +43,7 @@ public class ErrorFile implements UploadedFile, Serializable
 
   public String getFilename()
   {
-    return _filename;
+    return null;
   }
 
   public InputStream getInputStream() throws IOException
@@ -68,7 +62,6 @@ public class ErrorFile implements UploadedFile, Serializable
   }
   
   private String _errorMessage = null;
-  private String _filename = null;
 
   private static final long serialVersionUID = 2L;
 }

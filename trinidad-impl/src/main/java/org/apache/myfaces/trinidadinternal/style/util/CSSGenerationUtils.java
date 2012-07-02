@@ -183,7 +183,7 @@ public class CSSGenerationUtils
       // We only write out styles for which we have a property string.
       // All other entries correspond to styles which don't have selectors -
       // or styles which will be rendered as a "matching" style.
-      if (propertyString != null  && !(propertyString.equals("")))
+      if (propertyString != null)
       {
         // Get all of the styles which share this property string.
         StyleNode[] matchingStyles = matchingStylesMap.get(propertyString);

@@ -33,7 +33,7 @@
 
   <groupId>org.apache.myfaces.trinidad</groupId>
   <artifactId>trinidad</artifactId>
-  <version>1.2.12.7.0-SNAPSHOT</version>
+  <version>1.2.12.6.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -341,12 +341,6 @@
   <build>
     <pluginManagement>
       <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-release-plugin</artifactId>
-          <version>2.2.2</version>
-        </plugin>
-
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
           <inherited>true</inherited>

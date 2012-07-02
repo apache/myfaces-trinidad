@@ -33,10 +33,8 @@ import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.event.SortEvent;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.ModelUtils;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-import org.apache.myfaces.trinidad.model.SortStrength;
 import org.apache.myfaces.trinidad.model.TreeModel;
 
 /**
@@ -288,60 +286,6 @@ public final class TableUtils
   }
   
   /**
-   * Retrieves the sort strength for the column with the given sort property from the given table.
-   * @param parent the Collection object whose columns are searched for matching sortProperty and retrieving
-   * sort strength from.
-   * @param sortProperty sort property value to match against column's sortProperty property.
-   * @return sort strength for the column with the given sort property from the given table.
-   */
-  public static SortStrength findSortStrength(UIXCollection parent, String sortProperty)
-  {
-    SortStrength sortStrength = null;
-
-    if (sortProperty == null || sortProperty.isEmpty())
-      return null;
-
-    List<UIComponent> children = parent.getChildren();
-    for (UIComponent child : children)
-    {
-      if (child instanceof UIXColumn)
-      {
-        UIXColumn targetColumn = (UIXColumn)child;
-        if (sortProperty.equals(targetColumn.getSortProperty()))
-        {
-          String strength = targetColumn.getSortStrength();
-          sortStrength = _toSortStrength(strength);
-          break;
-        }
-      }
-    }
-
-    return sortStrength;
-  }
-
-  /**
-   * Convert the string value of sort strength to the SortStrength type.
-   */
-  private static SortStrength _toSortStrength(String strength)
-  {
-    SortStrength sortStrength = null;
-
-    if (strength != null && !strength.isEmpty())
-    {
-      try
-      {
-        sortStrength = SortStrength.valueOf(strength.toUpperCase());
-      }
-      catch (IllegalArgumentException iae)
-      {
-         _LOG.warning("INVALID_SORT_STRENGTH_PROPERTY", strength);
-      }
-    }
-
-    return sortStrength;
-  }
-
-  /**
    * Process all the children of the given table
    */
   @SuppressWarnings("unchecked")
@@ -430,6 +374,4 @@ public final class TableUtils
   private TableUtils()
   {
   }
-
-  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TableUtils.class);
 }

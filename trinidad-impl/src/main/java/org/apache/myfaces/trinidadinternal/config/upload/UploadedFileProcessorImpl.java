@@ -78,12 +78,12 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
         }
         catch (NumberFormatException nfe)
         {
-          _maxMemory = DEFAULT_MAX_MEMORY;
+          _maxMemory = _DEFAULT_MAX_MEMORY;
         }
       }
       else
       {
-        _maxMemory = DEFAULT_MAX_MEMORY;
+        _maxMemory = _DEFAULT_MAX_MEMORY;
       }
     }
 
@@ -98,12 +98,12 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
         }
         catch (NumberFormatException nfe)
         {
-          _maxDiskSpace = DEFAULT_MAX_DISK_SPACE;
+          _maxDiskSpace = _DEFAULT_MAX_DISK_SPACE;
         }
       }
       else
       {
-        _maxDiskSpace = DEFAULT_MAX_DISK_SPACE;
+        _maxDiskSpace = _DEFAULT_MAX_DISK_SPACE;
       }
     }
 
@@ -118,26 +118,6 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
           info.attributes.get("javax.servlet.context.tempdir");
         if (tempDirFile != null)
           _tempDir = tempDirFile.getAbsolutePath();
-      }
-    }
-    
-    if (_maxFileSize == -1)
-    {
-      String maxFileSize = info.initParams.get(MAX_FILE_SIZE_PARAM_NAME);
-      if (maxFileSize != null)
-      {
-        try
-        {
-          _maxFileSize = Long.parseLong(maxFileSize);
-        }
-        catch (NumberFormatException nfe)
-        {
-          _maxFileSize = DEFAULT_MAX_FILE_SIZE;
-        }
-      }
-      else
-      {
-        _maxFileSize = DEFAULT_MAX_FILE_SIZE;
       }
     }
   }
@@ -173,12 +153,7 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     
     if(contentLength>_maxDiskSpace)
     {
-      return new ErrorFile(tempFile.getFilename(), _LOG.getMessage("UPLOADED_FILE_LARGE"));
-    }
-    // If the file is too large throw error
-    if(_maxFileSize > 0 && contentLength>_maxFileSize)
-    {
-      return new ErrorFile(tempFile.getFilename(), _LOG.getMessage("UPLOADED_FILE_LARGE"));
+      return new ErrorFile(_LOG.getMessage("UPLOADED_FILE_LARGE"));
     }
     // Process one new file, loading only as much as can fit
     // in the remaining memory and disk space.
@@ -193,7 +168,7 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     catch(IOException ioe)
     {
       _LOG.severe(ioe);
-      return new ErrorFile(tempFile.getFilename(), ioe.getLocalizedMessage());
+      return new ErrorFile(ioe.getLocalizedMessage());
     }
 
     // Keep a tally of how much we've stored in memory and on disk.
@@ -323,8 +298,10 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
 
   private long   _maxMemory = -1;
   private long   _maxDiskSpace = -1;
-  private long   _maxFileSize = -1;
   private String _tempDir = null;
+
+  private static final long _DEFAULT_MAX_MEMORY = 102400;
+  private static final long _DEFAULT_MAX_DISK_SPACE = 2048000;
 
   private static final String _REQUEST_INFO_KEY = UploadedFileProcessorImpl.class.getName()+
     ".UploadedFilesInfo";

@@ -18,12 +18,7 @@
  */
 package org.apache.myfaces.trinidad.component;
 
-import java.util.Collections;
-import java.util.Iterator;
-
 import javax.el.MethodExpression;
-
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
@@ -31,8 +26,8 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.event.DisclosureEvent;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Base class for ShowDetail component.
@@ -46,12 +41,38 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
 /**/  abstract public boolean isImmediate();
 /**/  abstract public MethodExpression getDisclosureListener();
 /**/  abstract public boolean isDisclosedTransient();
-/**/  abstract public void setDisclosureListener(MethodExpression expression);
 
   @Deprecated
   public void setDisclosureListener(MethodBinding binding)
   {
     setDisclosureListener(adaptMethodBinding(binding));
+  }
+
+  @Override
+  public void processDecodes(FacesContext context)
+  {
+    // If we're not disclosed, only process ourselves
+    if (!isDisclosed())
+    {
+      if (isRendered())
+        decode(context);
+    }
+    else
+      super.processDecodes(context);
+  }
+
+  @Override
+  public void processValidators(FacesContext context)
+  {
+    if (isDisclosed())
+      super.processValidators(context);
+  }
+
+  @Override
+  public void processUpdates(FacesContext context)
+  {
+    if (isDisclosed())
+      super.processUpdates(context);
   }
 
   @Override
@@ -110,18 +131,6 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
     }
 
     super.queueEvent(e);
-  }
-
-  protected Iterator<UIComponent> getRenderedFacetsAndChildren(FacesContext facesContext)
-  {
-    if (isDisclosed())
-    {
-      return super.getRenderedFacetsAndChildren(facesContext);
-    }
-    else
-    {
-      return Collections.<UIComponent>emptyList().iterator();
-    }
   }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXShowDetail.class);
