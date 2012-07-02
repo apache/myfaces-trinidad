@@ -21,7 +21,7 @@
 //  _df2DYS: Sets the two-digit year start.
 
 var _AD_ERA = null;
-
+var _THAI_BUDDHIST_YEAR_OFFSET = 543;
 
 function _getADEra()
 {
@@ -354,7 +354,7 @@ function _subformat(
         
         // Trinidad-2013: Thai Buddhist Calendar is offset by 543 years
         if (locale == "th_TH")
-          year += 543;
+          year += _THAI_BUDDHIST_YEAR_OFFSET;
         
         // truncate 2 and 1 digit years to that number of digits
         var maxDigits = (charCount <= 2)
@@ -728,7 +728,7 @@ function _subparse(
           }
           else if ((charCount <= 2) && (year >= 0) && (year <= 100))
           {
-            year = _fix2DYear(year);
+            year = _fix2DYear(year, locale);
           }
           else if (charCount == 4)
           {
@@ -746,7 +746,7 @@ function _subparse(
             
           // Trinidad-2013: Thai Buddhist Calendar is offset by 543 years
           if (locale == "th_TH")
-            year -= 543;
+            year -= _THAI_BUDDHIST_YEAR_OFFSET;
             
           parseContext.parsedFullYear = year;
         }
@@ -850,8 +850,9 @@ function _subparse(
 
 /**
  * Fix two-digit years.
+ * 
  */
-function _fix2DYear(year)
+function _fix2DYear(year, locale)
 {
   var defaultCentury;
 
@@ -863,6 +864,12 @@ function _fix2DYear(year)
     // year             1951  1901
     // year             1951  2001
     var offsetYear = _df2DYS;
+    
+    // Trinidad-2224: _fix2DYear should take into account the Thai Buddhist calendar.
+    // Here, two-digit-year-start is specified as a Gregorian year, so if the
+    // locale is Thai Buddhist, it needs to be translated into the Thai equivalent
+    if (locale == "th_TH")
+      offsetYear += _THAI_BUDDHIST_YEAR_OFFSET;
     defaultCentury = offsetYear - (offsetYear % 100);
 
     year += defaultCentury;
@@ -872,7 +879,13 @@ function _fix2DYear(year)
   else
   {
     var currentYear = new Date().getFullYear();
+
+    // Trinidad-2224: _fix2DYear should take into account the Thai Buddhist calendar. 
+    // Here, currentYear is a Gregorian Year, so it needs to be translated into the Thai equivalent
+    if (locale == "th_TH")
+      currentYear += _THAI_BUDDHIST_YEAR_OFFSET;
     defaultCentury = currentYear - (currentYear % 100) - 100;
+
 
     year += defaultCentury;
  
@@ -885,25 +898,42 @@ function _fix2DYear(year)
     }
   }
 
+
   return year;
 }
 
 
 /**
  * Match the current text against an array of possibilities, returning
- * the index of the succesful match, or undefined if no match succeeded.
+ * the index of the longest succesful match, or undefined if no match succeeded.
  */
 function _matchArray(
   parseContext,
   matchArray
   )
 {
+  var longestMatchLength = 0;
+  var longestMatchIndex = -1;
   for (var i = 0; i < matchArray.length; i++)
   {
-    if (_matchText(parseContext, matchArray[i]))
+    if (_matchText(parseContext, matchArray[i], false))
     {
-      return i;
-    }
+      // TRINIDAD-2269: In some locales, the matchArray contains strings which are substrings of later entries
+      // When the parseContext's string is actually the longer string, returning for the first match is incorrect and
+      // we should instead keep walking the array for the full match. 
+      if (matchArray[i].length > longestMatchLength)
+      {
+        longestMatchIndex  = i;
+        longestMatchLength = matchArray[i].length;
+      }
+    }//end-if _matchText succeeds
+  }// end-for all matchArray
+  
+  if (longestMatchIndex != -1)
+  {
+    // update the parse context manually
+    parseContext.currIndex += longestMatchLength;
+    return longestMatchIndex; 
   }
   
   // no match
@@ -918,9 +948,11 @@ function _matchArray(
  */
 function _matchText(
   parseContext,
-  text
+  text,
+  updateParseContext
   )
 {
+  
   // if no text to match then match will fail
   if (!text)
     return false;
@@ -952,7 +984,11 @@ function _matchText(
     return false;
     
   // update the current parseContext
-  parseContext.currIndex += textLength;
+  // TRINIDAD-2269: When called from _matchArray, _matchText may return prematurely (when the current string is
+  // a substring of the string to match). Thus we have to scan the whole array against the original parseContext
+  // before declaring a match, at which point _matchArray will update parseContext manually. 
+  if (updateParseContext != false)
+    parseContext.currIndex += textLength;
   
   return true;
 }

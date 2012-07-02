@@ -35,6 +35,8 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.util.Service;
+import org.apache.myfaces.trinidadinternal.util.FrameBustingUtils;
+import org.apache.myfaces.trinidadinternal.util.FrameBustingUtils.FrameBustingParamValue;
 
 
 /**
@@ -129,6 +131,10 @@ public class BodyRenderer extends PanelPartialRootRenderer
 
     if (supportsScripting(arc))
     {
+      // this sets display:none on body and removes it with javascript. If no javascript is supported,
+      // no need to render the script. (it breaks emailable page mode because display:none is never cleared) 
+      _renderFrameBustingScript(context, arc); 
+      
       _renderNoScript(context, arc);
       _storeInitialFocus(arc, bean);
     }
@@ -537,6 +543,47 @@ public class BodyRenderer extends PanelPartialRootRenderer
     return "(" + versionInfo + apiSpecTitle  + " - " + apiVersion  + "/"
                              + implSpecTitle + " - " + implVersion + ")";
   }
+  
+  private void _renderFrameBustingScript(
+    FacesContext     context,
+    RenderingContext rc
+  ) throws IOException
+  {    
+    // get the framebusting param set in web.xml
+    FrameBustingParamValue frameBusting = FrameBustingUtils.getFrameBustingValue(context, RequestContext.getCurrentInstance());
+    
+    if (! FrameBustingParamValue.FRAME_BUSTING_NEVER.equals(frameBusting))
+    {
+      ResponseWriter out = context.getResponseWriter();
+
+      // Add a style to hide the body tag, if the framebusting code runs and decides it does not
+      // need to bust frames then it will remove the style dom node, which will make the content
+      // visible.
+      //
+      // We are using a style element instead of setting a style/class directly on the
+      // body tag because if we ever added a splash screen it would not show.
+      // We are setting an id on the style so that it can be removed on the client,
+      // which will make the content visible.
+      //
+      // We had previously tried to use javascript to add display:block to the
+      // style attribute of the body tag, but the style attribute of the body tag can get removed,
+      // for example when you do ppr nav or you ppr the document. Therefore we are now
+      // removing the style element on the client.
+      //
+      out.startElement("style", null);
+      // an id cannot start with an underscore
+      out.writeAttribute("id", "trinFrameBustStyle", null);
+      out.writeText("body {display:none}", null);
+      out.endElement("style");
+
+      out.startElement("script", null);
+      XhtmlRenderer.renderScriptTypeAttribute(context, rc);
+      out.writeText("TrPage.__frameBusting(\"", null);
+      out.writeText(frameBusting, null);
+      out.writeText("\");", null);
+      out.endElement("script");
+    }
+  }  
 
   private PropertyKey _firstClickPassedKey;
   private PropertyKey _initialFocusIdKey;

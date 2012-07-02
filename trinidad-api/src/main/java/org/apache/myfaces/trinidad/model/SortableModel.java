@@ -18,10 +18,13 @@
  */
 package org.apache.myfaces.trinidad.model;
 
+import java.text.Collator;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
@@ -34,6 +37,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.DataModelListener;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
@@ -234,8 +238,9 @@ public class SortableModel extends CollectionModel
       SortCriterion sc = criteria.get(0);
       if ((_sortCriterion == null) || (!_sortCriterion.equals(sc)))
       {
+        // cache the latest sort criterion and do the sorting.
         _sortCriterion = sc;
-        _sort(_sortCriterion.getProperty(), _sortCriterion.isAscending());
+        _sort(_sortCriterion);
       }
     }
   }
@@ -248,24 +253,13 @@ public class SortableModel extends CollectionModel
 
   /**
    * Sorts the underlying collection by the given property, in the
-   * given direction.
-   * @param property The name of the property to sort by. The value of this
-   * property must implement java.lang.Comparable.
-   * @param isAscending true if the collection is to be sorted in
-   * ascending order.
+   * given direction, with the given strength.
+   * @param sortCriterion sort criterion controlling sort behavior.
    * @todo support -1 for rowCount
    */
-  private void _sort(String property, boolean isAscending)
+  private void _sort(SortCriterion sortCriterion)
   {
-//    if (property.equals(_sortBy) && (isAscending == _sortOrder))
-//    {
-//      return;
-//    }
-//
-//    _sortBy = property;
-//    _sortOrder = isAscending;
-
-      //TODO: support -1 for rowCount:
+    //TODO: support -1 for rowCount:
     int sz = getRowCount();
     if ((_baseIndicesList == null) || (_baseIndicesList.size() != sz))
     {
@@ -288,8 +282,10 @@ public class SortableModel extends CollectionModel
       ELResolver resolver = _getELResolver(context);
       ELContext elContext = _getELContext(context, resolver);
       Comparator<Integer> comp =
-        new Comp(resolver, elContext, property);
-      if (!isAscending)
+        new Comp(resolver, elContext, sortCriterion.getProperty(),
+                 sortCriterion.getSortStrength());
+
+      if (!sortCriterion.isAscending())
         comp = new Inverter<Integer>(comp);
 
       Collections.sort(_baseIndicesList, comp);
@@ -371,15 +367,22 @@ public class SortableModel extends CollectionModel
 
   private final class Comp implements Comparator<Integer>
   {
-    public Comp(ELResolver resolver, ELContext context, String property)
+    public Comp(
+      ELResolver   resolver,
+      ELContext    context,
+      String       property,
+      SortStrength sortStrength)
     {
       _resolver = resolver;
       _context  = context;
       _prop = property;
+      _strength = sortStrength;
     }
 
     @SuppressWarnings("unchecked")
-    public int compare(Integer o1, Integer o2)
+    public int compare(
+      Integer o1,
+      Integer o2)
     {
       int index1 = o1.intValue();
       int index2 = o2.intValue();
@@ -398,25 +401,36 @@ public class SortableModel extends CollectionModel
       if (value2 == null)
         return 1;
 
-      // bug 4545164. Sometimes, isSortable returns true
-      // even if the underlying object is not a Comparable.
-      // This happens if the object at rowIndex zero is null.
-      // So test before we cast:
-      if (value1 instanceof Comparable)
+      if (_strength == null)
       {
-        return ((Comparable<Object>) value1).compareTo(value2);
+        // bug 4545164. Sometimes, isSortable returns true
+        // even if the underlying object is not a Comparable.
+        // This happens if the object at rowIndex zero is null.
+        // So test before we cast:
+        if (value1 instanceof Comparable)
+        {
+          return ((Comparable<Object>) value1).compareTo(value2);
+        }
+        else
+        {
+          // if the object is not a Comparable, then
+          // the best we can do is string comparison:
+          return value1.toString().compareTo(value2.toString());
+        }
       }
       else
       {
-        // if the object is not a Comparable, then
-        // the best we can do is string comparison:
-        return value1.toString().compareTo(value2.toString());
+        Locale locale = _getLocale();
+        Collator collator = locale == null ? Collator.getInstance() : Collator.getInstance(locale);
+        collator.setStrength(_strength.getStrength());
+        return collator.compare(value1.toString(), value2.toString());
       }
     }
 
     private final ELResolver _resolver;
     private final ELContext  _context;
     private final String _prop;
+    private final SortStrength _strength;
   }
 
   private static final class Inverter<T> implements Comparator<T>
@@ -502,6 +516,19 @@ public class SortableModel extends CollectionModel
       FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
     return factory.getApplication().getELResolver();
     
+  }
+
+  static private Locale _getLocale()
+  {
+    RequestContext rc = RequestContext.getCurrentInstance();
+    if (rc != null)
+      return rc.getFormattingLocale();
+
+    FacesContext context = FacesContext.getCurrentInstance();
+    if (context != null)
+      return context.getViewRoot().getLocale();
+
+    return null;
   }
 
   private SortCriterion _sortCriterion = null;

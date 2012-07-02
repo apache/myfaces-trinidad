@@ -166,7 +166,7 @@ public class AccessibilityProfile
 
   //Serialization for SerializableAccessibilityProfile internal subclass requires no-arg constructor
   //access of at least package security level.
-  private AccessibilityProfile()
+  AccessibilityProfile()
   {
     this(ColorContrast.STANDARD, FontSize.MEDIUM);
   }

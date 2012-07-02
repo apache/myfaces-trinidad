@@ -18,23 +18,27 @@
  */
 package org.apache.myfaces.trinidadinternal.config.upload;
 
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
 import javax.portlet.PortletRequest;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.myfaces.trinidad.model.UploadedFile;
-
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
+
 
 /**
  * UploadedFiles defines the set of files that have been uploaded
@@ -52,16 +56,40 @@ final public class UploadedFiles
   {
     return getUploadedFiles(context.getExternalContext());
   }
-
+  
   /**
    * Returns the map of uploaded files for the current request.
    */
   @SuppressWarnings("unchecked")
   static public UploadedFiles getUploadedFiles(ExternalContext context)
   {
-    Map<String, Object> requestMap =
-      context.getRequestMap();
+    Map<String, Object> requestMap = context.getRequestMap();
     return (UploadedFiles) requestMap.get(_UPLOADED_FILES_KEY);
+  }
+  
+  /**
+   * Returns the map of uploaded files for the current request.
+   */
+  @SuppressWarnings("unchecked")
+  static public UploadedFiles getSessionUploadedFiles(FacesContext context)
+  {
+    return getSessionUploadedFiles(context.getExternalContext());
+  }
+  
+  /**
+   * Returns the map of uploaded files for the current session.
+   */
+  @SuppressWarnings("unchecked")
+  static public UploadedFiles getSessionUploadedFiles(ExternalContext context)
+  {
+    Map<String, Object> sessionMap = context.getSessionMap();
+    UploadedFiles files = (UploadedFiles) sessionMap.get(_UPLOADED_FILES_KEY);
+    if (files == null)
+    {
+      files = new UploadedFiles();
+      sessionMap.put(_UPLOADED_FILES_KEY, files);
+    }
+    return files;
   }
 
   /**
@@ -71,8 +99,7 @@ final public class UploadedFiles
     ExternalContext externalContext,
     String         encoding)
   {
-    UploadedFiles files = (UploadedFiles)
-      externalContext.getRequestMap().get(_UPLOADED_FILES_KEY);
+    UploadedFiles files = getUploadedFiles(externalContext);
     _setCharacterEncoding(files, encoding);
   }
 
@@ -93,7 +120,7 @@ final public class UploadedFiles
       req.getAttribute(_UPLOADED_FILES_KEY);
     _setCharacterEncoding(files, encoding);
   }
-
+  
   static private void _setCharacterEncoding(UploadedFiles files, String encoding)
   {
     if(files != null)
@@ -109,13 +136,63 @@ final public class UploadedFiles
    */
   public UploadedFile getUploadedFile(String name)
   {
-    UploadedFile file = _map.get(name);
-    if (file == null)
+    List<UploadedFile> files = getUploadedFileList(name);
+    if (files == null || files.isEmpty())
       return null;
 
-    return new FixFilename(file, _characterEncoding);
+    for (UploadedFile file : files)
+    {
+      if (file != null)
+      {
+        return file;
+      }
+    }
+    
+    return null;
   }
 
+  /**
+   * Returns a list of uploaded files.
+   * @param name the name under which the files are stored.  In HTML forms,
+   *   this will be derived from the "name" set on the &lt;input&gt; tag.
+   */
+  public List<UploadedFile> getUploadedFileList(String name)
+  {
+    List<UploadedFile> files = _map.get(name);
+    if (files == null || files.isEmpty())
+      return null;
+    
+    return files;
+  }
+
+  /**
+   * Retrieves files uploaded during a multiple file upload and copies those
+   * files to the requestMap so they get processed and cleaned up as usual
+   * @param name the name under which the files are stored.  In HTML forms,
+   *   this will be derived from the "name" set on the &lt;input&gt; tag.
+   */
+  public static void retrieveSessionUploadedFiles(ExternalContext context, String name)
+  {
+    UploadedFiles sessionFiles = (UploadedFiles) context.getSessionMap().get(_UPLOADED_FILES_KEY);
+    if (sessionFiles != null)
+    {
+      List<UploadedFile> sessionFileList = sessionFiles.getUploadedFileList(name);
+      if (sessionFileList != null && !sessionFileList.isEmpty())
+      {
+        UploadedFiles requestFiles = (UploadedFiles) context.getRequestMap().get(_UPLOADED_FILES_KEY);
+        if (requestFiles == null)
+        {
+          requestFiles = new UploadedFiles(context);
+        }
+        for (UploadedFile sessionFile: sessionFileList)
+        {
+          requestFiles.__put(name, sessionFile);
+        }
+        // clear it in the sessionMap
+        sessionFiles.getUploadedFileMap().remove(name);
+      }
+    }
+  }
 
   /**
    * Returns an Iterator of the names of all uploaded files.
@@ -123,6 +200,14 @@ final public class UploadedFiles
   public Iterator<String> getUploadedNames()
   {
     return _map.keySet().iterator();
+  }
+  
+  /**
+   * Returns an Map of all of the uploaded files and names
+   */
+  public Map<String, List<UploadedFile>> getUploadedFileMap()
+  {
+    return _map;
   }
 
   /**
@@ -132,12 +217,21 @@ final public class UploadedFiles
    * processing files, this will free up resources earlier.
    */
   public void dispose()
-  {
-    Iterator<UploadedFile> iterator = _map.values().iterator();
+  {    
+    Iterator<List<UploadedFile>> iterator = _map.values().iterator();
     while (iterator.hasNext())
     {
-      UploadedFile file = iterator.next();
-      file.dispose();
+      List<UploadedFile> files = iterator.next();
+      if (files != null)
+      {
+        for (UploadedFile file: files)
+        {
+          if (file != null)
+          {
+            file.dispose();
+          }
+        }
+      }
     }
 
     _map.clear();
@@ -145,25 +239,38 @@ final public class UploadedFiles
     _totalMemory    = 0;
     _totalDiskSpace = 0;
   }
-
+  
   /**
    * Creates an UploadedFiles.
    */
   @SuppressWarnings("unchecked")
   UploadedFiles(ExternalContext externalContext)
   {
+    _map = new HashMap<String, List<UploadedFile>>();
     externalContext.getRequestMap().put(_UPLOADED_FILES_KEY, this);
-    _map = new HashMap<String, UploadedFile>();
   }
-
+  
+  /**
+   * Creates an UploadedFiles.
+   */
+  UploadedFiles()
+  {
+    _map = new HashMap<String, List<UploadedFile>>();
+  }
+  
   /**
    * Store a single UploadedFile.
    */
   void __put(String name, UploadedFile file)
   {
-    _map.put(name, file);
+    List<UploadedFile> files = _map.get(name);
+    if (files == null)
+    {
+      files = new ArrayList<UploadedFile>();
+    }
+    files.add(new FixFilename(file, _characterEncoding));
+    _map.put(name, files);
   }
-
 
   /**
    * Return the tally of total memory used.
@@ -182,12 +289,10 @@ final public class UploadedFiles
     return _totalDiskSpace;
   }
 
-
-
   private long   _totalMemory;
   private long   _totalDiskSpace;
   private String _characterEncoding;
-  private final Map<String, UploadedFile> _map;
+  private final Map<String, List<UploadedFile>> _map;
 
   private static final String _UPLOADED_FILES_KEY =
     "org.apache.myfaces.trinidadinternal.webapp.UploadedFiles";

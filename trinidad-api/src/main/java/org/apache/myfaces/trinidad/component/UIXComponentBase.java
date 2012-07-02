@@ -25,6 +25,7 @@ import java.io.ObjectOutputStream;
 
 import java.net.URL;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -56,14 +57,19 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
 import org.apache.myfaces.trinidad.bean.util.ValueMap;
 import org.apache.myfaces.trinidad.change.AttributeComponentChange;
+import org.apache.myfaces.trinidad.change.ComponentChange;
+import org.apache.myfaces.trinidad.change.ComponentChangeFilter;
 import org.apache.myfaces.trinidad.change.RowKeySetAttributeChange;
+import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
+import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.render.ExtendedRenderer;
 import org.apache.myfaces.trinidad.render.LifecycleRenderer;
+import org.apache.myfaces.trinidad.util.CollectionUtils;
 import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 
 
@@ -121,6 +127,8 @@ abstract public class UIXComponentBase extends UIXComponent
     TYPE.registerKey("listeners", FacesListener[].class, PropertyKey.CAP_LIST);
   static private final PropertyKey _ATTRIBUTE_CHANGE_LISTENER_KEY =
     TYPE.registerKey("attributeChangeListener", MethodExpression.class);
+  static private final PropertyKey _COMPONENT_CHANGE_FILTERS_KEY =
+    TYPE.registerKey("componentChangeFilters", ComponentChangeFilter[].class, PropertyKey.CAP_LIST);
   // =-=AEW "parent", "rendersChildren", "childCount", "children",
   // "facets", "facetsAndChildren", "family" all are technically
   // bean properties, but they aren't exposed here...
@@ -303,6 +311,71 @@ abstract public class UIXComponentBase extends UIXComponent
       _init(null);
 
     return _attributes;
+  }
+
+  /**
+   * Adds a change for a Component, or the Component's subtree, returning the change actually added,
+   * or <code>null</code>, if no change was added.  The proposed change may be rejected by the
+   * component itself, one of its ancestors, or the ChangeManager implementation.
+   * @param change     The change to add for this component
+   * @return The ComponentChange actually added, or
+   * <code>null</code> if no change was added.
+   * @see #addComponentChange(UIComponent, ComponentChange)
+   */
+  public final ComponentChange addComponentChange(ComponentChange change)
+  {
+    return addComponentChange(this, change);
+  }
+  
+  /**
+   * Add a component change filter to this component.
+   * When <code>addComponentChange(ComponentChange)</code> method on this component is called, the ComponentChange will
+   * be added only if it is accepted by all the component change filters attached to this component as well as those
+   * attached to all its ancestors. 
+   * @param componentChangeFilter The ComponentChangeFilter instance to add to this component
+   * @see #addComponentChange(ComponentChange)
+   */
+  public final void addComponentChangeFilter(ComponentChangeFilter componentChangeFilter)
+  {
+    if (componentChangeFilter == null)
+      throw new NullPointerException();
+    
+    getFacesBean().addEntry(_COMPONENT_CHANGE_FILTERS_KEY, componentChangeFilter);
+  }
+  
+  /**
+   * Remove a component change filter to this component.
+   * @param componentChangeFilter The ComponentChangeFilter instance to remove from this component
+   * @see #addComponentChangeFilter(ComponentChangeFilter)
+   */
+  public final void removeComponentChangeFilter(ComponentChangeFilter componentChangeFilter)
+  {
+    if (componentChangeFilter == null)
+      throw new NullPointerException();
+    
+    getFacesBean().removeEntry(_COMPONENT_CHANGE_FILTERS_KEY, componentChangeFilter);
+  }
+  
+  /**
+  * Returns all the ComponentChangeFilters that are registered with this component.
+  *
+  * @return An array of registered ComponentChangeFilters
+  */
+  public final ComponentChangeFilter[] getComponentChangeFilters()
+  {
+    Iterator<ComponentChangeFilter> filterIter = 
+      (Iterator<ComponentChangeFilter>)getFacesBean().entries(_COMPONENT_CHANGE_FILTERS_KEY);
+    
+    ArrayList<ComponentChangeFilter> filterList = CollectionUtils.arrayList(filterIter);
+    return filterList.toArray(new ComponentChangeFilter[filterList.size()]);
+  }
+
+  @Override
+  protected Iterator<UIComponent> getRenderedFacetsAndChildren(
+    FacesContext facesContext)
+  {
+    _cacheRenderer(facesContext);
+    return super.getRenderedFacetsAndChildren(facesContext);
   }
 
   // ------------------------------------------------------------- Properties
@@ -979,7 +1052,7 @@ abstract public class UIXComponentBase extends UIXComponent
    */
   protected void decodeChildrenImpl(FacesContext context)
   {
-    Iterator<UIComponent> kids = getFacetsAndChildren();
+    Iterator<UIComponent> kids = getRenderedFacetsAndChildren(context);
     while (kids.hasNext())
     {
       UIComponent kid = kids.next();
@@ -1015,7 +1088,7 @@ abstract public class UIXComponentBase extends UIXComponent
   protected void validateChildrenImpl(FacesContext context)
   {
     // Process all the facets and children of this component
-    Iterator<UIComponent> kids = getFacetsAndChildren();
+    Iterator<UIComponent> kids = getRenderedFacetsAndChildren(context);
     while (kids.hasNext())
     {
       UIComponent kid = kids.next();
@@ -1046,7 +1119,7 @@ abstract public class UIXComponentBase extends UIXComponent
   protected void updateChildrenImpl(FacesContext context)
   {
     // Process all the facets and children of this component
-    Iterator<UIComponent> kids = getFacetsAndChildren();
+    Iterator<UIComponent> kids = getRenderedFacetsAndChildren(context);
     while (kids.hasNext())
     {
       UIComponent kid = kids.next();
@@ -1085,27 +1158,113 @@ abstract public class UIXComponentBase extends UIXComponent
        getFacesBean().getEntries(_LISTENERS_KEY, clazz);
   }
 
+  /**
+   * Checks if any of the ComponentChangeFilter instances that is attached to this component rejects the supplied
+   * change for the supplied component.
+   */
+  private boolean _isAnyFilterRejectingChange(UIComponent uic, ComponentChange cc)
+  {
+    // assume we accept the change
+    boolean rejectsChange = false;
+    
+    Iterator<ComponentChangeFilter> iter =
+      (Iterator<ComponentChangeFilter>)getFacesBean().entries(_COMPONENT_CHANGE_FILTERS_KEY);
+
+    while (iter.hasNext())
+    {
+      ComponentChangeFilter currentFilter = iter.next();
+      if (currentFilter.accept(cc, uic) == ComponentChangeFilter.Result.REJECT)
+      {
+        // one of the filter rejected the change, look no further
+        rejectsChange = true;
+        break;
+      }
+    }
+    
+    return rejectsChange;
+  }
+  
+  private UIXComponentBase _getNextUIXComponentBaseAnxcestor()
+  {
+    UIComponent parent = getParent();
+
+    while (parent != null)
+    {    
+      if (parent instanceof UIXComponentBase)
+      {
+        return (UIXComponentBase)parent;
+      }
+      
+      parent = parent.getParent();
+    }
+    
+    return null;
+  }
+
+  /**
+   * Called when adding a change to a Component, or the Component's subtree.
+   * The default implementation delegates the call to the parent, if possible, otherwise
+   * it adds the change to the ChangeManager directly.
+   * Subclasses can override this method to among other things, filter or transform the changes.
+   * @param component  The component that the change is for
+   * @param change     The change to add for this component
+   * @return The ComponentChange actually added, or
+   * <code>null</code> if no change was added.
+   * @see #addComponentChange(ComponentChange)
+   * @see #addAttributeChange
+   */
+  protected ComponentChange addComponentChange(UIComponent component, ComponentChange change)
+  {
+    // check moved from addAttributeChange(), as this is more central
+    if ((component == this) && (change instanceof AttributeComponentChange))
+    {
+      AttributeComponentChange aa             = (AttributeComponentChange)change;
+      Object                   attributeValue = aa.getAttributeValue();
+      
+      if (attributeValue instanceof RowKeySet)
+      {
+        change = new RowKeySetAttributeChange(getClientId(getFacesContext()),
+                                              aa.getAttributeName(),
+                                              attributeValue);
+      }
+    }
+    
+    // add the change unless we have a change filter that is attached to this component wants to supress the change
+    if (!_isAnyFilterRejectingChange(component, change))
+    {
+      UIXComponentBase nextUIXParent = _getNextUIXComponentBaseAnxcestor();
+  
+      if (nextUIXParent != null)
+      {
+        return nextUIXParent.addComponentChange(component, change);
+      }
+      else
+      {
+        RequestContext trinContext = RequestContext.getCurrentInstance();
+        trinContext.getChangeManager().addComponentChange(getFacesContext(), component, change);
+        return change;
+      }
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  /**
+   * Convenience function for
+   * <code>addComponentChange(new AttributeComponentChange(attributeName, attributeValue));</code>
+   * This function is not <code>final</code> for backwards compatibility reasons, however,
+   * existing subclassers whould override <code>addComponentChange</code> instead.
+   * @param attributeName
+   * @param attributeValue
+   * @see #addComponentChange(UIComponent, ComponentChange)
+   */
   protected void addAttributeChange(
     String attributeName,
     Object attributeValue)
   {
-    AttributeComponentChange aa;
-    
-    FacesContext context = getFacesContext();
-    
-    if (attributeValue instanceof RowKeySet)
-    {
-      aa = new RowKeySetAttributeChange(getClientId(context),
-                                        attributeName,
-                                        attributeValue);
-    }
-    else
-    {
-      aa = new AttributeComponentChange(attributeName, attributeValue);
-    }
-    
-    RequestContext adfContext = RequestContext.getCurrentInstance();
-    adfContext.getChangeManager().addComponentChange(context, this, aa);
+    addComponentChange(new AttributeComponentChange(attributeName, attributeValue));
   }
 
   void __rendererDecode(FacesContext context)

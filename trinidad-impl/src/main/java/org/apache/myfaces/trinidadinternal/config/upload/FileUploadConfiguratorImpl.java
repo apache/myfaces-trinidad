@@ -19,12 +19,21 @@
 
 package org.apache.myfaces.trinidadinternal.config.upload;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.io.SequenceInputStream;
+
 import java.lang.reflect.Proxy;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
@@ -121,7 +130,7 @@ public class FileUploadConfiguratorImpl extends Configurator
 
         final HashMap<String, String[]> parameters = new HashMap<String, String[]>();
         MultipartFormItem item;
-        final UploadedFiles files = new UploadedFiles(externalContext);
+        UploadedFiles files = new UploadedFiles(externalContext);
         while ((item = mfh.getNextPart()) != null)
         {
           final String name = item.getName();
@@ -144,10 +153,72 @@ public class FileUploadConfiguratorImpl extends Configurator
               parameters.put(name, newArray);
             }
           }
-          // Upload a file
           else if (item.getFilename().length() > 0)
           {
+            // Upload a file
             _doUploadFile(RequestContext.getCurrentInstance(), externalContext, files, item);
+          }
+        }
+        if (parameters.containsKey(_MULTIPLE_UPLOAD_PARAM))
+        {
+          String uploadType = parameters.get(_MULTIPLE_UPLOAD_PARAM)[0];
+          if (uploadType != null)
+          {
+            UploadedFiles sessionFiles = UploadedFiles.getSessionUploadedFiles(externalContext);
+            if (uploadType.equals("multipleAdd"))
+            {
+              Map<String, List<UploadedFile>> uploadedMapFile = files.getUploadedFileMap();
+              Iterator iterator = uploadedMapFile.keySet().iterator();
+              while (iterator.hasNext())
+              {
+                String name = (String) iterator.next();
+                List<UploadedFile> fileList = uploadedMapFile.get(name);
+                for (UploadedFile file: fileList)
+                {
+                  sessionFiles.__put(name, file);
+                }
+              }
+              uploadedMapFile.clear();
+            }
+            else if (uploadType.equals("multipleDelete"))
+            {
+              String itemName = parameters.get("itemName")[0];
+              String fileName = parameters.get("fileName")[0];
+              List<UploadedFile> uploadedFiles = sessionFiles.getUploadedFileList(itemName);
+              if (uploadedFiles != null)
+              {
+                for (UploadedFile uploadedFile: uploadedFiles)
+                {
+                  if (uploadedFile.getFilename().equals(fileName))
+                  {
+                    uploadedFiles.remove(uploadedFile);
+                    break;
+                  }
+                }
+              }
+            }
+            else if (uploadType.equals("multipleAddChunk"))
+            {
+              String itemName = parameters.get("itemName")[0];
+              String fileName = externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_FILENAME_PARAM);
+              Long chunkNum = Long.parseLong(externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_NUM_PARAM));
+              Long chunkCount = Long.parseLong(externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_COUNT_PARAM));
+              UploadedFile file = files.getUploadedFile(itemName);
+              List<UploadedFile> chunkList = (List<UploadedFile>) externalContext.getSessionMap().get(_UPLOADED_CHUNK_FILES_LIST_KEY);
+              if (chunkList == null)
+              {
+                chunkList = new ArrayList<UploadedFile>();
+                externalContext.getSessionMap().put(_UPLOADED_CHUNK_FILES_LIST_KEY, chunkList);
+              }
+              chunkList.add(file);
+              if (chunkNum == chunkCount - 1)
+              {
+                UploadedFile combinedFile = new ChunkedUploadedFile(fileName, file.getContentType(), chunkList);
+                sessionFiles.__put(itemName, combinedFile);
+                externalContext.getSessionMap().remove(_UPLOADED_CHUNK_FILES_LIST_KEY);
+              }
+              files.getUploadedFileMap().clear();
+            }
           }
         }
         externalContext.getRequestMap().put(_PARAMS, parameters);
@@ -210,14 +281,27 @@ public class FileUploadConfiguratorImpl extends Configurator
       final UploadedFiles     files,
       final MultipartFormItem item) throws IOException
   {
-    final UploadedFile temp = new TempUploadedFile(item);
+    String filename = item.getFilename();              
+    String chunkFilename = externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_FILENAME_PARAM);
+    if (chunkFilename != null)
+    {
+      // We store the filename in a special header when sending chunked data. The reason is that
+      // browsers do not have an API for setting the filename on Blob objects. Also, append the chunk num
+      // so it's easier to keep track of.
+      String chunkNum = externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_NUM_PARAM);
+      chunkFilename = chunkFilename + ".part" + chunkNum;
+      filename = chunkFilename;
+    }
+    final UploadedFile temp = new TempUploadedFile(filename, item);
     Map<String, Object> sessionMap = externalContext.getSessionMap();
     Map<String, Object> requestMap = externalContext.getRequestMap();
     
     _copyParamsFromSessionToRequestMap(sessionMap, requestMap,
       UploadedFileProcessor.MAX_MEMORY_PARAM_NAME,
       UploadedFileProcessor.MAX_DISK_SPACE_PARAM_NAME,
-      UploadedFileProcessor.TEMP_DIR_PARAM_NAME);
+      UploadedFileProcessor.TEMP_DIR_PARAM_NAME,
+      UploadedFileProcessor.MAX_FILE_SIZE_PARAM_NAME,
+      UploadedFileProcessor.MAX_CHUNK_SIZE_PARAM_NAME);
     
     final UploadedFile file =
       context.getUploadedFileProcessor().processFile(externalContext.getRequest(), temp);
@@ -320,15 +404,16 @@ public class FileUploadConfiguratorImpl extends Configurator
 
   static private class TempUploadedFile implements UploadedFile
   {
-    public TempUploadedFile(MultipartFormItem item)
+    public TempUploadedFile(String filename, MultipartFormItem item)
     {
+      _filename = filename;
       _item = item;
       assert(item.getValue() == null);
     }
 
     public String getFilename()
     {
-      return _item.getFilename();
+      return _filename != null ? _filename : _item.getFilename();
     }
 
     public String getContentType()
@@ -358,11 +443,92 @@ public class FileUploadConfiguratorImpl extends Configurator
     }
 
     private MultipartFormItem _item;
+    private String _filename = null;
+  }
+  static private class ChunkedUploadedFile implements UploadedFile
+  {
+    private List<UploadedFile> _uploadedFileChunkList = null;
+    private String _filename = null;
+    private String _contentType = null;
+    
+    public ChunkedUploadedFile(String filename, String contentType, List<UploadedFile> uploadedFileChunkList)
+    {
+      _filename = filename;
+      _contentType = contentType;
+      _uploadedFileChunkList = uploadedFileChunkList;
+    }
+    
+    public String getFilename()
+    {
+      return _filename;
+    }
+
+    public String getContentType()
+    {
+      return _contentType;
+    }
+    
+    public long getLength()
+    {
+      Long totalLength = 0L;
+      for (UploadedFile file : _uploadedFileChunkList)
+      {
+        if (file.getLength() == -1L)
+        {
+          // there was an error so return -1
+          return -1L;
+        }
+        totalLength = totalLength + file.getLength();
+      }
+      return totalLength;
+    }
+
+    public Object getOpaqueData()
+    {
+      for (UploadedFile file : _uploadedFileChunkList)
+      {
+        if (file.getLength() == -1L)
+        {
+          // there was an error so return the data
+          return file.getOpaqueData();
+        }
+      }
+      return null;
+    }
+
+    public InputStream getInputStream() throws IOException
+    {
+      List<InputStream> inputSteamList = new ArrayList<InputStream>(_uploadedFileChunkList.size());
+      for (UploadedFile uploadedFileChunk : _uploadedFileChunkList)
+        inputSteamList.add(uploadedFileChunk.getInputStream());
+      
+      return new SequenceInputStream(Collections.enumeration(inputSteamList));
+    }
+
+    public void dispose()
+    {
+      for (UploadedFile uploadedFileChunk : _uploadedFileChunkList)
+      {
+        try
+        {
+          uploadedFileChunk.dispose();
+        }
+        catch (Exception e)
+        {
+          // Just keep trying to dispose of the rest of the chunks
+        }
+      }
+    }
   }
   static private final String _APPLIED = FileUploadConfiguratorImpl.class.getName()+".APPLIED";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FileUploadConfiguratorImpl.class);
   static private final String _PARAMS = FileUploadConfiguratorImpl.class.getName()+".PARAMS";
   static private final boolean _ENHANCED_PORTLET_SUPPORTED = ExternalContextUtils.isRequestTypeSupported(RequestType.RESOURCE);
+  static private final String _MULTIPLE_UPLOAD_PARAM = "org.apache.myfaces.trinidad.UploadedFiles";
+  static private final String _MULTIPLE_UPLOAD_CHUNK_NUM_PARAM = "X-Trinidad-chunkNum";
+  static private final String _MULTIPLE_UPLOAD_CHUNK_COUNT_PARAM = "X-Trinidad-chunkCount";
+  static private final String _MULTIPLE_UPLOAD_CHUNK_FILENAME_PARAM = "X-Trinidad-chunkFilename";
+  static private final String _UPLOADED_CHUNK_FILES_LIST_KEY = "org.apache.myfaces.trinidadinternal.webapp.UploadedFiles.ChunkList";
   
   private long _maxAllowedBytes = 1L << 27;
 }

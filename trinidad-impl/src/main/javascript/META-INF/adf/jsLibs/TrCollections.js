@@ -43,6 +43,12 @@ TrCollections.removeValuesFromArray = function(
         if(allValues[j].toLowerCase() == value.toLowerCase())
         {
           allValues.splice(j,1);
+
+          // the element originally at index j is removed, and 
+          // we now have a new element at index j, thus we need
+          // to stay on the same position to check whether we
+          // need to remove it.
+          j--;
         }
       }
     }

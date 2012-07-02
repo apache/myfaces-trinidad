@@ -762,31 +762,6 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     if (pattern == null)
       return null;
     
-    RequestContext reqCtx = RequestContext.getCurrentInstance();
-    String type = getType();
-    Locale locale = _getLocale(reqCtx, context);
-    DecimalFormat df = (DecimalFormat) _getNumberFormat(pattern, type, locale, reqCtx);
-    if (dfs == null)
-    {
-      dfs = df.getDecimalFormatSymbols();
-    }
-    
-    // If grouping and decimal separator have been customized then
-    // show them in the hint so that it's less confusing for the user.
-    char decSep = dfs.getDecimalSeparator();
-    char groupSep = dfs.getGroupingSeparator();
-
-    char[] patternArr = pattern.toCharArray();
-    for (int i = 0; i < patternArr.length; i++)
-    {
-      char c = patternArr[i];
-      if (c == '\u002E')
-        patternArr[i] = decSep;
-      else if (c == '\u002C')
-        patternArr[i] = groupSep;
-    }
-    pattern = new String(patternArr);    
-
     // If the pattern contains the generic currency sign '¤', replace it with the localized 
     // currency symbol (if one exists), so that when the pattern is displayed (such as in an error 
     // message), it is more meaningful to the user.
@@ -798,6 +773,16 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     int idx = pattern.indexOf('\u00A4');
     if (idx == -1)
       return pattern;
+    
+    if (dfs == null)
+    {
+      String type = getType();
+      RequestContext reqCtx = RequestContext.getCurrentInstance();
+      Locale locale = _getLocale(reqCtx, context);
+      NumberFormat fmt = _getNumberFormat(pattern, type, locale, reqCtx);
+      DecimalFormat df = (DecimalFormat) fmt;
+      dfs = df.getDecimalFormatSymbols();
+    }
     
     if (idx + 1 < pattern.length() && pattern.charAt(idx + 1) == '\u00A4')
     {

@@ -53,7 +53,7 @@ abstract class BaseChangeManager extends ChangeManager
     // don't want to persist the changes 
     UIComponent parent = uiComponent.getParent();
     UIComponent root = facesContext.getViewRoot();
-    while (parent != root) 
+    while (parent != null && parent != root)
     {
       if (parent.getClass() == UIXIterator.class) 
       {
