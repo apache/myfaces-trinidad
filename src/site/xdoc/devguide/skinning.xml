@@ -955,13 +955,15 @@ public class SkinTranslationMapDemo
         </source>
         </li>
         <li>
-        <strong>-tr-property-ref</strong> - > This is used to include properties from other styles in your style.
-        The syntax of -tr-include-property is: background-color: -tr-property-ref("af|foo","color"), where the first
+        <strong>-tr-property-ref</strong> - > This is used to include properties from one style into another.
+        The syntax of -tr-property-ref is: background-color: -tr-property-ref("af|foo","color"), where the first
         parameter is the style from which the property is included and the second one is the name of the included property
-        in that style. When the property included has the same name as in the including selector, the following syntax
+        in that style. 
+        There can be more than one occurrence of -tr-property-ref in a property value, for example:
+        background: -webkit-linear-gradient(top, -tr-property-ref("af|foo","color") 0%, -tr-property-ref("af|bar","color") 100%);
+        When the property included has the same name as in the including selector, the following syntax
         can also be used: background-color: -tr-property-ref("af|foo") instead of: background-color: -tr-property-ref("af|foo",
-        "background-color"). You can also use this in compact property values, like border: 1px solid -tr-property-ref(".AFDefaultColor:alias","color");
-        This is useful when only some properties from another style are needed to be included.
+        "background-color"). This is useful when only some properties from another style are needed to be included.
         In this case, we won't need to include the entire style via a -tr-rule-ref rule, but only the needed property.
         </li>
         <li>

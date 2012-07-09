@@ -27,7 +27,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
@@ -41,8 +43,8 @@ import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.EmbeddedIncludePropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
-import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludeCompactPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludePropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludeStyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
@@ -261,7 +263,7 @@ class SkinStyleSheetParserUtils
                           trSkinPropertyNodeList,
                           resolvedProperties.getTrRuleRefList(),
                           resolvedProperties.getIncludedPropertiesList(),
-                          resolvedProperties.getIncludedCompactPropertiesList(),
+                          resolvedProperties.getEmbeddedIncludePropertiesList(),
                           resolvedProperties.getInhibitedProperties(),
                           resolvedProperties.isTrTextAntialias(),
                           styleNodeList);
@@ -275,7 +277,7 @@ class SkinStyleSheetParserUtils
                         trSkinPropertyNodeList,
                         resolvedProperties.getTrRuleRefList(),
                         resolvedProperties.getIncludedPropertiesList(),
-                        resolvedProperties.getIncludedCompactPropertiesList(),
+                        resolvedProperties.getEmbeddedIncludePropertiesList(),
                         resolvedProperties.getInhibitedProperties(),
                         resolvedProperties.isTrTextAntialias(),
                         styleNodeList);
@@ -329,8 +331,8 @@ class SkinStyleSheetParserUtils
     Set<String> inhibitedPropertySet = new TreeSet<String>();
     List<IncludePropertyNode> includedPropertiesList =
       new ArrayList<IncludePropertyNode>();
-    List<IncludeCompactPropertyNode> includedCompactPropertiesList =
-      new ArrayList<IncludeCompactPropertyNode>();
+    List<EmbeddedIncludePropertyNode> embeddedIncludedPropertiesList =
+      new ArrayList<EmbeddedIncludePropertyNode>();
     List<PropertyNode> skinPropertyNodeList =
       new ArrayList<PropertyNode>();
 
@@ -359,11 +361,14 @@ class SkinStyleSheetParserUtils
         // Check for special propertyNames (-tr-rule-ref, -tr- skin properties)
         // or propertyValue (-tr-property-ref)
         
-        // Check for -tr-property-ref first, either regular or compact
+        // Check for -tr-property-ref first, either standalone or embedded
         if(propertyValue.indexOf(_INCLUDE_PROPERTY) != -1)
         {
-          List<String> values = separateCompactValues(propertyValue);
-          // border-color: -tr-property-ref(...) versus border: 1px solid -tr-property-ref();
+          List<String> values = _separateCompositeValues(propertyValue);
+          
+          // border-color: -tr-property-ref(".AFRed:alias", "color") -> (size == 1)
+          // versus 
+          // background: -ms-linear-gradient(top, -tr-property-ref(".AFRed:alias", "color") 1%, -tr-property-ref(".AFGreen:alias","color") 100%); -> (size > 1)
           if (values.size() == 1)
           {
             // include property
@@ -373,27 +378,38 @@ class SkinStyleSheetParserUtils
           }
           else
           {
-            // include compact property
-            List<IncludePropertyNode> compactIncludePropNodes = new ArrayList<IncludePropertyNode>();
-            StringBuilder builder = new StringBuilder();
+            // We parse the value, and substitute each entire -tr-property-ref block with a unique 
+            // token. The tokens are substituted later with the respective resolved value of the 
+            // entire tr-property-ref block. This is a map with the key being token and value being 
+            // the included property node that corresponds to the token.
+            Map<String, IncludePropertyNode> embeddedIncludePropNodes = new HashMap<String, IncludePropertyNode>();
+            // this list is all the non-whitespace segments in the entire value (includes placeholder
+            //  that we substitute for each -tr-property-ref segment)
+            List<String> propertyValueChunks = new ArrayList<String>();
+            int count = 0;
             for (String value : values)
             {
               if (value.startsWith(_INCLUDE_PROPERTY))
               {
                 IncludePropertyNode node = _createIncludePropertyNode(
                   propertyName, value.substring(_INCLUDE_PROPERTY.length()));
-                compactIncludePropNodes.add(node);
+                // the placeholder tokens will be of form -tr-0, -tr-1, -tr-2 etc.
+                String embedPlaceholder = _TR_PROPERTY_PREFIX + count++;
+                embeddedIncludePropNodes.put(embedPlaceholder, node);
+                propertyValueChunks.add(embedPlaceholder);
               }
               else
               {
-                builder.append(value);
-                builder.append(" ");
+                propertyValueChunks.add(value);
               }
             }
-            IncludeCompactPropertyNode iCPNode = 
-              new IncludeCompactPropertyNode(builder.toString(), 
-                                             compactIncludePropNodes, propertyName);
-            includedCompactPropertiesList.add(iCPNode);
+            
+            EmbeddedIncludePropertyNode eIPNode = 
+              new EmbeddedIncludePropertyNode(propertyValueChunks, 
+                                              embeddedIncludePropNodes, 
+                                              propertyName);
+            
+            embeddedIncludedPropertiesList.add(eIPNode);
                         
           }
         }
@@ -442,47 +458,81 @@ class SkinStyleSheetParserUtils
       noTrPropertyList,
       trRuleRefList,
       includedPropertiesList,
-      includedCompactPropertiesList,      
+      embeddedIncludedPropertiesList,
       inhibitedPropertySet,
       skinPropertyNodeList,
       trTextAntialias);
   }
-  
-  private static List<String> separateCompactValues(String propertyValue)
+
+  /**
+   * Separates a composite value into a list of strings. This will be recontructed later in 
+   * StyleSheetDocument._createCompositeValue()
+   * @param propertyValue The full value of the property
+   * @return A list of deconstructed strings  Each entry is either a contiguous block of 
+   *  non-whitespace characters, or a full segment of '-tr-property-ref("af|foo","color")'
+   */
+  private static List<String> _separateCompositeValues(String propertyValue)
   {
-     String[] test = _SPACE_PATTERN.split(propertyValue);
-     List<String> propertyValueNoSpaces = new ArrayList<String>();
-     boolean inTr = false;
-     int inTrIndex = 0;
-     for (int i=0; i < test.length; i++)
-     {
-        String string = test[i];
-        if (string.startsWith(_INCLUDE_PROPERTY) && !string.endsWith(")"))
+    // although unusual, skin authors may omit a space before -tr-property-ref, we split by space
+    //  char and we do not want to miss processing -tr-property-ref. Handle this case by adding an
+    //  extra space before all -tr-property-ref, regardless if it had one already.
+    propertyValue = propertyValue.replaceAll(_INCLUDE_PROPERTY, " " + _INCLUDE_PROPERTY);
+    
+    // the delimiter is the whole set of consecutive white spaces
+    String[] test = _SPACE_PATTERN.split(propertyValue);
+    List<String> propertyValueNoSpaces = new ArrayList<String>();
+    boolean inTr = false;
+    int inTrIndex = 0;
+    for (int i=0; i < test.length; i++)
+    {
+      String string = test[i];
+      // see if we are dealing with a -tr-property-ref now
+      //  if it does not end with a closing brace, this segment either contains much more than the
+      //  entire -tr-property-ref block, or otherwise contains only partly the -tr-property-ref block
+      if (string.startsWith(_INCLUDE_PROPERTY) && !string.endsWith(")"))
+      {
+         // keep looping through the pieces 
+         // until we get to a string that contains ")".
+         inTr = true;
+         inTrIndex = i;            
+      }
+      
+      if (inTr)
+      {
+        int closeBraceIndex = string.indexOf(')');
+        // the current string has the end segment of -tr-property-ref but this segment could be in 
+        //  middle (if it was not followed by a space character in the original property value)
+        if (closeBraceIndex != -1)
         {
-           // keep looping through the pieces 
-           // until we get to a string that endsWith ")".
-           inTr = true;
-           inTrIndex = i;            
+          StringBuilder builder = new StringBuilder();
+          // account for all previous chunks that belonged to -tr-property-ref that we skipped 
+          //  processing so far
+          for (int j=inTrIndex; j < i; j++)
+          {
+             builder.append(test[j]);
+          }
+          // add first part of the current processed string until the closing braces to the 
+          //  -tr-property-ref segment
+          builder.append(string.substring(0, closeBraceIndex+1));
+          
+          inTr = false;
+          propertyValueNoSpaces.add(builder.toString());
+          
+          // If there was a second part of the string after the closing braces, add it as another 
+          //  value chunk in the list of property values
+          if (closeBraceIndex != (string.length() - 1))
+          {
+            propertyValueNoSpaces.add(string.substring(closeBraceIndex + 1));
+          }
         }
-        else if (inTr)
-        {
-           if (string.endsWith(")"))
-           {
-              StringBuilder builder = new StringBuilder();
-              for (int j=inTrIndex; j <= i; j++)
-              {
-                 builder.append(test[j]);
-              }
-              inTr = false;
-              propertyValueNoSpaces.add(builder.toString());
-           }
-        }
-        else
-        {
-           propertyValueNoSpaces.add(string);
-        } 
-     }
-     return propertyValueNoSpaces;
+      }
+      // split() on a space pattern can leave the first entry as empty, exclude this empty value
+      else if (!test[i].isEmpty())
+      {
+        propertyValueNoSpaces.add(string);
+      } 
+    }
+    return propertyValueNoSpaces;
   }
 
   /**
@@ -665,7 +715,7 @@ class SkinStyleSheetParserUtils
    * @param skinPropertyNodeList
    * @param trRuleRefList
    * @param includePropertyNodes
-   * @param includeCompactPropertyNodes
+   * @param embeddedIncludePropertyNodes
    * @param inhibitedProperties
    * @param trTextAntialias
    * @param styleNodeList Once the StyleNode is created, it is added to the iconNodeList to be
@@ -678,7 +728,7 @@ class SkinStyleSheetParserUtils
     List<PropertyNode>        skinPropertyNodeList,
     List<String>              trRuleRefList,
     List<IncludePropertyNode> includePropertyNodes,
-    List<IncludeCompactPropertyNode> includeCompactPropertyNodes,
+    List<EmbeddedIncludePropertyNode> embeddedIncludePropertyNodes,
     Set<String>               inhibitedProperties,
     boolean                   trTextAntialias,
     List<StyleNode>           styleNodeList)
@@ -687,7 +737,7 @@ class SkinStyleSheetParserUtils
     StyleNode styleNode = _createStyleNode(selectorName, propertyNodeList, skinPropertyNodeList,
                                            trRuleRefList, 
                                            includePropertyNodes,
-                                           includeCompactPropertyNodes,
+                                           embeddedIncludePropertyNodes,
                                            inhibitedProperties, 
                                            trTextAntialias);
 
@@ -701,7 +751,7 @@ class SkinStyleSheetParserUtils
     List<PropertyNode>        skinPropertyNodeList,
     List<String>              trRuleRefList,
     List<IncludePropertyNode> includePropertyNodes,
-    List<IncludeCompactPropertyNode> includeCompactPropertyNodes,
+    List<EmbeddedIncludePropertyNode> embeddedIncludePropertyNodes,
     Set<String>               inhibitedProperties,
     boolean                   trTextAntialias)
   {
@@ -761,8 +811,8 @@ class SkinStyleSheetParserUtils
                     includeStyleNodes.toArray(new IncludeStyleNode[0]),
                     includePropertyNodes.isEmpty() ? 
                       null : includePropertyNodes.toArray(new IncludePropertyNode[0]),
-                    includeCompactPropertyNodes.isEmpty() ? 
-                      null : includeCompactPropertyNodes.toArray(new IncludeCompactPropertyNode[0]),
+                    embeddedIncludePropertyNodes.isEmpty() ? 
+                      null : embeddedIncludePropertyNodes.toArray(new EmbeddedIncludePropertyNode[0]),
                     inhibitedProperties,
                     false);
     
@@ -973,7 +1023,7 @@ class SkinStyleSheetParserUtils
       List<PropertyNode>               noTrPropertyList,
       List<String>                     trRuleRefList,
       List<IncludePropertyNode>        includedPropertiesList,
-      List<IncludeCompactPropertyNode> includedCompactPropertiesList,
+      List<EmbeddedIncludePropertyNode> embeddedIncludePropertiesList,
       Set<String>                      inhibitedPropertySet,
       List<PropertyNode>               skinPropertyNodeList,
       boolean trTextAntialias)
@@ -981,7 +1031,7 @@ class SkinStyleSheetParserUtils
       _noTrPropertyList = noTrPropertyList;
       _trRuleRefList = trRuleRefList;
       _includedPropertiesList = includedPropertiesList;
-      _includedCompactPropertiesList = includedCompactPropertiesList;
+      _embeddedIncludePropertiesList = embeddedIncludePropertiesList;
       _inhibitedPropertySet = inhibitedPropertySet;
       _skinPropertyNodeList = skinPropertyNodeList;
       _trTextAntialias = trTextAntialias;
@@ -1002,9 +1052,9 @@ class SkinStyleSheetParserUtils
       return _includedPropertiesList;
     }
 
-    public List<IncludeCompactPropertyNode> getIncludedCompactPropertiesList()
+    public List<EmbeddedIncludePropertyNode> getEmbeddedIncludePropertiesList()
     {
-      return _includedCompactPropertiesList;
+      return _embeddedIncludePropertiesList;
     }
 
     public List<PropertyNode> getSkinPropertyNodeList()
@@ -1026,7 +1076,7 @@ class SkinStyleSheetParserUtils
     private List<PropertyNode>        _noTrPropertyList;
     private List<String>              _trRuleRefList;
     private List<IncludePropertyNode> _includedPropertiesList;
-    private List<IncludeCompactPropertyNode> _includedCompactPropertiesList;
+    private List<EmbeddedIncludePropertyNode> _embeddedIncludePropertiesList;
     private List<PropertyNode>        _skinPropertyNodeList;
     private boolean                   _trTextAntialias;
   }
@@ -1042,7 +1092,7 @@ class SkinStyleSheetParserUtils
   private static final String _INCLUDE_PROPERTY = "-tr-property-ref";
   private static final String _PROPERTY_TEXT_ANTIALIAS = "text-antialias";
 
-  private static final Pattern _SPACE_PATTERN = Pattern.compile("\\s");
+  private static final Pattern _SPACE_PATTERN = Pattern.compile("[\\s]+");
   private static final Pattern _SELECTOR_PATTERN = Pattern.compile("selector\\(");
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(

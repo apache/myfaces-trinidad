@@ -905,22 +905,34 @@ public class StyleSheetDocument
           }
         }
         
-        // 2'. Resolve included properties in a compact selector.
+        // 2'. Resolve included properties in a composite property value.
         // e.g., border: 1px solid -tr-property-ref(".AFDarkColor:alias",color);
-        Iterable<IncludeCompactPropertyNode> includedCompactProperties = 
-          node.getIncludedCompactProperties();
-        for (IncludeCompactPropertyNode includeCompact : includedCompactProperties)
+        // e.g., background: -ms-linear-gradient(top, -tr-property-ref(".AFRed:alias", "color") 0%, -tr-property-ref(".AFGreen:alias","color") 100%);
+        Iterable<EmbeddedIncludePropertyNode> embeddedIncludeProperties = 
+          node.getEmbeddedIncludeProperties();
+        for (EmbeddedIncludePropertyNode embeddedInclude : embeddedIncludeProperties)
         {
           // get each IncludePropertyNode, and resolve it.        
-          Iterable<IncludePropertyNode> iPNodeIter = includeCompact.getIncludedProperties();
-          List<String> resolvedValues = new ArrayList<String>();
-          for (IncludePropertyNode includeProperty : iPNodeIter)
+          Map<String, IncludePropertyNode> ipNodes = embeddedInclude.getIncludedProperties();
+          Map<String, String> resolvedValues = new HashMap<String, String>();
+          
+          Iterator<Map.Entry<String,IncludePropertyNode>> entryIter = ipNodes.entrySet().iterator();
+          
+          while (entryIter.hasNext())
           {
-            StyleNode resolvedNode = 
-              _resolveIncludedProperties(context, forIconNode, styleSheets, resolvedStyles, 
-                                         resolvedNamedStyles, includesStack, namedIncludesStack, 
-                                         includeProperty);
- 
+            Map.Entry<String,IncludePropertyNode> currEntry = entryIter.next();
+            String placeHolder = currEntry.getKey();
+            IncludePropertyNode includeProperty = currEntry.getValue();
+            
+            StyleNode resolvedNode = _resolveIncludedProperties(context, 
+                                                                forIconNode, 
+                                                                styleSheets, 
+                                                                resolvedStyles,
+                                                                resolvedNamedStyles, 
+                                                                includesStack, 
+                                                                namedIncludesStack,
+                                                                includeProperty);
+              
             if (resolvedNode != null)
             {
               List<PropertyNode> pNodes = _getIncludedPropertyNodes(
@@ -928,23 +940,26 @@ public class StyleSheetDocument
                                             includeProperty.getPropertyName(),
                                             includeProperty.getLocalPropertyName());
               // stores all the resolved 'values'. we will concat these values when we
-              // create the PropertyNode because these are compact values, like "1px solid red"
+              // create the PropertyNode because these are composite values, like "1px solid red"
               if (pNodes != null && !pNodes.isEmpty())
-                resolvedValues.add(pNodes.get(0).getValue());
+                resolvedValues.put(placeHolder, pNodes.get(0).getValue());
             }
           }
           
-          // here we are. We have processed one IncludeCompactPropertyNode's includePropertyNodes.
+          // here we are. We have processed one EmbeddedIncludePropertyNode's includePropertyNodes.
           // now we need to add to the entry: 
-          String compactValue = _createCompactValue(includeCompact, resolvedValues);
-          String localName = includeCompact.getLocalPropertyName();
-          PropertyNode propertyNode = new PropertyNode(localName,
-                                                       compactValue);
-          
-          if (!(localName.startsWith(_TR_PROPERTY_PREFIX)))
-            entry.addProperty(propertyNode);
-          else
-            entry.addSkinProperty(propertyNode);
+          if (!resolvedValues.isEmpty() || embeddedInclude.getPropertyValues().hasNext())
+          {
+            String compositeValue = _createCompositeValue(embeddedInclude, resolvedValues);
+            String localName = embeddedInclude.getLocalPropertyName();
+            PropertyNode propertyNode = new PropertyNode(localName,
+                                                         compositeValue);
+            
+            if (!(localName.startsWith(_TR_PROPERTY_PREFIX)))
+              entry.addProperty(propertyNode);
+            else
+              entry.addSkinProperty(propertyNode);
+          }
 
         }
     
@@ -975,19 +990,47 @@ public class StyleSheetDocument
       }
     }
   }
-  
-  
-  private String _createCompactValue(
-    IncludeCompactPropertyNode node, 
-    List<String> values)
+
+  /**
+   * Builds the composite value of the property that has one or more -tr-property-ref blocks
+   *  used in it.
+   *  @param node The EmbeddedIncludePropertyNode that has info about all the -tr-property-refs
+   *    and other non-whitespace segments in the entire value
+   *  @param values The map of placeholder token to resolved value of the respective -tr-property-ref
+   *    segment. The placeholder is used to identify the position in the whole value where the 
+   *    different -tr-property refs existed.
+   */
+  private String _createCompositeValue(
+    EmbeddedIncludePropertyNode node, 
+    Map<String, String> values)
   {
     StringBuilder builder = new StringBuilder();
-    builder.append(node.getPropertyValues());
-    for(String value : values)
+    
+    Iterator<String> propertyValues = node.getPropertyValues();
+    while (propertyValues.hasNext())
     {
-      builder.append(value);
-      builder.append(" ");
+      String valueFrag = propertyValues.next();
+      // the placeholder tokens will be of form -tr-0, -tr-1, -tr-2
+      if (valueFrag.startsWith(_TR_PROPERTY_PREFIX))
+      {
+        String resolvedValue = values.get(valueFrag);
+        // sometimes the alias referenced by -tr-property-ref may not be defined, so resolved value
+        //  can be null
+        if (resolvedValue != null)
+        {
+          builder.append(resolvedValue);
+          if (propertyValues.hasNext())
+            builder.append(" ");
+        }
+      }
+      else
+      {
+        builder.append(valueFrag);
+        if (propertyValues.hasNext())
+          builder.append(" ");
+      }
     }
+
     return builder.toString();
   }
 
