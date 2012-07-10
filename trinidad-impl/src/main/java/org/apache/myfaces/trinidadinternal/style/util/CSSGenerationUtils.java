@@ -1336,20 +1336,40 @@ public class CSSGenerationUtils
       new PropertyNodeComparator();
   }
 
+  /**
+   * Converts the pseudo class into a "p_AF" prefixed styleclass.
+   * This is because certain pseudo-classes are internal and are not recognized by any browsers.
+   * The renderers are responsible for rendering out the same styleclass format.
+   * Some examples are: 
+   * :screen-reader becomes .p_AFScreenReader
+   * :disabled becomes .p_AFDisabled
+   *
+   * Exception is CSS built in pseudo classes, which are recognized by browsers. These are rendered as is.
+   *
+   * @param pseudoClass
+   * @param afNamespacedSelector true if the pseudoClass is part of AF namespaced selector
+   * @return
+   */
   static private String _convertPseudoClass(String pseudoClass, boolean afNamespacedSelector)
   {
     // The design time needs the browser-supported pseudo-classes to be converted so they
     // can show a preview of the skinned component.
     String builtInPseudoClass = pseudoClass;
-    int parenthesesStartIndex = pseudoClass.indexOf("(");
-    if (parenthesesStartIndex != -1)
-      builtInPseudoClass = pseudoClass.substring(0, parenthesesStartIndex);
+    int parenthesesIndex = pseudoClass.indexOf("(");
+
+    // if there are no open parentheses check for closing parentheses
+    if (parenthesesIndex == -1)
+      parenthesesIndex = pseudoClass.indexOf(")");
+
+    // if at least one parentheses exists strip the pseudoClass off it
+    if (parenthesesIndex != -1)
+      builtInPseudoClass = pseudoClass.substring(0, parenthesesIndex);
 
     if (_BUILT_IN_PSEUDO_CLASSES.contains(builtInPseudoClass) && !Beans.isDesignTime())
       return pseudoClass;
 
     // _BACKWARD_COMPATIBLE_CSS3_PSEUDO_CLASSES is treated differently
-    // for namespaced selectors we render it mangled
+    // for namespaced selectors we render it prefixed with "p_AF"
     // for non-namespaced selectors we render it directly
     if (!afNamespacedSelector && _BACKWARD_COMPATIBLE_CSS3_PSEUDO_CLASSES.contains(builtInPseudoClass))
       return pseudoClass;
