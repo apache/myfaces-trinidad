@@ -38,7 +38,7 @@
 
   <!-- {0} the label that identifies the selection  -->
   <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED" dnt="false">必须进行选择。</resource>
-  <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">必须至少做一个选择。</resource> 
+  <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">必须至少选择一项。</resource> 
   
   <!-- {0} the label that identifies the selection  -->
   <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">必须进行选择。</resource>

@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">Het agenttype is onbekend. Er wordt een agent aangemaakt met agentattributen met de waarde NULL.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">De web.xml-contextparameter 'org.apache.myfaces.trinidad.security.FRAME_BUSTING' is op een onbekende waarde ingesteld. De geldige waarden zijn 'never', 'always' en 'differentOrigin'.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">Kan de functies niet ophalen uit het document met functies.</resource>
 

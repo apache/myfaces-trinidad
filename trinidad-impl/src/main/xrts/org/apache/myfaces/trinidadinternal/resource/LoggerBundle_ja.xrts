@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">エージェント・タイプは不明です。エージェント属性がnullのエージェントを作成します。</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">web.xmlコンテキスト・パラメータorg.apache.myfaces.trinidad.security.FRAME_BUSTINGは不明な値に設定されています。有効な値は'never'、'always'、または'differentOrigin'です。</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">機能ドキュメントから機能を取得できませんでした</resource>
 

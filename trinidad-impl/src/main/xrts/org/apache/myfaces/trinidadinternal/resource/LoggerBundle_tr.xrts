@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">Aracı türü bilinmiyor; boş aracı özellikleriyle bir aracı yaratılıyor.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">web.xml bağlam parametresi olan org.apache.myfaces.trinidad.security.FRAME_BUSTING bilinmeyen bir değere ayarlandı, geçerli değerler: 'never', 'always' veya 'differentOrigin'.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">yetenekler dokümanından yetenekler alınamadı</resource>
 

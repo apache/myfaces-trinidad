@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">Tipul agentului este necunoscut; se creează un agent cu atributele de agent nule.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">Parametrul pt. context org.apache.myfaces.trinidad.security.FRAME_BUSTING din web.xml este setat la o valoare necunoscută; valorile legale sunt 'never', 'always' şi 'differentOrigin'.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">nu s-au putut prelua funcţionalităţile din documentul cu funcţionalităţi</resource>
 

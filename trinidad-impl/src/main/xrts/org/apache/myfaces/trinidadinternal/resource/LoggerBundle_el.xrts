@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">Άγνωστος τύπος agent, δημιουργείται agent με μη ορισμένες (null) παραμέτρους.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">Έχει οριστεί άγνωστη τιμή για την παράμετρο context web.xml org.apache.myfaces.trinidad.security.FRAME_BUSTING, οι έγκυρες τιμές είναι 'never', 'always' ή 'differentOrigin'.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">Δεν ήταν δυνατή η λήψη δυνατοτήτων από το έγγραφο δυνατοτήτων.</resource>
 

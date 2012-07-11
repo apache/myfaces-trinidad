@@ -100,7 +100,7 @@
 <resource key="INVALID_ROWKEY" dnt="false">Ogiltig rowkey:{0} typen:{1}</resource>
 
 <!-- NULL_VIEWID -->
-<resource key="NULL_VIEWID" dnt="false">Egenskapen viewId i ViewIdPropertyMenuModel är null. Egenskapen viewId är nödvändig för att hitta fokus-rowKey.</resource>
+<resource key="NULL_VIEWID" dnt="false">Egenskapen viewId i ViewIdPropertyMenuModel är null. Egenskapen viewId är obligatorisk för att hitta fokus-rowKey.</resource>
 
 <!-- INVALID_EL_EXPRESSION -->
 <resource key="INVALID_EL_EXPRESSION" dnt="false">EL-uttrycket {0} är ogiltigt eller har returnerat ett felaktigt värde</resource>

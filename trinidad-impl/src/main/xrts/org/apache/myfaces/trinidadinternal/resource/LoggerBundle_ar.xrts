@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">نوع الوكيل غير معروف؛ تكوين وكيل باستخدام سمات وكيل خالية.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">معلمة سياق web.xml وهي org.apache.myfaces.trinidad.security.FRAME_BUSTING معينة إلى قيمة غير معروفة، القيمة المشروعة هي 'never' أو 'always' أو 'differentOrigin'.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">تعذر الحصول على الإمكانيات من مستند الإمكانيات</resource>
 

@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">Typ agenta je neznámy; vytvára sa agent s atribútmi null.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">Parameter kontextu org.apache.myfaces.trinidad.security.FRAME_BUSTING súboru web.xml je nastavený na neznámu hodnotu. Prípustné hodnoty sú "never", "always" a "differentOrigin".</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">nepodarilo sa načítať funkcie z dokumentu funkcií</resource>
 

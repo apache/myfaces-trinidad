@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">Agenttypen er ukjent. Oppretter en agent med null-agentattributter.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">Kontekstparameteren org.apache.myfaces.trinidad.security.FRAME_BUSTING for web.xml er satt til en ukjent verdi, gyldig verdi er never, always eller differentOrigin.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">kan ikke hente muligheter fra mulighetsdokument</resource>
 

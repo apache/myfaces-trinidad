@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">代理程式類型不明; 建立包含空值代理程式屬性的代理程式.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">web.xml 相關資訊環境參數 org.apache.myfaces.trinidad.security.FRAME_BUSTING 設定為不明的值, 有效值為 'never'、'always' 或 'differentOrigin'.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">無法從功能文件取得功能</resource>
 

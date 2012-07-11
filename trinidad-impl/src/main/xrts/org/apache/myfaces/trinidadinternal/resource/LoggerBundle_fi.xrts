@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">Agentin tyyppi on tuntematon. Agentti luodaan tyhjillä agenttimääritteillä.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">web.xml-tiedoston kontekstiparametrille org.apache.myfaces.trinidad.security.FRAME_BUSTING on määritetty tuntematon arvo. Sallitut arvot ovat never, always ja differentOrigin.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">ominaisuuksia ei voi hakea ominaisuusasiakirjasta</resource>
 

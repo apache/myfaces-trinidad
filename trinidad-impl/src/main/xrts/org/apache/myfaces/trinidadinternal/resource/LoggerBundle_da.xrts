@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">Agenttypen er ukendt. Opretter en agent med NULL-agentattributter.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">Web.xml-kontekstparameteren org.apache.myfaces.trinidad.security.FRAME_BUSTING er sat til en ukendt værdi, den gyldige værdi er 'never', 'always', eller 'differentOrigin'.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">kunne ikke hente egenskaber i egenskabsdokument</resource>
 

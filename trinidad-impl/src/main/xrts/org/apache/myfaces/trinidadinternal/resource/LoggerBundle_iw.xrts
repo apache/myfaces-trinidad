@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">סוג הסוכן אינו ידוע; המערכת יוצרת סוכן עם תכונות סוכן null.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">פרמטר ההקשר של web.xml, org.apache.myfaces.trinidad.security.FRAME_BUSTING הוגדר לערך לא ידוע. הערכים החוקיים הם 'never', 'always' או 'differentOrigin'.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">אי אפשר להביא יכולות ממסמך יכולות</resource>
 
