@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">Agenttypen är okänd; skapar en agent med null agentattribut.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">Ett okänt värde har angetts för web.xml-kontextparametern org.apache.myfaces.trinidad.security.FRAME_BUSTING. Tillåtna värden är 'aldrig', 'alltid' eller 'differentOrigin'.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">kunde inte hämta kapacitet från kapacitetsdokument</resource>
 

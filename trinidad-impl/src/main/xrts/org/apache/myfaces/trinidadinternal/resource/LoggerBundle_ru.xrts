@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">Тип агента не известен; создается агент с неопределенными атрибутами агента.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">Для параметра контекста web.xml org.apache.myfaces.trinidad.security.FRAME_BUSTING задано неизвестное значение. Допустимы следующие значения: 'never', 'always' или 'differentOrigin'.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">Невозможно получить возможности из документа возможностей</resource>
 

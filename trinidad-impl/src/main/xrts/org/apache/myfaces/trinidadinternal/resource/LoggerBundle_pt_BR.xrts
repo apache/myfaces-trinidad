@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">O tipo de agente é desconhecido, criando um agente com atributos de agente nulos.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">O parâmetro de contexto org.apache.myfaces.trinidad.security.FRAME_BUSTING de web.xml está definido como um valor desconhecido, o valor válido é 'never', 'always' ou 'differentOrigin'.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">não foi possível obter capacidades do documento de capacidades</resource>
 

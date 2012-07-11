@@ -27,6 +27,9 @@
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
 <resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">Az ügynöktípus ismeretlen; ügynök létrehozása null értékű ügynökattribútumokkal.</resource>
 
+<!-- UNKNOWN_FRAME_BUSTING_VALUE -->
+<resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">A web.xml fájlban az org.apache.myfaces.trinidad.security.FRAME_BUSTING környezeti paraméter ismeretlen értékre lett beállítva, szabályos érték csak a 'never', az 'always' és a 'differentOrigin' lehet.</resource>
+
 <!-- CANNOT_GET_CAPABILITIES -->
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">nem kérhetők le funkciók a funkciódokumentumból</resource>
 
