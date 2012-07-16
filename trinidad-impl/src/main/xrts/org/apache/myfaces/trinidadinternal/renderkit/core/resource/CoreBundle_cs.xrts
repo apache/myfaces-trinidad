@@ -105,9 +105,9 @@
 <resource key="af_table.SELECT_RANGE_NEXT" dnt="false">Následující {0}</resource>
 <!--navigation bar with no more records going forward.-->
 <!--the following text will be drawn in a disabled font-->
-<resource key="af_selectRangeChoiceBar.DISABLED_NEXT" dnt="false">Další</resource>
-<resource key="af_table.SELECT_RANGE_DISABLED_NEXT" dnt="false">Další</resource>
-<resource key="af_treeTable.DISABLED_NEXT" dnt="false">Další</resource>
+<resource key="af_selectRangeChoiceBar.DISABLED_NEXT" dnt="false">Následující</resource>
+<resource key="af_table.SELECT_RANGE_DISABLED_NEXT" dnt="false">Následující</resource>
+<resource key="af_treeTable.DISABLED_NEXT" dnt="false">Následující</resource>
 <!--navigation bar with no more records going backward.-->
 <!--the following text will be drawn in a disabled font-->
 <resource key="af_selectRangeChoiceBar.DISABLED_PREVIOUS" dnt="false">Předchozí</resource>
