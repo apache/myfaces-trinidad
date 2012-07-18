@@ -1215,7 +1215,8 @@ function _returnRangeHints(
 {
   
   //we have both, max and min, so we only use the range Hint
-  if(max != null && min != null)
+  //when min is zero it is the default value so we do not use range Hint
+  if(max != null && min != null && min != 0)
   {
     var hints = new Array();
     if(messages && messages[rangeHint])
@@ -1295,7 +1296,8 @@ function _returnHints(
     }
     
   }
-  if (min != null)
+  //when min is 0, its the default value so we use hint Max in this case
+  if (min != null && min != 0)
   {
     if (!hints)
     {
