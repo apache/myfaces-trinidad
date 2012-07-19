@@ -1198,4 +1198,8 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <resource key="INVALID_AGENT_VERSION_OP">Invalid @agent version comparison operator: {0}</resource>
 
+<resource key="ALIAS_REFERENCE_NOT_STARTING_WITH_DOT">Alias references within -tr-rule-ref or tr-property-ref should start with a dot at {0}</resource>
+
+<resource key="ALIAS_DEFINITION_NOT_STARTING_WITH_DOT">Alias definition should start with a dot for {0}</resource>
+
 </resources>

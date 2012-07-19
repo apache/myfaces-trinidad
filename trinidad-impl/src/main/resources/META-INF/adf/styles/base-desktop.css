@@ -2601,7 +2601,7 @@
   }
 
   af|train::stop:visited {
-    -tr-rule-ref: selector("DarkExtraAccentForeground:alias");
+    -tr-rule-ref: selector(".DarkExtraAccentForeground:alias");
   }
 
   af|train::stop:disabled {
@@ -2666,7 +2666,7 @@
 
   af|train::stop:visited af|train::link {
     -tr-rule-ref: selector(".AFDarkForeground:alias");
-    -tr-rule-ref: selector("DarkExtraAccentForeground:alias");
+    -tr-rule-ref: selector(".DarkExtraAccentForeground:alias");
   }
 
   af|train::join {
@@ -2737,28 +2737,16 @@
     background-color: #cccccc;
   }
 
-  /** VeryDarkExtraAccentForeground is the darkest foreground color in the
-       extra accent (gray) color ramp **/
-  .VeryDarkExtraAccentForeground:alias {
-    color: -tr-property-ref("VeryDarkExtraAccentBackground:alias","background-color");
-  }
-
   /** DarkExtraAccentForeground is the primary foreground color in the
        extra accent (gray) color ramp **/
   .DarkExtraAccentForeground:alias {
-    color: -tr-property-ref("DarkExtraAccentBackground:alias","background-color");  
+    color: -tr-property-ref(".DarkExtraAccentBackground:alias","background-color");
   }
 
   /** MediumExtraAccentForeground is the middle foreground color in the
        extra accent (gray) color ramp **/
   .MediumExtraAccentForeground:alias {
-    color: -tr-property-ref("MediumExtraAccentBackground:alias","background-color");  
-  }
-
-  /** LightExtraAccentForeground is the lightest foreground color in the
-       extra accent (gray) color ramp **/
-  .LightExtraAccentForeground:alias {
-    color: -tr-property-ref("LightExtraAccentBackground:alias","background-color");  
+    color: -tr-property-ref(".MediumExtraAccentBackground:alias","background-color");
   }
 
   .TextForegroundDarkBackground:alias {
@@ -2784,11 +2772,11 @@
   }
 
   .OraBGGrayVeryDark {
-    -tr-rule-ref: selector("VeryDarkExtraAccentBackground:alias");
+    -tr-rule-ref: selector(".VeryDarkExtraAccentBackground:alias");
   }
 
   .OraBGGrayDark {
-    -tr-rule-ref: selector("DarkExtraAccentBackground:alias");
+    -tr-rule-ref: selector(".DarkExtraAccentBackground:alias");
   }
 
   .OraBGGrayMedium {
@@ -2796,7 +2784,7 @@
   }
 
   .OraBGGrayLight {
-    -tr-rule-ref: selector("LightExtraAccentBackground:alias");
+    -tr-rule-ref: selector(".LightExtraAccentBackground:alias");
   }
 
   .OraBGAccentVeryDark {
@@ -2909,12 +2897,12 @@
 
   .AFFieldTextLTR {
     -tr-rule-ref: selector(".AFFieldText");
-    -tr-rule-ref: selector("LTROverride:alias");
+    -tr-rule-ref: selector(".LTROverride:alias");
   }
 
   .AFFieldTextLTRDisabled {
     -tr-rule-ref: selector(".AFFieldTextDisabled");
-    -tr-rule-ref: selector("LTROverride:alias");
+    -tr-rule-ref: selector(".LTROverride:alias");
   }
 
   .AFPhoneFieldText {
@@ -3310,7 +3298,7 @@
   }
 
   .OraShuttleLinkText {
-    -tr-rule-ref: selector("SmallLinkFont:alias");
+    -tr-rule-ref: selector(".SmallLinkFont:alias");
     -tr-rule-ref: selector(".AFLinkForeground:alias");
   }
 
@@ -3349,11 +3337,11 @@
   }
 
   .OraStyledList {
-    -tr-rule-ref: selector("list:alias");
+    -tr-rule-ref: selector(".list:alias");
   }
 
   .OraStyledList .OraStyledList {
-    -tr-rule-ref: selector("nestedList:alias");
+    -tr-rule-ref: selector(".nestedList:alias");
   }
 
 
