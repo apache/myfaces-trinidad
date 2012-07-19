@@ -764,6 +764,10 @@ class SkinStyleSheetParserUtils
     int aliasIndex = selectorName.indexOf(":alias");
     if (aliasIndex > -1)
     {
+      if (!selectorName.startsWith("."))
+      {
+        _LOG.warning("ALIAS_DEFINITION_NOT_STARTING_WITH_DOT", new Object[] { selectorName });
+      }
       // :alias means do not output style; it is a namedStyle, so we set
       // the name and not the selector.
       // first, strip off the '.' at the beginning and the :alias bit.
@@ -901,6 +905,9 @@ class SkinStyleSheetParserUtils
           int startIndex = 0;
           if (includeStyle.charAt(0) == '.')
             startIndex = 1;
+          else
+            _LOG.warning("ALIAS_REFERENCE_NOT_STARTING_WITH_DOT", new Object[] { includeStyle });
+
           includeStyleNodes.add(new IncludeStyleNode(
                                 includeStyle.substring(startIndex, endIndex),
                                 null));
