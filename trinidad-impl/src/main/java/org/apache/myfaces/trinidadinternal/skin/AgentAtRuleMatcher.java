@@ -31,6 +31,7 @@ import java.util.regex.Matcher;
 
 import java.util.regex.Pattern;
 
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.util.Range;
 
@@ -109,7 +110,11 @@ public final class AgentAtRuleMatcher
       String currSelector = selectors[selectorIndex].trim();
       if (currSelector.startsWith(TOUCH_SCREEN_RULE_STR))
       {
-        capTouchMatchers.add(_getTouchScreenMatcher(currSelector));
+        TouchScreenCapabilityMatcher touchScreenAgentMatcher = _getTouchScreenMatcher(currSelector);
+
+        if (touchScreenAgentMatcher != null)
+          capTouchMatchers.add(touchScreenAgentMatcher);
+
         continue;
       }
 
@@ -129,35 +134,31 @@ public final class AgentAtRuleMatcher
       //
       if (browser != TrinidadAgent.Application.UNKNOWN)
       {
-        int sectionCount = sections.length;
+        // since first section represents browser and is already read
+        int matcherCount = sections.length - 1;
 
-        Set<AgentMatcher> agentMatchers;
+        AgentMatcher newAgentMatcher = null;
 
-        if (sectionCount == 1)
-        {
-          // we only have the agent identifier, so no matchers
-          agentMatchers = Collections.emptySet();
-        }
-        else
-        {
-          AgentMatcher newAgentMatcher;
-
-          if (sectionCount > 2)
+        if (matcherCount > 1)
           {
             // we have multiple ands, so we need to build up the list of sections to pass to
             // to the AndMatcher, which will AND the results of each of the matches together
-            List<AgentMatcher> andedMatchers = new ArrayList<AgentMatcher>(sectionCount - 1);
+          List<AgentMatcher> andedMatchers = new ArrayList<AgentMatcher>(matcherCount);
 
             // create agent matchers for each section
             // this could be version matcher or touchScreen matcher
-            for (int sectionIndex = 1; sectionIndex < sectionCount; sectionIndex++)
+          // section has to be indexed from 1 for matchers since section[0] represents browser and is already read
+          for (int sectionIndex = 1; sectionIndex <= matcherCount; sectionIndex++)
             {
-              andedMatchers.add(_getAgentMatcher(sections[sectionIndex]));
+            AgentMatcher matcher = _getAgentMatcher(sections[sectionIndex]);
+
+            if (matcher != null)
+              andedMatchers.add(matcher);
             }
 
             newAgentMatcher = new AndMatcher(andedMatchers);
           }
-          else
+        else if (matcherCount == 1)
           {
             // only a single and with a agent match, so return that matcher directly
             // this could be version matcher or touchScreen matcher
@@ -168,12 +169,20 @@ public final class AgentAtRuleMatcher
           // you have so far for that browser so you can append to it.
           // @agent ie and (version: 6), ie and (version: 7), gecko and (version: 1.9)
           // Th comma ORs the rules together.
-          agentMatchers = selectorAgents.get(browser);
+        Set<AgentMatcher> agentMatchers = selectorAgents.get(browser);
 
-          // create the Version Set if it doesn't already exist, or add the Version to the
-          // current Version Set if it isn't already in there.  Since most Version entries are
+        if (agentMatchers == null)
+        {
+          // first matcher for this browser so create an empty set.
+          agentMatchers = Collections.emptySet();
+        }
+
+        // create the matcher set if it doesn't already exist, or add the matcher to the
+        // current matcher Set if it isn't already in there.  Since most matcher entries are
           // a single value, we optimize for that case
-          if ((agentMatchers == null) || agentMatchers.isEmpty())
+
+        if (newAgentMatcher != null) {
+          if (agentMatchers.isEmpty())
             agentMatchers = Collections.singleton(newAgentMatcher);
           else if (!agentMatchers.contains(newAgentMatcher))
           {
@@ -187,7 +196,7 @@ public final class AgentAtRuleMatcher
           }
         }
 
-        // optimize the size of the SelectorAgents Map when we add the new Versions
+        // optimize the size of the SelectorAgents Map when we add the new matchers
         if (selectorAgents.isEmpty())
           selectorAgents = Collections.singletonMap(browser, agentMatchers);
         else if (!agentMatchers.equals(selectorAgents.get(browser)))
@@ -325,9 +334,21 @@ public final class AgentAtRuleMatcher
     }
 
     // If touchScreen syntax was not parsed and no AgentMatcher was created.
-    throw new IllegalArgumentException("Invalid @agent rule specified: " + currSelector);
+    _logWarnOrThrowException(currSelector, "INVALID_AGENT_RULE");
+    return null;
   }
 
+  private void _logWarnOrThrowException(String messageParameter, String resourceBundleKey)
+  {
+    if (!RenderingContext.getCurrentInstance().isDesignTime())
+    {
+      throw new IllegalArgumentException(_LOG.getMessage(resourceBundleKey, new Object[] { messageParameter }));
+    }
+    else
+    {
+      _LOG.warning(resourceBundleKey, new Object[] { messageParameter });
+    }
+  }
 
 
   /**
@@ -398,7 +419,8 @@ public final class AgentAtRuleMatcher
 
       if (comparison == null)
       {
-        throw new IllegalArgumentException("Invalid @agent property name: " + propName);
+        _logWarnOrThrowException(propName, "INVALID_AGENT_VERSION_OP");
+        return null;
       }
 
       // create the new Version, padding the version number out with wildcards
@@ -406,10 +428,9 @@ public final class AgentAtRuleMatcher
 
       return new VersionMatcher(newVersion, comparison);
     }
-    else
-    {
-      throw new IllegalArgumentException("Invalid @agent property selector: " + propertySelector);
-    }
+
+    _logWarnOrThrowException(propertySelector, "INVALID_AGENT_RULE");
+    return null;
   }
 
   /**

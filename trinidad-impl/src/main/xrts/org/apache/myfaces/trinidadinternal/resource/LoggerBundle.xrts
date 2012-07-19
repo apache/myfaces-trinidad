@@ -1194,4 +1194,8 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <resource key="SKIN_GENERATION_ERROR">An unexpected error occurred while generating a skin style sheet, possibly indicating a Trinidad defect.  Please report this failure to the Apache MyFaces development team.</resource>
 
+<resource key="INVALID_AGENT_RULE">Invalid @agent rule specified: {0}</resource>
+
+<resource key="INVALID_AGENT_VERSION_OP">Invalid @agent version comparison operator: {0}</resource>
+
 </resources>
