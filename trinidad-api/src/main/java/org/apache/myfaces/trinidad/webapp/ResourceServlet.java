@@ -34,6 +34,9 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 import javax.faces.FacesException;
 import javax.faces.FactoryFinder;
 import javax.faces.application.ProjectStage;
@@ -92,6 +95,7 @@ public class ResourceServlet extends HttpServlet
   public void destroy()
   {
     _loaders = null;
+    _loaderErrors = null;
     _facesContextFactory = null;
     _lifecycle = null;
 
@@ -131,7 +135,8 @@ public class ResourceServlet extends HttpServlet
     // Acquire our Lifecycle instance
     _lifecycle = new _ResourceLifecycle();
     _initDebug(config);
-    _loaders = new HashMap<String, ResourceLoader>();
+    _loaders = new ConcurrentHashMap<String, ResourceLoader>();
+    _loaderErrors = new ConcurrentHashMap<String, Class<?>>();
   }
 
   @Override
@@ -317,11 +322,13 @@ public class ResourceServlet extends HttpServlet
               catch (InvocationTargetException e)
               {
                 // by default, create new instance with no-args constructor
+                _logLoaderException(e, servletPath);
                 loader = (ResourceLoader) clazz.newInstance();
               }
               catch (NoSuchMethodException e)
               {
                 // by default, create new instance with no-args constructor
+                _logLoaderException(e, servletPath);
                 loader = (ResourceLoader) clazz.newInstance();
               }
             }
@@ -357,18 +364,22 @@ public class ResourceServlet extends HttpServlet
       }
       catch (IllegalAccessException e)
       {
+        _logLoaderException(e, servletPath);
         loader = ResourceLoader.getNullResourceLoader();
       }
       catch (InstantiationException e)
       {
+        _logLoaderException(e, servletPath);
         loader = ResourceLoader.getNullResourceLoader();
       }
       catch (ClassNotFoundException e)
       {
+        _logLoaderException(e, servletPath);
         loader = ResourceLoader.getNullResourceLoader();
       }
       catch (IOException e)
       {
+        _logLoaderException(e, servletPath);
         loader = ResourceLoader.getNullResourceLoader();
       }
 
@@ -376,6 +387,25 @@ public class ResourceServlet extends HttpServlet
     }
 
     return loader;
+  }
+
+  /*
+   * exception logger for _getResourceLoader() that will only log one error for multiple failures of the same servlet
+   */
+  private void _logLoaderException(Exception e, String servletPath)
+  {
+    Class<?> previousExceptionClass = _loaderErrors.get(servletPath);
+    
+    // if we haven't logged an error for this servletPath, or the exception class differs, log an error
+    if (previousExceptionClass == null || previousExceptionClass != e.getClass())
+    {
+      _LOG.severe(e);
+      
+      if (e.getCause() != null)
+        _LOG.severe("Caused by ", e.getCause());
+      
+      _loaderErrors.put(servletPath, e.getClass());
+    }
   }
 
   /**
@@ -683,7 +713,8 @@ public class ResourceServlet extends HttpServlet
   private static final int _BUFFER_SIZE = 2048;
 
   private boolean _debug;
-  private Map<String, ResourceLoader> _loaders;
+  private ConcurrentMap<String, ResourceLoader> _loaders;
+  private ConcurrentMap<String, Class<?>> _loaderErrors;
   private FacesContextFactory _facesContextFactory;
   private Lifecycle _lifecycle;
   private ProjectStage _projectStage;
