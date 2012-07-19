@@ -699,9 +699,17 @@ abstract public class RequestContext
 
   public abstract Long getUploadedFileMaxDiskSpace();
   
-  public abstract Long getUploadedFileMaxFileSize();
+  public Long getUploadedFileMaxFileSize()
+  {
+    // default of unlimited file size
+    return -1L;
+  }
   
-  public abstract Long getUploadedFileMaxChunkSize();
+  public Long getUploadedFileMaxChunkSize()
+  {
+    // default of 2GB which is the maximum allowed chunk size
+    return 2000000000L;
+  }
 
   public abstract String getUploadedFileTempDir();
 
