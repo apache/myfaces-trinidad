@@ -3717,7 +3717,18 @@ function _pprControlCapture(win, set)
 
         // return focus to the post-PPR target element
         if (win._pprEventElement)
-          win._pprEventElement.focus();
+        {
+          // focus() should be in a try/catch block because if the element
+          // was PPR'd then IE8 will throw an error
+          try
+          {
+            win._pprEventElement.focus();
+          }
+          catch(e) 
+          {
+            // do nothing
+          }
+        }
         body.style.cursor = win._pprSavedCursor;
         win._pprSavedCursor = null;
         win._pprSavedCursorFlag = false;
