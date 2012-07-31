@@ -16,47 +16,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
+
+package org.apache.myfaces.trinidadinternal.skin.parse;
 
 import java.util.Map;
 
-import javax.el.ValueExpression;
-
-import org.apache.myfaces.trinidadinternal.skin.SkinImpl;
 
 /**
- *  Base Skin implementation
- * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/skin/BaseSkin.java#0 $) $Date: 10-nov-2005.19:02:50 $
+ * Object which represents a collection of feature nodes in the  &lt;features&gt; element in trinidad-skins.xml.
+ *
+ * @version $Name:  $ ($Revision: $) $Date:  $
  */
-public class BaseSkin extends SkinImpl
+public class SkinFeaturesNode
 {
-  public BaseSkin()
+
+  /**
+   *
+   * @param skinFeatures
+   */
+  public SkinFeaturesNode(Map<String, String> skinFeatures)
   {
+    _skinFeatures = skinFeatures;
   }
 
   /**
-   * Returns the name of the XSS style sheet for this Skin.
+   *
+   * @return
    */
-  @Override
-  public String getStyleSheetName()
+  public Map<String, String> getSkinFeatures()
   {
-    return null;
-  }
-
-  @Override
-  protected String getBundleName()
-  {
-    return null;
-  }
-
-  @Override
-  protected ValueExpression getTranslationSourceValueExpression()
-  {
-    return null;
+    return _skinFeatures;
   }
   
-  @Override
-  public Map<String,String> getSkinFeatures(){
-    return null;
-  }
+  private final Map<String, String> _skinFeatures;
 }

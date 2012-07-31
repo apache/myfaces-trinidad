@@ -44,6 +44,23 @@
       </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
+  <xsd:complexType name="featuresType">
+    <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+      <xsd:element name="feature" type="skin:featureType">
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="featureType">
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="name" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Key for locating this feature at run-time.</xsd:documentation>
+        </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
   <xsd:complexType name="skinType">
     <xsd:all>
       <xsd:element name="id" type="string" minOccurs="1" maxOccurs="1">
@@ -70,6 +87,11 @@
                              skin will automatically be used when the application is rendered on a
                              desktop. org.apache.myfaces.trinidad.pda: The skin will be used when
                              rendered on a PDA.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="features" type="skin:featuresType" minOccurs="0" maxOccurs="1">
+      <xsd:annotation>
+          <xsd:documentation>Collection of features that a skin may require during rendering.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="extends" type="string" minOccurs="0" maxOccurs="1">

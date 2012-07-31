@@ -106,6 +106,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
     return SkinVersion.EMPTY_SKIN_VERSION;
   }  
 
+
   /**
    * Returns the renderKitId for the Skin.
    */
@@ -1216,6 +1217,10 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
 
   // List of skin-additions for this Skin
   private List<SkinAddition> _skinAdditions;
+
+  // Optional features for rendering
+  protected Map<String, String> _skinFeatures;
+
 
   // HashMap of Skin properties
   private ConcurrentHashMap<Object, Object> _properties= new ConcurrentHashMap<Object, Object>();

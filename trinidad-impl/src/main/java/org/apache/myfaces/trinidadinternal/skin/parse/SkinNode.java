@@ -39,7 +39,8 @@ public class SkinNode
     String styleSheetName,
     String bundleName,
     String translationSourceExpression,
-    SkinVersionNode skinVersionNode)
+    SkinVersionNode skinVersionNode,
+    SkinFeaturesNode skinFeatures)
   {
     
     if (id==null)
@@ -61,6 +62,7 @@ public class SkinNode
     _bundleName = bundleName;
     _translationSourceExpression = translationSourceExpression;
     _skinVersionNode = skinVersionNode;
+    _skinFeatures = skinFeatures;
 
   }
 
@@ -127,7 +129,16 @@ public class SkinNode
   public String getTranslationSourceExpression()
   {
     return _translationSourceExpression;
-  }   
+  } 
+  
+  /**
+   * Get the SkinFeaturesNode that was parsed
+   * @return SkinFeaturesNode
+   */
+  public SkinFeaturesNode getSkinFeatures()
+  {
+    return _skinFeatures;
+  }
 
   
   private final String          _id;
@@ -138,6 +149,7 @@ public class SkinNode
   private final String          _styleSheetName;
   private final String          _bundleName;
   private final String          _translationSourceExpression;
+  private final SkinFeaturesNode    _skinFeatures;
 
 
   private static final TrinidadLogger _LOG =

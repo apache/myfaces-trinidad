@@ -32,6 +32,7 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -68,6 +69,7 @@ import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinAdditionNode;
+import org.apache.myfaces.trinidadinternal.skin.parse.SkinFeaturesNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinVersionNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinsNode;
@@ -303,6 +305,7 @@ public class SkinUtils
     _registerFactory(manager, SkinNode.class, "SkinNode");
     _registerFactory(manager, SkinAdditionNode.class, "SkinAdditionNode");
     _registerFactory(manager, SkinVersionNode.class, "SkinVersionNode");
+    _registerFactory(manager, SkinFeaturesNode.class, "SkinFeaturesNode");
 
     return manager;
   }
@@ -599,108 +602,108 @@ public class SkinUtils
    * @param skinFactory
    * @param skinNode
    */
-  private static void _addSkinToFactory(
-    SkinFactory skinFactory,
-    SkinNode    skinNode,
-    boolean     isMetaInfFile)
-  {
-    // if the renderKitId is not specified,
-    // set it to _RENDER_KIT_ID_CORE.
-    String renderKitId = skinNode.getRenderKitId();
-    String id = skinNode.getId();
-    String family = skinNode.getFamily();
-    String styleSheetName = skinNode.getStyleSheetName();
-    String bundleName = skinNode.getBundleName();
-    String translationSourceExpression =
-      skinNode.getTranslationSourceExpression();
-    SkinVersionNode skinVersionNode = skinNode.getSkinVersionNode();
+   private static void _addSkinToFactory(
+       SkinFactory skinFactory,
+       SkinNode    skinNode,
+       boolean     isMetaInfFile)
+     {
+       // if the renderKitId is not specified,
+       // set it to _RENDER_KIT_ID_CORE.
+       String renderKitId = skinNode.getRenderKitId();
+       String id = skinNode.getId();
+       String family = skinNode.getFamily();
+       String styleSheetName = skinNode.getStyleSheetName();
+       String bundleName = skinNode.getBundleName();
+       String translationSourceExpression =
+         skinNode.getTranslationSourceExpression();
+       SkinVersionNode skinVersionNode = skinNode.getSkinVersionNode();
 
-    SkinVersion skinVersion = _createSkinVersion(skinVersionNode);
+       SkinVersion skinVersion = _createSkinVersion(skinVersionNode);
 
-    if (renderKitId == null)
-      renderKitId = _RENDER_KIT_ID_DESKTOP;
-
-
-    // figure out the base skin.
-    Skin baseSkin = null;
-    String skinExtends = skinNode.getSkinExtends();
-
-    if (skinExtends != null)
-      baseSkin = skinFactory.getSkin(null, skinExtends);
-    if (baseSkin == null)
-    {
-      baseSkin = _getDefaultBaseSkin(skinFactory, renderKitId);
-
-      if (skinExtends != null)
-      {
-        _LOG.severe("UNABLE_LOCATE_BASE_SKIN",
-                    new String[]{skinExtends, id, family, renderKitId, baseSkin.getId()});
-      }
-
-    }
-
-    // Set the style sheet
-    if (styleSheetName != null)
-    {
-      // If the styleSheetName is in the META-INF/trinidad-skins.xml file, then
-      // we prepend META-INF to the styleSheetName if it doesn't begin with '/'.
-      // This way we can find the file when we go to parse it later.
-      if (isMetaInfFile)
-        styleSheetName = _prependMetaInf(styleSheetName);
-    }
-    // If bundleName and translationSourceExpression are both set, then we
-    // only use the bundleName. An error was already logged during trinidad-skins
-    // parsing.
+       if (renderKitId == null)
+         renderKitId = _RENDER_KIT_ID_DESKTOP;
 
 
-    Skin skin = null;
+       // figure out the base skin.
+       Skin baseSkin = null;
+       String skinExtends = skinNode.getSkinExtends();
 
-    // bundle-name takes precedence over translation-source
-    if (bundleName != null)
-    {
-      skin = new SkinExtension(baseSkin,
-                               id,
-                               family,
-                               renderKitId,
-                               styleSheetName,
-                               bundleName,
-                               skinVersion);
-    }
-    else
-    {
-      ValueExpression translationSourceVE = null;
-      if (translationSourceExpression != null)
-      {
-        translationSourceVE =
-          _createTranslationSourceValueExpression(translationSourceExpression);
-      }
+       if (skinExtends != null)
+         baseSkin = skinFactory.getSkin(null, skinExtends);
+       if (baseSkin == null)
+       {
+         baseSkin = _getDefaultBaseSkin(skinFactory, renderKitId);
 
-      if (translationSourceVE != null)
-      {
-        skin = new SkinExtension(baseSkin,
-                                 id,
-                                 family,
-                                 renderKitId,
-                                 styleSheetName,
-                                 translationSourceVE,
-                                 skinVersion);
-      }
-      else
-      {
-        skin = new SkinExtension(baseSkin,
-                                 id,
-                                 family,
-                                 renderKitId,
-                                 styleSheetName,
-                                 skinVersion);
-      }
+         if (skinExtends != null)
+         {
+           _LOG.severe("UNABLE_LOCATE_BASE_SKIN",
+                       new String[]{skinExtends, id, family, renderKitId, baseSkin.getId()});
+         }
 
-    }
+       }
+
+       // Set the style sheet
+       if (styleSheetName != null)
+       {
+         // If the styleSheetName is in the META-INF/trinidad-skins.xml file, then
+         // we prepend META-INF to the styleSheetName if it doesn't begin with '/'.
+         // This way we can find the file when we go to parse it later.
+         if (isMetaInfFile)
+           styleSheetName = _prependMetaInf(styleSheetName);
+       }
+       // If bundleName and translationSourceExpression are both set, then we
+       // only use the bundleName. An error was already logged during trinidad-skins
+       // parsing.
 
 
-    // Create a SkinExtension object and register skin with factory
-    skinFactory.addSkin(id, skin);
-  }
+       Skin skin = null;
+
+       // bundle-name takes precedence over translation-source
+       if (bundleName != null)
+       {
+         skin = new SkinExtension(baseSkin,
+                                  id,
+                                  family,
+                                  renderKitId,
+                                  styleSheetName,
+                                  bundleName,
+                                  skinVersion);
+       }
+       else
+       {
+         ValueExpression translationSourceVE = null;
+         if (translationSourceExpression != null)
+         {
+           translationSourceVE =
+             _createTranslationSourceValueExpression(translationSourceExpression);
+         }
+
+         if (translationSourceVE != null)
+         {
+           skin = new SkinExtension(baseSkin,
+                                    id,
+                                    family,
+                                    renderKitId,
+                                    styleSheetName,
+                                    translationSourceVE,
+                                    skinVersion);
+         }
+         else
+         {
+           skin = new SkinExtension(baseSkin,
+                                    id,
+                                    family,
+                                    renderKitId,
+                                    styleSheetName,
+                                    skinVersion);
+         }
+
+       }
+
+
+       // Create a SkinExtension object and register skin with factory
+       skinFactory.addSkin(id, skin);
+     }
 
   private static ValueExpression
   _createTranslationSourceValueExpression(
@@ -1072,5 +1075,118 @@ public class SkinUtils
   static private final String _RENDER_KIT_ID_PDA = "org.apache.myfaces.trinidad.pda";
   static private final String _SIMPLE_PDA_SKIN_ID = "simple.pda";
   static private final String _SIMPLE_DESKTOP_SKIN_ID = "simple.desktop";
-
+  
+  private static class SkinExtensionDirector
+  {
+  
+   public SkinExtension produceSkinExtension()
+   {
+     if (_baseSkin == null)
+       throw new NullPointerException("Null baseSkin");
+     if (_id == null)
+       throw new NullPointerException(_LOG.getMessage(
+         "NULL_SKIN_ID"));
+     if (_family == null)
+       throw new NullPointerException("Null family");
+     
+     if (_version == null)
+       _version = SkinVersion.EMPTY_SKIN_VERSION;
+     
+     if(_renderKitId == null)
+     {
+       _renderKitId = _RENDER_KIT_ID_DESKTOP;
+     }
+     
+     //bundle-name takes precedence over translation-source, parser prevents both from being set
+     if(_resourceBundleName != null && _translationSourceValueExpression != null)
+     {
+       _translationSourceValueExpression = null;
+     }
+     
+     return new SkinExtension(_baseSkin, _id, _family, _renderKitId, 
+                              _styleSheetName, _translationSourceValueExpression, 
+                              _version, _skinFeatures, _resourceBundleName);
+   }
+   
+   public void setBaseSkinPart(Skin baseSkin)
+   {
+     _baseSkin = baseSkin;
+   }
+   
+   public void setIdPart(String id)
+   {
+     _id = id; 
+   }
+   
+   public void setFamilyPart(String family)
+   {
+     _family = family;
+   }
+   
+   public void setRenderKitIdPart(String renderKitId)
+   {
+     _renderKitId = renderKitId;
+   }
+   
+   public void setStyleSheetNamePart(String styleSheetName)
+   {
+     setStyleSheetNameAndIsMetaInf(styleSheetName, false);
+   }
+   
+   public void setStyleSheetNameAndIsMetaInf(String styleSheetName, boolean isMetaInf)
+   {
+     // Set the style sheet
+     // If the styleSheetName is in the META-INF/trinidad-skins.xml file, then
+     // we prepend META-INF to the styleSheetName if it doesn't begin with '/'.
+     // This way we can find the file when we go to parse it later.
+     if (styleSheetName != null && isMetaInf)
+     {
+       styleSheetName = _prependMetaInf(styleSheetName);
+     }
+     // If bundleName and translationSourceExpression are both set, then we 
+     // only use the bundleName. An error was already logged during trinidad-skins
+     // parsing.
+     _styleSheetName = styleSheetName;
+     _styleSheetIsMetaInf = isMetaInf;
+   }
+   
+   public void setTranslationSourcePart(ValueExpression translationSourceVE)
+   {
+     _translationSourceValueExpression = translationSourceVE;
+   }
+   
+   public void setTranslationSourcePart(String expression)
+   {
+     if (expression != null)
+     {
+       setTranslationSourcePart(_createTranslationSourceValueExpression(expression));
+     }
+   }
+   
+   public void setSkinVersionPart(SkinVersion version)
+   {
+     _version = version;
+   }
+   
+   public void setSkinFeaturesPart(Map<String, String> features)
+   {
+     _skinFeatures = features;
+   }
+   
+   public void setResourceBundleNamePart(String resourceBundleName)
+   {
+     _resourceBundleName = resourceBundleName;
+   }
+   
+   private Skin _baseSkin;
+   private String _id;
+   private String _family;
+   private String _renderKitId;
+   private String _styleSheetName;
+   private boolean _styleSheetIsMetaInf;
+   private ValueExpression _translationSourceValueExpression;
+   private SkinVersion _version;
+   private Map<String, String> _skinFeatures;
+   private String _resourceBundleName; 
+  } //End private class SkinExtensionDirector
 }

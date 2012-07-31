@@ -91,6 +91,16 @@ abstract public class Skin
   abstract public String getStyleSheetName();
 
   /**
+   * Gets the rendering features specified for the skin.
+   * @return a collection containing all features enabled for the skin
+   */
+  public Map<String, String> getSkinFeatures()
+  {
+    return null;
+  }
+  
+
+  /**
    * Returns a translated String in the LocaleContext's translation Locale.
    */
   abstract public String getTranslatedString(

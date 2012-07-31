@@ -412,6 +412,15 @@ public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
 
     return _properties;
   }
+  
+  /**
+   * Gets skinFeatures map from wrapped skin
+   * @return Map<String, String> of skinFeatures
+   */
+  public Map<String, String> getSkinFeatures()
+  {
+    return _skin.getSkinFeatures();
+  }
 
   // The wrapped skin
   private final Skin _skin;

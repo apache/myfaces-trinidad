@@ -76,7 +76,7 @@ public class SkinNodeParser extends BaseNodeParser
     }
 
     return new SkinNode(_id, _family, _renderKitId, _extends, _styleSheetName, 
-                        _bundleName, _translationSourceExpression, _skinVersionNode);
+                        _bundleName, _translationSourceExpression, _skinVersionNode, _skinFeaturesNode);
   }
 
   @Override
@@ -104,6 +104,10 @@ public class SkinNodeParser extends BaseNodeParser
     else if ("version".equals(localName))
     {
       return context.getParser(SkinVersionNode.class, namespaceURI, localName);
+    }
+    else if ("features".equals(localName))
+    {
+      return context.getParser(SkinFeaturesNode.class, namespaceURI, localName);
     }
 
     return null;
@@ -134,6 +138,9 @@ public class SkinNodeParser extends BaseNodeParser
       _extends = (String) child;
     else if ((child instanceof SkinVersionNode))    
       _skinVersionNode = ((SkinVersionNode)child);
+    else if ((child instanceof SkinFeaturesNode))  { 
+      _skinFeaturesNode = ((SkinFeaturesNode)child);
+    }
   }
 
   private String      _namespace;
@@ -145,6 +152,7 @@ public class SkinNodeParser extends BaseNodeParser
   private String      _translationSourceExpression;
   private String      _extends;
   private SkinVersionNode _skinVersionNode;
+  private SkinFeaturesNode _skinFeaturesNode;
 
   private static final TrinidadLogger _LOG = 
     TrinidadLogger.createTrinidadLogger(SkinNodeParser.class);

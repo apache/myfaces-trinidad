@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
+import java.util.Map;
+
 import javax.el.ValueExpression;
 
 import org.apache.myfaces.trinidad.context.LocaleContext;
@@ -70,4 +72,9 @@ public class SkinNotAvailable extends SkinImpl
   }  
   
   private static final SkinNotAvailable _INSTANCE = new SkinNotAvailable();
+
+  @Override
+  public Map<String, String> getSkinFeatures() {
+    return null;
+  }
 }
