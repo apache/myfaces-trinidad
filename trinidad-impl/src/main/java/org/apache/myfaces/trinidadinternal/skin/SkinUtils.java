@@ -602,109 +602,64 @@ public class SkinUtils
    * @param skinFactory
    * @param skinNode
    */
-   private static void _addSkinToFactory(
-       SkinFactory skinFactory,
-       SkinNode    skinNode,
-       boolean     isMetaInfFile)
+  private static void _addSkinToFactory(
+      SkinFactory skinFactory,
+      SkinNode    skinNode,
+      boolean     isMetaInfFile)
+  {
+    //Moved to using a builder/director to avoid creating yet another overloaded constuctor
+    SkinExtensionDirector skinDirector = SkinUtils.createSkinExtensionDirector();
+    String renderKitId = skinNode.getRenderKitId();
+    skinDirector.setRenderKitIdPart(renderKitId);
+    skinDirector.setIdPart(skinNode.getId());
+    
+    skinDirector.setFamilyPart(skinNode.getFamily());
+    skinDirector.setStyleSheetNameAndIsMetaInf(skinNode.getStyleSheetName(), 
+                                              isMetaInfFile);
+    skinDirector.setResourceBundleNamePart(skinNode.getBundleName());
+    skinDirector.setTranslationSourcePart(skinNode.getTranslationSourceExpression());
+    SkinVersionNode skinVersionNode = skinNode.getSkinVersionNode();
+    if(skinVersionNode != null)
+    {
+     skinDirector.setSkinVersionPart(_createSkinVersion(skinVersionNode));
+    }
+    
+    SkinFeaturesNode featuresNode = skinNode.getSkinFeatures();
+    if(featuresNode!=null)
+    {
+     skinDirector.setSkinFeaturesPart(featuresNode.getSkinFeatures());
+    }
+    
+    String baseSkinName = skinNode.getSkinExtends(); 
+    Skin base = null;
+    if (baseSkinName != null)
+     base = skinFactory.getSkin(null, baseSkinName);
+    if (base == null)
+    {
+     base = _getDefaultBaseSkin(skinFactory, renderKitId);
+     
+     if (baseSkinName != null)
      {
-       // if the renderKitId is not specified,
-       // set it to _RENDER_KIT_ID_CORE.
-       String renderKitId = skinNode.getRenderKitId();
-       String id = skinNode.getId();
-       String family = skinNode.getFamily();
-       String styleSheetName = skinNode.getStyleSheetName();
-       String bundleName = skinNode.getBundleName();
-       String translationSourceExpression =
-         skinNode.getTranslationSourceExpression();
-       SkinVersionNode skinVersionNode = skinNode.getSkinVersionNode();
-
-       SkinVersion skinVersion = _createSkinVersion(skinVersionNode);
-
-       if (renderKitId == null)
-         renderKitId = _RENDER_KIT_ID_DESKTOP;
-
-
-       // figure out the base skin.
-       Skin baseSkin = null;
-       String skinExtends = skinNode.getSkinExtends();
-
-       if (skinExtends != null)
-         baseSkin = skinFactory.getSkin(null, skinExtends);
-       if (baseSkin == null)
-       {
-         baseSkin = _getDefaultBaseSkin(skinFactory, renderKitId);
-
-         if (skinExtends != null)
-         {
-           _LOG.severe("UNABLE_LOCATE_BASE_SKIN",
-                       new String[]{skinExtends, id, family, renderKitId, baseSkin.getId()});
-         }
-
-       }
-
-       // Set the style sheet
-       if (styleSheetName != null)
-       {
-         // If the styleSheetName is in the META-INF/trinidad-skins.xml file, then
-         // we prepend META-INF to the styleSheetName if it doesn't begin with '/'.
-         // This way we can find the file when we go to parse it later.
-         if (isMetaInfFile)
-           styleSheetName = _prependMetaInf(styleSheetName);
-       }
-       // If bundleName and translationSourceExpression are both set, then we
-       // only use the bundleName. An error was already logged during trinidad-skins
-       // parsing.
-
-
-       Skin skin = null;
-
-       // bundle-name takes precedence over translation-source
-       if (bundleName != null)
-       {
-         skin = new SkinExtension(baseSkin,
-                                  id,
-                                  family,
-                                  renderKitId,
-                                  styleSheetName,
-                                  bundleName,
-                                  skinVersion);
-       }
-       else
-       {
-         ValueExpression translationSourceVE = null;
-         if (translationSourceExpression != null)
-         {
-           translationSourceVE =
-             _createTranslationSourceValueExpression(translationSourceExpression);
-         }
-
-         if (translationSourceVE != null)
-         {
-           skin = new SkinExtension(baseSkin,
-                                    id,
-                                    family,
-                                    renderKitId,
-                                    styleSheetName,
-                                    translationSourceVE,
-                                    skinVersion);
-         }
-         else
-         {
-           skin = new SkinExtension(baseSkin,
-                                    id,
-                                    family,
-                                    renderKitId,
-                                    styleSheetName,
-                                    skinVersion);
-         }
-
-       }
-
-
-       // Create a SkinExtension object and register skin with factory
-       skinFactory.addSkin(id, skin);
+       _LOG.severe("UNABLE_LOCATE_BASE_SKIN", 
+                   new String[]{baseSkinName, skinNode.getId(), 
+                                skinNode.getFamily(), renderKitId, 
+                                base.getId()});
      }
-
+    }
+    skinDirector.setBaseSkinPart(base);
+    
+    // Put all the pieces together
+    Skin skin = skinDirector.produceSkinExtension();
+    
+    // Create a SkinExtension object and register skin with factory
+    skinFactory.addSkin(skin.getId(), skin);    
+  }
+       
+  private static SkinExtensionDirector createSkinExtensionDirector()
+  {
+    return new SkinExtensionDirector();
+  }
+         
   private static ValueExpression
   _createTranslationSourceValueExpression(
     String translationSourceExpression)
