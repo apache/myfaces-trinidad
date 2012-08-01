@@ -312,7 +312,9 @@ public class ResourceServlet extends HttpServlet
               Class<?> clazz = cl.loadClass(className);
               try
               {
+                // check if this is a decorator first, and if not, fall back to the no-arg constructor. 
                 Constructor<?> decorator = clazz.getConstructor(_DECORATOR_SIGNATURE);
+                  
                 // We are now calling a special temp directory version of DirectoryResourceLoader to
                 // assure that the servlet context's temp directory doesn't change on us.
                 ResourceLoader delegate = new TempDirectoryResourceLoader(getServletContext());
@@ -328,7 +330,6 @@ public class ResourceServlet extends HttpServlet
               catch (NoSuchMethodException e)
               {
                 // by default, create new instance with no-args constructor
-                _logLoaderException(e, servletPath);
                 loader = (ResourceLoader) clazz.newInstance();
               }
             }
