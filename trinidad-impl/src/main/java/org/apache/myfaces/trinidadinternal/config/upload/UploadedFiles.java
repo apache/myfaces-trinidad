@@ -36,6 +36,12 @@ import javax.portlet.PortletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.context.Window;
+import org.apache.myfaces.trinidad.context.WindowManager;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
 
@@ -46,7 +52,7 @@ import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/webapp/UploadedFiles.java#0 $) $Date: 10-nov-2005.18:49:05 $
  */
-final public class UploadedFiles
+final public class UploadedFiles implements Serializable
 {
   /**
    * Returns the map of uploaded files for the current request.
@@ -61,9 +67,9 @@ final public class UploadedFiles
    * Returns the map of uploaded files for the current request.
    */
   @SuppressWarnings("unchecked")
-  static public UploadedFiles getUploadedFiles(ExternalContext context)
+  static public UploadedFiles getUploadedFiles(ExternalContext externalContext)
   {
-    Map<String, Object> requestMap = context.getRequestMap();
+    Map<String, Object> requestMap = externalContext.getRequestMap();
     return (UploadedFiles) requestMap.get(_UPLOADED_FILES_KEY);
   }
   
@@ -71,23 +77,38 @@ final public class UploadedFiles
    * Returns the map of uploaded files for the current request.
    */
   @SuppressWarnings("unchecked")
-  static public UploadedFiles getSessionUploadedFiles(FacesContext context)
+  static public synchronized UploadedFiles getUploadedFilesForWindow(FacesContext context)
   {
-    return getSessionUploadedFiles(context.getExternalContext());
+    return getUploadedFilesForWindow(context.getExternalContext());
   }
   
   /**
    * Returns the map of uploaded files for the current session.
    */
   @SuppressWarnings("unchecked")
-  static public UploadedFiles getSessionUploadedFiles(ExternalContext context)
+  static public synchronized UploadedFiles getUploadedFilesForWindow(ExternalContext externalContext)
   {
-    Map<String, Object> sessionMap = context.getSessionMap();
-    UploadedFiles files = (UploadedFiles) sessionMap.get(_UPLOADED_FILES_KEY);
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    String windowId = _getCurrentWindowId(externalContext, requestContext);
+
+    UploadedFiles files = null;
+    
+    if (externalContext.getRequest() instanceof HttpServletRequest)
+    {
+      HttpSession session = ((HttpServletRequest) externalContext.getRequest()).getSession();
+      Map<String, UploadedFiles> uploadedFilesSessionMap =
+        (Map<String, UploadedFiles>) session.getAttribute(_UPLOADED_FILES_KEY);
+      if (uploadedFilesSessionMap == null)
+      {
+        uploadedFilesSessionMap = __saveUploadedFilesForWindow(files, externalContext, requestContext);
+      }
+      files = uploadedFilesSessionMap.get(windowId);
+    }
+    
     if (files == null)
     {
       files = new UploadedFiles();
-      sessionMap.put(_UPLOADED_FILES_KEY, files);
+      __saveUploadedFilesForWindow(files, externalContext, requestContext);
     }
     return files;
   }
@@ -171,25 +192,26 @@ final public class UploadedFiles
    * @param name the name under which the files are stored.  In HTML forms,
    *   this will be derived from the "name" set on the &lt;input&gt; tag.
    */
-  public static void retrieveSessionUploadedFiles(ExternalContext context, String name)
+  public static void retrieveUploadedFilesForWindow(ExternalContext externalContext, String name)
   {
-    UploadedFiles sessionFiles = (UploadedFiles) context.getSessionMap().get(_UPLOADED_FILES_KEY);
-    if (sessionFiles != null)
+    UploadedFiles windowFiles = getUploadedFilesForWindow(externalContext);
+    if (windowFiles != null)
     {
-      List<UploadedFile> sessionFileList = sessionFiles.getUploadedFileList(name);
-      if (sessionFileList != null && !sessionFileList.isEmpty())
+      List<UploadedFile> windowFileList = windowFiles.getUploadedFileList(name);
+      if (windowFileList != null && !windowFileList.isEmpty())
       {
-        UploadedFiles requestFiles = (UploadedFiles) context.getRequestMap().get(_UPLOADED_FILES_KEY);
+        UploadedFiles requestFiles = (UploadedFiles) externalContext.getRequestMap().get(_UPLOADED_FILES_KEY);
         if (requestFiles == null)
         {
-          requestFiles = new UploadedFiles(context);
+          requestFiles = new UploadedFiles(externalContext);
         }
-        for (UploadedFile sessionFile: sessionFileList)
+        for (UploadedFile windowFile: windowFileList)
         {
-          requestFiles.__put(name, sessionFile);
+          requestFiles.__put(name, windowFile);
         }
-        // clear it in the sessionMap
-        sessionFiles.getUploadedFileMap().remove(name);
+        // clear it in the map
+        windowFiles.getUploadedFileMap().remove(name);
+        __saveUploadedFilesForWindow(windowFiles, externalContext, RequestContext.getCurrentInstance());
       }
     }
   }
@@ -289,10 +311,70 @@ final public class UploadedFiles
     return _totalDiskSpace;
   }
 
+  static synchronized Map<String, UploadedFiles> __saveUploadedFilesForWindow(UploadedFiles files,
+                                                                              ExternalContext externalContext,
+                                                                              RequestContext requestContext)
+  {
+    Map<String, UploadedFiles> uploadedFilesSessionMap = null;
+    String windowId = _getCurrentWindowId(externalContext, requestContext);
+
+    if (externalContext.getRequest() instanceof HttpServletRequest)
+    {
+      HttpSession session = ((HttpServletRequest) externalContext.getRequest()).getSession();
+      uploadedFilesSessionMap = (Map<String, UploadedFiles>) session.getAttribute(_UPLOADED_FILES_KEY);
+      if (uploadedFilesSessionMap == null)
+      {
+        uploadedFilesSessionMap = new HashMap<String, UploadedFiles>();
+      }
+      uploadedFilesSessionMap.put(windowId, files);
+      // Weblogic HA only replicates the HTTP Session if setAttribute() was called
+      // so we cannot call getSessionMap().put(_UPLOADED_FILES_KEY, uploadedFilesSessionMap) instead
+      session.setAttribute(_UPLOADED_FILES_KEY, uploadedFilesSessionMap);
+    }
+
+    return uploadedFilesSessionMap;
+  }
+
+  protected void finalize()
+    throws Throwable
+  {
+    try
+    {
+      dispose(); // close open files
+    }
+    finally
+    {
+      super.finalize();
+    }
+  }
+  
+  private static String _getCurrentWindowId(ExternalContext externalContext, RequestContext requestContext)
+  {
+    if (requestContext != null)
+    {
+      WindowManager wm = requestContext.getWindowManager();
+
+      if (wm != null)
+      {
+        Window currWindow = wm.getCurrentWindow(externalContext);
+
+        if (currWindow != null)
+        {
+          return currWindow.getId();
+        }
+      }
+    }
+    
+    // If there is no Window Id then return a default string
+    return "null";
+  }
+
   private long   _totalMemory;
   private long   _totalDiskSpace;
   private String _characterEncoding;
   private final Map<String, List<UploadedFile>> _map;
+  
+  static private final long serialVersionUID = 3371575393458911349L;
 
   private static final String _UPLOADED_FILES_KEY =
     "org.apache.myfaces.trinidadinternal.webapp.UploadedFiles";

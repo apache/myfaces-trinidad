@@ -25,6 +25,8 @@ import java.io.InputStream;
 
 import java.io.SequenceInputStream;
 
+import java.io.Serializable;
+
 import java.lang.reflect.Proxy;
 
 import java.util.ArrayList;
@@ -120,6 +122,7 @@ public class FileUploadConfiguratorImpl extends Configurator
       try
       {
         final MultipartFormHandler mfh = new MultipartFormHandler(externalContext);
+        RequestContext requestContext = RequestContext.getCurrentInstance(); 
 
         // TODO: How is this set?
         // AdamWiner: looks like the previous Trinidad incarnation
@@ -155,42 +158,53 @@ public class FileUploadConfiguratorImpl extends Configurator
           else if (item.getFilename().length() > 0)
           {
             // Upload a file
-            _doUploadFile(RequestContext.getCurrentInstance(), externalContext, files, item);
+            _doUploadFile(requestContext, externalContext, files, item);
           }
         }
         if (parameters.containsKey(_MULTIPLE_UPLOAD_PARAM))
         {
+          // This is a multiple file upload request. We will only be processing one request at a time
+          // from any particular window since multi file upload requests are queue on the client side
+          // per window. So we do not need to implement extra locking logic.
           String uploadType = parameters.get(_MULTIPLE_UPLOAD_PARAM)[0];
           if (uploadType != null)
           {
-            UploadedFiles sessionFiles = UploadedFiles.getSessionUploadedFiles(externalContext);
+            UploadedFiles windowFiles = UploadedFiles.getUploadedFilesForWindow(externalContext);
             if (uploadType.equals("multipleAdd"))
             {
+              // Add files
               Map<String, List<UploadedFile>> uploadedMapFile = files.getUploadedFileMap();
               Iterator iterator = uploadedMapFile.keySet().iterator();
               while (iterator.hasNext())
               {
+                // Add all the files in the request to the window
                 String name = (String) iterator.next();
                 List<UploadedFile> fileList = uploadedMapFile.get(name);
                 for (UploadedFile file: fileList)
                 {
-                  sessionFiles.__put(name, file);
+                  windowFiles.__put(name, file);
                 }
               }
+              UploadedFiles.__saveUploadedFilesForWindow(windowFiles, externalContext, requestContext);
               uploadedMapFile.clear();
             }
             else if (uploadType.equals("multipleDelete"))
             {
+              // Delete a file
               String itemName = parameters.get("itemName")[0];
               String fileName = parameters.get("fileName")[0];
-              List<UploadedFile> uploadedFiles = sessionFiles.getUploadedFileList(itemName);
+              List<UploadedFile> uploadedFiles = windowFiles.getUploadedFileList(itemName);
               if (uploadedFiles != null)
               {
                 for (UploadedFile uploadedFile: uploadedFiles)
                 {
                   if (uploadedFile.getFilename().equals(fileName))
                   {
+                    // Remove the file from the window, delete the tmp file from disk/memory
+                    // and save the file map
                     uploadedFiles.remove(uploadedFile);
+                    uploadedFile.dispose();
+                    UploadedFiles.__saveUploadedFilesForWindow(windowFiles, externalContext, requestContext);
                     break;
                   }
                 }
@@ -198,23 +212,27 @@ public class FileUploadConfiguratorImpl extends Configurator
             }
             else if (uploadType.equals("multipleAddChunk"))
             {
+              // Add a chunk
               String itemName = parameters.get("itemName")[0];
               String fileName = externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_FILENAME_PARAM);
               Long chunkNum = Long.parseLong(externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_NUM_PARAM));
               Long chunkCount = Long.parseLong(externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_COUNT_PARAM));
               UploadedFile file = files.getUploadedFile(itemName);
-              List<UploadedFile> chunkList = (List<UploadedFile>) externalContext.getSessionMap().get(_UPLOADED_CHUNK_FILES_LIST_KEY);
+              Map<String, Object> windowMap = requestContext.getWindowMap();
+              List<UploadedFile> chunkList = (List<UploadedFile>) windowMap.get(_UPLOADED_CHUNK_FILES_LIST_KEY);
               if (chunkList == null)
               {
                 chunkList = new ArrayList<UploadedFile>();
-                externalContext.getSessionMap().put(_UPLOADED_CHUNK_FILES_LIST_KEY, chunkList);
+                windowMap.put(_UPLOADED_CHUNK_FILES_LIST_KEY, chunkList);
               }
               chunkList.add(file);
               if (chunkNum == chunkCount - 1)
               {
+                // if it's the last chunk then create a combined file
                 UploadedFile combinedFile = new ChunkedUploadedFile(fileName, file.getContentType(), chunkList);
-                sessionFiles.__put(itemName, combinedFile);
-                externalContext.getSessionMap().remove(_UPLOADED_CHUNK_FILES_LIST_KEY);
+                windowFiles.__put(itemName, combinedFile);
+                windowMap.remove(_UPLOADED_CHUNK_FILES_LIST_KEY);
+                UploadedFiles.__saveUploadedFilesForWindow(windowFiles, externalContext, requestContext);
               }
               files.getUploadedFileMap().clear();
             }
@@ -275,7 +293,7 @@ public class FileUploadConfiguratorImpl extends Configurator
   }
 
   private void _doUploadFile(
-      final RequestContext   context,
+      final RequestContext   requestContext,
       final ExternalContext  externalContext,
       final UploadedFiles     files,
       final MultipartFormItem item) throws IOException
@@ -303,7 +321,7 @@ public class FileUploadConfiguratorImpl extends Configurator
       UploadedFileProcessor.MAX_CHUNK_SIZE_PARAM_NAME);
     
     final UploadedFile file =
-      context.getUploadedFileProcessor().processFile(externalContext.getRequest(), temp);
+      requestContext.getUploadedFileProcessor().processFile(externalContext.getRequest(), temp);
 
     if (file != null)
     {
@@ -444,11 +462,13 @@ public class FileUploadConfiguratorImpl extends Configurator
     private MultipartFormItem _item;
     private String _filename = null;
   }
-  static private class ChunkedUploadedFile implements UploadedFile
+  static private class ChunkedUploadedFile implements UploadedFile, Serializable
   {
     private List<UploadedFile> _uploadedFileChunkList = null;
     private String _filename = null;
     private String _contentType = null;
+    
+    static private final long serialVersionUID = 4534545227734904589L;
     
     public ChunkedUploadedFile(String filename, String contentType, List<UploadedFile> uploadedFileChunkList)
     {

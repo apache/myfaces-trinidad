@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
 
 /**
  * UploadedFileImpl defines a single file that has been uploaded
- * to the server.
+ * to the server. UploadedFileImpl is not thread-safe.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/webapp/UploadedFileImpl.java#0 $) $Date: 10-nov-2005.18:49:03 $
  */
@@ -44,7 +44,7 @@ public class UploadedFileImpl implements UploadedFile, Serializable
   UploadedFileImpl()
   {
   }
-
+  
   /**
    * Returns the filename reported from the client.
    */
@@ -84,7 +84,14 @@ public class UploadedFileImpl implements UploadedFile, Serializable
     {
       return new BufferIS(_buffers, _sizeOfLastBuffer);
     }
-    else if (_file != null)
+    if (_file == null)
+    {
+      if (_tempFilename != null)
+      {
+        _file = new File(_tempFilename);
+      }
+    }
+    if (_file != null)
     {
       return new BufferedInputStream(new FileInputStream(_file));
     }
@@ -199,43 +206,51 @@ public class UploadedFileImpl implements UploadedFile, Serializable
     }
 
     OutputStream out = _createOutputStream(directory);
-
     try
     {
-      // First, copy the file from memory to the file
-      if (_length > 0)
+      try
       {
-        _writeFile(out);
+        // First, copy the file from memory to the file
+        if (_length > 0)
+        {
+          _writeFile(out);
+        }
+
+        // Free the buffers, since we're
+        _buffers = null;
+
+        // Now, write directly to the file.
+        while (_length < remainingDiskSpace)
+        {
+          byte[] buffer = new byte[_DISK_BUFFER_SIZE];
+          int bytes = _fillBuffer(in, buffer, _DISK_BUFFER_SIZE);
+          out.write(buffer, 0, bytes);
+          _length = _length + bytes;
+
+          if (bytes < _DISK_BUFFER_SIZE)
+            break;
+        }
       }
-
-      // Free the buffers, since we're
-      _buffers = null;
-
-      // Now, write directly to the file.
-      while (_length < remainingDiskSpace)
+      finally
       {
-        byte[] buffer = new byte[_DISK_BUFFER_SIZE];
-        int bytes = _fillBuffer(in, buffer, _DISK_BUFFER_SIZE);
-        out.write(buffer, 0, bytes);
-        _length = _length + bytes;
+        out.close();
 
-        if (bytes < _DISK_BUFFER_SIZE)
-          break;
+        // If we read too much - then drop the file, and bail.
+        if (_length > remainingDiskSpace)
+        {
+          _file.delete();
+          _file = null;
+          _length = 0;
+
+          throw new EOFException("Per-request disk space limits exceeded.");
+        }
       }
     }
-    finally
+    catch (Throwable e)
     {
-      out.close();
-
-      // If we read too much - then drop the file, and bail.
-      if (_length > remainingDiskSpace)
-      {
+      // If there were any errors make sure the file is cleaned up
+      if (_file != null)
         _file.delete();
-        _file = null;
-        _length = 0;
-
-        throw new EOFException("Per-request disk space limits exceeded.");
-      }
     }
   }
 
@@ -267,12 +282,21 @@ public class UploadedFileImpl implements UploadedFile, Serializable
 
     // Create our temporary file.
     _file = File.createTempFile("uix", null, tempDir);
+    
+    // HA does not replicate File objects so we store the path so it can
+    // be loaded in the replicated server. Replication is only done
+    // for file which are written to temp file. In-memory files are not
+    // replicated.
+    _tempFilename = _file.getCanonicalPath();
 
     // Even though we're supposed to clean up these files ourselves,
     // make sure they get deleted even if an exception terminates
     // our code.
-    _file.deleteOnExit();
-
+    // Remove the deleteOnExit() call because in a HA environment
+    // a server can be shutdown and we don't want the file to be deleted
+    // until it's truly no longer needed.
+    //_file.deleteOnExit();
+    
     // No need for additional buffering of the output - we always
     // buffer the writes - so _don't_ add a BufferedOutputStream.
     return new FileOutputStream(_file);
@@ -428,6 +452,7 @@ public class UploadedFileImpl implements UploadedFile, Serializable
 
 
   private String     _filename;
+  private String     _tempFilename;
   private String     _contentType;
 
   // Total length fo the content, whether in memory or on disk
