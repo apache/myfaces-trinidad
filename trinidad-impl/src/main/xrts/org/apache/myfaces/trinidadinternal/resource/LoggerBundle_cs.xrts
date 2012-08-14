@@ -22,10 +22,10 @@
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
 
 <!-- UNKNOWN_AGENT_ATTRIBUTES_CREATE_WITH_UNKNOWN -->
-<resource key="UNKNOWN_AGENT_ATTRIBUTES_CREATE_WITH_UNKNOWN" dnt="false">Agent uživatele "{0}" je neznámý, vytvoření agenta s neznámými atributy agenta.</resource>
+<resource key="UNKNOWN_AGENT_ATTRIBUTES_CREATE_WITH_UNKNOWN" dnt="false">Agent uživatele "{0}" je neznámý, vytvoření agentu s neznámými atributy agentu.</resource>
 
 <!-- UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL -->
-<resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">Typ agenta je neznámý. Vytvoření agenta s atributy agenta s hodnotou null.</resource>
+<resource key="UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL" dnt="false">Typ agentu je neznámý. Vytvoření agentu s atributy agentu s hodnotou null.</resource>
 
 <!-- UNKNOWN_FRAME_BUSTING_VALUE -->
 <resource key="UNKNOWN_FRAME_BUSTING_VALUE" dnt="false">Kontextový parametr org.apache.myfaces.trinidad.security.FRAME_BUSTING v souboru web.xml je nastaven na neznámou hodnotu, platné hodnoty jsou 'never', 'always' nebo 'differentOrigin'.</resource>
@@ -49,7 +49,7 @@
 <resource key="FAIL_PARSE_CAPABILITIES_DOCUMENT" dnt="false">Nepodařilo se provést syntaktickou analýzu dokumentu schopností</resource>
 
 <!-- UNABLE_PARSE_AGENT_STRING -->
-<resource key="UNABLE_PARSE_AGENT_STRING" dnt="false">Nelze provést syntaktickou analýzu řetězce agenta</resource>
+<resource key="UNABLE_PARSE_AGENT_STRING" dnt="false">Nelze provést syntaktickou analýzu řetězce agentu</resource>
 
 <!-- ELEMENT_MISSING_ATTRIBUTES -->
 <resource key="ELEMENT_MISSING_ATTRIBUTES" dnt="false">Prvek {0} má chybějící (nebo prázdné) atributy</resource>
@@ -142,16 +142,16 @@
 <resource key="CANNOT_FIND_PARTIAL_TRIGGER" dnt="false">Nelze nalézt částečný spouštěcí modul {0} z {1}</resource>
 
 <!-- NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN -->
-<resource key="NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN" dnt="false">Komponenta má hodnotu null, ale je potřeba pro ID klienta, takže není zapsán skript</resource>
+<resource key="NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN" dnt="false">Komponenta má hodnotu null, ale je potřeba pro ID klientu, takže není zapsán skript</resource>
 
 <!-- NULL_CLIENT_ID_NO_SCRIPT_RENDERED -->
-<resource key="NULL_CLIENT_ID_NO_SCRIPT_RENDERED" dnt="false">ID klienta má hodnotu null, není vykreslen skript</resource>
+<resource key="NULL_CLIENT_ID_NO_SCRIPT_RENDERED" dnt="false">ID klientu má hodnotu null, není vykreslen skript</resource>
 
 <!-- CANNOT_CREATE_CONVERTER_LIKELY_BECAUSE_NO_CONVERTER_REGISTERED -->
 <resource key="CANNOT_CREATE_CONVERTER_LIKELY_BECAUSE_NO_CONVERTER_REGISTERED" dnt="false">Pokus o vytvoření převaděče pro typ {0}, ale nepodařil se, pravděpodobně proto, že není registrován žádný převaděč.</resource>
 
 <!-- NULL_CLINET_ID_NO_SCRIPT_RENDERED -->
-<resource key="NULL_CLINET_ID_NO_SCRIPT_RENDERED" dnt="false">ID klienta má hodnotu null, není vykreslen skript</resource>
+<resource key="NULL_CLINET_ID_NO_SCRIPT_RENDERED" dnt="false">ID klientu má hodnotu null, není vykreslen skript</resource>
 
 <!-- FAIL_INSTANTIATE_PROPERTY -->
 <resource key="FAIL_INSTANTIATE_PROPERTY" dnt="false">Vytvoření instancí vlastnosti {0} selhalo.</resource>
@@ -337,7 +337,7 @@
 <resource key="COMPONENT_COLUMN_OUTSIDE_TABLE" dnt="false">{0}: Sloupec byl použit mimo tabulku</resource>
 
 <!-- NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR -->
-<resource key="NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR" dnt="false">Nelze přidat převaděč na straně klienta a moduly pro ověření platnosti, protože název uzlu má hodnotu null</resource>
+<resource key="NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR" dnt="false">Nelze přidat převaděč na straně klientu a moduly pro ověření platnosti, protože název uzlu má hodnotu null</resource>
 
 <!-- NULL_VALIDATORS_ITERATOR -->
 <resource key="NULL_VALIDATORS_ITERATOR" dnt="false">Nulový iterátor ověření platnosti pro {0}</resource>
@@ -391,13 +391,13 @@
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Modul Apache Trinidad je spuštěn se skriptem javascript ladění. Nepoužívejte jej ve výrobním prostředí. Viz parametr "org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT" v souboru /WEB-INF/web.xml</resource>
 
 <!-- RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE -->
-<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Vaše prostředí je nakonfigurováno jako provozní a modul Apache Trinidad běží s laděním javaskriptů. Viz parametr org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT v souboru /WEB-INF/web.xml</resource>
+<resource key="RUNNING_DEBUG_JAVASCRIPT_IN_PRODUCTION_STAGE" dnt="false">Vaše prostředí je konfigurováno jako provozní a modul Apache Trinidad běží s laděním javaskriptů. Viz parametr org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT v souboru /WEB-INF/web.xml</resource>
 
 <!-- DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE -->
 <resource key="DISABLE_CONTENT_COMPRESSION_IN_PRODUCTION_STAGE" dnt="false">Vaše prostředí je konfigurováno jako provozní a modul Apache Trinidad běží s dekomprimovaným CSS. Viz parametr org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION v souboru /WEB-INF/web.xml</resource>
 
 <!-- DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE -->
-<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Vaše prostředí je nakonfigurováno jako provozní a modul Apache Trinidad běží s hodnotou TRUE prvku konfigurace debug-output. Viz prvek debug-output v souboru trinidad-config.xml.</resource>
+<resource key="DEBUG_OUTPUT_TRUE_IN_PRODUCTION_STAGE" dnt="false">Vaše prostředí je konfigurováno jako provozní a modul Apache Trinidad běží s hodnotou TRUE prvku konfigurace debug-output. Viz prvek debug-output v souboru trinidad-config.xml.</resource>
 
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">Neplatná hodnota:{0} pro {1}</resource>
@@ -631,7 +631,7 @@
 <resource key="CANNOT_FLIP_ICON" dnt="false">Nelze získat otočenou ikonu pro: {0}</resource>
 
 <!-- NULL_NODE_NAME_NO_VALIDATOR_ADDED -->
-<resource key="NULL_NODE_NAME_NO_VALIDATOR_ADDED" dnt="false">Název uzlu má hodnotu null a proto nebyl přidán žádný požadovaný validátor na straně klienta pro uzel s místním názvem {0}</resource>
+<resource key="NULL_NODE_NAME_NO_VALIDATOR_ADDED" dnt="false">Název uzlu má hodnotu null a proto nebyl přidán žádný požadovaný validátor na straně klientu pro uzel s místním názvem {0}</resource>
 
 <!-- CANNOT_FIND_CLASS -->
 <resource key="CANNOT_FIND_CLASS" dnt="false">Nelze najít třídu {0}</resource>
@@ -670,7 +670,7 @@
 <resource key="CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING" dnt="false">Nelze načíst typ vykreslení na mapování místního názvu.</resource>
 
 <!-- CLIENT_SIDE_ENCODING_NOT_SUPPORTED -->
-<resource key="CLIENT_SIDE_ENCODING_NOT_SUPPORTED" dnt="false">Kódování {0} není na straně klienta podporováno. Ověřování na straně klienta tím bude vynecháno.</resource>
+<resource key="CLIENT_SIDE_ENCODING_NOT_SUPPORTED" dnt="false">Kódování {0} není na straně klientu podporováno. Ověřování na straně klientu tím bude vynecháno.</resource>
 
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">Nebyl instalován filtr TrinidadFilter. Řádné spuštění modulu Apache Trinidad vyžaduje tento filtr.</resource>
@@ -1105,7 +1105,7 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Nelze najít částečné vyvolání {0} z {1} s podporovanou syntaxí partialTriggers. Bylo zjištěno částečné spuštění s neschvalovanou syntaxí. Použijte podporovanou syntaxi.</resource>
 
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
-<resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Aby fungovalo ověření klienta, DateTimeRangeValidator vyžaduje, aby komponenta byla EditableValueHolder. Ověření klienta bude pro komponentu {0} zablokováno.</resource>
+<resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Aby fungovalo ověření klientu, DateTimeRangeValidator vyžaduje, aby komponenta byla EditableValueHolder. Ověření klientu bude pro komponentu {0} zablokováno.</resource>
 
 <!-- INVALID_LOCALE_LANG_LENGTH  -->
 <resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Neplatný jazyk pro ID místního nastavení {0} - kód jazyka musí mít dva znaky, viz javadoc místního nastavení pro správný formát. Bude použito lokální nastavení aktuální stránky.</resource>
@@ -1150,5 +1150,7 @@
 
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atribut relace:{0} </resource>
+
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Neplatné pravidlo vlastnosti CSS @agent: {0}: {1}</resource>
 
 </resources>

@@ -564,7 +564,7 @@
   <!--table add row button text for adding one row-->
   <resource key="TABLE_ADD_ROW_SINGLE_TEXT" dnt="false">다른 행 추가</resource>
   <!--table add row button text for adding more than one row-->
-  <resource key="TABLE_ADD_ROW_MULTI_TEXT" dnt="false">{0}개 행 추가</resource>
+  <resource key="TABLE_ADD_ROW_MULTI_TEXT" dnt="false">{0}개 행 추가 </resource>
 
   <!--table total row button text for updating display-->
   <resource key="TABLE_TOTAL_ROW_BUTTON_TEXT" dnt="false">재계산</resource>

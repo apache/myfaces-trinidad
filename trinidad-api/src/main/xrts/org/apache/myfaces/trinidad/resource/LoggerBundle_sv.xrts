@@ -22,7 +22,7 @@
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidad.resource">
 
 <!-- CANNOT_FIND_FACESBEAN -->
-<resource key="CANNOT_FIND_FACESBEAN" dnt="false">Kunde inte hitta FacesBean-klassen {0}</resource>
+<resource key="CANNOT_FIND_FACESBEAN" dnt="false">Hittade inte FacesBean-klassen {0}</resource>
 
 <!-- CANNOT_CREATE_FACESBEAN_INSTANCE -->
 <resource key="CANNOT_CREATE_FACESBEAN_INSTANCE" dnt="false">Kunde inte skapa instans av FacesBean {0}</resource>
@@ -58,13 +58,13 @@
 <resource key="SAVED_STATE_INCLUDE_TRANSIENT_COMPONENT_STATE" dnt="false">Sparad status innehåller status för en tillfällig komponent: {0}</resource>
 
 <!-- CANNOT_FIND_ROWKEY -->
-<resource key="CANNOT_FIND_ROWKEY" dnt="false">Kunde inte hitta rowKey för clientRowKey:{0}</resource>
+<resource key="CANNOT_FIND_ROWKEY" dnt="false">Hittade inte rowKey för clientRowKey:{0}</resource>
 
 <!-- NO_INITIAL_STAMP_STATE -->
 <resource key="NO_INITIAL_STAMP_STATE" dnt="false">Det fanns ingen ursprunglig stämpelstatus för currencyKey:{0} och currencyKeyForInitialStampState:{1} och stampId:{2}</resource>
 
 <!-- CANNOT_FIND_RENDERER -->
-<resource key="CANNOT_FIND_RENDERER" dnt="false">Kunde inte hitta renderaren för {0} rendererType = {1}</resource>
+<resource key="CANNOT_FIND_RENDERER" dnt="false">Hittade inte renderaren för {0} rendererType = {1}</resource>
 
 <!-- CANNOT_LOAD_TYPE_PROPERTIES -->
 <resource key="CANNOT_LOAD_TYPE_PROPERTIES" dnt="false">Kunde inte ladda typegenskaper</resource>
@@ -133,13 +133,13 @@
 <resource key="UNABLE_LOAD_FACES_BUNDLE" dnt="false">Kan inte ladda komponentpaketet {0}</resource>
 
 <!-- RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER -->
-<resource key="RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER" dnt="false">Hittar inte ResourceLoader för ResourceServlet på servlet-sökvägen:{0} Orsak: Kunde inte hitta resursen:{1}</resource>
+<resource key="RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER" dnt="false">Hittar inte ResourceLoader för ResourceServlet på servlet-sökvägen:{0} Orsak: Hittade inte resursen:{1}</resource>
 
 <!-- RESOURCESERVLET_IN_DEBUG_MODE -->
 <resource key="RESOURCESERVLET_IN_DEBUG_MODE" dnt="false">Trinidad ResourceServlet körs i felsökningsläge. Använd inte i produktionsmiljö. Se parametern {0} i /WEB-INF/web.xml</resource>
 
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
-<resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Kunde inte hitta klassladdare för kontext.</resource>
+<resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Hittade inte klassladdare för kontext.</resource>
 
 <!-- CANNOT_CONVERT_INTO_INT_ARRAY -->
 <resource key="CANNOT_CONVERT_INTO_INT_ARRAY" dnt="false">Kunde inte konvertera:{0} till int[]</resource>
@@ -244,7 +244,7 @@
  <resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">En eller flera av komponenterna som deltar i MoveChildComponentChange har inget id.</resource>
 
  <!-- COMMON_PARENT_NOT_FOUND -->
- <resource key="COMMON_PARENT_NOT_FOUND" dnt="false">Kunde inte hitta en gemensam överordnad mellan flyttbar underordnad och målcontainer: {0}.</resource>
+ <resource key="COMMON_PARENT_NOT_FOUND" dnt="false">Hittade inte en gemensam överordnad mellan flyttbar underordnad och målcontainer: {0}.</resource>
 
  <!-- MOVABLE_CHILD_NOT_FOUND -->
  <resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Underordnad som ska flyttas kunde inte hittas: {0}.</resource>
@@ -430,7 +430,7 @@
  <resource key="RESOURCE_PATH_DOTS" dnt="false">Resurssökvägen {0} innehåller "..". Webbläsaren löser ut "..", så det här är en misstänkt sökväg.</resource>
 
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
-<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Kunde inte hitta komponenten med scopedId {0} från {1} med syntax som stöds. Komponenten hittades med inaktuell syntax. Använd syntax som stöds.</resource>
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Hittade inte komponenten med scopedId {0} från {1} med syntax som stöds. Komponenten hittades med inaktuell syntax. Använd syntax som stöds.</resource>
 
 <!-- UNSERIALIZABLE_VALUE -->
 <resource key="UNSERIALIZABLE_VALUE" dnt="false">Inte serialiserbart värde:{0}</resource>

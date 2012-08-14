@@ -322,7 +322,7 @@
 <resource key="FRAMES_MUST_INSIDE_FRAMEBORDERLAYOUTS" dnt="false">框架必須顯示在 FrameBorderLayouts 內部</resource>
 
 <!-- NO_PPR_CAPABLE_ID_FOUND_FOR_COMPONENT -->
-<resource key="NO_PPR_CAPABLE_ID_FOUND_FOR_COMPONENT" dnt="false">找不到 {0} 之元素的 PPR-capable "id". 此元件尚未寫出 "id" 屬性.</resource>
+<resource key="NO_PPR_CAPABLE_ID_FOUND_FOR_COMPONENT" dnt="false">找不到 {0} 之元素的 PPR-capable ''id''. 此元件尚未寫出 ''id'' 屬性.</resource>
 
 <!-- INVALID_STRING_ATTRIBUTE -->
 <resource key="INVALID_STRING_ATTRIBUTE" dnt="false">chooseDate 的字串屬性無效: {0}</resource>
@@ -364,7 +364,7 @@
 <resource key="POLL_COMPONENT_MUST_INSIDE_FORM" dnt="false">輪詢元件必須在表單的內部; 正在停用輪詢 {0}</resource>
 
 <!-- SELECTED_SHUTTLE_ITEMS_EXCEEDED_TOTAL_NUMBER -->
-<resource key="SELECTED_SHUTTLE_ITEMS_EXCEEDED_TOTAL_NUMBER" dnt="false">為往返切換 "{0}" 選取的項目數目超過往返切換中的項目總數. 不會傳回選取的項目.</resource>
+<resource key="SELECTED_SHUTTLE_ITEMS_EXCEEDED_TOTAL_NUMBER" dnt="false">為往返切換 ''{0}'' 選取的項目數目超過往返切換中的項目總數. 不會傳回選取的項目.</resource>
 
 <!-- SHOWDETAIL_NOT_IN_FORM_WILLNOT_FUNCTION_PROPERLY -->
 <resource key="SHOWDETAIL_NOT_IN_FORM_WILLNOT_FUNCTION_PROPERLY" dnt="false">showDetail 不在表單中, 而且將無法正常運作.</resource>
@@ -1150,5 +1150,7 @@
 
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">階段作業屬性:{0} </resource>
+
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">不是有效的 @agent CSS 特性規則: {0}: {1}</resource>
 
 </resources>

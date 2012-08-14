@@ -886,7 +886,7 @@
  <resource key="NULL_SKIN_ID" dnt="false">ID NULL</resource>
 
  <!-- NULL_LOCALE_CONTEXT -->
- <resource key="NULL_LOCALE_CONTEXT" dnt="false">Contexte de paramètres locaux NULL</resource>
+ <resource key="NULL_LOCALE_CONTEXT" dnt="false">Contexte d'environnement local NULL</resource>
 
  <!-- NULL_ICONNAME -->
  <resource key="NULL_ICONNAME" dnt="false">iconName NULL</resource>
@@ -1108,19 +1108,19 @@
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Pour que la validation client fonctionne, DateTimeRangeValidator requiert que le composant soit une valeur EditableValueHolder. La validation client va être désactivée pour le composant {0}.</resource>
 
 <!-- INVALID_LOCALE_LANG_LENGTH  -->
-<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Langue non valide pour l''identificateur de paramètres locaux {0} : le code langue doit être composé de deux caractères. Consultez le fichier javadoc des paramètres locaux pour connaître le format correct. Les paramètres locaux de la page en cours seront utilisés.</resource>
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Langue non valide pour l''identificateur d''environnement local {0} : le code langue doit être composé de deux caractères. Consultez le fichier javadoc de l''environnement local pour connaître le format correct. L''environnement local de la page en cours sera utilisé.</resource>
 
 <!-- INVALID_LOCALE_LANG_CASE  -->
-<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Langue non valide pour l''identificateur de paramètres locaux {0} : le code langue doit être en minuscules. Consultez le fichier javadoc des paramètres locaux pour connaître le format correct. Les paramètres locaux de la page en cours seront utilisés.</resource>
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Langue non valide pour l''identificateur d''environnement local {0} : le code langue doit être en minuscules. Consultez le fichier javadoc de l''environnement local pour connaître le format correct. L''environnement local de la page en cours sera utilisé.</resource>
 
 <!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
-<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Pays non valide pour l''identificateur de paramètres locaux {0} : le code pays doit être composé de deux caractères. Consultez le fichier javadoc des paramètres locaux pour connaître le format correct. Une chaîne vide sera utilisée pour le pays</resource>
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Pays non valide pour l''identificateur d''environnement local {0} : le code pays doit être composé de deux caractères. Consultez le fichier javadoc de l''environnement local pour connaître le format correct. Une chaîne vide sera utilisée pour le pays</resource>
 
 <!-- INVALID_LOCALE_COUNTRY_CASE  -->
-<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Pays non valide pour l''identificateur de paramètres locaux {0} : le code pays doit être en majuscules. Consultez le fichier javadoc des paramètres locaux pour connaître le format correct. Une chaîne vide sera utilisée pour le pays</resource>
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Pays non valide pour l''identificateur d''environnement local {0} : le code pays doit être en majuscules. Consultez le fichier javadoc de l''environnement local pour connaître le format correct. Une chaîne vide sera utilisée pour le pays</resource>
 
 <!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
-<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante non valide pour l''identificateur de paramètres locaux {0} : il ne peut pas contenir de barre oblique pour éviter les attaques XSS. Une chaîne vide sera utilisée comme variante.</resource>
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante non valide pour l''identificateur d''environnement local {0} : il ne peut pas contenir de barre oblique pour éviter les attaques XSS. Une chaîne vide sera utilisée comme variante.</resource>
 
 <resource key="COULD_NOT_DELETE_FILE" dnt="false">Impossible de supprimer le fichier {0}</resource>
 
@@ -1150,5 +1150,7 @@
 
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Attribut de session : {0} </resource>
+
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Règle de propriété CSS @agent non valide : {0} : {1}</resource>
 
 </resources>

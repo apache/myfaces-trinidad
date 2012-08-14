@@ -1151,4 +1151,6 @@
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Παράμετρος περιόδου λειτουργίας:{0} </resource>
 
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Δεν είναι έγκυρος κανόνας ιδιότητας @agent CSS: {0}: {1}</resource>
+
 </resources>

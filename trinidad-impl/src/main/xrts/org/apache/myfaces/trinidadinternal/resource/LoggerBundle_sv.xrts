@@ -34,7 +34,7 @@
 <resource key="CANNOT_GET_CAPABILITIES" dnt="false">kunde inte hämta kapacitet från kapacitetsdokument</resource>
 
 <!-- CANNOT_LOCATE_CAPABILITIES_DOCUMENT -->
-<resource key="CANNOT_LOCATE_CAPABILITIES_DOCUMENT" dnt="false">Kunde inte hitta Capabilities-dokument</resource>
+<resource key="CANNOT_LOCATE_CAPABILITIES_DOCUMENT" dnt="false">Hittade inte Capabilities-dokument</resource>
 
 <!-- CANNOT_RESOLVE_CAPABILITIES_FILE -->
 <resource key="CANNOT_RESOLVE_CAPABILITIES_FILE" dnt="false">"Kan inte lösa kapacitetsfilen"</resource>
@@ -112,7 +112,7 @@
 <resource key="ELEMENT_ONLY_ACCEPT_LONG" dnt="false">Elementet {0} kan bara ta långa värden</resource>
 
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
-<resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Kunde inte hitta klassladdare för kontext.</resource>
+<resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">Hittade inte klassladdare för kontext.</resource>
 
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
 <resource key="CONFIGURATOR_SERVICES_INITIALIZED" dnt="false">Konfiguratortjänster har redan initierats.</resource>
@@ -218,7 +218,7 @@
 <resource key="INVALID_EL_EXPRESSION" dnt="false">EL-uttrycket {0} är ogiltigt eller har returnerat ett felaktigt värde.</resource>
 
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
-<resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Kunde inte hitta resurspaketet {0}.</resource>
+<resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Hittade inte resurspaketet {0}.</resource>
 
 <!-- ERR_CLOSING_FILE -->
 <resource key="ERR_CLOSING_FILE" dnt="false">Fel vid stängning av fil:{0}</resource>
@@ -292,7 +292,7 @@
 <resource key="CANNOT_LOCATE_HTMLRENDERKIT" dnt="false">Grundläggande HTMLRenderKit kunde inte hittas</resource>
 
 <!-- CANNOT_FIND_HTML_RENDERER -->
-<resource key="CANNOT_FIND_HTML_RENDERER" dnt="false">Kunde inte hitta grundläggande HTML-renderare för {0}, typen={1}</resource>
+<resource key="CANNOT_FIND_HTML_RENDERER" dnt="false">Hittade inte grundläggande HTML-renderare för {0}, typen={1}</resource>
 
 <!-- CANNOT_GET_STYLESHEET_CACHE -->
 <resource key="CANNOT_GET_STYLESHEET_CACHE" dnt="false">Kunde inte hämta formatmallscache.</resource>
@@ -373,7 +373,7 @@
 <resource key="SOME_ENTRIES_NOT_FOUND_IN_SELECTITEMS" dnt="false">Vissa poster i värdet av {0} kan inte hittas i SelectItems: {1}</resource>
 
 <!-- CANNOT_FIND_SELECTED_ITEM_MATCHING_VALUE -->
-<resource key="CANNOT_FIND_SELECTED_ITEM_MATCHING_VALUE" dnt="false">Kunde inte hitta markerat objekt som matchar värdet "{0}" i {1}</resource>
+<resource key="CANNOT_FIND_SELECTED_ITEM_MATCHING_VALUE" dnt="false">Hittade inte markerat objekt som matchar värdet "{0}" i {1}</resource>
 
 <!-- TABLE_HAS_NO_VISIABLE_COLUMN -->
 <resource key="TABLE_HAS_NO_VISIABLE_COLUMN" dnt="false">Tabell med id:t: {0} har inga synliga kolumner!</resource>
@@ -382,7 +382,7 @@
 <resource key="TREE_COMPONENT_MUST_INSIDE_FORM" dnt="false">Trädkomponenten måste finnas inuti ett formulär.</resource>
 
 <!-- CANNOT_FIND_SCRIPTLET -->
-<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">Kunde inte hitta scriptlet: {0}</resource>
+<resource key="CANNOT_FIND_SCRIPTLET" dnt="false">Hittade inte scriptlet: {0}</resource>
 
 <!-- UNABLE_GET_RESOURCE -->
 <resource key="UNABLE_GET_RESOURCE" dnt="false">Kan inte hämta resursen {0}</resource>
@@ -427,7 +427,7 @@
 <resource key="RESOURCE_NOT_FOUND" dnt="false">Resursen "{0}" på sökvägen "{1}" kan inte hittas</resource>
 
 <!-- CANNOT_FIND_BUNDLE -->
-<resource key="CANNOT_FIND_BUNDLE" dnt="false">Kunde inte hitta paketet {0}.</resource>
+<resource key="CANNOT_FIND_BUNDLE" dnt="false">Hittade inte paketet {0}.</resource>
 
 <!-- REQUIRED_ATTRIBUTE_NOT_FOUND -->
 <resource key="REQUIRED_ATTRIBUTE_NOT_FOUND" dnt="false">Det obligatoriska attributet "{0}" kan inte hittas.</resource>
@@ -553,7 +553,7 @@
 <resource key="REQUIRE_COMPONENTTYPE_ATTRIBUTE" dnt="false">'componentType'-attributet måste anges</resource>
 
 <!-- CANNOT_FIND_COMPONENTTYPE_METADATA_IN_REGION_METADATA -->
-<resource key="CANNOT_FIND_COMPONENTTYPE_METADATA_IN_REGION_METADATA" dnt="false">Kunde inte hitta metadata för componentType:{0} i region-metadata</resource>
+<resource key="CANNOT_FIND_COMPONENTTYPE_METADATA_IN_REGION_METADATA" dnt="false">Hittade inte metadata för componentType:{0} i region-metadata</resource>
 
 <!-- NO_COMPONENTTYPE_JSPURI -->
 <resource key="NO_COMPONENTTYPE_JSPURI" dnt="false">Det fanns ingen jspUri för componentType:{0}</resource>
@@ -613,16 +613,16 @@
 <resource key="CANNOT_GET_COLORIZED_ICON" dnt="false">Kunde inte hämta färgad ikon för: {0}</resource>
 
 <!-- CANNOT_FIND_ICON_WITH_GIVEN_KEY -->
-<resource key="CANNOT_FIND_ICON_WITH_GIVEN_KEY" dnt="false">Kunde inte hitta ikon med angiven nyckel</resource>
+<resource key="CANNOT_FIND_ICON_WITH_GIVEN_KEY" dnt="false">Hittade inte ikon med angiven nyckel</resource>
 
 <!-- CANNOT_FIND_RENDERER -->
-<resource key="CANNOT_FIND_RENDERER" dnt="false">Kunde inte hitta renderare för alias {0}</resource>
+<resource key="CANNOT_FIND_RENDERER" dnt="false">Hittade inte renderare för alias {0}</resource>
 
 <!-- UNABLE_FLIP_ICON -->
 <resource key="UNABLE_FLIP_ICON" dnt="false">Kan inte vända ikonen ''{0}'' eftersom den inte finns under aktuell begärankontext, vilken är ''{1}''</resource>
 
 <!-- CANNOT_LOCATE_PARENT_FORM -->
-<resource key="CANNOT_LOCATE_PARENT_FORM" dnt="false">Kunde inte hitta överordnat format för formValue {0}</resource>
+<resource key="CANNOT_LOCATE_PARENT_FORM" dnt="false">Hittade inte överordnat format för formValue {0}</resource>
 
 <!-- NULL_COMPONENT_FOR_NODE -->
 <resource key="NULL_COMPONENT_FOR_NODE" dnt="false">Komponenten är null för noden med det lokala namnet {0}</resource>
@@ -634,7 +634,7 @@
 <resource key="NULL_NODE_NAME_NO_VALIDATOR_ADDED" dnt="false">Nodnamnet är null och ingen obligatorisk validerare har därför lagts till på klientsidan för noden med det lokala namnet {0}</resource>
 
 <!-- CANNOT_FIND_CLASS -->
-<resource key="CANNOT_FIND_CLASS" dnt="false">Kunde inte hitta klassen {0}</resource>
+<resource key="CANNOT_FIND_CLASS" dnt="false">Hittade inte klassen {0}</resource>
 
 <!-- CANNOT_LOAD_CLASS -->
 <resource key="CANNOT_LOAD_CLASS" dnt="false">Kunde inte ladda klassen {0} {1}</resource>
@@ -643,10 +643,10 @@
 <resource key="METHOD_NOT_RETURN_ICON" dnt="false">Metoden {0} returnerar inte någon ikon</resource>
 
 <!-- CANNOT_FIND_METHOD -->
-<resource key="CANNOT_FIND_METHOD" dnt="false">Kunde inte hitta metoden {0} i {1}</resource>
+<resource key="CANNOT_FIND_METHOD" dnt="false">Hittade inte metoden {0} i {1}</resource>
 
 <!-- CANNOT_FIND_ACCESS_METHOD -->
-<resource key="CANNOT_FIND_ACCESS_METHOD" dnt="false">Kunde inte hitta åtkomst {0} i {1}</resource>
+<resource key="CANNOT_FIND_ACCESS_METHOD" dnt="false">Hittade inte åtkomst {0} i {1}</resource>
 
 <!-- REQUIRED_ELEMENT_SKINID_NOT_FOUND -->
 <resource key="REQUIRED_ELEMENT_SKINID_NOT_FOUND" dnt="false">Det obligatoriska elementet 'skin-id' kan inte hittas.</resource>
@@ -826,7 +826,7 @@
  <resource key="CANNOT_BE_COERCED" dnt="false">{0} kan inte tvingas till en java.awt.Color</resource>
 
  <!-- CANNOT_FIND_FILE -->
- <resource key="CANNOT_FIND_FILE" dnt="false">Kunde inte hitta {1}</resource>
+ <resource key="CANNOT_FIND_FILE" dnt="false">Hittade inte {1}</resource>
 
  <!-- DECIMALFORMATCONTEXT_NOT_CLONEABLE -->
  <resource key="DECIMALFORMATCONTEXT_NOT_CLONEABLE" dnt="false">DecimalFormatContext kan inte klonas.</resource>
@@ -1150,5 +1150,7 @@
 
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Sessionsattribut:{0} </resource>
+
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Inte en giltig @agent CSS-egenskapsregel: {0}: {1}</resource>
 
 </resources>

@@ -304,7 +304,7 @@
   <!-- {0} the label that identifies the component             -->
   <!-- {1} value entered by the user                           -->
   <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE" dnt="false">입력한 날짜 또는 시간이 부적합합니다.</resource>
-  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE_detail" dnt="false">적합한 날짜 또는 시간을 입력하십시오.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_INVALID_DATE_detail" dnt="false">적합한 날짜 또는 시간을 입력하십시오. </resource>
 
 
   <!-- {0} the label that identifies the component    -->

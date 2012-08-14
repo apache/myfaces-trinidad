@@ -429,9 +429,9 @@
   <resource key="af_navigationTree.NODE_LEVEL" dnt="false">層次 {0}</resource>
  
  <!-- alt text for the icon that indicates a readOnly checkbox in the checked state -->
-  <resource key="af_selectBooleanCheckbox.READONLY_CHECKED_TIP" dnt="false">已核取唯讀方塊</resource>
+  <resource key="af_selectBooleanCheckbox.READONLY_CHECKED_TIP" dnt="false">已勾選唯讀核取方塊</resource>
  <!-- alt text for the icon that indicates a readOnly checkbox in the unchecked state -->
-  <resource key="af_selectBooleanCheckbox.READONLY_NOT_CHECKED_TIP" dnt="false">未核取唯讀方塊</resource>
+  <resource key="af_selectBooleanCheckbox.READONLY_NOT_CHECKED_TIP" dnt="false">未勾選唯讀核取方塊</resource>
 
  <!-- alt text for the icon that indicates a readOnly radioButton in the selected state -->
   <resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">已選取唯讀圓鈕</resource>

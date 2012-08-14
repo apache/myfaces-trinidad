@@ -64,7 +64,7 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">O URL dos dados de capacidade {0} é inválido</resource>
 
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
-<resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Não foi possível encontrar o estado da vista gravado do símbolo {0}</resource>
+<resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Não foi possível encontrar o estado da visualização gravado do símbolo {0}</resource>
 
 <!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
 <resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE não é suportado e não deve ser utilizado, porque atualmente não funciona na maioria dos casos.</resource>
@@ -713,10 +713,10 @@
  <resource key="PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED" dnt="false">Foram excedidos os limites de espaço em disco por pedido.</resource>
 
  <!-- POPVIEW_NO_VIEW_PUSHED -->
- <resource key="POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): Não foi efetuado push da vista.</resource>
+ <resource key="POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): Não foi efetuado push da visualização.</resource>
 
  <!-- POPVIEW_NO_VIEW_PUSHED -->
- <resource key=">POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): Não foi efetuado push da vista.</resource>
+ <resource key=">POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): Não foi efetuado push da visualização.</resource>
 
 
  <!-- ONLY_HTTPSERVLETREQUEST_SUPPORTED -->
@@ -1150,5 +1150,7 @@
 
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Atributo da sessão:{0} </resource>
+
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Não é uma regra de propriedade de CSS @agent válida: {0}: {1}</resource>
 
 </resources>

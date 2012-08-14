@@ -251,7 +251,7 @@
 <resource key="NO_SKIN_FACTORY" dnt="false">Es ist keine SkinFactory vorhanden</resource>
 
 <!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Die Skin {0}, die in requestMap angegeben wird, wird verwendet, obwohl die styleSheetDocumentId der Consumer Skin in requestMap nicht mit der styleSheetDocument-ID der lokalen Skin übereinstimmt. Dies wirkt sich auf die Performance aus, weil die Consumer und Producer Stylesheets nicht gemeinsam verwendet werden können. Die Producer Style-Klassen werden nicht komprimiert, um Konflikte zu vermeiden. Die IDs stimmen möglicherweise nicht überein, weil die Jars auf Producer und Consumer nicht identisch sind. Beispiel: Eine Jar-Datei enthält möglicherweise trinidad-skins.xml Skin-Additions in einer Jar-Datei im Classpath, die die andere nicht enthält.</resource>
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Die Skin {0}, die in requestMap angegeben wird, wird verwendet, obwohl die styleSheetDocumentId der Consumer Skin in requestMap nicht mit der styleSheetDocument-ID der lokalen Skin übereinstimmt. Dies wirkt sich auf die Performance aus, weil die Consumer und Producer Stylesheets nicht gemeinsam verwendet werden können. Die Producer Style-Klassen werden nicht komprimiert, um Konflikte zu vermeiden. Die IDs stimmen möglicherweise nicht überein, weil die Jars auf Producer und Consumer nicht identisch sind. Beispiel: Eine JAR-Datei enthält möglicherweise trinidad-skins.xml Skin-Additions in einer JAR-Datei im Classpath, die die andere nicht enthält.</resource>
 
 <!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
 <resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> Die Skin {0}, die in requestMap angegeben wird, wird verwendet, obwohl die styleSheetDocumentId der Consumer Skin nicht in requestMap enthalten war. Dies wirkt sich auf die Performance aus, weil Stylesheets nicht von Producer und Consumer gemeinsam verwendet werden können.</resource>
@@ -1150,5 +1150,7 @@
 
 <!-- SESSION_SERIALIZATION_ATTRIBUTE -->
 <resource key="SESSION_SERIALIZATION_ATTRIBUTE" dnt="false">Sessionattribut: {0} </resource>
+
+<resource key="INVALID_AGENT_PROPERTY" dnt="false">Keine gültige @agent CSS-Eigenschaftsregel: {0}: {1}</resource>
 
 </resources>

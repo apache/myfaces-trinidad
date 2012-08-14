@@ -82,10 +82,10 @@
 <resource key="NO_REQUESTCONTEXT_TIMEZONE_DEFAULT" dnt="false">RequestContext introuvable ; utilisation de la valeur TimeZone par défaut.</resource>
 
 <!-- FAIL_HOLD_DECIMALFORMAT -->
-<resource key="FAIL_HOLD_DECIMALFORMAT" dnt="false">Echec de l''obtention de DecimalFormat pour le type : {0}. Les valeurs par défaut de séparateur décimal, de séparateur de groupes de chiffres et de code de devise seront fondées sur les paramètres locaux {1}</resource>
+<resource key="FAIL_HOLD_DECIMALFORMAT" dnt="false">Echec de l''obtention de DecimalFormat pour le type : {0}. Les valeurs par défaut de séparateur décimal, de séparateur de groupes de chiffres et de code de devise seront fondées sur l''environnement local {1}</resource>
 
 <!-- NULL_REQUESTCONTEXT -->
-<resource key="NULL_REQUESTCONTEXT" dnt="false">RequestContext est NULL : les valeurs par défaut de séparateur décimal, de séparateur de groupes de chiffres et de code de devise seront fondées sur les paramètres locaux</resource>
+<resource key="NULL_REQUESTCONTEXT" dnt="false">RequestContext est NULL : les valeurs par défaut de séparateur décimal, de séparateur de groupes de chiffres et de code de devise seront fondées sur l'environnement local</resource>
 
 <!-- NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE -->
 <resource key="NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE" dnt="false">RequestContext est NULL, impossible d'obtenir le code de devise</resource>
