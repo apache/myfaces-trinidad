@@ -69,6 +69,7 @@ function _isStrict(
 function _doClumping(
   formatPattern,
   localeSymbols,
+  locale,
   subFunction,
   param,
   outValue
@@ -108,6 +109,7 @@ function _doClumping(
         // output the quoted text
         if (!subFunction(formatPattern,
                          localeSymbols,
+                         locale,
                          "\'",
                          startIndex,
                          kindCount,
@@ -150,6 +152,7 @@ function _doClumping(
           // output the previously collected string
           if (!subFunction(formatPattern,
                            localeSymbols,
+                           locale,
                            lastChar,
                            startIndex,
                            kindCount,
@@ -184,6 +187,7 @@ function _doClumping(
   {
     if (!subFunction(formatPattern,
                      localeSymbols,
+                     locale,
                      lastChar,
                      startIndex,
                      kindCount,
@@ -207,6 +211,7 @@ function _doClumping(
 function _subformat(
   inString,
   localeSymbols,
+  locale,
   formatType,
   startIndex,
   charCount,
@@ -347,6 +352,10 @@ function _subformat(
       {
         var year = time.getFullYear();
         
+        // Trinidad-2013: Thai Buddhist Calendar is offset by 543 years
+        if (locale == "th_TH")
+          year += 543;
+        
         // truncate 2 and 1 digit years to that number of digits
         var maxDigits = (charCount <= 2)
                           ? charCount
@@ -470,6 +479,7 @@ function _getLocaleTimeZoneDifference()
 function _subparse(
   inString,      // the pattern string, such as "yyMMdd"
   localeSymbols,
+  locale,
   formatType,    // the current format char, such as 'y'
   startIndex,    // index into inString
   charCount,     // the number of chars of type formatType
@@ -733,7 +743,11 @@ function _subparse(
           // There is no year "0"
           if (year == 0)
             return false;
-
+            
+          // Trinidad-2013: Thai Buddhist Calendar is offset by 543 years
+          if (locale == "th_TH")
+            year -= 543;
+            
           parseContext.parsedFullYear = year;
         }
         else
@@ -1090,6 +1104,8 @@ function TrDateTimeConverter(
 
   // Stash away the patterns for later use.
   this._pattern = patterns;
+  
+  this._locale = (locale != null) ? locale : getJavaLanguage(locale);
 }
 
 TrDateTimeConverter.prototype = new TrConverter();
@@ -1134,6 +1150,7 @@ TrDateTimeConverter.prototype.getAsString = function(
     
   _doClumping(pattern,
               this._localeSymbols,
+              this._locale,
               _subformat,
               formatTime,
               stringHolder);
@@ -1216,6 +1233,7 @@ TrDateTimeConverter.prototype.getAsObject  = function(
     return this._simpleDateParseImpl(parseString,
                                 pattern,
                                 this._localeSymbols,
+                                this._locale,
                                 invalidFormatMsg,
                                 invalidDateMsg);
   }
@@ -1228,6 +1246,7 @@ TrDateTimeConverter.prototype.getAsObject  = function(
         var date = this._simpleDateParseImpl(parseString,
                                         pattern[i],
                                         this._localeSymbols,
+                                        this._locale,
                                         invalidFormatMsg,
                                         invalidDateMsg);
         return date;
@@ -1368,6 +1387,7 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
   parseString,
   parsePattern,
   localeSymbols,
+  locale,
   invalidFormatMsg,
   invalidDateMsg)
 {
@@ -1401,6 +1421,7 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
   // parse the time
   if (_doClumping(parsePattern,
                   localeSymbols,
+                  locale,
                   _subparse,
                   parseContext,
                   parsedTime))
