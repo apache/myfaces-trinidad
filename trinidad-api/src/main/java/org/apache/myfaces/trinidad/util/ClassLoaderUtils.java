@@ -218,15 +218,17 @@ public final class ClassLoaderUtils
 
   /**
    * Instantiate the first registered services from a file in /META-INF/services.
-   * @param service the classname of the abstract service class.
+   * @param serviceClass type of the abstract service class.
    * eg: javax.servlet.Filter
    * @see #getService(String)
    * @see #getServices(Class)
    * @see #getServices(String)
    */
-  public static <T> T getService(Class<T> service)
+  public static <T> T getService(Class<T> serviceClass)
   {
-    return (T) getService(service.getName());
+    T service = getService(serviceClass.getName());
+    
+    return service;
   }
 
   /**
