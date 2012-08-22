@@ -29,7 +29,6 @@ import java.util.Set;
 
 import javax.el.ValueExpression;
 
-import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
@@ -103,7 +102,7 @@ public interface FacesBean
    * </ul>
    * <p>The most common use case of this method is for message attributes
    * set on converters and validators using a value binding referencing
-   * a managed bean created by <code>&lt;f:loadBundle/&gt;<code>. Since
+   * a managed bean created by <code>&lt;f:loadBundle/&gt;</code>. Since
    * loadBundle only creates its bean during the render response phase
    * while converter and validators take action during process validation
    * phase, the message property's value binding must be stored in a
