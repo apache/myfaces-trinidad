@@ -30,6 +30,7 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidad.share.io.NameResolver;
@@ -278,9 +279,15 @@ class StyleSheetEntry
      }
      catch (Exception e)
      {
-       if (_LOG.isSevere())
+       if (RenderingContext.getCurrentInstance().isDesignTime())
+       {
+         _LOG.warning("CANNOT_LOAD_STYLESHEET", styleSheetName);
+       }
+       else
+       {
          _LOG.severe("CANNOT_LOAD_STYLESHEET", styleSheetName);
          _LOG.severe(e);
+       }
 
      }
       return null;
