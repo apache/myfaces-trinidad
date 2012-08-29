@@ -1002,7 +1002,24 @@ public class AgentFactoryImpl implements AgentFactory
         else
         {
           agentObj.setAgent(Agent.AGENT_IE);
-          agentObj.setAgentVersion(_getVersion(agent, ieIndex + 4));
+
+          // As of IE8, the Trident version is the most reliable method to find the 
+          // maximum capabilities of IE.  The IE WebBrowser Control by default is in IE7 
+          // compatability - MSIE 7.0;
+          int ieTridentIndex = agent.indexOf("Trident", ieIndex);
+          if (ieTridentIndex < 0 )
+          { 
+            String ieVersion = _getVersion(agent, ieIndex + "MSIE ".length() - 1);
+            agentObj.setAgentVersion(ieVersion);
+          }
+          else 
+          {
+            //Trident/4.0 -> IE8
+            //Trident/5.0 -> IE9
+            //Trident/6.0 -> IE10
+            Double ieTridentVersion = Double.valueOf(_getVersion(agent, ieTridentIndex + "Trident/".length() - 1));
+            agentObj.setAgentVersion(String.valueOf(ieTridentVersion + 4.0));  
+          }
         }
       }
       else
