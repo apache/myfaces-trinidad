@@ -34,7 +34,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
@@ -42,6 +41,7 @@ import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.style.Style;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
@@ -307,10 +307,7 @@ public class StyleSheetDocument
     String  text = null;
     boolean isNullIcon = false;
     
-    // TODO Use an ArrayMap to use less memory, and we do not need concurrency since we will never modify this map.
-    // switching from ConcurrentHashMap to ArrayMap may break golden files, so be sure to check those
-    // if you switch.
-    Map<String, String> propertyMap = new ConcurrentHashMap<String, String>();
+    Map<String, String> propertyMap = new ArrayMap<String, String>();
     
     // loop through each property in the StyleNode.
     // If 'content', then get the url and the type of icon: 
