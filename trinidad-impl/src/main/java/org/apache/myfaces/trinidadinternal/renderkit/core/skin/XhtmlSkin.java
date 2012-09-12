@@ -20,9 +20,8 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
 import java.util.Map;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.apache.myfaces.trinidad.style.Style;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
@@ -112,13 +111,10 @@ public class XhtmlSkin extends BaseSkin
   
   static
   {
-    // todo Use ArrayMap instead of ConcurrentHashMap
-    // We were using CSSStyle instead of UnmodifiableStyle and that class copied the properties 
-    // into a ConcurrentHashMap. Changing this to another map will change the spinbox golden files.
-    _spinboxTopStyleMap = new ConcurrentHashMap<String, String>();
+    _spinboxTopStyleMap = new ArrayMap<String, String>();
     _spinboxTopStyleMap.put("display", "block");
     // this is needed for the image
-    _spinboxBottomStyleMap = new ConcurrentHashMap<String, String>();
+    _spinboxBottomStyleMap = new ArrayMap<String, String>();
     _spinboxBottomStyleMap.put("display", "block");
     _spinboxBottomStyleMap.put("padding-top", "2px");
 

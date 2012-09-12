@@ -232,67 +232,66 @@ TrNumberConverter.prototype.getAsObject = function(
     if (numberString.length == 0)
       return null
 
+    // TRINIDAD-2299 - The leading and trailing grouping separator characters
+    // are removed from the user input number string for all types number, currency and percent.    
     var parsedValue;
-    if(this._type=="percent" || this._type=="currency")
+    var localeSymbols = getLocaleSymbols(this._locale);
+      
+    // TODO matzew - see TRINIDAD-682
+    // Remove the thousands separator - which Javascript doesn't want to see
+    var groupingSeparator = localeSymbols.getGroupingSeparator();
+      
+    if (groupingSeparator == "\xa0")
     {
-      var localeSymbols = getLocaleSymbols(this._locale);
+      var normalSpace = new RegExp("\\ " , "g");
+      numberString = numberString.replace(normalSpace, "\xa0");
+    }
       
-      // TODO matzew - see TRINIDAD-682
-      // Remove the thousands separator - which Javascript doesn't want to see
-      var groupingSeparator = localeSymbols.getGroupingSeparator();
-      
-      if (groupingSeparator == "\xa0")
-      {
-        var normalSpace = new RegExp("\\ " , "g");
-        numberString = numberString.replace(normalSpace, "\xa0");
-      }
-      
-      var grouping = new RegExp("\\" + groupingSeparator, "g");
-      numberString = numberString.replace(grouping, "");
+    var grouping = new RegExp("\\" + groupingSeparator, "g");
+    numberString = numberString.replace(grouping, "");
 
-      // Then change the decimal separator into a period, the only
-      // decimal separator allowed by JS
-      var decimalSeparator = localeSymbols.getDecimalSeparator();
-      var decimal = new RegExp("\\" + decimalSeparator, "g");
-      numberString = numberString.replace(decimal, ".");
+    // Then change the decimal separator into a period, the only
+    // decimal separator allowed by JS
+    var decimalSeparator = localeSymbols.getDecimalSeparator();
+    var decimal = new RegExp("\\" + decimalSeparator, "g");
+    numberString = numberString.replace(decimal, ".");
       
+    try
+    {
+      // parse the numberString
+      numberString = this._numberFormat.parse(numberString)+"";     
+    }
+    catch(e)
+    {
+      // The user could have just left off the percent/currency symbol, so try 
+      // parsing 'numberString' as a Number instead; if it still fails, then 
+      // throw a converter exception.
       try
       {
-        // parse the numberString
-        numberString = this._numberFormat.parse(numberString)+"";     
+        numberString = TrNumberFormat.getNumberInstance().parse(numberString)+"";
       }
-      catch(e)
+      catch (e)
       {
-        // The user could have just left off the percent/currency symbol, so try 
-        // parsing 'numberString' as a Number instead; if it still fails, then 
-        // throw a converter exception.
-        try
+        var facesMessage;
+        var example = this._numberFormat.format(this._example);
+        var key = "org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_" + this._type.toUpperCase();
+        if (this._messages && this._messages[this._type])
         {
-          numberString = TrNumberFormat.getNumberInstance().parse(numberString)+"";
+          facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key), this._messages  [this._type], label, numberString, example);
         }
-        catch (e)
+        else 
         {
-          var facesMessage;
-          var example = this._numberFormat.format(this._example);
-          var key = "org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_" + this._type.toUpperCase();
-          if (this._messages && this._messages[this._type])
-          {
-            facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key), this._messages[this._type], label, numberString, example);
-          }
-          else 
-          {
-            facesMessage = _createFacesMessage(key, label, numberString, example);
-          }
+          facesMessage = _createFacesMessage(key, label, numberString, example);
+        }
 
-          throw new TrConverterException(facesMessage);
-        }
+        throw new TrConverterException(facesMessage);
       }
-      
-      // to be able to pass the _decimalParse, we replace the decimal separator...
-      // Note that _decimalParse uses the page locale.
-      var jsSeparator = new RegExp("\\" + ".",  "g");
-      numberString = numberString.replace(jsSeparator, getLocaleSymbols().getDecimalSeparator());
     }
+      
+    // to be able to pass the _decimalParse, we replace the decimal separator...
+    // Note that _decimalParse uses the page locale.
+    var jsSeparator = new RegExp("\\" + ".",  "g");
+    numberString = numberString.replace(jsSeparator, getLocaleSymbols().getDecimalSeparator());    
     
     parsedValue = _decimalParse(numberString, 
                          this._messages,
