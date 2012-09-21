@@ -104,7 +104,7 @@ af|treeTable::content
 {
   width: 103px;
   height: 13px;
-  background-image: url('../../images/logo-dark.png');
+  background-image: url('/adf/images/logo-dark.png');
   background-repeat: no-repeat;
   background-position: center;
   vertical-align: middle;
@@ -112,6 +112,6 @@ af|treeTable::content
 /* end stylesheet with no options */
 @agent ie and (version: 6){
   .AFLogo {
-    background-image: url('../../images/logo-dark.gif');
+    background-image: url('/adf/images/logo-dark.gif');
   }
 }
