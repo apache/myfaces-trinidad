@@ -22,10 +22,13 @@ import java.io.Serializable;
 
 import java.lang.reflect.Array;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.el.ELContext;
 import javax.el.PropertyNotWritableException;
@@ -41,6 +44,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.JspIdConsumer;
 
+import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.webapp.TrinidadIterationTag;
@@ -251,6 +255,10 @@ public class ForEachTag
 
     _parentComponent = _getParentComponent();
 
+    // Remember the non-Trinidad components before execution so that we may determine which
+    // are created during this tags for each execution
+    _previousIterationNonTrinidadChildren = _getNonTrinidadChildren();
+
     _updateVars(true);
 
     return EVAL_BODY_INCLUDE;
@@ -260,6 +268,10 @@ public class ForEachTag
   public int doAfterBody()
   {
     _LOG.finest("doAfterBody processing");
+
+    // Process any non-Trinidad components that were added during the last body execution
+    _processNonTrinidadComponents();
+
     _currentIndex += _currentStep;
     ++_currentCount;
     _isFirst = false;
@@ -279,6 +291,7 @@ public class ForEachTag
       {
         popComponentSuffix();
         _suffixPushed = false;
+        _previousIterationNonTrinidadChildren = null;
       }
 
       return SKIP_BODY;
@@ -313,6 +326,8 @@ public class ForEachTag
     _iterationMapKey = null;
     _iterationMap = null;
     _itemsWrapper = null;
+
+    _previousIterationNonTrinidadChildren = null;
 
     _parentComponent = null;
 
@@ -370,7 +385,7 @@ public class ForEachTag
   }
 
   @Override
-  public void afterChildComponentProcessed(
+  public final void afterChildComponentProcessed(
     UIComponent component)
   {
     // This code is called when a component is created or found, see which it is.
@@ -395,6 +410,27 @@ public class ForEachTag
     }
   }
 
+  private Set<UIComponent> _getNonTrinidadChildren()
+  {
+    if (_parentComponent == null)
+    {
+      return Collections.emptySet();
+    }
+
+    Set<UIComponent> components = new HashSet<UIComponent>(_parentComponent.getChildCount());
+    for (UIComponent child : _parentComponent.getChildren())
+    {
+      if (child instanceof UIXComponent)
+      {
+        continue;
+      }
+
+      components.add(child);
+    }
+
+    return components;
+  }
+
   private UIComponent _getParentComponent()
   {
     UIComponentClassicTagBase tag = UIComponentClassicTagBase.getParentUIComponentClassicTagBase(
@@ -402,11 +438,101 @@ public class ForEachTag
     return tag == null ? null : tag.getComponentInstance();
   }
 
+  /**
+   * Get the key for the current item in the items. For non-key based collections, this is the
+   * index. If there is no items attribute, this simply returns the current index as well.
+   *
+   * @return the key or index
+   */
+  private Serializable _getKey()
+  {
+    return (_itemsWrapper == null) ?
+      _currentIndex :
+      _asSerializable(_itemsWrapper.getKey(_currentIndex));
+  }
+
+  /**
+   * Although in-efficient in how we process UIXComponent children, this function allows
+   * non-Trinidad components to correctly map their value expressions to the iteration of the
+   * for each loop better than the JSTL tag does in JSF. In order to do this, this function must
+   * determine what non-UIXComponents belong to the current iteration of the loop.
+   *
+   * @see #afterChildComponentProcessed(UIComponent)
+   * @see #childComponentProcessed(UIComponent)
+   */
+  private void _processNonTrinidadComponents()
+  {
+    Serializable key = null;
+
+    // If _previousIterationNonTrinidadChildren is non-null then this is not the first
+    // execution of this code in this request. We need to determine what components were added
+    // during this iteration
+    Set<UIComponent> childrenComponents = _getNonTrinidadChildren();
+    if (childrenComponents.isEmpty())
+    {
+      _previousIterationNonTrinidadChildren.clear();
+      return;
+    }
+
+    for (UIComponent child : childrenComponents)
+    {
+      Map<String, Object> attrs = child.getAttributes();
+      if (_previousIterationNonTrinidadChildren.contains(child))
+      {
+        // This child component is either one that was created in a previous request, or
+        // one that was not created by this for each loop, we need to determine which one.
+        NonTrinidadIterationData data = (NonTrinidadIterationData)attrs.get(_iterationMapKey);
+
+        // If the data is null, then this for each tag did not create the component and we
+        // do not need to do anything.
+        if (data == null)
+        {
+          continue;
+        }
+
+        // Get the key for the current item, if we have not already
+        if (key == null)
+        {
+          key = _getKey();
+        }
+
+        // Since we clear the iteration map in the start tag processing, we need to re-map
+        // the iteration ID from the component back to the current iteration data.
+        // First, we need to ensure that this component belongs to the current iteration. If
+        // it doesn't, we do not need to do anything as the component "belongs" to a different
+        // iteration
+        if (key.equals(data.getKey()))
+        {
+          // The keys are the same, update the map.
+          _iterationMap.put(data.getIterationId(), _iterationData);
+        }
+      }
+      else
+      {
+        // This is a component that was added to the parent while this for each loop was processing
+        // the last iteration. We need to record the key and the iteration ID so that we can map
+        // this component to its var status
+
+        // Get the key for the current item, if we have not already
+        if (key == null)
+        {
+          key = _getKey();
+        }
+
+        attrs.put(_iterationMapKey, new NonTrinidadIterationData(key, _iterationId));
+      }
+    }
+
+    // Update the map so we know for the next iteration what components are being created
+    _previousIterationNonTrinidadChildren = childrenComponents;
+  }
+
   // Push new values into the VariableMapper and the pageContext
   private void _updateVars(
     boolean createNewIterationData)
   {
     VariableMapper vm = pageContext.getELContext().getVariableMapper();
+    Serializable   key = null;
 
     // Generate a new iteration ID
     _updateIterationId();
@@ -422,13 +548,14 @@ public class ForEachTag
         if (_itemsWrapper.isKeyBased())
         {
           // Use a key to get the value
-          Serializable key = _asSerializable(_itemsWrapper.getKey(_currentIndex));
-          expr = new KeyedValueExpression(_items, key);
+          key = _getKey();
+          expr = new KeyedValueExpression(_items, _getKey());
         }
         else
         {
           // Use indirection to get the index from the iteration data using the iteration ID
-          // so that the expression is not hard-coded to one index
+          // so that the expression is not hard-coded to one index. This allows the tag to
+          // support components that are re-ordered (index changes during multiple requests)
           expr = new IndexedValueExpression(_iterationId, _iterationMapKey, _items);
         }
 
@@ -445,17 +572,14 @@ public class ForEachTag
       }
     }
 
-    Object key = _itemsWrapper == null ?
-      _currentIndex : _itemsWrapper.getKey(_currentIndex);
-
-    if (!(key instanceof Serializable))
-    {
-      throw new IllegalStateException("For each loop keys must be serializable");
-    }
-
     if (createNewIterationData || _iterationData == null)
     {
-      _iterationData = new IterationMetaData((Serializable)key, _isFirst, _isLast,
+      if (key == null)
+      {
+        key = _getKey();
+      }
+
+      _iterationData = new IterationMetaData(key, _isFirst, _isLast,
                          _currentBegin, _currentCount, _currentIndex, _currentEnd);
     }
 
@@ -495,8 +619,21 @@ public class ForEachTag
     // To do, support non-key pass-through
     if (_itemsWrapper != null && _itemsWrapper.isIdSuffixSupported())
     {
+      if (key == null)
+      {
+        key = _getKey();
+      }
+
       pushComponentSuffix("_" + key.toString());
       _suffixPushed = true;
+    }
+
+    if (_previousIterationNonTrinidadChildren == null)
+    {
+      // If _previousIterationNonTrinidadChildren is null, then this is the first execution
+      // of this function for this tag in this request, store off the non-Trinidad children
+      // components so that we can attempt to determine the ones that are added
+      _previousIterationNonTrinidadChildren = _getNonTrinidadChildren();
     }
   }
 
@@ -964,7 +1101,7 @@ public class ForEachTag
         return;
       }
 
-      if (index < _currentIndex)
+      if (_iter == null || index < _currentIndex)
       {
         // Need to re-create the iterator
         _iter = _map.entrySet().iterator();
@@ -1154,6 +1291,31 @@ public class ForEachTag
     private Serializable _key;
   }
 
+  private static class NonTrinidadIterationData
+    implements Serializable
+  {
+    public NonTrinidadIterationData(
+      Serializable key,
+      Integer      iterationId)
+    {
+      _key = key;
+      _iterationId = iterationId;
+    }
+
+    public Serializable getKey()
+    {
+      return _key;
+    }
+
+    public Integer getIterationId()
+    {
+      return _iterationId;
+    }
+
+    private final Serializable _key;
+    private final Integer      _iterationId;
+  }
+
   private int _currentBegin;
   private int _currentIndex;
   private int _currentEnd;
@@ -1176,6 +1338,8 @@ public class ForEachTag
 
   private UIComponent _parentComponent;
 
+  private Set<UIComponent> _previousIterationNonTrinidadChildren;
+
   private Integer _iterationId;
   private IterationMetaData _iterationData;
   private Map<String, Object> _viewAttributes;
@@ -1192,7 +1356,22 @@ public class ForEachTag
   private ValueExpression _previousDeferredVarStatus;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ForEachTag.class);
-  private static final String _VIEW_ATTR_KEY = ForEachTag.class.getName() + ".";
+
+  /**
+   * Due to the fact that JSP tag IDs may be reused in different JSP files, we must differentiate
+   * tags by not only their JSP IDs, but also a unique number per inc
+   */
+  private static final String JAVAX_FACES_PAGECONTEXT_MARKER =
+          "javax.faces.webapp.PAGECONTEXT_MARKER";
+
+  /**
+   * This is a <code>facesContext</code> scoped attribute which contains
+   * an AtomicInteger which we use to increment the PageContext
+   * count.
+   */
+  private static final String JAVAX_FACES_PAGECONTEXT_COUNTER =
+          "javax.faces.webapp.PAGECONTEXT_COUNTER";
+
   private static final int _VIEW_ATTR_KEY_LENGTH = _VIEW_ATTR_KEY.length();
   private static final String _ITERATION_ID_KEY =
     ForEachTag.class.getName() + ".ITER";

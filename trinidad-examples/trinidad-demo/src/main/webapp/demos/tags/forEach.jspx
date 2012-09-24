@@ -24,104 +24,58 @@
   <f:view>
     <tr:document title="ForEach Demo">
       <tr:form>
-        <tr:panelGroupLayout layout="vertical" partialTriggers="refreshButton">
-          <f:facet name="separator">
-            <tr:separator/>
+        <tr:panelBorderLayout>
+          <f:facet name="top">
+            <tr:panelGroupLayout layout="vertical" inlineStyle="padding-bottom: 2em;">
+              <tr:navigationPane hint="buttons">
+                <tr:commandNavigationItem text="Component Guide" action="guide"/>
+                <tr:commandNavigationItem destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_forEach.html"
+                                          text="Tag Documentation"/>
+              </tr:navigationPane>
+            </tr:panelGroupLayout>
           </f:facet>
-          <tr:navigationPane hint="buttons">
-            <tr:commandNavigationItem immediate="true" text="Component Guide" action="guide"/>
-            <tr:commandNavigationItem immediate="true"
-                                      destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_forEach.html"
-                                      text="Tag Documentation"/>
-          </tr:navigationPane>
-          <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_breadCrumbs.html"
-                     text="Tag Documentation"/>
-          <tr:outputFormatted styleUsage="instruction" value="&lt;b>forEach&lt;/b>"/>
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:spacer height="12" />
-            </f:facet>
-            <tr:panelHeader text="Simple for each loop, no items">
-              <tr:panelGroupLayout layout="vertical">
-                <tr:forEach var="item" begin="0" end="2">
-                  <tr:outputText id="outputText" value="Client ID: #{component.clientId}"/>
-                </tr:forEach>
-              </tr:panelGroupLayout>
-            </tr:panelHeader>
-            <tr:panelHeader text="Simple for each loop, items from list">
-              <tr:panelGroupLayout layout="vertical">
-                <tr:forEach var="item" items="#{forEachBean.simpleList}">
-                  <tr:outputText id="outputText1" value="Client ID: #{component.clientId}"/>
-                </tr:forEach>
-              </tr:panelGroupLayout>
-            </tr:panelHeader>
-            <tr:panelHeader text="Simple for each loop, items from list, fixed IDs">
-              <tr:panelGroupLayout layout="vertical">
-                <tr:forEach var="item" items="#{forEachBean.simpleList}" varStatus="vs">
-                  <tr:outputText id="outputText2_${vs.key}"
-                                 value="Client ID: #{component.clientId}. Text: #{item}"/>
-                </tr:forEach>
-              </tr:panelGroupLayout>
-            </tr:panelHeader>
-            <tr:panelHeader text="Var status properties with list items">
-              <tr:panelGroupLayout layout="vertical">
-                <tr:forEach var="item" items="#{forEachBean.simpleList}" varStatus="vs">
-                  <tr:panelGroupLayout>
-                    <f:facet name="separator">
-                      <tr:spacer width="10"/>
-                    </f:facet>
-                    <tr:outputText value="Index: #{vs.index}"/>
-                    <tr:outputText value="Count: #{vs.count}"/>
-                    <tr:outputText value="Key: #{vs.key}"/>
-                    <tr:outputText value="First: #{vs.first}"/>
-                    <tr:outputText value="Last: #{vs.last}"/>
-                  </tr:panelGroupLayout>
-                  <tr:separator rendered="#{not vs.last}" />
-                </tr:forEach>
-              </tr:panelGroupLayout>
-            </tr:panelHeader>
-            <tr:panelHeader text="Reorder example with CollectionModel">
-              <tr:panelGroupLayout layout="vertical">
-                <tr:panelGroupLayout layout="vertical" id="personForEachParent"
-                                     partialTriggers="applySort">
-                  <tr:forEach var="person" items="#{forEachBean.model}" varStatus="vs">
-                    <tr:panelGroupLayout id="personPgl">
-                      <f:facet name="separator">
-                        <tr:spacer width="10"/>
-                      </f:facet>
-                      <tr:outputText id="firstName"
-                                     value="First name: #{person.firstName}"/>
-                      <tr:outputText id="lastName"
-                                     value="Last name: #{person.lastName}"/>
-                      <tr:outputText id="clientId"
-                                     value="(Panel group layout client ID: #{component.parent.clientId})"/>
-                    </tr:panelGroupLayout>
-                    <tr:separator id="sep1" rendered="#{not vs.last}" />
-                  </tr:forEach>
+          <f:facet name="start">
+            <tr:panelGroupLayout layout="scroll" inlineStyle="width: 250px; display: block">
+              <f:facet name="separator">
+                <tr:spacer height="6px"/>
+              </f:facet>
+              <tr:commandLink text="Re-order collection model"
+                              shortDesc="Example of reordering support with a collection model backed for each loop"
+                              partialSubmit="true" id="reorderCollectionModelLink">
+                <f:setPropertyActionListener target="#{forEachBean.currentExample}"
+                                             value="reorderCollectionModel"/>
+              </tr:commandLink>
+              <tr:commandLink text="Re-order map"
+                              shortDesc="Example of reordering support with a map backed for each loop"
+                              partialSubmit="true" id="reorderMapLink">
+                <f:setPropertyActionListener target="#{forEachBean.currentExample}"
+                                             value="reorderMap"/>
+              </tr:commandLink>
+            </tr:panelGroupLayout>
+          </f:facet>
+          <tr:panelGroupLayout layout="scroll"
+                               partialTriggers="reorderMapLink reorderCollectionModelLink">
+            <tr:switcher defaultFacet="home" facetName="#{forEachBean.currentExample}">
+              <f:facet name="home">
+                <tr:outputText value="Choose an example from the side panel."/>
+              </f:facet>
+              <f:facet name="reorderMap">
+                <tr:panelGroupLayout layout="vertical">
+                  <f:subview id="rm">
+                    <jsp:include page="forEach/reorderMap.jspx"/>
+                  </f:subview>
                 </tr:panelGroupLayout>
-              </tr:panelGroupLayout>
-              <tr:panelFormLayout>
-                <tr:selectOneRadio label="Property:" value="#{forEachBean.sortProperty}">
-                  <tr:selectItem label="(none)" value="#{null}" />
-                  <tr:selectItem label="First name" value="firstName" />
-                  <tr:selectItem label="Last name" value="lastName" />
-                </tr:selectOneRadio>
-                <tr:selectOneRadio label="Order:" value="#{forEachBean.sortAscending}">
-                  <tr:selectItem label="Ascending" value="#{true}" />
-                  <tr:selectItem label="Descending" value="#{false}" />
-                </tr:selectOneRadio>
-                <f:facet name="footer">
-                  <tr:commandLink id="applySort"
-                                  text="Apply sort"
-                                  partialSubmit="true"
-                                  actionListener="#{forEachBean.updateSortOrder}"/>
-                </f:facet>
-              </tr:panelFormLayout>
-            </tr:panelHeader>
-            <tr:commandButton text="Refresh" partialSubmit="true" id="refreshButton"
-                              shortDesc="Test PPR of the for each loop by refreshing the page content"/>
+              </f:facet>
+              <f:facet name="reorderCollectionModel">
+                <tr:panelGroupLayout layout="vertical">
+                  <f:subview id="rcm">
+                    <jsp:include page="forEach/reorder.jspx"/>
+                  </f:subview>
+                </tr:panelGroupLayout>
+              </f:facet>
+            </tr:switcher>
           </tr:panelGroupLayout>
-        </tr:panelGroupLayout>
+        </tr:panelBorderLayout>
       </tr:form>
     </tr:document>
   </f:view>
