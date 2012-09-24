@@ -18,11 +18,12 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.faces.component.UIComponent;
 
-import java.util.Collection;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
@@ -141,7 +142,7 @@ class ChildArrayList extends ArrayList<UIComponent>
   public boolean removeAll(Collection<?> collection)
   {
     boolean result = false;
-    for(Object element : collection)
+    for (Object element : collection)
     {
       if (remove(element))
         result = true;
@@ -206,7 +207,6 @@ class ChildArrayList extends ArrayList<UIComponent>
     assert(false);
     return index;
   }
-
 
   private final UIComponent _parent;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad" version="1.2">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="ForEach Demo">
+      <tr:form>
+        <tr:panelBorderLayout>
+          <f:facet name="top">
+            <tr:panelGroupLayout layout="vertical" inlineStyle="padding-bottom: 2em;">
+              <tr:navigationPane hint="buttons">
+                <tr:commandNavigationItem text="Component Guide" action="guide"/>
+                <tr:commandNavigationItem destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_forEach.html"
+                                          text="Tag Documentation"/>
+              </tr:navigationPane>
+            </tr:panelGroupLayout>
+          </f:facet>
+          <f:facet name="start">
+            <tr:panelGroupLayout layout="scroll" inlineStyle="width: 250px; display: block">
+              <f:facet name="separator">
+                <tr:spacer height="6px"/>
+              </f:facet>
+              <tr:commandLink text="Re-order collection model"
+                              shortDesc="Example of reordering support with a collection model backed for each loop"
+                              partialSubmit="true" id="reorderCollectionModelLink">
+                <f:setPropertyActionListener target="#{forEachBean.currentExample}"
+                                             value="reorderCollectionModel"/>
+              </tr:commandLink>
+              <tr:commandLink text="Re-order map"
+                              shortDesc="Example of reordering support with a map backed for each loop"
+                              partialSubmit="true" id="reorderMapLink">
+                <f:setPropertyActionListener target="#{forEachBean.currentExample}"
+                                             value="reorderMap"/>
+              </tr:commandLink>
+            </tr:panelGroupLayout>
+          </f:facet>
+          <tr:panelGroupLayout layout="scroll"
+                               partialTriggers="reorderMapLink reorderCollectionModelLink">
+            <tr:switcher defaultFacet="home" facetName="#{forEachBean.currentExample}">
+              <f:facet name="home">
+                <tr:outputText value="Choose an example from the side panel."/>
+              </f:facet>
+              <f:facet name="reorderMap">
+                <tr:panelGroupLayout layout="vertical">
+                  <f:subview id="rm">
+                    <jsp:include page="forEach/reorderMap.jspx"/>
+                  </f:subview>
+                </tr:panelGroupLayout>
+              </f:facet>
+              <f:facet name="reorderCollectionModel">
+                <tr:panelGroupLayout layout="vertical">
+                  <f:subview id="rcm">
+                    <jsp:include page="forEach/reorder.jspx"/>
+                  </f:subview>
+                </tr:panelGroupLayout>
+              </f:facet>
+            </tr:switcher>
+          </tr:panelGroupLayout>
+        </tr:panelBorderLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>
