@@ -44,7 +44,7 @@
     </tr:panelGroupLayout>
     <tr:panelGroupLayout layout="vertical" inlineStyle="padding-left: 2em; padding-top: 1em">
       <tr:panelHeader text="Components built from the for each loop">
-        <tr:panelGroupLayout layout="vertical" id="personForEachParent"
+        <tr:panelGroupLayout layout="vertical" id="personForEachParent_re"
                              partialTriggers="applySort"
                              inlineStyle="padding-bottom: 1em">
           <tr:forEach var="person" items="#{forEachBean.model}" varStatus="vs">

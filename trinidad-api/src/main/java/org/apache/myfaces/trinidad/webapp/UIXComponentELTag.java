@@ -223,7 +223,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      bean.setProperty(key, 
+      bean.setProperty(key,
                        _parseNameTokensAsList(expression.getValue(null)));
     }
     else
@@ -249,7 +249,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      bean.setProperty(key, 
+      bean.setProperty(key,
                        _parseNameTokensAsSet(expression.getValue(null)));
     }
     else
@@ -276,7 +276,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     {
       Object value = expression.getValue(null);
       if (value != null)
-      { 
+      {
         if (value instanceof Number)
         {
           bean.setProperty(key, value);
@@ -568,7 +568,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     }
   }
 
-  private static final TrinidadLogger _LOG = 
+  private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(UIXComponentELTag.class);
 
   // We rely strictly on ISO 8601 formats

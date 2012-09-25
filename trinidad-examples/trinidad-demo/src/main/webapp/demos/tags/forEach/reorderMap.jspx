@@ -51,7 +51,7 @@
                              partialTriggers="applySort"
                              inlineStyle="padding-bottom: 1em">
           <tr:forEach var="person" items="#{forEachBean.map}" varStatus="vs">
-            <tr:panelGroupLayout id="personPgl">
+            <tr:panelGroupLayout id="personPgl" >
               <f:facet name="separator">
                 <tr:spacer width="10"/>
               </f:facet>
@@ -60,7 +60,7 @@
               <tr:outputText id="lastName"
                              value="Last name: #{person.lastName}"/>
               <tr:outputText id="clientId"
-                             value="(Panel group layout client ID: #{component.parent.clientId}) Vs: #{empty vs}"/>
+                             value="(Panel group layout client ID: #{component.parent.clientId}) Client ID: #{component.clientId} Vs: #{vs.index}"/>
             </tr:panelGroupLayout>
             <tr:showDetail id="showDisclosure" disclosed="false" disclosedText="Disclosed text"
                            undisclosedText="Undisclosed text">

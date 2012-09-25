@@ -29,6 +29,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.el.ELContext;
 import javax.el.PropertyNotWritableException;
@@ -78,6 +79,7 @@ public class ForEachTag
 {
   public ForEachTag()
   {
+    _LOG.finest("ForEachTag instance created");
   }
 
   public void setItems(ValueExpression items)
@@ -117,20 +119,53 @@ public class ForEachTag
   public void setJspId(String id)
   {
     _LOG.finest("setJspId called with ID {0}", id);
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+
+    // Use an atomic integer to use for tracking how many times a for each loop has been
+    // created for any JSP page during the current request. Unfortunately there is no hook to
+    // tie the include to the page that is being included to make this page based.
+    AtomicInteger includeCounter = (AtomicInteger)facesContext.getAttributes()
+      .get(_INCLUDE_COUNTER_KEY);
+
+    if (includeCounter == null)
+    {
+      // If the include counter is null, that means that this is the first for each tag processed
+      // during this request.
+      includeCounter = new AtomicInteger(0);
+      facesContext.getAttributes().put(_INCLUDE_COUNTER_KEY, includeCounter);
+    }
+
+    Integer pageContextCounter = (Integer)pageContext.getAttribute(_INCLUDE_COUNTER_KEY);
+    if (pageContextCounter == null)
+    {
+      // In this case, the page context has not been seen before. This means that this is the first
+      // for each tag in this page (the actual jspx file, not necessarily the requested one).
+      pageContextCounter = includeCounter.incrementAndGet();
+      pageContext.setAttribute(_INCLUDE_COUNTER_KEY, pageContextCounter);
+      _LOG.finest("Page context not seen before. Using counter value {0}", pageContextCounter);
+    }
+    else
+    {
+      _LOG.finest("Page context has already been seen. Using counter value {0}",
+        includeCounter);
+    }
+
     // If the view attributes are null, then this is the first time this method has been called
     // for this request.
     if (_viewAttributes == null)
     {
+      String pcId = includeCounter.toString();
+
       // The iteration map key is a key that will allow us to get the map for this tag instance,
       // separated from other ForEachTags, that will map an iteration ID to the IterationMetaData
       // instances. EL will use this map to get to the IterationMetaData and the indirection will
       // allow the IterationMetaData to be updated without having to update the EL expressions.
-      _iterationMapKey = new StringBuilder(_VIEW_ATTR_KEY_LENGTH + id.length())
+      _iterationMapKey = new StringBuilder(_VIEW_ATTR_KEY_LENGTH + id.length() + pcId.length() + 1)
         .append(_VIEW_ATTR_KEY)
+        .append(pcId)
+        .append('.')
         .append(id)
         .toString();
-
-      FacesContext facesContext = FacesContext.getCurrentInstance();
 
       // store the map into the view attributes to put it in a location that the EL expressions
       // can access for not only the remainder of this request, but also the next request.
@@ -229,7 +264,7 @@ public class ForEachTag
 
     //pu: Now check the valid relation between 'begin','end' and validity of 'step'
     _validateRangeAndStep();
-    
+
     // If we can bail, do it now
     if (_currentEnd < _currentIndex)
     {
@@ -296,7 +331,7 @@ public class ForEachTag
 
       return SKIP_BODY;
     }
-    
+
     // Otherwise, update the variables and go again
     _updateVars(true);
 
@@ -561,7 +596,7 @@ public class ForEachTag
 
         vm.setVariable(_var, expr);
       }
-      
+
       // Ditto (though, technically, one check for
       // _items is sufficient, because if _items evaluated
       // to null, we'd skip the whole loop)
@@ -592,7 +627,7 @@ public class ForEachTag
         "  Iteration data: {1}",
         new Object[] { _iterationId, _iterationData });
     }
-    
+
     _iterationMap.put(_iterationId, _iterationData);
 
     if (_varStatus != null)
@@ -821,7 +856,14 @@ public class ForEachTag
       // The map will be null if, somehow, the component for a given for each loop execution
       // is still around, but the for each loop did not match the component during this request
       // (probably a temporary state until the unmatched component is removed).
-      return map == null ? null : map.get(_iterationId);
+      IterationMetaData metaData =  map == null ? null : map.get(_iterationId);
+
+      if (metaData == null)
+      {
+        _LOG.finest("Unable to find iteration meta data for ID {0}", _iterationId);
+      }
+
+      return metaData;
     }
 
     private final Integer _iterationId;
@@ -1350,30 +1392,18 @@ public class ForEachTag
 
   private String _var;
   private String _varStatus;
-  
+
   // Saved values on the VariableMapper
   private ValueExpression _previousDeferredVar;
   private ValueExpression _previousDeferredVarStatus;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ForEachTag.class);
 
-  /**
-   * Due to the fact that JSP tag IDs may be reused in different JSP files, we must differentiate
-   * tags by not only their JSP IDs, but also a unique number per inc
-   */
-  private static final String JAVAX_FACES_PAGECONTEXT_MARKER =
-          "javax.faces.webapp.PAGECONTEXT_MARKER";
-
-  /**
-   * This is a <code>facesContext</code> scoped attribute which contains
-   * an AtomicInteger which we use to increment the PageContext
-   * count.
-   */
-  private static final String JAVAX_FACES_PAGECONTEXT_COUNTER =
-          "javax.faces.webapp.PAGECONTEXT_COUNTER";
+  private static final String _INCLUDE_COUNTER_KEY =
+    ForEachTag.class.getName() + ".IC";
 
   private static final String _VIEW_ATTR_KEY =
-    ForEachTag.class.getName() + ".VIEW";
+    ForEachTag.class.getName() + ".VIEW.";
   private static final int _VIEW_ATTR_KEY_LENGTH = _VIEW_ATTR_KEY.length();
   private static final String _ITERATION_ID_KEY =
     ForEachTag.class.getName() + ".ITER";
