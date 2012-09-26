@@ -39,6 +39,13 @@
               <f:facet name="separator">
                 <tr:spacer height="6px"/>
               </f:facet>
+              <tr:panelHeader text="Demos:" />
+              <tr:commandLink text="Simple collection model"
+                              shortDesc="Simple for each loop using a list for items"
+                              partialSubmit="true" id="simpleLink">
+                <f:setPropertyActionListener target="#{forEachBean.currentExample}"
+                                             value="simple"/>
+              </tr:commandLink>
               <tr:commandLink text="Re-order collection model"
                               shortDesc="Example of reordering support with a collection model backed for each loop"
                               partialSubmit="true" id="reorderCollectionModelLink">
@@ -51,13 +58,26 @@
                 <f:setPropertyActionListener target="#{forEachBean.currentExample}"
                                              value="reorderMap"/>
               </tr:commandLink>
+              <tr:commandLink text="PPR"
+                              shortDesc="Example of using partial triggers with components in a forEach loop"
+                              partialSubmit="true" id="pprLink">
+                <f:setPropertyActionListener target="#{forEachBean.currentExample}"
+                                             value="ppr"/>
+              </tr:commandLink>
             </tr:panelGroupLayout>
           </f:facet>
           <tr:panelGroupLayout layout="scroll"
-                               partialTriggers="reorderMapLink reorderCollectionModelLink">
+                               partialTriggers="reorderMapLink reorderCollectionModelLink simpleLink pprLink">
             <tr:switcher defaultFacet="home" facetName="#{forEachBean.currentExample}">
               <f:facet name="home">
                 <tr:outputText value="Choose an example from the side panel."/>
+              </f:facet>
+              <f:facet name="simple">
+                <tr:panelGroupLayout layout="vertical">
+                  <f:subview id="s">
+                    <jsp:include page="forEach/simple.jspx"/>
+                  </f:subview>
+                </tr:panelGroupLayout>
               </f:facet>
               <f:facet name="reorderMap">
                 <tr:panelGroupLayout layout="vertical">
@@ -70,6 +90,13 @@
                 <tr:panelGroupLayout layout="vertical">
                   <f:subview id="rcm">
                     <jsp:include page="forEach/reorder.jspx"/>
+                  </f:subview>
+                </tr:panelGroupLayout>
+              </f:facet>
+              <f:facet name="ppr">
+                <tr:panelGroupLayout layout="vertical">
+                  <f:subview id="ppr">
+                    <jsp:include page="forEach/ppr.jspx"/>
                   </f:subview>
                 </tr:panelGroupLayout>
               </f:facet>

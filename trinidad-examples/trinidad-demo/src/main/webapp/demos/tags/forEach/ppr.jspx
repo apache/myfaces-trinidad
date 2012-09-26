@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:tr="http://myfaces.apache.org/trinidad" version="2.1">
+  <tr:panelHeader text="How to use partial triggers with the forEach loop">
+    <tr:outputText value="Using the c:forEach tag, component IDs are not generated in a way that can be used with Trinidad's partial triggers. By using tr:forEach and either a map or a collection model, the IDs are known and can be used with partial triggers." />
+    <tr:panelGroupLayout layout="vertical" inlineStyle="padding-left: 2em; padding-top: 1em">
+      <tr:forEach var="item" items="#{forEachBean.updatableItemMap}" varStatus="vs">
+        <tr:panelLabelAndMessage id="a" label="Enter value for item #{vs.key}:">
+          <tr:inputText id="inputValue" value="#{item.value}" autoSubmit="true"
+                        valueChangeListener="#{forEachBean.inputValueValueChange}"/>
+        </tr:panelLabelAndMessage>
+        <tr:outputText id="outputText" value="Value on server: #{item.value}"
+                       inlineStyle="padding-left: 12px; font-size: 0.8em;"/>
+      </tr:forEach>
+    </tr:panelGroupLayout>
+  </tr:panelHeader>
+
+  <tr:panelHeader text="Partial triggers with a naming container">
+    <tr:outputText value="When a trinidad naming container tag is reached, the key is no longer appended to the ID. To reference an item in a naming container, no suffix is needed inside the naming container. This only works if the namining container is a trinidad tag. If there are other naming container tags, like f:subview, then the prefix will descend into that naming container." />
+    <tr:panelGroupLayout layout="vertical" inlineStyle="padding-left: 2em; padding-top: 1em">
+      <tr:forEach var="item" items="#{forEachBean.updatableItemMap}" varStatus="vs">
+        <tr:panelLabelAndMessage label="Enter value for item #{vs.key}:">
+          <tr:inputText id="inputValueNC" value="#{item.value}" autoSubmit="true"
+                        valueChangeListener="#{forEachBean.inputValueWithNCValueChange}"/>
+        </tr:panelLabelAndMessage>
+        <tr:panelGroupLayout id="testNC"
+                             binding="#{forEachComponentBindingBean.componentMap[vs.key]}">
+          <tr:outputText id="outputTextNC" value="Value on server: #{item.value}"
+                         inlineStyle="padding-left: 12px; font-size: 0.8em;"/>
+        </tr:panelGroupLayout>
+      </tr:forEach>
+    </tr:panelGroupLayout>
+  </tr:panelHeader>
+</jsp:root>

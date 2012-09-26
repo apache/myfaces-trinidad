@@ -34,12 +34,11 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.change.ReorderChildrenComponentChange;
-import org.apache.myfaces.trinidad.component.UIXCommand;
-import org.apache.myfaces.trinidad.component.visit.VisitTreeUtils;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.model.RowKeyPropertyModel;
 import org.apache.myfaces.trinidad.model.SortCriterion;
@@ -91,6 +90,39 @@ public class ForEachBean
     private static final long serialVersionUID = 1L;
   }
 
+  public static class UpdatableItem
+    implements Serializable
+  {
+    public UpdatableItem(
+      String key,
+      String value)
+    {
+      _key = key;
+      _value = value;
+    }
+
+    public final String getKey()
+    {
+      return _key;
+    }
+
+    public final void setValue(String value)
+    {
+      _value = value;
+    }
+
+    public final String getValue()
+    {
+      return _value;
+    }
+
+    private final String _key;
+    private String _value;
+
+    @SuppressWarnings("compatibility:-1687851812834776335")
+    private static final long serialVersionUID = 1L;
+  }
+
   public ForEachBean()
   {
     _list = new ArrayList<Person>(
@@ -101,9 +133,17 @@ public class ForEachBean
         new Person("d", "Alice", "Jones")));
 
     _model = new RowKeyPropertyModel(new ArrayList<Person>(_list), "key");
+    _simpleList = new ArrayList<Person>(_list);
     _map = new LinkedHashMap<String, Person>();
-
     _applySortToNonCollectionModelObjects();
+
+    _updatableItemMap = new LinkedHashMap<String, UpdatableItem>();
+    for (int i = 1; i <= 5; ++i)
+    {
+      String key = Integer.toString(i);
+      String value = String.format("Item %d", i);
+      _updatableItemMap.put(key, new UpdatableItem(key, value));
+    }
   }
 
   public final void setCurrentExample(String currentExample)
@@ -145,9 +185,13 @@ public class ForEachBean
     return _list;
   }
 
+  public List<Person> getSimpleList()
+  {
+    return _simpleList;
+  }
+
   public void updateSortOrder(ActionEvent evt)
   {
-    UIXCommand sourceComponent = (UIXCommand)evt.getComponent();
     RowKeyPropertyModel model = _getCollectionModel();
 
     if (_sortProperty == null)
@@ -164,14 +208,16 @@ public class ForEachBean
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     List<String> orderedKeys = _applySortToNonCollectionModelObjects();
 
-    for (UIComponent targetComponent:
-      RequestContext.getCurrentInstance().getPartialTargets(sourceComponent))
-    {
-      String clientId = targetComponent.getClientId();
-      //System.out.println("CLIENT ID: " + clientId);
-      VisitTreeUtils.visitSingleComponent(facesContext, clientId,
-          new ReorderChildrenVisitCallback(orderedKeys));
-    }
+    VisitContext visitContext = VisitContext.createVisitContext(facesContext,
+      Arrays.asList("rm:personForEachParent", "rcm:personForEachParent"),
+      null);
+    facesContext.getViewRoot().visitTree(visitContext,
+      new ReorderChildrenVisitCallback(orderedKeys));
+  }
+
+  public Map<String, ForEachBean.UpdatableItem> getUpdatableItemMap()
+  {
+    return _updatableItemMap;
   }
 
   public Map<String, Person> getMap()
@@ -182,6 +228,24 @@ public class ForEachBean
   public SortableModel getModel()
   {
     return _getCollectionModel();
+  }
+
+  public void inputValueValueChange(ValueChangeEvent valueChangeEvent)
+  {
+    UIComponent target = valueChangeEvent.getComponent();
+    String id = target.getId();
+    String keySuffix = id.substring(id.lastIndexOf('_'));
+    UIComponent toUpdate = target.findComponent("outputText" + keySuffix);
+    RequestContext.getCurrentInstance().addPartialTarget(toUpdate);
+  }
+
+  public void inputValueWithNCValueChange(ValueChangeEvent valueChangeEvent)
+  {
+    UIComponent target = valueChangeEvent.getComponent();
+    String id = target.getId();
+    String keySuffix = id.substring(id.lastIndexOf('_'));
+    UIComponent toUpdate = target.findComponent("testNC" + keySuffix + ":outputTextNC");
+    RequestContext.getCurrentInstance().addPartialTarget(toUpdate);
   }
 
   /**
@@ -275,7 +339,7 @@ public class ForEachBean
       apm.addComponentChange(facesContext, target,
           new ReorderChildrenComponentChange(childrenIds));
 
-      return VisitResult.COMPLETE;
+      return VisitResult.ACCEPT;
     }
 
     @Override
@@ -295,10 +359,12 @@ public class ForEachBean
     private final List<String> _orderedKeys;
   }
 
+  private final List<Person> _simpleList;
   private final List<Person> _list;
   private transient RowKeyPropertyModel _model;
   private final Map<String, Person> _map;
-  private String _currentExample = "home";
+  private final Map<String, UpdatableItem> _updatableItemMap;
+  private String _currentExample = "ppr";
   private String _sortProperty;
   private boolean _sortAscending;
 

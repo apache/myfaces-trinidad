@@ -294,7 +294,7 @@ public class ForEachTag
     // are created during this tags for each execution
     _previousIterationNonTrinidadChildren = _getNonTrinidadChildren();
 
-    _updateVars(true);
+    _updateVars(vm, true);
 
     return EVAL_BODY_INCLUDE;
   }
@@ -312,11 +312,12 @@ public class ForEachTag
     _isFirst = false;
     _isLast = _currentIndex == _currentEnd;
 
+    VariableMapper vm = pageContext.getELContext().getVariableMapper();
+
     // If we're at the end, bail
     if (_currentEnd < _currentIndex)
     {
       // Restore EL state
-      VariableMapper vm = pageContext.getELContext().getVariableMapper();
       if (_var != null)
         vm.setVariable(_var, _previousDeferredVar);
       if (_varStatus != null)
@@ -333,7 +334,7 @@ public class ForEachTag
     }
 
     // Otherwise, update the variables and go again
-    _updateVars(true);
+    _updateVars(vm, true);
 
     return EVAL_BODY_AGAIN;
   }
@@ -439,7 +440,8 @@ public class ForEachTag
       // for each index.
       if (_iterationIdRequiresIncrement)
       {
-        _updateVars(false);
+        VariableMapper vm = pageContext.getELContext().getVariableMapper();
+        _updateVars(vm, false);
         _iterationIdRequiresIncrement = false;
       }
     }
@@ -564,10 +566,10 @@ public class ForEachTag
 
   // Push new values into the VariableMapper and the pageContext
   private void _updateVars(
-    boolean createNewIterationData)
+    VariableMapper vm,
+    boolean        createNewIterationData)
   {
-    VariableMapper vm = pageContext.getELContext().getVariableMapper();
-    Serializable   key = null;
+    Serializable key = null;
 
     // Generate a new iteration ID
     _updateIterationId();

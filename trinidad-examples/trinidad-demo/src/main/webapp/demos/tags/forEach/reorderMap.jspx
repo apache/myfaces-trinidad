@@ -59,8 +59,6 @@
                              value="First name: #{person.firstName}"/>
               <tr:outputText id="lastName"
                              value="Last name: #{person.lastName}"/>
-              <tr:outputText id="clientId"
-                             value="(Panel group layout client ID: #{component.parent.clientId}) Client ID: #{component.clientId} Vs: #{vs.index}"/>
             </tr:panelGroupLayout>
             <tr:showDetail id="showDisclosure" disclosed="false" disclosedText="Disclosed text"
                            undisclosedText="Undisclosed text">
