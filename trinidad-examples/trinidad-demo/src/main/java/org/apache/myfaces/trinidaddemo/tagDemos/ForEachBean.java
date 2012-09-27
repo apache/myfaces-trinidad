@@ -136,6 +136,7 @@ public class ForEachBean
     _simpleList = new ArrayList<Person>(_list);
     _map = new LinkedHashMap<String, Person>();
     _applySortToNonCollectionModelObjects();
+    _arrangeMap = new LinkedHashMap<String, Person>(_map);
 
     _updatableItemMap = new LinkedHashMap<String, UpdatableItem>();
     for (int i = 1; i <= 5; ++i)
@@ -225,6 +226,11 @@ public class ForEachBean
     return _map;
   }
 
+  public Map<String, Person> getArrangeMap()
+  {
+    return _arrangeMap;
+  }
+
   public SortableModel getModel()
   {
     return _getCollectionModel();
@@ -246,6 +252,26 @@ public class ForEachBean
     String keySuffix = id.substring(id.lastIndexOf('_'));
     UIComponent toUpdate = target.findComponent("testNC" + keySuffix + ":outputTextNC");
     RequestContext.getCurrentInstance().addPartialTarget(toUpdate);
+  }
+
+  public void handleArrangeNewItem(ActionEvent evt)
+  {
+
+  }
+
+  public void handleArrangeRemoveItem(ActionEvent evt)
+  {
+
+  }
+
+  public void handleArrangeMoveItemUp(ActionEvent evt)
+  {
+
+  }
+
+  public void handleArrangeMoveItemDown(ActionEvent evt)
+  {
+
   }
 
   /**
@@ -364,7 +390,8 @@ public class ForEachBean
   private transient RowKeyPropertyModel _model;
   private final Map<String, Person> _map;
   private final Map<String, UpdatableItem> _updatableItemMap;
-  private String _currentExample = "ppr";
+  private final Map<String, Person> _arrangeMap;
+  private String _currentExample = "updates";
   private String _sortProperty;
   private boolean _sortAscending;
 

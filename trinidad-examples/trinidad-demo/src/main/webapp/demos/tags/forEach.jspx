@@ -64,10 +64,16 @@
                 <f:setPropertyActionListener target="#{forEachBean.currentExample}"
                                              value="ppr"/>
               </tr:commandLink>
+              <tr:commandLink text="Updates"
+                              shortDesc="Example of adding and removing items from a for each loop"
+                              partialSubmit="true" id="updatesLink">
+                <f:setPropertyActionListener target="#{forEachBean.currentExample}"
+                                             value="updates"/>
+              </tr:commandLink>
             </tr:panelGroupLayout>
           </f:facet>
           <tr:panelGroupLayout layout="scroll"
-                               partialTriggers="reorderMapLink reorderCollectionModelLink simpleLink pprLink">
+                               partialTriggers="reorderMapLink reorderCollectionModelLink simpleLink pprLink updatesLink">
             <tr:switcher defaultFacet="home" facetName="#{forEachBean.currentExample}">
               <f:facet name="home">
                 <tr:outputText value="Choose an example from the side panel."/>
@@ -97,6 +103,13 @@
                 <tr:panelGroupLayout layout="vertical">
                   <f:subview id="ppr">
                     <jsp:include page="forEach/ppr.jspx"/>
+                  </f:subview>
+                </tr:panelGroupLayout>
+              </f:facet>
+              <f:facet name="updates">
+                <tr:panelGroupLayout layout="vertical">
+                  <f:subview id="up">
+                    <jsp:include page="forEach/updates.jspx"/>
                   </f:subview>
                 </tr:panelGroupLayout>
               </f:facet>
