@@ -218,6 +218,9 @@ public class PanelPopupRenderer extends XhtmlRenderer
       writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, style, null);
     }
 
+    // Reset current clientId
+    rc.setCurrentClientId(null);
+
     encodeAllChildren(context, component);
 
     // Close skinnable content div
@@ -231,9 +234,6 @@ public class PanelPopupRenderer extends XhtmlRenderer
 
     // Close outer span
     writer.endElement(XhtmlConstants.SPAN_ELEMENT);
-
-    // Reset current clientId
-    rc.setCurrentClientId(null);
   }
 
   protected void renderTrigger(
