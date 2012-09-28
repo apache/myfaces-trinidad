@@ -22,7 +22,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.el.MethodExpression;
@@ -47,6 +46,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * Subclass of UIComponentTag to add convenience methods,
  * and optimize where appropriate.
  */
+@SuppressWarnings("deprecation")
 abstract public class UIXComponentTag extends UIComponentTag
 {
   public UIXComponentTag()
@@ -116,7 +116,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     }
 
     super.setProperties(component);
-    
+
     UIXComponent uixComponent = (UIXComponent) component;
 
     if (_attributeChangeListener != null)
@@ -130,7 +130,6 @@ abstract public class UIXComponentTag extends UIComponentTag
 
       uixComponent.setAttributeChangeListener(me);
     }
-
 
     setProperties(uixComponent.getFacesBean());
   }
@@ -204,12 +203,12 @@ abstract public class UIXComponentTag extends UIComponentTag
     }
   }
  /**
-  * Set a property of type java.lang.Integer.  If the value
-  * is an EL expression, it will be stored as a ValueBinding.
-  * Otherwise, it will parsed with Integer.valueOf().
-  * Null values are ignored.
-  */
- protected void setIntegerProperty(
+   * Set a property of type java.lang.Integer.  If the value
+   * is an EL expression, it will be stored as a ValueBinding.
+   * Otherwise, it will parsed with Integer.valueOf().
+   * Null values are ignored.
+   */
+  protected void setIntegerProperty(
    FacesBean   bean,
    PropertyKey key,
    String      value)
@@ -349,7 +348,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     }
     else
     {
-      bean.setProperty(key, _parseNameTokens(value));
+      bean.setProperty(key, TagUtils.parseNameTokens(value));
     }
   }
 
@@ -374,7 +373,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     }
     else
     {
-      String[] strings = _parseNameTokens(value);
+      String[] strings = TagUtils.parseNameTokens(value);
       final int[] ints;
       if (strings != null)
       {
@@ -425,7 +424,6 @@ abstract public class UIXComponentTag extends UIComponentTag
     }
   }
 
-
   // TODO Handle syntax exceptions gracefully?
   protected final ValueBinding createValueBinding(String string)
   {
@@ -447,7 +445,9 @@ abstract public class UIXComponentTag extends UIComponentTag
                                                                   types);
   }
 
-  protected void setProperties(FacesBean bean)
+  protected void setProperties(
+    @SuppressWarnings("unused")
+    FacesBean bean)
   {
     // Could be abstract, but it's easier to *always* call super.setProperties(),
     // and perhaps we'll have something generic in here, esp. if we take
@@ -480,63 +480,6 @@ abstract public class UIXComponentTag extends UIComponentTag
       _LOG.info("CANNOT_PARSE_VALUE_INTO_DATE", stringValue);
       return null;
     }
-  }
-
-  /**
-   * Parses a whitespace separated series of name tokens.
-   * @param stringValue the full string
-   * @return an array of each constituent value, or null
-   *  if there are no tokens (that is, the string is empty or
-   *  all whitespace)
-   */
-  // TODO Move to utility function somewhere 
-  static private final String[] _parseNameTokens(String stringValue)
-  {
-    if (stringValue == null)
-      return null;
-
-    ArrayList<String> list = new ArrayList<String>(5);
-
-    int     length = stringValue.length();
-    boolean inSpace = true;
-    int     start = 0;
-    for (int i = 0; i < length; i++)
-    {
-      char ch = stringValue.charAt(i);
-
-      // We're in whitespace;  if we've just departed
-      // a run of non-whitespace, append a string.
-      // Now, why do we use the supposedly deprecated "Character.isSpace()"
-      // function instead of "isWhitespace"?  We're following XML rules
-      // here for the meaning of whitespace, which specifically
-      // EXCLUDES general Unicode spaces.
-      if (Character.isWhitespace(ch))
-      {
-        if (!inSpace)
-        {
-          list.add(stringValue.substring(start, i));
-          inSpace = true;
-        }
-      }
-      // We're out of whitespace;  if we've just departed
-      // a run of whitespace, start keeping track of this string
-      else
-      {
-        if (inSpace)
-        {
-          start = i;
-          inSpace = false;
-        }
-      }
-    }
-
-    if (!inSpace)
-      list.add(stringValue.substring(start));
-
-    if (list.isEmpty())
-      return null;
-
-    return list.toArray(new String[list.size()]);
   }
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXComponentTag.class);

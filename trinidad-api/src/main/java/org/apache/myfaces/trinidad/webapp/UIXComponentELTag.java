@@ -22,12 +22,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.TimeZone;
 
 import javax.el.MethodExpression;
@@ -131,16 +127,18 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      bean.setProperty(key, _parseNameTokens(expression.getValue(null)));
+      bean.setProperty(key, TagUtils.parseNameTokens(expression.getValue(null)));
     }
     else
     {
+      // Support coercion from a string to a string array
+      expression = new StringArrayValueExpression(expression);
       bean.setValueExpression(key, expression);
     }
   }
 
   /**
-   * Set a property of type java.util.List<java.lang.String>.  If the value
+   * Set a property of type java.util.List&lt;java.lang.String>.  If the value
    * is an EL expression, it will be stored as a ValueExpression.
    * Otherwise, it will parsed as a whitespace-separated series
    * of strings.
@@ -156,8 +154,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      bean.setProperty(key, 
-                       _parseNameTokensAsList(expression.getValue(null)));
+      bean.setProperty(key, TagUtils.parseNameTokensAsList(expression.getValue(null)));
     }
     else
     {
@@ -166,7 +163,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   }
 
   /**
-   * Set a property of type java.util.Set<java.lang.String>.  If the value
+   * Set a property of type java.util.Set&lt;java.lang.String>.  If the value
    * is an EL expression, it will be stored as a ValueExpression.
    * Otherwise, it will parsed as a whitespace-separated series
    * of strings.
@@ -182,8 +179,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      bean.setProperty(key, 
-                       _parseNameTokensAsSet(expression.getValue(null)));
+      bean.setProperty(key, TagUtils.parseNameTokensAsSet(expression.getValue(null)));
     }
     else
     {
@@ -209,7 +205,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     {
       Object value = expression.getValue(null);
       if (value != null)
-      { 
+      {
         if (value instanceof Number)
         {
           bean.setProperty(key, value);
@@ -250,7 +246,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
       Object value = expression.getValue(null);
       if (value != null)
       {
-        String[] strings = _parseNameTokens(value);
+        String[] strings = TagUtils.parseNameTokens(value);
         final int[] ints;
         if (strings != null)
         {
@@ -339,7 +335,9 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     }
   }
 
-  protected void setProperties(FacesBean bean)
+  protected void setProperties(
+    @SuppressWarnings("unused")
+    FacesBean bean)
   {
     // Could be abstract, but it's easier to *always* call super.setProperties(),
     // and perhaps we'll have something generic in here, esp. if we take
@@ -378,85 +376,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     }
   }
 
-  /**
-   * Parses a whitespace separated series of name tokens.
-   * @param stringValue the full string
-   * @return an array of each constituent value, or null
-   *  if there are no tokens (that is, the string is empty or
-   *  all whitespace)
-   * @todo Move to utility function somewhere (ADF Share?)
-   */
-  static private final String[] _parseNameTokens(Object o)
-  {
-    List<String> list = _parseNameTokensAsList (o);
-
-    if (list == null)
-      return null;
-
-    return list.toArray(new String[list.size()]);
-  }
-
-  static private final List<String> _parseNameTokensAsList (Object o)
-  {
-    if (o == null)
-      return null;
-
-    String stringValue = o.toString();
-    ArrayList<String> list = new ArrayList<String>(5);
-
-    int     length = stringValue.length();
-    boolean inSpace = true;
-    int     start = 0;
-    for (int i = 0; i < length; i++)
-    {
-      char ch = stringValue.charAt(i);
-
-      // We're in whitespace;  if we've just departed
-      // a run of non-whitespace, append a string.
-      // Now, why do we use the supposedly deprecated "Character.isSpace()"
-      // function instead of "isWhitespace"?  We're following XML rules
-      // here for the meaning of whitespace, which specifically
-      // EXCLUDES general Unicode spaces.
-      if (Character.isWhitespace(ch))
-      {
-        if (!inSpace)
-        {
-          list.add(stringValue.substring(start, i));
-          inSpace = true;
-        }
-      }
-      // We're out of whitespace;  if we've just departed
-      // a run of whitespace, start keeping track of this string
-      else
-      {
-        if (inSpace)
-        {
-          start = i;
-          inSpace = false;
-        }
-      }
-    }
-
-    if (!inSpace)
-      list.add(stringValue.substring(start));
-
-    if (list.isEmpty())
-      return null;
-
-    return list;
-  }
-
-  static private final Set<String> _parseNameTokensAsSet (Object o)
-  {
-    List<String> list = _parseNameTokensAsList(o);
-
-    if (list == null)
-      return null;
-    else
-      return new HashSet(list);
-  }
-
-  private static final TrinidadLogger _LOG = 
+  private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(UIXComponentELTag.class);
 
   // We rely strictly on ISO 8601 formats
@@ -475,5 +395,4 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
   private MethodExpression  _attributeChangeListener;
   private String            _validationError;
-  
 }
