@@ -323,12 +323,7 @@ public class ForEachTag
       if (_varStatus != null)
         vm.setVariable(_varStatus, _previousDeferredVarStatus);
 
-      if (_suffixPushed)
-      {
-        popComponentSuffix();
-        _suffixPushed = false;
-        _previousIterationNonTrinidadChildren = null;
-      }
+      _previousIterationNonTrinidadChildren = null;
 
       return SKIP_BODY;
     }
@@ -366,8 +361,6 @@ public class ForEachTag
     _previousIterationNonTrinidadChildren = null;
 
     _parentComponent = null;
-
-    _suffixPushed = false;
 }
 
   @Override
@@ -647,24 +640,6 @@ public class ForEachTag
       vm.setVariable(_varStatus, new VarStatusValueExpression(_iterationId, _iterationMapKey));
     }
 
-    if (_suffixPushed)
-    {
-      popComponentSuffix();
-      _suffixPushed = false;
-    }
-
-    // To do, support non-key pass-through
-    if (_itemsWrapper != null && _itemsWrapper.isIdSuffixSupported())
-    {
-      if (key == null)
-      {
-        key = _getKey();
-      }
-
-      pushComponentSuffix("_" + key.toString());
-      _suffixPushed = true;
-    }
-
     if (_previousIterationNonTrinidadChildren == null)
     {
       // If _previousIterationNonTrinidadChildren is null, then this is the first execution
@@ -800,6 +775,7 @@ public class ForEachTag
       _mapKey      = mapKey;
     }
 
+    @Override
     public void setValue(
       ELContext context,
       Object    value)
@@ -807,31 +783,37 @@ public class ForEachTag
       throw new PropertyNotWritableException();
     }
 
+    @Override
     public boolean isReadOnly(ELContext context)
     {
       return true;
     }
 
+    @Override
     public Class getType(ELContext context)
     {
       return getExpectedType();
     }
 
+    @Override
     public String getExpressionString()
     {
       return null;
     }
 
+    @Override
     public boolean equals(Object obj)
     {
       return obj == this;
     }
 
+    @Override
     public int hashCode()
     {
       return _iterationId.hashCode() | _mapKey.hashCode();
     }
 
+    @Override
     public boolean isLiteralText()
     {
       return true;
@@ -887,6 +869,7 @@ public class ForEachTag
       _key = key;
     }
 
+    @Override
     public Object getValue(ELContext context)
     {
       Object items = _itemsExpression.getValue(context);
@@ -900,6 +883,7 @@ public class ForEachTag
       return context.getELResolver().getValue(context, items, _key);
     }
 
+    @Override
     public void setValue(ELContext context, Object value)
     {
       Object items = _itemsExpression.getValue(context);
@@ -911,6 +895,7 @@ public class ForEachTag
       }
     }
 
+    @Override
     public boolean isReadOnly(ELContext context)
     {
       Object items = _itemsExpression.getValue(context);
@@ -922,21 +907,25 @@ public class ForEachTag
       return context.getELResolver().isReadOnly(context, items, _key);
     }
 
+    @Override
     public Class<?> getType(ELContext context)
     {
       return null;
     }
 
+    @Override
     public Class<?> getExpectedType()
     {
       return Object.class;
     }
 
+    @Override
     public String getExpressionString()
     {
       return _itemsExpression.getExpressionString();
     }
 
+    @Override
     public boolean isLiteralText()
     {
       return false;
@@ -948,6 +937,7 @@ public class ForEachTag
       return _itemsExpression.hashCode();
     }
 
+    @Override
     public boolean equals(Object obj)
     {
       return _itemsExpression.equals(obj);
@@ -979,6 +969,7 @@ public class ForEachTag
       _itemsExpression = itemsExpression;
     }
 
+    @Override
     public Object getValue(ELContext context)
     {
       // By using a layer of indirection, we can ensure that the correct value is returned for
@@ -1001,6 +992,7 @@ public class ForEachTag
       return context.getELResolver().getValue(context, items, data.getIndex());
     }
 
+    @Override
     public Class<?> getExpectedType()
     {
       return Object.class;
@@ -1012,6 +1004,7 @@ public class ForEachTag
       return _itemsExpression.hashCode();
     }
 
+    @Override
     public boolean equals(Object obj)
     {
       return _itemsExpression.equals(obj);
@@ -1037,11 +1030,13 @@ public class ForEachTag
       super(iterationId, mapKey);
     }
 
+    @Override
     public Object getValue(ELContext context)
     {
       return super.getIterationMetaData();
     }
 
+    @Override
     public Class getExpectedType()
     {
       return IterationMetaData.class;
@@ -1056,7 +1051,6 @@ public class ForEachTag
     public abstract Object getKey(int index);
     public abstract Object getValue(int index);
     public abstract int getSize();
-    public abstract boolean isIdSuffixSupported();
     public abstract boolean isKeyBased();
   }
 
@@ -1096,11 +1090,7 @@ public class ForEachTag
       return _collectionModel.getRowCount();
     }
 
-    public boolean isIdSuffixSupported()
-    {
-      return true;
-    }
-
+    @Override
     public boolean isKeyBased()
     {
       return true;
@@ -1138,6 +1128,12 @@ public class ForEachTag
       return _map.size();
     }
 
+    @Override
+    public boolean isKeyBased()
+    {
+      return true;
+    }
+
     private void _moveToIndex(int index)
     {
       if (index == _currentIndex)
@@ -1158,16 +1154,6 @@ public class ForEachTag
       }
 
       _currentIndex = index;
-    }
-
-    public boolean isIdSuffixSupported()
-    {
-      return true;
-    }
-
-    public boolean isKeyBased()
-    {
-      return true;
     }
 
     private final Map<?, ?>                     _map;
@@ -1203,11 +1189,7 @@ public class ForEachTag
       return _list.size();
     }
 
-    public boolean isIdSuffixSupported()
-    {
-      return false;
-    }
-
+    @Override
     public boolean isKeyBased()
     {
       return false;
@@ -1243,11 +1225,7 @@ public class ForEachTag
       return Array.getLength(_array);
     }
 
-    public boolean isIdSuffixSupported()
-    {
-      return false;
-    }
-
+    @Override
     public boolean isKeyBased()
     {
       return false;
@@ -1356,6 +1334,9 @@ public class ForEachTag
       return _iterationId;
     }
 
+    @SuppressWarnings("compatibility:-6078344977554689652")
+    private static final long serialVersionUID = 1L;
+
     private final Serializable _key;
     private final Integer      _iterationId;
   }
@@ -1377,8 +1358,6 @@ public class ForEachTag
   private Integer _begin;
   private Integer _end;
   private Integer _step;
-
-  private boolean _suffixPushed = false;
 
   private UIComponent _parentComponent;
 
@@ -1409,5 +1388,4 @@ public class ForEachTag
   private static final int _VIEW_ATTR_KEY_LENGTH = _VIEW_ATTR_KEY.length();
   private static final String _ITERATION_ID_KEY =
     ForEachTag.class.getName() + ".ITER";
-  private static final long serialVersionUID = 1L;
 }

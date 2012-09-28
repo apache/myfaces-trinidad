@@ -23,24 +23,48 @@
           xmlns:f="http://java.sun.com/jsf/core">
   <tr:panelHeader text="How to add and remove items from a forEach loop">
     <tr:outputText value="It is not safe to add or remove items from a standard c:forEach tag due to the way IDs are handled and how component state functions. By using a tr:forEach tag that is key based (map or collection model), items may be added or removed from the collection." />
-    <tr:panelGroupLayout layout="vertical" inlineStyle="padding-left: 2em; padding-top: 1em">
-      <tr:forEach var="item" items="#{forEachBean.model}" varStatus="vs">
-        <tr:outputText id="ot" value="#{item.firstName}" />
-        <tr:panelGroupLayout id="actions" layout="horizontal">
-          <tr:commandButton text="Insert new item">
-            <f:attribute name="key" value="#{vs.key}" />
-          </tr:commandButton>
-          <tr:commandButton text="Remove item">
-            <f:attribute name="key" value="#{vs.key}" />
-          </tr:commandButton>
-          <tr:commandButton text="Move item up">
-            <f:attribute name="key" value="#{vs.key}" />
-          </tr:commandButton>
-          <tr:commandButton text="Move item down">
-            <f:attribute name="key" value="#{vs.key}" />
-          </tr:commandButton>
-        </tr:panelGroupLayout>
-        <tr:spacer height="1em"/>
+    <tr:panelGroupLayout id="forEachParent" layout="vertical"
+                         inlineStyle="padding-left: 2em; padding-top: 1em">
+      <tr:forEach var="person" items="#{forEachBean.arrangeMap}" varStatus="vs">
+        <f:subview id="sv_${vs.key}">
+          <f:attribute name="forEachKey" value="#{vs.key}" />
+          <tr:outputText id="ot" value="#{person.firstName} #{person.lastName}" />
+          <tr:panelGroupLayout id="actions" layout="horizontal">
+            <tr:panelPopup triggerType="click" inlineStyle="text-decoration: none;">
+              <f:facet name="trigger">
+                <tr:commandButton text="Add person" onclick="return false;" />
+              </f:facet>
+              <tr:panelFormLayout>
+                <tr:outputText value="Enter the first and last name." />
+                <tr:outputText value="The person will be added before the current person" />
+                <tr:inputText id="fn" value="#{forEachBean.newPersonFirstName}"
+                              label="First name:" />
+                <tr:inputText id="ln" value="#{forEachBean.newPersonLastName}"
+                              label="Last name:" />
+              </tr:panelFormLayout>
+              <tr:commandButton text="Add" partialSubmit="true"
+                                actionListener="#{forEachBean.handleArrangeNewItem}"
+                                onclick="TrPanelPopup.hidePopup(event);">
+                <f:attribute name="forEachKey" value="#{vs.key}" />
+              </tr:commandButton>
+            </tr:panelPopup>
+            <tr:commandButton text="Remove person" partialSubmit="true"
+                              actionListener="#{forEachBean.handleArrangeRemoveItem}">
+              <f:attribute name="forEachKey" value="#{vs.key}" />
+            </tr:commandButton>
+            <tr:commandButton text="Move person up" partialSubmit="true"
+                              actionListener="#{forEachBean.handleArrangeMoveItemUp}"
+                              disabled="#{vs.first}">
+              <f:attribute name="forEachKey" value="#{vs.key}" />
+            </tr:commandButton>
+            <tr:commandButton text="Move person down" partialSubmit="true"
+                              actionListener="#{forEachBean.handleArrangeMoveItemDown}"
+                              disabled="#{vs.last}">
+              <f:attribute name="forEachKey" value="#{vs.key}" />
+            </tr:commandButton>
+          </tr:panelGroupLayout>
+          <tr:spacer height="1em"/>
+        </f:subview>
       </tr:forEach>
     </tr:panelGroupLayout>
   </tr:panelHeader>

@@ -110,49 +110,4 @@ public abstract class TrinidadIterationTag
   {
     return super.doEndTag();
   }
-
-  /**
-   * Pushes a suffix to be used onto a stack.
-   * By applying a component suffix, an iterating tag may control how
-   * component IDs are generated. This control allows a controlled and
-   * documented ID to be generated rather than relying on the ID
-   * generation that the JSF tag implements. By default,
-   * {@link javax.faces.webapp.UIComponentClassicTagBase} appends a
-   * "j_id_" and a counter to component IDs after the first loop to avoid
-   * ID collisions, but this suffix is not part of the specification and
-   * therefore cannot be developed against.
-   * <p>
-   * Note that this suffix is only applied up to, and including, a Trinidad
-   * naming container component. The children of a Trinidad naming container
-   * component will not have a suffix appended to them.
-   * </p>
-   *
-   * @param suffix The suffix applied to components.
-   */
-  protected final void pushComponentSuffix(String suffix)
-  {
-    ComponentIdSuffixStack stack =
-      ComponentIdSuffixStack.getInstance(pageContext);
-
-    stack.push(suffix);
-  }
-
-  /**
-   * Pops the component ID suffix from the stack.
-   * This removes the last suffix pushed.
-   * <p>
-   * Tag authors must call this method when
-   * {@link #pushComponentSuffix(String)} is used to ensure that the
-   * stack is kept properly in-sync.
-   * </p>
-   *
-   * @see #pushComponentSuffix(String)
-   */
-  protected final void popComponentSuffix()
-  {
-    ComponentIdSuffixStack stack =
-      ComponentIdSuffixStack.getInstance(pageContext);
-
-    stack.pop();
-  }
 }

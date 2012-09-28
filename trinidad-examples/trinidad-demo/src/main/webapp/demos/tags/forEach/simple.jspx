@@ -22,7 +22,7 @@
           xmlns:tr="http://myfaces.apache.org/trinidad" version="2.1">
   <tr:panelHeader text="Simple forEach example">
     <tr:panelHeader text="This example shows a for each loop backed by a list">
-      <tr:outputText value="Note that the IDs are changed by the JSF tags in a manner that cannot be used for partial triggers." />
+      <tr:outputText value="Note that the IDs are changed by the JSF tags in a manner that cannot be used for partial triggers. Using immedate EL in the ID can allow the IDs to be unique per iteration." />
       <tr:panelGroupLayout layout="vertical" inlineStyle="padding-left: 2em; padding-top: 1em">
         <tr:forEach var="person" items="#{forEachBean.simpleList}" varStatus="vs">
           <tr:panelGroupLayout id="personPgl" layout="horizontal">
@@ -31,6 +31,21 @@
             <tr:outputText id="clientId" value="(Client ID: #{component.clientId})"/>
           </tr:panelGroupLayout>
           <tr:spacer height="1em" />
+        </tr:forEach>
+      </tr:panelGroupLayout>
+    </tr:panelHeader>
+    <tr:panelHeader text="Recommended method to provide unique IDs">
+      <tr:outputText value="Using a naming container, or immediate EL in each component, IDs may be made unique. Maps and collection models will use the key, lists and arrays will use the index." />
+      <tr:panelGroupLayout layout="vertical" inlineStyle="padding-left: 2em; padding-top: 1em">
+        <tr:forEach var="person" items="#{forEachBean.simpleList}" varStatus="vs">
+          <f:subview id="sv${vs.key}">
+            <tr:panelGroupLayout id="personPgl" layout="horizontal">
+              <tr:outputText id="personName" value="#{person.firstName} #{person.firstName}"
+                             inlineStyle="padding-right: 1em;"/>
+              <tr:outputText id="clientId" value="(Client ID: #{component.clientId})"/>
+            </tr:panelGroupLayout>
+            <tr:spacer height="1em" />
+          </f:subview>
         </tr:forEach>
       </tr:panelGroupLayout>
     </tr:panelHeader>

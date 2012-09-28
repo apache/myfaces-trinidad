@@ -18,12 +18,12 @@
  */
 package org.apache.myfaces.trinidaddemo.tagDemos;
 
+
 import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,15 +34,14 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.change.ReorderChildrenComponentChange;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.model.RowKeyPropertyModel;
 import org.apache.myfaces.trinidad.model.SortCriterion;
 import org.apache.myfaces.trinidad.model.SortableModel;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 
 public class ForEachBean
@@ -147,6 +146,26 @@ public class ForEachBean
     }
   }
 
+  public void setNewPersonFirstName(String newPersonFirstName)
+  {
+    _newPersonFirstName = newPersonFirstName;
+  }
+
+  public String getNewPersonFirstName()
+  {
+    return _newPersonFirstName;
+  }
+
+  public void setNewPersonLastName(String newPersonLastName)
+  {
+    _newPersonLastName = newPersonLastName;
+  }
+
+  public String getNewPersonLastName()
+  {
+    return _newPersonLastName;
+  }
+
   public final void setCurrentExample(String currentExample)
   {
     _currentExample = currentExample;
@@ -207,13 +226,25 @@ public class ForEachBean
 
     // Now fire a component event to re-order the components
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    List<String> orderedKeys = _applySortToNonCollectionModelObjects();
+    final List<String> orderedKeys = _applySortToNonCollectionModelObjects();
 
+    // Using visit tree is the recommended way to put the components in context
     VisitContext visitContext = VisitContext.createVisitContext(facesContext,
-      Arrays.asList("rm:personForEachParent", "rcm:personForEachParent"),
+      Arrays.asList("r:personForEachMapParent", "r:personForEachModelParent"),
       null);
     facesContext.getViewRoot().visitTree(visitContext,
-      new ReorderChildrenVisitCallback(orderedKeys));
+      new VisitCallback()
+      {
+        @Override
+        public VisitResult visit(
+          VisitContext visitContext,
+          UIComponent  target)
+        {
+          String prefix = "personForEachMapParent".equals(target.getId()) ? "m_" : "cm_";
+          addReorderChange(target, orderedKeys, prefix);
+          return VisitResult.ACCEPT;
+        }
+    });
   }
 
   public Map<String, ForEachBean.UpdatableItem> getUpdatableItemMap()
@@ -236,42 +267,138 @@ public class ForEachBean
     return _getCollectionModel();
   }
 
-  public void inputValueValueChange(ValueChangeEvent valueChangeEvent)
-  {
-    UIComponent target = valueChangeEvent.getComponent();
-    String id = target.getId();
-    String keySuffix = id.substring(id.lastIndexOf('_'));
-    UIComponent toUpdate = target.findComponent("outputText" + keySuffix);
-    RequestContext.getCurrentInstance().addPartialTarget(toUpdate);
-  }
-
-  public void inputValueWithNCValueChange(ValueChangeEvent valueChangeEvent)
-  {
-    UIComponent target = valueChangeEvent.getComponent();
-    String id = target.getId();
-    String keySuffix = id.substring(id.lastIndexOf('_'));
-    UIComponent toUpdate = target.findComponent("testNC" + keySuffix + ":outputTextNC");
-    RequestContext.getCurrentInstance().addPartialTarget(toUpdate);
-  }
-
   public void handleArrangeNewItem(ActionEvent evt)
   {
+    UIComponent target = evt.getComponent();
+    String forEachKey = (String)target.getAttributes().get("forEachKey");
+    String newKey = "new" + (_nextArrangePersonKey++);
 
+    LinkedHashMap<String, Person> mapCopy = new LinkedHashMap<String, Person>(_arrangeMap);
+    _arrangeMap.clear();
+
+    boolean added = false;
+
+    for (Map.Entry<String, Person> entry : mapCopy.entrySet())
+    {
+      String key = entry.getKey();
+      if (added == false && forEachKey.equals(key))
+      {
+        _arrangeMap.put(newKey,
+          new Person(newKey, _newPersonFirstName, _newPersonLastName));
+        added = true;
+      }
+
+      _arrangeMap.put(key, entry.getValue());
+    }
+
+    _newPersonFirstName = null;
+    _newPersonLastName = null;
+
+    _sortArrangedDemoChildren(target);
   }
 
   public void handleArrangeRemoveItem(ActionEvent evt)
   {
+    UIComponent target = evt.getComponent();
+    String forEachKey = (String)target.getAttributes().get("forEachKey");
 
+    _arrangeMap.remove(forEachKey);
+
+    // No need to re-order the components as the mark-and-sweep will remove the unmatched component
+    // during tag execution
+
+    RequestContext.getCurrentInstance().addPartialTargets(target, "::forEachParent");
   }
 
   public void handleArrangeMoveItemUp(ActionEvent evt)
   {
+    UIComponent target = evt.getComponent();
+    String forEachKey = (String)target.getAttributes().get("forEachKey");
 
+    _moveItem(forEachKey, true);
+
+    _sortArrangedDemoChildren(target);
   }
 
   public void handleArrangeMoveItemDown(ActionEvent evt)
   {
+    UIComponent target = evt.getComponent();
+    String forEachKey = (String)target.getAttributes().get("forEachKey");
 
+    _moveItem(forEachKey, false);
+
+    _sortArrangedDemoChildren(target);
+  }
+
+  private void _moveItem(
+    String  keyToMove,
+    boolean moveUp)
+  {
+    int index = 0;
+    for (String key : _arrangeMap.keySet())
+    {
+      if (keyToMove.equals(key))
+      {
+        break;
+      }
+
+      ++index;
+    }
+
+    index += moveUp ? -1 : 1;
+
+    Person personToMove = _arrangeMap.remove(keyToMove);
+    if (index == _arrangeMap.size())
+    {
+      _arrangeMap.put(keyToMove, personToMove);
+    }
+    else
+    {
+      LinkedHashMap<String, Person> mapCopy = new LinkedHashMap<String, Person>(_arrangeMap);
+      _arrangeMap.clear();
+      int i = 0;
+      for (Map.Entry<String, Person> entry : mapCopy.entrySet())
+      {
+        if (i++ == index)
+        {
+          _arrangeMap.put(keyToMove, personToMove);
+        }
+
+        _arrangeMap.put(entry.getKey(), entry.getValue());
+      }
+    }
+  }
+
+  private void _sortArrangedDemoChildren(
+    UIComponent target)
+  {
+    UIComponent forEachParent = ComponentUtils.findRelativeComponent(target,
+      "::forEachParent");
+
+    addReorderChange(forEachParent, new ArrayList<String>(_arrangeMap.keySet()), "sv_");
+  }
+
+  private void addReorderChange(
+    UIComponent  forEachParentComponent,
+    List<String> desiredKeyOrder,
+    String       subviewPrefix)
+  {
+    List<String> orderedIds = new ArrayList<String>(desiredKeyOrder.size());
+    // Note, since there are use cases in the demo that add items to the collections, the
+    // components may not have been created yet, we cannot use the components
+    // to build the ReorderChildrenComponentChange. So instead, we use prefixes for the subviews.
+    // Therefore, the backing bean code must be tied to the IDs built by the page.
+    for (String key : desiredKeyOrder)
+    {
+      orderedIds.add(subviewPrefix + key);
+    }
+
+    ReorderChildrenComponentChange componentChange = new ReorderChildrenComponentChange(orderedIds);
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    ChangeManager cm = requestContext.getChangeManager();
+    cm.addComponentChange(FacesContext.getCurrentInstance(), forEachParentComponent,
+      componentChange);
+    requestContext.addPartialTarget(forEachParentComponent);
   }
 
   /**
@@ -295,7 +422,6 @@ public class ForEachBean
       {
         Person person = (Person)model.getRowData();
         orderedKeys.add(person.getKey());
-        //System.out.println("Person: " + person);
         _list.add(person);
         _map.put(person.getKey(), person);
       }
@@ -337,54 +463,6 @@ public class ForEachBean
     return _model;
   }
 
-  private static class ReorderChildrenVisitCallback
-    implements VisitCallback, Comparator<String>
-  {
-    private ReorderChildrenVisitCallback(List<String> orderedKeys)
-    {
-      _orderedKeys = orderedKeys;
-    }
-
-    @Override
-    public VisitResult visit(
-      VisitContext visitContext,
-      UIComponent  target)
-    {
-      //System.out.println("**************VISIT " + target.getClientId());
-      FacesContext facesContext = visitContext.getFacesContext();
-      List<String> childrenIds = new ArrayList<String>();
-      for (UIComponent child: target.getChildren())
-      {
-        // Safe to call get ID out of context
-        childrenIds.add(child.getId());
-      }
-
-      Collections.sort(childrenIds, this);
-
-      ChangeManager apm = RequestContext.getCurrentInstance().getChangeManager();
-      apm.addComponentChange(facesContext, target,
-          new ReorderChildrenComponentChange(childrenIds));
-
-      return VisitResult.ACCEPT;
-    }
-
-    @Override
-    public int compare(
-      String clientId1,
-      String clientId2)
-    {
-      String key1 = StringUtils.substringAfterLast(clientId1, "_");
-      String key2 = StringUtils.substringAfterLast(clientId2, "_");
-
-      int index1 = _orderedKeys.indexOf(key1);
-      int index2 = _orderedKeys.indexOf(key2);
-
-      return index1 - index2;
-    }
-
-    private final List<String> _orderedKeys;
-  }
-
   private final List<Person> _simpleList;
   private final List<Person> _list;
   private transient RowKeyPropertyModel _model;
@@ -393,8 +471,11 @@ public class ForEachBean
   private final Map<String, Person> _arrangeMap;
   private String _currentExample = "updates";
   private String _sortProperty;
+  private String _newPersonFirstName;
+  private String _newPersonLastName;
   private boolean _sortAscending;
+  private int _nextArrangePersonKey = 1;
 
-  @SuppressWarnings("compatibility:-8911883817863052298")
+  @SuppressWarnings("compatibility:-7372115273781665673")
   private static final long serialVersionUID = 1L;
 }
