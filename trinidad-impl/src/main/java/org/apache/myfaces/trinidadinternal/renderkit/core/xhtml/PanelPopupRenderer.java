@@ -249,7 +249,12 @@ public class PanelPopupRenderer extends XhtmlRenderer
     UIComponent triggerFacet = getFacet(component,
         CorePanelPopup.TRIGGER_FACET);
     if (triggerFacet != null)
+    {
+      String savedClientId = rc.getCurrentClientId();
+      rc.setCurrentClientId(null);
       encodeChild(context, triggerFacet);
+      rc.setCurrentClientId(savedClientId);
+    }
 
     //render trigger icon
     OutputUtils.renderImage(context, rc, getIcon(component, bean), null, null, null, "",
