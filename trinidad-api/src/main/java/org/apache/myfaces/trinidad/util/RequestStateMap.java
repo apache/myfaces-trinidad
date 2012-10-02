@@ -31,12 +31,33 @@ import javax.portlet.faces.annotation.ExcludeFromManagedRequestScope;
 import javax.servlet.ServletRequest;
 
 /**
- * TODO: get rid of this object
+ * This object provides a map that is primarily used to enforce a consistent contract for "state" information in both
+ * a portal environment and a servlet environment.  In a portal environment, request-scope attributes are not necessarily
+ * "saved" between processAction and render.  According to the JSF Portlet Bridge Spec, a request-scope attribute may
+ * hang around from a single processAction to multiple render requests unless it is excluded.  Of course, excluding the
+ * object from the managed request scope will suffer from the problem of the request scope going away BETWEEN action and
+ * render.
+ * <p/>
+ * This class will save an attribute in a processAction portion of the request, will preserve it on the session, and will
+ * read it on the first render following the action.  This allows attributes to be reliably exchanged from action to render
+ * without having to worry about subsequent renders inheriting the same state.  This is useful for storing things like
+ * "ppr" data and such when a subsequent render may be expected to render the entire page.
+ * <p/>
+ * In a servlet environment, this class is the same as the request scope.
  */
  @ExcludeFromManagedRequestScope
  public class RequestStateMap extends HashMap<String, Object>
  {
 
+   /**
+    * Returns an instance of the RequestStateMap.  If one is not already present on the request, it will create a new one.
+    * This version of the getInstance DOES NOT attempt to restore the map from the session because such an action is only
+    * valid in a PortletEnvironment which should not have a ServletRequest.  This method is provided for the convenience
+    * of getting access to the class from the filter.
+    * 
+    * @param req a servletRequest
+    * @return the RequestStateMap for this servletRequest
+    */
    static public RequestStateMap getInstance(ServletRequest req)
    {
      RequestStateMap map = (RequestStateMap)req.getAttribute(_STATE_MAP);
@@ -50,6 +71,18 @@ import javax.servlet.ServletRequest;
      return map;
    }
    
+   /**
+    * Returns an instance of the RequestStateMap.  If the RequestStateMap is not present, this class will attempt to find
+    * a version that was saved from {@link #saveState(ExternalContext)}.  If no state was saved, then it will create a new
+    * map and return it.
+    * <p/>
+    * Please keep in mind that regardless of whether a map was already present on the request or not, executing this method
+    * will ALWAYS clear any state which might have been saved to the session.  This is what enforces the "single restore"
+    * type functionality.
+    * 
+    * @param ec an ExternalContext
+    * @return the RequestStateMap for this ExternalContext
+    */
    static public RequestStateMap getInstance(ExternalContext ec)
    {
      Map<String, Object> reqMap = ec.getRequestMap();
@@ -86,6 +119,13 @@ import javax.servlet.ServletRequest;
    
    private RequestStateMap(){};
    
+   /**
+    * Saves the current state to the session.  Running this is only manditory if you need to preserve a request across
+    * the natural request boundry in a portlet environment.  Executing this function outside of a portlet environment will
+    * not alter operation of his class.
+    * 
+    * @param ec the ExternalContext to save the stateMap to.
+    */
    public void saveState(ExternalContext ec)
    {
      RequestType type = ExternalContextUtils.getRequestType(ec);
@@ -110,5 +150,6 @@ import javax.servlet.ServletRequest;
    }
    
    private static final String _STATE_MAP = RequestStateMap.class.getName();
-   private static final long serialVersionUID = 1L;
+  @SuppressWarnings("compatibility:-6292931291923989771")
+  private static final long serialVersionUID = 1L;
  }

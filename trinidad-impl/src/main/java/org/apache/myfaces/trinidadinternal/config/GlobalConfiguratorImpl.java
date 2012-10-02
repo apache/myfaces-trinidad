@@ -20,6 +20,8 @@ package org.apache.myfaces.trinidadinternal.config;
 
 import java.io.IOException;
 
+import java.io.IOException;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +33,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ExternalContext;
+
+import javax.portlet.faces.annotation.ExcludeFromManagedRequestScope;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletRequestWrapper;
@@ -313,18 +317,25 @@ public final class GlobalConfiguratorImpl
     {
       if (!_isDisabled(ec))
       {
+        boolean isRedirected = (null != ec.getRequestMap().remove(_REDIRECT_ISSUED));
+        
         try
         {
           //Only end services at the end of a writable response.  This will
           //generally be RENDER, RESOURCE, and SERVLET.
-          if (ExternalContextUtils.isResponseWritable(ec) && !Boolean.TRUE.equals(state.get(_CONFIGURATORS_ABORTED)))
+          if ((ExternalContextUtils.isResponseWritable(ec) || isRedirected) && !Boolean.TRUE.equals(state.get(_CONFIGURATORS_ABORTED)))
           {
             _endConfiguratorServiceRequest(ec);
           }
         }
         finally
         {
-          state.saveState(ec);
+          //If redirect was issued, we do not want to save the state.  Let it burn..  :D
+          if(!isRedirected)
+          {
+            state.saveState(ec);
+          }
+          
           _releaseRequestContext(ec);
         }
       }
@@ -378,6 +389,19 @@ public final class GlobalConfiguratorImpl
       {
         ec = config.getExternalContext(ec);
       }
+    }
+    
+    //After all this request wrapping there is just one more thing we want to handle.  IF we are not in a PPR
+    //request AND we are in a processAction, we need to be able to track when a redirect is performed.  The
+    //reason for this is that if a redirect is performed during the processAction then we need to remember this
+    //so that we can call the endRequest method when its run.  Unlike other request, this WILL call the endRequest
+    //at the end of ProcessAction so the subsequent render will start fresh.  In the PPR case, and the case where
+    //we do not have a performAction, we can skip this wrapper.  This information will be saved and removed from
+    //the request.
+    if(RequestType.ACTION.equals(type))
+    {
+      //We have an action, add the wrapper.
+      ec = new RecordRedirectExternalContext(ec);
     }
 
     return ec;
@@ -673,8 +697,7 @@ public final class GlobalConfiguratorImpl
   // This handles an issue with the ExternalContext object prior to
   // JSF1.2_04.
 
-  static private class ClearRequestExternalContext
-    extends ExternalContextDecorator
+  static private class ClearRequestExternalContext extends ExternalContextDecorator
   {
     private ExternalContext _ec;
     private Map<String, Object> _requestCookieMap;
@@ -796,6 +819,32 @@ public final class GlobalConfiguratorImpl
     }
   }
 
+  static private class RecordRedirectExternalContext extends ExternalContextDecorator
+  {
+    public RecordRedirectExternalContext(ExternalContext ec)
+    {
+      assert(ec != null);
+      _ec = ec;
+    }
+    
+    @Override
+    public void redirect(String url)
+      throws IOException
+    {
+      super.redirect(url);
+      
+      //We set a parameter on the request saying that we indeed have a redirect.
+      _ec.getRequestMap().put(_REDIRECT_ISSUED, AppliedClass.APPLIED);
+    }
+    
+    @Override
+    protected ExternalContext getExternalContext()
+    {
+      return _ec;
+    }
+    
+    private ExternalContext _ec;
+  }
 
   private static volatile boolean _sSetRequestBugTested = false;
   private static boolean _sHasSetRequestBug = false;
@@ -816,6 +865,20 @@ public final class GlobalConfiguratorImpl
   static private final String _CONFIGURATORS_ABORTED =
     GlobalConfiguratorImpl.class.getName() + ".CONFIGURATORS_ABORTED";
 
+  //This should be saved on the ManagedRequestScope and needs to implement
+  //@ExcludeFromManagedRequestScope to be totally safe
+  static private final String _REDIRECT_ISSUED =
+    GlobalConfiguratorImpl.class.getName() + ".REDIRECT_ISSUED";
+  
+  //This will ensure the property is removed on the next request.  It should be used
+  //as the value for _REDIRECT_ISSUED.
+  @ExcludeFromManagedRequestScope
+  static private class AppliedClass
+  {
+    static public final AppliedClass APPLIED = new AppliedClass();
+  }
+
+  
   static private class TestRequest
     extends ServletRequestWrapper
   {
