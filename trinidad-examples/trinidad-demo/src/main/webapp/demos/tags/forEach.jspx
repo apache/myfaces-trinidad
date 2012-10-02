@@ -69,7 +69,7 @@
           <tr:panelGroupLayout layout="scroll"
                                partialTriggers="reorderLink simpleLink pprLink updatesLink">
             <tr:switcher defaultFacet="home" facetName="#{forEachBean.currentExample}">
-              <f:facet name="home">
+              <!--f:facet name="home">
                 <tr:outputText value="Choose an example from the side panel."/>
               </f:facet>
               <f:facet name="simple">
@@ -92,7 +92,7 @@
                     <jsp:include page="forEach/ppr.jspx"/>
                   </f:subview>
                 </tr:panelGroupLayout>
-              </f:facet>
+              </f:facet-->
               <f:facet name="updates">
                 <tr:panelGroupLayout layout="vertical">
                   <f:subview id="up">

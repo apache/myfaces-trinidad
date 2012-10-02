@@ -186,10 +186,8 @@ public class ForEachTag
       }
       else
       {
-        // Clear the existing map so that the iteration IDs are cleared from the previous
-        // request to avoid caching of the old data in the ForEachBaseValueExpression instances
         _iterationMap = iterMap;
-        iterMap.clear();
+        _unmatchedIterationIds = new HashSet<Integer>(iterMap.keySet());
       }
     }
   }
@@ -325,9 +323,19 @@ public class ForEachTag
 
       _previousIterationNonTrinidadChildren = null;
 
+      // Remove any non-matched iteration IDs to prevent carrying old data from previous requests
+      // into the current request
+      if (_unmatchedIterationIds != null && !_unmatchedIterationIds.isEmpty())
+      {
+        for (Integer iterId : _unmatchedIterationIds)
+        {
+          _LOG.finest("Removing unused iteration ID: {0}", iterId);
+          _iterationMap.remove(iterId);
+        }
+      }
+
       return SKIP_BODY;
     }
-
     // Otherwise, update the variables and go again
     _updateVars(vm, true);
 
@@ -372,7 +380,20 @@ public class ForEachTag
     if (component.getParent() == _parentComponent)
     {
       Map<String, Object> compAttrs = component.getAttributes();
-      Integer iterationId = (Integer)compAttrs.get(_ITERATION_ID_KEY);
+
+      Map<String, Integer> iterationIdsMap = (Map<String, Integer>)compAttrs.get(_ITERATION_ID_KEY);
+      Integer iterationId;
+      if (iterationIdsMap == null)
+      {
+        iterationIdsMap = new HashMap<String, Integer>(3);
+        compAttrs.put(_ITERATION_ID_KEY, iterationIdsMap);
+        iterationId = null;
+      }
+      else
+      {
+        iterationId = iterationIdsMap.get(_iterationMapKey);
+      }
+
       if (_LOG.isFinest())
       {
         _LOG.finest(
@@ -383,7 +404,7 @@ public class ForEachTag
       if (iterationId == null)
       {
         // This is a new component, use the current iteration ID
-        compAttrs.put(_ITERATION_ID_KEY, _iterationId);
+        iterationIdsMap.put(_iterationMapKey, _iterationId);
 
         // Remember that the iteration ID was used
         _iterationIdRequiresIncrement = true;
@@ -395,6 +416,8 @@ public class ForEachTag
             "  Iteration data: {1}",
             new Object[] { _iterationId, _iterationData });
         }
+
+        iterationId = _iterationId;
       }
       else
       {
@@ -409,6 +432,12 @@ public class ForEachTag
         // This component has been seen before, register the old iteration ID with the iteration
         // map so that the EL may look up the iteration data.
         _iterationMap.put(iterationId, _iterationData);
+      }
+
+      // Ensure that we retain this iteration ID in the map
+      if (_unmatchedIterationIds != null)
+      {
+        _unmatchedIterationIds.remove(_iterationId);
       }
     }
   }
@@ -492,7 +521,9 @@ public class ForEachTag
    */
   private void _processNonTrinidadComponents()
   {
-    Serializable key = null;
+//    Serializable key = null;
+    Serializable key = _getKey();
+    System.out.println("------------ Processing key " + key);
 
     // If _previousIterationNonTrinidadChildren is non-null then this is not the first
     // execution of this code in this request. We need to determine what components were added
@@ -503,7 +534,7 @@ public class ForEachTag
       _previousIterationNonTrinidadChildren.clear();
       return;
     }
-
+System.out.println("Processing children of parent " + _parentComponent.getClientId());
     for (UIComponent child : childrenComponents)
     {
       Map<String, Object> attrs = child.getAttributes();
@@ -517,13 +548,21 @@ public class ForEachTag
         // do not need to do anything.
         if (data == null)
         {
+          System.out.println("  Data is null");
           continue;
+        }
+
+        if (_LOG.isFinest())
+        {
+          _LOG.finest("Proccessing non-trinidad component. Component client ID: {0}",
+            child.getClientId());
         }
 
         // Get the key for the current item, if we have not already
         if (key == null)
         {
           key = _getKey();
+          System.out.println("  KEY: " + key);
         }
 
         // Since we clear the iteration map in the start tag processing, we need to re-map
@@ -533,9 +572,26 @@ public class ForEachTag
         // iteration
         if (key.equals(data.getKey()))
         {
+          if (_LOG.isFinest())
+          {
+            _LOG.finest("Key matches. Mapping iteration ID onto the map. ID: {0}",
+              data.getIterationId());
+          }
+
           // The keys are the same, update the map.
-          _iterationMap.put(data.getIterationId(), _iterationData);
+          Integer iterationId = data.getIterationId();
+          _iterationMap.put(iterationId, _iterationData);
+
+          // Store that the iteration ID was seen
+          if (_unmatchedIterationIds != null)
+          {
+            System.out.println("**** Keeping iteration ID " + iterationId + " client ID "
+              + child.getClientId());
+            _unmatchedIterationIds.remove(iterationId);
+          }
         }
+        else
+          System.out.println("Did not match key (" + data.getKey() + ")");
       }
       else
       {
@@ -547,12 +603,26 @@ public class ForEachTag
         if (key == null)
         {
           key = _getKey();
+          System.out.println("  KEY (2): " + key);
+        }
+
+        if (_LOG.isFinest())
+        {
+          _LOG.finest("New component with client ID {0}. " +
+            "Storing attribute with map key: {1}. Iteration ID: {2}",
+            new Object[] { child.getClientId(), _iterationMapKey, _iterationId });
         }
 
         attrs.put(_iterationMapKey, new NonTrinidadIterationData(key, _iterationId));
+
+        // Ensure that we do not remove this iteration ID from the map
+        if (_unmatchedIterationIds != null)
+        {
+          _unmatchedIterationIds.remove(_iterationId);
+        }
       }
     }
-
+System.out.println("-------Done processing non-trinidad children for key " + key);
     // Update the map so we know for the next iteration what components are being created
     _previousIterationNonTrinidadChildren = childrenComponents;
   }
@@ -1368,6 +1438,7 @@ public class ForEachTag
   private Map<String, Object> _viewAttributes;
 
   private String _iterationMapKey;
+  private Set<Integer> _unmatchedIterationIds;
   private Map<Integer, IterationMetaData> _iterationMap;
   private ItemsWrapper _itemsWrapper;
 

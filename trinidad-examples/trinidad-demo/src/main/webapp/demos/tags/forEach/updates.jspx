@@ -26,44 +26,83 @@
     <tr:panelGroupLayout id="forEachParent" layout="vertical"
                          inlineStyle="padding-left: 2em; padding-top: 1em">
       <tr:forEach var="person" items="#{forEachBean.arrangeMap}" varStatus="vs">
-        <f:subview id="sv_${vs.key}">
+        <!--f:subview id="sv_${vs.key}">
           <f:attribute name="forEachKey" value="#{vs.key}" />
-          <tr:outputText id="ot" value="#{person.firstName} #{person.lastName}" />
+          <tr:outputText id="ot1" value="#{person.firstName} #{person.lastName} #{vs}" />
           <tr:panelGroupLayout id="actions" layout="horizontal">
-            <tr:panelPopup triggerType="click" inlineStyle="text-decoration: none;">
+            <tr:panelPopup id="pp" triggerType="click" inlineStyle="text-decoration: none;">
               <f:facet name="trigger">
-                <tr:commandButton text="Add person" onclick="return false;" />
+                <tr:commandButton id="cb1" text="Add person" onclick="return false;" />
               </f:facet>
               <tr:panelFormLayout>
-                <tr:outputText value="Enter the first and last name." />
-                <tr:outputText value="The person will be added before the current person" />
+                <tr:outputText id="ot2" value="Enter the first and last name." />
+                <tr:outputText id="ot3" value="The person will be added before the current person" />
                 <tr:inputText id="fn" value="#{forEachBean.newPersonFirstName}"
                               label="First name:" />
                 <tr:inputText id="ln" value="#{forEachBean.newPersonLastName}"
                               label="Last name:" />
               </tr:panelFormLayout>
-              <tr:commandButton text="Add" partialSubmit="true"
+              <tr:commandButton id="cb2" text="Add" partialSubmit="true"
                                 actionListener="#{forEachBean.handleArrangeNewItem}"
                                 onclick="TrPanelPopup.hidePopup(event);">
                 <f:attribute name="forEachKey" value="#{vs.key}" />
               </tr:commandButton>
             </tr:panelPopup>
-            <tr:commandButton text="Remove person" partialSubmit="true"
+            <tr:commandButton id="cb3" text="Remove person" partialSubmit="true"
                               actionListener="#{forEachBean.handleArrangeRemoveItem}">
               <f:attribute name="forEachKey" value="#{vs.key}" />
             </tr:commandButton>
-            <tr:commandButton text="Move person up" partialSubmit="true"
+            <tr:commandButton id="cb4" text="Move person up #{vs.first} #{vs}" partialSubmit="true"
                               actionListener="#{forEachBean.handleArrangeMoveItemUp}"
                               disabled="#{vs.first}">
               <f:attribute name="forEachKey" value="#{vs.key}" />
             </tr:commandButton>
-            <tr:commandButton text="Move person down" partialSubmit="true"
+            <tr:commandButton id="cb5" text="Move person down #{vs.last} #{vs}" partialSubmit="true"
                               actionListener="#{forEachBean.handleArrangeMoveItemDown}"
                               disabled="#{vs.last}">
               <f:attribute name="forEachKey" value="#{vs.key}" />
             </tr:commandButton>
           </tr:panelGroupLayout>
-          <tr:spacer height="1em"/>
+          <tr:spacer id="s1" height="1em"/>
+        </f:subview-->
+        <f:subview id="sv_${vs.key}">
+          <f:attribute name="forEachKey" value="#{vs.key}" />
+          <tr:outputText value="#{person.firstName} #{person.lastName} #{vs}" />
+          <tr:panelGroupLayout id="actions" shortDesc="#{component.clientId}">
+            <tr:panelPopup triggerType="click" inlineStyle="text-decoration: none;">
+              <f:facet name="trigger">
+                <tr:commandButton text="Add person (#{component.parent.clientId} #{component.clientId})" onclick="return false;" />
+              </f:facet>
+              <tr:panelFormLayout>
+                <tr:outputText value="Enter the first and last name. #{component.clientId}"/>
+                <tr:outputText value="The person will be added before the current person #{component.clientId}" />
+                <tr:inputText id="fn" value="#{forEachBean.newPersonFirstName}"
+                              label="First name: #{component.clientId}" />
+                <tr:inputText id="ln" value="#{forEachBean.newPersonLastName}"
+                              label="Last name: #{component.clientId}" />
+              </tr:panelFormLayout>
+              <tr:commandButton text="Add #{component.clientId}" partialSubmit="true"
+                                actionListener="#{forEachBean.handleArrangeNewItem}"
+                                onclick="TrPanelPopup.hidePopup(event);">
+                <f:attribute name="forEachKey" value="#{vs.key}" />
+              </tr:commandButton>
+            </tr:panelPopup>
+            <tr:commandButton text="Remove person #{component.clientId}" partialSubmit="true"
+                              actionListener="#{forEachBean.handleArrangeRemoveItem}">
+              <f:attribute name="forEachKey" value="#{vs.key}" />
+            </tr:commandButton>
+            <tr:commandButton text="Move person up #{vs.first} #{vs} #{component.clientId}" partialSubmit="true"
+                              actionListener="#{forEachBean.handleArrangeMoveItemUp}"
+                              disabled="#{vs.first}">
+              <f:attribute name="forEachKey" value="#{vs.key}" />
+            </tr:commandButton>
+            <tr:commandButton text="Move person down #{vs.last} #{vs} #{component.clientId}" partialSubmit="true"
+                              actionListener="#{forEachBean.handleArrangeMoveItemDown}"
+                              disabled="#{vs.last}">
+              <f:attribute name="forEachKey" value="#{vs.key}" />
+            </tr:commandButton>
+          </tr:panelGroupLayout>
+          <tr:spacer height="1em" shortDesc="#{component.clientId}"/>
         </f:subview>
       </tr:forEach>
     </tr:panelGroupLayout>
