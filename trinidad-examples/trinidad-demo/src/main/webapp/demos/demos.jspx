@@ -59,11 +59,12 @@
                 destination="tags/fileDownloadActionListener.jspx" />
               <tr:goLink text="Client behavior support Demo"
                 destination="clientBehaviorHolder.xhtml" />
+              <tr:goLink text="forEach Tag Demos"
+                destination="tags/forEach.jspx" />
             </tr:panelGroupLayout>
            </tr:panelHeader>
           </tr:panelHeader>
         </tr:panelPage>
-
        </tr:form>
     </tr:document>
   </f:view>

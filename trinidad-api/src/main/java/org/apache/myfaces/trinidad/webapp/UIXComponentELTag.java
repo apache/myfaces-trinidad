@@ -70,7 +70,6 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     return retVal;
   }
 
-  @Override
   protected final void setProperties(UIComponent component)
   {
     if (component instanceof UIViewRoot)
@@ -389,7 +388,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     return sdf;
   }
 
-  //  No more used anywhere in Trinidad code, so deprecate since 2.0.x.
+  /** @deprecated Not used any more in the session state manager */
   @Deprecated
   public static final String DOCUMENT_CREATED_KEY = "org.apache.myfaces.trinidad.DOCUMENTCREATED";
 

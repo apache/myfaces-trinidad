@@ -15,84 +15,272 @@
   limitations under the License.
 -->
 <document>
- <properties>
-  <title>tr:forEach</title>
- </properties>
- <body>
- <section name="Summary">
- <p>
-   <b>Tag name:</b> &lt;tr:forEach&gt;
-   <br/>
-<p>
-        The forEach tag is a replacement for the JSTL
-&lt;c:forEach&gt; tag.  Though as of JSF 1.2/JSP 2.1/JSTL 1.2,
-&lt;c:forEach&gt; can be used with any JSF components or tags,
-it does not support "varStatus".  This tag adds support for varStatus
-(other than "current" which is not supported).
-(<b>Note</b>: this tag is not supported in Facelets, because c:forEach
-is fully functional in Facelets.)  Unlike the old Trinidad tr:forEach
-built with JSF 1.1, however, this tag can be used with any JSP 2.1-based
-tag, JSF or non-JSF.  This tag also has a limitation not found in &lt;c:forEach&gt;:  &lt;tr:forEach&gt; does not currently support arbitrary
-java.util.Collections; it can only iterate over java.util.Lists or
-arrays.</p>
-<h4>Example:</h4><source>
-            &lt;tr:selectOneListbox value="#{someValue}"&gt;
-              &lt;tr:forEach var="item" items="#{model.listOfItems}"&gt;
-                &lt;tr:selectItem value="#{item.value}" text="#{item.text}"/&gt;
-              &lt;/tr:forEach&gt;
-            &lt;/tr:selectOneListbox&gt;</source><source>
-            &lt;tr:forEach varStatus="vs" begin="1" end="5"&gt;
-              &lt;tr:outputText id="ot2" value="#{vs.index} #{vs.count} #{vs.begin} #{vs.current}"/&gt;
-            &lt;/tr:forEach&gt;</source>
- </p>
- </section>
- <section name="Attributes">
-<table>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Supports EL?</th>
-<th>Description</th>
-</tr>
-<tr>
-<td>begin</td><td>int</td><td>No</td><td>
+  <properties>
+    <title>tr:forEach</title>
+  </properties>
+  <body>
+    <section name="Summary">
+      <p>
+        <b>Tag name:</b> &lt;tr:forEach&gt;
+        <br/>
+      </p>
+      <p>
+        The forEach tag provides additional functionality from the JSTL &lt;c:forEach&gt; tag. The
+        tag is only supported in JSP.
+      </p>
+      <subsection name="Facelets">
+        <p>
+          The &lt;tr:forEach&gt; is not supported in facelets. As a convenience, the
+          tag handler for the &lt;c:forEach&gt; will be used in facelets when a &lt;tr:forEach&gt;
+          is used in a facelets page, but no Trinidad functionality will be supported.
+        </p>
+      </subsection>
+      <subsection name="Supported collections">
+        The Trinidad forEach tag supports the following collections for the <code>items</code>
+        attribute:
+        <ul>
+          <li>Java array</li>
+          <li>java.util.List</li>
+          <li>org.apache.myfaces.trinidad.model.CollectionModel</li>
+          <li>java.util.Map</li>
+        </ul>
+        <p>
+          When using a map, the map should be one that has a consistent order. Either the
+          <code>java.util.LinkedHashMap</code> or <code>java.util.TreeMap</code> are examples of
+          maps that provide this functionality. The keys for the maps must implement
+          <code>java.io.Serializable</code>.
+        </p>
+      </subsection>
+    </section>
+    <section name="Usage">
+      <subsection name="Valid Use Cases">
+        <p>
+          The for each tag is not as efficient as component stamping. When possible, the
+          &lt;tr:iterator&gt; should always be used instead of the for each tag. There are times
+          this is not possible and usually involve the inclusion of content from other pages.
+          For example, if different &lt;jsp:include&gt; tags need to be generated, pointing
+          to different files based on items in a list, a for each tag must be used and not
+          a stamping component like the Trinidad iterator.
+        </p>
+      </subsection>
+      <subsection name="ID and Component State">
+        <p>
+          Due to the way JSF and JSP create <code>ValueExpression</code> objects, the for each tag
+          cannot safely map the expressions created and stored on JSF components to the iteration of
+          the for each loop. As a result, it is possible to cause a discrepency between the
+          component's location in the for each tag and the value expressions that are stored in the
+          tag.
+        </p>
+        <p>
+          Due to this limitation, the forEach tag must place usage requirements on the pages they
+          are placed on. For index based collections (arrays and lists), the components must be
+          mapped to the index of the for each loop and not the item in the collection. In these
+          cases, the index of the for each loop is stored into the value expressions created and
+          stored into the components. This results in the component state (like expanded state
+          of disclosure components) being tied to the index of the for each loop. As a result,
+          a key based collection (map or collection model) is always recommended when the collection
+          may change between requests.
+        </p>
+        <p>
+          For key based collections (map and collection model), the component IDs must be
+          associated with the key of the collection. This is because the key of the collection is
+          used in the value expressions and if the ID were not bound to the key, then the component
+          state would not match the EL values. You should associate the component to the key
+          using immediate EL in the ID attribute. See the examples below.
+        </p>
+      </subsection>
+      <subsection name="Generated IDs">
+        <p>
+          When the collection may change between requests, a key based collection should be used.
+          When this is done, it is not recommended that JSF be allowed to generate the IDs of any
+          components inside the for each tag. The reason is that JSF auto-generated IDs are based
+          on the sequence that they are created in the current page. If items are re-arranged in
+          the for each loop, the IDs will have a different generation order. As a result, JSF will
+          not find the components with auto-generated IDs when it tries to map the JSP tag to the
+          component ID. Existing components will be thrown out and new ones will be
+          created and component state will be lost if this occurs.
+        </p>
+      </subsection>
+      <subsection name="Reordering and Collection Modifications">
+        <p>
+          Modifications to the collection in the same JSF view (between requests) are only
+          supported with key based collections. Even with this being supported, the for each tag
+          will not auto-rearrange the children.
+        </p>
+        <p>
+          When JSP seeks to locate a component that was created in a previous request, it creates
+          the ID that it expects the component to have and then searches the children of the parent
+          component of the tag for the child component with that ID. If the component is not found,
+          a new one will be created. If it is found, the framework does not do anything to the
+          component, it is left to exist where it is found. This means that if you reorder items
+          in your collection between requests, the component order will no longer match the order
+          of the items in the collection. Page authors must reorder the components when changes
+          to the collection are made.
+        </p>
+        <p>
+          Trinidad supports re-ordering of components using the change manager
+          (<code>org.apache.myfaces.trinidad.change.ChangeManager</code>) and the
+          <code>org.apache.myfaces.trinidad.change.ReorderChildrenComponentChange</code> class.
+          The change manager may be retrieved from the
+          <code>org.apache.myfaces.trinidad.context.RequestContext</code> instance. See the
+          Trinidad demo application for examples on how to reorder the components when the
+          collections changes.
+        </p>
+      </subsection>
+      <subsection id="Naming Containers are Recommended">
+        <p>
+          When using a key based collection, it is recommended to use a naming container to
+          simplify tying the component ID to the key. See the examples below.
+        </p>
+      </subsection>
+    </section>
+    <section name="Examples">
+      <p>
+        Please see the Trinidad demo application for complete examples.
+      </p>
+      <subsection name="Index Based Collection">
+        <source><![CDATA[<tr:forEach var="person" items="#{forEachBean.simpleList}" varStatus="vs">
+  <f:subview id="sv${vs.key}">
+    <tr:panelGroupLayout id="personPgl" layout="horizontal">
+      <tr:outputText id="personName" value="#{person.firstName} #{person.firstName}"
+                     inlineStyle="padding-right: 1em;"/>
+      <tr:outputText id="clientId" value="(Client ID: #{component.clientId})"/>
+    </tr:panelGroupLayout>
+    <tr:spacer id="s1" height="1em" />
+  </f:subview>
+</tr:forEach>]]></source>
+      </subsection>
+      <subsection name="Key Based Collection">
+        <source><![CDATA[<tr:forEach var="person" items="#{forEachBean.collectionModel}" varStatus="vs">
+  <f:subview id="sv${vs.key}">
+    <tr:panelGroupLayout id="personPgl" layout="horizontal">
+      <tr:outputText id="personName" value="#{person.firstName} #{person.firstName}"
+                     inlineStyle="padding-right: 1em;"/>
+      <tr:outputText id="clientId" value="(Client ID: #{component.clientId})"/>
+    </tr:panelGroupLayout>
+    <tr:spacer id="s1" height="1em" />
+  </f:subview>
+</tr:forEach>]]></source>
+      </subsection>
+      <subsection name="Example Re-Order Code">
+        <source><![CDATA[
+// Create a list of all the children IDs of the parent component of the for each loop. This must
+// contain all the children, not just those created by the for each tag.
+List<String> orderedIds = ...;
 
-          index at which iteration begins
-        </td>
-</tr>
-<tr>
-<td>end</td><td>int</td><td>No</td><td>
+// Get the reference to the component that is the parent of the for each tag. For finding relative
+// components, you may try using
+// org.apache.myfaces.trinidad.util.ComponentUtils.findRelativeComponent(UIComponent, String)
+UIComponent forEachParent = ...;
 
-          index at which iteration ends
-        </td>
-</tr>
-<tr>
-<td>items</td><td>Object</td><td>Only EL</td><td>
+ReorderChildrenComponentChange componentChange = new ReorderChildrenComponentChange(orderedIds);
+RequestContext requestContext = RequestContext.getCurrentInstance();
+ChangeManager cm = requestContext.getChangeManager();
+// The component change must be added before the tag execution (before the render response JSF
+// phase)
+cm.addComponentChange(FacesContext.getCurrentInstance(), forEachParentComponent,
+  componentChange);
 
-          the collection to iterate over
-        </td>
-</tr>
-<tr>
-<td>step</td><td>int</td><td>No</td><td>
-
-          number to increment on each iteration
-        </td>
-</tr>
-<tr>
-<td>var</td><td>String</td><td>No</td><td>
-
-          name of the variable exposed when iterating
-        </td>
-</tr>
-<tr>
-<td>varStatus</td><td>String</td><td>No</td><td>
-
-          name of the loop status exposed when iterating. The properties
-		'index','count','begin','end','step','first','last'
-		are available through this
-        </td>
-</tr>
-</table>
- </section>
- </body>
+// Ensure that the view is updated during PPR requests
+requestContext.addPartialTarget(forEachParentComponent);
+        ]]></source>
+      </subsection>
+    </section>
+    <section name="Attributes">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Supports EL?</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>begin</td>
+          <td>primitive int or java.lang.Number subclass</td>
+          <td>No</td>
+          <td>index at which iteration begins</td>
+        </tr>
+        <tr>
+          <td>end</td>
+          <td>primitive int or java.lang.Number subclass</td>
+          <td>No</td>
+          <td>index at which iteration ends</td>
+        </tr>
+        <tr>
+          <td>items</td>
+          <td>Object</td>
+          <td>Only EL</td>
+          <td>
+            the collection to iterate over. Supported classes:
+            <ul>
+              <li>Java array</li>
+              <li>java.util.List</li>
+              <li>org.apache.myfaces.trinidad.model.CollectionModel</li>
+              <li>java.util.Map</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>step</td>
+          <td>primitive int or java.lang.Number subclass</td>
+          <td>No</td>
+          <td>number to increment the index by on each iteration</td>
+        </tr>
+        <tr>
+          <td>var</td>
+          <td>String</td>
+          <td>No</td>
+          <td>
+            name of the variable exposed when iterating that references
+            the item in the collection
+          </td>
+        </tr>
+        <tr>
+          <td>varStatus</td>
+          <td>String</td>
+          <td>No</td>
+          <td>
+            name of the loop status exposed when iterating.
+            <p>Properties:</p>
+            <table>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>index</td>
+                <td>the current index (int)</td>
+              </tr>
+              <tr>
+                <td>count</td>
+                <td>the total number of times the for each tag will iterate (int)</td>
+              </tr>
+              <tr>
+                <td>begin</td>
+                <td>the index to start at when collections are not used (int)</td>
+              </tr>
+              <tr>
+                <td>end</td>
+                <td>the last index when collections are not used (int)</td>
+              </tr>
+              <tr>
+                <td>first</td>
+                <td>true if this is the first iteration (boolean)</td>
+              </tr>
+              <tr>
+                <td>last</td>
+                <td>true if this is the last iteration (boolean)</td>
+              </tr>
+              <tr>
+                <td>key</td>
+                <td>the index (int) for index based collections and when
+                  the items has not been specified. The key (java.io.Serializable)
+                  for key based collections</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </section>
+  </body>
 </document>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad" version="1.2">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:outputText escape="false" value='&lt;style type="text/css">
+.nested-example h3,
+.nested-example h4 {
+  margin: 0;
+}&lt;/style>'/>
+    <tr:document title="ForEach Demo">
+      <tr:form>
+        <tr:panelBorderLayout>
+          <f:facet name="top">
+            <tr:panelGroupLayout layout="vertical" inlineStyle="padding-bottom: 2em;">
+              <tr:navigationPane hint="buttons">
+                <tr:commandNavigationItem text="Component Guide" action="guide"/>
+                <tr:commandNavigationItem destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_forEach.html"
+                                          text="Tag Documentation"/>
+              </tr:navigationPane>
+            </tr:panelGroupLayout>
+          </f:facet>
+          <f:facet name="start">
+            <tr:panelGroupLayout layout="scroll" inlineStyle="width: 250px; display: block">
+              <f:facet name="separator">
+                <tr:spacer height="6px"/>
+              </f:facet>
+              <tr:panelHeader text="Demos:" />
+              <tr:commandLink text="Simple collection model"
+                              shortDesc="Simple for each loop using a list for items"
+                              partialSubmit="true" id="simpleLink">
+                <f:setPropertyActionListener target="#{forEachBean.currentExample}"
+                                             value="simple"/>
+              </tr:commandLink>
+              <tr:commandLink text="Sorting support (reorder)"
+                              shortDesc="Example of sorting a collection model or map backed for each loop and reordering the components"
+                              partialSubmit="true" id="reorderLink">
+                <f:setPropertyActionListener target="#{forEachBean.currentExample}"
+                                             value="reorder"/>
+              </tr:commandLink>
+              <tr:commandLink text="PPR"
+                              shortDesc="Example of using partial triggers with components in a forEach loop"
+                              partialSubmit="true" id="pprLink">
+                <f:setPropertyActionListener target="#{forEachBean.currentExample}"
+                                             value="ppr"/>
+              </tr:commandLink>
+              <tr:commandLink text="Updates"
+                              shortDesc="Example of adding and removing items from a for each loop"
+                              partialSubmit="true" id="updatesLink">
+                <f:setPropertyActionListener target="#{forEachBean.currentExample}"
+                                             value="updates"/>
+              </tr:commandLink>
+              <tr:commandLink text="Nested"
+                              shortDesc="Example of nested for each loops"
+                              partialSubmit="true" id="nestedLink">
+                <f:setPropertyActionListener target="#{forEachBean.currentExample}"
+                                             value="nested"/>
+              </tr:commandLink>
+            </tr:panelGroupLayout>
+          </f:facet>
+          <tr:panelGroupLayout layout="scroll"
+                               partialTriggers="reorderLink simpleLink pprLink updatesLink nestedLink">
+            <tr:switcher defaultFacet="home" facetName="#{forEachBean.currentExample}">
+              <f:facet name="home">
+                <tr:outputText value="Choose an example from the side panel."/>
+              </f:facet>
+              <f:facet name="simple">
+                <tr:panelGroupLayout layout="vertical">
+                  <f:subview id="s">
+                    <jsp:include page="forEach/simple.jspx"/>
+                  </f:subview>
+                </tr:panelGroupLayout>
+              </f:facet>
+              <f:facet name="reorder">
+                <tr:panelGroupLayout layout="vertical">
+                  <f:subview id="r">
+                    <jsp:include page="forEach/reorder.jspx"/>
+                  </f:subview>
+                </tr:panelGroupLayout>
+              </f:facet>
+              <f:facet name="ppr">
+                <tr:panelGroupLayout layout="vertical">
+                  <f:subview id="ppr">
+                    <jsp:include page="forEach/ppr.jspx"/>
+                  </f:subview>
+                </tr:panelGroupLayout>
+              </f:facet>
+              <f:facet name="updates">
+                <tr:panelGroupLayout layout="vertical">
+                  <f:subview id="up">
+                    <jsp:include page="forEach/updates.jspx"/>
+                  </f:subview>
+                </tr:panelGroupLayout>
+              </f:facet>
+              <f:facet name="nested">
+                <tr:panelGroupLayout layout="vertical">
+                  <f:subview id="n">
+                    <jsp:include page="forEach/nested.jspx"/>
+                  </f:subview>
+                </tr:panelGroupLayout>
+              </f:facet>
+            </tr:switcher>
+          </tr:panelGroupLayout>
+        </tr:panelBorderLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>
