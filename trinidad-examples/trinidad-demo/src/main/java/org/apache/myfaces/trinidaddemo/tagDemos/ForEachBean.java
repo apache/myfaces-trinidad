@@ -315,7 +315,7 @@ public class ForEachBean
           UIComponent  target)
         {
           String prefix = "personForEachMapParent".equals(target.getId()) ? "m_" : "cm_";
-          addReorderChange(target, orderedKeys, prefix);
+          _addReorderChange(target, orderedKeys, prefix);
           return VisitResult.ACCEPT;
         }
     });
@@ -526,10 +526,10 @@ public class ForEachBean
     UIComponent forEachParent = ComponentUtils.findRelativeComponent(target,
       "::forEachParent");
 
-    addReorderChange(forEachParent, new ArrayList<String>(_arrangeMap.keySet()), "sv_");
+    _addReorderChange(forEachParent, new ArrayList<String>(_arrangeMap.keySet()), "sv_");
   }
 
-  private void addReorderChange(
+  private void _addReorderChange(
     UIComponent  forEachParentComponent,
     List<String> desiredKeyOrder,
     String       subviewPrefix)
