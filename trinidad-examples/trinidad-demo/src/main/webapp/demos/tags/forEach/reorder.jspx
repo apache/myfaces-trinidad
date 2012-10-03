@@ -60,7 +60,8 @@
                       <tr:outputText id="firstName" value="#{person.firstName} #{person.lastName}"/>
                       <tr:showDetail id="showDisclosure" disclosed="false"
                                      disclosedText="Disclosed text" undisclosedText="Undisclosed text">
-                        <tr:outputText value="The disclosed state of this text should stay with the item during sorting, not with the index."
+                        <tr:outputText id="disclosedText"
+                                       value="The disclosed state of this text should stay with the item during sorting, not with the index."
                                        inlineStyle="padding-left: 1em"/>
                       </tr:showDetail>
                       <tr:separator id="sep1" rendered="#{not vs.last}"/>
@@ -79,7 +80,8 @@
                       <tr:outputText id="outputText1" value="#{person.firstName} #{person.lastName}"/>
                       <tr:showDetail id="showDisclosure" disclosed="false"
                                      disclosedText="Disclosed text" undisclosedText="Undisclosed text">
-                        <tr:outputText value="The disclosed state of this text should stay with the item during sorting, not with the index."
+                        <tr:outputText id="disclosedText"
+                                       value="The disclosed state of this text should stay with the item during sorting, not with the index."
                                        inlineStyle="padding-left: 1em"/>
                       </tr:showDetail>
                       <tr:separator id="sep1" rendered="#{not vs.last}"/>

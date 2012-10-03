@@ -28,11 +28,12 @@
       <tr:panelGroupLayout layout="vertical" inlineStyle="padding-left: 2em; padding-top: 1em">
         <tr:forEach var="item" items="#{forEachBean.updatableItemMap}" varStatus="vs">
           <tr:panelLabelAndMessage id="plam_${vs.key}" label="Enter value for item #{vs.key}:">
-            <tr:inputText id="inputValue_${vs.key}" value="#{item.value}" autoSubmit="true" />
+            <tr:inputText id="inputValue_${vs.key}" value="#{item.value}" autoSubmit="true"
+                          partialTriggers="sv#{vs.key}:inputValue"/>
           </tr:panelLabelAndMessage>
           <tr:outputText id="outputText_${vs.key}" value="Value on server: #{item.value}"
                          inlineStyle="padding-left: 12px; font-size: 0.8em;"
-                         partialTriggers="inputValue_#{vs.key}" />
+                         partialTriggers="inputValue_#{vs.key} sv#{vs.key}:inputValue" />
         </tr:forEach>
       </tr:panelGroupLayout>
     </tr:panelHeader>
@@ -43,11 +44,12 @@
         <tr:forEach var="item" items="#{forEachBean.updatableItemMap}" varStatus="vs">
           <f:subview id="sv${vs.key}">
             <tr:panelLabelAndMessage label="Enter value for item #{vs.key}:">
-              <tr:inputText id="inputValue" value="#{item.value}" autoSubmit="true"/>
+              <tr:inputText id="inputValue" value="#{item.value}" autoSubmit="true"
+                            partialTriggers="::inputValue_#{vs.key}"/>
             </tr:panelLabelAndMessage>
             <tr:outputText id="outputText" value="Value on server: #{item.value}"
                            inlineStyle="padding-left: 12px; font-size: 0.8em;"
-                           partialTriggers="inputValue" />
+                           partialTriggers="inputValue ::inputValue_#{vs.key}" />
           </f:subview>
         </tr:forEach>
       </tr:panelGroupLayout>

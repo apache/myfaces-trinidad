@@ -22,6 +22,11 @@
           xmlns:tr="http://myfaces.apache.org/trinidad" version="1.2">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
+    <tr:outputText escape="false" value='&lt;style type="text/css">
+.nested-example h3,
+.nested-example h4 {
+  margin: 0;
+}&lt;/style>'/>
     <tr:document title="ForEach Demo">
       <tr:form>
         <tr:panelBorderLayout>
@@ -64,12 +69,18 @@
                 <f:setPropertyActionListener target="#{forEachBean.currentExample}"
                                              value="updates"/>
               </tr:commandLink>
+              <tr:commandLink text="Nested"
+                              shortDesc="Example of nested for each loops"
+                              partialSubmit="true" id="nestedLink">
+                <f:setPropertyActionListener target="#{forEachBean.currentExample}"
+                                             value="nested"/>
+              </tr:commandLink>
             </tr:panelGroupLayout>
           </f:facet>
           <tr:panelGroupLayout layout="scroll"
-                               partialTriggers="reorderLink simpleLink pprLink updatesLink">
+                               partialTriggers="reorderLink simpleLink pprLink updatesLink nestedLink">
             <tr:switcher defaultFacet="home" facetName="#{forEachBean.currentExample}">
-              <!--f:facet name="home">
+              <f:facet name="home">
                 <tr:outputText value="Choose an example from the side panel."/>
               </f:facet>
               <f:facet name="simple">
@@ -92,11 +103,18 @@
                     <jsp:include page="forEach/ppr.jspx"/>
                   </f:subview>
                 </tr:panelGroupLayout>
-              </f:facet-->
+              </f:facet>
               <f:facet name="updates">
                 <tr:panelGroupLayout layout="vertical">
                   <f:subview id="up">
                     <jsp:include page="forEach/updates.jspx"/>
+                  </f:subview>
+                </tr:panelGroupLayout>
+              </f:facet>
+              <f:facet name="nested">
+                <tr:panelGroupLayout layout="vertical">
+                  <f:subview id="n">
+                    <jsp:include page="forEach/nested.jspx"/>
                   </f:subview>
                 </tr:panelGroupLayout>
               </f:facet>

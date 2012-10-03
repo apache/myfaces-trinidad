@@ -31,7 +31,6 @@ import javax.el.ValueExpression;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentELTag;
 
 import javax.servlet.jsp.JspException;
@@ -69,37 +68,6 @@ abstract public class UIXComponentELTag extends UIComponentELTag
       throw new JspException(_validationError);
 
     return retVal;
-  }
-
-  @Override
-  public int doEndTag() throws JspException
-  {
-    UIComponent component = getComponentInstance();
-
-    // Make iteration tags aware that the processing of this component is now complete so that
-    // the tags are able to determine heirarchies.
-    TagComponentBridge bridge = TagComponentBridge.getInstance(pageContext);
-    bridge.notifyAfterComponentProcessed(getComponentInstance());
-
-    return super.doEndTag();
-  }
-
-  @Override
-  protected UIComponent findComponent(FacesContext context)
-    throws JspException
-  {
-    // Note that although this method is called "findComponent", it is actually a find or create
-    // component. When the super class method is called, it will first look for the component, and
-    // if it is not found, it will create one. Therefore, after this super call returns, the
-    // component will be non-null
-    UIComponent component = super.findComponent(context);
-
-    // Notify any listening tags that this component was found or created. This allows iteration
-    // tags to know what components belong to each iteration.
-    TagComponentBridge bridge = TagComponentBridge.getInstance(pageContext);
-    bridge.notifyComponentProcessed(component);
-
-    return component;
   }
 
   protected final void setProperties(UIComponent component)
@@ -236,7 +204,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     {
       Object value = expression.getValue(null);
       if (value != null)
-      { 
+      {
         if (value instanceof Number)
         {
           bean.setProperty(key, value);
@@ -407,7 +375,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     }
   }
 
-  private static final TrinidadLogger _LOG = 
+  private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(UIXComponentELTag.class);
 
   // We rely strictly on ISO 8601 formats

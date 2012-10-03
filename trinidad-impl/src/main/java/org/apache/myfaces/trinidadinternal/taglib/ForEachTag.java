@@ -22,7 +22,6 @@ import java.io.Serializable;
 
 import java.lang.reflect.Array;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -32,7 +31,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.el.ELContext;
-import javax.el.PropertyNotWritableException;
 import javax.el.ValueExpression;
 import javax.el.VariableMapper;
 
@@ -45,10 +43,9 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.JspIdConsumer;
 
-import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.CollectionModel;
-import org.apache.myfaces.trinidad.webapp.TrinidadIterationTag;
+import org.apache.myfaces.trinidad.webapp.TrinidadTagSupport;
 
 
 //JSTL Core Library - <c:forEach> Tag
@@ -74,7 +71,7 @@ import org.apache.myfaces.trinidad.webapp.TrinidadIterationTag;
  * but provides additinal functionality.
  */
 public class ForEachTag
-  extends TrinidadIterationTag
+  extends TrinidadTagSupport
   implements JspIdConsumer
 {
   public ForEachTag()
@@ -119,84 +116,14 @@ public class ForEachTag
   public void setJspId(String id)
   {
     _LOG.finest("setJspId called with ID {0}", id);
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-
-    // Use an atomic integer to use for tracking how many times a for each loop has been
-    // created for any JSP page during the current request. Unfortunately there is no hook to
-    // tie the include to the page that is being included to make this page based.
-    AtomicInteger includeCounter = (AtomicInteger)facesContext.getAttributes()
-      .get(_INCLUDE_COUNTER_KEY);
-
-    if (includeCounter == null)
-    {
-      // If the include counter is null, that means that this is the first for each tag processed
-      // during this request.
-      includeCounter = new AtomicInteger(0);
-      facesContext.getAttributes().put(_INCLUDE_COUNTER_KEY, includeCounter);
-    }
-
-    Integer pageContextCounter = (Integer)pageContext.getAttribute(_INCLUDE_COUNTER_KEY);
-    if (pageContextCounter == null)
-    {
-      // In this case, the page context has not been seen before. This means that this is the first
-      // for each tag in this page (the actual jspx file, not necessarily the requested one).
-      pageContextCounter = includeCounter.incrementAndGet();
-      pageContext.setAttribute(_INCLUDE_COUNTER_KEY, pageContextCounter);
-      _LOG.finest("Page context not seen before. Using counter value {0}", pageContextCounter);
-    }
-    else
-    {
-      _LOG.finest("Page context has already been seen. Using counter value {0}",
-        includeCounter);
-    }
-
-    // If the view attributes are null, then this is the first time this method has been called
-    // for this request.
-    if (_viewAttributes == null)
-    {
-      String pcId = includeCounter.toString();
-
-      // The iteration map key is a key that will allow us to get the map for this tag instance,
-      // separated from other ForEachTags, that will map an iteration ID to the IterationMetaData
-      // instances. EL will use this map to get to the IterationMetaData and the indirection will
-      // allow the IterationMetaData to be updated without having to update the EL expressions.
-      _iterationMapKey = new StringBuilder(_VIEW_ATTR_KEY_LENGTH + id.length() + pcId.length() + 1)
-        .append(_VIEW_ATTR_KEY)
-        .append(pcId)
-        .append('.')
-        .append(id)
-        .toString();
-
-      // store the map into the view attributes to put it in a location that the EL expressions
-      // can access for not only the remainder of this request, but also the next request.
-      UIViewRoot viewRoot = facesContext.getViewRoot();
-
-      // We can cache the view attributes in the tag as a JSP tag marked with JspIdConsumer
-      // is never reused.
-      _viewAttributes = viewRoot.getAttributes();
-
-      @SuppressWarnings("unchecked")
-      Map<Integer, IterationMetaData> iterMap = (Map<Integer, IterationMetaData>)
-        _viewAttributes.get(_iterationMapKey);
-      if (iterMap == null)
-      {
-        _iterationMap = new HashMap<Integer, IterationMetaData>();
-        _LOG.finest("Created a new iteration map for key {0}", _iterationMapKey);
-        _viewAttributes.put(_iterationMapKey, _iterationMap);
-      }
-      else
-      {
-        _iterationMap = iterMap;
-        _unmatchedIterationIds = new HashSet<Integer>(iterMap.keySet());
-      }
-    }
+    _jspId = id;
   }
 
   @Override
-  protected int doStartTagImpl()
+  public int doStartTag()
     throws JspException
   {
-    _LOG.finest("doStartTagImpl called");
+    _LOG.finest("doStartTag called");
     _validateAttributes();
 
     FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -288,11 +215,16 @@ public class ForEachTag
 
     _parentComponent = _getParentComponent();
 
-    // Remember the non-Trinidad components before execution so that we may determine which
-    // are created during this tags for each execution
-    _previousIterationNonTrinidadChildren = _getNonTrinidadChildren();
+    // Do not process the meta-data functionality unless the user needs the varStatus variable
+    if (_varStatus != null)
+    {
+      _configureMetaDataMap();
+    }
 
-    _updateVars(vm, true);
+    // Create a set to track all keys viewed during this iteration to be able to detect
+    // which keys from a previous request are no longer used.
+    _processedKeys = new HashSet<Serializable>();
+    _updateVars(vm);
 
     return EVAL_BODY_INCLUDE;
   }
@@ -300,15 +232,16 @@ public class ForEachTag
   @Override
   public int doAfterBody()
   {
-    _LOG.finest("doAfterBody processing");
-
-    // Process any non-Trinidad components that were added during the last body execution
-    _processNonTrinidadComponents();
+    _LOG.finest("doAfterBody processing with iteration meta data map key of {0}", _iterationMapKey);
 
     _currentIndex += _currentStep;
     ++_currentCount;
     _isFirst = false;
     _isLast = _currentIndex == _currentEnd;
+
+    // Clear any cached variables
+    _key = null;
+    _metaData = null;
 
     VariableMapper vm = pageContext.getELContext().getVariableMapper();
 
@@ -317,27 +250,34 @@ public class ForEachTag
     {
       // Restore EL state
       if (_var != null)
-        vm.setVariable(_var, _previousDeferredVar);
-      if (_varStatus != null)
-        vm.setVariable(_varStatus, _previousDeferredVarStatus);
-
-      _previousIterationNonTrinidadChildren = null;
-
-      // Remove any non-matched iteration IDs to prevent carrying old data from previous requests
-      // into the current request
-      if (_unmatchedIterationIds != null && !_unmatchedIterationIds.isEmpty())
       {
-        for (Integer iterId : _unmatchedIterationIds)
+        vm.setVariable(_var, _previousDeferredVar);
+      }
+      if (_varStatus != null)
+      {
+        vm.setVariable(_varStatus, _previousDeferredVarStatus);
+      }
+
+      // Due to the fact that we are retaining the map keys in the view attributes, check to see
+      // if any keys were not used during this execution and remove them
+
+      for (Iterator<Serializable> iter = _metaDataMap.keySet().iterator(); iter.hasNext(); )
+      {
+        Serializable key = iter.next();
+        if (!_processedKeys.contains(key))
         {
-          _LOG.finest("Removing unused iteration ID: {0}", iterId);
-          _iterationMap.remove(iterId);
+          _LOG.finest("Removing unused key: {0}", key);
+          iter.remove();
         }
       }
 
+      _processedKeys = null;
+
       return SKIP_BODY;
     }
+
     // Otherwise, update the variables and go again
-    _updateVars(vm, true);
+    _updateVars(vm);
 
     return EVAL_BODY_AGAIN;
   }
@@ -358,136 +298,15 @@ public class ForEachTag
     _previousDeferredVar = null;
     _previousDeferredVarStatus = null;
 
-    _LOG.finest("release called");
-    _iterationId = null;
-    _iterationData = null;
+    _metaDataMap = null;
+    _metaData = null;
     _viewAttributes = null;
     _iterationMapKey = null;
-    _iterationMap = null;
     _itemsWrapper = null;
-
-    _previousIterationNonTrinidadChildren = null;
-
+    _key = null;
     _parentComponent = null;
-}
 
-  @Override
-  public final void childComponentProcessed(
-    UIComponent component)
-  {
-    // This code is called when a component is created or found, see which it is.
-    // We are only interested in components that are directly under our parent.
-    if (component.getParent() == _parentComponent)
-    {
-      Map<String, Object> compAttrs = component.getAttributes();
-
-      Map<String, Integer> iterationIdsMap = (Map<String, Integer>)compAttrs.get(_ITERATION_ID_KEY);
-      Integer iterationId;
-      if (iterationIdsMap == null)
-      {
-        iterationIdsMap = new HashMap<String, Integer>(3);
-        compAttrs.put(_ITERATION_ID_KEY, iterationIdsMap);
-        iterationId = null;
-      }
-      else
-      {
-        iterationId = iterationIdsMap.get(_iterationMapKey);
-      }
-
-      if (_LOG.isFinest())
-      {
-        _LOG.finest(
-          "childComponentProcessed: {0} ({1}). Previous component iteration ID: {2}",
-          new Object[] { component.getClass().getName(), component.getClientId(), iterationId });
-      }
-
-      if (iterationId == null)
-      {
-        // This is a new component, use the current iteration ID
-        iterationIdsMap.put(_iterationMapKey, _iterationId);
-
-        // Remember that the iteration ID was used
-        _iterationIdRequiresIncrement = true;
-
-        if (_LOG.isFinest())
-        {
-          _LOG.finest("New component processed.\n" +
-            "  Iteration ID  : {0}\n" +
-            "  Iteration data: {1}",
-            new Object[] { _iterationId, _iterationData });
-        }
-
-        iterationId = _iterationId;
-      }
-      else
-      {
-        if (_LOG.isFinest())
-        {
-          _LOG.finest("Component found with existing iteration ID.\n" +
-            "  Iteration ID  : {0}\n" +
-            "  Iteration data: {1}",
-            new Object[] { iterationId, _iterationData });
-        }
-
-        // This component has been seen before, register the old iteration ID with the iteration
-        // map so that the EL may look up the iteration data.
-        _iterationMap.put(iterationId, _iterationData);
-      }
-
-      // Ensure that we retain this iteration ID in the map
-      if (_unmatchedIterationIds != null)
-      {
-        _unmatchedIterationIds.remove(_iterationId);
-      }
-    }
-  }
-
-  @Override
-  public final void afterChildComponentProcessed(
-    UIComponent component)
-  {
-    // This code is called when a component is created or found, see which it is.
-    // We are only interested in components that are directly under our parent.
-    if (component.getParent() == _parentComponent)
-    {
-      if (_LOG.isFinest())
-      {
-        _LOG.finest("afterChildComponentProcessed on component {0} ({1})",
-          new Object[] { component.getClass().getName(), component.getClientId() });
-      }
-      // Store a unique iteration ID in each component. That way, if a component is ever moved
-      // from one iteration to another between requests, but not all the components, no problems
-      // will ensue. The use case is that ${} is used in the ID of one or more child components
-      // of a for each loop to pin the component to the item in the collection rather than the
-      // for each index.
-      if (_iterationIdRequiresIncrement)
-      {
-        VariableMapper vm = pageContext.getELContext().getVariableMapper();
-        _updateVars(vm, false);
-        _iterationIdRequiresIncrement = false;
-      }
-    }
-  }
-
-  private Set<UIComponent> _getNonTrinidadChildren()
-  {
-    if (_parentComponent == null)
-    {
-      return Collections.emptySet();
-    }
-
-    Set<UIComponent> components = new HashSet<UIComponent>(_parentComponent.getChildCount());
-    for (UIComponent child : _parentComponent.getChildren())
-    {
-      if (child instanceof UIXComponent)
-      {
-        continue;
-      }
-
-      components.add(child);
-    }
-
-    return components;
+    _LOG.finest("release called");
   }
 
   private UIComponent _getParentComponent()
@@ -505,161 +324,31 @@ public class ForEachTag
    */
   private Serializable _getKey()
   {
-    return (_itemsWrapper == null) ?
+    if (_key != null)
+    {
+      return _key;
+    }
+
+    _key = (_itemsWrapper == null) ?
       _currentIndex :
       _asSerializable(_itemsWrapper.getKey(_currentIndex));
-  }
 
-  /**
-   * Although in-efficient in how we process UIXComponent children, this function allows
-   * non-Trinidad components to correctly map their value expressions to the iteration of the
-   * for each loop better than the JSTL tag does in JSF. In order to do this, this function must
-   * determine what non-UIXComponents belong to the current iteration of the loop.
-   *
-   * @see #afterChildComponentProcessed(UIComponent)
-   * @see #childComponentProcessed(UIComponent)
-   */
-  private void _processNonTrinidadComponents()
-  {
-//    Serializable key = null;
-    Serializable key = _getKey();
-    System.out.println("------------ Processing key " + key);
-
-    // If _previousIterationNonTrinidadChildren is non-null then this is not the first
-    // execution of this code in this request. We need to determine what components were added
-    // during this iteration
-    Set<UIComponent> childrenComponents = _getNonTrinidadChildren();
-    if (childrenComponents.isEmpty())
-    {
-      _previousIterationNonTrinidadChildren.clear();
-      return;
-    }
-System.out.println("Processing children of parent " + _parentComponent.getClientId());
-    for (UIComponent child : childrenComponents)
-    {
-      Map<String, Object> attrs = child.getAttributes();
-      if (_previousIterationNonTrinidadChildren.contains(child))
-      {
-        // This child component is either one that was created in a previous request, or
-        // one that was not created by this for each loop, we need to determine which one.
-        NonTrinidadIterationData data = (NonTrinidadIterationData)attrs.get(_iterationMapKey);
-
-        // If the data is null, then this for each tag did not create the component and we
-        // do not need to do anything.
-        if (data == null)
-        {
-          System.out.println("  Data is null");
-          continue;
-        }
-
-        if (_LOG.isFinest())
-        {
-          _LOG.finest("Proccessing non-trinidad component. Component client ID: {0}",
-            child.getClientId());
-        }
-
-        // Get the key for the current item, if we have not already
-        if (key == null)
-        {
-          key = _getKey();
-          System.out.println("  KEY: " + key);
-        }
-
-        // Since we clear the iteration map in the start tag processing, we need to re-map
-        // the iteration ID from the component back to the current iteration data.
-        // First, we need to ensure that this component belongs to the current iteration. If
-        // it doesn't, we do not need to do anything as the component "belongs" to a different
-        // iteration
-        if (key.equals(data.getKey()))
-        {
-          if (_LOG.isFinest())
-          {
-            _LOG.finest("Key matches. Mapping iteration ID onto the map. ID: {0}",
-              data.getIterationId());
-          }
-
-          // The keys are the same, update the map.
-          Integer iterationId = data.getIterationId();
-          _iterationMap.put(iterationId, _iterationData);
-
-          // Store that the iteration ID was seen
-          if (_unmatchedIterationIds != null)
-          {
-            System.out.println("**** Keeping iteration ID " + iterationId + " client ID "
-              + child.getClientId());
-            _unmatchedIterationIds.remove(iterationId);
-          }
-        }
-        else
-          System.out.println("Did not match key (" + data.getKey() + ")");
-      }
-      else
-      {
-        // This is a component that was added to the parent while this for each loop was processing
-        // the last iteration. We need to record the key and the iteration ID so that we can map
-        // this component to its var status
-
-        // Get the key for the current item, if we have not already
-        if (key == null)
-        {
-          key = _getKey();
-          System.out.println("  KEY (2): " + key);
-        }
-
-        if (_LOG.isFinest())
-        {
-          _LOG.finest("New component with client ID {0}. " +
-            "Storing attribute with map key: {1}. Iteration ID: {2}",
-            new Object[] { child.getClientId(), _iterationMapKey, _iterationId });
-        }
-
-        attrs.put(_iterationMapKey, new NonTrinidadIterationData(key, _iterationId));
-
-        // Ensure that we do not remove this iteration ID from the map
-        if (_unmatchedIterationIds != null)
-        {
-          _unmatchedIterationIds.remove(_iterationId);
-        }
-      }
-    }
-System.out.println("-------Done processing non-trinidad children for key " + key);
-    // Update the map so we know for the next iteration what components are being created
-    _previousIterationNonTrinidadChildren = childrenComponents;
+    return _key;
   }
 
   // Push new values into the VariableMapper and the pageContext
   private void _updateVars(
-    VariableMapper vm,
-    boolean        createNewIterationData)
+    VariableMapper vm)
   {
     Serializable key = null;
-
-    // Generate a new iteration ID
-    _updateIterationId();
 
     if (_var != null)
     {
       // Catch programmer error where _var has been set but _items has not
       if (_items != null)
       {
-        // Determine if we need to use a key or an index based value expression
-        // for the current items.
-        ValueExpression expr;
-        if (_itemsWrapper.isKeyBased())
-        {
-          // Use a key to get the value
-          key = _getKey();
-          expr = new KeyedValueExpression(_items, _getKey());
-        }
-        else
-        {
-          // Use indirection to get the index from the iteration data using the iteration ID
-          // so that the expression is not hard-coded to one index. This allows the tag to
-          // support components that are re-ordered (index changes during multiple requests)
-          expr = new IndexedValueExpression(_iterationId, _iterationMapKey, _items);
-        }
-
-        vm.setVariable(_var, expr);
+        key = _getKey();
+        vm.setVariable(_var, new KeyedValueExpression(_items, key));
       }
 
       // Ditto (though, technically, one check for
@@ -672,50 +361,33 @@ System.out.println("-------Done processing non-trinidad children for key " + key
       }
     }
 
-    if (createNewIterationData || _iterationData == null)
+    if (_varStatus != null)
     {
+      _previousDeferredVarStatus = vm.resolveVariable(_varStatus);
+
       if (key == null)
       {
         key = _getKey();
       }
 
-      _iterationData = new IterationMetaData(key, _isFirst, _isLast,
-                         _currentBegin, _currentCount, _currentIndex, _currentEnd);
-    }
-
-    // Store the iteration data into the view attributes to allow the EL expressions
-    // gain access to it
-    if (_LOG.isFinest())
-    {
-      _LOG.finest("Storing iteration data onto map.\n" +
-        "  Iteration ID  : {0}\n" +
-        "  Iteration data: {1}",
-        new Object[] { _iterationId, _iterationData });
-    }
-
-    _iterationMap.put(_iterationId, _iterationData);
-
-    if (_varStatus != null)
-    {
-      _previousDeferredVarStatus = vm.resolveVariable(_varStatus);
-
       if (_LOG.isFinest())
       {
         _LOG.finest("Storing iteration map key for varStatus." +
-          "\n  Iteration ID: {0}" +
-          "\n  Map key     : {1}",
-          new Object[] { _iterationId, _iterationMapKey });
+          "\n  Key              : {0}" +
+          "\n  Meta data map key: {1}",
+          new Object[] { key, _iterationMapKey });
       }
       // Store a new var status value expression into the variable mapper
-      vm.setVariable(_varStatus, new VarStatusValueExpression(_iterationId, _iterationMapKey));
-    }
+      vm.setVariable(_varStatus, new VarStatusValueExpression(key, _iterationMapKey));
 
-    if (_previousIterationNonTrinidadChildren == null)
-    {
-      // If _previousIterationNonTrinidadChildren is null, then this is the first execution
-      // of this function for this tag in this request, store off the non-Trinidad children
-      // components so that we can attempt to determine the ones that are added
-      _previousIterationNonTrinidadChildren = _getNonTrinidadChildren();
+      // Only set up the meta data if the varStatus attribute is used
+      MetaData metaData = new MetaData(key,
+        _isFirst, _isLast, _currentBegin, _currentCount, _currentIndex, _currentEnd);
+
+      _metaDataMap.put(key, metaData);
+
+      // Record that this key was used during this request
+      _processedKeys.add(key);
     }
   }
 
@@ -770,30 +442,6 @@ System.out.println("-------Done processing non-trinidad children for key " + key
       throw new JspTagException("'step' < 1");
   }
 
-  private void _updateIterationId()
-  {
-    Integer intObj = (Integer)_viewAttributes.get(_ITERATION_ID_KEY);
-
-    if (intObj == null)
-    {
-      // By using MIN_VALUE, we can achive 4.2E9 requests for the current view (should
-      // be way more than we need)
-      _iterationId = new Integer(Integer.MIN_VALUE);
-    }
-    else
-    {
-      _iterationId = intObj + 1;
-    }
-
-    _LOG.finest("Iteration ID is now {0}", _iterationId);
-    _viewAttributes.put(_ITERATION_ID_KEY, _iterationId);
-
-    if (_iterationData != null)
-    {
-      _iterationMap.put(_iterationId, _iterationData);
-    }
-  }
-
   private Serializable _asSerializable(Object key)
   {
     if (key instanceof Serializable)
@@ -803,7 +451,8 @@ System.out.println("-------Done processing non-trinidad children for key " + key
     else
     {
       throw new IllegalStateException("The forEach tag only supports serializable keys for " +
-        "maps and collection models");
+        "maps and collection models. Key does not implement serializable: " + key +
+        " Class: " + (key == null ? "null" : key.getClass().getName()));
     }
   }
 
@@ -811,7 +460,7 @@ System.out.println("-------Done processing non-trinidad children for key " + key
   private static ItemsWrapper _buildItemsWrapper(
     Object items)
   {
-    if (items instanceof Array)
+    if (items.getClass().isArray())
     {
       return new ArrayWrapper(items);
     }
@@ -833,99 +482,79 @@ System.out.println("-------Done processing non-trinidad children for key " + key
     }
   }
 
-  private static abstract class ForEachBaseValueExpression
-    extends ValueExpression
-    implements Serializable
+  private void _configureMetaDataMap()
   {
-    protected ForEachBaseValueExpression(
-      Integer iterationId,
-      String  mapKey)
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+
+    // Use an atomic integer to use for tracking how many times a for each loop has been
+    // created for any JSP page during the current request. Unfortunately there is no hook to
+    // tie the include to the page that is being included to make this page based.
+    AtomicInteger includeCounter = (AtomicInteger)facesContext.getAttributes()
+      .get(_INCLUDE_COUNTER_KEY);
+
+    if (includeCounter == null)
     {
-      _iterationId = iterationId;
-      _mapKey      = mapKey;
+      // If the include counter is null, that means that this is the first for each tag processed
+      // during this request.
+      includeCounter = new AtomicInteger(0);
+      facesContext.getAttributes().put(_INCLUDE_COUNTER_KEY, includeCounter);
     }
 
-    @Override
-    public void setValue(
-      ELContext context,
-      Object    value)
+    Integer pageContextCounter = (Integer)pageContext.getAttribute(_INCLUDE_COUNTER_KEY);
+    if (pageContextCounter == null)
     {
-      throw new PropertyNotWritableException();
+      // In this case, the page context has not been seen before. This means that this is the first
+      // for each tag in this page (the actual jspx file, not necessarily the requested one).
+      pageContextCounter = includeCounter.incrementAndGet();
+      pageContext.setAttribute(_INCLUDE_COUNTER_KEY, pageContextCounter);
+      _LOG.finest("Page context not seen before. Using counter value {0}", pageContextCounter);
+    }
+    else
+    {
+      _LOG.finest("Page context has already been seen. Using counter value {0}",
+        includeCounter);
     }
 
-    @Override
-    public boolean isReadOnly(ELContext context)
+    // If the view attributes are null, then this is the first time this method has been called
+    // for this request.
+    if (_viewAttributes == null)
     {
-      return true;
-    }
+      String pcId = includeCounter.toString();
 
-    @Override
-    public Class getType(ELContext context)
-    {
-      return getExpectedType();
-    }
+      // The iteration map key is a key that will allow us to get the map for this tag instance,
+      // separated from other ForEachTags, that will map an iteration ID to the IterationMetaData
+      // instances. EL will use this map to get to the IterationMetaData and the indirection will
+      // allow the IterationMetaData to be updated without having to update the EL expressions.
+      _iterationMapKey = new StringBuilder(_VIEW_ATTR_KEY_LENGTH + _jspId.length() +
+                                           pcId.length() + 1)
+        .append(_VIEW_ATTR_KEY)
+        .append(pcId)
+        .append('.')
+        .append(_jspId)
+        .toString();
 
-    @Override
-    public String getExpressionString()
-    {
-      return null;
-    }
+      // store the map into the view attributes to put it in a location that the EL expressions
+      // can access for not only the remainder of this request, but also the next request.
+      UIViewRoot viewRoot = facesContext.getViewRoot();
 
-    @Override
-    public boolean equals(Object obj)
-    {
-      return obj == this;
-    }
+      // We can cache the view attributes in the tag as a JSP tag marked with JspIdConsumer
+      // is never reused.
+      _viewAttributes = viewRoot.getAttributes();
 
-    @Override
-    public int hashCode()
-    {
-      return _iterationId.hashCode() | _mapKey.hashCode();
-    }
-
-    @Override
-    public boolean isLiteralText()
-    {
-      return true;
-    }
-
-    protected IterationMetaData getIterationMetaData()
-    {
-      // A value expression should ever only be used for one view root,
-      // so keep a transient reference to the view to increase performance.
-      // Note that this map is cleared during setJspId so that it is save to use the same
-      // map that was used after restore view and after the tags are processed in render response.
-      if (_viewAttributes == null)
-      {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIViewRoot view = facesContext.getViewRoot();
-        _viewAttributes = view.getAttributes();
-      }
-
-      // Get the map from the view attributes created by the tag:
       @SuppressWarnings("unchecked")
-      Map<Integer, IterationMetaData> map = (Map<Integer, IterationMetaData>)
-        _viewAttributes.get(_mapKey);
-
-      // The map will be null if, somehow, the component for a given for each loop execution
-      // is still around, but the for each loop did not match the component during this request
-      // (probably a temporary state until the unmatched component is removed).
-      IterationMetaData metaData =  map == null ? null : map.get(_iterationId);
-
-      if (metaData == null)
+      Map<Serializable, MetaData> metaDataMap = (Map<Serializable, MetaData>)
+        _viewAttributes.get(_iterationMapKey);
+      if (metaDataMap == null)
       {
-        _LOG.finest("Unable to find iteration meta data for ID {0}", _iterationId);
+        _metaDataMap = new HashMap<Serializable, MetaData>();
+        _LOG.finest("Created a new meta data map for key {0}", _iterationMapKey);
+        _viewAttributes.put(_iterationMapKey, _metaDataMap);
       }
-
-      return metaData;
+      else
+      {
+        _metaDataMap = metaDataMap;
+      }
     }
-
-    private final Integer _iterationId;
-    private final String  _mapKey;
-    private transient Map<String, Object> _viewAttributes;
-
-    @SuppressWarnings("compatibility:29745293788177755")
-    private static final long serialVersionUID = 1L;
   }
 
   private static class KeyedValueExpression
@@ -1021,99 +650,116 @@ System.out.println("-------Done processing non-trinidad children for key " + key
   }
 
   /**
-   * Value expression that looks up the var value using an index.
-   * This class is written in such a way that the index is dynamic, so that if a component is
-   * used in different iterations of the for each loop across requests, the correct variable
-   * is returned.
-   */
-  private static class IndexedValueExpression
-    extends ForEachBaseValueExpression
-    implements Serializable
-  {
-    private IndexedValueExpression(
-      Integer         iterationId,
-      String          mapKey,
-      ValueExpression itemsExpression)
-    {
-      super(iterationId, mapKey);
-      _itemsExpression = itemsExpression;
-    }
-
-    @Override
-    public Object getValue(ELContext context)
-    {
-      // By using a layer of indirection, we can ensure that the correct value is returned for
-      // users who pin their component ID to the varStatus so that the component is processed
-      // during a different index across requests. We can use the index from the varStatus
-      // to determine the correct index to use in the items collection.
-      IterationMetaData data = getIterationMetaData();
-      if (data == null)
-      {
-        return null;
-      }
-
-      Object items = _itemsExpression.getValue(context);
-      if (items == null)
-      {
-        return null;
-      }
-
-      context.setPropertyResolved(false);
-      return context.getELResolver().getValue(context, items, data.getIndex());
-    }
-
-    @Override
-    public Class<?> getExpectedType()
-    {
-      return Object.class;
-    }
-
-    @Override
-    public int hashCode()
-    {
-      return _itemsExpression.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-      return _itemsExpression.equals(obj);
-    }
-
-    private final ValueExpression _itemsExpression;
-
-    @SuppressWarnings("compatibility:1734834404228501647")
-    private static final long serialVersionUID = 1L;
-  }
-
-  /**
    * Value Expression instance used to get an object containing the var status properties.
    */
   static private class VarStatusValueExpression
-    extends ForEachBaseValueExpression
+    extends ValueExpression
     implements Serializable
   {
     private VarStatusValueExpression(
-      Integer iterationId,
-      String  mapKey)
+      Serializable itemsKey,
+      String       metaDataMapKey)
     {
-      super(iterationId, mapKey);
+      _key = itemsKey;
+      _metaDataMapKey = metaDataMapKey;
     }
 
     @Override
     public Object getValue(ELContext context)
     {
-      return super.getIterationMetaData();
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      assert facesContext != null :
+        "Illegal attempt to evaluate for each EL outside of an active faces context";
+
+      UIViewRoot viewRoot = facesContext.getViewRoot();
+      assert viewRoot != null :
+        "Illegal attempt to evaluate for each EL outside of an active view root";
+
+      // We can cache the view attributes in the tag as a JSP tag marked with JspIdConsumer
+      // is never reused.
+      Map<String, Object> viewAttributes = viewRoot.getAttributes();
+
+      Map<Serializable, MetaData> metaDataMap = (Map<Serializable, MetaData>)
+        viewAttributes.get(_metaDataMapKey);
+
+      if (metaDataMap == null)
+      {
+        _LOG.warning("FOR_EACH_META_DATA_UNAVAILABLE");
+        return null;
+      }
+
+      MetaData metaData = metaDataMap.get(_key);
+      if (metaData == null)
+      {
+        _LOG.warning("FOR_EACH_META_DATA_KEY_UNAVAILABLE");
+        return null;
+      }
+
+      return metaData;
     }
 
     @Override
     public Class getExpectedType()
     {
-      return IterationMetaData.class;
+      return MetaData.class;
     }
 
-    @SuppressWarnings("compatibility:-3014844132563306923")
+    @Override
+    public void setValue(ELContext context, Object value)
+    {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean isReadOnly(ELContext context)
+    {
+      return true;
+    }
+
+    @Override
+    public Class<?> getType(ELContext context)
+    {
+      return MetaData.class;
+    }
+
+    @Override
+    public String getExpressionString()
+    {
+      return null;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+      if (obj instanceof VarStatusValueExpression)
+      {
+        VarStatusValueExpression vsve = (VarStatusValueExpression)obj;
+        return _key.equals(vsve._key) && _metaDataMapKey.equals(vsve._metaDataMapKey);
+      }
+
+      return false;
+    }
+
+    @Override
+    public int hashCode()
+    {
+      int hc = _key.hashCode();
+      // Use 31 as a prime number, a technique used in the JRE classes:
+      hc = 31 * hc + _metaDataMapKey.hashCode();
+      return hc;
+    }
+
+    @Override
+    public boolean isLiteralText()
+    {
+      return false;
+    }
+
+    @SuppressWarnings("compatibility:7866012729338284490")
     private static final long serialVersionUID = 1L;
+
+    private final String _metaDataMapKey;
+    private final Serializable    _key;
   }
 
   private abstract static class ItemsWrapper
@@ -1121,7 +767,6 @@ System.out.println("-------Done processing non-trinidad children for key " + key
     public abstract Object getKey(int index);
     public abstract Object getValue(int index);
     public abstract int getSize();
-    public abstract boolean isKeyBased();
   }
 
   private static class CollectionModelWrapper
@@ -1160,12 +805,6 @@ System.out.println("-------Done processing non-trinidad children for key " + key
       return _collectionModel.getRowCount();
     }
 
-    @Override
-    public boolean isKeyBased()
-    {
-      return true;
-    }
-
     private CollectionModel _collectionModel;
   }
 
@@ -1196,12 +835,6 @@ System.out.println("-------Done processing non-trinidad children for key " + key
     public int getSize()
     {
       return _map.size();
-    }
-
-    @Override
-    public boolean isKeyBased()
-    {
-      return true;
     }
 
     private void _moveToIndex(int index)
@@ -1259,12 +892,6 @@ System.out.println("-------Done processing non-trinidad children for key " + key
       return _list.size();
     }
 
-    @Override
-    public boolean isKeyBased()
-    {
-      return false;
-    }
-
     private final List<?> _list;
   }
 
@@ -1295,12 +922,6 @@ System.out.println("-------Done processing non-trinidad children for key " + key
       return Array.getLength(_array);
     }
 
-    @Override
-    public boolean isKeyBased()
-    {
-      return false;
-    }
-
     private final Object _array;
   }
 
@@ -1308,10 +929,10 @@ System.out.println("-------Done processing non-trinidad children for key " + key
    * Data that is used for the children content of the tag. This contains
    * the var status information.
    */
-  public static class IterationMetaData
+  public static class MetaData
     implements Serializable
   {
-    private IterationMetaData(
+    private MetaData(
       Serializable key,
       boolean      first,
       boolean      last,
@@ -1367,7 +988,7 @@ System.out.println("-------Done processing non-trinidad children for key " + key
     @Override
     public String toString()
     {
-      return String.format("IterationData[Key: %s, index: %d, first: %s, last: %s]",
+      return String.format("MetaData[Key: %s, index: %d, first: %s, last: %s]",
                _key, _index, _first, _last);
     }
 
@@ -1383,33 +1004,7 @@ System.out.println("-------Done processing non-trinidad children for key " + key
     private Serializable _key;
   }
 
-  private static class NonTrinidadIterationData
-    implements Serializable
-  {
-    public NonTrinidadIterationData(
-      Serializable key,
-      Integer      iterationId)
-    {
-      _key = key;
-      _iterationId = iterationId;
-    }
-
-    public Serializable getKey()
-    {
-      return _key;
-    }
-
-    public Integer getIterationId()
-    {
-      return _iterationId;
-    }
-
-    @SuppressWarnings("compatibility:-6078344977554689652")
-    private static final long serialVersionUID = 1L;
-
-    private final Serializable _key;
-    private final Integer      _iterationId;
-  }
+  private String _jspId;
 
   private int _currentBegin;
   private int _currentIndex;
@@ -1418,7 +1013,6 @@ System.out.println("-------Done processing non-trinidad children for key " + key
   private int _currentCount;
   private boolean _isFirst;
   private boolean _isLast;
-  private boolean _iterationIdRequiresIncrement;
 
   private ValueExpression _items;
   private ValueExpression _beginVE;
@@ -1431,15 +1025,13 @@ System.out.println("-------Done processing non-trinidad children for key " + key
 
   private UIComponent _parentComponent;
 
-  private Set<UIComponent> _previousIterationNonTrinidadChildren;
-
-  private Integer _iterationId;
-  private IterationMetaData _iterationData;
+  private Serializable _key;
+  private MetaData _metaData;
   private Map<String, Object> _viewAttributes;
 
   private String _iterationMapKey;
-  private Set<Integer> _unmatchedIterationIds;
-  private Map<Integer, IterationMetaData> _iterationMap;
+  private Map<Serializable, MetaData> _metaDataMap;
+  private Set<Serializable> _processedKeys;
   private ItemsWrapper _itemsWrapper;
 
   private String _var;
@@ -1457,6 +1049,6 @@ System.out.println("-------Done processing non-trinidad children for key " + key
   private static final String _VIEW_ATTR_KEY =
     ForEachTag.class.getName() + ".VIEW.";
   private static final int _VIEW_ATTR_KEY_LENGTH = _VIEW_ATTR_KEY.length();
-  private static final String _ITERATION_ID_KEY =
+  private static final String _META_DATA_MAP_KEY =
     ForEachTag.class.getName() + ".ITER";
 }

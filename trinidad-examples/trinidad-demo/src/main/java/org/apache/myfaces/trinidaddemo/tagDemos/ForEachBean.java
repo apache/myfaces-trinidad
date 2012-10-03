@@ -122,6 +122,78 @@ public class ForEachBean
     private static final long serialVersionUID = 1L;
   }
 
+  public static class SubFamily
+  {
+    private SubFamily(
+      String    name,
+      Genus ... members)
+    {
+      _name = name;
+      _members = members;
+    }
+
+    public String getName()
+    {
+      return _name;
+    }
+
+    public Genus[] getMembers()
+    {
+      return _members;
+    }
+
+    private final String    _name;
+    private final Genus[] _members;
+  }
+
+  public static class Genus
+  {
+    private Genus(
+      String      name,
+      Species ... members)
+    {
+      _name = name;
+      _members = members;
+    }
+
+    public String getName()
+    {
+      return _name;
+    }
+
+    public Species[] getMembers()
+    {
+      return _members;
+    }
+
+    private final String    _name;
+    private final Species[] _members;
+  }
+
+  public static class Species
+  {
+    private Species(
+      String name,
+      String scientificName)
+    {
+      _name = name;
+      _scientificName = scientificName;
+    }
+
+    public String getName()
+    {
+      return _name;
+    }
+
+    public String getScientificName()
+    {
+      return _scientificName;
+    }
+
+    private final String _name;
+    private final String _scientificName;
+  }
+
   public ForEachBean()
   {
     _list = new ArrayList<Person>(
@@ -210,7 +282,9 @@ public class ForEachBean
     return _simpleList;
   }
 
-  public void updateSortOrder(ActionEvent evt)
+  public void updateSortOrder(
+    @SuppressWarnings("unused")
+    ActionEvent evt)
   {
     RowKeyPropertyModel model = _getCollectionModel();
 
@@ -267,34 +341,111 @@ public class ForEachBean
     return _getCollectionModel();
   }
 
+  public final List<SubFamily> getFelineSubFamilies()
+  {
+    if (_felineFamily == null)
+    {
+      _felineFamily = Arrays.asList(
+         new SubFamily("Pantherinae",
+           new Genus("Panthera",
+             new Species("Lion", "Panthera leo"),
+             new Species("Jaguar", "Panthera onca"),
+             new Species("Leopard", "Panthera pardus"),
+             new Species("Tiger", "Panthera tigris")),
+           new Genus("Uncia",
+             new Species("Snow Leopard", "Uncia uncia")),
+           new Genus("Neofelis",
+             new Species("Clouded Leopard", "Neofelis nebulosa"),
+             new Species("Sunda Clouded Leopard", "Neofelis diardi"))),
+         new SubFamily("Felinae",
+           new Genus("Pardofelis",
+             new Species("Marbled Cat", "Pardofelis marmorata")),
+           new Genus("Catopuma",
+             new Species("Bay Cat", "Catopuma badia"),
+             new Species("Asian Golden Cat", "Catopuma temminckii")),
+           new Genus("Leptailurus",
+             new Species("Serval", "Leptailurus serval")),
+           new Genus("Caracal",
+             new Species("Caracal", "Caracal caracal")),
+           new Genus("Profelis",
+             new Species("African Golden Cat", "Profelis aurata")),
+           new Genus("Leopardus",
+             new Species("Pantanal Cat", "Leopardus braccatus"),
+             new Species("Colocolo", "Leopardus colocolo"),
+             new Species("Geoffroy's Cat", "Leopardus geoffroyi"),
+             new Species("Kodkod", "Leopardus guigna"),
+             new Species("Andean Mountain Cat", "Leopardus jacobitus"),
+             new Species("Pampas Cat", "Leopardus pajeros"),
+             new Species("Ocelot", "Leopardus pardalis"),
+             new Species("Oncilla", "Leopardus tigrinus"),
+             new Species("Margay", "Leopardus wiedii")),
+           new Genus("Lynx",
+             new Species("Canadian Lynx", "Lynx canadensis"),
+             new Species("Eurasian Lynx", "Lynx lynx"),
+             new Species("Iberian Lynx", "Lynx pardinus"),
+             new Species("Bobcat", "Lynx rufus")),
+           new Genus("Puma",
+             new Species("Cougar", "Puma concolor"),
+             new Species("Jaguarundi", "Puma yagouaroundi")),
+           new Genus("Acinonyx",
+             new Species("Cheetah", "Acinonyx jubatus")),
+           new Genus("Prionailurus",
+             new Species("Leopard Cat", "Prionailurus bengalensis"),
+             new Species("Iriomote Cat", "Prionailurus bengalensis iriomotensis"),
+             new Species("Flat-headed Cat", "Prionailurus planiceps"),
+             new Species("Rusty-spotted Cat", "Prionailurus rubiginosus"),
+             new Species("Fishing Cat", "Prionailurus viverrinus")),
+           new Genus("Otocolobus",
+             new Species("Pallas's Cat", "Otocolobus manul")),
+           new Genus("Felis",
+             new Species("Chinese Mountain Cat", "Felis bieti"),
+             new Species("Domestic Cat", "Felis catus"),
+             new Species("Jungle Cat", "Felis chaus"),
+             new Species("Sand Cat", "Felis margarita"),
+             new Species("Black-footed Cat", "Felis nigripes"),
+             new Species("Wildcat", "Felis silvestris"))));
+    }
+
+    return _felineFamily;
+  }
+
   public void handleArrangeNewItem(ActionEvent evt)
   {
     UIComponent target = evt.getComponent();
     String forEachKey = (String)target.getAttributes().get("forEachKey");
     String newKey = "new" + (_nextArrangePersonKey++);
 
-    LinkedHashMap<String, Person> mapCopy = new LinkedHashMap<String, Person>(_arrangeMap);
-    _arrangeMap.clear();
-
-    boolean added = false;
-
-    for (Map.Entry<String, Person> entry : mapCopy.entrySet())
+    if (forEachKey == null)
     {
-      String key = entry.getKey();
-      if (added == false && forEachKey.equals(key))
+      // Append use case, just add the person to the map, no need to re-order
+      _arrangeMap.put(newKey,
+        new Person(newKey, _newPersonFirstName, _newPersonLastName));
+    }
+    else
+    {
+      LinkedHashMap<String, Person> mapCopy = new LinkedHashMap<String, Person>(_arrangeMap);
+      _arrangeMap.clear();
+
+      boolean added = false;
+
+      for (Map.Entry<String, Person> entry : mapCopy.entrySet())
       {
-        _arrangeMap.put(newKey,
-          new Person(newKey, _newPersonFirstName, _newPersonLastName));
-        added = true;
+        String key = entry.getKey();
+        if (added == false && forEachKey.equals(key))
+        {
+          _arrangeMap.put(newKey,
+            new Person(newKey, _newPersonFirstName, _newPersonLastName));
+          added = true;
+        }
+
+        _arrangeMap.put(key, entry.getValue());
       }
 
-      _arrangeMap.put(key, entry.getValue());
+      _sortArrangedDemoChildren(target);
     }
 
     _newPersonFirstName = null;
     _newPersonLastName = null;
-
-    _sortArrangedDemoChildren(target);
   }
 
   public void handleArrangeRemoveItem(ActionEvent evt)
@@ -469,13 +620,14 @@ public class ForEachBean
   private final Map<String, Person> _map;
   private final Map<String, UpdatableItem> _updatableItemMap;
   private final Map<String, Person> _arrangeMap;
-  private String _currentExample = "updates";
+  private String _currentExample = null;
   private String _sortProperty;
   private String _newPersonFirstName;
   private String _newPersonLastName;
   private boolean _sortAscending;
   private int _nextArrangePersonKey = 1;
+  private transient List<SubFamily> _felineFamily;
 
-  @SuppressWarnings("compatibility:-7372115273781665673")
-  private static final long serialVersionUID = 1L;
+  @SuppressWarnings("compatibility:-5886088173109562862")
+  private static final long serialVersionUID = 3L;
 }

@@ -1099,7 +1099,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
  <!-- FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION -->
  <resource key="FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION">fileDownloadActionListener's 'method' attribute must be an EL expression.</resource>
- 
+
 <!-- STATUS_INDICATOR_MISSING_ICONS -->
 <resource key="STATUS_INDICATOR_MISSING_ICONS">The statusIndicator component requires both a 'ready' and 'busy' icon;  one is missing.</resource>
 
@@ -1201,5 +1201,9 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="ALIAS_REFERENCE_NOT_STARTING_WITH_DOT">Alias references within -tr-rule-ref or tr-property-ref should start with a dot at {0}</resource>
 
 <resource key="ALIAS_DEFINITION_NOT_STARTING_WITH_DOT">Alias definition should start with a dot for {0}</resource>
+
+<resource key="FOR_EACH_META_DATA_UNAVAILABLE">The for each meta data could not be found. The component may not have been processed by the for each loop. Ensure no component references are keeping the component in memory.</resource>
+
+<resource key="FOR_EACH_META_DATA_KEY_UNAVAILABLE">The for each meta data could not be found. Key in the collection may no longer be available. Ensure there are no stale references to the component.</resource>
 
 </resources>

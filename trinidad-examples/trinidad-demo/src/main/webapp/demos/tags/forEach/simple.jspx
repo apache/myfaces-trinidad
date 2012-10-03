@@ -30,7 +30,7 @@
                            inlineStyle="padding-right: 1em;"/>
             <tr:outputText id="clientId" value="(Client ID: #{component.clientId})"/>
           </tr:panelGroupLayout>
-          <tr:spacer height="1em" />
+          <tr:spacer id="s1" height="1em" />
         </tr:forEach>
       </tr:panelGroupLayout>
     </tr:panelHeader>
@@ -38,13 +38,13 @@
       <tr:outputText value="Using a naming container, or immediate EL in each component, IDs may be made unique. Maps and collection models will use the key, lists and arrays will use the index." />
       <tr:panelGroupLayout layout="vertical" inlineStyle="padding-left: 2em; padding-top: 1em">
         <tr:forEach var="person" items="#{forEachBean.simpleList}" varStatus="vs">
-          <f:subview id="sv${vs.key}">
+          <f:subview id="svl${vs.key}">
             <tr:panelGroupLayout id="personPgl" layout="horizontal">
               <tr:outputText id="personName" value="#{person.firstName} #{person.firstName}"
                              inlineStyle="padding-right: 1em;"/>
               <tr:outputText id="clientId" value="(Client ID: #{component.clientId})"/>
             </tr:panelGroupLayout>
-            <tr:spacer height="1em" />
+            <tr:spacer id="s2" height="1em" />
           </f:subview>
         </tr:forEach>
       </tr:panelGroupLayout>
@@ -53,12 +53,14 @@
       <tr:outputText value="By using a collection model or a map, the IDs are discoverable by the item's key. See the partial triggers demo for how this can be used." />
       <tr:panelGroupLayout layout="vertical" inlineStyle="padding-left: 2em; padding-top: 1em">
         <tr:forEach var="person" items="#{forEachBean.model}" varStatus="vs">
-          <tr:panelGroupLayout id="personPgl2" layout="horizontal">
-            <tr:outputText id="personName2" value="#{person.firstName} #{person.firstName}"
-                           inlineStyle="padding-right: 1em;"/>
-            <tr:outputText id="clientId2" value="(Client ID: #{component.clientId})"/>
-          </tr:panelGroupLayout>
-          <tr:spacer height="1em" />
+          <f:subview id="svm${vs.key}">
+            <tr:panelGroupLayout id="personPgl2" layout="horizontal">
+              <tr:outputText id="personName2" value="#{person.firstName} #{person.firstName}"
+                             inlineStyle="padding-right: 1em;"/>
+              <tr:outputText id="clientId2" value="(Client ID: #{component.clientId})"/>
+            </tr:panelGroupLayout>
+            <tr:spacer id="s3" height="1em" />
+          </f:subview>
         </tr:forEach>
       </tr:panelGroupLayout>
     </tr:panelHeader>
