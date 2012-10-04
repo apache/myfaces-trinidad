@@ -223,12 +223,13 @@ default, only the first 100 kilobytes in any one request will be
 stored in memory.  Once that has been filled, disk space will be used.
 Again, by default, that is limited to 2,000 kilobytes of disk storage
 for any one request for all files combined.  Once these limits are
-exceeded, the filter will throw an <code>EOFException</code>.  Files
-are, by default, stored in the temporary directory used by
+exceeded, the filter will throw an <code>EOFException</code>.  In 
+addition, a per file maximum limit may be defined. By default this is -1 (unlimited).
+Files are, by default, stored in the temporary directory used by
 <code>java.io.File.createTempFile()</code>, which is usually defined by the
 system property <code>java.io.tmpdir</code>.  Obviously, this will be
 insufficient for some applications, so you can configure these values 
-using three servlet context initialization parameters:
+using four servlet context initialization parameters:
 <source>
   &lt;context-param&gt;
     &lt;!-- Maximum memory per request (in bytes) --&gt;
@@ -247,6 +248,12 @@ using three servlet context initialization parameters:
     &lt;param-name&gt;org.apache.myfaces.trinidad.UPLOAD_TEMP_DIR&lt;/param-name&gt;
     &lt;!-- Use a TrinidadUploads subdirectory of /tmp --&gt;
     &lt;param-value&gt;/tmp/TrinidadUploads/&lt;/param-value&gt;
+  &lt;/context-param&gt;
+  &lt;context-param&gt;
+    &lt;!-- Maximum file size per request (in bytes) --&gt;
+    &lt;param-name&gt;org.apache.myfaces.trinidad.UPLOAD_MAX_FILE_SIZE&lt;/param-name&gt;
+    &lt;!-- Use 5,000K --&gt;
+    &lt;param-value&gt;5120000&lt;/param-value&gt;
   &lt;/context-param&gt;
 
   &lt;!-- This filter is always required;  one of its functions is 
