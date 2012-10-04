@@ -31,8 +31,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.SocketException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.HashMap;
-import java.util.Map;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -40,6 +38,7 @@ import java.util.concurrent.ConcurrentMap;
 import javax.faces.FacesException;
 import javax.faces.FactoryFinder;
 import javax.faces.application.ProjectStage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
 import javax.faces.event.PhaseListener;
@@ -59,6 +58,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.resource.CachingResourceLoader;
+import org.apache.myfaces.trinidad.resource.DirectoryResourceLoader;
 import org.apache.myfaces.trinidad.resource.ResourceLoader;
 import org.apache.myfaces.trinidad.resource.ServletContextResourceLoader;
 import org.apache.myfaces.trinidad.util.URLUtils;
@@ -171,13 +171,23 @@ public class ResourceServlet extends HttpServlet
     }
     catch (ServletException e)
     {
-      _LOG.severe(e);
+      _logServiceException(e, request);
       throw e;
     }
     catch (IOException e)
     {
       if (!_canIgnore(e))
-        _LOG.severe(e);
+        _logServiceException(e, request);
+      throw e;
+    }
+    catch (RuntimeException e)
+    {
+      _logServiceException(e, request);
+      throw e;
+    }
+    catch (Error e)
+    {
+      _logServiceException(e, request);
       throw e;
     }
     finally
@@ -203,12 +213,7 @@ public class ResourceServlet extends HttpServlet
     // Make sure the resource is available
     if (url == null)
     {
-      // log some details on the failure
-      _LOG.warning("URL for resource not found.\n  resourcePath: {0}\n  loader class name: {1}\n  request.pathTranslated: {2}\n  request.requestURL: {3}",
-                   new Object[] { resourcePath, 
-                                  loader, 
-                                  request.getPathTranslated(), 
-                                  request.getRequestURL() });
+      _logURLNotFound(request, loader, resourcePath);
       response.sendError(HttpServletResponse.SC_NOT_FOUND);
       return;
     }
@@ -281,7 +286,114 @@ public class ResourceServlet extends HttpServlet
   }
 
   /**
-   * Returns the resource loader for the requested servlet path.
+   * Returns the resource loader for the requested servlet path. 
+   */
+  private ResourceLoader _getResourceLoader(
+    String servletPath)
+  {
+    ResourceLoader loader = null;
+    
+    try
+    {
+      String key = "META-INF/servlets/resources" +
+                  servletPath +
+                  ".resources";
+      ClassLoader cl = Thread.currentThread().getContextClassLoader();
+      URL url = cl.getResource(key);
+
+      if (url != null)
+      {
+        Reader r = new InputStreamReader(url.openStream());
+        BufferedReader br = new BufferedReader(r);
+        try
+        {
+          String className = br.readLine();
+          if (className != null)
+          {
+            className = className.trim();
+            Class<?> clazz = cl.loadClass(className);
+            try
+            {
+              // check if this is a decorator first, and if not, fall back to the no-arg constructor. 
+              Constructor<?> decorator = clazz.getConstructor(_DECORATOR_SIGNATURE);
+              ServletContext context = getServletContext();
+              File tempdir = (File)
+              context.getAttribute("javax.servlet.context.tempdir");
+              ResourceLoader delegate = new DirectoryResourceLoader(tempdir);
+              loader = (ResourceLoader) decorator.newInstance(new Object[]{delegate});
+            }
+            catch (InvocationTargetException e)
+            {
+              // by default, create new instance with no-args constructor
+              _logLoaderException(e, servletPath);
+              loader = (ResourceLoader) clazz.newInstance();
+            }
+            catch (NoSuchMethodException e)
+            {
+              // by default, create new instance with no-args constructor
+              loader = (ResourceLoader) clazz.newInstance();
+            }
+          }
+        }
+        finally
+        {
+          br.close();
+        }
+      }
+      else
+      {
+        // default to serving resources from the servlet context
+        if (_LOG.isWarning())
+        {
+          _LOG.warning("Unable to find ResourceLoader for ResourceServlet" +
+                       " at servlet path:{0}" +
+                       "\nCause: Could not find resource:{1}",
+                       new Object[] {servletPath, key});
+        }
+        
+        loader = new ServletContextResourceLoader(getServletContext())
+                 {
+                   @Override
+                   public URL getResource(
+                     String path) throws IOException
+                   {
+                     return super.getResource(path);
+                   }
+                 };
+      }
+
+      // Enable resource caching, but only if we aren't debugging
+      if (!_debug && loader.isCachable())
+      {
+        loader = new CachingResourceLoader(loader);
+      }
+    }
+    catch (IllegalAccessException e)
+    {
+      loader = logExceptionAndReturnFailureLoader(e, servletPath);
+    }
+    catch (InstantiationException e)
+    {
+      loader = logExceptionAndReturnFailureLoader(e, servletPath);
+    }
+    catch (ClassNotFoundException e)
+    {
+      loader = logExceptionAndReturnFailureLoader(e, servletPath);
+    }
+    catch (IOException e)
+    {
+      loader = logExceptionAndReturnFailureLoader(e, servletPath);
+    }
+
+    return loader;    
+  }
+  
+  /**
+   * Get the servlet path from the request and see if we've already cached the resource loader for this path.
+   * If not, call _getResourceLoader(String servletPath) to find it.
+   *
+   * @param request
+   * @return
    */
   private ResourceLoader _getResourceLoader(
     HttpServletRequest request)
@@ -291,105 +403,25 @@ public class ResourceServlet extends HttpServlet
 
     if (loader == null)
     {
-      try
-      {
-        String key = "META-INF/servlets/resources" +
-                    servletPath +
-                    ".resources";
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        URL url = cl.getResource(key);
+      loader = _getResourceLoader(servletPath);
 
-        if (url != null)
-        {
-          Reader r = new InputStreamReader(url.openStream());
-          BufferedReader br = new BufferedReader(r);
-          try
-          {
-            String className = br.readLine();
-            if (className != null)
-            {
-              className = className.trim();
-              Class<?> clazz = cl.loadClass(className);
-              try
-              {
-                // check if this is a decorator first, and if not, fall back to the no-arg constructor. 
-                Constructor<?> decorator = clazz.getConstructor(_DECORATOR_SIGNATURE);
-                  
-                // We are now calling a special temp directory version of DirectoryResourceLoader to
-                // assure that the servlet context's temp directory doesn't change on us.
-                ResourceLoader delegate = new TempDirectoryResourceLoader(getServletContext());
-                loader = (ResourceLoader)
-                decorator.newInstance(new Object[]{delegate});
-              }
-              catch (InvocationTargetException e)
-              {
-                // by default, create new instance with no-args constructor
-                _logLoaderException(e, servletPath);
-                loader = (ResourceLoader) clazz.newInstance();
-              }
-              catch (NoSuchMethodException e)
-              {
-                // by default, create new instance with no-args constructor
-                loader = (ResourceLoader) clazz.newInstance();
-              }
-            }
-          }
-          finally
-          {
-            br.close();
-          }
-        }
-        else
-        {
-          // default to serving resources from the servlet context
-          _LOG.warning("Unable to find ResourceLoader for ResourceServlet" +
-                       " at servlet path:{0}" +
-                       "\nCause: Could not find resource:{1}",
-                       new Object[] {servletPath, key});
-          loader = new ServletContextResourceLoader(getServletContext())
-                   {
-                     @Override
-                     public URL getResource(
-                       String path) throws IOException
-                     {
-                       return super.getResource(path);
-                     }
-                   };
-        }
-
-        // Enable resource caching, but only if we aren't debugging
-        if (!_debug && loader.isCachable())
-        {
-          loader = new CachingResourceLoader(loader);
-        }
-      }
-      catch (IllegalAccessException e)
-      {
-        _logLoaderException(e, servletPath);
-        loader = ResourceLoader.getNullResourceLoader();
-      }
-      catch (InstantiationException e)
-      {
-        _logLoaderException(e, servletPath);
-        loader = ResourceLoader.getNullResourceLoader();
-      }
-      catch (ClassNotFoundException e)
-      {
-        _logLoaderException(e, servletPath);
-        loader = ResourceLoader.getNullResourceLoader();
-      }
-      catch (IOException e)
-      {
-        _logLoaderException(e, servletPath);
-        loader = ResourceLoader.getNullResourceLoader();
-      }
-
-      _loaders.put(servletPath, loader);
+      // add the new loader to the loader cache
+      _registerLoader(servletPath, loader);
     }
 
     return loader;
   }
 
+  /**
+   * Add the loader to the loader map
+   * @param servletPath
+   * @param loader
+   */
+  private void _registerLoader(String servletPath, ResourceLoader loader)
+  {
+    _loaders.put(servletPath, loader);
+  }
+  
   /*
    * exception logger for _getResourceLoader() that will only log one error for multiple failures of the same servlet
    */
@@ -404,11 +436,89 @@ public class ResourceServlet extends HttpServlet
       
       if (e.getCause() != null)
         _LOG.severe("Caused by ", e.getCause());
-      
+            
       _loaderErrors.put(servletPath, e.getClass());
     }
   }
 
+  /**
+   * Method to log a warning message with helpful details when we fail to find a URL.
+   * 
+   * @param request
+   * @param loader
+   * @param resourcePath
+   */
+  private void _logURLNotFound(HttpServletRequest request,
+                               ResourceLoader loader,
+                               String resourcePath)
+  {
+    // log some details on the failure
+    if (_LOG.isWarning())
+    {
+      FacesContext context = FacesContext.getCurrentInstance();
+      Object servletContext = _getServletContextFromFacesContext(context);
+      
+      _LOG.warning("URL for resource not found.\n"+
+                   "  resourcePath: {0}\n"+
+                   "  loader class name: {1}\n"+
+                   "  request.pathTranslated: {2}\n"+
+                   "  request.requestURL: {3}\n"+
+                   "  FacesContext: {4}\n" +
+                   "  ServletContext: {5}\n",
+                   new Object[] { resourcePath, 
+                                  loader, 
+                                  request.getPathTranslated(), 
+                                  request.getRequestURL(),
+                                  context,
+                                  servletContext});
+    }
+  }
+  
+  /**
+   * Method to log a severe error when we get an exception in the .service() method.
+   * 
+   * @param e
+   * @param request
+   */
+  private void _logServiceException(Throwable e, ServletRequest  request)
+  {
+    // log some details on the service exception
+    FacesContext context = FacesContext.getCurrentInstance();
+    Object servletContext = _getServletContextFromFacesContext(context);
+    HttpServletRequest sr = (HttpServletRequest) request;
+   
+    _LOG.severe("An Exception occured in ResourceServlet.service().\n"+
+                 "  request.pathTranslated:" + sr.getPathTranslated() + "\n" +
+                 "  request.requestURI:" + sr.getRequestURI() + "\n" +
+                 "  FacesContext: " + context + "\n" +
+                 "  ServletContext: " + servletContext + "\n",
+                 e);
+  }
+
+  /**
+   *Returns the servlet context object from the FacesContext
+   * 
+   * @param context
+   * @return
+   */
+  private Object _getServletContextFromFacesContext(FacesContext context)
+  {
+    ExternalContext ec = null;
+    Object sc = null;
+    
+    if (context != null)
+    {
+      ec = context.getExternalContext();
+      
+      if (ec != null)
+      {
+        sc = ec.getContext();
+      }
+    }
+    
+    return sc;
+  }
+  
   /**
    * Reads the specified input stream into the provided byte array storage and
    * writes it to the output stream.
@@ -664,6 +774,85 @@ public class ResourceServlet extends HttpServlet
     return false;
   }
 
+  /**
+   * Instead of calling ResourceLoader.getNullResourceLoader(), we want to return our own version which will
+   * periodically attempt to get the real resource loader and start using that instead.
+   */
+  private ResourceLoader logExceptionAndReturnFailureLoader(Exception e, String servletPath)
+  {
+    _logLoaderException(e, servletPath);
+    return new _ExponentialBackoffResourceLoader(servletPath);
+  }
+
+  /**
+   * The _ExponentialBackOffResourceLoader is a private class to be used in place of the resource loader returned by
+   * ResourceLoader.getNullResourceLoader().  We want to initially start out with a wait time of 10 miliseconds before
+   * we attempt to get the correct resource loader.  We'll double the wait time for every attempt, until the wait time
+   * is longer than a minute.  At that point, we will still keep trying but no longer double the wait time.
+   */
+  private final class _ExponentialBackoffResourceLoader extends ResourceLoader
+  {
+    /**
+     * Constructs a new repairing resource loader.
+     */
+    protected _ExponentialBackoffResourceLoader(String servletPath)
+    {
+      super(null);
+      
+      // Set the timestamp for this request
+      _initialTimeStamp = System.currentTimeMillis();
+      _nextBackoffTime = _initialTimeStamp + _INITIAL_WAIT_TIME;
+      _servletPath = servletPath;
+    }
+
+    
+    @Override
+    protected URL findResource(
+      String name
+      ) throws IOException
+    {
+      long currentTime = System.currentTimeMillis();
+
+      // If we have waited the current wait time, we need to try again.
+      if (currentTime > _nextBackoffTime)
+      {
+        synchronized(this)
+        {
+          // We need to check this again, just in case a different thread already updated the value
+          // If another thread updated the value, we don't need try to get the resource loader or
+          // update the backoff time
+          if (currentTime > _nextBackoffTime)
+          {
+            ResourceLoader newLoader = _getResourceLoader(_servletPath);
+            
+            if (!(newLoader instanceof _ExponentialBackoffResourceLoader))
+            {
+              // We got a real resource loader, lets repair ourself by updating the loader cache.
+              _registerLoader(_servletPath, newLoader);
+              
+              //Log a message
+              _LOG.warning("Fixed resource loader for servlet path: {0}", _servletPath);
+              
+              return newLoader.getResource(name);
+            }
+
+            // No new loader found, update the next backoff time.
+            // this doesn't produce an exact doubling of the _INITIAL_WAIT_TIME, but we really don't need to
+            // be exact here, as long as we reach the max wait time
+            _nextBackoffTime += Math.min((currentTime - _initialTimeStamp) * 2, _MAX_WAIT_TIME);
+          }
+        }
+      }
+      
+      // We haven't waited long enough, just return null.
+      return null;
+    }
+
+    private volatile long _nextBackoffTime; // The number of miliseconds to wait before trying again.
+    private final long _initialTimeStamp; // The timestamp of the last failed attempt to get the resource loader
+    private final String _servletPath;
+  }
+
   static private class _ResourceLifecycle extends Lifecycle
   {
     @Override
@@ -704,6 +893,8 @@ public class ResourceServlet extends HttpServlet
   // RFC 2616 says Expires should not be more than one year out, so
   // cutting back just to be safe.)
   public static final long ONE_YEAR_MILLIS = 31363200000L;
+  private static final long _INITIAL_WAIT_TIME = 10L; // 10 milliseconds  
+  private static final long _MAX_WAIT_TIME = 60000L; // 60 * 1000 milliseconds
 
   private static final Class[] _DECORATOR_SIGNATURE =
                                   new Class[]{ResourceLoader.class};
@@ -713,10 +904,10 @@ public class ResourceServlet extends HttpServlet
   // Size of buffer used to read in resource contents
   private static final int _BUFFER_SIZE = 2048;
 
-  private boolean _debug;
-  private ConcurrentMap<String, ResourceLoader> _loaders;
-  private ConcurrentMap<String, Class<?>> _loaderErrors;
-  private FacesContextFactory _facesContextFactory;
-  private Lifecycle _lifecycle;
-  private ProjectStage _projectStage;
+  private volatile boolean _debug;
+  private volatile ConcurrentMap<String, ResourceLoader> _loaders;
+  private volatile ConcurrentMap<String, Class<?>> _loaderErrors;
+  private volatile FacesContextFactory _facesContextFactory;
+  private volatile Lifecycle _lifecycle;
+  private volatile ProjectStage _projectStage;
 }
