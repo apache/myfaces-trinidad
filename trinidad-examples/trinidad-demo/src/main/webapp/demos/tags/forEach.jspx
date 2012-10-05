@@ -81,7 +81,11 @@
                                partialTriggers="reorderLink simpleLink pprLink updatesLink nestedLink">
             <tr:switcher defaultFacet="home" facetName="#{forEachBean.currentExample}">
               <f:facet name="home">
-                <tr:outputText value="Choose an example from the side panel."/>
+                <tr:panelGroupLayout layout="vertical">
+                  <tr:outputText value="Choose an example from the side panel."/>
+                  <tr:outputText value="Note: due to a bug in the MyFaces core code, this will only work with the Mojarra JSF implementation."
+                                 inlineStyle="display: block; padding-top: 12px;"/>
+                </tr:panelGroupLayout>
               </f:facet>
               <f:facet name="simple">
                 <tr:panelGroupLayout layout="vertical">

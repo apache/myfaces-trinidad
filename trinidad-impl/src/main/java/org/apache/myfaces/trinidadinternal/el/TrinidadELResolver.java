@@ -23,6 +23,7 @@ import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+
 import java.util.List;
 import java.util.Map;
 
@@ -30,8 +31,6 @@ import javax.el.ELContext;
 import javax.el.ELResolver;
 
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.model.CollectionModel;
-
 
 /**
  * ELResolver implementation for Trinidad.  Serves up:
@@ -53,10 +52,8 @@ public class TrinidadELResolver
   {
   }
 
-  public Object getValue(
-    ELContext elContext,
-    Object    base,
-    Object    property)
+  public Object getValue(ELContext elContext, Object base, 
+                         Object property)
   {
     if (base == null)
     {
@@ -74,22 +71,12 @@ public class TrinidadELResolver
         return RequestContext.getCurrentInstance().getPageFlowScope();
       }
     }
-    else if (base != null && base instanceof CollectionModel)
-    {
-      elContext.setPropertyResolved(true);
-      CollectionModel model = (CollectionModel)base;
-      return (property instanceof Integer) ?
-        model.getRowData(((Integer)property).intValue()) :
-        model.getRowData(property);
-    }
     
     return null;
   }
 
-  public Class<?> getType(
-    ELContext elContext,
-    Object    base,
-    Object    property)
+  public Class<?> getType(ELContext elContext, Object base, 
+                          Object property)
   {
     if (base == null)
     {
@@ -107,11 +94,6 @@ public class TrinidadELResolver
         return Map.class;
       }
     }
-    else if (base != null && base instanceof CollectionModel)
-    {
-      elContext.setPropertyResolved(true);
-      return Object.class;
-    }
     
     return null;
   }
@@ -128,16 +110,9 @@ public class TrinidadELResolver
     }
   }
 
-  public boolean isReadOnly(
-    ELContext elContext,
-    Object    base,
-    Object    property)
+  public boolean isReadOnly(ELContext elContext, Object base, 
+                            Object property)
   {
-    if (base != null && base instanceof CollectionModel)
-    {
-      return true;
-    }
-
     return false;
   }
 
@@ -150,60 +125,14 @@ public class TrinidadELResolver
         _featureDescriptorList = _createFeatureDescriptorList();
       return _featureDescriptorList.iterator();
     }
-    else if (base != null && base instanceof CollectionModel)
-    {
-      CollectionModel model = (CollectionModel)base;
-      int rowCount = model.getRowCount();
-
-      List<FeatureDescriptor> list = rowCount == -1 ?
-        new ArrayList<FeatureDescriptor>() :
-        new ArrayList<FeatureDescriptor>(rowCount);
-
-      Object origRowKey = model.getRowKey();
-      try
-      {
-        for (int rowIndex = 0; model.isRowAvailable(rowIndex); ++rowIndex)
-        {
-          model.setRowIndex(rowIndex);
-
-          String name = Integer.toString(rowIndex);
-          FeatureDescriptor descriptor = new FeatureDescriptor();
-
-          descriptor.setName(name);
-          descriptor.setDisplayName(name);
-          descriptor.setShortDescription("");
-          descriptor.setExpert(false);
-          descriptor.setHidden(false);
-          descriptor.setPreferred(true);
-          descriptor.setValue("type", Integer.class);
-          descriptor.setValue("resolvableAtDesignTime", Boolean.TRUE);
-
-          list.add(descriptor);
-        }
-      }
-      finally
-      {
-        model.setRowKey(origRowKey);
-      }
-
-      return list.iterator();
-    }
     
     return null;
   }
 
-  public Class<?> getCommonPropertyType(
-    ELContext elContext,
-    Object    base)
+  public Class<?> getCommonPropertyType(ELContext elContext, Object base)
   {
     if (base == null)
-    {
       return String.class;
-    }
-    else if (base != null && base instanceof CollectionModel)
-    {
-      return Object.class;
-    }
     
     return null;
   }

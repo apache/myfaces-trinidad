@@ -31,6 +31,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.el.ELContext;
+import javax.el.PropertyNotWritableException;
 import javax.el.ValueExpression;
 import javax.el.VariableMapper;
 
@@ -577,6 +578,13 @@ public class ForEachTag
       {
         return null;
       }
+      else if (items instanceof CollectionModel)
+      {
+        // We do not have an EL resolver for the CollectionModel to get values by row index
+        // or by row key. Therefore, we must just go after the value manually.
+        CollectionModel model = (CollectionModel)items;
+        return model.getRowData(_key);
+      }
 
       context.setPropertyResolved(false);
       return context.getELResolver().getValue(context, items, _key);
@@ -589,6 +597,12 @@ public class ForEachTag
 
       if (items != null)
       {
+        if (items instanceof CollectionModel)
+        {
+          // There is no support for setting row data on the collection model
+          throw new PropertyNotWritableException();
+        }
+
         context.setPropertyResolved(false);
         context.getELResolver().setValue(context, items, _key, value);
       }
@@ -599,6 +613,10 @@ public class ForEachTag
     {
       Object items = _itemsExpression.getValue(context);
       if (items == null)
+      {
+        return true;
+      }
+      else if (items instanceof CollectionModel)
       {
         return true;
       }
