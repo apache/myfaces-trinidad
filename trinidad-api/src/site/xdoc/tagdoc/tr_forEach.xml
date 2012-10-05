@@ -253,7 +253,7 @@ requestContext.addPartialTarget(forEachParentComponent);
               </tr>
               <tr>
                 <td>count</td>
-                <td>the total number of times the for each tag will iterate (int)</td>
+                <td>the current iteration number starting at one. If the start is 5, and the current index is 5, the count returns 1 (int)</td>
               </tr>
               <tr>
                 <td>begin</td>
