@@ -257,18 +257,16 @@ public class ForEachTag
       if (_varStatus != null)
       {
         vm.setVariable(_varStatus, _previousDeferredVarStatus);
-      }
-
-      // Due to the fact that we are retaining the map keys in the view attributes, check to see
-      // if any keys were not used during this execution and remove them
-
-      for (Iterator<Serializable> iter = _metaDataMap.keySet().iterator(); iter.hasNext(); )
-      {
-        Serializable key = iter.next();
-        if (!_processedKeys.contains(key))
+        // Due to the fact that we are retaining the map keys in the view attributes, check to see
+        // if any keys were not used during this execution and remove them
+        for (Iterator<Serializable> iter = _metaDataMap.keySet().iterator(); iter.hasNext(); )
         {
-          _LOG.finest("Removing unused key: {0}", key);
-          iter.remove();
+          Serializable key = iter.next();
+          if (!_processedKeys.contains(key))
+          {
+            _LOG.finest("Removing unused key: {0}", key);
+            iter.remove();
+          }
         }
       }
 
