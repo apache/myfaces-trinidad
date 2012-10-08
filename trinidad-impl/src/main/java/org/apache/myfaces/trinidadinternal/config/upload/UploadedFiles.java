@@ -42,6 +42,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.Window;
 import org.apache.myfaces.trinidad.context.WindowManager;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.model.ExtendedUploadedFile;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
 
@@ -290,7 +291,12 @@ final public class UploadedFiles implements Serializable
     {
       files = new ArrayList<UploadedFile>();
     }
-    files.add(new FixFilename(file, _characterEncoding));
+    UploadedFile fixFilename = null;
+    if (file instanceof ExtendedUploadedFile)
+      fixFilename = new FixFilenameProperties((ExtendedUploadedFile) file, _characterEncoding);
+    else
+      fixFilename = new FixFilename(file, _characterEncoding);
+    files.add(fixFilename);
     _map.put(name, files);
   }
 
@@ -382,7 +388,7 @@ final public class UploadedFiles implements Serializable
   static public class FixFilename implements UploadedFile, Serializable
   {
     /**
-     *
+     * FixFilename provides the ability to specify an encoding for the filename
      */
     private static final long serialVersionUID = -8586594511769079566L;
 
@@ -399,23 +405,25 @@ final public class UploadedFiles implements Serializable
 
     public String getFilename()
     {
-      String filename = _file.getFilename();
-      if (_encoding == null)
-        return filename;
+      if (_fixFilename == null)
+      {
+        String filename = _file.getFilename();
+        if (_encoding == null)
+          return filename;
 
-      try
-      {
-        return CaboHttpUtils.decodeRequestParameter(filename,
-                                                    _encoding,
-                                                    null);
+        try
+        {
+          _fixFilename = CaboHttpUtils.decodeRequestParameter(filename, _encoding, null);
+        }
+        catch (UnsupportedEncodingException uee)
+        {
+          // Should never happen, since the encoding should have
+          // already been vetted in UploadedRequestWrapper
+          assert false;
+          _fixFilename = filename;
+        }
       }
-      catch (UnsupportedEncodingException uee)
-      {
-        // Should never happen, since the encoding should have
-        // already been vetted in UploadedRequestWrapper
-        assert false;
-        return filename;
-      }
+      return _fixFilename;
     }
 
     public String getContentType()
@@ -446,5 +454,63 @@ final public class UploadedFiles implements Serializable
 
     private UploadedFile _file;
     private String       _encoding;
+    private String       _fixFilename = null;
+  }
+  
+  static public class FixFilenameProperties extends ExtendedUploadedFile
+  {
+    /**
+     * FixFilename provides the ability to specify an encoding for the filename with properties
+     */
+    private static final long serialVersionUID = -7477694533769079788L;
+
+    public FixFilenameProperties()
+    {
+      // For serialization
+    }
+
+    public FixFilenameProperties(final ExtendedUploadedFile file, final String encoding)
+    {
+      _original = file;
+      _file = new FixFilename(file, encoding);
+    }
+
+    public String getFilename()
+    {
+      return _file.getFilename();
+    }
+
+    public String getContentType()
+    {
+      return _file.getContentType();
+    }
+
+    public long getLength()
+    {
+      return _file.getLength();
+    }
+
+    public Object getOpaqueData()
+    {
+      return _file.getOpaqueData();
+    }
+
+    public InputStream getInputStream() throws IOException
+    {
+      return _file.getInputStream();
+    }
+
+    public Map<String, Object> getProperties()
+    {
+      return _original.getProperties();
+    }
+    
+    public void dispose()
+    {
+      _file.dispose();
+    }
+
+    private FixFilename  _file;
+    private ExtendedUploadedFile _original;
   }
 }

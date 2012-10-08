@@ -29,8 +29,13 @@ import java.io.OutputStream;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
+import java.util.Map;
+
+import org.apache.myfaces.trinidad.model.ExtendedUploadedFile;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
 /**
@@ -39,7 +44,7 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/webapp/UploadedFileImpl.java#0 $) $Date: 10-nov-2005.18:49:03 $
  */
-public class UploadedFileImpl implements UploadedFile, Serializable
+public class UploadedFileImpl extends ExtendedUploadedFile
 {
   UploadedFileImpl()
   {
@@ -72,6 +77,13 @@ public class UploadedFileImpl implements UploadedFile, Serializable
   public Object getOpaqueData()
   {
     return null;
+  }
+  
+
+  @Override
+  public Map<String, Object> getProperties()
+  {
+    return _properties;
   }
 
   /**
@@ -165,6 +177,8 @@ public class UploadedFileImpl implements UploadedFile, Serializable
   {
     _filename    = file.getFilename();
     _contentType = file.getContentType();
+    if (file instanceof ExtendedUploadedFile)
+      _properties = ((ExtendedUploadedFile) file).getProperties();
 
     InputStream in = file.getInputStream();
 
@@ -454,6 +468,7 @@ public class UploadedFileImpl implements UploadedFile, Serializable
   private String     _filename;
   private String     _tempFilename;
   private String     _contentType;
+  private Map<String, Object> _properties = new HashMap<String, Object>();
 
   // Total length fo the content, whether in memory or on disk
   transient private long       _length;
@@ -473,5 +488,5 @@ public class UploadedFileImpl implements UploadedFile, Serializable
   // use a larger buffer.
   static private final int _MEMORY_BUFFER_SIZE = 2048;
   static private final int _DISK_BUFFER_SIZE   = 8192;
-  static private final long serialVersionUID = 1592383482116327478L;
+  static private final long serialVersionUID = 3895593282556327786L;
 }

@@ -18,20 +18,15 @@
  */
 package org.apache.myfaces.trinidadinternal.config.upload;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import java.io.SequenceInputStream;
 
-import java.io.Serializable;
-
 import java.lang.reflect.Proxy;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -46,6 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.model.ExtendedUploadedFile;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
@@ -54,6 +50,7 @@ import org.apache.myfaces.trinidad.util.RequestType;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem;
+import org.apache.myfaces.trinidadinternal.ui.marshal.MarshalingService;
 
 /**
  * This configurator will handle the FileUploads for Trinidad.
@@ -158,7 +155,7 @@ public class FileUploadConfiguratorImpl extends Configurator
           else if (item.getFilename().length() > 0)
           {
             // Upload a file
-            _doUploadFile(requestContext, externalContext, files, item);
+            _doUploadFile(requestContext, externalContext, files, item, parameters);
           }
         }
         if (parameters.containsKey(_MULTIPLE_UPLOAD_PARAM))
@@ -290,15 +287,20 @@ public class FileUploadConfiguratorImpl extends Configurator
   {
     super.init(externalContext);
     //TODO initialize _maxAllowedBytes
+    
+    // Get the marshaling service
+    _marshalingService = _getMarshalingService();
   }
 
   private void _doUploadFile(
       final RequestContext   requestContext,
       final ExternalContext  externalContext,
       final UploadedFiles     files,
-      final MultipartFormItem item) throws IOException
+      final MultipartFormItem item,
+      final Map<String, String[]> parameters) throws IOException
   {
-    String filename = item.getFilename();              
+    String filename = item.getFilename();
+    Map<String, Object> properties = _getPropertiesMapFromParameters(parameters, item.getName(), filename);
     String chunkFilename = externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_FILENAME_PARAM);
     if (chunkFilename != null)
     {
@@ -309,7 +311,7 @@ public class FileUploadConfiguratorImpl extends Configurator
       chunkFilename = chunkFilename + ".part" + chunkNum;
       filename = chunkFilename;
     }
-    final UploadedFile temp = new TempUploadedFile(filename, item);
+    final UploadedFile temp = new TempUploadedFile(filename, item, properties);
     Map<String, Object> sessionMap = externalContext.getSessionMap();
     Map<String, Object> requestMap = externalContext.getRequestMap();
     
@@ -412,6 +414,51 @@ public class FileUploadConfiguratorImpl extends Configurator
     }
   }
   
+  static private Map<String, Object> _getPropertiesMapFromParameters(Map<String, String[]> parameters, String name, String filename)
+  {
+    Map<String, Object> properties = new HashMap<String, Object>();
+    StringBuilder propertiesParamBuilder = new StringBuilder(_MULTIPLE_UPLOAD_FILE_PROPERTY_PARAM);
+    propertiesParamBuilder.append(":");
+    propertiesParamBuilder.append(name);
+    propertiesParamBuilder.append(":");
+    propertiesParamBuilder.append(filename);
+    String propertiesParam = propertiesParamBuilder.toString();
+    if (parameters.get(propertiesParam) == null || parameters.get(propertiesParam).length == 0)
+      return Collections.emptyMap();
+    
+    String marshaledProperties = parameters.get(propertiesParam)[0];
+
+    if (marshaledProperties != null)
+    {
+      if (_marshalingService != null)
+      {
+        Object propertiesList = _marshalingService.unmarshal(marshaledProperties);
+        if (propertiesList instanceof List)
+        {
+          for (int i = 0; i < ((List) propertiesList).size(); i = i + 2)
+          {
+            String propertyName = (String) ((List) propertiesList).get(i);
+            Object propertyValue = ((List) propertiesList).get(i + 1);
+            properties.put(propertyName, propertyValue);
+          }
+        }
+        return properties;
+      }
+    }
+    return Collections.emptyMap();
+  }
+  
+  static private MarshalingService _getMarshalingService()
+  {
+    MarshalingService service = null;
+    List<MarshalingService> marshalingServices = ClassLoaderUtils.getServices(MarshalingService.class.getName());
+    if (marshalingServices != null && !marshalingServices.isEmpty())
+    {
+      service = marshalingServices.get(0);
+    }
+    return service;
+  }
+  
   //This will ensure the property is removed on the next request
   @ExcludeFromManagedRequestScope
   static private class AppliedClass
@@ -419,12 +466,15 @@ public class FileUploadConfiguratorImpl extends Configurator
     static public final AppliedClass APPLIED = new AppliedClass();
   }
 
-  static private class TempUploadedFile implements UploadedFile
+  static private final class TempUploadedFile extends ExtendedUploadedFile
   {
-    public TempUploadedFile(String filename, MultipartFormItem item)
+    public TempUploadedFile(String filename, MultipartFormItem item, Map<String, Object> properties)
     {
       _filename = filename;
       _item = item;
+      if (properties != null)
+        _properties = properties;
+      assert(properties == null);
       assert(item.getValue() == null);
     }
 
@@ -448,6 +498,12 @@ public class FileUploadConfiguratorImpl extends Configurator
     {
       return null;
     }
+    
+    @Override
+    public Map<String, Object> getProperties()
+    {
+      return _properties;
+    }
 
     public InputStream getInputStream() throws IOException
     {
@@ -461,8 +517,9 @@ public class FileUploadConfiguratorImpl extends Configurator
 
     private MultipartFormItem _item;
     private String _filename = null;
+    private Map<String, Object> _properties = new HashMap<String, Object>();
   }
-  static private class ChunkedUploadedFile implements UploadedFile, Serializable
+  static private class ChunkedUploadedFile extends ExtendedUploadedFile
   {
     private List<UploadedFile> _uploadedFileChunkList = null;
     private String _filename = null;
@@ -514,6 +571,18 @@ public class FileUploadConfiguratorImpl extends Configurator
       }
       return null;
     }
+    
+    @Override
+    public Map<String, Object> getProperties()
+    {
+      if (_uploadedFileChunkList.size() > 0)
+      {
+        UploadedFile file = _uploadedFileChunkList.get(0);
+        if (file instanceof ExtendedUploadedFile)
+          return ((ExtendedUploadedFile) file).getProperties();
+      }
+      return Collections.emptyMap();
+    }
 
     public InputStream getInputStream() throws IOException
     {
@@ -544,10 +613,12 @@ public class FileUploadConfiguratorImpl extends Configurator
   static private final String _PARAMS = FileUploadConfiguratorImpl.class.getName()+".PARAMS";
   static private final boolean _ENHANCED_PORTLET_SUPPORTED = ExternalContextUtils.isRequestTypeSupported(RequestType.RESOURCE);
   static private final String _MULTIPLE_UPLOAD_PARAM = "org.apache.myfaces.trinidad.UploadedFiles";
+  static private final String _MULTIPLE_UPLOAD_FILE_PROPERTY_PARAM = "org.apache.myfaces.trinidad.UploadedFiles.FileProperty";
   static private final String _MULTIPLE_UPLOAD_CHUNK_NUM_PARAM = "X-Trinidad-chunkNum";
   static private final String _MULTIPLE_UPLOAD_CHUNK_COUNT_PARAM = "X-Trinidad-chunkCount";
   static private final String _MULTIPLE_UPLOAD_CHUNK_FILENAME_PARAM = "X-Trinidad-chunkFilename";
   static private final String _UPLOADED_CHUNK_FILES_LIST_KEY = "org.apache.myfaces.trinidadinternal.webapp.UploadedFiles.ChunkList";
+  static private volatile MarshalingService _marshalingService = null;
   
   private long _maxAllowedBytes = 1L << 27;
 }

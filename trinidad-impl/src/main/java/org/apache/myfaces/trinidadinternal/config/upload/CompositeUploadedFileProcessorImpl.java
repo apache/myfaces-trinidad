@@ -37,6 +37,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.model.ExtendedUploadedFile;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
@@ -130,7 +131,7 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
    * Wrapper around UploadedFileImpl to listen for dispose() call and dispatch to
    * other UploadedFileImpls returned by other chained processors
    */
-  private static class WrappedUploadedFileImpl implements UploadedFile, Serializable
+  private static class WrappedUploadedFileImpl extends ExtendedUploadedFile
   {
 
     public WrappedUploadedFileImpl(UploadedFile original, List<UploadedFile> files)
@@ -191,6 +192,13 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
     public Object getOpaqueData()
     {
       return original.getOpaqueData();
+    }
+    
+    public Map<String, Object> getProperties()
+    {
+      if (original instanceof ExtendedUploadedFile)
+        return ((ExtendedUploadedFile) original).getProperties();
+      return Collections.emptyMap();
     }
 
     public InputStream getInputStream() throws IOException
