@@ -137,7 +137,8 @@ abstract public class RenderingContext
    * Get the Icon attached to this RenderingContext, give the iconName.
    * This could be the Icon that is on the Skin objec that is on the 
    * current RenderingContext.
-   * @param iconName
+   * @param iconName, should not contain the '.' prefix or ':alias' suffix
+   *                  even though the selector name contained it
    * @return the Icon attached to this RenderingContext
    */
   abstract public Icon getIcon(String iconName);
