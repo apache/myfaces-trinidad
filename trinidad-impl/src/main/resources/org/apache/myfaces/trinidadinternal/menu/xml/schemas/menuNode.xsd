@@ -23,7 +23,9 @@
             xmlns:xml="http://www.w3.org/XML/1998/namespace"
             targetNamespace="http://myfaces.apache.org/trinidad/menu"
             elementFormDefault="qualified">
-  <xsd:include schemaLocation="base.xsd"/>
+  <xsd:include schemaLocation="itemNode.xsd"/>
+  <xsd:include schemaLocation="groupNode.xsd"/>
+  <xsd:include schemaLocation="sharedNode.xsd"/>
 
   <xsd:element name="menuNode" type="trmenu:menuNodeType">
     <xsd:annotation>

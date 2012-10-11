@@ -261,7 +261,7 @@ override the locale that converters use for date time, number and currency.
 
   <simpleType name="expressionType">
     <restriction base="string" >
-      <pattern value="\#\{.+\}" />
+      <pattern value="#\{.+\}" />
     </restriction>
   </simpleType>
 
