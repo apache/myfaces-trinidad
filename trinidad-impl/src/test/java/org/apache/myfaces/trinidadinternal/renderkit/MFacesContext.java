@@ -40,6 +40,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadbuild.test.MockFacesContext12;
 import org.apache.shale.test.mock.MockExternalContext;
@@ -52,9 +53,14 @@ public class MFacesContext extends MockFacesContext12
 {
   public MFacesContext(Application application, boolean testMode)
   {
+    this(application, testMode, Collections.EMPTY_MAP);
+  }
+  
+  public MFacesContext(Application application, boolean testMode, Map<String, String> initParamMap)
+  {
     super(application);
     setCurrentInstance(this);
-    _external = new External(testMode, application);
+    _external = new External(testMode, application, initParamMap);
   }
 
   @Override
@@ -218,12 +224,13 @@ public class MFacesContext extends MockFacesContext12
   private static final class External
     extends MockExternalContext
   {
-    public External(boolean testMode, Object contextObject)
+    public External(boolean testMode, Object contextObject, Map<String,String> initParamMap)
     {
       super(new MServletContext(), null, null);
 
       _testMode = testMode;
       _contextObject = contextObject;
+      _initParamMap = initParamMap;
 
       File file = null;
       try
@@ -275,6 +282,10 @@ public class MFacesContext extends MockFacesContext12
       // A hack to disable image generation
       if ("org.apache.myfaces.trinidadinternal.BLOCK_IMAGE_GENERATION".equals(name))
         return "true";
+      if (!_initParamMap.isEmpty())
+      {
+        return (String) _initParamMap.get(name);
+      }
       return null;
     }
 
@@ -314,6 +325,17 @@ public class MFacesContext extends MockFacesContext12
     @Override
     public Map<String, String> getRequestParameterMap()
     {
+      RequestContext reqContext = RequestContext.getCurrentInstance();
+      String outputMode = reqContext.getOutputMode();
+      if (outputMode != null && !outputMode.isEmpty())
+      {
+        if (outputMode.equals(RequestContext.OutputMode.ATTACHMENT.id()))
+        {
+          Map<String, String> reqParamMap = new HashMap<String, String>(1);
+          reqParamMap.put(_OUTPUT_MODE_PARAM, RequestContext.OutputMode.ATTACHMENT.id());
+          return reqParamMap;
+        }
+      }      
       return Collections.EMPTY_MAP;
     }
 
@@ -386,6 +408,9 @@ public class MFacesContext extends MockFacesContext12
     private volatile Map<String, Object> _sessionMap = null;
 
     private final boolean _testMode;
+    private final Map<String, String> _initParamMap;
   }
+
   private static final String _GLOBAL_MESSAGE = "org.apache.myfaces.trinidadinternal.renderkit.MFacesContext.GLOBAL_MESSAGE";
+  static private final String _OUTPUT_MODE_PARAM = "org.apache.myfaces.trinidad.outputMode";
 }
