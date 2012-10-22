@@ -312,22 +312,6 @@ abstract public class RenderKitTestCase extends TestSuite
     }
 
     @Override
-    public void run(TestResult result)
-    {
-      if (!_script.isSupportedAgentType(getAgent().getType()))
-      {
-        /*
-        System.out.println("SKIPPING UNSUPPORTED SCRIPT: " + _scriptName);
-        System.out.println("AGENT IS " + getAgent());
-        System.out.println("AGENT TYPE IS " + getAgent().getType());
-        */
-        return;
-      }
-
-      super.run(result);
-    }
-
-    @Override
     protected void tearDown() throws IOException  
     {
       super.tearDown();
@@ -561,7 +545,11 @@ abstract public class RenderKitTestCase extends TestSuite
     SuiteDefinition definition, 
     boolean lenient) throws IOException, SAXException
   {
-    addTest(new RendererTest(name, definition, lenient));
+    RendererTest test = new RendererTest(name, definition, lenient);
+    if (test._script.isSupportedAgentType(test.getAgent().getType()))
+    {
+      addTest(test);
+    }
   }  
 
   protected abstract UIComponent populateDefaultComponentTree(
