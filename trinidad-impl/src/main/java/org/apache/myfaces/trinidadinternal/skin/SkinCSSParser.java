@@ -155,6 +155,16 @@ public class SkinCSSParser
     // first, parse out any comments
     Matcher matcher = _COMMENT_PATTERN.matcher(properties);
     properties = matcher.replaceAll("");
+
+    // handle with direct base 64 encodings, like encoded images (see Bug 13361138)
+    boolean containsEncodedImage = properties.indexOf(_BASE_64) != -1;
+
+    // replace with token, so we avoid incorrect splitting and unnecessary reconstruction
+    if (containsEncodedImage)
+    {
+      properties = properties.replaceAll(_BASE_64, _BASE_64_REPLACEMENT_TOKEN);
+    }
+
     // split into name and value (don't skip whitespace since properties like padding: 0px 5px
     // need the spaces)
     String[] property = _splitString(properties, ';', false);
@@ -166,6 +176,13 @@ public class SkinCSSParser
       {
         String name = property[i].substring(0, indexOfColon);
         String value = property[i].substring(indexOfColon+1);
+
+        // if there is possibility of a base 64 encoded value, adjust the replacement token that we added earlier
+        if (containsEncodedImage && value.indexOf(_BASE_64_REPLACEMENT_TOKEN) != -1)
+        {
+          value = value.replace(_BASE_64_REPLACEMENT_TOKEN, _BASE_64);
+        }
+
         documentHandler.property(name.trim(), value.trim());
 
       }
@@ -536,5 +553,6 @@ public class SkinCSSParser
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(SkinCSSParser.class);
 
-
+  private static final String _BASE_64 = ";base64";
+  private static final String _BASE_64_REPLACEMENT_TOKEN = "#base64";
 }

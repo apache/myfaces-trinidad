@@ -679,7 +679,8 @@ so the medium panelBox's body will be pink, not yellow */
         <a name="urls"></a>
         <subsection name="Specifying urls">
             <P>
-              Trinidad's skinning engine supports four URL types: absolute, relative, context relative and server relative.
+              Trinidad's skinning engine supports five URL types: absolute, relative, context relative,
+              server relative and base64 encoded images.
               <ul>
                 <li><b>Absolute URLs</b> specify the complete URL to the resource, including the protocol (e.g. http://).</li>
                 <li><b>Relative URLS</b> are used if the specified url does not start with a slash ("/") 
@@ -695,6 +696,8 @@ so the medium panelBox's body will be pink, not yellow */
                 to the context root. This allows you to easily refer to resources located on another 
                 application on the same server. To use this type of URL, the specified URL must 
                 start with two slashes ("//").</li>
+                <li><b>base64 encoded image URLS</b> are images embedded directly into the CSS file. This should follow
+                  the "data" URL scheme specified in rfc2397 i.e. data:image/[imagetype];base64,[data]</li>
               </ul>
             </P>
             <P><b>Equivalence</b> Most of the times, you can write equivalent URLs in any of the 
