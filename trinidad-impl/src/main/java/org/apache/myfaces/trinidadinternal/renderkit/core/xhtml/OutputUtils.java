@@ -140,11 +140,10 @@ public class OutputUtils
     _renderTableAttributes(context, arc, cellpadding, cellspacing, border, tableWidth, 
                            "" /* summary */ );
 
-    //if in screen reader mode, also indicate that this table is not a data table
+    //if in screen reader mode, indicate that this table is not a data table using ARIA role 'presentation'.
     if (CoreRenderer.isScreenReaderMode(arc))
     {
       ResponseWriter writer = context.getResponseWriter();
-      writer.writeAttribute("datatable", "0", null);
       writer.writeAttribute("role", "presentation", null); 
     }
   }
