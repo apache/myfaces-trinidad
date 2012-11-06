@@ -67,7 +67,7 @@ Each entry in the set is a rowKey.]]>
       <property-class>javax.el.MethodExpression</property-class>
       <property-extension>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.trinidad.SelectionEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.SelectionEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
         <mfp:property-metadata/>
@@ -83,7 +83,7 @@ Each entry in the set is a rowKey.]]>
       <property-class>javax.el.MethodExpression</property-class>
       <property-extension>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.trinidad.RowDisclosureEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.RowDisclosureEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
         <mfp:property-metadata/>
