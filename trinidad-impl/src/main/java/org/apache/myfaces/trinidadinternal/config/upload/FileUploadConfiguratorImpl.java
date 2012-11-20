@@ -474,7 +474,7 @@ public class FileUploadConfiguratorImpl extends Configurator
       _item = item;
       if (properties != null)
         _properties = properties;
-      assert(properties == null);
+      assert(properties != null);
       assert(item.getValue() == null);
     }
 
