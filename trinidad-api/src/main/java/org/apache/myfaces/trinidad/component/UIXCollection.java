@@ -56,6 +56,7 @@ import org.apache.myfaces.trinidad.model.LocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.SortCriterion;
 import org.apache.myfaces.trinidad.render.ClientRowKeyManager;
 import org.apache.myfaces.trinidad.render.ClientRowKeyManagerFactory;
+import org.apache.myfaces.trinidad.util.Args;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 
@@ -2086,7 +2087,27 @@ public abstract class UIXCollection extends UIXComponentBase
     // we need to place each row at an EL reachable place so that it
     // can be accessed via the 'var' variable. Let's place it on the
     // requestMap:
-    return TableUtils.setupELVariable(getFacesContext(), varName, newData);
+    return setupELVariable(getFacesContext(), varName, newData);
+  }
+  
+  /**
+   * Called by UIXCollection to set values for the "var" and
+   * "varStatus" EL variables.
+   *
+   * @param context the FacesContext for the current request
+   * @param name the non-null name of the EL variable
+   * @param value the value of the EL variable
+   * @return the previous value of the EL variable, or null if
+   *         the value was not previously set.
+   */
+  protected Object setupELVariable(
+    FacesContext context,
+    String       name,
+    Object       value
+    )
+  {
+    Args.notNull(name, "name");
+    return TableUtils.setupELVariable(context, name, value);
   }
 
   private static boolean _equals(Object a, Object b)
