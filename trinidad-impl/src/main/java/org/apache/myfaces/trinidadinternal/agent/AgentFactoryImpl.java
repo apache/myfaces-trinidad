@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.agent;
 import java.util.Collections;
 import java.util.Map;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.Agent;
@@ -285,7 +286,7 @@ public class AgentFactoryImpl implements AgentFactory
     // must check for gecko before checking for mozilla:
     else if (userAgent.startsWith("Mozilla"))
     {
-      _populateMozillaAgentImpl(userAgent,agent);
+      _populateMozillaAgentImpl(userAgent,agent, facesContext);
       return;
     }
 
@@ -895,7 +896,7 @@ public class AgentFactoryImpl implements AgentFactory
    * Returns an AgentEntry for the "Mozilla" family of browsers - which
    * most at least pretend to be.
    */
-  private void _populateMozillaAgentImpl(String agent,AgentImpl agentObj)
+  private void _populateMozillaAgentImpl(String agent,AgentImpl agentObj, FacesContext facesContext)
   {
     int paren = agent.indexOf('(');
     agentObj.setType(Agent.TYPE_DESKTOP); //Is this default realli okay??? These days Mobile agents also use Mozilla/xx.xx
@@ -939,7 +940,28 @@ public class AgentFactoryImpl implements AgentFactory
         else
         {
           agentObj.setAgent(Agent.AGENT_IE);
-          agentObj.setAgentVersion(_getVersion(agent, ieIndex + 4));
+
+          boolean useTridentVersionForIEAgent = false;
+          if (facesContext != null)
+            useTridentVersionForIEAgent = _useTridentVersionForIEAgent(facesContext.getExternalContext());
+          
+          // As of IE8, the Trident version is the most reliable method to find the 
+          // maximum capabilities of IE.  The IE WebBrowser Control by default is in IE7 
+          // compatability - MSIE 7.0;
+          int ieTridentIndex = !useTridentVersionForIEAgent ? -1 : agent.indexOf("Trident", ieIndex);
+          if (ieTridentIndex < 0)
+          { 
+            String ieVersion = _getVersion(agent, ieIndex + "MSIE ".length() - 1);
+            agentObj.setAgentVersion(ieVersion);
+          }
+          else 
+          {
+            //Trident/4.0 -> IE8
+            //Trident/5.0 -> IE9
+            //Trident/6.0 -> IE10
+            Double ieTridentVersion = Double.valueOf(_getVersion(agent, ieTridentIndex + "Trident/".length() - 1));
+            agentObj.setAgentVersion(String.valueOf(ieTridentVersion + 4.0));  
+          }
         }
       }
       else
@@ -1081,6 +1103,27 @@ public class AgentFactoryImpl implements AgentFactory
 
     return null;
   }
+  
+  /**
+   * Looks for the "org.apache.myfaces.trinidad.agent#OVERRIDE_IE_COMPATIBILITY_MODE" 
+   * context param that indicates that the Trident version in the user agent string 
+   * should be used for the IE agent over the browser version.
+   * 
+   * @param external faces external context
+   * @return <code>true</code> if the context params is "true".
+   */
+  private static boolean _useTridentVersionForIEAgent(ExternalContext external) 
+  {
+    String opt = external.getInitParameter(_USE_TRIDENT_VERSION_FOR_IE_AGENT);
+    if (Boolean.valueOf(opt))
+    {
+      return true;
+    }
+    return false;    
+  }
+
+  static final private String _USE_TRIDENT_VERSION_FOR_IE_AGENT = "org.apache.myfaces.trinidad.Agent#OVERRIDE_IE_COMPATIBILITY_MODE";
+  
   static private final String _EMAIL_PARAM =
     "org.apache.myfaces.trinidad.agent.email";
   static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";
