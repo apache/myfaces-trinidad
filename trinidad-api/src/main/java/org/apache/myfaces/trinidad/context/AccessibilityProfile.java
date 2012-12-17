@@ -154,7 +154,7 @@ public class AccessibilityProfile
   
   // No need to support subclassing yet, so keep the constructor private.
   // Clients should use the getInstance() factory method.
-  private AccessibilityProfile(
+  AccessibilityProfile(
     ColorContrast colorContrast,
     FontSize      fontSize
     )
