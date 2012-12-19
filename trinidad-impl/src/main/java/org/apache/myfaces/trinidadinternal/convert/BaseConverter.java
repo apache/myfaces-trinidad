@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.convert;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -64,6 +65,8 @@ class BaseConverter extends GenericConverter
       return Short.valueOf(num.shortValue());
     if (targetType == BigDecimal.class)
       return new BigDecimal(num.doubleValue());
+    if (targetType == BigInteger.class)
+      return BigInteger.valueOf(num.longValue());
     
     
     throw new IllegalArgumentException(_LOG.getMessage(
@@ -85,7 +88,7 @@ class BaseConverter extends GenericConverter
     }
     else if (Number.class.isAssignableFrom(sourceType))
     {
-      list.ensureCapacity(13);
+      list.ensureCapacity(14);
       list.add(Byte.class);
       list.add(Double.class);
       list.add(Float.class);
@@ -99,6 +102,7 @@ class BaseConverter extends GenericConverter
       list.add(Integer.TYPE);
       list.add(Long.TYPE);
       list.add(Short.TYPE);
+      list.add (BigInteger.class);
     }
     
     return list;
