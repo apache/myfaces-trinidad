@@ -116,7 +116,7 @@ public class LocaleElementsResourceLoader extends AggregatingResourceLoader
   static private final ResourceLoader[] _ResourceLoaders =
   {
     new ClassLoaderResourceLoader(),
-    new TrTranslationsResourceLoader(CoreRenderKitResourceLoader.getLocaleElementsURI("Translations", false))
+    new TrTranslationsResourceLoader()
   };
   
   static private final String _NEWLINE_SEPARATOR = "\n";

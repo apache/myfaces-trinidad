@@ -29,6 +29,15 @@ import org.apache.myfaces.trinidad.skin.Skin;
 
 public class TrTranslationsResourceLoader extends TranslationsResourceLoader
 {
+  public TrTranslationsResourceLoader()
+  {
+    // The path that is passed up to the DynamicResourceLoader is never actually
+    // used. TranslationsResourceLoader overrides findResource(), the only method
+    // on DynamicResourceLoader that does anything with the path.  As such, the
+    // empty string is a perfectly fine value.
+    this("");
+  }
+
   /**
    * Constructs a dynamic resouce loader for this path which serves up translations
    * 
