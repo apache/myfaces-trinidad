@@ -79,10 +79,6 @@ public class HeadRenderer extends XhtmlRenderer
       rw.endElement("title");
     }
 
-    // Write the META generator tag
-    _writeGeneratorTag(context);
-
-    delegateRenderer(context, rc, comp, bean, _styleSheetRenderer);
   }
 
   @Override
@@ -94,6 +90,11 @@ public class HeadRenderer extends XhtmlRenderer
     ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
+    
+    // Write the META generator tag
+    _writeGeneratorTag(context);
+
+    delegateRenderer(context, rc, comp, bean, _styleSheetRenderer);
 
     // trigger the rendering of targeted resource
     // for the HEAD, on UIViewRoot - if there are
