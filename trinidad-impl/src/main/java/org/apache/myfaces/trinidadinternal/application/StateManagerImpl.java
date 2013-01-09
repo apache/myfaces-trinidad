@@ -27,6 +27,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -1609,6 +1610,13 @@ public class StateManagerImpl extends StateManagerWrapper
         List<UIComponent> temp = new ArrayList<UIComponent>(root.getChildCount());
         temp.addAll(root.getChildren());
         newRoot.getChildren().addAll(temp);
+        // copy facets
+        if (root.getFacetCount() > 0)
+        {
+            Map<String,UIComponent> facets = new HashMap<String, UIComponent>(root.getFacetCount());
+            facets.putAll(root.getFacets());
+            newRoot.getFacets().putAll(facets);
+        }
         return newRoot;
       }
 
