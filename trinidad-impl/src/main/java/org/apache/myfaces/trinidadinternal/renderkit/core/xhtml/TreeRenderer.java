@@ -955,7 +955,7 @@ public class TreeRenderer extends XhtmlRenderer
 
 
     writer.startElement(XhtmlConstants.SPAN_ELEMENT, null);
-    writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, getClientId(context, tree), null);
+    writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, stamp.getClientId(), null);
     renderStyleClass(context, rc, treeStyle);
 
     if (supportsScripting(rc))
