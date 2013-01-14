@@ -106,6 +106,7 @@
         </xsd:annotation>
       </xsd:element>
       <xsd:element ref="skin:bundleSource" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="skin:metadata" minOccurs="0" maxOccurs="1" />
     </xsd:all>
   </xsd:complexType>
   <xsd:complexType name="versionType">
@@ -139,6 +140,7 @@
         </xsd:annotation>
       </xsd:element>
       <xsd:element ref="skin:bundleSource" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="skin:metadata" minOccurs="0" maxOccurs="1" />
     </xsd:sequence>
   </xsd:complexType>
   <!-- Use XSD "inheritance" of the substitution group to avoid the use of xsd:choice as it
@@ -160,6 +162,31 @@
                          precedence.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+
+
+  <xsd:element name="metadata">
+    <xsd:annotation>
+      <xsd:documentation>A placeholder element for any custom metadata that applications
+        would want to add to their skins and skin additions.
+      </xsd:documentation>
+    </xsd:annotation>
+     <xsd:complexType>
+       <xsd:sequence>
+         <xsd:element ref="skin:metadata-item" minOccurs="0" maxOccurs="unbounded" />
+       </xsd:sequence>
+     </xsd:complexType>
+   </xsd:element>
+
+  <xsd:element name="metadata-item" abstract="true">
+   <xsd:annotation>
+     <xsd:documentation>To enable other XML schemas to define their own metadata
+                      items, this abstract metadata-item element is defined to
+                      serve as a substitution group. Any elements in the metadata-item
+                      substitution group will be allowed inside of the metadata element.
+     </xsd:documentation>
+   </xsd:annotation>
+  </xsd:element>
+
 </xsd:schema>
 
 
