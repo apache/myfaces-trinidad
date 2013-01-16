@@ -141,7 +141,7 @@ public abstract class UIXListViewTemplate extends UIXIterator
   @Override
   Object __getMyStampState()
   {
-    Object[] state = new Object[3];
+    Object[] state = new Object[5];
     state[0] = super.__getMyStampState();
 
     // Use "hidden" property keys to allow the row key sets to be retrieved without the
@@ -154,6 +154,9 @@ public abstract class UIXListViewTemplate extends UIXIterator
     state[1] = selectedRowKeys;
     state[2] = disclosedRowKeys;
 
+    state[3] = Integer.valueOf(getFirst());
+    state[4] = Integer.valueOf(getRows());
+    
     return state;
   }
 
@@ -169,6 +172,8 @@ public abstract class UIXListViewTemplate extends UIXIterator
     super.__setMyStampState(state[0]);
     setSelectedRowKeys((RowKeySet) state[1]);
     setGroupDisclosedRowKeys((RowKeySet) state[2]);
+    setFirst(((Integer) state[3]).intValue());
+    setRows(((Integer) state[4]).intValue());
   }
 
   @Override
