@@ -22,12 +22,17 @@ import java.io.Serializable;
 
 import java.lang.reflect.Array;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.el.ELContext;
 import javax.el.PropertyNotWritableException;
@@ -252,12 +257,14 @@ public class ForEachTag
     if (_varStatus != null)
     {
       // Setup the map to store the iteration status values for this execution of this for each tag
-      _setupExecutionMap(facesContext);
+      _setupIterationStatusMap(facesContext);
     }
 
-    // Create a set to track all keys viewed during the execution of this forEach tag to be able to
-    // detect which keys from a previous request are no longer used.
-    _processedKeysDuringIteration = new HashSet<Serializable>();
+    // Create a set to track all iteration IDs viewed during the execution of this forEach tag
+    // to be able todetect which keys from a previous request are no longer used.
+    _assignIterationId(facesContext, true);
+
+    // Add the "var" and "varStatus" into the EL context and variable mapper
     _updateVars(vm);
 
     if (_LOG.isFiner())
@@ -271,9 +278,11 @@ public class ForEachTag
   @Override
   public int doAfterBody()
   {
-    _LOG.finest("doAfterBody processing for execution ID {0}", _executionId);
+    _LOG.finest("doAfterBody processing for iteration ID {0}", _iterationId);
 
     _currentIterationStatus = _currentIterationStatus.next(_itemsWrapper);
+
+    _iterationIdUtil.pop();
 
     VariableMapper vm = pageContext.getELContext().getVariableMapper();
 
@@ -282,30 +291,20 @@ public class ForEachTag
       // We've finished iterating, we need to clean up by restore EL state and the variable mapper
       _restoreContextVariables(vm);
 
-      if (_varStatus != null)
+      Set<Long> unusedIds = _iterationIdUtil.removeUnusedIds(_jspId,
+        _getParentComponentScopedId(FacesContext.getCurrentInstance()));
+      for (Long id : unusedIds)
       {
-        // Due to the fact that we are retaining the map keys in the view attributes, check to see
-        // if any keys were not used during this execution and remove them so that we are not
-        // retaining more objects than necessary in the view state
-        for (Iterator<Serializable> iter = _iterationKeyToIterationStatusMap.keySet().iterator();
-          iter.hasNext();)
-        {
-          Serializable key = iter.next();
-          if (!_processedKeysDuringIteration.contains(key))
-          {
-            _LOG.finest("Removing unused key: {0}", key);
-            iter.remove();
-          }
-        }
+        _iterationStatusMap.remove(id);
       }
-
-      _processedKeysDuringIteration = null;
 
       return SKIP_BODY;
     }
     else
     {
-      // Otherwise, update the variables and iterate again
+      // Otherwise, generate a new iteration ID or find the one from the previous request and then
+      // update the variables and iterate again
+      _assignIterationId(FacesContext.getCurrentInstance(), false);
       _updateVars(vm);
 
       return EVAL_BODY_AGAIN;
@@ -325,13 +324,13 @@ public class ForEachTag
     _items = null;
     _var = null;
     _varStatus = null;
-    _executionId = null;
+    _iterationId = null;
+    _iterationIdUtil = null;
     _previousVarExpression = null;
     _previousVarStatusExpression = null;
     _currentIterationStatus = null;
-    _iterationKeyToIterationStatusMap = null;
+    _iterationStatusMap = null;
     _itemsWrapper = null;
-    _processedKeysDuringIteration = null;
 
     _LOG.finest("release called");
   }
@@ -381,6 +380,33 @@ public class ForEachTag
     }
   }
 
+  private void _assignIterationId(
+    FacesContext facesContext,
+    boolean      calledFromDoStartTag)
+  {
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    if (_iterationIdUtil == null)
+    {
+      _iterationIdUtil = new IterationIdUtil(viewRoot.getViewMap(),
+        facesContext.getExternalContext().getRequestMap());
+    }
+
+    String scopedId = _getParentComponentScopedId(facesContext);
+    if (calledFromDoStartTag)
+    {
+      _iterationIdUtil.beginTag(_jspId, scopedId);
+    }
+
+    Serializable key = _currentIterationStatus.getKey();
+    IterationId iterIdObj = new IterationId(scopedId, _jspId, key);
+    _iterationId = _iterationIdUtil.push(iterIdObj);
+    if (_LOG.isFinest())
+    {
+      _LOG.finest("Iteration ID object {0} associated with ID {1}",
+        new Object[] { iterIdObj, _iterationId });
+    }
+  }
+
   /**
    * Sets up the variable mapper, exposing the var and the iteration status data to EL.
    * @param vm the variable mapper to modify
@@ -388,8 +414,6 @@ public class ForEachTag
   private void _updateVars(
     VariableMapper vm)
   {
-    Serializable key = _currentIterationStatus.getKey();
-
     if (_var != null)
     {
       if (_items != null)
@@ -399,7 +423,8 @@ public class ForEachTag
         // with the collection resulting in corruputed component state. This expression will be
         // used inside the variable mapper that is stored in each value expression that is created
         // by JSP when components in the body of the for each tag are created.
-        KeyedValueExpression keyExpr = new KeyedValueExpression(_items, key);
+        KeyedValueExpression keyExpr = new KeyedValueExpression(_items,
+          _currentIterationStatus.getKey());
         vm.setVariable(_var, keyExpr);
       }
 
@@ -414,16 +439,13 @@ public class ForEachTag
     if (_varStatus != null)
     {
       // Store a new var status value expression into the variable mapper
-      vm.setVariable(_varStatus, new VarStatusValueExpression(key, _executionId));
+      vm.setVariable(_varStatus, new VarStatusValueExpression(_iterationId));
 
       // We only need to store the current iteration status on a map if the varStatus variable is
       // being used. If the varStatus is not used, no value expressions would be stored that need
       // to be able to get the current information and it is okay to have the iteration status
       // be transient for this request.
-      _iterationKeyToIterationStatusMap.put(key, _currentIterationStatus);
-
-      // Record that this key was used during this execution
-      _processedKeysDuringIteration.add(key);
+      _iterationStatusMap.put(_iterationId, _currentIterationStatus);
 
       // Put the value onto the page context
       pageContext.setAttribute(_varStatus, _currentIterationStatus);
@@ -485,6 +507,17 @@ public class ForEachTag
       throw new JspTagException(
         "'var' and 'varStatus' should not have the same value");
     }
+  }
+
+  private String _getParentComponentScopedId(
+    FacesContext facesContext)
+  {
+    UIComponentClassicTagBase tag = UIComponentClassicTagBase.getParentUIComponentClassicTagBase(
+      pageContext);
+    UIComponent parentComponent = tag == null ? null : tag.getComponentInstance();
+
+    return parentComponent == null ? "" :
+      ComponentUtils.getLogicalScopedIdForComponent(parentComponent, facesContext.getViewRoot());
   }
 
   /**
@@ -549,108 +582,39 @@ public class ForEachTag
   }
 
   /**
-   * Generate an ID (key) that can be used to identify the for each tag for each time the tag is
-   * executed (each time doStartTag is called, not each time the tag iterates).
-   * @param facesContext The faces context
-   * @return an ID to be used as a key
+   * Sets up the iteration status map. The iteration status map uses the parent component of the
+   * tag, the JSP tag ID and the current iteration key to be able to identify the correct iteration
+   * status. This takes into account nested for each loops.
+   * @param facesContext the facesContext
    */
-  private String _generateExecutionId(
+  private void _setupIterationStatusMap(
     FacesContext facesContext)
   {
-    // Due to the fact that the number of includes that use the forEach loop may change over time,
-    // (consider regions that navigate that may or may not have for each tags), we need a way to
-    // store iteration status information between requests and be able to match the tags between
-    // requests.
-    // As such, this code uses the parent scoped ID plus the JSP ID assigned to the tag by the
-    // container to identify the forEach tag. Since a forEach tag may be executed more than once
-    // (use case of a nested forEach tag), we must also use a counter to ensure that the
-    // execution is unique for each time the for each tag's doStartTag is called.
-    // Since we also keep data based on this keep in the view scope, we also need to track which
-    // execution IDs have been generated during each request so that we can delete any unused
-    // data. This must be done using a phaseListener
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    Map<String, Object> viewMap = viewRoot.getViewMap();
+    _iterationStatusMap = _getIterationStatusMap(viewMap, true);
+  }
 
-    // Create an ID that represents the execution of this forEach tag (tied to each invocation
-    // of the doStartTag). This ID is used as a key to save a map to store the iteration status
-    // data between requests to be able to keep the varStatus value expressions up to date between
-    // requests taking into account that the collection may be changed between requests.
-
-    // TODO: be able to clean up unused execution IDs in the current request
-    UIComponentClassicTagBase tag = UIComponentClassicTagBase.getParentUIComponentClassicTagBase(
-                                      pageContext);
-    UIComponent parentComponent = tag == null ? null : tag.getComponentInstance();
-
-    String scopedId = parentComponent == null ? "" : ComponentUtils.getLogicalScopedIdForComponent(
-                                                       parentComponent, facesContext.getViewRoot());
-
-    String id = new StringBuilder(_VIEW_ATTR_KEY_LENGTH + _jspId.length() +
-                                         scopedId.length() + 1)
-      .append(_VIEW_ATTR_KEY)
-      .append(scopedId)
-      .append('.')
-      .append(_jspId)
-      .toString();
-
-    Map<Object, Object> fcAttrs = facesContext.getAttributes();
-    @SuppressWarnings("unchecked")
-    Set<String> usedExecutionIds = (Set<String>)fcAttrs.get(_EXECUTION_ID_MAP_KEY);
-
-    if (usedExecutionIds == null)
+  private static Map<Long, IterationStatus> _getIterationStatusMap(
+    Map<String, Object> viewMap,
+    boolean             create)
+  {
+    Map<Long, IterationStatus> map = (Map<Long, IterationStatus>)viewMap.get(_ITERATION_MAP_KEY);
+    if (map == null)
     {
-      usedExecutionIds = new HashSet<String>();
-      fcAttrs.put(_EXECUTION_ID_MAP_KEY, usedExecutionIds);
-    }
-    else
-    {
-      String origId = id;
-      for (int i = 1; usedExecutionIds.contains(id); ++i)
+      if (create)
       {
-        id = origId + Integer.toString(i);
+        map = new HashMap<Long, IterationStatus>();
+        viewMap.put(_ITERATION_MAP_KEY, map);
+      }
+      else
+      {
+        _LOG.warning("FOR_EACH_ITERATION_DATA_UNAVAILABLE");
+        return Collections.emptyMap();
       }
     }
 
-    usedExecutionIds.add(id);
-
-    _LOG.finest("Execution ID: {0}", id);
-
-    // Save the execution ID just for logging and debugging reasons
-    _executionId = id;
-
-    return id;
-  }
-
-  /**
-   * Sets up the execution map. The execution map is the map used to store the map keys to their
-   * iteration status values for each execution of the tag (one map for each invocation of
-   * doStartTag). This method is called by doStartTag.
-   * @param facesContext
-   */
-  private void _setupExecutionMap(
-    FacesContext facesContext)
-  {
-    String executionId = _generateExecutionId(facesContext);
-
-    // We need to store the information into something that will persist between requests. This
-    // is so that we can keep a handle on each key that is used during each request and be able
-    // to update the iteration status data so that the varStatus reports correct information
-    // in each request even if the collection has been changed.
-    Map<String, Object> viewAttributes = facesContext.getViewRoot().getAttributes();
-
-    // Use a local variable instead of assigning directly to _iterationKeyToIterationStatusMap
-    // To avoid compiler errors on the generic cast.
-    @SuppressWarnings("unchecked")
-    Map<Serializable, IterationStatus> iterationKeyToIterationStatusMap =
-      (Map<Serializable, IterationStatus>)viewAttributes.get(executionId);
-
-    if (iterationKeyToIterationStatusMap == null)
-    {
-      _iterationKeyToIterationStatusMap = new HashMap<Serializable, IterationStatus>();
-      _LOG.finest("Created a new iteration status map for execution ID {0}", executionId);
-      viewAttributes.put(executionId, _iterationKeyToIterationStatusMap);
-    }
-    else
-    {
-      _iterationKeyToIterationStatusMap = iterationKeyToIterationStatusMap;
-    }
+    return map;
   }
 
   private static class KeyedValueExpression
@@ -770,11 +734,9 @@ public class ForEachTag
     implements Serializable
   {
     private VarStatusValueExpression(
-      Serializable iterationKey,
-      String       executionId)
+      long iterationId)
     {
-      _iterationKey = iterationKey;
-      _exectionId = executionId;
+      _iterationId = iterationId;
     }
 
     @Override
@@ -788,24 +750,15 @@ public class ForEachTag
       assert viewRoot != null :
         "Illegal attempt to evaluate for each EL outside of an active view root";
 
-      Map<String, Object> viewAttributes = viewRoot.getAttributes();
-      Map<Serializable, IterationStatus> metaDataMap = (Map<Serializable, IterationStatus>)
-        viewAttributes.get(_exectionId);
-
-      if (metaDataMap == null)
+      Map<Long, IterationStatus> map = _getIterationStatusMap(viewRoot.getViewMap(), false);
+      IterationStatus status = map.get(_iterationId);
+      if (status == null)
       {
-        _LOG.warning("FOR_EACH_META_DATA_UNAVAILABLE");
+        _LOG.warning("FOR_EACH_STATUS_UNAVAILABLE");
         return null;
       }
 
-      IterationStatus metaData = metaDataMap.get(_iterationKey);
-      if (metaData == null)
-      {
-        _LOG.warning("FOR_EACH_META_DATA_KEY_UNAVAILABLE");
-        return null;
-      }
-
-      return metaData;
+      return status;
     }
 
     @Override
@@ -844,7 +797,7 @@ public class ForEachTag
       if (obj instanceof VarStatusValueExpression)
       {
         VarStatusValueExpression vsve = (VarStatusValueExpression)obj;
-        return _iterationKey.equals(vsve._iterationKey) && _exectionId.equals(vsve._exectionId);
+        return _iterationId == vsve._iterationId;
       }
 
       return false;
@@ -853,10 +806,7 @@ public class ForEachTag
     @Override
     public int hashCode()
     {
-      int hc = _iterationKey.hashCode();
-      // Use 31 as a prime number, a technique used in the JRE classes:
-      hc = 31 * hc + _exectionId.hashCode();
-      return hc;
+      return Long.valueOf(_iterationId).hashCode();
     }
 
     @Override
@@ -865,11 +815,10 @@ public class ForEachTag
       return false;
     }
 
-    @SuppressWarnings("compatibility:6103993756296276343")
-    private static final long serialVersionUID = 2L;
+    @SuppressWarnings("compatibility:-2661519236237365267")
+    private static final long serialVersionUID = 3L;
 
-    private final String _exectionId;
-    private final Serializable _iterationKey;
+    private final long _iterationId;
   }
 
   /**
@@ -1067,6 +1016,91 @@ public class ForEachTag
   }
 
   /**
+   * Class that provides the information to identify the iteration of a particular for each tag
+   */
+  public final static class IterationId
+    implements Serializable
+  {
+    public IterationId(
+      String       parentComponentScopedId,
+      String       jspId,
+      Serializable key)
+    {
+      _scopedId = parentComponentScopedId;
+      _jspId = jspId;
+      _key = key;
+    }
+
+    @Override
+    public boolean equals(Object object)
+    {
+      if (this == object)
+      {
+        return true;
+      }
+      if (!(object instanceof ForEachTag.IterationId))
+      {
+        return false;
+      }
+      final ForEachTag.IterationId other = (ForEachTag.IterationId) object;
+      if (!(_scopedId == null ? other._scopedId == null : _scopedId.equals(other._scopedId)))
+      {
+        return false;
+      }
+      if (!(_jspId == null ? other._jspId == null : _jspId.equals(other._jspId)))
+      {
+        return false;
+      }
+      if (!(_key == null ? other._key == null : _key.equals(other._key)))
+      {
+        return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+      final int PRIME = 37;
+      int result = 1;
+      result = PRIME * result + ((_scopedId == null) ? 0 : _scopedId.hashCode());
+      result = PRIME * result + ((_jspId == null) ? 0 : _jspId.hashCode());
+      result = PRIME * result + ((_key == null) ? 0 : _key.hashCode());
+      return result;
+    }
+
+    public String getScopedId()
+    {
+      return _scopedId;
+    }
+
+    public String getJspId()
+    {
+      return _jspId;
+    }
+
+    public Serializable getKey()
+    {
+      return _key;
+    }
+
+    @Override
+    public String toString()
+    {
+      return String.format("IterationId[Scoped ID: %s, JSP ID: %s, Key: %s]",
+               _scopedId, _jspId, _key);
+    }
+
+    @SuppressWarnings("compatibility:7983047193389138908")
+    private static final long serialVersionUID = 1L;
+
+    private final String _scopedId;
+    private final String _jspId;
+    private final Serializable _key;
+  }
+
+  /**
    * Data that is used for the children content of the tag. This provides the information that is
    * exposed to the user via the varStatus attribute.
    */
@@ -1206,6 +1240,184 @@ public class ForEachTag
     private final Serializable _key;
   }
 
+  private static class IterationIdUtil
+  {
+    private IterationIdUtil(
+      Map<String, Object> viewMap,
+      Map<String, Object> reqMap)
+    {
+      _viewMap = viewMap;
+      _reqMap = reqMap;
+    }
+
+    IterationId pop()
+    {
+      return _getCurrentQueue(false).removeLast();
+    }
+
+    void beginTag(
+      String currentJspId,
+      String parentComponentScopedId)
+    {
+      Deque<IterationId> q = _getCurrentQueue(true);
+
+      if (q.isEmpty())
+      {
+        // If the queue is empty, this is a top level (not nested) for each tag. Record the
+        // iteration IDs for this tag and all nested tags to detect which ones are used during
+        // the current request to be able to remove unused data.
+        _processedIterationIds = new HashSet<Long>();
+        _reqMap.put(_REQ_USED_IDS_KEY, _processedIterationIds);
+      }
+      else
+      {
+        // This is nested tag, use the set created by the root parent tag
+        _processedIterationIds = (Set<Long>)_reqMap.get(_REQ_USED_IDS_KEY);
+      }
+    }
+
+    Long push(
+      IterationId iterationId)
+    {
+      Map<List<IterationId>, Long> map = _getIterationIdStackToIdMap(true);
+
+      Deque<IterationId> q = _getCurrentQueue(true);
+      q.offerLast(iterationId);
+      List<IterationId> list = new ArrayList<IterationId>(q);
+
+      // See if this is already has an ID from a previous request
+      Long id = map.get(list);
+
+      if (id == null)
+      {
+        id = _getNextId().getAndIncrement();
+        map.put(list, id);
+      }
+
+      _processedIterationIds.add(id);
+
+      return id;
+    }
+
+    /**
+     * Called from doAfterBody after all the iterations have been completed and the pop method
+     * of this class has been called.
+     *
+     * @param currentJspId the JSP tag ID of the calling instance
+     * @param parentComponentScopedId the scoped ID of the parent component of the tag
+     * @return the IDs that should be removed
+     */
+    Set<Long> removeUnusedIds(
+      String    currentJspId,
+      String    parentComponentScopedId)
+    {
+      Deque<IterationId> q = _getCurrentQueue(false);
+
+      if (!q.isEmpty())
+      {
+        // Only process top-level for each tags. This is because nested tags may be processed
+        // multiple times during one request and we do not know if all the IDs have been used
+        // until all have been complete
+        return Collections.emptySet();
+      }
+
+      Set<Long> unusedIds = new HashSet<Long>();
+      Map<List<IterationId>, Long> map = _getIterationIdStackToIdMap(false);
+
+      for (Iterator<Map.Entry<List<IterationId>, Long>> iter = map.entrySet().iterator();
+        iter.hasNext();)
+      {
+        Map.Entry<List<IterationId>, Long> entry = iter.next();
+
+        List<IterationId> list = entry.getKey();
+        IterationId baseId = list.get(0);
+
+        // Only process the entries that are for this tag
+        if (currentJspId.equals(baseId.getJspId()) &&
+          parentComponentScopedId.equals(baseId.getScopedId()))
+        {
+          Long id = entry.getValue();
+          if (_processedIterationIds.contains(id))
+          {
+            _LOG.finest("Iteration ID being retained: {0}", id);
+          }
+          else
+          {
+            unusedIds.add(id);
+            if (_LOG.isFinest())
+            {
+              StringBuilder path = new StringBuilder();
+              for (IterationId iterId : list)
+              {
+                path.append('\n').append("  ").append(iterId);
+              }
+              _LOG.finest("Iteration ID {0} being removed. Path to ID: {1}",
+                new Object[] { id, path });
+            }
+
+            iter.remove();
+          }
+        }
+      }
+
+      return unusedIds;
+    }
+
+    private Map<List<IterationId>, Long> _getIterationIdStackToIdMap(
+      boolean create)
+    {
+      Map<List<IterationId>, Long> map = (Map<List<IterationId>, Long>)_viewMap.get(_VIEW_MAP_KEY);
+      if (map == null && create)
+      {
+        map = new HashMap<List<IterationId>, Long>();
+        _viewMap.put(_VIEW_MAP_KEY, map);
+      }
+
+      return map;
+    }
+
+    private AtomicLong _getNextId()
+    {
+      if (_id == null)
+      {
+        _id = (AtomicLong)_viewMap.get(_VIEW_ID_KEY);
+        if (_id == null)
+        {
+          _id = new AtomicLong();
+          _viewMap.put(_VIEW_ID_KEY, _id);
+        }
+      }
+
+      return _id;
+    }
+
+    private Deque<IterationId> _getCurrentQueue(
+      boolean create)
+    {
+      if (_queue == null)
+      {
+        _queue = (Deque)_viewMap.get(_CURRENT_STACK_KEY);
+        if (_queue == null && create)
+        {
+          _queue = new ArrayDeque<IterationId>();
+          _viewMap.put(_CURRENT_STACK_KEY, _queue);
+        }
+      }
+
+      return _queue;
+    }
+
+    private AtomicLong _id;
+    private Deque _queue;
+    private Set<Long> _processedIterationIds;
+    private final Map<String, Object> _viewMap;
+    private final Map<String, Object> _reqMap;
+    private final static String _CURRENT_STACK_KEY = IterationIdUtil.class.getName() + ".Q";
+    private final static String _VIEW_MAP_KEY = IterationIdUtil.class.getName() + ".MAP";
+    private final static String _VIEW_ID_KEY = IterationIdUtil.class.getName() + ".NEXT_ID";
+    private final static String _REQ_USED_IDS_KEY = IterationIdUtil.class.getName() + ".IDS";
+  }
+
   private String _jspId;
 
   private ValueExpression _items;
@@ -1217,10 +1429,10 @@ public class ForEachTag
   private Integer _end;
   private Integer _step;
 
-  private String _executionId;
+  private Long _iterationId;
   private IterationStatus _currentIterationStatus;
-  private Map<Serializable, IterationStatus> _iterationKeyToIterationStatusMap;
-  private Set<Serializable> _processedKeysDuringIteration;
+  private IterationIdUtil _iterationIdUtil;
+  private Map<Long, IterationStatus> _iterationStatusMap;
   private ItemsWrapper _itemsWrapper;
 
   private String _var;
@@ -1234,12 +1446,6 @@ public class ForEachTag
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ForEachTag.class);
 
-  private static final String _INCLUDE_COUNTER_KEY =
-    ForEachTag.class.getName() + ".IC";
-
-  private static final String _VIEW_ATTR_KEY =
-    ForEachTag.class.getName() + ".VIEW.";
-  private static final int _VIEW_ATTR_KEY_LENGTH = _VIEW_ATTR_KEY.length();
-  private static final String _EXECUTION_ID_MAP_KEY =
-    ForEachTag.class.getName() + ".EXEC_ID";
+  private static final String _ITERATION_MAP_KEY =
+    ForEachTag.class.getName() + ".ITER";
 }
