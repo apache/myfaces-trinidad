@@ -306,6 +306,26 @@ TrXMLJsfAjaxRequest.prototype.send = function()
 {
   var source = this._params.source ?
     _getElementById(window.document, this._params.source) : null;
+    
+  var formElement = (this._formId != null) ? document.getElementById(this._formId) : null;
+  
+  // TRINIDAD-2216 - Deal with source elements that do not have Id set
+  if (source == null)
+  {
+    var evt = this._event;
+    if (evt)
+    {
+      source = evt.target || evt.srcElement;
+      if (source)
+      {
+        source.id = this._params.source;
+      }
+    }
+    else if (this._params.rtrn) // this is a dialog event
+    {
+      source = formElement;
+    }
+  }
 
   var ajaxCallback = TrUIUtils.createCallback(this, this._ajaxCallback);
 
@@ -326,29 +346,26 @@ TrXMLJsfAjaxRequest.prototype.send = function()
   // need to update the form here and remove the values from the params.
   this._origFormValues = {};
   this._formElements = {};
-  if (this._formId != null)
+  
+  if (formElement != null)
   {
-    var formElement = document.getElementById(this._formId);
-    if (formElement != null)
+    var formElements = formElement.elements;
+    for (var i = 0; i < formElements.length; ++i)
     {
-      var formElements = formElement.elements;
-      for (var i = 0; i < formElements.length; ++i)
+      var input = formElements[i];
+      if (input.name && !input.disabled && !(input.tagName == "INPUT" && input.type == "submit"))
       {
-        var input = formElements[i];
-        if (input.name && !input.disabled && !(input.tagName == "INPUT" && input.type == "submit"))
+        for (p in payload)
         {
-          for (p in payload)
+          if (p == input.name)
           {
-            if (p == input.name)
-            {
-              var payloadValue = payload[p];
-              delete payload[p];
+            var payloadValue = payload[p];
+            delete payload[p];
 
-              this._origFormValues[p] = input.value;
-              this._formElements[p] = input;
-              input.value = payloadValue;
-              break;
-            }
+            this._origFormValues[p] = input.value;
+            this._formElements[p] = input;
+            input.value = payloadValue;
+            break;
           }
         }
       }
