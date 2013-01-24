@@ -319,12 +319,23 @@ public class ViewDeclarationLanguageFactoryImpl
     public void buildView(FacesContext facesContext, UIViewRoot uiViewRoot)
       throws IOException
     {
-      getWrapped().buildView(facesContext, uiViewRoot);
+      super.buildView(facesContext, uiViewRoot);
       if(PhaseId.RENDER_RESPONSE.equals(FacesContext.getCurrentInstance().getCurrentPhaseId()))
       {          
         ChangeManager cm = RequestContext.getCurrentInstance().getChangeManager();
         cm.applyComponentChangesForCurrentView(FacesContext.getCurrentInstance());
       }
+    }
+    
+    @Override
+    public void renderView(FacesContext context, UIViewRoot view) throws IOException
+    {
+      // TRINIDAD-2347 - make sure that the session is 'touched' before rendering a page with Facelets
+      if (!context.isPostback() && FACELETS_VIEW_DECLARATION_LANGUAGE_ID.equals(getId()))
+      {
+        context.getExternalContext().getSession(true);
+      }
+      super.renderView(context, view);
     }
 
     private final ViewDeclarationLanguage _wrapped;
