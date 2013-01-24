@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
@@ -293,6 +296,27 @@ public class XhtmlRenderer
 
     return true;
   }
+  
+  private boolean hasAjaxBahavior(UIComponent component)
+  {
+    if (!(component instanceof ClientBehaviorHolder))
+    {
+      return false;
+    }
+    ClientBehaviorHolder holder = (ClientBehaviorHolder) component;
+    for (List<ClientBehavior> behaviors : holder.getClientBehaviors().values())
+    {
+      for (ClientBehavior behavior : behaviors)
+      {
+        if (behavior instanceof AjaxBehavior)
+        {
+          return true;
+        }
+      }
+    }
+    
+    return false;
+  }
 
   /**
    * Returns true if the component should render an ID.  Components
@@ -303,6 +327,12 @@ public class XhtmlRenderer
   protected boolean shouldRenderId(FacesContext context,
     UIComponent component)
   {
+    // TRINIDAD-2303
+    if (hasAjaxBahavior(component))
+    {
+      return true;
+    }
+    
     // If there's partial triggers, always render an ID if possible
     if (getPartialTriggers(component, getFacesBean(component)) != null)
     {
