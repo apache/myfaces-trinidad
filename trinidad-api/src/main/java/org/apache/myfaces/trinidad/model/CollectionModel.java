@@ -527,5 +527,21 @@ public abstract class CollectionModel extends DataModel
     return;
   }
 
+  /**
+   * Gets the row limit of this collection model. Default is to return UNKNOWN_ROW_LIMIT.
+   * Subclasses should override this method if row limit is enforced.
+   * @return the maximum number of rows this collection can hold, possible return values are:
+   *   A positive number: the maximum number of rows the collection can hold
+   *   UNKNOWN_ROW_LIMIT: row limit is unknown.
+   *   UNLIMITED_ROW: there is no limit
+   */
+  public int getRowLimit()
+  {
+    return UNKNOWN_ROW_LIMIT;
+  }
+
+  public final static int UNLIMITED_ROW = -2;
+  public final static int UNKNOWN_ROW_LIMIT = -1;
+
   private List<RowKeyChangeListener> _rowKeyChangeListeners = new ArrayList<RowKeyChangeListener>(3);    
 }
