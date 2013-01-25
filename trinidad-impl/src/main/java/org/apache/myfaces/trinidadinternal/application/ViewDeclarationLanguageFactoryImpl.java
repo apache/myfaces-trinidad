@@ -331,13 +331,24 @@ public class ViewDeclarationLanguageFactoryImpl
     public void renderView(FacesContext context, UIViewRoot view) throws IOException
     {
       // TRINIDAD-2347 - make sure that the session is 'touched' before rendering a page with Facelets
-      if (!context.isPostback() && FACELETS_VIEW_DECLARATION_LANGUAGE_ID.equals(getId()))
+      if (!context.isPostback() && _isFacelets())
       {
         context.getExternalContext().getSession(true);
       }
       super.renderView(context, view);
     }
+    
+    private boolean _isFacelets()
+    {
+      if (_facelets == null)
+      {
+        _facelets = FACELETS_VIEW_DECLARATION_LANGUAGE_ID.equals(getId());
+      }
+      return _facelets;
+    }
 
     private final ViewDeclarationLanguage _wrapped;
+    
+    private Boolean _facelets = null;
   }
 }
