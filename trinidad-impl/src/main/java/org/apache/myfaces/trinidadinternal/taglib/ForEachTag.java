@@ -1320,7 +1320,7 @@ public class ForEachTag
       return PhaseId.RENDER_RESPONSE;
     }
 
-    @SuppressWarnings("compatibility:-4601483360542261568")
+    @SuppressWarnings("compatibility:2061027649143065494")
     private static final long serialVersionUID = 1L;
 
     private final static String _PL_KEY = CleanupPhaseListener.class.getName();
