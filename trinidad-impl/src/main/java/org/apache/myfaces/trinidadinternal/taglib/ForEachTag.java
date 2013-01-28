@@ -42,6 +42,9 @@ import javax.el.VariableMapper;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PhaseListener;
 import javax.faces.webapp.UIComponentClassicTagBase;
 
 import javax.servlet.jsp.JspException;
@@ -257,6 +260,9 @@ public class ForEachTag
           facesContext, _getParentComponentScopedId(facesContext), _jspId);
       }
 
+      // Add, if necessary, the cleanup phase listener to remove unused iteration data
+      CleanupPhaseListener.installListener(facesContext);
+
       _iterationUtils.beginIteration(_currentIterationStatus);
     }
 
@@ -300,11 +306,6 @@ public class ForEachTag
     {
       // We've finished iterating, we need to clean up by restore EL state and the variable mapper
       _restoreContextVariables(vm);
-
-      if (_iterationUtils != null)
-      {
-        _iterationUtils.endTag();
-      }
 
       return SKIP_BODY;
     }
@@ -696,9 +697,14 @@ public class ForEachTag
       assert viewRoot != null :
         "Illegal attempt to evaluate for each EL outside of an active view root";
 
+      IterationStatus status = null;
       Map<IterationId, IterationStatus> map =
-        IterationUtils.getIterationStatusMap(viewRoot.getViewMap());
-      IterationStatus status = map.get(_iterationId);
+        IterationUtils.getIterationStatusMap(viewRoot.getViewMap(), false);
+
+      if (map != null)
+      {
+        status = map.get(_iterationId);
+      }
 
       if (status == null)
       {
@@ -1052,8 +1058,8 @@ public class ForEachTag
     @Override
     public String toString()
     {
-      return String.format("IterationId[Scoped ID: %s, JSP ID: %s, Key: %s]",
-               _scopedId, _jspId, _key);
+      return String.format("IterationState[Scoped ID: %s, JSP ID: %s, Key: %s]",
+        _scopedId, _jspId, _key);
     }
 
     @SuppressWarnings("compatibility:-2690507119119928732")
@@ -1205,6 +1211,122 @@ public class ForEachTag
   }
 
   /**
+   * Class to remove any unused iteration data so that stale data is not kept on the view scope.
+   * Since view phase listeners are run after the build view when the JSP tags are run, we can
+   * safely check in a phase listener what iteration IDs were used during the current request and
+   * therefore be able to remove any data that is no longer needed.
+   */
+  public static class CleanupPhaseListener
+    implements PhaseListener
+  {
+    static void installListener(
+      FacesContext facesContext)
+    {
+      UIViewRoot viewRoot = facesContext.getViewRoot();
+
+      // See if the phase listener has already been added (only add it once)
+      Map<String, Object> viewMap = viewRoot.getViewMap(true);
+      if (!viewMap.containsKey(_PL_KEY))
+      {
+        PhaseListener newPhaseListener = new CleanupPhaseListener();
+        viewRoot.addPhaseListener(newPhaseListener);
+
+        viewMap.put(_PL_KEY, Boolean.TRUE);
+
+        _LOG.finer("Cleanup phase listener has been installed");
+      }
+      else
+      {
+        _LOG.finest("Cleanup phase listener has already been installed on the current view");
+      }
+    }
+
+    @Override
+    public void afterPhase(PhaseEvent event) { ; }
+
+    @Override
+    public void beforePhase(PhaseEvent event)
+    {
+      _LOG.finest("Running the iteration status cleanup code");
+      FacesContext facesContext = event.getFacesContext();
+      UIViewRoot viewRoot = facesContext.getViewRoot();
+      Map<String, Object> viewMap = viewRoot.getViewMap(false);
+      if (viewMap != null)
+      {
+        Set<IterationId> usedIterationIds = IterationUtils.getUsedIterationIds(
+          facesContext.getExternalContext().getRequestMap(), false);
+        Map<IterationId, IterationStatus> iterStatusMap = IterationUtils.getIterationStatusMap(
+          viewMap, false);
+
+        if (iterStatusMap != null)
+        {
+          if (_LOG.isFinest())
+          {
+            if (usedIterationIds == null)
+            {
+              _LOG.finest("No used iteration IDs, all iteration data will be removed");
+            }
+            else
+            {
+              HashSet<IterationId> removeIds = new HashSet<IterationId>(iterStatusMap.keySet());
+
+              removeIds.removeAll(usedIterationIds);
+              if (removeIds.size() > 0)
+              {
+                StringBuilder sb = new StringBuilder();
+                for (IterationId id : removeIds)
+                {
+                  if (sb.length() > 0)
+                  {
+                    sb.append(", ");
+                  }
+                  sb.append(id);
+                }
+                _LOG.finest("Removing {0} iteration IDs. IDs: {1}",
+                  new Object[] { removeIds.size(), sb });
+              }
+              else
+              {
+                _LOG.finest("No iteration IDs to remove");
+              }
+            }
+          }
+
+          int size = iterStatusMap.size();
+          if (usedIterationIds == null)
+          {
+            iterStatusMap.clear();
+            _LOG.finer("All {0} iteration IDs have been removed", size);
+          }
+          else if (iterStatusMap.keySet().retainAll(usedIterationIds))
+          {
+            if (_LOG.isFiner())
+            {
+              _LOG.finer("Iteration IDs have been removed. Previous count: {0}, current count: {1}",
+                new Object[] { size, iterStatusMap.size() });
+            }
+          }
+          else
+          {
+            _LOG.finer("No iteration IDs were removed this request");
+          }
+        }
+      }
+    }
+
+    @Override
+    public PhaseId getPhaseId()
+    {
+      return PhaseId.RENDER_RESPONSE;
+    }
+
+    @SuppressWarnings("compatibility:-4601483360542261568")
+    private static final long serialVersionUID = 1L;
+
+    private final static String _PL_KEY = CleanupPhaseListener.class.getName();
+  }
+
+  /**
    * Class to encapsulate the logic of the handling the iteration data for the for each tag.
    * This class maintains the iteration status map used by the variable expressions use by
    * the varStatus attribute, the iteration IDs to identify each iteration of a for each tag
@@ -1216,10 +1338,12 @@ public class ForEachTag
     /**
      * Retrieve or create the iteration status map from the view map
      * @param viewMap the view map
+     * @param create create the map if it does not exist
      * @return the iteration status map
      */
     static Map<IterationId, IterationStatus> getIterationStatusMap(
-      Map<String, Object> viewMap)
+      Map<String, Object> viewMap,
+      boolean             create)
     {
       Map<IterationId, IterationStatus> iterationStatusMap = (Map<IterationId, IterationStatus>)
         viewMap.get(_ITERATION_MAP_KEY);
@@ -1232,13 +1356,27 @@ public class ForEachTag
       return iterationStatusMap;
     }
 
+    static Set<IterationId> getUsedIterationIds(
+      Map<String, Object> reqMap,
+      boolean             create)
+    {
+      Set<IterationId> usedIterationIds = (Set<IterationId>)reqMap.get(_USED_ITER_IDS_KEY);
+      if (usedIterationIds == null && create)
+      {
+        usedIterationIds = new HashSet<IterationId>();
+        reqMap.put(_USED_ITER_IDS_KEY, usedIterationIds);
+      }
+
+      return usedIterationIds;
+    }
+
     IterationUtils(
       FacesContext facesContext,
       String       parentComponentScopedId,
       String       jspId)
     {
       Map<String, Object> viewMap = facesContext.getViewRoot().getViewMap();
-      _iterationStatusMap = getIterationStatusMap(viewMap);
+      _iterationStatusMap = getIterationStatusMap(viewMap, true);
 
       Map<String, Object> reqMap = facesContext.getExternalContext().getRequestMap();
       Deque<IterationState> queue = (Deque<IterationState>)reqMap.get(
@@ -1250,14 +1388,7 @@ public class ForEachTag
       }
       _iterationStateQueue = queue;
 
-      Set<IterationId> usedIterationIds = (Set<IterationId>)reqMap.get(_USED_ITER_IDS_KEY);
-      if (usedIterationIds == null)
-      {
-        usedIterationIds = new HashSet<IterationId>();
-        reqMap.put(_USED_ITER_IDS_KEY, usedIterationIds);
-      }
-      _usedIterationIds = usedIterationIds;
-
+      _usedIterationIds = getUsedIterationIds(reqMap, true);
       _jspId = jspId;
       _parentComponentScopedId = parentComponentScopedId;
     }
@@ -1279,7 +1410,8 @@ public class ForEachTag
       _iterationStateQueue.offerLast(state);
       _currentId = new IterationId(_iterationStateQueue);
       _iterationStatusMap.put(_currentId, iterationStatus);
-      _LOG.finest("Iteration begun with ID %s", _currentId);
+      _usedIterationIds.add(_currentId);
+      _LOG.finest("Iteration begun with ID {0}", _currentId);
     }
 
     /**
@@ -1287,47 +1419,9 @@ public class ForEachTag
      */
     void endIteration()
     {
-      _LOG.finest("Iteration ended with ID %s", _currentId);
+      _LOG.finest("Iteration ended with ID {0}", _currentId);
       _currentId = null;
       _iterationStateQueue.removeLast();
-    }
-
-    /**
-     * Called from doAfterBody to perform any necessary clean up
-     */
-    void endTag()
-    {
-      // We need to remove any iteration data for IDs that were not used in the current request.
-      // We only need to do this for top level tags as we do not know how many times nested
-      // tags will be executed
-      if (_iterationStateQueue.isEmpty())
-      {
-        if (_LOG.isFinest())
-        {
-          _LOG.finest("Looking for any unused iteration IDs during the current request" +
-            " for tag with JSP ID '%s' and scoped ID '%s'",
-            new Object[] { _jspId, _parentComponentScopedId });
-        }
-        for (Iterator<IterationId> iter = _iterationStatusMap.keySet().iterator(); iter.hasNext();)
-        {
-          IterationId iterId = iter.next();
-          List<IterationState> states = iterId.getStates();
-          IterationState rootState = states.get(0);
-
-          // Only check the states that are for the current tag
-          if (_jspId.equals(rootState.getJspId()) &&
-            _parentComponentScopedId.equals(rootState.getScopedId()))
-          {
-            if (!_usedIterationIds.contains(iterId))
-            {
-              _LOG.finest("Found unused iteration ID: %s", iterId);
-              // The iteration ID was not used during this request, remove the iteration status
-              // from the view scope memory
-              iter.remove();
-            }
-          }
-        }
-      }
     }
 
     private final Map<IterationId, IterationStatus> _iterationStatusMap;
@@ -1357,11 +1451,6 @@ public class ForEachTag
     {
       _iterationStates = Collections.unmodifiableList(
         new ArrayList<IterationState>(iterationStateStack));
-    }
-
-    List<IterationState> getStates()
-    {
-      return _iterationStates;
     }
 
     @Override
@@ -1410,8 +1499,9 @@ public class ForEachTag
         }
         else
         {
-          sb.append(" -> ").append(state);
+          sb.append(" -> ");
         }
+        sb.append(state);
       }
 
       return sb.append(']').toString();
