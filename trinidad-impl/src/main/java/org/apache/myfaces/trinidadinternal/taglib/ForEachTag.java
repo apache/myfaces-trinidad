@@ -1242,7 +1242,7 @@ public class ForEachTag
     }
 
     @Override
-    public void afterPhase(PhaseEvent event) { ; }
+    public void afterPhase(PhaseEvent event) {}
 
     @Override
     public void beforePhase(PhaseEvent event)
