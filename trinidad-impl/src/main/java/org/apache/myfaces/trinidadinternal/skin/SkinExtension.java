@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Stack;
@@ -31,6 +32,7 @@ import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 
@@ -324,6 +326,19 @@ public class SkinExtension extends SkinImpl
     if(_skinFeatures!=null)
     {
       allFeatures.putAll(_skinFeatures);
+    }
+    
+    List<SkinAddition> additions = getSkinAdditions();
+    if(additions != null && additions.size() > 0)
+    {
+      for(SkinAddition addition : additions)
+      {
+        Map<String, String> additionFeatures = addition.getSkinFeatures();
+        if(additionFeatures != null && additionFeatures.size() > 0)
+        {
+          allFeatures.putAll(additionFeatures);
+        }
+      }
     }
     return allFeatures;
   }

@@ -140,7 +140,12 @@
         </xsd:annotation>
       </xsd:element>
       <xsd:element ref="skin:bundleSource" minOccurs="0" maxOccurs="1" />
-      <xsd:element ref="skin:metadata" minOccurs="0" maxOccurs="1" />
+      <xsd:element name="features" type="skin:featuresType" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Collection of features that a skin may require during rendering.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element ref="skin:metadata" minOccurs="0" maxOccurs="1" />    
     </xsd:sequence>
   </xsd:complexType>
   <!-- Use XSD "inheritance" of the substitution group to avoid the use of xsd:choice as it

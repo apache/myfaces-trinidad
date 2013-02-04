@@ -828,12 +828,13 @@ public class SkinUtils
       String skinId = skinAdditionNode.getSkinId();
       String styleSheetName = skinAdditionNode.getStyleSheetName();
       String resourceBundleName = skinAdditionNode.getResourceBundleName();
-      String translationSourceExpression =
+      String translationSourceExpression = 
         skinAdditionNode.getTranslationSourceExpression();
-
+      Map<String, String> features = skinAdditionNode.getSkinFeatures();
+      SkinAddition addition = null;
       Skin skin = skinFactory.getSkin(fContext, skinId);
-      if (skin != null
-          && ((styleSheetName != null)
+      if (skin != null 
+          && ((styleSheetName != null) 
               || (resourceBundleName != null)
               || (translationSourceExpression != null)))
       {
@@ -843,13 +844,10 @@ public class SkinUtils
         if (isMetaInfFile && (styleSheetName != null))
             styleSheetName = _prependMetaInf(styleSheetName);
 
-
-        SkinAddition addition = null;
-
         if (resourceBundleName != null)
         {
-          // create SkinAddition with resourceBundleName
-          addition = new SkinAddition(styleSheetName, resourceBundleName);
+          // create SkinAddition with resourceBundleName 
+          addition = new SkinAddition(styleSheetName, resourceBundleName, features);
         }
         else
         {
@@ -862,22 +860,25 @@ public class SkinUtils
 
           if (translationSourceVE != null)
           {
-            // Create a SkinAddition with translationSourceVE
-            addition = new SkinAddition(styleSheetName, translationSourceVE);
+            // Create a SkinAddition with translationSourceVE 
+            addition = new SkinAddition(styleSheetName, translationSourceVE, features);
 
           }
           else
           {
-            // Create a SkinAddition with stylesheetName only
-            addition = new SkinAddition(styleSheetName);
+            // Create a SkinAddition with stylesheetName only 
+            addition = new SkinAddition(styleSheetName, features);
 
           }
-
         }
-
-        skin.addSkinAddition(addition);
       }
-    }
+      else if(features != null)
+      {
+        addition = new SkinAddition(features);
+      }
+      if(addition != null)
+        skin.addSkinAddition(addition);
+    }    
   }
 
   /**

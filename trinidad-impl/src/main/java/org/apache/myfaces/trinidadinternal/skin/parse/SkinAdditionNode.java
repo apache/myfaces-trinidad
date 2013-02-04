@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.skin.parse;
 
+import java.util.Map;
+
 /**
  * Object which represents a single &lt;skin-addition&gt; element in trinidad-skins.xml.
  *
@@ -42,6 +44,19 @@ public class SkinAdditionNode implements Comparable<SkinAdditionNode>
     _skinId = skinId;
     _resourceBundleName = resourceBundleName;
     _translationSourceExpression = translationSourceExpression;
+  }
+  
+  public SkinAdditionNode (
+    String skinId,
+    String styleSheetName,
+    String resourceBundleName,
+    String translationSourceExpression,
+    SkinFeaturesNode featuresNode
+    )
+  {
+    this(skinId, styleSheetName, resourceBundleName, translationSourceExpression);
+    if(featuresNode != null)
+      setSkinFeatures(featuresNode.getSkinFeatures());
   }
   
   public String getSkinId()
@@ -87,6 +102,16 @@ public class SkinAdditionNode implements Comparable<SkinAdditionNode>
     return _translationSourceExpression;
   } 
   
+  public void setSkinFeatures(Map<String, String> skinFeatures)
+  {
+    _skinFeatures = skinFeatures;
+  }
+
+  public Map<String, String> getSkinFeatures()
+  {
+    return _skinFeatures;
+  }
+  
   // Sort by the name of the stylesheet
   public int compareTo(SkinAdditionNode node)
   {
@@ -97,5 +122,6 @@ public class SkinAdditionNode implements Comparable<SkinAdditionNode>
   private String _styleSheetName;
   private String _resourceBundleName;
   private String _translationSourceExpression;
+  private Map<String, String> _skinFeatures;
 
 }

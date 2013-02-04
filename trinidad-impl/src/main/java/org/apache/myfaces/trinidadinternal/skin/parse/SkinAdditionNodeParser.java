@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.skin.parse;
 
+import java.util.Map;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.share.xml.StringParser;
 import org.xml.sax.Attributes;
@@ -75,7 +77,7 @@ public class SkinAdditionNodeParser extends BaseNodeParser
     }
 
     return new SkinAdditionNode(_skinId, _styleSheetName,
-                                _resourceBundleName, _translationSourceExpression);
+                                _resourceBundleName, _translationSourceExpression, _skinFeatures);
   }
 
   @Override
@@ -95,7 +97,10 @@ public class SkinAdditionNodeParser extends BaseNodeParser
     {
       return new StringParser();
     }
-
+    else if ("features".equals(localName))
+    {
+      return context.getParser(SkinFeaturesNode.class, namespaceURI, localName);
+    }
     return null;
   }
 
@@ -116,12 +121,17 @@ public class SkinAdditionNodeParser extends BaseNodeParser
       _resourceBundleName = (String) child;
     else if ("translation-source".equals(localName))
       _translationSourceExpression = (String) child;
+    else if ("features".equals(localName))
+    {
+      _skinFeatures = (SkinFeaturesNode) child; 
+    }
   }
 
   private String _skinId;
   private String _styleSheetName;
   private String _resourceBundleName;
   private String _translationSourceExpression;
+  private SkinFeaturesNode _skinFeatures;
 
 
   private static final TrinidadLogger _LOG = 

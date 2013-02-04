@@ -20,6 +20,8 @@ package org.apache.myfaces.trinidad.skin;
 
 import java.util.Collections;
 
+import java.util.Map;
+
 import javax.el.ValueExpression;
 
 import javax.faces.el.ValueBinding;
@@ -65,6 +67,7 @@ public class SkinAddition
     _resourceBundleName = resourceBundleName;
     _translationSourceVE = null;
     _translationSourceVB = null;
+    _skinFeatures = null;
   }
 
   /**
@@ -79,6 +82,7 @@ public class SkinAddition
     _resourceBundleName = null;
     _translationSourceVE = translationSourceValueExpression;
     _translationSourceVB = null;
+    _skinFeatures = null;
   }
   /**
    * Constructor takes a styleSheet name. resource bundle name and 
@@ -92,6 +96,68 @@ public class SkinAddition
     _resourceBundleName = null;
     _translationSourceVE = null;
     _translationSourceVB = null;
+    _skinFeatures = null;
+  }
+  
+  /**
+   * Constructor takes a styleSheet name and a resourceBundle name.
+   */
+  public SkinAddition (
+    String styleSheetName,
+    String resourceBundleName,
+    Map<String, String> features
+    )
+  {
+    _styleSheetName = styleSheetName;
+    _resourceBundleName = resourceBundleName;
+    _translationSourceVE = null;
+    _translationSourceVB = null;
+    _skinFeatures = features;
+  }
+  
+  /**
+   * Constructor takes a styleSheet name and a translationSource ValueExpression.
+   */
+  public SkinAddition (
+    String       styleSheetName,
+    ValueExpression translationSourceValueExpression,
+    Map<String, String> features
+    )
+  {
+    _styleSheetName = styleSheetName;
+    _resourceBundleName = null;
+    _translationSourceVE = translationSourceValueExpression;
+    _translationSourceVB = null;
+    _skinFeatures = features;
+  }
+  /**
+   * Constructor takes a styleSheet name. resource bundle name and 
+   * translation source value expression will be null.
+   */
+  public SkinAddition (
+    String styleSheetName,
+    Map<String, String> features
+    )
+  {
+    _styleSheetName = styleSheetName;
+    _resourceBundleName = null;
+    _translationSourceVE = null;
+    _translationSourceVB = null;
+    _skinFeatures = features;
+  }
+  
+  /**
+   * Constructor takes only features.
+   */
+  public SkinAddition (
+    Map<String, String> features
+    )
+  {
+    _styleSheetName = null;
+    _resourceBundleName = null;
+    _translationSourceVE = null;
+    _translationSourceVB = null;
+    _skinFeatures = features;
   }
   
   /**
@@ -108,6 +174,7 @@ public class SkinAddition
     _resourceBundleName = null;
     _translationSourceVE = null;
     _translationSourceVB = translationSourceValueBinding;
+    _skinFeatures = null;
   }
   
   /**
@@ -150,11 +217,20 @@ public class SkinAddition
   public ValueBinding getTranslationSourceValueBinding()
   {
     return _translationSourceVB;
-  } 
+  }
+
+  /**
+   * Gets any skin features added through the skin addition
+   */
+  public Map<String, String> getSkinFeatures()
+  {
+    return _skinFeatures;
+  }
  
   private final String       _styleSheetName;
   private final String       _resourceBundleName;
   private final ValueExpression _translationSourceVE;
   private final ValueBinding _translationSourceVB;
+  private final Map<String, String> _skinFeatures;
   
 }
