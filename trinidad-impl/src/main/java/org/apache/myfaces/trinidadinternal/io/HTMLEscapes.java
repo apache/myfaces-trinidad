@@ -21,6 +21,8 @@ package org.apache.myfaces.trinidadinternal.io;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 /**
  * Utility class for escaping HTML text.
  * <p>
@@ -92,7 +94,7 @@ public class HTMLEscapes
     for (int i = start; i < end; i++)
     {
       final char ch = text[i];
-
+      
       if (ch < 0xA0)
       {
         // text is in the US7ASCII range        
@@ -160,6 +162,31 @@ public class HTMLEscapes
       {
         // character is in the high ISO range, so use HTML entity
         buffIndex = _addToBuffer(out, buff, buffIndex, _sISO8859_1_Entities[ch - 0xA0]);
+      }
+      else if (Character.isHighSurrogate(ch)) 
+      {
+        // Some languages' characters need to use supplementary characters. For UTF-16, a "surrogate pair" is required 
+        // to represent a single supplementary character. high surrogate range is (ch >= 0xD800 && ch <= 0xDBFF)
+        // Here we check if the character is a high surrogate (the following char will be a low surrogate).
+        // We then encode the surrogate pair.
+        // If we don't do this, then surrogate characters will not display correctly . E.g., if we encoded each
+        // character separately we might have '&#55360;&#56320;', and Firefox can't recognize these 2 decimal values as 
+        // one supplementary character. Instead we need to use a single supplementary decimal value &#131072;.
+        int surrogateCodePoint = Character.codePointAt(text, i);
+        // only increase i if a valid surrogate code point is returned 
+        if (Character.isSupplementaryCodePoint(surrogateCodePoint))
+        {
+          
+          buffIndex =
+              _writeDecRef(out, buff, buffIndex, surrogateCodePoint);
+          i++;
+        }
+        else
+        {
+          // blow up if invalid utf-16 characters encountered
+          throw new IllegalArgumentException(
+            _LOG.getMessage("INVALID_SURROGATE_CHAR", new Object[] { ch, surrogateCodePoint, i }));
+        }
       }
       else if (ch < 0xfffe) // characters fffe and ffff are considered outside of unicode
       {
@@ -274,6 +301,30 @@ public class HTMLEscapes
         // character is in the high ISO range, so use HTML entity
         buffIndex = _addToBuffer(out, buff, buffIndex, _sISO8859_1_Entities[ch - 0xA0]);
       }
+      else if (Character.isHighSurrogate(ch)) 
+      {
+        // Some languages' characters need to use supplementary characters. For UTF-16, a "surrogate pair" is required 
+        // to represent a single supplementary character. high surrogate range is (ch >= 0xD800 && ch <= 0xDBFF)
+        // Here we check if the character is a high surrogate (the following char will be a low surrogate).
+        // We then encode the surrogate pair.
+        // If we don't do this, then surrogate characters will not display correctly . E.g., if we encoded each
+        // character separately we might have '&#55360;&#56320;', and Firefox can't recognize these 2 decimal values as 
+        // one supplementary character. Instead we need to use a single supplementary decimal value &#131072;.
+        int surrogateCodePoint = Character.codePointAt(text, i);
+        // only increase i if a valid surrogate code point is returned 
+        if (Character.isSupplementaryCodePoint(surrogateCodePoint))
+        {
+          buffIndex =
+              _writeDecRef(out, buff, buffIndex, surrogateCodePoint);
+          i++;
+        }
+        else
+        {
+          // blow up if invalid utf-16 characters encountered
+          throw new IllegalArgumentException(
+            _LOG.getMessage("INVALID_SURROGATE_CHAR", new Object[] { ch, surrogateCodePoint, i }));
+        }
+      }
       else if (ch < 0xfffe) // characters fffe and ffff are considered outside of unicode
       {
         // character is outside of the ISO range
@@ -301,13 +352,15 @@ public class HTMLEscapes
   /**
    * Writes the output as a decimal escape.  This is the same size or smaller than the hex
    * equivalent and works on versions of Netscape before 4.74. See bug #1491321.
+   * ch - the character to write out. This could be a character code point in the case of surrogate characters.
+   * Character code points are integers between 0 and 1,114,111.
    * <p>
    */
   static private int _writeDecRef(
     final Writer out,
     final char[] buff,
     int          buffIndex,
-    final char   ch
+    final int   ch
     ) throws IOException
   {
     // Formerly used String.valueOf().  This version tests out
@@ -331,8 +384,39 @@ public class HTMLEscapes
       // we have enough space for the biggest string, so use buffer
       buff[buffIndex++] = '&';
       buff[buffIndex++] = '#';
- 
-      if (i > 10000)
+      // A code point is an integer between 0 and 1,114,111, so we need to check if i is above 1000000
+      // purposely doing loop unrolling below for speed
+      if (i > 1000000)
+      {      
+        buff[buffIndex++] = (char)('0' + (i / 1000000));
+        i = i % 1000000;       
+        buff[buffIndex++] = (char)('0' + (i / 100000));
+        i = i % 100000;      
+        buff[buffIndex++] = (char)('0' + (i / 10000));
+        i = i % 10000;
+        buff[buffIndex++] = (char)('0' + (i / 1000));
+        i = i % 1000;
+        buff[buffIndex++] = (char)('0' + (i / 100));
+        i = i % 100;
+        buff[buffIndex++] = (char)('0' + (i / 10));
+        i = i % 10;
+        buff[buffIndex++] = (char)('0' + i);
+      }  
+      else if (i > 100000)
+      {      
+        buff[buffIndex++] = (char)('0' + (i / 100000));
+        i = i % 100000;      
+        buff[buffIndex++] = (char)('0' + (i / 10000));
+        i = i % 10000;
+        buff[buffIndex++] = (char)('0' + (i / 1000));
+        i = i % 1000;
+        buff[buffIndex++] = (char)('0' + (i / 100));
+        i = i % 100;
+        buff[buffIndex++] = (char)('0' + (i / 10));
+        i = i % 10;
+        buff[buffIndex++] = (char)('0' + i);
+      }      
+      else if (i > 10000)
       {      
         buff[buffIndex++] = (char)('0' + (i / 10000));
         i = i % 10000;
@@ -576,4 +660,6 @@ public class HTMLEscapes
   // the <wbr> tag. This tag inserts a no-width-space so that the browser may
   // break the line at that point.
   static private final char _UNICODE_HYPHENATION_POINT = 0x2027;
+  
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(HTMLEscapes.class);
 }

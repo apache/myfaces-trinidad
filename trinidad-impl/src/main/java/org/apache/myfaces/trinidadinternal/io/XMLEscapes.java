@@ -169,7 +169,7 @@ public class XMLEscapes
    */
   static void __writeDecRef(
     final Writer out,
-    final char   ch
+    final int   ch
     ) throws IOException
   {
     // Formerly used String.valueOf().  This version tests out
@@ -178,8 +178,39 @@ public class XMLEscapes
     out.write("&#");
 
     int i = ch;
-                
-    if (i > 10000)
+    // A code point is an integer between 0 and 1,114,111, so we need to check if i is above 1000000
+    // purposely doing loop unrolling below for speed
+    if (i > 1000000)
+    {      
+      out.write('0' + (i / 1000000));
+      i = i % 1000000;       
+      out.write('0' + (i / 100000));
+      i = i % 100000;      
+      out.write('0' + (i / 10000));
+      i = i % 10000;
+      out.write('0' + (i / 1000));
+      i = i % 1000;
+      out.write('0' + (i / 100));
+      i = i % 100;
+      out.write('0' + (i / 10));
+      i = i % 10;
+      out.write('0' + i);
+    }  
+    else if (i > 100000)
+    {      
+      out.write('0' + (i / 100000));
+      i = i % 100000;      
+      out.write('0' + (i / 10000));
+      i = i % 10000;
+      out.write('0' + (i / 1000));
+      i = i % 1000;
+      out.write('0' + (i / 100));
+      i = i % 100;
+      out.write('0' + (i / 10));
+      i = i % 10;
+      out.write('0' + i);
+    }    
+    else if (i > 10000)
     {      
       out.write('0' + (i / 10000));
       i = i % 10000;

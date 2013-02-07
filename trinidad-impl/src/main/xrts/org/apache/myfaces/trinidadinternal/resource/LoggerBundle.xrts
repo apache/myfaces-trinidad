@@ -1206,4 +1206,6 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <resource key="FOR_EACH_META_DATA_KEY_UNAVAILABLE">The for each meta data could not be found. Key in the collection may no longer be available. Ensure there are no stale references to the component.</resource>
 
+<resource key="INVALID_SURROGATE_CHAR">During encoding, a high surrogate character was found, but the codePoint was invalid. ch is {0}, codePoint is {1} and index is {2}.</resource>
+
 </resources>
