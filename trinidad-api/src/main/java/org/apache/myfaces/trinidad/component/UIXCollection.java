@@ -2089,7 +2089,7 @@ public abstract class UIXCollection extends UIXComponentBase
     // requestMap:
     return setupELVariable(getFacesContext(), varName, newData);
   }
-  
+
   /**
    * Called by UIXCollection to set values for the "var" and
    * "varStatus" EL variables.
@@ -2131,6 +2131,8 @@ public abstract class UIXCollection extends UIXComponentBase
       RequestContext.getCurrentInstance().getComponentContextManager();
 
     compCtxMgr.pushChange(new CollectionComponentChange(this));
+
+    _inContext = true;
   }
 
   private void _tearDownContextChange()
@@ -2163,6 +2165,10 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       _LOG.severe(re);
     }
+    finally
+    {
+      _inContext = false;
+    }
   }
 
   private void _verifyComponentInContext()
@@ -2172,17 +2178,12 @@ public abstract class UIXCollection extends UIXComponentBase
       return;
     }
 
-    ComponentContextManager compCtxMgr =
-      RequestContext.getCurrentInstance().getComponentContextManager();
-    ComponentContextChange change = compCtxMgr.peekChange();
-
-    if (!(change instanceof CollectionComponentChange) ||
-        ((CollectionComponentChange)change)._component != this)
+    if (!_inContext)
     {
       if (_LOG.isWarning())
       {
-        _LOG.warning("COLLECTION_NOT_IN_CONTEXT", (Object)(getParent() == null ? 
-          getId() : getClientId()));
+        _LOG.warning("COLLECTION_NOT_IN_CONTEXT",
+          new Object[] { getParent() == null ? getId() : getClientId() });
         if (_LOG.isFine())
         {
           Thread.currentThread().dumpStack();
@@ -2420,6 +2421,8 @@ public abstract class UIXCollection extends UIXComponentBase
             _component.setRowKey(null);
           }
         }
+
+        _component._inContext = false;
       }
       finally
       {
@@ -2438,6 +2441,8 @@ public abstract class UIXCollection extends UIXComponentBase
         {
           _component.setRowKey(_rowKey);
         }
+
+        _component._inContext = true;
       }
       finally
       {
@@ -2484,6 +2489,7 @@ public abstract class UIXCollection extends UIXComponentBase
   // end up sharing this stampState. see bug 4279735:
   private InternalState _state = null;
   private boolean _inSuspendOrResume = false;
+  private boolean _inContext = false;
 
   // use this key to indicate uninitialized state.
   // all the variables that use this are transient so this object need not
