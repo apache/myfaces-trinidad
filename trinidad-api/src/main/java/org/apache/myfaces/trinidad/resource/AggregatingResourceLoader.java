@@ -18,15 +18,16 @@
  */
 package org.apache.myfaces.trinidad.resource;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.SequenceInputStream;
-import java.net.URL;
 
+import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
-import java.util.ArrayList;
 
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
@@ -55,8 +56,9 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
     ResourceLoader parent)
   {
     super(path, parent);
-    if (paths == null)
-      throw new NullPointerException();
+    
+    if ((paths == null) || (paths.length == 0))
+      throw new IllegalArgumentException("No paths specified");
 
     if (target == null)
       throw new NullPointerException();
@@ -116,17 +118,26 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       }
     }
 
-    urls.trimToSize();
-    URL[] urlArray = urls.toArray(new URL[urls.size()]);
+    if (!urls.isEmpty())
+    {
+      urls.trimToSize();
+      URL[] urlArray = urls.toArray(new URL[urls.size()]);
 
-    AggregatingURLStreamHandler handler = new AggregatingURLStreamHandler(urlArray, _separator);
-    return new URL("aggregating", null, -1, path, handler);
+      AggregatingURLStreamHandler handler = new AggregatingURLStreamHandler(urlArray, _separator);
+      return new URL("aggregating", null, -1, path, handler);
+    }
+    else
+    {
+      // none of the paths worked, throw a meaninful exception
+      throw new IOException("Could not find any of:" + Arrays.toString(_paths));
+    }
   }
-
-  private String[] _paths;
-  private ResourceLoader _target;
-  private String _separator;
-  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AggregatingResourceLoader.class);
+  
+  private final String[] _paths;
+  private final ResourceLoader _target;
+  private volatile String  _separator;
+  
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AggregatingResourceLoader.class);
 
   /**
    * This is a Stream Handler which can be used to construct a URL that is an Aggregate of a list of
@@ -155,10 +166,11 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
      */
     public AggregatingURLStreamHandler(URL[] urls, String separator)
     {
-      if(urls == null)
+      if ((urls == null) || (urls.length == 0))
       {
-        throw new NullPointerException();
+        throw new IllegalArgumentException("No URLS specified");
       }
+      
       _urls = urls.clone();
       _separator = separator;
     }
@@ -184,8 +196,8 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       return new AggregatingURLConnection(u, conn, _separator);
     }
 
-    private URL[] _urls;
-    private String _separator;
+    private final URL[]  _urls;
+    private final String _separator;
 
   }
 
@@ -194,12 +206,12 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
     public AggregatingURLConnection(URL url, URLConnection[] connections, String separator)
     {
       super(url);
+      
+      if ((connections == null) || (connections.length == 0))
+        throw new IllegalArgumentException("No connections specified");
+      
       _connections = connections;
-
-      if(separator != null)
-      {
-        _separator = separator.getBytes();
-      }
+      _separator = (separator != null) ? separator.getBytes() : null;
     }
 
     @Override
@@ -335,9 +347,9 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       }
     }
 
-    private int _contentLength = Integer.MIN_VALUE;
-    private URLConnection[] _connections;
-    private byte[] _separator;
+    private volatile int _contentLength = Integer.MIN_VALUE;
+    private final URLConnection[] _connections;
+    private final byte[] _separator;
 
   }
 
@@ -345,6 +357,9 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
   {
     public ArrayEnumeration(T[] array)
     {
+      if (array == null)
+        throw new NullPointerException();
+      
       _array = array;
       _len = array.length;
     }
@@ -371,9 +386,9 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       return hasNext();
     }
 
-    private T[] _array;
-    private int _len;
-    private int _pointer = 0;
+    private final T[] _array;
+    private final int _len;
+    private volatile int _pointer = 0;
   }
 
   static private class SeparatorInputStream extends InputStream
@@ -441,8 +456,8 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       return _length - _index;
     }
 
-    private byte[] _separator;
-    private int    _length;
-    private int    _index = 0;
+    private final    byte[] _separator;
+    private final    int    _length;
+    private volatile int    _index = 0;
   }
 }

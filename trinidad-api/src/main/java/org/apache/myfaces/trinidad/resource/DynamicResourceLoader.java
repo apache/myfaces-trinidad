@@ -54,7 +54,7 @@ public abstract class DynamicResourceLoader extends ResourceLoader
   {
     super(parent);
     
-    if(path==null)
+    if (path==null)
     {
       throw new NullPointerException();
     }
@@ -91,6 +91,6 @@ public abstract class DynamicResourceLoader extends ResourceLoader
    */
   protected abstract URL getURL(String path) throws IOException;
   
-  private String _path;
- 
+  private final String _path;
+
 }
