@@ -75,7 +75,7 @@
                              implementation belongs.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="version" type="skin:versionType" minOccurs="1" maxOccurs="1">
+      <xsd:element name="version" type="skin:versionType" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>The version of the skin, if any.</xsd:documentation>
         </xsd:annotation>
@@ -111,7 +111,7 @@
   </xsd:complexType>
   <xsd:complexType name="versionType">
     <xsd:all>
-      <xsd:element name="name" maxOccurs="1" minOccurs="1" type="string">
+      <xsd:element name="name" maxOccurs="1" minOccurs="0" type="string">
         <xsd:annotation>
           <xsd:documentation>Defines a skin version name.</xsd:documentation>
         </xsd:annotation>
