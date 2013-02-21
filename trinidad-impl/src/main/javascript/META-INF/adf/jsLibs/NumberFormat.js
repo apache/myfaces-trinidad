@@ -33,7 +33,10 @@
   this._nSuf = this._localeSymbols.getNegativeSuffix();
 
   //default values, similar to JDK (values from Apache Harmony)
-  this._maxFractionDigits = 3;
+  if(this._type=="percent")
+    this._maxFractionDigits = 0;
+  else
+    this._maxFractionDigits = 3;
   this._maxIntegerDigits  = 40;
   if(this._type=="currency")
   {

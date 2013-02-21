@@ -268,7 +268,12 @@ TrNumberConverter.prototype.getAsObject = function(
       // throw a converter exception.
       try
       {
-        numberString = TrNumberFormat.getNumberInstance().parse(numberString)+"";
+        var nf = TrNumberFormat.getNumberInstance();
+        nf.setMinimumIntegerDigits (this._minIntegerDigits);
+        nf.setMaximumIntegerDigits (this._maxIntegerDigits);        
+        nf.setMinimumFractionDigits (this._minFractionDigits);
+        nf.setMaximumFractionDigits (this._maxFractionDigits);
+        numberString = nf.parse(numberString)+"";
       }
       catch (e)
       {
