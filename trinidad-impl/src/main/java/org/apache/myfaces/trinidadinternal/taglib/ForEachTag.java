@@ -699,7 +699,7 @@ public class ForEachTag
 
       IterationStatus status = null;
       Map<IterationId, IterationStatus> map =
-        IterationUtils.getIterationStatusMap(viewRoot.getViewMap(), false);
+        IterationUtils.getIterationStatusMap(viewRoot.getAttributes(), false);
 
       if (map != null)
       {
@@ -1225,13 +1225,13 @@ public class ForEachTag
       UIViewRoot viewRoot = facesContext.getViewRoot();
 
       // See if the phase listener has already been added (only add it once)
-      Map<String, Object> viewMap = viewRoot.getViewMap(true);
-      if (!viewMap.containsKey(_PL_KEY))
+      Map<String, Object> viewAttrs = viewRoot.getAttributes();
+      if (!viewAttrs.containsKey(_PL_KEY))
       {
         PhaseListener newPhaseListener = new CleanupPhaseListener();
         viewRoot.addPhaseListener(newPhaseListener);
 
-        viewMap.put(_PL_KEY, Boolean.TRUE);
+        viewAttrs.put(_PL_KEY, Boolean.TRUE);
 
         _LOG.finer("Cleanup phase listener has been installed");
       }
@@ -1250,66 +1250,63 @@ public class ForEachTag
       _LOG.finest("Running the iteration status cleanup code");
       FacesContext facesContext = event.getFacesContext();
       UIViewRoot viewRoot = facesContext.getViewRoot();
-      Map<String, Object> viewMap = viewRoot.getViewMap(false);
-      if (viewMap != null)
+      Map<String, Object> viewAttrs = viewRoot.getAttributes();
+      Set<IterationId> usedIterationIds = IterationUtils.getUsedIterationIds(
+        facesContext.getExternalContext().getRequestMap(), false);
+      Map<IterationId, IterationStatus> iterStatusMap = IterationUtils.getIterationStatusMap(
+        viewAttrs, false);
+
+      if (iterStatusMap != null)
       {
-        Set<IterationId> usedIterationIds = IterationUtils.getUsedIterationIds(
-          facesContext.getExternalContext().getRequestMap(), false);
-        Map<IterationId, IterationStatus> iterStatusMap = IterationUtils.getIterationStatusMap(
-          viewMap, false);
-
-        if (iterStatusMap != null)
+        if (_LOG.isFinest())
         {
-          if (_LOG.isFinest())
-          {
-            if (usedIterationIds == null)
-            {
-              _LOG.finest("No used iteration IDs, all iteration data will be removed");
-            }
-            else
-            {
-              HashSet<IterationId> removeIds = new HashSet<IterationId>(iterStatusMap.keySet());
-
-              removeIds.removeAll(usedIterationIds);
-              if (removeIds.size() > 0)
-              {
-                StringBuilder sb = new StringBuilder();
-                for (IterationId id : removeIds)
-                {
-                  if (sb.length() > 0)
-                  {
-                    sb.append(", ");
-                  }
-                  sb.append(id);
-                }
-                _LOG.finest("Removing {0} iteration IDs. IDs: {1}",
-                  new Object[] { removeIds.size(), sb });
-              }
-              else
-              {
-                _LOG.finest("No iteration IDs to remove");
-              }
-            }
-          }
-
-          int size = iterStatusMap.size();
           if (usedIterationIds == null)
           {
-            iterStatusMap.clear();
-            _LOG.finer("All {0} iteration IDs have been removed", size);
-          }
-          else if (iterStatusMap.keySet().retainAll(usedIterationIds))
-          {
-            if (_LOG.isFiner())
-            {
-              _LOG.finer("Iteration IDs have been removed. Previous count: {0}, current count: {1}",
-                new Object[] { size, iterStatusMap.size() });
-            }
+            _LOG.finest("No used iteration IDs, all iteration data will be removed");
           }
           else
           {
-            _LOG.finer("No iteration IDs were removed this request");
+            HashSet<IterationId> removeIds = new HashSet<IterationId>(iterStatusMap.keySet());
+
+            removeIds.removeAll(usedIterationIds);
+            if (removeIds.size() > 0)
+            {
+              StringBuilder sb = new StringBuilder();
+              for (IterationId id : removeIds)
+              {
+                if (sb.length() > 0)
+                {
+                  sb.append(", ");
+                }
+                sb.append(id);
+              }
+              _LOG.finest("Removing {0} iteration IDs. IDs: {1}",
+                new Object[] { removeIds.size(), sb });
+            }
+            else
+            {
+              _LOG.finest("No iteration IDs to remove");
+            }
           }
+        }
+
+        int size = iterStatusMap.size();
+        if (usedIterationIds == null)
+        {
+          iterStatusMap.clear();
+          _LOG.finer("All {0} iteration IDs have been removed", size);
+        }
+        else if (iterStatusMap.keySet().retainAll(usedIterationIds))
+        {
+          if (_LOG.isFiner())
+          {
+            _LOG.finer("Iteration IDs have been removed. Previous count: {0}, current count: {1}",
+              new Object[] { size, iterStatusMap.size() });
+          }
+        }
+        else
+        {
+          _LOG.finer("No iteration IDs were removed this request");
         }
       }
     }
@@ -1337,20 +1334,20 @@ public class ForEachTag
   {
     /**
      * Retrieve or create the iteration status map from the view map
-     * @param viewMap the view map
+     * @param viewAttrs the view root attributes
      * @param create create the map if it does not exist
      * @return the iteration status map
      */
     static Map<IterationId, IterationStatus> getIterationStatusMap(
-      Map<String, Object> viewMap,
+      Map<String, Object> viewAttrs,
       boolean             create)
     {
       Map<IterationId, IterationStatus> iterationStatusMap = (Map<IterationId, IterationStatus>)
-        viewMap.get(_ITERATION_MAP_KEY);
-      if (iterationStatusMap == null)
+        viewAttrs.get(_ITERATION_MAP_KEY);
+      if (iterationStatusMap == null && create)
       {
         iterationStatusMap = new HashMap<IterationId, IterationStatus>();
-        viewMap.put(_ITERATION_MAP_KEY, iterationStatusMap);
+        viewAttrs.put(_ITERATION_MAP_KEY, iterationStatusMap);
       }
 
       return iterationStatusMap;
@@ -1375,8 +1372,8 @@ public class ForEachTag
       String       parentComponentScopedId,
       String       jspId)
     {
-      Map<String, Object> viewMap = facesContext.getViewRoot().getViewMap();
-      _iterationStatusMap = getIterationStatusMap(viewMap, true);
+      Map<String, Object> viewAttrs = facesContext.getViewRoot().getAttributes();
+      _iterationStatusMap = getIterationStatusMap(viewAttrs, true);
 
       Map<String, Object> reqMap = facesContext.getExternalContext().getRequestMap();
       Deque<IterationState> queue = (Deque<IterationState>)reqMap.get(
