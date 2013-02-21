@@ -1202,9 +1202,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <resource key="ALIAS_DEFINITION_NOT_STARTING_WITH_DOT">Alias definition should start with a dot for {0}</resource>
 
-<resource key="FOR_EACH_META_DATA_UNAVAILABLE">The for each meta data could not be found. The component may not have been processed by the for each loop. Ensure no component references are keeping the component in memory.</resource>
-
-<resource key="FOR_EACH_META_DATA_KEY_UNAVAILABLE">The for each meta data could not be found. Key in the collection may no longer be available. Ensure there are no stale references to the component.</resource>
+<resource key="FOR_EACH_STATUS_UNAVAILABLE">The for each iteration status could not be found. Key in the collection may no longer be available. Ensure there are no stale references to the component.</resource>
 
 <resource key="INVALID_SURROGATE_CHAR">During encoding, a high surrogate character was found, but the codePoint was invalid. ch is {0}, codePoint is {1} and index is {2}.</resource>
 
