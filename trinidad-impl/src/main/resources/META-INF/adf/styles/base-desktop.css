@@ -4214,18 +4214,3 @@
   }
 } } }
 
-
-/** And on Thai Gecko - see bug 3897341 - bump the font size up **/
-@platform windows, linux {
-  @agent gecko {
-    @locale th {
-  .AFDefaultFontFamily:alias {
-    font-family: Browallia New,Arial,Helvetica,Geneva,sans-serif;
-    font-size: 16pt;
-  }
-
-  .AFDefaultFont:alias {
-    -tr-rule-ref: selector(".AFDefaultFontFamily:alias");
-  }
-} } }
-
