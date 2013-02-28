@@ -563,7 +563,15 @@ function _sizeWin(
                      : _getBodyWidth(body, body.offsetWidth, body.offsetLeft);
     var newHeight = 0;
 
-    var hasParams = params && ((params['H'] && params['H'] > 0)  || (params['W'] && params['W'] > 0));
+    var hasWidthParam = params && (params['W'] && params['W'] > 0);
+    var hasHeightParam = params && (params['H'] && params['H'] > 0);
+    
+    //if the width and height of the window is provided as parameter, use it directly.
+    if (hasWidthParam && hasHeightParam)
+      return;
+    
+    var hasParams = (hasHeightParam  || hasWidthParam);
+    
     // if the height was not explicitly set, change to auto forcing
     // recalculation of  the offsetHeight.  FireFox doesn't always detect
     // that a PPR has changed the content size.
