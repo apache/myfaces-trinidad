@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import java.util.Map;
+
 import javax.faces.component.UIComponent;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -195,11 +197,19 @@ class ChildArrayList extends ArrayList<UIComponent>
       }
     }
     
-    Collection<UIComponent> facets = parent.getFacets().values();
-    if (facets.contains(component))
+    // TRINIDAD-2369: Until TRINIDAD-2368 is fixed, we have to call remove() on the map
+    // returned by getFacets() rather than calling remove() on getFacets().values()
+    // Note that the old code used to call getFacets().values().contains(), which would iterate on the entry set.
+    // The new code performs the same iteration, so it should not be any slower.
+    
+    Map<String, UIComponent> facets = parent.getFacets();
+    for (Map.Entry<String, UIComponent> entry: facets.entrySet())
     {
-      facets.remove(component);
-      return index;
+      if (entry.getValue() == component)
+      {
+        facets.remove(entry.getKey());
+        return index;
+      }
     }
 
     // Not good - the child thought it was in a parent,
