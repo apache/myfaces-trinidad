@@ -271,38 +271,96 @@ TrNumberFormat.prototype.stringToNumber = function(numberString)
 }
 
 /**
+ * Returns true if there is a currency prefix and suffix in the currency string
+ */
+TrNumberFormat.prototype.hasCurrencyPrefixAndSuffix = function(currencyString)
+{
+  var negP = currencyString.indexOf(this._nPre);
+  var nSufNoSpace = this._nSuf;
+  if (nSufNoSpace.charAt(0) == ' ' || nSufNoSpace.charAt(0) == '\xa0')
+    nSufNoSpace = nSufNoSpace.substring(1);
+  var negS = currencyString.indexOf(nSufNoSpace);
+
+  // insist that prefix always starts at 0
+  if(negP == 0 && negS != -1)
+  {
+    return true;
+  }
+  else
+  {
+    var posP = currencyString.indexOf(this._pPre);
+    var pSufNoSpace = this._pSuf;
+    if (pSufNoSpace.charAt(0) == ' ' || pSufNoSpace.charAt(0) == '\xa0')
+      pSufNoSpace = pSufNoSpace.substring(1);
+    var posS = currencyString.indexOf(pSufNoSpace);
+
+    // insist that prefix always starts at 0
+    if(posP == 0 && posS != -1)
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
  * Formats a currency string into a number.
  */
 TrNumberFormat.prototype.stringToCurrency = function(numberString)
 {
-  //is the string negative ?
-  var negP = numberString.indexOf(this._nPre);
-  var nSufNoSpace = this._nSuf;
-  if (nSufNoSpace.charAt(0) == ' ' || nSufNoSpace.charAt(0) == '\xa0')
-    nSufNoSpace = nSufNoSpace.substring(1);
-  var negS = numberString.indexOf(nSufNoSpace);
+  var arr = this.removeCurrencyPrefixAndSuffix(numberString);
+  numberString = arr[0]
+  var isPosNum = arr[1];
 
-
-  // TRINIDAD-1958: In Arabic the values for negPrefix and posPrefix are the same, so it is insufficient to test for
-  // the presence of (only) negPrefix to determine if the number is negative. 
-  if(negP != -1 && negS != -1)
+  if (isPosNum)
   {
-    numberString = numberString.substr(this._nPre.length, numberString.length - (this._nPre.length + nSufNoSpace.length));
-    return (this.stringToNumber(numberString) * -1);
+    return this.stringToNumber(numberString);
   }
   else
   {
-    var posP = numberString.indexOf(this._pPre);
+    return (this.stringToNumber(numberString) * -1);
+  }
+}
+
+/**
+ * Removes the locale specific currency prefix and suffix from a currencyString
+ * and returns an array with 2 elements,
+ *     arr[0]  -> converted string
+ *     arr[1]  -> boolean, true if number is positive, false if number is negative
+ */
+TrNumberFormat.prototype.removeCurrencyPrefixAndSuffix = function(currencyString)
+{
+  //is the string negative ?
+  var retArr = [];
+  var negP = currencyString.indexOf(this._nPre);
+  var nSufNoSpace = this._nSuf;
+  if (nSufNoSpace.charAt(0) == ' ' || nSufNoSpace.charAt(0) == '\xa0')
+    nSufNoSpace = nSufNoSpace.substring(1);
+  var negS = currencyString.indexOf(nSufNoSpace);
+
+
+  // TRINIDAD-1958: In Arabic the values for negPrefix and posPrefix are the same, so it is insufficient to test for
+  // the presence of (only) negPrefix to determine if the number is negative.
+  if(negP != -1 && negS != -1)
+  {
+    retArr.push(currencyString.substr(this._nPre.length, currencyString.length - (this._nPre.length + nSufNoSpace.length)));
+    retArr.push(false);
+    return retArr;
+  }
+  else
+  {
+    var posP = currencyString.indexOf(this._pPre);
     var pSufNoSpace = this._pSuf;
     if (pSufNoSpace.charAt(0) == ' ' || pSufNoSpace.charAt(0) == '\xa0')
       pSufNoSpace = pSufNoSpace.substring(1);
-    var posS = numberString.indexOf(pSufNoSpace);
+    var posS = currencyString.indexOf(pSufNoSpace);
 
     if(posP != -1 && posS != -1)
     {
-      numberString = numberString.substr (this._pPre.length, numberString.length - (this._pPre.length + pSufNoSpace.length));
-      numberString = this.stringToNumber(numberString);
-      return numberString;
+      retArr.push(currencyString.substr(this._pPre.length, currencyString.length - (this._pPre.length + pSufNoSpace.length)));
+      retArr.push(true);
+      return retArr;
     }
     else
     {
@@ -374,6 +432,21 @@ TrNumberFormat.prototype.numberToString = function(number)
 }
 
 /**
+ * Adds locale specific currency prefix and suffix to the number string
+ */
+TrNumberFormat.prototype.addCurrencyPrefixAndSuffix = function(numberString, hasPositivePrefix)
+{
+  if(hasPositivePrefix)
+  {
+    return this._pPre + numberString + this._pSuf;
+  }
+  else
+  {
+    return this._nPre + numberString + this._nSuf;
+  }
+}
+
+/**
  * Formats a number into a a formatted currency string.
  */
 TrNumberFormat.prototype.currencyToString = function(number)
@@ -383,12 +456,12 @@ TrNumberFormat.prototype.currencyToString = function(number)
   {
     number = (number*-1)+"";
     number = this.numberToString(number);
-    return this._nPre + number + this._nSuf;
+    return this.addCurrencyPrefixAndSuffix(number, false);
   }
   else
   {
     number = this.numberToString(number);
-    return this._pPre + number + this._pSuf;
+    return this.addCurrencyPrefixAndSuffix(number, true);
   }
 }
 

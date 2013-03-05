@@ -236,28 +236,47 @@ TrNumberConverter.prototype.getAsObject = function(
     // are removed from the user input number string for all types number, currency and percent.    
     var parsedValue;
     var localeSymbols = getLocaleSymbols(this._locale);
-      
-    // TODO matzew - see TRINIDAD-682
-    // Remove the thousands separator - which Javascript doesn't want to see
-    var groupingSeparator = localeSymbols.getGroupingSeparator();
-      
-    if (groupingSeparator == "\xa0")
-    {
-      var normalSpace = new RegExp("\\ " , "g");
-      numberString = numberString.replace(normalSpace, "\xa0");
-    }
-      
-    var grouping = new RegExp("\\" + groupingSeparator, "g");
-    numberString = numberString.replace(grouping, "");
+    var isPosNum = false;
+    var processCurrency = (this._type == "currency" && this._numberFormat.hasCurrencyPrefixAndSuffix(numberString));
 
-    // Then change the decimal separator into a period, the only
-    // decimal separator allowed by JS
-    var decimalSeparator = localeSymbols.getDecimalSeparator();
-    var decimal = new RegExp("\\" + decimalSeparator, "g");
-    numberString = numberString.replace(decimal, ".");
-      
     try
     {
+      // remove and preserve the currency prefix and suffix if one exists
+      // this is done to avoid any corruption of prefix and suffix while performing
+      // other string replacement operations that follows.
+      if (processCurrency)
+      {
+        var arr = this._numberFormat.removeCurrencyPrefixAndSuffix(numberString);
+        numberString = arr[0];
+        isPosNum = arr[1];
+      }
+
+
+      // TODO matzew - see TRINIDAD-682
+      // Remove the thousands separator - which Javascript doesn't want to see
+      var groupingSeparator = localeSymbols.getGroupingSeparator();
+
+      if (groupingSeparator == "\xa0")
+      {
+        var normalSpace = new RegExp("\\ " , "g");
+        numberString = numberString.replace(normalSpace, "\xa0");
+      }
+
+      var grouping = new RegExp("\\" + groupingSeparator, "g");
+      numberString = numberString.replace(grouping, "");
+
+      // Then change the decimal separator into a period, the only
+      // decimal separator allowed by JS
+      var decimalSeparator = localeSymbols.getDecimalSeparator();
+      var decimal = new RegExp("\\" + decimalSeparator, "g");
+      numberString = numberString.replace(decimal, ".");
+
+      // put the prefix and suffix back for currency if required
+      if (processCurrency)
+      {
+        numberString = this._numberFormat.addCurrencyPrefixAndSuffix(numberString, isPosNum);
+      }
+
       // parse the numberString
       numberString = this._numberFormat.parse(numberString)+"";     
     }
