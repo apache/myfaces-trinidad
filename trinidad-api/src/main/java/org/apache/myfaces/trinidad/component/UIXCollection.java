@@ -24,6 +24,7 @@ import java.io.Serializable;
 
 import java.util.AbstractMap;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -292,7 +293,7 @@ public abstract class UIXCollection extends UIXComponentBase
     // _stampState is stored as an instance variable, so it isn't
     // automatically saved
     Object superState = super.saveState(context);
-    final Object stampState, clientKeyMgr;
+    final Object stampState, clientKeyMgr, idToIndexMap;
 
     // becareful not to create the internal state too early:
     // otherwise, the internal state will be shared between
@@ -302,15 +303,18 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       stampState = iState._stampState;
       clientKeyMgr = iState._clientKeyMgr;
+      idToIndexMap = iState._idToIndexMap;
     }
     else
     {
       stampState = null;
       clientKeyMgr = null;
+      idToIndexMap = null;
     }
 
-    if ((superState != null) || (stampState != null) || (clientKeyMgr != null))
-      return new Object[]{superState, stampState, clientKeyMgr};
+    if ((superState != null) || (stampState != null) ||
+        (clientKeyMgr != null) || (idToIndexMap != null))
+      return new Object[]{superState, stampState, clientKeyMgr, idToIndexMap};
     return null;
   }
 
@@ -319,27 +323,30 @@ public abstract class UIXCollection extends UIXComponentBase
   @Override
   public void restoreState(FacesContext context, Object state)
   {
-    final Object superState, stampState, clientKeyMgr;
+    final Object superState, stampState, clientKeyMgr, idToIndexMap;
     Object[] array = (Object[]) state;
     if (array != null)
     {
       superState = array[0];
       stampState = array[1];
       clientKeyMgr = array[2];
+      idToIndexMap = array[3];
     }
     else
     {
       superState = null;
       stampState = null;
       clientKeyMgr = null;
+      idToIndexMap = null;
     }
     super.restoreState(context, superState);
 
-    if ((stampState != null) || (clientKeyMgr != null))
+    if ((stampState != null) || (clientKeyMgr != null) || (idToIndexMap != null))
     {
       InternalState iState = _getInternalState(true);
       iState._stampState = (StampState) stampState;
       iState._clientKeyMgr = (ClientRowKeyManager) clientKeyMgr;
+      iState._idToIndexMap = (Map<String, String>) idToIndexMap;
     }
     else
     {
@@ -350,6 +357,7 @@ public abstract class UIXCollection extends UIXComponentBase
       {
         iState._stampState = null;
         iState._clientKeyMgr = null;
+        iState._idToIndexMap = null;
       }
     }
   }
@@ -1989,6 +1997,7 @@ public abstract class UIXCollection extends UIXComponentBase
     //InternalState iState = _getInternalState(true);
 
     StampState stampState = _getStampState();
+    Map<String, String> idToIndexMap = _getIdToIndexMap();
     FacesContext context = getFacesContext();
     Object currencyObj = getRowKey();
 
@@ -2002,7 +2011,6 @@ public abstract class UIXCollection extends UIXComponentBase
     // that call, the nested UIXCollection components would end up sharing the same stamp state
     // across parent rows.
 
-    int position = 0;
     for (UIComponent stamp : getStamps())
     {
       Object state = saveStampState(context, stamp);
@@ -2010,7 +2018,13 @@ public abstract class UIXCollection extends UIXComponentBase
       // TODO
       // temporarily use position. later we need to use ID's to access
       // stamp state everywhere, and special case NamingContainers:
-      String stampId = String.valueOf(position++);
+      String compId = stamp.getId();
+      String stampId = idToIndexMap.get(compId);
+      if (stampId == null)
+      {
+        stampId = String.valueOf(idToIndexMap.size());
+        idToIndexMap.put(compId, stampId);
+      }
       stampState.put(currencyObj, stampId, state);
       if (_LOG.isFinest())
         _LOG.finest("saving stamp state for currencyObject:"+currencyObj+
@@ -2029,16 +2043,17 @@ public abstract class UIXCollection extends UIXComponentBase
   private void _restoreStampState()
   {
     StampState stampState = _getStampState();
+    Map<String, String> idToIndexMap = _getIdToIndexMap();
     FacesContext context = getFacesContext();
     Object currencyObj = getRowKey();
-    int position = 0;
     for(UIComponent stamp : getStamps())
     {
 //      String stampId = stamp.getId();
       // TODO
       // temporarily use position. later we need to use ID's to access
       // stamp state everywhere, and special case NamingContainers:
-      String stampId = String.valueOf(position++);
+      String compId = stamp.getId();
+      String stampId = idToIndexMap.get(compId);
       Object state = stampState.get(currencyObj, stampId);
       if (state == null)
       {
@@ -2053,6 +2068,14 @@ public abstract class UIXCollection extends UIXComponentBase
       }
       restoreStampState(context, stamp, state);
     }
+  }
+
+  private Map<String, String> _getIdToIndexMap()
+  {
+    InternalState iState = _getInternalState(true);
+    if (iState._idToIndexMap == null)
+      iState._idToIndexMap = new HashMap<String, String>();
+    return iState._idToIndexMap;
   }
 
   private InternalState _getInternalState(boolean create)
@@ -2357,6 +2380,13 @@ public abstract class UIXCollection extends UIXComponentBase
 
     private ClientRowKeyManager _clientKeyMgr = null;
     private StampState _stampState = null;
+
+    // map from column id to the index within the collection. The index is used to
+    // save/look up for column's stamp state. The long term goal is to use id as key
+    // to the stamp state map, but for this release, we add this id-to-index map
+    // to indirectly loop up a stamp state for a column, so if the position of the column
+    // changes in the middle, we'll still be able to find the right stamp state.
+    private Map<String, String> _idToIndexMap = null;
 
     private void readObject(ObjectInputStream in)
        throws IOException, ClassNotFoundException
