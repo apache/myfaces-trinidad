@@ -27,15 +27,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
-
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
@@ -342,12 +338,12 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
     
     if(contentLength>_maxDiskSpace)
     {
-      return new ErrorFile(tempFile.getFilename(), getLargeFileSizeMsg(request));
+      return new ErrorFile(tempFile.getFilename(), "UPLOADED_FILE_LARGE");
     }
     // If the file is too large throw error
     if(_maxFileSize > 0 && contentLength>_maxFileSize)
     {
-      return new ErrorFile(tempFile.getFilename(), getLargeFileSizeMsg(request));
+      return new ErrorFile(tempFile.getFilename(), "UPLOADED_FILE_LARGE");
     }
     // Process one new file, loading only as much as can fit
     // in the remaining memory and disk space.
@@ -379,30 +375,6 @@ public class CompositeUploadedFileProcessorImpl implements UploadedFileProcessor
     return file;
   }
   
-  private String getLargeFileSizeMsg(Object request)
-  {    
-    String resourceBundleName = _LOG.getLogger().getResourceBundleName();
-    try
-    {
-      return ResourceBundle.getBundle(resourceBundleName, getLocale(request))
-                      .getString("UPLOADED_FILE_LARGE");      
-    }
-    catch(MissingResourceException mre)
-    {
-      return "UPLOADED_FILE_LARGE";
-    }
-  }
-  
-  private Locale getLocale(Object request)
-  {
-    Locale locale = null;
-    if (_isPortletRequestClass(request))
-      locale = ((PortletRequest)request).getLocale();
-    else
-      locale = ((ServletRequest)request).getLocale();
-    return locale;
-  }
-
   private int getContentLength(Object request)
   {
     int length = -1;

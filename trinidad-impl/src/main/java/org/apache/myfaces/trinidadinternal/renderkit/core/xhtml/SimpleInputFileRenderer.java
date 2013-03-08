@@ -20,7 +20,11 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
+import java.util.Locale;
 import java.util.Map;
+
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -34,6 +38,7 @@ import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
@@ -111,7 +116,7 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     {
       // There was a failure while one of the UploadedFileProcessor in the chain processed this file,
       // we expect the details to be in opaqueData
-      String errorMessage = file.getOpaqueData().toString();
+      String errorMessage = _getErrorMessage(context, file);
       FacesMessage fm = MessageFactory.getMessage(context, 
                                                   FacesMessage.SEVERITY_WARN, 
                                                   "org.apache.myfaces.trinidad.UPLOAD_FAILURE", 
@@ -257,4 +262,22 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
   {
     return null;
   }
+  
+  private String _getErrorMessage(FacesContext context, UploadedFile file)
+  {
+    String errorMessageKey = file.getOpaqueData().toString();
+    Locale locale = context.getViewRoot().getLocale();
+    String bundleName = _LOG.getLogger().getResourceBundleName();
+    try
+    {
+      return ResourceBundle.getBundle(bundleName, locale).getString(errorMessageKey);
+    }
+    catch(MissingResourceException mre)
+    {
+      return errorMessageKey;
+    }
+  }
+  
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(SimpleInputFileRenderer.class);
 }
