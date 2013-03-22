@@ -191,32 +191,32 @@ public class StateManagerImpl extends StateManagerWrapper
     
     try
     {
-        // TODO Once we're dependent on JSF 2.1 we should be using StateManager.IS_SAVING_STATE as the key, but 
-        // for now we can use the String value of StateManager.IS_SAVING_STATE
-        contextAttributes.put("javax.faces.IS_SAVING_STATE", Boolean.TRUE);
-        
-        if (sms != null)
+      // TODO Once we're dependent on JSF 2.1 we should be using StateManager.IS_SAVING_STATE as the key, but 
+      // for now we can use the String value of StateManager.IS_SAVING_STATE
+      contextAttributes.put("javax.faces.IS_SAVING_STATE", Boolean.TRUE);
+      
+      if (sms != null)
+      {
+        // Force view root to use full state saving
+        // This is necessary because we recreate the view root on postback when view root caching
+        // is enabled and assume that that we can apply the full state
+        if (_useViewRootCache(context, RequestContext.getCurrentInstance()))
         {
-          // Force view root to use full state saving
-          // This is necessary because we recreate the view root on postback when view root caching
-          // is enabled and assume that that we can apply the full state
-          if (_useViewRootCache(context, RequestContext.getCurrentInstance()))
-          {
-            viewRoot.clearInitialState();
-          }
-          
-          viewState = sms.saveView(context);
+          viewRoot.clearInitialState();
         }
-        else
-        {
-          // if there's no stateManagementStrategy handle saving the state ourselves
-          _removeTransientComponents(viewRoot);
-    
-          Object structure = !_needStructure(context) ? null : new Structure(viewRoot);
-          Object state = viewRoot.processSaveState(context);
-          viewState = new Object[]{structure, state};
-    
-        }        
+        
+        viewState = sms.saveView(context);
+      }
+      else
+      {
+        // if there's no stateManagementStrategy handle saving the state ourselves
+        _removeTransientComponents(viewRoot);
+  
+        Object structure = !_needStructure(context) ? null : new Structure(viewRoot);
+        Object state = viewRoot.processSaveState(context);
+        viewState = new Object[]{structure, state};
+  
+      }        
     }
     finally 
     {
@@ -347,8 +347,8 @@ public class StateManagerImpl extends StateManagerWrapper
     // get per window view cache key with "." separator suffix to separate the SubKeyMap keys
     String subkey = _getViewCacheKey(extContext, trinContext, _SUBKEY_SEPARATOR);
 
-    Map<String, Object> sessionMap = extContext.getSessionMap();
-    Map<String, PageState> stateMap = new SubKeyMap<PageState>(sessionMap, subkey);
+    Map<String, Object>  sessionMap = extContext.getSessionMap();
+    SubKeyMap<PageState> stateMap   = new SubKeyMap<PageState>(sessionMap, subkey);
 
     // Sadly, we can't save just a SerializedView, because we should
     // save a serialized object, and SerializedView is a *non*-static
@@ -396,39 +396,61 @@ public class StateManagerImpl extends StateManagerWrapper
     // And store the token for this request
     extContext.getRequestMap().put(_REQUEST_STATE_TOKEN_KEY, token);
 
+    // clear out the view root cache, passing in the session key for the new active state
+    String newActivePageStateKey = stateMap.getBaseKey(token);
+    _clearViewRootCache(extContext, newActivePageStateKey);
+    
+    // Create a "tokenView" which abuses state to store
+    // our token only
+    return new Object[]{token, null};
+  }
+  
+  private void _clearViewRootCache(ExternalContext extContext, String newActivePageStateKey)
+  {
+    Map<String, Object> sessionMap = extContext.getSessionMap();
+    
     // clear out all of the previous PageStates' UIViewRoots and add this page
     // state as an active page state.  This is necessary to avoid UIViewRoots
     // laying around if the user navigates off of a page using a GET
     synchronized(extContext.getSession(true))
     {
-      // get the per-window key for the active page state.  We only store the token rather than
+      // Get the session key under which we will store the session key of the PageState object holding
+      // the cached UIViewRoot.  We can either store one cached UIViewRoot per window or one
+      // UIViewRoot for the entire session.
+      // 
+      // We only store the token rather than
       // the view state itself here in order to keep fail-over Serialization from Serializing this
       // state twice, once where it appears here and the second time in the token map itself
       // See Trinidad-1779
-      String activePageStateKey = _getActivePageTokenKey(extContext, trinContext);
-      String activeToken = (String)sessionMap.get(activePageStateKey);
+      String keyToActivePageStateKey = (_CACHE_VIEW_ROOT_PER_WINDOW)
+                                         ? _getActivePageTokenKey(extContext, RequestContext.getCurrentInstance())
+                                         : _ACTIVE_PAGE_TOKEN_SESSION_KEY;
+               
+      String oldActivePageStateKey = (String)sessionMap.get(keyToActivePageStateKey);
 
-      // we only need to clear out the state if we're actually changing pages and thus tokens.
-      // Since we have already updated the state for
-      if (!token.equals(activeToken))
+      // we only need to clear out the UIViewRoot state if we're actually changing pages and thus tokens.
+      if (!newActivePageStateKey.equals(oldActivePageStateKey))
       {
-        if (activeToken != null)
+        if (oldActivePageStateKey != null)
         {
-          PageState activePageState = stateMap.get(activeToken);
+          PageState activePageState = (PageState)sessionMap.get(oldActivePageStateKey);
 
           if (activePageState != null)
+          {
             activePageState.clearViewRootState();
+          }
         }
 
-        sessionMap.put(activePageStateKey, token);
+        sessionMap.put(keyToActivePageStateKey, newActivePageStateKey);
       }
     }
-
-    // Create a "tokenView" which abuses state to store
-    // our token only
-    return new Object[]{token, null};
   }
-
+  
+  // controls whether we are caching UIViewRoots per window.  If SoftReferences aren't being used
+  // to hang onto the UIViewRoots, we definitely want this false.  If SoftReferences are used, setting
+  // this true and letting the VM handle releasing the memory can lead to better lightly loaded performance
+  private static final boolean _CACHE_VIEW_ROOT_PER_WINDOW = false;
+  
   public static String getActivePageToken(RequestContext trinContext, ExternalContext external)
   {
     String activePageStateKey = _getActivePageTokenKey(external, trinContext);

@@ -53,8 +53,10 @@ final public class SubKeyMap<V> extends AbstractMap<String, V>
     // Optimize the scenario where we're wrapping another SubKeyMap
     if (base instanceof SubKeyMap)
     {
-      _base = ((SubKeyMap) base)._base;
-      _prefix = ((SubKeyMap) base)._prefix + prefix;
+      SubKeyMap baseSubkeyMap = (SubKeyMap)base;
+      
+      _base   = baseSubkeyMap._base;
+      _prefix = baseSubkeyMap._prefix + prefix;
     }
     else
     {
@@ -72,21 +74,21 @@ final public class SubKeyMap<V> extends AbstractMap<String, V>
   @Override
   public V get(Object key)
   {
-    key = _getBaseKey(key);
+    key = getBaseKey(key);
     return (V)_base.get(key);
   }
 
   @Override
   public V put(String key, V value)
   {
-    key = _getBaseKey(key);
+    key = getBaseKey(key);
     return (V)_base.put(key, value);
   }
 
   @Override
   public V remove(Object key)
   {
-    key = _getBaseKey(key);
+    key = getBaseKey(key);
     _LOG.finest("Removing {0}", key);
     return (V)_base.remove(key);
   }
@@ -97,7 +99,7 @@ final public class SubKeyMap<V> extends AbstractMap<String, V>
     if (!(key instanceof String))
       return false;
 
-    return _base.containsKey(_getBaseKey(key));
+    return _base.containsKey(getBaseKey(key));
   }
 
   @Override
@@ -108,12 +110,21 @@ final public class SubKeyMap<V> extends AbstractMap<String, V>
     return _entrySet;
   }
 
-  private String _getBaseKey(Object key)
+  /**
+   * @param key The key used to access the value in the SubKeyMap 
+   * @return the key used in the base map
+   */
+  public String getBaseKey(Object key)
   {
     if (key == null)
       throw new NullPointerException();
+    
     // Yes, I want a ClassCastException if it's not a String
-    return _prefix + ((String) key);
+    String keyString = (String)key;
+      
+    StringBuilder keyBuilder = new StringBuilder(_prefix.length() + keyString.length());
+    
+    return keyBuilder.append(_prefix).append(keyString).toString();
   }
 
   private List<String> _gatherKeys()
