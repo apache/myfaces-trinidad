@@ -222,7 +222,7 @@ public abstract class ComponentReference<T extends UIComponent> implements Seria
      // Check if we really found it with the previously created "component path"
      if (foundComponent == null || (!getComponentId().equals(foundComponent.getId())))
      {
-       // OK, we were not luck with the calculated "component path", let's
+       // OK, we were not lucky with the calculated "component path", let's
        // see if we can find it by using the "scoped ID" and the regular 
        // findComponent();
        foundComponent = root.findComponent(scopedId);
