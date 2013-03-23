@@ -20,4 +20,5 @@
 -->
 <capabilityData xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
   <capability name="-adfinternal-altRendersTooltipOnImage" value="false"/>
+  <capability name="doctype" value="html"/>
 </capabilityData>

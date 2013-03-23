@@ -68,7 +68,20 @@ public abstract class TrinidadAgent implements Agent, Cloneable
 
   static public final CapabilityKey CAP_HEIGHT =
           CapabilityKey.getCapabilityKey("height", true);
+  
+  
+  static public final CapabilityKey CAP_DOCTYPE =
+          CapabilityKey.getCapabilityKey("doctype", true);
 
+
+  // Values for CAP_DOCTYPE
+  
+  /** Supports only the DTD-style doctype */
+  static public final Object DOCTYPE_HTML_WITH_DTD = CapabilityValue.getCapabilityValue(CAP_DOCTYPE, "htmlWithDTD");
+  
+  /** Supports html doctype with no DTD */
+  static public final Object DOCTYPE_HTML = CapabilityValue.getCapabilityValue(CAP_DOCTYPE, "html");
+ 
   /**
    * Touch-screen capability, indicating the agent supports TouchEvent and GestureEvent
    * events.

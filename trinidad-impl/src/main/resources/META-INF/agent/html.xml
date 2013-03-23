@@ -32,5 +32,6 @@
   <capability name="-adfinternal-nameIdentification" value="true"/>
   <capability name="-adfinternal-advancedButtons" value="true"/>
   <capability name="-adfinternal-multipleWindows" value="true"/>
-  <capability name="-adfinternal-cssSelectors" value="single"/> 
+  <capability name="-adfinternal-cssSelectors" value="single"/>
+  <capability name="doctype" value="html"/>
 </capabilityData>
