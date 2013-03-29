@@ -22,6 +22,7 @@
 
 var _AD_ERA = null;
 
+var _MILLIS_PER_DAY = 86400000;
 
 function _getADEra()
 {
@@ -231,8 +232,16 @@ function _subformat(
     switch (formatType)
     {
       case 'D': // day in year
-        appendString = "(Day in Year)";
-        break;
+      {
+        var firstDayInYear = new Date(time.getFullYear(), 0, 1);
+        var millisSinceFirstDayInYear = time - firstDayInYear;
+        var daysSinceFirstDayInYear = Math.floor(millisSinceFirstDayInYear / _MILLIS_PER_DAY);
+
+        // The above calculation produces a zero-based value (eg. daysSinceFirstDateInYear for Jan 1 is 0), but
+        // the "day in year" value should be 1-based (eg. Jan 1 should be day 1), so we tack on 1 now.
+        appendString = (daysSinceFirstDayInYear + 1);
+      }
+      break;
       
       case 'E': // day in week
       {
