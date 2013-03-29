@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.share.util;
 
+import java.io.BufferedInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -97,7 +98,7 @@ public class MultipartFormHandler
     }
 
     _boundary = _parseBoundary(type);
-    _in = in;
+    _in = new BufferedInputStream(in);
     _skipBoundary();
   }
 
@@ -261,15 +262,16 @@ public class MultipartFormHandler
 
   // This is a replacement for ServletInputStream.readLine().  We use
   // this utility method instead as we don't always have a ServletInputStream.
-  private int _readLine(final byte[] buffer, int offset, final int length) throws IOException
+  private int _readLine(final byte[] buffer, final int offset, final int length) throws IOException
   {
     if (length <= 0)
     {
       return 0;
     }
 
-    int count = 0;
+    int count = offset;
     int c;
+    final int lastCount = offset + length - 1;
 
     // =-=AEW  This could be optimized quite a bit;  we could
     // read in a large number of bytes at once, and only return
@@ -278,8 +280,7 @@ public class MultipartFormHandler
     // be of doubtful value.
     while ((c = _in.read()) != -1)
     {
-      buffer[offset++] = (byte) c;
-      count++;
+      buffer[count++] = (byte) c;
 
       // Found a newline;  we're done.
       if (c == '\n')
@@ -289,7 +290,7 @@ public class MultipartFormHandler
 
       // Out of space; we're done too.
       // Read one character less so that we can account for CR
-      if (count == length - 1)
+      if (count == lastCount)
       {
         // If we've found a CR, then we're not quite done;  we'd
         // better read over the next character (which might be a LF);
@@ -297,14 +298,14 @@ public class MultipartFormHandler
         if (c == '\r')
         {
           final int nextchar = _in.read();
-          buffer[offset++] = (byte) nextchar;
-          count++;
+          buffer[count++] = (byte) nextchar;
         }
 
         break;
       }
     }
-
+    count = count - offset;
+    
     _totalBytesRead += count;
     return count > 0 ? count : -1;
   }
