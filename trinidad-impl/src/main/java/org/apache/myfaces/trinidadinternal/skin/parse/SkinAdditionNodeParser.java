@@ -18,16 +18,14 @@
  */
 package org.apache.myfaces.trinidadinternal.skin.parse;
 
-import java.util.Map;
-
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.share.xml.StringParser;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXParseException;
-
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.StringParser;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXParseException;
 
 /**
  * NodeParser for &lt;skin-addition&gt; node in trinidad-skins.xml
@@ -101,6 +99,12 @@ public class SkinAdditionNodeParser extends BaseNodeParser
     {
       return context.getParser(SkinFeaturesNode.class, namespaceURI, localName);
     }
+    // <metadata/> and its child elements are not for runtime purpose, so, the parser should ignore.
+    else if ("metadata".equals(localName))
+    {
+      return BaseNodeParser.getIgnoreParser();
+    }
+
     return null;
   }
 
