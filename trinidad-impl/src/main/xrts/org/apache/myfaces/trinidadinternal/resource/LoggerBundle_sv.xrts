@@ -82,7 +82,7 @@
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">Kunde inte ladda ViewHandler {0}.</resource>
 
 <!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
-<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Trinidads ViewHandler har registrerats flera gånger. Om du vill undvika initieringsproblem ser du till att endast en Trinidad-implementation-jar laddas</resource>
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Trinidads ViewHandler har registrerats flera gånger. Om du vill undvika initieringsproblem ser du till att endast en Trinidad-implementering-jar laddas</resource>
 
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad körs med aktiverad tidsstämpelkontroll. Den ska inte användas i produktionsmiljö. Se egenskapen {0} i WEB-INF/web.xml</resource>

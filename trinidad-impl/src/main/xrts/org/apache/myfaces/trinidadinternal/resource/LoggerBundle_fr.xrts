@@ -571,7 +571,7 @@
 <resource key="FACETNAME_REQUIRED" dnt="false">facetName est obligatoire pour facetRef</resource>
 
 <!-- VALIDATOR_NOT_INSIDE_UICOMPONENT -->
-<resource key="VALIDATOR_NOT_INSIDE_UICOMPONENT" dnt="false">la balise de validation ne se trouve pas dans un UIComponent.</resource>
+<resource key="VALIDATOR_NOT_INSIDE_UICOMPONENT" dnt="false">la balise du valideur ne se trouve pas dans un UIComponent.</resource>
 
 <!-- CANNOT_CREATE_VALIDATOR -->
 <resource key="CANNOT_CREATE_VALIDATOR" dnt="false">impossible de créer un valideur pour le validatorId {0} et la liaison {1}</resource>
@@ -859,7 +859,7 @@
  <resource key="ITEM_ALREADY_BEEN_READ_PAST" dnt="false">Cet élément a déjà été lu.</resource>
 
  <!-- INPUT_STREAM_ALREADY_REQUESTED -->
- <resource key="INPUT_STREAM_ALREADY_REQUESTED" dnt="false">Le flux d'entrée a déjà été demandé.</resource>
+ <resource key="INPUT_STREAM_ALREADY_REQUESTED" dnt="false">Le flux en entrée a déjà été demandé.</resource>
 
  <!-- UPLOADED_FILE_EXCEEDED_MAXIMUM_ALLOWED_LENGTH -->
  <resource key="UPLOADED_FILE_EXCEEDED_MAXIMUM_ALLOWED_LENGTH" dnt="false">Le fichier téléchargé, de {0} octets de long, dépasse la longueur maximale autorisée ({1} octets)</resource>

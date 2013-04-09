@@ -434,9 +434,9 @@
   <resource key="af_selectBooleanCheckbox.READONLY_NOT_CHECKED_TIP" dnt="false">Niezaznaczone pole wyboru \"Tylko do odczytu\"</resource>
 
  <!-- alt text for the icon that indicates a readOnly radioButton in the selected state -->
-  <resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Wybrana opcja \"Tylko do odczytu\"</resource>
+  <resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Wybrany przycisk radiowy \"Tylko do odczytu\"</resource>
  <!-- alt text for the icon that indicates a readOnly radioButton in the unselected state -->
-  <resource key="af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP" dnt="false">Niewybrana opcja \"Tylko do odczytu\"</resource>
+  <resource key="af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP" dnt="false">Niewybrany przycisk radiowy "Tylko do odczytu"</resource>
  
   <!-- This is the title of the link at the top of a page that a screen-reader
        user would use to skip all the navigation links and jump to the

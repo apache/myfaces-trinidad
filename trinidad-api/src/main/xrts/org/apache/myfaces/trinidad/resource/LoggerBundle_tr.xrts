@@ -241,7 +241,7 @@
  <resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">Hedef kapsayıcı bileşeni gerekli.</resource>
 
  <!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
- <resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">MoveChildComponentChange içindeki bir veya daha çok katılımcı bileşenin no''su yok.</resource>
+ <resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">MoveChildComponentChange içindeki bir veya daha çok katılımcı bileşenin no'su yok.</resource>
 
  <!-- COMMON_PARENT_NOT_FOUND -->
  <resource key="COMMON_PARENT_NOT_FOUND" dnt="false">Taşınabilir alt öğe ve hedef kapsayıcı arasında bir üst öğe bulunamadı: {0}.</resource>

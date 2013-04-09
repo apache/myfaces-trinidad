@@ -526,7 +526,7 @@
   <resource key="FRAME_CONTENT" dnt="false">Conteúdo</resource>
 
   <!-- A message displayed when we think there's a popup blocker installed -->
-  <resource key="WINDOW_CREATION_ERROR" dnt="false">Foi detetado um bloqueador de janelas sobrepostas no navegador. Os bloqueadores de janelas sobrepostas interferem com o funcionamento desta aplicação. Desactive o bloqueador de janelas ou permita a apresentação de janelas sobrepostas deste local.</resource>
+  <resource key="WINDOW_CREATION_ERROR" dnt="false">Foi detetado um bloqueador de janelas sobrepostas no navegador. Os bloqueadores de janelas sobrepostas interferem com o funcionamento desta aplicação. Desative o bloqueador de janelas ou permita a apresentação de janelas sobrepostas deste local.</resource>
 
   <!-- Text to display in noframes element. This message is set on noframes element,
        when page redirection happens for LOV selection. -->
