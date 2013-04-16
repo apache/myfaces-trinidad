@@ -173,20 +173,21 @@ public class HTMLEscapes
         // character separately we might have '&#55360;&#56320;', and Firefox can't recognize these 2 decimal values as 
         // one supplementary character. Instead we need to use a single supplementary decimal value &#131072;.
         int surrogateCodePoint = Character.codePointAt(text, i);
+        
+        buffIndex =
+            _writeDecRef(out, buff, buffIndex, surrogateCodePoint);
         // only increase i if a valid surrogate code point is returned 
         if (Character.isSupplementaryCodePoint(surrogateCodePoint))
         {
-          
-          buffIndex =
-              _writeDecRef(out, buff, buffIndex, surrogateCodePoint);
           i++;
         }
-        else
-        {
+        //else
+        //{
+          // DO NOT BLOW UP. We have a bug in outputFormatted+surrogates, and we don't want to blow up.
           // blow up if invalid utf-16 characters encountered
-          throw new IllegalArgumentException(
-            _LOG.getMessage("INVALID_SURROGATE_CHAR", new Object[] { ch, surrogateCodePoint, i }));
-        }
+          //throw new IllegalArgumentException(
+          //  _LOG.getMessage("INVALID_SURROGATE_CHAR", new Object[] { ch, surrogateCodePoint, i }));
+        //}
       }
       else if (ch < 0xfffe) // characters fffe and ffff are considered outside of unicode
       {
@@ -311,19 +312,21 @@ public class HTMLEscapes
         // character separately we might have '&#55360;&#56320;', and Firefox can't recognize these 2 decimal values as 
         // one supplementary character. Instead we need to use a single supplementary decimal value &#131072;.
         int surrogateCodePoint = Character.codePointAt(text, i);
+
+        buffIndex =
+          _writeDecRef(out, buff, buffIndex, surrogateCodePoint);
         // only increase i if a valid surrogate code point is returned 
         if (Character.isSupplementaryCodePoint(surrogateCodePoint))
         {
-          buffIndex =
-              _writeDecRef(out, buff, buffIndex, surrogateCodePoint);
           i++;
         }
-        else
-        {
+        //else
+        //{
+          // DO NOT BLOW UP. We have a bug in outputFormatted+surrogates, and we don't want to blow up.
           // blow up if invalid utf-16 characters encountered
-          throw new IllegalArgumentException(
-            _LOG.getMessage("INVALID_SURROGATE_CHAR", new Object[] { ch, surrogateCodePoint, i }));
-        }
+          //throw new IllegalArgumentException(
+          //  _LOG.getMessage("INVALID_SURROGATE_CHAR", new Object[] { ch, surrogateCodePoint, i }));
+        //}
       }
       else if (ch < 0xfffe) // characters fffe and ffff are considered outside of unicode
       {
