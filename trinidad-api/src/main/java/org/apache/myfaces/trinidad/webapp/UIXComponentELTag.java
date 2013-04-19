@@ -31,6 +31,7 @@ import javax.el.ValueExpression;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.webapp.UIComponentClassicTagBase;
 import javax.faces.webapp.UIComponentELTag;
 
 import javax.servlet.jsp.JspException;
@@ -48,6 +49,18 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 abstract public class UIXComponentELTag extends UIComponentELTag
 {
+  /**
+   * @see #checkChildTagExecution
+   */
+  protected enum CheckExecutionResult
+  {
+    /** Execute the child tag and its body */
+    EXECUTE,
+
+    /** Skip both the creation of the component, and do not execute the child's body */
+    SKIP_EXECUTION
+  }
+
   public UIXComponentELTag()
   {
   }
@@ -60,14 +73,57 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   @Override
   public int doStartTag() throws JspException
   {
+    UIComponentClassicTagBase parentTagBase = getParentUIComponentClassicTagBase(pageContext);
+    if (parentTagBase instanceof UIXComponentELTag)
+    {
+      UIXComponentELTag parentTag = (UIXComponentELTag)parentTagBase;
+      String facetName = getFacetName();
+
+      // Check if the component should be created
+      if (parentTag.checkChildTagExecution(this, facetName) == CheckExecutionResult.SKIP_EXECUTION)
+      {
+        return SKIP_BODY;
+      }
+    }
+
     int retVal = super.doStartTag();
 
-    //pu: There could have been some validation error during property setting
-    //  on the bean, this is the closest opportunity to burst out.
+    // There could have been some validation error during property setting
+    // on the bean, this is the closest opportunity to burst out.
     if (_validationError != null)
       throw new JspException(_validationError);
 
     return retVal;
+  }
+
+  /**
+   * Check if a child component tag should execute or not. Allows the parent tag to control if
+   * child components are created for optimization purposes.
+   *
+   * @param childTag The child tag
+   * @param facetName The facet, if any, for the child tag
+   * @return if the tag should be executed or not
+   */
+  protected CheckExecutionResult checkChildTagExecution(
+    @SuppressWarnings("unused") UIXComponentELTag childTag,
+    @SuppressWarnings("unused") String            facetName)
+  {
+    return CheckExecutionResult.EXECUTE;
+  }
+
+  /**
+   * Allows a child tag to check if its children should be executed based on the grand-parent.
+   * Used for components where a parent-child relationship has been established. For example,
+   * allows the show detail item to ask the parent panelTabbed tag if the show detail item should
+   * allow children components of the show detail item to be created.
+   *
+   * @param childComponent The child component
+   * @return if the children tags of the component should be executed or not
+   */
+  protected CheckExecutionResult checkChildTagExecution(
+    @SuppressWarnings("unused") UIXComponent childComponent)
+  {
+    return CheckExecutionResult.EXECUTE;
   }
 
   protected final void setProperties(UIComponent component)
