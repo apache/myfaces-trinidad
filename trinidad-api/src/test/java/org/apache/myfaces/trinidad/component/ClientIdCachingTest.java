@@ -27,8 +27,6 @@ import junit.framework.TestSuite;
 
 import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 
-import org.apache.myfaces.trinidad.component.UIXPanel;
-
 public class ClientIdCachingTest extends FacesTestCase
 {
   public static final Test suite()
@@ -69,12 +67,16 @@ public class ClientIdCachingTest extends FacesTestCase
     TestNamingContainer d = new TestNamingContainer(); d.setId("d");
     TestPanel e = new TestPanel(); e.setId("e");
     TestPanel g = new TestPanel(); g.setId("g");
+                                   
+    FacesContext context = FacesContext.getCurrentInstance();
+    context.getViewRoot().getChildren().add(a);
+
     a.getChildren().add(b);
     b.getChildren().add(d);
     b.getChildren().add(g);
     d.getChildren().add(e);
     
-    FacesContext context = FacesContext.getCurrentInstance();
+    
     assertEquals("a:b:d:e", e.getClientId(context));
   }
   
@@ -85,13 +87,16 @@ public class ClientIdCachingTest extends FacesTestCase
     TestNamingContainer d = new TestNamingContainer(); d.setId("d");
     TestPanel e = new TestPanel(); e.setId("e");
     TestPanel g = new TestPanel(); g.setId("g");
+                                   
+    FacesContext context = FacesContext.getCurrentInstance();
+    context.getViewRoot().getChildren().add(a);
+                                   
     a.getChildren().add(b);
     b.getChildren().add(d);
     b.getChildren().add(g);
     d.getChildren().add(e);
 
     // prime    
-    FacesContext context = FacesContext.getCurrentInstance();
     assertEquals("a:b:d:e", e.getClientId(context));
 
     // set the component's id using accessor
@@ -121,6 +126,10 @@ public class ClientIdCachingTest extends FacesTestCase
     TestPanel e = new TestPanel(); e.setId("e");
     TestPanel f = new TestPanel(); f.setId("f");
     TestPanel g = new TestPanel(); g.setId("g");
+                                   
+    FacesContext context = FacesContext.getCurrentInstance();
+    context.getViewRoot().getChildren().add(a);
+
     a.getChildren().add(b);
     a.getChildren().add(c);
     b.getChildren().add(d);
@@ -129,7 +138,6 @@ public class ClientIdCachingTest extends FacesTestCase
     d.getChildren().add(f);
 
     // prime    
-    FacesContext context = FacesContext.getCurrentInstance();
     assertEquals("a:b:d:e", e.getClientId(context));
 
     // move within same NamingContainer--no clientId change

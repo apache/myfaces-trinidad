@@ -104,9 +104,9 @@ public class CoreRenderKitTest extends RenderKitTestCase
     }
   }
 
-  static private List<SuiteDefinition> _definitions =
+  private static final List<SuiteDefinition> _definitions =
     new ArrayList<SuiteDefinition>();
-  private static HashSet<String> _sHtmlComponents;
+  private static final HashSet<String> _sHtmlComponents;
 
   static
   {
@@ -159,7 +159,7 @@ public class CoreRenderKitTest extends RenderKitTestCase
                                          RenderKitBootstrap.getGeckoAgent(),
                                          false));
 
-    _sHtmlComponents = new HashSet<String>(5);
+    _sHtmlComponents = new HashSet<String>(8);
     _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlBody");
     _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlFrame");
     _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlFrameBorderLayout");

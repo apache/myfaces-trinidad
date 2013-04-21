@@ -773,7 +773,7 @@ abstract public class UIXComponent extends UIComponent
   /**
    * Clears all of the cached clientIds in this component subtree
    */
-  public final void clearCachedClientIds()
+  public void clearCachedClientIds()
   {
     clearCachedClientIds(this);
   }
@@ -784,13 +784,32 @@ abstract public class UIXComponent extends UIComponent
    */
   public static void clearCachedClientIds(UIComponent component)
   {
+    if (component instanceof UIXComponent)
+    {
+      ((UIXComponent)component).clearCachedClientIds();
+    }
+    else
+    {
+      _clearCachedClientIds(component);
+    }
+  }
+  
+  /**
+   * Default implementation of clearing the cached client ids
+   */
+  private static void _clearCachedClientIds(UIComponent component)
+  {
+    // clear this component
     String id = component.getId();
     component.setId(id);
 
+    // clear the children
     Iterator<UIComponent> allChildren = component.getFacetsAndChildren();
 
     while (allChildren.hasNext())
+    {
       clearCachedClientIds(allChildren.next());
+    }
   }
 
   /**

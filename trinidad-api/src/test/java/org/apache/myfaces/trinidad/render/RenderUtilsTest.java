@@ -101,6 +101,9 @@ public class RenderUtilsTest extends FacesTestCase
       table1.setId("table1");
       TestUIXPanel rootPanel = new TestUIXPanel();
       rootPanel.setId("rootPanel");
+      
+      context.getViewRoot().getChildren().add(rootPanel);
+      
       rootPanel.getChildren().add(button1);
       rootPanel.getChildren().add(table1);
       TestUIXPanel tableChild = new TestUIXPanel();
@@ -165,6 +168,8 @@ public class RenderUtilsTest extends FacesTestCase
       button2.setId("button2");
       TestUIXPanel rootButton = new TestUIXPanel();
       rootButton.setId("rootButton");
+
+      context.getViewRoot().getChildren().add(form);
 
       form.getChildren().add(ncRoot);
       form.getChildren().add(rootButton);

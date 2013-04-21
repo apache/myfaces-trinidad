@@ -44,6 +44,7 @@ import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
@@ -499,26 +500,50 @@ abstract public class UIXComponentBase extends UIXComponent
     String clientId = getId();
 
     // Search for an ancestor that is a naming container
-    UIComponent containerComponent = getParent();
-    while (null != containerComponent)
+    UIComponent lastParent = null;
+    UIComponent currParent = getParent();
+    
+    while (true)
     {
-      if (containerComponent instanceof NamingContainer)
+      // prepend the NamingContainer portion of the id
+      if (currParent instanceof NamingContainer)
       {
         String contClientId;
 
         // Pass additional context information to naming containers which extend UIXComponent:
-        if (containerComponent instanceof UIXComponent)
-          contClientId = ((UIXComponent)containerComponent).getContainerClientId(context, this);
+        if (currParent instanceof UIXComponent)
+          contClientId = ((UIXComponent)currParent).getContainerClientId(context, this);
         else
-          contClientId = containerComponent.getContainerClientId(context);
+          contClientId = currParent.getContainerClientId(context);
 
         StringBuilder bld = __getSharedStringBuilder();
         bld.append(contClientId).append(NamingContainer.SEPARATOR_CHAR).append(clientId);
         clientId = bld.toString();
         break;
       }
-
-      containerComponent = containerComponent.getParent();
+      else if (currParent == null)
+      {
+        if (lastParent instanceof UIViewRoot)
+        {
+          // we got to the top of the component tree, so done looping
+          break;
+        }
+        else
+        {          
+          // the component isn't in the component tree, which can cause the cached client id to be wrong.
+          
+          // =-= btsulliv see Trinidad-2374.  We can't do this right now because of a couple of bogus Trinidad Renderers
+          break;
+          
+          /*
+          throw new IllegalStateException("Calling getClientId() on component " + this +
+                                          " when it is not in the component tree.  Ancestor path:" +_getAncestorPath());
+          */
+        }
+      }
+      
+      lastParent = currParent;
+      currParent = lastParent.getParent();
     }
 
     Renderer renderer = getRenderer(context);
@@ -528,6 +553,58 @@ abstract public class UIXComponentBase extends UIXComponent
     return clientId;
   }
 
+  private List<UIComponent> _getAncestors()
+  {
+    List<UIComponent> ancestors = new ArrayList<UIComponent>();
+    
+    UIComponent parent = getParent();
+    
+    while (parent != null)
+    {
+      ancestors.add(parent);
+      
+      parent = parent.getParent();
+    }
+    
+    Collections.reverse(ancestors);
+    
+    return ancestors;
+  }
+
+  private String _getAncestorPath()
+  {
+    StringBuilder ancestorPath = new StringBuilder(1000);
+  
+    List<UIComponent> ancestors = _getAncestors();
+      
+    if (ancestors.isEmpty())
+    {
+      return "<none>";
+    }
+    else
+    {
+      Iterator<UIComponent> ancestorsIter = ancestors.iterator();
+      
+      boolean first = true;
+      
+      while (ancestorsIter.hasNext())
+      {
+        if (!first)
+        {
+          ancestorPath.append('/');
+        }
+        else
+        {
+          first = false;
+        }
+        
+        ancestorPath.append(ancestorsIter.next().toString());        
+      }
+      
+      return ancestorPath.toString();
+    }
+  }
+  
   @Override
   public String getClientId(FacesContext context)
   {
@@ -593,7 +670,10 @@ abstract public class UIXComponentBase extends UIXComponent
       // make sure that we always have an id
       if (_id == null)
       {
-        _id = FacesContext.getCurrentInstance().getViewRoot().createUniqueId();
+        FacesContext context = FacesContext.getCurrentInstance();
+        UIViewRoot viewRoot = context.getViewRoot();
+                
+        _id = viewRoot.createUniqueId();
       }
 
       return _id;
@@ -642,7 +722,7 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       // only validate if the id has actually changed
       if ((_id == null) || !_id.equals(id))
-      {
+      {        
         _validateId(id);
         _id = id;
 
@@ -650,7 +730,7 @@ abstract public class UIXComponentBase extends UIXComponent
         // of our children
         if ((_clientId != null) && (this instanceof NamingContainer))
         {
-          clearCachedClientIds(this);
+          clearCachedClientIds();
         }
       }
     }
@@ -661,6 +741,24 @@ abstract public class UIXComponentBase extends UIXComponent
     }
 
     _clientId = null;
+  }
+
+  /**
+   * Clears all of the cached clientIds in this component subtree
+   */
+  @Override
+  public void clearCachedClientIds()
+  {
+    // clear our clientId
+    _clientId = null;
+
+    // clear the children
+    Iterator<UIComponent> allChildren = getFacetsAndChildren();
+
+    while (allChildren.hasNext())
+    {
+      clearCachedClientIds(allChildren.next());
+    }
   }
 
   @Override
@@ -689,9 +787,12 @@ abstract public class UIXComponentBase extends UIXComponent
       {
         // set the reference
         _parent = parent;
-        _resetClientId();
+        
+        boolean isInView = parent.isInView();
+        
+        _resetClientId(isInView);
 
-        if (parent.isInView())
+        if (isInView)
         {
           // trigger the ADD_EVENT and call setInView(true)
           // recursive for all kids/facets...
@@ -703,7 +804,9 @@ abstract public class UIXComponentBase extends UIXComponent
       }
       else
       {
-        if (_parent != null && _parent.isInView())
+        boolean wasInView = _parent != null && _parent.isInView();
+          
+        if (wasInView)
         {
           // trigger the "remove event" lifecycle
           // and call setInView(false) for all children/facets
@@ -711,24 +814,36 @@ abstract public class UIXComponentBase extends UIXComponent
           _publishPreRemoveFromViewEvent(getFacesContext(), this);
         }
 
-        // (un)set the reference
-        _parent = parent;
-        _resetClientId();
+        // clear the references
+        _parent = null;
+        _resetClientId(false);
       }
     }
   }
 
-  private void _resetClientId()
+  private void _resetClientId(boolean isInView)
   {
     // clear cached client ids if necessary
     if (_clientId != null)
     {
-      String newClientId = _calculateClientId(FacesContext.getCurrentInstance());
-
+      String newClientId;
+      
+      // if the component is currently in the component tree, calculate the new clientId, to see if it has changed
+      if (isInView)
+      {
+        newClientId = _calculateClientId(FacesContext.getCurrentInstance());
+      }
+      else
+      {
+        newClientId = null;
+      }
+      
       // if our clientId changed as a result of being reparented (because we moved
       // between NamingContainers for instance) then we need to clear out
+      boolean clearCachedIds = !_clientId.equals(newClientId);
+      
       // all of the cached client ids for our subtree
-      if (!_clientId.equals(newClientId))
+      if (clearCachedIds)
       {
         clearCachedClientIds();
         _clientId = newClientId;
