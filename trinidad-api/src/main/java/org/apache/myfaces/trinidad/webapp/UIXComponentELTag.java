@@ -82,10 +82,12 @@ abstract public class UIXComponentELTag extends UIComponentELTag
       // Check if the component should be created
       if (parentTag.checkChildTagExecution(this, facetName) == CheckExecutionResult.SKIP_EXECUTION)
       {
+        _skipEndTagSuperCall = true;
         return SKIP_BODY;
       }
     }
 
+    _skipEndTagSuperCall = false;
     int retVal = super.doStartTag();
 
     // There could have been some validation error during property setting
@@ -94,6 +96,21 @@ abstract public class UIXComponentELTag extends UIComponentELTag
       throw new JspException(_validationError);
 
     return retVal;
+  }
+
+  @Override
+  public int doEndTag()
+    throws JspException
+  {
+    if (_skipEndTagSuperCall)
+    {
+      _skipEndTagSuperCall = false;
+      return EVAL_PAGE;
+    }
+    else
+    {
+      return super.doEndTag();
+    }
   }
 
   /**
@@ -448,6 +465,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   @Deprecated
   public static final String DOCUMENT_CREATED_KEY = "org.apache.myfaces.trinidad.DOCUMENTCREATED";
 
-  private MethodExpression  _attributeChangeListener;
-  private String            _validationError;
+  private MethodExpression _attributeChangeListener;
+  private String           _validationError;
+  private boolean          _skipEndTagSuperCall = false;
 }
