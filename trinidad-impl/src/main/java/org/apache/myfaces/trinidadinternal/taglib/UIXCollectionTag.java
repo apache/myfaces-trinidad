@@ -55,6 +55,12 @@ abstract public class UIXCollectionTag extends UIXComponentELTag
     super.release();
     _var = null;
   }
+
+  @Override
+  protected boolean isStampingTag()
+  {
+    return true;
+  }
 }
 
 

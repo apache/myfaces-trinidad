@@ -24,7 +24,9 @@ import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 import java.util.TimeZone;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
@@ -73,17 +75,24 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   @Override
   public int doStartTag() throws JspException
   {
-    UIComponentClassicTagBase parentTagBase = getParentUIComponentClassicTagBase(pageContext);
-    if (parentTagBase instanceof UIXComponentELTag)
-    {
-      UIXComponentELTag parentTag = (UIXComponentELTag)parentTagBase;
-      String facetName = getFacetName();
+    Map<String, Object> reqMap = getFacesContext().getExternalContext().getRequestMap();
 
-      // Check if the component should be created
-      if (parentTag.checkChildTagExecution(this, facetName) == CheckExecutionResult.SKIP_EXECUTION)
+    // Only support skipping the body of a tag when not iterating
+    if (!_isIterating(reqMap))
+    {
+      UIComponentClassicTagBase parentTagBase = getParentUIComponentClassicTagBase(pageContext);
+      if (parentTagBase instanceof UIXComponentELTag)
       {
-        _skipEndTagSuperCall = true;
-        return SKIP_BODY;
+        UIXComponentELTag parentTag = (UIXComponentELTag)parentTagBase;
+        String facetName = getFacetName();
+
+        // Check if the component should be created
+        if (parentTag.checkChildTagExecution(this, facetName) ==
+          CheckExecutionResult.SKIP_EXECUTION)
+        {
+          _skipEndTagSuperCall = true;
+          return SKIP_BODY;
+        }
       }
     }
 
@@ -94,6 +103,8 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     // on the bean, this is the closest opportunity to burst out.
     if (_validationError != null)
       throw new JspException(_validationError);
+
+    _checkStartingStampingTag(reqMap);
 
     return retVal;
   }
@@ -109,13 +120,33 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     }
     else
     {
+      _checkEndingStampingTag();
       return super.doEndTag();
     }
   }
 
   /**
+   * Check if an iterating tag is currently executing (between doStartTag and doEndTag).
+   */
+  protected boolean isIterating()
+  {
+    return _isIterating(getFacesContext().getExternalContext().getRequestMap());
+  }
+
+
+  /**
+   * Check if this tag is a stamping tag (tag that creates a component that stamps out its
+   * contents, potentially rendering the children multiple times).
+   */
+  protected boolean isStampingTag()
+  {
+    return false;
+  }
+
+  /**
    * Check if a child component tag should execute or not. Allows the parent tag to control if
-   * child components are created for optimization purposes.
+   * child components are created for optimization purposes. Only called if the current tag is
+   * not in a stamping tag.
    *
    * @param childTag The child tag
    * @param facetName The facet, if any, for the child tag
@@ -370,7 +401,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     }
   }
 
-    /**
+  /**
    * Set a property of type java.util.Date.  If the value
    * is an EL expression, it will be stored as a ValueBinding.
    * Otherwise, it will parsed as an ISO 8601 date (yyyy-MM-dd)
@@ -427,6 +458,51 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     _validationError = validationError;
   }
 
+  private void _checkStartingStampingTag(
+    Map<String, Object> reqMap)
+  {
+    if (isStampingTag())
+    {
+      AtomicInteger count = (AtomicInteger)reqMap.get(_STAMPING_COUNT_KEY);
+      if (count == null)
+      {
+        reqMap.put(_STAMPING_COUNT_KEY, new AtomicInteger(1));
+      }
+      else
+      {
+        // Only used on one thread, so use the safe methods for performance (only using the
+        // atomic integer for higher performance than boxing int to Integer)
+        count.set(count.get() + 1);
+      }
+    }
+  }
+
+  private void _checkEndingStampingTag()
+  {
+    if (isStampingTag())
+    {
+      Map<String, Object> reqMap = getFacesContext().getExternalContext().getRequestMap();
+      AtomicInteger count = (AtomicInteger)reqMap.get(_STAMPING_COUNT_KEY);
+      if (count.get() == 1)
+      {
+        reqMap.remove(_STAMPING_COUNT_KEY);
+      }
+      else
+      {
+        count.set(count.get() - 1);
+      }
+    }
+  }
+
+  /**
+   * Check if an iterating tag is currently executing (between doStartTag and doEndTag).
+   */
+  private boolean _isIterating(
+    Map<String, Object> reqMap)
+  {
+    return reqMap.containsKey(_STAMPING_COUNT_KEY);
+  }
+
   /**
    * Parse a string into a java.util.Date object.  The
    * string must be in ISO 9601 format (yyyy-MM-dd).
@@ -448,9 +524,6 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     }
   }
 
-  private static final TrinidadLogger _LOG =
-    TrinidadLogger.createTrinidadLogger(UIXComponentELTag.class);
-
   // We rely strictly on ISO 8601 formats
   private static DateFormat _getDateFormat()
   {
@@ -461,9 +534,14 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     return sdf;
   }
 
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(UIXComponentELTag.class);
+
   /** @deprecated Not used any more in the session state manager */
   @Deprecated
   public static final String DOCUMENT_CREATED_KEY = "org.apache.myfaces.trinidad.DOCUMENTCREATED";
+
+  private final static String _STAMPING_COUNT_KEY = UIXComponentELTag.class.getName() + ".STAMPING";
 
   private MethodExpression _attributeChangeListener;
   private String           _validationError;
