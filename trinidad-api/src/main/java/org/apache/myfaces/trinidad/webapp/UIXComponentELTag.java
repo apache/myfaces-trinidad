@@ -78,7 +78,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     Map<String, Object> reqMap = getFacesContext().getExternalContext().getRequestMap();
 
     // Only support skipping the body of a tag when not iterating
-    if (!_isIterating(reqMap))
+    if (!_isProcessingStampingComponentTag(reqMap))
     {
       UIComponentClassicTagBase parentTagBase = getParentUIComponentClassicTagBase(pageContext);
       if (parentTagBase instanceof UIXComponentELTag)
@@ -126,13 +126,15 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   }
 
   /**
-   * Check if an iterating tag is currently executing (between doStartTag and doEndTag).
+   * Check if a tag that creates components that stamp their children (tag that creates a component
+   * that stamps out its contents, potentially rendering the children multiple times)
+   * is currently executing (between doStartTag and doEndTag).
    */
-  protected boolean isIterating()
+  protected boolean isProcessingStampingComponentTag()
   {
-    return _isIterating(getFacesContext().getExternalContext().getRequestMap());
+    return _isProcessingStampingComponentTag(
+      getFacesContext().getExternalContext().getRequestMap());
   }
-
 
   /**
    * Check if this tag is a stamping tag (tag that creates a component that stamps out its
@@ -147,6 +149,14 @@ abstract public class UIXComponentELTag extends UIComponentELTag
    * Check if a child component tag should execute or not. Allows the parent tag to control if
    * child components are created for optimization purposes. Only called if the current tag is
    * not in a stamping tag.
+   * <p>Called from the doStartTag of the child tag to see if the parent tag wishes to prevent
+   * the execution of the child tag. This is called before the child tag creates its component.
+   * </p>
+   * <p>This only is called for a non-stamping situation do to the availability of EL evaluation.
+   * If inside of a stamping container, component state and EL may change per stamp and therefore
+   * the tag will not have access to that state since the component does not stamp during tag
+   * execution. Therefore, it is best to avoid trying to defer child execution when component
+   * state is not known.</p>
    *
    * @param childTag The child tag
    * @param facetName The facet, if any, for the child tag
@@ -164,11 +174,16 @@ abstract public class UIXComponentELTag extends UIComponentELTag
    * Used for components where a parent-child relationship has been established. For example,
    * allows the show detail item to ask the parent panelTabbed tag if the show detail item should
    * allow children components of the show detail item to be created.
+   * <p>This method is not called by the framework, but may be called by a child tag on the
+   * parent tag. The parent tag should override this method to determine if a child tag should
+   * execute its children tags. In the above example, the show detail item tag should call this
+   * method on the panelTabbed tag to see if the show detail item's children tags should be
+   * executed.</p>
    *
    * @param childComponent The child component
    * @return if the children tags of the component should be executed or not
    */
-  protected CheckExecutionResult checkChildTagExecution(
+  public CheckExecutionResult checkChildTagExecution(
     @SuppressWarnings("unused") UIXComponent childComponent)
   {
     return CheckExecutionResult.EXECUTE;
@@ -497,7 +512,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   /**
    * Check if an iterating tag is currently executing (between doStartTag and doEndTag).
    */
-  private boolean _isIterating(
+  private boolean _isProcessingStampingComponentTag(
     Map<String, Object> reqMap)
   {
     return reqMap.containsKey(_STAMPING_COUNT_KEY);
