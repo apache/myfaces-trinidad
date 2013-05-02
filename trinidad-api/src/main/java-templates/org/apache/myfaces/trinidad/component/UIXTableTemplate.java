@@ -642,6 +642,10 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
           try
           {
             RowKeySet rowKeys = (RowKeySet) value;
+            
+            // make sure the state is properly initiated first by calling getCollectionModel().
+            getCollectionModel();
+
             // row key sets need the most recent collection model, but there is no one common entry
             // point to set this on the set besides when code asks for the value from the bean
             __flushCachedModel();  //insist that we populate with the very lastest instance of the collection model
@@ -664,6 +668,10 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
           try
           {
             RowKeySet rowKeys = (RowKeySet) value;
+
+            // make sure the state is properly initiated first by calling getCollectionModel().
+            getCollectionModel();
+
             // row key sets need the most recent collection model, but there is no one common entry
             // point to set this on the set besides when code asks for the value from the bean
             __flushCachedModel();  //insist that we populate with the very lastest instance of the collection model
