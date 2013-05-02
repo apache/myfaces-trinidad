@@ -151,5 +151,11 @@ public class XhtmlFormattedText
     _sParser.addElement(new XhtmlFormattedText.XhtmlElement("em"));
     _sParser.addElement(new XhtmlFormattedText.XhtmlElement("a"));
     _sParser.addElement(new XhtmlFormattedText.FontElement("font"));   
+    _sParser.addElement(new XhtmlFormattedText.XhtmlElement("h1"));   
+    _sParser.addElement(new XhtmlFormattedText.XhtmlElement("h2"));   
+    _sParser.addElement(new XhtmlFormattedText.XhtmlElement("h3"));   
+    _sParser.addElement(new XhtmlFormattedText.XhtmlElement("h4"));   
+    _sParser.addElement(new XhtmlFormattedText.XhtmlElement("h5"));   
+    _sParser.addElement(new XhtmlFormattedText.XhtmlElement("h6"));   
   }
 }
