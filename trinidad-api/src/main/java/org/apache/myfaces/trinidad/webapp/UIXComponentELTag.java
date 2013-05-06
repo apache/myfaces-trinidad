@@ -24,13 +24,16 @@ import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 import java.util.TimeZone;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.webapp.UIComponentClassicTagBase;
 import javax.faces.webapp.UIComponentELTag;
 
 import javax.servlet.jsp.JspException;
@@ -48,6 +51,18 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 abstract public class UIXComponentELTag extends UIComponentELTag
 {
+  /**
+   * @see #checkChildTagExecution
+   */
+  protected enum CheckExecutionResult
+  {
+    /** Execute the child tag and its body */
+    EXECUTE,
+
+    /** Skip both the creation of the component, and do not execute the child's body */
+    SKIP_EXECUTION
+  }
+
   public UIXComponentELTag()
   {
   }
@@ -60,14 +75,118 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   @Override
   public int doStartTag() throws JspException
   {
+    Map<String, Object> reqMap = getFacesContext().getExternalContext().getRequestMap();
+
+    // Only support skipping the body of a tag when not iterating
+    if (!_isProcessingStampingComponentTag(reqMap))
+    {
+      UIComponentClassicTagBase parentTagBase = getParentUIComponentClassicTagBase(pageContext);
+      if (parentTagBase instanceof UIXComponentELTag)
+      {
+        UIXComponentELTag parentTag = (UIXComponentELTag)parentTagBase;
+        String facetName = getFacetName();
+
+        // Check if the component should be created
+        if (parentTag.checkChildTagExecution(this, facetName) ==
+          CheckExecutionResult.SKIP_EXECUTION)
+        {
+          _skipEndTagSuperCall = true;
+          return SKIP_BODY;
+        }
+      }
+    }
+
+    _skipEndTagSuperCall = false;
     int retVal = super.doStartTag();
 
-    //pu: There could have been some validation error during property setting
-    //  on the bean, this is the closest opportunity to burst out.
+    // There could have been some validation error during property setting
+    // on the bean, this is the closest opportunity to burst out.
     if (_validationError != null)
       throw new JspException(_validationError);
 
+    _checkStartingStampingTag(reqMap);
+
     return retVal;
+  }
+
+  @Override
+  public int doEndTag()
+    throws JspException
+  {
+    if (_skipEndTagSuperCall)
+    {
+      _skipEndTagSuperCall = false;
+      return EVAL_PAGE;
+    }
+    else
+    {
+      _checkEndingStampingTag();
+      return super.doEndTag();
+    }
+  }
+
+  /**
+   * Check if a tag that creates components that stamp their children (tag that creates a component
+   * that stamps out its contents, potentially rendering the children multiple times)
+   * is currently executing (between doStartTag and doEndTag).
+   */
+  protected boolean isProcessingStampingComponentTag()
+  {
+    return _isProcessingStampingComponentTag(
+      getFacesContext().getExternalContext().getRequestMap());
+  }
+
+  /**
+   * Check if this tag is a stamping tag (tag that creates a component that stamps out its
+   * contents, potentially rendering the children multiple times).
+   */
+  protected boolean isStampingTag()
+  {
+    return false;
+  }
+
+  /**
+   * Check if a child component tag should execute or not. Allows the parent tag to control if
+   * child components are created for optimization purposes. Only called if the current tag is
+   * not in a stamping tag.
+   * <p>Called from the doStartTag of the child tag to see if the parent tag wishes to prevent
+   * the execution of the child tag. This is called before the child tag creates its component.
+   * </p>
+   * <p>This only is called for a non-stamping situation do to the availability of EL evaluation.
+   * If inside of a stamping container, component state and EL may change per stamp and therefore
+   * the tag will not have access to that state since the component does not stamp during tag
+   * execution. Therefore, it is best to avoid trying to defer child execution when component
+   * state is not known.</p>
+   *
+   * @param childTag The child tag
+   * @param facetName The facet, if any, for the child tag
+   * @return if the tag should be executed or not
+   */
+  protected CheckExecutionResult checkChildTagExecution(
+    @SuppressWarnings("unused") UIXComponentELTag childTag,
+    @SuppressWarnings("unused") String            facetName)
+  {
+    return CheckExecutionResult.EXECUTE;
+  }
+
+  /**
+   * Allows a child tag to check if its children should be executed based on the grand-parent.
+   * Used for components where a parent-child relationship has been established. For example,
+   * allows the show detail item to ask the parent panelTabbed tag if the show detail item should
+   * allow children components of the show detail item to be created.
+   * <p>This method is not called by the framework, but may be called by a child tag on the
+   * parent tag. The parent tag should override this method to determine if a child tag should
+   * execute its children tags. In the above example, the show detail item tag should call this
+   * method on the panelTabbed tag to see if the show detail item's children tags should be
+   * executed.</p>
+   *
+   * @param childComponent The child component
+   * @return if the children tags of the component should be executed or not
+   */
+  public CheckExecutionResult checkChildTagExecution(
+    @SuppressWarnings("unused") UIXComponent childComponent)
+  {
+    return CheckExecutionResult.EXECUTE;
   }
 
   protected final void setProperties(UIComponent component)
@@ -297,7 +416,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     }
   }
 
-    /**
+  /**
    * Set a property of type java.util.Date.  If the value
    * is an EL expression, it will be stored as a ValueBinding.
    * Otherwise, it will parsed as an ISO 8601 date (yyyy-MM-dd)
@@ -354,6 +473,51 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     _validationError = validationError;
   }
 
+  private void _checkStartingStampingTag(
+    Map<String, Object> reqMap)
+  {
+    if (isStampingTag())
+    {
+      AtomicInteger count = (AtomicInteger)reqMap.get(_STAMPING_COUNT_KEY);
+      if (count == null)
+      {
+        reqMap.put(_STAMPING_COUNT_KEY, new AtomicInteger(1));
+      }
+      else
+      {
+        // Only used on one thread, so use the safe methods for performance (only using the
+        // atomic integer for higher performance than boxing int to Integer)
+        count.set(count.get() + 1);
+      }
+    }
+  }
+
+  private void _checkEndingStampingTag()
+  {
+    if (isStampingTag())
+    {
+      Map<String, Object> reqMap = getFacesContext().getExternalContext().getRequestMap();
+      AtomicInteger count = (AtomicInteger)reqMap.get(_STAMPING_COUNT_KEY);
+      if (count.get() == 1)
+      {
+        reqMap.remove(_STAMPING_COUNT_KEY);
+      }
+      else
+      {
+        count.set(count.get() - 1);
+      }
+    }
+  }
+
+  /**
+   * Check if an iterating tag is currently executing (between doStartTag and doEndTag).
+   */
+  private boolean _isProcessingStampingComponentTag(
+    Map<String, Object> reqMap)
+  {
+    return reqMap.containsKey(_STAMPING_COUNT_KEY);
+  }
+
   /**
    * Parse a string into a java.util.Date object.  The
    * string must be in ISO 9601 format (yyyy-MM-dd).
@@ -375,9 +539,6 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     }
   }
 
-  private static final TrinidadLogger _LOG =
-    TrinidadLogger.createTrinidadLogger(UIXComponentELTag.class);
-
   // We rely strictly on ISO 8601 formats
   private static DateFormat _getDateFormat()
   {
@@ -388,10 +549,16 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     return sdf;
   }
 
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(UIXComponentELTag.class);
+
   /** @deprecated Not used any more in the session state manager */
   @Deprecated
   public static final String DOCUMENT_CREATED_KEY = "org.apache.myfaces.trinidad.DOCUMENTCREATED";
 
-  private MethodExpression  _attributeChangeListener;
-  private String            _validationError;
+  private final static String _STAMPING_COUNT_KEY = UIXComponentELTag.class.getName() + ".STAMPING";
+
+  private MethodExpression _attributeChangeListener;
+  private String           _validationError;
+  private boolean          _skipEndTagSuperCall = false;
 }
