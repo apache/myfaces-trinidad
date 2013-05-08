@@ -1039,18 +1039,27 @@ this resolves to
         <strong>@agent</strong> {/skin definitions go here/} - > 
         Possible values are:
         <ul>
-          <li>netscape</li>
-          <li>ie</li>
-          <li>mozilla</li>
-          <li>gecko</li>
-          <li>webkit (maps to safari)</li>
-          <li>ice</li>
-          <li>email</li>
-          <li>blackberry</li>
-          <li>nokia_s60</li>
-          <li>genericpda</li>
-          <li>konqueror</li>
-          <li>opera</li>
+          <li>netscape (for Netscape Navigator browser)</li>
+          <li>ie (for the Microsoft Internet Explorer browser)</li>
+          <li>gecko or mozilla (for browsers based on the Gecko Layout Engine, eg: Mozilla, Netscape 7.0+)</li>
+          <li>elaine (Palm Web clipping)</li>
+          <li>ice or icebrowser (for the ICE Browser)</li>
+          <li>pixo (for the Pixo Microbrowser)</li>
+          <li>wml (for the WML Microbrowser)</li>
+          <li>simple-result (for SimpleResult intermediate Form)</li>
+          <li>ptg (for iAS wireless (PTG) client)</li>
+          <li>netfront (for the NetFront browser)</li>
+          <li>webkit (for the Safari browser)</li>
+          <li>blackberry (for the BlackBerry browser)</li>
+          <li>nokia_s60 (for the Nokia S60 browser)</li>
+          <li>genericpda (for the basic HTMLbrowser)</li>
+          <li>konqueror (for Konqueror)</li>
+          <li>email (for email)</li>
+          <li>opera (for opera browser)</li>
+          <li>googlebot (for Google web crawler)</li>
+          <li>msnbot (for Bing web crawler)</li>
+          <li>oracle_ses (for Oracle SES)</li>
+          <li>genericDesktop (for generic desktop)</li>
         </ul>
         This is to define styles only for a particular agent.
         <source>
