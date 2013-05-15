@@ -214,12 +214,11 @@ expressions - it must be configured statically.
         <subsection name="time-zone">
 <p>
 The <code>&lt;time-zone&gt;</code> element defines the default
-time zone used for date processing and date display.  Apache Trinidad
-will attempt to default the time zone to the time zone used
-by the client browser, but this property may be bound by
-an EL expression to a <code>TimeZone</code> object if needed.
+time zone used for date processing and date display.  This property may be bound by
+an EL expression to a <code>TimeZone</code> object if needed. If unspecified, the time zone
+defaults to the TimeZone returned by JDK TimeZone.getDefault(). 
 This value is used by <code>org.apache.myfaces.trinidad.converter.DateTimeConverter</code>
-while converting strings to Date.
+while converting strings to Date.  
 </p>
         </subsection>
 
