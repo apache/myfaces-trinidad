@@ -22,9 +22,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.UIXIterator;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
-import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 import org.w3c.dom.Document;
 
@@ -53,7 +52,7 @@ abstract class BaseChangeManager extends ChangeManager
     // don't want to persist the changes 
     UIComponent parent = uiComponent.getParent();
     UIComponent root = facesContext.getViewRoot();
-    while (parent != null && parent != root) 
+    while (parent != null && parent != root)
     {
       if (parent.getClass() == UIXIterator.class) 
       {
@@ -70,32 +69,15 @@ abstract class BaseChangeManager extends ChangeManager
     // add the change to the component
     addComponentChangeImpl(facesContext, uiComponent, change);
 
-    if (supportsDocumentPersistence(facesContext))
-    {
-      DocumentChange docChange = null;
-
-      if (change instanceof DocumentChange)
-      {
-        docChange = (DocumentChange)change;
-      }
-      else
-      {
-        // try to get equivalent DocumentChange from ComponentChange
-        docChange = createDocumentChange(change);
-      }
-
-      if (docChange != null)
-      {
-        addDocumentChange(facesContext, uiComponent, docChange);
-      }
-    }
+    // add a corresponding DocumentChange if possible
+    _addEquivalentDocumentChange(facesContext, uiComponent, change);
   }
-
+  
   /**
    * A no-op implementation of adding a ComponentChange. Sub-classers should
    * override and provide an implementation if they support component changes.
    * @param facesContext The FacesContext for this request.
-   * @param targetComponent The target component against which this change needs
+   * @param targetComponent The target component against which this change needs 
    * to be registered and applied later on.
    * @param componentChange The ComponentChange to add
    */
@@ -123,7 +105,7 @@ abstract class BaseChangeManager extends ChangeManager
    * in order to enable  Document-based Persistence
    */
   protected abstract Document getDocument(FacesContext context);
-
+  
   /**
    *  Returns true if we can support Document-based Persistence
    *  in this ChangeManager.  Subclassers adding Document-based Persistence
@@ -137,6 +119,46 @@ abstract class BaseChangeManager extends ChangeManager
     // correct, but potentially slow implementation
     return getDocument(context) != null;
   }
+
+  /*
+   * Create and add a DocumentChange corresponding to the supplied ComponentChange
+   */
+  private void _addEquivalentDocumentChange(
+    FacesContext facesContext,
+    UIComponent uiComponent,
+    ComponentChange compChange)
+  {
+    if (supportsDocumentPersistence(facesContext))
+    {
+      DocumentChange docChange = null;
+if (compChange instanceof DocumentChange)
+      
+      {
+        docChange = (DocumentChange)compChange;
+      }
+      else
+      {
+        // try to get equivalent DocumentChange from ComponentChange
+        docChange = createDocumentChange(compChange);
+      }
+
+      if (docChange != null)
+      {
+        //  We ("this" object) could be just a delegate of the top level change manager (i.e. the 
+        //  changemanager registered with the webapp). Automatically adding a document change (or 
+        //  deciding whether to add one) should be done by the top level changemanager 
+        ChangeManager topChangeManager = RequestContext.getCurrentInstance().getChangeManager();
+        
+        if ( ChangeOutcome.CHANGE_APPLIED ==
+              topChangeManager.addDocumentChangeWithOutcome(facesContext, uiComponent, docChange) )
+        {
+          // notify the registered change manager that we applied the document change 
+          topChangeManager.documentChangeApplied(facesContext, uiComponent, compChange);
+        }
+      }
+    }    
+  }
+  
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     BaseChangeManager.class);
 }

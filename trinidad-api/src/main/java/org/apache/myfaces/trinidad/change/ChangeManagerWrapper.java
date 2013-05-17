@@ -22,9 +22,6 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.change.ChangeManager;
-import org.apache.myfaces.trinidad.change.ComponentChange;
-import org.apache.myfaces.trinidad.change.DocumentChange;
 
 /**
  * Base class for ChangeManager implementations that wrap other ChangeManagers.
@@ -45,10 +42,12 @@ abstract public class ChangeManagerWrapper extends ChangeManager
   }
 
   /**
-   * Delegates the addDocumentChange() implementation to the wrapped
-   * ChangeManager.
+   * Delegates the addDocumentChange() implementation to the wrapped ChangeManager.
+   * 
+   * @see #addDocumentChangeWithOutcome(FacesContext, UIComponent, DocumnentChange)
    */
   @Override
+  @SuppressWarnings("deprecation")
   public void addDocumentChange(
     FacesContext context,
     UIComponent component,
@@ -85,6 +84,48 @@ abstract public class ChangeManagerWrapper extends ChangeManager
   public void applySimpleComponentChanges(FacesContext context, UIComponent component)
   {
     getWrappedChangeManager().applySimpleComponentChanges(context, component);
+  }
+
+  /**
+   * Delegates the documentChangeApplied() implementation to the wrapped ChangeManager.
+   */
+  @Override
+  public NotificationOutcome documentChangeApplied(
+    FacesContext facesContext, 
+    UIComponent component, 
+    ComponentChange componentChange)
+  {
+    return getWrappedChangeManager().documentChangeApplied(facesContext, 
+                                                           component, 
+                                                           componentChange);
+  }
+
+  /**
+   * Delegates the addDocumentChangeWithOutcome() implementation to the wrapped ChangeManager.
+   */
+  @Override
+  public ChangeOutcome addDocumentChangeWithOutcome(
+    FacesContext facesContext,
+    UIComponent uiComponent,
+    DocumentChange change)
+  {
+    return getWrappedChangeManager().addDocumentChangeWithOutcome(facesContext, 
+                                                                  uiComponent, 
+                                                                  change);
+  }
+  
+  /**
+   * Delegates the replaceAttributeChangeIfPresent() implementation to the wrapped ChangeManager.
+   */
+  @Override
+  public AttributeComponentChange replaceAttributeChangeIfPresent(
+    FacesContext facesContext,
+    UIComponent uiComponent,
+    AttributeComponentChange attributeComponentChange)
+  {
+    return getWrappedChangeManager().replaceAttributeChangeIfPresent(facesContext,
+                                                                     uiComponent,
+                                                                     attributeComponentChange);
   }
 
   /**  

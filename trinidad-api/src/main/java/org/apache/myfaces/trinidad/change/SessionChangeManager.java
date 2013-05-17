@@ -42,18 +42,15 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.CollectionUtils;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
-
-import org.apache.myfaces.trinidad.webapp.UIXComponentELTag;
 
 import org.w3c.dom.Document;
 
 
 /**
- * A ChangeManager implementation that manages persisting the added Changes at the session. 
+ * A ChangeManager implementation that manages persisting the added Changes at the session.
  * This means the lifetime of Changes added such is within the session scope. If any of the changes
  * are managed as state changes and restored by JSF state saving mechanism, the SessionChangeManager
  * will not re-apply such changes. For example: AttributeComponentChanges are not applied during
@@ -120,6 +117,72 @@ public class SessionChangeManager extends BaseChangeManager
   }
 
   /**
+   * @inheritDoc
+   */
+  @Override
+  @SuppressWarnings("deprecation")
+  public void addDocumentChange(
+    FacesContext facesContext,
+    UIComponent uiComponent,
+    DocumentChange change)
+  {
+    addDocumentChangeWithOutcome(facesContext, uiComponent, change);
+  }
+  
+  /**
+   * @inheritDoc
+   */
+  @Override
+  public ChangeOutcome addDocumentChangeWithOutcome(
+    FacesContext facesContext,
+    UIComponent uiComponent,
+    DocumentChange change)
+  {
+    if (facesContext == null || uiComponent == null || change == null)
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL"));
+
+    return ChangeOutcome.CHANGE_NOT_APPLIED;
+  }
+  
+  /**
+   * In this implementation, if a simple attribute document change was applied, we will remove
+   *  previously added component change on the same component and attribute, if any.
+   */
+  @Override
+  public NotificationOutcome documentChangeApplied(
+    FacesContext facesContext, 
+    UIComponent component, 
+    ComponentChange componentChange)
+  {
+    NotificationOutcome outcome = super.documentChangeApplied(facesContext, 
+                                                              component, 
+                                                              componentChange);
+    
+    if (componentChange instanceof AttributeComponentChange)
+    {
+      AttributeComponentChange attributeChange = (AttributeComponentChange)componentChange;
+      // given that document change was applied, any previously added component change is redundant, 
+      // remove it
+      ComponentChange removedChange = _removeSimpleComponentChange(facesContext,
+                                                                   component,
+                                                                   attributeChange);
+      
+      if (removedChange != null)
+      {
+        if (_LOG.isFine())
+        {
+          _LOG.fine("REMOVED_DOC_CHANGE_BECAUSE_COMP_CHANGE_ADDED", new Object[] {attributeChange.getAttributeName(), component});
+        }
+        
+        outcome = NotificationOutcome.HANDLED;
+      }
+    }
+    
+    return outcome;
+  }
+  
+  /**
    * Adds a ComponentChange and registers against the supplied component.
    * Changes added thus live at Session scope.
    * Use applyComponentChangesForCurrentView() to apply these changes.
@@ -139,6 +202,7 @@ public class SessionChangeManager extends BaseChangeManager
     {
       _replaceAttributeChange(context,
                               targetComponent,
+                              ((AttributeComponentChange)componentChange).getAttributeName(),
                               (AttributeComponentChange)componentChange,
                               false); // replace no matter what
     }
@@ -155,7 +219,10 @@ public class SessionChangeManager extends BaseChangeManager
       String logicalScopedIdForTargetComponent = 
         ComponentUtils.getLogicalScopedIdForComponent(targetComponent, context.getViewRoot());
       
-      _insertComponentChange(changesForView, scopedIdForTargetComponent, logicalScopedIdForTargetComponent, componentChange);
+      _insertComponentChange(changesForView, 
+                             scopedIdForTargetComponent, 
+                             logicalScopedIdForTargetComponent, 
+                             componentChange);
       
       // dirty the key in the session for failover
       context.getExternalContext().getSessionMap().put(sessionKey, changesForView);
@@ -171,7 +238,11 @@ public class SessionChangeManager extends BaseChangeManager
     UIComponent              component,
     AttributeComponentChange attributeComponentChange)
   {
-    return _replaceAttributeChange(context, component, attributeComponentChange, true);
+    return _replaceAttributeChange(context, 
+                                   component, 
+                                   attributeComponentChange.getAttributeName(), 
+                                   attributeComponentChange, 
+                                   true);
   }  
 
   /** 
@@ -184,19 +255,50 @@ public class SessionChangeManager extends BaseChangeManager
   }
 
   /**
-   *
+   * Removes (if any) the previously added simple component change for the supplied component and 
+   *  attribute 
+   *  
+   * @return The removed ComponentChange instance, or null if the ComponentChange was not removed
+   */
+  private ComponentChange _removeSimpleComponentChange(
+    FacesContext facesContext,
+    UIComponent component,
+    AttributeComponentChange componentChange)
+  {
+    String sessionKey = _getSessionKey(facesContext);
+    ChangesForView changesForView = _getChangesForView(facesContext, sessionKey, true);
+    String logicalScopedId = 
+      ComponentUtils.getLogicalScopedIdForComponent(component, facesContext.getViewRoot());
+
+    // first remove from the simple component changes structure that we maintained for convenience
+    changesForView.removeAttributeChange(logicalScopedId, componentChange);
+
+    // next, remove (replace with null) any attribute change for this attribute from the global 
+    //  changes list, handling the case where the component could have been moved after the 
+    //  attribute change was added
+    return _replaceAttributeChange(facesContext,
+                                   component,
+                                   componentChange.getAttributeName(),
+                                   null,
+                                   true);
+  }
+
+  /**
    * @param context
    * @param component
-   * @param attributeComponentChange
+   * @param attributeName The name of the attribute for which the attribute change is to be replaced
+   * @param attributeComponentChange The attributeChange that should now replace, If null, we just remove the old one 
+   *                                  and return
    * @param onlyIfPresent If true, we only insert a new changed if we removed an old one
    * @return the removed AttributeComponentChange, if any
    */
   private AttributeComponentChange _replaceAttributeChange(
     FacesContext             context,
     UIComponent              component,
+    String                   attributeName,
     AttributeComponentChange attributeComponentChange,
     boolean                  onlyIfPresent)
-  {    
+  { 
     // get the absolute scopedId for the target component so that we have a unique identifier
     // to compare
     String scopedIdForTargetComponent = ComponentUtils.getScopedIdForComponent(
@@ -208,18 +310,29 @@ public class SessionChangeManager extends BaseChangeManager
     String         sessionKey     = _getSessionKey(context);
     ChangesForView changesForView = _getChangesForView(context, sessionKey, true);
 
+    // remove the attribute change first if it existed
     AttributeComponentChange replaced = _extractAttributeChange(changesForView, 
                                                                 scopedIdForTargetComponent, 
-                                                                attributeComponentChange);
+                                                                attributeName);
     
-    // if found, we insert the new change instance
-    if (!onlyIfPresent || (replaced != null))
+    // if found, we insert the change instance we are asked to replace with
+    if ( attributeComponentChange != null && (!onlyIfPresent || (replaced != null)) )
     {
+      // a sanity check - the change better be for the same attribute
+      if ( !(attributeName.equals(attributeComponentChange.getAttributeName())) )
+      {
+        throw new IllegalArgumentException("The supplied attribute name does not match the " +
+                                           "attribute name in the supplied attribute change");
+      }
+      
       String logicalScopedIdForTargetComponent = ComponentUtils.getLogicalScopedIdForComponent(
                                                                               component,
                                                                               context.getViewRoot());
       
-      _insertComponentChange(changesForView, scopedIdForTargetComponent, logicalScopedIdForTargetComponent, attributeComponentChange);
+      _insertComponentChange(changesForView, 
+                             scopedIdForTargetComponent, 
+                             logicalScopedIdForTargetComponent, 
+                             attributeComponentChange);
 
       // dirty the key in the session for failover
       context.getExternalContext().getSessionMap().put(sessionKey, changesForView);
@@ -233,19 +346,20 @@ public class SessionChangeManager extends BaseChangeManager
    * - if not found, return null
    * - if found, remove and return the old change instance
    * 
+   * Note that this function will handle removing a component's attribute change even if the
+   * component was moved between naming containers after the attribute change was added
+   * 
    * @param changesForView
    * @param scopedIdForTargetComponent
-   * @param attributeChange
+   * @param attributeName The name of attribute for which the attribute change is to be extracted
    * @return the old change instance, null if not found
    */
   private AttributeComponentChange _extractAttributeChange(
-    ChangesForView           changesForView,
-    String                   scopedIdForTargetComponent,
-    AttributeComponentChange attributeChange)
+    ChangesForView changesForView,
+    String         scopedIdForTargetComponent,
+    String         attributeName)
   {
     AttributeComponentChange extracted = null;
-        
-    String attributeName = attributeChange.getAttributeName();
 
     // would really rather use a Deque here and iterate backwards, which would also make
     // handling the rename changes easier
@@ -446,7 +560,7 @@ public class SessionChangeManager extends BaseChangeManager
   /**
    * Is the state restored by JSF state manager in this request. This is usually true if this is a
    *  postback request. Additionally check if the document tag created a document component, because
-   *  if this is the case, we are sure that there was no state restoration.
+   *  if this is the case, we are sure that there was no state restoration. 
    */
   private boolean _isStateRestored(FacesContext facesContext)
   {
@@ -568,7 +682,7 @@ public class SessionChangeManager extends BaseChangeManager
     
     return builder.append(_COMPONENT_CHANGES_MAP_FOR_SESSION_KEY).append(viewId).toString();
   }
-
+  
   /**
    * Tracks the component changes for a particular view as well as all the movement
    * changes so that component aliasing can be tracked
@@ -635,7 +749,7 @@ public class SessionChangeManager extends BaseChangeManager
       // make sure that we don't add changes while getAttrChanges() is rebuilding the
       // per-component changes
       _componentChangesForView.add(qualifiedChange);
-        
+      
       ComponentChange componentChange = qualifiedChange.getComponentChange();
 
       if (componentChange instanceof AttributeComponentChange)
@@ -658,6 +772,24 @@ public class SessionChangeManager extends BaseChangeManager
           _updateRenameMap(_renameMap, moveComponentChange);
         }
       }
+    }
+    
+    /**
+     * Removes any previously stored attribute change for this component and attribute. Any moves 
+     *  later to an earlier addition of attribute change is taken care of, by means of removing such 
+     *  attribute change.
+     * @return The attribute change that was removed
+     */
+    protected AttributeComponentChange removeAttributeChange(
+      String                   logicalScopedId, 
+      AttributeComponentChange attributeChange)
+    {
+      // remove this change from the attribute changes map that gets used for applying simple 
+      //  component changes
+      return _removeAttributeChange(_attrChanges, 
+                                    _renameMap, 
+                                    logicalScopedId, 
+                                    attributeChange);
     }
       
     /**
@@ -720,45 +852,29 @@ public class SessionChangeManager extends BaseChangeManager
       // all phases including tag execution
       String scopedId = ComponentUtils.getLogicalScopedIdForComponent(component, context.getViewRoot());
       
-      ConcurrentMap<String, ComponentChange> componentChanges = _attrChanges.get(scopedId);
+      ConcurrentMap<String, AttributeComponentChange> attributeCmponentChanges = _attrChanges.get(scopedId);
       
-      if (componentChanges != null)
+      if (attributeCmponentChanges != null)
       {
-        for (ComponentChange change : componentChanges.values())
+        for (ComponentChange change : attributeCmponentChanges.values())
         {
           change.changeComponent(component);
         }
       }
     }
-
+    
     private void _updateAttributeChange(
-      ConcurrentMap<String, ConcurrentMap<String, ComponentChange>> attrChanges,
-      ConcurrentMap<String, String>                                 renameMap,
-      QualifiedComponentChange                                      qAttrChange)
+      ConcurrentMap<String, ConcurrentMap<String, AttributeComponentChange>>  attrChanges,
+      ConcurrentMap<String, String>                                           renameMap,
+      QualifiedComponentChange                                                qAttrChange)
     {
-      // update the current attribute values for the scoped id
-      String currScopedId = qAttrChange.getTargetComponentLogicalScopedId();
-      
-      // apply any move rename
-      String originalScopedId = renameMap.get(currScopedId);
-      
-      // we don't add rename mapping until a move, so if there is no entry, the origina
-      // value is good
-      if (originalScopedId == null)
-        originalScopedId = currScopedId;
-      
-      // get the map for this component, creating one if necessary
-      ConcurrentMap<String, ComponentChange> changesForComponent = 
-                                                           attrChanges.get(originalScopedId);
-      
-      // if we haven't registered a Map yet, create one and register it
-      if (changesForComponent == null)
-      {
-        // =-= bts There probably aren't that many different changes per component.  Maybe
-        //         we need something smaller and more efficient here
-        changesForComponent = new ConcurrentHashMap<String, ComponentChange>();
-        attrChanges.put(originalScopedId, changesForComponent);
-      }
+      // get all the attribute changes for this component after considering possible moves.
+      //  We want to update, so create if necessary
+      ConcurrentMap<String, AttributeComponentChange> changesForComponent = 
+        _getAttributeChangesAfterHandlingMove(attrChanges, 
+                                              renameMap, 
+                                              qAttrChange.getTargetComponentLogicalScopedId(), 
+                                              true);
       
       AttributeComponentChange attrChange = (AttributeComponentChange)
                                             qAttrChange.getComponentChange();
@@ -767,7 +883,67 @@ public class SessionChangeManager extends BaseChangeManager
       String attrName = attrChange.getAttributeName();
       
       changesForComponent.put(attrName, attrChange);
+    }
+
+    private AttributeComponentChange _removeAttributeChange(
+      ConcurrentMap<String, ConcurrentMap<String, AttributeComponentChange>> attrChanges,
+      ConcurrentMap<String, String>                                          renameMap,
+      String                                                                 logicalScopedId,
+      AttributeComponentChange                                               componentChange)
+    {
+      // get all the attribute changes for this component after considering possible moves
+      ConcurrentMap<String, AttributeComponentChange> changesForComponent = 
+        _getAttributeChangesAfterHandlingMove(attrChanges, renameMap, logicalScopedId, false);
       
+      if (changesForComponent != null)
+      {
+        return changesForComponent.remove(componentChange.getAttributeName());
+      }
+      
+      return null;
+    }
+    
+    /**
+     * Gets the map of all the attribute changes for a component with the supplied logical scoped id.
+     * 
+     * @param attrChanges The map of attribute change collection per component keyed by the id
+     * @param renameMap The id renaming map for moved components
+     * @param logicalScopedId The logical scoped id of the component for which attribute changes are 
+     *                         needed
+     * @param createIfNecessary Create the attribute changes map if there are no attribute changes
+     *                           for the component with supplied logical scoped id.
+     * @return The map of attribute changes keyed by the attribute name
+     */
+    private ConcurrentMap<String, AttributeComponentChange> _getAttributeChangesAfterHandlingMove(
+      ConcurrentMap<String, ConcurrentMap<String, AttributeComponentChange>>  attrChanges,
+      ConcurrentMap<String, String>                                           renameMap,
+      String                                                                  logicalScopedId,
+      boolean                                                                 createIfNecessary)
+    {
+      // handle renames due to possible moves and get the original id
+      String originalScopedId = renameMap.get(logicalScopedId);
+      
+      // we don't add rename mapping until a move, so if there is no entry, the component did not
+      // move, the original value is good
+      if (originalScopedId == null)
+      {
+        originalScopedId = logicalScopedId;
+      }
+      
+      // get the map of attribute changes for this component, creating one if necessary
+      ConcurrentMap<String, AttributeComponentChange> changesForComponent = 
+                                                           attrChanges.get(originalScopedId);
+      
+      // if we haven't registered a Map yet, create one and register it
+      if (changesForComponent == null && createIfNecessary)
+      {
+        // =-= bts There probably aren't that many different changes per component.  Maybe
+        //         we need something smaller and more efficient here
+        changesForComponent = new ConcurrentHashMap<String, AttributeComponentChange>();
+        attrChanges.put(originalScopedId, changesForComponent);
+      }
+      
+      return changesForComponent;
     }
     
     /**
@@ -798,7 +974,7 @@ public class SessionChangeManager extends BaseChangeManager
         renameMap.put(destinationScopedId, originalScodeId);
       }
     }
-
+    
     private void readObject(java.io.ObjectInputStream in) 
       throws IOException, ClassNotFoundException 
     {
@@ -839,15 +1015,14 @@ public class SessionChangeManager extends BaseChangeManager
       
       private static final long serialVersionUID = 1L;
     }
-
-
+             
     private final Queue<QualifiedComponentChange> _componentChangesForView;
     private final List<MoveChildComponentChange> _renameChanges;
     
     // map of original scopedIds to Map of attribute names and their new values.  This allows
     // us to apply all of attribute changes efficiently
-    private final ConcurrentMap<String, ConcurrentMap<String, ComponentChange>> _attrChanges = 
-      new ConcurrentHashMap<String, ConcurrentMap<String, ComponentChange>>();
+    private final ConcurrentMap<String, ConcurrentMap<String, AttributeComponentChange>> _attrChanges = 
+      new ConcurrentHashMap<String, ConcurrentMap<String, AttributeComponentChange>>();
     
     // map of current scoped ids to original scoped ids.  This enables us to correctly update
     // the attributes for the original scoped ids even after the component has moved

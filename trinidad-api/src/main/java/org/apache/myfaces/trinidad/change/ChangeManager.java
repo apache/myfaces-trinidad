@@ -36,6 +36,8 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *  take care of their persistence.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/ChangeManager.java#0 $) $Date: 10-nov-2005.19:09:58 $
  */
+// WHENEVER A NEW METHOD IS ADDED TO THIS CLASS, REMEMBER TO ADD AN IMPLEMENTATION TO
+// org.apache.myfaces.trinidad.change.ChangeManagerWrapper
 public abstract class ChangeManager
 {
   public static void registerDocumentFactory(
@@ -108,7 +110,7 @@ public abstract class ChangeManager
           else
           {
             // log warning because class isn't correct type
-            _LOG.warning("CONVERSION_CLASS_TYPE", new Object[] {converterClass, DocumentChangeFactory.class}); // NOTRANS
+            _LOG.warning("CONVERSION_CLASS_TYPE", new Object[] {converterClass, DocumentChangeFactory.class});
           }
         }
         catch (Throwable e)
@@ -137,18 +139,31 @@ public abstract class ChangeManager
   }
 
   /**
-   * Add a ComponentChange to this current request for a specified component.
-   * When called we will disallow changes if the component or its any ancestor 
-   * is a stamped component by UIXIterator. 
-   *
-   * @throws IllegalArgumentException if any of the supplied parameters were to
-   *          be null.
+   * Adds a ComponentChange to the current request for a specified component. Component changes 
+   *  cannot be added for stamped children of an UIXIterator.
+   * 
+   * A DocumentChange will be automatically created and applied on the ChangeManager registered
+   *  for this application if the following conditions are met:
+   *  1. The ChangeManager registered for the application supports document change persistence
+   *  2. DocumentChange corresponding to the supplied ComponentChange can be created with the help
+   *      of any registered DocumentChangeFactory
+   * When such a DocumentChange is added, the ChangeManager registered for the application is
+   *  notified by means of calling its documentChangeApplied() method. This is to give the 
+   *  registered ChangeManager an opportunity to take any necessary action. For example, Session 
+   *  based ChangeManager implementations may choose to remove the ComponentChange, if any added 
+   *  earlier. Custom ChangeManager implementations should notify likewise if it automatically 
+   *  creates and adds a DocumentChange.
+   * 
+   * @throws IllegalArgumentException if any of the supplied parameters were to be null.
+   * 
+   * @see DocumentChangeFactory
+   * @see #documentChangeApplied(FacesContext, UIComponent, ComponentChange
    */
   public abstract void addComponentChange(
     FacesContext facesContext,
     UIComponent uiComponent,
     ComponentChange change);
-  
+
   /**
    * Replace an AttributeComponentChange if it's present. 
    * 
@@ -157,7 +172,8 @@ public abstract class ChangeManager
    * @param attributeComponentChange
    * @return the old change instance
    */
-  public AttributeComponentChange replaceAttributeChangeIfPresent(FacesContext facesContext,
+  public AttributeComponentChange replaceAttributeChangeIfPresent(
+    FacesContext facesContext,
     UIComponent uiComponent,
     AttributeComponentChange attributeComponentChange)
   {    
@@ -167,22 +183,77 @@ public abstract class ChangeManager
 
   /**
    * Add a DocumentChange to this current request for a specified component.
-   * When called we will allow changes even if the component or its any ancestor 
+   * When called we will allow changes even if the component or its any ancestor
    * is a stamped component by UIXIterator.
-   * 
+   *
    * @throws IllegalArgumentException if any of the supplied parameters were to
-   *          be null.
+   * be null.
+   *
+   * @deprecated use
+   * {@link ChangeManager#addDocumentChangeWithOutcome(javax.faces.context.FacesContext,javax.faces.component.UIComponent,org.apache.myfaces.trinidad.change.DocumentChange)}
+   * instead
    */
+  @Deprecated
   public void addDocumentChange(
-      FacesContext facesContext,
-      UIComponent uiComponent,
-      DocumentChange change)
+    FacesContext facesContext,
+    UIComponent uiComponent,
+    DocumentChange change)
   {
     if (facesContext == null || uiComponent == null || change == null)
       throw new IllegalArgumentException(_LOG.getMessage(
         "CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL"));
   }
+  
+  /**
+   * Add a DocumentChange for a specified component, and return the outcome of adding the change.
+   * 
+   * @param facesContext  The FacesContext instance for the current request
+   * @param uiComponent   The UIComponent instance for which the DocumentChange is to be added
+   * @param change        The DocumentChange to be added
+   * 
+   * @return The outcome of adding the document change
+   * 
+   * @throws IllegalArgumentException if any of the supplied parameters were to
+   *          be null.
+   *          
+   * @see ChangeOutcome
+   */
+  public ChangeOutcome addDocumentChangeWithOutcome(
+    FacesContext facesContext,
+    UIComponent uiComponent,
+    DocumentChange change)
+  {
+    addDocumentChange(facesContext, uiComponent, change);
 
+    return ChangeOutcome.UNKNOWN;
+  }
+
+  /**
+   * This method is called on the registered ChangeManager if a ChangeManager in its 
+   *  addComponentChange() implementation automatically creates an equivalent DocumentChange and
+   *  applies the change. The registered ChangeManager may choose to take some action based on 
+   *  the outcome of applying the document change. For example, session based ChangeManager
+   *  implementations may choose to remove any earlier added ComponentChange if an equivalent
+   *  document change is now successfully applied
+   *  
+   * @param component       The target UIComponent instance for which the DocumentChange was
+   *                         applied
+   * @param componentChange The ComponentChange for which an equivalent DocumentChange was applied
+   * 
+   * @return The outcome of handling this notification
+   * 
+   * @throws IllegalArgumentException if the supplied ComponentChange is null.   *          
+   */
+  public NotificationOutcome documentChangeApplied(
+    FacesContext facesContext,
+    UIComponent component,
+    ComponentChange componentChange)
+  {
+    if (componentChange == null)
+      throw new IllegalArgumentException("The supplied ComponentChange object is null"); 
+    return NotificationOutcome.NOT_HANDLED;
+  }
+  
   /**
    * Applies all the ComponentChanges added so far for the current view.
    * Developers should not need to call this method. Internal implementation
@@ -208,12 +279,11 @@ public abstract class ChangeManager
    */
   public void applyComponentChangesForSubtree(
     FacesContext facesContext,
-    NamingContainer root
-    )
+    NamingContainer root)
   {
     throw new UnsupportedOperationException("Subclassers must implement");
   }
-
+  
   /**
    * Apply non-cross-component changes to a component in its original location.  This is typically
    * only called by tags that need to ensure that a newly created component instance is
@@ -224,6 +294,38 @@ public abstract class ChangeManager
   public void applySimpleComponentChanges(FacesContext context, UIComponent component)
   {
     throw new UnsupportedOperationException("Subclassers must implement");    
+  }
+  
+  /**
+   * Indicates the outcome of the attempt to apply a Change. Possible outcomes are:
+   * 1. UNKNOWN - We do not know if the change was applied or not
+   * 2. CHANGE_APPLIED - Change was successfully applied
+   * 3. CHANGE_NOT_APPLIED - There was a failure when applying the Change
+   *
+   * @see #addDocumentChangeWithOutcome(FacesContext,UIComponent,DocumentChange)
+   */
+  public static enum ChangeOutcome
+  {
+    UNKNOWN,
+    CHANGE_APPLIED,
+    CHANGE_NOT_APPLIED;
+
+    private static final long serialVersionUID = 1L;
+  }
+
+  /**
+   * Indicates whether the notification was handled:
+   * 1. HANDLED - Notification was handled
+   * 2. NOT_HANDLED - Notification was not handled
+   * 
+   * @see #documentChangeApplied(FacesContext, UIComponent, ComponentChange)
+   */
+  public static enum NotificationOutcome
+  {
+    HANDLED,
+    NOT_HANDLED;
+
+    private static final long serialVersionUID = 1L;
   }
   
   private static class AttributeConverter extends DocumentChangeFactory

@@ -201,6 +201,9 @@
  <!-- CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL -->
  <resource key="CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL">Cannot add a Change with either of FacesContext, UIComponent or Change being null.</resource>
  
+  <!-- REMOVED_DOC_CHANGE_BECAUSE_COMP_CHANGE_ADDED -->
+ <resource key="REMOVED_DOC_CHANGE_BECAUSE_COMP_CHANGE_ADDED">AttributeComponentChange for the attribute {1} on the component {2} was removed because an equivalent DocumentChange was added.</resource>
+ 
  <!-- CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT -->
  <resource key="CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT">Cannot construct an ChangeComponentProxy with null UIComponent.</resource>
  
