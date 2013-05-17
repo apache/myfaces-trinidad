@@ -739,6 +739,11 @@ function _subparse(
           {
             year = _fix2DYear(year, locale);
           }
+          else if (charCount == 4)
+          {
+            if (enteredChars <= 2)
+              year = _fix2DYear(year);
+          }
 
           // There is no year "0"
           if (year == 0)
