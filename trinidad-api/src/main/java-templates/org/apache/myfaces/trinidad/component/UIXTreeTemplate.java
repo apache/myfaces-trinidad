@@ -378,7 +378,7 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
         newset.addAll();
 
         // use an event to ensure the row disclosure listener is called
-        broadcast(new RowDisclosureEvent(old, newset, this));
+        UIXComponent.broadcastInContext(context, new RowDisclosureEvent(old, newset, this));
       }
       finally
       {

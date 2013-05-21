@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.component;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 import javax.faces.event.PhaseId;
@@ -70,7 +71,17 @@ public class WrapperEvent extends FacesEvent
   {
     return _event;
   }
-  
+
+  /**
+   * Broadcasts the original wrapped event from the wrapper event
+   * 
+   * @param context The current instance of FacesContext
+   */
+  final public void broadcastWrappedEvent(FacesContext context)
+  {
+    UIXComponent.broadcastInContext(context, getEvent());
+  }
+
   private final FacesEvent _event;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     WrapperEvent.class);

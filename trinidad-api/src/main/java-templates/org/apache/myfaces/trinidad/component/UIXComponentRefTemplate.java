@@ -71,16 +71,15 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
   {
     if (event instanceof WrapperEvent)
     {
-      WrapperEvent wrapper = (WrapperEvent) event;
-      final FacesEvent wrapped = wrapper.getEvent();
+      final WrapperEvent wrapper = (WrapperEvent) event;
+      final FacesContext context = FacesContext.getCurrentInstance();
       Runnable runner = new Runnable()
       {
         public void run()
         {
-          wrapped.getComponent().broadcast(wrapped);
+          wrapper.broadcastWrappedEvent(context);
         }
       };
-      FacesContext context = FacesContext.getCurrentInstance();
       _processPhase(context, runner);
     }
     else

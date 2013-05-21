@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.io.IOException;
+
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -38,6 +39,7 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
 
@@ -330,6 +332,40 @@ abstract public class UIXComponent extends UIComponent
     }
 
     return processedChild;
+  }
+
+  /**
+   * Broadcast the FacesEvent after updating the current component and
+   * current composite component
+   * 
+   * @param context The current instance of FacesContext
+   * @param event The FacesEvent to be broadcasted
+   */
+  public static void broadcastInContext(FacesContext context, FacesEvent event)
+  {
+    UIComponent component = event.getComponent();
+    UIComponent compositeParent = null;
+    if (!UIComponent.isCompositeComponent(component))
+    {
+      compositeParent = UIComponent.getCompositeComponentParent(component);
+      if (compositeParent != null) 
+      {
+        compositeParent.pushComponentToEL(context, null);
+      }
+    }
+    component.pushComponentToEL(context, null);
+    try
+    {
+      component.broadcast(event);
+    }
+    finally
+    {
+      component.popComponentFromEL(context);
+      if (compositeParent != null) 
+      {
+        compositeParent.popComponentFromEL(context);
+      }
+    }
   }
 
   /**

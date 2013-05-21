@@ -152,6 +152,8 @@ public abstract class UIXCollection extends UIXComponentBase
   public void broadcast(FacesEvent event)
     throws AbortProcessingException
   {
+    FacesContext context = getFacesContext();
+
     // Unwrap CollectionContextEvent events so that the original event is broadcast
     // within a component change event context.
     if (event instanceof CollectionContextEvent)
@@ -159,7 +161,8 @@ public abstract class UIXCollection extends UIXComponentBase
       _setupContextChange();
       try
       {
-        this.broadcast(((CollectionContextEvent)event).getEvent());
+        CollectionContextEvent wrapperEvent = (CollectionContextEvent) event;
+        wrapperEvent.broadcastWrappedEvent(context);
       }
       finally
       {
@@ -175,8 +178,7 @@ public abstract class UIXCollection extends UIXComponentBase
         TableRowEvent rowEvent = (TableRowEvent) event;
         Object old = getRowKey();
         setRowKey(rowEvent.getCurrencyKey());
-        FacesEvent wrapped = rowEvent.getEvent();
-        wrapped.getComponent().broadcast(wrapped);
+        rowEvent.broadcastWrappedEvent(context);
         setRowKey(old);
       }
       else

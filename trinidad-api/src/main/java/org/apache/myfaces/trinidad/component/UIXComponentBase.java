@@ -1083,6 +1083,11 @@ abstract public class UIXComponentBase extends UIXComponent
       _LOG.fine("Broadcasting event " + event + " to " + this);
 
     UIComponent component = event.getComponent();
+
+    FacesContext context = getFacesContext();
+    assert _isCurrentComponent(context, component);
+    assert _isCompositeParentCurrent(context, component);
+
     if (component != null && satisfiesPartialTrigger(event))
     {
       RequestContext adfContext = RequestContext.getCurrentInstance();
@@ -1817,6 +1822,32 @@ abstract public class UIXComponentBase extends UIXComponent
     }
 
     return null;
+  }
+
+  private boolean _isCurrentComponent(FacesContext context, UIComponent component)
+  {
+    return component.equals(UIComponent.getCurrentComponent(context));
+  }
+
+  private boolean _isCompositeParentCurrent(FacesContext context, UIComponent component)
+  {
+    UIComponent currentCompositeComponent = UIComponent.getCurrentCompositeComponent(context);
+    if(UIComponent.isCompositeComponent(component))
+    {
+      return component.equals(currentCompositeComponent);
+    }
+    else
+    {
+      UIComponent compositeParent = UIComponent.getCompositeComponentParent(component);
+      if(compositeParent == null)
+      {
+        return currentCompositeComponent == null;
+      }
+      else
+      {
+        return compositeParent.equals(currentCompositeComponent);
+      }
+    }
   }
 
   @Override
