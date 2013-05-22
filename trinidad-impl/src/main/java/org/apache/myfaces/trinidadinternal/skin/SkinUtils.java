@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,6 +42,7 @@ import javax.el.ValueExpression;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.resource.SkinResourceLoader;
 import org.apache.myfaces.trinidad.share.io.NameResolver;
@@ -51,6 +53,7 @@ import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.config.LazyValueExpression;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaDesktopSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaPdaSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.CasablancaPortletSkin;
@@ -74,6 +77,8 @@ import org.apache.myfaces.trinidadinternal.skin.parse.SkinNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinVersionNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinsNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.XMLConstants;
+
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
 import org.xml.sax.InputSource;
 
@@ -209,6 +214,77 @@ public class SkinUtils
     }
 
     return icon;
+  }
+  
+  public static String getSkinDebugInfo(Skin skin)
+  {
+    assert (null != skin);
+    RenderingContext rc = RenderingContext.getCurrentInstance();
+    StringBuilder sb = new StringBuilder();
+    
+    sb.append("[Id: ")
+      .append(skin.getId())
+      .append(" Family: ")
+      .append(skin.getFamily())
+      .append(" Version: ")
+      .append(skin.getVersion().getName())
+      .append(" Renderkit: ")
+      .append(skin.getRenderKitId())
+      .append(" StylesheetId: ")
+      .append( skin.getStyleSheetDocumentId(rc))
+      .append(" Features: { ");
+    
+    boolean first = false;
+    for(Map.Entry<String,String>entry:skin.getSkinFeatures().entrySet())
+    {
+      if(!first)
+      {
+        sb.append(", ");
+      }
+      else
+      {
+        first = false;
+      }
+      
+      sb.append("k:")
+        .append(entry.getKey())
+        .append(" v:")
+        .append(entry.getValue());
+    }
+    
+    sb.append(" } ");
+      
+    if(rc instanceof CoreRenderingContext)
+    {
+      sb.append(" Additions: {");
+      
+      StyleContext sctx = ((CoreRenderingContext)rc).getStyleContext();  
+      List<SkinAddition>additions = skin.getSkinAdditions();
+      
+      first = true;
+      for(SkinAddition addition:additions)
+      {
+        if(!first)
+        {
+          sb.append(", ");
+        }
+        else
+        {
+          first = false;
+        }
+        
+        String styleSheetName = addition.getStyleSheetName();
+        sb.append("\"")
+          .append(styleSheetName)
+          .append("\"(");
+        StyleSheetEntry entry = StyleSheetEntry.createEntry(sctx, styleSheetName);
+        sb.append(entry.getDocument().getDocumentId(sctx))
+          .append(")"); 
+      }
+      sb.append("}");
+    }
+    
+    return sb.append("]").toString();
   }
 
   /**
