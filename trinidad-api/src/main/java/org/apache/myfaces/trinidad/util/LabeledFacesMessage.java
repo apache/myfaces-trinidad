@@ -20,13 +20,23 @@ package org.apache.myfaces.trinidad.util;
 
 import javax.el.ValueExpression;
 
+import java.io.IOException;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
  * Extension to FacesMessage which keeps track of the label on the component
- * that generated the message.
+ * that generated the message.  This implementation supports a label that is either
+ * a valueBinding or a String.  If a valueBinding is provided, then the ability to
+ * serialize this FacesMessage may be suspect.  We should not change this for historical
+ * reasons.
+ * <p/>
+ * If serialization is a must, and the ValueBindings need to be serialized BEFORE
+ * they are exchanged, then a version of the LabeledFacesMessage must be obtained
+ * using the {@link #getLabeledFacesMessageWithLabelString} method.
+ * 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/util/LabeledFacesMessage.java#0 $) $Date: 10-nov-2005.19:08:38 $
  */
 public class LabeledFacesMessage extends FacesMessage
@@ -107,7 +117,30 @@ public class LabeledFacesMessage extends FacesMessage
     return label.toString();
   }
 
+  /**
+   * Returns a LabeledFacesMessage object that is guarenteed to have a String as
+   * the label.  If the label is already a String, this object will be returned.
+   * If it is not then a new LabeledFacesMessage will be created.
+   * <p/>
+   * By default the new LabeledFacesMessage will be created by calling
+   * 
+   * @param context
+   * @return
+   */
+  public LabeledFacesMessage getLabeledFacesMessageWithLabelString(FacesContext context)
+  {
+    Object label = getLabel();
 
+    if(null == label || label instanceof String)
+    {
+      return this;
+    }
+    
+    return new LabeledFacesMessage(getSeverity(), getSummary(), getDetail(), getLabelAsString(context));
+  }
+  
   private Object _label;
+  
+  @SuppressWarnings("compatibility:-4615739861775811173")
   private static final long serialVersionUID = 1L;
 }
