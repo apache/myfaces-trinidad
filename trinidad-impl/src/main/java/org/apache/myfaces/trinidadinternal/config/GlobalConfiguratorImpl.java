@@ -360,6 +360,9 @@ public final class GlobalConfiguratorImpl
   {
     RequestStateMap state = RequestStateMap.getInstance(ec);
     RequestType type = (RequestType) state.get(_REQUEST_TYPE);
+    
+    //Install the URLEncoder plugin system
+    ec = new URLEncoderExternalContext(ec);
 
     if (type == null)
     {
