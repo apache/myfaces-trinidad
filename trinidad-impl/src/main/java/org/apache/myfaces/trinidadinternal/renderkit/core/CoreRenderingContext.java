@@ -66,6 +66,9 @@ public class CoreRenderingContext extends RenderingContext
    * be ignored.
    */
   static public final String EMPTY_STYLE_CLASS = "";
+  
+  static public final String SKIN_ID_PARAM = "org.apache.myfaces.trinidad.skin.id";
+  static public final String SKIN_STYLESHEET_ID_PARAM = "org.apache.myfaces.trinidad.skin.stylesheet.id";
 
   public CoreRenderingContext()
   {
@@ -481,7 +484,7 @@ public class CoreRenderingContext extends RenderingContext
       return _requestMapSkin;
     _checkedRequestMapSkin = true;
 
-    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()) || isDesignTime())
+    if (isRequestedSkinSupported() || isDesignTime())
     {
       FacesContext context = getFacesContext();
       Object requestedSkinId = getRequestMapSkinId(context);
@@ -546,7 +549,7 @@ public class CoreRenderingContext extends RenderingContext
     Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
 
     // Get the requested Skin Id from the request Map
-    Object requestedSkinId = requestMap.get(_SKIN_ID_PARAM);
+    Object requestedSkinId = requestMap.get(SKIN_ID_PARAM);
     return requestedSkinId;
   }
 
@@ -561,7 +564,7 @@ public class CoreRenderingContext extends RenderingContext
     FacesContext context,
     Skin         requestedSkin)
   {
-    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()))
+    if (isRequestedSkinSupported())
     {
       // check the stylesheetids for a match.
       if (_styleSheetDocumentIdMatch == null)
@@ -571,7 +574,7 @@ public class CoreRenderingContext extends RenderingContext
         if (requestedSkin != null)
         {
           Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
-          Object requestMapStyleSheetId = requestMap.get(_SKIN_STYLESHEET_ID_PARAM);
+          Object requestMapStyleSheetId = requestMap.get(SKIN_STYLESHEET_ID_PARAM);
 
           if (requestMapStyleSheetId != null)
           {
@@ -608,6 +611,11 @@ public class CoreRenderingContext extends RenderingContext
     }
 
     return false;
+  }
+
+  public boolean isRequestedSkinSupported()
+  {
+    return CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode());
   }
 
   /**
@@ -836,11 +844,6 @@ public class CoreRenderingContext extends RenderingContext
   private final FacesContext _facesContext;
   private final RequestContext _requestContext;
   private final boolean        _isDesignTime;
-
-  static private final String _SKIN_ID_PARAM =
-    "org.apache.myfaces.trinidad.skin.id";
-  static private final String _SKIN_STYLESHEET_ID_PARAM =
-    "org.apache.myfaces.trinidad.skin.stylesheet.id";
 
   // Maps describing the capabilities of our output modes
   // -= Simon Lessard =-

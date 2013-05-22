@@ -18,8 +18,6 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
-import java.beans.Beans;
-
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
@@ -31,7 +29,6 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
@@ -221,9 +218,36 @@ class StyleContextImpl implements StyleContext
    */
   public boolean isDisableStyleCompression()
   {
+    FacesContext context = FacesContext.getCurrentInstance();
+    ExternalContext ec   = context.getExternalContext();
+    
+    //There may be times we want to force the content compression flag by setting
+    //an attribute on the request map.  If this attribute is present, then it will override
+    //any 'automatic' settings we may have for portlet usecases or init parameters in the 
+    //web.xml.  As such, we check the request map for the existence of this parameter and,
+    //if it is present, we return the value, otherwise we go on to checking the init params
+    //and dealing with the portlet usecase.
+    String compress = (String)ec.getRequestMap().get(Configuration.DISABLE_CONTENT_COMPRESSION);
+    if(null != compress)
+    {
+      if("true".equals(compress))
+      {
+        return true;
+      }
+      else if ("false".equals(compress))
+      {
+        return false;
+      }
+      
+      //A value was set, but we don't understand it.  Log a message and go through the
+      //default logic
+      _LOG.warning("Invalid value on request for "+ Configuration.DISABLE_CONTENT_COMPRESSION +": "+compress+".  Going with default value.");
+    }
+    
+    //If we reach this point, we do not have a forced compression parameter on the request.
+    //Now try to determine what the correct setting may be.
     if (_isDisableStyleCompression == null)
     {
-      FacesContext context = FacesContext.getCurrentInstance();
       String disableContentCompression =
         context.getExternalContext().
         getInitParameter(Configuration.DISABLE_CONTENT_COMPRESSION);

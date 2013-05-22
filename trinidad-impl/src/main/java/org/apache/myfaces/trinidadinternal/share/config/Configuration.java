@@ -40,7 +40,16 @@ abstract public class Configuration
    * optimizations are enabled by default.  In general,
    * users should not need to disable these optimizations.  However,
    * users who want to build custom skins for Trinidad will find this
-   * setting essential.  Use Boolean.TRUE to disable compression.
+   * setting essential.
+   * 
+   * This setting is "false" by default but may be
+   * specified by adding an init parameter to the web.xml.  A value of
+   * "true" indicates that the content compression for stylesheets will
+   * be disabled.  Additionally an application may set a property with
+   * this flag on the request as a request attribute.  This setting will
+   * override the setting in the web.xml and allow content to be turned
+   * on or off on a per-request basis.  In this case, a String containing
+   * either "true" or "false" is expected, just like in the web.xml case.
    */
   static public final String DISABLE_CONTENT_COMPRESSION =
     "org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION";

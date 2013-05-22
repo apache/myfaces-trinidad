@@ -31,7 +31,7 @@ import java.util.Map;
  * @version $Revision$ $Date$
  */
 
-abstract class ModifiableAbstractAttributeMap<K, V> extends AbstractAttributeMap<K, V>
+public abstract class ModifiableAbstractAttributeMap<K, V> extends AbstractAttributeMap<K, V>
 {
   @Override
   public void clear()

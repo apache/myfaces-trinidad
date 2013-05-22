@@ -44,6 +44,8 @@ import org.apache.myfaces.trinidadinternal.style.StyleProvider;
  */
 public class StyleSheetRenderer extends XhtmlRenderer
 {
+  static public final String SUPPRESS_STYLESHEET_ID_PARAM =
+    "org.apache.myfaces.trinidad.skin.suppressStylesheet";
   public StyleSheetRenderer()
   {
     this(CoreStyleSheet.TYPE);
@@ -165,18 +167,21 @@ public class StyleSheetRenderer extends XhtmlRenderer
     if (!_supportsExternalStylesheet(rc))
       return true;
 
-    // next check if in portlet mode, and if the suppress stylesheet parameter
-    // is set, and it's valid to suppress the stylesheet.
-    String outputMode = rc.getOutputMode();
-    if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode))
+    //This assumption was always made in this code.  We just need to move it up because
+    //the decision for whether this applies or not is not solely based on Rendering Mode.
+    CoreRenderingContext crc = (CoreRenderingContext)rc;
+    
+    //If requested skin is supported, there may be an attribute on the request scope to suppress the
+    //stylesheet.
+    if(crc.isRequestedSkinSupported())
     {
       Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
-      boolean suppressStylesheet = "true".equals(requestMap.get(_SUPPRESS_STYLESHEET_ID_PARAM));
+      boolean suppressStylesheet = "true".equals(requestMap.get(SUPPRESS_STYLESHEET_ID_PARAM));
       if (suppressStylesheet)
       {
         // the portlet producer requests that we suppress the stylesheet if the producer's skin
         // and the consumer's skin match exactly.
-        return ((CoreRenderingContext) rc).isRequestMapStyleSheetIdAndSkinEqual(
+        return crc.isRequestMapStyleSheetIdAndSkinEqual(
                                               context, rc.getSkin());
       }
     }
@@ -195,8 +200,4 @@ public class StyleSheetRenderer extends XhtmlRenderer
     return (styleCapability == null ||
             TrinidadAgent.STYLES_EXTERNAL == styleCapability);
   }
-
-  static private final String _SUPPRESS_STYLESHEET_ID_PARAM =
-    "org.apache.myfaces.trinidad.skin.suppressStylesheet";
-
 }

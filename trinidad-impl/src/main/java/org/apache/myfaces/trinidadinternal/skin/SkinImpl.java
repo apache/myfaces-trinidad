@@ -51,6 +51,7 @@ import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
@@ -320,7 +321,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
      )
    {
      FacesContext context = FacesContext.getCurrentInstance();
-     if (!_isDisableContentCompressionParameterTrue(context, arc))
+     if (!_isContentCompressionDisabled(context, arc))
      {
         StyleContext sContext = ((CoreRenderingContext)arc).getStyleContext();
         StyleProvider sProvider = sContext.getStyleProvider();  
@@ -954,14 +955,22 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   
   // returns true if the web.xml explicitly has DISABLE_CONTENT_COMPRESSION set to true.
   // else return false.
-  private boolean _isDisableContentCompressionParameterTrue(FacesContext context, RenderingContext arc)
+  private boolean _isContentCompressionDisabled(FacesContext context, RenderingContext arc)
   {
     // TODO: this section needs to be MOVED up, perhaps to API,
     // as the StyleContextIMPL.java has exactly the same code;
     // this will be fixed with the advent of "TRINIDAD-1662".
+    ExternalContext ec = context.getExternalContext();
+
+    // first check to see if the DISABLE_CONTENT_COMPRESSION flag is
+    // set on the request.
+    String disableContentCompression = (String)ec.getRequestMap().get(Configuration.DISABLE_CONTENT_COMPRESSION);
     
-    String disableContentCompression = context.getExternalContext().
-      getInitParameter(Configuration.DISABLE_CONTENT_COMPRESSION);
+    if(null == disableContentCompression || !("true".equals(disableContentCompression) || "false".equals(disableContentCompression)))
+    {
+      //Either nothing is set on the request or we have an invalid value that is NOT true or false.  This means we go with the ini setting.
+      disableContentCompression = ec.getInitParameter(Configuration.DISABLE_CONTENT_COMPRESSION);
+    }
 
     boolean disableContentCompressionBoolean; 
 
@@ -1228,4 +1237,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   private boolean _dirty;
   
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinImpl.class);
+  
+  private static final String _FORCE_DISABLE_CONTENT_COMPRESSION_PARAM="org.apache.myfaces.trinidad.skin.disableStyleCompression";
+
 }
