@@ -20,8 +20,6 @@ package org.apache.myfaces.trinidadinternal.config;
 
 import java.io.IOException;
 
-import java.io.IOException;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -315,31 +313,14 @@ public final class GlobalConfiguratorImpl
     // do per virtual-request stuff
     if (state.get(_REQUEST_TYPE) != null)
     {
-      if (!_isDisabled(ec))
+      try
       {
-        boolean isRedirected = (null != ec.getRequestMap().remove(_REDIRECT_ISSUED));
-        
-        try
-        {
-          //Only end services at the end of a writable response.  This will
-          //generally be RENDER, RESOURCE, and SERVLET.
-          if ((ExternalContextUtils.isResponseWritable(ec) || isRedirected) && !Boolean.TRUE.equals(state.get(_CONFIGURATORS_ABORTED)))
-          {
-            _endConfiguratorServiceRequest(ec);
-          }
-        }
-        finally
-        {
-          //If redirect was issued, we do not want to save the state.  Let it burn..  :D
-          if(!isRedirected)
-          {
-            state.saveState(ec);
-          }
-          
-          _releaseRequestContext(ec);
-        }
+         _endRequest(ec, state);
       }
-      state.remove(_REQUEST_TYPE);
+      finally
+      {
+        state.remove(_REQUEST_TYPE);
+      }
     }
   }
 
@@ -555,18 +536,79 @@ public final class GlobalConfiguratorImpl
     }
   }
 
-  private void _releaseRequestContext(ExternalContext ec)
+  private void _endRequest(ExternalContext ec, RequestStateMap state)
   {
-    RequestContext context = RequestContext.getCurrentInstance();
-    if (context != null)
+    if (!_isDisabled(ec))
+    {
+      try
+      {
+        _endConfiguratorServiceRequest(ec, state);
+      }
+      finally
+      {
+        _releaseRequestState(ec);
+      }
+    }
+  }
+
+  private void _endConfiguratorServiceRequest(ExternalContext ec, RequestStateMap state)
+  {
+    boolean isRedirected = (null != ec.getRequestMap().remove(_REDIRECT_ISSUED));
+    
+    try
+    {
+      //Only end services at the end of a writable response.  This will
+      //generally be RENDER, RESOURCE, and SERVLET.
+      
+      //WE had to add a check to see if a redirect was issued in order to handle a bug where endRequest was not
+      //executed on a redirect.
+      if ((ExternalContextUtils.isResponseWritable(ec) || isRedirected) && !Boolean.TRUE.equals(state.get(_CONFIGURATORS_ABORTED)))
+      {
+        _endConfiguratorServices(ec);
+      }
+    }
+    finally
+    {
+      //If redirect was issued, we do not want to save the state.  Let it burn..  :D
+      if(!isRedirected)
+      {
+        state.saveState(ec);
+      }
+    }
+  }
+
+  private void _releaseRequestState(ExternalContext ec)
+  {
+    try
+    {
+      _releaseThreadLocals(ec);
+    }
+    finally
     {
       // ensure that any deferred ComponentReferences are initialized
       _finishComponentReferenceInitialization(ec);
-
-      context.release();
+    }
+  }
+  
+  private void _releaseThreadLocals(ExternalContext ec)
+  {
+    try
+    {
+      _releaseRequestContext(ec);
+    }
+    finally
+    {
       _releaseManagedThreadLocals();
+    }
+  }
 
-      assert RequestContext.getCurrentInstance() == null;
+  private void _releaseRequestContext(ExternalContext ec)
+  {
+    RequestContext context = RequestContext.getCurrentInstance();
+
+    if (context != null)
+    {
+      context.release();
     }
   }
 
@@ -596,17 +638,32 @@ public final class GlobalConfiguratorImpl
     
     if ((initializeList != null) && !initializeList.isEmpty())
     {
+      RuntimeException initializationException = null;
+
       for (ComponentReference<?> reference : initializeList)
       {
+        try
+        {
         reference.ensureInitialization();
+      }
+        catch (RuntimeException rte)
+        {
+          initializationException = rte;
+        }
       }
       
       // we've initialized everything, so we're done
       initializeList.clear();
+
+      // rethrow the exception now that we are all done cleaning up
+      if (initializationException != null)
+      {
+        throw initializationException;
+      }
     }
   }
 
-  private void _endConfiguratorServiceRequest(final ExternalContext ec)
+  private void _endConfiguratorServices(final ExternalContext ec)
   {
     // Physical request has now ended
     // Clear the in-request flag
