@@ -74,6 +74,11 @@ final public class UploadedFiles implements Serializable
     return (UploadedFiles) requestMap.get(_UPLOADED_FILES_KEY);
   }
   
+  static public UploadedFiles getUploadedFiles(HttpServletRequest req)
+  {
+    return (UploadedFiles) req.getAttribute(_UPLOADED_FILES_KEY);
+  }
+  
   /**
    * Returns the map of uploaded files for the current request.
    */
@@ -263,13 +268,19 @@ final public class UploadedFiles implements Serializable
     _totalDiskSpace = 0;
   }
   
+  UploadedFiles(HttpServletRequest req)
+  {
+    this();
+    req.setAttribute(_UPLOADED_FILES_KEY, this);
+  }
+  
   /**
    * Creates an UploadedFiles.
    */
   @SuppressWarnings("unchecked")
   UploadedFiles(ExternalContext externalContext)
   {
-    _map = new HashMap<String, List<UploadedFile>>();
+    this();
     externalContext.getRequestMap().put(_UPLOADED_FILES_KEY, this);
   }
   

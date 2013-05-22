@@ -75,7 +75,9 @@ abstract public class RequestContextFactory
                                                 Object request);
   
   /**
-   * Creates a RequestContext.
+   * Creates a RequestContext from an ExternalContext.  This ExternalContext does
+   * NOT need to have a bound response object, only the Context and the Request are
+   * guarenteed.
    * 
    * @param ec The current ExternalContext.
    */

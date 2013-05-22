@@ -113,136 +113,173 @@ public class FileUploadConfiguratorImpl extends Configurator
     // large allocations of memory and file, so cleaning up as soon
     // as possible is a good thing
     //Process MultipartForm if need be
+    
+    RequestType reqType =  ExternalContextUtils.getRequestType(externalContext);
     if (MultipartFormHandler.isMultipartRequest(externalContext) &&
-       (externalContext.getRequest() instanceof HttpServletRequest || ExternalContextUtils.isPortlet(externalContext)))
+       (ExternalContextUtils.isHttpServletRequest(externalContext) || reqType.isPortlet()))
     {
       try
       {
-        final MultipartFormHandler mfh = new MultipartFormHandler(externalContext);
         RequestContext requestContext = RequestContext.getCurrentInstance(); 
 
-        // TODO: How is this set?
-        // AdamWiner: looks like the previous Trinidad incarnation
-        // of this code didn't have any allowed configuration...
-        mfh.setMaximumAllowedBytes(_maxAllowedBytes);
-        mfh.setCharacterEncoding(ExternalContextUtils.getCharacterEncoding(externalContext));
+        //This is a list of parameters.  Under normal circumstances, this will be a new map
+        Map<String, String[]> parameters;
+        
+        UploadedFiles files = UploadedFiles.getUploadedFiles(externalContext);
+        
+        //Have uploadedFiles been processed?  It is possible, with framework extensions,
+        //that uploadedFiles have been processed.  If they have, there is no reason to process
+        //them again.  We assume that both parameters and UploadedFiles have been processed correctly.
+        //The check for isPortlet is probably redundant here, but with oddities in the requestScope,
+        //and the inability to properly test this, it is probably better to be safe for now to
+        //prevent regressions.
+        //TODO: Remove the portlet check in the future. 
+        if(!FileUploadUtils.isProcessed(externalContext) || reqType.isPortlet())
+        {
+          final MultipartFormHandler mfh = new MultipartFormHandler(externalContext);
 
-        final HashMap<String, String[]> parameters = new HashMap<String, String[]>();
-        MultipartFormItem item;
-        UploadedFiles files = new UploadedFiles(externalContext);
-        while ((item = mfh.getNextPart()) != null)
-        {
-          final String name = item.getName();
-          String value = null;
-          // No filename - it's not a file uploaded field
-          if (item.getFilename() == null)
+          // TODO: How is this set?
+          // AdamWiner: looks like the previous Trinidad incarnation
+          // of this code didn't have any allowed configuration...
+          mfh.setMaximumAllowedBytes(_maxAllowedBytes);
+          mfh.setCharacterEncoding(ExternalContextUtils.getCharacterEncoding(externalContext));
+
+          parameters = new HashMap<String, String[]>();
+          MultipartFormItem item;
+          files = new UploadedFiles(externalContext);
+
+          while ((item = mfh.getNextPart()) != null)
           {
-            value = item.getValue();
-            final Object oldValue = parameters.get(name);
-            if (oldValue == null)
+            final String name = item.getName();
+            String value = null;
+            // No filename - it's not a file uploaded field
+            if (item.getFilename() == null)
             {
-              parameters.put(name, new String[]{value});
-            }
-            else
-            {
-              final String[] oldArray = (String[]) oldValue;
-              final String[] newArray = new String[oldArray.length + 1];
-              System.arraycopy(oldArray, 0, newArray, 1, oldArray.length);
-              newArray[0] = value;
-              parameters.put(name, newArray);
-            }
-          }
-          else if (item.getFilename().length() > 0)
-          {
-            // Upload a file
-            _doUploadFile(requestContext, externalContext, files, item, parameters);
-          }
-        }
-        if (parameters.containsKey(_MULTIPLE_UPLOAD_PARAM))
-        {
-          // This is a multiple file upload request. We will only be processing one request at a time
-          // from any particular window since multi file upload requests are queue on the client side
-          // per window. So we do not need to implement extra locking logic.
-          String uploadType = parameters.get(_MULTIPLE_UPLOAD_PARAM)[0];
-          if (uploadType != null)
-          {
-            UploadedFiles windowFiles = UploadedFiles.getUploadedFilesForWindow(externalContext);
-            if (uploadType.equals("multipleAdd"))
-            {
-              // Add files
-              Map<String, List<UploadedFile>> uploadedMapFile = files.getUploadedFileMap();
-              Iterator iterator = uploadedMapFile.keySet().iterator();
-              while (iterator.hasNext())
+              value = item.getValue();
+              final Object oldValue = parameters.get(name);
+              if (oldValue == null)
               {
-                // Add all the files in the request to the window
-                String name = (String) iterator.next();
-                List<UploadedFile> fileList = uploadedMapFile.get(name);
-                for (UploadedFile file: fileList)
-                {
-                  windowFiles.__put(name, file);
-                }
+                parameters.put(name, new String[]{value});
               }
-              UploadedFiles.__saveUploadedFilesForWindow(windowFiles, externalContext, requestContext);
-              uploadedMapFile.clear();
-            }
-            else if (uploadType.equals("multipleDelete"))
-            {
-              // Delete a file
-              String itemName = parameters.get("itemName")[0];
-              String fileName = parameters.get("fileName")[0];
-              List<UploadedFile> uploadedFiles = windowFiles.getUploadedFileList(itemName);
-              if (uploadedFiles != null)
+              else
               {
-                for (UploadedFile uploadedFile: uploadedFiles)
+                final String[] oldArray = (String[]) oldValue;
+                final String[] newArray = new String[oldArray.length + 1];
+                System.arraycopy(oldArray, 0, newArray, 1, oldArray.length);
+                newArray[0] = value;
+                parameters.put(name, newArray);
+              }
+            }
+            else if (item.getFilename().length() > 0)
+            {
+              // Upload a file
+              _doUploadFile(requestContext, externalContext, files, item, parameters);
+            }
+          }
+          
+          //We move saving of the parameters up here because if the MPF handling
+          //has already happened, we don't need to re-wrap the request.
+          externalContext.getRequestMap().put(_PARAMS, parameters);
+          FileUploadUtils.markProcessed(externalContext);
+        }
+        else
+        {
+          //If we don't process the multiform handler then we should get the map
+          //from the request.
+          parameters = externalContext.getRequestParameterValuesMap();
+        }
+        
+        //This can happen if files were processed ahead of time and there weren't
+        //any.
+        if(null != files)
+        {
+          if (parameters.containsKey(_MULTIPLE_UPLOAD_PARAM))
+          {
+            // This is a multiple file upload request. We will only be processing one request at a time
+            // from any particular window since multi file upload requests are queue on the client side
+            // per window. So we do not need to implement extra locking logic.
+            String uploadType = parameters.get(_MULTIPLE_UPLOAD_PARAM)[0];
+            if (uploadType != null)
+            {
+              UploadedFiles windowFiles = UploadedFiles.getUploadedFilesForWindow(externalContext);
+              if (uploadType.equals("multipleAdd"))
+              {
+                // Add files
+                Map<String, List<UploadedFile>> uploadedMapFile = files.getUploadedFileMap();
+                Iterator iterator = uploadedMapFile.keySet().iterator();
+                while (iterator.hasNext())
                 {
-                  if (uploadedFile.getFilename().equals(fileName))
+                  // Add all the files in the request to the window
+                  String name = (String) iterator.next();
+                  List<UploadedFile> fileList = uploadedMapFile.get(name);
+                  for (UploadedFile file: fileList)
                   {
-                    // Remove the file from the window, delete the tmp file from disk/memory
-                    // and save the file map
-                    uploadedFiles.remove(uploadedFile);
-                    uploadedFile.dispose();
-                    UploadedFiles.__saveUploadedFilesForWindow(windowFiles, externalContext, requestContext);
-                    break;
+                    windowFiles.__put(name, file);
+                  }
+                }
+                UploadedFiles.__saveUploadedFilesForWindow(windowFiles, externalContext, requestContext);
+                uploadedMapFile.clear();
+              }
+              else if (uploadType.equals("multipleDelete"))
+              {
+                // Delete a file
+                String itemName = parameters.get("itemName")[0];
+                String fileName = parameters.get("fileName")[0];
+                List<UploadedFile> uploadedFiles = windowFiles.getUploadedFileList(itemName);
+                if (uploadedFiles != null)
+                {
+                  for (UploadedFile uploadedFile: uploadedFiles)
+                  {
+                    if (uploadedFile.getFilename().equals(fileName))
+                    {
+                      // Remove the file from the window, delete the tmp file from disk/memory
+                      // and save the file map
+                      uploadedFiles.remove(uploadedFile);
+                      uploadedFile.dispose();
+                      UploadedFiles.__saveUploadedFilesForWindow(windowFiles, externalContext, requestContext);
+                      break;
+                    }
                   }
                 }
               }
-            }
-            else if (uploadType.equals("multipleAddChunk"))
-            {
-              // Add a chunk
-              String itemName = parameters.get("itemName")[0];
-              String fileName = externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_FILENAME_PARAM);
-              Long chunkNum = Long.parseLong(externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_NUM_PARAM));
-              Long chunkCount = Long.parseLong(externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_COUNT_PARAM));
-              UploadedFile file = files.getUploadedFile(itemName);
-              Map<String, Object> windowMap = requestContext.getWindowMap();
-              List<UploadedFile> chunkList = (List<UploadedFile>) windowMap.get(_UPLOADED_CHUNK_FILES_LIST_KEY);
-              if (chunkList == null)
+              else if (uploadType.equals("multipleAddChunk"))
               {
-                chunkList = new ArrayList<UploadedFile>();
-                windowMap.put(_UPLOADED_CHUNK_FILES_LIST_KEY, chunkList);
+                // Add a chunk
+                String itemName = parameters.get("itemName")[0];
+                String fileName = externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_FILENAME_PARAM);
+                Long chunkNum = Long.parseLong(externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_NUM_PARAM));
+                Long chunkCount = Long.parseLong(externalContext.getRequestHeaderMap().get(_MULTIPLE_UPLOAD_CHUNK_COUNT_PARAM));
+                UploadedFile file = files.getUploadedFile(itemName);
+                // There is no getWindowMap() in PS6 because it requries the new window manager implementation
+                // so add to session map. We just won't support simultaneous uploads from different windows
+                //Map<String, Object> windowMap = requestContext.getSessionMap();
+                //List<UploadedFile> chunkList = (List<UploadedFile>) windowMap.get(_UPLOADED_CHUNK_FILES_LIST_KEY);
+                List<UploadedFile> chunkList = (List<UploadedFile>) externalContext.getSessionMap().get(_UPLOADED_CHUNK_FILES_LIST_KEY);
+                if (chunkList == null)
+                {
+                  chunkList = new ArrayList<UploadedFile>();
+                  //windowMap.put(_UPLOADED_CHUNK_FILES_LIST_KEY, chunkList);
+                  externalContext.getSessionMap().put(_UPLOADED_CHUNK_FILES_LIST_KEY, chunkList);
+                }
+                chunkList.add(file);
+                if (chunkNum == chunkCount - 1)
+                {
+                  // if it's the last chunk then create a combined file
+                  UploadedFile combinedFile = new ChunkedUploadedFile(fileName, file.getContentType(), chunkList);
+                  windowFiles.__put(itemName, combinedFile);
+                  //windowMap.remove(_UPLOADED_CHUNK_FILES_LIST_KEY);
+                  externalContext.getSessionMap().remove(_UPLOADED_CHUNK_FILES_LIST_KEY);
+                  UploadedFiles.__saveUploadedFilesForWindow(windowFiles, externalContext, requestContext);
+                }
+                files.getUploadedFileMap().clear();
               }
-              chunkList.add(file);
-              if (chunkNum == chunkCount - 1)
-              {
-                // if it's the last chunk then create a combined file
-                UploadedFile combinedFile = new ChunkedUploadedFile(fileName, file.getContentType(), chunkList);
-                windowFiles.__put(itemName, combinedFile);
-                windowMap.remove(_UPLOADED_CHUNK_FILES_LIST_KEY);
-                UploadedFiles.__saveUploadedFilesForWindow(windowFiles, externalContext, requestContext);
-              }
-              files.getUploadedFileMap().clear();
             }
           }
         }
-        externalContext.getRequestMap().put(_PARAMS, parameters);
       }
       catch (Throwable t)
       {
-        if(_LOG.isSevere())
-        {
           _LOG.severe(t);
-        }
       }
     }
   }
@@ -312,41 +349,12 @@ public class FileUploadConfiguratorImpl extends Configurator
       filename = chunkFilename;
     }
     final UploadedFile temp = new TempUploadedFile(filename, item, properties);
-    Map<String, Object> sessionMap = externalContext.getSessionMap();
-    Map<String, Object> requestMap = externalContext.getRequestMap();
-    
-    _copyParamsFromSessionToRequestMap(sessionMap, requestMap,
-      UploadedFileProcessor.MAX_MEMORY_PARAM_NAME,
-      UploadedFileProcessor.MAX_DISK_SPACE_PARAM_NAME,
-      UploadedFileProcessor.TEMP_DIR_PARAM_NAME,
-      UploadedFileProcessor.MAX_FILE_SIZE_PARAM_NAME,
-      UploadedFileProcessor.MAX_CHUNK_SIZE_PARAM_NAME);
+    FileUploadUtils.setupRequest(externalContext);
     
     final UploadedFile file =
       requestContext.getUploadedFileProcessor().processFile(externalContext.getRequest(), temp);
-
-    if (file != null)
-    {
-      // Store the file.
-      files.__put(item.getName(), file);
-
-      if (_LOG.isFine())
-      {
-        _LOG.fine("Uploaded file " + file.getFilename() + "(" +
-            file.getLength() + " bytes) for ID " + item.getName());
-      }
-    }
-  }
-
-  /**
-   * copies some params (varargs) from the session map to the request map 
-   */
-  private void _copyParamsFromSessionToRequestMap(Map<String, Object> sessionMap, Map<String, Object> requestMap, String... params)
-  {
-    for(String param : params)
-    {
-      requestMap.put(param,  sessionMap.get(param));
-    }
+    
+    FileUploadUtils.__addFile(files, item.getName() , file);
   }
 
   static private ExternalContext _getExternalContextWrapper(ExternalContext externalContext, Map<String, String[]> addedParams)
