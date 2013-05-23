@@ -1032,7 +1032,20 @@ this resolves to
         </li>
         <li>
         <strong>@platform</strong> {/skin definitions go here/} - > 
-        Possible values are: windows, macos, linux, solaris, ppc. 
+        Possible values are:
+          <ul>
+            <li>windows</li>
+            <li>macos</li>
+            <li>linux</li>
+            <li>solaris</li>
+            <li>ppc</li>
+            <li>iphone</li>
+            <li>blackberry</li>
+            <li>nokia_s60</li>
+            <li>genericpda</li>
+            <li>android</li>
+            <li>unix</li>
+          </ul>
         This is to define styles only for a particular platform.
         </li>
         <li>
