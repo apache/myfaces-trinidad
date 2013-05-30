@@ -103,7 +103,8 @@ final class StampState implements Externalizable
   }
 
   /**
-   * Save the per-row state of a given stamp.
+   * Save the per-row state of a given stamp, the state will be for the component
+   * itself, not including it's child/facet state.
    */
   public static Object saveStampState(FacesContext context, UIComponent stamp)
   {
@@ -135,53 +136,35 @@ final class StampState implements Externalizable
     UIXCollection table)
   {
     int childCount = stamp.getChildCount();
-    // If we have any children, iterate through the array,
+    // If we have any children, iterate through the map,
     // saving state
     if (childCount == 0)
       return null;
 
-    Object[] childStateArray = null;
+    Map<String, Object> childStateMap = null;
     List<UIComponent> children = stamp.getChildren();
-    boolean childStateIsEmpty = true;
     for(int i=0; i < childCount; i++)
     {
       UIComponent child = children.get(i);
       Object childState = table.saveStampState(context, child);
 
-      // Until we have one non-null entry, don't allocate the array.
-      // Unlike facets, we *do* care about stashing Transient.TRUE,
-      // because we have to keep track of them relative to any
-      // later components, BUT if it's all null and transient, we
-      // can discard the array.  This does mean that putting
-      // transient components into a stamp is a bit inefficient
+      // Until we have one non-null entry, don't allocate the map.
+      // So: allocate the map if we encounter our first
+      // non-null childState
 
-      // So: allocate the array if we encounter our first
-      // non-null childState (even if it's transient)
-      if (childStateArray == null)
+      if (childState == null)
+        continue;
+
+      if (childStateMap == null)
       {
-        if (childState == null)
-          continue;
-
-        childStateArray = new Object[childCount];
+        childStateMap = new HashMap<String, Object>(childCount);
       }
 
-      // But remember the moment we've encountered a non-null
-      // *and* non-transient component, because that means we'll
-      // really need to keep this array
-      if ((childState != UIXCollection.Transient.TRUE) && (childState != null))
-        childStateIsEmpty = false;
-
       // Store a value into the array
-      assert(childStateArray != null);
-      childStateArray[i] = childState;
+      childStateMap.put(child.getId(), childState);
     }
 
-    // Even if we bothered to allocate an array, if all we
-    // had were transient + null, don't bother with the array at all
-    if (childStateIsEmpty)
-      return null;
-
-    return childStateArray;
+    return childStateMap;
   }
 
   /**
@@ -195,46 +178,19 @@ final class StampState implements Externalizable
     UIXCollection table,
     Object stampState)
   {
-    if (stampState == null)
+    if (stampState == null || !(stampState instanceof Map))
       return;
 
     List<UIComponent> kids = stamp.getChildren();
-    Object[] state = (Object[]) stampState;
+    Map<String, Object> state = (Map<String, Object>)stampState;
 
-    int childIndex = 0;
-    for(int i=0; i<state.length; i++)
+    for (UIComponent kid : kids)
     {
-      Object childState = state[i];
-      // Skip over any saved state that corresponds to transient
-      // components
-      if (childState != UIXCollection.Transient.TRUE)
-      {
-        while (childIndex < kids.size())
-        {
-          UIComponent kid = kids.get(childIndex);
-          childIndex++;
-          // Skip over any transient components before restoring state
-          if (!kid.isTransient())
-          {
-            table.restoreStampState(context, kid, childState);
-            break;
-          }
-        }
-      }
-      // The component may or may not still be there;  if it
-      // is, then we'd better skip over it
-      else
-      {
-        if (childIndex < kids.size())
-        {
-          UIComponent child = kids.get(childIndex);
-          // If the child isn't transient, then it must be
-          // something that we want to look at on the next
-          // iteration.
-          if (child.isTransient())
-            childIndex++;
-        }
-      }
+      Object childState = state.get(kid.getId());
+      if (childState == null)
+        continue;
+
+      table.restoreStampState(context, kid, childState);
     }
   }
 

@@ -1002,7 +1002,7 @@ public abstract class UIXCollection extends UIXComponentBase
   protected Object saveStampState(FacesContext context, UIComponent stamp)
   {
     if (stamp.isTransient())
-      return Transient.TRUE;
+      return null;
 
     boolean needsTearDownContext = false;
 
@@ -1018,8 +1018,8 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       // The structure we will use is:
       //   0: state of the stamp
-      //   1: state of the children (an array)
-      //   2: state of the facets (an array of name-key pairs)
+      //   1: state of the children (a map from child's id to its state)
+      //   2: state of the facets (a map from facet name to its state)
       // If there is no facet state, we have a two-element array
       // If there is no facet state or child state, we have a one-elment array
       // If there is no state at all, we return null
@@ -1035,45 +1035,30 @@ public abstract class UIXCollection extends UIXComponentBase
 
       if (facetCount > 0)
       {
-        boolean facetStateIsEmpty = true;
-        Object[] facetState = null;
+        Map<String, Object> facetState = null;
 
         Map<String, UIComponent> facetMap = stamp.getFacets();
 
-        int i = 0;
         for(Map.Entry<String, UIComponent> entry : facetMap.entrySet())
         {
           Object singleFacetState = saveStampState(context, entry.getValue());
-          if ((singleFacetState == null) ||
-              (singleFacetState == Transient.TRUE))
+          if (singleFacetState == null)
             continue;
 
           // Don't bother allocating anything until we have some non-null
-          // and non-transient facet state
-          if (facetStateIsEmpty)
+          // facet state
+          if (facetState == null)
           {
-            facetStateIsEmpty = false;
-            facetState = new Object[facetCount * 2];
+            facetState = new HashMap<String, Object>(facetCount);
           }
 
-          int base = i * 2;
-          assert(facetState != null);
-          facetState[base] = entry.getKey();
-          facetState[base + 1] = singleFacetState;
-          i++;
+          facetState.put(entry.getKey(), singleFacetState);
         }
 
         // OK, we had something:  allocate the state array to three
         // entries, and insert the facet state at position 2
-        if (!facetStateIsEmpty)
+        if (facetState != null)
         {
-          // trim the facetState array if necessary
-          if(i < facetCount)
-          {
-            Object[] trimmed = new Object[i*2];
-            System.arraycopy(facetState, 0, trimmed, 0, i*2);
-            facetState = trimmed;
-          }
           state = new Object[3];
           state[2] = facetState;
         }
@@ -1119,8 +1104,8 @@ public abstract class UIXCollection extends UIXComponentBase
   protected void restoreStampState(FacesContext context, UIComponent stamp,
                                    Object stampState)
   {
-    // Just a transient component - return
-    if ((stampState == Transient.TRUE) || (stampState == null))
+    // No state for the component - return
+    if (stampState == null)
     {
       return;
     }
@@ -1143,18 +1128,17 @@ public abstract class UIXCollection extends UIXComponentBase
 
 
     // If there's any facet state, restore it
-    if (stateSize >= 3)
+    if (stateSize >= 3 && (state[2] instanceof Map))
     {
-      Object[] facetStateArray = (Object[]) state[2];
+      Map<String, Object> facetStateMap = (Map<String, Object>) state[2];
       // This had better be non-null, otherwise we never
-      // should have allocated a three-element array!
-      assert(facetStateArray != null);
+      // should have allocated a three-element map!
+      assert(facetStateMap != null);
 
-      for(int i=0; i<facetStateArray.length; i+=2)
+      for (String facetName : facetStateMap.keySet())
       {
-        String facetName = (String) facetStateArray[i];
-        Object facetState = facetStateArray[i + 1];
-        if (facetState != Transient.TRUE)
+        Object facetState = facetStateMap.get(facetName);
+        if (facetState != null)
           restoreStampState(context, stamp.getFacet(facetName), facetState);
       }
     }
