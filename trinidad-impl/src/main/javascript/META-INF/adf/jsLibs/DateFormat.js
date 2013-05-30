@@ -721,7 +721,8 @@ function _subparse(
 
       case 'y': // year
       {
-        var year = _accumulateNumber(parseContext, !isStrict ? 4 : charCount);
+        // Trinidad-2386: Javascript accepts up to 6 digit year lengths, use maxLength = 6
+        var year = _accumulateNumber(parseContext, !isStrict ? 6 : charCount);
         var enteredChars = parseContext.currIndex - inStartIndex;
         // if we have a 2-digit year, add in the default year
         if (year != null)
