@@ -57,10 +57,10 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   protected enum CheckExecutionResult
   {
     /** Execute the child tag and its body */
-    EXECUTE,
+    ACCEPT,
 
     /** Skip both the creation of the component, and do not execute the child's body */
-    SKIP_EXECUTION
+    REJECT
   }
 
   public UIXComponentELTag()
@@ -75,10 +75,14 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   @Override
   public int doStartTag() throws JspException
   {
-    Map<String, Object> reqMap = getFacesContext().getExternalContext().getRequestMap();
+    Map<Object, Object> facesContextAttributes = getFacesContext().getAttributes();
 
-    // Only support skipping the body of a tag when not iterating
-    if (!_isProcessingStampingComponentTag(reqMap))
+    // Only support skipping the body of a tag when not iterating. This is due to the fact that
+    // skipping tag execution usually relies on component attribute state. Since stamping causes
+    // component state to change per-stamp, it is not reliable enough to try to determine if
+    // a component tag should process its body based on the non-stamped component state. As such,
+    // we always execute the tag body when inside a stamping component tag
+    if (!_isProcessingStampingComponentTag(facesContextAttributes))
     {
       UIComponentClassicTagBase parentTagBase = getParentUIComponentClassicTagBase(pageContext);
       if (parentTagBase instanceof UIXComponentELTag)
@@ -88,7 +92,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
         // Check if the component should be created
         if (parentTag.checkChildTagExecution(this, facetName) ==
-          CheckExecutionResult.SKIP_EXECUTION)
+          CheckExecutionResult.REJECT)
         {
           _skipEndTagSuperCall = true;
           return SKIP_BODY;
@@ -104,7 +108,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     if (_validationError != null)
       throw new JspException(_validationError);
 
-    _checkStartingStampingTag(reqMap);
+    _checkStartingStampingTag(facesContextAttributes);
 
     return retVal;
   }
@@ -132,8 +136,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
    */
   protected boolean isProcessingStampingComponentTag()
   {
-    return _isProcessingStampingComponentTag(
-      getFacesContext().getExternalContext().getRequestMap());
+    return _isProcessingStampingComponentTag(getFacesContext().getAttributes());
   }
 
   /**
@@ -149,24 +152,34 @@ abstract public class UIXComponentELTag extends UIComponentELTag
    * Check if a child component tag should execute or not. Allows the parent tag to control if
    * child components are created for optimization purposes. Only called if the current tag is
    * not in a stamping tag.
-   * <p>Called from the doStartTag of the child tag to see if the parent tag wishes to prevent
-   * the execution of the child tag. This is called before the child tag creates its component.
+   * <p>
+   *   Called from the doStartTag of the child tag to see if the parent tag wishes to prevent
+   *   the execution of the child tag. This is called before the child tag creates its component.
    * </p>
-   * <p>This only is called for a non-stamping situation do to the availability of EL evaluation.
-   * If inside of a stamping container, component state and EL may change per stamp and therefore
-   * the tag will not have access to that state since the component does not stamp during tag
-   * execution. Therefore, it is best to avoid trying to defer child execution when component
-   * state is not known.</p>
+   * <p>
+   *   This may be overridden by a tag to check if a child tag's body should be executed. The
+   *   framework will call this method when the child tag is executing.
+   * </p>
+   * <p>
+   *   If inside of a stamping container this code is not executed as component state
+   *   may change per stamp and therefore the tag will not have access to that state since the
+   *   component does not stamp during tag execution. Therefore, it is best to avoid trying to
+   *   defer child execution when component state is not known.
+   * </p>
+   * <p>
+   *   This method is called by the framework where the {@link #checkChildTagExecution(UIComponent)}
+   *   function is called by sub-classes of {@link UIXComponentELTag}.
+   * </p>
    *
    * @param childTag The child tag
    * @param facetName The facet, if any, for the child tag
-   * @return if the tag should be executed or not
+   * @return if the child tag body should be executed or not
    */
   protected CheckExecutionResult checkChildTagExecution(
-    @SuppressWarnings("unused") UIXComponentELTag childTag,
-    @SuppressWarnings("unused") String            facetName)
+    @SuppressWarnings("unused") UIComponentELTag childTag,
+    @SuppressWarnings("unused") String           facetName)
   {
-    return CheckExecutionResult.EXECUTE;
+    return CheckExecutionResult.ACCEPT;
   }
 
   /**
@@ -174,19 +187,26 @@ abstract public class UIXComponentELTag extends UIComponentELTag
    * Used for components where a parent-child relationship has been established. For example,
    * allows the show detail item to ask the parent panelTabbed tag if the show detail item should
    * allow children components of the show detail item to be created.
-   * <p>This method is not called by the framework, but may be called by a child tag on the
-   * parent tag. The parent tag should override this method to determine if a child tag should
-   * execute its children tags. In the above example, the show detail item tag should call this
-   * method on the panelTabbed tag to see if the show detail item's children tags should be
-   * executed.</p>
+   * <p>
+   *   This method is not called by the framework, but may be called by a child tag on the
+   *   parent tag. The parent tag should override this method to determine if a child tag should
+   *   execute its children tags. In the above example, the show detail item tag should call this
+   *   method on the panelTabbed tag to see if the show detail item's children tags should be
+   *   executed.
+   * </p>
+   * <p>
+   *   This method is called by sub-classes and is not called by the framework at any time.
+   *   The framework will invoke the {@link #checkChildTagExecution(UIComponentELTag, String)}
+   *   method during the execution of the start tag.
+   * </p>
    *
    * @param childComponent The child component
-   * @return if the children tags of the component should be executed or not
+   * @return if the children tags of the child component should execute their tag bodies
    */
   public CheckExecutionResult checkChildTagExecution(
-    @SuppressWarnings("unused") UIXComponent childComponent)
+    @SuppressWarnings("unused") UIComponent childComponent)
   {
-    return CheckExecutionResult.EXECUTE;
+    return CheckExecutionResult.ACCEPT;
   }
 
   protected final void setProperties(UIComponent component)
@@ -473,15 +493,26 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     _validationError = validationError;
   }
 
+  /**
+   * Checks if the current tag is a stamping tag. If so, a counter is incremented so that it can
+   * be tracked when we are outside all stamping tags again.
+   *
+   * @see #_checkEndingStampingTag()
+   * @see #isStampingTag()
+   * @param facesContextAttributes
+   */
   private void _checkStartingStampingTag(
-    Map<String, Object> reqMap)
+    Map<Object, Object> facesContextAttributes)
   {
     if (isStampingTag())
     {
-      AtomicInteger count = (AtomicInteger)reqMap.get(_STAMPING_COUNT_KEY);
+      AtomicInteger count = (AtomicInteger)facesContextAttributes.get(_STAMPING_COUNT_KEY);
       if (count == null)
       {
-        reqMap.put(_STAMPING_COUNT_KEY, new AtomicInteger(1));
+        // Use an atomic integer here so that we can increment and decrement the value without
+        // having to store a new integer value into the map each time. This avoids the overhead
+        // of the map.put operation.
+        facesContextAttributes.put(_STAMPING_COUNT_KEY, new AtomicInteger(1));
       }
       else
       {
@@ -492,15 +523,21 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     }
   }
 
+  /**
+   * Decrement the counter if this tag returns true from {@link #isStampingTag()}. Allows the code
+   * to check if we are outside of all stamping component tags.
+   *
+   * @see #_checkStartingStampingTag(Map)
+   */
   private void _checkEndingStampingTag()
   {
     if (isStampingTag())
     {
-      Map<String, Object> reqMap = getFacesContext().getExternalContext().getRequestMap();
-      AtomicInteger count = (AtomicInteger)reqMap.get(_STAMPING_COUNT_KEY);
+      Map<Object, Object> facesContextAttributes = getFacesContext().getAttributes();
+      AtomicInteger count = (AtomicInteger)facesContextAttributes.get(_STAMPING_COUNT_KEY);
       if (count.get() == 1)
       {
-        reqMap.remove(_STAMPING_COUNT_KEY);
+        facesContextAttributes.remove(_STAMPING_COUNT_KEY);
       }
       else
       {
@@ -511,11 +548,15 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
   /**
    * Check if an iterating tag is currently executing (between doStartTag and doEndTag).
+   * This is used to always process the tag body when stamping. This prevents issues when component
+   * state is used to determine if a tag should execute and that state differs per stamp. Since
+   * stamp state is not available during JSP tag execution, it is best to always execute the tag
+   * body when inside a stamping tag.
    */
   private boolean _isProcessingStampingComponentTag(
-    Map<String, Object> reqMap)
+    Map<Object, Object> facesContextAttributes)
   {
-    return reqMap.containsKey(_STAMPING_COUNT_KEY);
+    return facesContextAttributes.containsKey(_STAMPING_COUNT_KEY);
   }
 
   /**
