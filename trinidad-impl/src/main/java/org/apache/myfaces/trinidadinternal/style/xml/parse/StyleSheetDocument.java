@@ -20,11 +20,13 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import java.awt.Color;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -32,7 +34,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 
 import java.util.regex.Pattern;
 
@@ -219,10 +220,8 @@ public class StyleSheetDocument
     // We also need to provide a Map for storing selector-based
     // styles and another for storing name-based styles, used by
     // _resolveStyle() to store results
-    HashMap<String, StyleNode> resolvedStyles = 
-      new HashMap<String, StyleNode>();
-    HashMap<String, StyleNode> resolvedNamedStyles = 
-      new HashMap<String, StyleNode>();
+    Map<String, StyleNode> resolvedStyles      = new HashMap<String, StyleNode>();
+    Map<String, StyleNode> resolvedNamedStyles = new HashMap<String, StyleNode>();
 
     // Keep track of all selectors and names that we've already
     // found, so that we don't bother re-resolving them
@@ -232,8 +231,8 @@ public class StyleSheetDocument
     // not yet have been encountered by this top loop.  We
     // could eliminate the need for this if we were willing
     // to give up the ordering of the list
-    Set<String> foundNames = new HashSet<String>();
-    List<IconNode> iconNodes = new ArrayList<IconNode>();
+    Set<String>    foundNames = new HashSet<String>();
+    List<IconNode> iconNodes  = new ArrayList<IconNode>();
 
     // We want to cache IDs in this use of StyleSheetList. We'll use the cache
     // when we resolve styles.
@@ -246,44 +245,40 @@ public class StyleSheetDocument
       // iterate through each one and add to the list.
       for (IconNode iconNodeFromStyleSheet : iconNodeList)
       {
-            String id;
-            boolean isFound;
+        String id;
+        boolean isFound;
 
 
-            id = iconNodeFromStyleSheet.getIconName();
-            isFound = foundNames.contains(id);
-            
+        id = iconNodeFromStyleSheet.getIconName();
+        isFound = foundNames.contains(id);
+        
 
-            // If we've already seen that node/selector, no need to look
-            // for it again
-            if (!isFound)
+        // If we've already seen that node/selector, no need to look
+        // for it again
+        if (!isFound)
+        {
+          StyleNode resolvedNode = _resolveStyleNode(context, true,
+                                                     styleSheets,
+                                                     resolvedStyles,
+                                                     resolvedNamedStyles,
+                                                     null,
+                                                     null,
+                                                     id,
+                                                     false);
+
+          // Create the Icon
+          if (resolvedNode != null)        
+          {
+
+            Icon icon = _createIconFromNode(resolvedNode);
+
+            if (icon != null)
             {
-              StyleNode resolvedNode = _resolveStyleNode(context, true,
-                                                         styleSheets,
-                                                         resolvedStyles,
-                                                         resolvedNamedStyles,
-                                                         null,
-                                                         null,
-                                                         id,
-                                                         false);
+              iconNodes.add(new IconNode(id, icon, resolvedNode));
 
-              // Create the Icon
-              
-              if (resolvedNode != null)        
-              {
- 
-                Icon icon = _createIconFromNode(resolvedNode);
- 
-                if (icon != null)
-                {
-                  iconNodes.add(new IconNode(id, icon, resolvedNode));
-
-                  foundNames.add(id);
-                }
-
-              }
-       
-
+              foundNames.add(id);
+            }
+          }
         }
       }
     }
@@ -465,7 +460,7 @@ public class StyleSheetDocument
     // could eliminate the need for this if we were willing
     // to give up the ordering of the list
     Set<String> foundSelectors = new HashSet<String>();
-    Set<String> foundNames = new HashSet<String>();
+    Set<String> foundNames     = new HashSet<String>();
 
     // Now, loop through all StyleNodes in all StyleSheetNodes
     
@@ -647,8 +642,8 @@ public class StyleSheetDocument
     StyleSheetList         styleSheets,
     Map<String, StyleNode> resolvedStyles,
     Map<String, StyleNode> resolvedNamedStyles,
-    Stack<String>          includesStack,
-    Stack<String>          namedIncludesStack,
+    Deque<String>          includesStack,
+    Deque<String>          namedIncludesStack,
     String                 id,
     boolean                isNamed
     )
@@ -704,19 +699,15 @@ public class StyleSheetDocument
     // Push this style onto the appropriate include stack
     if (isNamed)
     {
-      // -= Simon Lessard =- 
-      // TODO: Check if synchronization is truly required
       if (namedIncludesStack == null)
-        namedIncludesStack = new Stack<String>();
+        namedIncludesStack = new ArrayDeque<String>();
 
       namedIncludesStack.push(id);
     }
     else
     {
-      // -= Simon Lessard =- 
-      // TODO: Check if synchronization is truly required
       if (includesStack == null)
-        includesStack = new Stack<String>();
+        includesStack = new ArrayDeque<String>();
 
       includesStack.push(id);
     }
@@ -726,6 +717,7 @@ public class StyleSheetDocument
     // .someStyle {color: red} .someStyle {font-size: 11px}
     // you will get two StyleNodes, and the properties will get merged together.
     List<StyleNode> nodeList = styleSheets.styleNodes(id, isNamed);
+    
     // get the StyleNodes from each iconNodeList and add it to the StyleNode list
     if (forIconNode)
     {
@@ -765,7 +757,11 @@ public class StyleSheetDocument
       includesStack.pop();
     }
 
-    StyleNode resolvedNode = entry.toStyleNode();
+    // Set<String> blackList = _DESTYLED_SUPPRESSED_PROPERTIES;
+    //Set<String> blackList = _IE_SUPPRESSED_PROPERTIES;
+    Set<String> blackList = null;
+      
+    StyleNode resolvedNode = entry.toStyleNode(blackList);
 
     // If we got a node, add it in to our list
     if (resolvedNode != null)
@@ -803,8 +799,8 @@ public class StyleSheetDocument
     StyleSheetList         styleSheets,
     Map<String, StyleNode> resolvedStyles,
     Map<String, StyleNode> resolvedNamedStyles,
-    Stack<String>          includesStack,
-    Stack<String>          namedIncludesStack,
+    Deque<String>          includesStack,
+    Deque<String>          namedIncludesStack,
     StyleEntry             entry,
     List<StyleNode>        nodeList)
   {
@@ -1037,8 +1033,8 @@ public class StyleSheetDocument
     StyleSheetList         styleSheets,
     Map<String, StyleNode> resolvedStyles,
     Map<String, StyleNode> resolvedNamedStyles,
-    Stack<String>          includesStack, 
-    Stack<String>          namedIncludesStack,
+    Deque<String>          includesStack, 
+    Deque<String>          namedIncludesStack,
     IncludePropertyNode    includeProperty)
   {
     String includeID = null;
@@ -1078,14 +1074,17 @@ public class StyleSheetDocument
     Iterable<PropertyNode> properties = node.getProperties();
     for (PropertyNode propertyNode : properties)
     {
-      entry.addIncludedProperty(propertyNode);
+      if (propertyNode != null)
+      {
+        entry.addProperty(propertyNode);
+      }
     }
     
     // server-side skin properties
     Iterable<PropertyNode> skinProperties = node.getSkinProperties();
     for (PropertyNode skinPropertyNode : skinProperties)
     {
-      entry.addIncludedSkinProperty(skinPropertyNode);
+      entry.addSkinProperty(skinPropertyNode);
     }
   }
 
@@ -1119,7 +1118,7 @@ public class StyleSheetDocument
           _getIncludedProperties(propertyName, localPropertyName, properties);
         for (PropertyNode propertyToAdd : includedProperties)
         {
-          entry.addIncludedSkinProperty(propertyToAdd);
+          entry.addSkinProperty(propertyToAdd);
         }
         
         // most likely this block of code will run instead of the above code
@@ -1131,7 +1130,7 @@ public class StyleSheetDocument
           _getIncludedProperties(propertyName, localPropertyName, skinProperties);
         for (PropertyNode propertyToAdd : includedSkinProperties)
         {
-          entry.addIncludedSkinProperty(propertyToAdd);
+          entry.addSkinProperty(propertyToAdd);
         }
        
       }
@@ -1144,7 +1143,7 @@ public class StyleSheetDocument
           _getIncludedProperties(propertyName, localPropertyName, properties);
         for (PropertyNode propertyToAdd : includedProperties)
         {
-          entry.addIncludedProperty(propertyToAdd);
+          entry.addProperty(propertyToAdd);
         }
       }
 
@@ -1229,23 +1228,7 @@ public class StyleSheetDocument
     }
     return propertyNodesToAdd;
   }
-
-  // Returns a count of the non-null items in the List
-  private static int _getNonNullCount(List<?> list)
-  {
-    if (list == null)
-      return 0;
-
-    int count = 0;
-    for (int i = 0; i < list.size(); i++)
-    {
-      if (list.get(i) != null)
-        count++;
-    }
-
-    return count;
-  }
-
+  
   // Static utility method used by StyleEntry & FontSizeConverter
   // to get the real font size, taking relative size into account
   static PropertyNode _getRealFontSize(
@@ -1356,7 +1339,7 @@ public class StyleSheetDocument
   }
   
   // Tests whether the value is present in the (possibly null) stack.
-  private static boolean _stackContains(Stack<?> stack, Object value)
+  private static boolean _stackContains(Deque<?> stack, Object value)
   {
     if (stack == null)
       return false;
@@ -1636,6 +1619,25 @@ public class StyleSheetDocument
 
       return 1;
     }
+    
+    @Override
+    public boolean equals(Object o)
+    {
+      if (this == o)
+        return true;
+      
+      if (!(o instanceof StyleSheetComparator))
+        return false;
+      
+      StyleSheetComparator other = (StyleSheetComparator)o;
+      
+      return _direction == other._direction        &&
+             _mode      == other._mode             &&
+             _locale.equals(other._locale)         &&
+             _accProfile.equals(other._accProfile) &&
+             _agent.equals(other._agent)           &&
+             _styleSheets.equals(other._styleSheets);
+    }
 
     private int _compareOrder(Object item1, Object item2)
     {
@@ -1676,16 +1678,6 @@ public class StyleSheetDocument
 
     // The name of the style
     public final String name;
-
-    // Empty private constructor - this exists only to prevent
-    // the compiler from complaining about our blank final vars
-    // It should never be called.
-    private StyleEntry()
-    {
-      assert false;
-      selector = null;
-      name = null;
-    }
 
     // Create a StyleEntry with the specified selector, name
     public StyleEntry(String selector, String name)
@@ -1765,84 +1757,65 @@ public class StyleSheetDocument
       _propertyCount = 0;
       _relativeFontSize = 0;
     }
-
-    // Returns the count of properties defined by this style
-    public int getPropertyCount()
-    {
-      return _propertyCount;
-    }
-
-    // Returns an Iterator of the properties defined by this style
-    public Iterator<PropertyNode> getProperties()
-    {
-      if (_properties == null)
-        return null;
-
-      return new
-        FontSizeConverter(
-          new NonNullIterator<PropertyNode>(
-            _properties.iterator()),
-          _relativeFontSize);
-    }
-
-    // Adds an "included" property.  Include propreties are
-    // properties which are indirectly included in the style
-    // via an <includeStyle> element.
-    // TODO jmw Since we no longer track included properties separately, we should delete.
-    public void addIncludedProperty(PropertyNode property)
-    {
-      // We no longer track included properties separately.
-      // The reason for this is that it should be possible
-      // to override a <property> value using an included
-      // property in a custom style sheet.  (See bug 2896824.)
-      // So, we just add included properties to the main
-      // property list.
-      addProperty(property);
-    }
     
-    public void addIncludedSkinProperty(PropertyNode skinProperty)
+    /**
+     * Returns the filtered and trimmed PropertyNode[] for the properties
+     * @param unfilteredProperties
+     * @param blackList
+     * @return
+     */
+    private static PropertyNode[] _filterAndTrimPropertyNodes(
+      List<PropertyNode> unfilteredProperties, Set<String> blackList, int relativeFontSize)
     {
-      addSkinProperty(skinProperty);
+      int propertyCount = (unfilteredProperties != null) ?  unfilteredProperties.size() : 0;
+      
+      if (propertyCount == 0)
+      {
+        return _EMPTY_PROPERTY_NODE_ARRAY;
+      }
+      else
+      { 
+        // filter the properties
+        PropertyNode[] filteredProperties = _filteredCopyInto(unfilteredProperties, blackList,
+                                                              new PropertyNode[propertyCount]);
+        
+        // Adjust the font size based for relative font
+        if (relativeFontSize != 0)
+        {
+          for (int i = 0; i < filteredProperties.length; i++)
+          {
+            PropertyNode property = filteredProperties[i];
+            
+            if (_FONT_SIZE_NAME.equals(property.getName()))
+            {
+              filteredProperties[i] = _getRealFontSize(property, relativeFontSize);
+              break;
+            }
+          }
+        }
+        
+        return filteredProperties;
+      }
     }
 
     // Converts this StyleEntry to a StyleNode
-    public StyleNode toStyleNode()
+    public StyleNode toStyleNode(Set<String> blackList)
     {
-      // Create an PropertyNode array to pass to the new StyleNode.
-      // The PropertyNode array includes both the included properties
-      // and the properties defined directly within this style.
-      int propertyCount = _getNonNullCount(_properties);
-      int skinPropertyCount = _getNonNullCount(_skinProperties);
-                                                          
-
-      if (propertyCount + skinPropertyCount == 0)
-        return null;
-
-      PropertyNode[] properties = new PropertyNode[propertyCount];
-      PropertyNode[] skinProperties = new PropertyNode[skinPropertyCount];
-
-      // Copy in the properties
-      _nonNullCopyInto(_properties, properties, 0);
-      _nonNullCopyInto(_skinProperties, skinProperties, 0);
-
-      // Adjust the font size based for relative font
-      if (_relativeFontSize != 0)
+      PropertyNode[] properties     = _filterAndTrimPropertyNodes(_properties, blackList, _relativeFontSize);
+      PropertyNode[] skinProperties = _filterAndTrimPropertyNodes(_skinProperties, null, 0);
+                                                      
+      if (properties.length + skinProperties.length == 0)
       {
-        for (int i = 0; i < properties.length; i++)
-        {
-          PropertyNode property = properties[i];
-          if (_FONT_SIZE_NAME.equals(property.getName()))
-          {
-            properties[i] = _getRealFontSize(property, _relativeFontSize);
-            break;
-          }
-        }
+        // no properties, so nothing to return
+        return null;
       }
-
-      // Create and return our StyleNode.  We don't need to specify
-      // a name or included styles, as they have already been resolved.
-      // StyleNode(name, selector, properties, skinProperties, includedStyles, includedProperties, inhibitedProperties)
-      return new StyleNode(name, selector, properties, skinProperties, null, null,null, null);
+      else
+      {
+        // Create and return our StyleNode.  We don't need to specify
+        // a name or included styles, as they have already been resolved.
+        // StyleNode(name, selector, properties, skinProperties, includedStyles, includedProperties, inhibitedProperties)
+        return new StyleNode(name, selector, properties, skinProperties, null, null,null, null);
+      }
     }
 
     // Removes the PropertyNode with the specified name from the
@@ -1906,23 +1879,48 @@ public class StyleSheetDocument
 
       return false;
     }
-
-    // Copies the non-null entries from the source vector to the
-    // target Object array, starting at the specified index
-    private void _nonNullCopyInto(
-        ArrayList<? extends Object> source, 
-        Object[] target, 
-        int start)
+    
+    /**
+     * For each non-null PropertyNode in the source List, filter out all null items and any ProeprtyNode's whose
+     * name appears in the blacklist
+     * 
+     * The returned Array might not be the initially passed array if filtering changed the number of elements
+     */
+    private static PropertyNode[] _filteredCopyInto(
+      List<? extends PropertyNode> source,
+      Set<String> blackList,
+      PropertyNode[] target)
     {
-      if (source == null)
-        return;
-
-      for (int i = 0; i < source.size(); i++)
+      int copyIndex = 0;
+      
+      int sourceSize = source.size();
+      
+      for (int i = 0; i < sourceSize; i++)
       {
-        Object o = source.get(i);
-
-        if (o != null)
-          target[start++] = o;
+        PropertyNode property = source.get(i);
+    
+        if ((property != null) && ((blackList == null) || !blackList.contains(property.getName())))
+        {
+          target[copyIndex] = property;
+          copyIndex++;
+        }
+      }
+      
+      // return the array, creating a new array if necessary
+      if (sourceSize != copyIndex)
+      {
+        if (copyIndex != 0)
+        {
+          return Arrays.copyOf(target, copyIndex);          
+        }
+        else
+        {
+          return _EMPTY_PROPERTY_NODE_ARRAY;
+        }
+      }
+      else
+      {
+        return target;
       }
     }
 
@@ -2086,6 +2084,8 @@ public class StyleSheetDocument
       return null;
     }
 
+    private static final PropertyNode[] _EMPTY_PROPERTY_NODE_ARRAY = new PropertyNode[0];
+
     // The set of properties (PropertyNodes) defined by this style
     private ArrayList<PropertyNode> _properties;
     
@@ -2102,110 +2102,55 @@ public class StyleSheetDocument
     private int _relativeFontSize;
   }
 
-  // Private Iterator implementation which strips null values
-  // from a wrapped Iterator.  StyleEntry uses this to avoid
-  // exposing null properties which result from removal of duplicate
-  // properties (really, nulling out of duplicate properties).
-  private static class NonNullIterator<T> implements Iterator<T>
-  {
-    public NonNullIterator(Iterator<T> wrappedIterator)
-    {
-      _wrappedIterator = wrappedIterator;
-
-      // Initialize the cache next element
-      _next = _getNonNullNext();
-    }
-
-    public boolean hasNext()
-    {
-      return (_next != null);
-    }
-
-    public T next()
-    {
-      T next = _next;
-      _next = _getNonNullNext();
-
-      return next;
-    }
-
-    public void remove()
-    {
-      _wrappedIterator.remove();
-    }
-
-    // Returns the next non null value in the wrapped enum
-    private T _getNonNullNext()
-    {
-      while (_wrappedIterator.hasNext())
-      {
-        T next = _wrappedIterator.next();
-
-        if (next != null)
-          return next;
-      }
-
-      return null;
-    }
-
-    // The wrapped enumeration
-    private Iterator<T> _wrappedIterator;
-
-    // The next non-null value in the wrapped enumeration
-    private T _next;
-  }
-
-  // A silly Iterator which converts "font-size" PropertyNodes to
-  // absolute values, using a specified relative font size
-  private static class FontSizeConverter implements Iterator<PropertyNode>
-  {
-    public FontSizeConverter(
-      Iterator<PropertyNode> wrappedIterator,
-      int relativeFontSize
-      )
-    {
-      _wrappedIterator = wrappedIterator;
-      _relativeFontSize = relativeFontSize;
-    }
-
-    public boolean hasNext()
-    {
-      return _wrappedIterator.hasNext();
-    }
-
-    public void remove()
-    {
-      _wrappedIterator.remove();
-    }
-
-    public PropertyNode next()
-    {
-      PropertyNode property = _wrappedIterator.next();
-
-      if ((_relativeFontSize == 0) ||
-           !_FONT_SIZE_NAME.equals(property.getName()))
-      {
-        return property;
-      }
-
-      return _getRealFontSize(property, _relativeFontSize);
-    }
-
-    // The wrapped enumeration
-    private Iterator<PropertyNode> _wrappedIterator;
-    private int         _relativeFontSize;
-  }
-
   private StyleSheetNode[] _styleSheets;
   private final String     _documentVersion;
   private final long       _documentTimestamp;
-
-  static final String _FONT_SIZE_NAME = "font-size";
+  
+  private static final Set<String> _IE_SUPPRESSED_PROPERTIES = new HashSet<String>(Arrays.asList(
+    "border-radius", "box-shadow"));
+  
+  
+  private static final Set<String> _DESTYLED_SUPPRESSED_PROPERTIES = new HashSet<String>(Arrays.asList(
+    "background-attachment", "background-color", "background-image", "background-position", "background-repeat", "background",
+    "border-collapse", "border-color", "border-spacing", "border-style",
+    "border-top", "border-right", "border-bottom", "border-left",
+    "border-top-color", "border-right-color", "border-bottom-color", "border-left-color",
+    "border-top-width", "border-right-width", "border-bottom-width", "border-left-width", "border-width",
+    "border", "border-image", "border-radius",
+    "caption-side",
+    "color",
+    "content",
+    "cursor",
+    "font-family", "font-size", "font-style", "font-variant", "font-weight", "font",
+    "font-feature-settings", "font-kerning", "font-language-override", "font-size-adjust", "font-stretch", "font-variant-alternates",
+    "font-variant-caps", "font-variant-east-asian", "font-variant-ligatures", "font-variant-numeric", "font-variant-position",
+    "hanging-punctuation",
+    "hyphens",
+    "icon",
+    "letter-spacing",
+    "line-break",
+    "list-style-image", "list-style-position", "list-style-type", "list-style",
+    "margin-right", "margin-left", "margin-top", "margin-bottom", "margin",
+    "marquee-direction", "marquee-loop", "marquee-speed", "marquee-style",
+    "opacity",
+    "outline-color", "outline-style", "outline-width", "outline", "outline-offset",
+    "overflow-style", "overflow-wrap",
+    "padding-top", "padding-right", "padding-bottom", "padding-left", "padding",
+    "resize",
+    "rotation", "rotation-point",
+    "target-new", "target-position",
+    "text-align", "text-align-last", "text-decoration", "text-indent", "text-justify", "text-transform", "text-overflow",
+    "transition", "transition-delay", "transition-duration", "transition-property", "transition-timing-function",
+    "vertical-align",
+    "white-space",
+    "word-break", "word-spacing", "word-wrap"));
+  
+  private static final String _FONT_SIZE_NAME = "font-size";
 
   // Unit strings.  For now, we only support points and pixels
   // for relative font sizes.
-  static final String _POINT_UNITS    = "pt";
-  static final String _PIXEL_UNITS    = "px";
+  private static final String _POINT_UNITS    = "pt";
+  private static final String _PIXEL_UNITS    = "px";
 
   // A StyleNode used as a placeholder for a style which couldn't be resolved
   private static final StyleNode _ERROR_STYLE_NODE = new StyleNode("error",

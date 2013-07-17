@@ -29,9 +29,8 @@ import java.io.PrintWriter;
 public interface StyleWriterFactory
 {
   /**
-   * Create a print writer to write to a new file. The previous writer, if it exists, should
-   * be closed by this method call
-   * @return a new instance of a print writer
+   * Creates a new PrintWriter.  The caller is responsible for closing the Writer when done with it
+   * @return a new instance of a PrintWriter
    */
   PrintWriter createWriter();
 }

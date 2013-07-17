@@ -20,19 +20,20 @@ package org.apache.myfaces.trinidadinternal.style.util;
 
 import java.beans.Beans;
 
+
 import java.io.PrintWriter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 import java.util.regex.Pattern;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -53,13 +54,345 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 public class CSSGenerationUtils
 {
   /**
+   * Returns a LinkedHashMap of normalized propertyString to the StyleNodes that have them as properties.  A
+   * LinkedHashMap is returned to indicate that realative ordering is preserved between the first appearance of 
+   * selectors with unshared properties.
+   * However, a later style rule that shares its properties with a much earlier style rule will be defined with that
+   * style rule, thus having its definition moved up in the file.  Therefore, customers should rely on
+   * specificity rather than ordering to override styles.
+   * defined with 
+   * @param styleNodes
+   * @return
+   */
+  private static LinkedHashMap<String, List<StyleNode>> _buildMatchingStylesMap(List<StyleNode> styleNodes)
+  {
+    int styleCount = styleNodes.size();
+
+    // We track styles with matching properties in the following HashMap
+    // which maps property strings to List<StyleNode[]>.  We use a LinkedHashMap
+    LinkedHashMap<String, List<StyleNode>> matchingStylesMap = new LinkedHashMap<String, List<StyleNode>>(styleCount);
+    
+    // at this point the styles List<StyleNode> can contain both Styles with
+    // non-null selector or non-null name(aka alias). We only generate
+    // the styles where getSelector is non-null.
+    for (StyleNode styleNode : styleNodes)
+    {
+      if (styleNode.getSelector() != null)
+      {
+        // Get the property string (properties are sorted so that
+        // the order doesn't affect whether styles match).
+        String propertyString = _getSortedPropertyString(styleNode);
+
+        // we don't write out styles with no propertyStrings
+        if (!"".equals(propertyString))
+        {
+          // See if we already have a StyleNode with the same properties
+          List<StyleNode> matchingStyles = matchingStylesMap.get(propertyString);
+    
+          if (matchingStyles == null)
+          {    
+            // If we don't already have matching StyleNodes, create a new match list and cache it
+            matchingStyles = new ArrayList<StyleNode>(1);
+            matchingStylesMap.put(propertyString, matchingStyles);
+          }
+          
+          matchingStyles.add(styleNode);
+        }
+      }
+    }
+    
+    return matchingStylesMap;
+  }
+  
+  /**
+   * Writes the properties of a merged set of style rules
+   * @param out
+   * @param properties
+   * @param styleSheetName
+   * @param compressStyles
+   * @param baseURI
+   * @return
+   */
+  private static void _writeMergedProperties(
+    PrintWriter out, Iterable<PropertyNode> properties, String styleSheetName, boolean compressStyles, String baseURI)
+  {
+    out.print(" {");
+
+    boolean first = true;
+
+    for (PropertyNode property : properties)
+    {
+      String propName  = property.getName();
+      String propValue = property.getValue();
+
+      if ((propName != null) &&
+          (propValue != null) &&
+          (propValue.length() > 0 ))
+      {
+        // insert separator before all except the first property
+        if (first)
+          first = false;
+        else
+          out.print(';');
+
+        out.print(propName);
+        out.print(':');
+        String resolvedPropValue = CSSUtils.resolvePropertyValue(styleSheetName, baseURI, propName, propValue);
+        out.print(resolvedPropValue);
+      }
+    }
+
+    out.print('}'); 
+
+    // take out the newlines for performance
+    if (!compressStyles)
+    {
+      out.println();
+    }
+  }
+
+  /**
+   * Writes out a List of valid selectors
+   * @param out
+   * @param validSelectors
+   */
+  private static void _writeValidSelectors(PrintWriter out, List<String> validSelectors)
+  {
+    boolean first = true;
+
+    // Write out all of the style selectors for this property string
+    for (String validSelector : validSelectors)
+    {
+      // insert separator before all except the first property
+      if (first)
+        first = false;
+      else
+        out.print(',');
+
+      out.print(validSelector);
+    }
+  }
+
+  /**
+   * Given a List of mappedSelectors, returns a List of valid selectors to write
+   * @param compressStyles
+   * @param shortStyleClassMap
+   * @param namespacePrefixArray
+   * @param mappedSelectors
+   * @return
+   */
+  private static List<String>  _calculateValidSelectors(
+    boolean compressStyles, Map<String, String> shortStyleClassMap,
+    String[] namespacePrefixArray, List<String> mappedSelectors)
+  {
+     List<String> validSelectors = new ArrayList<String>(mappedSelectors.size() * 2);
+
+    // TODO: figure out why we write both the uncompressed & compressed styles for styles
+    // without a '|' character, shouldn't the uncompressed be enough on its own? This results
+    // in some ugly code here.
+      
+    // Write out all of the style selectors for this property string
+    for (String mappedSelector : mappedSelectors)
+    { 
+      String validFullNameSelector = null;
+
+      // write out the full selector if we aren't compressing styles or
+      // it doesn't have a '|' in the name which means it may be a user's public styleclass
+      // and we don't want to compress those; we will also write out the compressed
+      // version the public styleclasses in the next step.
+      if (!compressStyles || (mappedSelector.indexOf('|') == -1))
+      {
+        validFullNameSelector = getValidFullNameSelector(mappedSelector, namespacePrefixArray);
+
+        if (validFullNameSelector != null)
+        {
+          validSelectors.add(validFullNameSelector);
+        }
+      }
+
+      if (compressStyles)
+      {
+        String shortSelector = getShortSelector(shortStyleClassMap, namespacePrefixArray, mappedSelector);
+
+        // if the transformed full name is different than the shortSelector
+        // then write out the shortSelector, too.
+        if (shortSelector != null)
+        {
+          String validShortSelector = getValidFullNameSelector(shortSelector, namespacePrefixArray);
+
+          // if we wrote out a full style, check to see if we need to write out the short, too.
+          // if it is something different, write out the short, too.
+          if (validFullNameSelector != null)
+          {
+            //Since validFullNameSelector is not null, we know we wrote out a full style
+            // we write out a short style too in this case if it is different
+            // example: .PublicStyleClass is written out fully even in compressed mode, but
+            // it is different in compressed mode, so we write that out, too.
+            if (!validFullNameSelector.equals(validShortSelector))
+            {
+              validSelectors.add(validShortSelector);
+            }
+          }
+          else
+          {
+            validSelectors.add(validShortSelector);
+          }
+        }
+      }
+    }
+    
+    return validSelectors;
+  }
+
+  /**
+   * Writes the merged selectors represented by a mappedSelectors, returning how many selectors were written. If the number
+   * of selectors that would be written is greater to or equal than maxSelectors, nothing will be written and
+   * 0 will be returned.  It is up to the caller to retry with this entry later.
+   * @param out
+   * @param compressStyles
+   * @param shortStyleClassMap
+   * @param namespacePrefixArray
+   * @param maxSelectors
+   * @param mappedSelectors
+   * @return
+   */
+  private static int _writeMergedSelectors(
+    PrintWriter out, boolean compressStyles, Map<String, String> shortStyleClassMap,
+    String[] namespacePrefixArray, int maxSelectors, List<String> mappedSelectors)
+  {    
+    // to make this atomic, we first calculate all of the selectors that we will write out.  If we have space, we will
+    // then write the selectors out
+    List<String> validSelectors = _calculateValidSelectors(compressStyles, shortStyleClassMap, namespacePrefixArray,
+                                                           mappedSelectors);
+    
+    int selectorsToWrite = validSelectors.size();
+    
+    if (selectorsToWrite >= maxSelectors)
+    {
+      // not enough space, so abort
+      return 0;
+    }
+    else
+    {
+      _writeValidSelectors(out, validSelectors);
+    
+      return selectorsToWrite;
+    }
+  }
+
+  /**
+   * For a List of matching StyleNode, return the mapped version of their Selectors
+   */
+  private static List<String> _calculateMappedSelectors(
+    String[] namespacePrefixArray, Map<String, String> afSelectorMap, List<StyleNode> matchingStyleNodes)
+  {
+    List<String> mappedSelectors = new ArrayList<String>(matchingStyleNodes.size());
+
+    for (StyleNode matchingNode : matchingStyleNodes)
+    {
+      String matchingSelector = matchingNode.getSelector();
+
+      // We should always have a selector at this point
+      assert (matchingSelector != null);
+      
+      String mappedSelector = getMappedSelector(afSelectorMap, namespacePrefixArray, matchingSelector);
+
+      mappedSelectors.add(mappedSelector);
+    }
+    
+    return mappedSelectors;
+  }
+
+  /**
+   * Writes a merged style rule represented by a mergedEntry, returning how many selectors were written.  If the number
+   * of selectors that would be written is greater to or equal than maxSelectors, nothing will be written and
+   * 0 will be returned.  It is up to the caller to retry with this entry later.
+   * @param styleSheetName
+   * @param compressStyles
+   * @param shortStyleClassMap
+   * @param namespacePrefixArray
+   * @param afSelectorMap
+   * @param out
+   * @param maxSelectors
+   * @param mergedEntry
+   * @return
+   */
+  private static int _writeMergedEntry(
+    String                             styleSheetName,
+    String                             baseURI,
+    boolean                            compressStyles,
+    Map<String, String>                shortStyleClassMap,
+    String[]                           namespacePrefixArray,
+    Map<String, String>                afSelectorMap,
+    PrintWriter                        out,
+    int                                maxSelectors,
+    Map.Entry<String, List<StyleNode>> mergedEntry
+    )
+  {
+    String propertyString = mergedEntry.getKey();
+
+    // we shouldn't have any null or empty Strings
+    assert (propertyString != null);
+    assert (!"".equals(propertyString));
+
+    // Get all of the styles which share this property string.
+    List<StyleNode> matchingStyleNodes = mergedEntry.getValue();
+
+    // Actually, we should always have at least one StyleNode here
+    assert (!matchingStyleNodes.isEmpty());
+    
+    List<String> mappedSelectors = _calculateMappedSelectors(namespacePrefixArray, afSelectorMap, matchingStyleNodes);
+
+ 
+    // Write out all of the style selectors for this property string.  If 0 is returned, we've aborted
+    int numberSelectorsWritten = _writeMergedSelectors(out, compressStyles, shortStyleClassMap, namespacePrefixArray,
+                                                       maxSelectors, mappedSelectors);
+
+    // Now that we have written out the selectors, write out
+    // the properties
+    if (numberSelectorsWritten > 0)
+    {
+      // At this point, we could just write out the property string
+      // that we already created, but this string contains the properties
+      // in sorted order.  We prefer to attempt to preserve the order
+      // of the properties as specified in the XSS document.  So,
+      // we get the properties from the StyleNode object instead of
+      // using the propertyString
+      // because of this lameness, we use the order from the original StyleNode
+      Iterable<PropertyNode> properties = matchingStyleNodes.get(0).getProperties();
+  
+      _writeMergedProperties(out, properties, styleSheetName, compressStyles, baseURI);
+    }
+    
+    return numberSelectorsWritten;
+  }
+  
+    
+  /**
+   * Returns the maximum number of selectors per file that this agent supports
+   * @param context
+   * @return
+   */
+  private static int _getMaxSelectorsPerFile(StyleContext context)
+  {
+    if (TrinidadAgent.Application.IEXPLORER == context.getAgent().getAgentApplication())
+    {
+      return _MSIE_SELECTOR_LIMIT;
+    }
+    else
+    {
+      return Integer.MAX_VALUE;
+    }
+  }
+  
+  /**
    * Converts the specified set of StyleNodes to CSS. We output either full styleclass names or
    * compressed styleclass names.
    *
    * @param context The current StyleContext
    * @param styleSheetName The stylesheet name that is registered with the skin.
    *     e.g. skins/purple/purpleSkin.css
-   * @param styles The style nodes to convert
+   * @param styleNodes The style nodes to convert
    * @param writerFactory The factory to obtain {@link PrintWriter} instances
    * @param compressStyles This tells us whether or not we want to output the short names.
    * @param shortStyleClassMap A Map which maps style
@@ -72,20 +405,13 @@ public class CSSGenerationUtils
   public static void writeCSS(
     StyleContext        context,
     String              styleSheetName,
-    StyleNode[]         styles,
+    List<StyleNode>     styleNodes,
     StyleWriterFactory  writerFactory,
     boolean             compressStyles,
     Map<String, String> shortStyleClassMap,
     String[]            namespacePrefixArray,
-    Map<String, String> afSelectorMap
-    )
+    Map<String, String> afSelectorMap)
   {
-    PrintWriter out = writerFactory.createWriter();
-    if (out == null)
-    {
-      return;
-    }
-
     // writeCSS() attempts to produce a minimal set of style rules
     // by combining selectors with identical properties into a
     // single rule.  For example, we convert the following two
@@ -109,240 +435,88 @@ public class CSSGenerationUtils
     // During the second pass over the styles, we write out all matching
     // selectors for each style followed by the shared set of properties.
 
-    // We track styles with matching properties in the following HashMap
-    // which maps property strings to StyleNode[]s.
-    HashMap<String, StyleNode[]> matchingStylesMap =
-      new HashMap<String, StyleNode[]>(101);
-
-    // We also keep an array of the property strings that we generate
-    // during this pass, since we need these strings during the second
-    // pass to find matching StyleNodes.
-    String[] propertyStrings = new String[styles.length];
-
-    // at this point the styles StyleNode[] can contain both Styles with
-    // non-null selector or non-null name(aka alias). We only generate
-    // the styles where getSelector is non-null.
-    for (int i = 0; i < styles.length; i++)
-    {
-      StyleNode style = styles[i];
-
-      if (style.getSelector() != null)
-      {
-        // Get the property string (properties are sorted so that
-        // the order doesn't affect whether styles match).
-        String propertyString = _getSortedPropertyString(style);
-
-        // See if we already have a StyleNode with the same properties
-        StyleNode[] matchingStyles = matchingStylesMap.get(propertyString);
-
-        if (matchingStyles == null)
-        {
-          // If we don't already have matching StyleNodes, add this
-          // StyleNode to the map.
-          propertyStrings[i] = propertyString;
-          matchingStyles = new StyleNode[1];
-          matchingStyles[0] = style;
-        }
-        else
-        {
-          // If we already have matching StyleNodes, add this StyleNode
-          // to the end of the list of matching StyleNodes.
-          int length = matchingStyles.length;
-
-          StyleNode[] newMatchingStyles = new StyleNode[length + 1];
-          System.arraycopy(matchingStyles,
-                           0,
-                           newMatchingStyles,
-                           0,
-                           length);
-          newMatchingStyles[length] = style;
-          matchingStyles = newMatchingStyles;
-        }
-
-        // Rehash with the new value
-        matchingStylesMap.put(propertyString, matchingStyles);
-      }
-    }
-
-    // We'll start writing the CSS file now.  First
-    // write out the header with a time stamp
-    Date date = new Date();
-    if (!compressStyles)
-      out.println("/* This CSS file generated on " + date + " */");
-
-    // Keep track of the number of selectors written out. The reason? IE has a 4095 limit,
-    // and we want to warn when we get to that limit.
-    int numberSelectorsWritten = 0;
 
     // This is the second pass in which we write out the style rules
     // Get the baseURI up front so we don't have to recalculate it every time we find
     // a property value that contains url() and need to resolve the uri.
     String baseURI = CSSUtils.getBaseSkinStyleSheetURI(styleSheetName);
-    for (int i = 0; i < styles.length; i++)
+
+    LinkedHashMap<String, List<StyleNode>> matchingStylesMap = _buildMatchingStylesMap(styleNodes);
+
+    Iterator<Map.Entry<String, List<StyleNode>>> mergedEntries = matchingStylesMap.entrySet().iterator();
+    
+    // Because of IE's selector limit, we need a slightly more complicated scheme for writing out the styles, so
+    // that we can create new CSS files as necessary
+    final int maxSelectorsPerFile = _getMaxSelectorsPerFile(context);
+        
+    // loop over all of the entries
+    while (mergedEntries.hasNext())
     {
-      StyleNode style = styles[i];
-      String propertyString = propertyStrings[i];
-
-      // We only write out styles for which we have a property string.
-      // All other entries correspond to styles which don't have selectors -
-      // or styles which will be rendered as a "matching" style.
-      if (propertyString != null && !(propertyString.equals("")))
+      PrintWriter out = writerFactory.createWriter();
+      
+      if (out == null)
       {
-        // Get all of the styles which share this property string.
-        StyleNode[] matchingStyles = matchingStylesMap.get(propertyString);
-
-        // Actually, we should always have at least one StyleNode here
-        assert (matchingStyles != null);
-
-        // determine if the current CSS file can fit all of the CSS selectors, or if a new
-        // one will be needed.
-        // TODO: figure out why we write both the uncompressed & compressed styles for styles
-        // without a '|' character, shouldn't the uncompressed be enough on its own? This results
-        // in some ugly code here.
-        int stylesToBeWritten = 0;
-        String[] selectors = new String[matchingStyles.length];
-        String[] mappedSelectors = new String[matchingStyles.length];
-
-        for (int j = 0; j < matchingStyles.length; j++)
-        {
-          selectors[j] = matchingStyles[j].getSelector();
-
-          // We should always have a selector at this point
-          assert (selectors[j] != null);
-
-          mappedSelectors[j] = getMappedSelector(afSelectorMap,
-                                                 namespacePrefixArray,
-                                                 selectors[j]);
-
-          if (compressStyles && (mappedSelectors[j].indexOf('|') == -1))
-          {
-            stylesToBeWritten += 2;
-          }
-          else
-          {
-            stylesToBeWritten++;
-          }
-        }
-
-        if (numberSelectorsWritten + matchingStyles.length >= _MSIE_SELECTOR_LIMIT
-          && TrinidadAgent.Application.IEXPLORER == context.getAgent().getAgentApplication())
-        {
-          out.println("/* The number of CSS selectors in this file is " +
-                      numberSelectorsWritten + " */");
-          out = writerFactory.createWriter();
-          if (out == null)
-          {
-            return;
-          }
-          numberSelectorsWritten = 0;
-        }
-
-        // Write out all of the style selectors for this property string
-        for (int j = 0; j < matchingStyles.length; j++)
-        {
-          String validFullNameSelector = null;
-
-          // write out the full selector if we aren't compressing styles or
-          // it doesn't have a '|' in the name which means it may be a user's public styleclass
-          // and we don't want to compress those; we will also write out the compressed
-          // version the public styleclasses in the next step.
-          if (!compressStyles || (mappedSelectors[j].indexOf('|') == -1))
-          {
-            validFullNameSelector =
-              getValidFullNameSelector(mappedSelectors[j], namespacePrefixArray);
-
-            if (validFullNameSelector != null)
-            {
-              out.print(validFullNameSelector);
-              numberSelectorsWritten++;
-            }
-          }
-
-
-
-          if (compressStyles)
-          {
-            String shortSelector = 
-              getShortSelector(shortStyleClassMap, namespacePrefixArray, mappedSelectors[j]);
-
-            // if the transformed full name is different than the shortSelector
-            // then write out the shortSelector, too.
-            if (shortSelector != null)
-            {
-              String validShortSelector =
-                getValidFullNameSelector(shortSelector, namespacePrefixArray);
-
-              // if we wrote out a full style, check to see if we need to write out the short, too.
-              // if it is something different, write out the short, too.
-              if (validFullNameSelector != null)
-              {
-                //Since validFullNameSelector is not null, we know we wrote out a full style
-                // we write out a short style too in this case if it is different
-                // example: .PublicStyleClass is written out fully even in compressed mode, but
-                // it is different in compressed mode, so we write that out, too.
-                if (!validFullNameSelector.equals(validShortSelector))
-                {
-                  out.print(',');
-                  out.print(validShortSelector);
-                  numberSelectorsWritten++;
-                }
-              }
-              else
-              {
-                out.print(validShortSelector);
-                numberSelectorsWritten++;
-              }
-            }
-          }
-
-          // Write out a separator between matching selectors
-          if (j < (matchingStyles.length - 1))
-            out.print(",");
-        }
-
-        // Now that we have written out the selectors, write out
-        // the properties
-        out.print(" {");
-
-        // At this point, we could just write out the property string
-        // that we already created, but this string contains the properties
-        // in sorted order.  We prefer to attempt to preserve the order
-        // of the properties as specified in the XSS document.  So,
-        // we get the properties from the StyleNode object instead of
-        // using the propertyString
-        Iterable<PropertyNode> properties = style.getProperties();
-        boolean first = true;
-
-        for (PropertyNode property : properties)
-        {
-          String propName = property.getName();
-          String propValue = property.getValue();
-
-          if ((propName != null) &&
-              (propValue != null) &&
-              (propValue.length() > 0 ))
-          {
-            if (!first)
-              out.print(";");
-            else
-              first = false;
-
-            out.print(propName);
-            out.print(":");
-            String resolvedPropValue =
-              CSSUtils.resolvePropertyValue(styleSheetName, baseURI, propName, propValue);
-            out.print(resolvedPropValue);
-
-          }
-        }
-
-        if (compressStyles)
-          out.print("}"); // take out the newlines for performance
-        else
-          out.println("}");
+        return;
       }
+ 
+      if (!compressStyles)
+      {
+        Date date = new Date();
+
+        // write out the header with a time stamp
+        out.println("/* This CSS file generated on " + date + " */");
+      }
+
+      Map.Entry<String, List<StyleNode>> abortedEntry = null;
+      int fileSelectorsWritten = 0;
+      
+      // loop over all of the entries we can fit in a CSS file
+      while (abortedEntry == null && mergedEntries.hasNext())
+      {
+        // get the entry to write out.  This handles retrying any aborted entry
+        Map.Entry<String, List<StyleNode>> currEntry;
+        
+        if (abortedEntry != null)
+        {
+          currEntry = abortedEntry;
+          abortedEntry = null;
+        }
+        else
+        {
+          currEntry = mergedEntries.next();
+        }
+
+        // write the entry
+        int selectorsLeft = maxSelectorsPerFile - fileSelectorsWritten;
+        int entrySelectorsWritten = _writeMergedEntry(styleSheetName, baseURI, compressStyles, shortStyleClassMap,
+                                                      namespacePrefixArray, afSelectorMap, out, selectorsLeft,
+                                                      currEntry);
+        // detect abort
+        if (entrySelectorsWritten == 0)
+        {
+          abortedEntry = currEntry;
+        }
+        else
+        {
+          fileSelectorsWritten += entrySelectorsWritten;
+        }
+      }
+      
+      if (!compressStyles)
+      {
+        out.print("/* The number of CSS selectors in this file is ");
+        out.print(fileSelectorsWritten);
+        out.println(" */");
+      }
+      
+      if (out.checkError())
+      {
+        _LOG.severe("Error writing stylehseet:" + styleSheetName);
+      }
+      
+      // close this PrintWriter
+      out.close();
     }
-    out.println("/* The number of CSS selectors in this file is " + numberSelectorsWritten + " */");
   }
 
   /**
@@ -380,12 +554,10 @@ public class CSSGenerationUtils
     {
       String[] shortSelectorArray  = StyleUtils.splitStringByWhitespace(shortSelector);
 
-      shortSelector =
-        _getMappedNSSelector(shortStyleClassMap,
-                             namespacePrefixArray,
-                             shortSelector,
-                             shortSelectorArray,
-                             true);
+      shortSelector = _getMappedNSSelector(shortStyleClassMap,
+                                           namespacePrefixArray,
+                                           shortSelectorArray,
+                                           true);
     }
     return shortSelector;
   }
@@ -810,7 +982,6 @@ public class CSSGenerationUtils
       // untouched. e.g., .AFInstructionText maps to .AFInstructionText
       mappedSelector = _getMappedNSSelector(afSelectorMap,
                                             namespacePrefixArray,
-                                            selector,
                                             selectorArray,
                                             false);
     }
@@ -872,9 +1043,6 @@ public class CSSGenerationUtils
    * @param map         if shortenPass is true, then this map shortens the
    *                    af| selector. else, it maps the public af| selector
    *                    to the internal selector.
-   * @param namespace   most likely, "af|". The selectors with this namespace
-   *                    are the ones we map.
-   * @param selector    selector to map.
    * @param selectorArray selectorArray is the selector split into pieces based on the ' '
    * @param shorten     if true, then we'll add the "." to the mapped selector.
    * @return            the selector, mapped.
@@ -882,7 +1050,6 @@ public class CSSGenerationUtils
   private static String _getMappedNSSelector (
     Map<String, String> map,
     String[]            nsPrefixArray,
-    String              selector,
     String[]            selectorArray,
     boolean             shorten)
   {
@@ -1146,30 +1313,11 @@ public class CSSGenerationUtils
     return (Character.isWhitespace(c) || (c == ':') || (c == '.') || (c == '['));
   }
 
-  // Gets the properties of the specified StyleNode in sorted
-  // order as a String.
-  private static String _getSortedPropertyString(StyleNode style)
+  private static int _computeBuilderSize(PropertyNode[] properties)
   {
-    // First, pull the properties out of the StyleNode
-    // -= Simon Lessard =-
-    // TODO: Check if synchronization is needed, otherwise uses
-    //       an ArrayList instead. Even if synchronization is needed
-    //       Collections.synchronizedList(ArrayList) would probably be
-    //       a better choice.
-    Vector<PropertyNode> v = new Vector<PropertyNode>();
-    Iterable<PropertyNode> propertyNodeList = style.getProperties();
-    for (PropertyNode propertyNode : propertyNodeList)
-      v.addElement(propertyNode);
-
-    PropertyNode[] properties = new PropertyNode[v.size()];
-    v.copyInto(properties);
-
-    // Sort the properties so that the order of the properties won't
-    // come into play when comparing property strings.
-    Arrays.sort(properties,PropertyNodeComparator.sharedInstance());
-
-    // Compute the StringBuffer size
-    int bufferSize = 0;
+    // Compute the StringBuilder size
+    int builderSize = 0;
+    
     for (int i = 0; i < properties.length; i++)
     {
       PropertyNode property = properties[i];
@@ -1178,37 +1326,68 @@ public class CSSGenerationUtils
 
       if ((name != null) && (value != null))
       {
-        bufferSize += property.getName().length();
-        bufferSize += property.getValue().length();
+        builderSize += property.getName().length();
+        builderSize += property.getValue().length();
 
         // Leave room for a separator
-        bufferSize++;
+        builderSize++;
       }
     }
+    
+    return builderSize;
+  }
 
-    StringBuffer buffer = new StringBuffer(bufferSize);
+  private static String _getSortedPropertyString(PropertyNode[] sortedProperties)
+  {
+    int builderSize = _computeBuilderSize(sortedProperties);
+    
+    StringBuilder builder = new StringBuilder(builderSize);
     boolean first = true;
 
-    for (int i = 0; i < properties.length; i++)
+    for (int i = 0; i < sortedProperties.length; i++)
     {
-      PropertyNode property = properties[i];
-      String name = property.getName();
-      String value = property.getValue();
+      PropertyNode property = sortedProperties[i];
+      String       name     = property.getName();
+      String       value    = property.getValue();
 
       if ((name != null) && (value != null))
       {
         if (!first)
-          buffer.append(";");
+          builder.append(';');
         else
           first = false;
 
-        buffer.append(name);
-        buffer.append(":");
-        buffer.append(value);
+        builder.append(name);
+        builder.append(':');
+        builder.append(value);
       }
     }
 
-    return buffer.toString();
+    return builder.toString();
+  }
+  
+  /**
+   * Returns the properties of the specified StyleNode in property name sorted order as a String.
+   * If the Stylenode contains no properties, the empty String is returned
+   */
+  private static String _getSortedPropertyString(StyleNode styleNode)
+  {
+    Collection<PropertyNode> nodeProperties = styleNode.getProperties();
+    int propertyCount = nodeProperties.size();
+      
+    if (propertyCount == 0)
+      return "";
+    
+    // =-= bts the extra step of copying the PropertyNodes into the array is kind of lame.  I'm wondering
+    // if it would be better for the StyleNodes to sort the properties for us
+    List<PropertyNode> properties       = new ArrayList<PropertyNode>(nodeProperties);
+    PropertyNode[]     sortedProperties = properties.toArray(new PropertyNode[propertyCount]);
+
+    // Sort the properties so that the order of the properties won't
+    // come into play when comparing property strings.
+    Arrays.sort(sortedProperties, PropertyNodeNameComparator.sharedInstance());
+
+    return _getSortedPropertyString(sortedProperties);
   }
 
   /**
@@ -1305,13 +1484,14 @@ public class CSSGenerationUtils
 
 
   // Comparator that sorts PropertyNodes by name
-  private static class PropertyNodeComparator implements Comparator<PropertyNode>
+  private static class PropertyNodeNameComparator implements Comparator<PropertyNode>
   {
     public static Comparator<PropertyNode> sharedInstance()
     {
-      return _sInstance;
+      return _INSTANCE;
     }
 
+    @Override
     public int compare(PropertyNode o1, PropertyNode o2)
     {
       String name1 = (o1 == null) ? null : o1.getName();
@@ -1329,11 +1509,17 @@ public class CSSGenerationUtils
 
       return name1.compareTo(name2);
     }
+    
+    @Override
+    public boolean equals(Object o)
+    {
+      // we only have our singleton instance
+      return (this == o);
+    }
 
-    private PropertyNodeComparator() {}
+    private PropertyNodeNameComparator() {}
 
-    private static final Comparator<PropertyNode> _sInstance =
-      new PropertyNodeComparator();
+    private static final Comparator<PropertyNode> _INSTANCE = new PropertyNodeNameComparator();
   }
 
   /**

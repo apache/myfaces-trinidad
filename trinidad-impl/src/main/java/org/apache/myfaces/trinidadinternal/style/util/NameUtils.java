@@ -18,10 +18,9 @@
  */
 package org.apache.myfaces.trinidadinternal.style.util;
 
-import java.util.Iterator;
+import java.util.Collection;
 import java.util.Locale;
 import java.util.Set;
-import java.util.Vector;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.skin.AgentAtRuleMatcher;
@@ -29,6 +28,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
+
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
@@ -36,9 +36,9 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
  * 
  * @version $Name: $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/util/NameUtils.java#0 $) $Date: 10-nov-2005.18:58:52 $
  */
-public class NameUtils
+public final class NameUtils
 {
-  private NameUtils() {}
+  private NameUtils(){}
 
   /**
    * Returns the id of the browser with the specified name
@@ -271,15 +271,8 @@ public class NameUtils
   public static String getContextName(StyleContext context, StyleSheetDocument document)
   {
     // Copy the matching style sheets into an array
-    Iterator<StyleSheetNode> e = document.getStyleSheets(context);
-    // -= Simon Lessard =-
-    // TODO: Check if synchronization is truly required.
-    Vector<StyleSheetNode> v = new Vector<StyleSheetNode>();
-    while (e.hasNext())
-      v.addElement(e.next());
-    StyleSheetNode[] styleSheets = new StyleSheetNode[v.size()];
-    v.copyInto(styleSheets);
-
+    Collection<StyleSheetNode> styleSheets = document.getStyleSheetsAsCollection(context);
+        
     // Determine which variants actually match the variants specified
     // in the matching style sheets
     int localeMatch = _isLocaleMatch(context, styleSheets);
@@ -493,10 +486,7 @@ public class NameUtils
   // locale variant of any matching style sheet. Returns an integer
   // indicating whether the language matches, the language and
   // country matches, or no match
-  private static int _isLocaleMatch(
-      StyleContext context,
-      StyleSheetNode[] styleSheets
-      )
+  private static int _isLocaleMatch(StyleContext context, Collection<StyleSheetNode> styleSheets)
   {
     Locale locale = context.getLocaleContext().getTranslationLocale();
     if (locale == null)
@@ -509,9 +499,9 @@ public class NameUtils
 
     boolean languageMatch = false;
 
-    for (int i = 0; i < styleSheets.length; i++)
+    for (StyleSheetNode styleSheet : styleSheets)
     {
-      Iterable<Locale> localeList = styleSheets[i].getLocales();
+      Iterable<Locale> localeList = styleSheet.getLocales();
       for (Locale tmpLocale : localeList)
       {
         if (language.equals(tmpLocale.getLanguage()))
@@ -542,13 +532,12 @@ public class NameUtils
 
   // Tests whether the direction specified in the context matches
   // the direction variant of any matching style sheet
-  private static boolean _isDirectionMatch(StyleSheetNode[] styleSheets)
+  private static boolean _isDirectionMatch(Collection<StyleSheetNode> styleSheets)
   {
     // If any style sheet has a non-null direction variant, we must
     // have a direction match.
-    for (int i = 0; i < styleSheets.length; i++)
+    for (StyleSheetNode styleSheet : styleSheets)
     {
-      StyleSheetNode styleSheet = styleSheets[i];
       if (styleSheet.getReadingDirection() != LocaleUtils.DIRECTION_DEFAULT)
         return true;
     }
@@ -556,14 +545,14 @@ public class NameUtils
     return false;
   }
   
-  private static boolean _isModeMatch(StyleSheetNode[]styleSheets)
+  private static boolean _isModeMatch(Collection<StyleSheetNode> styleSheets)
   {
-    for (int i = 0; i < styleSheets.length; i++)
+    for (StyleSheetNode styleSheet : styleSheets)
     {
-      StyleSheetNode styleSheet = styleSheets[i];
-      if(styleSheet.getMode()!=ModeUtils.MODE_DEFAULT)
+      if(styleSheet.getMode() != ModeUtils.MODE_DEFAULT)
         return true;
     }
+    
     return false;
   }
 
@@ -573,8 +562,7 @@ public class NameUtils
    * @return a boolean array with the first value being the browser match
    *          and the second value being the version match
    */
-  private static boolean[] _isBrowserAndVersionMatch(StyleContext context,
-      StyleSheetNode[] styleSheets)
+  private static boolean[] _isBrowserAndVersionMatch(StyleContext context, Collection<StyleSheetNode> styleSheets)
   {
     TrinidadAgent agent = context.getAgent();
     TrinidadAgent.Application browser = agent.getAgentApplication();
@@ -587,9 +575,9 @@ public class NameUtils
     
     // If any style sheet has a non-null browser variant, we must
     // have a browser match.
-    for (int i = 0; i < styleSheets.length; i++)
+    for (StyleSheetNode styleSheet : styleSheets)
     {
-      AgentAtRuleMatcher agentMatcher = styleSheets[i].getAgentMatcher();
+      AgentAtRuleMatcher agentMatcher = styleSheet.getAgentMatcher();
       
       if (agentMatcher != null)
       {
@@ -617,8 +605,7 @@ public class NameUtils
 
   // Tests whether the platform specified in the context matches
   // the platform variant of any matching style sheet
-  private static boolean _isPlatformMatch(StyleContext context,
-      StyleSheetNode[] styleSheets)
+  private static boolean _isPlatformMatch(StyleContext context, Collection<StyleSheetNode> styleSheets)
   {
     int platform = context.getAgent().getAgentOS();
     if (platform == TrinidadAgent.OS_UNKNOWN)
@@ -626,9 +613,9 @@ public class NameUtils
 
     // If any style sheet has a non-null platform variant, we must
     // have a platform match.
-    for (int i = 0; i < styleSheets.length; i++)
+    for (StyleSheetNode styleSheet : styleSheets)
     {
-      if (!(styleSheets[i].getPlatforms().isEmpty()))
+      if (!(styleSheet.getPlatforms().isEmpty()))
         return true;
     }
 
@@ -638,18 +625,16 @@ public class NameUtils
   // Tests whether the high contrast value specified in the context matches
   // the high contrast value of any matching style sheet
   private static boolean _isHighContrastMatch(
-      StyleContext context,
-      StyleSheetNode[] styleSheets)
+      StyleContext context, Collection<StyleSheetNode> styleSheets)
   {
     if (!context.getAccessibilityProfile().isHighContrast())
       return false;
 
     // If the high-contrast accessibility profile property is specified
     // on any style sheet, we have a match.
-    for (int i = 0; i < styleSheets.length; i++)
+    for (StyleSheetNode styleSheet : styleSheets)
     {
-      if (styleSheets[i].getAccessibilityProperties().contains(
-            XMLConstants.ACC_HIGH_CONTRAST))
+      if (styleSheet.getAccessibilityProperties().contains(XMLConstants.ACC_HIGH_CONTRAST))
         return true;
     }
 
@@ -659,18 +644,16 @@ public class NameUtils
   // Tests whether the high contrast value specified in the context matches
   // the high contrast value of any matching style sheet
   private static boolean _isLargeFontsMatch(
-      StyleContext context,
-      StyleSheetNode[] styleSheets)
+      StyleContext context, Collection<StyleSheetNode> styleSheets)
   {
     if (!context.getAccessibilityProfile().isLargeFonts())
       return false;
 
     // If the large-fonts accessibility profile property is specified
     // on any style sheet, we have a match.
-    for (int i = 0; i < styleSheets.length; i++)
+    for (StyleSheetNode styleSheet : styleSheets)
     {
-      if (styleSheets[i].getAccessibilityProperties().contains(
-            XMLConstants.ACC_LARGE_FONTS))
+      if (styleSheet.getAccessibilityProperties().contains(XMLConstants.ACC_LARGE_FONTS))
         return true;
     }
 
