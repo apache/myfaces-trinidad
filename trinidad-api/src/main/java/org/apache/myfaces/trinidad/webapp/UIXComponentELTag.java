@@ -33,6 +33,7 @@ import javax.el.ValueExpression;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentClassicTagBase;
 import javax.faces.webapp.UIComponentELTag;
 
@@ -182,6 +183,33 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     return CheckExecutionResult.ACCEPT;
   }
 
+  /**
+   * When within a component binding context, the component bindings (stored in backing bean)
+   * will be cleared so a new component instance can be created. 
+   * @param context FacesContext instance
+   * @param newId id for the component
+   */
+  @Override
+  protected UIComponent createComponent(FacesContext context, String newId)
+    throws JspException
+  {
+    if (RequestContext.isInComponentBindingContext(context) && hasBinding())
+    {
+     // null out component in binding; this forces a new component to be created.
+     ValueExpression binding = _getBinding();
+     binding.setValue(getELContext(), null);
+    }
+    
+    return super.createComponent(context, newId);
+  }
+  
+  @Override
+  public void release()
+  {
+    this._binding = null;
+    super.release();
+  }
+  
   /**
    * Allows a child tag to check if its children should be executed based on the grand-parent.
    * Used for components where a parent-child relationship has been established. For example,
@@ -412,6 +440,20 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     }
   }
 
+  @Override
+  public void setBinding(ValueExpression valueExpression)
+    throws JspException
+  {
+    this._binding = valueExpression;
+    super.setBinding(valueExpression);
+  }
+
+  private ValueExpression _getBinding()  
+  {
+    return _binding;
+  }
+  
+  
   /**
    * Set a property of type java.util.Date.  If the value
    * is an EL expression, it will be stored as a ValueExpression.
@@ -602,4 +644,9 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   private MethodExpression _attributeChangeListener;
   private String           _validationError;
   private boolean          _skipEndTagSuperCall = false;
+  /*
+   * <p>The value binding expression (if any) used to wire up this component
+   * to a {@link UIComponent} property of a JavaBean class.</p>
+   */
+  private ValueExpression _binding;
 }

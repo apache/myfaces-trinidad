@@ -542,4 +542,8 @@
 <resource key="ILLEGAL_REQUEST_PARAMETER_VALUE">'{0}' is not a valid value for request parameter '{1}'.  Valid values are: {2}</resource>
 
 <resource key="LISTVIEW_MODEL_NOT_TREEMODEL">Tree operations can be done on the ListView component only if the model is a TreeModel. Please use a TreeModel with the ListView.</resource>
+
+<!-- POP_COMPONENT_BINDING_CONTEXT_FAILED -->
+<resource key="POP_COMPONENT_BINDING_CONTEXT_FAILED">Unable to pop out of a component binding context as a corresponding push never occurred.</resource>
+
 </resources>

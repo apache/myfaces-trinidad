@@ -667,6 +667,89 @@ abstract public class RequestContext
    */
   public abstract void partialUpdateNotify(UIComponent updated);
 
+  /**
+   * Starts a new component binding context. Typically called from tag handlers when component 
+   * bindings in its subtree needs to be cleared, forcing the creation of new components. 
+   * 
+   * @param context FacesContext instance
+   * @see RequestContext#popComponentBindingContext
+   * @see RequestContext#isInComponentBindingContext
+   */
+  public static void pushComponentBindingContext(FacesContext context)
+  {
+    ExternalContext ec = context.getExternalContext();
+    if (null != ec)
+    {
+      // Use a counter on the request map to generate the IDs. 
+      Map<String, Object> reqMap = ec.getRequestMap();
+      Integer value = (Integer)reqMap.get(_CURRENT_COMPONENT_BINDING_CONTEXT_KEY);
+      int val = 0;
+      if (value == null)
+      {
+        val = 1;
+      }
+      else
+      {
+        val = value + 1;
+      }
+
+      reqMap.put(_CURRENT_COMPONENT_BINDING_CONTEXT_KEY, val);
+    }
+  }
+  
+  /**
+   * Pops out of the last pushed component binding context. Component binding instances will not be 
+   * cleared after popping out the outermost context.
+   * 
+   * @param context FacesContext instance
+   * @see RequestContext#pushComponentBindingContext
+   * @see RequestContext#isInComponentBindingContext
+   */
+  public static void popComponentBindingContext(FacesContext context)
+  {
+    ExternalContext ec = context.getExternalContext();
+    if (null != ec)
+    {
+      Map<String, Object> reqMap = ec.getRequestMap();
+      Integer value = (Integer)reqMap.get(_CURRENT_COMPONENT_BINDING_CONTEXT_KEY);
+      int val = 0;
+      if (value == null)
+      {
+        _LOG.warning("POP_COMPONENT_BINDING_CONTEXT_FAILED");
+      }
+      else
+      {
+        val = value - 1;
+      }
+      
+      if (val > 0)
+        reqMap.put(_CURRENT_COMPONENT_BINDING_CONTEXT_KEY, val);
+      else
+        reqMap.put(_CURRENT_COMPONENT_BINDING_CONTEXT_KEY, null);
+    }
+  }
+  
+  /**
+   * Returns true if we are currently within a component binding context.
+   * 
+   * @see RequestContext#pushComponentBindingContext
+   * @see RequestContext#popComponentBindingContext
+   */
+  public static boolean isInComponentBindingContext(FacesContext context)
+  {
+    ExternalContext ec = context.getExternalContext();
+    if (null != ec)
+    {
+      Map<String, Object> reqMap = ec.getRequestMap();
+      Integer value = (Integer)reqMap.get(_CURRENT_COMPONENT_BINDING_CONTEXT_KEY);
+      
+      if (value != null && value > 0)
+        return true;
+    }
+    
+    return false;
+  }
+
   //
   // Miscellaneous functionality
   //
@@ -980,6 +1063,8 @@ abstract public class RequestContext
        new ConcurrentHashMap<ClassLoader, ConcurrentMap<String, Object>>();
   static private final ThreadLocal<RequestContext> _CURRENT_CONTEXT =
     new ThreadLocal<RequestContext>();
+  static private final String _CURRENT_COMPONENT_BINDING_CONTEXT_KEY = 
+    RequestContext.class.getName() + ".CCBCK";
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(RequestContext.class);
 
