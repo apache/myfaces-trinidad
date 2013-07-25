@@ -19,9 +19,8 @@
 package org.apache.myfaces.trinidad.util;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.net.URL;
@@ -31,9 +30,10 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
-
 import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -257,7 +257,42 @@ public final class ClassLoaderUtils
   {
     return getServices(service.getName());
   }
+  
+  /**
+   * Gets all the registered services of the supplied type. Once instantiated, the services are
+   *  cached in the application scoped storage, and any further requests to this function will
+   *  get the cached services. It is assumed that the name of the service file and the type of
+   *  the service class is the same.
+   * @param service The class type of the service
+   * @return The list of registered service instances
+   */
+  static <T> List<T> __getCachableServices(Class<T> service)
+  {
+    List<T> services = Collections.emptyList();
+    String serviceName = service.getName();
+    ConcurrentMap<String, Object> concurrentAppMap =
+      RequestContext.getCurrentInstance().getApplicationScopedConcurrentMap();
+    Object serviceObject = concurrentAppMap.get(serviceName);
 
+    if (serviceObject == null)
+    {
+      services = ClassLoaderUtils.getServices(service);
+      Object oldValue = concurrentAppMap.putIfAbsent(serviceName, services);
+      
+      // if a different thread raced us and added one, use that
+      if (oldValue != null)
+      {
+        services = (List<T>) oldValue;
+      }
+    }
+    else
+    {
+      services = (List<T>) serviceObject;
+    }
+    
+    return services;
+  }
+  
   /**
    * Instantiate all available services from a file in /META-INF/services.
    * <P>

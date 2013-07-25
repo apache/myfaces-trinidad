@@ -19,21 +19,21 @@
 package org.apache.myfaces.trinidad.util;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
-
 import javax.faces.component.UIViewRoot;
-
 import javax.faces.component.visit.VisitContext;
-
-import org.apache.myfaces.trinidad.component.UIXComponent;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.change.InsertedComponentFragmentLocator;
+import org.apache.myfaces.trinidad.change.InsertingComponentFragmentLocator;
 import org.apache.myfaces.trinidad.component.FlattenedComponent;
+import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -440,6 +440,89 @@ public final class ComponentUtils
   }
   
   /**
+   * Gets the location (context relative path) of the document that contains the tag definition 
+   *  corresponding to the supplied component. This implementation uses the 
+   *  InsertedComponentFragmentLocator and InsertingComponentFragmentLocator strategies to determine 
+   *  the document path for the supplied component.
+   * All registered InsertedComponentFragmentLocator services are first asked for location of the 
+   *  document for the supplied component first. If the locator could not be obtained, then this 
+   *  implementation will walk up the component tree and for every ancestor until the view root, 
+   *  call all the registered InsertedComponentFragmentLocator and InsertingComponentFragmentLocator 
+   *  services to obtain the location of the document. If in this process any non-null value is 
+   *  obtained for the document location, the ancestor processing is halted and the value is 
+   *  returned.
+   *  
+   * @param context   The FacesContext instance for the current request
+   * @param component The component for which the document path is to be determined
+   * @return Location of the document fragment that contains the tag corresponding to the supplied
+   *          component. Returns null if the path cannot be determined.
+   */
+  public static String getDocumentLocationForComponent(
+    FacesContext context,
+    UIComponent component)
+  {
+    UIViewRoot viewRoot = context.getViewRoot();
+    
+    // if we are dealing with view root, look no further
+    if (component == viewRoot)
+    {
+      return viewRoot.getViewId();
+    }
+    
+    String location = null;
+    
+    List<InsertedComponentFragmentLocator> insertedComponentFragmentLocators = 
+      ClassLoaderUtils.__getCachableServices(InsertedComponentFragmentLocator.class);
+    
+    // 1. try to get the path for the supplied component
+    location = _getInsertedComponentLocation(context,
+                                             insertedComponentFragmentLocators,
+                                             component,
+                                             component);
+    
+    // 2. try to get the path for the supplied component using its ancestors
+    if (location == null)
+    {
+      List<InsertingComponentFragmentLocator> insertingComponentFragmentLocators = 
+        ClassLoaderUtils.__getCachableServices(InsertingComponentFragmentLocator.class);
+      
+      UIComponent currAncestor = component.getParent();
+      
+      while (currAncestor != null)
+      {
+        if (currAncestor == viewRoot)
+        {
+          return viewRoot.getViewId();
+        }
+        
+        // 2a. try to get the location where the tag for ancestor is defined
+        location = _getInsertedComponentLocation(context,
+                                                 insertedComponentFragmentLocators,
+                                                 currAncestor,
+                                                 component);
+
+        if (location == null)
+        {
+          // 2b. try to get the location of the fragment that the ancestor could have inserted
+          location = _getInsertingComponentLocation(context,
+                                                   insertingComponentFragmentLocators,
+                                                   currAncestor,
+                                                   component);
+          
+          if (location != null)
+          {
+            break;
+          }
+        }
+        
+        currAncestor = currAncestor.getParent();
+      }
+    }
+    
+    return location;
+  }
+  
+  /**
    * Gets the scoped identifier for the target component. The scoping will be
    * within a subtree rooted by the supplied base component. If the supplied
    * base component were to be the view root, the returned id will be the 
@@ -566,6 +649,58 @@ public final class ComponentUtils
     return null;
   }
 
+  /**
+   * Iterates through all the registered InsertedComponentFragmentLocator services and gets
+   *  the location of the fragment document where the tag corresponding to the supplied 
+   *  componentToTest is defined. Returns null if the location cannot be determined.
+   */
+  private static String _getInsertedComponentLocation(
+    FacesContext context,
+    List<InsertedComponentFragmentLocator> insertedComponentFragmentLocators,
+    UIComponent componentToTest,
+    UIComponent targetComponent)
+  {
+    for (InsertedComponentFragmentLocator 
+           insertedComponentFragmentLocator :  insertedComponentFragmentLocators)
+    {
+      String location = 
+        insertedComponentFragmentLocator.getFragmentUrlForInsertedComponent(context,
+                                                                            componentToTest,
+                                                                            targetComponent);
+      if (location != null)
+      {
+        return location;
+      }
+    }
+    return null;
+  }
+  
+  /**
+   * Iterates through all the registered InsertingComponentFragmentLocator services and gets
+   *  the location of the fragment document that the supplied componentToTest could have possibly
+   *  inserted. Returns null if the location cannot be determined.
+   */
+  private static String _getInsertingComponentLocation(
+    FacesContext context,
+    List<InsertingComponentFragmentLocator> insertingComponentFragmentLocators,
+    UIComponent componentToTest,
+    UIComponent targetComponent)
+  {
+    for (InsertingComponentFragmentLocator 
+           insertingComponentFragmentLocator :  insertingComponentFragmentLocators)
+    {
+      String location = 
+        insertingComponentFragmentLocator.getInsertedFragmentUrl(context,
+                                                                 componentToTest,
+                                                                 targetComponent);
+      if (location != null)
+      {
+        return location;
+      }
+    }
+    return null;
+  }
+  
   private static boolean _isFlattening(FacesContext context, UIComponent component)
   {
     return ((component instanceof FlattenedComponent) &&
