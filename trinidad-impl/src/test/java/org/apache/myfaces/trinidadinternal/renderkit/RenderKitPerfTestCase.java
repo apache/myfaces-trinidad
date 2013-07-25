@@ -133,11 +133,16 @@ public class RenderKitPerfTestCase extends TestCase
 
     _facesContext.setResponseWriter(writer);
 
-    _requestContext = new MRequestContext();
+    _requestContext = createRequestContext();
     _requestContext.setSkinFamily("minimal");
     _requestContext.setAgent(RenderKitBootstrap.getGeckoAgent());
   }
   
+  protected MRequestContext createRequestContext()
+  {
+    return new MRequestContext();
+  }
+
   @Override
   protected void tearDown() throws IOException
   {

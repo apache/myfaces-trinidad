@@ -166,50 +166,60 @@ abstract public class UIXComponent extends UIComponent
   {
     if (child.isRendered())
     {
-       // component is an action FlattenedComponent.  Ask it to flatten its children
-      if ((child instanceof FlattenedComponent) &&
-          ((FlattenedComponent)child).isFlatteningChildren(context))
+      RequestContext requestContext = RequestContext.getCurrentInstance();
+      requestContext.pushCurrentComponent(context, child);
+      try
       {
-        return ((FlattenedComponent)child).processFlattenedChildren(context,
-                                                                    cpContext,
-                                                                    childProcessor,
-                                                                    callbackContext);
+
+         // component is an action FlattenedComponent.  Ask it to flatten its children
+        if ((child instanceof FlattenedComponent) &&
+            ((FlattenedComponent)child).isFlatteningChildren(context))
+        {
+          return ((FlattenedComponent)child).processFlattenedChildren(context,
+                                                                      cpContext,
+                                                                      childProcessor,
+                                                                      callbackContext);
+        }
+        else
+        {
+          boolean processed = true;
+          child.pushComponentToEL(context, null);
+
+          try
+          {
+            if (isFlattenableCoreComponent(child))
+            {
+              processed =
+                  processFlattenedChildren(context, cpContext, childProcessor,
+                                           child.getChildren(),
+                                           callbackContext);
+            }
+            else
+            {
+              try
+              {
+                // not a FlattenedComponent, pass the component directly to the ComponentProcessor
+                childProcessor.processComponent(context, cpContext, child,
+                                                callbackContext);
+              }
+              finally
+              {
+                // if startDepth is > 0, only the first visible child will be marked as starting a group
+                cpContext.resetStartDepth();
+              }
+            }
+          }
+          finally
+          {
+            child.popComponentFromEL(context);
+          }
+
+          return processed;
+        }
       }
-      else
+      finally
       {
-        boolean processed = true;
-        child.pushComponentToEL(context, null);
-
-        try
-        {
-          if (isFlattenableCoreComponent(child))
-          {
-            processed =
-                processFlattenedChildren(context, cpContext, childProcessor,
-                                         child.getChildren(),
-                                         callbackContext);
-          }
-          else
-          {
-            try
-            {
-              // not a FlattenedComponent, pass the component directly to the ComponentProcessor
-              childProcessor.processComponent(context, cpContext, child,
-                                              callbackContext);
-            }
-            finally
-            {
-              // if startDepth is > 0, only the first visible child will be marked as starting a group
-              cpContext.resetStartDepth();
-            }
-          }
-        }
-        finally
-        {
-          child.popComponentFromEL(context);
-        }
-
-        return processed;
+        requestContext.popCurrentComponent(context, child);
       }
     }
     else
@@ -525,137 +535,149 @@ abstract public class UIXComponent extends UIComponent
     UIComponent   component,
     VisitCallback callback)
   {
-    if (!(component instanceof UIXComponent))
+    // push component on to the stack at the beginning of visiting tree.
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    requestContext.pushCurrentComponent(visitContext.getFacesContext(), component);
+
+    try
     {
-      // hopefully the subview implementations have the subId optimization
-      return component.visitTree(visitContext, callback);
-    }
-    else
-    {
-      UIXComponent uixComponent = (UIXComponent)component;
-
-      FacesContext context = visitContext.getFacesContext();
-
-      // delegate to the UIXComponent
-      if (!uixComponent.isVisitable(visitContext))
-        return false;
-
-      // set up the EL Context with the component.  Note that since we do this after call
-      // isVisitable, any attributes retrieved (liek rendered) that are bound with EL referring
-      // to the current component will be evaluated correctly, however, in the specific case
-      // of rendered, rendered already has this problem in normal JSF traversal since it
-      // is evaluated by the parent component
-      component.pushComponentToEL(context, null);
-
-      boolean doneVisiting = false;
-      RuntimeException re = null;
-
-      try
+      if (!(component instanceof UIXComponent))
       {
-        RenderingContext rc = (_isEncodingVisit(visitContext))
-                                ? RenderingContext.getCurrentInstance()
-                                : null;
+        // hopefully the subview implementations have the subId optimization
+        return component.visitTree(visitContext, callback);
+      }
+      else
+      {
+        UIXComponent uixComponent = (UIXComponent)component;
 
-        // UIXComponents are allowed to set up their context differently for encoding
-        // than normal processing, so behave differently if this is the RenderResponse
-        // phase.  In order to allow the visitcallback to call encodeAll in the ppr case,
-        // we don't call setupEncodingContext before we call the visitContext, since this
-        // would result in setupEncodingContext being called twice on the partial roots,
-        // instead we only do so if the visitCallback returns ACCEPT
-        if (rc == null)
-        {
-          uixComponent.setupVisitingContext(context);
-        }
+        FacesContext context = visitContext.getFacesContext();
 
-        VisitResult visitResult = VisitResult.REJECT;
+        // delegate to the UIXComponent
+        if (!uixComponent.isVisitable(visitContext))
+          return false;
+
+        // set up the EL Context with the component.  Note that since we do this after call
+        // isVisitable, any attributes retrieved (liek rendered) that are bound with EL referring
+        // to the current component will be evaluated correctly, however, in the specific case
+        // of rendered, rendered already has this problem in normal JSF traversal since it
+        // is evaluated by the parent component
+        component.pushComponentToEL(context, null);
+
+        boolean doneVisiting = false;
+        RuntimeException re = null;
 
         try
         {
-          // invoke the callback for this component
-          visitResult = visitContext.invokeVisitCallback(component, callback);
+          RenderingContext rc = (_isEncodingVisit(visitContext))
+                                  ? RenderingContext.getCurrentInstance()
+                                  : null;
 
-          if (visitResult == VisitResult.COMPLETE)
-            doneVisiting = true;
-          else if (visitResult == VisitResult.ACCEPT)
+          // UIXComponents are allowed to set up their context differently for encoding
+          // than normal processing, so behave differently if this is the RenderResponse
+          // phase.  In order to allow the visitcallback to call encodeAll in the ppr case,
+          // we don't call setupEncodingContext before we call the visitContext, since this
+          // would result in setupEncodingContext being called twice on the partial roots,
+          // instead we only do so if the visitCallback returns ACCEPT
+          if (rc == null)
           {
-            // now determine whether we need to visit the children
+            uixComponent.setupVisitingContext(context);
+          }
 
-            // assume that all UIXComponent NamingContainers always act as NamingContainers,
-            // (unlike <h:form>) and this it is OK to put the optimization where we
-            // don't visit the children if we know that we don't have any ids in this
-            // subtree to visit
-            boolean skipChildren = (uixComponent instanceof NamingContainer) &&
-                                   visitContext.getSubtreeIdsToVisit(uixComponent).isEmpty();
+          VisitResult visitResult = VisitResult.REJECT;
 
-            // visit the children of the component if we aren't supposed to skip them
-            if (!skipChildren)
+          try
+          {
+            // invoke the callback for this component
+            visitResult = visitContext.invokeVisitCallback(component, callback);
+
+            if (visitResult == VisitResult.COMPLETE)
+              doneVisiting = true;
+            else if (visitResult == VisitResult.ACCEPT)
             {
-              // setup encoding context before visiting children, since we didn't do so
-              // before calling the visitCallback
-              if (rc != null)
-              {
-                uixComponent.setupEncodingContext(context, rc);
-              }
+              // now determine whether we need to visit the children
 
-              try
+              // assume that all UIXComponent NamingContainers always act as NamingContainers,
+              // (unlike <h:form>) and this it is OK to put the optimization where we
+              // don't visit the children if we know that we don't have any ids in this
+              // subtree to visit
+              boolean skipChildren = (uixComponent instanceof NamingContainer) &&
+                                     visitContext.getSubtreeIdsToVisit(uixComponent).isEmpty();
+
+              // visit the children of the component if we aren't supposed to skip them
+              if (!skipChildren)
               {
-                doneVisiting = visitChildren(visitContext, uixComponent, callback);
-              }
-              finally
-              {
-                // teardown the encoding context if we set it up
+                // setup encoding context before visiting children, since we didn't do so
+                // before calling the visitCallback
                 if (rc != null)
                 {
-                  uixComponent.tearDownEncodingContext(context, rc);
+                  uixComponent.setupEncodingContext(context, rc);
+                }
+
+                try
+                {
+                  doneVisiting = visitChildren(visitContext, uixComponent, callback);
+                }
+                finally
+                {
+                  // teardown the encoding context if we set it up
+                  if (rc != null)
+                  {
+                    uixComponent.tearDownEncodingContext(context, rc);
+                  }
                 }
               }
             }
-          }
-          else
-          {
-            // don't visit the children
-            assert(visitResult == VisitResult.REJECT);
-          }
-        }
-        catch (RuntimeException ex)
-        {
-          re = ex;
-        }
-        finally
-        {
-          try
-          {
-            // tear down the context we set up in order to visit our component
-            if (rc == null)
+            else
             {
-              uixComponent.tearDownVisitingContext(context);
+              // don't visit the children
+              assert(visitResult == VisitResult.REJECT);
             }
           }
           catch (RuntimeException ex)
           {
-            if (re == null)
+            re = ex;
+          }
+          finally
+          {
+            try
             {
-              throw ex;
+              // tear down the context we set up in order to visit our component
+              if (rc == null)
+              {
+                uixComponent.tearDownVisitingContext(context);
+              }
             }
-            else
+            catch (RuntimeException ex)
             {
-              _LOG.warning(ex);
+              if (re == null)
+              {
+                throw ex;
+              }
+              else
+              {
+                _LOG.warning(ex);
+              }
             }
           }
         }
-      }
-      finally
-      {
-        component.popComponentFromEL(context);
-
-        if (re != null)
+        finally
         {
-          throw re;
-        }
-      }
+          component.popComponentFromEL(context);
 
-      // if we got this far, we're not done
-      return doneVisiting;
+          if (re != null)
+          {
+            throw re;
+          }
+        }
+
+        // if we got this far, we're not done
+        return doneVisiting;
+      }
+    }
+    finally
+    {
+      // pop component out after visiting tree.
+      requestContext.popCurrentComponent(visitContext.getFacesContext(), component);    
     }
   }
 

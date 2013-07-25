@@ -22,6 +22,7 @@ import java.awt.Color;
 
 import java.io.Serializable;
 
+import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -92,6 +93,7 @@ public class RequestContextImpl extends RequestContext
     _bean = bean;
     _dialogService = new DialogServiceImpl(this);
     _partialTargets = new HashSet<String>();
+    _componentStack = new ArrayDeque<UIComponent>();
   }
 
   public void init(ExternalContext request)
@@ -783,6 +785,32 @@ public class RequestContextImpl extends RequestContext
     return viewMap;
   }
 
+  @Override
+  public void pushCurrentComponent(FacesContext context, UIComponent component)
+  {
+    _componentStack.addFirst(component);
+  }
+
+  @Override
+  public void popCurrentComponent(FacesContext context, UIComponent component)
+  {
+    UIComponent topComponent = _componentStack.poll();
+
+    // verify that we are removing the correct component
+    if (topComponent != component)
+    {
+      // put the component back
+      _componentStack.addFirst(component);
+      throw new IllegalStateException();
+    }
+  }
+
+  @Override
+  public UIComponent getCurrentComponent()
+  {
+    return _componentStack.peek();
+  }
+
   void __setPageResolver(PageResolver pageResolver)
   {
     _pageResolver = pageResolver;
@@ -1026,6 +1054,8 @@ public class RequestContextImpl extends RequestContext
 
   private PageResolver        _pageResolver;
   private PageFlowScopeProvider _pageFlowScopeProvider;
+  private ArrayDeque<UIComponent> _componentStack;
+
 
   //todo: get factory from configuration (else implementations have to provide their own RequestContext)
   static private final AgentFactory _agentFactory = new AgentFactoryImpl();

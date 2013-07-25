@@ -927,7 +927,40 @@ abstract public class RequestContext
      }
 
      return _componentContextManager;
-   }
+  }
+
+  /**
+   * Push the component onto the stack so we know the current component being processed.
+   * @param context the FacesContext for the current request
+   * @param component an UIComponent object to be pushed as current component.
+   * @exception NullPointerException if <code>component</code> is null.
+   * @see popCurrentComponent(FacesContext, UIComponent) and getCurrentComponent()
+   */
+  public void pushCurrentComponent(FacesContext context, UIComponent component)
+  {
+    return;
+  }
+
+  /**
+   * Pop the component out from the stack.
+   * @param context the FacesContext for the current request
+   * @param component an UIComponent object to be poped.
+   * @exception IllegalStateException if <code>component</code> is not the same
+   * as the current top component in the component stack.
+   * @see pushCurrentComponent(FacesContext, UIComponent) and getCurrentComponent()   */
+  public void popCurrentComponent(FacesContext context, UIComponent component)
+  {
+    return;
+  }
+
+  /**
+   * Returns the current component being processed.
+   * @see pushCurrentComponent(FacesContext, UIComponent) and popCurrentComponent(FacesContext, UIComponent)
+   */
+  public UIComponent getCurrentComponent()
+  {
+    return null;
+  }
 
   /**
    * Releases the RequestContext object.  This method must only

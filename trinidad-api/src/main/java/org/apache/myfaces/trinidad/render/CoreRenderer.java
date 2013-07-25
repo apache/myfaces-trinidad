@@ -505,13 +505,36 @@ public class CoreRenderer extends Renderer
     RuntimeException re = null;
     try
     {
-      if (getRendersChildren())
+    if (getRendersChildren())
+    {
+      beforeEncode(context, rc, component, bean);
+
+      RequestContext rContext = null;
+
+      // push the component to the stack beforing encoding it if 
+      // component is not UIXComponent instance since UIXComponent
+      // instance will push itself to the stack before this is called.
+      if (!(component instanceof UIXComponent))
       {
-        beforeEncode(context, rc, component, bean);
+        rContext = RequestContext.getCurrentInstance();
+        rContext.pushCurrentComponent(context, component);
+      }
+
+      try
+      {
         encodeAll(context, rc, component, bean);
       }
-      else
+      finally
       {
+        // pop the component out from the stack after encoding it.
+        if (!(component instanceof UIXComponent) && rContext != null)
+        {
+          rContext.popCurrentComponent(context, component);
+        }
+      }
+    }
+    else
+    {
         encodeEnd(context, rc, component, bean);
       }
     }

@@ -161,7 +161,7 @@ abstract public class RenderKitTestCase extends TestSuite
     protected void setUp() throws IOException  
     {
       _facesContext = createMockFacesContext(MApplication.sharedInstance(), true);
-      _requestContext = new MRequestContext();
+      _requestContext = createRequestContext();
       _requestContext.setSkinFamily(_skin);
       _requestContext.setAgent(_agent);
       _requestContext.setRightToLeft(_rightToLeft);
@@ -186,7 +186,12 @@ abstract public class RenderKitTestCase extends TestSuite
       boolean testMode)
     {
       return new MFacesContext(mockApplication, testMode);
-    }    
+    }
+
+    protected MRequestContext createRequestContext()
+    {
+      return new MRequestContext();
+    }
 
     @Override
     protected void tearDown() throws IOException  

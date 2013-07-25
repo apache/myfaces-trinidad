@@ -418,17 +418,14 @@ public final class GlobalConfiguratorImpl
         _initLock.lock();
         //Check the AtomicBoolean for a change
         if(!_initialized.get())
-        {
-          _services = ClassLoaderUtils.getServices(Configurator.class.getName());
-  
-          // Create a new RequestContextFactory is needed
-          if (RequestContextFactory.getFactory() == null)
-          {
-            RequestContextFactory.setFactory(new RequestContextFactoryImpl());
-          }
-  
-          // Create a new SkinFactory if needed.
-          if (SkinFactory.getFactory() == null)
+      {
+        _services = ClassLoaderUtils.getServices(Configurator.class.getName());
+
+        // set up the RequestContext Factory as needed.
+        _setupRequestContextFactory();
+
+        // Create a new SkinFactory if needed.
+        if (SkinFactory.getFactory() == null)
           {
             SkinFactory.setFactory(new SkinFactoryImpl());
           }
@@ -493,6 +490,24 @@ public final class GlobalConfiguratorImpl
       throw new NullPointerException();
 
     _threadResetter.set(resetter);
+  }
+
+  /**
+   * Setup request context factory as needed. 
+   */
+  private void _setupRequestContextFactory()
+  {
+    if (RequestContextFactory.getFactory() != null)
+      return;
+
+    RequestContextFactory requestContextFactory = null;
+    List<RequestContextFactory> factories = ClassLoaderUtils.getServices(RequestContextFactory.class.getName());;    
+    if (factories.isEmpty())
+      requestContextFactory = new RequestContextFactoryImpl();
+    else
+      requestContextFactory = factories.get(0);
+
+    RequestContextFactory.setFactory(requestContextFactory);
   }
 
   /**

@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.awt.Color;
 
+import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,7 @@ public class MRequestContext extends RequestContext
 {
   public MRequestContext()
   {
+    _componentStack = new ArrayDeque<UIComponent>();
     attach();
   }
 
@@ -455,7 +457,33 @@ public class MRequestContext extends RequestContext
     {
       // do nothing
     }
-  }  
+  }
+
+  @Override
+  public void pushCurrentComponent(FacesContext context, UIComponent component)
+  {
+    _componentStack.addFirst(component);
+  }
+
+  @Override
+  public void popCurrentComponent(FacesContext context, UIComponent component)
+  {
+    UIComponent topComponent = _componentStack.poll();
+
+    // verify that we are removing the correct component
+    if (topComponent != component)
+    {
+      // put the component back
+      _componentStack.addFirst(component);
+      throw new IllegalStateException();
+    }
+  }
+
+  @Override
+  public UIComponent getCurrentComponent()
+  {
+    return _componentStack.peek();
+  }
 
   private String _skin;
   private Long _maxMemory;
@@ -471,6 +499,7 @@ public class MRequestContext extends RequestContext
   private String _outputMode;
   private boolean _rtl = false;
   private boolean _animationEnabled = true;
+  private ArrayDeque<UIComponent> _componentStack;
 
   static private TimeZone _FIXED_TIME_ZONE =
     TimeZone.getTimeZone("America/Los_Angeles");

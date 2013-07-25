@@ -79,12 +79,13 @@ public class UIComponentTestCase extends FacesTestCase
     _mockRequestContext = new MockRequestContext();
     super.setUp();
   }
-
+  
   @Override
   protected void tearDown() throws Exception
   {
     super.tearDown();
     _mockRequestContext.release();
+    _mockRequestContext = null;
   }
 
   public static Test suite()

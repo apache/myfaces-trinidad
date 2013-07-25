@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidad.context;
 
 import java.awt.Color;
 
+import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +41,7 @@ public class MockRequestContext extends RequestContext
 {
   public MockRequestContext()
   {
+    _componentStack = new ArrayDeque<UIComponent>();
     attach();
   }
 
@@ -352,7 +354,6 @@ public class MockRequestContext extends RequestContext
   @Override
   public void addPartialTriggerListeners(UIComponent listener, String[] trigger)
   {
-    throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
   @Override
@@ -446,6 +447,32 @@ public class MockRequestContext extends RequestContext
     return viewMap;
   }
 
+  @Override
+  public void pushCurrentComponent(FacesContext context, UIComponent component)
+  {
+    _componentStack.addFirst(component);
+  }
+
+  @Override
+  public void popCurrentComponent(FacesContext context, UIComponent component)
+  {
+    UIComponent topComponent = _componentStack.poll();
+
+    // verify that we are removing the correct component
+    if (topComponent != component)
+    {
+      // put the component back
+      _componentStack.addFirst(component);
+      throw new IllegalStateException();
+    }
+  }
+
+  @Override
+  public UIComponent getCurrentComponent()
+  {
+    return _componentStack.peek();
+  }
+  
   static private final TimeZone _FIXED_TIME_ZONE =
     TimeZone.getTimeZone("America/Los_Angeles");
 
@@ -470,4 +497,5 @@ public class MockRequestContext extends RequestContext
   private Long _maxFileSize;
   private Long _maxChunkSize;
   private String _tempDir;
+  private ArrayDeque<UIComponent> _componentStack;
 }

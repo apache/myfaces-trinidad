@@ -1196,7 +1196,12 @@ abstract public class UIXComponentBase extends UIXComponent
 
     try
     {
-      if (isRendered())
+    if (isRendered())
+    {
+      RequestContext requestContext = RequestContext.getCurrentInstance();
+      requestContext.pushCurrentComponent(context, this);
+
+      try
       {
         Renderer renderer = getRenderer(context);
         // if there is a Renderer for this component
@@ -1205,7 +1210,12 @@ abstract public class UIXComponentBase extends UIXComponent
           renderer.encodeEnd(context, this);
         }
       }
+      finally
+      {
+        requestContext.popCurrentComponent(context, this);
+      }
     }
+  }
     finally
     {
       popComponentFromEL(context);
@@ -1236,6 +1246,8 @@ abstract public class UIXComponentBase extends UIXComponent
     if (!isRendered())
       return;
 
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
 
     try
@@ -1252,6 +1264,7 @@ abstract public class UIXComponentBase extends UIXComponent
       // block, just before returning.
 
       popComponentFromEL(context);
+      requestContext.popCurrentComponent(context, this);
     }
   }
 
@@ -1264,6 +1277,8 @@ abstract public class UIXComponentBase extends UIXComponent
     if (!isRendered())
       return;
 
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
 
     try
@@ -1274,6 +1289,7 @@ abstract public class UIXComponentBase extends UIXComponent
     finally
     {
       popComponentFromEL(context);
+      requestContext.popCurrentComponent(context, this);
     }
   }
 
@@ -1286,6 +1302,8 @@ abstract public class UIXComponentBase extends UIXComponent
     if (!isRendered())
       return;
 
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
 
     try
@@ -1296,6 +1314,7 @@ abstract public class UIXComponentBase extends UIXComponent
     finally
     {
       popComponentFromEL(context);
+      requestContext.popCurrentComponent(context, this);
     }
   }
 
@@ -1308,6 +1327,8 @@ abstract public class UIXComponentBase extends UIXComponent
     if (_LOG.isFiner())
       _LOG.finer("processSaveState() on " + this);
 
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
 
     Object state = null;
@@ -1339,6 +1360,7 @@ abstract public class UIXComponentBase extends UIXComponent
     finally
     {
       popComponentFromEL(context);
+      requestContext.popCurrentComponent(context, this);
     }
 
     return state;
@@ -1357,6 +1379,8 @@ abstract public class UIXComponentBase extends UIXComponent
     if (_LOG.isFiner())
       _LOG.finer("processRestoreState() on " + this);
 
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
 
     try
@@ -1376,6 +1400,7 @@ abstract public class UIXComponentBase extends UIXComponent
     finally
     {
       popComponentFromEL(context);
+      requestContext.popCurrentComponent(context, this);
     }
   }
 
@@ -2049,6 +2074,9 @@ abstract public class UIXComponentBase extends UIXComponent
 
     boolean invokedComponent;
 
+    // push component to the stack before invoking the component.
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    requestContext.pushCurrentComponent(context, this);
     setupVisitingContext(context);
 
     try
@@ -2093,6 +2121,9 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       // teardown the context now that we have visited the children
       tearDownVisitingContext(context);
+
+      // pop the component out from the stack after invoking this component.
+      requestContext.popCurrentComponent(context, this);
     }
 
     return invokedComponent;

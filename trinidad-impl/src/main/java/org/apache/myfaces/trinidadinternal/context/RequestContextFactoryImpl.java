@@ -53,11 +53,24 @@ public class RequestContextFactoryImpl extends RequestContextFactory
   @Override
   public RequestContext createContext(ExternalContext externalContext)
   {
-    RequestContextImpl impl =  new RequestContextImpl(_getBean(externalContext));
-    impl.init(externalContext);
-    impl.__setPageResolver(_pageResolver);
-    impl.__setPageFlowScopeProvider(_pageFlowScopeProvider);
-    return impl;
+    RequestContext requestContext =  doCreateContext(_getBean(externalContext));
+    if (requestContext instanceof RequestContextImpl)
+    {
+      RequestContextImpl impl = (RequestContextImpl)requestContext;
+      impl.init(externalContext);
+      impl.__setPageResolver(_pageResolver);
+      impl.__setPageFlowScopeProvider(_pageFlowScopeProvider);
+    }
+
+    return requestContext;
+  }
+
+  /**
+   * A hook provided for subclasses to create the request context instance.
+   */
+  protected RequestContext doCreateContext(RequestContextBean requestContextBean)
+  {
+    return new RequestContextImpl(requestContextBean);
   }
 
   private RequestContextBean _getBean(ExternalContext externalContext)
