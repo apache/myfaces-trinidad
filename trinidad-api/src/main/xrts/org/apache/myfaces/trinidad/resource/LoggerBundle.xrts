@@ -90,6 +90,9 @@
 <!-- NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE -->
 <resource key="NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE">RequestContext is null, unable to get currency code</resource>
 
+<!-- NULL_REQUEST_CONTEXT_UNABLE_GET_ROUNDING_MODE -->
+<resource key="NULL_REQUEST_CONTEXT_UNABLE_GET_ROUNDING_MODE">RequestContext is null, unable to get default RoundingMode for the application.</resource>
+
 <!-- NUMBER_NOT_DECIMALFORMAT_IGNORE_CURRENCY -->
 <resource key="NUMBER_NOT_DECIMALFORMAT_IGNORE_CURRENCY">Number format was not instance of DecimalFormat: ignoring currency information while formatting.</resource>
 

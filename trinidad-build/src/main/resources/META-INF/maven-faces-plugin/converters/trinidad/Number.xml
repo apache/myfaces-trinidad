@@ -279,6 +279,14 @@
         </fmd:property-metadata>
       </property-extension>                  
     </property>
+    <property>    
+      <description><![CDATA[Sets the default RoundingMode for the converter. If unset, uses JDK default (usually RoundingMode.HALF_EVEN).]]>
+      </description>
+      <property-name>roundingMode</property-name>
+      <property-class>java.math.RoundingMode</property-class>
+      <mfp:enum>true</mfp:enum>
+      <fmd:enum>true</fmd:enum>
+    </property>
     <property>
       <description><![CDATA[Specifies how the number string will be formatted and parsed.
            Valid values are "number", "currency", and "percent".

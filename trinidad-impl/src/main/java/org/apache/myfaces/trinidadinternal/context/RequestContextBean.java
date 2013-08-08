@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.context;
 
 import java.util.Locale;
 import java.util.TimeZone;
+import java.math.RoundingMode;
 
 import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -65,6 +66,8 @@ public class RequestContextBean extends FacesBeanImpl
     TYPE.registerKey("time-zone", TimeZone.class);
   static public final PropertyKey ORACLE_HELP_SERVLET_URL_KEY =
     TYPE.registerKey("oracle-help-servlet-url");  
+  static public final PropertyKey ROUNDING_MODE_KEY =
+    TYPE.registerKey("rounding-mode", RoundingMode.class);
   static public final PropertyKey TWO_DIGIT_YEAR_START =
     TYPE.registerKey("two-digit-year-start", Integer.class);
   static public final PropertyKey SKIN_FAMILY_KEY =

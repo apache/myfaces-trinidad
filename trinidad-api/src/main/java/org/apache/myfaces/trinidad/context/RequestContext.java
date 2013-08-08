@@ -22,6 +22,7 @@ import java.awt.Color;
 
 import java.io.IOException;
 
+import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -618,6 +619,14 @@ abstract public class RequestContext
    * Gets the RegionManager for the current application.
    */
   public abstract RegionManager getRegionManager();
+
+  /**
+   * Gets the RoundingMode used by NumberConverter instances for the current application.
+   */
+  public  RoundingMode getRoundingMode()
+  {
+    return null;
+  }
 
   //
   // Partial Page Rendering support

@@ -23,6 +23,8 @@ import java.awt.Color;
 import java.io.Serializable;
 
 import java.util.ArrayDeque;
+import java.math.RoundingMode;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -687,6 +689,15 @@ public class RequestContextImpl extends RequestContext
   public Map<Object, Map<Object,String>> getFormatter()
   {
     return FormatterMap.sharedInstance();
+  }
+
+  @Override
+  public RoundingMode getRoundingMode()
+  {
+    RoundingMode mode = (RoundingMode) _bean.getProperty(
+      RequestContextBean.ROUNDING_MODE_KEY);
+
+    return (mode);
   }
 
   @Override

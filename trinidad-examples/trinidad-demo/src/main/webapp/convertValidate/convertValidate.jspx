@@ -80,6 +80,14 @@
                 <f:convertNumber type="currency" locale="en_US"
                                  currencySymbol="#"/>
               </tr:inputText>
+              <tr:inputText value="#{converterValidator.currencyValue}"
+                            label="number converter with roundingMode=FLOOR">
+                <f:facet name="help">
+                  <tr:outputText value="roundingMode='FLOOR' maxFractionDigits=1 - This results in the value rounded down from 78.57 to 78.5"/>
+                </f:facet>
+                <tr:convertNumber maxFractionDigits="0" locale="en_US" 
+                                 roundingMode="FLOOR"/>
+              </tr:inputText>
             </tr:panelFormLayout>
             <tr:panelHeader text="Validators"/>
             <tr:panelFormLayout>

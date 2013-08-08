@@ -84,6 +84,15 @@ output mode used by Apache MyFaces Trinidad.
           </annotation>
         </element>
 
+       <element name="roundingMode" minOccurs="0" maxOccurs="1"
+                 type="config:roundingModeExpressionType">
+          <annotation>
+            <documentation>The &lt;rounding-mode&gt; element controls the
+default rounding mode for number converters.
+            </documentation>
+          </annotation>
+        </element>
+
         <element name="skin-family" minOccurs="0" maxOccurs="1"
                  type="config:stringExpressionType">
           <annotation>
@@ -307,6 +316,19 @@ override the locale that converters use for date time, number and currency.
     </restriction>
   </simpleType>
 
+     <simpleType name="roundingModeType">
+        <restriction base="string">
+          <enumeration value="CEILING"/>
+          <enumeration value="DOWN"/>
+          <enumeration value="FLOOR"/>
+          <enumeration value="HALF_DOWN"/>
+          <enumeration value="HALF_EVEN"/>
+          <enumeration value="HALF_UP"/>
+          <enumeration value="UNNECESSARY"/>
+          <enumeration value="UP"/>
+        </restriction>
+      </simpleType>
+
   <simpleType name="stringExpressionType">
     <union memberTypes="string config:expressionType" />
   </simpleType>
@@ -341,6 +363,10 @@ override the locale that converters use for date time, number and currency.
 
   <simpleType name="clientValidationExpressionType">
     <union memberTypes="config:clientValidationType config:expressionType" />
+  </simpleType>
+
+  <simpleType name="roundingModeExpressionType">
+    <union memberTypes="config:roundingModeType config:expressionType" />
   </simpleType>
 
   <simpleType name="anyURIExpressionType">

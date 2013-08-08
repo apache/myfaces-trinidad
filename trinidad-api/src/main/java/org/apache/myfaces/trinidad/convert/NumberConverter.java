@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidad.convert;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -385,7 +386,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
     NumberFormat formatter = _getNumberFormat(pattern, type, locale, reqCtx);
 
-    _setFormatProperties(formatter);
+    _setFormatProperties(formatter, reqCtx);
 
     if("currency".equals(type))
     {
@@ -759,6 +760,18 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     return ComponentUtils.resolveInteger(value);
   }
 
+  public void setRoundingMode (RoundingMode mode)
+  {
+    _facesBean.setProperty (_ROUNDING_MODE_KEY, mode);
+  }
+
+  @JSFProperty
+  public RoundingMode getRoundingMode()
+  {
+    Object roundingMode = _facesBean.getProperty(_ROUNDING_MODE_KEY);
+    return (roundingMode != null ? (RoundingMode) roundingMode : null);
+  }
+
   @Override
   public void setPattern(String pattern)
   {
@@ -1128,7 +1141,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
    // Configure the specified NumberFormat  based on the
    // formatting properties that have been set.
-  private void _setFormatProperties(NumberFormat formatter) {
+  private void _setFormatProperties(NumberFormat formatter, RequestContext reqCtx) {
 
     formatter.setGroupingUsed(isGroupingUsed());
 
@@ -1150,6 +1163,12 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     if (isMinimumIntegerDigitsSet())
     {
       formatter.setMinimumIntegerDigits(getMinIntegerDigits());
+    }
+
+    RoundingMode rmode = _getRoundingMode (reqCtx);
+    if (rmode != null)    
+    {      
+      formatter.setRoundingMode (rmode);
     }
   }
 
@@ -1315,6 +1334,24 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
     return currencyCode;
   }
+  
+  private RoundingMode _getRoundingMode (RequestContext context)
+  {
+    RoundingMode rmode = getRoundingMode ();
+    
+    if (rmode == null)
+    {
+      if (context == null)
+      {
+        _LOG.warning("NULL_REQUEST_CONTEXT_UNABLE_GET_ROUNDING_MODE");
+      }
+      else
+      {
+        rmode = context.getRoundingMode();
+      }
+    }    
+    return rmode;
+  }
 
   // applied only while formatting
   private void _setCurrencyFormattingProperties(
@@ -1439,6 +1476,10 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
   private static final PropertyKey _PATTERN_KEY
    = _TYPE.registerKey("pattern", String.class);
+
+  private static final PropertyKey  _ROUNDING_MODE_KEY
+   = _TYPE.registerKey("roundingMode", RoundingMode.class);
+
 
   private static final PropertyKey  _TYPE_KEY
    = _TYPE.registerKey("type", String.class, "numeric");
