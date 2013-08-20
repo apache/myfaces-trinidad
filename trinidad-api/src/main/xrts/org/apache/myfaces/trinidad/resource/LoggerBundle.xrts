@@ -548,5 +548,6 @@
 
 <!-- POP_COMPONENT_BINDING_CONTEXT_FAILED -->
 <resource key="POP_COMPONENT_BINDING_CONTEXT_FAILED">Unable to pop out of a component binding context as a corresponding push never occurred.</resource>
-
+<resource key="ERROR_PARSING_COMPONENT_TAG">Error when processing tag for component with id: "{0}". The scoped id of the parent component is "{1}".</resource>
+<resource key="ERROR_CREATE_COMPONENT_STALE">Detected reuse of component instance with scoped id "{0}" as it is already attached to the parent with scoped id "{1}", whereas its expected parent has a scoped id of "{2}". This error could occur when the component instance was retrieved from the component binding. If it helps the expression set on the binding attribute is "{3}".</resource>
 </resources>

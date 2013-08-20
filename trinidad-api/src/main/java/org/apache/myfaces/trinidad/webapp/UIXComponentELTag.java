@@ -44,6 +44,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 
 /**
@@ -76,6 +77,9 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   @Override
   public int doStartTag() throws JspException
   {
+    FacesContext context = getFacesContext();
+    Map<String, Object> reqMap = context.getExternalContext().getRequestMap();
+    
     Map<Object, Object> facesContextAttributes = getFacesContext().getAttributes();
 
     // Only support skipping the body of a tag when not iterating. This is due to the fact that
@@ -102,7 +106,22 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     }
 
     _skipEndTagSuperCall = false;
-    int retVal = super.doStartTag();
+
+    int retVal;
+    try
+    {
+      retVal = super.doStartTag();
+    }
+    catch (RuntimeException rte)
+    {
+      _logSevereTagProcessingError(context, rte);
+      throw rte;
+    }
+    catch (JspException jspe)
+    {
+      _logSevereTagProcessingError(context, jspe);
+      throw jspe;
+    }
 
     // There could have been some validation error during property setting
     // on the bean, this is the closest opportunity to burst out.
@@ -193,6 +212,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   protected UIComponent createComponent(FacesContext context, String newId)
     throws JspException
   {
+    UIComponent component = null;
     if (RequestContext.isInComponentBindingContext(context) && hasBinding())
     {
      // null out component in binding; this forces a new component to be created.
@@ -200,7 +220,13 @@ abstract public class UIXComponentELTag extends UIComponentELTag
      binding.setValue(getELContext(), null);
     }
     
-    return super.createComponent(context, newId);
+    component = super.createComponent(context, newId);
+    // if the component was pulled out of a component binding during createComponent() it is likely 
+    // to be attached to some component in the tree - and thus the (severe) error is justified
+    if (component != null && component.getParent() != null)
+      _logSevereStaleParentError(context, component, component.getParent());
+    
+    return component;
   }
   
   @Override
@@ -602,6 +628,94 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   }
 
   /**
+    * Logs a severe warning when an exception is thrown during component tag processing.
+    * @param methodName name of the method throwing the exception
+    * @param e Throwable
+    */
+   private void _logSevereTagProcessingError(FacesContext context, Throwable e)
+   {
+     UIViewRoot viewRoot = context.getViewRoot();
+     UIComponent component = this.getComponentInstance();
+     String scopedId = _getScopedId(component, viewRoot);
+     String parentScopedId = _getParentScopedId(viewRoot);
+
+     String message = _LOG.getMessage("ERROR_PARSING_COMPONENT_TAG", 
+                                      new Object[] {scopedId, parentScopedId});
+     _LOG.severe(message, e);
+   }
+   
+   private String _getScopedId(UIComponent component, UIViewRoot viewRoot)
+   {
+     if (component == null)
+     {
+       // use tag id if component was not created
+       return this.getId();
+     }
+     else
+     {
+       return ComponentUtils.getScopedIdForComponent(component, viewRoot);
+     }
+   }
+   
+   /**
+    * Logs a severe error when a stale component is detected during create component.
+    * @param context FacesContext
+    * @param child the UIComponent being created
+    * @param pldParent the parent UIComponent 
+    */
+   private void _logSevereStaleParentError(FacesContext context, 
+                                           UIComponent child, 
+                                           UIComponent oldParent)
+   {
+     UIViewRoot viewRoot = context.getViewRoot();
+
+     String scopedId = ComponentUtils.getScopedIdForComponent(child, viewRoot);
+     String oldParentScopedId = ComponentUtils.getScopedIdForComponent(oldParent, viewRoot);
+     String newParentScopedId = _getParentScopedId(viewRoot);
+       
+     String bindingEL = _getBindingExpression();
+     
+     _LOG.severe("ERROR_CREATE_COMPONENT_STALE", 
+                 new Object[] {scopedId, oldParentScopedId, newParentScopedId, bindingEL});
+     
+   }
+   
+   /**
+    * Returns the expression set for the component's binding attribute or null.
+    * @return String
+    */
+   private String _getBindingExpression()
+   {
+     if (_getBinding() != null)
+     {
+       if (_bindingExpression == null)
+         _bindingExpression = _getBinding().getExpressionString();
+       
+       return _bindingExpression;
+     }
+    
+     return null;
+   }
+   
+   /**
+    * Gets the scopedId of the parent component of the current tag's parent. 
+    * @param viewRoot UIViewRoot instance
+    * @return String 
+    */
+   private String _getParentScopedId(UIViewRoot viewRoot)
+   {
+     UIComponentClassicTagBase parentTag = 
+       UIComponentClassicTagBase.getParentUIComponentClassicTagBase(pageContext);
+     if (parentTag != null)
+     {
+       UIComponent parent = parentTag.getComponentInstance();
+       return ComponentUtils.getScopedIdForComponent(parent, viewRoot);
+     }
+
+     return null;
+   }
+   
+  /**
    * Parse a string into a java.util.Date object.  The
    * string must be in ISO 9601 format (yyyy-MM-dd).
    */
@@ -643,6 +757,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
   private MethodExpression _attributeChangeListener;
   private String           _validationError;
+  private String           _bindingExpression;
   private boolean          _skipEndTagSuperCall = false;
   /*
    * <p>The value binding expression (if any) used to wire up this component
