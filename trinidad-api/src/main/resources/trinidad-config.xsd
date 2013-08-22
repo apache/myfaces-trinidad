@@ -84,7 +84,7 @@ output mode used by Apache MyFaces Trinidad.
           </annotation>
         </element>
 
-       <element name="roundingMode" minOccurs="0" maxOccurs="1"
+       <element name="rounding-mode" minOccurs="0" maxOccurs="1"
                  type="config:roundingModeExpressionType">
           <annotation>
             <documentation>The &lt;rounding-mode&gt; element controls the
