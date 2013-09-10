@@ -34,6 +34,8 @@ import org.apache.myfaces.trinidad.change.InsertedComponentFragmentLocator;
 import org.apache.myfaces.trinidad.change.InsertingComponentFragmentLocator;
 import org.apache.myfaces.trinidad.component.FlattenedComponent;
 import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.context.PageResolver;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -466,7 +468,7 @@ public final class ComponentUtils
     // if we are dealing with view root, look no further
     if (component == viewRoot)
     {
-      return viewRoot.getViewId();
+      return _getPhysicalURI(viewRoot.getViewId());
     }
     
     String location = null;
@@ -492,7 +494,7 @@ public final class ComponentUtils
       {
         if (currAncestor == viewRoot)
         {
-          return viewRoot.getViewId();
+          return _getPhysicalURI(viewRoot.getViewId());
         }
         
         // 2a. try to get the location where the tag for ancestor is defined
@@ -583,6 +585,16 @@ public final class ComponentUtils
     return _getScopedIdForComponentImpl(targetComponent, baseComponent, true);
   }
   
+  /**
+   * Provides the physical URI of the page with supplied logical view id. The implementation
+   *  uses any registered page resolver to do the conversion.
+   */
+  private static String _getPhysicalURI(String logicalViewId)
+  {
+    PageResolver pageResolver =  RequestContext.getCurrentInstance().getPageResolver();
+    return pageResolver.getPhysicalURI(logicalViewId);
+  }
+
   /**
    * Returns scoped id for a component
    * @param targetComponent The component for which the scoped id needs to be
