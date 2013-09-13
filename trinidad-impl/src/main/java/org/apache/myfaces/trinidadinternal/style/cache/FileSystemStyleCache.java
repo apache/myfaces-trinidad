@@ -882,7 +882,7 @@ public class FileSystemStyleCache implements StyleProvider
                                 shortStyleClassMap,
                                 namespacePrefixes,
                                 _STYLE_KEY_MAP);
-    
+
     // Return the name of the new style sheet
     return _getFileNames(writerFactory.getFiles());
   }
@@ -1117,11 +1117,6 @@ public class FileSystemStyleCache implements StyleProvider
           {
             String styleClass = selector.substring(1);
             _putStyleClassInShortMap(styleClass, map);
-            // don't shorten styleclasses that are states since they are likely to be added
-            // and removed on the client.
-            if (styleClass != null && !styleClass.startsWith(SkinSelectors.STATE_PREFIX))
-              if (!map.containsKey(styleClass))
-                map.put(styleClass, _getShortStyleClass(map.size()));
 
             if (style.isEmpty())
               emptySelectors.add(styleClass);
@@ -1200,6 +1195,9 @@ public class FileSystemStyleCache implements StyleProvider
    * that start with SkinSelectors.STATE_PREFIX. The reason is that those
    * are likely to be added and removed on the client as the state changes, and
    * we don't want to require the shortened map on the client.
+   * we do not want to compress non-namespaced selectors even with compression turned on
+   * therefore we check the styleClass for namespacePrefix before we decide to put in a
+   * short selector
    */
   private static void _putStyleClassInShortMap(String styleClass, Map map)
   {
@@ -1207,7 +1205,12 @@ public class FileSystemStyleCache implements StyleProvider
         !styleClass.startsWith(SkinSelectors.STATE_PREFIX) &&
         !map.containsKey(styleClass))
     {
-      map.put(styleClass, _getShortStyleClass(map.size()));
+      if (styleClass.indexOf('|') != -1)
+      {
+        // we found a namespace prefix in the selector
+        // so this selector can be compressed
+        map.put(styleClass, _getShortStyleClass(map.size()));
+      }
     }
   }
 
