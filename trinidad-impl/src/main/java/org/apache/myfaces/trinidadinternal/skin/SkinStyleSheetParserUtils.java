@@ -228,7 +228,14 @@ class SkinStyleSheetParserUtils
         if (StyleUtils.isIcon(selectorName))
         {
           // knock off the '.' if it is the first character.
-          if (selectorName.charAt(0) == '.')
+          // do it only for "Icon:alias", because the style could be something like
+          // ".AFSomeAlias af|style-icon" or ".AFSomeAlias af|style-icon:hover"
+          // and further more, it may not represent an Icon style.
+          // We log a warning in the console that such naming should be used only for Icons,
+          // but we do not enforce this. So user can be already using such a selector as
+          // "af|style-icon" and now want to specify it using a nested selector
+          // this use case will not work if we remove the leading dot.
+          if (selectorName.charAt(0) == '.' &&  selectorName.indexOf("Icon:alias") > -1)
             selectorName = selectorName.substring(1);
           // strip out :alias
           selectorName = selectorName.replaceFirst(":alias", "");
