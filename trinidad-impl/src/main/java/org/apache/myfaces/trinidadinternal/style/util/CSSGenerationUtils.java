@@ -20,8 +20,8 @@ package org.apache.myfaces.trinidadinternal.style.util;
 
 import java.beans.Beans;
 
-
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,9 +54,10 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 public class CSSGenerationUtils
 {
   /**
-   * Returns a LinkedHashMap of normalized propertyString to the StyleNodes that have them as properties.  A
-   * LinkedHashMap is returned to indicate that realative ordering is preserved between the first appearance of 
-   * selectors with unshared properties.
+   * Returns a MatchingStyles object of normalized propertyString to the StyleNodes that have them as properties.
+   * MatchingStyles segregates the clientRules from the normal selectors for ease of css rendering.
+   * MatchingStyles object uses LinkedHashMap within, to indicate that relative ordering is preserved between the first
+   * appearance of selectors with unshared properties.
    * However, a later style rule that shares its properties with a much earlier style rule will be defined with that
    * style rule, thus having its definition moved up in the file.  Therefore, customers should rely on
    * specificity rather than ordering to override styles.
@@ -64,14 +65,12 @@ public class CSSGenerationUtils
    * @param styleNodes
    * @return
    */
-  private static LinkedHashMap<String, List<StyleNode>> _buildMatchingStylesMap(List<StyleNode> styleNodes)
+  private static MatchingStyles _buildMatchingStylesMap(List<StyleNode> styleNodes)
   {
     int styleCount = styleNodes.size();
 
-    // We track styles with matching properties in the following HashMap
-    // which maps property strings to List<StyleNode[]>.  We use a LinkedHashMap
-    LinkedHashMap<String, List<StyleNode>> matchingStylesMap = new LinkedHashMap<String, List<StyleNode>>(styleCount);
-    
+    MatchingStyles matchingStyles = new MatchingStyles(styleCount);
+
     // at this point the styles List<StyleNode> can contain both Styles with
     // non-null selector or non-null name(aka alias). We only generate
     // the styles where getSelector is non-null.
@@ -82,28 +81,23 @@ public class CSSGenerationUtils
         // Get the property string (properties are sorted so that
         // the order doesn't affect whether styles match).
         String propertyString = _getSortedPropertyString(styleNode);
-
-        // we don't write out styles with no propertyStrings
-        if (!"".equals(propertyString))
+        if (!("".equals(propertyString)))
         {
-          // See if we already have a StyleNode with the same properties
-          List<StyleNode> matchingStyles = matchingStylesMap.get(propertyString);
-    
-          if (matchingStyles == null)
-          {    
-            // If we don't already have matching StyleNodes, create a new match list and cache it
-            matchingStyles = new ArrayList<StyleNode>(1);
-            matchingStylesMap.put(propertyString, matchingStyles);
+          if (styleNode.hasClientRule())
+          {
+            matchingStyles.addStyle(styleNode.getClientRule(), propertyString, styleNode);
           }
-          
-          matchingStyles.add(styleNode);
+          else
+          {
+            matchingStyles.addStyle(propertyString, styleNode);
+          }
         }
       }
     }
     
-    return matchingStylesMap;
+    return matchingStyles;
   }
-  
+
   /**
    * Writes the properties of a merged set of style rules
    * @param out
@@ -259,14 +253,14 @@ public class CSSGenerationUtils
   private static int _writeMergedSelectors(
     PrintWriter out, boolean compressStyles, Map<String, String> shortStyleClassMap,
     String[] namespacePrefixArray, int maxSelectors, List<String> mappedSelectors)
-  {    
+  {
     // to make this atomic, we first calculate all of the selectors that we will write out.  If we have space, we will
     // then write the selectors out
     List<String> validSelectors = _calculateValidSelectors(compressStyles, shortStyleClassMap, namespacePrefixArray,
                                                            mappedSelectors);
-    
+
     int selectorsToWrite = validSelectors.size();
-    
+
     if (selectorsToWrite >= maxSelectors)
     {
       // not enough space, so abort
@@ -275,7 +269,7 @@ public class CSSGenerationUtils
     else
     {
       _writeValidSelectors(out, validSelectors);
-    
+
       return selectorsToWrite;
     }
   }
@@ -435,47 +429,51 @@ public class CSSGenerationUtils
     // During the second pass over the styles, we write out all matching
     // selectors for each style followed by the shared set of properties.
 
+    // This is the first pass where MatchingStyles object is created from
+    // the styleNodes. MatchingStyles object segregates the normal selectors
+    // rendered as selector {prop: value} and clientRule selectors which are
+    // rendered as clientRule { selector { prop: value }}
+    // The segregation of clientRules allow us to segregate the rendering logic.
+    MatchingStyles matchingStyles = _buildMatchingStylesMap(styleNodes);
 
     // This is the second pass in which we write out the style rules
     // Get the baseURI up front so we don't have to recalculate it every time we find
     // a property value that contains url() and need to resolve the uri.
     String baseURI = CSSUtils.getBaseSkinStyleSheetURI(styleSheetName);
 
-    LinkedHashMap<String, List<StyleNode>> matchingStylesMap = _buildMatchingStylesMap(styleNodes);
-
-    Iterator<Map.Entry<String, List<StyleNode>>> mergedEntries = matchingStylesMap.entrySet().iterator();
-    
-    // Because of IE's selector limit, we need a slightly more complicated scheme for writing out the styles, so
-    // that we can create new CSS files as necessary
+    // Because of IE's selector limit, we need a slightly more complicated scheme
+    // for writing out the styles, so that we can create new CSS files as necessary
     final int maxSelectorsPerFile = _getMaxSelectorsPerFile(context);
-        
-    // loop over all of the entries
-    while (mergedEntries.hasNext())
-    {
-      PrintWriter out = writerFactory.createWriter();
-      
-      if (out == null)
-      {
-        return;
-      }
- 
-      if (!compressStyles)
-      {
-        Date date = new Date();
+    int fileSelectorsWritten = 0;
 
-        // write out the header with a time stamp
-        out.println("/* This CSS file generated on " + date + " */");
-      }
+    // read out the normal selectors, we render these first
+    LinkedHashMap<String, List<StyleNode>> noClientRuleMap = matchingStyles.getNonClientRuleMap();
+    Iterator<Map.Entry<String, List<StyleNode>>> noClientRuleEntries = noClientRuleMap.entrySet().iterator();
+
+    PrintWriter out = writerFactory.createWriter();
+
+    if (out == null)
+    {
+      return;
+    }
+
+    _beginCssFile(out, compressStyles);
+
+    // loop over all of the entries
+    while (noClientRuleEntries.hasNext())
+    {
 
       Map.Entry<String, List<StyleNode>> abortedEntry = null;
-      int fileSelectorsWritten = 0;
-      
+
       // loop over all of the entries we can fit in a CSS file
-      while (abortedEntry == null && mergedEntries.hasNext())
+      while (abortedEntry == null && noClientRuleEntries.hasNext())
       {
         // get the entry to write out.  This handles retrying any aborted entry
         Map.Entry<String, List<StyleNode>> currEntry;
-        
+
+        // aborted entry is set when the max number of selectors have already
+        // written out for the current css file. if aborted entry is set then
+        // a new file needs to be created to write remaining selectors
         if (abortedEntry != null)
         {
           currEntry = abortedEntry;
@@ -483,7 +481,7 @@ public class CSSGenerationUtils
         }
         else
         {
-          currEntry = mergedEntries.next();
+          currEntry = noClientRuleEntries.next();
         }
 
         // write the entry
@@ -494,29 +492,227 @@ public class CSSGenerationUtils
         // detect abort
         if (entrySelectorsWritten == 0)
         {
+          // no selectors written, so we have reached the threshold for this css file
+          // set the aborted entry so that we will create a new css file
           abortedEntry = currEntry;
         }
         else
         {
+          // add up the selectors written to track the threshold for the css file
           fileSelectorsWritten += entrySelectorsWritten;
         }
       }
-      
-      if (!compressStyles)
+
+      if (abortedEntry != null)
       {
-        out.print("/* The number of CSS selectors in this file is ");
-        out.print(fileSelectorsWritten);
-        out.println(" */");
+        // abort detected, close the current out and create a new one
+        _endCssFile(out, styleSheetName, compressStyles, fileSelectorsWritten);
+        fileSelectorsWritten = 0;
+
+        // create new out
+        out = writerFactory.createWriter();
+
+        if (out == null)
+        {
+          return;
+        }
+
+        // put in the headers
+        _beginCssFile(out, compressStyles);
       }
-      
-      if (out.checkError())
-      {
-        _LOG.severe("Error writing stylehseet:" + styleSheetName);
-      }
-      
-      // close this PrintWriter
-      out.close();
     }
+
+    Set<String> clientRules = matchingStyles.getClientRules();
+
+    // while writing a client rule, all selectors within the clien rule has to fit into the current css file.
+    // If that cannot happen, then we need to create a new css file and continue writing.
+    for (String clientRule : clientRules)
+    {
+      // write out all client rule entries into a temp out, so that we will know if it can be fitted in
+      // the current css file
+      StringWriter tempStringWriter = new StringWriter();
+      PrintWriter tempWriter = new PrintWriter(tempStringWriter);
+      
+      // we cannot count the selectors within the client rule to decide the number of selectors
+      // there are cases where both compressed and non-compressed selectors get written
+      // so we create a temp StringWriter and get the selectors and properties written into that
+      // we check if all selectors enclosed in a particular client rule can be incorporated in the current out
+      // otherwise we create a new out and write out the client rule followed by the selectors within
+      int clientRuleSelectorsWritten = _writeClientRuleStyles(tempWriter, clientRule, matchingStyles, maxSelectorsPerFile,
+                                                              fileSelectorsWritten, styleSheetName, baseURI, compressStyles,
+                                                              shortStyleClassMap,namespacePrefixArray, afSelectorMap);
+
+      // if no selectors were written, then we need a new file to contain the contents of the current clientRule
+      if (clientRuleSelectorsWritten == 0)
+      {
+        // all selectors inside client rule cannot be accommodated in current file
+        _endCssFile(out, styleSheetName, compressStyles, fileSelectorsWritten);
+        fileSelectorsWritten = 0;
+
+        // create new out
+        out = writerFactory.createWriter();
+
+        if (out == null)
+        {
+          return;
+        }
+
+        // write headers
+        _beginCssFile(out, compressStyles);
+
+        // close the tempWriter and create a new one
+        // some selectors inside the client rule may have got written to tempWriter
+        tempWriter.close();
+        tempStringWriter = new StringWriter();
+        tempWriter = new PrintWriter(tempStringWriter);
+
+        // now that we recreated the writer, so it should have space to write all the selectors in the client rule
+        clientRuleSelectorsWritten = _writeClientRuleStyles(tempWriter, clientRule, matchingStyles, 
+                                                            maxSelectorsPerFile, fileSelectorsWritten, styleSheetName, 
+                                                            baseURI, compressStyles, shortStyleClassMap,
+                                                            namespacePrefixArray, afSelectorMap);
+      }
+
+      // all selectors inside the current client rule should now be written to tempWriter
+      assert (clientRuleSelectorsWritten != 0);
+
+      if (tempWriter.checkError())
+      {
+        // check for errors in tempWriter and log it and return
+        _LOG.severe("Error writing stylesheet:" + styleSheetName);
+        return;
+      }
+
+      // the client rule can now be written to the actual out
+      out.print(clientRule);
+      _writeString(out, " {", compressStyles);
+
+      // write the selectors and properties to the actual out
+      out.print(tempStringWriter.toString());
+
+      // closing braces for client rule
+      _writeString(out, "}", compressStyles);
+
+      fileSelectorsWritten += clientRuleSelectorsWritten;
+
+      tempWriter.close();
+    }
+
+    _endCssFile(out, styleSheetName, compressStyles, fileSelectorsWritten);
+  }
+
+  /**
+   * tests if all the selectors under the client rule can fit into the current css file.
+   * writes the selectors and properties into the PrintWriter passed.
+   * 
+   * @param out
+   * @param clientRule
+   * @param matchingStyles
+   * @param maxSelectorsPerFile
+   * @param fileSelectorsWritten
+   * @param styleSheetName
+   * @param baseURI
+   * @param compressStyles
+   * @param shortStyleClassMap
+   * @param namespacePrefixArray
+   * @param afSelectorMap
+   * @return number of selectors written into the css file. Returns 0, if all selectors does not fit
+   *
+   */
+  private static int _writeClientRuleStyles(PrintWriter out, 
+                                            String clientRule, 
+                                            MatchingStyles matchingStyles, 
+                                            int maxSelectorsPerFile,
+                                            int fileSelectorsWritten, 
+                                            String styleSheetName, 
+                                            String baseURI,
+                                            boolean compressStyles, 
+                                            Map<String, String> shortStyleClassMap,
+                                            String[] namespacePrefixArray,
+                                            Map<String, String> afSelectorMap)
+  {
+    int selectorsWritten = 0;
+    int entrySelectorsWritten = 0;
+    
+    // we know this cannot be null because the caller is using the client rule keySet from matchingStyles
+    LinkedHashMap<String, List<StyleNode>> clientRuleMap = matchingStyles.getClientRuleMap(clientRule);
+    Iterator<Map.Entry<String, List<StyleNode>>> clientRuleEntries = clientRuleMap.entrySet().iterator();
+    
+    while (clientRuleEntries.hasNext())
+    {
+      Map.Entry<String, List<StyleNode>> currEntry = clientRuleEntries.next();
+      int selectorsLeft = maxSelectorsPerFile - (fileSelectorsWritten + selectorsWritten);
+      entrySelectorsWritten = _writeMergedEntry(styleSheetName, baseURI, compressStyles, shortStyleClassMap,
+                                                namespacePrefixArray, afSelectorMap, out, selectorsLeft,
+                                                currEntry);
+      
+      // we want to write all selectors in clientRuleEntries into the same css file
+      // so, if we cannot write any one of these selector we need to abort
+      if (entrySelectorsWritten == 0)
+      {
+        return 0;
+      }
+      else
+      {
+        selectorsWritten += entrySelectorsWritten;
+      }
+    }
+
+    return selectorsWritten;
+  }
+
+  /**
+   * outputs header for a css file
+   * @param out
+   * @param compressStyles
+   */
+  private static void _beginCssFile(PrintWriter out, boolean compressStyles)
+  {
+    if (!compressStyles)
+    {
+      Date date = new Date();
+
+      // write out the header with a time stamp
+      out.println("/* This CSS file generated on " + date + " */");
+    }
+  }
+
+  /**
+   * outputs the footer for a css file
+   * @param out
+   * @param styleSheetName
+   * @param compressStyles
+   * @param fileSelectorsWritten
+   */
+  private static void _endCssFile(PrintWriter out, String styleSheetName, boolean compressStyles, int fileSelectorsWritten)
+  {
+    if (!compressStyles)
+    {
+      out.print("/* The number of CSS selectors in this file is ");
+      out.print(fileSelectorsWritten);
+      out.println(" */");
+    }
+
+    if (out.checkError())
+    {
+      _LOG.severe("Error writing stylesheet:" + styleSheetName);
+    }
+
+    out.close();
+  }
+
+  /**
+   * Util method to output a outStr based on compressStyles
+   * @param out
+   * @param outStr
+   * @param compressStyles
+   */
+  private static void _writeString(PrintWriter out, String outStr, boolean compressStyles)
+  {
+    if (compressStyles)
+      out.print(outStr); // take out the newlines for performance
+    else
+      out.println(outStr);
   }
 
   /**
@@ -1421,7 +1617,7 @@ public class CSSGenerationUtils
         {
           // if we are in a pseudo-class already, and we get a ':' or '.' that means
           // this pseudo-class is complete. Get ready for another one.
-          String convertedPseudoClass = _convertPseudoClass(pseudoClassBuffer.toString(), afNamespacedSelector);
+          String convertedPseudoClass = _convertPseudoClass(completeSelector, pseudoClassBuffer.toString(), afNamespacedSelector);
           completeBuffer.append(convertedPseudoClass);
           pseudoClassBuffer = new StringBuffer();
           inPseudoClass = false;
@@ -1448,7 +1644,7 @@ public class CSSGenerationUtils
     }
     if (inPseudoClass)
     {
-      String mappedPseudoClass = _convertPseudoClass(pseudoClassBuffer.toString(), afNamespacedSelector);
+      String mappedPseudoClass = _convertPseudoClass(completeSelector, pseudoClassBuffer.toString(), afNamespacedSelector);
       completeBuffer.append(mappedPseudoClass);
 
     }
@@ -1536,7 +1732,7 @@ public class CSSGenerationUtils
    * @param afNamespacedSelector true if the pseudoClass is part of AF namespaced selector
    * @return
    */
-  static private String _convertPseudoClass(String pseudoClass, boolean afNamespacedSelector)
+  static private String _convertPseudoClass(String completeSelector, String pseudoClass, boolean afNamespacedSelector)
   {
     // The design time needs the browser-supported pseudo-classes to be converted so they
     // can show a preview of the skinned component.
@@ -1552,6 +1748,10 @@ public class CSSGenerationUtils
       builtInPseudoClass = pseudoClass.substring(0, parenthesesIndex);
 
     if (_BUILT_IN_PSEUDO_CLASSES.contains(builtInPseudoClass) && !Beans.isDesignTime())
+      return pseudoClass;
+
+    // skip the pseudo selectors in _AT_PAGE_PSEUDO_CLASSES only for @page client rule
+    if (completeSelector.contains(_AT_PAGE_SELECTOR) && _AT_PAGE_PSEUDO_CLASSES.contains(builtInPseudoClass))
       return pseudoClass;
 
     // _BACKWARD_COMPATIBLE_CSS3_PSEUDO_CLASSES is treated differently
@@ -1576,12 +1776,128 @@ public class CSSGenerationUtils
     return builder.toString();
   }
 
+  /**
+   * encapsulates the propertyString vs StyleNode maps separately for clientRule and normal selectors
+   * ClientRule selectors the styles are rendered as:
+   * clientRule { selector: {property1: value1, property2: value2 ... } }
+   * Normal selectors are rendered as
+   * selector: {property1: value1 ... }
+   */
+  private static final class MatchingStyles
+  {
+    private MatchingStyles(int styleCount)
+    {
+      this._nonClientRuleEntry = new MatchingEntry(styleCount);
+      this._clientRuleEntries = new LinkedHashMap<String, MatchingEntry>();
+    }
+
+
+    public LinkedHashMap<String, List<StyleNode>> getNonClientRuleMap()
+    {
+      return _nonClientRuleEntry.getMatchingStyles();
+    }
+
+    public LinkedHashMap<String, List<StyleNode>> getClientRuleMap(String clientRule)
+    {
+      return _clientRuleEntries.get(clientRule).getMatchingStyles();
+    }
+
+    public Set<String> getClientRules()
+    {
+      return _clientRuleEntries.keySet();
+    }
+
+    public void addStyle(String propertyString, StyleNode styleNode)
+    {
+      _nonClientRuleEntry.addMatchingStyle(propertyString, styleNode);
+    }
+
+    public void addStyle(String clientRule, String propertyString, StyleNode styleNode)
+    {
+      MatchingEntry matchingStylesForClientRule = _clientRuleEntries.get(clientRule);
+
+      if (matchingStylesForClientRule == null)
+      {
+        matchingStylesForClientRule = new MatchingEntry(1);
+        _clientRuleEntries.put(clientRule, matchingStylesForClientRule);
+      }
+
+      matchingStylesForClientRule.addMatchingStyle(propertyString, styleNode);
+    }
+
+    // matching styles map with no client rules
+    private final MatchingEntry _nonClientRuleEntry;
+
+    // matching styles map with client rules
+    private final LinkedHashMap<String, MatchingEntry> _clientRuleEntries;
+  }
+
+  /**
+   * encapsulates propertyString vs StyleNode map
+   * manages addition of StyleNode for a matching propertyString
+   */
+  private final static class MatchingEntry
+  {
+    public MatchingEntry(int initialSize)
+    {
+      _matchingStyles = new LinkedHashMap<String, List<StyleNode>>(initialSize);
+    }
+
+    public void addMatchingStyle(String propertyString, StyleNode styleNode)
+    {
+      if (propertyString == null || propertyString.equals(""))
+        return;
+
+
+      // See if we already have a StyleNode with the same properties
+      List<StyleNode> matchingStyles = _matchingStyles.get(propertyString);
+
+      if (matchingStyles == null)
+      {
+        // If we don't already have matching StyleNodes, create a new match list and cache it
+        matchingStyles = new ArrayList<StyleNode>(1);
+        _matchingStyles.put(propertyString, matchingStyles);
+      }
+
+      matchingStyles.add(styleNode);
+    }
+
+    public LinkedHashMap<String, List<StyleNode>> getMatchingStyles()
+    {
+      return _matchingStyles;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      MatchingEntry that = (MatchingEntry) o;
+
+      if (_matchingStyles != null ? !_matchingStyles.equals(that._matchingStyles) : that._matchingStyles != null)
+        return false;
+
+      return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+      return _matchingStyles != null ? _matchingStyles.hashCode() : 0;
+    }
+
+    private LinkedHashMap<String, List<StyleNode>> _matchingStyles;
+  }
+
   // We want to output to the css the browser-supported pseudo-classes as is
   static private final Set<String> _BUILT_IN_PSEUDO_CLASSES = new HashSet<String>();
   static private final Set<String> _BACKWARD_COMPATIBLE_CSS3_PSEUDO_CLASSES = new HashSet<String>();
 
   // We want to output to the css the browser-supported pseudo-elements (HTML5/ CSS3) as is
   static private final Set<String> _BUILT_IN_PSEUDO_ELEMENTS = new HashSet<String>();
+  static private final Set<String> _AT_PAGE_PSEUDO_CLASSES = new HashSet<String>();
+
   static
   {
     /** CSS 2 pseudo classes */
@@ -1634,12 +1950,18 @@ public class CSSGenerationUtils
     _BUILT_IN_PSEUDO_ELEMENTS.add("::line-marker");
     _BUILT_IN_PSEUDO_ELEMENTS.add("::selection");
     _BUILT_IN_PSEUDO_ELEMENTS.add("::-webkit-input-placeholder");
+
+    /** @page pseudo classes*/
+    _AT_PAGE_PSEUDO_CLASSES.add(":first");
+    _AT_PAGE_PSEUDO_CLASSES.add(":left");
+    _AT_PAGE_PSEUDO_CLASSES.add(":right");
   }
   
   private static final Pattern _DASH_PATTERN =  Pattern.compile("-");
   private static final int _MSIE_SELECTOR_LIMIT = 4095;
   private static final String _DEFAULT_NAMESPACE = "af|";
   private static final String _DEFAULT_AF_SELECTOR = ".AF";
+  private static final String _AT_PAGE_SELECTOR = "@page";
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CSSGenerationUtils.class);
 }

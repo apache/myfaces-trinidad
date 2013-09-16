@@ -45,7 +45,8 @@ class SkinStyleSheetNode
     Set<Locale>                      locales,
     AgentAtRuleMatcher               agentMatcher,
     Set<String>                      accProperties,
-    int                              mode)
+    int                              mode,
+    String                           clientRule)
   {
     _skinSelectorNodeList = skinSelectorNodeList;
     _namespaceMap = namespaceMap;
@@ -55,6 +56,7 @@ class SkinStyleSheetNode
     _platforms     = null;
     _accProperties = accProperties;
     _mode = mode;
+    _clientRule = clientRule;
   }
 
   SkinStyleSheetNode(
@@ -64,7 +66,8 @@ class SkinStyleSheetNode
     AgentAtRuleMatcher         agentMatcher,
     int[]                      platforms,
     Set<String>                accProperties,
-    int                        mode)
+    int                        mode,
+    String                     clientRule)
   {
     _namespaceMap = namespaceMap;
     _direction = direction;
@@ -73,6 +76,7 @@ class SkinStyleSheetNode
     _platforms = platforms;
     _accProperties = accProperties;
     _mode = mode;
+    _clientRule = clientRule;
   }
 
   public void add(SkinSelectorPropertiesNode node)
@@ -132,6 +136,11 @@ class SkinStyleSheetNode
     return _mode;
   }
 
+  public String getClientRule()
+  {
+    return _clientRule;
+  }
+
   public Set<String> getAcessibilityProperties()
   {
     return _accProperties;
@@ -143,7 +152,8 @@ class SkinStyleSheetNode
     int[]                      platforms,
     Set<Locale>                locales,
     Set<String>                accProperties,
-    int                        mode)
+    int                        mode,
+    String                     clientRule)
   {
     if (direction == _direction)
     {
@@ -162,7 +172,12 @@ class SkinStyleSheetNode
             {
               boolean modeMatch = (mode == _mode);
               if (modeMatch)
-                return true;
+              {
+                boolean clientRuleMatch = _objectsEqual(clientRule, _clientRule);
+
+                if (clientRuleMatch)
+                  return true;
+              }
             }
           }
         }
@@ -198,4 +213,6 @@ class SkinStyleSheetNode
   private final Set<Locale> _locales;
   private final Set<String> _accProperties;
   private final int _mode;
+  private final String _clientRule; // client side rule to be rendered as is to the css, eg: @media, @document
+
 }

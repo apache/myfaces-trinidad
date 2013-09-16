@@ -61,6 +61,14 @@
           </li>
           <li>
             <a href="#Skinning_CSS_features">Skinning CSS features</a>
+            <ul>
+              <li><a href="#tr-rules">Re-using selectors and properties via -tr-rules</a>
+              </li>
+              <li><a href="#server-side-at-rules">Server side at-rules</a>
+              </li>
+              <li><a href="#client-side-at-rules">Client side at-rules</a>
+              </li>
+            </ul>
           </li>
           <li>
             <a href="#Package_Skin_In_JAR">Package your Skin in a JAR file</a>
@@ -824,157 +832,159 @@ public class SkinTranslationMapDemo
       <a name="Skinning_CSS_features"></a>
       <section name="Skinning CSS features">
         
-        <P>
-        You can do things in a skin css file beyond what you can do in a regular css file. 
-        At runtime the skin framework processes the skin's css file and the
-        skin framework pulls out skinning properties and icons and registers them with the Skin object. 
-        The skinning framework merges styles together that use the -tr-rule-ref property. 
-        The skinning framework picks the styles based on the HTTP request information, like agent
-        and platform and merges them with the non-specific styles.
-        This section will go into more detail on these features and how you can use them in your 
-        skinning css file.
-        </P>
-        <P>
-        <ul>
-        <li>
-        Skin properties e.g., af|breadcrumbs{<strong>-tr-show-last-item:false</strong>}.
-        Skin properties for a component are documented in the skin-selectors documentation. Skin
-        properties are useful if you want to control the rendering of a component that css alone
-        cannot do, like displaying the last item or not (well, css might be able to do that). 
-        The writer of the renderer may choose to expose skin properties to enable the application
-        developer to have more control over the way the component renders without having to 
-        write their own renderer. Another example is af|train {-tr-visible-stop-count: 10}. This 
-        allows you to change the number of visible train stops.
-        </li> 
-        <li>
-        <strong>-tr-inhibit</strong> - > e.g., af|foo {-tr-inhibit: padding; color: red}
-        This css property is used to inhibit/reset css properties that you are inheriting from a base skin.
-        "-tr-inhibit: all" will clear out all the inherited properties. "-tr-inhibit: <i>property-name</i>" will inhibit the 
-        property name; "-tr-inhibit: padding", for example, will clear out any padding
-        that you have inherited. You need to make sure your <i>property-name</i> matches that in the base skin. If the
-        base skin has padding-right: 6px and you inhibit padding, you will still get the padding-right. You need
-        to inhibit padding-right. Also note that inhibitions happen when the skinning framework processes the skin's css file,
-        and not based on cascading rules in the browser. Therefore the skin selector has to match and the property name has
-        to match exactly to what you are inhibiting. -tr-inhibit works for style selectors, icons 
-        (selectors that end with -icon) and skinning properties.
-        <source>
-          <![CDATA[
-          
-          Skin A:
-            af|breadCrumbs { -tr-show-last-item: false; }
+        <a name="tr-rules"></a>
+        <subsection name="Re-using selectors and properties via -tr-rules">
+          <P>
+          You can do things in a skin css file beyond what you can do in a regular css file.
+          At runtime the skin framework processes the skin's css file and the
+          skin framework pulls out skinning properties and icons and registers them with the Skin object.
+          The skinning framework merges styles together that use the -tr-rule-ref property.
+          The skinning framework picks the styles based on the HTTP request information, like agent
+          and platform and merges them with the non-specific styles.
+          This section will go into more detail on these features and how you can use them in your
+          skinning css file.
+          </P>
+          <P>
+          <ul>
+          <li>
+          Skin properties e.g., af|breadcrumbs{<strong>-tr-show-last-item:false</strong>}.
+          Skin properties for a component are documented in the skin-selectors documentation. Skin
+          properties are useful if you want to control the rendering of a component that css alone
+          cannot do, like displaying the last item or not (well, css might be able to do that).
+          The writer of the renderer may choose to expose skin properties to enable the application
+          developer to have more control over the way the component renders without having to
+          write their own renderer. Another example is af|train {-tr-visible-stop-count: 10}. This
+          allows you to change the number of visible train stops.
+          </li>
+          <li>
+          <strong>-tr-inhibit</strong> - > e.g., af|foo {-tr-inhibit: padding; color: red}
+          This css property is used to inhibit/reset css properties that you are inheriting from a base skin.
+          "-tr-inhibit: all" will clear out all the inherited properties. "-tr-inhibit: <i>property-name</i>" will inhibit the
+          property name; "-tr-inhibit: padding", for example, will clear out any padding
+          that you have inherited. You need to make sure your <i>property-name</i> matches that in the base skin. If the
+          base skin has padding-right: 6px and you inhibit padding, you will still get the padding-right. You need
+          to inhibit padding-right. Also note that inhibitions happen when the skinning framework processes the skin's css file,
+          and not based on cascading rules in the browser. Therefore the skin selector has to match and the property name has
+          to match exactly to what you are inhibiting. -tr-inhibit works for style selectors, icons
+          (selectors that end with -icon) and skinning properties.
+          <source>
+            <![CDATA[
 
-          Skin B extends Skin A:
-            af|breadCrumbs { -tr-inhibit: -tr-show-last-item;}
+            Skin A:
+              af|breadCrumbs { -tr-show-last-item: false; }
 
-          Skin A does not show the last breadcrumb. Skin B does show the last breadcrumb.
-          
-          --
-          Skin A
-            .SomeStyleClass { 
-                color: red;
-                font-size: 11px;
+            Skin B extends Skin A:
+              af|breadCrumbs { -tr-inhibit: -tr-show-last-item;}
+
+            Skin A does not show the last breadcrumb. Skin B does show the last breadcrumb.
+
+            --
+            Skin A
+              .SomeStyleClass {
+                  color: red;
+                  font-size: 11px;
+              }
+            Skin B
+              .SomeStyleClass {
+                  -tr-inhibit: color;
+              }
+
+            Skin A has color: red, but Skin B has no color, since it has been inhibited.
+
+            --
+            Skin A
+            .SomeStyleClass {
+              color: red;
+              font-size: 11px;
+              -tr-inhibit: color;
             }
-          Skin B
-            .SomeStyleClass { 
-                -tr-inhibit: color;
-            }
-            
-          Skin A has color: red, but Skin B has no color, since it has been inhibited.
-          
-          --
-          Skin A
-          .SomeStyleClass { 
-            color: red;
-            font-size: 11px;
-            -tr-inhibit: color;
-          }
-          
-          This definition makes no sense. If your intent is to remove the color attribute, 
-          then you should simple say:
-          .SomeStyleClass {font-size: 11px}
-          You shouldn't be setting a property, then inhibiting it in the same definition, or even the same skin.
-          Inhibits happen first in the same rule, then the specific styles, so if you inhibit a property, and also
-          define a property in the same rule, it won't be inhibited.
-          However, if you define .SomeStyleClass {-tr-inhibit: color;} later in Skin A, it will be inhibited.
-          Again, do not inhibit within the same skin. It takes more programming cycles to do the merge, and your css
-          isn't as clean.
-          ]]>
-        </source>
-        </li>        
-        <li>
-        <strong>-tr-rule-ref</strong> - > This is used to include other styles in your style see :alias
-        section. Application developers probably won't use this. This is meant for component developers to use when
-        they are setting up the base skin for their components.
-        Here are some examples of how you can use -tr-rule-ref and what the generated css would be.
-        <source>
-          <![CDATA[
-          Example 1:
-          
-          Skin A
-          
-              .AFSomeAlias:alias {color: red}
-              .foo {-tr-rule-ref: selector(".AFSomeAlias:alias")}
-          
-          Skin B extends Skin A
-          
-              .AFSomeAlias:alias {color: blue}
-          
-          Result
-          
-          If you run Skin A, you will see in your CSS
-              .foo {color: red}
-          
-          In you run Skin B, you will see in your CSS
-              .foo {color: blue}
-          because the alias that .foo includes (.AFSomeAlias:alias) in Skin A has 
-          overwritten its color property in Skin B to blue.
-                  
-          ---
-          Example 2:
-          
-          Skin A
-          
-              .myClass {color: orange}
-          
-          Skin B extends Skin A
-          
-              .MyBlueColor:alias {color: blue}
-              .myClass {color: pink; -tr-rule-ref: selector(".MyBlueColor:alias")}   
-          
-          If you run Skin A, you will see in your CSS
-              .myClass {color: orange}
-          
-          In you run Skin B, you will see in your CSS
-              .myClass {color: pink}
-          
-          In Skin B's definition for .myClass, all 'includes' (like -tr-rule-ref) get merged in first, 
-          then specific property definitions (like color in this case) get merged in last for the rule.
-          Therefore, color: pink overwrites -tr-rule-ref: selector(".MyBlueColor:alias");
-          However, if you define .myClass {-tr-rule-ref: selector(".MyBlueColor:alias")} later in Skin B, it will be blue.
-          
-          If you are unsure of what includes or inhibits resolve to, you can run your own skinning test like 
-          above, and look at the generated css file.
-          ]]>
-        </source>
-        </li>
-        <li>
-        <strong>-tr-property-ref</strong> - > This is used to include properties from one style into another.
-        The syntax of -tr-property-ref is: background-color: -tr-property-ref("af|foo","color"), where the first
-        parameter is the style from which the property is included and the second one is the name of the included property
-        in that style. 
-        There can be more than one occurrence of -tr-property-ref in a property value, for example:
-        background: -webkit-linear-gradient(top, -tr-property-ref("af|foo","color") 0%, -tr-property-ref("af|bar","color") 100%);
-        When the property included has the same name as in the including selector, the following syntax
-        can also be used: background-color: -tr-property-ref("af|foo") instead of: background-color: -tr-property-ref("af|foo",
-        "background-color"). This is useful when only some properties from another style are needed to be included.
-        In this case, we won't need to include the entire style via a -tr-rule-ref rule, but only the needed property.
-        </li>
-        <li>
-        <strong>+/-</strong> - > This feature of the skinning framework allows you to set
-        a selector's color or font that is relative to another selector's color or font. 
-        This is useful if you have color ramps. You can change the color in one place. An example
-        for the color is:
-        <source>
+
+            This definition makes no sense. If your intent is to remove the color attribute,
+            then you should simple say:
+            .SomeStyleClass {font-size: 11px}
+            You shouldn't be setting a property, then inhibiting it in the same definition, or even the same skin.
+            Inhibits happen first in the same rule, then the specific styles, so if you inhibit a property, and also
+            define a property in the same rule, it won't be inhibited.
+            However, if you define .SomeStyleClass {-tr-inhibit: color;} later in Skin A, it will be inhibited.
+            Again, do not inhibit within the same skin. It takes more programming cycles to do the merge, and your css
+            isn't as clean.
+            ]]>
+          </source>
+          </li>
+          <li>
+          <strong>-tr-rule-ref</strong> - > This is used to include other styles in your style see :alias
+          section. Application developers probably won't use this. This is meant for component developers to use when
+          they are setting up the base skin for their components.
+          Here are some examples of how you can use -tr-rule-ref and what the generated css would be.
+          <source>
+            <![CDATA[
+            Example 1:
+
+            Skin A
+
+                .AFSomeAlias:alias {color: red}
+                .foo {-tr-rule-ref: selector(".AFSomeAlias:alias")}
+
+            Skin B extends Skin A
+
+                .AFSomeAlias:alias {color: blue}
+
+            Result
+
+            If you run Skin A, you will see in your CSS
+                .foo {color: red}
+
+            In you run Skin B, you will see in your CSS
+                .foo {color: blue}
+            because the alias that .foo includes (.AFSomeAlias:alias) in Skin A has
+            overwritten its color property in Skin B to blue.
+
+            ---
+            Example 2:
+
+            Skin A
+
+                .myClass {color: orange}
+
+            Skin B extends Skin A
+
+                .MyBlueColor:alias {color: blue}
+                .myClass {color: pink; -tr-rule-ref: selector(".MyBlueColor:alias")}
+
+            If you run Skin A, you will see in your CSS
+                .myClass {color: orange}
+
+            In you run Skin B, you will see in your CSS
+                .myClass {color: pink}
+
+            In Skin B's definition for .myClass, all 'includes' (like -tr-rule-ref) get merged in first,
+            then specific property definitions (like color in this case) get merged in last for the rule.
+            Therefore, color: pink overwrites -tr-rule-ref: selector(".MyBlueColor:alias");
+            However, if you define .myClass {-tr-rule-ref: selector(".MyBlueColor:alias")} later in Skin B, it will be blue.
+
+            If you are unsure of what includes or inhibits resolve to, you can run your own skinning test like
+            above, and look at the generated css file.
+            ]]>
+          </source>
+          </li>
+          <li>
+          <strong>-tr-property-ref</strong> - > This is used to include properties from one style into another.
+          The syntax of -tr-property-ref is: background-color: -tr-property-ref("af|foo","color"), where the first
+          parameter is the style from which the property is included and the second one is the name of the included property
+          in that style.
+          There can be more than one occurrence of -tr-property-ref in a property value, for example:
+          background: -webkit-linear-gradient(top, -tr-property-ref("af|foo","color") 0%, -tr-property-ref("af|bar","color") 100%);
+          When the property included has the same name as in the including selector, the following syntax
+          can also be used: background-color: -tr-property-ref("af|foo") instead of: background-color: -tr-property-ref("af|foo",
+          "background-color"). This is useful when only some properties from another style are needed to be included.
+          In this case, we won't need to include the entire style via a -tr-rule-ref rule, but only the needed property.
+          </li>
+          <li>
+          <strong>+/-</strong> - > This feature of the skinning framework allows you to set
+          a selector's color or font that is relative to another selector's color or font.
+          This is useful if you have color ramps. You can change the color in one place. An example
+          for the color is:
+          <source>
           <![CDATA[
           .BaseBG:alias { background-color: #0099ff; }
           .fooColorTest {
@@ -985,25 +995,30 @@ public class SkinTranslationMapDemo
             background-color: -#333333;
           }
 
-this resolves to
+    this resolves to
 
           .fooColorTest {background-color:#33ccff}
           .fooColorTestMinus {background-color:#0066cc}
           ]]>
-        </source>
-        The same thing works for fonts.
-        <source>
-          <![CDATA[    
-            .FontSizeTest:alias {font-size: 12pt;}
+          </source>
+          The same thing works for fonts.
+          <source>
+            <![CDATA[
+              .FontSizeTest:alias {font-size: 12pt;}
 
-            .fooFontTest {
-              -tr-rule-ref: selector(".FontSizeTest:alias");
-              font-size:+1pt;
-            }
-          ]]>
-        </source>        
-        </li>
-        </ul>
+              .fooFontTest {
+                -tr-rule-ref: selector(".FontSizeTest:alias");
+                font-size:+1pt;
+              }
+            ]]>
+          </source>
+          </li>
+          </ul>
+          </P>
+        </subsection>
+
+        <a name="server-side-at-rules"></a>
+        <subsection name="Server side at-rules">
         <P>
         You might not want your selector's css properties to be applied to all browsers, all platforms, 
         all locales, and both reading-directions. For example, you
@@ -1015,10 +1030,12 @@ this resolves to
         The skinning framework picks the styles based on the HTTP request information, like agent
         and platform and merges them with the styles without rules.       
         These css properties that match the 'rules' get merged with those outside of any 'rules'; 
-        the most specific rules that match a user's environment take precedence. 
+        the most specific rules that match a user's environment take precedence.
+        These rules are resolved at server side and matching selectors are rendered for the
+        user agent.
         (See an example in the css code below.)
 
-        The skinning framework currently supports these 'rules':
+        The skinning framework currently supports these server side 'rules':
         </P>
         <ul>
         <li>
@@ -1243,7 +1260,106 @@ this resolves to
         }        
         
         </source>
-        </P>
+       </subsection>
+
+        <a name="client-side-at-rules"></a>
+        <subsection name="Client side at-rules">
+          <P>
+          If you want to use rules that are supported out of the box by CSS like @document, @media etc, you can
+          specify those rules in the skin file and expect them to be rendered directly into the browser. These rules
+          will be evaluated by the browser and styles will get applied if the browser passes the conditions
+          mentioned in the rules.
+
+          The skinning framework currently supports these client side 'rules':
+          </P>
+
+          <ul>
+            <li>@document</li>
+            <li>@font-face</li>
+            <li>@keyframes</li>
+            <li>@media</li>
+            <li>@page</li>
+            <li>@supports</li>
+          </ul>
+
+          <P>
+          If you use any rule which is not listed in either server side at-rules or client side at-rules, it will be
+          rendered as client side rule similar to @media or @document.
+          <b>Note:</b>
+          Styles inside client side at-rules cannot be used with tr-rules. This is because, in server side, we do not
+          know if the referred style will be rendered.
+          On the contrary, tr-rules can be used inside client side at-rules to refer styles or properties define outside
+          client rules.
+
+          Some example usages:
+          </P>
+          <source>
+
+af|document {
+  background-color: white;
+  background-image: url('/skins/custom-base/top-band.png'), url('/skins/custom-base/texture.png');
+  background-repeat: repeat-x, repeat;
+  background-position: top left, top left;
+  background-size: 10px 61px, 6px 6px;
+}
+
+/* specify different background-image for min-device-pixel-ratio = 2 */
+@media only screen and (min-device-pixel-ratio: 2) {
+  af|document {
+    background-image: url('/skins/custom-base/top-band@2x.png'), url('/skins/custom-base/texture@2x.png');
+  }
+}
+
+/* specify different background-image for min-resolution: 2dppx*/
+@media only screen and (min-resolution: 2dppx) {
+  af|document {
+    background-image: url('/skins/custom-base/top-band@2x.png'), url('/skins/custom-base/texture@2x.png');
+  }
+}
+
+.Some:alias {
+  color: red;
+  background-color: green;
+}
+
+@media only screen {
+  af|mystyle {
+    -tr-rule-ref: selector(".Some:alias");
+  }
+  af|mystyle2 {
+    background-color: -tr-property-ref(".Some:alias","color");
+  }
+}
+          </source>
+          <p>
+          Client side at-rules can be nested in server side at-rules and vice versa. One slight deviation is for @page
+          and @font-face rules. These can be wrapped in a server side at-rule, but cannot contain a inner server side
+          at-rule because these rules directly contain CSS properties unlike other client side at-rules which contains
+          complete styles.
+          </p>
+          <source>
+@agent gecko {
+  @page:first {
+    margin:2in;
+  }
+}
+
+@keyframes mymove {
+  @agent gecko {
+    0% { top: 0; left: 0; }
+    30% { top: 50px; }
+    68%, 72% { left: 50px; }
+    100% { top: 100px; left: 100%; }
+  }
+
+  @agent ie {
+    0% { top: 1; left: 1; }
+    30% { top: 100px; }
+    100% { top: 200px; left: 100%; }
+  }
+}
+          </source>
+        </subsection>
       </section>
       <a name="Package_Skin_In_JAR"></a>
       <section name="Package your Skin in a JAR file">

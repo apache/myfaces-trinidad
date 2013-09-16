@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
 import java.util.regex.Pattern;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
@@ -44,7 +43,6 @@ import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidad.util.ArrayMap;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
-
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
@@ -204,7 +202,7 @@ public class StyleSheetDocument
   }
 
   /**
-   * Returns an Iterator of StyleNode objects for the specified context.
+   * Returns an Iterator of IconNode objects for the specified context.
    */
    @SuppressWarnings("unchecked")
   public Iterator<IconNode> getIcons(StyleContext context)
@@ -242,15 +240,15 @@ public class StyleSheetDocument
     for (StyleSheetNode styleSheet : styleSheets.styleSheets())
     {
       Iterable<IconNode> iconNodeList = styleSheet.getIcons();
+
       // iterate through each one and add to the list.
       for (IconNode iconNodeFromStyleSheet : iconNodeList)
       {
-        String id;
+        StyleNode sNode = iconNodeFromStyleSheet.getStyleNode();
+        String clientRule = (sNode == null) ? null : sNode.getClientRule();
         boolean isFound;
-
-
-        id = iconNodeFromStyleSheet.getIconName();
-        isFound = foundNames.contains(id);
+        String id = iconNodeFromStyleSheet.getIconName();
+        isFound = foundNames.contains(sNode.getId());
         
 
         // If we've already seen that node/selector, no need to look
@@ -264,19 +262,19 @@ public class StyleSheetDocument
                                                      null,
                                                      null,
                                                      id,
-                                                     false);
+                                                     false,
+                                                     sNode.getId(),
+                                                     clientRule);
 
           // Create the Icon
           if (resolvedNode != null)        
           {
-
             Icon icon = _createIconFromNode(resolvedNode);
 
             if (icon != null)
             {
               iconNodes.add(new IconNode(id, icon, resolvedNode));
-
-              foundNames.add(id);
+              foundNames.add(resolvedNode.getId());
             }
           }
         }
@@ -284,7 +282,6 @@ public class StyleSheetDocument
     }
 
     return iconNodes.iterator();
-  
   }
 
   /**
@@ -474,7 +471,7 @@ public class StyleSheetDocument
 
       for (StyleNode node : styleNodeList)
       {
-        String id;
+        String id, cacheId = node.getId();
         boolean isFound;
         boolean isNamed;
 
@@ -483,13 +480,13 @@ public class StyleSheetDocument
         {
           isNamed = true;
           id = node.getName();
-          isFound = foundNames.contains(id);
+          isFound = foundNames.contains(cacheId);
         }
         else
         {
           isNamed = false;
           id = node.getSelector();
-          isFound = foundSelectors.contains(id);
+          isFound = foundSelectors.contains(cacheId);
         }
 
         // If we've already seen that node/selector, no need to look
@@ -503,16 +500,19 @@ public class StyleSheetDocument
                                                  null,
                                                  null,
                                                  id,
-                                                 isNamed);
+                                                 isNamed,
+                                                 cacheId,
+                                                 node.getClientRule());
 
           // If we got a node, add it in to our list
           if (resolvedNode != null)        
           {
+            cacheId = resolvedNode.getId();
             styles.add(resolvedNode);
             if (isNamed)
-              foundNames.add(id);
+              foundNames.add(cacheId);
             else
-              foundSelectors.add(id);
+              foundSelectors.add(cacheId);
           }
         }
       }
@@ -607,7 +607,10 @@ public class StyleSheetDocument
                          null,               // Include stack
                          null,               // Named include stack
                          id,
-                         isNamed);
+                         isNamed,
+                         null, // pass null here - because the query is for retrieving StyleNode by selector or name
+                         null // pass null here - because the query is for retrieving StyleNode by selector or name
+    );
   }
 
   /**
@@ -631,6 +634,8 @@ public class StyleSheetDocument
    *          already been visited.  Used to detect circular dependencies.
    * @param id The selector or name of the style to resolve
    * @param isNamed A boolean indicating whether the id is a name or selector.
+   * @param cacheId cache id for the node
+   * @param clientRule client rule if any for the node
    * @return Returns the fully resolved StyleNode, or null if the style
    *           could not be resolved.  Also, as a side-effect, the
    *           resolved style is stored in the appropriate resolved style
@@ -645,7 +650,9 @@ public class StyleSheetDocument
     Deque<String>          includesStack,
     Deque<String>          namedIncludesStack,
     String                 id,
-    boolean                isNamed
+    boolean                isNamed,
+    String                 cacheId,
+    String                 clientRule
     )
   {
     assert (styleSheets != null);
@@ -658,15 +665,16 @@ public class StyleSheetDocument
     String selector = null;
     String name = null;
 
+    if (cacheId == null) cacheId = id;
 
     if (isNamed)
     {
-      style = resolvedNamedStyles.get(id);
+      style = resolvedNamedStyles.get(cacheId);
       name = id;
     }
     else
     {
-      style = resolvedStyles.get(id);
+      style = resolvedStyles.get(cacheId);
       selector = id;
     }
 
@@ -684,8 +692,8 @@ public class StyleSheetDocument
     }
 
     // Next, make sure we don't have a circular dependency
-    if ((isNamed && _stackContains(namedIncludesStack, id)) ||
-        (!isNamed && _stackContains(includesStack, id)))
+    if ((isNamed && _stackContains(namedIncludesStack, cacheId)) ||
+        (!isNamed && _stackContains(includesStack, cacheId)))
     {
       if (_LOG.isWarning())
         _LOG.warning(_CIRCULAR_INCLUDE_ERROR + id);
@@ -694,7 +702,7 @@ public class StyleSheetDocument
 
     // Create the StyleEntry that we're going to use to store properties
     // as we are resolving this style
-    StyleEntry entry = new StyleEntry(selector, name);
+    StyleEntry entry = new StyleEntry(selector, name, clientRule);
 
     // Push this style onto the appropriate include stack
     if (isNamed)
@@ -702,26 +710,26 @@ public class StyleSheetDocument
       if (namedIncludesStack == null)
         namedIncludesStack = new ArrayDeque<String>();
 
-      namedIncludesStack.push(id);
+      namedIncludesStack.push(cacheId);
     }
     else
     {
       if (includesStack == null)
         includesStack = new ArrayDeque<String>();
 
-      includesStack.push(id);
+      includesStack.push(cacheId);
     }
 
     // styleSheets.styleNodes(id, isNamed) returns a List of StyleNodes that match the StyleContext
     // and have the same selector name. For example, if the css files contains 
     // .someStyle {color: red} .someStyle {font-size: 11px}
     // you will get two StyleNodes, and the properties will get merged together.
-    List<StyleNode> nodeList = styleSheets.styleNodes(id, isNamed);
+    List<StyleNode> nodeList = styleSheets.styleNodes(cacheId, isNamed);
     
     // get the StyleNodes from each iconNodeList and add it to the StyleNode list
     if (forIconNode)
     {
-      List<IconNode> iconNodeList = styleSheets.iconNodes(id);
+      List<IconNode> iconNodeList = styleSheets.iconNodes(cacheId);
 
       // protect against null - 
       // iconNodeList could be null if in SkinStyleSheetParserUtils 
@@ -776,14 +784,14 @@ public class StyleSheetDocument
       String namedStyle = resolvedNode.getName();
       if (namedStyle != null)
       {
-        resolvedNamedStyles.put(namedStyle, resolvedNode);
+        resolvedNamedStyles.put(resolvedNode.getId(), resolvedNode);
       }
       else 
       {
         String selectorStyle = resolvedNode.getSelector();
         if (selectorStyle != null)
         {
-          resolvedStyles.put(selectorStyle, resolvedNode);
+          resolvedStyles.put(resolvedNode.getId(), resolvedNode);
         }
       }
     }
@@ -850,6 +858,11 @@ public class StyleSheetDocument
             includeID = includeStyle.getSelector();
           }
         
+          // for include styles we do not support selectors and properties within client rules
+          // this is because, we cannot determine which selector or property should be applied,
+          // as the client rules are resolved on the browser.
+          // so we look for a selector or property without any client rules.
+          // thus pass null for cacheId and clientRule
           StyleNode resolvedNode = _resolveStyleNode(context, forIconNode,
                                                  styleSheets,
                                                  resolvedStyles,
@@ -857,7 +870,9 @@ public class StyleSheetDocument
                                                  includesStack,
                                                  namedIncludesStack,
                                                  includeID,
-                                                 includeIsNamed);
+                                                 includeIsNamed,
+                                                 null,
+                                                 null);
 
           if (resolvedNode != null)
             _addIncludedProperties(entry, resolvedNode);
@@ -1050,6 +1065,11 @@ public class StyleSheetDocument
       includeID = includeProperty.getSelector();
     }
     
+    // for include styles we do not support selectors and properties within client rules
+    // this is because, we cannot determine which selector or property should be applied,
+    // as the client rules are resolved on the browser.
+    // so we look for a selector or property without any client rules.
+    // thus pass null for cacheId and clientRule
     StyleNode resolvedNode = _resolveStyleNode(context, forIconNode,
                                            styleSheets,
                                            resolvedStyles,
@@ -1057,7 +1077,9 @@ public class StyleSheetDocument
                                            includesStack,
                                            namedIncludesStack,
                                            includeID,
-                                           includeIsNamed);
+                                           includeIsNamed,
+                                           null,
+                                           null);
     return resolvedNode;
   }
 
@@ -1391,11 +1413,11 @@ public class StyleSheetDocument
           // is in case someone created the same selector more than once, or overrode a selector.
           if (node.getName() != null)
           {
-            _addToStyleMap(_nameNodes, node, node.getName());
+            _addToStyleMap(_nameNodes, node, node.getId());
           }
           else
           {
-            _addToStyleMap(_selectorNodes, node, node.getSelector());
+            _addToStyleMap(_selectorNodes, node, node.getId());
           }
          
         }
@@ -1433,12 +1455,12 @@ public class StyleSheetDocument
      * Return a List of StyleNodes based on the "id" (either
      * a selector or name).
      * Call cacheStyleIds first if you want everything to be cached.
-     * @param id the selector or name
+     * @param cacheId for the selector or name
      * @param isNamed if true, interpret "id" as a name, otherwise
      *   as a selector
      * @return the list of StyleNodes (potentially null)
      */
-    public List<StyleNode> styleNodes(String id, boolean isNamed)
+    public List<StyleNode> styleNodes(String cacheId, boolean isNamed)
     {
       if (_styleSheets == null)
         return Collections.emptyList();
@@ -1446,7 +1468,7 @@ public class StyleSheetDocument
       Map<String, List<StyleNode>> m = isNamed ? _nameNodes : _selectorNodes;
       // Cached version - go to the Map
       if (m != null)
-        return m.get(id);
+        return m.get(cacheId);
       
       // Uncached version - iterate through everything and build up
       // the List, but do not cache it.
@@ -1459,16 +1481,8 @@ public class StyleSheetDocument
 
         for (StyleNode node : styleNodeList)
         {
-          if (isNamed)
-          {
-            if (id.equals(node.getName()))
-              l.add(node);
-          }
-          else
-          {
-            if (id.equals(node.getSelector()))
-              l.add(node);
-          }
+          if (cacheId.equals(node.getId()))
+            l.add(node);
         }
       }
       
@@ -1477,17 +1491,17 @@ public class StyleSheetDocument
    
     /**
      * Return a List of IconNodes based on the "id"
-     * @param id the icon selector name
+     * @param cacheId for the icon selector name
      * @return the list of IconNodes (potentially null)
      */
-    public List<IconNode> iconNodes(String id)
+    public List<IconNode> iconNodes(String cacheId)
     {
       if (_styleSheets == null)
         return Collections.emptyList();
       Map<String, List<IconNode>> m = _iconNodes;
       // Cached version - go to the Map
       if (m != null)
-        return m.get(id);
+        return m.get(cacheId);
       
       // Uncached version - iterate through everything and build up
       // the List, but do not cache it.
@@ -1500,10 +1514,8 @@ public class StyleSheetDocument
 
         for (IconNode node : iconNodeList)
         {
-
-            if (id.equals(node.getIconName()))
-              l.add(node);
-          
+          if (cacheId.equals(node.getStyleNode().getId()))
+            l.add(node);
         }
       }
       
@@ -1679,11 +1691,15 @@ public class StyleSheetDocument
     // The name of the style
     public final String name;
 
+    // client side rule such as @media, @keyframes etc
+    public final String clientRule;
+
     // Create a StyleEntry with the specified selector, name
-    public StyleEntry(String selector, String name)
+    public StyleEntry(String selector, String name, String clientRule)
     {
       this.selector = selector;
       this.name = name;
+      this.clientRule = clientRule;
     }
 
     public void addSkinProperty(PropertyNode property)
@@ -1814,7 +1830,7 @@ public class StyleSheetDocument
         // Create and return our StyleNode.  We don't need to specify
         // a name or included styles, as they have already been resolved.
         // StyleNode(name, selector, properties, skinProperties, includedStyles, includedProperties, inhibitedProperties)
-        return new StyleNode(name, selector, properties, skinProperties, null, null,null, null);
+        return new StyleNode(name, selector, clientRule, properties, skinProperties, null, null,null, null);
       }
     }
 
@@ -2155,6 +2171,7 @@ public class StyleSheetDocument
   // A StyleNode used as a placeholder for a style which couldn't be resolved
   private static final StyleNode _ERROR_STYLE_NODE = new StyleNode("error",
                                                                    "error",
+                                                                   null,
                                                                    null,
                                                                    null,
                                                                    null,

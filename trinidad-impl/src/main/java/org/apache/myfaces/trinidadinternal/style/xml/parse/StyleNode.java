@@ -41,6 +41,7 @@ public class StyleNode
   public StyleNode(
     String                 name,
     String                 selector,
+    String                 clientRule,
     PropertyNode[]         properties,
     PropertyNode[]         skinProperties,
     IncludeStyleNode[]     includedStyles,
@@ -51,6 +52,7 @@ public class StyleNode
   {
     this(name,
          selector,
+         clientRule,
          properties,
          skinProperties,
          includedStyles,
@@ -66,6 +68,7 @@ public class StyleNode
   public StyleNode(
     String                 name,
     String                 selector,
+    String                 clientRule,
     PropertyNode[]         properties,
     PropertyNode[]         skinProperties,
     IncludeStyleNode[]     includedStyles,
@@ -79,6 +82,7 @@ public class StyleNode
     // ---------------------------------------------
     _name = name;
     _selector = selector;
+    _clientRule = clientRule;
     _resetProperties = resetProperties;
 
 
@@ -203,6 +207,23 @@ public class StyleNode
   }
 
   /**
+   * @return clientRule
+   */
+  public String getClientRule()
+  {
+    return _clientRule;
+  }
+
+  /**
+   * util method to determine is a StyleNode has clientRule or not
+   * @return true if clientRule exists
+   */
+  public boolean hasClientRule()
+  {
+    return _clientRule != null && !_clientRule.isEmpty();
+  }
+
+  /**
    * Returns true if the style node has no properties. 
    */
   public boolean isEmpty()
@@ -306,6 +327,7 @@ public class StyleNode
     return
       (_name == test._name || (_name != null && _name.equals(test._name))) &&
       (_selector == test._selector || (_selector != null && _selector.equals(test._selector))) &&
+      (_clientRule == test._clientRule || (_clientRule != null && _clientRule.equals(test._clientRule))) &&
       (_resetProperties == test._resetProperties) &&
       (_inhibitAll == test._inhibitAll) &&
       (_inhibitedProperties.equals(test._inhibitedProperties)) &&
@@ -322,6 +344,7 @@ public class StyleNode
     int hash = 17;
     hash = 37*hash + ((null == _name) ? 0 : _name.hashCode());
     hash = 37*hash + ((null == _selector) ? 0 : _selector.hashCode());
+    hash = 37*hash + ((null == _clientRule) ? 0 : _clientRule.hashCode());
     hash = 37*hash + (_resetProperties ? 0 : 1);
     hash = 37*hash + (_inhibitAll ? 0 : 1);
     hash = 37*hash + _inhibitedProperties.hashCode();
@@ -340,6 +363,7 @@ public class StyleNode
     return getClass().getName() + "[" +
       "name="   + _name   + ", " +
       "selector=" + _selector + ", " +
+      "clientRule=" + _clientRule + ", " +
       "properties="  + _properties.toString()  + ", " +
       "skinProperties="  + _skinProperties.toString()  + ", " +
       "includeStyles="  + _includedStyles.toString()  + ", " +
@@ -359,8 +383,38 @@ public class StyleNode
     return _resetProperties;
   }
 
+  /**
+   * utility method to generate an id for a StyleNode.
+   * This is used in StyleSheetDocument object while resolving StyleNodes.
+   * This helps in distinguishing same selectors wrapped in different clientRules.
+   *
+   * @return id - clientRule if exists + selector or name whichever exist.
+   */
+  String getId()
+  {
+    StringBuilder id = new StringBuilder();
+
+    if (hasClientRule())
+    {
+      id.append(_clientRule);
+    }
+
+    // either one of _selector or _name should exist
+    if (_selector != null && !_selector.isEmpty())
+    {
+      id.append(_selector);
+    }
+    else if (_name != null && !_name.isEmpty())
+    {
+      id.append(_name);
+    }
+
+    return id.toString();
+  }
+
   private final String                     _name;
   private final String                     _selector;
+  private final String                     _clientRule;          // client side rules such as @media
   private final List<PropertyNode>         _properties;          // The property nodes
   private final List<PropertyNode>         _skinProperties;      // The skin property nodes
   private final List<IncludeStyleNode>     _includedStyles;      // Included styles

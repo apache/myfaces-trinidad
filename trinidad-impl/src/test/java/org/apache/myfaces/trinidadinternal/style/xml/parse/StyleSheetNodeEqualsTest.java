@@ -222,7 +222,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
       { new IncludePropertyNode("AFVeryDarkBackground", null, "background-color", "color") };
 
     return
-      new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes, null,
+      new StyleNode("AFDefaultFont", null, null, defaultFontPropertyNodes, null,
                     defaultFontIncludeStyles, defaultFontIncludeProperty, null, null, false);
 
   }
@@ -241,7 +241,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
       { new IncludePropertyNode("AFVeryDarkBackground", null, "background-color", "color") };
 
     return
-      new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes, null,
+      new StyleNode("AFDefaultFont", null, null, defaultFontPropertyNodes, null,
                     defaultFontIncludeStyles, defaultFontIncludeProperty, null, null, true);
 
   }
@@ -259,7 +259,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
 
 
     return
-        new StyleNode(null, "af|outputLabel:error", labelPropertyNodes, null, labelIncludeStyles,
+        new StyleNode(null, "af|outputLabel:error", null, labelPropertyNodes, null, labelIncludeStyles,
                       null, null, labelInhibitedProperties, false);
   }
 
@@ -273,7 +273,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
     anotherInhibitedProperties.add("background-color");
     anotherInhibitedProperties.add("font-size");
 
-    return  new StyleNode(null, "af|outputLabel:error", anotherPropertyNodes, null, anotherIncludeStyles,
+    return  new StyleNode(null, "af|outputLabel:error", null, anotherPropertyNodes, null, anotherIncludeStyles,
                           null, null, anotherInhibitedProperties, false);
   }
 

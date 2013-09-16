@@ -26,15 +26,15 @@ import java.io.StringReader;
 
 import java.text.ParseException;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.share.io.InputStreamProvider;
@@ -42,7 +42,6 @@ import org.apache.myfaces.trinidad.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.io.CachingInputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
-import org.apache.myfaces.trinidadinternal.share.xml.ParseErrorUtils;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
@@ -153,16 +152,21 @@ public class SkinCSSDocumentHandler
     
     for (int i = 0; i < selectorNum; i++)
     {
-       String selector = selectors.get(i);
-       CompleteSelectorNode node =
-         _createCompleteSelectorNode(selector,
+      String selector = selectors.get(i);
+
+      if (selector.startsWith(_AT_TOKEN))
+        selector = selector.replace(_AT_TOKEN, _AT);
+
+      CompleteSelectorNode node =
+        _createCompleteSelectorNode(selector,
                                      _propertyNodeList,
                                      _locales,
                                      _agentAtRuleMatcher,
                                      _selectorPlatforms,
                                      _getSelectorAccProperties(),
-                                     _mode);
-       _completeSelectorNodeList.add(node);
+                                     _mode, 
+                                     _clientRule);
+      _completeSelectorNodeList.add(node);
     }
     // reset flags
     _inStyleRule = false;
@@ -221,6 +225,12 @@ public class SkinCSSDocumentHandler
         else
           _parseImport(atRule);
       }
+      else if (atRule.startsWith(_AT_PAGE) || atRule.startsWith(_AT_FONT_FACE))
+      {
+        // @page and @font-face are client side selectors
+        // these should be rendered as @page { property: value }
+        _parseClientSideSelector(atRule);
+      }
       else if (atRule.startsWith(_AT_NAMESPACE))
       {
         _parseNamespace(_namespaceMap, atRule);
@@ -245,7 +255,12 @@ public class SkinCSSDocumentHandler
       {
         _parseCustomAtRule(_AT_MODE, atRule);
       }
-      // for now, ignore other atRules in a skinning css file
+      else if (atRule.startsWith(_AT))
+      {
+        // for all other rules that does not belong to server side
+        // assume that they are client rules
+        _parseCustomAtRule(null, atRule);
+      }
       
       // CSS spec says you ignore all @import rules after any other rules are processed
       // (except for @charset).
@@ -419,7 +434,23 @@ public class SkinCSSDocumentHandler
       stream.close();
     }
   }
-  
+
+  /**
+   * parses the special client side rules which are to be rendered as selectors
+   * and not rules
+   * @param atRule - client side rule content
+   * e.g. - @page:first { margin: 1in; }
+   * e.g. - @font-face { font-family: MyHelvetica; font-weight: bold; }
+   */
+  private void _parseClientSideSelector(String atRule)
+  {
+    // fool the parser by replacing '@' character so that it is parsed as a normal selector
+    // at the time we create CompleteSelectorNodes in endSelector we do the opposite
+    atRule = atRule.replace(_AT, _AT_TOKEN);
+    SkinCSSParser parser = new SkinCSSParser();
+    parser.parseCSSDocument(new StringReader(atRule), this);
+  }
+
   /** Get the atRule, and send its contents through the SkinCSSParser
    * again, using the current DocumentHandler object. The start/end
    * callbacks will be called again, but in the context of the atRule.
@@ -442,11 +473,13 @@ public class SkinCSSDocumentHandler
     _resetAtRuleTargetTypes(type);
 
   }
-  
+
   private void _resetAtRuleTargetTypes(
     String type)
   {
-    if (_AT_AGENT.equals(type))
+    if (type == null)
+      _clientRule = null;
+    else if (_AT_AGENT.equals(type))
       _agentAtRuleMatcher = null;
     else if (_AT_PLATFORM.equals(type))
       _selectorPlatforms = null;
@@ -474,7 +507,8 @@ public class SkinCSSDocumentHandler
     AgentAtRuleMatcher         agentMatcher,
     int[]                      selectorPlatforms,
     Set<String>                selectorAccProperties,
-    int                        mode)
+    int                        mode,
+    String                     clientRule)
   {
     // parse the selector to see if there is a :rtl or :ltr ending.
     // if so, then set the reading direction.
@@ -503,7 +537,8 @@ public class SkinCSSDocumentHandler
         agentMatcher,
         selectorPlatforms,
         selectorAccProperties,
-        mode);
+        mode,
+        clientRule);
   }
 
   /**
@@ -530,6 +565,7 @@ public class SkinCSSDocumentHandler
       Set<Locale> locales = completeSelectorNode.getLocales();
       Set<String> accProperties = completeSelectorNode.getAccessibilityProperties();
       int mode = completeSelectorNode.getMode();
+      String clientRule = completeSelectorNode.getClientRule();
 
       // loop through the skinStyleSheetNodeList to find a match
       // of direction, agents, platforms, etc.
@@ -540,7 +576,7 @@ public class SkinCSSDocumentHandler
       for (int i = skinStyleSheetNodes.size() - 1; i >= 0 && !match; --i)
       {
         SkinStyleSheetNode ssNode = skinStyleSheetNodes.get(i);
-        match = ssNode.matches(direction, agentMatcher, platforms, locales, accProperties, mode);
+        match = ssNode.matches(direction, agentMatcher, platforms, locales, accProperties, mode, clientRule);
 
         if (match)
           ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
@@ -549,8 +585,15 @@ public class SkinCSSDocumentHandler
       if (!match)
       {
         // no matching stylesheet node found, so create a new one
-        SkinStyleSheetNode ssNode =
-         new SkinStyleSheetNode(namespaceMap, direction, locales, agentMatcher, platforms, accProperties, mode);
+        SkinStyleSheetNode ssNode = new SkinStyleSheetNode(namespaceMap,
+                                                           direction,
+                                                           locales,
+                                                           agentMatcher,
+                                                           platforms,
+                                                           accProperties,
+                                                           mode,
+                                                           clientRule);
+
         ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
         skinStyleSheetNodes.add(ssNode);
       }
@@ -577,8 +620,12 @@ public class SkinCSSDocumentHandler
     {
       String types = atRule.substring(firstSpace, openBrace);
       String[] typeArray = types.split(",");
-      
-      if (_AT_AGENT.equals(type))
+
+      if (type == null)
+      {
+        _clientRule = atRule.substring(0, openBrace);
+      }
+      else if (_AT_AGENT.equals(type))
       {
         _agentAtRuleMatcher = new AgentAtRuleMatcher(typeArray);
       }
@@ -657,7 +704,7 @@ public class SkinCSSDocumentHandler
   
     return array;
   }
-   
+
    /**
     * 
     * @param atRule - the entire @rule's definition, including content.
@@ -674,9 +721,9 @@ public class SkinCSSDocumentHandler
       
     if (openBraceIndex == -1)
       return null;
-    else
-     return atRule.substring(openBraceIndex+1, endBraceIndex);
-   
+    else 
+      return atRule.substring(openBraceIndex+1, endBraceIndex);
+  
   }
 
   // Returns the accessibility properties in effect for the current selector
@@ -756,7 +803,8 @@ public class SkinCSSDocumentHandler
       AgentAtRuleMatcher         agentMatcher,
       int[]                      platforms,
       Set<String>                accProperties,
-      int                        mode
+      int                        mode,
+      String                     clientRule
       )
     {
       _node = new SkinSelectorPropertiesNode(selectorName, propertyNodes);
@@ -781,6 +829,7 @@ public class SkinCSSDocumentHandler
         _accProperties = null;
       }
       _mode = mode;
+      _clientRule = clientRule;
     }
     
     public SkinSelectorPropertiesNode getSkinSelectorPropertiesNode()
@@ -821,6 +870,11 @@ public class SkinCSSDocumentHandler
       return _mode;
     }
 
+    public String getClientRule()
+    {
+      return _clientRule;
+    }
+
     // Returns a copy of the int array
     private static int[] _copyIntArray(int[] array)
     {
@@ -840,6 +894,7 @@ public class SkinCSSDocumentHandler
     private final Set<Locale> _locales; 
     private final Set<String> _accProperties;
     private int _mode;
+    private final String _clientRule;
   }
 
   private static final String _AT_AGENT = "@agent";
@@ -850,6 +905,12 @@ public class SkinCSSDocumentHandler
   private static final String _AT_IMPORT = "@import";
   private static final String _AT_NAMESPACE = "@namespace";
   private static final String _AT_CHARSET = "@charset";
+
+  // special client side rules which need to be rendered as selectors
+  private static final String _AT_FONT_FACE = "@font-face";
+  private static final String _AT_PAGE = "@page";
+  private static final String _AT_TOKEN = "_AT_TOKEN_";
+  private static final String _AT = "@";
 
 
   // below are properties that we set and reset
@@ -872,6 +933,9 @@ public class SkinCSSDocumentHandler
 
   //the mode for which the parsed selectors are valid.
   private int _mode = ModeUtils.MODE_DEFAULT;
+
+  // client side rule to be rendered as is to the css, eg: @media, @document, @keyframes
+  private String _clientRule;
 
   // Stack of accessibility property sets.  While java.util.Stack has the
   // push/pop API that we want, we don't need the synchronization, so we

@@ -194,7 +194,8 @@ class SkinStyleSheetParserUtils
     // loop through the selectors and its properties
     for (SkinStyleSheetNode skinSSNode : skinSSNodeList)
     {
-
+      // client rule such as @media, @keyframes
+      String clientRule = skinSSNode.getClientRule();
       // selector and its properties
       List <SkinSelectorPropertiesNode> selectorNodeList =
         skinSSNode.getSelectorNodeList();
@@ -246,12 +247,13 @@ class SkinStyleSheetParserUtils
           // create an IconNode object and add it to the iconNodeList
           // This method returns hasContentProperty=false if there isn't a content attribute.
           boolean hasContentProperty = _addIconNode(sourceName,
-                                              baseSourceURI,
-                                              selectorName,
-                                              noTrPropertyList,
-                                              resolvedProperties.getTrRuleRefList(),
-                                              resolvedProperties.getInhibitedProperties(),    
-                                              iconNodeList);
+                                                    baseSourceURI,
+                                                    selectorName,
+                                                    clientRule,
+                                                    noTrPropertyList,
+                                                    resolvedProperties.getTrRuleRefList(),
+                                                    resolvedProperties.getInhibitedProperties(),
+                                                    iconNodeList);
 
           if (!hasContentProperty)
           {
@@ -266,6 +268,7 @@ class SkinStyleSheetParserUtils
                 _LOG.warning("SELECTOR_SHOULD_NOT_END_IN_ICON", selectorName);
             }
             _addStyleNode(selectorName,
+                          clientRule,
                           noTrPropertyList,
                           trSkinPropertyNodeList,
                           resolvedProperties.getTrRuleRefList(),
@@ -280,6 +283,7 @@ class SkinStyleSheetParserUtils
         {
 
           _addStyleNode(selectorName,
+                        clientRule,
                         noTrPropertyList,
                         trSkinPropertyNodeList,
                         resolvedProperties.getTrRuleRefList(),
@@ -561,6 +565,7 @@ class SkinStyleSheetParserUtils
     String             sourceName,
     String             baseSourceURI,
     String             selectorName,
+    String             clientRule,
     List<PropertyNode> noTrPropertyNodeList,
     List<String>       trRuleRefList,
     Set<String>        inhibitedProperties,
@@ -693,6 +698,7 @@ class SkinStyleSheetParserUtils
       StyleNode styleNode =
         new StyleNode(null, // name
                       selectorName,
+                      clientRule,
                       propertyNodeArray,
                       null, //TODO jmw trSkinPropertyNodes for icons
                       includeStyleNodes.toArray(new IncludeStyleNode[0]),
@@ -731,6 +737,7 @@ class SkinStyleSheetParserUtils
    */
   private static void _addStyleNode(
     String                    selectorName,
+    String                    clientRule,
     List<PropertyNode>        propertyNodeList,
     List<PropertyNode>        skinPropertyNodeList,
     List<String>              trRuleRefList,
@@ -741,7 +748,10 @@ class SkinStyleSheetParserUtils
     List<StyleNode>           styleNodeList)
   {
 
-    StyleNode styleNode = _createStyleNode(selectorName, propertyNodeList, skinPropertyNodeList,
+    StyleNode styleNode = _createStyleNode(selectorName,
+                                           clientRule,
+                                           propertyNodeList,
+                                           skinPropertyNodeList,
                                            trRuleRefList, 
                                            includePropertyNodes,
                                            embeddedIncludePropertyNodes,
@@ -754,6 +764,7 @@ class SkinStyleSheetParserUtils
 
   private static StyleNode _createStyleNode(
     String                    selectorName,
+    String                    clientRule,
     List<PropertyNode>        propertyNodeList,
     List<PropertyNode>        skinPropertyNodeList,
     List<String>              trRuleRefList,
@@ -816,6 +827,7 @@ class SkinStyleSheetParserUtils
     StyleNode styleNode =
       new StyleNode(name,
                     selector,
+                    clientRule,
                     propertyArray,
                     skinPropertyNodeList.isEmpty() ?
                       null : skinPropertyNodeList.toArray(new PropertyNode[0]),
