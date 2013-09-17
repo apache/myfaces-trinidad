@@ -47,6 +47,7 @@ import javax.validation.Validation;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
@@ -244,6 +245,8 @@ abstract public class UIXEditableValueTemplate
     if (!isRendered())
       return;
 
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
     try
     {
@@ -255,6 +258,7 @@ abstract public class UIXEditableValueTemplate
     finally
     {
       popComponentFromEL(context);
+      requestContext.popCurrentComponent(context, this);
     }
   }
 
@@ -265,6 +269,8 @@ abstract public class UIXEditableValueTemplate
     if (!isRendered())
       return;
 
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
     try
     {
@@ -276,6 +282,7 @@ abstract public class UIXEditableValueTemplate
     finally
     {
       popComponentFromEL(context);
+      requestContext.popCurrentComponent(context, this);
     }
 
     if (!isValid())
@@ -291,6 +298,8 @@ abstract public class UIXEditableValueTemplate
     if (!isRendered())
       return;
 
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
     try
     {
@@ -302,6 +311,7 @@ abstract public class UIXEditableValueTemplate
     finally
     {
       popComponentFromEL(context);
+      requestContext.popCurrentComponent(context, this);
     }
   }
 

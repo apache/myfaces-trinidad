@@ -2074,9 +2074,6 @@ abstract public class UIXComponentBase extends UIXComponent
 
     boolean invokedComponent;
 
-    // push component to the stack before invoking the component.
-    RequestContext requestContext = RequestContext.getCurrentInstance();
-    requestContext.pushCurrentComponent(context, this);
     setupVisitingContext(context);
 
     try
@@ -2085,6 +2082,8 @@ abstract public class UIXComponentBase extends UIXComponent
 
       if (clientId.equals(thisClientId))
       {
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.pushCurrentComponent(context, this);
         pushComponentToEL(context, null);
 
         try
@@ -2095,6 +2094,7 @@ abstract public class UIXComponentBase extends UIXComponent
         finally
         {
           popComponentFromEL(context);
+          requestContext.popCurrentComponent(context, this);
         }
 
         invokedComponent = true;
@@ -2121,9 +2121,6 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       // teardown the context now that we have visited the children
       tearDownVisitingContext(context);
-
-      // pop the component out from the stack after invoking this component.
-      requestContext.popCurrentComponent(context, this);
     }
 
     return invokedComponent;
@@ -2153,6 +2150,9 @@ abstract public class UIXComponentBase extends UIXComponent
 
       if (clientId.equals(thisClientId))
       {
+        // push component to the stack before invoking the component.
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.pushCurrentComponent(context, this);
         pushComponentToEL(context, null);
 
         try
@@ -2163,6 +2163,7 @@ abstract public class UIXComponentBase extends UIXComponent
         finally
         {
           popComponentFromEL(context);
+          requestContext.popCurrentComponent(context, this);
         }
 
         // we found the component

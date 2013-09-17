@@ -39,6 +39,7 @@ import javax.faces.event.PhaseId;
 
 import javax.faces.render.Renderer;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.LocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.ModelUtils;
@@ -96,6 +97,8 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
           @Override
           protected void process(UIComponent kid, ComponentProcessingContext cpContext) throws IOException
           {
+            RequestContext requestContext = cpContext.getRequestContext();
+            requestContext.pushCurrentComponent(context, kid);
             kid.pushComponentToEL(context, null);
 
             try
@@ -105,6 +108,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
             finally
             {
               kid.popComponentFromEL(context);
+              requestContext.popCurrentComponent(context, kid);
             }
           }
         };

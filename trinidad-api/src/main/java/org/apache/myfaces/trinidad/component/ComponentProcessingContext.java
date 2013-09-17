@@ -21,6 +21,8 @@ package org.apache.myfaces.trinidad.component;
 import java.util.Collections;
 import java.util.Set;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
+
 /**
  * ProcessingContext passed to FlattenedComponents and ComponentProcessors representing the
  * current component iteration context.
@@ -35,6 +37,7 @@ public final class ComponentProcessingContext
 {
   ComponentProcessingContext()
   {      
+    _requestContext = RequestContext.getCurrentInstance();
   }
 
   /**
@@ -89,6 +92,11 @@ public final class ComponentProcessingContext
     return _hints;
   }
 
+  public RequestContext getRequestContext()
+  {
+    return _requestContext;
+  }
+
   /**
    * Increment the grouping and startGroup states.
    * <p>
@@ -130,7 +138,7 @@ public final class ComponentProcessingContext
   {
     _startDepth = 0;
   }
-  
+
   /**
    * Handshake from the UIXComponent
    */
@@ -142,4 +150,5 @@ public final class ComponentProcessingContext
   private int _startDepth;
   private int _groupDepth;
   private Set<ProcessingHint> _hints = Collections.emptySet();
+  private RequestContext _requestContext = null;
 }

@@ -166,60 +166,52 @@ abstract public class UIXComponent extends UIComponent
   {
     if (child.isRendered())
     {
-      RequestContext requestContext = RequestContext.getCurrentInstance();
-      requestContext.pushCurrentComponent(context, child);
-      try
+       // component is an action FlattenedComponent.  Ask it to flatten its children
+      if ((child instanceof FlattenedComponent) &&
+          ((FlattenedComponent)child).isFlatteningChildren(context))
       {
-
-         // component is an action FlattenedComponent.  Ask it to flatten its children
-        if ((child instanceof FlattenedComponent) &&
-            ((FlattenedComponent)child).isFlatteningChildren(context))
-        {
-          return ((FlattenedComponent)child).processFlattenedChildren(context,
-                                                                      cpContext,
-                                                                      childProcessor,
-                                                                      callbackContext);
-        }
-        else
-        {
-          boolean processed = true;
-          child.pushComponentToEL(context, null);
-
-          try
-          {
-            if (isFlattenableCoreComponent(child))
-            {
-              processed =
-                  processFlattenedChildren(context, cpContext, childProcessor,
-                                           child.getChildren(),
-                                           callbackContext);
-            }
-            else
-            {
-              try
-              {
-                // not a FlattenedComponent, pass the component directly to the ComponentProcessor
-                childProcessor.processComponent(context, cpContext, child,
-                                                callbackContext);
-              }
-              finally
-              {
-                // if startDepth is > 0, only the first visible child will be marked as starting a group
-                cpContext.resetStartDepth();
-              }
-            }
-          }
-          finally
-          {
-            child.popComponentFromEL(context);
-          }
-
-          return processed;
-        }
+        return ((FlattenedComponent)child).processFlattenedChildren(context,
+                                                                    cpContext,
+                                                                    childProcessor,
+                                                                    callbackContext);
       }
-      finally
+      else
       {
-        requestContext.popCurrentComponent(context, child);
+        boolean processed = true;
+        RequestContext requestContext = cpContext.getRequestContext();
+        requestContext.pushCurrentComponent(context, child);
+        child.pushComponentToEL(context, null);
+        try
+        {
+          if (isFlattenableCoreComponent(child))
+          {
+            processed =
+                processFlattenedChildren(context, cpContext, childProcessor,
+                                         child.getChildren(),
+                                         callbackContext);
+          }
+          else
+          {
+            try
+            {
+              // not a FlattenedComponent, pass the component directly to the ComponentProcessor
+              childProcessor.processComponent(context, cpContext, child,
+                                              callbackContext);
+            }
+            finally
+            {
+              // if startDepth is > 0, only the first visible child will be marked as starting a group
+              cpContext.resetStartDepth();
+            }
+          }
+        }
+        finally
+        {
+          child.popComponentFromEL(context);
+          requestContext.popCurrentComponent(context, child);
+        }
+
+        return processed;
       }
     }
     else
@@ -355,14 +347,17 @@ abstract public class UIXComponent extends UIComponent
   {
     UIComponent component = event.getComponent();
     UIComponent compositeParent = null;
+    RequestContext requestContext = RequestContext.getCurrentInstance();
     if (!UIComponent.isCompositeComponent(component))
     {
       compositeParent = UIComponent.getCompositeComponentParent(component);
       if (compositeParent != null) 
       {
+        requestContext.pushCurrentComponent(context, compositeParent);
         compositeParent.pushComponentToEL(context, null);
       }
     }
+    requestContext.pushCurrentComponent(context, component);
     component.pushComponentToEL(context, null);
     try
     {
@@ -371,9 +366,11 @@ abstract public class UIXComponent extends UIComponent
     finally
     {
       component.popComponentFromEL(context);
+      requestContext.popCurrentComponent(context, component);
       if (compositeParent != null) 
       {
         compositeParent.popComponentFromEL(context);
+        requestContext.popCurrentComponent(context, compositeParent);
       }
     }
   }

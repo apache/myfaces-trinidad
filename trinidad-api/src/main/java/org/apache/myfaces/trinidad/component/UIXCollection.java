@@ -1247,6 +1247,8 @@ public abstract class UIXCollection extends UIXComponentBase
           __flushCachedModel();
         }
 
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.pushCurrentComponent(context, this);
         pushComponentToEL(context, null);
 
         try
@@ -1256,6 +1258,7 @@ public abstract class UIXCollection extends UIXComponentBase
         finally
         {
           popComponentFromEL(context);
+          requestContext.popCurrentComponent(context, this);
         }
 
         invokedComponent = true;
