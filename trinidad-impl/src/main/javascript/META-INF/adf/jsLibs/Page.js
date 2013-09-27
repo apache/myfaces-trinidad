@@ -734,8 +734,9 @@ TrPage._getTextContent = function (element)
     var textContent = element.innerText;
     if (textContent == undefined)
       textContent = element.text;
+	  
     // TRINIDAD-2408 : For IE10 textContent attribute can be used to get the text content.
-    else if (textContent == undefined)
+    if (textContent == undefined)
       textContent = element.textContent;
 
     return textContent;
