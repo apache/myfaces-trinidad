@@ -417,6 +417,22 @@ abstract public class UIXComponent extends UIComponent
   protected Iterator<UIComponent> getRenderedFacetsAndChildren(
     FacesContext facesContext)
   {
+    return defaultGetRenderedFacetsAndChildren(facesContext);
+  }
+
+  /**
+   * Default implementation of getRenderedFacetsAndChildren for cases where a
+   * UIXComponent subclass wants to restore the default implementation that one of its
+   * superclasses have overridden.
+   * 
+   *
+   * @param facesContext the facesContext
+   * @return An iterator of components to process. Must not return null (return an empty iterator
+   * if no children components should be processed).
+   */
+  protected final Iterator<UIComponent> defaultGetRenderedFacetsAndChildren(
+    FacesContext facesContext)
+  {
     Renderer renderer = getRenderer(facesContext);
     if (renderer instanceof CoreRenderer)
     {
