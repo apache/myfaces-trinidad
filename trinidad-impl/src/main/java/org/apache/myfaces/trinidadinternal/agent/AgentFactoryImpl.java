@@ -963,6 +963,7 @@ public class AgentFactoryImpl implements AgentFactory
    */
   private void _populateMozillaAgentImpl(String agent, AgentImpl agentObj)
   {
+    int ieTridentIndex = -1;
     int paren = agent.indexOf('(');
     agentObj.setType(Agent.TYPE_DESKTOP); //Is this default realli okay??? These days Mobile agents also use Mozilla/xx.xx
 
@@ -981,6 +982,22 @@ public class AgentFactoryImpl implements AgentFactory
         agentObj.setType(Agent.TYPE_DESKTOP);
         agentObj.setAgent(Agent.AGENT_KONQUEROR);
         agentObj.setAgentVersion(_getVersion(agent, agent.lastIndexOf('/')));
+      }
+      else if ((ieTridentIndex = agent.indexOf("Trident", paren)) > -1) 
+      {
+        agentObj.setAgent(Agent.AGENT_IE);
+
+        // As of IE8, the Trident version is the most reliable method to find the 
+        // maximum capabilities of IE.  The IE WebBrowser Control by default is in IE7 
+        // compatability - MSIE 7.0;
+        // As of IE11, the "MSIE" token no loger exists.  
+        
+        //Trident/4.0 -> IE8
+        //Trident/5.0 -> IE9
+        //Trident/6.0 -> IE10
+        //Trident/7.0 -> IE11
+        Double ieTridentVersion = Double.valueOf(_getVersion(agent, ieTridentIndex + "Trident/".length() - 1));
+        agentObj.setAgentVersion(String.valueOf(ieTridentVersion + 4.0));    
       }
       else if (agent.startsWith("compatible", paren))
       {
@@ -1002,24 +1019,8 @@ public class AgentFactoryImpl implements AgentFactory
         else
         {
           agentObj.setAgent(Agent.AGENT_IE);
-
-          // As of IE8, the Trident version is the most reliable method to find the 
-          // maximum capabilities of IE.  The IE WebBrowser Control by default is in IE7 
-          // compatability - MSIE 7.0;
-          int ieTridentIndex = agent.indexOf("Trident", ieIndex);
-          if (ieTridentIndex < 0 )
-          { 
-            String ieVersion = _getVersion(agent, ieIndex + "MSIE ".length() - 1);
-            agentObj.setAgentVersion(ieVersion);
-          }
-          else 
-          {
-            //Trident/4.0 -> IE8
-            //Trident/5.0 -> IE9
-            //Trident/6.0 -> IE10
-            Double ieTridentVersion = Double.valueOf(_getVersion(agent, ieTridentIndex + "Trident/".length() - 1));
-            agentObj.setAgentVersion(String.valueOf(ieTridentVersion + 4.0));  
-          }
+          String ieVersion = _getVersion(agent, ieIndex + "MSIE ".length() - 1);
+          agentObj.setAgentVersion(ieVersion);
         }
       }
       else
