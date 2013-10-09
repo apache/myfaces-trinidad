@@ -255,7 +255,7 @@ public class SkinCSSDocumentHandler
       {
         _parseCustomAtRule(_AT_MODE, atRule);
       }
-      else if (atRule.startsWith(_AT))
+      else if (atRule.startsWith(_AT) && !charsetRule)
       {
         // for all other rules that does not belong to server side
         // assume that they are client rules
@@ -462,16 +462,24 @@ public class SkinCSSDocumentHandler
     // save the atRule type, so the document handler code can get to it.
     // run this through parser again
     String content = _getAtRuleContent(atRule);
-    _initAtRuleTargetTypes(type, atRule);
-    
-    // use this current DocumentHandler. This way we can add to the
-    // CompleteSelectorNode list with agent information.
-    SkinCSSParser parser = new SkinCSSParser();
-    parser.parseCSSDocument(new StringReader(content), this);
-    
-    // reset
-    _resetAtRuleTargetTypes(type);
 
+    // skip incorrect rules. otherwise following valid styles in css file also will not be loaded.
+    if (content != null)
+    {
+      _initAtRuleTargetTypes(type, atRule);
+
+      // use this current DocumentHandler. This way we can add to the
+      // CompleteSelectorNode list with agent information.
+      SkinCSSParser parser = new SkinCSSParser();
+      parser.parseCSSDocument(new StringReader(content), this);
+
+      // reset
+      _resetAtRuleTargetTypes(type);
+    }
+    else
+    {
+      _LOG.warning("UNSUPPORTED_AT_RULE", atRule);
+    }
   }
 
   private void _resetAtRuleTargetTypes(

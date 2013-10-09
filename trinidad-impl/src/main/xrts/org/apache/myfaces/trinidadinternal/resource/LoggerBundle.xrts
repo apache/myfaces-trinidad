@@ -503,6 +503,9 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- AT_IMPORT_NOT_FIRST -->
 <resource key="AT_IMPORT_NOT_FIRST">{0} must come before all other rules.</resource>
 
+<!-- UNSUPPORTED_AT_RULE -->
+<resource key="UNSUPPORTED_AT_RULE">Encountered unsupported at rule {0}. Ignoring this rule.</resource>
+
 <!-- CIRCULAR_EXTENDED_OR_NONEXIST_SKIN -->
 <resource key="CIRCULAR_EXTENDED_OR_NONEXIST_SKIN">The following skins extend each other in a circular fashion or the skin they extend does not exist:{0}</resource>
 
