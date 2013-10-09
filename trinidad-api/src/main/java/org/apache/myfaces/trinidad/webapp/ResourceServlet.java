@@ -26,8 +26,10 @@ import java.io.InputStreamReader;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.Reader;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+
 import java.net.SocketException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -43,9 +45,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -147,15 +151,27 @@ public class ResourceServlet extends HttpServlet
   {
     boolean hasFacesContext = false;
     FacesContext context = FacesContext.getCurrentInstance();
+
     // If we happen to invoke the ResourceServlet *via* the
     // FacesServlet, you get a lot of fun from the recursive
     // attempt to create a FacesContext.  Developers should not
     // do this, but it's easy to check
     if (context != null)
     {
-      hasFacesContext = true;
+      // Additional _isContextValid check on the context to workaround Mojarra issues like this one...
+      // https://java.net/jira/browse/JAVASERVERFACES-2533
+      if (_isContextValid(context))
+      {
+        hasFacesContext = true;
+      }
+      else
+      {
+        // clean up the invalid context before we try to create one
+        context.release();
+      }
     }
-    else
+    
+    if (!hasFacesContext)
     {
       Configurator.disableConfiguratorServices(request);
     
@@ -192,11 +208,12 @@ public class ResourceServlet extends HttpServlet
     }
     finally
     {
+      // cleanup the context we created for serving this request
       if (!hasFacesContext)
         context.release();
     }
   }
-
+  
   /**
    * Override of HttpServlet.doGet()
    */
@@ -283,6 +300,17 @@ public class ResourceServlet extends HttpServlet
     HttpServletRequest request)
   {
     return request.getServletPath() + request.getPathInfo();
+  }
+
+  /**
+   * Checks if the faces context that we have is valid for this request
+   */
+  private boolean _isContextValid(FacesContext context)
+  {
+    ExternalContext ec = context.getExternalContext();
+    
+    // a bogus context would not have a request object
+    return ((ec != null) && (ec.getRequest() != null));
   }
 
   /**
