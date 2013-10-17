@@ -29,7 +29,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
  * Defines the components (icons, styles, etc)
  * which are used to implement a particular skin.
  *
- * @see SkinFactory
+ * @see SkinProvider
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/Skin.java#0 $) $Date: 10-nov-2005.18:58:54 $
  */
@@ -209,21 +209,43 @@ abstract public class Skin
    * @return List a List of SkinAdditions.
    */
   abstract public List<SkinAddition> getSkinAdditions ();
-  
+
   /**
-   * Check to see if this Skin has been marked dirty. 
+   * Check to see if this Skin has been marked dirty.
    * The only way to mark a Skin dirty is to call setDirty(true).
-   * @return true if the Skin is marked dirty. 
+   * @return true if the Skin is marked dirty.
+   * @deprecated use isDirty(boolean checkAncestorSkins) instead.
    */
+  @Deprecated
   abstract public boolean isDirty();
 
   /**
-   * Sets the dirty flag of the Skin. Use this if you want to regenerate the skin. 
-   * During rendering, if isDirty is true, 
-   * the skin's css file will be reprocessed regardless of whether the css file has been modified 
+   * Check to see if this Skin is dirty with an optional check if any of its ancestor skins is dirty
+   * The only way to mark a Skin dirty is to call setDirty(true).
+   * @param checkAncestors, option to check if any ancestor skins are dirty
+   * @return true if the Skin is dirty, or optionally if any of its ancestor skin is dirty.
+   */
+  public boolean isDirty(boolean checkAncestors)
+  {
+    return isDirty();
+  }
+
+  /**
+   * Sets the dirty flag of the Skin. Use this if you want to regenerate the skin.
+   * During rendering, if isDirty is true,
+   * the skin's css file will be reprocessed regardless of whether the css file has been modified
    * or if the CHECK_FILE_MODIFICATION flag was set. 
    * The Skinning Framework calls setDirty(false) after the skin has been reprocessed.
    */
   abstract public void setDirty(boolean dirty);
-  
+
+  /**
+   * Returns the base Skin which this custom Skin
+   * "extends".
+   * Returns null if there is no base skin.
+   */
+  public Skin getBaseSkin()
+  {
+    return null;
+  }
 }

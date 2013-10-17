@@ -26,11 +26,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
-
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.faces.context.FacesContext;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import javax.portlet.faces.annotation.ExcludeFromManagedRequestScope;
 
@@ -45,6 +44,7 @@ import org.apache.myfaces.trinidad.context.RequestContextFactory;
 import org.apache.myfaces.trinidad.context.WindowManager;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
+import org.apache.myfaces.trinidad.skin.SkinProvider;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.ComponentReference;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
@@ -58,7 +58,8 @@ import org.apache.myfaces.trinidadinternal.context.external.ServletRequestMap;
 import org.apache.myfaces.trinidadinternal.context.external.ServletRequestParameterMap;
 import org.apache.myfaces.trinidadinternal.context.external.ServletRequestParameterValuesMap;
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
-import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
+import org.apache.myfaces.trinidadinternal.skin.provider.ExternalSkinProvider;
+import org.apache.myfaces.trinidadinternal.skin.provider.SkinProviderRegistry;
 
 /**
  * This is the implementation of the Trinidad's Global configurator. It provides the entry point for
@@ -426,23 +427,30 @@ public final class GlobalConfiguratorImpl
 
         // Create a new SkinFactory if needed.
         if (SkinFactory.getFactory() == null)
-          {
-            SkinFactory.setFactory(new SkinFactoryImpl());
-          }
-  
-          // register the base skins
-          SkinUtils.registerBaseSkins();
-  
-          for (final Configurator config: _services)
-          {
-            config.init(ec);
-          }
-  
-          // after the 'services' filters are initialized, then register
-          // the skin extensions found in trinidad-skins.xml. This
-          // gives a chance to the 'services' filters to create more base
-          // skins that the skins in trinidad-skins.xml can extend.
-          SkinUtils.registerSkinExtensions(ec);
+        {
+          SkinFactory.setFactory(new SkinFactoryImpl());
+        }
+
+        // init external skin provider
+        // this has to be done before SkinProviderRegistry, because SkinProviderRegistry uses this
+        Object externalSkinProvider = ec.getApplicationMap().get(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY);
+
+        if (externalSkinProvider == null)
+          ec.getApplicationMap().put(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY, new ExternalSkinProvider());
+
+        // init skin provider
+        Object provider = ec.getApplicationMap().get(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY);
+
+        if (provider == null)
+          ec.getApplicationMap().put(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY, new SkinProviderRegistry());
+
+        for (final Configurator config: _services)
+        {
+          config.init(ec);
+        }
+
+          // we do not register the skin extensions found in trinidad-skins.xml eagerly.
+          // with SkinProvider SPI we are lazy loading skins as and when required
           _initialized.set(true);
         }
       }
@@ -463,22 +471,22 @@ public final class GlobalConfiguratorImpl
   /**
    * @inheritDoc
    */
-  @Override  
+  @Override
+  @Deprecated
   public void reloadSkins(ExternalContext externalContext, SkinFactory skinFactory)
   {
-    // register trinidad's base skins
-    SkinUtils.registerBaseSkins();
-    
     // ask all subordinate configurators to reload their skins
+    // We do not load the base skins and trinidad-skins eagerly.
+    // When any configurator tries to register its skins to the SKinFactory,
+    // it may be calling skinFactory.getSkin(...) to get hold of a base skin.
+    // As SkinFactory is now under SkinProvider SPI, it makes sure that internally all parents are lazy loaded.
+    // thus the caller will get a base Skin which he wants, but we do not load all skins eagerly.
     for (final Configurator config: _services)
     {
       config.reloadSkins(externalContext, skinFactory);
     }
-    
-    // recompute skins from the various trinidad-skins.xml
-    SkinUtils.registerSkinExtensions(externalContext, skinFactory);
   }
-  
+
   /**
    * Hackily called by the ThreadLocalResetter to register itself so that the
    * GlobalConfiguratorImpl can tell the ThreadLocalResetter to clean up the

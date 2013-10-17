@@ -27,9 +27,7 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
-
 import java.util.concurrent.ConcurrentHashMap;
-
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.el.ELContext;
@@ -37,21 +35,17 @@ import javax.el.ValueExpression;
 
 import javax.faces.application.ProjectStage;
 import javax.faces.context.ExternalContext;
-
 import javax.faces.context.FacesContext;
-
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
-
 import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
@@ -273,6 +267,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
    * @param skinAddition The SkinAddition object to add to the Skin.
    * @throws NullPointerException if SkinAddition is null.
    */
+  @Override
   public void addSkinAddition (
     SkinAddition skinAddition
     )
@@ -294,6 +289,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
    * @return List an unmodifiable List of SkinAdditions.
    * @see #addSkinAddition(SkinAddition)
    */
+  @Override
   public List<SkinAddition> getSkinAdditions()
   {
     if (_skinAdditions == null)
@@ -338,6 +334,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
    * styles for this Skin, including any styles that are
    * contributed by skin-additions.
    */
+  @Override
   public StyleSheetDocument getStyleSheetDocument(StyleContext context)
   {
     // We synchronize here because technically speaking multiple
@@ -389,6 +386,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
    * @see #addSkinAddition(SkinAddition)
    * @deprecated Use addSkinAddition instead
    */
+  @Override
   public void registerStyleSheet(String styleSheetName)
   {
     //TODO Take out deprecated after sufficient amount of time has passed
@@ -398,21 +396,51 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   }
   
   /**
-   * Check to see if this Skin has been marked dirty. 
+   * Check to see if this Skin has been marked dirty.
    * The only way to mark a Skin dirty is to call setDirty(true).
-   * @return true if the Skin is marked dirty. 
-   * 
+   * @return true if the Skin is marked dirty.
+   *
    */
   @Override
   public boolean isDirty()
   {
-    return _dirty;
+    return isDirty(false);
+  }
+
+
+  /**
+   * Check to see if this Skin is dirty with an optional check if any of its ancestor skins is dirty
+   * The only way to mark a Skin dirty is to call setDirty(true).
+   * @param checkAncestors, option to check if any ancestor skins are dirty
+   * @return true if the Skin is dirty, or optionally if any of its ancestor skins is dirty.
+   * @SuppressWarnings("deprecation")
+   */
+  @Override
+  public boolean isDirty(boolean checkAncestors)
+  {
+    // irrespective of the flag, if this skin is dirty then return true
+    if (_dirty)
+      return true;
+
+    // now we know that current skin is not dirty, so see if any parent is dirty only if the
+    // checkAncestors flag is set
+    if (checkAncestors)
+    {
+      Skin baseSkin = getBaseSkin();
+
+      if (baseSkin != null)
+      {
+        return baseSkin.isDirty(checkAncestors);
+      }
+    }
+
+    return false;
   }
 
   /**
-   * Sets the dirty flag of the Skin. Use this if you want to regenerate the skin. 
-   * During rendering, if isDirty is true, 
-   * the skin's css file will be reprocessed regardless of whether the css file has been modified 
+   * Sets the dirty flag of the Skin. Use this if you want to regenerate the skin.
+   * During rendering, if isDirty is true,
+   * the skin's css file will be reprocessed regardless of whether the css file has been modified
    * or if the CHECK_FILE_MODIFICATION flag was set. 
    * The Skinning Framework calls setDirty(false) after the skin has been reprocessed.
    */

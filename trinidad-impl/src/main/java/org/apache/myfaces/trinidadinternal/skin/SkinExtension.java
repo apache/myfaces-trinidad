@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,16 +27,18 @@ import java.util.MissingResourceException;
 import java.util.Stack;
 
 import javax.el.ValueExpression;
+
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
+import org.apache.myfaces.trinidad.skin.SkinMetadata;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
-
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
@@ -75,9 +78,9 @@ public class SkinExtension extends SkinImpl
    *    to be used to translate strings that a renderer renders.
 
    * @throws NullPointerException if baseSkin, id, or family is null.
-   * 
+   *
    */
-   public SkinExtension(
+  public SkinExtension(
      Skin baseSkin,
      String id,
      String family,
@@ -86,35 +89,43 @@ public class SkinExtension extends SkinImpl
      ValueExpression translationSourceValueExpression,
      SkinVersion version,
      Map<String,String> features,
-     String resourceBundleName 
+     String resourceBundleName
      )
-   {
-     if (baseSkin == null)
-       throw new NullPointerException("Null baseSkin");
-     if (id == null)
-       throw new NullPointerException(_LOG.getMessage(
-         "NULL_SKIN_ID"));
-     if (family == null)
-       throw new NullPointerException("Null family");
-     if (renderKitId == null)
-       renderKitId = _DEFAULT_RENDERKIT;
-     if (version == null)
-       version = SkinVersion.EMPTY_SKIN_VERSION;
-     
-     //Since SkinNodeParser makes sure both the bundle and EL are not set, we 
-     //do not need to do it here
+  {
+    if (baseSkin == null)
+     throw new NullPointerException("Null baseSkin");
+    if (id == null)
+     throw new NullPointerException(_LOG.getMessage(
+       "NULL_SKIN_ID"));
+    if (family == null)
+     throw new NullPointerException("Null family");
+    if (renderKitId == null)
+     renderKitId = _DEFAULT_RENDERKIT;
+    if (version == null)
+     version = SkinVersion.EMPTY_SKIN_VERSION;
 
-     _baseSkin = (SkinImpl)baseSkin;
-     _id = id;
-     _family = family;
-     _renderKitId = renderKitId;
-     _styleSheetName = styleSheetName;
-     _bundleName = resourceBundleName;
-     _translationSourceVE = translationSourceValueExpression;
-     _version = version;
-     _skinFeatures = features;
-   }  
-  
+    //Since SkinAdditionParser makes sure both the bundle and EL are not set, we
+    //do not need to do it here
+
+    baseSkin = _ensureBaseSkinType(baseSkin);
+
+    //bundle-name takes precedence over translation-source, prevent both from being set
+    if(resourceBundleName != null && translationSourceValueExpression != null)
+    {
+      translationSourceValueExpression = null;
+    }
+
+    _baseSkin = baseSkin;
+    _id = id;
+    _family = family;
+    _renderKitId = renderKitId;
+    _styleSheetName = styleSheetName;
+    _bundleName = resourceBundleName;
+    _translationSourceVE = translationSourceValueExpression;
+    _version = version;
+    _skinFeatures = features;
+  }
+
   @Deprecated
   public SkinExtension(
     Skin baseSkin,
@@ -152,7 +163,9 @@ public class SkinExtension extends SkinImpl
     if (version == null)
       version = SkinVersion.EMPTY_SKIN_VERSION;
 
-    _baseSkin = (SkinImpl)baseSkin;
+    baseSkin = _ensureBaseSkinType(baseSkin);
+
+    _baseSkin = baseSkin;
     _id = id;
     _family = family;
     _renderKitId = renderKitId;
@@ -199,7 +212,9 @@ public class SkinExtension extends SkinImpl
     if (version == null)
       version = SkinVersion.EMPTY_SKIN_VERSION;
 
-    _baseSkin = (SkinImpl)baseSkin;
+    baseSkin = _ensureBaseSkinType(baseSkin);
+
+    _baseSkin = baseSkin;
     _id = id;
     _family = family;
     _renderKitId = renderKitId;
@@ -246,7 +261,9 @@ public class SkinExtension extends SkinImpl
     if (version == null)
       version = SkinVersion.EMPTY_SKIN_VERSION;
 
-    _baseSkin = (SkinImpl)baseSkin;
+    baseSkin = _ensureBaseSkinType(baseSkin);
+
+    _baseSkin = baseSkin;
     _id = id;
     _family = family;
     _renderKitId = renderKitId;
@@ -266,6 +283,14 @@ public class SkinExtension extends SkinImpl
     )
   {
     this(baseSkin, id, family, renderKitId, null);
+  }
+
+  public SkinExtension(Skin baseSkin, SkinMetadata skinMetadata)
+  {
+    this(baseSkin,
+         skinMetadata.getId(), skinMetadata.getFamily(), skinMetadata.getRenderKitId(),
+          skinMetadata.getStyleSheetName(), skinMetadata.getTranslationSource(), skinMetadata.getVersion(),
+          skinMetadata.getFeatures().getFeatures(), skinMetadata.getResourceBundleName());
   }
 
 
@@ -576,6 +601,9 @@ public class SkinExtension extends SkinImpl
     // sheet.
 
     // Get the StyleSheetDocument from the base Skin
+    // we assume the base skin to be of SkinImpl type
+    // we ensure that while creating the SkinExtension object
+    // if something else comes here then it should fail
     SkinImpl baseSkin = (SkinImpl) getBaseSkin();
     StyleSheetDocument baseDocument = baseSkin.getStyleSheetDocument(context);
 
@@ -619,6 +647,23 @@ public class SkinExtension extends SkinImpl
     super.setDirty(dirty);
     // also, set the base skin's dirty flag
     getBaseSkin().setDirty(dirty);
+  }
+
+  /**
+   * extracts the skin out if we pass a RequestSkinWrapper
+   * ensures that the baseSkin is of SkinImpl type
+   * @param baseSkin
+   * @return SkinImpl object
+   */
+  private Skin _ensureBaseSkinType(Skin baseSkin)
+  {
+    while (baseSkin instanceof RequestSkinWrapper)
+      baseSkin = ((RequestSkinWrapper) baseSkin).getWrappedSkin();
+
+    if (!(baseSkin instanceof SkinImpl))
+      throw new ClassCastException("Base skin is expected to be of type SkinImpl. Obtain the base skin from SkinProvider.");
+
+    return baseSkin;
   }
 
   /**
@@ -719,7 +764,7 @@ public class SkinExtension extends SkinImpl
   private String          _id;
   private String          _family;
   private String          _renderKitId;
-  private SkinImpl        _baseSkin;
+  private Skin            _baseSkin;
   private String          _styleSheetName;
   private ValueExpression _translationSourceVE;
   private String          _bundleName;

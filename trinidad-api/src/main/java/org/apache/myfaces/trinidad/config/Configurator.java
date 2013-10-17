@@ -146,13 +146,20 @@ public abstract class Configurator
    * @param externalContext the external context
    */
   public void endRequest(ExternalContext externalContext){}
-  
+
   /**
-    * The skinning framework calls this method to notify Configurators that the specified SkinFactory has been reloaded.
-    * In response the Configurators can add their skins to the specified SkinFactory.
-    * @param externalContext the external context
-    * @param factory the SkinFactory instance to which the skins can be reloaded
-    */
+   * Third parties can call SkinFactory#reload. This in turn calls this method. In response the Configurators
+   * can add their skins to the specified SkinFactory. Note that this is now deprecated in favor of SkinProvider SPI.
+   * SkinProvider introduces the flexibility to create and manage external skin repositories. Each SkinProvider
+   * implementation can support its own set of Skins. Thus creating, managing and disposing Skins is the responsibility
+   * of SkinProvider. This includes reloading of skins as well.
+   * @param externalContext the external context
+   * @param factory the SkinFactory instance to which the skins can be reloaded
+   * @deprecated use SkinProvider SPI. The reloading of 'dirty' skins has to be taken care inside SkinProvider
+   * implementations.
+   * @see org.apache.myfaces.trinidad.skin.SkinProvider
+   */
+  @Deprecated
   public void reloadSkins(ExternalContext externalContext, SkinFactory factory){}
 
   /**

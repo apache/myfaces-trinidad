@@ -34,19 +34,11 @@ public class CasablancaPdaSkin extends SkinExtension {
   {
     // Create a SkinExtension for Casablanca
     super(baseSkin,
-            _CASABLANCA_PDA_ID,
+          TrinidadRenderingConstants.CASABLANCA_PDA_ID,
           TrinidadRenderingConstants.CASABLANCA_SKIN_FAMILY,
           TrinidadRenderingConstants.APACHE_TRINIDAD_PDA);
 
     // Register our style sheet
-    setStyleSheetName(_CASABLANCA_STYLE_SHEET_NAME);
+    setStyleSheetName(TrinidadRenderingConstants.CASABLANCA_STYLE_SHEET_NAME);
   }
-
-  // Casablanca skin id
-  private static final String _CASABLANCA_PDA_ID = "casablanca.pda";
-
-
-  // Casablanca skin style sheet name
-  private static final String _CASABLANCA_STYLE_SHEET_NAME =
-    "META-INF/adf/styles/casablancaSkin.css";
 }

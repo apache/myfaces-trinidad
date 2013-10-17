@@ -29,4 +29,7 @@ public interface XMLConstants
       "http://myfaces.apache.org/trinidad/skin";
 
   public static final String NULL_NAME             = "null";
+  public static final String META_INF              = "meta-inf";
+  public static final String META_INF_DIR          = "META-INF/";
+
 }

@@ -18,15 +18,11 @@
  */
 package org.apache.myfaces.trinidad.skin;
 
-import java.util.Collections;
-
 import java.util.Map;
 
 import javax.el.ValueExpression;
 
 import javax.faces.el.ValueBinding;
-
-import org.apache.myfaces.trinidad.context.LocaleContext;
 
 /**
  * <p>
@@ -42,22 +38,24 @@ import org.apache.myfaces.trinidad.context.LocaleContext;
  * </p>
  * <p>
  * If you want to 'push' your styles into a specific skin, then you would create a skin-addition in the trinidad-skins.xml file.
- * You specify a &lt;skin-addition&gt;. The children are: &lt;skin-id&gt;, 
+ * You specify a &lt;skin-addition&gt;. The children are: &lt;skin-id&gt;,
  * &lt;style-sheet-name&gt;, &lt;bundle-name&gt;, and &lt;translation-source&gt;.
- * The &lt;skin-id&gt; is used to specify which skin you want to 'push' your stylesheet/resource bundle into. 
+ * The &lt;skin-id&gt; is used to specify which skin you want to 'push' your stylesheet/resource bundle into.
  * Most likely this is the simple.desktop skin.
  * The other elements are used to create a SkinAddition object.
  * </p>
- * 
+ *
  *
  */
 public class SkinAddition
 {
 
-
   /**
    * Constructor takes a styleSheet name and a resourceBundle name.
+   * @deprecated Use builder to create a SkinAddition object.
+   * @See Builder
    */
+  @Deprecated
   public SkinAddition (
     String styleSheetName,
     String resourceBundleName
@@ -68,11 +66,15 @@ public class SkinAddition
     _translationSourceVE = null;
     _translationSourceVB = null;
     _skinFeatures = null;
+    _skinId = null;
   }
 
   /**
    * Constructor takes a styleSheet name and a translationSource ValueExpression.
+   * @deprecated Use builder to create a SkinAddition object.
+   * @See Builder
    */
+  @Deprecated
   public SkinAddition (
     String       styleSheetName,
     ValueExpression translationSourceValueExpression
@@ -83,11 +85,15 @@ public class SkinAddition
     _translationSourceVE = translationSourceValueExpression;
     _translationSourceVB = null;
     _skinFeatures = null;
+    _skinId = null;
   }
   /**
-   * Constructor takes a styleSheet name. resource bundle name and 
+   * Constructor takes a styleSheet name. resource bundle name and
    * translation source value expression will be null.
+   * @deprecated Use builder to create a SkinAddition object.
+   * @See Builder
    */
+  @Deprecated
   public SkinAddition (
     String styleSheetName
     )
@@ -97,11 +103,15 @@ public class SkinAddition
     _translationSourceVE = null;
     _translationSourceVB = null;
     _skinFeatures = null;
+    _skinId = null;
   }
-  
+
   /**
    * Constructor takes a styleSheet name and a resourceBundle name.
+   * @deprecated Use builder to create a SkinAddition object.
+   * @See Builder
    */
+  @Deprecated
   public SkinAddition (
     String styleSheetName,
     String resourceBundleName,
@@ -113,11 +123,15 @@ public class SkinAddition
     _translationSourceVE = null;
     _translationSourceVB = null;
     _skinFeatures = features;
+    _skinId = null;
   }
-  
+
   /**
    * Constructor takes a styleSheet name and a translationSource ValueExpression.
+   * @deprecated Use builder to create a SkinAddition object.
+   * @See Builder
    */
+  @Deprecated
   public SkinAddition (
     String       styleSheetName,
     ValueExpression translationSourceValueExpression,
@@ -129,11 +143,15 @@ public class SkinAddition
     _translationSourceVE = translationSourceValueExpression;
     _translationSourceVB = null;
     _skinFeatures = features;
+    _skinId = null;
   }
   /**
-   * Constructor takes a styleSheet name. resource bundle name and 
+   * Constructor takes a styleSheet name. resource bundle name and
    * translation source value expression will be null.
+   * @deprecated Use builder to create a SkinAddition object.
+   * @See Builder
    */
+  @Deprecated
   public SkinAddition (
     String styleSheetName,
     Map<String, String> features
@@ -144,11 +162,15 @@ public class SkinAddition
     _translationSourceVE = null;
     _translationSourceVB = null;
     _skinFeatures = features;
+    _skinId = null;
   }
-  
+
   /**
    * Constructor takes only features.
+   * @deprecated Use builder to create a SkinAddition object.
+   * @See Builder
    */
+  @Deprecated
   public SkinAddition (
     Map<String, String> features
     )
@@ -158,11 +180,14 @@ public class SkinAddition
     _translationSourceVE = null;
     _translationSourceVB = null;
     _skinFeatures = features;
+    _skinId = null;
   }
-  
+
   /**
    * Constructor takes a styleSheet name and a translationSource ValueBinding.
-   * @deprecated
+   * ValueBinding is deprecated, use ValueExpression for setting the translationSource
+   * @deprecated Use builder to create a SkinAddition object.
+   * @See Builder
    */
   @Deprecated
   public SkinAddition (
@@ -175,18 +200,27 @@ public class SkinAddition
     _translationSourceVE = null;
     _translationSourceVB = translationSourceValueBinding;
     _skinFeatures = null;
+    _skinId = null;
   }
-  
+
+  /**
+   * Gets the skin id to which this skin addition belongs to.
+   */
+  public String getSkinId()
+  {
+    return _skinId;
+  }
+
   /**
    * Gets the SkinAddition's style sheet name.
    */
   public String getStyleSheetName()
   {
     return _styleSheetName;
-  } 
-  
+  }
+
   /**
-   * Gets the SkinAddition's resource bundle. 
+   * Gets the SkinAddition's resource bundle.
    * Note: A skin cannot have both a resourceBundleName and a translation source
    * value expression. If they do, then the resourceBundleName takes precedence.
    */
@@ -213,7 +247,7 @@ public class SkinAddition
    * value binding. If they do, then the resourceBundleName takes precedence.
    * @deprecated
    */
-   @Deprecated
+  @Deprecated
   public ValueBinding getTranslationSourceValueBinding()
   {
     return _translationSourceVB;
@@ -226,8 +260,86 @@ public class SkinAddition
   {
     return _skinFeatures;
   }
- 
+
+  /**
+   * convinience builder for SkinAddition
+   * does not support the deprecated ValueBinding for translationSource
+   */
+  public static class Builder
+  {
+
+    public Builder()
+    {
+      _skinFeatures = new SkinFeatures();
+    }
+
+    public Builder skinId(String skinId)
+    {
+      _skinId = skinId;
+      return this;
+    }
+
+    public Builder styleSheetName(String styleSheetName)
+    {
+      _styleSheetName = styleSheetName;
+      return this;
+    }
+
+    public Builder resourceBundleName(String resourceBundleName)
+    {
+      _resourceBundleName = resourceBundleName;
+      return this;
+    }
+
+    public Builder translationSource(ValueExpression translationSource)
+    {
+      _translationSource = translationSource;
+      return this;
+    }
+
+    public Builder features(SkinFeatures skinFeatures)
+    {
+      // set only a non null SkinFeatures object
+      if (skinFeatures != null)
+        _skinFeatures = skinFeatures;
+
+      return this;
+    }
+
+    public SkinAddition build()
+    {
+      return new SkinAddition(this);
+    }
+
+    private String       _styleSheetName;
+    private String       _skinId;
+    private String       _resourceBundleName;
+    private ValueExpression _translationSource;
+    private SkinFeatures _skinFeatures;
+  }
+
+
+  /**
+   * Constructor for SkinAddition based on Builder
+   * This constructor can be used to create SkinAddition object for any combination of parameters
+   * @param builder
+   * @See Builder
+   */
+  private SkinAddition (Builder builder)
+  {
+    _skinId = builder._skinId;
+    _styleSheetName = builder._styleSheetName;
+    _resourceBundleName = builder._resourceBundleName;
+    _translationSourceVE = builder._translationSource;
+    _skinFeatures = builder._skinFeatures.getFeatures();
+
+    // this is deprecated so we do not support this in the new API
+    _translationSourceVB = null;
+
+  }
+
   private final String       _styleSheetName;
+  private final String       _skinId;
   private final String       _resourceBundleName;
   private final ValueExpression _translationSourceVE;
   private final ValueBinding _translationSourceVB;

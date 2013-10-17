@@ -21,18 +21,16 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 import java.util.Locale;
 
 import javax.faces.component.UIViewRoot;
-import javax.faces.context.ResponseWriter;
 
 import junit.framework.TestCase;
 
-import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
-import org.apache.myfaces.trinidadinternal.renderkit.FacesConfigInfo;
+import org.apache.myfaces.trinidad.skin.SkinProvider;
+import org.apache.myfaces.trinidadinternal.skin.provider.ExternalSkinProvider;
+import org.apache.myfaces.trinidadinternal.skin.provider.SkinProviderRegistry;
 import org.apache.myfaces.trinidadinternal.renderkit.MApplication;
 import org.apache.myfaces.trinidadinternal.renderkit.MFacesContext;
 import org.apache.myfaces.trinidadinternal.renderkit.MRequestContext;
-import org.apache.myfaces.trinidadinternal.renderkit.NullWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderKitBootstrap;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
@@ -69,6 +67,8 @@ public class XhtmlLafUtilsTest extends TestCase
     _requestContext.setAgent(RenderKitBootstrap.getGeckoAgent());
     _requestContext.setRightToLeft(false);
     _requestContext.setAccessibilityMode(null);
+    _facesContext.getExternalContext().getApplicationMap().put(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY, new ExternalSkinProvider());
+    _facesContext.getExternalContext().getApplicationMap().put(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY, new SkinProviderRegistry());
 
     UIViewRoot root = RenderKitBootstrap.createUIViewRoot(_facesContext);
     root.setRenderKitId("org.apache.myfaces.trinidad.core");

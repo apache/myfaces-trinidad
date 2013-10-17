@@ -578,46 +578,60 @@ class StyleSheetEntry
    *
    * @return a NameResolver instance that has been defined in META-INF\services\
    * org.apache.myfaces.trinidad.share.io.NameResolver
-  // In this file they will have a line like "org.mycompany.io.MyNameResolverImpl".
+   * In this file they will have a line like "org.mycompany.io.MyNameResolverImpl".
    * null if no NameResolver is found.
    */
   static private NameResolver _loadNameResolverFromServices(String name)
   {
-    // We don't want to check services every time, so instead store it on the applicationMap.
+    // first check if the cached NameResolver will serve the name requested
     FacesContext context = FacesContext.getCurrentInstance();
     Map<String, Object> appMap = context.getExternalContext().getApplicationMap();
 
-    // Is it stored on the application map already? If so, use it.
+    // Is it stored on the application map already? can it serve the current request? If so, use it.
     NameResolver savedResolver = (NameResolver)appMap.get(_SERVICES_RESOLVER_KEY);
     if (savedResolver != null)
-      return savedResolver;
+    {
+      try
+      {
+        savedResolver.getProvider(name);
 
-    List<NameResolver> resolvers = ClassLoaderUtils.getServices(
-                                      _NAME_RESOLVER_CLASS_NAME);
+        // NameResolver has to throw IOException if unable to serve a name. It should not return null.
+        // therefore, if the line above did not throw an exception that means we can proceed with this resolver
+        return savedResolver;
+      }
+      catch (IOException ex)
+      {
+        // proceed with checking other registered NameResolvers, if the cached one does not serve the name requested
+        if (_LOG.isFine())
+          _LOG.fine(_SERVICES_RESOLVER_IOEXCEPTION_MSG);
+      }
+    }
+
+    // Now, the cached resolver did not serve the name requested
+    // there fore, check other registered NameResolvers
+    List<NameResolver> resolvers = ClassLoaderUtils.getServices(_NAME_RESOLVER_CLASS_NAME);
 
     for (NameResolver customNameResolver : resolvers)
     {
-      InputStreamProvider provider = null;
       try
       {
-        provider = customNameResolver.getProvider(name);
+        customNameResolver.getProvider(name);
+
+        // NameResolver has to throw IOException if unable to serve a name. It should not return null.
+        // therefore, if the line above did not throw an exception that means we can proceed with this resolver
+        // cache the resolver and return
+        appMap.put(_SERVICES_RESOLVER_KEY, customNameResolver);
+        return customNameResolver;
       }
       catch (IOException e)
       {
         // Log fine message. Try the next factory to get a provider
         if (_LOG.isFine())
-          _LOG.fine(_SERVICES_RESOLVER_IOEXCEPTION_MSG);       
-      }
-      // Found a customNameResolver with a provider. So store it away and return it from the method.
-      if (provider != null)
-      {
-        appMap.put(_SERVICES_RESOLVER_KEY, customNameResolver);
-        return customNameResolver;
+          _LOG.fine(_SERVICES_RESOLVER_IOEXCEPTION_MSG);
       }
     }
-    
-    return null;
 
+    return null;
   }
 
   // A subclass of URLInputStreamProvider which never checks for
@@ -652,10 +666,10 @@ class StyleSheetEntry
     "Trying next nameResolver.";
 
   private static final String _SERVICES_RESOLVER_KEY =
-    "org.apache.myfaces.trinidadinternal.skin.SERVICES_RESOLVER_KEY";  
+    "org.apache.myfaces.trinidadinternal.skin.SERVICES_RESOLVER_KEY";
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StyleSheetEntry.class);
-  
+
   private String              _name;
   private StyleSheetDocument  _document;
 

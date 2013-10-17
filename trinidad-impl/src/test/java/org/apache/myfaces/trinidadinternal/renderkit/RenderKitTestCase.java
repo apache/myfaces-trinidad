@@ -48,14 +48,16 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
+import org.apache.myfaces.trinidad.skin.SkinProvider;
 import org.apache.myfaces.trinidad.util.Service;
 
 import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 
 import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
+import org.apache.myfaces.trinidadinternal.skin.provider.ExternalSkinProvider;
+import org.apache.myfaces.trinidadinternal.skin.provider.SkinProviderRegistry;
 
 import junit.framework.AssertionFailedError;
-import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
@@ -185,7 +187,10 @@ abstract public class RenderKitTestCase extends TestSuite
       Application mockApplication,
       boolean testMode)
     {
-      return new MFacesContext(mockApplication, testMode);
+      MFacesContext ctx = new MFacesContext(mockApplication, testMode);
+      ctx.getExternalContext().getApplicationMap().put(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY, new ExternalSkinProvider());
+      ctx.getExternalContext().getApplicationMap().put(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY, new SkinProviderRegistry());
+      return ctx;
     }
 
     protected MRequestContext createRequestContext()

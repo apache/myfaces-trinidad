@@ -18,7 +18,12 @@
  */
 package org.apache.myfaces.trinidadinternal.skin.parse;
 
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+
+import org.apache.myfaces.trinidad.skin.SkinAddition;
+import org.apache.myfaces.trinidad.skin.SkinMetadata;
 
 /**
  * Object which represents the skin and skin-addition nodes in trinidad-skins.xml.
@@ -28,11 +33,11 @@ import java.util.List;
 public class SkinsNode
 {
   /**
-   * 
+   *
    */
   public SkinsNode(
-    List<SkinNode> skinNodes,
-    List<SkinAdditionNode> skinAdditionNodes)
+    List<SkinMetadata> skinNodes,
+    List<SkinAddition> skinAdditionNodes)
   {
     _skinAdditionNodes = skinAdditionNodes;
     _skinNodes = skinNodes;
@@ -40,19 +45,19 @@ public class SkinsNode
 
   /**
    */
-  public List<SkinAdditionNode> getSkinAdditionNodes()
+  public List<SkinAddition> getSkinAdditionNodes()
   {
     return _skinAdditionNodes;
   }
   /**
-   * 
+   *
    */
-  public List<SkinNode> getSkinNodes()
+  public List<SkinMetadata> getSkinNodes()
   {
     return _skinNodes;
   }
-  
-  private List<SkinAdditionNode> _skinAdditionNodes;
-  private List<SkinNode> _skinNodes;
+
+  private List<SkinAddition> _skinAdditionNodes;
+  private List<SkinMetadata> _skinNodes;
 
 }

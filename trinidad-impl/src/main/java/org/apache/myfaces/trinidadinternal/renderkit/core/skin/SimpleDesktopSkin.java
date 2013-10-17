@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
@@ -42,7 +43,7 @@ public class SimpleDesktopSkin extends BaseDesktopSkin
   @Override
   public String getStyleSheetName()
   {
-    return "META-INF/adf/styles/simple-desktop.css";
+    return TrinidadRenderingConstants.SIMPLE_DESKTOP_LOCATION;
   }
 
   /**
@@ -51,7 +52,7 @@ public class SimpleDesktopSkin extends BaseDesktopSkin
   @Override
   public String getId()
   {
-    return "simple.desktop";
+    return TrinidadRenderingConstants.SIMPLE_DESKTOP_ID;
   }
 
   /**
@@ -61,9 +62,9 @@ public class SimpleDesktopSkin extends BaseDesktopSkin
   @Override
   public String getFamily()
   {
-    return "simple";
+    return TrinidadRenderingConstants.SIMPLE_SKIN_FAMILY;
   }
-  
+
   /**
    * Returns the renderKitId for the SimpleDesktopSkin: "org.apache.myfaces.trinidad.desktop".
    */  

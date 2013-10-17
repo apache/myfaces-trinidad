@@ -38,8 +38,9 @@ import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.resource.StringContentResourceLoader;
 import org.apache.myfaces.trinidad.skin.Skin;
-import org.apache.myfaces.trinidad.skin.SkinFactory;
 
+import org.apache.myfaces.trinidad.skin.SkinMetadata;
+import org.apache.myfaces.trinidad.skin.SkinProvider;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContextImpl;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
@@ -191,11 +192,10 @@ abstract public class TranslationsResourceLoader
   protected Skin getSkin(FacesContext context)
   {
     Skin skin = null;
-    SkinFactory skinFactory = SkinFactory.getFactory();
-    Object skinIdObj = context.getExternalContext().getRequestParameterMap().
-      get("skinId");
+    SkinProvider skinProvider = SkinProvider.getCurrentInstance(context.getExternalContext());
+    Object skinIdObj = context.getExternalContext().getRequestParameterMap().get("skinId");
     if (skinIdObj != null)
-      skin = skinFactory.getSkin(context, skinIdObj.toString());
+      skin = skinProvider.getSkin(context, new SkinMetadata.Builder().id(skinIdObj.toString()).build());
 
     return skin;
   }

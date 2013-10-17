@@ -33,7 +33,8 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.InternalView;
 import org.apache.myfaces.trinidad.skin.Skin;
-import org.apache.myfaces.trinidad.skin.SkinFactory;
+import org.apache.myfaces.trinidad.skin.SkinMetadata;
+import org.apache.myfaces.trinidad.skin.SkinProvider;
 import org.apache.myfaces.trinidad.util.Enums;
 import org.apache.myfaces.trinidadinternal.skin.pregen.config.InvalidConfigException;
 import org.apache.myfaces.trinidadinternal.skin.pregen.config.PregenConfig;
@@ -137,11 +138,11 @@ public class SkinPregenerationService extends InternalView
     ExternalContext external = context.getExternalContext();
     return external.getRequestParameterMap().get(_SKIN_ID_REQUEST_PARAM);        
   }
-  
+
   private static Skin _getSkin(FacesContext context, String skinId)
   {
-    SkinFactory factory = SkinFactory.getFactory();
-    return factory.getSkin(context, skinId);
+    SkinProvider provider = SkinProvider.getCurrentInstance(context.getExternalContext());
+    return provider.getSkin(context, new SkinMetadata.Builder().id(skinId).build());
   }
 
   private static void _pregenFailed(FacesContext context, Exception e)

@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 import org.apache.myfaces.trinidadinternal.agent.AgentImpl;
 
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
-import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
 
 public class RenderKitBootstrap
 {
@@ -151,11 +150,6 @@ public class RenderKitBootstrap
     if (SkinFactory.getFactory() == null)
     {
       SkinFactory.setFactory(new SkinFactoryImpl());
-
-      // register the base skins
-      // =-=AEW Because we don't have a "ServletContext", we can't
-      // find any custom skins
-      SkinUtils.registerBaseSkins();
     }
   }
 

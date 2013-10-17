@@ -193,9 +193,53 @@ public final class TrinidadRenderingConstants
   // skin family names constants
   public static final String CASABLANCA_SKIN_FAMILY = "casablanca";
   public static final String MINIMAL_SKIN_FAMILY = "minimal";
+  public static final String SIMPLE_SKIN_FAMILY =  "simple";
+
+  // simple desktop skin
+  public static final String SIMPLE_DESKTOP_ID =  "simple.desktop";
+  public static final String SIMPLE_DESKTOP_LOCATION =  "META-INF/adf/styles/simple-desktop.css";
+
+  // simple pda skin
+  public static final String SIMPLE_PDA_ID =  "simple.pda";
+  public static final String SIMPLE_PDA_LOCATION =  "META-INF/adf/styles/simple-pda.css";
+
+  // simple portlet skin
+  public static final String SIMPLE_PORTLET_ID =  "simple.portlet";
+  public static final String SIMPLE_PORTLET_LOCATION =  "META-INF/adf/styles/simple-portlet.css";
+
+
+  // Minimal desktop skin id
+  public static final String MINIMAL_DESKTOP_ID = "minimal.desktop";
+  // Minimal skin style sheet name
+  public static final String MINIMAL_DESKTOP_STYLE_SHEET_NAME =
+    "META-INF/adf/styles/minimal-desktop.css";
+
+  // Minimal pda skin id
+  public static final String MINIMAL_PDA_ID = "minimal.pda";
+  // Minimal skin style sheet name
+  public static final String MINIMAL_PDA_STYLE_SHEET_NAME =
+    "META-INF/adf/styles/minimal-pda.css";
+
+  // Minimal portlet skin id
+  public static final String MINIMAL_PORTLET_ID = "minimal.portlet";
+  // Minimal skin style sheet name
+  public static final String MINIMAL_PORTLET_STYLE_SHEET_NAME =  "META-INF/adf/styles/simple-portlet.css";
+
+
+  // Casablanca skin style sheet name
+  public static final String CASABLANCA_STYLE_SHEET_NAME = "META-INF/adf/styles/casablancaSkin.css";
+
+  // Casablanca desktop skin id
+  public static final String CASABLANCA_DESKTOP_ID = "casablanca.desktop";
+
+  // Casablanca pda skin id
+  public static final String CASABLANCA_PDA_ID = "casablanca.pda";
+
+  // Casablanca portlet skin id
+  public static final String CASABLANCA_PORTLET_ID = "casablanca.portlet";
 
   public static final String COLOR_PALETTE_TRANSPARENT_ICON_NAME = "cpt.gif";
-  
+
   // 'xc' stands for uiX Composite
   // -= Simon =-
   // FIXME: Should it be renamed to remove UIX reference?

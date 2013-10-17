@@ -36,17 +36,12 @@ public class MinimalPdaSkinExtension extends SkinExtension
   {
      // Create a SkinExtension for Minimal
     super(baseSkin,
-          _MINIMAL_PDA_ID,
+          TrinidadRenderingConstants.MINIMAL_PDA_ID,
           TrinidadRenderingConstants.MINIMAL_SKIN_FAMILY,
           TrinidadRenderingConstants.APACHE_TRINIDAD_PDA);
 
     // Register our style sheet
-    setStyleSheetName(_MINIMAL_STYLE_SHEET_NAME);
+    setStyleSheetName(TrinidadRenderingConstants.MINIMAL_PDA_STYLE_SHEET_NAME);
 
   }
-
-  private static final String _MINIMAL_PDA_ID = "minimal.pda";
-  // Minimal skin style sheet name
-  private static final String _MINIMAL_STYLE_SHEET_NAME =
-    "META-INF/adf/styles/minimal-pda.css";
 }

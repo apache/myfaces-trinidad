@@ -22,6 +22,8 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import org.apache.myfaces.trinidad.skin.SkinAddition;
+import org.apache.myfaces.trinidad.skin.SkinMetadata;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
@@ -46,9 +48,9 @@ public class SkinsNodeParser extends BaseNodeParser
     ) throws SAXParseException
   {
     if ("skin-addition".equals(localName))
-      return context.getParser(SkinAdditionNode.class, namespaceURI, localName);
+      return context.getParser(SkinAddition.class, namespaceURI, localName);
     else
-      return context.getParser(SkinNode.class, namespaceURI, localName);
+      return context.getParser(SkinMetadata.class, namespaceURI, localName);
   }
 
   @Override
@@ -59,14 +61,16 @@ public class SkinsNodeParser extends BaseNodeParser
     Object       child
     ) throws SAXParseException
   {
-    assert ((child == null) || 
-            (child instanceof SkinNode) ||
-            (child instanceof SkinAdditionNode));
-    
-    if ((child instanceof SkinAdditionNode))    
-      _skinAdditions.add((SkinAdditionNode)child);
-    else
-      _skins.add((SkinNode)child);
+    assert ((child == null) ||
+            (child instanceof SkinMetadata) ||
+            (child instanceof SkinAddition));
+
+    // we should not add a child which is null
+    // so use both instance checks
+    if (child instanceof SkinAddition)
+      _skinAdditions.add((SkinAddition)child);
+    else if (child instanceof SkinMetadata)
+      _skins.add((SkinMetadata)child);
   }
 
   @Override
@@ -80,7 +84,7 @@ public class SkinsNodeParser extends BaseNodeParser
                          _skinAdditions);
   }
 
-  private List<SkinNode> _skins = new ArrayList<SkinNode>();
-  private List<SkinAdditionNode> _skinAdditions = new ArrayList<SkinAdditionNode>();
-  
+  private List<SkinMetadata> _skins = new ArrayList<SkinMetadata>();
+  private List<SkinAddition> _skinAdditions = new ArrayList<SkinAddition>();
+
 }

@@ -86,6 +86,12 @@
             </ul>
           </li>
           <li>
+            <a href="#Advanced_Skinning_Features">Advanced Skinning Features</a>
+            <ul>
+              <li><a href="#Skin_Provider">Skin Provider</a></li>
+            </ul>
+          </li>
+          <li>
             <a href="#Frequently_Asked_Questions">Frequently Asked Questions</a>
           </li>
         </ul>
@@ -1889,7 +1895,23 @@ When writing regular expressions that target this structure, the following recom
 <li>In the future it is possible that new subsections may need to be added to the variant or contextual identifier sections.  If the need for additional information arises, new subsections will be added at the end of the appropriate  major section.  As such, regular expressions should be written in a way that they can tolerate new subsections later appearing at the end of each major section.</li>
 </ul>
 </p>
-      </subsection>      
+      </subsection>
+      </section>
+
+      <a name="Advanced_Skinning_Features"></a>
+      <section name="Advanced Skinning Features">
+        <a name="Skin_Provider"></a>
+        <subsection name="Skin Provider">
+          <P>
+SkinProvider feature can be used to create external skin repositories. These repositories can create, manage and de-support Skins at runtime. This is achieved using "org.apache.myfaces.trinidad.skin.SkinProvider" SPI. Classes implementing this abstraction should be listed in the jar's /META-INF/services folder inside of a text file named "org.apache.myfaces.trinidad.skin.SkinProvider". These services will then be run by Trinidad skinning framework and be queried when a Skin is requested.
+The SkinProvider should publish a list of supported skins by means to the getSkinMetadata API and provide skin matching the requested metadata using the getSkin API. An instance of the SkinProvider can be obtained from the static factory method in SkinProvider and can be used to query skins. SkinProvider authors can make use of this to get hold of the base skins from which they want to extend their skins from. SkinProvider authors can also make use of SkinExtensionFactory as a easy way to to create SkinExtensions instead of implementing the abstract Skin APIs.
+It is the SkinProvider's responsibility to manage the skins. SkinProviders can decide to return a cached skin or a new skin object for subsequent request for the same Skin.
+There is no binding on the SkinProvider to support a skin during its lifetime. SkinProvider can decide to de-support a skin any time by not responding to a particular skin request which it served earlier and also de-listing the skin from the getSkinMetadata API.
+SkinProvider can also make use of Skin.setDirty() method to mark a skin as dirty if there is a modification in the contents of the skin and it needs the skin framework to regenerate the css for the skin. Skin framework will regenerate the css if the skin or any of its parent skins are dirty.
+SkinProvider tried to find the best match for the requested skin. If more than one provider supplies a matching skin, then the winner is decided based on the best version match, default skin or leaf skin in the family. If there is an un-resolvable conflict then skin provider will choose to return the first skin which it found.
+          </P>
+
+        </subsection>
       </section>
 
       <a name="Frequently_Asked_Questions"></a>

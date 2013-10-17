@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
@@ -35,7 +36,7 @@ public class SimplePdaSkin extends PdaHtmlSkin
   @Override
   public String getStyleSheetName()
   {
-    return "META-INF/adf/styles/simple-pda.css";
+    return TrinidadRenderingConstants.SIMPLE_PDA_LOCATION;
   }
 
   /**
@@ -45,7 +46,7 @@ public class SimplePdaSkin extends PdaHtmlSkin
   @Override
   public String getId()
   {
-    return "simple.pda";
+    return TrinidadRenderingConstants.SIMPLE_PDA_ID;
   }
 
   /**
@@ -55,7 +56,7 @@ public class SimplePdaSkin extends PdaHtmlSkin
   @Override
   public String getFamily()
   {
-    return "simple";
+    return TrinidadRenderingConstants.SIMPLE_SKIN_FAMILY;
   }
 
   /**
@@ -67,4 +68,5 @@ public class SimplePdaSkin extends PdaHtmlSkin
   {
     return XhtmlConstants.APACHE_TRINIDAD_PDA;
   }
+
 }

@@ -390,9 +390,12 @@
  <!-- SKIN_FACTORY_NO_RELOAD_SUPPORT -->
 <resource key="SKIN_FACTORY_NO_RELOAD_SUPPORT">There was an attempt to reload a SkinFactory implementation "{0}" that does not support reloading.</resource>
 
+ <!-- SKIN_FACTORY_NO_CREATE_SKIN_SUPPORT -->
+<resource key="SKIN_FACTORY_NO_CREATE_SKIN_SUPPORT">There was an attempt to create skin from a SkinFactory implementation "{0}" that does not support it.</resource>
+
 <!-- BYTE_ARRAY_CANNOT_BE_NULL -->
  <resource key="BYTE_ARRAY_CANNOT_BE_NULL">byte[] cannot be null</resource>
- 
+
  <!-- ACTUAL_LENGTH_OFFSET -->
  <resource key="ACTUAL_LENGTH_OFFSET">Actual Length:{0} offset:{1} length:{2}</resource>
  

@@ -18,27 +18,29 @@
  */
 package org.apache.myfaces.trinidad.skin;
 
- /**
-  * The skin version works tightly with the skin family.
-  * This allows someone to create versions of their skin, like purple (no version), 
-  * purple version v2, purple version v3. 
-  * Then the user can say which skin version they want, like:
-  * <skin-family>purple</skin-family><skin-version>v3</skin-version> when they 
-  * pick a skin in trinidad-config.xml.
-  * When creating a skin, you give it a version if you care about versioning.
-  */
+
+/**
+ * The skin version works tightly with the skin family.
+ * This allows someone to create versions of their skin, like purple (no version),
+ * purple version v2, purple version v3.
+ * Then the user can say which skin version they want, like:
+ * <skin-family>purple</skin-family><skin-version>v3</skin-version> when they
+ * pick a skin in trinidad-config.xml.
+ * When creating a skin, you give it a version if you care about versioning.
+ */
 final public class SkinVersion
 {
   /**
    * Constructor that takes a version name.
-   * @param name the name of the version, like "v1". If name is null, it is converted to "".
-   * same skin family
+   * @param name the name of the version, like "v1". If name is "default" then we set default as true and name to null.
+   *             If name is null, it is converted to "".
    */
   public SkinVersion(String name)
   {
-    this(name, false);
+    this(_DEFAULT.equalsIgnoreCase(name) ? null : name,
+         _DEFAULT.equalsIgnoreCase(name) ? true : false);
   }
-  
+
   /**
    * Constructor that takes a name and a defaultVersion.
    * @param name the name of the version, like "v1". If name is null, it is converted to "".
@@ -65,9 +67,9 @@ final public class SkinVersion
   {
     return _name;
   }
-  
+
   @Override
-  final public boolean equals(Object o) 
+  final public boolean equals(Object o)
   {
     if (o == this)
       return true;
@@ -93,23 +95,17 @@ final public class SkinVersion
   @Override
   public String toString()
   {
-    StringBuffer buffer = new StringBuffer("Version[");
-    buffer.append(getName());
+    if (isDefault())
+      return _DEFAULT;
 
-    boolean isDefault = isDefault();
-
-    if (isDefault)
-    {
-      buffer.append(',');
-      buffer.append("default");
-    }
-    return buffer.toString();
+    return getName();
   }
-  
-  // If the skin doesn't explicitly have a version, then it will return EMPTY_SKIN_VERSION
-  // when skin.getVersion is callled. This makes our skin picking code cleaner.
-  public final static SkinVersion EMPTY_SKIN_VERSION = new SkinVersion("");
 
   private final boolean _default;
   private final String _name;
+
+  // If the skin doesn't explicitly have a version, then it will return EMPTY_SKIN_VERSION
+  // when skin.getVersion is called. This makes our skin picking code cleaner.
+  public static final SkinVersion EMPTY_SKIN_VERSION = new SkinVersion("");
+  private static final String _DEFAULT = "default";
 }

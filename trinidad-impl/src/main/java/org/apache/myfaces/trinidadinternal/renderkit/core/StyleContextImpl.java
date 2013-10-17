@@ -124,7 +124,8 @@ class StyleContextImpl implements StyleContext
   }
 
   /*
-   * checks to see if the Skin is dirty by calling skin.isDirty()
+   * checks to see if the Skin is dirty by calling skin.isSkinDirty(true)
+   * returns true if skin or any of the ancestor is dirty
    */
   public boolean isDirty()
   {
@@ -137,13 +138,12 @@ class StyleContextImpl implements StyleContext
       Object requestSkinDirty = _getRequestMapSkinDirty(context);
       if (Boolean.TRUE.equals(requestSkinDirty))
       {
-
         // set the skin to dirty
-        _arc.getSkin().setDirty(true); 
+        _arc.getSkin().setDirty(true);
         return true;
       }
     }
-    return _arc.getSkin().isDirty();
+    return _arc.getSkin().isDirty(true);
   }
 
   public boolean disableStandardsMode()

@@ -24,8 +24,8 @@ import java.util.Map;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
-import org.apache.myfaces.trinidadinternal.renderkit.core.skin.BaseDesktopSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 
 /**
@@ -39,7 +39,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
   @Override
   public String getStyleSheetName()
   {
-    return "META-INF/adf/styles/simple-portlet.css";
+    return TrinidadRenderingConstants.SIMPLE_PORTLET_LOCATION;
   }
 
   /**
@@ -49,7 +49,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
   @Override
   public String getId()
   {
-    return "simple.portlet";
+    return TrinidadRenderingConstants.SIMPLE_PORTLET_ID;
   }
 
   /**
@@ -59,7 +59,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
   @Override
   public String getFamily()
   {
-    return "simple";
+    return TrinidadRenderingConstants.SIMPLE_SKIN_FAMILY;
   }
 
   /**
@@ -501,6 +501,4 @@ public class SimplePortletSkin  extends BaseDesktopSkin
      // end menu
 
   }
-
-
 }

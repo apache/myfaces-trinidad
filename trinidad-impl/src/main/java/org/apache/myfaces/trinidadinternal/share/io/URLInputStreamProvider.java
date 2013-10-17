@@ -55,14 +55,14 @@ public class URLInputStreamProvider implements InputStreamProvider
     // to URL.openConnection
     _lastModifiedTime = URLUtils.getLastModified(_url);
     URLConnection connection = _url.openConnection();
-    // prevent caching during DT where the source may change...
-    if (Beans.isDesignTime())
-    {
-      connection.setUseCaches(false);
-    }
+
+    // avoid URL caching
+    // if we use URL caching the files which changed do not get loaded completely
+    connection.setUseCaches(false);
+
     // In theory, should not need to close
     InputStream base = connection.getInputStream();
-    
+
     if (base instanceof BufferedInputStream)
       return base;
     else

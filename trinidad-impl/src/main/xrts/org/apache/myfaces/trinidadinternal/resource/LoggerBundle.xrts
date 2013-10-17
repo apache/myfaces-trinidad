@@ -247,8 +247,8 @@
 <!-- RENDERER_NOT_FOUND -->
 <resource key="RENDERER_NOT_FOUND">Renderer ''{0}'' not found for component family ''{1}''</resource>
 
-<!-- NO_SKIN_FACTORY -->
-<resource key="NO_SKIN_FACTORY">There is no SkinFactory</resource>
+<!-- NO_SKIN_PROVIDER -->
+<resource key="NO_SKIN_PROVIDER">There is no SkinProvider</resource>
 
 <!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
 <resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN">
@@ -262,8 +262,8 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST">The skin {0} specified on the requestMap will not be used because it does not exist.</resource>
 
-<!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
-<resource key="CANNOT_GET_SKIN_FROM_SKINFACTORY">Could not get skin {0} from the SkinFactory</resource>
+<!-- CANNOT_GET_SKIN_FROM_SKINPROVIDER -->
+<resource key="CANNOT_GET_SKIN_FROM_SKINPROVIDER">Could not get skin {0} from the SkinProvider</resource>
 
 <!-- SKIN_CIRCULAR_INCLUDE_ERROR -->
 <resource key="SKIN_CIRCULAR_INCLUDE_ERROR">Circular dependency detected in skin reference icon {0}</resource>
@@ -468,7 +468,22 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="ERR_PARSING_SKIN_SELECTOR">Error reading from the skin css file. There is an extra comma in selector: {0}</resource>
 
 <!-- CANNOT_ADD_SKIN -->
-<resource key="CANNOT_ADD_SKIN">Can't add Skin with null skinId or null skin</resource>
+<resource key="CANNOT_ADD_SKIN">Can't add Skin with null skin metadata or null skin</resource>
+
+<!-- NULL_FC_SKIN_METADATA -->
+<resource key="NULL_FC_SKIN_METADATA">Cannot create skin extension with null context or null skin metadata.</resource>
+
+<!-- NULL_FC_SKIN_BASE_SKIN_METADATA -->
+<resource key="NULL_FC_SKIN_BASE_SKIN_METADATA">Cannot create skin extension with null context or null skin metadata or null base skin metadata.</resource>
+
+<!-- NULL_SKIN_METADATA_TO_CREATE_SKIN -->
+<resource key="NULL_BASE_SKIN_ID">Make sure that base skin id is mentioned in the skin metadata. Base skin is mandatory for creating a skin extension.</resource>
+
+  <!-- INVALID_BASE_SKIN_ID -->
+<resource key="INVALID_BASE_SKIN_ID">Skin id in base skin metadata does not match with the base skin id in skin metadata.</resource>
+
+<!-- INVALID_BASE_SKIN -->
+<resource key="INVALID_BASE_SKIN">Base skin provided cannot be obtained using SkinProvider. Make sure that the base skin information provided is valid and supported by at least one SkinProvider.</resource>
 
 <!-- DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY -->
 <resource key="DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY">The previously added {0} skin has been added again. If you cached this skin in your application, you might get inconsistent results. Check for duplicate trinidad-skins.xml files on the classpath.</resource>
@@ -1208,5 +1223,15 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="FOR_EACH_STATUS_UNAVAILABLE">The for each iteration status could not be found. Key in the collection may no longer be available. Ensure there are no stale references to the component.</resource>
 
 <resource key="INVALID_SURROGATE_CHAR">During encoding, a high surrogate character was found, but the codePoint was invalid. ch is {0}, codePoint is {1} and index is {2}.</resource>
+
+<resource key="SP_CANNOT_FIND_SKIN_WITHOUT_FAMILY_OR_ID">Cannot search for skin without skinId or skin family.</resource>
+
+<resource key="SP_FINDING_SKIN_FOR">Searching for skin {0}.</resource>
+
+<resource key="SP_CANNOT_FIND_MATCHING_SKIN_ID">Can''t find a skin that matches skinId {0}.</resource>
+
+<resource key="SP_CANNOT_FIND_MATCHING_SKIN">Can''t find a skin that matches family {0} and renderkit {1}.</resource>
+
+<resource key="SP_LOADING_UNKNOWN_SKIN">Cannot load skin with id {0}. This skin is unknown to the current TrinidadSkinProvider.</resource>
 
 </resources>

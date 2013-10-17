@@ -18,26 +18,28 @@
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
+import org.apache.myfaces.trinidad.skin.SkinFeatures;
+import org.apache.myfaces.trinidad.skin.SkinMetadata;
+import org.apache.myfaces.trinidad.skin.SkinProvider;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
-import org.apache.myfaces.trinidadinternal.config.GlobalConfiguratorImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.skin.provider.ExternalSkinProvider;
 
 
 /**
  * Factory for creating Skin objects.
- *
+ * To create and manage skins external to skin framework, use SkinProvider.
+ * @see org.apache.myfaces.trinidad.skin.SkinProvider
  */
 public class SkinFactoryImpl extends SkinFactory
 {
@@ -48,10 +50,45 @@ public class SkinFactoryImpl extends SkinFactory
   public SkinFactoryImpl()
   {
     super();
-    _initalizeSkins();
-
   }
-  
+
+  /**
+   * @inheritDoc
+   */
+  @Override
+  public Skin createSkin(FacesContext context, SkinMetadata baseSkinMetadata, SkinMetadata skinMetadata)
+  {
+    if (context == null ||  baseSkinMetadata == null || skinMetadata == null)
+      throw new NullPointerException(_LOG.getMessage("NULL_FC_SKIN_BASE_SKIN_METADATA"));
+
+    if (baseSkinMetadata.getId() != null && !baseSkinMetadata.getId().equals(skinMetadata.getBaseSkinId()))
+      throw new IllegalArgumentException(_LOG.getMessage("INVALID_BASE_SKIN_ID"));
+
+    Skin baseSkin = SkinProvider.getCurrentInstance(context.getExternalContext()).getSkin(context, baseSkinMetadata);
+
+    if (baseSkin == null)
+      throw new IllegalArgumentException(_LOG.getMessage("INVALID_BASE_SKIN"));
+
+    return new SkinExtension(baseSkin, skinMetadata);
+  }
+
+  /**
+   * @inheritDoc
+   */
+  @Override
+  public Skin createSkin(FacesContext context, SkinMetadata skinMetadata)
+  {
+    if (context == null || skinMetadata == null)
+      throw new NullPointerException(_LOG.getMessage("NULL_FC_SKIN_METADATA"));
+
+    if (skinMetadata.getBaseSkinId() == null)
+      throw new NullPointerException(_LOG.getMessage("NULL_BASE_SKIN_ID"));
+
+    SkinMetadata baseSkinMetadata = new SkinMetadata.Builder().id(skinMetadata.getBaseSkinId()).build();
+
+    return createSkin(context, baseSkinMetadata, skinMetadata);
+  }
+
    /**
     * <p>Register the specified {@link Skin} instance, associated with
     * the specified <code>skinId</code>, to be supported by this
@@ -63,8 +100,10 @@ public class SkinFactoryImpl extends SkinFactory
     *
     * @param skinId Identifier of the {@link Skin} to register
     * @param skin {@link Skin} instance that we are registering
+    * @deprecated use SkinProvider SPI to deal with externals skins
     */
   @Override
+  @Deprecated
   public  void addSkin(
     String skinId,
     Skin   skin)
@@ -75,21 +114,20 @@ public class SkinFactoryImpl extends SkinFactory
       return;
     }
 
-    synchronized (this)
-    {
-      // we could be called when 
-      // 1. skin is in READY state -> allow skin addition
-      // 2. _reloadIfDirty() is in call stack (in which case we will be in RELOADABLE state) -> allow skin addition
-      // 3. _reloadIfDirty() is not in call stack, we could possibly be in DIRTY state -> do not allow skin addition
-      if (_skinsState == SkinsState.DIRTY)
-      {
-        throw new IllegalStateException(_LOG.getMessage("SKIN_ADDITION_ATEMPT_WHEN_FACTORY_DIRTY"));
-      }
-      
-      Skin previousValue = _skins.put(skinId, skin);
-      if (previousValue != null)
-        _LOG.warning("DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY", skinId);
-    }
+    SkinMetadata.Builder builder = new SkinMetadata.Builder().id(skinId)
+            .family(skin.getFamily()).version(skin.getVersion())
+            .renderKitId(SkinMetadata.RenderKitId.fromId(skin.getRenderKitId()));
+
+    if (skin.getBaseSkin() != null)
+      builder.baseSkinId(skin.getBaseSkin().getId());
+
+    if (skin.getSkinFeatures() != null)
+      builder.features(new SkinFeatures(skin.getSkinFeatures()));
+
+    Skin previousValue = _getExternalSkinProvider(null).addSkin(builder.build(), skin);
+
+    if (previousValue != null)
+      _LOG.warning("DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY", skinId);
   }
 
 
@@ -98,7 +136,9 @@ public class SkinFactoryImpl extends SkinFactory
    * @param context FacesContext. If not available, pass in null.
    * @param skinId
    * @return Skin that is in this SkinFactory and has the skinId.
+   * @deprecated use SkinProvider to query skins
    */
+  @Deprecated
   @Override
   public Skin getSkin(
     FacesContext context,
@@ -111,22 +151,7 @@ public class SkinFactoryImpl extends SkinFactory
       return null;
     }
 
-    Skin skin = null;
-    synchronized (this)
-    {
-      // we can be called at deploy time, so, it is possible that faces context is null
-      if (context != null)
-      {
-        _reloadIfDirty(context.getExternalContext());
-      }
-
-      if (_skins.containsKey(skinId))
-      {
-        skin = _skins.get(skinId);
-      }
-    }
-
-    return skin;
+    return SkinUtils.getSkinProvider(context).getSkin(context, new SkinMetadata.Builder().id(skinId).build());
   }
 
   /**
@@ -138,7 +163,9 @@ public class SkinFactoryImpl extends SkinFactory
    * XhtmlConstants.APACHE_TRINIDAD_DESKTOP, XhtmlConstants.APACHE_TRINIDAD_PDA, or
    * XhtmlConstants.APACHE_TRINIDAD_PORTLET
    *  {@link Skin} instance
+   * @deprecated use SkinProvider to query skins
    */
+  @Deprecated
   @Override
   public Skin getSkin(
     FacesContext context,
@@ -160,10 +187,12 @@ public class SkinFactoryImpl extends SkinFactory
    * @param family
    * @param renderKitId
    * @param version The version of the skin you want to return. This can be 
-   *                "default", or a version name (e.g., "v1"), or null or "" 
+   *                "default", or a version name (e.g., "v1"), or null or ""
    *                (if you want the skin that does not have a version set).
    * @return the best matched Skin given the family, renderKitId, and version.
+   * @deprecated use SkinProvider to query skins
    */
+  @Deprecated
   @Override
   public Skin getSkin(
     FacesContext context,
@@ -183,231 +212,50 @@ public class SkinFactoryImpl extends SkinFactory
     // renderKitId (simple.desktop or simple.pda)
     if (family == null)
      throw new NullPointerException("Null skin family");
-    
-    // we are in JSF lifecycle when this method gets called, so this time we will have the faces context
-    _reloadIfDirty(context.getExternalContext());
 
-    // default render-kit-id, if needed.
-    if (renderKitId == null)
-      renderKitId = XhtmlConstants.APACHE_TRINIDAD_DESKTOP;
+    Skin matchingSkin = SkinUtils.getSkinProvider(context).getSkin(context, new SkinMetadata.Builder().
+      family(family).version(new SkinVersion(version)).renderKitId(SkinMetadata.RenderKitId.fromId(renderKitId)).build());
 
-    // loop through each skin in the SkinFactory
-    // and see if the family and the renderKitId match
-    Skin matchingSkin = null;
-    List<Skin> matchingSkinList = new ArrayList<Skin>();
-
-    for(Skin skin : _skins.values())
-    {
-      if (family.equalsIgnoreCase(skin.getFamily()) &&
-          renderKitId.equalsIgnoreCase(skin.getRenderKitId()))
-      {
-        // exact family+renderKitId match!
-        matchingSkinList.add(skin);
-      }
-    }
-    
-
-    if (matchingSkinList.isEmpty())
-    {
-      // if we get here, that means we couldn't find an exact
-      // family/renderKitId match, so return the simple skin
-      // that matches the renderkitid.
-       if (_LOG.isWarning())
-       {
-         _LOG.warning("CANNOT_FIND_MATCHING_SKIN", new Object[]{family, renderKitId});
-       }
-
-      if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_PORTLET))
-        matchingSkin = getSkin(context, _SIMPLE_PORTLET);
-      else if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_PDA))
-        matchingSkin = getSkin(context, _SIMPLE_PDA);
-      else
-        matchingSkin = getSkin(context, _SIMPLE_DESKTOP);
-    }
-    else
-    {
-      // at this point we know we have something in the matchingSkinList
-      // which is a list of matching family and renderKitId skins. Now match the version
-      // to find the best matched skin.
-      boolean foundMatchingSkin = false;
-      boolean versionIsDefault = (_DEFAULT.compareToIgnoreCase(version) == 0);
-      // if the user didn't ask for the 'default' version, then look for the exact match
-      if (!versionIsDefault)
-      {
-        for (Skin skin : matchingSkinList)
-        {
-          SkinVersion skinVersion = skin.getVersion();
-          if (skinVersion != null)
-          {
-            String name = skinVersion.getName(); 
-            if (version.equals(name))
-            {
-              matchingSkin = skin;
-              break;
-            }
-          }
-        }          
-      }
-      // matchingSkin will be null if an exact version match (family+renderKitId+exact version) was not found;
-      // we can have an exact version match if the user asks for null version, and we find a skin with no
-      // version set.
-      if (matchingSkin == null || versionIsDefault)
-      {
-        // find skin with version= default
-        matchingSkin = _getDefaultVersionSkin(matchingSkinList);
-
-        if (matchingSkin == null)
-        {
-          // get the last skin in the matchingSkinList if there is no skin marked default.
-          matchingSkin = matchingSkinList.get(matchingSkinList.size() -1);
-        }
-        else if ((matchingSkin != null) && versionIsDefault)
-        {
-          // found the default skin the user wanted
-          foundMatchingSkin = true;
-        }
-      } // end matchingSkin == null || versionIsDefault 
-      else
-      {
-        foundMatchingSkin = true;
-      }
-      // log messages
-      if (foundMatchingSkin)
-      {
-        if (_LOG.isFine())
-          _LOG.fine("GET_SKIN_FOUND_SKIN_VERSION", 
-                    new Object[]{family, version, matchingSkin.getId()}); 
-      }
-      else
-      {        
-        if(_LOG.isWarning())
-        {
-          if ("".equals(version))
-          {
-            _LOG.warning("GET_SKIN_CANNOT_FIND_NO_VERSION", 
-                         new Object[]{family, matchingSkin.getId()});
-          }
-          else
-          {    
-            _LOG.warning("GET_SKIN_CANNOT_FIND_SKIN_VERSION", 
-                         new Object[]{family, version, matchingSkin.getId()}); 
-          }
-        }
-      }
-    }
-    
-    // If we've got a matching skin, wrap it in a RequestSkinWrapper
-    // to provide access to request-specific state.
-    return (matchingSkin == null) ? null : new RequestSkinWrapper(matchingSkin); 
+    return (matchingSkin == null) ? null : new RequestSkinWrapper(matchingSkin);
   }
 
+  /**
+   * @inheritDoc
+   */
+  @Deprecated
   @Override
   public Iterator<String> getSkinIds()
   {
-    return (_skins.keySet().iterator());
+    Collection<SkinMetadata> metadatas = _getExternalSkinProvider(null).getSkinMetadata(null);
+    Set<String> ids = new HashSet<String>();
+
+    for (SkinMetadata metadata : metadatas)
+      ids.add(metadata.getId());
+
+    return ids.iterator();
   }
 
+  /**
+   * @inheritDoc
+   */
+  @Deprecated
   @Override
   public void reload()
   {
-    synchronized (this)
-    {
-      // just mark it dirty, we will do the reload on next request
-      _skinsState = SkinsState.DIRTY;
-    }
-  }
-  
-  private void _reloadIfDirty(ExternalContext context)
-  {
-    synchronized (this)
-    {
-      // dont try to reload if we are done with or in process of reloading
-      if (_skinsState == SkinsState.DIRTY)
-      {
-        _LOG.fine("Reloading skins begin");
-        _skinsState = SkinsState.RELOADING;
-        
-        // backup the old skins to help in recovery if need be
-        Map<String, Skin> oldSkins = _skins;
-        
-        _initalizeSkins();
-        
-        try
-        {
-          // give chance for configurator services to attach any skins that was not defined trinidad-skins.xml
-          GlobalConfiguratorImpl.getInstance().reloadSkins(context, this);
-        }
-        catch (Exception e)
-        {
-          _LOG.severe("SKIN_RELOAD_FAILURE", e);
-          
-          // recover to the skins before the reload attempt
-          _skins = oldSkins;
-        }
-        finally
-        {
-          _skinsState = SkinsState.READY;
-          _LOG.fine("Reloading skins complete");
-        }
-      }
-    }
+    _getExternalSkinProvider(null).reload();
   }
 
-  /**
-   * Given a list of Skins, find the one that has its SkinVersion set to 'default', if it exists.
-   * @param matchingSkinList A list of Skins that we will look through to find the 'default'.
-   * @return Skin with SkinVersion isDefault true, otherwise, null.
-   */
-  private Skin _getDefaultVersionSkin(List<Skin> matchingSkinList)
+  private ExternalSkinProvider _getExternalSkinProvider(FacesContext context)
   {
-    Skin matchingSkin = null;
-    for (Skin skin : matchingSkinList)
-    {
-      SkinVersion skinVersion = skin.getVersion();
-      if (skinVersion != null)
-      {
-        if (skinVersion.isDefault())
-        {
-          matchingSkin = skin;
-          break;
-        }
-      }
-    }
-    return matchingSkin;
-  }
-  
-  private void _initalizeSkins()
-  {
-    _skins = new LinkedHashMap<String, Skin>();
+    if (context == null)
+      context = FacesContext.getCurrentInstance();
+
+    if (context == null)
+      throw new NullPointerException("Cannot retrieve FacesContext. FacesContext is null.");
+
+    return ExternalSkinProvider.getCurrentInstance(context.getExternalContext());
   }
 
-  /**
-   * State of the skins attached to this factory
-   */
-  private enum SkinsState
-  {
-    /**
-     * Ready to be used
-     */
-    READY,
-    /**
-     * Marked dirty, reload pending
-     */
-    DIRTY,
-    /**
-     * Reload in progress
-     */
-    RELOADING
-  }
-
-  // Stores all the Skins in this SkinFactory
-  private Map<String, Skin> _skins = null;
-  private SkinsState _skinsState = SkinsState.READY;
-  
-  static private final String _SIMPLE_PDA = "simple.pda";
-  static private final String _SIMPLE_DESKTOP = "simple.desktop";
-  static private final String _SIMPLE_PORTLET = "simple.portlet";
-  static private final String _DEFAULT = "default";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinFactoryImpl.class);
 
 }

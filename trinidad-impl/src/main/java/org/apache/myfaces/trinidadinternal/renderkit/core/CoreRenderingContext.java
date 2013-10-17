@@ -18,8 +18,6 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
-import java.beans.Beans;
-
 import java.io.File;
 
 import java.util.HashMap;
@@ -41,7 +39,9 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
-import org.apache.myfaces.trinidad.skin.SkinFactory;
+import org.apache.myfaces.trinidad.skin.SkinMetadata;
+import org.apache.myfaces.trinidad.skin.SkinProvider;
+import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidad.util.RequestType;
@@ -491,14 +491,14 @@ public class CoreRenderingContext extends RenderingContext
       if (requestedSkinId != null)
       {
 
-        SkinFactory factory = SkinFactory.getFactory();
-        if (factory == null)
+        SkinProvider skinProvider = SkinProvider.getCurrentInstance(context.getExternalContext());
+        if (skinProvider == null)
         {
-          _LOG.warning("NO_SKIN_FACTORY");
+          _LOG.warning("NO_SKIN_PROVIDER");
           return null;
         }
-        
-        Skin requestedSkin = factory.getSkin(context, requestedSkinId.toString());
+
+        Skin requestedSkin = skinProvider.getSkin(context, new SkinMetadata.Builder().id(requestedSkinId.toString()).build());
         if (requestedSkin != null)
         {
           // In portlet mode, we will switch to using the requestedSkin
@@ -652,23 +652,27 @@ public class CoreRenderingContext extends RenderingContext
     }
 
 
-    SkinFactory factory = SkinFactory.getFactory();
-    if (factory == null)
+    SkinProvider skinProvider = SkinProvider.getCurrentInstance(context.getExternalContext());
+    if (skinProvider == null)
     {
-      _LOG.warning("NO_SKIN_FACTORY");
+      _LOG.warning("NO_SKIN_PROVIDER");
       return;
     }
-
-    Skin skin = factory.getSkin(context, skinFamily, renderKitId, skinVersionString);
+    // skinFamily, renderKitId, skinVersionString
+    SkinMetadata metadata = new SkinMetadata.Builder().family(skinFamily)
+      .renderKitId(SkinMetadata.RenderKitId.fromId(renderKitId)).version(new SkinVersion(skinVersionString)).build();
+    Skin skin = skinProvider.getSkin(context, metadata);
 
     if (skin == null)
     {
       if (_LOG.isWarning())
-        _LOG.warning("CANNOT_GET_SKIN_FROM_SKINFACTORY", skinFamily);
+        _LOG.warning("CANNOT_GET_SKIN_FROM_SKINPROVIDER", skinFamily);
+      skin = SkinNotAvailable.getSkinNotAvailable();
     }
-
-    if (skin == null)
-        skin = SkinNotAvailable.getSkinNotAvailable();
+    else
+    {
+      skin = new RequestSkinWrapper(skin);
+    }
 
     _skin = skin;
   }

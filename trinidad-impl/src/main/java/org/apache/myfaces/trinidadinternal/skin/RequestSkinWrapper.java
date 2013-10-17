@@ -324,6 +324,19 @@ public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
   {
     return _skin.isDirty();
   }
+
+  @Override
+  public boolean isDirty(boolean checkAncestors)
+  {
+    return _skin.isDirty(checkAncestors);
+  }
+
+  @Override
+  public Skin getBaseSkin()
+  {
+    return _skin.getBaseSkin();
+  }
+
   @Override
   public void setDirty(boolean dirty)
   {
