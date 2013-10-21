@@ -789,7 +789,14 @@ public class FileSystemStyleCache implements StyleProvider
           }
         }
         
-        skinPropertiesMap.put(key, (propValueObj != null ? propValueObj : value));
+        if (propValueObj != null) 
+        {
+          skinPropertiesMap.put(key,propValueObj);
+        }
+        else if (value != null)
+        {
+          skinPropertiesMap.put(key, value);
+        }
       }
     }
     return skinPropertiesMap;
