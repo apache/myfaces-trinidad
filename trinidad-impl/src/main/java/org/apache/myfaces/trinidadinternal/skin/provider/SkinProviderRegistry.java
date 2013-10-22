@@ -124,14 +124,6 @@ public class SkinProviderRegistry extends SkinProvider
       }
     }
 
-    if (matchingSkin != null)
-    {
-      if (_LOG.isFine())
-        _LOG.fine("Skin obtained for metadata: " + skinMetadata + " from Skinfactory");
-
-      matchingSkins.add(matchingSkin);
-    }
-
     if (_LOG.isFine())
       _LOG.fine("Matches obtained for " + skinMetadata + ": " + matchingSkins.size());
 
@@ -243,7 +235,7 @@ public class SkinProviderRegistry extends SkinProvider
     List<Skin> filterList = new ArrayList<Skin>(skins.size());
 
     for (Skin skin : skins)
-      if (family.equals(skin.getFamily()))
+      if (family.equalsIgnoreCase(skin.getFamily()))
         filterList.add(skin);
 
     return filterList;
@@ -263,7 +255,7 @@ public class SkinProviderRegistry extends SkinProvider
     List<Skin> filterList = new ArrayList<Skin>(skins.size());
 
     for (Skin skin : skins)
-      if (renderKitId.equals(skin.getRenderKitId()))
+      if (renderKitId.equalsIgnoreCase(skin.getRenderKitId()))
         filterList.add(skin);
 
     return filterList;
