@@ -62,7 +62,7 @@ public class SkinProviderRegistry extends SkinProvider
     if (_LOG.isFine())
       _LOG.fine("Adding TrinidadSkinProvider... ");
 
-    providers.add(new TrinidadSkinProvider());
+    providers.add(SkinUtils.getTrinidadSkinProvider(null));
 
     if (_LOG.isFine())
       _LOG.fine("Adding TrinidadBaseSkinProvider... ");
@@ -144,7 +144,8 @@ public class SkinProviderRegistry extends SkinProvider
       assert  (skinMetadata.getRenderKitId() != null);
       // if renderKit is available return the simple skin for that renderKit
       // skinMetadata.getRenderKitId() can never be null, default renderKit will always be DESKTOP
-      return _returnSkin(context, skinMetadata, _getSimpleSkinForRenderKit(context, skinMetadata.getRenderKitId()));
+      return _returnSkin(context, skinMetadata,
+        SkinUtils.getDefaultSkinForRenderKitId(this, context, skinMetadata.getRenderKitId()));
     }
 
 
@@ -485,17 +486,6 @@ public class SkinProviderRegistry extends SkinProvider
       _LOG.finer("Adding " + skinMetadata + " to context");
       _LOG.finer("Context now is " + requesters);
     }
-  }
-
-  private Skin _getSimpleSkinForRenderKit(FacesContext context, String renderKitId)
-  {
-    if (renderKitId != null && renderKitId.equals(TrinidadRenderingConstants.APACHE_TRINIDAD_PORTLET))
-      return getSkin(context, new SkinMetadata.Builder().id(TrinidadRenderingConstants.SIMPLE_PORTLET_ID).build());
-
-    if (renderKitId != null && renderKitId.equals(TrinidadRenderingConstants.APACHE_TRINIDAD_PDA))
-      return getSkin(context, new SkinMetadata.Builder().id(TrinidadRenderingConstants.SIMPLE_PDA_ID).build());
-
-    return getSkin(context, new SkinMetadata.Builder().id(TrinidadRenderingConstants.SIMPLE_DESKTOP_ID).build());
   }
 
   private final List<SkinProvider> _providers;

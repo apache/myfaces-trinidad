@@ -22,9 +22,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-
-import javax.el.ValueExpression;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -34,8 +31,6 @@ import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidad.skin.SkinMetadata;
 import org.apache.myfaces.trinidad.skin.SkinProvider;
-import org.apache.myfaces.trinidad.skin.SkinVersion;
-import org.apache.myfaces.trinidadinternal.config.LazyValueExpression;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
@@ -48,6 +43,44 @@ import org.apache.myfaces.trinidadinternal.skin.parse.SkinsNode;
  */
 public final class TrinidadSkinProvider extends BaseSkinProvider
 {
+  /**
+   * Key for the TrinidadSkinProvider stored in ExternalContext
+   */
+  public static final String TRINDIAD_SKIN_PROVIDER_KEY =
+    "org.apache.myfaces.trinidad.skin.TRINDIAD_SKIN_PROVIDER_INSTANCE";
+
+  /**
+   * static factory method to get hold of a TrinidadSkinProvider object
+   * This can be used for easy creation of Skin object without having to
+   * implement the abstract class
+   * @param ec
+   * @return
+   */
+  public static TrinidadSkinProvider getCurrentInstance(ExternalContext ec)
+  {
+    if (ec == null)
+      throw new NullPointerException("ExternalContext is passed as null");
+
+    TrinidadSkinProvider trinidadSkinProvider = (TrinidadSkinProvider) ec.getApplicationMap().get(TRINDIAD_SKIN_PROVIDER_KEY);
+    return trinidadSkinProvider;
+  }
+
+  /**
+   * used by ExternalSkinProvider to ensure that the skin and its base skin additions are added correctly
+   * @param skin
+   */
+  public void ensureSkinAdditions(Skin skin)
+  {
+    if (_skinAdditionNodes == null || _skinAdditionNodes.isEmpty())
+      return;
+
+    for (SkinAddition addition : _skinAdditionNodes)
+    {
+      // skin additions in _skinAdditionNodes will not be null
+      _checkAndAddInHierarchy(skin, addition);
+    }
+  }
+
   /**
    * {@inheritDoc}
    */
@@ -96,7 +129,7 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
 
     // if there is no base skin then use the default base skin for the renderKit
     if (baseSkin == null)
-      baseSkin = _getDefaultBaseSkin(provider, renderKitId);
+      baseSkin = SkinUtils.getDefaultSkinForRenderKitId(provider, context, renderKitId);
 
     if (id == null)
       throw new NullPointerException(_LOG.getMessage("NULL_SKIN_ID"));
@@ -123,13 +156,12 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
           loadedSkin.addSkinAddition(addition);
         }
 
-        if (baseSkinId.equals(additionSkinId)
-          && !_hasSkinAddition(baseSkin.getSkinAdditions(), addition))
+        if (baseSkinId.equals(additionSkinId))
         {
-            if (_LOG.isFine())
-              _LOG.fine("Adding parent skin addition : " + addition);
+          boolean added = SkinUtils.addSkinAdditionToSkinIfAbsent(baseSkin, addition);
 
-            baseSkin.addSkinAddition(addition);
+          if (added && _LOG.isFine())
+            _LOG.fine("Adding parent skin addition: " + addition);
         }
       }
 
@@ -185,35 +217,23 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
     }
   }
 
-  private boolean _hasSkinAddition(List<SkinAddition> additions, SkinAddition search)
+  private void _checkAndAddInHierarchy(Skin skin, SkinAddition addition)
   {
-    if (search == null)
-      return false;
+    // exit condition for the recursive call
+    if (skin == null)
+      return;
 
-    // here we check only stylesheet name as an addition with a stylesheet name needs to added only once
-    for (SkinAddition addn : additions)
-      if (addn != null && search.getStyleSheetName().equals(addn.getStyleSheetName()))
-        return true;
+    String skinId = addition.getSkinId();
 
-    return false;
-  }
+    if (skinId != null && skinId.equals(skin.getId()))
+    {
+      boolean added = SkinUtils.addSkinAdditionToSkinIfAbsent(skin, addition);
 
-  private static Skin _getDefaultBaseSkin(SkinProvider provider, String renderKitId)
-  {
-    String baseSkinId;
+      if (added && _LOG.isFine())
+        _LOG.fine("Adding skin addition : " + addition);
+    }
 
-    if (TrinidadRenderingConstants.APACHE_TRINIDAD_PDA.equals(renderKitId))
-      baseSkinId =  TrinidadRenderingConstants.SIMPLE_PDA_ID;
-    else if (TrinidadRenderingConstants.APACHE_TRINIDAD_PORTLET.equals(renderKitId))
-      baseSkinId =  TrinidadRenderingConstants.SIMPLE_PORTLET_ID;
-    else
-      baseSkinId = TrinidadRenderingConstants.SIMPLE_DESKTOP_ID;
-
-    Skin baseSkin = provider.getSkin(null, new SkinMetadata.Builder().id(baseSkinId).build());
-
-    // this will never be null because we are asking for the default simple skin
-    assert (baseSkin != null);
-    return baseSkin;
+    _checkAndAddInHierarchy(skin.getBaseSkin(), addition);
   }
 
   private List<SkinMetadata> _skinMetadata;

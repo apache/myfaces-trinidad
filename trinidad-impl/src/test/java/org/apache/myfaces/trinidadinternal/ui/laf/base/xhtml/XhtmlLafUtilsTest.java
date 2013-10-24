@@ -33,6 +33,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.MFacesContext;
 import org.apache.myfaces.trinidadinternal.renderkit.MRequestContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderKitBootstrap;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
+import org.apache.myfaces.trinidadinternal.skin.provider.TrinidadSkinProvider;
 
 /**
  * Unit tests for XhtmlLafUtils.
@@ -67,6 +68,7 @@ public class XhtmlLafUtilsTest extends TestCase
     _requestContext.setAgent(RenderKitBootstrap.getGeckoAgent());
     _requestContext.setRightToLeft(false);
     _requestContext.setAccessibilityMode(null);
+    _facesContext.getExternalContext().getApplicationMap().put(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY, new TrinidadSkinProvider());
     _facesContext.getExternalContext().getApplicationMap().put(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY, new ExternalSkinProvider());
     _facesContext.getExternalContext().getApplicationMap().put(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY, new SkinProviderRegistry());
 

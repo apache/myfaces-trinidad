@@ -60,6 +60,7 @@ import org.apache.myfaces.trinidadinternal.context.external.ServletRequestParame
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.provider.ExternalSkinProvider;
 import org.apache.myfaces.trinidadinternal.skin.provider.SkinProviderRegistry;
+import org.apache.myfaces.trinidadinternal.skin.provider.TrinidadSkinProvider;
 
 /**
  * This is the implementation of the Trinidad's Global configurator. It provides the entry point for
@@ -437,6 +438,13 @@ public final class GlobalConfiguratorImpl
 
         if (externalSkinProvider == null)
           ec.getApplicationMap().put(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY, new ExternalSkinProvider());
+
+        // init trinidad skin provider
+        // this has to be done before SkinProviderRegistry, because SkinProviderRegistry uses this
+        Object trinidadSkinProvider = ec.getApplicationMap().get(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY);
+
+        if (trinidadSkinProvider  == null)
+          ec.getApplicationMap().put(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY, new TrinidadSkinProvider());
 
         // init skin provider
         Object provider = ec.getApplicationMap().get(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY);

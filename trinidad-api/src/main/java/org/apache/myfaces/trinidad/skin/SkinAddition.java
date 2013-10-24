@@ -44,8 +44,6 @@ import javax.faces.el.ValueBinding;
  * Most likely this is the simple.desktop skin.
  * The other elements are used to create a SkinAddition object.
  * </p>
- *
- *
  */
 public class SkinAddition
 {
@@ -318,6 +316,39 @@ public class SkinAddition
     private SkinFeatures _skinFeatures;
   }
 
+  @Override
+  public boolean equals(Object o)
+  {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    SkinAddition addition = (SkinAddition) o;
+
+    if (_resourceBundleName != null ? !_resourceBundleName.equals(addition._resourceBundleName) : addition._resourceBundleName != null)
+      return false;
+    if (_skinFeatures != null ? !_skinFeatures.equals(addition._skinFeatures) : addition._skinFeatures != null)
+      return false;
+    if (_skinId != null ? !_skinId.equals(addition._skinId) : addition._skinId != null)
+      return false;
+    if (_styleSheetName != null ? !_styleSheetName.equals(addition._styleSheetName) : addition._styleSheetName != null)
+      return false;
+    if (_translationSourceVE != null ? !_translationSourceVE.equals(addition._translationSourceVE) : addition._translationSourceVE != null)
+      return false;
+
+    return true;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    int result = 17;
+    result = 37 * result + (null == _styleSheetName ? 0 : _styleSheetName.hashCode());
+    result = 37 * result + (null == _skinId ? 0 : _skinId.hashCode());
+    result = 37 * result + (null == _resourceBundleName ? 0 : _resourceBundleName.hashCode());
+    result = 37 * result + (null == _translationSourceVE ? 0 : _translationSourceVE.hashCode());
+    result = 37 * result + (null == _skinFeatures ? 0 : _skinFeatures.hashCode());
+    return result;
+  }
 
   /**
    * Constructor for SkinAddition based on Builder

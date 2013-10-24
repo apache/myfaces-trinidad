@@ -53,6 +53,7 @@ import org.apache.myfaces.trinidad.skin.SkinProvider;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.share.xml.ClassParserFactory;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
 import org.apache.myfaces.trinidadinternal.share.xml.ParserFactory;
@@ -64,6 +65,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinsNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.XMLConstants;
 import org.apache.myfaces.trinidadinternal.skin.provider.ExternalSkinProvider;
+import org.apache.myfaces.trinidadinternal.skin.provider.TrinidadSkinProvider;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
 import org.xml.sax.InputSource;
@@ -77,6 +79,11 @@ import org.xml.sax.InputSource;
  */
 public class SkinUtils
 {
+  /**
+   * Utility method to get the SkinProvider instance
+   * @param context Tries to obtain the default FacesContext if null is passed
+   * @return
+   */
   static public SkinProvider getSkinProvider(FacesContext context)
   {
     if (context == null)
@@ -88,6 +95,11 @@ public class SkinUtils
     return SkinProvider.getCurrentInstance(context.getExternalContext());
   }
 
+  /**
+   * Utility method to get the ExternalSkinProvider instance
+   * @param context Tries to obtain the default FacesContext if null is passed
+   * @return
+   */
   static public SkinProvider getExternalSkinProvider(FacesContext context)
   {
     if (context == null)
@@ -97,6 +109,76 @@ public class SkinUtils
       throw new NullPointerException("Cannot retrieve FacesContext. FacesContext is null.");
 
     return ExternalSkinProvider.getCurrentInstance(context.getExternalContext());
+  }
+
+  /**
+   * Utility method to get the TrinidadSkinProvider instance
+   * @param context Tries to obtain the default FacesContext if null is passed
+   * @return
+   */
+  static public TrinidadSkinProvider getTrinidadSkinProvider(FacesContext context)
+  {
+    if (context == null)
+      context = FacesContext.getCurrentInstance();
+
+    if (context == null)
+      throw new NullPointerException("Cannot retrieve FacesContext. FacesContext is null.");
+
+    return TrinidadSkinProvider.getCurrentInstance(context.getExternalContext());
+  }
+
+  /**
+   * Adds skinAddition passed into the skin object passed, if the skin object does not have
+   * the same skin addition already.
+   * @param skin
+   * @param skinAddition
+   * @return true if the SkinAddition was added into Skin and false if it was not.
+   */
+  static public boolean addSkinAdditionToSkinIfAbsent(Skin skin, SkinAddition skinAddition)
+  {
+    if (skin == null || skinAddition == null)
+      throw new NullPointerException("Skin or SkinAddition passed is null");
+
+    List<SkinAddition> additions = skin.getSkinAdditions();
+
+    if (skinAddition != null)
+    {
+      for (SkinAddition addn : additions)
+        if (addn != null && addn.equals(skinAddition))
+          return false;
+    }
+
+    skin.addSkinAddition(skinAddition);
+    return true;
+  }
+
+  /**
+   * @param provider skin provider
+   * @param context faces context
+   * @param renderKitId renderKit Id for default skin
+   * @return the default skin for the renderKit passed. Assumes renderKit as DESKTOP if null.
+   *         does not return null, returns the DESKTOP simple skin in worst case.
+   */
+  public static Skin getDefaultSkinForRenderKitId(SkinProvider provider, FacesContext context, String renderKitId)
+  {
+
+    if (provider == null || context == null)
+      throw new NullPointerException("SkinProvider or FacesContext is passed as null.");
+
+    String defaultSkinId;
+
+    if (TrinidadRenderingConstants.APACHE_TRINIDAD_PORTLET.equals(renderKitId))
+      defaultSkinId = TrinidadRenderingConstants.SIMPLE_PORTLET_ID;
+    else if (TrinidadRenderingConstants.APACHE_TRINIDAD_PDA.equals(renderKitId))
+      defaultSkinId = TrinidadRenderingConstants.SIMPLE_PDA_ID;
+    else
+      defaultSkinId = TrinidadRenderingConstants.SIMPLE_DESKTOP_ID;
+
+    Skin defaultSkin = provider.getSkin(context, new SkinMetadata.Builder().id(defaultSkinId).build());
+
+    assert (defaultSkin != null);
+
+    return defaultSkin;
   }
 
   /**

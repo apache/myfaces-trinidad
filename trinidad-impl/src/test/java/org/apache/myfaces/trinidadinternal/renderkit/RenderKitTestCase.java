@@ -56,6 +56,7 @@ import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.skin.provider.ExternalSkinProvider;
 import org.apache.myfaces.trinidadinternal.skin.provider.SkinProviderRegistry;
+import org.apache.myfaces.trinidadinternal.skin.provider.TrinidadSkinProvider;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.TestResult;
@@ -188,6 +189,7 @@ abstract public class RenderKitTestCase extends TestSuite
       boolean testMode)
     {
       MFacesContext ctx = new MFacesContext(mockApplication, testMode);
+      ctx.getExternalContext().getApplicationMap().put(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY, new TrinidadSkinProvider());
       ctx.getExternalContext().getApplicationMap().put(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY, new ExternalSkinProvider());
       ctx.getExternalContext().getApplicationMap().put(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY, new SkinProviderRegistry());
       return ctx;
