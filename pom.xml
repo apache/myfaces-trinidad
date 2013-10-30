@@ -81,7 +81,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     <junit.version>4.4</junit.version>
     
     <!-- Plugins -->
-    <trinidad-plugins.version>2.0.9-SNAPSHOT</trinidad-plugins.version>
+    <trinidad-plugins.version>2.0.8-SNAPSHOT</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
     <jetty-plugin.version>6.1.21</jetty-plugin.version>
     <pluto.version>1.1.6</pluto.version>
