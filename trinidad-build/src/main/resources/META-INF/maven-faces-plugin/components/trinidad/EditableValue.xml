@@ -64,6 +64,9 @@
       <property-class>boolean</property-class>
       <property-extension>
         <mfp:tag-attribute-excluded>true</mfp:tag-attribute-excluded>
+        <fmd:property-metadata>
+          <fmd:value-expression>PROHIBITED</fmd:value-expression>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -79,6 +82,9 @@ may manually set it to null to erase any submitted value.]]>
       <property-class>java.lang.Object</property-class>
       <property-extension>
         <mfp:tag-attribute-excluded>true</mfp:tag-attribute-excluded>
+        <fmd:property-metadata>
+          <fmd:value-expression>PROHIBITED</fmd:value-expression>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
