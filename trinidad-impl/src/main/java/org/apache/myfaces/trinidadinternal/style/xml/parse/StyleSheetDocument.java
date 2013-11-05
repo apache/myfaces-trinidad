@@ -1285,7 +1285,10 @@ public class StyleSheetDocument
     }
     catch (NumberFormatException e)
     {
-      assert false:"Could not parse font size: " + value;
+      // there are valid values like small, large etc for font-size
+      // we do not have to process those
+      // so just log this and return the original PropertyNode
+      _LOG.fine("Could not parse font size: " + value + ". Returning the property as is.");
 
       return property;
     }
