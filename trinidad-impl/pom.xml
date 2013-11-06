@@ -303,7 +303,14 @@
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-faces-plugin</artifactId>
-        <configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.myfaces.trinidad</groupId>
+            <artifactId>trinidad-api</artifactId>
+            <version>${project.version}</version>
+           </dependency>
+         </dependencies>
+         <configuration>
           <taglibs>
             <tr>http://myfaces.apache.org/trinidad</tr>
             <trh>http://myfaces.apache.org/trinidad/html</trh>
