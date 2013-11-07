@@ -2707,7 +2707,7 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
-  private static class ComponentSystemEventListenerWrapper implements SystemEventListener, StateHolder, ComponentSystemEventListener
+  public static class ComponentSystemEventListenerWrapper implements SystemEventListener, StateHolder, ComponentSystemEventListener
   {
     ComponentSystemEventListenerWrapper(ComponentSystemEventListener listener, UIComponent component)
     {
