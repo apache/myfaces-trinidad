@@ -63,24 +63,48 @@
               </f:facet>
               <f:validateLongRange minimum="0"/>
             </tr:inputText>
+            <tr:inputText label="Height" value="#{dynamicTable.height}" accessKey="H" />
             <f:facet name="footer">
               <tr:commandButton textAndAccessKey="&amp;Update"/>
             </f:facet>
           </tr:panelFormLayout>
-          <tr:table var="row" emptyText="No Data" value="#{dynamicTable}"
-                    rows="#{dynamicTable.blockSize}" summary="Dynamic Table">
-            <tr:column>
-              <f:facet name="header">
-                <tr:outputText value="Row"/>
-              </f:facet>
-              <tr:outputText value="#{empty row ? 'NULL - This is bad!' : row}"/>
-            </tr:column>
-            <tr:column>
+          <tr:table var="row" emptyText="No Data" value="#{table}" height="#{dynamicTable.height}"
+                    rows="#{dynamicTable.blockSize}" summary="Dynamic Table" width="100%">
+            <tr:column sortable="true" sortProperty="int">
               <f:facet name="header">
                 <tr:outputText value="Number"/>
               </f:facet>
-              <tr:outputText value="#{row * 100}"/>
+              <tr:outputText value="#{row.int}"/>
             </tr:column>
+            <tr:column headerText="Column group" sortable="true" sortProperty="string">
+	            <tr:column>
+	              <f:facet name="header">
+	                <tr:outputText value="Text"/>
+	              </f:facet>
+	              <tr:outputText value="#{row.string}"/>
+	            </tr:column>
+            	<tr:column>
+            		<tr:outputText value="#{row.boolean}"/>
+            	</tr:column>
+            </tr:column>
+          </tr:table>
+          <tr:table var="row" emptyText="No Data" value="#{null}" height="#{dynamicTable.height}"
+                    rows="#{dynamicTable.blockSize}" summary="Dynamic Table" width="90%">
+            <tr:column sortable="true" sortProperty="int">
+              <f:facet name="header">
+                <tr:outputText value="Number"/>
+              </f:facet>
+              <tr:outputText value="#{row.int}"/>
+            </tr:column>
+            <tr:column sortable="true" sortProperty="string">
+              <f:facet name="header">
+                <tr:outputText value="Text"/>
+              </f:facet>
+              <tr:outputText value="#{row.string}"/>
+            </tr:column>
+           	<tr:column>
+           		<tr:outputText value="#{row.boolean}"/>
+           	</tr:column>
           </tr:table>
         </tr:panelGroupLayout>
       </tr:form>

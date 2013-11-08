@@ -55,7 +55,8 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableUtils
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
 
 
-public class DesktopTableRenderer extends TableRenderer
+public class DesktopTableRenderer
+  extends TableRenderer
 {
   /**
    * @todo Figure out if "height" is really being used;  it's
@@ -63,19 +64,17 @@ public class DesktopTableRenderer extends TableRenderer
    *   =-= awijeyek =-= height is used for server-side scrollable tables for ECM,
    *   but we don't support it beyond what is needed by ECM.
    */
-  protected DesktopTableRenderer(
-    FacesBean.Type type)
+  protected DesktopTableRenderer(FacesBean.Type type)
   {
     super(type);
   }
 
   @Override
-  protected void findTypeConstants(
-    FacesBean.Type type)
+  protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _summaryKey = type.findKey("summary");
-    _heightKey  = type.findKey("height");
+    _heightKey = type.findKey("height");
     // Since height isn't really exposed, we won't really
     // have a key for it...
     if (_heightKey == null)
@@ -92,12 +91,9 @@ public class DesktopTableRenderer extends TableRenderer
   }
 
   @Override
-  protected final void renderSingleRow(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    UIComponent           component
-    ) throws IOException
+  protected final void renderSingleRow(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                       UIComponent component)
+    throws IOException
   {
     // This renders a whole bunch of <TH>..</TH> elements or <TD>..</TD>
     // elements depending on the RenderStage
@@ -110,8 +106,7 @@ public class DesktopTableRenderer extends TableRenderer
     }
 
     // render the special columns, such as selection and details:
-    int physicalColumn = renderSpecialColumns(context, rc,
-                                tContext, component, 0);
+    int physicalColumn = renderSpecialColumns(context, rc, tContext, component, 0);
 
     _renderRegularColumns(context, tContext, component, physicalColumn);
   }
@@ -119,12 +114,9 @@ public class DesktopTableRenderer extends TableRenderer
   /**
    * @todo Support autoSubmit!
    */
-  protected void renderSelectionLinks(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    UIComponent           component
-    ) throws IOException
+  protected void renderSelectionLinks(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                      UIComponent component)
+    throws IOException
   {
     // Never render for empty tables
     if (tContext.getRowData().isEmptyTable())
@@ -158,16 +150,12 @@ public class DesktopTableRenderer extends TableRenderer
   /**
    * Should we render the select-all/none links?
    */
-  protected boolean hasControlBarLinks(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    UIComponent           component
-    ) throws IOException
+  protected boolean hasControlBarLinks(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                       UIComponent component)
+    throws IOException
   {
     return tContext.hasSelectAll() ||
-            ((tContext.getDetail() != null) &&
-             getAllDetailsEnabled(component, getFacesBean(component)));
+           ((tContext.getDetail() != null) && getAllDetailsEnabled(component, getFacesBean(component)));
   }
 
   /**
@@ -178,28 +166,20 @@ public class DesktopTableRenderer extends TableRenderer
    * @param useDivider  whether to render a divider after all the links
    * @throws IOException
    */
-  protected void renderControlBarLinks(
-    FacesContext context,
-    RenderingContext arc,
-    TableRenderingContext trc,
-    UIComponent component,
-    boolean useDivider
-    ) throws IOException
+  protected void renderControlBarLinks(FacesContext context, RenderingContext arc, TableRenderingContext trc,
+                                       UIComponent component, boolean useDivider)
+    throws IOException
   {
     FacesBean bean = getFacesBean(component);
-    boolean hasAllDetails = ((trc.getDetail() != null) &&
-                             getAllDetailsEnabled(component, bean));
+    boolean hasAllDetails = ((trc.getDetail() != null) && getAllDetailsEnabled(component, bean));
 
     boolean needsDivider = false;
-      if (trc.hasSelectAll())
+    if (trc.hasSelectAll())
     {
       String jsVarName = trc.getJSVarName();
-      renderControlBarLink(context, arc,
-                           TreeUtils.callJSSelectAll(jsVarName, true),
-                           _SELECT_ALL_TEXT_KEY, null, true);
-      renderControlBarLink(context, arc,
-                           TreeUtils.callJSSelectAll(jsVarName, false),
-                           _SELECT_NONE_TEXT_KEY, null, hasAllDetails);
+      renderControlBarLink(context, arc, TreeUtils.callJSSelectAll(jsVarName, true), _SELECT_ALL_TEXT_KEY, null, true);
+      renderControlBarLink(context, arc, TreeUtils.callJSSelectAll(jsVarName, false), _SELECT_NONE_TEXT_KEY, null,
+                           hasAllDetails);
       needsDivider = true;
 
       TableSelectManyRenderer.renderScripts(context, arc, trc, isAutoSubmit(component, bean));
@@ -220,14 +200,9 @@ public class DesktopTableRenderer extends TableRenderer
     }
   }
 
-  protected final void renderControlBarLink(
-    FacesContext     context,
-    RenderingContext rc,
-    String           onclick,
-    String           translationKey,
-    String           id,
-    boolean          hasDivider
-    ) throws IOException
+  protected final void renderControlBarLink(FacesContext context, RenderingContext rc, String onclick,
+                                            String translationKey, String id, boolean hasDivider)
+    throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("a", null);
@@ -239,9 +214,9 @@ public class DesktopTableRenderer extends TableRenderer
     Icon icon = rc.getIcon(getControlLinkIconName(translationKey));
     if (icon != null)
     {
-      OutputUtils.renderIcon(context, rc, icon, rc.getTranslatedString(translationKey),
-                             null);
-    } else
+      OutputUtils.renderIcon(context, rc, icon, rc.getTranslatedString(translationKey), null);
+    }
+    else
     {
       writer.writeText(rc.getTranslatedString(translationKey), null);
     }
@@ -252,13 +227,9 @@ public class DesktopTableRenderer extends TableRenderer
   }
 
   @Override
-  protected void renderSubControlBar(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    UIComponent           component,
-    boolean               isUpper
-    ) throws IOException
+  protected void renderSubControlBar(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                     UIComponent component, boolean isUpper)
+    throws IOException
   {
     if (!isUpper)
       return;
@@ -269,12 +240,9 @@ public class DesktopTableRenderer extends TableRenderer
   }
 
   @Override
-  protected void renderTableContent(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    UIComponent           component
-    ) throws IOException
+  protected void renderTableContent(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                    UIComponent component)
+    throws IOException
   {
     if (getFacet(component, CoreTable.FOOTER_FACET) != null)
       tContext.setExplicitHeaderIDMode(true);
@@ -284,7 +252,7 @@ public class DesktopTableRenderer extends TableRenderer
     //    DataObject savedData      = tContext.getCurrentDataObject();
     RenderStage renderStage = tContext.getRenderStage();
     Object assertKey = null;
-    assert ((assertKey = ((UIXCollection)table).getRowKey()) != null)||true;
+    assert ((assertKey = ((UIXCollection) table).getRowKey()) != null) || true;
     //
     // 2. Render the top / column header
     //
@@ -305,54 +273,26 @@ public class DesktopTableRenderer extends TableRenderer
     }
 
     String height = getHeight(component, getFacesBean(component));
-    final boolean useScrollIE;
-    final String scrollID;
-    if ((height != null) && isIE(rc))
-    {
-      useScrollIE = true;
-      String tableId = tContext.getTableId();
-      scrollID = tableId+"_scroll";
+    final boolean useScroll = (height != null);
+    String tableId = tContext.getTableId();
 
-      writer.startElement("script", null);
-      renderScriptDeferAttribute(context, rc);
-      renderScriptTypeAttribute(context, rc);
-      _writeIEscrollScript(context, rc, tableId, scrollID);
-      writer.endElement("script");
-
-      writer.startElement("div", null);
-      // IE in standards compliant mode needs the "width:100%" for the vertical
-      // scroll bars to appear:
-      writer.writeAttribute("style", "overflow:auto;overflow-x:hidden;width:100%;height:"+height, null);
-      // bug 4585888:
-      writer.writeAttribute("onscroll", "return _uixIEmaskFrame.tickle('"+scrollID+"');", null);
-      writer.startElement("div", null);
-      // make room for the vertical scroll bar: //bug 4364828:
-      writer.writeAttribute("style", "padding-right:16px", null);
-    }
-    else
-    {
-      useScrollIE = false;
-      scrollID = null;
-    }
-
-    writer.startElement(XhtmlConstants.TABLE_ELEMENT, null);
+    writer.startElement(XhtmlConstants.TABLE_ELEMENT, null); // header table
     renderStyleClass(context, rc, SkinSelectors.AF_TABLE_CONTENT_STYLE);
-
-    if ((height != null)&& isGecko(rc))
+    if (useScroll)
     {
-      writer.writeAttribute("style", "border-width:0px", null);
+      writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, tableId + "_head", null);
+      writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, "table-layout:fixed;", null);
     }
+
 
     FacesBean bean = getFacesBean(table);
     String summary = getSummary(component, bean);
 
     Object cellPadding = getTablePadding(table);
-    OutputUtils.renderDataTableAttributes(
-       context, rc, cellPadding,
-       "0", // cell spacing
-       "0", //border
-       "100%", //table width
-       summary);
+    OutputUtils.renderDataTableAttributes(context, rc, cellPadding, "0", // cell spacing
+                                          "0", //border
+                                          "100%", //table width
+                                          summary);
 
     _renderTableHeader(context, rc, tContext, table);
 
@@ -361,22 +301,41 @@ public class DesktopTableRenderer extends TableRenderer
     {
       renderStage.setStage(RenderStage.COLUMN_HEADER_STAGE);
       writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
-      if (useScrollIE)
-      {
-        // we create a bogus <tr> as a placeholder to occupy space
-        // while we use absolute positioning to hold the real <tr> in
-        // place. this is to solve bug 4624925:
-        writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
-        writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
-        writer.writeAttribute("style", // for ECM. optimized for simple look-n-feel.
-        "position:relative;top:-2px;left:0px;z-index:2", null);
-        //bug4364828, bug 4585888
-        writer.writeAttribute("id", scrollID, null);
-      }
+
       renderColumnHeader(context, rc, tContext, component);
       writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
     }
     assert _assertCurrencyKeyPreserved(assertKey, table);
+
+    // in scrollable tables we need to separate header, content and footer into 3 tables
+    ColumnData colData = tContext.getColumnData();
+    if (useScroll)
+    {
+      writer.endElement(XhtmlConstants.TABLE_ELEMENT); // end header table
+      writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
+      // IE in standards compliant mode needs the "width:100%" for the vertical
+      // scroll bars to appear:
+      writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE,
+                            "overflow:auto;overflow-x:hidden;width:100%;height:" + height, null);
+
+      writer.startElement(XhtmlConstants.TABLE_ELEMENT, null); // start content table
+      renderStyleClass(context, rc, SkinSelectors.AF_TABLE_CONTENT_STYLE);
+      writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, tableId + "_data", null);
+      OutputUtils.renderLayoutTableAttributes(context, rc, "0", // cell spacing
+                                              "0", // border
+                                              "100%"); // table width
+      String style = "padding-bottom:1px;";
+      writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, style, null);
+      // add col tags to set widths
+      for (int i = 0; i < colData.getColumnCount(); i++)
+      {
+        writer.startElement("col", null);
+        writer.writeAttribute(XhtmlConstants.WIDTH_ATTRIBUTE, colData.getWidth(i), null);
+        writer.endElement("col");
+      }
+    }
+
+
     //
     // 3. Render all the rows
     //
@@ -386,10 +345,21 @@ public class DesktopTableRenderer extends TableRenderer
 
     // the content table is a row in the overall table
     writer.endElement(XhtmlConstants.TABLE_ELEMENT);
-    if (useScrollIE)
+    if (useScroll)
     {
-      writer.endElement("div");
-      writer.endElement("div");
+      // if we have a footer, then we've just closed the footer table, not the content table
+      // The difference is that the content table is wrapped inside a DIV, so we have to close
+      // that DIV only if we don't have footers
+      UIComponent footer = getFacet(component, CoreTable.FOOTER_FACET);
+      boolean hasColumnFooters = colData.getPhysicalIndexOfFirstFooter() >= 0;
+      if (footer == null && !hasColumnFooters)
+        writer.endElement(XhtmlConstants.DIV_ELEMENT);
+      writer.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
+      renderScriptDeferAttribute(context, rc);
+      renderScriptTypeAttribute(context, rc);
+      _writeScrollScript(context, rc, tableId);
+      writer.endElement(XhtmlConstants.SCRIPT_ELEMENT);
+
     }
     if (wideMode)
     {
@@ -401,8 +371,7 @@ public class DesktopTableRenderer extends TableRenderer
       // ideally, the attributes on this table should be the same as on the
       // root table, rendered by super.renderAttributes(..). However, that
       // method writes out an ID_ATTR, which we do not want to do here:
-      OutputUtils.renderLayoutTableAttributes(context, rc,
-                                              "0", // cell spacing
+      OutputUtils.renderLayoutTableAttributes(context, rc, "0", // cell spacing
                                               "0", // border
                                               "100%"); // table width
     }
@@ -416,104 +385,73 @@ public class DesktopTableRenderer extends TableRenderer
 
   }
 
-  private void _writeIEscrollScript(
-    FacesContext     context,
-    RenderingContext rc,
-    String           tableId,
-    String           scrollID
-    ) throws IOException
+  private void _writeScrollScript(FacesContext context, RenderingContext rc, String tableId)
+    throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    boolean previouslyNotRendered =
-      (rc.getProperties().put(_IE_SCROLL_KEY, Boolean.TRUE) == null);
+    boolean previouslyNotRendered = (rc.getProperties().put(_IE_SCROLL_KEY, Boolean.TRUE) == null);
     if (previouslyNotRendered)
     {
-      writer.write(
-        "function _uixIEmaskFrame(){};" +
+      writer.write("function _uixAdjustWidths(){};\n" +
 
-        "_uixIEmaskFrame.addElement = function(elementId,tableId)"+
-        "{"
-        + "if (_uixIEmaskFrame.elements == null)"
-        + "{"
-        +    "_uixIEmaskFrame.elements = new Array();"
-        + "}"
-        + "_uixIEmaskFrame.elements.push(elementId);"
-        + "_uixIEmaskFrame.elements.push(tableId);"+
-        "};"+
+        "_uixAdjustWidths.addElement = function(tableId)\n" + "{\n" + "if (_uixAdjustWidths.elements == null)\n" +
+        "{\n" + "_uixAdjustWidths.elements = new Array();\n" + "}\n" + "_uixAdjustWidths.elements.push(tableId);\n" +
+        "};\n" + "_uixAdjustWidths.incrementIndex = function(headerList, index, increment)\n" + "{\n" +
+        "var inc=parseInt(increment,10);\n" + "index+=inc;\n" +
+        "while (index<headerList.length && headerList[index]!=null)\n" + "index++;\n" + "return index;\n" + "};\n" +
 
-        "_uixIEmaskFrame.createFrames = function()"+
-        "{"
-        + "if (_uixIEmaskFrame.frames == null)"
-        + "{"
-        +    "_uixIEmaskFrame.frames = new Object();"
-        + "}"
-        + "var elements = _uixIEmaskFrame.elements;"
-        + "for(var i=0; i<elements.length; i+=2)"
-        + "{"
-        +   "var elementId  = elements[i];"
-        +   "var tableId  = elements[i+1];"
-        +   "var element  = document.getElementById(elementId);"
-        +   "var maskFrame = element.ownerDocument.createElement('iframe');"
-        +   "maskFrame.frameBorder = 'none';"
-        +   "maskFrame.scrolling = 'no';"
-        +   "maskFrame.title = '';" // is this necessary for accessibility?
-        +   "var maskFrameStyle = maskFrame.style;"
-        +   "maskFrameStyle.borderStyle = 'none';"
-        +   "maskFrameStyle.top = element.offsetTop;"
-        +   "maskFrameStyle.posLeft = element.offsetLeft;"
-        +   "maskFrameStyle.width = element.offsetWidth;"
-        +   "maskFrameStyle.height = element.offsetHeight + 'px';"
-        // we use a maskFrame to go behind our header <TR>, so that input controls
-        // do not appear on top of the header, when the table is scrolled:
-        +   "maskFrameStyle.position = 'absolute';"
-        +   "maskFrameStyle.zIndex = '1';"
-        // we must not append the mask frame to the body, because then it will
-        // not go away if we change this table using PPR:
-        //+   "element.ownerDocument.body.appendChild(maskFrame);"
-        // instead append the mask frame to the div that contains the table:
-        +   "var tableDiv = document.getElementById(tableId);"
-        +   "tableDiv.appendChild(maskFrame);"
+        "_uixAdjustWidths.setColWidths = function()\n" + "{\n" + "var elements = _uixAdjustWidths.elements;\n" +
+        "for(var k=0; k<elements.length; k++)\n" + "{\n" + "var headerId=elements[k]+'_head';\n" +
+        "var dataId=elements[k]+'_data';\n" + "var footerId=elements[k]+'_foot';\n" + "var headerList=new Array();\n" +
+        "var firstRowCells=null;\n" + "if (document.getElementById(dataId) != null)\n" +
+        "if (document.getElementById(dataId).rows != null)\n" + "if (document.getElementById(dataId).rows.length>0)\n" +
+        "{\n" + "firstRowCells=document.getElementById(dataId).rows[0].cells;\n" + "var footerCells=null;" +
+        "if (document.getElementById(footerId) != null) footerCells=document.getElementById(footerId).rows[0].cells;\n"
+        // 1. fill headerList with actual headers
 
-        +   "_uixIEmaskFrame.frames[elementId] = maskFrame;"
-        // the following should return the bogus <tr> that we added to the table:
-        +   "var subtr = element.parentNode.childNodes[0];"
-        +   "var subtrStyle = subtr.style;"
-        // since we are going to change the positioning of the real <tr> to be
-        // absolute, it will be removed from the flow of the document. Therefore,
-        // the bogus <TR> must be adjusted to fill the space; otherwise, the
-        // table date will move up to where the headers should be:
-        +   "subtrStyle.width = element.offsetWidth + 16;"
-        +   "subtrStyle.height = element.offsetHeight;"
-        +   "var elementStyle = element.style;"
-        // we must use absolute positioning for the header <TR>, otherwise
-        // it jumps around if we scroll the table and issue a PPR request.
-        +   "elementStyle.position = 'absolute';"
-        +   "elementStyle.top = maskFrame.offsetTop;"
-        +   "elementStyle.posLeft = maskFrame.offsetLeft;"
-        + "}"
-        + "_uixIEmaskFrame.elements = null;"+
-        "};"+
+        // tr loop
+        + "var rows=document.getElementById(headerId).getElementsByTagName('tr');\n" +
+        "for (var i=0;i<rows.length;i++)\n" + "{\n"
+        // th loop
+        + "var headers=rows[i].getElementsByTagName('th');\n" + "var index=_uixAdjustWidths.incrementIndex(headerList, 0, 0);\n" // find the first empty position
+        + "for (var j=0;j<headers.length;j++)\n" + "{\n" + "if (headers[j].colSpan >'1')\n" + "{\n" + "headerList.splice(index, parseInt(headers[j].colSpan,10));\n" // adds as many null elements as spanned columns
+        + "index+=_uixAdjustWidths.incrementIndex(headerList, index, headers[j].colSpan);\n" + "}\n" + "else\n" +
+        "{\n" + "headerList.splice(index,1,headers[j]);\n" // adds this header to the list of headers to be resized
+        + "index+=_uixAdjustWidths.incrementIndex(headerList, index, 1);\n" + "}\n" + "}\n" + "}\n"
+        // 2.  remove widths from headers
+        + "for (var i=0;i<headerList.length;i++)\n" + "{\n" + "headerList[i].width='';\n" + "}\n"
 
-        "_uixIEmaskFrame.tickle = function(elementId)"+
-        "{"
-        + "var maskFrame = _uixIEmaskFrame.frames[elementId];"
-        + "var maskFrameStyle = maskFrame.style;"
-        + "maskFrameStyle.visibility = 'hidden';"
-        + "maskFrameStyle.visibility = 'visible';"
-        + "return false;"+
-        "};"
-      );
+        // 3. special : if no width has been specified for the main table, set one temporarily
+        + "var outerTable=document.getElementById(elements[k]).getElementsByTagName('table')[0];\n" +
+        "var noTableWidth=false;\n" + "if (outerTable.width=='' && outerTable.style.width=='')\n" + "{\n" +
+        "noTableWidth=true;\n" + "outerTable.width='100%';\n" + "}\n"
+
+        // 4. adapt header widths to better match content width
+        // it's length-1, because we do not resize the last column (we let it take the remaining space,
+        // a lot easier, because otherwise we should take care of the space used by the scrollbar
+        + "if (headerList.length>0)\n" + "for (var i=0;i<firstRowCells.length-1;i++)\n" + "{\n"
+        // setting width is a 2-pass process : the second corrects the first to take into account
+        // differences induced by different padding/border settings
+        + "headerList[i].style.width=parseInt(firstRowCells[i].offsetWidth,10) +'px';\n" +
+        "headerList[i].style.width=(parseInt(firstRowCells[i].offsetWidth,10)*2-parseInt(headerList[i].offsetWidth,10) )+'px';\n" +
+        "}\n"
+        // same for footer cells, if we have some. This time we start at the end of the line and ignore the first cell
+
+        // This is because the first rows without a footer are given an empty 1-cell footer with a colspan
+        + "if (footerCells != null)\n" + "for (var i=0;i<footerCells.length-1;i++)\n" + "{\n" +
+        " var footerIdx=footerCells.length-1-i;\n" + " var dataIdx=firstRowCells.length-1-i;\n" +
+        " footerCells[footerIdx].style.width=parseInt(firstRowCells[dataIdx].offsetWidth,10) +'px';\n" +
+        " footerCells[footerIdx].style.width=(parseInt(firstRowCells[dataIdx].offsetWidth,10)*2-parseInt(footerCells[footerIdx].offsetWidth,10) )+'px';\n" +
+        "}\n" + "if (noTableWidth)\n" + "outerTable.width='';\n" + "}\n" + "}\n" + "};\n")
+
+        ;
     }
-    writer.write("_uixIEmaskFrame.addElement('"+scrollID+"','"+tableId+"');");
+    writer.write("_uixAdjustWidths.addElement('" + tableId + "');\n");
     writer.write(
       // bug 4635425:
       // this script should always run to support multiple scroll tables
       // with PPR:
-      "if (document.readyState == 'complete')" +
-      "{"
-      +  "_uixIEmaskFrame.createFrames();" +
-      "}"
-    );
+      "if (document.readyState == 'complete')\n" + "{\n" + "_uixAdjustWidths.setColWidths();\n" + "}\n");
     if (previouslyNotRendered)
     {
       writer.write(
@@ -523,33 +461,33 @@ public class DesktopTableRenderer extends TableRenderer
         // 1. this script is run on initial page load
         // 2. this script is run on PPR
         // 3. this script is run both by initial page load and subsequent PPR
-        "if (_uixIEmaskFrame.attached == null)" +
-        "{"
-        +  "_uixIEmaskFrame.attached = true;"
-        +  "window.attachEvent('onload', _uixIEmaskFrame.createFrames);" +
-        "}"
-      );
+        "if (_uixAdjustWidths.attached == null)\n" + "{\n" + "_uixAdjustWidths.attached = true;\n" +
+        "if (window.addEventListener) \n" +
+        "window.addEventListener('load', _uixAdjustWidths.setColWidths, false); \n" + "else if (window.attachEvent)\n" +
+        "window.attachEvent('onload', _uixAdjustWidths.setColWidths); \n" + "else if (document.getElementById)\n" + "window.onload=_uixAdjustWidths.setColWidths;\n" +
+
+        "if (window.addEventListener) \n" +
+        "window.addEventListener('resize', _uixAdjustWidths.setColWidths, false); \n" +
+        "else if (window.attachEvent)\n" + "window.attachEvent('onresize', _uixAdjustWidths.setColWidths); \n" +
+        "else if (document.getElementById)\n" + "window.onresize=_uixAdjustWidths.setColWidths;\n" + "}\n");
     }
+
   }
 
 
   // render the control bar
   @Override
-  protected final void renderControlBar(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    UIComponent           component
-    ) throws IOException
+  protected final void renderControlBar(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                        UIComponent component)
+    throws IOException
   {
     UIComponent action = getFacet(component, CoreTable.ACTIONS_FACET);
     boolean tableNotEmpty = !tContext.getRowData().isEmptyTable();
-    boolean hasNav = tContext.hasNavigation()&&tableNotEmpty;
+    boolean hasNav = tContext.hasNavigation() && tableNotEmpty;
 
     if (hasNav || (action != null))
     {
-      boolean isUpper = (tContext.getRenderStage().getStage() ==
-                         RenderStage.UPPER_CONTROL_BAR_STAGE);
+      boolean isUpper = (tContext.getRenderStage().getStage() == RenderStage.UPPER_CONTROL_BAR_STAGE);
 
       ResponseWriter oldRW = null;
 
@@ -581,20 +519,16 @@ public class DesktopTableRenderer extends TableRenderer
           writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
         }
         writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
-        writer.writeAttribute(XhtmlConstants.WIDTH_ATTRIBUTE,
-                              XhtmlConstants.ONE_HUNDRED_PERCENT_ATTRIBUTE_VALUE, null);
+        writer.writeAttribute(XhtmlConstants.WIDTH_ATTRIBUTE, XhtmlConstants.ONE_HUNDRED_PERCENT_ATTRIBUTE_VALUE, null);
         writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
         if (hasNav)
         {
           writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
           if (rc.isRightToLeft())
-            writer.writeAttribute(XhtmlConstants.ALIGN_ATTRIBUTE,
-                                  XhtmlConstants.LEFT_ATTRIBUTE_VALUE, null);
+            writer.writeAttribute(XhtmlConstants.ALIGN_ATTRIBUTE, XhtmlConstants.LEFT_ATTRIBUTE_VALUE, null);
           else
-            writer.writeAttribute(XhtmlConstants.ALIGN_ATTRIBUTE,
-                                  XhtmlConstants.RIGHT_ATTRIBUTE_VALUE, null);
-          writer.writeAttribute(XhtmlConstants.VALIGN_ATTRIBUTE,
-                                XhtmlConstants.MIDDLE_ATTRIBUTE_VALUE, null);
+            writer.writeAttribute(XhtmlConstants.ALIGN_ATTRIBUTE, XhtmlConstants.RIGHT_ATTRIBUTE_VALUE, null);
+          writer.writeAttribute(XhtmlConstants.VALIGN_ATTRIBUTE, XhtmlConstants.MIDDLE_ATTRIBUTE_VALUE, null);
           renderRangePagingControl(context, rc, tContext, component);
           writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
         }
@@ -621,40 +555,29 @@ public class DesktopTableRenderer extends TableRenderer
   /**
    * Render the next, previous links and the choicebar
    */
-  protected void renderRangePagingControl(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    UIComponent           component
-    ) throws IOException
+  protected void renderRangePagingControl(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                          UIComponent component)
+    throws IOException
   {
-    delegateRenderer(context, rc, component,
-                     getFacesBean(component), getSharedNavBarRenderer());
+    delegateRenderer(context, rc, component, getFacesBean(component), getSharedNavBarRenderer());
   }
 
-  private boolean _assertCurrencyKeyPreserved(
-    Object      oldKey,
-    UIComponent table)
+  private boolean _assertCurrencyKeyPreserved(Object oldKey, UIComponent table)
   {
     UIXCollection base = (UIXCollection) table;
     Object newKey = base.getRowKey();
-    return (oldKey != null)?  oldKey.equals(newKey): (newKey == null);
+    return (oldKey != null)? oldKey.equals(newKey): (newKey == null);
   }
 
   // needed for BIBeans. Contact: Max Starets
-  protected Object getTablePadding(
-    UIComponent component)
+  protected Object getTablePadding(UIComponent component)
   {
     return "1";
   }
 
-  protected void renderTableRows(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext trc,
-    UIComponent           component,
-    FacesBean             bean
-    ) throws IOException
+  protected void renderTableRows(FacesContext context, RenderingContext rc, TableRenderingContext trc,
+                                 UIComponent component, FacesBean bean)
+    throws IOException
   {
     if (trc.getRowData().isEmptyTable())
       _renderEmptyTable(context, rc, trc);
@@ -669,38 +592,32 @@ public class DesktopTableRenderer extends TableRenderer
    * this includes width, cellpadding, cellspacing, border.
    */
   @Override
-  protected void renderTableAttributes(
-    FacesContext     context,
-    RenderingContext rc,
-    UIComponent      component,
-    FacesBean        bean,
-    Object           cellPadding,
-    Object           border
-    ) throws IOException
+  protected void renderTableAttributes(FacesContext context, RenderingContext rc, UIComponent component, FacesBean bean,
+                                       Object cellPadding, Object border)
+    throws IOException
   {
-    super.renderTableAttributes(context, rc, component, bean,
-                                cellPadding, border);
+    super.renderTableAttributes(context, rc, component, bean, cellPadding, border);
   }
 
   /**
    * @todo Implement cellClass correctly!
    * @todo Implement "headers" attribute correctly!
    */
-  protected void renderCellFormatAttributes(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext
-    ) throws IOException
+  protected void renderCellFormatAttributes(FacesContext context, RenderingContext rc, TableRenderingContext tContext)
+    throws IOException
   {
     // renders "style", "class", "nowrap", "headers".
     // renders "width" when there are no column headers.
 
     //TODO: must get individual column's style:
-    String cellClass = SkinSelectors.AF_COLUMN_CELL_TEXT_STYLE;/*ColumnRenderer.getDataStyleClass(...)*/
+    String cellClass = SkinSelectors.AF_COLUMN_CELL_TEXT_STYLE; /*ColumnRenderer.getDataStyleClass(...)*/
 
     String borderStyleClass = CellUtils.getDataBorderStyle(rc, tContext);
 
-    renderStyleClasses(context, rc, new String[]{cellClass, borderStyleClass});
+    renderStyleClasses(context, rc, new String[]
+    {
+      cellClass, borderStyleClass
+    });
 
     final ResponseWriter writer = context.getResponseWriter();
     int row = tContext.getRowData().getRangeIndex();
@@ -709,9 +626,7 @@ public class DesktopTableRenderer extends TableRenderer
     // Bug 1807935: if there's no column headers (and no
     // selection) then we haven't yet rendered the width
     // attribute.  Render it on the first row of cells.
-    if ((row == 0) &&
-        noSelect &&
-        !tContext.hasColumnHeaders())
+    if ((row == 0) && noSelect && !tContext.hasColumnHeaders())
     {
       Object width = tContext.getColumnWidth(physicalColumn);
       writer.writeAttribute(XhtmlConstants.WIDTH_ATTRIBUTE, width, null);
@@ -728,12 +643,9 @@ public class DesktopTableRenderer extends TableRenderer
   /**
    * @todo Reconsider our choice of style for this element!
    */
-  private void _renderTableHeader(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    UIComponent           component
-    ) throws IOException
+  private void _renderTableHeader(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                  UIComponent component)
+    throws IOException
   {
     // implement header facet on table: see bug 3788610
     ResponseWriter writer = context.getResponseWriter();
@@ -743,8 +655,7 @@ public class DesktopTableRenderer extends TableRenderer
       writer.startElement("thead", null);
       writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
       writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
-      writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE,
-        tContext.getActualColumnCount(), null);
+      writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE, tContext.getActualColumnCount(), null);
       renderStyleClass(context, rc, SkinSelectors.AF_COLUMN_SORTABLE_HEADER_ICON_STYLE_CLASS);
 
       encodeChild(context, header);
@@ -755,13 +666,10 @@ public class DesktopTableRenderer extends TableRenderer
     }
   }
 
-  private void _renderEmptyTable(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext
-    ) throws IOException
+  private void _renderEmptyTable(FacesContext context, RenderingContext rc, TableRenderingContext tContext)
+    throws IOException
   {
-    int specialCols = tContext.hasSelection() ? 1 : 0;
+    int specialCols = tContext.hasSelection()? 1: 0;
     if (tContext.getDetail() != null)
       specialCols++;
     renderEmptyTableRow(context, rc, tContext, specialCols);
@@ -773,23 +681,16 @@ public class DesktopTableRenderer extends TableRenderer
    * rendered in the first column following the special columns.
    * @param specialColumnCount The number of special columns in this table.
    */
-  protected final void renderEmptyTableRow(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    int                   specialColumnCount
-    ) throws IOException
+  protected final void renderEmptyTableRow(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                           int specialColumnCount)
+    throws IOException
   {
     renderEmptyTableRow(context, rc, tContext, specialColumnCount, null);
   }
 
-  protected final void renderEmptyTableRow(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    int                   specialColumnCount,
-    CoreRenderer          emptyTextRenderer
-    ) throws IOException
+  protected final void renderEmptyTableRow(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                           int specialColumnCount, CoreRenderer emptyTextRenderer)
+    throws IOException
   {
     // renders <TR> followed by a whole bunch of <TD>..</TD>, followed by
     // </TR>
@@ -799,7 +700,7 @@ public class DesktopTableRenderer extends TableRenderer
     int physicalColumn = 0;
 
     int objectNameColumnIndex = colData.getObjectNameColumnIndex();
-    for (int i = 0, sz = Math.max(specialColumnCount, objectNameColumnIndex);  i < sz;  i++)
+    for (int i = 0, sz = Math.max(specialColumnCount, objectNameColumnIndex); i < sz; i++)
     {
       _renderEmptyCell(context, rc, tContext, physicalColumn++, null, 1);
     }
@@ -810,13 +711,12 @@ public class DesktopTableRenderer extends TableRenderer
 
     if (emptyTextRenderer == null)
     {
-      _renderEmptyCell(context, rc, tContext, physicalColumn,
-                       getEmptyText(table, bean), totalCols - physicalColumn);
+      _renderEmptyCell(context, rc, tContext, physicalColumn, getEmptyText(table, bean), totalCols - physicalColumn);
       physicalColumn++;
     }
     else
     {
-      delegateRenderer(context, rc, table, bean,  emptyTextRenderer);
+      delegateRenderer(context, rc, table, bean, emptyTextRenderer);
       while (physicalColumn < totalCols)
       {
         _renderEmptyCell(context, rc, tContext, physicalColumn++, null, 1);
@@ -827,14 +727,9 @@ public class DesktopTableRenderer extends TableRenderer
     writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
   }
 
-  private void _renderEmptyCell(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    int                   physicalColumn,
-    String                text,
-    int                   colspan
-    ) throws IOException
+  private void _renderEmptyCell(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                int physicalColumn, String text, int colspan)
+    throws IOException
   {
     ColumnData colData = tContext.getColumnData();
     ResponseWriter writer = context.getResponseWriter();
@@ -852,12 +747,9 @@ public class DesktopTableRenderer extends TableRenderer
     writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
   }
 
-  private void _renderTableRows(
-    FacesContext                context,
-    final RenderingContext      rc,
-    final TableRenderingContext tContext,
-    UIComponent                 component
-    ) throws IOException
+  private void _renderTableRows(FacesContext context, final RenderingContext rc, final TableRenderingContext tContext,
+                                UIComponent component)
+    throws IOException
   {
     // renders a whole bunch of <TR>...</TR> elements, one for each row in the
     // table, and additional ones for any disclosed-details rows
@@ -867,7 +759,8 @@ public class DesktopTableRenderer extends TableRenderer
     final RowData rowData = tContext.getRowData();
     final UIComponent detail = tContext.getDetail();
     final RenderStage renderStage = tContext.getRenderStage();
-    TableUtils.RowLoop loop = new TableUtils.RowLoop() {
+    TableUtils.RowLoop loop = new TableUtils.RowLoop()
+    {
       @Override
       protected void processRowImpl(FacesContext fc, CollectionComponent tableBase)
         throws IOException
@@ -880,7 +773,7 @@ public class DesktopTableRenderer extends TableRenderer
         renderSingleRow(fc, rc, tContext, (UIComponent) tableBase);
         renderStage.setStage(RenderStage.DATA_STAGE);
         // render each of the individual rows in the rowSpan:
-        for (int i = 0, sz = rowData.getCurrentRowSpan();  i < sz;  i++)
+        for (int i = 0, sz = rowData.getCurrentRowSpan(); i < sz; i++)
         {
           // start the row
           writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
@@ -890,8 +783,7 @@ public class DesktopTableRenderer extends TableRenderer
           writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
         }
         // if necessary, render a detail row
-        if ((detail != null)&&
-            ((UIXTable)tableBase).getDisclosedRowKeys().isContained())
+        if ((detail != null) && ((UIXTable) tableBase).getDisclosedRowKeys().isContained())
         {
           // indicate that we are now rendering inside of a details section
           renderStage.setStage(RenderStage.DETAIL_ROW_STAGE);
@@ -902,16 +794,15 @@ public class DesktopTableRenderer extends TableRenderer
           // This fixes bug 2367693.
           writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
           writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
-          writer.writeAttribute("headers",
-                      colData.getHeaderID(tContext.getDetailColumnIndex()),
-                      null);
+          writer.writeAttribute("headers", colData.getHeaderID(tContext.getDetailColumnIndex()), null);
           writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE,
-                IntegerUtils.getString(tContext.getActualColumnCount()), null);
+                                IntegerUtils.getString(tContext.getActualColumnCount()), null);
           String styleClass = SkinSelectors.AF_TABLE_DETAIL_STYLE;
-          String borderStyleClass = CellUtils.getBorderClass(
-                                         true, true, true, true);
-          renderStyleClasses(fc, rc,
-                             new String[]{styleClass, borderStyleClass});
+          String borderStyleClass = CellUtils.getBorderClass(true, true, true, true);
+          renderStyleClasses(fc, rc, new String[]
+          {
+            styleClass, borderStyleClass
+          });
 
           encodeChild(fc, detail);
           writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
@@ -931,7 +822,7 @@ public class DesktopTableRenderer extends TableRenderer
     {
       useScroll = true;
       writer.startElement("tbody", null);
-      writer.writeAttribute("style", "overflow:auto;max-height:"+height, null);
+      writer.writeAttribute("style", "overflow:auto;max-height:" + height, null);
     }
     else
       useScroll = false;
@@ -946,12 +837,9 @@ public class DesktopTableRenderer extends TableRenderer
    * render the complete column header, including the special columns (like
    * select,details,...) and the regular table columns
    */
-  protected final void renderColumnHeader(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    UIComponent           component
-    ) throws IOException
+  protected final void renderColumnHeader(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                          UIComponent component)
+    throws IOException
   {
     // This renders a whole bunch of <TH>...</TH> elements
     final ColumnData colData = tContext.getColumnData();
@@ -968,13 +856,9 @@ public class DesktopTableRenderer extends TableRenderer
   /**
    * renders the regular table column headers.
    */
-  protected final void renderRegularHeaders(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    UIComponent           component,
-    int                   physicalCol
-    ) throws IOException
+  protected final void renderRegularHeaders(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                            UIComponent component, int physicalCol)
+    throws IOException
   {
     // this renders a whole bunch of <TH>...</TH> elements.
     // if there are columnGroups present, it will render some
@@ -985,7 +869,7 @@ public class DesktopTableRenderer extends TableRenderer
     if (rowSpan > 1)
     {
       ResponseWriter writer = context.getResponseWriter();
-      for (int i = 1;  i < rowSpan;  i++)
+      for (int i = 1; i < rowSpan; i++)
       {
         colData.setRowIndex(i);
         writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
@@ -996,21 +880,18 @@ public class DesktopTableRenderer extends TableRenderer
   }
 
   @SuppressWarnings("unchecked")
-  private void _renderRegularColumns(
-    FacesContext          context,
-    TableRenderingContext tContext,
-    UIComponent           component,
-    int                   physicalCol
-    ) throws IOException
+  private void _renderRegularColumns(FacesContext context, TableRenderingContext tContext, UIComponent component,
+                                     int physicalCol)
+    throws IOException
   {
     // this renders a whole bunch of <TH>...</TH> elements.
     // part of #1313720, base column header count on
     // table child count
     List<UIComponent> children = component.getChildren();
-    int colCount  = children.size();
+    int colCount = children.size();
     int[] hidden = tContext.getHiddenColumns();
     ColumnData colData = tContext.getColumnData();
-    for (int i = 0;  i < colCount;  i++)
+    for (int i = 0; i < colCount; i++)
     {
       if (hidden[i] != TableRenderingContext.NORMAL_COLUMN)
         continue;
@@ -1019,8 +900,7 @@ public class DesktopTableRenderer extends TableRenderer
         continue;
 
       UIXColumn column = (UIXColumn) child;
-      boolean isRowHeader = Boolean.TRUE.equals(
-            column.getAttributes().get(CoreColumn.ROW_HEADER_KEY.getName()));
+      boolean isRowHeader = Boolean.TRUE.equals(column.getAttributes().get(CoreColumn.ROW_HEADER_KEY.getName()));
       if (!isRowHeader)
       {
         colData.setColumnIndex(physicalCol, i);
@@ -1038,33 +918,36 @@ public class DesktopTableRenderer extends TableRenderer
    * @todo Re-fix bug 3211593 (see below)
    */
   @SuppressWarnings("unchecked")
-  protected final void renderFooter(
-    FacesContext          context,
-    RenderingContext      rc,
-    TableRenderingContext tContext,
-    UIComponent           component
-    ) throws IOException
+  protected final void renderFooter(FacesContext context, RenderingContext rc, TableRenderingContext tContext,
+                                    UIComponent component)
+    throws IOException
   {
     tContext.getRenderStage().setStage(RenderStage.COLUMN_FOOTER_STAGE);
     final ColumnData colData = tContext.getColumnData();
     UIComponent footer = getFacet(component, CoreTable.FOOTER_FACET);
-    boolean hasColumnFooters = colData.getPhysicalIndexOfFirstFooter()  >= 0;
+    boolean hasColumnFooters = colData.getPhysicalIndexOfFirstFooter() >= 0;
 
     // If there's a table footer, or column footers, we've got work to do
     if ((footer != null) || hasColumnFooters)
     {
+      // also split content and footer in case of scrollable tables
       ResponseWriter writer = context.getResponseWriter();
-      writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
-      boolean useScroll = (getHeight(component, getFacesBean(component)) != null) && isIE(rc);
+      String height = getHeight(component, getFacesBean(component));
+      final boolean useScroll = (height != null);
       if (useScroll)
       {
-        writer.writeAttribute("style", "position:relative;"+
-                                       "bottom:expression("+
-                                        "this.offsetParent.scrollHeight-this.offsetParent.scrollTop-"+
-                                        "this.offsetParent.clientHeight+1);" +
-                                       "left:-1px", null);
+        String tableId = tContext.getTableId();
+        writer.endElement(XhtmlConstants.TABLE_ELEMENT); // end content table
+        writer.endElement(XhtmlConstants.DIV_ELEMENT);
+        writer.startElement(XhtmlConstants.TABLE_ELEMENT, null); // start footer table
+        renderStyleClass(context, rc, SkinSelectors.AF_TABLE_CONTENT_STYLE);
+        writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, tableId + "_foot", null);
+        OutputUtils.renderLayoutTableAttributes(context, rc, "0", // cell spacing
+                                                "0", // border
+                                                "100%"); // table width
       }
 
+      writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
       // total rows may need an ID. see bug 3211593:
       /* Need new scheme for generateUniqueId()?
       String rowID = XhtmlLafUtils.generateUniqueID(tContext);
@@ -1088,7 +971,7 @@ public class DesktopTableRenderer extends TableRenderer
       if (firstFooterPhysicalIndex != 0)
       {
         writer.startElement(XhtmlConstants.TABLE_HEADER_ELEMENT, null);
-        final int colSpan = (firstFooterPhysicalIndex > 0)?  firstFooterPhysicalIndex: tContext.getActualColumnCount();
+        final int colSpan = (firstFooterPhysicalIndex > 0)? firstFooterPhysicalIndex: tContext.getActualColumnCount();
         writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE, IntegerUtils.getString(colSpan), null);
         renderStyleClass(context, rc, SkinSelectors.AF_TABLE_COLUMN_FOOTER_STYLE);
         if (footer != null)
@@ -1098,10 +981,9 @@ public class DesktopTableRenderer extends TableRenderer
 
       if (firstFooterPhysicalIndex >= 0)
       {
-        colData.setColumnIndex(tContext.getSpecialColumnCount(),
-                               0/*logicalColumnIndex*/);
+        colData.setColumnIndex(tContext.getSpecialColumnCount(), 0 /*logicalColumnIndex*/);
 
-        for(UIComponent child : (List<UIComponent>)component.getChildren())
+        for (UIComponent child: (List<UIComponent>) component.getChildren())
         {
           if (child.isRendered())
           {
@@ -1134,20 +1016,16 @@ public class DesktopTableRenderer extends TableRenderer
     if (translationKey == null)
       return null;
 
-    return translationKey.equals(_SELECT_ALL_TEXT_KEY) ? SkinSelectors.AF_TABLE_SELECT_ALL_ICON_NAME
-                                                       : SkinSelectors.AF_TABLE_SELECT_NONE_ICON_NAME;
-  }    
+    return translationKey.equals(_SELECT_ALL_TEXT_KEY)? SkinSelectors.AF_TABLE_SELECT_ALL_ICON_NAME:
+           SkinSelectors.AF_TABLE_SELECT_NONE_ICON_NAME;
+  }
 
-  protected String getSummary(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getSummary(UIComponent component, FacesBean bean)
   {
     return toString(bean.getProperty(_summaryKey));
   }
 
-  protected String getHeight(
-    UIComponent component,
-    FacesBean   bean)
+  protected String getHeight(UIComponent component, FacesBean bean)
   {
     return toString(bean.getProperty(_heightKey));
   }
@@ -1157,9 +1035,7 @@ public class DesktopTableRenderer extends TableRenderer
    *
    * @param bean the bean
    */
-  protected boolean isAutoSubmit(
-    UIComponent component,
-    FacesBean   bean)
+  protected boolean isAutoSubmit(UIComponent component, FacesBean bean)
   {
     if (_autoSubmitKey == null)
       return false;
@@ -1167,9 +1043,7 @@ public class DesktopTableRenderer extends TableRenderer
     return Boolean.TRUE.equals(bean.getProperty(_autoSubmitKey));
   }
 
-  protected boolean getAllDetailsEnabled(
-    UIComponent component,
-    FacesBean   bean)
+  protected boolean getAllDetailsEnabled(UIComponent component, FacesBean bean)
   {
     Object o = bean.getProperty(_allDetailsEnabledKey);
     if (o == null)
@@ -1178,22 +1052,17 @@ public class DesktopTableRenderer extends TableRenderer
     return Boolean.TRUE.equals(o);
   }
 
-  static private class AllDetail extends ShowDetailRenderer
+  static private class AllDetail
+    extends ShowDetailRenderer
   {
-    public AllDetail(
-      FacesBean.Type type,
-      boolean        disclosed)
+    public AllDetail(FacesBean.Type type, boolean disclosed)
     {
       super(type);
       _disclosed = disclosed;
     }
 
     @Override
-    protected void renderAllAttributes(
-      FacesContext     context,
-      RenderingContext rc,
-      UIComponent      component,
-      FacesBean        bean)
+    protected void renderAllAttributes(FacesContext context, RenderingContext rc, UIComponent component, FacesBean bean)
     {
     }
 
@@ -1210,51 +1079,40 @@ public class DesktopTableRenderer extends TableRenderer
     }
 
     @Override
-    protected String getValueParameter(
-      UIComponent component)
+    protected String getValueParameter(UIComponent component)
     {
       return "all";
     }
 
     @Override
-    protected boolean getDisclosed(
-      UIComponent component,
-      FacesBean   bean)
+    protected boolean getDisclosed(UIComponent component, FacesBean bean)
     {
       return _disclosed;
     }
 
     @Override
-    protected String getDisclosedText(
-      UIComponent component,
-      FacesBean   bean)
+    protected String getDisclosedText(UIComponent component, FacesBean bean)
     {
       RenderingContext arc = RenderingContext.getCurrentInstance();
       return arc.getTranslatedString(_HIDE_ALL_DETAILS_TEXT_KEY);
     }
 
     @Override
-    protected String getUndisclosedText(
-      UIComponent component,
-      FacesBean   bean)
+    protected String getUndisclosedText(UIComponent component, FacesBean bean)
     {
       RenderingContext arc = RenderingContext.getCurrentInstance();
       return arc.getTranslatedString(_SHOW_ALL_DETAILS_TEXT_KEY);
     }
 
     @Override
-    protected String getLinkId(
-      String  rootId,
-      boolean disclosed)
+    protected String getLinkId(String rootId, boolean disclosed)
     {
-      String suffix = (disclosed ? "ha" : "sa");
+      String suffix = (disclosed? "ha": "sa");
       return XhtmlUtils.getCompositeId(rootId, suffix);
     }
 
     @Override
-    protected String getClientId(
-      FacesContext context,
-      UIComponent  component)
+    protected String getClientId(FacesContext context, UIComponent component)
     {
       TableRenderingContext tContext = TableRenderingContext.getCurrentInstance();
       return tContext.getTableId();

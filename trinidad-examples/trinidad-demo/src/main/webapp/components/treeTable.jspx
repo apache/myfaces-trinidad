@@ -96,7 +96,7 @@
           <tr:commandButton text="Submit"/>
           <tr:outputFormatted styleUsage="instruction" value="&lt;b>Giant treeTable&lt;/b>"/>
           <tr:treeTable var="foo" value="#{largeTree.model}" summary="Giant treeTable"
-                        rendered='true'>
+                        rendered='true' height="100px">
             <f:facet name="nodeStamp">
               <tr:column>
                 <f:facet name="header">

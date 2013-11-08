@@ -88,6 +88,13 @@
         </fmd:property-metadata>
       </property-extension>
     </property>
+    <property>
+      <description><![CDATA[Sets a height to the content of the table. 
+        This generates a scrollbar to access all rows in the current range.]]>
+      </description>
+      <property-name>height</property-name>
+      <property-class>java.lang.String</property-class>
+    </property>
     <component-extension>
       <mfp:component-family>org.apache.myfaces.trinidad.TreeTable</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Tree</mfp:component-supertype>
