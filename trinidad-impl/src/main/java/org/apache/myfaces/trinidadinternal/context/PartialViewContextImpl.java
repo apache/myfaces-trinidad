@@ -419,6 +419,7 @@ public class PartialViewContextImpl
   {
     String param =
       _context.getExternalContext().getRequestParameterMap().get(parameter);
+        
     if (param != null)
     {
       String ids[] = param.split("[ \t]+");
@@ -433,7 +434,7 @@ public class PartialViewContextImpl
       }
     }
 
-    return Collections.emptySet();
+    return new HashSet<String>();
   }
 
   private static final class ProcessPhaseCallback
