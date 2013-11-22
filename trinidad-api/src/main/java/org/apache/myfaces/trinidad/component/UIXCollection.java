@@ -158,7 +158,12 @@ public abstract class UIXCollection extends UIXComponentBase
     // within a component change event context.
     if (event instanceof CollectionContextEvent)
     {
-      _setupContextChange();
+      boolean inContextAtMethodInvocation = _inContext;
+      if (!inContextAtMethodInvocation)
+      {
+        _setupContextChange();
+      }
+
       try
       {
         CollectionContextEvent wrapperEvent = (CollectionContextEvent) event;
@@ -166,7 +171,10 @@ public abstract class UIXCollection extends UIXComponentBase
       }
       finally
       {
-        _tearDownContextChange();
+        if (!inContextAtMethodInvocation)
+        {
+          _tearDownContextChange();
+        }
       }
     }
     else
@@ -199,7 +207,12 @@ public abstract class UIXCollection extends UIXComponentBase
     if (context == null)
       throw new NullPointerException();
 
-    _setupContextChange();
+    boolean inContextAtMethodInvocation = _inContext;
+    if (!inContextAtMethodInvocation)
+    {
+      _setupContextChange();
+    }
+
     try
     {
       _init();
@@ -229,7 +242,10 @@ public abstract class UIXCollection extends UIXComponentBase
     }
     finally
     {
-      _tearDownContextChange();
+      if (!inContextAtMethodInvocation)
+      {
+        _tearDownContextChange();
+      }
     }
   }
 
@@ -271,7 +287,12 @@ public abstract class UIXCollection extends UIXComponentBase
   @Override
   public Object processSaveState(FacesContext context)
   {
-    _setupContextChange();
+    boolean inContextAtMethodInvocation = _inContext;
+    if (!inContextAtMethodInvocation)
+    {
+      _setupContextChange();
+    }
+
     try
     {
       _stateSavingCurrencyKey = _resetCurrencyKeyForStateSaving(context);
@@ -285,7 +306,10 @@ public abstract class UIXCollection extends UIXComponentBase
     }
     finally
     {
-      _tearDownContextChange();
+      if (!inContextAtMethodInvocation)
+      {
+        _tearDownContextChange();
+      }
     }
   }
 
@@ -809,54 +833,86 @@ public abstract class UIXCollection extends UIXComponentBase
     FacesContext context,
     Object       state)
   {
-    _setupContextChange();
+    boolean inContextAtMethodInvocation = _inContext;
+    if (!inContextAtMethodInvocation)
+    {
+      _setupContextChange();
+    }
+
     try
     {
       super.processRestoreState(context, state);
     }
     finally
     {
-      _tearDownContextChange();
+      if (!inContextAtMethodInvocation)
+      {
+        _tearDownContextChange();
+      }
     }
   }
 
   public void processUpdates(FacesContext context)
   {
-    _setupContextChange();
+    boolean inContextAtMethodInvocation = _inContext;
+    if (!inContextAtMethodInvocation)
+    {
+      _setupContextChange();
+    }
+
     try
     {
       super.processUpdates(context);
     }
     finally
     {
-      _tearDownContextChange();
+      if (!inContextAtMethodInvocation)
+      {
+        _tearDownContextChange();
+      }
     }
   }
 
   public void processValidators(FacesContext context)
   {
-    _setupContextChange();
+    boolean inContextAtMethodInvocation = _inContext;
+    if (!inContextAtMethodInvocation)
+    {
+      _setupContextChange();
+    }
+
     try
     {
       super.processValidators(context);
     }
     finally
     {
-      _tearDownContextChange();
+      if (!inContextAtMethodInvocation)
+      {
+        _tearDownContextChange();
+      }
     }
   }
 
   public void processEvent(ComponentSystemEvent event)
     throws AbortProcessingException
   {
-    _setupContextChange();
+    boolean inContextAtMethodInvocation = _inContext;
+    if (!inContextAtMethodInvocation)
+    {
+      _setupContextChange();
+    }
+
     try
     {
       super.processEvent(event);
     }
     finally
     {
-      _tearDownContextChange();
+      if (!inContextAtMethodInvocation)
+      {
+        _tearDownContextChange();
+      }
     }
   }
 
