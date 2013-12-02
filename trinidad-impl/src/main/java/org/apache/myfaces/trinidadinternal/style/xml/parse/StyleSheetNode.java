@@ -194,6 +194,7 @@ public class StyleSheetNode
     int browserAndVersionMatch = _compareBrowserAndVersion(agent);
     if (browserAndVersionMatch == 0)
       return 0;
+
     int modeMatch = _compareMode(mode);
     if(modeMatch == 0)
       return 0;
@@ -206,7 +207,8 @@ public class StyleSheetNode
     if (accessibilityMatch == 0)
       return 0;
 
-    return (localeMatch | browserAndVersionMatch | osMatch | accessibilityMatch);
+    return (localeMatch | directionMatch | browserAndVersionMatch | modeMatch |
+              osMatch | accessibilityMatch);
   }
 
   @Override
