@@ -23,6 +23,7 @@ import java.awt.Color;
 import java.io.IOException;
 
 import java.math.RoundingMode;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -95,8 +96,6 @@ abstract public class RequestContext
   {
     return _CURRENT_CONTEXT.get();
   }
-
-
 
   /**
    * Creates an RequestContext.  RequestContext is abstract
@@ -257,6 +256,7 @@ abstract public class RequestContext
    * @return is this request a PPR request?
    */
   public abstract boolean isPartialRequest(FacesContext context);
+
   /**
    * Returns true if output should contain debugging information.
    */
@@ -409,12 +409,12 @@ abstract public class RequestContext
     /**
      * Performs a reverse lookup of an Accessibilty constant based on
      * its display name.
-     * 
+     *
      * @param displayName the display name of the Accessibility constant to return.
      * @return the non-null Accessibility constant associated with the display name.
      * @throws IllegalArgumentException if displayName does not correspond
      *   to some Accessibility constant.
-     * @throws NullPointerException if displayName is null. 
+     * @throws NullPointerException if displayName is null.
      */
     public static Accessibility valueOfDisplayName(String displayName)
     {
@@ -422,23 +422,23 @@ abstract public class RequestContext
       {
         throw new NullPointerException();
       }
-      
+
       Accessibility accessibility = _displayNameMap.get(displayName);
-      
+
       if (accessibility == null)
       {
-        String message = _LOG.getMessage("ILLEGAL_ENUM_VALUE", 
+        String message = _LOG.getMessage("ILLEGAL_ENUM_VALUE",
                            new Object[] { Accessibility.class.getName(), displayName });
         throw new IllegalArgumentException(message);
       }
-      
+
       return accessibility;
     }
 
     private final String _displayName;
-    
+
     private static final Map<String, Accessibility> _displayNameMap;
-    
+
     static
     {
       Map<String, Accessibility> displayNameMap = new ArrayMap<String, Accessibility>(3);
@@ -446,11 +446,10 @@ abstract public class RequestContext
       {
         displayNameMap.put(accessibility.displayName(), accessibility);
       }
-      
+
       _displayNameMap = Collections.unmodifiableMap(displayNameMap);
     }
   };
-
 
   public enum ClientValidation
   {
@@ -534,6 +533,39 @@ abstract public class RequestContext
   // TODO do we need to provide getCurrencySymbol() as well?
   public abstract String getCurrencyCode();
 
+  /**
+   * Notify Trinidad that tag execution will not be performed during this request. Functionality in
+   * Trinidad assumes that tags will be executed as part of the render response phase. If 3rd party
+   * libraries are used that cause the tags to not be executed, Trinidad must be notified to avoid
+   * errors.
+   */
+  public void tagExecutionSkipped()
+  {
+    _tagExecution = TagExecution.NONE;
+  }
+
+  /**
+   * Checks if the tags will be executed during this request.
+   * @see #tagExecutionSkipped()
+   * @return an enumeration indicating the status of the tag execution
+   */
+  public TagExecution getTagExecutionStatus()
+  {
+    return _tagExecution;
+  }
+
+  /**
+   * @see #isTagExecutionSkipped()
+   */
+  public enum TagExecution
+  {
+    /** Tag execution will be run normally during this request */
+    FULL,
+
+    /** Tag execution will not be run during this request */
+    NONE
+  }
+
   //
   // DateFormating API
   //
@@ -606,13 +638,13 @@ abstract public class RequestContext
    }
 
   /**
-    * Gets the PageFlowScopeProvider for the current application.
-    */
+   * Gets the PageFlowScopeProvider for the current application.
+   */
   public abstract PageFlowScopeProvider getPageFlowScopeProvider();
 
   /**
-    * Gets the PageResolver for the current application.
-    */
+   * Gets the PageResolver for the current application.
+   */
   public abstract PageResolver getPageResolver();
 
   /**
@@ -677,9 +709,9 @@ abstract public class RequestContext
   public abstract void partialUpdateNotify(UIComponent updated);
 
   /**
-   * Starts a new component binding context. Typically called from tag handlers when component 
-   * bindings in its subtree needs to be cleared, forcing the creation of new components. 
-   * 
+   * Starts a new component binding context. Typically called from tag handlers when component
+   * bindings in its subtree needs to be cleared, forcing the creation of new components.
+   *
    * @param context FacesContext instance
    * @see RequestContext#popComponentBindingContext
    * @see RequestContext#isInComponentBindingContext
@@ -689,7 +721,7 @@ abstract public class RequestContext
     ExternalContext ec = context.getExternalContext();
     if (null != ec)
     {
-      // Use a counter on the request map to generate the IDs. 
+      // Use a counter on the request map to generate the IDs.
       Map<String, Object> reqMap = ec.getRequestMap();
       Integer value = (Integer)reqMap.get(_CURRENT_COMPONENT_BINDING_CONTEXT_KEY);
       int val = 0;
@@ -705,11 +737,11 @@ abstract public class RequestContext
       reqMap.put(_CURRENT_COMPONENT_BINDING_CONTEXT_KEY, val);
     }
   }
-  
+
   /**
-   * Pops out of the last pushed component binding context. Component binding instances will not be 
+   * Pops out of the last pushed component binding context. Component binding instances will not be
    * cleared after popping out the outermost context.
-   * 
+   *
    * @param context FacesContext instance
    * @see RequestContext#pushComponentBindingContext
    * @see RequestContext#isInComponentBindingContext
@@ -730,17 +762,17 @@ abstract public class RequestContext
       {
         val = value - 1;
       }
-      
+
       if (val > 0)
         reqMap.put(_CURRENT_COMPONENT_BINDING_CONTEXT_KEY, val);
       else
         reqMap.put(_CURRENT_COMPONENT_BINDING_CONTEXT_KEY, null);
     }
   }
-  
+
   /**
    * Returns true if we are currently within a component binding context.
-   * 
+   *
    * @see RequestContext#pushComponentBindingContext
    * @see RequestContext#popComponentBindingContext
    */
@@ -751,11 +783,11 @@ abstract public class RequestContext
     {
       Map<String, Object> reqMap = ec.getRequestMap();
       Integer value = (Integer)reqMap.get(_CURRENT_COMPONENT_BINDING_CONTEXT_KEY);
-      
+
       if (value != null && value > 0)
         return true;
     }
-    
+
     return false;
   }
 
@@ -790,13 +822,13 @@ abstract public class RequestContext
   public abstract Long getUploadedFileMaxMemory();
 
   public abstract Long getUploadedFileMaxDiskSpace();
-  
+
   public Long getUploadedFileMaxFileSize()
   {
     // default of unlimited file size
     return -1L;
   }
-  
+
   public Long getUploadedFileMaxChunkSize()
   {
     // default of 2GB which is the maximum allowed chunk size
@@ -1105,12 +1137,13 @@ abstract public class RequestContext
        new ConcurrentHashMap<ClassLoader, ConcurrentMap<String, Object>>();
   static private final ThreadLocal<RequestContext> _CURRENT_CONTEXT =
     new ThreadLocal<RequestContext>();
-  static private final String _CURRENT_COMPONENT_BINDING_CONTEXT_KEY = 
+  static private final String _CURRENT_COMPONENT_BINDING_CONTEXT_KEY =
     RequestContext.class.getName() + ".CCBCK";
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(RequestContext.class);
 
   private ComponentContextManager _componentContextManager;
+  private TagExecution _tagExecution = TagExecution.FULL;
 
   // window manager for this request
   private WindowManager _windowManager;

@@ -51,6 +51,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.JspIdConsumer;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
@@ -1248,6 +1249,15 @@ public class ForEachTag
     public void beforePhase(PhaseEvent event)
     {
       _LOG.finest("Running the iteration status cleanup code");
+
+      // Ensure that tag execution has not been skipped during this request
+      RequestContext requestContext = RequestContext.getCurrentInstance();
+      if (requestContext.getTagExecutionStatus() == RequestContext.TagExecution.NONE)
+      {
+        _LOG.finest("Tag execution is not being run, avoiding cleanup");
+        return;
+      }
+
       FacesContext facesContext = event.getFacesContext();
       UIViewRoot viewRoot = facesContext.getViewRoot();
       Map<String, Object> viewAttrs = viewRoot.getAttributes();
