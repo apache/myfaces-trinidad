@@ -62,13 +62,12 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 public class CoreRenderingContext extends RenderingContext
 {
   /**
-   * String marker used to indicate the style class is empty and can
-   * be ignored.
+   * String marker used to indicate the style class is empty and can be ignored.
    */
-  static public final String EMPTY_STYLE_CLASS = "";
-  
-  static public final String SKIN_ID_PARAM = "org.apache.myfaces.trinidad.skin.id";
-  static public final String SKIN_STYLESHEET_ID_PARAM = "org.apache.myfaces.trinidad.skin.stylesheet.id";
+  static public final String EMPTY_STYLE_CLASS        = "";
+  static public final String SKIN_ID_PARAM            = "org.apache.myfaces.trinidad.skin.id";
+  static public final String SKIN_STYLESHEET_ID_PARAM =
+    "org.apache.myfaces.trinidad.skin.stylesheet.id";
 
   public CoreRenderingContext()
   {
@@ -77,9 +76,7 @@ public class CoreRenderingContext extends RenderingContext
 
     _facesContext = context;
     _requestContext = afContext;
-    
     _properties = new HashMap<Object, Object>();
-
     _outputMode = afContext.getOutputMode();
     _agent = _initializeAgent(context,
                               afContext.getAgent(),
@@ -98,10 +95,10 @@ public class CoreRenderingContext extends RenderingContext
     _accessibilityProfile = afContext.getAccessibilityProfile();
     if (_accessibilityProfile == null)
       _accessibilityProfile = AccessibilityProfile.getDefaultInstance();
-    
+
     _isDesignTime = _isDesignTime(_agent);
   }
-  
+
   /**
    * Cached access to FacesContext.
    */
@@ -110,7 +107,7 @@ public class CoreRenderingContext extends RenderingContext
   {
     return _facesContext;
   }
-  
+
   /**
    * Cached access to RequestContext
    */
@@ -130,14 +127,12 @@ public class CoreRenderingContext extends RenderingContext
   }
 
   /**
-   * Called by link containers prior to rendering their children
-   * in order to suppress the rendering of the default link
-   * style class (.OraLink).  Most link containers (like tabBar,
-   * globalHeader) provide their own style classes - the default
-   * OraLink style class ends up getting in the way.
-   *
-   * Important: Each call to setDefaultLinkStyleClassDisabled(true)
-   * must be followed by a matching call to setDefaultLinkStyleClassDisabled(false).
+   * Called by link containers prior to rendering their children in order to suppress the rendering
+   * of the default link style class (.OraLink).  Most link containers (like tabBar, globalHeader)
+   * provide their own style classes - the default OraLink style class ends up getting in the way.
+   * <p/>
+   * Important: Each call to setDefaultLinkStyleClassDisabled(true) must be followed by a matching
+   * call to setDefaultLinkStyleClassDisabled(false).
    */
   public void setDefaultLinkStyleDisabled(boolean isDisabled)
   {
@@ -158,15 +153,14 @@ public class CoreRenderingContext extends RenderingContext
 
   /**
    * Called by link containers to force a link to render as disabled
-   *
-   * Important: Each call to setLinkDisabled(true)
-   * must be followed by a matching call to setLinkDisabled(false).
+   * <p/>
+   * Important: Each call to setLinkDisabled(true) must be followed by a matching call to
+   * setLinkDisabled(false).
    */
   public void setLinkDisabled(boolean isDisabled)
   {
     _isLinkDisabled = isDisabled;
   }
-
 
 
   // Implementation of RenderingContext
@@ -264,7 +258,7 @@ public class CoreRenderingContext extends RenderingContext
   public Skin getSkin()
   {
     // this might switch the skin from portlet to desktop depending upon the request map parameters.
-    if(!_checkedRequestMapSkin)
+    if (!_checkedRequestMapSkin)
     {
       Skin requestedSkin = getRequestMapSkin();
       _checkedRequestMapSkin = true;
@@ -277,20 +271,21 @@ public class CoreRenderingContext extends RenderingContext
     }
     return _skin;
   }
-  
+
   /**
    * Return the Styles object that is attached to this RenderingContext. You can use the Styles
-   * object to retrieve a map of the skin selectors and their css properties, already resolved
-   * for this specific request. A skin has selectors for all agents, locales, etc., and there
-   * might be blocks for ie-only or gecko-only or rtl, etc., and the resolved styles are styles
-   * for the specific request (agent, locale, aliases are merged, etc).
+   * object to retrieve a map of the skin selectors and their css properties, already resolved for
+   * this specific request. A skin has selectors for all agents, locales, etc., and there might be
+   * blocks for ie-only or gecko-only or rtl, etc., and the resolved styles are styles for the
+   * specific request (agent, locale, aliases are merged, etc).
+   *
    * @return
    */
   @Override
   public Styles getStyles()
   {
     return getStyleContext().getStyles();
-  }  
+  }
 
   /**
    * Get an interface that can be used for style lookups and generation.
@@ -300,7 +295,8 @@ public class CoreRenderingContext extends RenderingContext
     if (_styleContext == null)
     {
       _styleContext = new StyleContextImpl(this,
-                                          getTemporaryDirectory(getFacesContext(), isDesignTime()));
+                                           getTemporaryDirectory(getFacesContext(),
+                                                                 isDesignTime()));
     }
 
     return _styleContext;
@@ -444,8 +440,7 @@ public class CoreRenderingContext extends RenderingContext
   }
 
   /**
-   * Return the default skin family, which is "casablanca" for the
-   * core renderkit.
+   * Return the default skin family, which is "casablanca" for the core renderkit.
    */
   protected String getDefaultSkinFamily()
   {
@@ -487,25 +482,27 @@ public class CoreRenderingContext extends RenderingContext
     if (isRequestedSkinSupported() || isDesignTime())
     {
       FacesContext context = getFacesContext();
+      ExternalContext externalContext = context.getExternalContext();
       Object requestedSkinId = getRequestMapSkinId(context);
       if (requestedSkinId != null)
       {
 
-        SkinProvider skinProvider = SkinProvider.getCurrentInstance(context.getExternalContext());
+        SkinProvider skinProvider = SkinProvider.getCurrentInstance(externalContext);
         if (skinProvider == null)
         {
           _LOG.warning("NO_SKIN_PROVIDER");
           return null;
         }
 
-        Skin requestedSkin = skinProvider.getSkin(context, new SkinMetadata.Builder().id(requestedSkinId.toString()).build());
+        SkinMetadata metadata = new SkinMetadata.Builder().id(requestedSkinId.toString()).build();
+        Skin requestedSkin = skinProvider.getSkin(externalContext, metadata);
         if (requestedSkin != null)
         {
           // In portlet mode, we will switch to using the requestedSkin
           // (the skin requested by the portlet's producer on the requestMap) if it exists.
           // Otherwise we'll use the portal skin.
           if (_LOG.isFine())
-            _LOG.fine("The skin " +requestedSkinId+ " specified on the requestMap will be used.");
+            _LOG.fine("The skin " + requestedSkinId + " specified on the requestMap will be used.");
           _requestMapSkin = requestedSkin;
 
           // Check here if the stylesheet ids match. This method logs a warning if we cannot
@@ -515,8 +512,10 @@ public class CoreRenderingContext extends RenderingContext
           // wrap in the RequestSkinWrapper, else we get property/icon
           // not found errors
           return new RequestSkinWrapper(requestedSkin);
-          // todo Should I wrap it in something that says that we don't need to compress. In FileSystemStyleCache,
-          // we could look to see what kind of skin it is??? Portal skins have a styleClassMap, but they
+          // todo Should I wrap it in something that says that we don't need to compress. In
+          // FileSystemStyleCache,
+          // we could look to see what kind of skin it is??? Portal skins have a styleClassMap,
+          // but they
           // do not want compression.
 
         }// end requestedSkin != null
@@ -524,7 +523,7 @@ public class CoreRenderingContext extends RenderingContext
         {
           if (_LOG.isWarning())
           {
-            _LOG.warning("REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST",requestedSkinId);
+            _LOG.warning("REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST", requestedSkinId);
           }
         }
       }
@@ -536,10 +535,10 @@ public class CoreRenderingContext extends RenderingContext
   /**
    * Look on the requestMap for "org.apache.myfaces.trinidad.skin.id", and return
    * the skin id.
-   * This is for clients who want to send to the server 
+   * This is for clients who want to send to the server
    * the skin id via a request scope rather
-  // than using the trinidad-config.xml's skin-family. The examples are the 
-  // design time and a portal container.
+   * than using the trinidad-config.xml's skin-family. The examples are the
+   * design time and a portal container.
    * @param facesContext
    * @return the skin id that is on the request map.
    */
@@ -555,10 +554,11 @@ public class CoreRenderingContext extends RenderingContext
 
   /**
    * This helps figure out if the portlet producer can share the portlet consumer's stylesheet.
+   *
    * @param context
    * @param requestedSkin The skin that the portlet consumer wants the producer to share.
-   * @return true if the skin stylesheet id parameter on the request map is equal to
-                  the requestedSkin's stylesheetId.
+   * @return true if the skin stylesheet id parameter on the request map is equal to the
+   * requestedSkin's stylesheetId.
    */
   public boolean isRequestMapStyleSheetIdAndSkinEqual(
     FacesContext context,
@@ -582,10 +582,10 @@ public class CoreRenderingContext extends RenderingContext
             // directory. Otherwise the following code would get an error when it
             // tries to getStyleDir. This could possibly be done better.
             getStyleContext().getStyleProvider();
-            
+
             String skinForPortalStyleSheetId = requestedSkin.getStyleSheetDocumentId(this);
             if (skinForPortalStyleSheetId != null &&
-              skinForPortalStyleSheetId.equals(requestMapStyleSheetId))
+                  skinForPortalStyleSheetId.equals(requestMapStyleSheetId))
             {
               _styleSheetDocumentIdMatch = Boolean.TRUE;
             }
@@ -619,11 +619,11 @@ public class CoreRenderingContext extends RenderingContext
   }
 
   /**
-   * Set the local variable _skin to be the Skin from the
-   * SkinFactory that best matches
-   * the <skin-family> and current render-kit-id.
-   * @param context    FacesContext
-   * @param afContext  RequestContext
+   * Set the local variable _skin to be the Skin from the SkinFactory that best matches the
+   * <skin-family> and current render-kit-id.
+   *
+   * @param context   FacesContext
+   * @param afContext RequestContext
    */
   @SuppressWarnings("unchecked")
   private void _initializeSkin(
@@ -634,7 +634,7 @@ public class CoreRenderingContext extends RenderingContext
     String skinFamily = afContext.getSkinFamily();
     if (skinFamily == null)
       skinFamily = getDefaultSkinFamily();
-    
+
     // get skin-version
     String skinVersionString = afContext.getSkinVersion();
 
@@ -651,17 +651,20 @@ public class CoreRenderingContext extends RenderingContext
       renderKitId = TrinidadRenderingConstants.APACHE_TRINIDAD_PDA;
     }
 
-
-    SkinProvider skinProvider = SkinProvider.getCurrentInstance(context.getExternalContext());
+    ExternalContext externalContext = context.getExternalContext();
+    SkinProvider skinProvider = SkinProvider.getCurrentInstance(externalContext);
     if (skinProvider == null)
     {
       _LOG.warning("NO_SKIN_PROVIDER");
       return;
     }
     // skinFamily, renderKitId, skinVersionString
+    SkinMetadata.RenderKitId renderKitIdObj = SkinMetadata.RenderKitId.fromId(renderKitId);
     SkinMetadata metadata = new SkinMetadata.Builder().family(skinFamily)
-      .renderKitId(SkinMetadata.RenderKitId.fromId(renderKitId)).version(new SkinVersion(skinVersionString)).build();
-    Skin skin = skinProvider.getSkin(context, metadata);
+                                                      .renderKitId(renderKitIdObj)
+                                                      .version(new SkinVersion(skinVersionString))
+                                                      .build();
+    Skin skin = skinProvider.getSkin(externalContext, metadata);
 
     if (skin == null)
     {
@@ -676,7 +679,6 @@ public class CoreRenderingContext extends RenderingContext
 
     _skin = skin;
   }
-
 
 
   private TrinidadAgent _initializeAgent(
@@ -705,13 +707,13 @@ public class CoreRenderingContext extends RenderingContext
     }
     else if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(outputMode))
     {
-      if(ExternalContextUtils.isRequestTypeSupported(RequestType.RESOURCE))
+      if (ExternalContextUtils.isRequestTypeSupported(RequestType.RESOURCE))
       {
         //Set things up for the Portlet 2.0 container.
         return AgentUtil.mergeCapabilities(agent, _ENHANCED_PORTLET_CAPABILITIES);
       }
       else
-      { 
+      {
         return AgentUtil.mergeCapabilities(agent, _PORTLET_CAPABILITIES);
       }
     }
@@ -722,7 +724,7 @@ public class CoreRenderingContext extends RenderingContext
     else if (CoreRenderKit.OUTPUT_MODE_WEB_CRAWLER.equals(outputMode))
     {
       return AgentUtil.mergeCapabilities(agent, _WEB_CRAWLER_CAPABILITIES);
-    }    
+    }
     else
     {
       return agent;
@@ -749,6 +751,7 @@ public class CoreRenderingContext extends RenderingContext
 
   /**
    * Get the directory for temporary files.
+   *
    * @todo: move into the util package?
    */
   @SuppressWarnings("unchecked")
@@ -757,7 +760,6 @@ public class CoreRenderingContext extends RenderingContext
     String path = null;
 
     ExternalContext external = fContext.getExternalContext();
-    
     Map<String, Object> applicationMap = external.getApplicationMap();
 
     if (applicationMap != null)
@@ -768,21 +770,21 @@ public class CoreRenderingContext extends RenderingContext
       // we're a portlet), we have to write to the global temporary
       // directory.  That's not good - does the portlet spec define
       // anything?
-      File tempdir = (File)
-        applicationMap.get("javax.servlet.context.tempdir");
+      File tempdir = (File) applicationMap.get("javax.servlet.context.tempdir");
       if (tempdir == null)
       {
         // In design-time land, just write to the temporary directory.
         // But what
         if (isDesignTime ||
-            !(external.getContext() instanceof ServletContext))
+              !(external.getContext() instanceof ServletContext))
         {
           tempdir = new File(System.getProperty("java.io.tmpdir"));
           path = tempdir.getAbsolutePath();
         }
         else
         {
-          _LOG.severe("The java.io.File handle (\"javax.servlet.context.tempdir\") is not set in the ServletContext");
+          _LOG.severe("The java.io.File handle (\"javax.servlet.context.tempdir\") is not set in " +
+                        "the ServletContext");
         }
       }
       else
@@ -827,25 +829,25 @@ public class CoreRenderingContext extends RenderingContext
   }
 
 
-  private Skin                _skin;
-  private boolean             _checkedRequestMapSkin = false;
-  private Skin                _requestMapSkin;
-  private Object              _styleSheetDocumentIdMatch;
-  private FormData            _formData;
-  private TrinidadAgent       _agent;
-  private Map<String, String> _styleMap;
-  private Map<String, String> _skinResourceKeyMap;
-  private String              _outputMode;
+  private Skin                         _skin;
+  private Skin                         _requestMapSkin;
+  private Object                       _styleSheetDocumentIdMatch;
+  private FormData                     _formData;
+  private TrinidadAgent                _agent;
+  private Map<String, String>          _styleMap;
+  private Map<String, String>          _skinResourceKeyMap;
+  private String                       _outputMode;
   private RequestContext.Accessibility _accessibilityMode;
   private AccessibilityProfile         _accessibilityProfile;
-  private boolean _animationEnabled;
-  private PartialPageContext  _pprContext;
-  private LocaleContext       _localeContext;
-  private StyleContext        _styleContext;
-  private Map<Object, Object> _properties;
-  private int                 _linkStyleDisabledCount = 0;
-  private boolean             _isLinkDisabled = false;
-  private final FacesContext _facesContext;
+  private boolean                      _animationEnabled;
+  private PartialPageContext           _pprContext;
+  private LocaleContext                _localeContext;
+  private StyleContext                 _styleContext;
+  private Map<Object, Object>          _properties;
+  private boolean _checkedRequestMapSkin  = false;
+  private int     _linkStyleDisabledCount = 0;
+  private boolean _isLinkDisabled         = false;
+  private final FacesContext   _facesContext;
   private final RequestContext _requestContext;
   private final boolean        _isDesignTime;
 
@@ -863,7 +865,7 @@ public class CoreRenderingContext extends RenderingContext
 
   static private final Map<Object, Object> _PORTLET_CAPABILITIES =
     new HashMap<Object, Object>();
-  
+
   static private final Map<Object, Object> _ENHANCED_PORTLET_CAPABILITIES =
     new HashMap<Object, Object>();
 
@@ -904,28 +906,28 @@ public class CoreRenderingContext extends RenderingContext
 
     // for now, the Web Crawler capabilities are the same as the EMail capabilities
     _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_INTRINSIC_EVENTS,
-                            Boolean.FALSE);
+                                  Boolean.FALSE);
     _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_SCRIPTING_SPEED,
-                            TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);
+                                  TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);
     _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_EDITING,
-                            Boolean.FALSE);
+                                  Boolean.FALSE);
     // =-= bts I wouldn't think that we would output any style sheets for a web crawler
     _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_STYLE_ATTRIBUTES,
                                   TrinidadAgent.STYLES_INTERNAL);
     _WEB_CRAWLER_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
                                   Boolean.FALSE);
-    
+
     _PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
-                            Boolean.FALSE);
-    _PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_MULTIPLE_WINDOWS,
-                            Boolean.FALSE);
-    
-    _ENHANCED_PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_MULTIPLE_WINDOWS,
                               Boolean.FALSE);
-    
+    _PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_MULTIPLE_WINDOWS,
+                              Boolean.FALSE);
+
+    _ENHANCED_PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_MULTIPLE_WINDOWS,
+                                       Boolean.FALSE);
+
 
     // turn off PPR
-    _ATTACHMENT_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING, Boolean.FALSE);    
+    _ATTACHMENT_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING, Boolean.FALSE);
   }
 
   static private final TrinidadLogger _LOG =

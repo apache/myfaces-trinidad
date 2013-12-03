@@ -28,6 +28,7 @@ import java.io.Writer;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -161,7 +162,7 @@ abstract public class RenderKitTestCase extends TestSuite
     }
 
     @Override
-    protected void setUp() throws IOException  
+    protected void setUp() throws IOException
     {
       _facesContext = createMockFacesContext(MApplication.sharedInstance(), true);
       _requestContext = createRequestContext();
@@ -181,17 +182,20 @@ abstract public class RenderKitTestCase extends TestSuite
 
       if (service != null)
         service.encodeBegin(_facesContext);
-        
     }
-    
+
     protected MFacesContext createMockFacesContext(
       Application mockApplication,
       boolean testMode)
     {
       MFacesContext ctx = new MFacesContext(mockApplication, testMode);
-      ctx.getExternalContext().getApplicationMap().put(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY, new TrinidadSkinProvider());
-      ctx.getExternalContext().getApplicationMap().put(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY, new ExternalSkinProvider());
-      ctx.getExternalContext().getApplicationMap().put(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY, new SkinProviderRegistry());
+      Map<String, Object> applicatationMap = ctx.getExternalContext().getApplicationMap();
+      applicatationMap.put(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY,
+                           new TrinidadSkinProvider());
+      applicatationMap.put(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY,
+                           new ExternalSkinProvider());
+      applicatationMap.put(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY,
+                           new SkinProviderRegistry());
       return ctx;
     }
 
@@ -201,7 +205,7 @@ abstract public class RenderKitTestCase extends TestSuite
     }
 
     @Override
-    protected void tearDown() throws IOException  
+    protected void tearDown() throws IOException
     {
       ExtendedRenderKitService service =
         _getExtendedRenderKitService(_facesContext);
@@ -241,7 +245,7 @@ abstract public class RenderKitTestCase extends TestSuite
     {
       RenderUtils.encodeRecursive(_facesContext, root);
     }
-    
+
     protected void initializeContext(Writer out) throws IOException
     {
       _facesContext.getExternalContext().getRequestMap().clear();
@@ -272,22 +276,25 @@ abstract public class RenderKitTestCase extends TestSuite
       }
 
       @Override
-      public void flush() { }
+      public void flush()
+      {
+      }
 
       @Override
-      public void close() { }
+      public void close()
+      {
+      }
     }
 
-    private TestResult    _result;
-    private MFacesContext _facesContext;
-    private MRequestContext _requestContext;
-    private String          _skin;
-    private String          _outputMode; 
-    private Agent           _agent;
-    private RequestContext.Accessibility  _accMode;
-    private boolean         _rightToLeft;
+    private TestResult                   _result;
+    private MFacesContext                _facesContext;
+    private MRequestContext              _requestContext;
+    private String                       _skin;
+    private String                       _outputMode;
+    private Agent                        _agent;
+    private RequestContext.Accessibility _accMode;
+    private boolean                      _rightToLeft;
   }
-
 
 
   public class RendererTest extends BaseTest
@@ -300,9 +307,8 @@ abstract public class RenderKitTestCase extends TestSuite
       _scriptName = name + ".xml";
       File scriptFile = new File(_scriptDir, _scriptName);
 
-      _script =
-        TestScriptParser.getTestScript(scriptFile, _facesConfigInfo);
-      _lenient     = lenient;
+      _script = TestScriptParser.getTestScript(scriptFile, _facesConfigInfo);
+      _lenient = lenient;
 
 
       // We run golden-file checks on each subtest - though all differences
@@ -324,7 +330,7 @@ abstract public class RenderKitTestCase extends TestSuite
     }
 
     @Override
-    protected void tearDown() throws IOException  
+    protected void tearDown() throws IOException
     {
       super.tearDown();
       _script = null;
@@ -343,17 +349,17 @@ abstract public class RenderKitTestCase extends TestSuite
 
       StringWriter first = new StringWriter();
       docRoot.getChildren().add(new GatherContent(first,
-                                               _createComponent(),
-                                               getResult(),
-                                               this,
-                                               _lenient));
+                                                  _createComponent(),
+                                                  getResult(),
+                                                  this,
+                                                  _lenient));
 
       StringWriter base = new StringWriter();
       docRoot.getChildren().add(new GatherContent(base,
-                                               _createComponent(),
-                                               getResult(),
-                                               this,
-                                               _lenient));
+                                                  _createComponent(),
+                                                  getResult(),
+                                                  this,
+                                                  _lenient));
 
       Iterator<TestScript.Test> tests = _script.getTests().iterator();
       while (tests.hasNext())
@@ -364,13 +370,12 @@ abstract public class RenderKitTestCase extends TestSuite
 
         test.apply(getFacesContext(), testComponent);
         docRoot.getChildren().add(new GatherContent(test.getOutput(),
-                                                 testComponent,
-                                                 getResult(),
-                                                 this,
-                                                 _lenient));
+                                                    testComponent,
+                                                    getResult(),
+                                                    this,
+                                                    _lenient));
       }
 
-      
 
       renderRoot(root);
 
@@ -423,7 +428,7 @@ abstract public class RenderKitTestCase extends TestSuite
           getResult().addError(this, failure);
         }
         else if (test.shouldMatchBase() &&
-                 !baseResults.equals(testResults))
+                   !baseResults.equals(testResults))
         {
           AssertionFailedError failure = new AssertionFailedError(
             "Result of " + test.toString() + " were not identical to " +
@@ -477,13 +482,13 @@ abstract public class RenderKitTestCase extends TestSuite
 
     private UIComponent _createComponent()
     {
-        return _script.getDefinition().createComponent(getFacesContext());
+      return _script.getDefinition().createComponent(getFacesContext());
     }
 
-    private int           _testCaseCount;
-    private String           _scriptName;
-    private TestScript       _script;
-    private boolean          _lenient;
+    private int        _testCaseCount;
+    private String     _scriptName;
+    private TestScript _script;
+    private boolean    _lenient;
   }
 
 
@@ -551,10 +556,10 @@ abstract public class RenderKitTestCase extends TestSuite
       }
     }
   }
-  
+
   protected void addRendererTest(
-    String name, 
-    SuiteDefinition definition, 
+    String name,
+    SuiteDefinition definition,
     boolean lenient) throws IOException, SAXException
   {
     RendererTest test = new RendererTest(name, definition, lenient);
@@ -562,13 +567,14 @@ abstract public class RenderKitTestCase extends TestSuite
     {
       addTest(test);
     }
-  }  
+  }
 
   protected abstract UIComponent populateDefaultComponentTree(
     UIViewRoot root,
     TestScript script);
 
   protected abstract Iterable<SuiteDefinition> getSuiteDefinitions();
+
   protected abstract String getRenderKitId();
 
   static public class SuiteDefinition
@@ -582,7 +588,7 @@ abstract public class RenderKitTestCase extends TestSuite
     {
       this(category, skin, accessibilityMode, agent, rightToLeft, null);
     }
-    
+
     public SuiteDefinition(
       String category,
       String skin,
@@ -590,11 +596,11 @@ abstract public class RenderKitTestCase extends TestSuite
       Agent  agent,
       boolean rightToLeft,
       String outputMode)
-    {    
+    {
       _category = category;
-      _skin     = skin;
-      _accessibilityMode  = accessibilityMode;
-      _agent    = agent;
+      _skin = skin;
+      _accessibilityMode = accessibilityMode;
+      _agent = agent;
       _rightToLeft = rightToLeft;
       _outputMode = outputMode;
     }
@@ -612,7 +618,7 @@ abstract public class RenderKitTestCase extends TestSuite
     public String getOutputMode()
     {
       return _outputMode;
-    }    
+    }
 
     public RequestContext.Accessibility getAccessibilityMode()
     {
@@ -630,12 +636,12 @@ abstract public class RenderKitTestCase extends TestSuite
       return _rightToLeft;
     }
 
-    private String _category;
-    private String _skin;
-    private String _outputMode;
+    private String                       _category;
+    private String                       _skin;
+    private String                       _outputMode;
     private RequestContext.Accessibility _accessibilityMode;
-    private Agent _agent;
-    private boolean _rightToLeft;
+    private Agent                        _agent;
+    private boolean                      _rightToLeft;
   }
 
   static private ExtendedRenderKitService _getExtendedRenderKitService(
@@ -647,7 +653,7 @@ abstract public class RenderKitTestCase extends TestSuite
 
 
   static private FacesConfigInfo _facesConfigInfo;
-  static private File _scriptDir;
-  static private File _goldenDir;
-  static private File _failureDir;
+  static private File            _scriptDir;
+  static private File            _goldenDir;
+  static private File            _failureDir;
 }

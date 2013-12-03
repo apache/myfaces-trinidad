@@ -141,8 +141,9 @@ public class SkinPregenerationService extends InternalView
 
   private static Skin _getSkin(FacesContext context, String skinId)
   {
-    SkinProvider provider = SkinProvider.getCurrentInstance(context.getExternalContext());
-    return provider.getSkin(context, new SkinMetadata.Builder().id(skinId).build());
+    ExternalContext ec = context.getExternalContext();
+    SkinProvider provider = SkinProvider.getCurrentInstance(ec);
+    return provider.getSkin(ec, new SkinMetadata.Builder().id(skinId).build());
   }
 
   private static void _pregenFailed(FacesContext context, Exception e)

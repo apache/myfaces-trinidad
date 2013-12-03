@@ -25,19 +25,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
+import javax.faces.context.ExternalContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinMetadata;
 import org.apache.myfaces.trinidad.skin.SkinProvider;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 /**
- * This is the common base class for Trinidad SkinProviders. This class abstracts out some common code that is useful
- * across Trinidad internal SkinProviders. One such example worth mentioning is the code to finding a Skin match
- * for a given SkinMetadata search criteria.
+ * This is the common base class for Trinidad SkinProviders. This class abstracts out some common
+ * code that is useful across Trinidad internal SkinProviders. One such example worth mentioning is
+ * the code to finding a Skin match for a given SkinMetadata search criteria.
+ *
  * @See TrinidadBaseSkinProvider
  * @See TrinidadSkinProvider
  * @See ExternalSkinProvider
@@ -53,7 +53,7 @@ public abstract class BaseSkinProvider extends SkinProvider
    * {@inheritDoc}
    */
   @Override
-  public Skin getSkin(FacesContext context, SkinMetadata skinMetadata)
+  public Skin getSkin(ExternalContext context, SkinMetadata skinMetadata)
   {
     synchronized (this)
     {
@@ -65,7 +65,7 @@ public abstract class BaseSkinProvider extends SkinProvider
    * {@inheritDoc}
    */
   @Override
-  public Collection<SkinMetadata> getSkinMetadata(FacesContext context)
+  public Collection<SkinMetadata> getSkinMetadata(ExternalContext context)
   {
     synchronized (this)
     {
@@ -75,6 +75,7 @@ public abstract class BaseSkinProvider extends SkinProvider
 
   /**
    * add method used to register a skin with the provider.
+   *
    * @param metadata
    * @param skin
    * @return Any previously registered skins existing with the same metadata
@@ -97,16 +98,18 @@ public abstract class BaseSkinProvider extends SkinProvider
   }
 
   /**
-   * template method to be implemented by subclasses with logic to load a skin
-   * that base class knows as available with the current skin provider being asked
-   * to load the skin
+   * template method to be implemented by subclasses with logic to load a skin that base class knows
+   * as available with the current skin provider being asked to load the skin
+   *
    * @param context
    * @param skinMetadata
    */
-  protected abstract Skin loadAvailableSkin(FacesContext context, SkinMetadata skinMetadata);
+  protected abstract Skin loadAvailableSkin(ExternalContext context, SkinMetadata skinMetadata);
 
   /**
-   * getter for the skins, only used by ExternalSkinProvider.reload to cache and restore the skins if reload fails
+   * getter for the skins, only used by ExternalSkinProvider.reload to cache and restore the skins
+   * if reload fails
+   *
    * @return
    */
   protected Map<SkinMetadata, Skin> getSkins()
@@ -118,7 +121,9 @@ public abstract class BaseSkinProvider extends SkinProvider
   }
 
   /**
-   * setter for the skins, only used by ExternalSkinProvider.reload to cache and restore the skins if reload fails
+   * setter for the skins, only used by ExternalSkinProvider.reload to cache and restore the skins
+   * if reload fails
+   *
    * @param skins
    */
   protected void setSkins(Map<SkinMetadata, Skin> skins)
@@ -134,8 +139,7 @@ public abstract class BaseSkinProvider extends SkinProvider
   }
 
   /**
-   * initialize a new HashMap for the skins,
-   * used by constructor and ExternalSkinProvider.reload
+   * initialize a new HashMap for the skins, used by constructor and ExternalSkinProvider.reload
    */
   protected void initSkins()
   {
@@ -146,21 +150,23 @@ public abstract class BaseSkinProvider extends SkinProvider
   }
 
   /**
-   * Hook to do any kind of initialization before loading a skin or skin metadata
-   * sub classes can choose to implement
+   * Hook to do any kind of initialization before loading a skin or skin metadata sub classes can
+   * choose to implement
+   *
    * @param context
    */
-  protected void initialize(FacesContext context)
+  protected void initialize(ExternalContext context)
   {
   }
 
   /**
    * one point method for searching skins
+   *
    * @param context
    * @param searchMetadata to search for
    * @return matching skin
    */
-  private final Skin _getMatchingSkin(FacesContext context, SkinMetadata searchMetadata)
+  private final Skin _getMatchingSkin(ExternalContext context, SkinMetadata searchMetadata)
   {
     if (searchMetadata == null)
       throw new NullPointerException("SkinMetadata passed for search is null");
@@ -183,7 +189,7 @@ public abstract class BaseSkinProvider extends SkinProvider
     initialize(context);
 
     if (_LOG.isFine())
-      _LOG.fine("SP_FINDING_SKIN_FOR", new Object[]{searchMetadata.toString()} );
+      _LOG.fine("SP_FINDING_SKIN_FOR", new Object[]{searchMetadata.toString()});
 
     // first check if a skin matching the requirement is present in this provider
     SkinMetadata availableMetadata = _findSkinMetadata(context, searchMetadata);
@@ -217,10 +223,11 @@ public abstract class BaseSkinProvider extends SkinProvider
 
   /**
    * find if there is a skin with the search condition supported by the current SkinProvider
+   *
    * @param search
    * @return
    */
-  private SkinMetadata _findSkinMetadata(FacesContext context, SkinMetadata search)
+  private SkinMetadata _findSkinMetadata(ExternalContext context, SkinMetadata search)
   {
     SkinMetadata matchingSkinMetadata = null;
     String skinId = search.getId();
@@ -268,7 +275,8 @@ public abstract class BaseSkinProvider extends SkinProvider
 
       // search using family and renderkit id
       for (SkinMetadata m : skinMetadata)
-        if (family.equalsIgnoreCase(m.getFamily()) && renderKit.equalsIgnoreCase(m.getRenderKitId()))
+        if (family.equalsIgnoreCase(m.getFamily()) &&
+              renderKit.equalsIgnoreCase(m.getRenderKitId()))
           familyRenderKitMatches.add(m);
 
       if (familyRenderKitMatches.isEmpty())
@@ -287,7 +295,7 @@ public abstract class BaseSkinProvider extends SkinProvider
       // at this point we know we have something in the familyRenderKitMatches
       // which is a list of matching family and renderKitId skins. Now match the version
       // to find the best matched skin.
-      String versionName =  version.getName();
+      String versionName = version.getName();
       boolean versionIsDefault = version.isDefault();
       boolean foundMatchingSkin = false;
 
@@ -297,9 +305,11 @@ public abstract class BaseSkinProvider extends SkinProvider
         matchingSkinMetadata = _findSkinMetadataForVersionName(familyRenderKitMatches, version);
       }
 
-      // matchingSkinMetadata will be null if an exact version match (family+renderKitId+version) was not found;
+      // matchingSkinMetadata will be null if an exact version match (family+renderKitId+version)
+      // was not found;
       // or if user was asking for a default version
-      // we can have an exact version match if the user asks for null version, and we find a skin with no
+      // we can have an exact version match if the user asks for null version,
+      // and we find a skin with no
       // version set.
       if (matchingSkinMetadata == null || versionIsDefault)
       {
@@ -336,17 +346,17 @@ public abstract class BaseSkinProvider extends SkinProvider
       }
       else if (matchingSkinMetadata != null)
       {
-        if(_LOG.isFine())
+        if (_LOG.isFine())
         {
           if ("".equals(versionName))
           {
             _LOG.fine("GET_SKIN_CANNOT_FIND_NO_VERSION",
-                         new Object[]{family, matchingSkinMetadata.getId()});
+                      new Object[]{family, matchingSkinMetadata.getId()});
           }
           else
           {
             _LOG.fine("GET_SKIN_CANNOT_FIND_SKIN_VERSION",
-                         new Object[]{family, version, matchingSkinMetadata.getId()});
+                      new Object[]{family, version, matchingSkinMetadata.getId()});
           }
         }
       }
@@ -358,7 +368,6 @@ public abstract class BaseSkinProvider extends SkinProvider
     }
 
 
-
     if (matchingSkinMetadata != null)
       if (_LOG.isFine())
         _LOG.fine(this + " found matching metadata: " + matchingSkinMetadata);
@@ -368,11 +377,13 @@ public abstract class BaseSkinProvider extends SkinProvider
 
   /**
    * find a skin with version passed
+   *
    * @param skins
    * @param version
    * @return
    */
-  private SkinMetadata _findSkinMetadataForVersionName(Collection<SkinMetadata> skins, SkinVersion version)
+  private SkinMetadata _findSkinMetadataForVersionName(Collection<SkinMetadata> skins,
+                                                       SkinVersion version)
   {
     if (version == null)
       throw new IllegalArgumentException("skin version cannot be null");
@@ -396,10 +407,10 @@ public abstract class BaseSkinProvider extends SkinProvider
   }
 
   /**
-   * Latest skin is the one which is last in the family hierarchy
-   * eg: fusion-v1 -> fusion-v2 -> fusion-v3
-   * Among this fusion-v3 is the latest. So we look for a skin that is
-   * not extended by any other skin in the family.
+   * Latest skin is the one which is last in the family hierarchy eg: fusion-v1 -> fusion-v2 ->
+   * fusion-v3 Among this fusion-v3 is the latest. So we look for a skin that is not extended by any
+   * other skin in the family.
+   *
    * @param skins
    * @return
    */
@@ -440,10 +451,12 @@ public abstract class BaseSkinProvider extends SkinProvider
 
   /**
    * find a skin that has its SkinVersion set to 'default', if it exists.
+   *
    * @param matchingSkinList A list of Skins that we will look through to find the 'default'.
    * @return Skin with SkinVersion isDefault true, otherwise, null.
    */
-  private SkinMetadata _findSkinMetadataWithDefaultVersion(Collection<SkinMetadata> matchingSkinList)
+  private SkinMetadata _findSkinMetadataWithDefaultVersion(
+    Collection<SkinMetadata> matchingSkinList)
   {
     for (SkinMetadata metadata : matchingSkinList)
     {
@@ -462,5 +475,6 @@ public abstract class BaseSkinProvider extends SkinProvider
   }
 
   private Map<SkinMetadata, Skin> _skins;
-  private final static TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BaseSkinProvider.class);
+  private final static TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(BaseSkinProvider.class);
 }

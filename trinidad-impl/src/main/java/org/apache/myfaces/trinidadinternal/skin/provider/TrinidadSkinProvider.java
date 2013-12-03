@@ -24,22 +24,21 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidad.skin.SkinMetadata;
 import org.apache.myfaces.trinidad.skin.SkinProvider;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinsNode;
 
 /**
- * This is the Trinidad's SkinProvider for loading skins from trinidad-skins.xml. This provider reads and caches
- * trinidad-skins.xml from various sources like META-INF, WEB-INF and SkinResourceLoader API during its initialization.
- * Subsequently the Skin objects are created lazily using the cached metadata, only when it is first requested for.
+ * This is the Trinidad's SkinProvider for loading skins from trinidad-skins.xml. This provider
+ * reads and caches trinidad-skins.xml from various sources like META-INF, WEB-INF and
+ * SkinResourceLoader API during its initialization. Subsequently the Skin objects are created
+ * lazily using the cached metadata, only when it is first requested for.
  */
 public final class TrinidadSkinProvider extends BaseSkinProvider
 {
@@ -50,9 +49,9 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
     "org.apache.myfaces.trinidad.skin.TRINDIAD_SKIN_PROVIDER_INSTANCE";
 
   /**
-   * static factory method to get hold of a TrinidadSkinProvider object
-   * This can be used for easy creation of Skin object without having to
-   * implement the abstract class
+   * static factory method to get hold of a TrinidadSkinProvider object This can be used for easy
+   * creation of Skin object without having to implement the abstract class
+   *
    * @param ec
    * @return
    */
@@ -61,12 +60,15 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
     if (ec == null)
       throw new NullPointerException("ExternalContext is passed as null");
 
-    TrinidadSkinProvider trinidadSkinProvider = (TrinidadSkinProvider) ec.getApplicationMap().get(TRINDIAD_SKIN_PROVIDER_KEY);
+    TrinidadSkinProvider trinidadSkinProvider =
+      (TrinidadSkinProvider) ec.getApplicationMap().get(TRINDIAD_SKIN_PROVIDER_KEY);
     return trinidadSkinProvider;
   }
 
   /**
-   * used by ExternalSkinProvider to ensure that the skin and its base skin additions are added correctly
+   * used by ExternalSkinProvider to ensure that the skin and its base skin additions are added
+   * correctly
+   *
    * @param skin
    */
   public void ensureSkinAdditions(Skin skin)
@@ -85,7 +87,7 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
    * {@inheritDoc}
    */
   @Override
-  public Collection<SkinMetadata> getSkinMetadata(FacesContext context)
+  public Collection<SkinMetadata> getSkinMetadata(ExternalContext context)
   {
     // already initialized to unmodifiableCollection
     return _skinMetadata;
@@ -95,7 +97,7 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
    * {@inheritDoc}
    */
   @Override
-  protected Skin loadAvailableSkin(FacesContext context, SkinMetadata skinMetadata)
+  protected Skin loadAvailableSkin(ExternalContext context, SkinMetadata skinMetadata)
   {
     SkinMetadata matchingNode = null;
 
@@ -110,19 +112,21 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
 
     if (matchingNode == null)
     {
-      // This cannot happen because base class checks for availability before it calls for the skin to be loaded
+      // This cannot happen because base class checks for availability before it calls for the
+      // skin to be loaded
       if (_LOG.isSevere())
-        _LOG.severe("SP_LOADING_UNKNOWN_SKIN", new Object[] {skinMetadata.getId()});
+        _LOG.severe("SP_LOADING_UNKNOWN_SKIN", new Object[]{skinMetadata.getId()});
 
-      throw new NullPointerException(_LOG.getMessage("SP_LOADING_UNKNOWN_SKIN", new Object[] {skinMetadata.getId()}));
+      throw new NullPointerException(_LOG.getMessage("SP_LOADING_UNKNOWN_SKIN",
+                                                     new Object[]{skinMetadata.getId()}));
     }
 
-    String id =  matchingNode.getId();
-    String family =  matchingNode.getFamily();
-    String renderKitId =  matchingNode.getRenderKitId();
+    String id = matchingNode.getId();
+    String family = matchingNode.getFamily();
+    String renderKitId = matchingNode.getRenderKitId();
     Skin baseSkin = null;
     String baseSkinId = matchingNode.getBaseSkinId();
-    SkinProvider provider = SkinUtils.getSkinProvider(context);
+    SkinProvider provider = SkinProvider.getCurrentInstance(context);
 
     if (provider != null && baseSkinId != null)
       baseSkin = provider.getSkin(context, new SkinMetadata.Builder().id(baseSkinId).build());
@@ -172,11 +176,11 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
    * {@inheritDoc}
    */
   @Override
-  protected void initialize(FacesContext context)
+  protected void initialize(ExternalContext extCtxt)
   {
-    if (context == null || context.getExternalContext() == null)
+    if (extCtxt == null)
     {
-      return;
+      throw new NullPointerException("ExternalContext is passed as null");
     }
 
     if (_skinMetadata == null)
@@ -185,14 +189,13 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
         _LOG.fine("init provider.");
 
       // only now do initialization
-      ExternalContext extCtxt = context.getExternalContext();
       List<SkinsNode> skinsNodes = SkinUtils.buildSkinsNodes(extCtxt);
       List<SkinMetadata> skinNodes = new ArrayList<SkinMetadata>();
       List<SkinAddition> skinAdditionNodes = new ArrayList<SkinAddition>();
 
       for (SkinsNode node : skinsNodes)
       {
-        if  (node != null)
+        if (node != null)
         {
           skinNodes.addAll(node.getSkinNodes());
           skinAdditionNodes.addAll(node.getSkinAdditionNodes());
@@ -239,5 +242,6 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
   private List<SkinMetadata> _skinMetadata;
   private List<SkinAddition> _skinAdditionNodes;
 
-  private final static TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TrinidadSkinProvider.class);
+  private final static TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(TrinidadSkinProvider.class);
 }

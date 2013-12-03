@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * CustomMetadata represents the metadata associated with a Skin.
- * This API makes it convinient to read the content of metadata tag in trinidad-skins.xml
+ * This API makes it convenient to read the content of metadata tag in trinidad-skins.xml
  * such as:
  * <metadata>
  *    <visibility>deprecated</visibility>
