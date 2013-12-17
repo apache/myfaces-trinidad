@@ -1268,14 +1268,19 @@ af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start-content {
           <P>
           If you use any rule which is not listed in either server side at-rules or client side at-rules, it will be
           rendered as client side rule similar to @media or @document.
-          <b>Note:</b>
-          Styles inside client side at-rules cannot be used with tr-rules. This is because, in server side, we do not
-          know if the referred style will be rendered.
-          On the contrary, tr-rules can be used inside client side at-rules to refer styles or properties define outside
-          client rules.
-
-          Some example usages:
           </P>
+          <p>
+          <b>Notes:</b>
+            <ul>
+              <li>Styles inside client side at-rules cannot be used with tr-rules. This is
+                because, in server side, we do not know if the referred style will be rendered.
+                On the contrary, tr-rules can be used inside client side at-rules to refer styles
+                or properties define outside client rules.</li>
+              <li>Aliases cannot be specified inside client rules. Aliases are evaluated at the
+                server side, and thus we cannot pick aliases based on client rules.</li>
+            </ul>
+          Some example usages:
+          </p>
           <source>
 
 af|document {
