@@ -103,6 +103,38 @@ public final class URLUtils
   }
   
   /**
+   * Takes a URL that is not escaped and simply removes any invalid characters, replacing them with thier %XX
+   * equivalents.
+   */
+  public static String escapeURL(String url, String charset)
+    throws UnsupportedEncodingException
+  {
+    StringBuilder sb = new StringBuilder(url.length() * 2);
+    for(char c: url.toCharArray())
+    {
+      if ((c >= 'A' && c <= 'Z') ||
+            (c >= 'a' && c <= 'z') ||
+            (c >= '0' && c <= '9') ||
+            _URL_VALID_CHARS.indexOf(c) > -1
+         )
+      {
+        //Valid character.  Just append.
+        sb.append(c);
+      }
+      else
+      {
+        //This is an invalid character, so we encode need to get the bytes
+        for(byte b: Character.toString(c).getBytes(charset))
+        {
+          sb.append("%")
+            .append(String.format("%02X ", b));
+        }
+      }
+    }
+    return sb.toString();
+  }
+    
+  /**
    * Encodes a URL (with or without an existing query string) such that the value in the params map are added to them.
    * A valid character encoding must be provided to ensure the parameters are encoded properly.
    * 
@@ -225,4 +257,5 @@ public final class URLUtils
   private static final String _URL_QUERY_SEPERATOR="?";
   private static final String _URL_FRAGMENT_SEPERATOR="#";
   private static final String _URL_NAME_VALUE_PAIR_SEPERATOR="=";
+  private static final String _URL_VALID_CHARS="-._~://?#[]@!$&'()*+,;=";
 }
