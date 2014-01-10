@@ -28,6 +28,8 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import java.util.logging.Level;
+
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 
@@ -224,7 +226,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     // if the component was pulled out of a component binding during createComponent() it is likely 
     // to be attached to some component in the tree - and thus the (severe) error is justified
     if (component != null && component.getParent() != null)
-      _logSevereStaleParentError(context, component, component.getParent());
+      _logStaleParent(context, component, component.getParent());
     
     return component;
   }
@@ -656,28 +658,45 @@ abstract public class UIXComponentELTag extends UIComponentELTag
        return ComponentUtils.getScopedIdForComponent(component, viewRoot);
      }
    }
-   
+
+  /**
+   * Logs a message when a stale component is detected during create component.
+   * @param context FacesContext
+   * @param child the UIComponent being created
+   * @param oldParent the parent UIComponent
+   */
+  private void _logStaleParent(FacesContext context, 
+                               UIComponent child, 
+                               UIComponent oldParent)
+  {
+    _logStaleParentAtLevel(context, child, oldParent, Level.INFO);
+  }
+  
    /**
-    * Logs a severe error when a stale component is detected during create component.
+    * Logs a message at a specified level when a stale component is detected during create component.
     * @param context FacesContext
     * @param child the UIComponent being created
-    * @param pldParent the parent UIComponent 
+    * @param oldParent the parent UIComponent 
+    * @param level the level at which to log the message
     */
-   private void _logSevereStaleParentError(FacesContext context, 
-                                           UIComponent child, 
-                                           UIComponent oldParent)
+   private void _logStaleParentAtLevel(FacesContext context, 
+                                       UIComponent child, 
+                                       UIComponent oldParent,
+                                       Level level)
    {
-     UIViewRoot viewRoot = context.getViewRoot();
+     if (_LOG.isLoggable(level))
+     {
+       UIViewRoot viewRoot = context.getViewRoot();
 
-     String scopedId = ComponentUtils.getScopedIdForComponent(child, viewRoot);
-     String oldParentScopedId = ComponentUtils.getScopedIdForComponent(oldParent, viewRoot);
-     String newParentScopedId = _getParentScopedId(viewRoot);
+       String scopedId = ComponentUtils.getScopedIdForComponent(child, viewRoot);
+       String oldParentScopedId = ComponentUtils.getScopedIdForComponent(oldParent, viewRoot);
+       String newParentScopedId = _getParentScopedId(viewRoot);
        
-     String bindingEL = _getBindingExpression();
+       String bindingEL = _getBindingExpression();
      
-     _LOG.severe("ERROR_CREATE_COMPONENT_STALE", 
-                 new Object[] {scopedId, oldParentScopedId, newParentScopedId, bindingEL});
-     
+       _LOG.log(level, "ERROR_CREATE_COMPONENT_STALE", 
+                   new Object[] {scopedId, oldParentScopedId, newParentScopedId, bindingEL});
+     } 
    }
    
    /**
