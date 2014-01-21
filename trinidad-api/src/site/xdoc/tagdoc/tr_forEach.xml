@@ -260,6 +260,10 @@ requestContext.addPartialTarget(forEachParentComponent);
                 <td>the index to start at when collections are not used (int)</td>
               </tr>
               <tr>
+                <td>step</td>
+                <td>the value to add to each index after an iteration (defaults to 1)</td>
+              </tr>
+              <tr>
                 <td>end</td>
                 <td>the last index when collections are not used (int)</td>
               </tr>

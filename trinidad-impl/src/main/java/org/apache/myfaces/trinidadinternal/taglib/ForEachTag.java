@@ -1164,6 +1164,16 @@ public class ForEachTag
       return _key;
     }
 
+    /**
+     * Get the step value for each iteration. This is the value added to the index for each
+     * iteration. The default is 1.
+     * @return the step
+     */
+    public final int getStep()
+    {
+      return _step;
+    }
+
     @Override
     public String toString()
     {
