@@ -1907,7 +1907,8 @@ public class CSSGenerationUtils
     _BUILT_IN_PSEUDO_CLASSES.add(":hover");
     _BUILT_IN_PSEUDO_CLASSES.add(":active");
     _BUILT_IN_PSEUDO_CLASSES.add(":focus");
-    _BUILT_IN_PSEUDO_CLASSES.add(":-moz-placeholder");
+    _BUILT_IN_PSEUDO_CLASSES.add(":-moz-placeholder"); // FF <= 18
+    _BUILT_IN_PSEUDO_CLASSES.add(":-ms-input-placeholder"); // IE
 
     /** Special case CSS2 pseudo-elements used as pseudo-classes
      * for compatibility reasons.
@@ -1949,8 +1950,9 @@ public class CSSGenerationUtils
     _BUILT_IN_PSEUDO_ELEMENTS.add("::marker");
     _BUILT_IN_PSEUDO_ELEMENTS.add("::line-marker");
     _BUILT_IN_PSEUDO_ELEMENTS.add("::selection");
-    _BUILT_IN_PSEUDO_ELEMENTS.add("::-webkit-input-placeholder");
-
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::-webkit-input-placeholder"); // Chrome
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::-moz-placeholder"); // FF >= 19
+    
     /** @page pseudo classes*/
     _AT_PAGE_PSEUDO_CLASSES.add(":first");
     _AT_PAGE_PSEUDO_CLASSES.add(":left");
