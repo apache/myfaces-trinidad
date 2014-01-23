@@ -40,6 +40,7 @@ import javax.el.ValueExpression;
 
 import javax.faces.FacesException;
 import javax.faces.application.ProjectStage;
+import javax.faces.application.Resource;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.StateHolder;
@@ -166,6 +167,12 @@ abstract public class UIXComponentBase extends UIXComponent
     TYPE.registerKey("javax.faces.webapp.FACET_NAMES",
                      List.class,
                      PropertyKey.CAP_NOT_BOUND);
+
+    // JSF hammers on this property during component pushing/popping.
+    // Register the PropertyKey to optimize property lookups.
+    TYPE.registerKey(Resource.COMPONENT_RESOURCE_KEY,
+                     PropertyKey.CAP_NOT_BOUND);
+
     TYPE.lock();
   }
 
