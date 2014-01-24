@@ -26,6 +26,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
 
 import javax.faces.FacesException;
+import javax.faces.FactoryFinder;
+import javax.faces.application.Application;
+import javax.faces.application.ApplicationFactory;
+import javax.faces.application.ProjectStage;
 import javax.faces.context.ExternalContext;
 
 import javax.servlet.ServletException;
@@ -101,8 +105,6 @@ public class XmlHttpConfigurator extends Configurator
 
   /**
    * Handle a server-side error by reporting it back to the client.
-   * TODO: add configuration to hide this in a production
-   * environment.
    */
   public static void handleError(ExternalContext ec, 
                                  Throwable t) throws IOException
@@ -119,9 +121,22 @@ public class XmlHttpConfigurator extends Configurator
     rw.startElement("error-name", null);
     rw.writeText(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, null);
     rw.endElement("error-name");
+
+    String errorMessage = _getErrorMessage(error);
+
+    // Default exception message contains the type of the exception.
+    // Do not send this info to client in Production mode
+    ApplicationFactory factory = (ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
+    Application application = factory.getApplication();
+    if (application.getProjectStage() != ProjectStage.Production)
+    {
+      errorMessage = _getExceptionString(t) + errorMessage;
+    }
+
     rw.startElement("error-message", null);
-    rw.writeText(_getExceptionString(t) + _PLEASE_SEE_ERROR_LOG + error, null);
+    rw.writeText(errorMessage, null);
     rw.endElement("error-message");
+
     rw.endElement("error");
     rw.endElement("partial-response");
     rw.endDocument();
@@ -161,19 +176,18 @@ public class XmlHttpConfigurator extends Configurator
 
   static private String _getErrorString()
   {
-    return _PPR_ERROR_PREFIX + _getErrorCount();
+    return _LOG.getMessage("EXC_PPR_ERROR_PREFIX", _getErrorCount());
+  }
+
+  static private String _getErrorMessage(String error)
+  {
+    return _LOG.getMessage("EXC_PLEASE_SEE_ERROR_LOG", error);
   }
 
   static private synchronized int _getErrorCount()
   {
     return (++_ERROR_COUNT);
   }
-
-  static private final String _PPR_ERROR_PREFIX = "Server Exception during PPR, #";
-  // TODO Get this from a resource bundle?
-  static private final String _PLEASE_SEE_ERROR_LOG =
-    "For more information, please see the server's error log for\n" +
-    "an entry beginning with: ";
 
   static private int _ERROR_COUNT = 0;
 

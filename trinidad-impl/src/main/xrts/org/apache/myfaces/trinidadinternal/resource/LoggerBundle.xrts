@@ -1234,4 +1234,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <resource key="SP_LOADING_UNKNOWN_SKIN">Cannot load skin with id {0}. This skin is unknown to the current TrinidadSkinProvider.</resource>
 
+<resource key="EXC_PLEASE_SEE_ERROR_LOG">An error occurred while processing the request. For more information, please see the server's error log for an entry beginning with: {0}</resource>
+
+<resource key="EXC_PPR_ERROR_PREFIX">Server Exception during PPR, #{0}</resource>
 </resources>

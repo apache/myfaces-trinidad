@@ -169,87 +169,111 @@ public class TrinidadFilterImpl implements Filter
     // provide a (Pseudo-)FacesContext for configuration tasks
     PseudoFacesContext facesContext = new PseudoFacesContext(externalContext);
     facesContext.setAsCurrentInstance();
-    
-    GlobalConfiguratorImpl config = GlobalConfiguratorImpl.getInstance();
-    config.beginRequest(externalContext);
-    
-    // Allow Configurators to wrap response and request
-    request = (ServletRequest)externalContext.getRequest();
-    response = (ServletResponse)externalContext.getResponse();
-    
-    String noJavaScript = request.getParameter(XhtmlConstants.NON_JS_BROWSER);
-        
-    // Wrap the request only for Non-javaScript browsers
-    if(noJavaScript != null &&
-              XhtmlConstants.NON_JS_BROWSER_TRUE.equals(noJavaScript))
-    {
-      request = new BasicHTMLBrowserRequestWrapper((HttpServletRequest)request);
-    } 
 
-    //To maintain backward compatibilty, wrap the request at the filter level
-    Map<String, String[]> addedParams = FileUploadConfiguratorImpl.getAddedParameters(externalContext);
-    
-    if(addedParams != null)
+    // for error handling
+    boolean isPartialRequest=false;
+
+    GlobalConfiguratorImpl config;
+    try
     {
-      FileUploadConfiguratorImpl.apply(externalContext);
-      request = new UploadRequestWrapper((HttpServletRequest)request, addedParams);
+      isPartialRequest = facesContext.getPartialViewContext().isAjaxRequest();
+      config = GlobalConfiguratorImpl.getInstance();
+      config.beginRequest(externalContext);
     }
-    
-    boolean responseComplete = facesContext.getResponseComplete();
-
-    // release the PseudoFacesContext, since _doFilterImpl() has its own FacesContext
-    facesContext.release();
+    catch(Throwable t)
+    {
+      facesContext.release();
+      _handleException(externalContext, isPartialRequest, t);
+      return;
+    }
 
     try
     {
+      boolean responseComplete=false;
+      try
+      {
+        // Allow Configurators to wrap response and request
+        request = (ServletRequest)externalContext.getRequest();
+        response = (ServletResponse)externalContext.getResponse();
+
+        String noJavaScript = request.getParameter(XhtmlConstants.NON_JS_BROWSER);
+
+        // Wrap the request only for Non-javaScript browsers
+        if(noJavaScript != null &&
+                  XhtmlConstants.NON_JS_BROWSER_TRUE.equals(noJavaScript))
+        {
+          request = new BasicHTMLBrowserRequestWrapper((HttpServletRequest)request);
+        }
+
+        //To maintain backward compatibilty, wrap the request at the filter level
+         Map<String, String[]> addedParams = FileUploadConfiguratorImpl.getAddedParameters(externalContext);
+
+        if(addedParams != null)
+        {
+          FileUploadConfiguratorImpl.apply(externalContext);
+          request = new UploadRequestWrapper((HttpServletRequest)request, addedParams);
+          isPartialRequest = CoreRenderKit.isPartialRequest(addedParams);
+        }
+
+        responseComplete = facesContext.getResponseComplete();
+      }
+      finally
+      {
+        // release the PseudoFacesContext, since _doFilterImpl() has its own FacesContext
+        facesContext.release();
+      }
+
       // Abort processing if the response has been completed by Configurator
       if (!responseComplete)
       {
         _doFilterImpl(request, response, chain);
       }
     }
-    // For PPR errors, handle the request specially
     catch (Throwable t)
     {
-      boolean isPartialRequest;
-      if (addedParams != null)
-      {
-        isPartialRequest = CoreRenderKit.isPartialRequest(addedParams);
-      }
-      else
-      {
-        isPartialRequest = CoreRenderKit.isPartialRequest(externalContext);
-      }
-
-      if (isPartialRequest)
-      {
-        XmlHttpConfigurator.handleError(externalContext, t);
-      }
-      else
-      {
-        // For non-partial requests, just re-throw.  It is not
-        // our responsibility to catch these
-        if (t instanceof RuntimeException)
-          throw ((RuntimeException) t);
-        if (t instanceof Error)
-          throw ((Error) t);
-        if (t instanceof IOException)
-          throw ((IOException) t);
-        if (t instanceof ServletException)
-          throw ((ServletException) t);
-
-        // Should always be one of those four types to have
-        // gotten here.
-        _LOG.severe(t);
-      }
-
+      _handleException(externalContext, isPartialRequest, t);
     }
     finally
     {
-      config.endRequest(externalContext);
+      try
+      {
+        config.endRequest(externalContext);
+      }
+      catch(Throwable t)
+      {
+        _handleException(externalContext, isPartialRequest, t);
+      }
     }
   }
 
+  /**
+   * For PPR errors, handle the request specially
+   */
+  private static void _handleException(ExternalContext externalContext, boolean isPartialRequest, Throwable t)
+    throws IOException, ServletException
+  {
+    if (isPartialRequest)
+    {
+      XmlHttpConfigurator.handleError(externalContext, t);
+    }
+    else
+    {
+      // For non-partial requests, just re-throw.  It is not
+      // our responsibility to catch these
+      if (t instanceof RuntimeException)
+        throw ((RuntimeException) t);
+      if (t instanceof Error)
+        throw ((Error) t);
+      if (t instanceof IOException)
+        throw ((IOException) t);
+      if (t instanceof ServletException)
+        throw ((ServletException) t);
+
+      // Should always be one of those four types to have
+      // gotten here.
+      _LOG.severe(t);
+    }
+  }
 
   @SuppressWarnings("unchecked")
   private void _doFilterImpl(
