@@ -66,6 +66,12 @@ public abstract class ChangeManager
   protected static DocumentChange createDocumentChange(
     ComponentChange change)
   {
+    // the supplied ComponentChange could implement DocumentChange
+    if (change instanceof DocumentChange)
+    {
+      return (DocumentChange)change;
+    }
+    
     Class<? extends ComponentChange> changeClass = change.getClass();
 
     Object converterObject = null;

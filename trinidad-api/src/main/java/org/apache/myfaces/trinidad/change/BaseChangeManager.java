@@ -130,17 +130,8 @@ abstract class BaseChangeManager extends ChangeManager
   {
     if (supportsDocumentPersistence(facesContext))
     {
-      DocumentChange docChange = null;
-if (compChange instanceof DocumentChange)
-      
-      {
-        docChange = (DocumentChange)compChange;
-      }
-      else
-      {
-        // try to get equivalent DocumentChange from ComponentChange
-        docChange = createDocumentChange(compChange);
-      }
+      // try to get equivalent DocumentChange from ComponentChange
+      DocumentChange docChange = createDocumentChange(compChange);
 
       if (docChange != null)
       {
