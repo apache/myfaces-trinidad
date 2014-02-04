@@ -127,7 +127,7 @@ public final class URLUtils
         for(byte b: Character.toString(c).getBytes(charset))
         {
           sb.append("%")
-            .append(String.format("%02X ", b));
+            .append(String.format("%02X", b));
         }
       }
     }
