@@ -264,8 +264,8 @@ class SkinStyleSheetParserUtils
             if (resolvedProperties.getTrRuleRefList() == null || 
                 resolvedProperties.getTrRuleRefList().isEmpty())
             {
-              if (_LOG.isWarning())
-                _LOG.warning("SELECTOR_SHOULD_NOT_END_IN_ICON", selectorName);
+              if (_LOG.isInfo())
+                _LOG.info("SELECTOR_SHOULD_NOT_END_IN_ICON", selectorName);
             }
             _addStyleNode(selectorName,
                           clientRule,
