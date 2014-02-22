@@ -244,10 +244,19 @@
  <resource key="MOVABLE_CHILD_REQUIRED">Child component to be moved is required.</resource>
 
  <!-- DESTINATION_CONTAINER_REQUIRED -->
- <resource key="DESTINATION_CONTAINER_REQUIRED">Destination container component is required.</resource>
+ <resource key="DESTINATION_CONTAINER_REQUIRED">Destination container component is required if the component to move next to is not supplied.</resource>
+
+ <!-- DESTINATION_CONTAINER_NOT_INSERTBEFORES_PARENT -->
+ <resource key="DESTINATION_CONTAINER_NOT_INSERTBEFORES_PARENT">Destination container should be same as the parent of component to move next to.</resource>
 
  <!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
  <resource key="MOVE_PARTICIPANTS_WITHOUT_ID">One or more of the participating components in MoveChildComponentChange does not have id.</resource>
+
+ <!-- NO_CONTAINING_DOC_FOUND -->
+ <resource key="NO_CONTAINING_DOC_FOUND">The supplied component {0} is not in the component tree.</resource>
+
+ <!-- MOVE_PARTICIPANTS_NOT_IN_SAME_DOC -->
+ <resource key="MOVE_PARTICIPANTS_NOT_IN_SAME_DOC">Document change was not added because the participating components are not defined in the same document. The component being moved is in {0}, the parent into which it is to be moved is in {1} and common parent is in {2}.</resource>
 
  <!-- COMMON_PARENT_NOT_FOUND -->
  <resource key="COMMON_PARENT_NOT_FOUND">Could not find a common parent between the movable child and destination container: {0}.</resource>

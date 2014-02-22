@@ -38,7 +38,7 @@ import org.w3c.dom.Node;
  * parent component instance must be passed as an argument. The add() utility
  * method in this class can be alternatively used to conveniently register the
  * change against the common parent. While applying this change, if a child with
- * the same id as the movable child were to be already present in the destination 
+ * the same id as the movable child were to be already present in the destination
  * container, the move operation is aborted.
  * @see #add(FacesContext, ChangeManager)
  * @see ChangeManager#addComponentChange(FacesContext, UIComponent, ComponentChange)
@@ -49,10 +49,10 @@ public final class MoveChildComponentChange
   implements DocumentChange
 {
   /**
-   * Constructs a MoveChildComponentChange. The child will be appended to the 
+   * Constructs a MoveChildComponentChange. The child will be appended to the
    * list of children of the destinationContainer.
    * @param movableChild The child component to be moved.
-   * @param destinationContainer The destination component into which the child 
+   * @param destinationContainer The destination component into which the child
    * component is to be moved.
    * @throws IllegalArgumentException If movableChild or destinationContainer
    * is null
@@ -73,13 +73,14 @@ public final class MoveChildComponentChange
    * while applying this change, the movableChild will not be moved.
    * @param movableChild The child component to be moved.
    * @param destinationContainer The destination component into which the child 
-   * component is to be moved.
+   * component is to be moved. This should not be null if the insertBeforeComponent
+   * is null.
    * @param insertBeforeComponent The component before which the moved child is
    * to be inserted. This can be null, in which case the movableChild is
    * appended.
-   * @throws IllegalArgumentException If movableChild or destinationContainer
-   * is null, or if a parent component common to movableChild and 
-   * destinationContainer could not be found.
+   * @throws IllegalArgumentException If movableChild is null or destinationContainer
+   * and insertBeforeComponent is null, or if a parent component common to 
+   * movableChild and destinationContainer could not be found.
    */
   public MoveChildComponentChange(
     UIComponent movableChild,
@@ -87,110 +88,113 @@ public final class MoveChildComponentChange
     UIComponent insertBeforeComponent)
   {
     if (movableChild == null)
-      throw new IllegalArgumentException(
-        _LOG.getMessage("MOVABLE_CHILD_REQUIRED"));
+    {
+      throw new IllegalArgumentException(_LOG.getMessage("MOVABLE_CHILD_REQUIRED"));
+    }
+    
+    /////////////////////////////
+    
+    FacesContext context = FacesContext.getCurrentInstance();
 
-    if (destinationContainer == null)
-      throw new IllegalArgumentException(
-        _LOG.getMessage("DESTINATION_CONTAINER_REQUIRED"));
-    
-    UIComponent viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-    
-    String sourceAbsoluteLogicalScopedId = ComponentUtils.getLogicalScopedIdForComponent(movableChild, viewRoot);
-    
-    String destinationContainerLogicalPrefix = _getScopedIdPrefix(destinationContainer,
-                                          ComponentUtils.getLogicalScopedIdForComponent(destinationContainer, viewRoot));
-    
-    String movableChildId = movableChild.getId();
-    
-    String destinationAbsoluteLogicalScopedId = (destinationContainerLogicalPrefix != null)
-                                          ? new StringBuilder(destinationContainerLogicalPrefix).
-                                            append(NamingContainer.SEPARATOR_CHAR).
-                                            append(movableChildId).toString()
-                                          : movableChildId;
+    // get the doc paths first and validate
+    _moveCompDocPath = ComponentUtils.getDocumentLocationForComponent(context, movableChild);
+    _destinationContainerDocPath = 
+      ComponentUtils.getDocumentLocationForComponent(context, destinationContainer);
 
-    // Get the common parent
-    _commonParent = 
-      _getClosestCommonParentUIXComponent(movableChild, destinationContainer);
-    
-    if (_commonParent == null)
+    if (_moveCompDocPath == null || _destinationContainerDocPath == null)
+    {
+      // if either components are not in a doc, component is not in the tree, error condition
       throw new IllegalArgumentException(
-        _LOG.getMessage("COMMON_PARENT_NOT_FOUND"));
+        _LOG.getMessage("NO_CONTAINING_DOC_FOUND", 
+                        (_moveCompDocPath == null) ? movableChild : destinationContainer));
+    }
     
-    // Get the scoped id's for all participants
-    _movableChildScopedId = 
-      ComponentUtils.getScopedIdForComponent(movableChild, _commonParent);
-    _sourceParentScopedId = 
-      ComponentUtils.getScopedIdForComponent(movableChild.getParent(), 
-                                            _commonParent);
-    _destinationContainerScopedId = 
-      ComponentUtils.getScopedIdForComponent(destinationContainer, _commonParent);
-          
-    _commonParentScopedId = 
-      ComponentUtils.getScopedIdForComponent(_commonParent, viewRoot);
-    if (_movableChildScopedId == null || 
-        _sourceParentScopedId == null || 
+    /////////////////////////////
+
+    // validate destination container
+    destinationContainer = _getValidatedDestinationContainer(destinationContainer, 
+                                                             insertBeforeComponent);
+    // find and validate the common parent
+    UIComponent commonParent = _getValidatedCommonParent(context, movableChild, destinationContainer);
+    _commonParentDocPath = ComponentUtils.getDocumentLocationForComponent(context, commonParent);
+    
+    /////////////////////////////
+    
+    UIComponent viewRoot = context.getViewRoot();
+
+    // Get the scoped id's for move participants (scoped / relative to common parent)
+    _moveCompScopedIdAtSource = ComponentUtils.getScopedIdForComponent(movableChild, commonParent);
+    _moveCompParentScopedId = 
+      ComponentUtils.getScopedIdForComponent(movableChild.getParent(), commonParent);
+    _destinationContainerScopedId = ComponentUtils.getScopedIdForComponent(destinationContainer,
+                                                                           commonParent);
+    _commonParentScopedId = ComponentUtils.getScopedIdForComponent(commonParent, viewRoot);
+    
+    // cannot proceed if we could not get id for the move participants
+    if (_moveCompScopedIdAtSource == null || 
+        _moveCompParentScopedId == null || 
         _destinationContainerScopedId == null ||
         _commonParentScopedId == null)
-      throw new IllegalArgumentException(
-        _LOG.getMessage("MOVE_PARTICIPANTS_WITHOUT_ID"));
+    {
+      throw new IllegalArgumentException(_LOG.getMessage("MOVE_PARTICIPANTS_WITHOUT_ID"));
+    }
+    
+    /////////////////////////////
 
-    // calculate the absolute scoped ids for the source and destination so that we can
-    // handle remapping scoped ids in the SessionChangeManager    
-    String commonParentPrefix = _getScopedIdPrefix(_commonParent, _commonParentScopedId);
+    // get the id path upto the naming container of the common parent so that we can compute the 
+    //  absolute scoped ids from the scoped ids
+    String commonParentPrefix = _getScopedIdPrefix(commonParent, _commonParentScopedId);
       
-    _sourceAbsoluteScopedId = (commonParentPrefix != null)
-                                 ? new StringBuilder(commonParentPrefix).
-                                           append(NamingContainer.SEPARATOR_CHAR).
-                                           append(_movableChildScopedId).toString()
-                                 : _movableChildScopedId;
+    // calculate the absolute scoped ids (scoped from ViewRoot) for the movable componen at its 
+    //  source so that we can handle remapping scoped ids in the SessionChangeManager    
+    _moveCompAbsoluteScopedIdAtSource = (commonParentPrefix != null) ?
+                                          new StringBuilder(commonParentPrefix).
+                                            append(NamingContainer.SEPARATOR_CHAR).
+                                            append(_moveCompScopedIdAtSource).toString()
+                                          : _moveCompScopedIdAtSource;
     
-    _sourceAbsoluteLogicalScopedId = _sourceAbsoluteScopedId.equals(sourceAbsoluteLogicalScopedId) ? null : 
-                                                                                          sourceAbsoluteLogicalScopedId; 
+    // find the logical (id in context of the document where the component is defined) scoped id 
+    _moveCompAbsoluteLogicalScopedIdAtSource = 
+      ComponentUtils.getLogicalScopedIdForComponent(movableChild, viewRoot);
     
-    // calculate the absolute scoped id of the destination
-    String destinationContainerPrefix = _getScopedIdPrefix(destinationContainer,
+    /////////////////////////////
+    
+    // calculate the absolute scoped ids of the moveable component at destination after move
+    String destinationContainerPrefix = _getScopedIdPrefix(destinationContainer, 
                                                            _destinationContainerScopedId);
-    
-    StringBuilder destinationScopedIdBuilder = new StringBuilder();
+    StringBuilder moveCompAtDestinationScopedIdBuilder = new StringBuilder();
     
     if (commonParentPrefix != null)
     {
-      destinationScopedIdBuilder.append(commonParentPrefix).append(NamingContainer.SEPARATOR_CHAR);
+      moveCompAtDestinationScopedIdBuilder.append(commonParentPrefix).
+        append(NamingContainer.SEPARATOR_CHAR);
     }
     
     if (destinationContainerPrefix != null)
     {
-      destinationScopedIdBuilder.append(destinationContainerPrefix).append(NamingContainer.SEPARATOR_CHAR);
+      moveCompAtDestinationScopedIdBuilder.append(destinationContainerPrefix).
+        append(NamingContainer.SEPARATOR_CHAR);
     }
     
-    _destinationAbsoluteScopedId = destinationScopedIdBuilder.append(movableChildId).toString();
+    String movableChildId = movableChild.getId();
+    _moveCompAbsoluteScopedIdAtDestination = 
+      moveCompAtDestinationScopedIdBuilder.append(movableChildId).toString();
+    String destinationLogicalPrefix = 
+      _getScopedIdPrefix(destinationContainer,
+                         ComponentUtils.getLogicalScopedIdForComponent(destinationContainer, 
+                                                                       viewRoot));
     
-    _destinationAbsoluteLogicalScopedId = _destinationAbsoluteScopedId.equals(destinationAbsoluteLogicalScopedId) ? null :
-                                              destinationAbsoluteLogicalScopedId;
+    // find the logical id
+    _moveCompAbsoluteLogicalScopedIdAtDestination = (destinationLogicalPrefix != null) ? 
+                                                      new StringBuilder(destinationLogicalPrefix).
+                                                        append(NamingContainer.SEPARATOR_CHAR).
+                                                        append(movableChildId).toString()
+                                                      : movableChildId;
+
+    /////////////////////////////
 
     // For insertBeforeComponent, we do not care to obtain scoped id.
-    _insertBeforeId = (insertBeforeComponent == null) ? 
-      null:insertBeforeComponent.getId();
-  }
-  
-  private String _getScopedIdPrefix(UIComponent component, String scopedId)
-  {
-    if (component instanceof NamingContainer)
-      return scopedId;
-    else
-    {
-      // remove the component's id from the end
-      int separatorIndex = scopedId.lastIndexOf(NamingContainer.SEPARATOR_CHAR);
-      
-      if (separatorIndex >= 0)
-        return scopedId.substring(0, separatorIndex);
-      else
-      {
-        // component was at top level
-        return null;
-      }
-    }
+    _insertBeforeCompId = (insertBeforeComponent == null) ? null : insertBeforeComponent.getId();
   }
   
   /**
@@ -208,11 +212,8 @@ public final class MoveChildComponentChange
     FacesContext facesContext, 
     ChangeManager changeManager) 
   {
-    UIComponent commonParent = _commonParent;
-
-    if (commonParent == null)
-      commonParent = 
-        facesContext.getViewRoot().findComponent(_commonParentScopedId);
+    UIComponent commonParent = facesContext.getViewRoot().findComponent(_commonParentScopedId);
+    
     if (commonParent == null)
     {
       _LOG.warning("COMMON_PARENT_NOT_FOUND", _commonParentScopedId);
@@ -221,9 +222,6 @@ public final class MoveChildComponentChange
     
     // Register a move change against the common parent
     changeManager.addComponentChange(facesContext, commonParent, this);
-    
-    // We dont need to keep the common parent anymore
-    _commonParent = null;
     
     return commonParent;
   }
@@ -247,8 +245,7 @@ public final class MoveChildComponentChange
       changeTargetComponent.findComponent(_destinationContainerScopedId);
     if(destinationContainer == null)
     {
-      _LOG.warning("DESTINATION_CONTAINER_NOT_FOUND", 
-                   _destinationContainerScopedId);
+      _LOG.warning("DESTINATION_CONTAINER_NOT_FOUND", _destinationContainerScopedId);
       return;
     }
     
@@ -271,10 +268,10 @@ public final class MoveChildComponentChange
     //    of ComponentChange, that could still be in the view tree. There should be one such zombie/ 
     //    duplicate.
     UIComponent sourceParent = 
-      changeTargetComponent.findComponent(_sourceParentScopedId);
+      changeTargetComponent.findComponent(_moveCompParentScopedId);
     
     UIComponent foundChild = 
-      changeTargetComponent.findComponent(_movableChildScopedId);
+      changeTargetComponent.findComponent(_moveCompScopedIdAtSource);
 
     // To flag if a child was already found in a destination container (maybe due to previous move)    
     boolean isChildIdAtDestination = false;
@@ -325,7 +322,7 @@ public final class MoveChildComponentChange
       foundChild.getParent().getChildren().remove(foundChild);
 
       // Try and find the next potential copy of the component to move
-      foundChild = changeTargetComponent.findComponent(_movableChildScopedId);
+      foundChild = changeTargetComponent.findComponent(_moveCompScopedIdAtSource);
     }
     
     //  We need to re-attach the dup for now, the dupes will be eliminated gradually while applying
@@ -338,7 +335,8 @@ public final class MoveChildComponentChange
     // Can't do anything without a movable child.    
     if(movableChild == null)
     {
-      _LOG.warning("MOVABLE_CHILD_NOT_FOUND", _movableChildScopedId);
+      _LOG.warning("MOVABLE_CHILD_NOT_FOUND", _moveCompScopedIdAtSource);
+
       // Reverse any damage that we might have caused, and exit
       if (movedChild != null)
       {
@@ -368,7 +366,7 @@ public final class MoveChildComponentChange
     // 3. Check whether the destination container has a child with same id.
     if (isChildIdAtDestination)
     {
-      _LOG.warning("MOVABLE_CHILD_SAME_ID_FOUND", _movableChildScopedId);
+      _LOG.warning("MOVABLE_CHILD_SAME_ID_FOUND", _moveCompScopedIdAtSource);
 
       // Component type matches, this means the child is already at destination. We have removed all
       //  duplicates, and have nothing more to do in this case
@@ -393,11 +391,11 @@ public final class MoveChildComponentChange
     
     // 4. See if we can find the insertBeforeComponent among the destinationContainer's children
     int insertIndex = -1;
-    if (_insertBeforeId != null)
+    if (_insertBeforeCompId != null)
     {
       for (UIComponent childComponent:destinationContainer.getChildren())
       {
-        if (_insertBeforeId.equals(childComponent.getId()))
+        if (_insertBeforeCompId.equals(childComponent.getId()))
         {
           insertIndex = 
             destinationContainer.getChildren().indexOf(childComponent);
@@ -408,7 +406,7 @@ public final class MoveChildComponentChange
       // insertBeforeId was specified, but we cannot find the insertBefore component. Exit.
       if (insertIndex == -1)
       {
-        _LOG.warning("INSERT_BEFORE_NOT_FOUND", _insertBeforeId);
+        _LOG.warning("INSERT_BEFORE_NOT_FOUND", _insertBeforeCompId);
         return;
       }
     }
@@ -436,16 +434,29 @@ public final class MoveChildComponentChange
     if (changeTargetNode == null)
       throw new IllegalArgumentException(_LOG.getMessage("NO_NODE_SPECIFIED"));
 
+    if ( !_moveCompDocPath.equals(_destinationContainerDocPath) ||
+         !_moveCompDocPath.equals(_commonParentDocPath) )
+    {
+      // If all three participants are not in same doc, we cannot proceed with appling doc change.
+      // Throw an exception so that ChangeManagers can handle this failure and do alternate
+      //  processing (eg. add a component change given that doc change failed)
+      throw new IllegalStateException(
+        _LOG.getMessage("MOVE_PARTICIPANTS_NOT_IN_SAME_DOC", 
+                        new Object[] {_moveCompDocPath,
+                                      _destinationContainerDocPath,
+                                      _commonParentDocPath}));
+    }
+
     // Move involves four steps.
     // 1. Finding the child node, the source of move
     Node movableChildNode = 
       ChangeUtils.__findNodeByScopedId(changeTargetNode, 
-                                       _movableChildScopedId, 
+                                       _moveCompScopedIdAtSource, 
                                        Integer.MAX_VALUE);
     
     if(movableChildNode == null)
     {
-      _LOG.warning("MOVABLE_CHILD_NOT_FOUND", _movableChildScopedId);
+      _LOG.warning("MOVABLE_CHILD_NOT_FOUND", _moveCompScopedIdAtSource);
       return;
     }
     
@@ -458,21 +469,20 @@ public final class MoveChildComponentChange
     
     if(destinationContainerNode == null)
     {
-      _LOG.warning("DESTINATION_CONTAINER_NOT_FOUND", 
-                   _destinationContainerScopedId);
+      _LOG.warning("DESTINATION_CONTAINER_NOT_FOUND", _destinationContainerScopedId);
       return;
     }
     
     //3. Finding the neighbor at the destination
-    Node insertBeforeNode = (_insertBeforeId == null) ? 
+    Node insertBeforeNode = (_insertBeforeCompId == null) ? 
       null:ChangeUtils.__findNodeByScopedId(destinationContainerNode, 
-                                            _insertBeforeId, 
+                                            _insertBeforeCompId, 
                                             1);
     // insertBeforeId was specified, but corresponding component is missing.
     //  Abort the move.
-    if(_insertBeforeId != null && insertBeforeNode == null)
+    if(_insertBeforeCompId != null && insertBeforeNode == null)
     {
-      _LOG.warning("INSERT_BEFORE_NOT_FOUND", _insertBeforeId);
+      _LOG.warning("INSERT_BEFORE_NOT_FOUND", _insertBeforeCompId);
       return;
     }
 
@@ -491,84 +501,55 @@ public final class MoveChildComponentChange
   }
   
   /**
-   * Returns the first UIXComponent common parent of two components in a
-   * subtree.
-   * @param firstComponent The first UIComponent instance
-   * @param secondComponent The second UIComponent instance
-   * @return UIComponent The closest common parent of the two supplied 
-   * components.
-   */
-  private static UIComponent _getClosestCommonParentUIXComponent(
-    UIComponent firstComponent,
-    UIComponent secondComponent) 
-  {
-    if (firstComponent == null || secondComponent == null)
-      return null;
-
-    // Calculate the depth of each node.
-    int firstDepth = _computeDepth(firstComponent);
-    int secondDepth = _computeDepth(secondComponent);
-           
-    // Move the deeper of the two components to its ancestor at the same depth
-    // as the shallower.
-    if (secondDepth > firstDepth)
-    {
-      secondComponent = _getAncestor(secondComponent, secondDepth - firstDepth);
-    }
-    else if(secondDepth < firstDepth)
-    {
-      firstComponent = _getAncestor(firstComponent, firstDepth - secondDepth);
-    }
-
-    // Crawl up until we find the shared ancestor.
-    while (firstComponent != null && (firstComponent != secondComponent))
-    {
-      firstComponent = firstComponent.getParent();
-      secondComponent = secondComponent.getParent();
-    }
-
-    // Crawl up to first UIXComponent shared parent, since only UIXComponents 
-    // have tags that apply changes.
-    UIComponent sharedRoot = firstComponent;
-
-    while ((sharedRoot != null) && !(sharedRoot instanceof UIXComponent))
-      sharedRoot = sharedRoot.getParent();
-          
-    return sharedRoot;
-  }
-  
-  /**
-   * Returns the absolute scopedId of the source component
+   * Returns the absolute scopedId (relative to the ViewRoot) of the movable component as it is 
+   *  before the move
    */
   public String getSourceScopedId()
   {
-    return _sourceAbsoluteScopedId;
+    return _moveCompAbsoluteScopedIdAtSource;
   }
 
-    
   /**
-   * Returns the absolute scopedId of the source component at its destination
+   * Returns the absolute scopedId (relative to the ViewRoot) of the movable component as it would 
+   *  be after the move
    */
   public String getDestinationScopedId()
   {
-    return _destinationAbsoluteScopedId;
+    return _moveCompAbsoluteScopedIdAtDestination;
   }
   
-  
   /**
-   * Returns the absolute logical scopedId of the source component
+   * Returns the absolute logical scopedId of the movable component as it is before the move. 
+   * 
+   * The id returned here will be in context of the document where the component is defined. For 
+   *  example, consider a component that is defined in a base document and is relocated to a 
+   *  different component subtree as in included template (included by an UIXInclude component) 
+   *  via. its facet. In this case the logical id of the move component will be in context of base  
+   *  document (as if it was never relocated) and not the document that defines the including 
+   *  component.
+   *  
+   * @see #getSourceScopedId()
    */
   public String getSourceLogicalScopedId()
   {
-    return (_sourceAbsoluteLogicalScopedId == null) ? _sourceAbsoluteScopedId : _sourceAbsoluteLogicalScopedId;
+    return _moveCompAbsoluteLogicalScopedIdAtSource;
   }
   
   /**
-   * Returns the absolute logical scopedId of the source component at its destination
+   * Returns the absolute logical scopedId of the movable component as it would be after the move.
+   * 
+   * The id returned here will be in context of the document where the component is defined. For 
+   *  example, consider a component that is defined in a base document and is relocated to a 
+   *  different component subtree as in included template (included by an UIXInclude component) 
+   *  via. its facet. In this case the logical id of the move component will be in context of base  
+   *  document (as if it was never relocated) and not the document that defines the including 
+   *  component.
+   *  
+   * @see #getDestinationScopedId()
    */
   public String getDestinationLogicalScopedId()
   {
-    return (_destinationAbsoluteLogicalScopedId == null) ? _destinationAbsoluteScopedId : _destinationAbsoluteLogicalScopedId;
+    return _moveCompAbsoluteLogicalScopedIdAtDestination;
   }
   
   @Override
@@ -582,27 +563,211 @@ public final class MoveChildComponentChange
     
     MoveChildComponentChange other = (MoveChildComponentChange)o;
     
-    return getSourceLogicalScopedId().equals(other.getSourceLogicalScopedId()) &&
-           getDestinationLogicalScopedId().equals(other.getDestinationLogicalScopedId()) &&
-           _equalsOrNull(_insertBeforeId, other._insertBeforeId);
+    return  _equalsOrNull(_moveCompScopedIdAtSource, other._moveCompScopedIdAtSource) &&
+            _equalsOrNull(_moveCompAbsoluteScopedIdAtSource, 
+                          other._moveCompAbsoluteScopedIdAtSource) &&
+            _equalsOrNull(_moveCompAbsoluteLogicalScopedIdAtSource, 
+                          other._moveCompAbsoluteLogicalScopedIdAtSource) &&
+            _equalsOrNull(_moveCompDocPath, other._moveCompDocPath) &&
+            _equalsOrNull(_moveCompParentScopedId, other._moveCompParentScopedId) &&
+            _equalsOrNull(_moveCompAbsoluteScopedIdAtDestination, 
+                          other._moveCompAbsoluteScopedIdAtDestination) &&
+            _equalsOrNull(_moveCompAbsoluteLogicalScopedIdAtDestination, 
+                          other._moveCompAbsoluteLogicalScopedIdAtDestination) &&
+            _equalsOrNull(_destinationContainerScopedId, other._destinationContainerScopedId) &&
+            _equalsOrNull(_destinationContainerDocPath, other._destinationContainerDocPath) &&
+            _equalsOrNull(_commonParentScopedId, other._commonParentScopedId) &&
+            _equalsOrNull(_commonParentDocPath, other._commonParentDocPath) &&
+            _equalsOrNull(_insertBeforeCompId, other._insertBeforeCompId);
   }
   
   @Override
   public int hashCode()
   {
-    int hashCode = getSourceLogicalScopedId().hashCode() + 37 * getDestinationLogicalScopedId().hashCode();
-    if (_insertBeforeId != null)
-    {
-      hashCode = hashCode + 1369 * _insertBeforeId.hashCode();
-    }
-    return hashCode;
+    return ((_moveCompScopedIdAtSource == null) ? 0 : _moveCompScopedIdAtSource.hashCode()) + 
+            37 * ((_moveCompAbsoluteScopedIdAtSource == null) ? 
+                  0 : _moveCompAbsoluteScopedIdAtSource.hashCode()) +
+            37 * ((_moveCompAbsoluteLogicalScopedIdAtSource == null) ? 
+                  0 : _moveCompAbsoluteLogicalScopedIdAtSource.hashCode()) +
+            37 * ((_moveCompDocPath == null) ? 0 : _moveCompDocPath.hashCode()) +
+            37 * ((_moveCompParentScopedId == null) ? 
+                  0 : _moveCompParentScopedId.hashCode()) +
+            37 * ((_moveCompAbsoluteScopedIdAtDestination == null) ? 
+                  0 : _moveCompAbsoluteScopedIdAtDestination.hashCode()) +
+            37 * ((_moveCompAbsoluteLogicalScopedIdAtDestination == null) ? 
+                  0 : _moveCompAbsoluteLogicalScopedIdAtDestination.hashCode()) +
+            37 * ((_destinationContainerScopedId == null) ? 
+                  0 : _destinationContainerScopedId.hashCode()) +
+            37 * ((_destinationContainerDocPath == null) ? 
+                  0 : _destinationContainerDocPath.hashCode()) +
+            37 * ((_commonParentScopedId == null) ? 0 : _commonParentScopedId.hashCode()) +
+            37 * ((_commonParentDocPath == null) ? 0 : _commonParentDocPath.hashCode()) +
+            37 * ((_insertBeforeCompId == null) ? 0 : _insertBeforeCompId.hashCode());
   }
       
   @Override
   public String toString()
   {
-    return super.toString() + "[logical_source=" + getSourceLogicalScopedId() + " logical_destination=" + getDestinationLogicalScopedId() +
-            " absolute source=" + getSourceScopedId() + " absolute destination" + getDestinationScopedId() +" insert_before=" + _insertBeforeId + "]";
+    StringBuffer sb = new StringBuffer();
+    
+    sb.append(super.toString());
+    sb.append("[moveCompAbsoluteLogicalScopedIdAtSource=").
+       append(_moveCompAbsoluteScopedIdAtSource);
+    sb.append(" moveCompAbsoluteLogicalScopedIdAtDestination=").
+       append(_moveCompAbsoluteLogicalScopedIdAtDestination);
+    sb.append(" moveCompAbsoluteScopedIdAtSource=").append(_moveCompAbsoluteScopedIdAtSource);
+    sb.append(" moveCompAbsoluteScopedIdAtDestination=").
+       append(_moveCompAbsoluteScopedIdAtDestination);
+    sb.append(" insertBeforeCompId=").append(_insertBeforeCompId);
+    sb.append(" commonParentScopedId=").append(_commonParentScopedId);
+    sb.append(" moveCompDocPath=").append(_moveCompDocPath);
+    sb.append(" destinationContainerDocPath=").append(_destinationContainerDocPath);
+    
+    return sb.append("]").toString();
+  }
+
+  /**
+   * Returns best common parent of the two supplied components in a subtree to which this move 
+   * change can be added.
+   * - If the supplied components belong to same document, we try to get a common parent that is of
+   *   type UIXComponent and belongs to the same document, this is to be able to support applying 
+   *   document change.
+   * - If they do not belong to same document, we just return the closest common UIComponent parent, 
+   *   this should suffice to apply component change.
+   * 
+   * @throws IllegalArgumentException if we are not able to find the common parent for the supplied
+   *          components
+   */
+  private UIComponent _getValidatedCommonParent(
+    FacesContext context,
+    UIComponent componentToMove,
+    UIComponent parentAtDestination) 
+  {
+    // Calculate the depth of each node.
+    int firstDepth = _computeDepth(componentToMove);
+    int secondDepth = _computeDepth(parentAtDestination);
+           
+    // Move the deeper of the two components to its ancestor at the same depth
+    // as the shallower.
+    if (secondDepth > firstDepth)
+    {
+      parentAtDestination = _getAncestor(parentAtDestination, secondDepth - firstDepth);
+    }
+    else if(secondDepth < firstDepth)
+    {
+      componentToMove = _getAncestor(componentToMove, firstDepth - secondDepth);
+    }
+
+    // Crawl up until we find the shared ancestor.
+    while (componentToMove != null && (componentToMove != parentAtDestination))
+    {
+      componentToMove = componentToMove.getParent();
+      parentAtDestination = parentAtDestination.getParent();
+    }
+    
+    UIComponent commonParent = componentToMove;
+    
+    // try to find a better ancestor complying these two conditions
+    //  1. The common parent is a UIXComponent instance - only UIXComponents have tags
+    //  2. The common parent belongs to same document that the other two participating components 
+    //     belong to
+    if (_moveCompDocPath.equals(_destinationContainerDocPath))
+    {
+      commonParent = _getUIXComponentAncestorInDoc(context, commonParent);
+    }
+    
+    // we cannot proceed if we could not find the common parent
+    if (commonParent == null)
+    {
+      throw new IllegalArgumentException(_LOG.getMessage("COMMON_PARENT_NOT_FOUND"));
+    }
+    
+    return commonParent;
+  }
+  
+  /**
+   * For a supplied base component, returns the closest UIXComponent ancestor that is in same 
+   * document as base component. If no such component is found, returns the supplied base component.
+   */
+  private UIComponent _getUIXComponentAncestorInDoc(
+    FacesContext context, 
+    UIComponent baseComp)
+  {
+    UIComponent ancestor = baseComp;
+    
+    while (ancestor != null)
+    {
+      if (ancestor instanceof UIXComponent &&
+          _moveCompDocPath.equals(ComponentUtils.getDocumentLocationForComponent(context, 
+                                                                                 ancestor)))
+      {
+        return ancestor;
+      }
+
+      ancestor = ancestor.getParent();
+    }
+    
+    return baseComp;
+  }
+  
+  /**
+   * Trims the supplied scoped id of the supplied component until its immediate naming container
+   *  and returns.
+   */
+  private String _getScopedIdPrefix(UIComponent component, String scopedId)
+  {
+    if (component instanceof NamingContainer)
+      return scopedId;
+    else
+    {
+      // remove the component's id from the end
+      int separatorIndex = scopedId.lastIndexOf(NamingContainer.SEPARATOR_CHAR);
+      
+      if (separatorIndex >= 0)
+        return scopedId.substring(0, separatorIndex);
+      else
+      {
+        // component was at top level
+        return null;
+      }
+    }
+  }
+  
+  private boolean _equalsOrNull(Object obj1, Object obj2)
+  {
+    return (obj1 == null) ? (obj2 == null) : obj1.equals(obj2);
+  }
+
+  /**
+   * Returns the destination container if passed non-null after doing needed validations. If null 
+   * destinationContainer is passed, determines it from the supplied insertBeforeComponent. 
+   */
+  private static UIComponent _getValidatedDestinationContainer(
+    UIComponent destinationContainer, 
+    UIComponent insertBeforeComponent)
+  {
+    if (insertBeforeComponent != null)
+    {
+      UIComponent parent = insertBeforeComponent.getParent();
+      
+      if (destinationContainer == null)
+      {
+        destinationContainer = parent;
+      }
+      
+      // if container was supplied, it better be parent of component to move next to
+      else if (destinationContainer != parent)
+      {
+        throw new IllegalArgumentException(
+          _LOG.getMessage("DESTINATION_CONTAINER_NOT_INSERTBEFORES_PARENT"));
+      }
+    }
+    else if (destinationContainer == null)
+    {
+      throw new IllegalArgumentException(_LOG.getMessage("DESTINATION_CONTAINER_REQUIRED"));
+    }
+    
+    return destinationContainer;
   }
   
   /**
@@ -638,24 +803,36 @@ public final class MoveChildComponentChange
     return component;
   }
   
-  private boolean _equalsOrNull(Object obj1, Object obj2)
-  {
-    return (obj1 == null) ? (obj2 == null) : obj1.equals(obj2);
-  }
+  // *ScopedId -> the id of the component scoped / relative to the common parent
+  // *AbsoluteScopedId -> the id of the component scoped / relative to the ViewRoot
+  // *AbsoluteLogicalScopedId -> id of the component scoped / relative to the ViewRoot in context
+  //    of the document in which it is originally defined. For more details, see documentation in 
+  //    getSourceLogicalScopedId() 
   
-  private transient UIComponent _commonParent;
+  // for component to be moved
+  private final String _moveCompScopedIdAtSource;
+  private final String _moveCompAbsoluteScopedIdAtSource;
+  private final String _moveCompAbsoluteLogicalScopedIdAtSource;
+  private final String _moveCompDocPath;
+  private final String _moveCompParentScopedId;
 
-  private final String _movableChildScopedId;
-  private final String _sourceParentScopedId;
+  // for component at destination after the move
+  private final String _moveCompAbsoluteScopedIdAtDestination;
+  private final String _moveCompAbsoluteLogicalScopedIdAtDestination;
+  
+  // for new parent at destination
   private final String _destinationContainerScopedId;
+  private final String _destinationContainerDocPath;
+
+  // for parent common to the source and new parent at destination
   private final String _commonParentScopedId;
-  private final String _insertBeforeId;
-  private final String _sourceAbsoluteScopedId;
-  private final String _destinationAbsoluteScopedId;
-  private final String _sourceAbsoluteLogicalScopedId;
-  private final String _destinationAbsoluteLogicalScopedId;
+  private final String _commonParentDocPath;
+
+  // for immediate sibling of moved component at destination
+  private final String _insertBeforeCompId;
+
   private static final long serialVersionUID = 1L;
 
-  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
-    MoveChildComponentChange.class);
+  private static final TrinidadLogger _LOG = 
+    TrinidadLogger.createTrinidadLogger(MoveChildComponentChange.class);
 }
