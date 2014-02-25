@@ -115,6 +115,7 @@ public final class URLUtils
       if ((c >= 'A' && c <= 'Z') ||
             (c >= 'a' && c <= 'z') ||
             (c >= '0' && c <= '9') ||
+            (c == _URL_ENCODE_CHARACTER) ||
             _URL_VALID_CHARS.indexOf(c) > -1
          )
       {
@@ -122,7 +123,7 @@ public final class URLUtils
         sb.append(c);
       }
       else
-      {
+      {        
         //This is an invalid character, so we encode need to get the bytes
         for(byte b: Character.toString(c).getBytes(charset))
         {
@@ -257,5 +258,6 @@ public final class URLUtils
   private static final String _URL_QUERY_SEPERATOR="?";
   private static final String _URL_FRAGMENT_SEPERATOR="#";
   private static final String _URL_NAME_VALUE_PAIR_SEPERATOR="=";
+  private static final char _URL_ENCODE_CHARACTER='%';
   private static final String _URL_VALID_CHARS="-._~://?#[]@!$&'()*+,;=";
 }
