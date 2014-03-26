@@ -36,6 +36,7 @@ import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
+import javax.faces.event.FacesListener;
 import javax.faces.event.PostValidateEvent;
 import javax.faces.event.PreValidateEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -48,6 +49,8 @@ import javax.validation.Validation;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.event.ValueUpdatedListener;
+import org.apache.myfaces.trinidad.event.ValueUpdatedEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
@@ -314,6 +317,21 @@ abstract public class UIXEditableValueTemplate
       requestContext.popCurrentComponent(context, this);
     }
   }
+  /**
+   * Adds a ValueUpdatedListener to the component to handle ValueUpdatedEvent which is queued 
+   * within updateModel method.
+   */
+  public void addValueUpdatedListener(ValueUpdatedListener listener) 
+  {
+    super.addFacesListener(listener);
+  }
+  /**
+   * Removes a ValueUpdatedListener from the component.
+   */
+  public void removeValueUpdatedListener(ValueUpdatedListener listener) 
+  {
+    super.removeFacesListener(listener);
+  }
 
   // TODO Better error messages when update model fails.
   public void updateModel(FacesContext context)
@@ -334,6 +352,7 @@ abstract public class UIXEditableValueTemplate
       expression.setValue(context.getELContext(), localValue);
       setValue(null);
       setLocalValueSet(false);
+	  (new ValueUpdatedEvent(this)).queue();
       if (_LOG.isFiner())
       {
         _LOG.finer("Wrote value {0} to model {1} in component {2}",
