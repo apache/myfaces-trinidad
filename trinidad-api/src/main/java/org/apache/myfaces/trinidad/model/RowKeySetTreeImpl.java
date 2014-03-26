@@ -23,8 +23,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -267,7 +267,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   /**
    * Removes all rowKeys from this Set.
    * This method executes in the same time as
-   * {@link HashMap#clear()}
+   * {@link LinkedHashMap#clear()}
    */
   @Override
   public void clear()
@@ -585,8 +585,8 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     loop.run(_root);
   }
 
-  // Needs to be Serializable and Cloneable - but HashMap already is
-  private static final class Node<K> extends HashMap<K, Node<K>>
+  // Needs to be Serializable and Cloneable, also retain the insertion order
+  private static final class Node<K> extends LinkedHashMap<K, Node<K>>
      /* implements Serializable, Cloneable */
   {
     public boolean isDifferent = false;

@@ -25,7 +25,7 @@ import java.io.ObjectOutput;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -424,8 +424,8 @@ public final class RowKeySetImpl extends RowKeySet implements Externalizable
 
   private Set<Object> _createSet(int sz)
   {
-    // must be cloneable:
-    return new HashSet<Object>(sz);
+    // must be cloneable and retain the insertion order.
+    return new LinkedHashSet<Object>(sz);
   }
 
   private boolean _isSelected(Object rowKey)
@@ -493,7 +493,7 @@ public final class RowKeySetImpl extends RowKeySet implements Externalizable
     if (other.isEmpty())
       return Collections.emptySet();
     else
-      return (Set<T>) ((HashSet<T>) other).clone();
+      return (Set<T>) ((LinkedHashSet<T>) other).clone();
   }
 
   /**
