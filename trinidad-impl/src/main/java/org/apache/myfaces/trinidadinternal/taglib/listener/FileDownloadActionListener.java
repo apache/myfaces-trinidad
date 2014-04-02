@@ -104,10 +104,12 @@ public class FileDownloadActionListener extends FacesBeanImpl
         {
           // check for supported user agents. Currently IE, Gecko, and WebKit.
           // IE and WebKit use UTF-8 encoding.
+          // IE11 UA String uses trident
           boolean isGecko = true;
           Map<String, String> headers = context.getExternalContext().getRequestHeaderMap();
           String agentName = headers.get("User-Agent").toLowerCase();
-          if (agentName.contains("msie") || agentName.contains("applewebkit") || agentName.contains("safari"))
+          if (agentName.contains("msie") || agentName.contains("applewebkit") || agentName.contains("safari") || 
+              agentName.contains("trident"))
             isGecko = false;
           // boolean isIE = CoreRenderer.isIE(RenderingContext.getCurrentInstance());
           String encodeHTTPHeaderFilename = MimeUtility.encodeHTTPHeader(filename, !isGecko);
