@@ -352,7 +352,7 @@ abstract public class UIXEditableValueTemplate
       expression.setValue(context.getELContext(), localValue);
       setValue(null);
       setLocalValueSet(false);
-	  (new ValueUpdatedEvent(this)).queue();
+      //(new ValueUpdatedEvent(this)).queue(); Queing this event causes issues for Table component, so commenting out for now
       if (_LOG.isFiner())
       {
         _LOG.finer("Wrote value {0} to model {1} in component {2}",
