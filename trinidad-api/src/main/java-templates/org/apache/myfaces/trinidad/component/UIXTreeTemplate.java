@@ -104,6 +104,11 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
   {
     if (event instanceof SelectionEvent)
     {
+      SelectionEvent selectionEvent = (SelectionEvent)event;
+      // make the row key change from the SelectionEvent go live on the component. 
+      // From now on, getSelectedRowKeys() on the component will return the 
+      // adjusted selection state.
+      _updateSelectionState(selectionEvent);
       //pu: Implicitly record a Change for 'selectionState' attribute
       //=-=pu: This ain't getting restored. Check with Arj or file a bug.
       addAttributeChange("selectedRowKeys",
@@ -116,6 +121,21 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
                                       getDisclosedRowKeys(),
                                       getRowDisclosureListener());
     super.broadcast(event);
+  }
+
+  /**
+   * Update component's selection state to be in sync with the selection
+   * state. 
+   * @param event SelectionEvent that contains selection state change information
+   */
+  private void _updateSelectionState(SelectionEvent event)
+  {
+    RowKeySet rks = getSelectedRowKeys();
+    RowKeySet added = event.getAddedSet();
+    RowKeySet removed = event.getRemovedSet();
+    rks.removeAll(removed);
+    rks.addAll(added);
+    return;
   }
 
   @Override

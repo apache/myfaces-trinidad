@@ -184,8 +184,6 @@ public final class TableUtils
    * This method sets the phaseID of the event
    * according to the "immediate" property of this
    * component.
-   * If "immediate" is set to true, this calls
-   * {@link FacesContext#renderResponse}
    */
   static void __handleQueueEvent(UIComponent comp, FacesEvent event)
   {
@@ -196,8 +194,6 @@ public final class TableUtils
       if (Boolean.TRUE.equals(isImmediate))
       {
         event.setPhaseId(PhaseId.ANY_PHASE);
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.renderResponse();
       }
       else
       {
