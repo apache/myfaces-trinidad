@@ -566,5 +566,8 @@
 <resource key="INVALID_RESOURCE_SIZE">Invalid resource size detected.  The resource at '{0}' appears to be {1} bytes, but URLConnection.getContentLength() for this resource reports {2}.</resource>
 
 <resource key="RESOURCE_SIZE_CHANGED">Resource size changed.  A new content length of {0} bytes has been detected for the resource {1}. Removing resource from cache.</resource>
+<resource key="MULTIPLE_CONFIG_PROPERTY_PROVIDERS_FOUND">Multiple PropertyValueProviders configured on the classpath, only one is allowed.</resource>
+<resource key="NULL_CONFIG_PROPERTY_NAME">Config property name can not be null.</resource>
+<resource key="CONFIG_PROPERTY_SERVICE_NOT_INITIALIZED">The config property service has not been initialized.</resource>
 
 </resources>
