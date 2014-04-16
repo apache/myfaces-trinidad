@@ -530,16 +530,19 @@ public class FileSystemStyleCache implements StyleProvider
     }
     catch (InterruptedException ie)
     {
-      // Important to restore interrupted state, even if we are going to
-      // throw a runtime exception.
-      interrupted = true;
-      
       // Our thread was either interrupted just before the get() call, or
       // while waiting inside of the get().  Our retry attempt failed.  We
       // could carry on without a style sheet, but this will only lead to
       // confusion, so we choose to fail visibly instead and hope that things
       // go better on the next request.
       _logAndRethrowEntryGetFailure(context, document, ie, "STYLE_ENTRY_RETRIEVAL_INTERRUPTED");
+      
+      // Note that we could call Thread.currentThread().interrupt() here, but choose
+      // not to do so because a) we are effectively ending the request by throwing
+      // an exception and b) marking the thread as interrupted seems to interfere
+      // with MyFaces error handling.  If thread is marked as interrupted, I am
+      // not seeing the MyFaces-generated error page - just an empty status 200
+      // response.
     }
     catch (ExecutionException ee)
     {
@@ -556,7 +559,7 @@ public class FileSystemStyleCache implements StyleProvider
       if (interrupted)
       {
         Thread.currentThread().interrupt();
-      }
+      }      
     }
 
     return null;    
@@ -601,6 +604,11 @@ public class FileSystemStyleCache implements StyleProvider
    * 
    * The message is formatted with a single parameter: the name of the target
    * style sheet that we were attempting to retrieve.
+   * 
+   * @param contex the current style context
+   * @param document the style sheet document
+   * @param e an exception thrown by Future.get().  This is typically
+   *   either ExecutionException or InterruptedException
    */
   private void _logAndRethrowEntryGetFailure(
     StyleContext context,
@@ -615,6 +623,7 @@ public class FileSystemStyleCache implements StyleProvider
 
     String targetName = getTargetStyleSheetName(context, document);
     _LOG.severe(message, targetName);
+    _LOG.fine(e);
 
     Throwable cause = e.getCause();
     if (cause instanceof RuntimeException)
@@ -625,9 +634,15 @@ public class FileSystemStyleCache implements StyleProvider
     {
       throw (Error)cause;
     }
-    else
+    else if (cause instanceof Exception)
     {
       throw new IllegalStateException(cause);
+    }
+    else
+    {
+      // This is the InterruptedException case, since InterruptedExceptions
+      // don't have a cause.
+      throw new IllegalStateException(message);
     }
   }
 
