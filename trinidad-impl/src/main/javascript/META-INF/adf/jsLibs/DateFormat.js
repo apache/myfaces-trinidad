@@ -1146,7 +1146,11 @@ function TrDateTimeConverter(
 
   // Stash away the patterns for later use.
   this._pattern = patterns;
-  
+
+  // Use a fallback example string if necessary
+  if (this._exampleString == null && patterns != null && patterns.length > 0)
+    this._exampleString = patterns[0];
+
   this._locale = (locale != null) ? locale : getJavaLanguage(locale);
 }
 
