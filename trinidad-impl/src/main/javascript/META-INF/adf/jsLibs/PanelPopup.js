@@ -297,7 +297,15 @@ TrPanelPopup.prototype.hide = function(event)
   {
     try
     {
-      this.callback(this.callbackProps, this.returnValue);
+      // Pass the serverOffsetInMins parameter when available. 
+      if(this.serverOffsetInMins)
+      {
+        this.callback(this.callbackProps, this.returnValue, this.serverOffsetInMins);
+      }
+      else
+      {
+        this.callback(this.callbackProps, this.returnValue);
+      }
     }
     catch(ex)
     {

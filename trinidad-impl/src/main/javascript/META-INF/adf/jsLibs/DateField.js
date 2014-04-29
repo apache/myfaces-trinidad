@@ -170,7 +170,8 @@ function _returnCalendarValue(
 
 function _returnPopupCalendarValue(
   props,
-  value
+  value,
+  serverOffsetInMins
   )
 {
   // Callback method registered with the popup
@@ -180,7 +181,8 @@ function _returnPopupCalendarValue(
     var formName = props['formName'];
     var fieldName = props['fieldName'];
     var dateField = document.forms[formName][fieldName];
-    _dfsv(dateField, value);
+     // The serverOffsetInMins is also required to get the correct timezone offset difference.
+    _dfsv(dateField, value, serverOffsetInMins);
   }
 }
 
