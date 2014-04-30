@@ -45,7 +45,7 @@ import javax.faces.el.ValueBinding;
  * The other elements are used to create a SkinAddition object.
  * </p>
  */
-public class SkinAddition
+public class SkinAddition implements Comparable
 {
 
   /**
@@ -257,6 +257,48 @@ public class SkinAddition
   public Map<String, String> getSkinFeatures()
   {
     return _skinFeatures;
+  }
+
+  /**
+   * Compares two skinning additions for the purposes of ordering.  Currently this
+   * method compares the stylesheet name.  If both names are null, then they are
+   * considered equal.  If one of the names is null and the other isn't, the null
+   * value is always less then the real value.  Other then that the values will be
+   * returned according to the string's natural order.
+   * 
+   * @param t
+   * @return
+   * 
+   * @throws NullPointerException if t is null
+   * @throws ClassCastException id t is not an instance of StyleSheetAddition
+   */
+  public int compareTo(Object t)
+  {
+    String comparedName = ((SkinAddition)t).getStyleSheetName();
+    String thisName     = getStyleSheetName();
+    
+    
+    if(null == thisName)
+    {
+      if(null == comparedName)
+      {
+        //Both stylesheet names are null, so they are equal
+        return 0;
+      }
+      
+      //This stylesheet name is null and the other isn't.  This is always less
+      return -1;
+    }
+    
+    if(null == comparedName)
+    {
+      //Compared object is null, this one isn't
+      return 1;
+    }
+    
+    int result = thisName.compareTo(comparedName);
+    
+    return result;
   }
 
   /**

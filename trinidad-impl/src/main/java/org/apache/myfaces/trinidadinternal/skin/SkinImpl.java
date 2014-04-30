@@ -279,7 +279,12 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
      {
        _skinAdditions = new ArrayList<SkinAddition>();
      }
-     _skinAdditions.add(skinAddition);
+   
+    //The following code will insert SkinAddition objects in order according to
+    //comparable.  This yields log(n) performance for ArrayList which is as good
+    //as it gets for this type of insertion.
+    int insertionPoint = Collections.binarySearch(_skinAdditions, skinAddition, null);
+    _skinAdditions.add((insertionPoint > -1) ? insertionPoint : (-insertionPoint) - 1, skinAddition);
   }
 
   /**

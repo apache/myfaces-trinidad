@@ -29,9 +29,14 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+
 import java.util.HashSet;
 import java.util.Iterator;
+
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -66,6 +71,8 @@ import org.apache.myfaces.trinidadinternal.skin.parse.SkinsNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.XMLConstants;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
+import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 import org.xml.sax.InputSource;
 
 
@@ -77,6 +84,21 @@ import org.xml.sax.InputSource;
  */
 public class SkinUtils
 {
+  /**
+   * An enumeration which determined how much information to return in the skin
+   * debug info.
+   */
+
+  public static enum DebugInfoLevel 
+  {
+    TERSE,
+    NORMAL,
+    VERBOSE;
+
+    @SuppressWarnings("compatibility:-5980442644319693066")
+    private static final long serialVersionUID = 1L;
+  }
+
   /**
    * Tries to retrieve the default FacesContext
    * @param context FacesContext object or null
@@ -199,75 +221,145 @@ public class SkinUtils
     return _resolveReferenceIcon(skin, refIcon, null);
   }
 
+  /**
+   * Returns skin debug information of DebugInfoLevel.NORMAL.
+   * 
+   * @param skin
+   * @return
+   */
   public static String getSkinDebugInfo(Skin skin)
+  {
+    return getSkinDebugInfo(skin, DebugInfoLevel.NORMAL);
+  }
+  
+  /**
+   * Returns a JSON object containing debug information for a skin depending on
+   * the DebugInfoLevel.  This will return a information on the supplied skin and
+   * any skin it extends so that information on the skin heirarcy can be 
+   * obtained.  If DebugInfoLevel.VERBOSE is specified, this will return a class
+   * containing the following information:
+   * 
+   * id: the skin id
+   * family: the skin family
+   * version: the skin version
+   * renderkit: the skin render kit
+   * documentId: the current document checksum
+   * document: the full path to the css document
+   * features: a map of name/value pairs for the skinning features
+   * additions: a list of skinning additions (see below) for this skin
+   * parent: the json object for the stylesheet this skin extends (if any)
+   * 
+   * Skinning additions consist of the following properties:
+   * 
+   * document: the full path to the css document
+   * documentId: the skin addition checksum
+   * 
+   * The 'parent' property is only provided if the skin is a skin extension
+   * and the documentId in both the skin additions as well as the main skin object
+   * is provided only if we have a valid RenderingContext.  
+   * 
+   * If DebugInfoLevel is NORMAL, all of the 'document' properties will contain a
+   * location WITHIN the current classpath as opposed to the full resource path.
+   * 
+   * If DebugInfoLevel is TERSE, then information on the document, features, and
+   * additions will not be provided for any object.
+   * 
+   * This information is in JSON format so that it can be quickly parsed and compared
+   * to other skin information.
+   * 
+   * @param skin
+   * @param level
+   * @return
+   */
+  public static String getSkinDebugInfo(Skin skin, DebugInfoLevel level)
+  {
+    assert (null != skin);
+    StringBuilder sb = new StringBuilder();
+    
+    try
+    {
+      JsonUtils.writeObject(sb, _getDebugInfoMap(skin, level), false);
+    }
+    catch (IOException e)
+    {
+    //We should never hit this because we control the object and the socket, but
+    //if we do, we should wrap it in a runtime exception.
+    throw new RuntimeException(e);
+    }
+      
+    return sb.toString();
+  }
+  
+  static private Map<String, Object> _getDebugInfoMap(Skin skin, DebugInfoLevel level)
   {
     assert (null != skin);
     RenderingContext rc = RenderingContext.getCurrentInstance();
     StringBuilder sb = new StringBuilder();
-
-    sb.append("[Id: ")
-      .append(skin.getId())
-      .append(" Family: ")
-      .append(skin.getFamily())
-      .append(" Version: ")
-      .append(skin.getVersion().getName())
-      .append(" Renderkit: ")
-      .append(skin.getRenderKitId())
-      .append(" StylesheetId: ")
-      .append(skin.getStyleSheetDocumentId(rc))
-      .append(" Features: { ");
-
-    boolean first = false;
-    for (Map.Entry<String, String> entry : skin.getSkinFeatures().entrySet())
+      
+    //The Map which will be converted into JSON
+    Map<String, Object> m = new LinkedHashMap<String, Object>();
+    
+    m.put("id", skin.getId());
+    m.put("family", skin.getFamily());
+    m.put("version", skin.getVersion().getName());
+    m.put("renderkit", skin.getRenderKitId());
+    
+    if(null != rc)
     {
-      if (!first)
-      {
-        sb.append(", ");
-      }
-      else
-      {
-        first = false;
-      }
-
-      sb.append("k:")
-        .append(entry.getKey())
-        .append(" v:")
-        .append(entry.getValue());
+      m.put("documentId", skin.getStyleSheetDocumentId(rc));
     }
 
-    sb.append(" } ");
-
-    if (rc instanceof CoreRenderingContext)
+    //Skip all of this information for terse logging
+    if(!DebugInfoLevel.TERSE.equals(level))
     {
-      sb.append(" Additions: {");
+      m.put("document", _getStyleSheetLocation(skin.getStyleSheetName(), level));
+      m.put("features", skin.getSkinFeatures());
 
-      StyleContext sctx = ((CoreRenderingContext) rc).getStyleContext();
+      StyleContext sctx =(null != rc && rc instanceof CoreRenderingContext)?((CoreRenderingContext)rc).getStyleContext():null;  
       List<SkinAddition> additions = skin.getSkinAdditions();
 
-      first = true;
+      List<Map<String,String>> additionList = new LinkedList<Map<String,String>>();
+      m.put("additions",additionList);
+        
       for (SkinAddition addition : additions)
       {
-        if (!first)
+        Map<String,String> additionMap = new LinkedHashMap<String,String>();
+        additionList.add(additionMap);
+        
+        String styleSheetName = addition.getStyleSheetName();
+        additionMap.put("document", _getStyleSheetLocation(styleSheetName, level));
+        if(null != sctx)
         {
-          sb.append(", ");
+          StyleSheetEntry entry = StyleSheetEntry.createEntry(sctx, styleSheetName);
+          
+          String documentId="Unknown - Entry could not be created";
+          if(null != entry)
+        {
+            StyleSheetDocument document = entry.getDocument();
+            
+            documentId = (null == document)?"Unknown - Document could not be created":document.getDocumentId(sctx);
+          }
+          
+          additionMap.put("documentId", documentId);
         }
-        else
+      }
+        }
+    
+    skin = _findParentSkin(skin);
+    if(null != skin)
         {
-          first = false;
+      m.put("parent", _getDebugInfoMap(skin, level));
         }
 
-        String styleSheetName = addition.getStyleSheetName();
-        sb.append("\"")
-          .append(styleSheetName)
-          .append("\"(");
-        StyleSheetEntry entry = StyleSheetEntry.createEntry(sctx, styleSheetName);
-        sb.append(entry.getDocument().getDocumentId(sctx))
-          .append(")");
-      }
-      sb.append("}");
+    return m;
     }
 
-    return sb.append("]").toString();
+  static private String _getStyleSheetLocation(String location, DebugInfoLevel level)
+  {
+    URL url = ClassLoaderUtils.getResource(location);
+    String loc = (null == url)?location:url.getPath();
+    
+    return DebugInfoLevel.VERBOSE.equals(level)? loc:location;
   }
 
   /**
@@ -410,6 +502,24 @@ public class SkinUtils
     _registerFactory(manager, CustomMetadata.class, "CustomMetadata");
 
     return manager;
+  }
+
+  //This will unwrap the skin of any RequestSkinWrappers and look for a SkinExtension.
+  //If one is found, it will return the parent skin.
+  static private Skin _findParentSkin(Skin skin)
+  {
+    //First lets unwrap
+    while(skin instanceof RequestSkinWrapper)
+    {
+      skin = ((RequestSkinWrapper)skin).getWrappedSkin();
+    }
+    
+    if(skin instanceof SkinExtension)
+    {
+      return ((SkinExtension)skin).getBaseSkin();
+    }
+    
+    return null;
   }
 
   // Returns a singleton instance of the default ParserManager
