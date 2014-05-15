@@ -38,8 +38,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
+import java.util.concurrent.FutureTask;
+
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.LocaleContext;
@@ -50,6 +59,7 @@ import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.style.Selector;
 import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidad.style.Styles;
+import org.apache.myfaces.trinidad.util.Args;
 import org.apache.myfaces.trinidad.util.ArrayMap;
 import org.apache.myfaces.trinidad.util.CollectionUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
@@ -348,7 +358,14 @@ public class FileSystemStyleCache implements StyleProvider
   // And Entry contains the style sheet URI.
   private Entry _getEntry(StyleContext context)
   {
-    ConcurrentMap<Key, Entry> cache = null;
+    // Our main entry map is Future-based to ensure that we will not have multiple
+    // threads attempting to create the same Entry (and, more importantly, writing
+    // the Entry's style sheets) in parallel.  This replaces the previous implementation,
+    // which was not thread safe and ran the risk of populating our entry cache with
+    // corrupt instances.  See JCIP section 5.6, "Builing an efficient, scalable result
+    // cache" for more details on this approach.
+    ConcurrentMap<Key, Future<Entry>> cache = null;
+
     ConcurrentMap<Object, Entry> entryCache = null;
     StyleSheetDocument document = null;
     Map<String, String> shortStyleClassMap = null;
@@ -388,7 +405,7 @@ public class FileSystemStyleCache implements StyleProvider
       // throughout the entire request, to avoid adding bogus entries
       // to a new re-allocated cache.
       if (_cache == null)
-        _cache = new ConcurrentHashMap<Key, Entry>();
+        _cache = new ConcurrentHashMap<Key, Future<Entry>>();
       
       if (_entryCache == null)
         _entryCache = new ConcurrentHashMap<Object, Entry>(19);
@@ -421,47 +438,234 @@ public class FileSystemStyleCache implements StyleProvider
     {
       _LOG.finest("FileSystemStyleCache's Key's hashCode is ", key.hashCode());
     }
-    Entry entry = _getEntry(cache, key, checkModified);
+
+    Entry entry = _getEntry(context, document, cache, key, checkModified);
     if (entry != null)
       return entry;
 
     // Next see if this is an entry which is compatible with this request
-    entry = _getCompatibleEntry(context, document, cache, key, entryCache, checkModified);
+    DerivationKey derivationKey = _getDerivationKey(context, document);
+    entry = _getCompatibleEntry(cache, key, derivationKey, entryCache, checkModified);
 
     if (entry != null)
       return entry;
 
     // If we didn't find an entry in the cache, create a new entry
     // This generates the CSS file.
-    return _createEntry(context,
+    entry = _createEntrySafely(context,
                         document,
                         cache,
                         key,
-                        entryCache,
                         shortStyleClassMap,
                         namespacePrefixes,
-                        checkModified, 
+                        checkModified,
                         isDirty);
+
+    // Also, cache the new entry in the DerivationKey-based entry cache
+    entryCache.put(derivationKey, entry);
+    
+    // just in case, clear the dirty flag.
+    RenderingContext arc = RenderingContext.getCurrentInstance();
+    Skin skin = arc.getSkin();
+    skin.setDirty(false);
+    
+    return entry;
   }
 
   private Entry _getEntry(
-    ConcurrentMap<?, Entry> cache,
-    Object                  key,
-    boolean                 checkModified
+    StyleContext context,
+    StyleSheetDocument document,
+    ConcurrentMap<Key, Future<Entry>> cache,
+    Key key,
+    boolean checkModified
     )
   {
-    Entry entry = cache.get(key);
-    if (entry == null)
+    Future<Entry> f = cache.get(key);
+    Entry entry = _getEntryFromFuture(context, document, cache, key, f);
+    if ((entry != null) && !_validateEntry(entry, checkModified))
     {
+      // atomically remove the key from the cache if it currently points to the entry
+      cache.remove(key, entry);
+      entry = null;
+    }
+    
+    return entry;
+  }
+
+  /**
+   * Resolves the Future<Entry>, if non-null.
+   * 
+   * @return null if f is null, or the Future's resolved Entry value otherwise.
+   */
+  private Entry _getEntryFromFuture(
+    StyleContext context,
+    StyleSheetDocument document,
+    ConcurrentMap<Key, Future<Entry>> cache,
+    Key key,
+    Future<Entry> f)
+  {
+    if (f == null)
+    {
+      // null is a valid argument for the Future, since the cache key may not
+      // have been put yet.
       return null;
     }
+
+    // If the current thread is already interrupted, our call to Future.get() will
+    // fail with an InterruptedException even if the Future result has already been
+    // computed.  We want to get the result even if the current thread has been
+    // interrupted, so clear out the interrupted state temporarily while we make
+    // the get() call.
+    boolean interrupted = Thread.interrupted();
+
+    try
+    {
+      // Even though we cleared out the interrupted state above, our thread might be
+      // re-interrupted while we are waiting for a second thread to finish writing
+      // the style sheet files to the file system (which can be slow).  We don't
+      // want to give up so easily though... in the event that we are interrupted
+      // while waiting on another thread, let's retry the Future.get() one time
+      // in the hopes that this will be sufficient to allow us to get our Entry.
+      return _getEntryFromFutureWithRetry(f, 1);
+    }
+    catch (InterruptedException ie)
+    {
+      // Our thread was either interrupted just before the get() call, or
+      // while waiting inside of the get().  Our retry attempt failed.  We
+      // could carry on without a style sheet, but this will only lead to
+      // confusion, so we choose to fail visibly instead and hope that things
+      // go better on the next request.
+      _logAndRethrowEntryGetFailure(context, document, ie, "STYLE_ENTRY_RETRIEVAL_INTERRUPTED");
+      
+      // Note that we could call Thread.currentThread().interrupt() here, but choose
+      // not to do so because a) we are effectively ending the request by throwing
+      // an exception and b) marking the thread as interrupted seems to interfere
+      // with MyFaces error handling.  If thread is marked as interrupted, I am
+      // not seeing the MyFaces-generated error page - just an empty status 200
+      // response.
+    }
+    catch (ExecutionException ee)
+    {
+      // Remove the Future<Entry> from our cache on the hopes that this is
+      // a transient problem that will not show up again if we try with a 
+      // fresh Future on a subsequent request.
+      cache.remove(key, f);
+      
+      // And fail loudly, sincew e cannot carry on without a style sheet.
+      _logAndRethrowEntryGetFailure(context, document, ee, "STYLE_ENTRY_CREATION_FAILED");
+    }
+    finally
+    {
+      if (interrupted)
+      {
+        Thread.currentThread().interrupt();
+      }      
+    }
+
+    return null;    
+  }
+
+  /**
+   * Attempts to resolve a future.  If retryCount is > 1, will re-attempt in the
+   * event that an InterruptedException is thrown.
+   * 
+   * @param f The Future to resolve
+   * @param retryCount The number of retry attempts if interrupted
+   * @return the Entry value of the Future<Entry>
+   * @throws InterruptedException if the Future.get() continues to throw
+   *   InterruptedException of retryCount retries, the InterruptedException
+   *   is rethrown out of this method.
+   * @throws ExecutionException if thrown by Future.get()
+   */
+  private Entry _getEntryFromFutureWithRetry(Future<Entry> f, int retryCount)
+    throws InterruptedException, ExecutionException
+  {
+    Args.notNull(f, "f");
+
+    try
+    {
+      return f.get();
+    }
+    catch (InterruptedException ie)
+    {
+      if (retryCount > 0)
+      {
+        return _getEntryFromFutureWithRetry(f, retryCount - 1);
+      }
+      
+      throw ie;
+    }
+  }
+
+  /**
+   * Logs a message in the event that we are not able to retrieve the
+   * Entry instance and then throws the exception (wrapped in
+   * an runtime exception) or its cause (similarly wrapped if necessary).
+   * 
+   * The message is formatted with a single parameter: the name of the target
+   * style sheet that we were attempting to retrieve.
+   * 
+   * @param contex the current style context
+   * @param document the style sheet document
+   * @param e an exception thrown by Future.get().  This is typically
+   *   either ExecutionException or InterruptedException
+   */
+  private void _logAndRethrowEntryGetFailure(
+    StyleContext context,
+    StyleSheetDocument document,
+    Exception e,
+    String message)
+  {
+    Args.notNull(context, "context");
+    Args.notNull(document, "document");
+    Args.notNull(e, "e");
+    Args.notNull(message, "message");
+
+    String targetName = getTargetStyleSheetName(context, document);
+    _LOG.severe(message, targetName);
+    _LOG.fine(e);
+
+    Throwable cause = e.getCause();
+    if (cause instanceof RuntimeException)
+    {
+      throw (RuntimeException)cause;
+    }
+    else if (cause instanceof Error)
+    {
+      throw (Error)cause;
+    }
+    else if (cause instanceof Exception)
+    {
+      throw new IllegalStateException(cause);
+    }
+    else
+    {
+      // This is the InterruptedException case, since InterruptedExceptions
+      // don't have a cause.
+      throw new IllegalStateException(message);
+    }
+  }
+
+  /**
+   * Validates that the specified entry is valid.
+   * 
+   * @param entry the Entry to validate
+   * @param checkModified whether we should check for file system modifications
+   * 
+   * @return true if the entry is valid, false a) checkModified is true and
+   *   b) the files corresponding to the entry have been removed
+   */
+  private boolean _validateEntry(Entry entry, boolean checkModified)
+  {
+    Args.notNull(entry, "entry");
+
+    boolean valid = true;
 
     if (checkModified)
     {
       List<String> uris = entry.uris;
       assert uris != null && !uris.isEmpty();
 
-      boolean valid = true;
       List<File> existing = new LinkedList<File>();
       // Make sure the entry's file exists.  If it no longer
       // exists, we remove the entry from the cache
@@ -474,6 +678,9 @@ public class FileSystemStyleCache implements StyleProvider
         }
         else
         {
+          // Even though we know that we are invalid at this point, keep
+          // on looping so that we can gather up all of the existing files,
+          // which we will delete below.
           valid = false;
         }
       }
@@ -481,15 +688,50 @@ public class FileSystemStyleCache implements StyleProvider
       if (!valid)
       {
         _deleteAll(existing);
-        
-        // atomically remove the key from the cache if it currently points to the entry
-        cache.remove(key, entry);
-
-        return null;
       }
     }
 
-    return entry;
+    return valid;
+  }
+
+  /**
+   * Creates and returns an Entry instance in a thread-safe manner.
+   */
+  private Entry _createEntrySafely(
+    final StyleContext                 context,
+    final StyleSheetDocument           document,
+    final ConcurrentMap<Key, Future<Entry>> cache,
+    final Key                          key,
+    final Map<String, String>          shortStyleClassMap,
+    final String[]                     namespacePrefixes,
+    final boolean                      checkModified,
+    final boolean                      isDirty)
+  {
+    // See JCIP 5.6 if you are confused by what we are doing here.
+    Callable<Entry> entryCreator = new Callable<Entry>() {
+
+      @Override
+      public Entry call()
+      {
+        return _createEntry(context,
+                            document,
+                            shortStyleClassMap,
+                            namespacePrefixes,
+                            checkModified,
+                            isDirty);
+      }
+    };
+
+    FutureTask<Entry> ft = new FutureTask<Entry>(entryCreator);
+    Future<Entry> f = cache.putIfAbsent(key, ft);
+    
+    if (f == null)
+    {
+      f = ft;
+      ft.run();
+    }
+
+    return _getEntryFromFuture(context, document, cache, key, f);
   }
 
   /**
@@ -527,9 +769,6 @@ public class FileSystemStyleCache implements StyleProvider
   private Entry _createEntry(
     StyleContext                 context,
     StyleSheetDocument           document,
-    ConcurrentMap<Key, Entry>    cache,
-    Key                          key,
-    ConcurrentMap<Object, Entry> entryCache,
     Map<String, String>          shortStyleClassMap,
     String[]                     namespacePrefixes,
     boolean                      checkModified,
@@ -546,7 +785,12 @@ public class FileSystemStyleCache implements StyleProvider
     List<StyleNode> styleNodes = _getStyleContextResolvedStyles(context, document);
     
     if (styleNodes.isEmpty())
-      return null;
+    {
+      // Historically we have failed silently here.  After further thought, we
+      // decided it would be better to make some noise so that folks know
+      // that something has gone wrong.
+      _throwEmptyStyleNodes(context, document);
+    }
 
     // This code fills in the <Selector, Style> resolvedSelectorStyleMap map. 
     // We use _reusableStyleMap to reuse the Style objects when possible
@@ -602,19 +846,18 @@ public class FileSystemStyleCache implements StyleProvider
     // like browser, agent, locale, direction.
     Styles styles = new StylesImpl(namespacePrefixes, _STYLE_KEY_MAP,
                                    shortStyleClassMap,  _isCompressStyles(context), resolvedSelectorStyleMap);
-    Entry entry = new Entry(uris, styles, icons, skinProperties);
-    cache.put(key, entry);
-
-    // Also, cache the new entry in the entry cache
-    DerivationKey derivationKey = _getDerivationKey(context, document);
-    entryCache.put(derivationKey, entry);
-    
-    // just in case, clear the dirty flag.
-    RenderingContext arc = RenderingContext.getCurrentInstance();
-    Skin skin = arc.getSkin();
-    skin.setDirty(false);
-
-    return entry;
+    return new Entry(uris, styles, icons, skinProperties);
+  }
+  
+  private void _throwEmptyStyleNodes(
+    StyleContext context,
+    StyleSheetDocument document
+    )
+  {
+    String targetName = getTargetStyleSheetName(context, document);
+    String message = _LOG.getMessage("STYLE_ENTRY_CREATION_FAILED_NO_STYLES",
+                                     new Object[] {targetName});
+    throw new IllegalStateException(message);
   }
 
   /**
@@ -623,21 +866,32 @@ public class FileSystemStyleCache implements StyleProvider
    * same StyleSheetNodes.
    */
   private Entry _getCompatibleEntry(
-    StyleContext                 context,
-    StyleSheetDocument           document,
-    ConcurrentMap<Key, Entry>    cache,
+    ConcurrentMap<Key, Future<Entry>> cache,
     Key                          key,
+    DerivationKey                derivationKey,
     ConcurrentMap<Object, Entry> entryCache,
     boolean                      checkModified
     )
   {
-    DerivationKey derivationKey = _getDerivationKey(context, document);
-    Entry entry = _getEntry(entryCache, derivationKey, checkModified);
+    Entry entry = entryCache.get(derivationKey);
+    if ((entry != null) && !_validateEntry(entry, checkModified))
+    {
+      entryCache.remove(derivationKey, entry);
+      entry = null;
+    }
+
     if (entry != null)
     {
-      // If we've got a compatible entry, cache it
-      cache.put(key, entry);
+      // If we've find a matching entry, store it in the main Key-based cache.
+      cache.putIfAbsent(key, new ResolvedFuture<Entry>(entry));
+      
+      // If the cache already contains an entry (ie. putIfAbsent returns a 
+      // non-null value), this means that the Key-based cached and the 
+      // DerivationKey-based cache will contain different Entry instances.
+      // This is somewhat unexpected but not necessarily fatal, so we don't 
+      // take any special action for this case.
     }
+
     return entry;
   }
 
@@ -1655,6 +1909,49 @@ public class FileSystemStyleCache implements StyleProvider
       return _getWriter(outputFile);
     }
   }
+
+  // A Future implementation that holds an already-resovled value.
+  private static final class ResolvedFuture<V> implements Future<V>
+  {
+    public ResolvedFuture(V value)
+    {
+      _value = value;
+    }
+
+    @Override
+    public boolean cancel(boolean mayInterruptIfRunning)
+    {
+      return false;
+    }
+
+    @Override
+    public boolean isCancelled()
+    {
+      return false;
+    }
+
+    @Override
+    public boolean isDone()
+    {
+      return true;
+    }
+
+    @Override
+    public V get()
+      throws InterruptedException, ExecutionException
+    {
+      return _value;
+    }
+
+    @Override
+    public V get(long timeout, TimeUnit unit)
+      throws InterruptedException, ExecutionException, TimeoutException
+    {
+      return get();
+    }
+    
+    private final V _value;
+  }
   
   private final String _targetPath; // The location of the cache
 
@@ -1672,8 +1969,11 @@ public class FileSystemStyleCache implements StyleProvider
    * be the same between FileSystemStyleCache$StylesImpl instances, so they should be shared. */
   private ConcurrentMap<String, Selector> _reusableSelectorMap;
   
-  /** The cache of style sheet URIs */
-  private ConcurrentMap<Key, Entry> _cache;
+  /**
+   * The main Entry cache.  Future-based to ensure that only a single thread
+   * attempts to create an Entry for a specific Key at a time.
+   */
+  private ConcurrentMap<Key, Future<Entry>> _cache;
 
   /**
    * We cache Entry objects, hashed by DerivationKey (ie.
