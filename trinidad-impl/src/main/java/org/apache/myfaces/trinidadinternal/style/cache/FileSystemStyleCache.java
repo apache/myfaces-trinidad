@@ -785,7 +785,12 @@ public class FileSystemStyleCache implements StyleProvider
     List<StyleNode> styleNodes = _getStyleContextResolvedStyles(context, document);
     
     if (styleNodes.isEmpty())
-      return null;
+    {
+      // Historically we have failed silently here.  After further thought, we
+      // decided it would be better to make some noise so that folks know
+      // that something has gone wrong.
+      _throwEmptyStyleNodes(context, document);
+    }
 
     // This code fills in the <Selector, Style> resolvedSelectorStyleMap map. 
     // We use _reusableStyleMap to reuse the Style objects when possible
@@ -842,6 +847,17 @@ public class FileSystemStyleCache implements StyleProvider
     Styles styles = new StylesImpl(namespacePrefixes, _STYLE_KEY_MAP,
                                    shortStyleClassMap,  _isCompressStyles(context), resolvedSelectorStyleMap);
     return new Entry(uris, styles, icons, skinProperties);
+  }
+  
+  private void _throwEmptyStyleNodes(
+    StyleContext context,
+    StyleSheetDocument document
+    )
+  {
+    String targetName = getTargetStyleSheetName(context, document);
+    String message = _LOG.getMessage("STYLE_ENTRY_CREATION_FAILED_NO_STYLES",
+                                     new Object[] {targetName});
+    throw new IllegalStateException(message);
   }
 
   /**

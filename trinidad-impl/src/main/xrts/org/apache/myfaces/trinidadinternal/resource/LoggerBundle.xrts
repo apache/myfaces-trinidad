@@ -1242,4 +1242,7 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 
 <resource key="STYLE_ENTRY_CREATION_FAILED">Creation of style sheet {0} has failed.  Will retry on next request.</resource>
 
+<resource key="STYLE_ENTRY_CREATION_FAILED_NO_STYLES">Creation of style sheet {0} has failed.  No styles found.</resource>
+
+
 </resources>
