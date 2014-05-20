@@ -115,7 +115,7 @@ public class XhtmlUtils
   /**
    * Registers a scriptlet.
    */
-  public static  void registerScriptlet(Object key, Scriptlet scriptlet)
+  public static void registerScriptlet(Object key, Scriptlet scriptlet)
   {
     _sScriptletTable.put(key, scriptlet);
   }

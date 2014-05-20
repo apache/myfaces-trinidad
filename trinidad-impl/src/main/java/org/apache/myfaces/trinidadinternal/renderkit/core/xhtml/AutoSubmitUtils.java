@@ -59,7 +59,7 @@ public class AutoSubmitUtils
     int childCount = comp.getChildCount();
     if (childCount == 0)
       return null;
-      
+
     StringBuilder builder = null;
     for(UIComponent child : (List<UIComponent>)comp.getChildren())
     {
@@ -73,11 +73,11 @@ public class AutoSubmitUtils
 
         if (builder == null)
           builder = new StringBuilder();
-          
+
         // Add a comma if needed
         if (builder.length() > 0)
           builder.append(',');
-        
+
         // Add the name and value, and in both cases
         // wrap in single quotes and escape it - we don't
         // know for sure if the name will be a legit JS identifier
@@ -88,13 +88,13 @@ public class AutoSubmitUtils
         builder.append('\'');
       }
     }
-    
+
     if (builder == null)
       return null;
-      
+
     return builder.toString();
   }
-    
+
   public static String getFullPageSubmitScript(
      RenderingContext arc,
      String              source,
@@ -233,8 +233,8 @@ public class AutoSubmitUtils
     if (isDesktop)
     {
       builder.append(",event,");
-    } 
-    else  
+    }
+    else
     {
       builder.append(",null,");
     }
@@ -330,8 +330,6 @@ public class AutoSubmitUtils
 
   static
   {
-    XhtmlScriptletFactory.registerAllScriptlets();
-
     // Register our scriptlet
     AutoSubmitScriptlet.sharedInstance().registerSelf();
   }
