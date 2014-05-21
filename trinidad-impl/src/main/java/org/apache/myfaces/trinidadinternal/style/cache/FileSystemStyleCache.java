@@ -1000,6 +1000,13 @@ public class FileSystemStyleCache implements StyleProvider
     
     for (StyleNode styleNode : styleNodes)
     {
+      if (styleNode.hasClientRule())
+      {
+        // skin property is a server side concept and we do not know the client rule
+        // applicability. Therefore, we don't need to consider styles with client rules
+        continue;
+      }
+
       Collection<PropertyNode> skinPropertyNodes = styleNode.getSkinProperties();
       
       for (PropertyNode node : skinPropertyNodes)
