@@ -48,6 +48,7 @@ import javax.faces.el.ValueBinding;
 import javax.faces.el.VariableResolver;
 import javax.faces.event.ActionListener;
 import javax.faces.event.SystemEvent;
+import javax.faces.event.SystemEventListener;
 import javax.faces.validator.Validator;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -86,6 +87,37 @@ public class MApplication extends Application
   {
     //do nothing
   }
+
+  @Override
+  public void subscribeToEvent(Class<? extends SystemEvent> systemEventClass,
+                               Class<?> sourceClass,
+                               SystemEventListener listener)
+  {
+    // make unit tests happy
+  }
+
+  @Override
+  public void subscribeToEvent(Class<? extends SystemEvent> systemEventClass,
+                               SystemEventListener listener)
+  {
+    // make unit tests happy
+  }
+
+  @Override
+  public void unsubscribeFromEvent(Class<? extends SystemEvent> systemEventClass,
+                                   Class<?> sourceClass,
+                                   SystemEventListener listener)
+  {
+    // make unit tests happy
+  }
+
+  @Override
+  public void unsubscribeFromEvent(Class<? extends SystemEvent> systemEventClass, 
+                                   SystemEventListener listener)
+  {
+    // make unit tests happy
+  }
+
 
   @Override
   public ActionListener getActionListener()
