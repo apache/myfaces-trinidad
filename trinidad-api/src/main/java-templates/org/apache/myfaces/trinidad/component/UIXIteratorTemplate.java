@@ -349,11 +349,10 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       }
       else
       {
-        String clientToken = _getClientToken(ourClientIdPrefix,
-                                             subtreeIds.iterator().next());
-
-        if (clientToken != null)
+        if (subtreeIds.iterator().hasNext())
         {
+          String clientToken = _getClientToken(ourClientIdPrefix,
+                                             subtreeIds.iterator().next());
           rowsToVisit = Collections.singleton(clientToken);
         }
         else
