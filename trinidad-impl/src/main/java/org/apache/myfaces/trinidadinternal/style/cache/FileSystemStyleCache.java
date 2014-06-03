@@ -485,7 +485,7 @@ public class FileSystemStyleCache implements StyleProvider
     if ((entry != null) && !_validateEntry(entry, checkModified))
     {
       // atomically remove the key from the cache if it currently points to the entry
-      cache.remove(key, entry);
+      cache.remove(key, f);
       entry = null;
     }
     
