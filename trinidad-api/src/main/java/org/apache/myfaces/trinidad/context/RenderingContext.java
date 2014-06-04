@@ -24,16 +24,16 @@ import java.util.MissingResourceException;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
-import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 
+
 /**
  * The RenderingContext holds context information about the current rendering.
- * The RenderingContext is useful for Renderers. The 
- * RenderingContext is passed in to the CoreRenderer. For example, 
+ * The RenderingContext is useful for Renderers. The
+ * RenderingContext is passed in to the CoreRenderer. For example,
  * a renderer may need to render differently if it is rendering to a browser
  * in right-to-left mode, or if accessibility mode is on, etc.
  * Some values are promoted up from RequestContext for ease of use while rendering.
@@ -119,16 +119,18 @@ abstract public class RenderingContext
   {
     if (key == null)
       return null;
+    
+    Skin skin = getSkin();
 
     try
     {
-      return getSkin().getTranslatedString(getLocaleContext(), key);
+      return skin.getTranslatedString(getLocaleContext(), key);
     }
     catch (MissingResourceException mre)
     {
       // Instead of halting execution, return "???<key>???",
       // just like JSF and JSTL will do, and log a severe error
-      _LOG.severe("CANNOT_GET_RESOURCE_KEY", new String[]{key, getSkin().getId()});
+      _LOG.severe("CANNOT_GET_RESOURCE_KEY", new Object[]{key, skin});
       return "???" + key + "???";
     }
   }

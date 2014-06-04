@@ -24,6 +24,8 @@ import javax.el.ValueExpression;
 
 import javax.faces.el.ValueBinding;
 
+import org.apache.myfaces.trinidad.util.ToStringHelper;
+
 /**
  * <p>
  * SkinAddition objects are used by custom component developers who have created custom
@@ -208,24 +210,55 @@ public class SkinAddition implements Comparable
   {
     return _skinId;
   }
-
+  
   /**
    * Gets the SkinAddition's style sheet name.
+   * Note that in order to avoid infinite call loop the implementation of getStylesheetName() in 
+   * this class or sub classes should not call toString().
    */
   public String getStyleSheetName()
   {
     return _styleSheetName;
   }
-
+  
   /**
-   * Gets the SkinAddition's resource bundle.
-   * Note: A skin cannot have both a resourceBundleName and a translation source
+   * Gets the SkinAddition's resource bundle. 
+   * A skin cannot have both a resourceBundleName and a translation source
    * value expression. If they do, then the resourceBundleName takes precedence.
+   * Note that in order to avoid infinite call loop the implementation of getResourceBundleName() 
+   * in this class or sub classes should not call toString().
    */
   public String getResourceBundleName()
   {
     return _resourceBundleName;
   } 
+
+  /**
+   * @inheritDoc
+   * Note that in order to avoid infinite call loop the implementation of getStyleSheetName() 
+   * and getResourceBundleName() in this class or its sub classes should not call toString().
+   */
+  @Override
+  public String toString()
+  {
+    ToStringHelper helper = 
+      new ToStringHelper(this).
+      append("styleSheetName", getStyleSheetName()).
+      append("bundleName", getResourceBundleName());
+
+    if (_translationSourceVE != null)
+    {
+      helper.append("translationExpr",  _translationSourceVE.getExpressionString());
+    }
+
+    if (_translationSourceVB != null)
+    {
+      helper.append("translationBindingExpr",  _translationSourceVB.getExpressionString());
+    }
+
+    return helper.toString();
+  }
+ 
   
   /**
    * Gets the SkinAddition's translation source ValueExpresion. The 

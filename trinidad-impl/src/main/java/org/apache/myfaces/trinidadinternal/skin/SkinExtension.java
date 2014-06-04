@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,7 @@ import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidad.skin.SkinMetadata;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
+import org.apache.myfaces.trinidad.util.ToStringHelper;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
@@ -296,8 +298,9 @@ public class SkinExtension extends SkinImpl
 
 
   /**
-   * Returns the base Skin which this custom Skin
-   * "extends".
+   * Returns the base Skin which this custom Skin "extends".
+   * Note that in order to avoid infinite call loop the implementation of getBaseSkin() in this 
+   * class or sub classes should not call toString().
    */
   public Skin getBaseSkin()
   {
@@ -452,8 +455,6 @@ public class SkinExtension extends SkinImpl
     return _baseSkin.getStyleClassMap(arc);
   }
 
-
-
   /**
     * Override of Skin.getTranslatedValue() which
     * supports pulling translations from Skin and if not found from the base Skin.
@@ -472,17 +473,17 @@ public class SkinExtension extends SkinImpl
     // getCachedTranslatedValue will protect against MissingResourceExceptions
 
     Object translatedValue = getCachedTranslatedValue(lContext, key);
-
+    
     if (translatedValue == null)
     {
       translatedValue = getBaseSkin().getTranslatedValue(lContext, key);
+      
       // Cache the non-null translated value with the SkinExtension to avoid looking
       // at the base skin's map.
       if (translatedValue != null)
         putTranslatedValueInLocaleCache(lContext, key, translatedValue);
-
     }
-
+    
     return translatedValue;
   }
    
@@ -664,6 +665,23 @@ public class SkinExtension extends SkinImpl
       throw new ClassCastException("Base skin is expected to be of type SkinImpl. Obtain the base skin from SkinProvider.");
 
     return baseSkin;
+  }
+  
+  @Override  
+  protected void addPropertiesToString(ToStringHelper helper)
+  {
+    super.addPropertiesToString(helper);
+    
+    Skin baseSkin = this.getBaseSkin();
+    List<String> baseSkinIds = new ArrayList<String>();
+    
+    while (baseSkin != null)
+    {
+      baseSkinIds.add(baseSkin.getId());
+      baseSkin = baseSkin.getBaseSkin();
+    }
+    
+    helper.append("extends", baseSkinIds);
   }
 
   /**

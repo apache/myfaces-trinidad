@@ -274,6 +274,15 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- SKIN_CONFIG_PROCESS_FAILURE -->
 <resource key="SKIN_CONFIG_PROCESS_FAILURE">Failed to process skin config file: {0}.</resource>
 
+<!-- TRANSLATION_VALUE -->
+<resource key="TRANSLATION_VALUE">Translated value "{0}" for key "{1}" and locale "{2}" found in skin {3}"</resource>
+
+<!-- SKIN_FAILED_TO_GET_BUNDLE -->
+<resource key="SKIN_FAILED_TO_GET_BUNDLE">Failed to get resource bundle "{0}" in skin "{1}"</resource>
+
+<!-- ADDED_SKIN_ADDITION -->
+<resource key="ADDED_SKIN_ADDITION">Added skin addition {0} to skin {1}</resource>
+
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE">The skin's translation-source ValueExpression is not of the expected type Map or ResourceBundle, so it will be ignored.</resource>
 
