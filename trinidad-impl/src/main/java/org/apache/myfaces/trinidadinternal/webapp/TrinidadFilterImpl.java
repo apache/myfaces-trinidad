@@ -176,7 +176,7 @@ public class TrinidadFilterImpl implements Filter
     GlobalConfiguratorImpl config;
     try
     {
-      isPartialRequest = facesContext.getPartialViewContext().isAjaxRequest();
+      isPartialRequest = CoreRenderKit.isPartialRequest(externalContext);
       config = GlobalConfiguratorImpl.getInstance();
       config.beginRequest(externalContext);
     }
