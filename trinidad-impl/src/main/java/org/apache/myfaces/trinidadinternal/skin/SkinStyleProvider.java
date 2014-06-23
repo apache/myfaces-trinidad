@@ -18,19 +18,19 @@
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.cache.FileSystemStyleCache;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.util.LRUCache;
 
 
@@ -52,8 +52,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
    * style sheet take precedence over styles provided by the
    * Skin.
    *
-   * @param context The current RenderingContext, which provides
-   *          access to the current Skin.
+   * @param skin The skin for which the style provider is needed.
    * @param targetDirectoryPath The full file system path of the
    *          directory where generated CSS files are stored.
    *          If the directory does not exist and cannot be
@@ -67,7 +66,6 @@ public class SkinStyleProvider extends FileSystemStyleCache
     String targetDirectoryPath
     ) throws IllegalArgumentException
   {
-
     if (skin == null)
       throw new IllegalArgumentException(_LOG.getMessage(
         "NO_SKIN_SPECIFIED"));
@@ -225,52 +223,69 @@ public class SkinStyleProvider extends FileSystemStyleCache
     return name;
   }
 
-  // Returns a Map which hashes ProviderKeys to shared instances
-  // of SkinStyleProviders.
+  // Returns a Map which hashes ProviderKeys to shared instances of SkinStyleProviders.
   private static Map<ProviderKey, StyleProvider> _getProviders()
   {
-    // =-=ags For now, we just use a global variable.  But
-    //        really, our cache should probably be hanging off
-    //        of the ServletContext.
-    if (_sSharedProviders == null)
-    {
-      FacesContext context = FacesContext.getCurrentInstance();
-      String lruCacheSize =
-        context.getExternalContext().
-        getInitParameter(_MAX_SKINS_CACHED); 
-      
-      int lruCacheSizeInt = _MAX_SKINS_CACHED_DEFAULT;
-      boolean invalidInt = false;
+    ConcurrentMap<String, Object> appMap = 
+      RequestContext.getCurrentInstance().getApplicationScopedConcurrentMap();
 
-      if (lruCacheSize != null && !lruCacheSize.equals(""))
-      {
-        try
-        {
-          lruCacheSizeInt = Integer.parseInt(lruCacheSize);
-        }
-        catch (NumberFormatException nfe)
-        {
-          invalidInt = true;
-        }
-        if (lruCacheSizeInt <= 0)
-        {
-          invalidInt = true;
-        }
-      }
+    Map<ProviderKey, StyleProvider> styleProviders = 
+      (Map<ProviderKey, StyleProvider>)appMap.get(_SKIN_PROVIDERS_KEY);
+
+    if (styleProviders == null)
+    {
+      styleProviders = _createProvidersMap();
       
-      // The user typed in an invalid integer ( <=0 or a value that couldn't be formatted to a number)
-      // so log a warning
-      if (invalidInt)
+      Map<ProviderKey, StyleProvider> oldStyleProviders = 
+        (Map<ProviderKey, StyleProvider>)appMap.putIfAbsent(_SKIN_PROVIDERS_KEY, styleProviders);
+      
+      if (oldStyleProviders != null)
       {
-        lruCacheSizeInt = _MAX_SKINS_CACHED_DEFAULT;
-        if (_LOG.isWarning())
-          _LOG.warning("INVALID_INTEGER_MAX_SKINS_CACHED", new Object[]{lruCacheSize, _MAX_SKINS_CACHED_DEFAULT});        
+        styleProviders = oldStyleProviders;
       }
-        
-      _sSharedProviders = new LRUCache<ProviderKey, StyleProvider>(lruCacheSizeInt);
     }
 
-    return _sSharedProviders;
+    return styleProviders;
+  }
+  
+  private static Map<ProviderKey, StyleProvider> _createProvidersMap()
+  {
+    FacesContext context = FacesContext.getCurrentInstance();
+    String lruCacheSize = context.getExternalContext().getInitParameter(_MAX_SKINS_CACHED); 
+    
+    int lruCacheSizeInt = _MAX_SKINS_CACHED_DEFAULT;
+    boolean invalidInt = false;
+
+    if (lruCacheSize != null && !lruCacheSize.equals(""))
+    {
+      try
+      {
+        lruCacheSizeInt = Integer.parseInt(lruCacheSize);
+      }
+      catch (NumberFormatException nfe)
+      {
+        invalidInt = true;
+      }
+      if (lruCacheSizeInt <= 0)
+      {
+        invalidInt = true;
+      }
+    }
+    
+    // The user typed in an invalid integer ( <=0 or a value that couldn't be formatted to a number)
+    // so log a warning
+    if (invalidInt)
+    {
+      lruCacheSizeInt = _MAX_SKINS_CACHED_DEFAULT;
+      
+      if (_LOG.isWarning())
+      {
+        _LOG.warning("INVALID_INTEGER_MAX_SKINS_CACHED", 
+                     new Object[]{lruCacheSize, _MAX_SKINS_CACHED_DEFAULT});        
+      }
+    }
+      
+    return new LRUCache<ProviderKey, StyleProvider>(lruCacheSizeInt);
   }
 
   // Key that we use to retrieve a shared SkinStyleProvider
@@ -330,12 +345,13 @@ public class SkinStyleProvider extends FileSystemStyleCache
 
   // The Skin which provides styles
   private Skin _skin;
-  
+
   // The Skin-specific StyleSheetDocument
   private StyleSheetDocument _skinDocument;
 
-  // Cache of shared SkinStyleProvider instances
-  private static Map<ProviderKey, StyleProvider> _sSharedProviders;
+  // Key to cache of shared SkinStyleProvider instances
+  private static final String _SKIN_PROVIDERS_KEY = 
+    "org.apache.myfaces.trinidadinternal.skin.SKIN_PROVIDERS_KEY";
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     SkinStyleProvider.class);
   private static final String _MAX_SKINS_CACHED =
