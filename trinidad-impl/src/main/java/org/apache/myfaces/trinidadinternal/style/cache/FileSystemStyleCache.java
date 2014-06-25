@@ -1398,8 +1398,9 @@ public class FileSystemStyleCache implements StyleProvider
           }
           else
           {
+            // collect non namespaced style classes first and process them
             Iterator<String> styleClasses =
-              CSSGenerationUtils.getStyleClasses(selector);
+              CSSGenerationUtils.getNonNamespacedStyleClasses(selector);
 
             if (styleClasses != null)
             {
