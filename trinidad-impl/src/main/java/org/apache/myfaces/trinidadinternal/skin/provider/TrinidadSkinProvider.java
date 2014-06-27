@@ -133,7 +133,10 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
 
     // if there is no base skin then use the default base skin for the renderKit
     if (baseSkin == null)
+    {
       baseSkin = SkinUtils.getDefaultSkinForRenderKitId(provider, context, renderKitId);
+      baseSkinId = baseSkin.getId();
+    }
 
     if (id == null)
       throw new NullPointerException(_LOG.getMessage("NULL_SKIN_ID"));
@@ -245,3 +248,4 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
   private final static TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(TrinidadSkinProvider.class);
 }
+
