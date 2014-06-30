@@ -803,20 +803,11 @@ TrDateRestrictionValidator.prototype = new TrValidator();
 TrDateRestrictionValidator.prototype.getHints = function(
   converter
   )
-{
-  var allWeekdays = ['mon','tue','wed','thu','fri','sat','sun'];
-  var allMonth = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-  
-  //if needed, remove the submitted values, which are invalid, to display only the valid ones
-  if(this._weekdaysValue)
-    this._removeDisabledValues(this._weekdaysValue, allWeekdays);
-  if(this._monthValue)
-    this._removeDisabledValues(this._monthValue, allMonth);
-  
+{ 
   return _returnHints(
     this._messages,
-    !this._weekdaysValue ? this._weekdaysValue : this._translate(allWeekdays, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()),
-    !this._monthValue ? this._monthValue : this._translate(allMonth, this._translatedMonthMap, converter.getLocaleSymbols().getMonths()),
+    !this._weekdaysValue ? this._weekdaysValue : this._translate(this._weekdaysValue, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()),
+    !this._monthValue ? this._monthValue : this._translate(this._monthValue, this._translatedMonthMap, converter.getLocaleSymbols().getMonths()),
     "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT",
     "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT",
     "hintWeek",
@@ -888,12 +879,10 @@ TrDateRestrictionValidator.prototype.validate  = function(
     {
       if(weekDaysArray[i].toLowerCase() == dayString)
       {
-        var allWeekdays = ['mon','tue','wed','thu','fri','sat','sun'];
-        this._removeDisabledValues(this._weekdaysValue, allWeekdays);
-        var days = _trToString(this._translate(allWeekdays, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()));
-
+        var days = _trToString(this._translate([dayString], this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()));
         var facesMessage;
         var key = "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY";
+
         if(this._messages && this._messages["days"])
         {
           facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
@@ -923,9 +912,7 @@ TrDateRestrictionValidator.prototype.validate  = function(
     {
       if(monthArray[i].toLowerCase() == monthString)
       {
-        var allMonth = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-        TrCollections.removeValuesFromArray(this._monthValue, allMonth);
-        var month = _trToString(this._translate(allMonth, this._translatedMonthMap, converter.getLocaleSymbols().getMonths()));
+        var month = _trToString(this._translate([monthString], this._translatedMonthMap, converter.getLocaleSymbols().getMonths()));
         
         var facesMessage;
         var key = "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH";

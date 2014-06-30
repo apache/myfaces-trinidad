@@ -85,8 +85,8 @@
   <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_HINT">Enter a date on or before {0}.</resource>
   <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT">Enter a date on or after {0}.</resource>
   <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.RANGE_HINT">Enter a date between {0} and {1}.</resource>
-  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT">Enter a date that falls on one of the following days: {0}</resource>
-  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT">Enter a date from one of the following months: {0}</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT">Enter a date that does not fall on one of the following days: {0}</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT">Enter a date that is not from one of the following months: {0}</resource>
   <!-- resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_HINT">The value must match this pattern: {0}.</resource-->
   <!-- resource key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT">The maximum allowed byte length for this value is {0}.</resource-->
 
@@ -167,17 +167,19 @@
   <!-- Validator can check if a date is in an invalid month  -->
   <!-- {0} the label that identifies the component           -->
   <!-- {1} represent Date which the user has set             -->
+  <!-- {2} the invalid month selected selected by the user   -->
   <resource
      key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH">Dates in this month are not valid.</resource>
   <resource
-    key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_detail">Enter a date in one of the following months: {2}</resource>
+    key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_detail">Enter a date that is not in {2}.</resource>
 
   <!-- Validator can check if a date is an invalid weekday    -->
   <!-- {0} the label that identifies the component            -->
   <!-- {1} date value entered by the user                     -->
+  <!-- {2} the invalid weekday selected by the user           -->
   <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY">The day of the week for this date is not valid.</resource>
 
-  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_detail">Enter a date that is on one of the following days: {2}</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_detail">Enter a date that is not a {2}.</resource>
 
   <!-- Number exceeds number range error               -->
   <!-- {0} the label that identifies the component -->
