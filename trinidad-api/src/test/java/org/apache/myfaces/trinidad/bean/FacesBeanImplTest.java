@@ -27,6 +27,7 @@ import java.io.ObjectOutputStream;
 import java.util.Iterator;
 
 import javax.faces.el.ValueBinding;
+import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 
@@ -385,7 +386,8 @@ public class FacesBeanImplTest extends FacesTestCase
     assertEquals("subValue", sub.getSub());
     assertNotNull(sub.getValueBinding(TestBean.FIRST_KEY));
     assertEquals("FirstBinding",
-                 sub.getValueBinding(TestBean.FIRST_KEY).getValue(null));
+      sub.getValueBinding(TestBean.FIRST_KEY).getValue(
+        FacesContext.getCurrentInstance()));
     Integer[] items = sub.getItems();
     assertNotNull(items);
     assertEquals(2, items.length);
@@ -461,7 +463,7 @@ public class FacesBeanImplTest extends FacesTestCase
     ValueBinding vb = newBean.getValueBinding(SubTypeBean.FIRST_KEY);
     assertTrue(vb instanceof TestValueBinding);
     assertTrue(vb != vb1);
-    assertEquals(vb.getValue(null), "vbFirst");
+    assertEquals(vb.getValue(FacesContext.getCurrentInstance()), "vbFirst");
 
     // Now change the value binding, and verify the original
     // bean is unchanged
