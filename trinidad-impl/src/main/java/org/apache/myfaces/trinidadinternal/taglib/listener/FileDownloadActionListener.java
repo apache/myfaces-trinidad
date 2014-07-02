@@ -108,9 +108,11 @@ public class FileDownloadActionListener extends FacesBeanImpl
           boolean isGecko = true;
           Map<String, String> headers = context.getExternalContext().getRequestHeaderMap();
           String agentName = headers.get("User-Agent").toLowerCase();
-          if (agentName.contains("msie") || agentName.contains("applewebkit") || agentName.contains("safari") || 
-              agentName.contains("trident"))
+          //For chrome and opera, we should use non IE encoding. Both contain chrome in their user agent
+          if ((agentName.contains("msie") || agentName.contains("applewebkit") || agentName.contains("safari") || 
+              agentName.contains("trident"))&&!(agentName.contains("chrome")))
             isGecko = false;
+          
           // boolean isIE = CoreRenderer.isIE(RenderingContext.getCurrentInstance());
           String encodeHTTPHeaderFilename = MimeUtility.encodeHTTPHeader(filename, !isGecko);
           // double quotes are needed in case the filename is long. otherwise the filename gets
