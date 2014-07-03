@@ -427,30 +427,39 @@ public final class GlobalConfiguratorImpl
           _setupRequestContextFactory();
 
           // Create a new SkinFactory if needed.
+          // SkinFactory is now deprecated. For backward compatibility, SkinFactory internally
+          // calls SkinProvider. So when we init SkinFactory we need to init SkinProvider as well.
+          // SkinProviderRegistry is the implementation of SkinProvider. This in turn needs other
+          // internal SkinProviders such as ExternalSkinProvider, TrinidadSkinProvider to be
+          // available. So we init all of that one by one.
           if (SkinFactory.getFactory() == null)
           {
             SkinFactory.setFactory(new SkinFactoryImpl());
           }
 
-          // init external skin provider
-          // this has to be done before SkinProviderRegistry, because SkinProviderRegistry uses this
-          Object externalSkinProvider = ec.getApplicationMap().get(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY);
+          // init external skin provider before init of SkinProviderRegistry
+          Object externalSkinProvider = ec.getApplicationMap()
+                                          .get(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY);
 
           if (externalSkinProvider == null)
-            ec.getApplicationMap().put(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY, new ExternalSkinProvider());
+            ec.getApplicationMap().put(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY,
+                                       new ExternalSkinProvider());
 
-          // init trinidad skin provider
-          // this has to be done before SkinProviderRegistry, because SkinProviderRegistry uses this
-          Object trinidadSkinProvider = ec.getApplicationMap().get(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY);
+          // init trinidad skin provider before init of SkinProviderRegistry
+          Object trinidadSkinProvider = ec.getApplicationMap()
+                                          .get(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY);
 
           if (trinidadSkinProvider == null)
-            ec.getApplicationMap().put(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY, new TrinidadSkinProvider());
+            ec.getApplicationMap().put(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY,
+                                       new TrinidadSkinProvider());
 
           // init skin provider
-          Object provider = ec.getApplicationMap().get(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY);
+          Object provider = ec.getApplicationMap()
+                              .get(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY);
 
           if (provider == null)
-            ec.getApplicationMap().put(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY, new SkinProviderRegistry());
+            ec.getApplicationMap().put(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY,
+                                       new SkinProviderRegistry());
 
           // init the config property service
           ConfigPropertyServiceImpl.initialize(ec);

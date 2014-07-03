@@ -28,6 +28,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.el.ELContext;
@@ -257,9 +258,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   /**
    * Adds a SkinAddition on this Skin. You can call this method as many times
    * as you like for the Skin, and it will add the SkinAddition to the list of
-   * SkinAdditions.
-   * However, it does not make sense to call this method more than once
-   * with the same SkinAddition object.
+   * SkinAdditions, if it is unique.
    * This is meant for the skin-addition use-cases, where a custom component
    * developer has a style sheet and/or resource bundle for their custom
    * components, and they want the style sheet and/or resource bundle
@@ -274,23 +273,19 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
    * @throws NullPointerException if SkinAddition is null.
    */
   @Override
-  public void addSkinAddition (
-    SkinAddition skinAddition
-    )
+  public void addSkinAddition(SkinAddition skinAddition)
   {
-     if (skinAddition == null)
-       throw new NullPointerException("NULL_SKINADDITION");
+    if (skinAddition == null)
+      throw new NullPointerException("NULL_SKINADDITION");
 
-     if (_skinAdditions == null)
-     {
-       _skinAdditions = new ArrayList<SkinAddition>();
-     }
-   
-    //The following code will insert SkinAddition objects in order according to
-    //comparable.  This yields log(n) performance for ArrayList which is as good
-    //as it gets for this type of insertion.
-    int insertionPoint = Collections.binarySearch(_skinAdditions, skinAddition, null);
-    _skinAdditions.add((insertionPoint > -1) ? insertionPoint : (-insertionPoint) - 1, skinAddition);
+    // _skinAdditions is set as ConcurrentSkipListSet.
+    // will insert SkinAddition objects in order according to
+    // comparable.  This yields log(n) performance which is as good
+    // as it gets for this type of insertion.
+    if (_skinAdditions.add(skinAddition) && _LOG.isInfo())
+    {
+      _LOG.info("ADDED_SKIN_ADDITION", new Object[]{skinAddition, this});
+    }
   }
 
   /**
@@ -308,7 +303,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
       return Collections.emptyList();
     }
     else
-      return Collections.unmodifiableList(_skinAdditions);
+      return Collections.unmodifiableList(new ArrayList<SkinAddition>(_skinAdditions));
   }
 
    /**
@@ -1361,8 +1356,9 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   // plus all the SkinAdditions translation sources.
   private List<TranslationSource> _translationSourceList;
 
-  // List of skin-additions for this Skin
-  private List<SkinAddition> _skinAdditions;
+  // Set of skin-additions for this Skin
+  // creating the set here in order to make creation of this set thread-safe
+  private Set<SkinAddition> _skinAdditions = new ConcurrentSkipListSet<SkinAddition>();
 
   // Optional features for rendering
   protected Map<String, String> _skinFeatures;
@@ -1372,9 +1368,9 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   private ConcurrentHashMap<Object, Object> _properties= new ConcurrentHashMap<Object, Object>();
 
   private boolean _dirty;
-  
+
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinImpl.class);
-  
+
   private static final String _FORCE_DISABLE_CONTENT_COMPRESSION_PARAM="org.apache.myfaces.trinidad.skin.disableStyleCompression";
 
 }

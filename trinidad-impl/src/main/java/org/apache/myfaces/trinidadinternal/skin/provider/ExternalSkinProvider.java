@@ -43,23 +43,18 @@ import org.apache.myfaces.trinidadinternal.config.GlobalConfiguratorImpl;
 public class ExternalSkinProvider extends BaseSkinProvider
 {
   /**
+   * Key for the ExternalSkinProvider stored in ExternalContext
+   */
+  public static final String EXTERNAL_SKIN_PROVIDER_KEY =
+    "org.apache.myfaces.trinidad.skin.EXTERNAL_SKIN_PROVIDER_INSTANCE";
+
+  /**
    * {@inheritDoc}
    */
   @Override
   public Skin getSkin(ExternalContext context, SkinMetadata skinMetadata)
   {
-    synchronized (this)
-    {
-      Skin skin = super.getSkin(context, skinMetadata);
-
-      // ensure that the skin's and its parent's skin additions are added before we return.
-      // see _ensureSkinAdditions method documentation for more information on why we need to do
-      // this.
-      if (skin != null)
-        _ensureSkinAdditions(context, skin);
-
-      return skin;
-    }
+    return super.getSkin(context, skinMetadata);
   }
 
   /**
@@ -130,39 +125,6 @@ public class ExternalSkinProvider extends BaseSkinProvider
     return esp;
   }
 
-  /**
-   * {@link org.apache.myfaces.trinidad.config.Configurator} allows access to SkinFactory in its
-   * init() and reloadSkin() API. These are now deprecated. But for existing use cases where user
-   * registers Skins during init() of Configurator, they obtains their base skin by doing something
-   * like SkinFactory.getSkin(null, "simple.desktop"); Then custom skin is created using the simple
-   * skin as base and put it into SkinFactory using SkinFactory.addSkin method. All skins registered
-   * using SkinFactory.addSkin method lands up here in ExternalSkinProvider. Such skins will not
-   * have the skin additions registered in trinidad-skins.xml because TrinidadSkinProvider was not
-   * able to kick in and provide this information. So we need to ensure that skins returned from
-   * ExternalSkinProvider the skin additions for that skin and its base skins are added, before we
-   * return them to the caller.
-   *
-   * @param context
-   * @param skin
-   * @return
-   */
-  private Skin _ensureSkinAdditions(ExternalContext context, Skin skin)
-  {
-    // It is possible to optimize here by keeping track of skins which already went through
-    // this process. Such optimization will avoid repeating this operation for skins which already
-    // went through this. However, this is a corner case as there are not many skins are registered
-    // like this. Moreover we are deprecating SkinFactory.addSkin and it may be removed
-    // in a later release, so there is no point in adding premature optimization.
-    TrinidadSkinProvider trinidadSkinProvider = TrinidadSkinProvider.getCurrentInstance(context);
-    trinidadSkinProvider.ensureSkinAdditions(skin);
-    return skin;
-  }
-
-  /**
-   * Key for the ExternalSkinProvider stored in ExternalContext
-   */
-  public static final  String         EXTERNAL_SKIN_PROVIDER_KEY =
-    "org.apache.myfaces.trinidad.skin.EXTERNAL_SKIN_PROVIDER_INSTANCE";
-  private static final TrinidadLogger _LOG                       =
+  private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(ExternalSkinProvider.class);
 }

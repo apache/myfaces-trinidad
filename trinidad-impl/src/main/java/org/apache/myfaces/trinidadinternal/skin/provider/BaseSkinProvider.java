@@ -42,7 +42,7 @@ import org.apache.myfaces.trinidad.skin.SkinVersion;
  * @See TrinidadSkinProvider
  * @See ExternalSkinProvider
  */
-public abstract class BaseSkinProvider extends SkinProvider
+abstract class BaseSkinProvider extends SkinProvider
 {
   public BaseSkinProvider()
   {
@@ -192,8 +192,8 @@ public abstract class BaseSkinProvider extends SkinProvider
       _LOG.fine("SP_FINDING_SKIN_FOR", new Object[]{searchMetadata.toString()});
 
     // first check if a skin matching the requirement is present in this provider
-    SkinMetadata availableMetadata = _findSkinMetadata(context, searchMetadata);
 
+    SkinMetadata availableMetadata = _findSkinMetadata(context, searchMetadata);
     if (availableMetadata == null)
     {
       if (_LOG.isFine())

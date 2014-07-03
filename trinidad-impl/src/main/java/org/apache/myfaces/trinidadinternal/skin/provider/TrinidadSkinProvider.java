@@ -46,7 +46,7 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
    * Key for the TrinidadSkinProvider stored in ExternalContext
    */
   public static final String TRINDIAD_SKIN_PROVIDER_KEY =
-    "org.apache.myfaces.trinidad.skin.TRINDIAD_SKIN_PROVIDER_INSTANCE";
+    "org.apache.myfaces.trinidad.skin.TRINIDAD_SKIN_PROVIDER_INSTANCE";
 
   /**
    * static factory method to get hold of a TrinidadSkinProvider object This can be used for easy
@@ -63,24 +63,6 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
     TrinidadSkinProvider trinidadSkinProvider =
       (TrinidadSkinProvider) ec.getApplicationMap().get(TRINDIAD_SKIN_PROVIDER_KEY);
     return trinidadSkinProvider;
-  }
-
-  /**
-   * used by ExternalSkinProvider to ensure that the skin and its base skin additions are added
-   * correctly
-   *
-   * @param skin
-   */
-  public void ensureSkinAdditions(Skin skin)
-  {
-    if (_skinAdditionNodes == null || _skinAdditionNodes.isEmpty())
-      return;
-
-    for (SkinAddition addition : _skinAdditionNodes)
-    {
-      // skin additions in _skinAdditionNodes will not be null
-      _checkAndAddInHierarchy(skin, addition);
-    }
   }
 
   /**
@@ -148,31 +130,7 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
       _LOG.fine("Creating skin extension for : " + skinMetadata);
 
     // features object itself cannot be null
-    Skin loadedSkin = new SkinExtension(baseSkin, matchingNode);
-
-    if (_skinAdditionNodes != null)
-      for (SkinAddition addition : _skinAdditionNodes)
-      {
-        String additionSkinId = addition.getSkinId();
-
-        if (id.equals(additionSkinId))
-        {
-          if (_LOG.isFine())
-            _LOG.fine("Adding skin addition : " + addition);
-
-          loadedSkin.addSkinAddition(addition);
-        }
-
-        if (baseSkinId.equals(additionSkinId))
-        {
-          boolean added = SkinUtils.addSkinAdditionToSkinIfAbsent(baseSkin, addition);
-
-          if (added && _LOG.isFine())
-            _LOG.fine("Adding parent skin addition: " + addition);
-        }
-      }
-
-    return loadedSkin;
+    return new SkinExtension(baseSkin, matchingNode);
   }
 
   /**
@@ -223,6 +181,23 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
     }
   }
 
+  /**
+   * used to ensure that the skin and its base skin additions are added correctly
+   * This is called at the exit point of SkinProviderRegistry
+   * @param skin
+   */
+  void ensureSkinAdditions(Skin skin)
+  {
+    if (_skinAdditionNodes == null || _skinAdditionNodes.isEmpty())
+      return;
+
+    for (SkinAddition addition : _skinAdditionNodes)
+    {
+      // skin additions in _skinAdditionNodes will not be null
+      _checkAndAddInHierarchy(skin, addition);
+    }
+  }
+
   private void _checkAndAddInHierarchy(Skin skin, SkinAddition addition)
   {
     // exit condition for the recursive call
@@ -233,10 +208,7 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
 
     if (skinId != null && skinId.equals(skin.getId()))
     {
-      boolean added = SkinUtils.addSkinAdditionToSkinIfAbsent(skin, addition);
-
-      if (added && _LOG.isFine())
-        _LOG.fine("Adding skin addition : " + addition);
+      skin.addSkinAddition(addition);
     }
 
     _checkAndAddInHierarchy(skin.getBaseSkin(), addition);

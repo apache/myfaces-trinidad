@@ -335,7 +335,7 @@ public class SkinAddition implements Comparable
   }
 
   /**
-   * convinience builder for SkinAddition
+   * convenience builder for SkinAddition
    * does not support the deprecated ValueBinding for translationSource
    */
   public static class Builder

@@ -122,32 +122,6 @@ public class SkinUtils
   }
 
   /**
-   * Adds skinAddition passed into the skin object passed, if the skin object does not have the same
-   * skin addition already.
-   *
-   * @param skin
-   * @param skinAddition
-   * @return true if the SkinAddition was added into Skin and false if it was not.
-   */
-  static public boolean addSkinAdditionToSkinIfAbsent(Skin skin, SkinAddition skinAddition)
-  {
-    if (skin == null || skinAddition == null)
-      throw new NullPointerException("Skin or SkinAddition passed is null");
-
-    List<SkinAddition> additions = skin.getSkinAdditions();
-
-    if (skinAddition != null)
-    {
-      for (SkinAddition addn : additions)
-        if (addn != null && addn.equals(skinAddition))
-          return false;
-    }
-
-    skin.addSkinAddition(skinAddition);
-    return true;
-  }
-
-  /**
    * @param provider    skin provider
    * @param context     faces context
    * @param renderKitId renderKit Id for default skin

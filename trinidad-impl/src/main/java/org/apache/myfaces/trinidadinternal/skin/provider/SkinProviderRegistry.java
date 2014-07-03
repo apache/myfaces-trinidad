@@ -50,7 +50,7 @@ public class SkinProviderRegistry extends SkinProvider
 
   public SkinProviderRegistry()
   {
-    ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+    ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
     List<SkinProvider> services = ClassLoaderUtils.getServices(SkinProvider.class.getName());
 
     if (_LOG.isFine())
@@ -64,34 +64,35 @@ public class SkinProviderRegistry extends SkinProvider
     if (_LOG.isFine())
       _LOG.fine("Adding TrinidadSkinProvider... ");
 
-    providers.add(TrinidadSkinProvider.getCurrentInstance(context));
+    providers.add(TrinidadSkinProvider.getCurrentInstance(externalContext));
 
     if (_LOG.isFine())
       _LOG.fine("Adding TrinidadBaseSkinProvider... ");
 
+    // this provider serves static base skins, so we can create a new instance here
     providers.add(new TrinidadBaseSkinProvider());
 
     if (_LOG.isFine())
       _LOG.fine("Adding ExternalSkinProvider... ");
 
-    providers.add(ExternalSkinProvider.getCurrentInstance(context));
+    providers.add(ExternalSkinProvider.getCurrentInstance(externalContext));
 
     _providers = Collections.unmodifiableList(providers);
   }
 
   @Override
-  public Collection<SkinMetadata> getSkinMetadata(ExternalContext context)
+  public Collection<SkinMetadata> getSkinMetadata(ExternalContext externalContext)
   {
     Collection<SkinMetadata> metadata = new ArrayList<SkinMetadata>();
 
     for (SkinProvider provider : _providers)
-      metadata.addAll(provider.getSkinMetadata(context));
+      metadata.addAll(provider.getSkinMetadata(externalContext));
 
     return Collections.unmodifiableCollection(metadata);
   }
 
   /**
-   * @param context
+   * @param externalContext
    * @param skinMetadata search criteria object containing the information of skin to be queried id,
    *                     family, renderKit, version are the information used from skin metadata to
    *                     perform search for the skin requested. Other fields do not participate in
@@ -101,7 +102,7 @@ public class SkinProviderRegistry extends SkinProvider
    * automatically assumes it as SkinMetadata.RenderKitId.DESKTOP
    */
   @Override
-  public Skin getSkin(ExternalContext context, SkinMetadata skinMetadata)
+  public Skin getSkin(ExternalContext externalContext, SkinMetadata skinMetadata)
   {
     _handleCircularDependency(skinMetadata);
 
@@ -113,7 +114,7 @@ public class SkinProviderRegistry extends SkinProvider
 
     for (SkinProvider provider : _providers)
     {
-      matchingSkin = provider.getSkin(context, skinMetadata);
+      matchingSkin = provider.getSkin(externalContext, skinMetadata);
 
       if (matchingSkin != null)
       {
@@ -143,12 +144,14 @@ public class SkinProviderRegistry extends SkinProvider
         _LOG.fine("NO MATCH. Will return a simple skin or null for skin metadata: " + skinMetadata);
 
       assert (skinMetadata.getRenderKitId() != null);
+
       // if renderKit is available return the simple skin for that renderKit
       // skinMetadata.getRenderKitId() can never be null, default renderKit will always be DESKTOP
-      return _returnSkin(skinMetadata,
-                         SkinUtils.getDefaultSkinForRenderKitId(this,
-                                                                context,
-                                                                skinMetadata.getRenderKitId()));
+      matchingSkin = SkinUtils.getDefaultSkinForRenderKitId(this,
+                                                            externalContext,
+                                                            skinMetadata.getRenderKitId());
+      _processSkinForReturn(skinMetadata, matchingSkin);
+      return matchingSkin;
     }
 
 
@@ -160,12 +163,15 @@ public class SkinProviderRegistry extends SkinProvider
       if (_LOG.isFine())
         _LOG.fine("returning ONLY match for skin metadata: " + skinMetadata);
 
-      return _returnSkin(skinMetadata, matchingSkins.get(0));
+
+      matchingSkin = matchingSkins.get(0);
+      _processSkinForReturn(skinMetadata, matchingSkin);
+      return matchingSkin;
     }
 
     // at this point we have more than one matches for the search criteria passed
     // so, extract the best match based on version
-    return _versionFilter(context, skinMetadata, matchingSkins);
+    return _versionFilter(skinMetadata, matchingSkins);
   }
 
   /**
@@ -276,13 +282,11 @@ public class SkinProviderRegistry extends SkinProvider
    * not mentioned or version is default try to return default skin else try to return leaf skin
    * else return first match
    *
-   * @param context
    * @param searchCriteria
    * @param matchingSkins
    * @return
    */
-  private Skin _versionFilter(ExternalContext context,
-                              SkinMetadata searchCriteria,
+  private Skin _versionFilter(SkinMetadata searchCriteria,
                               List<Skin> matchingSkins)
   {
     SkinVersion version = searchCriteria.getVersion();
@@ -298,7 +302,8 @@ public class SkinProviderRegistry extends SkinProvider
       if (_LOG.isFine())
         _LOG.fine("returning exact version match.");
 
-      return _returnSkin(searchCriteria, matchingSkin);
+      _processSkinForReturn(searchCriteria, matchingSkin);
+      return matchingSkin;
     }
 
     // either user is looking for default version or did not find the version requested
@@ -310,7 +315,8 @@ public class SkinProviderRegistry extends SkinProvider
     {
       if (_LOG.isFine())
         _LOG.fine("returning DEFAULT version match.");
-      return _returnSkin(searchCriteria, matchingSkin);
+      _processSkinForReturn(searchCriteria, matchingSkin);
+      return matchingSkin;
     }
 
     // the version that user asked for is not available
@@ -323,20 +329,45 @@ public class SkinProviderRegistry extends SkinProvider
       if (_LOG.isFine())
         _LOG.fine("return LEAF skin or one of the matches.");
 
-      return _returnSkin(searchCriteria, matchingSkin);
+      _processSkinForReturn(searchCriteria, matchingSkin);
+      return matchingSkin;
     }
 
     // we failed to find any better result for the given version, so return first match
     if (_LOG.isFine())
       _LOG.fine("nothing worked so return first match.");
 
-    return _returnSkin(searchCriteria, matchingSkins.get(0));
+    matchingSkin = matchingSkins.get(0);
+    _processSkinForReturn(searchCriteria, matchingSkins.get(0));
+    return matchingSkin;
   }
 
-  private Skin _returnSkin(SkinMetadata skinMetadata, Skin skin)
+  /**
+   * This method processes a skin that is being returned from the provider.
+   * 1. remove the skin from the context tracking
+   * 2. add any missing skin additions to the skin
+   * @param skinMetadata
+   * @return
+   */
+  private void _processSkinForReturn(SkinMetadata skinMetadata,
+                                     Skin skin)
   {
     FacesContext context = FacesContext.getCurrentInstance();
+    _clearReturningSkinContext(context, skinMetadata);
 
+    // before returning the skin, ensure that all skin additions defined in trinidad-skins.xml
+    // are added.
+    TrinidadSkinProvider.getCurrentInstance(context.getExternalContext()).ensureSkinAdditions(skin);
+  }
+
+  /**
+   * We track the skin being requested to build the hierarchy so that we can identify circular
+   * dependencies. This method clears the information for the present Skin that is being returned.
+   * @param context
+   * @param skinMetadata
+   */
+  private void _clearReturningSkinContext(FacesContext context, SkinMetadata skinMetadata)
+  {
     Map attrMap = context.getAttributes();
     Object o = attrMap.get(_SKIN_PROVIDER_CONTEXT);
     List<SkinMetadata> requesters;
@@ -353,8 +384,6 @@ public class SkinProviderRegistry extends SkinProvider
         _LOG.finer("Context now is " + requesters);
       }
     }
-
-    return skin;
   }
 
   /**
@@ -458,6 +487,13 @@ public class SkinProviderRegistry extends SkinProvider
     return null;
   }
 
+  /**
+   * We track the skin being requested to build the hierarchy so that we can identify circular
+   * dependencies. This method adds the currently requested skin into the context. If a skin is
+   * re-requested, then an exception will be thrown
+   * @param skinMetadata
+   * @throws IllegalStateException if a circular dependency is detected
+   */
   private void _handleCircularDependency(SkinMetadata skinMetadata)
   {
     FacesContext context = FacesContext.getCurrentInstance();
@@ -475,7 +511,7 @@ public class SkinProviderRegistry extends SkinProvider
 
     if (requesters.contains(skinMetadata))
     {
-      String message = "Circlular dependency detected whille loading skin: " + skinMetadata
+      String message = "Circular dependency detected while loading skin: " + skinMetadata
                          + ". Requesters are: " + requesters;
       if (_LOG.isSevere())
         _LOG.severe(message);
