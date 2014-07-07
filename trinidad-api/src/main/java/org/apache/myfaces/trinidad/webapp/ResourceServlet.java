@@ -240,6 +240,14 @@ public class ResourceServlet extends HttpServlet
     connection.setDoInput(true);
     connection.setDoOutput(false);
 
+    //We need to do a connect here.  Some connections, like file connections and
+    //whatnot may have header information right away.  Other connections, like
+    //to external resources, will not have been able to connect until this is called.
+    //The reason this worked before is the getInputStream implicitly called the
+    //connect, but the header information which was returned would before the stream
+    //was obtained would not be avialble.
+    connection.connect();    
+ 
     _setHeaders(connection, response, loader);
 
     InputStream in = connection.getInputStream();
