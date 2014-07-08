@@ -8,6 +8,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -106,6 +107,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -205,6 +207,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -303,6 +306,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -401,6 +405,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -499,6 +504,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -605,6 +611,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -703,6 +710,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio p_AFDisabled"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -805,6 +813,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -903,6 +912,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1019,6 +1029,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1117,6 +1128,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1206,6 +1218,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1304,6 +1317,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1402,6 +1416,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio p_AFReadOnly"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1453,6 +1468,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1551,6 +1567,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1655,6 +1672,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1753,6 +1771,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1851,6 +1870,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1949,6 +1969,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2053,6 +2074,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2157,6 +2179,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2261,6 +2284,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2365,6 +2389,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              style="background-color:red"
              summary=""
              width="100%"
@@ -2464,6 +2489,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              title="test-shortDesc"
              width="100%"
@@ -2574,6 +2600,7 @@
              cellpadding="0"
              cellspacing="0"
              class="test-styleClass af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2672,6 +2699,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2773,6 +2801,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2874,6 +2903,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2975,6 +3005,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3074,6 +3105,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3175,6 +3207,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3274,6 +3307,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3373,6 +3407,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3472,6 +3507,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3571,6 +3607,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3670,6 +3707,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3769,6 +3807,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3868,6 +3907,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneRadio"
+             role="presentation"
              summary=""
              width="100%"
             >

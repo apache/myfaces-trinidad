@@ -5,6 +5,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -48,6 +49,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -91,6 +93,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -140,6 +143,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -184,6 +188,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -227,6 +232,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio p_AFDisabled"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -271,6 +277,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -319,6 +326,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -362,6 +370,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -405,6 +414,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio p_AFReadOnly"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -450,6 +460,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -493,6 +504,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -542,6 +554,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -585,6 +598,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -629,6 +643,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -677,6 +692,7 @@
            cellspacing="0"
            class="test-styleClass af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            style="color:red"
            summary=""
           >
@@ -732,6 +748,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -775,6 +792,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -824,6 +842,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="test-id__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -867,6 +886,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
            title="test-shortDesc"
           >
@@ -918,6 +938,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -962,6 +983,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1006,6 +1028,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1050,6 +1073,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1094,6 +1118,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1138,6 +1163,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1182,6 +1208,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1226,6 +1253,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1270,6 +1298,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1314,6 +1343,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1358,6 +1388,7 @@
            cellspacing="0"
            class="af_selectBooleanRadio"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         

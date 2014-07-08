@@ -7,6 +7,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -28,6 +29,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   role="presentation"
                    summary=""
                   >
                 
@@ -46,6 +48,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_selectBooleanCheckbox"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -106,6 +109,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_selectBooleanCheckbox"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -170,6 +174,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_inputText"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -241,6 +246,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -267,6 +273,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   role="presentation"
                    summary=""
                   >
                 
@@ -285,6 +292,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_selectBooleanCheckbox"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -345,6 +353,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_selectBooleanCheckbox"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -409,6 +418,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_inputText"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -480,6 +490,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -502,6 +513,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   role="presentation"
                    summary=""
                   >
                 
@@ -520,6 +532,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_selectBooleanCheckbox"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -580,6 +593,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_selectBooleanCheckbox"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -644,6 +658,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_inputText"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -715,6 +730,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -736,6 +752,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   role="presentation"
                    summary=""
                   >
                 
@@ -754,6 +771,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_selectBooleanCheckbox"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -814,6 +832,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_selectBooleanCheckbox"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -878,6 +897,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_inputText"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -951,6 +971,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -972,6 +993,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   role="presentation"
                    summary=""
                   >
                 
@@ -990,6 +1012,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_selectBooleanCheckbox"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -1050,6 +1073,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_selectBooleanCheckbox"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -1114,6 +1138,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_inputText"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -1185,6 +1210,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              title="test-shortDesc"
              width="100%"
@@ -1207,6 +1233,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   role="presentation"
                    summary=""
                   >
                 
@@ -1225,6 +1252,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_selectBooleanCheckbox"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -1285,6 +1313,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_selectBooleanCheckbox"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >
@@ -1349,6 +1378,7 @@
                            cellpadding="0"
                            cellspacing="0"
                            class="af_inputText"
+                           role="presentation"
                            summary=""
                            width="100%"
                           >

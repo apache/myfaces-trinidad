@@ -8,6 +8,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -79,6 +80,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -146,6 +148,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -217,6 +220,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -288,6 +292,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -359,6 +364,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -436,6 +442,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -507,6 +514,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice p_AFDisabled"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -579,6 +587,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -655,6 +664,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -726,6 +736,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -797,6 +808,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice p_AFReadOnly"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -847,6 +859,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -918,6 +931,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -995,6 +1009,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1066,6 +1081,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1137,6 +1153,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1208,6 +1225,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1285,6 +1303,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1362,6 +1381,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1439,6 +1459,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1516,6 +1537,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              style="background-color:red"
              summary=""
              width="100%"
@@ -1588,6 +1610,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              title="test-shortDesc"
              width="100%"
@@ -1661,6 +1684,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1733,6 +1757,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1805,6 +1830,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1877,6 +1903,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1949,6 +1976,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2021,6 +2049,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2093,6 +2122,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2165,6 +2195,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2237,6 +2268,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2309,6 +2341,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2381,6 +2414,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectOneChoice"
+             role="presentation"
              summary=""
              width="100%"
             >

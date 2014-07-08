@@ -5,6 +5,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -43,6 +44,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -81,6 +83,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -130,6 +133,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -168,6 +172,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -209,6 +214,7 @@
            cellspacing="0"
            class="af_inputText"
            id="id_val__xc_"
+           role="presentation"
           >
         
         <tr
@@ -247,6 +253,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
            style="background-color:red"
           >
         
@@ -286,6 +293,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -324,6 +332,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
            title="shortDesc_val"
           >
         
@@ -364,6 +373,7 @@
            cellspacing="0"
            class="styleClass_val af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -402,6 +412,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -440,6 +451,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -483,6 +495,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -521,6 +534,7 @@
            cellspacing="0"
            class="af_inputText p_AFDisabled"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -560,6 +574,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -598,6 +613,7 @@
            cellspacing="0"
            class="af_inputText p_AFReadOnly"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -636,6 +652,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -675,6 +692,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -714,6 +732,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -753,6 +772,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -791,6 +811,7 @@
            cellspacing="0"
            class="af_inputText p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -835,6 +856,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -873,6 +895,7 @@
            cellspacing="0"
            class="af_inputText p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -917,6 +940,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -955,6 +979,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -994,6 +1019,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1033,6 +1059,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1072,6 +1099,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1111,6 +1139,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1150,6 +1179,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1189,6 +1219,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1228,6 +1259,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1267,6 +1299,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1306,6 +1339,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1345,6 +1379,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1384,6 +1419,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1423,6 +1459,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1462,6 +1499,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1501,6 +1539,7 @@
            cellspacing="0"
            class="OraErrorText af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1539,6 +1578,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1577,6 +1617,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1615,6 +1656,7 @@
            cellspacing="0"
            class="af_inputText p_AFDisabled"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1654,6 +1696,7 @@
            cellspacing="0"
            class="af_inputText"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1692,6 +1735,7 @@
            cellspacing="0"
            class="af_inputText p_AFReadOnly"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr

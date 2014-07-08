@@ -4,6 +4,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
           >
         
         <tr
@@ -81,6 +82,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
           >
         
         <tr
@@ -176,6 +178,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
           >
         
         <tr
@@ -240,6 +243,7 @@
            cellpadding="0"
            cellspacing="0"
            id="test-id"
+           role="presentation"
           >
         
         <tr
@@ -309,6 +313,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            title="test-shortDesc"
           >
         

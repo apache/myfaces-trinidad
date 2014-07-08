@@ -4,6 +4,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
           >
         
         <tr
@@ -36,6 +37,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
           >
         
         <tr
@@ -68,6 +70,7 @@
            cellpadding="5"
            cellspacing="0"
            id="mainId"
+           role="presentation"
           >
         
         <tr
@@ -100,6 +103,7 @@
            cellpadding="0"
            cellspacing="5"
            id="mainId"
+           role="presentation"
           >
         
         <tr
@@ -133,6 +137,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
           >
         
         <tr
@@ -166,6 +171,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
           >
         
         <tr
@@ -199,6 +205,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
           >
         
         <tr
@@ -232,6 +239,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
           >
         
         <tr
@@ -265,6 +273,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
           >
         
         <tr
@@ -329,6 +338,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            width="50%"
           >
         
@@ -362,6 +372,7 @@
            cellpadding="0"
            cellspacing="0"
            id="myTableId"
+           role="presentation"
           >
         
         <tr
@@ -394,6 +405,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            style="background-color:blue"
           >
         
@@ -427,6 +439,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            title="myShortDesc"
           >
         
@@ -461,6 +474,7 @@
            cellspacing="0"
            class="myStyle"
            id="mainId"
+           role="presentation"
           >
         
         <tr
@@ -494,6 +508,7 @@
            cellspacing="0"
            id="mainId"
            onclick="test-onclick"
+           role="presentation"
           >
         
         <tr
@@ -527,6 +542,7 @@
            cellspacing="0"
            id="mainId"
            ondblclick="test-ondblclick"
+           role="presentation"
           >
         
         <tr
@@ -560,6 +576,7 @@
            cellspacing="0"
            id="mainId"
            onkeydown="test-onkeydown"
+           role="presentation"
           >
         
         <tr
@@ -593,6 +610,7 @@
            cellspacing="0"
            id="mainId"
            onkeypress="test-onkeypress"
+           role="presentation"
           >
         
         <tr
@@ -626,6 +644,7 @@
            cellspacing="0"
            id="mainId"
            onkeyup="test-onkeyup"
+           role="presentation"
           >
         
         <tr
@@ -659,6 +678,7 @@
            cellspacing="0"
            id="mainId"
            onmousedown="test-onmousedown"
+           role="presentation"
           >
         
         <tr
@@ -692,6 +712,7 @@
            cellspacing="0"
            id="mainId"
            onmousemove="test-onmousemove"
+           role="presentation"
           >
         
         <tr
@@ -725,6 +746,7 @@
            cellspacing="0"
            id="mainId"
            onmouseout="test-onmouseout"
+           role="presentation"
           >
         
         <tr
@@ -758,6 +780,7 @@
            cellspacing="0"
            id="mainId"
            onmouseover="test-onmouseover"
+           role="presentation"
           >
         
         <tr
@@ -791,6 +814,7 @@
            cellspacing="0"
            id="mainId"
            onmouseup="test-onmouseup"
+           role="presentation"
           >
         
         <tr

@@ -29,6 +29,7 @@
            cellspacing="0"
            class="af_panelGroupLayout"
            id="mainId"
+           role="presentation"
            summary=""
           >
         

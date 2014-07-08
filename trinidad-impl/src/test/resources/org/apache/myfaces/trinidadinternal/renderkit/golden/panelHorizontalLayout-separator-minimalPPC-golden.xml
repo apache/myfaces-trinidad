@@ -4,6 +4,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -50,6 +51,7 @@
            cellspacing="0"
            id="mainId"
            onclick="test-onclick"
+           role="presentation"
            summary=""
           >
         
@@ -96,6 +98,7 @@
            cellspacing="0"
            id="mainId"
            ondblclick="test-ondblclick"
+           role="presentation"
            summary=""
           >
         
@@ -142,6 +145,7 @@
            cellspacing="0"
            id="mainId"
            onkeydown="test-onkeydown"
+           role="presentation"
            summary=""
           >
         
@@ -188,6 +192,7 @@
            cellspacing="0"
            id="mainId"
            onkeypress="test-onkeypress"
+           role="presentation"
            summary=""
           >
         
@@ -234,6 +239,7 @@
            cellspacing="0"
            id="mainId"
            onkeyup="test-onkeyup"
+           role="presentation"
            summary=""
           >
         
@@ -280,6 +286,7 @@
            cellspacing="0"
            id="mainId"
            onmousedown="test-onmousedown"
+           role="presentation"
            summary=""
           >
         
@@ -326,6 +333,7 @@
            cellspacing="0"
            id="mainId"
            onmousemove="test-onmousemove"
+           role="presentation"
            summary=""
           >
         
@@ -372,6 +380,7 @@
            cellspacing="0"
            id="mainId"
            onmouseout="test-onmouseout"
+           role="presentation"
            summary=""
           >
         
@@ -418,6 +427,7 @@
            cellspacing="0"
            id="mainId"
            onmouseover="test-onmouseover"
+           role="presentation"
            summary=""
           >
         
@@ -464,6 +474,7 @@
            cellspacing="0"
            id="mainId"
            onmouseup="test-onmouseup"
+           role="presentation"
            summary=""
           >
         
@@ -510,6 +521,7 @@
            cellspacing="0"
            class="test-styleClass"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -555,6 +567,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            summary=""
            title="test-shortDesc"
           >
@@ -601,6 +614,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            style="background-color:red"
            summary=""
           >
@@ -647,6 +661,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -697,6 +712,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -747,6 +763,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -797,6 +814,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -847,6 +865,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -892,6 +911,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -937,6 +957,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -982,6 +1003,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -1028,6 +1050,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            summary=""
           >
         

@@ -5,6 +5,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -48,6 +49,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -92,6 +94,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -135,6 +138,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -184,6 +188,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -228,6 +233,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -271,6 +277,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox p_AFDisabled"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -315,6 +322,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -363,6 +371,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -406,6 +415,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox p_AFReadOnly"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -450,6 +460,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -493,6 +504,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -542,6 +554,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -585,6 +598,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -629,6 +643,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -677,6 +692,7 @@
            cellspacing="0"
            class="test-styleClass af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            style="color:red"
            summary=""
           >
@@ -732,6 +748,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -775,6 +792,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -824,6 +842,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="test-id__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -867,6 +886,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
            title="test-shortDesc"
           >
@@ -918,6 +938,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -962,6 +983,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1006,6 +1028,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1050,6 +1073,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1094,6 +1118,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1138,6 +1163,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1182,6 +1208,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1226,6 +1253,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1270,6 +1298,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1314,6 +1343,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1358,6 +1388,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1402,6 +1433,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1446,6 +1478,7 @@
            cellspacing="0"
            class="af_selectBooleanCheckbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         

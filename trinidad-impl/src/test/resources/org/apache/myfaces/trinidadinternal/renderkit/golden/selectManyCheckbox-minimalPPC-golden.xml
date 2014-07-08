@@ -8,6 +8,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -106,6 +107,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -205,6 +207,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -260,6 +263,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -358,6 +362,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -456,6 +461,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -545,6 +551,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -643,6 +650,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -741,6 +749,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -847,6 +856,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -945,6 +955,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox p_AFDisabled"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1047,6 +1058,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1145,6 +1157,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1243,6 +1256,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1341,6 +1355,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox p_AFReadOnly"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1392,6 +1407,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1490,6 +1506,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1594,6 +1611,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1692,6 +1710,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1790,6 +1809,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1894,6 +1914,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1998,6 +2019,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2102,6 +2124,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2206,6 +2229,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2304,6 +2328,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              style="background-color:red"
              summary=""
              width="100%"
@@ -2403,6 +2428,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              title="test-shortDesc"
              width="100%"
@@ -2513,6 +2539,7 @@
              cellpadding="0"
              cellspacing="0"
              class="test-styleClass af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2611,6 +2638,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2712,6 +2740,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2813,6 +2842,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2914,6 +2944,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3013,6 +3044,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3114,6 +3146,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3213,6 +3246,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3312,6 +3346,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3411,6 +3446,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3510,6 +3546,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3609,6 +3646,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3708,6 +3746,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3807,6 +3846,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectManyCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >

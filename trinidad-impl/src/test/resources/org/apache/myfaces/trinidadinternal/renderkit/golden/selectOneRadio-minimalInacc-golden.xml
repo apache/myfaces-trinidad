@@ -5,6 +5,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -87,6 +88,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -170,6 +172,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -252,6 +255,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -334,6 +338,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -416,6 +421,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -505,6 +511,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -587,6 +594,7 @@
            cellspacing="0"
            class="af_selectOneRadio p_AFDisabled"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -673,6 +681,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -755,6 +764,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -855,6 +865,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -945,6 +956,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1018,6 +1030,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1100,6 +1113,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1182,6 +1196,7 @@
            cellspacing="0"
            class="af_selectOneRadio p_AFReadOnly"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1217,6 +1232,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1299,6 +1315,7 @@
            cellspacing="0"
            class="af_selectOneRadio p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1387,6 +1404,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="test-id__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1469,6 +1487,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1551,6 +1570,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1633,6 +1653,7 @@
            cellspacing="0"
            class="af_selectOneRadio p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1721,6 +1742,7 @@
            cellspacing="0"
            class="af_selectOneRadio p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1809,6 +1831,7 @@
            cellspacing="0"
            class="af_selectOneRadio p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1897,6 +1920,7 @@
            cellspacing="0"
            class="af_selectOneRadio p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1985,6 +2009,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
            style="background-color:red"
           >
         
@@ -2068,6 +2093,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
            title="test-shortDesc"
           >
         
@@ -2152,6 +2178,7 @@
            cellspacing="0"
            class="test-styleClass af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2234,6 +2261,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2319,6 +2347,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2404,6 +2433,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2489,6 +2519,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2572,6 +2603,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2657,6 +2689,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2740,6 +2773,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2823,6 +2857,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2906,6 +2941,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2989,6 +3025,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -3072,6 +3109,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -3155,6 +3193,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -3238,6 +3277,7 @@
            cellspacing="0"
            class="af_selectOneRadio"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
