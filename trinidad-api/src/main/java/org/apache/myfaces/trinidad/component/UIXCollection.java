@@ -1944,7 +1944,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * This is to mimic what happens in the non flattening case where similar logic is invoked
    * during encodeBegin().
    */
-  void __processFlattenedChildrenBegin()
+  protected void processFlattenedChildrenBegin(ComponentProcessingContext cpContext)
   {
     // Call _init() since __flushCachedModel() assumes that
     // selectedRowKeys and disclosedRowKeys are initialized to be non-null.

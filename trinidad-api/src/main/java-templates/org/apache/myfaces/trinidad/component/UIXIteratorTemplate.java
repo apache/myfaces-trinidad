@@ -86,13 +86,13 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     try
     {
       // Mimic what would normally happen in the non-flattening case for encodeBegin():
-      __processFlattenedChildrenBegin();
-
+      processFlattenedChildrenBegin(cpContext);
+      
       setupFlattenedChildrenContext(context, cpContext);
 
       try
       {
-        Runner runner = new IndexedRunner(cpContext)
+        Runner runner = new IndexedRunner(context, cpContext)
         {
           @Override
           protected void process(UIComponent kid, ComponentProcessingContext cpContext) throws IOException
@@ -158,7 +158,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
   {
     if (!isRendered())
       return;
-
+    
     // if this is the table there will be a rendererType:
     if (getRendererType() != null)
     {
@@ -170,7 +170,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     }
     else // this is not the table. it must be the iterator
     {
-      Runner runner = new IndexedRunner()
+      Runner runner = new IndexedRunner(context)
       {
         @Override
         protected void process(
@@ -264,7 +264,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     final FacesContext context,
     final PhaseId phaseId)
   {
-    Runner runner = new IndexedRunner()
+    Runner runner = new IndexedRunner(context)
     {
       @Override
       protected void process(UIComponent kid, ComponentProcessingContext cpContext)
@@ -309,7 +309,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     {
       // we're processing all of the rows, so use the indexed runner (plus, we can't call size() on
       // the ALL_IDS collection, so we don't have a whole lot of choice here
-      runner = new IndexedRunner()
+      runner = new IndexedRunner(visitContext.getFacesContext())
       {
         @Override
         protected void process(UIComponent kid, ComponentProcessingContext cpContext)
@@ -376,7 +376,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
         return false;
 
       // visit only the rows we need to
-      runner = new KeyedRunner(rowsToVisit)
+      runner = new KeyedRunner(visitContext.getFacesContext(), rowsToVisit)
       {
         @Override
         protected void process(
@@ -407,16 +407,17 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
    */
   private abstract class Runner implements ComponentProcessor<Object>
   {
-    public Runner()
+    public Runner(FacesContext context)
     {
-      this(null);
+      this(context, null);
     }
 
-    public Runner(ComponentProcessingContext cpContext)
+    public Runner(FacesContext context, ComponentProcessingContext cpContext)
     {
+      _context = context;
       _cpContext = cpContext;
     }
-
+    
     public abstract boolean run();
 
     /**
@@ -461,6 +462,11 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
       return _cpContext;
     }
 
+    public final FacesContext getFacesContext()
+    {
+      return _context;
+    }
+
     public final void setException(Exception e)
     {
       _exception = e;
@@ -468,6 +474,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
 
     private Exception _exception = null;
 
+    private final FacesContext _context;
     private final ComponentProcessingContext _cpContext;
   }
 
@@ -476,19 +483,19 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
    */
   private abstract class IndexedRunner extends Runner
   {
-    public IndexedRunner()
+    public IndexedRunner(FacesContext context)
     {
-      this(null);
+      this(context, null);
     }
 
-    public IndexedRunner(ComponentProcessingContext cpContext)
+    public IndexedRunner(FacesContext context, ComponentProcessingContext cpContext)
     {
-      super(cpContext);
+      super(context, cpContext);
     }
 
     public final boolean run()
     {
-      FacesContext context = FacesContext.getCurrentInstance();
+      FacesContext context = getFacesContext();
       ComponentProcessingContext cpContext = getComponentProcessingContext();
 
       List<UIComponent> stamps = getStamps();
@@ -535,16 +542,16 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
    */
   private abstract class KeyedRunner extends Runner
   {
-    public KeyedRunner(Iterable<String> clientKeys)
+    public KeyedRunner(FacesContext context, Iterable<String> clientKeys)
     {
-      super();
+      super(context);
       _clientKeys = clientKeys;
     }
 
     public final boolean run()
     {
-      FacesContext context = FacesContext.getCurrentInstance();
-
+      FacesContext context = getFacesContext();
+      
       List<UIComponent> stamps = getStamps();
       int oldIndex = getRowIndex();
 
