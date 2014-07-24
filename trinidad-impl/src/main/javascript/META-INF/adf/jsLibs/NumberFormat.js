@@ -16,28 +16,37 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-
+ 
 /**
- * constructor for TrNumberFormat.
+ * Constructor for TrNumberFormat. 
+ * @param type Can be one of: 'number', 'percent' or 'currency'
+ * @param locale Locale object
+ * @param currencyCode The ISO 4217 currency code, applied when formatting currencies. 
+ * This currency code will substitute the locale's default currency symbol for number formatting, provided type is set to 'currency'.
+ * However the placement of the currencyCode is determined by the locale.
+ * @param currencySymbol Currency symbol applied when formatting currencies.
+ * If currency code is set then symbol will be ignored. This currency sybmol will substitute the locale's default 
+ * currency symbol for number formatting, provided type is set to 'currency'.
+ * However the placement of the currencySymbol is determined by the locale.
  */
- function TrNumberFormat(type, locale)
+function TrNumberFormat(type, locale, currencyCode, currencySymbol)
 {
   if(!type)
     alert("type for TrNumberFormat not defined!");
   this._type = type;
-  
-  this._localeSymbols = getLocaleSymbols(locale);
-  this._pPre = this._localeSymbols.getPositivePrefix();
-  this._pSuf = this._localeSymbols.getPositiveSuffix();
-  this._nPre = this._localeSymbols.getNegativePrefix();
-  this._nSuf = this._localeSymbols.getNegativeSuffix();
 
   //default values, similar to JDK (values from Apache Harmony)
   if(this._type=="percent")
+  {
     this._maxFractionDigits = 0;
+  }
   else
+  {
     this._maxFractionDigits = 3;
+  }
+    
   this._maxIntegerDigits  = 40;
+  
   if(this._type=="currency")
   {
     this._minFractionDigits = 2;
@@ -46,9 +55,11 @@
   {
     this._minFractionDigits = 0;
   }
-  this._minIntegerDigits  = 1;
-  this._groupingUsed = true;
   
+  this._minIntegerDigits  = 1;
+  this._groupingUsed = true;  
+  
+  this._updateLocaleAndCurrencySymbols(locale, currencyCode, currencySymbol);
 }
 //***********************
 // static
@@ -63,11 +74,19 @@ TrNumberFormat.getNumberInstance = function(locale)
 }
 
 /**
- * Returns a currency formater.
+ * Returns a currency formatter
+ * @param locale Locale object
+ * @param currencyCode The ISO 4217 currency code, applied when formatting currencies. 
+ * This currency code will substitute the locale's default currency symbol for number formatting, provided type is set to 'currency'.
+ * However the placement of the currencyCode is determined by the locale.
+ * @param currencySymbol Currency symbol applied when formatting currencies.
+ * If currency code is set then symbol will be ignored. This currency sybmol will substitute the locale's default 
+ * currency symbol for number formatting, provided type is set to 'currency'.
+ * However the placement of the currencySymbol is determined by the locale.
  */
-TrNumberFormat.getCurrencyInstance = function(locale)
+TrNumberFormat.getCurrencyInstance = function(locale, currencyCode, currencySymbol)
 {
-  return new TrNumberFormat("currency", locale);
+  return new TrNumberFormat("currency", locale, currencyCode, currencySymbol);
 }
 
 /**
@@ -652,6 +671,70 @@ TrNumberFormat.prototype.getZeros = function(places)
 //***********************
 // PRIVATE
 //***********************
+
+/**
+ * Updates the locale symbols and Currency prefix and suffixes
+ * @param locale Locale object
+ * @param currencyCode The ISO 4217 currency code, applied when formatting currencies. 
+ * This currency code will substitute the locale's default currency symbol for number formatting, provided type is set to 'currency'.
+ * However the placement of the currencyCode is determined by the locale.
+ * @param currencySymbol Currency symbol applied when formatting currencies.
+ * If currency code is set then symbol will be ignored. This currency sybmol will substitute the locale's default 
+ * currency symbol for number formatting, provided type is set to 'currency'.
+ * However the placement of the currencySymbol is determined by the locale.
+ */
+TrNumberFormat.prototype._updateLocaleAndCurrencySymbols = function(locale, currencyCode, currencySymbol) 
+{
+  this._localeSymbols = getLocaleSymbols(locale);
+  
+  // prefix and suffix format for positive currency data
+  // This will mostly contain just the currency symbol of the specified locale,
+  // however presence of additional formatting characters like + cannot be ruled out
+  this._pPre = this._localeSymbols.getPositivePrefix();
+  this._pSuf = this._localeSymbols.getPositiveSuffix();
+  
+  // prefix and suffix format for negative currency data
+  // In addition to the currency symbol of the specified locale,
+  // the prefix and suffix can contain some additioanl formatting characters like (,),- 
+  this._nPre = this._localeSymbols.getNegativePrefix();
+  this._nSuf = this._localeSymbols.getNegativeSuffix();
+
+  var localeDefaultCurSymb = this._localeSymbols.getCurrencySymbol();
+  var localeDefaultCurCode = this._localeSymbols.getCurrencyCode();
+  
+  if (currencyCode) 
+  {
+    // First check if the locale default currency code matches the custom currency code 
+    // If so, we want to retain the localized currency symbol
+    // Example: If locale is en_US and currency code is "INR", then we use INR cas currency prefix/suffix (positioning 
+    // is determined by the formatting locale in_IN). So "INR 1,000.00" is okay
+    // But if the locale is in_IN, if the currency code is "INR", then we have the ability to display "Rs." prefix
+    // instead of generic INR prefix. So in this case we display "Rs. 1,000.00"
+    if (localeDefaultCurCode != currencyCode)
+    {
+      // if currencyCode is set we honour currency code.
+      // Replaces all occurrences of locale default currency symbol with currencyCode
+      this._replaceCurrencyPrefixAndSuffix(localeDefaultCurSymb, currencyCode);
+    }
+  } 
+  else if (currencySymbol) 
+  {
+    // if only currencySymbol is (currencyCode is null) set we honour currency symbol.
+    // Replaces all occurrences of locale default currency symbol with custom currencySymbol
+    this._replaceCurrencyPrefixAndSuffix(localeDefaultCurSymb, currencySymbol);
+  }    
+}
+
+/**
+ * Replaces the locale default currency prefix/suffix with custom currency prefix and suffix 
+ */
+TrNumberFormat.prototype._replaceCurrencyPrefixAndSuffix = function(localeDefault, customCurrency) 
+{
+  this._pPre = this._pPre.replace(localeDefault, customCurrency);
+  this._pSuf = this._pSuf.replace(localeDefault, customCurrency);
+  this._nPre = this._nPre.replace(localeDefault, customCurrency);
+  this._nSuf = this._nSuf.replace(localeDefault, customCurrency);   
+}
 
 /**
  * Formats the integer part of a number

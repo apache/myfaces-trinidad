@@ -222,6 +222,12 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     df.setParseBigDecimal(true); // TODO What does this do?
     DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
     
+    if("currency".equals(type))
+    {
+      // Setup custom currency code/symbol if any
+      _setCurrencyFormattingProperties(reqCtx, fmt);
+    }
+    
     // We change the grouping_separator b/c TRINIDAD-849
     // source is this JDK bug: 4510618.
     boolean changed = false;

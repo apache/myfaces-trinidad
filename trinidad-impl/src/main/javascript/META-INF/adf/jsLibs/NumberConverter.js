@@ -58,7 +58,7 @@ function TrNumberConverter(
     this._groupingUsed = true;
     
   //init the TrNumberFormat
-  this._initNumberFormat(locale);
+  this._initNumberFormat(locale, currencyCode, currencySymbol);
   
   // for debugging
   this._class = "TrNumberConverter";
@@ -177,21 +177,7 @@ TrNumberConverter.prototype.getAsString = function(
   {
     if(this._type=="percent" || this._type=="currency")
     {
-      var string = this._numberFormat.format(number);
-      if(this._type=="currency")
-      {
-        //In Trinidad the currencyCode gets preference over currencySymbol
-        //this is similar on the server-side
-        if(this._currencyCode)
-        {
-          string = string.replace(getLocaleSymbols().getCurrencyCode(), this._currencyCode);
-        }
-        else if(this._currencySymbol)
-        {
-          string = string.replace(getLocaleSymbols().getCurrencySymbol(), this._currencySymbol);
-        }
-      }
-      return string;
+      return this._numberFormat.format(number);
     }
     else
     {
@@ -362,8 +348,17 @@ TrNumberConverter.prototype._isConvertible = function(numberString)
 
 /**
  * runs the creation of the used TrNumberFormat class
+ * @param locale Locale object
+ * @param currencyCode The ISO 4217 currency code, applied when formatting currencies. 
+ * This currency code will substitute the locale's default currency symbol for number formatting, provided type is set to 'currency'.
+ * However the placement of the currencyCode is determined by the locale.
+ * @param currencySymbol Currency symbol applied when formatting currencies.
+ * If currency code is set then symbol will be ignored. This currency sybmol will substitute the locale's default 
+ * currency symbol for number formatting, provided type is set to 'currency'.
+ * However the placement of the currencySymbol is determined by the locale.
+
  */
-TrNumberConverter.prototype._initNumberFormat = function(locale)
+TrNumberConverter.prototype._initNumberFormat = function(locale, currencyCode, currencySymbol)
 {
   if(this._type=="percent")
   {
@@ -373,7 +368,7 @@ TrNumberConverter.prototype._initNumberFormat = function(locale)
   else if(this._type=="currency")
   {
     this._example = 10250;
-    this._numberFormat = TrNumberFormat.getCurrencyInstance(locale);
+    this._numberFormat = TrNumberFormat.getCurrencyInstance(locale, currencyCode, currencySymbol);
   }
   else if(this._type=="number")
   {
