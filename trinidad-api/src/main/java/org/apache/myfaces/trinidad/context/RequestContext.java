@@ -1035,7 +1035,7 @@ abstract public class RequestContext
    */
   public static void releaseApplicationState()
   {
-    _APPLICATION_MAPS.clear();
+    _APPLICATION_MAPS.remove(_getClassLoader());
   }
 
   /**
@@ -1076,7 +1076,7 @@ abstract public class RequestContext
   //
   // Pick a ClassLoader
   //
-  private ClassLoader _getClassLoader()
+  private static ClassLoader _getClassLoader()
   {
     return Thread.currentThread().getContextClassLoader();
   }
