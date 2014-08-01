@@ -1030,6 +1030,15 @@ abstract public class RequestContext
   }
 
   /**
+   * Release any state maintained at the application level. Called when the servlet context is
+   * being destroyed.
+   */
+  public static void releaseApplicationState()
+  {
+    _APPLICATION_MAPS.clear();
+  }
+
+  /**
    * Attaches a RequestContext to the current thread.  This method
    * should only be called by a RequestContext object itself.
    * @exception IllegalStateException if an RequestContext is already
