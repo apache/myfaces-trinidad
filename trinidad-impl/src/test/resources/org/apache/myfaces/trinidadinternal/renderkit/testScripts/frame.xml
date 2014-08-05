@@ -9,19 +9,19 @@
       <attribute-test name="source" value="//foo.html"/>
 
       <!-- ungrouped attributes -->
-      <attribute-test name="longDescURL" value="http://bali.us.oracle.com"/>
-      <attribute-test name="marginHeight" value="50"/>
-      <attribute-test name="marginWidth" value="50"/>
+      <attribute-test name="longDescURL" value="http://bali.us.oracle.com" requiredCapabilities="frames"/>
+      <attribute-test name="marginHeight" value="50" requiredCapabilities="frames"/>
+      <attribute-test name="marginWidth" value="50" requiredCapabilities="frames"/>
       <!-- FrameRenderer renders "name" only when "id" is not present -->
       <attribute-test name="name" value="myName" matchesBase="true"/>
-      <attribute-test name="scrolling" value="yes"/>
-      <attribute-test name="scrolling" value="no"/>
-      <attribute-test name="scrolling" value="auto"/>
+      <attribute-test name="scrolling" value="yes" requiredCapabilities="frames"/>
+      <attribute-test name="scrolling" value="no" requiredCapabilities="frames"/>
+      <attribute-test name="scrolling" value="auto" requiredCapabilities="frames"/>
       
       <!-- core attributes -->
-      <attribute-test name="inlineStyle" value="background-color:blue"/>
+      <attribute-test name="inlineStyle" value="background-color:blue" requiredCapabilities="frames"/>
       <attribute-test name="shortDesc" value="myShortDesc"/>
-      <attribute-test name="styleClass" value="myStyle"/>
+      <attribute-test name="styleClass" value="myStyle" requiredCapabilities="frames"/>
       
     </component>
     

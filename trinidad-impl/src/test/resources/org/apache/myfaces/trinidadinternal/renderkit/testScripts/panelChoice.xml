@@ -16,7 +16,7 @@
   <!-- javascript-->
   <js-test/>  
 
-  <attribute-test name="accessKey" value="a">
+  <attribute-test name="accessKey" value="a" requiredCapabilities="accessKeys">
      <attribute-test name="label" value="label_val"/>
   </attribute-test>
 

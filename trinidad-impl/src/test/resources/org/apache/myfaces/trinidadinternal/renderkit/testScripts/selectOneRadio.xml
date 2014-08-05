@@ -14,7 +14,7 @@
   <attribute-test name="label"/>
   <attribute-test name="unselectedLabel"/>
 
-  <attribute-test name="accessKey" value="a">
+  <attribute-test name="accessKey" value="a" requiredCapabilities="accessKeys">
     <attribute-test name="label" value="Label"/>
   </attribute-test>
 

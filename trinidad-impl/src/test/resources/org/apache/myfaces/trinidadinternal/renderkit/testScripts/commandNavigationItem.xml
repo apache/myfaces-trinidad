@@ -2,7 +2,7 @@
        xmlns:tr="http://myfaces.apache.org/trinidad">
   <base-component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem" text="CommandMenuItemText"/>
  <!-- ungrouped -->
-  <attribute-test name="accessKey" value="o" accessibilityModeNotSupported="SCREEN_READER"/>
+  <attribute-test name="accessKey" value="o" accessibilityModeNotSupported="SCREEN_READER" requiredCapabilities="accessKeys"/>
   <attribute-test name="destination" value="http://www.oracle.com"/>
   <boolean-test name="disabled"/>
   <attribute-test name="icon" value="/help.gif" matchesBase="true"/>

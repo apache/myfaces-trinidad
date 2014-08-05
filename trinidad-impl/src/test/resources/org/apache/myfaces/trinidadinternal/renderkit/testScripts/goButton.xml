@@ -5,9 +5,9 @@
                   destination="http://www.oracle.com"/>
 
   <!-- ungrouped -->
-  <attribute-test name="accessKey" value="u" accessibilityModeNotSupported="SCREEN_READER"/>
+  <attribute-test name="accessKey" value="u" accessibilityModeNotSupported="SCREEN_READER" requiredCapabilities="accessKeys"/>
   <boolean-test name="disabled"/>
-  <attribute-test name="targetFrame" value="mytarget"/>
+  <attribute-test name="targetFrame" value="mytarget" requiredCapabilities="-adfinternal-target"/>
   
   <!-- core -->  
   <attribute-test name="id" value="myid"/>

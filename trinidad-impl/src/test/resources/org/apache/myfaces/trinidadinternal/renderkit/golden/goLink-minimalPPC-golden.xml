@@ -27,16 +27,6 @@
           >
         Text
       </a>
-<!--AttributeTest[accessKey,e]-->
-
-      <a
-           class="OraLink"
-           href="uri-attr:encoded-action-url:http://www.oracle.com"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        Text
-      </a>
 <!--AttributeTest[disabled,false]-->
 
       <a
@@ -57,16 +47,6 @@
         Text
       </a>
 <!--AttributeTest[longDesc,my long desc]-->
-
-      <a
-           class="OraLink"
-           href="uri-attr:encoded-action-url:http://www.oracle.com"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        Text
-      </a>
-<!--AttributeTest[targetFrame,mytarget]-->
 
       <a
            class="OraLink"

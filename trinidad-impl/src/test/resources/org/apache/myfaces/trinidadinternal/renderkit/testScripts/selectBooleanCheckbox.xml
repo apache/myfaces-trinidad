@@ -1,7 +1,7 @@
 <test xmlns="http://myfaces.apache.org/trinidad/test"
        xmlns:tr="http://myfaces.apache.org/trinidad">
   <base-component tr:type="org.apache.myfaces.trinidad.CoreSelectBooleanCheckbox" />
-  <attribute-test name="accessKey" value="a" accessibilityModeNotSupported="SCREEN_READER"/>
+  <attribute-test name="accessKey" value="a" accessibilityModeNotSupported="SCREEN_READER" requiredCapabilities="accessKeys"/>
   <boolean-test name="autoSubmit"/>  
   <attribute-test name="autoSubmit" value="true">  
     <attribute-test name="immediate" value="true"/>

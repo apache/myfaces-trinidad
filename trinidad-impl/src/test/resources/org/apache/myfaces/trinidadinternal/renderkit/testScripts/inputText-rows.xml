@@ -5,7 +5,7 @@
   <attribute-test name="value" value="value_val"/>
   <!-- accessKey requires that label be set too. -->
   <!-- How to set multiple attrs for a single test? -->
-  <attribute-test name="accessKey" value="a">
+  <attribute-test name="accessKey" value="a" requiredCapabilities="accessKeys">
    <attribute-test name="label" value="label_val"/>
   </attribute-test>
   <attribute-test name="columns" value="3"/>

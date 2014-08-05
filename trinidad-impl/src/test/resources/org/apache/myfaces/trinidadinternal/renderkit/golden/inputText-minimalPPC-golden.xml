@@ -891,66 +891,6 @@
           </tr>
         </table>
       </div>
-<!--AttributeTest[accessKey,a,AttributeTest[label,label_val]]-->
-
-      <div
-           id="mainId__xc_"
-          >
-        
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class="af_inputText"
-             role="presentation"
-             summary=""
-             width="100%"
-            >
-          
-          <tr
-              >
-            
-            <td
-                 class="af_inputText_label"
-                >
-              
-              <label
-                   for="mainId"
-                  >
-                label_val
-              </label>
-            </td>
-            <td
-                 class="AFContentCell"
-                 valign="top"
-                >
-              
-              <input
-                   class="af_inputText_content"
-                   id="mainId"
-                   name="mainId"
-                   size="11"
-                   type="text"
-                   value="Text"
-                  >
-                
-              </input>
-              <div
-                  >
-                
-                <img
-                     alt=""
-                     height="0"
-                     width="1"
-                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                    >
-                  
-                </img>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
 <!--AttributeTest[columns,3]-->
 
       <div

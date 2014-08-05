@@ -10,7 +10,7 @@
     <component tr:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 7"/>
     <component tr:facet="footer" tr:type="org.apache.myfaces.trinidad.CoreInputText" label="Footer"/>
   </base-component>
-  <attribute-test name="rows" value="2">
+  <attribute-test name="rows" value="2" unsupportedDevices="pda">
     <attribute-test name="maxColumns" value="2"/>
   </attribute-test>
   

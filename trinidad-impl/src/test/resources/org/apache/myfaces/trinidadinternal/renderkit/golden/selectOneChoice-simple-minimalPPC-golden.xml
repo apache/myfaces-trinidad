@@ -272,40 +272,6 @@
           </option>
         </select>
       </span>
-<!--AttributeTest[label,null]-->
-
-      <span
-           class="af_selectOneChoice"
-          >
-        
-        <select
-             class="af_selectOneChoice_content"
-             id="mainId"
-             name="mainId"
-            >
-          
-          <option
-               value=""
-              >
-            
-          </option>
-          <option
-               value="0"
-              >
-            item2
-          </option>
-          <option
-               value="1"
-              >
-            item4
-          </option>
-          <option
-               value="2"
-              >
-            item8
-          </option>
-        </select>
-      </span>
 <!--AttributeTest[readOnly,false]-->
 
       <span

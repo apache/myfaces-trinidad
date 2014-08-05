@@ -17,5 +17,5 @@
 
   <!-- ungrouped -->
   <!-- The chromeType tested in separate file because if you have brandingAppContextual set the chromeType does nothing -->
-  <enum-test name="chromeType"/>
+  <enum-test name="chromeType" unsupportedDevices="pda"/>
 </test>

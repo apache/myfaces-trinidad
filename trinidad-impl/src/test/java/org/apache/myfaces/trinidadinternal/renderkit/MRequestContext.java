@@ -42,6 +42,7 @@ import org.apache.myfaces.trinidad.context.DialogService;
 import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
 import org.apache.myfaces.trinidad.context.PageResolver;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.context.RequestContext.OutputMode;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 import org.apache.myfaces.trinidadinternal.context.PageFlowScopeProviderImpl;
 import org.apache.myfaces.trinidadinternal.context.PageResolverDefaultImpl;
@@ -72,6 +73,9 @@ public class MRequestContext extends RequestContext
   // Support setting outputMode so we can render content for an output mode other than 'default'.
   public void setOutputMode(String outputMode)
   {
+    // validate the outputMode
+    OutputMode.fromId(outputMode);
+    
     _outputMode = outputMode;
   }
   

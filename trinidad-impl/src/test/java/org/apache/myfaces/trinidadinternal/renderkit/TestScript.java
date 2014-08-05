@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.renderkit;
 import java.io.StringWriter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -39,6 +40,10 @@ import org.apache.myfaces.trinidad.model.SortCriterion;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.RequestContext.Accessibility;
+import org.apache.myfaces.trinidad.util.Args;
+import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
+import org.apache.myfaces.trinidadinternal.agent.CapabilityKey;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 public class TestScript
 {
@@ -93,7 +98,17 @@ public class TestScript
     {
       return true;
     }
-    
+ 
+    public boolean supportsAgent(@SuppressWarnings("unused") Agent agent)
+    {
+      return true;
+    }
+
+    public boolean supportsLocale(@SuppressWarnings("unused") RequestContext trinContext)
+    {
+      return true;
+    }
+   
     public StringWriter getOutput()
     {
       return _output;
@@ -186,32 +201,30 @@ public class TestScript
 
   static public class AttributeTest extends Test
   {
-    public AttributeTest(String name, Object value, boolean matchesBase)
-    {
-      this(name, value, matchesBase, null, null, null);
-    }
-    
-    public AttributeTest(String name, 
-                        Object value, 
-                        boolean matchesBase, 
-                        Test    delegateTest)
-    {
-      this(name, value, matchesBase, delegateTest, null, null);
-    }
-
     public AttributeTest(String name,
                          Object value,
                          boolean matchesBase,
                          Test    delegateTest,
                          String  componentId,
-                         Set<Accessibility> unsupportedModes)
+                         Set<? extends Accessibility> unsupportedModes,
+                         Set<? extends String> unsupportedDevices,
+                         Set<? extends CapabilityKey> requiredCapabilities,
+                         boolean noRTL)
     {
+ 
+      if (unsupportedDevices == null)
+        unsupportedDevices = Collections.emptySet();
+      
+     if (requiredCapabilities == null)
+        requiredCapabilities = Collections.emptySet();
+      
       _name = name;
       _value = value;
       _testComponentId = componentId;
-      _unsupportedModes = (unsupportedModes != null)
-                            ? unsupportedModes
-                            : EnumSet.noneOf(Accessibility.class); 
+      _unsupportedModes = Args.notNull(unsupportedModes, "unsupportedModes");
+      _unsupportedDevices = Args.notNull(unsupportedDevices, "unsupportedDevices");
+      _requiredCapabilities =  Args.notNull(requiredCapabilities, "requiredCapabilities");
+      _noRTL = noRTL;
       
       if (delegateTest != null)
       {
@@ -225,17 +238,36 @@ public class TestScript
     @Override
     public boolean supportsAccessibilityMode(RequestContext.Accessibility mode)
     {
-      /*
-      if (_unsupportedModes.contains(mode))
-      {
-        return true;
-      }
-      else
-      {
-        return true;
-      }
-      */
       return !_unsupportedModes.contains(mode);
+    }
+
+    @Override
+    public boolean supportsAgent(Agent agent)
+    {
+      // check agent device is suppoorted
+      if (_unsupportedDevices.contains(agent.getType()))
+        return false;
+      
+      // check agent has capabilities
+      TrinidadAgent trinAgent = TrinidadAgent.asTrinidadAgent(FacesContext.getCurrentInstance(), agent);
+      
+      for (CapabilityKey requiredCapability : _requiredCapabilities)
+      {
+        Object capValue = trinAgent.getCapability(requiredCapability);
+        
+        if (!Boolean.TRUE.equals(capValue))
+        {
+          return false;
+        }
+      }
+      
+      return true;
+    }
+
+    @Override
+    public boolean supportsLocale(RequestContext trinContext)
+    {
+      return !(_noRTL && trinContext.isRightToLeft());
     }
 
     public void addDelegate(Test delegateTest)
@@ -368,7 +400,10 @@ public class TestScript
     private final String             _testComponentId;
     private final boolean            _matchesBase;
     private final List<Test>         _delegateTests = new ArrayList<Test>();
-    private final Set<Accessibility> _unsupportedModes;
+    private final Set<? extends Accessibility> _unsupportedModes;
+    private final Set<? extends String> _unsupportedDevices;
+    private final Set<? extends CapabilityKey> _requiredCapabilities;
+    private final boolean            _noRTL;
   }
 
   private Set<Object>         _agentTypes = new HashSet<Object>();

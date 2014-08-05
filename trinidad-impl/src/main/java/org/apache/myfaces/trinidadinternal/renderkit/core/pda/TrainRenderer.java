@@ -101,7 +101,7 @@ public class TrainRenderer
         }
 
         ResponseWriter writer = context.getResponseWriter();
-        writer.startElement("span", null);
+        writer.startElement("span", component);
         renderInlineStyle(context, rc, component, bean);
         String outputText = XhtmlUtils.getFormattedString(pattern, parameters);
         writer.writeText(outputText, null);

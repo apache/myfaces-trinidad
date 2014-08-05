@@ -206,7 +206,7 @@
             </property>
             <property>
               <name>trinidad.renderkit.fulltests</name>
-              <value>lenient</value>
+              <value>strict</value> <!-- the other value is "lenient" -->
             </property>
             <property>
               <name>trinidad.renderkit.scripts</name>

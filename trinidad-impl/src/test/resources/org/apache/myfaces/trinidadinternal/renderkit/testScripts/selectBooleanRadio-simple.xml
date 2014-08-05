@@ -2,13 +2,13 @@
        xmlns:tr="http://myfaces.apache.org/trinidad">
   <!-- Set required group attribute -->
   <base-component tr:type="org.apache.myfaces.trinidad.CoreSelectBooleanRadio" group="groupTest" simple="true"/>
-  <!--attribute-test name="accessKey" value="a"/-->
+  <!--attribute-test name="accessKey" value="a" requiredCapabilities="accessKeys"/-->
   <boolean-test name="autoSubmit"/> 
   <attribute-test name="autoSubmit" value="true">  
     <attribute-test name="immediate" value="true"/>
   </attribute-test>
   <boolean-test name="disabled"/>
-  <attribute-test name="label" accessibilityModeNotSupported="INACCESSIBLE"/>
+  <attribute-test name="label" accessibilityModeNotSupported="INACCESSIBLE" unsupportedDevices="pda"/>
   <attribute-test name="group" value="secondGroup"/>  
   <boolean-test name="readOnly"/>
   <boolean-test name="selected"/>

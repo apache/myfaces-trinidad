@@ -17,26 +17,6 @@
           </input>
         </span>
       </span>
-<!--AttributeTest[accessKey,a]-->
-
-      <span
-           class="af_selectBooleanCheckbox"
-          >
-        
-        <span
-             class="af_selectBooleanCheckbox_content"
-            >
-          
-          <input
-               id="mainId"
-               name="mainId"
-               type="checkbox"
-               value="t"
-              >
-            
-          </input>
-        </span>
-      </span>
 <!--AttributeTest[autoSubmit,false]-->
 
       <span
@@ -136,26 +116,6 @@
           
           <input
                disabled="disabled"
-               id="mainId"
-               name="mainId"
-               type="checkbox"
-               value="t"
-              >
-            
-          </input>
-        </span>
-      </span>
-<!--AttributeTest[label,null]-->
-
-      <span
-           class="af_selectBooleanCheckbox"
-          >
-        
-        <span
-             class="af_selectBooleanCheckbox_content"
-            >
-          
-          <input
                id="mainId"
                name="mainId"
                type="checkbox"

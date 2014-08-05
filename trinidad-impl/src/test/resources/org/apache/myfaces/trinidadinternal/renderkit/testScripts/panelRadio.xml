@@ -15,7 +15,7 @@
 
   <!-- javascript-->
   <js-test/>  
-  <!-- <attribute-test name="accessKey" value="a"/> -->
+  <!-- <attribute-test name="accessKey" value="a" requiredCapabilities="accessKeys"/> -->
   <attribute-test name="id" value="sDetailId"/>
   
   <attribute-test name="shortDesc" value="myDetail"/>

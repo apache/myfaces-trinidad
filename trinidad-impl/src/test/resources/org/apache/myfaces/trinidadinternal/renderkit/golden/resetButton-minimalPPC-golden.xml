@@ -138,18 +138,6 @@
           >
         
       </input>
-<!--AttributeTest[accessKey,u]-->
-
-      <input
-           class="af_resetButton"
-           onclick="resetForm('formId');return false;"
-           type="reset"
-           value="ButtonText"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        
-      </input>
 <!--AttributeTest[id,myid]-->
 
       <input

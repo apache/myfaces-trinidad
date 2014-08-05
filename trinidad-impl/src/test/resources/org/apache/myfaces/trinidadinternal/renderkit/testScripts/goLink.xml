@@ -8,12 +8,12 @@
   <attribute-test name="destination" value="/foo.html"/>
   <attribute-test name="destination" value="//foo.html"/>
 
-  <attribute-test name="accessKey" value="e" accessibilityModeNotSupported="SCREEN_READER"/>
+  <attribute-test name="accessKey" value="e" accessibilityModeNotSupported="SCREEN_READER" requiredCapabilities="accessKeys"/>
   <boolean-test name="disabled"/>
   <attribute-test name="longDesc" value="my long desc"  matchesBase="true"/>
   <!--attribute-test name="partialTriggers" value="x y" matchesBase="true"/-->
   <!--boolean-test name="selected"/-->
-  <attribute-test name="targetFrame" value="mytarget"/>
+  <attribute-test name="targetFrame" value="mytarget" requiredCapabilities="-adfinternal-target"/>
   <attribute-test name="textAndAccessKey" value="T&amp;ext"  matchesBase="true"/>
   
   <!-- core -->  

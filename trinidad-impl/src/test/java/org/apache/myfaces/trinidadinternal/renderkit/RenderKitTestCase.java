@@ -67,6 +67,8 @@ import junit.framework.TestSuite;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
+import org.apache.myfaces.trinidad.util.Args;
+
 import org.xml.sax.SAXException;
 
 abstract public class RenderKitTestCase extends TestSuite
@@ -318,7 +320,7 @@ abstract public class RenderKitTestCase extends TestSuite
 
       _script = TestScriptParser.getTestScript(scriptFile, _facesConfigInfo);
       _lenient = lenient;
-
+      
 
       // We run golden-file checks on each subtest - though all differences
       // get counted only as a single diff.  We also do a comparison
@@ -410,12 +412,17 @@ abstract public class RenderKitTestCase extends TestSuite
     {
       Iterator<TestScript.Test> tests = _script.getTests().iterator();
       Accessibility accMode = getAccMode();
+      Agent agent = getAgent();
       
       while (tests.hasNext())
       {
         TestScript.Test test = tests.next();
 
-        if (test.supportsAccessibilityMode(accMode))
+        boolean supportsAccessibilityMode = test.supportsAccessibilityMode(accMode);
+        boolean supportsAgent             = test.supportsAgent(agent);
+        boolean supportsLocale            = test.supportsLocale(RequestContext.getCurrentInstance());
+        
+        if (supportsAccessibilityMode && supportsAgent && supportsLocale)
         {
           UIComponent testComponent = _createComponent();
       
@@ -432,14 +439,33 @@ abstract public class RenderKitTestCase extends TestSuite
     private void _processTest(TestScript.Test test, Writer out, String baseResults) throws IOException
     {
       Accessibility accMode = getAccMode();
+      Agent agent = getAgent();
 
-      if (test.supportsAccessibilityMode(accMode))
+      boolean supportsAccessibilityMode = test.supportsAccessibilityMode(accMode);
+      boolean supportsAgent             = test.supportsAgent(agent);
+      boolean supportsLocale            = test.supportsLocale(RequestContext.getCurrentInstance());
+
+      if (supportsAccessibilityMode && supportsAgent && supportsLocale)
       {
+        // write out test name
         out.write("\n<!--");
         out.write(test.toString());
         out.write("-->\n");
-        String testResults = test.getOutput().toString();
-        out.write(testResults);
+        
+        // surround content in a CDATA block to make it more likely to be valid XML
+        //out.write("<![CDATA[\n");
+        
+        String testResults;
+        
+        try
+        {
+          testResults = test.getOutput().toString();
+          out.write(testResults);
+        }
+        finally
+        {
+          //out.write("\n]]>");         
+        }
       
         if (!_lenient)
         {
@@ -471,7 +497,21 @@ abstract public class RenderKitTestCase extends TestSuite
       {
         out.write("<results>");
         out.write(baseResults);
-  
+/*
+        out.write("<results>\n");
+        
+        // surround content in a CDATA block to make it more likely to be valid XML
+        out.write("<![CDATA[\n");
+        
+        try
+        {
+          out.write(baseResults);
+        }
+        finally
+        {
+          out.write("\n]]>");         
+        }
+*/
         Iterator<TestScript.Test> tests = _script.getTests().iterator();
         while (tests.hasNext())
         {
@@ -525,6 +565,34 @@ abstract public class RenderKitTestCase extends TestSuite
         int diffLength = difference.length();
         if (diffLength > 50)
           difference = StringUtils.abbreviate(difference, 50);
+        /*
+        int resultsLength = results.length();
+        int goldenLength = golden.length();
+        
+        if (resultsLength != goldenLength)
+        {
+          if (resultsLength < goldenLength)
+          {
+            throw new AssertionFailedError("golden file longer by:" + (goldenLength - resultsLength) + " char='" + ((int)golden.charAt(index)) + "'");
+          }
+          else
+          {
+            throw new AssertionFailedError("results file longer by:" + (resultsLength - goldenLength));            
+          }
+        }
+        
+        if (index >= resultsLength)
+          throw new AssertionFailedError("golden file longer by:" + (goldenLength - resultsLength));
+          
+        if (results.length() < 50)
+        {
+          throw new AssertionFailedError(
+               "Golden file for test "+ _scriptName + " did not match; " +
+               "first difference at " + index + ", difference of length " +
+               diffLength + ", \"" + difference + "\"" + "\ngolden:\n" + golden + "\nnew:\n" + results + "\ndiffChars g='" + golden.charAt(index) + "' r='" + results.charAt(index) + "'");
+          
+        }
+        */
         throw new AssertionFailedError(
              "Golden file for test "+ _scriptName + " did not match; " +
              "first difference at " + index + ", difference of length " +
@@ -675,7 +743,7 @@ abstract public class RenderKitTestCase extends TestSuite
       Agent  agent,
       boolean rightToLeft)
     {
-      this(category, skin, accessibilityMode, agent, rightToLeft, null);
+      this(category, skin, accessibilityMode, agent, rightToLeft, "default");
     }
 
     public SuiteDefinition(
@@ -686,12 +754,12 @@ abstract public class RenderKitTestCase extends TestSuite
       boolean rightToLeft,
       String outputMode)
     {
-      _category = category;
-      _skin = skin;
-      _accessibilityMode = accessibilityMode;
-      _agent = agent;
-      _rightToLeft = rightToLeft;
-      _outputMode = outputMode;
+      _category = Args.notNull(category, "category");
+      _skin = Args.notNull(skin, "skin");
+      _accessibilityMode = Args.notNull(accessibilityMode, "accessibilityMode");
+      _agent = Args.notNull(agent, "agent");
+      _rightToLeft = Args.notNull(rightToLeft, "rightToLeft");
+      _outputMode = Args.notNull(outputMode, "outputMode");
     }
 
     public String getCategory()

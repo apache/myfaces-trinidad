@@ -154,7 +154,7 @@ public class CoreRenderKitTest extends RenderKitTestCase
     }
     else
     {
-      _LOG.info("Suppress running RenderKitTest:" + name + " " + definition);
+      _LOG.info("Suppress running RenderKitTest:" + name + " " + definition.getCategory());
     }
   }
   
@@ -257,27 +257,27 @@ public class CoreRenderKitTest extends RenderKitTestCase
     
     definitions.add(new SuiteDefinition("minimal",
                                         "minimal",
-                                        null,
+                                        RequestContext.Accessibility.DEFAULT,
                                         RenderKitBootstrap.getGeckoAgent(),
                                         false));
     definitions.add(new SuiteDefinition("minimalIE",
                                         "minimal",
-                                        null,
+                                        RequestContext.Accessibility.DEFAULT,
                                         RenderKitBootstrap.getIEAgent(),
                                         false));
     definitions.add(new SuiteDefinition("minimalIERtl",
                                         "minimal",
-                                        null,
+                                        RequestContext.Accessibility.DEFAULT,
                                         RenderKitBootstrap.getIEAgent(),
                                         true));
     definitions.add(new SuiteDefinition("minimalPPC",
                                         "minimal",
-                                        null,
+                                        RequestContext.Accessibility.DEFAULT,
                                         RenderKitBootstrap.getPocketPCAgent(),
                                         false));
     definitions.add(new SuiteDefinition("minimalSaf",
                                         "minimal",
-                                        null,
+                                        RequestContext.Accessibility.DEFAULT,
                                         RenderKitBootstrap.getSafariAgent(),
                                         false));
     definitions.add(new SuiteDefinition("minimalScrRdr",

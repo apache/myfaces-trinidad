@@ -5,15 +5,15 @@
     <component tr:facet="filter" tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="Filter"/>
   </base-component>
   
-  <attribute-test name="width" value="20px"/>
-  <attribute-test name="width" value="20%"/>
+  <attribute-test name="width" value="20px" unsupportedDevices="pda"/>
+  <attribute-test name="width" value="20%" unsupportedDevices="pda"/>
   
   <!-- Core attribute tests -->
-  <attribute-test name="id"/>
-  <attribute-test name="inlineStyle" />
-  <boolean-test name="rendered"/>
-  <attribute-test name="shortDesc"/>
+  <attribute-test name="id" unsupportedDevices="pda"/>
+  <attribute-test name="inlineStyle" unsupportedDevices="pda"/>
+  <boolean-test name="rendered" unsupportedDevices="pda"/>
+  <attribute-test name="shortDesc" unsupportedDevices="pda"/>
   <!--attribute-test name="styleClass"/-->
 
-  <js-test/>
+  <js-test unsupportedDevices="pda"/>
 </test>

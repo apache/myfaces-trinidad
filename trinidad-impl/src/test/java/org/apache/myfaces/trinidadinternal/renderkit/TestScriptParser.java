@@ -24,13 +24,16 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.myfaces.trinidad.context.RequestContext.Accessibility;
+import org.apache.myfaces.trinidadinternal.agent.CapabilityKey;
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
@@ -114,6 +117,70 @@ class TestScriptParser extends BaseNodeParser
     return unsupportedModes;
   }
 
+  
+  private static Set<CapabilityKey> _parseRequiredCapabilities(Attributes attrs)
+  {
+    String requiredCapabilitiesString = attrs.getValue(_REQUIRED_CAPABILITIES_ATTR_NAME);
+    
+    Set<CapabilityKey> requiredCapabilities;
+    
+    if (requiredCapabilitiesString != null)
+    {
+      requiredCapabilities = new HashSet<CapabilityKey>();
+      
+      StringTokenizer tokens = new StringTokenizer(requiredCapabilitiesString);
+      while (tokens.hasMoreTokens())
+      {
+        String capabilityName = tokens.nextToken();
+          
+        CapabilityKey key = CapabilityKey.getCapabilityKey(capabilityName);
+
+        requiredCapabilities.add(key);
+      }
+    }
+    else
+    {
+      requiredCapabilities = Collections.emptySet();
+    }
+    
+    return requiredCapabilities;
+  }
+  
+  private static Set<String> _parseUnsupportedDevices(Attributes attrs)
+  {
+    String unsupportedDevicesString = attrs.getValue(_UNSUPPORTED_DEVICES_ATTR_NAME);
+    
+    Set<String> unsupportedDevices;
+    
+    if (unsupportedDevicesString != null)
+    {
+      unsupportedDevices = new HashSet<String>();
+      
+      StringTokenizer tokens = new StringTokenizer(unsupportedDevicesString);
+      while (tokens.hasMoreTokens())
+      {
+        String deviceType = tokens.nextToken();
+          
+        unsupportedDevices.add(deviceType);
+      }
+    }
+    else
+    {
+      unsupportedDevices = Collections.emptySet();
+    }
+    
+    return unsupportedDevices;
+  }
+
+  private static boolean _parseNoRTL(Attributes attrs)
+  {
+    String noRTLString = attrs.getValue(_NO_RTL_ATTR_NAME);
+    
+    return Boolean.parseBoolean(noRTLString);
+  }
+  
+
+   
   public NodeParser createTestParser(
     FacesConfigInfo.ComponentInfo componentInfo,
     String                        localName,
@@ -308,14 +375,20 @@ class TestScriptParser extends BaseNodeParser
       else
         value = valueStr;
 
-      Set<Accessibility> unsupportedModes = _parseUnsupportedAccessibilityModes(attrs);
+      Set<Accessibility> unsupportedModes     = _parseUnsupportedAccessibilityModes(attrs);
+      Set<String>        unsupportedDevices   = _parseUnsupportedDevices(attrs);
+      Set<CapabilityKey> requiredCapabilities = _parseRequiredCapabilities(attrs);
+      boolean            noRTL                = _parseNoRTL(attrs);
 
       _test = new TestScript.AttributeTest(name,
                                            value,
                                            matchesBase,
                                            null, 
                                            _componentId,
-                                           unsupportedModes);
+                                           unsupportedModes,
+                                           unsupportedDevices,
+                                           requiredCapabilities,
+                                           noRTL);
     }
 
     @Override
@@ -395,6 +468,11 @@ class TestScriptParser extends BaseNodeParser
             null);
         */
       }
+
+      _unsupportedModes     = _parseUnsupportedAccessibilityModes(attrs);
+      _unsupportedDevices   = _parseUnsupportedDevices(attrs);
+      _requiredCapabilities = _parseRequiredCapabilities(attrs);
+      _noRTL                = _parseNoRTL(attrs);
     }
 
     @Override
@@ -441,7 +519,13 @@ class TestScriptParser extends BaseNodeParser
         boolean isDefault = value.equals(_defaultValue);
         allTests.add(new TestScript.AttributeTest(_name,
                                                   value,
-                                                  isDefault));
+                                                  isDefault,
+                                                  null,
+                                                  null,
+                                                  _unsupportedModes,
+                                                  _unsupportedDevices,
+                                                  _requiredCapabilities,
+                                                  _noRTL));
         Iterator<TestScript.Test> childTests = _childTests.iterator();
         while (childTests.hasNext())
         {
@@ -449,7 +533,12 @@ class TestScriptParser extends BaseNodeParser
           allTests.add(new TestScript.AttributeTest(_name,
                                                     value,
                                                     isDefault,
-                                                    childTest));
+                                                    childTest,
+                                                    null,
+                                                    _unsupportedModes,
+                                                    _unsupportedDevices,
+                                                    _requiredCapabilities,
+                                                    _noRTL));
         }
       }
 
@@ -461,6 +550,10 @@ class TestScriptParser extends BaseNodeParser
     private String _name;
     private Object _defaultValue;
     private List<TestScript.Test> _childTests = new ArrayList<TestScript.Test>();
+    private Set<Accessibility> _unsupportedModes;
+    private Set<String>        _unsupportedDevices;
+    private Set<CapabilityKey> _requiredCapabilities;
+    private boolean            _noRTL;
   }
 
   private class JavascriptTestParser extends BaseNodeParser
@@ -477,13 +570,22 @@ class TestScriptParser extends BaseNodeParser
       String       localName,
       Attributes   attrs) throws SAXParseException
     {
+      Set<Accessibility> unsupportedModes     = _parseUnsupportedAccessibilityModes(attrs);
+      Set<String>        unsupportedDevices   = _parseUnsupportedDevices(attrs);
+      Set<CapabilityKey> requiredCapabilities = _parseRequiredCapabilities(attrs);
+      boolean            noRTL                = _parseNoRTL(attrs);
+
       Iterator<String> properties = _componentInfo.properties.keySet().iterator();
       while (properties.hasNext())
       {
         String name = properties.next();
         if (name.startsWith("on"))
         {
-          _tests.add(new TestScript.AttributeTest(name, null, false));
+          _tests.add(new TestScript.AttributeTest(name, null, false,null, null, 
+                                                  unsupportedModes,
+                                                  unsupportedDevices,
+                                                  requiredCapabilities,
+                                                  noRTL));
         }
       }
     }
@@ -545,6 +647,10 @@ class TestScriptParser extends BaseNodeParser
                  "\"matchesBase\" is not an attribute of &lt;boolean-test&gt;",
                  null);
 
+      _unsupportedModes     = _parseUnsupportedAccessibilityModes(attrs);
+      _unsupportedDevices   = _parseUnsupportedDevices(attrs);
+      _requiredCapabilities = _parseRequiredCapabilities(attrs);
+      _noRTL                = _parseNoRTL(attrs);
     }
 
     @Override
@@ -590,7 +696,16 @@ class TestScriptParser extends BaseNodeParser
     {
       boolean matchesBase = (value == _defaultValue);
       Boolean valueObj    = value ? Boolean.TRUE : Boolean.FALSE;
-      _tests.add(new TestScript.AttributeTest(_name, valueObj, matchesBase));
+      _tests.add(new TestScript.AttributeTest(_name,
+                                              valueObj,
+                                              matchesBase,
+                                              null,
+                                              null,
+                                              _unsupportedModes,
+                                              _unsupportedDevices,
+                                              _requiredCapabilities,
+                                              _noRTL));
+                                             
       Iterator<TestScript.Test> iter = _childTests.iterator();
       while (iter.hasNext())
       {
@@ -603,13 +718,23 @@ class TestScriptParser extends BaseNodeParser
           _tests.add(new TestScript.AttributeTest(_name,
                                                   valueObj,
                                                   false,
-                                                  test));
+                                                  test,
+                                                  null,
+                                                  _unsupportedModes,
+                                                  _unsupportedDevices,
+                                                  _requiredCapabilities,
+                                                  _noRTL));
       }
     }
 
     private String _name;
     private boolean _defaultValue;
     private FacesConfigInfo.ComponentInfo   _componentInfo;
+    private Set<Accessibility> _unsupportedModes;
+    private Set<String>        _unsupportedDevices;
+    private Set<CapabilityKey> _requiredCapabilities;
+    private boolean            _noRTL;
+    
     private List<TestScript.Test> _tests = new ArrayList<TestScript.Test>();
     private List<TestScript.Test> _childTests = new ArrayList<TestScript.Test>();
   }
@@ -665,6 +790,9 @@ class TestScriptParser extends BaseNodeParser
   }
 
   private static final String _ACCESSIBILITY_MODE_NOT_SUPPORTED_ATTR_NAME = "accessibilityModeNotSupported";
+  private static final String _REQUIRED_CAPABILITIES_ATTR_NAME = "requiredCapabilities";
+  private static final String _UNSUPPORTED_DEVICES_ATTR_NAME = "unsupportedDevices";
+  private static final String _NO_RTL_ATTR_NAME = "noRTL";
   
   private FacesConfigInfo _info;
   private TestScript      _script;

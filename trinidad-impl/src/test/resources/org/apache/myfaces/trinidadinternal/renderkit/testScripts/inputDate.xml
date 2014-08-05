@@ -4,7 +4,7 @@
   <!--attribute-test name = "accessKey" value="A"/-->
   <attribute-test name ="chooseId"/>
   <boolean-test name="disabled"/>
-  <attribute-test name="label"/>
+  <attribute-test name="label" unsupportedDevices="pda"/>
   <!--attribute-test name="labelAndAccessKey" value="L&amp;abel"/-->
   <boolean-test name="readOnly"/>
   <boolean-test name="required"/>
