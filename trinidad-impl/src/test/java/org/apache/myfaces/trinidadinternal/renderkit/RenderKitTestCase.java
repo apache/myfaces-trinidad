@@ -26,6 +26,9 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -73,11 +76,14 @@ import org.xml.sax.SAXException;
 
 abstract public class RenderKitTestCase extends TestSuite
 {
-
-  public RenderKitTestCase(String testName) throws IOException, SAXException
+  public RenderKitTestCase(
+    String testName, List<SuiteDefinition> suiteDefinitions, Set<String> allowedTestNames)
+    throws IOException, SAXException
   {
     super(testName);
 
+    Args.notNull(suiteDefinitions, "suiteDefinitions");
+    
     try
     {
       _initGlobal();
@@ -87,7 +93,98 @@ abstract public class RenderKitTestCase extends TestSuite
       e.printStackTrace();
     }
 
-    _initTests();
+    _initTests(suiteDefinitions, allowedTestNames);
+  }
+
+  /**
+   * Utility function for returning the subset of the availableDefinitions in availableDefinitions
+   * order, with categories named in the allowedDefinitionNames.  If availableDefinitions is
+   * empty, no filtering is performed.
+   * @param allowedDefinitionNames
+   * @param availableDefinitions
+   * @return
+   */
+  protected static List<SuiteDefinition> filterDefinitions(
+    Set<String> allowedDefinitionNames, List<SuiteDefinition> availableDefinitions)
+  {    
+    if (allowedDefinitionNames.isEmpty())
+    {
+      return availableDefinitions;
+    }
+    else
+    {
+      ArrayList<SuiteDefinition> definitions = new ArrayList<SuiteDefinition>();
+      
+      for (String category : allowedDefinitionNames)
+      {
+        SuiteDefinition allowedDefinition = _getSuitedDefinitionByCategory(availableDefinitions, category);
+        
+        if (allowedDefinition != null)
+        {
+          definitions.add(allowedDefinition);
+        }
+        else
+        {
+          _LOG.warning("Unabled to find test category named:" + category);
+        }
+      }
+
+      definitions.trimToSize();
+      return Collections.unmodifiableList(definitions);
+    }
+  }
+
+  private static SuiteDefinition _getSuitedDefinitionByCategory(
+    Iterable<SuiteDefinition> suitedDefinitions, String category)
+  {
+    for (SuiteDefinition def : suitedDefinitions)
+    {
+      if (category.equals(def.getCategory()))
+      {
+        return def;
+      }
+    }
+    
+    return null;
+  }
+
+  protected static Set<String> parseAllowedDefinitionNames(String[] args)
+  {
+    List<String> allowedDefinitionNames = _parseListParameter(args, "definitions=");
+    
+    return new HashSet<String>(allowedDefinitionNames);
+  }
+
+  protected static Set<String> parseAllowedTestNames(String[] args)
+  {
+    List<String> allowedTestNames = _parseListParameter(args, "tests=");
+
+    if (allowedTestNames.isEmpty())
+    {
+      // process the system property
+      String testNamesString = System.getProperty("trinidad.renderkit.script");
+      
+      if (testNamesString != null)
+      {
+        allowedTestNames = Arrays.asList(testNamesString.split(","));
+      }
+    }
+    
+    return new HashSet<String>(allowedTestNames);
+  }  
+
+  private static List<String> _parseListParameter(String[] args, String parameterPrefix)
+  {    
+    for (String arg : args)
+    {
+      if (arg.startsWith(parameterPrefix))
+      {
+        String definitionsString = arg.substring(parameterPrefix.length());
+        return Arrays.asList(definitionsString.split(","));
+      }
+    }
+    
+    return Collections.emptyList();
   }
 
   protected void setUp() throws Exception
@@ -645,23 +742,11 @@ abstract public class RenderKitTestCase extends TestSuite
     _failureDir = new File(failures);
   }
 
-  private void _initTests() throws IOException, SAXException
+  private void _initTests(List<SuiteDefinition> suiteDefinitions, Set<String> allowedTestNames) throws IOException, SAXException
   {
-    String script = System.getProperty("trinidad.renderkit.script");
-    Set<String> includedScripts = null;
-    if (script != null)
-    {
-      String[] scripts = script.split(",");
-      includedScripts = new HashSet<String>();
-      for (int i = 0; i < scripts.length; i++)
-      {
-        _LOG.info("Including " + scripts[i]);
-        includedScripts.add(scripts[i]);
-      }
-    }
-
     // See if we want to run the full test suite (by default, no)
     String fulltests = System.getProperty("trinidad.renderkit.fulltests");
+    
     // We can run the full test suite in two modes:  strict, and lenient.
     // We should go to "strict" all the time, but "lenient" simply
     // diffs against the golden files
@@ -671,27 +756,41 @@ abstract public class RenderKitTestCase extends TestSuite
     for (int i = 0; i < scriptArray.length; i++)
     {
       String name = scriptArray[i];
-      if ((includedScripts != null) && !includedScripts.contains(name))
-        continue;
 
       if (name.endsWith(".xml"))
       {
-        boolean first = true;
         name = name.substring(0, name.length() - 4);
-        for (SuiteDefinition definition : getSuiteDefinitions())
+        
+        if (allowedTestNames.isEmpty() || allowedTestNames.contains(name))
         {
-          if (first)
-          {
-            addRendererTest(name, definition, false);
-            first = false;
-          }
-          else
-          {
-            addRendererTest(name, definition, lenient);
-          }
+          _addRendererTestsForSuites(suiteDefinitions, name, lenient);
+        }
+        else
+        {
+          _LOG.info("Suppress running RenderKitTest:" + name);
         }
       }
     }
+  }
+  
+  private void _addRendererTestsForSuites(
+     List<SuiteDefinition> suiteDefinitions, String name, boolean lenient)
+    throws IOException, SAXException
+  {
+    boolean first = true;
+
+    for (SuiteDefinition definition : suiteDefinitions)
+    {
+      boolean lenience = lenient;
+      
+      if (first)
+      {
+        lenience = false;
+        first = false;
+      }
+      
+      addRendererTest(name, definition, lenience);          
+    }    
   }
 
   protected void addRendererTest(
@@ -729,8 +828,6 @@ abstract public class RenderKitTestCase extends TestSuite
   protected abstract UIComponent populateDefaultComponentTree(
     UIViewRoot root,
     TestScript script);
-
-  protected abstract List<SuiteDefinition> getSuiteDefinitions();
 
   protected abstract String getRenderKitId();
 
