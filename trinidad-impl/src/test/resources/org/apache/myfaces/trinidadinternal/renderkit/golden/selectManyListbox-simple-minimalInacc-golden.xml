@@ -264,37 +264,6 @@
           </option>
         </select>
       </span>
-<!--AttributeTest[label,null]-->
-
-      <span
-           class="af_selectManyListbox"
-          >
-        
-        <select
-             class="af_selectManyListbox_content"
-             id="mainId"
-             multiple="multiple"
-             name="mainId"
-             size="3"
-            >
-          
-          <option
-               value="0"
-              >
-            item2
-          </option>
-          <option
-               value="1"
-              >
-            item4
-          </option>
-          <option
-               value="2"
-              >
-            item8
-          </option>
-        </select>
-      </span>
 <!--AttributeTest[readOnly,false]-->
 
       <span

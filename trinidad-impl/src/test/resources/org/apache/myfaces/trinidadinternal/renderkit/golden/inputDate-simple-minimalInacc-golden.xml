@@ -115,45 +115,6 @@
           
         </input>
       </span>
-<!--AttributeTest[label,null]-->
-
-      <span
-           class="af_inputDate"
-          >
-        
-        <input
-             class="af_inputDate_content"
-             id="mainId"
-             name="mainId"
-             onblur="_dfb(this)"
-             size="10"
-             type="text"
-            >
-          
-        </input>
-        <img
-             height="1"
-             width="8"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-            >
-          
-        </img>
-        <a
-             onclick="_ldp('formId','mainId',false); return false"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               border="0"
-               height="24"
-               width="19"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dfb.gif"
-              >
-            
-          </img>
-        </a>
-      </span>
 <!--AttributeTest[readOnly,false]-->
 
       <span

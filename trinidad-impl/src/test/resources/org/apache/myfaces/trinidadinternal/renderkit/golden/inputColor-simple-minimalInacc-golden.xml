@@ -271,58 +271,6 @@
           
         </img>
       </span>
-<!--AttributeTest[label,null]-->
-
-      <span
-           class="af_inputColor"
-          >
-        
-        <input
-             class="af_inputColor_content"
-             id="mainId"
-             name="mainId"
-             onblur="_fixCFF(this);_cfsw(this);"
-             size="11"
-             type="text"
-            >
-          
-        </input>
-        <img
-             height="1"
-             width="8"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-            >
-          
-        </img>
-        <a
-             onclick="_lcp('formId','mainId'); return false"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="absmiddle"
-               class="p_OraColorFieldSwatch"
-               height="15"
-               id="mainId$sw"
-               title="Select to access color picker"
-               width="15"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-              >
-            
-          </img>
-          <img
-               align="middle"
-               alt=""
-               border="0"
-               class="af_inputColor_swatch-overlay"
-               height="12"
-               width="12"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/cfso.gif"
-              >
-            
-          </img>
-        </a>
-      </span>
 <!--AttributeTest[readOnly,false]-->
 
       <span

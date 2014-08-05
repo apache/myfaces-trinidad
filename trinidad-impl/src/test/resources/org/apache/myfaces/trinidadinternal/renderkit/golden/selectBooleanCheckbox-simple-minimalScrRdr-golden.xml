@@ -18,27 +18,6 @@
           </input>
         </span>
       </span>
-<!--AttributeTest[accessKey,a]-->
-
-      <span
-           class="af_selectBooleanCheckbox"
-           id="mainId__xc_c"
-          >
-        
-        <span
-             class="af_selectBooleanCheckbox_content"
-            >
-          
-          <input
-               id="mainId"
-               name="mainId"
-               type="checkbox"
-               value="t"
-              >
-            
-          </input>
-        </span>
-      </span>
 <!--AttributeTest[autoSubmit,false]-->
 
       <span

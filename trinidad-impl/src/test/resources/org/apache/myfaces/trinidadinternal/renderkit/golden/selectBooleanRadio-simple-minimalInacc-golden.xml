@@ -130,27 +130,6 @@
           </input>
         </span>
       </span>
-<!--AttributeTest[label,null]-->
-
-      <span
-           class="af_selectBooleanRadio"
-           id="mainId__xc_r"
-          >
-        
-        <span
-             class="af_selectBooleanRadio_content"
-            >
-          
-          <input
-               id="mainId"
-               name="groupTest"
-               type="radio"
-               value="mainId"
-              >
-            
-          </input>
-        </span>
-      </span>
 <!--AttributeTest[group,secondGroup]-->
 
       <span

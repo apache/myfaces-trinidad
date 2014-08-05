@@ -8,17 +8,6 @@
           >
         ButtonText
       </button>
-<!--AttributeTest[accessKey,u]-->
-
-      <button
-           class="af_goButton"
-           onclick="document.location='encoded-action-url:http://www.oracle.com'"
-           type="button"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        ButtonText
-      </button>
 <!--AttributeTest[disabled,false]-->
 
       <button

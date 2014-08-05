@@ -8,7 +8,7 @@
   <attribute-test name="destination" value="/foo.html"/>
   <attribute-test name="destination" value="//foo.html"/>
 
-  <attribute-test name="accessKey" value="e"/>
+  <attribute-test name="accessKey" value="e" accessibilityModeNotSupported="SCREEN_READER"/>
   <boolean-test name="disabled"/>
   <attribute-test name="longDesc" value="my long desc"  matchesBase="true"/>
   <!--attribute-test name="partialTriggers" value="x y" matchesBase="true"/-->

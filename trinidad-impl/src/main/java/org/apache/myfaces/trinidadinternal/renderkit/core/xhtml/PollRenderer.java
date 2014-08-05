@@ -175,15 +175,15 @@ public class PollRenderer extends XhtmlRenderer
     FacesBean   bean)
   {
     Object o = bean.getProperty(_intervalKey);
-    if (o == null)
-    {
-      o = _intervalKey.getDefault();
-    }
-
+    
+    Number interval;
+    
     if (o instanceof Number)
-      return ((Number) o).intValue();
-
-    return _POLL_INTERVAL_DEFAULT;
+      interval = ((Number)o).intValue();
+    else
+      interval = (Number)_intervalKey.getDefault();
+    
+    return interval.intValue();
   }
 
   /**
@@ -239,8 +239,7 @@ public class PollRenderer extends XhtmlRenderer
                                    isAutoRefreshMode,
                                    elementID);
     String argumentString = _getArgumentString(elementID,
-                                               rc.getFormData().getName(),
-                                               isPartial);
+                                               rc.getFormData().getName());
     int length = _getScriptBufferLength(startScript,
                                         argumentString,
                                         pollInterval,
@@ -344,9 +343,7 @@ public class PollRenderer extends XhtmlRenderer
   */
   private static String _getArgumentString(
     String  elementID,
-    String  formName,
-    boolean isPartial
-    )
+    String  formName)
   {
     StringBuilder buffer = new StringBuilder(60);
     buffer.append("'");
@@ -387,8 +384,6 @@ public class PollRenderer extends XhtmlRenderer
     "submitForm(";
   private static final String _END_SCRIPT     = ");";
   private static final String _MIDDLE_SCRIPT_AUTO_REFRESH  = ")\", ";
-
-  private static final int _POLL_INTERVAL_DEFAULT = 5000;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PollRenderer.class);
 }

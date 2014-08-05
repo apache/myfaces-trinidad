@@ -24,10 +24,13 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.apache.myfaces.trinidad.context.RequestContext.Accessibility;
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
@@ -86,6 +89,29 @@ class TestScriptParser extends BaseNodeParser
         _script.removeAgentType(tokens.nextToken());
       }
     }
+
+    Set<Accessibility> unsupportedModes = _parseUnsupportedAccessibilityModes(attrs);
+    _script.removeAccessibleModes(unsupportedModes);    
+  }
+  
+  private static Set<Accessibility> _parseUnsupportedAccessibilityModes(Attributes attrs)
+  {
+    String accessibilityNotSupported = attrs.getValue(_ACCESSIBILITY_MODE_NOT_SUPPORTED_ATTR_NAME);
+    
+    Set<Accessibility> unsupportedModes = EnumSet.noneOf(Accessibility.class);
+    
+    if (accessibilityNotSupported != null)
+    {
+      StringTokenizer tokens = new StringTokenizer(accessibilityNotSupported);
+      while (tokens.hasMoreTokens())
+      {
+        Accessibility unsupportedMode = Accessibility.valueOf(tokens.nextToken());
+
+        unsupportedModes.add(unsupportedMode);
+      }
+    }
+    
+    return unsupportedModes;
   }
 
   public NodeParser createTestParser(
@@ -282,11 +308,14 @@ class TestScriptParser extends BaseNodeParser
       else
         value = valueStr;
 
+      Set<Accessibility> unsupportedModes = _parseUnsupportedAccessibilityModes(attrs);
+
       _test = new TestScript.AttributeTest(name,
                                            value,
                                            matchesBase,
                                            null, 
-                                           _componentId);
+                                           _componentId,
+                                           unsupportedModes);
     }
 
     @Override
@@ -360,7 +389,7 @@ class TestScriptParser extends BaseNodeParser
         _defaultValue = _propertyInfo.defaultValue;
         /* No default presumably means that null is legit, and that
            none of the values should "match base"
-        if (defaultValue == null)
+        if (defaultValue == null)i
           logError(context, "Property \"" + _name + "\" does not have a " +
             "default value",
             null);
@@ -635,6 +664,8 @@ class TestScriptParser extends BaseNodeParser
     private TestScript.Test _test;
   }
 
+  private static final String _ACCESSIBILITY_MODE_NOT_SUPPORTED_ATTR_NAME = "accessibilityModeNotSupported";
+  
   private FacesConfigInfo _info;
   private TestScript      _script;
   private FacesConfigInfo.ComponentInfo   _componentInfo;

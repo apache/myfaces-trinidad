@@ -36,7 +36,7 @@
     <attribute-test name="horizontalGridVisible" value="false"/>
   </attribute-test>
     
-  <attribute-test name="summary" value="testTableSummary"/>
+  <attribute-test name="summary" value="testTableSummary" accessibilityModeNotSupported="INACCESSIBLE"/>
   <attribute-test name="width" value="70%"/>   
   <!-- tableSortCriteria is a custom attribute. This is not renderer or component attribute.
   The render kit framework handles this condition in the code. -->        

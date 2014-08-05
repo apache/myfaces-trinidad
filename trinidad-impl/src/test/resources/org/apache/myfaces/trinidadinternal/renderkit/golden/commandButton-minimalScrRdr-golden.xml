@@ -8,17 +8,6 @@
           >
         ButtonText
       </button>
-<!--AttributeTest[accessKey,u]-->
-
-      <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        ButtonText
-      </button>
 <!--AttributeTest[disabled,false]-->
 
       <button

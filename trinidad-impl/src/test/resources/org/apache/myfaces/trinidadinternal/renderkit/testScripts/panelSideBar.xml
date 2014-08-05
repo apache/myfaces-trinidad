@@ -1,5 +1,5 @@
 <test xmlns="http://myfaces.apache.org/trinidad/test"
-       xmlns:tr="http://myfaces.apache.org/trinidad">
+       xmlns:tr="http://myfaces.apache.org/trinidad" accessibilityModeNotSupported="SCREEN_READER">
   <base-component tr:type="org.apache.myfaces.trinidad.CorePanelSideBar">
     <component tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="Sidebar content"/>
     <component tr:facet="filter" tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="Filter"/>

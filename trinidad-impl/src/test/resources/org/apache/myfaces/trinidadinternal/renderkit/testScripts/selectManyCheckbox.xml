@@ -15,7 +15,7 @@
   <boolean-test name="autoSubmit"/>
   <boolean-test name="disabled"/>
   <attribute-test name="label"/>
-  <attribute-test name="accessKey" value="a"/>
+  <attribute-test name="accessKey" value="a" accessibilityModeNotSupported="SCREEN_READER"/>
   <boolean-test name="readOnly"/> 
   <boolean-test name="required"/>
   <boolean-test name="showRequired">

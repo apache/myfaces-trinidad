@@ -1,7 +1,7 @@
 <test xmlns="http://myfaces.apache.org/trinidad/test"
        xmlns:tr="http://myfaces.apache.org/trinidad">
   <base-component tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="This is some &lt;Text&gt;"/>
-  <attribute-test name="description"/>
+  <attribute-test name="description" accessibilityModeNotSupported="INACCESSIBLE"/>
   <boolean-test name="escape"/>
   <attribute-test name="truncateAt" value="13"/>
   

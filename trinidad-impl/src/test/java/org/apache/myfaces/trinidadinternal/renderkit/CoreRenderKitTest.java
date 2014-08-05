@@ -21,9 +21,13 @@ package org.apache.myfaces.trinidadinternal.renderkit;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,8 +40,11 @@ import org.apache.myfaces.trinidad.component.core.CoreDocument;
 import org.apache.myfaces.trinidad.component.core.CoreForm;
 import org.apache.myfaces.trinidad.component.html.HtmlHtml;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.RenderUtils;
 
+import org.apache.myfaces.trinidadinternal.renderkit.RenderKitTestCase.RendererTest;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderKitTestCase.SuiteDefinition;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 
 import org.xml.sax.SAXException;
@@ -52,14 +59,37 @@ public class CoreRenderKitTest extends RenderKitTestCase
     return suite;
   }
 
+  /**
+   * To limit the set of allowed SuiteDefinition variants that the tests are run against,
+   * pass the parameter:<code>definitions=<i><comma-delimited list of defintions><i></code>, such
+   * as <code>definitions=minimal,minimalScrRdr</code>
+   * To limit the set test scripts run, pass the parameter
+   * <code>tests=<i><comma-delimited list of test script names without .xml extension><i></code>,
+   * such as <code>tests=inputText,media</code>
+   * @param args
+   * @throws Throwable
+   */
+  public static void main(String[] args) throws Throwable
+  {    
+    _parseAllowedDefinitions(args);
+    _parseAllowedTests(args);
+    
+    junit.textui.TestRunner.run(suite());
+  }
+
   public CoreRenderKitTest(String testName) throws IOException, SAXException
   {
     super(testName);
   }
 
   @Override
-  protected Iterable<SuiteDefinition> getSuiteDefinitions()
+  protected List<SuiteDefinition> getSuiteDefinitions()
   {
+    if (_definitions == null)
+    {
+      _definitions = _filterDefinitions();
+    }
+    
     return _definitions;
   }
 
@@ -83,7 +113,7 @@ public class CoreRenderKitTest extends RenderKitTestCase
       return root;
     }
 
-    if (_sHtmlComponents.contains(componentType))
+    if (_HTML_COMPONENTS.contains(componentType))
     {
       HtmlHtml html = new HtmlHtml();
       html.setId("htmlId");
@@ -104,9 +134,107 @@ public class CoreRenderKitTest extends RenderKitTestCase
     }
   }
 
-  private static final List<SuiteDefinition> _definitions =
-    new ArrayList<SuiteDefinition>();
-  private static final HashSet<String> _sHtmlComponents;
+  /**
+   * Override to filter which component tests to add
+   * @param name
+   * @param definition
+   * @param lenient
+   * @throws IOException
+   * @throws SAXException
+   */
+  @Override
+  protected void addRendererTest(
+    String name,
+    SuiteDefinition definition,
+    boolean lenient) throws IOException, SAXException
+  {
+    if (_ALLOWED_TEST_NAMES.isEmpty() || _ALLOWED_TEST_NAMES.contains(name))
+    {
+      super.addRendererTest(name, definition, lenient);
+    }
+    else
+    {
+      _LOG.info("Suppress running RenderKitTest:" + name + " " + definition);
+    }
+  }
+  
+  private static List<String> _parseListParameter(String[] args, String parameterPrefix)
+  {    
+    for (String arg : args)
+    {
+      if (arg.startsWith(parameterPrefix))
+      {
+        String definitionsString = arg.substring(parameterPrefix.length());
+        return Arrays.asList(definitionsString.split(","));
+      }
+    }
+    
+    return Collections.emptyList();
+  }
+   
+  private static void _parseAllowedDefinitions(String[] args)
+  {
+    _ALLOWED_DEFINITIONS_CATEGORIES.addAll(_parseListParameter(args, "definitions="));
+  }
+
+  private static void _parseAllowedTests(String[] args)
+  {
+    _ALLOWED_TEST_NAMES.addAll(_parseListParameter(args, "tests="));
+  }
+
+  private static SuiteDefinition _getSuitedDefinitionByCategory(
+    Iterable<SuiteDefinition> suitedDefinitions, String category)
+  {
+    for (SuiteDefinition def : suitedDefinitions)
+    {
+      if (category.equals(def.getCategory()))
+      {
+        return def;
+      }
+    }
+    
+    return null;
+  }
+  
+  private static List<SuiteDefinition> _filterDefinitions()
+  {    
+    if (_ALLOWED_DEFINITIONS_CATEGORIES.isEmpty())
+    {
+      return _DEFINITIONS;
+    }
+    else
+    {
+      ArrayList<SuiteDefinition> definitions = new ArrayList<SuiteDefinition>();
+      
+      for (String category : _ALLOWED_DEFINITIONS_CATEGORIES)
+      {
+        SuiteDefinition allowedDefinition = _getSuitedDefinitionByCategory(_DEFINITIONS, category);
+        
+        if (allowedDefinition != null)
+        {
+          definitions.add(allowedDefinition);
+        }
+        else
+        {
+          _LOG.warning("Unabled to find test category named:" + category);
+        }
+      }
+
+      definitions.trimToSize();
+      return Collections.unmodifiableList(definitions);
+    }
+  }
+
+
+  private static final Set<String> _ALLOWED_TEST_NAMES = new HashSet<String>();
+  private static final Set<String> _ALLOWED_DEFINITIONS_CATEGORIES = new HashSet<String>();
+
+  private static final List<SuiteDefinition> _DEFINITIONS;
+  private static final Set<String> _HTML_COMPONENTS;
+
+  private static final Logger _LOG = Logger.getLogger(CoreRenderKitTest.class.getName());
+  
+  private List<SuiteDefinition> _definitions;
 
   static
   {
@@ -115,6 +243,7 @@ public class CoreRenderKitTest extends RenderKitTestCase
     Logger logger = Logger.getLogger(CoreRenderKit.class.getName());
     logger.setLevel(Level.SEVERE);
     logger.setUseParentHandlers(false);
+    
     // Force the RenderUtils logger level to SEVERE to bypass the
     // warnings in getRelativeId method when the component
     // with the relativeId could not be found which is the case in our
@@ -123,47 +252,54 @@ public class CoreRenderKitTest extends RenderKitTestCase
     loggerTwo.setLevel(Level.SEVERE);
     loggerTwo.setUseParentHandlers(false);
 
-    _definitions.add(new SuiteDefinition("minimal",
-                                         "minimal",
-                                         null,
-                                         RenderKitBootstrap.getGeckoAgent(),
-                                         false));
-    _definitions.add(new SuiteDefinition("minimalIE",
-                                         "minimal",
-                                         null,
-                                         RenderKitBootstrap.getIEAgent(),
-                                         false));
-    _definitions.add(new SuiteDefinition("minimalIERtl",
-                                         "minimal",
-                                         null,
-                                         RenderKitBootstrap.getIEAgent(),
-                                         true));
-    _definitions.add(new SuiteDefinition("minimalPPC",
-                                         "minimal",
-                                         null,
-                                         RenderKitBootstrap.getPocketPCAgent(),
-                                         false));
-    _definitions.add(new SuiteDefinition("minimalSaf",
-                                         "minimal",
-                                         null,
-                                         RenderKitBootstrap.getSafariAgent(),
-                                         false));
-    _definitions.add(new SuiteDefinition("minimalScrRdr",
-                                         "minimal",
-                                         RequestContext.Accessibility.SCREEN_READER,
-                                         RenderKitBootstrap.getGeckoAgent(),
-                                         false));
-    _definitions.add(new SuiteDefinition("minimalInacc",
-                                         "minimal",
-                                         RequestContext.Accessibility.INACCESSIBLE,
-                                         RenderKitBootstrap.getGeckoAgent(),
-                                         false));
+    // order is apparently important
+    ArrayList<SuiteDefinition> definitions = new ArrayList<SuiteDefinition>();
+    
+    definitions.add(new SuiteDefinition("minimal",
+                                        "minimal",
+                                        null,
+                                        RenderKitBootstrap.getGeckoAgent(),
+                                        false));
+    definitions.add(new SuiteDefinition("minimalIE",
+                                        "minimal",
+                                        null,
+                                        RenderKitBootstrap.getIEAgent(),
+                                        false));
+    definitions.add(new SuiteDefinition("minimalIERtl",
+                                        "minimal",
+                                        null,
+                                        RenderKitBootstrap.getIEAgent(),
+                                        true));
+    definitions.add(new SuiteDefinition("minimalPPC",
+                                        "minimal",
+                                        null,
+                                        RenderKitBootstrap.getPocketPCAgent(),
+                                        false));
+    definitions.add(new SuiteDefinition("minimalSaf",
+                                        "minimal",
+                                        null,
+                                        RenderKitBootstrap.getSafariAgent(),
+                                        false));
+    definitions.add(new SuiteDefinition("minimalScrRdr",
+                                        "minimal",
+                                        RequestContext.Accessibility.SCREEN_READER,
+                                        RenderKitBootstrap.getGeckoAgent(),
+                                        false));
+    definitions.add(new SuiteDefinition("minimalInacc",
+                                        "minimal",
+                                        RequestContext.Accessibility.INACCESSIBLE,
+                                        RenderKitBootstrap.getGeckoAgent(),
+                                        false));
 
-    _sHtmlComponents = new HashSet<String>(8);
-    _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlBody");
-    _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlFrame");
-    _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlFrameBorderLayout");
-    _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlHead");
-    _sHtmlComponents.add("org.apache.myfaces.trinidad.CoreStyleSheet");
+    definitions.trimToSize();
+    _DEFINITIONS = Collections.unmodifiableList(definitions);
+   
+    String[] htmlComponents = {"org.apache.myfaces.trinidad.HtmlBody",
+                               "org.apache.myfaces.trinidad.HtmlFrame",
+                               "org.apache.myfaces.trinidad.HtmlFrameBorderLayout",
+                               "org.apache.myfaces.trinidad.HtmlHead",
+                               "org.apache.myfaces.trinidad.CoreStyleSheet"};
+    
+    _HTML_COMPONENTS = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(htmlComponents)));
   }
 }

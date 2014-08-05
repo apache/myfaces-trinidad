@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.renderkit;
 import java.io.StringWriter;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Iterator;
@@ -36,6 +37,8 @@ import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.model.SortCriterion;
 
 import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.context.RequestContext.Accessibility;
 
 public class TestScript
 {
@@ -50,9 +53,19 @@ public class TestScript
     return _agentTypes.contains(agentType);
   }
 
+  public boolean isSupportedAccessibilityMode(Accessibility mode)
+  {
+    return _accessibleModes.contains(mode);
+  }
+
   public void removeAgentType(Object agentType)
   {
     _agentTypes.remove(agentType);
+  }
+
+  public void removeAccessibleModes(Set<Accessibility> unsupportedModes)
+  {      
+    _accessibleModes.removeAll(unsupportedModes);
   }
 
   public void setDefinition(ComponentDefinition cd)
@@ -74,8 +87,13 @@ public class TestScript
 
   static abstract public class Test
   {
-    abstract public void apply(FacesContext context, UIComponent component);
-    abstract public boolean shouldMatchBase();
+    public abstract void apply(FacesContext context, UIComponent component);
+    public abstract boolean shouldMatchBase();
+    public boolean supportsAccessibilityMode(RequestContext.Accessibility mode)
+    {
+      return true;
+    }
+    
     public StringWriter getOutput()
     {
       return _output;
@@ -170,7 +188,7 @@ public class TestScript
   {
     public AttributeTest(String name, Object value, boolean matchesBase)
     {
-      this(name, value, matchesBase, null, null);
+      this(name, value, matchesBase, null, null, null);
     }
     
     public AttributeTest(String name, 
@@ -178,18 +196,22 @@ public class TestScript
                         boolean matchesBase, 
                         Test    delegateTest)
     {
-      this(name, value, matchesBase, delegateTest, null);
+      this(name, value, matchesBase, delegateTest, null, null);
     }
 
     public AttributeTest(String name,
                          Object value,
                          boolean matchesBase,
                          Test    delegateTest,
-                         String  componentId)
+                         String  componentId,
+                         Set<Accessibility> unsupportedModes)
     {
       _name = name;
       _value = value;
       _testComponentId = componentId;
+      _unsupportedModes = (unsupportedModes != null)
+                            ? unsupportedModes
+                            : EnumSet.noneOf(Accessibility.class); 
       
       if (delegateTest != null)
       {
@@ -198,6 +220,22 @@ public class TestScript
       }
 
       _matchesBase = matchesBase;
+    }
+
+    @Override
+    public boolean supportsAccessibilityMode(RequestContext.Accessibility mode)
+    {
+      /*
+      if (_unsupportedModes.contains(mode))
+      {
+        return true;
+      }
+      else
+      {
+        return true;
+      }
+      */
+      return !_unsupportedModes.contains(mode);
     }
 
     public void addDelegate(Test delegateTest)
@@ -238,20 +276,20 @@ public class TestScript
       }
       else
       {      
-      if ((value instanceof String) &&
-          ComponentDefinition.isValueExpression(value.toString()))
-      {
-        ValueBinding binding = context.getApplication().
-          createValueBinding(value.toString());
-        component.setValueBinding(_name, binding);
-      }
-      else
-      {
-        if (value == null)
-          value = "test-" + _name;
-
-        component.getAttributes().put(_name, value);
-      }
+        if ((value instanceof String) &&
+            ComponentDefinition.isValueExpression(value.toString()))
+        {
+          ValueBinding binding = context.getApplication().
+            createValueBinding(value.toString());
+          component.setValueBinding(_name, binding);
+        }
+        else
+        {
+          if (value == null)
+            value = "test-" + _name;
+  
+          component.getAttributes().put(_name, value);
+        }
       }
     }
 
@@ -325,14 +363,16 @@ public class TestScript
       }
     }
 
-    private String     _name;
-    private Object     _value;
-    private String     _testComponentId;
-    private boolean    _matchesBase;
-    private List<Test> _delegateTests = new ArrayList<Test>();
+    private final String              _name;
+    private final Object             _value;
+    private final String             _testComponentId;
+    private final boolean            _matchesBase;
+    private final List<Test>         _delegateTests = new ArrayList<Test>();
+    private final Set<Accessibility> _unsupportedModes;
   }
 
   private Set<Object>         _agentTypes = new HashSet<Object>();
+  private Set<Accessibility>  _accessibleModes = EnumSet.allOf(Accessibility.class);
   private List<Test>          _tests      = new ArrayList<Test>();
   private ComponentDefinition _definition;
   

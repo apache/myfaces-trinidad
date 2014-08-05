@@ -28,6 +28,7 @@ import java.io.Writer;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Handler;
@@ -48,6 +49,7 @@ import org.apache.commons.lang.StringUtils;
 
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.context.RequestContext.Accessibility;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.skin.SkinProvider;
 import org.apache.myfaces.trinidad.util.Service;
@@ -62,6 +64,8 @@ import org.apache.myfaces.trinidadinternal.skin.provider.TrinidadSkinProvider;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
+
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.xml.sax.SAXException;
 
@@ -137,6 +141,11 @@ abstract public class RenderKitTestCase extends TestSuite
       _accMode = accMode;
       _rightToLeft = rightToLeft;
       _outputMode = outputMode;
+    }
+    
+    public Accessibility getAccMode()
+    {
+      return _accMode;
     }
 
     @Override
@@ -361,24 +370,20 @@ abstract public class RenderKitTestCase extends TestSuite
                                                   this,
                                                   _lenient));
 
-      Iterator<TestScript.Test> tests = _script.getTests().iterator();
-      while (tests.hasNext())
-      {
-        TestScript.Test test = tests.next();
-
-        UIComponent testComponent = _createComponent();
-
-        test.apply(getFacesContext(), testComponent);
-        docRoot.getChildren().add(new GatherContent(test.getOutput(),
-                                                    testComponent,
-                                                    getResult(),
-                                                    this,
-                                                    _lenient));
-      }
-
+      // add the GatherContent components for the different test cases
+      _addTestComponents(docRoot);
 
       renderRoot(root);
 
+      String golden = _loadGoldenFile();
+      
+      String baseResults = base.toString();
+      
+      _processResults(golden, baseResults);
+    }
+  
+    private String _loadGoldenFile() throws IOException
+    {
       File goldenFile = new File(_goldenDir, getName() + "-golden.xml");
       String golden = null;
       if (goldenFile.exists())
@@ -397,88 +402,150 @@ abstract public class RenderKitTestCase extends TestSuite
         golden = buffer.toString();
         in.close();
       }
+      
+      return golden;
+    }
 
-      boolean forceGolden = "true".equals(
-         System.getProperty("org.apache.myfaces.trinidad.ForceGolden"));
-
-      Writer out = new StringWriter(golden == null ? 1000 : golden.length());
-      out.write("<results>");
-      String baseResults = base.toString();
-      out.write(baseResults);
-
-
-      tests = _script.getTests().iterator();
+    private void _addTestComponents(UIComponent docRoot)
+    {
+      Iterator<TestScript.Test> tests = _script.getTests().iterator();
+      Accessibility accMode = getAccMode();
+      
       while (tests.hasNext())
       {
         TestScript.Test test = tests.next();
+
+        if (test.supportsAccessibilityMode(accMode))
+        {
+          UIComponent testComponent = _createComponent();
+      
+          test.apply(getFacesContext(), testComponent);
+          docRoot.getChildren().add(new GatherContent(test.getOutput(),
+                                                      testComponent,
+                                                      getResult(),
+                                                      this,
+                                                      _lenient));
+        }
+      }      
+    }
+
+    private void _processTest(TestScript.Test test, Writer out, String baseResults) throws IOException
+    {
+      Accessibility accMode = getAccMode();
+
+      if (test.supportsAccessibilityMode(accMode))
+      {
         out.write("\n<!--");
         out.write(test.toString());
         out.write("-->\n");
         String testResults = test.getOutput().toString();
         out.write(testResults);
-
-        if (_lenient)
-          continue;
-        if (!test.shouldMatchBase() &&
-            baseResults.equals(testResults))
+      
+        if (!_lenient)
         {
-          AssertionFailedError failure = new AssertionFailedError(
-            "Result of " + test.toString() + " were identical to " +
-            "base, but should not have been!");
-          getResult().addError(this, failure);
-        }
-        else if (test.shouldMatchBase() &&
-                   !baseResults.equals(testResults))
-        {
-          AssertionFailedError failure = new AssertionFailedError(
-            "Result of " + test.toString() + " were not identical to " +
-            "base, but should have been!");
-          getResult().addError(this, failure);
-        }
-      }
-
-      out.write("\n</results>\n");
-      out.close();
-
-      String results = out.toString();
-      if ((golden == null) || !golden.equals(results))
-      {
-        File failureFile;
-        // Set the "org.apache.myfaces.trinidad.ForceGolden" property to true to
-        // force failures to be directly copied into the target directory
-        if (forceGolden)
-          failureFile = new File(_goldenDir, getName() + "-golden.xml");
-        else
-          failureFile = new File(_failureDir, getName() + "-golden.xml");
-        failureFile.getParentFile().mkdirs();
-        FileWriter failureOut = new FileWriter(failureFile);
-        failureOut.write(results);
-        failureOut.close();
-
-        if (golden == null)
-        {
-          // Don't report "no golden file" as an error when
-          // forceGolden is on; but do report diffs as errors
-          if (!forceGolden)
+          if (!test.shouldMatchBase() &&
+              baseResults.equals(testResults))
           {
-            throw new AssertionFailedError("No golden file for test " +
-                                           _scriptName);
+            AssertionFailedError failure = new AssertionFailedError(
+              "In " + getName() + ", result of " + test.toString() + " were identical to " +
+              "base, but should not have been!");
+            getResult().addError(this, failure);
           }
-        }
-        else
-        {
-          int index = StringUtils.indexOfDifference(golden, results);
-          String difference = StringUtils.difference(golden, results);
-          int diffLength = difference.length();
-          if (diffLength > 50)
-            difference = StringUtils.abbreviate(difference, 50);
-          throw new AssertionFailedError(
-               "Golden file for test "+ _scriptName + " did not match; " +
-               "first difference at " + index + ", difference of length " +
-               diffLength + ", \"" + difference + "\"");
+          else if (test.shouldMatchBase() &&
+                     !baseResults.equals(testResults))
+          {
+            AssertionFailedError failure = new AssertionFailedError(
+              "Result of " + test.toString() + " were not identical to " +
+              "base, but should have been!");
+            getResult().addError(this, failure);
+          }
         }
       }
     }
+
+    private String _processTests(String golden, String baseResults) throws IOException
+    {
+      Writer out = new StringWriter(golden == null ? 1000 : golden.length());
+
+      try
+      {
+        out.write("<results>");
+        out.write(baseResults);
+  
+        Iterator<TestScript.Test> tests = _script.getTests().iterator();
+        while (tests.hasNext())
+        {
+          TestScript.Test test = tests.next();
+          
+          _processTest(test, out, baseResults);
+        }
+        
+        out.write("\n</results>\n");    
+      }
+      finally
+      {
+        out.close();       
+      }
+      
+      return out.toString();
+    }
+
+    private void _writeFailureGoldenFile(String results, boolean forceGolden) throws IOException
+    {
+      File failureFile;
+      // Set the "org.apache.myfaces.trinidad.ForceGolden" property to true to
+      // force failures to be directly copied into the target directory
+      if (forceGolden)
+        failureFile = new File(_goldenDir, getName() + "-golden.xml");
+      else
+        failureFile = new File(_failureDir, getName() + "-golden.xml");
+          
+      failureFile.getParentFile().mkdirs();
+      FileWriter failureOut = new FileWriter(failureFile);
+      failureOut.write(results);
+      failureOut.close();
+    }
+
+    private void _throwAssertionFailure(String golden, String results, boolean forceGolden)
+    {
+      if (golden == null)
+      {
+        // Don't report "no golden file" as an error when
+        // forceGolden is on; but do report diffs as errors
+        if (!forceGolden)
+        {
+          throw new AssertionFailedError("No golden file for test " +
+                                         _scriptName);
+        }
+      }
+      else
+      {
+        int index = StringUtils.indexOfDifference(golden, results);
+        String difference = StringUtils.difference(golden, results);
+        int diffLength = difference.length();
+        if (diffLength > 50)
+          difference = StringUtils.abbreviate(difference, 50);
+        throw new AssertionFailedError(
+             "Golden file for test "+ _scriptName + " did not match; " +
+             "first difference at " + index + ", difference of length " +
+             diffLength + ", \"" + difference + "\"");
+      }      
+    }
+    
+    private void _processResults(String golden, String baseResults) throws IOException
+    {
+      String results = _processTests(golden, baseResults);
+      
+      if ((golden == null) || !golden.equals(results))
+      {
+        boolean forceGolden = "true".equals(
+                                    System.getProperty("org.apache.myfaces.trinidad.ForceGolden"));
+        
+        _writeFailureGoldenFile(results, forceGolden);
+        
+        _throwAssertionFailure(golden, results, forceGolden);
+      }
+    }      
 
     private UIComponent _createComponent()
     {
@@ -499,9 +566,11 @@ abstract public class RenderKitTestCase extends TestSuite
 
     _facesConfigInfo = bootstrap.getFacesConfigInfo();
 
-    String scripts = System.getProperty("trinidad.renderkit.scripts");
-    String golden = System.getProperty("trinidad.renderkit.golden");
-    String failures = System.getProperty("trinidad.renderkit.failures");
+    String projectPath = System.getProperty("user.dir");
+      
+    String scripts = System.getProperty("trinidad.renderkit.scripts", projectPath + "/src/test/resources/org/apache/myfaces/trinidadinternal/renderkit/testScripts/");
+    String golden = System.getProperty("trinidad.renderkit.golden", projectPath + "/src/test/resources/org/apache/myfaces/trinidadinternal/renderkit/golden/");
+    String failures = System.getProperty("trinidad.renderkit.failures", projectPath + "/target/test-failures/");
 
     _scriptDir = new File(scripts);
     _goldenDir = new File(golden);
@@ -518,7 +587,7 @@ abstract public class RenderKitTestCase extends TestSuite
       includedScripts = new HashSet<String>();
       for (int i = 0; i < scripts.length; i++)
       {
-        System.out.println("Including " + scripts[i]);
+        _LOG.info("Including " + scripts[i]);
         includedScripts.add(scripts[i]);
       }
     }
@@ -563,9 +632,29 @@ abstract public class RenderKitTestCase extends TestSuite
     boolean lenient) throws IOException, SAXException
   {
     RendererTest test = new RendererTest(name, definition, lenient);
-    if (test._script.isSupportedAgentType(test.getAgent().getType()))
+    TestScript script = test._script;
+    
+    Object agentType = test.getAgent().getType();
+    RequestContext.Accessibility mode = definition.getAccessibilityMode();
+      
+    boolean allowedAgent = script.isSupportedAgentType(agentType);
+    boolean allowedMode = script.isSupportedAccessibilityMode(mode);
+    
+    if (allowedAgent && allowedMode)
     {
       addTest(test);
+    }
+    else
+    {
+      if (!allowedAgent)
+      {
+        _LOG.info("Suppress " + name + " on agent " + agentType);
+      }
+
+      if (!allowedMode)
+      {
+        _LOG.info("Suppress " + name + " on accessibility mode " + mode);
+      }
     }
   }
 
@@ -573,7 +662,7 @@ abstract public class RenderKitTestCase extends TestSuite
     UIViewRoot root,
     TestScript script);
 
-  protected abstract Iterable<SuiteDefinition> getSuiteDefinitions();
+  protected abstract List<SuiteDefinition> getSuiteDefinitions();
 
   protected abstract String getRenderKitId();
 
@@ -656,4 +745,7 @@ abstract public class RenderKitTestCase extends TestSuite
   static private File            _scriptDir;
   static private File            _goldenDir;
   static private File            _failureDir;
+  
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RenderKitTestCase.class);
+
 }

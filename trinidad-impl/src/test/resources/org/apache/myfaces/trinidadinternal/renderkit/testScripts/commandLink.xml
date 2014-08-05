@@ -2,7 +2,7 @@
        xmlns:tr="http://myfaces.apache.org/trinidad">
   <base-component tr:type="org.apache.myfaces.trinidad.CoreCommandLink" text="LinkText"/>
   <!-- ungrouped -->
-  <attribute-test name="accessKey" value="i"/>
+  <attribute-test name="accessKey" value="i" accessibilityModeNotSupported="SCREEN_READER"/>
   <boolean-test name="disabled"/>
   <boolean-test name="immediate"/>
   <boolean-test name="partialSubmit"/>
