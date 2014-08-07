@@ -23,6 +23,12 @@
 var _AD_ERA = null;
 var _THAI_BUDDHIST_YEAR_OFFSET = 543;
 
+// For each month in the Gregorian calendar, the DAY_OF_YEAR for the last date in that month
+// Used to determine the month for a DAY_OF_YEAR value - if the value is greater than the
+// DAY_OF_YEAR for that month's last date, it does not belong to that month. 
+var _GREGORIAN_MONTHS_LASTDAYOFYEAR_NONLEAP = [31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365];
+var _GREGORIAN_MONTHS_LASTDAYOFYEAR_LEAP = [31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366];
+
 var _MILLIS_PER_DAY = 86400000;
 
 function _getADEra()
@@ -482,6 +488,21 @@ function _getLocaleTimeZoneDifference()
   return tzOffsetDiff - currentDateTzOffset;
 }
 
+/*
+ * Returns true if year is a leap year
+ */
+function _isLeapYear (year)
+{
+  if (year % 4)
+    return false;
+  else if (year % 100)
+    return true;
+  else if (year % 400)
+    return false;
+  else 
+    return true;
+}
+
 /**
  * Parse a substring using a clump of format elements.
  */
@@ -518,11 +539,11 @@ function _subparse(
     switch (formatType)
     {
       case 'D': // day in year
-        // skip this number
-        if (_accumulateNumber(parseContext, !isStrict ? 3 : charCount) == null)
-        {
+        var dayOfYear = _accumulateNumber(parseContext, !isStrict ? 3 : charCount);
+        if (dayOfYear == null)
           return false;
-        }
+        else
+          parseContext.parsedDayOfYear = dayOfYear;
         break;
       
       case 'E': // day in week
@@ -1460,7 +1481,8 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
   parseContext.parsedDate = null;
   parseContext.hourOffset = null;
   parseContext.minOffset = null;
-
+  parseContext.parsedDayOfYear = null;
+  
   var parsedTime = new Date(0);
   parsedTime.setDate(1);
 
@@ -1540,6 +1562,37 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
     if (milliseconds != null)
       parsedTime.setMilliseconds(milliseconds);
 
+   // Some placeholders require information from other, if available. Process those here.
+    // e.g. 'D' - day of year, depends if the year is a leap year. 
+    if (parseContext.parsedDayOfYear != null)
+    {
+      // Give precedence to date and month, process day of year only if they are not set
+      if ((parseContext.parsedDate == null) || (parseContext.parsedMonth == null))
+      {
+        // If parse string does not contain year, default to current year
+        //
+        // Thai Buddhist Calendar uses the same months as Gregorian, so we use the Gregorian equivalent of the Thai
+        // year (stored in parsedFullYear) to look up the month array
+        var year = (parseContext.parsedFullYear != null) ? parseContext.parsedFullYear : new Date().getFullYear();
+        var lastDayOfYearByMonArray = _isLeapYear (year) ? _GREGORIAN_MONTHS_LASTDAYOFYEAR_LEAP: 
+                                                    _GREGORIAN_MONTHS_LASTDAYOFYEAR_NONLEAP;
+
+        var monIndx = 0;
+        for (monIndx = 0; monIndx < 12; monIndx++)
+        {
+          if (parsedContext.parsedDayOfYear < lastDayOfYearByMonArray[monIndx])
+            break;
+        }
+        parseContext.parsedMonth = monIndx;
+
+        // For the first month, date and day_of_year are the same
+        if (monIndx == 0)
+          parseContext.parsedDate = parsedContext.parsedDayOfYear;
+        else
+          parseContext.parsedDate = (parseContext.parsedDayOfYear - lastDayOfYearByMonArray [monIndx - 1]);
+      }
+    }
+    
     // so far we have done a lenient parse
     // now we check for strictness
     if (!_isStrict(parseContext, parsedTime))
