@@ -50,7 +50,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * <code>java.util.regex</code>. The following algorithm is implemented:</p>
  *
  * <ul>
- * <li>If the passed value is <code>null</code>, exit immediately.</li>
+ * <li>If the passed value is <code>null</code> or empty string, exit immediately.</li>
  *
  * <li>If a <code>pattern</code> property has been configured on this
  *     {@link javax.faces.validator.Validator}, check the component value against this pattern.
@@ -116,43 +116,46 @@ public class RegExpValidator implements StateHolder, Validator
     
     if ((context == null) || (component == null))
     {
-      throw new NullPointerException(_LOG.getMessage(
-        "NULL_FACESCONTEXT_OR_UICOMPONENT"));
+      throw new NullPointerException(_LOG.getMessage("NULL_FACESCONTEXT_OR_UICOMPONENT"));
     }
 
-    if ( value != null)
+    if (value == null)
+      return;
+
+    ValidatorUtils.assertIsString(value, "'value' is not of type java.lang.String.");
+
+    String theValue = (String)value;
+
+    // Skip validating empty string
+    if(theValue.isEmpty())
+      return;
+
+    if (getPattern() == null)
+      throw new NullPointerException(_LOG.getMessage("NULL_REGEXP_PATTERN"));
+
+    // compile the regular expression if we haven't already.
+    // we cache the compiled regular expression because we can't cache
+    // the RE object, as it isn't thread safe.
+    if (_compiled == null)
     {
-      ValidatorUtils.assertIsString(value,
-                                    "'value' is not of type java.lang.String.");
-
-      if (getPattern() == null)
-        throw new NullPointerException(_LOG.getMessage(
-          "NULL_REGEXP_PATTERN"));
-
-      // compile the regular expression if we haven't already.
-      // we cache the compiled regular expression because we can't cache
-      // the RE object, as it isn't thread safe.
-      if (_compiled == null)
+      try
       {
-        try
-        {
-          _compiled = Pattern.compile(getPattern());
-        }
-        catch (PatternSyntaxException pse)
-        {
-          // compilation choked
-          throw pse;
-        }
+        _compiled = Pattern.compile(getPattern());
       }
-      String theValue = (String)value;
-      Matcher matcher = _compiled.matcher(theValue);
-      // the matched string has to be the same as the input
-      if (! matcher.matches())
+      catch (PatternSyntaxException pse)
       {
-        throw new ValidatorException(_getNoMatchFoundMessage(context,
-                                                             component,
-                                                             theValue));
+        // compilation choked
+        throw pse;
       }
+    }
+
+    Matcher matcher = _compiled.matcher(theValue);
+    // the matched string has to be the same as the input
+    if (! matcher.matches())
+    {
+      throw new ValidatorException(_getNoMatchFoundMessage(context,
+                                                           component,
+                                                           theValue));
     }
   }
 
