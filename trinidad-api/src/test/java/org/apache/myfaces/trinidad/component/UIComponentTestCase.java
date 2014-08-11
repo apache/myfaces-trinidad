@@ -79,7 +79,7 @@ public class UIComponentTestCase extends FacesTestCase
     _mockRequestContext = new MockRequestContext();
     super.setUp();
   }
-  
+
   @Override
   protected void tearDown() throws Exception
   {
@@ -580,6 +580,13 @@ public class UIComponentTestCase extends FacesTestCase
       event.queue();
 
     component.getChildren().add(child);
+
+    // getRenderer called as part of UIXComponentBase.broadcast
+    Mock mockRenderkit = getMockRenderKitWrapper().getMock();
+    Mock mockRenderer = mock(Renderer.class);
+    Renderer renderer = (Renderer)mockRenderer.proxy();
+    mockRenderkit.stubs().method("getRenderer").will(returnValue(renderer));
+
     root.processApplication(context);
 
     mock.verify();
@@ -702,11 +709,11 @@ public class UIComponentTestCase extends FacesTestCase
     mock.stubs().method("setParent");
     mock.stubs().method("getFacetsAndChildren").will(returnIterator(Collections.emptyList()));
     mock.stubs().method("isRendered").will(returnValue(true));
-    
+
     mock.stubs().method("getAttributes").will(returnValue(Collections.emptyMap()));
     mock.stubs().method("pushComponentToEL").withAnyArguments();
     mock.stubs().method("popComponentFromEL").withAnyArguments();
-    
+
     mock.expects(never()).method("processRestoreState");
     mock.expects(never()).method("processDecodes");
     mock.expects(never()).method("processValidators");

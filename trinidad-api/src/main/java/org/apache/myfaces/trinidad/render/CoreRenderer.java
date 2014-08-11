@@ -19,8 +19,6 @@
 package org.apache.myfaces.trinidad.render;
 
 
-import java.beans.Beans;
-
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -41,6 +39,7 @@ import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+import javax.faces.event.FacesEvent;
 import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
@@ -64,6 +63,20 @@ public class CoreRenderer extends Renderer
 
   protected CoreRenderer()
   {
+  }
+
+  /**
+   * Allows the renderer for a Trinidad component to react to faces events broadcast on a component.
+   *
+   * @param component The component
+   * @param event The event
+   */
+  @SuppressWarnings("unused")
+  public void broadcast(
+    UIXComponent component,
+    FacesEvent   event)
+  {
+    // Do nothing by default
   }
 
   /**
@@ -511,7 +524,7 @@ public class CoreRenderer extends Renderer
 
       RequestContext rContext = null;
 
-      // push the component to the stack beforing encoding it if 
+      // push the component to the stack beforing encoding it if
       // component is not UIXComponent instance since UIXComponent
       // instance will push itself to the stack before this is called.
       if (!(component instanceof UIXComponent))

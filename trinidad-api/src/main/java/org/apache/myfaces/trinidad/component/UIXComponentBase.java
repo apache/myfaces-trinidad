@@ -84,6 +84,7 @@ import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
+import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.render.ExtendedRenderer;
 import org.apache.myfaces.trinidad.render.LifecycleRenderer;
 import org.apache.myfaces.trinidad.util.CollectionUtils;
@@ -350,12 +351,12 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     return addComponentChange(this, change);
   }
-  
+
   /**
    * Add a component change filter to this component.
    * When <code>addComponentChange(ComponentChange)</code> method on this component is called, the ComponentChange will
    * be added only if it is accepted by all the component change filters attached to this component as well as those
-   * attached to all its ancestors. 
+   * attached to all its ancestors.
    * @param componentChangeFilter The ComponentChangeFilter instance to add to this component
    * @see #addComponentChange(ComponentChange)
    */
@@ -363,10 +364,10 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     if (componentChangeFilter == null)
       throw new NullPointerException();
-    
+
     getFacesBean().addEntry(_COMPONENT_CHANGE_FILTERS_KEY, componentChangeFilter);
   }
-  
+
   /**
    * Remove a component change filter to this component.
    * @param componentChangeFilter The ComponentChangeFilter instance to remove from this component
@@ -376,10 +377,10 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     if (componentChangeFilter == null)
       throw new NullPointerException();
-    
+
     getFacesBean().removeEntry(_COMPONENT_CHANGE_FILTERS_KEY, componentChangeFilter);
   }
-  
+
   /**
   * Returns all the ComponentChangeFilters that are registered with this component.
   *
@@ -387,9 +388,9 @@ abstract public class UIXComponentBase extends UIXComponent
   */
   public final ComponentChangeFilter[] getComponentChangeFilters()
   {
-    Iterator<ComponentChangeFilter> filterIter = 
+    Iterator<ComponentChangeFilter> filterIter =
       (Iterator<ComponentChangeFilter>)getFacesBean().entries(_COMPONENT_CHANGE_FILTERS_KEY);
-    
+
     ArrayList<ComponentChangeFilter> filterList = CollectionUtils.arrayList(filterIter);
     return filterList.toArray(new ComponentChangeFilter[filterList.size()]);
   }
@@ -509,7 +510,7 @@ abstract public class UIXComponentBase extends UIXComponent
     // Search for an ancestor that is a naming container
     UIComponent lastParent = null;
     UIComponent currParent = getParent();
-    
+
     while (true)
     {
       // prepend the NamingContainer portion of the id
@@ -536,19 +537,19 @@ abstract public class UIXComponentBase extends UIXComponent
           break;
         }
         else
-        {          
+        {
           // the component isn't in the component tree, which can cause the cached client id to be wrong.
-          
+
           // =-= btsulliv see Trinidad-2374.  We can't do this right now because of a couple of bogus Trinidad Renderers
           break;
-          
+
           /*
           throw new IllegalStateException("Calling getClientId() on component " + this +
                                           " when it is not in the component tree.  Ancestor path:" +_getAncestorPath());
           */
         }
       }
-      
+
       lastParent = currParent;
       currParent = lastParent.getParent();
     }
@@ -563,27 +564,27 @@ abstract public class UIXComponentBase extends UIXComponent
   private List<UIComponent> _getAncestors()
   {
     List<UIComponent> ancestors = new ArrayList<UIComponent>();
-    
+
     UIComponent parent = getParent();
-    
+
     while (parent != null)
     {
       ancestors.add(parent);
-      
+
       parent = parent.getParent();
     }
-    
+
     Collections.reverse(ancestors);
-    
+
     return ancestors;
   }
 
   private String _getAncestorPath()
   {
     StringBuilder ancestorPath = new StringBuilder(1000);
-  
+
     List<UIComponent> ancestors = _getAncestors();
-      
+
     if (ancestors.isEmpty())
     {
       return "<none>";
@@ -591,9 +592,9 @@ abstract public class UIXComponentBase extends UIXComponent
     else
     {
       Iterator<UIComponent> ancestorsIter = ancestors.iterator();
-      
+
       boolean first = true;
-      
+
       while (ancestorsIter.hasNext())
       {
         if (!first)
@@ -604,14 +605,14 @@ abstract public class UIXComponentBase extends UIXComponent
         {
           first = false;
         }
-        
-        ancestorPath.append(ancestorsIter.next().toString());        
+
+        ancestorPath.append(ancestorsIter.next().toString());
       }
-      
+
       return ancestorPath.toString();
     }
   }
-  
+
   @Override
   public String getClientId(FacesContext context)
   {
@@ -679,7 +680,7 @@ abstract public class UIXComponentBase extends UIXComponent
       {
         FacesContext context = FacesContext.getCurrentInstance();
         UIViewRoot viewRoot = context.getViewRoot();
-                
+
         _id = viewRoot.createUniqueId();
       }
 
@@ -705,13 +706,13 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
   /**
-   * Sets the identifier for the component.  
+   * Sets the identifier for the component.
    * the identifier for the component.  Every component may be named by a component identifier that must conform to the following rules:
    * <ul>
    *   <li>They must start with a letter (as defined by the Character.isLetter() method) or underscore ( _ ).</li>
-   *   <li>Subsequent characters must be letters (as defined by the Character.isLetter() method), digits as defined by the Character.isDigit() method, 
-   *   dashes ( - ), or underscores ( _ ).  To minimize the size of responses generated by JavaServer Faces, it is recommended that component identifiers 
-   *   be as short as possible. If a component has been given an identifier, it must be unique in the namespace of the closest ancestor to that component 
+   *   <li>Subsequent characters must be letters (as defined by the Character.isLetter() method), digits as defined by the Character.isDigit() method,
+   *   dashes ( - ), or underscores ( _ ).  To minimize the size of responses generated by JavaServer Faces, it is recommended that component identifiers
+   *   be as short as possible. If a component has been given an identifier, it must be unique in the namespace of the closest ancestor to that component
    *   that is a NamingContainer (if any).
    *   </li>
    * </ul>
@@ -729,7 +730,7 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       // only validate if the id has actually changed
       if ((_id == null) || !_id.equals(id))
-      {        
+      {
         _validateId(id);
         _id = id;
 
@@ -794,9 +795,9 @@ abstract public class UIXComponentBase extends UIXComponent
       {
         // set the reference
         _parent = parent;
-        
+
         boolean isInView = parent.isInView();
-        
+
         _resetClientId(isInView);
 
         if (isInView)
@@ -812,7 +813,7 @@ abstract public class UIXComponentBase extends UIXComponent
       else
       {
         boolean wasInView = _parent != null && _parent.isInView();
-          
+
         if (wasInView)
         {
           // trigger the "remove event" lifecycle
@@ -834,7 +835,7 @@ abstract public class UIXComponentBase extends UIXComponent
     if (_clientId != null)
     {
       String newClientId;
-      
+
       // if the component is currently in the component tree, calculate the new clientId, to see if it has changed
       if (isInView)
       {
@@ -844,11 +845,11 @@ abstract public class UIXComponentBase extends UIXComponent
       {
         newClientId = null;
       }
-      
+
       // if our clientId changed as a result of being reparented (because we moved
       // between NamingContainers for instance) then we need to clear out
       boolean clearCachedIds = !_clientId.equals(newClientId);
-      
+
       // all of the cached client ids for our subtree
       if (clearCachedIds)
       {
@@ -1100,6 +1101,13 @@ abstract public class UIXComponentBase extends UIXComponent
       RequestContext adfContext = RequestContext.getCurrentInstance();
       if (adfContext != null)
         adfContext.partialUpdateNotify(component);
+    }
+
+    Renderer renderer = getRenderer(context);
+    if (renderer instanceof CoreRenderer)
+    {
+      // Allow the renderer to handle the event
+      ((CoreRenderer)renderer).broadcast(this, event);
     }
 
     Iterator<FacesListener> iter =
@@ -1622,7 +1630,7 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     // assume we accept the change
     boolean rejectsChange = false;
-    
+
     Iterator<ComponentChangeFilter> iter =
       (Iterator<ComponentChangeFilter>)getFacesBean().entries(_COMPONENT_CHANGE_FILTERS_KEY);
 
@@ -1636,24 +1644,24 @@ abstract public class UIXComponentBase extends UIXComponent
         break;
       }
     }
-    
+
     return rejectsChange;
   }
-  
+
   private UIXComponentBase _getNextUIXComponentBaseAnxcestor()
   {
     UIComponent parent = getParent();
 
     while (parent != null)
-    {    
+    {
       if (parent instanceof UIXComponentBase)
       {
         return (UIXComponentBase)parent;
       }
-      
+
       parent = parent.getParent();
     }
-    
+
     return null;
   }
 
@@ -1676,7 +1684,7 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       AttributeComponentChange aa             = (AttributeComponentChange)change;
       Object                   attributeValue = aa.getAttributeValue();
-      
+
       if (attributeValue instanceof RowKeySet)
       {
         change = new RowKeySetAttributeChange(getClientId(getFacesContext()),
@@ -1684,12 +1692,12 @@ abstract public class UIXComponentBase extends UIXComponent
                                               attributeValue);
       }
     }
-    
+
     // add the change unless we have a change filter that is attached to this component wants to supress the change
     if (!_isAnyFilterRejectingChange(component, change))
     {
       UIXComponentBase nextUIXParent = _getNextUIXComponentBaseAnxcestor();
-  
+
       if (nextUIXParent != null)
       {
         return nextUIXParent.addComponentChange(component, change);
@@ -1807,7 +1815,7 @@ abstract public class UIXComponentBase extends UIXComponent
         _publishPreRemoveFromViewEvent(context, child);
       }
     }
-    
+
     component.setInView(false);
   }
 
@@ -2248,7 +2256,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
     if (componentListener instanceof SystemEventListener && componentListener instanceof StateHolder)
     {
-      eventStorage.removeAttachedObject(eventClass, (SystemEventListener) componentListener);    
+      eventStorage.removeAttachedObject(eventClass, (SystemEventListener) componentListener);
     }
     else
     {
