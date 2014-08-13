@@ -91,9 +91,10 @@ import org.apache.myfaces.trinidad.util.URLUtils;
 public class ResourceServlet extends HttpServlet
 {
   /**
-   * 
-   */
-  private static final long serialVersionUID = 4547362994406585148L;
+     *
+     */
+    @SuppressWarnings("compatibility:8282627001212629976")
+    private static final long serialVersionUID = 4547362994406585148L;
   
   /**
    * Override of Servlet.destroy();
@@ -1019,8 +1020,8 @@ public class ResourceServlet extends HttpServlet
       "retry-after",
       "strict-transport-security",
       "trailer",
-      "transfer-encoding",
-      "vary",
+//      "transfer-encoding",
+//      "vary",
       "warning"
     };
           
