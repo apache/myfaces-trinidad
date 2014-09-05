@@ -103,10 +103,9 @@ public final class URLUtils
   }
   
   /**
-   * Takes a URL that is not escaped and simply removes any invalid characters, replacing them with thier %XX
-   * equivalents.
+   * Takes a URL that is not escaped for javascript and escapes it   
    */
-  public static String escapeURL(String url, String charset)
+  public static String jsEncodeURL(String url, String charset)
     throws UnsupportedEncodingException
   {
     StringBuilder sb = new StringBuilder(url.length() * 2);
@@ -115,8 +114,7 @@ public final class URLUtils
       if ((c >= 'A' && c <= 'Z') ||
             (c >= 'a' && c <= 'z') ||
             (c >= '0' && c <= '9') ||
-            (c == _URL_ENCODE_CHARACTER) ||
-            _URL_VALID_CHARS.indexOf(c) > -1
+            _JS_IMMUNE_CHARS.indexOf(c) > -1
          )
       {
         //Valid character.  Just append.
@@ -127,7 +125,7 @@ public final class URLUtils
         //This is an invalid character, so we encode need to get the bytes
         for(byte b: Character.toString(c).getBytes(charset))
         {
-          sb.append("%")
+          sb.append("\\x")
             .append(String.format("%02X", b));
         }
       }
@@ -258,6 +256,5 @@ public final class URLUtils
   private static final String _URL_QUERY_SEPERATOR="?";
   private static final String _URL_FRAGMENT_SEPERATOR="#";
   private static final String _URL_NAME_VALUE_PAIR_SEPERATOR="=";
-  private static final char _URL_ENCODE_CHARACTER='%';
-  private static final String _URL_VALID_CHARS="-._~://?#[]@!$&'()*+,;=";
+  private static final String _JS_IMMUNE_CHARS=",._";
 }
