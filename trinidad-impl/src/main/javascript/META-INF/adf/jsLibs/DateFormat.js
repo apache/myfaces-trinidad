@@ -1524,6 +1524,39 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
       parseContext.parsedFullYear = year;
     }
 
+    // Some placeholders require information from other, if available. Process those here.
+    // e.g. 'D' - day of year, depends if the year is a leap year. 
+    if (parseContext.parsedDayOfYear != null)
+    {
+      // Give precedence to date and month, process day of year only if they are not set
+      if ((parseContext.parsedDate == null) || (parseContext.parsedMonth == null))
+      {
+        // If parse string does not contain year, default to current year
+        //
+        // Thai Buddhist Calendar uses the same months as Gregorian, so we use the Gregorian equivalent of the Thai
+        // year (stored in parsedFullYear) to look up the month array
+        var year = (parseContext.parsedFullYear != null) ? parseContext.parsedFullYear : new Date().getFullYear();
+        var lastDayOfYearByMonArray = _isLeapYear (year) ? _GREGORIAN_MONTHS_LASTDAYOFYEAR_LEAP: 
+                                                    _GREGORIAN_MONTHS_LASTDAYOFYEAR_NONLEAP;
+
+        var monIndx = 0;
+        for (monIndx = 0; monIndx < 12; monIndx++)
+        {
+          if (parseContext.parsedDayOfYear < lastDayOfYearByMonArray[monIndx])
+            break;
+        }
+        parseContext.parsedMonth = monIndx;
+        parsedTime.setMonth(parseContext.parsedMonth);
+
+        // For the first month, date and day_of_year are the same
+        if (monIndx == 0)
+          parseContext.parsedDate = parseContext.parsedDayOfYear;
+        else
+          parseContext.parsedDate = (parseContext.parsedDayOfYear - lastDayOfYearByMonArray [monIndx - 1]);
+        parsedTime.setDate(date);
+      }
+    }
+    
     // Set the parsed month, if any
     var month = parseContext.parsedMonth;
     if (month != null)
@@ -1561,37 +1594,6 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
     var milliseconds = parseContext.parsedMilliseconds;
     if (milliseconds != null)
       parsedTime.setMilliseconds(milliseconds);
-
-   // Some placeholders require information from other, if available. Process those here.
-    // e.g. 'D' - day of year, depends if the year is a leap year. 
-    if (parseContext.parsedDayOfYear != null)
-    {
-      // Give precedence to date and month, process day of year only if they are not set
-      if ((parseContext.parsedDate == null) || (parseContext.parsedMonth == null))
-      {
-        // If parse string does not contain year, default to current year
-        //
-        // Thai Buddhist Calendar uses the same months as Gregorian, so we use the Gregorian equivalent of the Thai
-        // year (stored in parsedFullYear) to look up the month array
-        var year = (parseContext.parsedFullYear != null) ? parseContext.parsedFullYear : new Date().getFullYear();
-        var lastDayOfYearByMonArray = _isLeapYear (year) ? _GREGORIAN_MONTHS_LASTDAYOFYEAR_LEAP: 
-                                                    _GREGORIAN_MONTHS_LASTDAYOFYEAR_NONLEAP;
-
-        var monIndx = 0;
-        for (monIndx = 0; monIndx < 12; monIndx++)
-        {
-          if (parsedContext.parsedDayOfYear < lastDayOfYearByMonArray[monIndx])
-            break;
-        }
-        parseContext.parsedMonth = monIndx;
-
-        // For the first month, date and day_of_year are the same
-        if (monIndx == 0)
-          parseContext.parsedDate = parsedContext.parsedDayOfYear;
-        else
-          parseContext.parsedDate = (parseContext.parsedDayOfYear - lastDayOfYearByMonArray [monIndx - 1]);
-      }
-    }
     
     // so far we have done a lenient parse
     // now we check for strictness
