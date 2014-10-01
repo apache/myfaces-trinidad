@@ -64,30 +64,33 @@ function TrNumberFormat(type, locale, config)
   TrNumberFormat.MAX_INTEGER_DIGITS  = "maxIntegerDigits";
   TrNumberFormat.MIN_FRACTION_DIGITS = "minFractionDigits";
   TrNumberFormat.MIN_INTEGER_DIGITS  = "minIntegerDigits";
+  TrNumberFormat.ROUNDING_MODE       = "roundingMode";
 
   //default values, similar to JDK (values from Apache Harmony)
   if(this._type=="percent")
   {
-    this.setMaximumFractionDigits((config[TrNumberFormat.MAX_FRACTION_DIGITS])? config[TrNumberFormat.MAX_FRACTION_DIGITS] : 0);
+    this.setMaximumFractionDigits((config[TrNumberFormat.MAX_FRACTION_DIGITS] != null)? config[TrNumberFormat.MAX_FRACTION_DIGITS] : 0);
   }
   else
   {
-    this.setMaximumFractionDigits((config[TrNumberFormat.MAX_FRACTION_DIGITS])? config[TrNumberFormat.MAX_FRACTION_DIGITS] : 3);
+    this.setMaximumFractionDigits((config[TrNumberFormat.MAX_FRACTION_DIGITS] != null)? config[TrNumberFormat.MAX_FRACTION_DIGITS] : 3);
   }
     
-  this.setMaximumIntegerDigits((config[TrNumberFormat.MAX_INTEGER_DIGITS])? config[TrNumberFormat.MAX_INTEGER_DIGITS] : 40);
+  this.setMaximumIntegerDigits((config[TrNumberFormat.MAX_INTEGER_DIGITS] != null)? config[TrNumberFormat.MAX_INTEGER_DIGITS] : 40);
   
   if(this._type=="currency")
   {
-    this.setMinimumFractionDigits((config[TrNumberFormat.MIN_FRACTION_DIGITS])? config[TrNumberFormat.MIN_FRACTION_DIGITS] : 2);
+    this.setMinimumFractionDigits((config[TrNumberFormat.MIN_FRACTION_DIGITS] != null)? config[TrNumberFormat.MIN_FRACTION_DIGITS] : 2);
   }
   else
   {
-    this.setMinimumFractionDigits((config[TrNumberFormat.MIN_FRACTION_DIGITS])? config[TrNumberFormat.MIN_FRACTION_DIGITS] : 0);
+    this.setMinimumFractionDigits((config[TrNumberFormat.MIN_FRACTION_DIGITS] != null)? config[TrNumberFormat.MIN_FRACTION_DIGITS] : 0);
   }
   
-  this.setMinimumIntegerDigits((config[TrNumberFormat.MIN_INTEGER_DIGITS])? config[TrNumberFormat.MIN_INTEGER_DIGITS] : 1);
+  this.setMinimumIntegerDigits((config[TrNumberFormat.MIN_INTEGER_DIGITS] != null)? config[TrNumberFormat.MIN_INTEGER_DIGITS] : 1);
   this.setGroupingUsed((config[TrNumberFormat.IS_GROUPING_USED] != null)? config[TrNumberFormat.IS_GROUPING_USED] : true);    
+  this.setRoundingMode(config[TrNumberFormat.ROUNDING_MODE]);
+  
   this._updateLocaleAndSymbols(locale, config);
 }
 
@@ -208,6 +211,36 @@ TrNumberFormat.prototype.isGroupingUsed = function()
 }
 
 /**
+ * Sets the chosen decimal rounding mode.
+ * 
+ * @param Rounding mode can be one of:
+ * {null, "UP", "DOWN", "CEILING", "FLOOR", "HALF_UP", "HALF_DOWN", "HALF_EVEN", "UNNECESSARY"}
+ */
+TrNumberFormat.prototype.setRoundingMode = function(roundingMode)
+{
+  this._roundingMode = roundingMode;
+}
+
+/**
+ * Gets the decimal rouding mode.
+ * 
+ * @return Rounding mode, can be one of:
+ * {null, "UP", "DOWN", "CEILING", "FLOOR", "HALF_UP", "HALF_DOWN", "HALF_EVEN", "UNNECESSARY"}
+ */
+TrNumberFormat.prototype.getRoundingMode = function()
+{
+  return this._roundingMode;
+}
+
+/**
+ * @return true if a decimal rounding mode is specifed
+ */
+TrNumberFormat.prototype.isRoundingModeSpecified = function() 
+{
+  return this.getRoundingMode() != null;
+}
+
+/**
  * Used to specify the new maximum count of integer digits that are printed
  * when formatting. If the maximum is less than the number of integer
  * digits, the most significant digits are truncated.
@@ -217,7 +250,7 @@ TrNumberFormat.prototype.isGroupingUsed = function()
 TrNumberFormat.prototype.setMaximumIntegerDigits = function(number)
 {
   //taken from the Apache Harmony project
-  if(number)
+  if(number != null)
   {
     this._maxIntegerDigits = number < 0 ? 0 : number;
     if (this._minIntegerDigits > this._maxIntegerDigits)
@@ -250,7 +283,7 @@ TrNumberFormat.prototype.getMaximumIntegerDigits = function()
 TrNumberFormat.prototype.setMaximumFractionDigits = function(number)
 {
   //taken from the Apache Harmony project
-  if(number)
+  if(number != null)
   {
     this._maxFractionDigits = number < 0 ? 0 : number;
     if (this._maxFractionDigits < this._minFractionDigits)
@@ -283,7 +316,7 @@ TrNumberFormat.prototype.getMaximumFractionDigits = function()
 TrNumberFormat.prototype.setMinimumIntegerDigits = function(number)
 {
   //taken from the Apache Harmony project
-  if(number)
+  if(number != null)
   {
     this._minIntegerDigits = number < 0 ? 0 : number;
     if(this._minIntegerDigits > this._maxIntegerDigits)
@@ -314,7 +347,7 @@ TrNumberFormat.prototype.getMinimumIntegerDigits = function()
 TrNumberFormat.prototype.setMinimumFractionDigits = function(number)
 {
   //taken from the Apache Harmony project
-  if(number)
+  if(number != null)
   {
     this._minFractionDigits = number < 0 ? 0 : number;
     if (this._maxFractionDigits < this._minFractionDigits)
@@ -621,7 +654,8 @@ TrNumberFormat.prototype.percentageToString = function(number)
   // have at most 2 fractional digits, regardless of the value of maxFractionDigits. 
   // Hence, if maxFractionDigits is set, don't call this method and let 
   // numberToString format the string appropriately. 
-  if (this._isMaxFractionDigitsSet == null)
+  if (this._isMaxFractionDigitsSet == null &&
+       !this.isRoundingModeSpecified())
     number = this.getRounded(number);
     
   if (isNaN(number))
@@ -1005,7 +1039,9 @@ TrNumberFormat.prototype._formatFractions = function(fracs)
 
   if(fracsLength > maxFra && maxFra >= minFra)
   {
-    fracs = fracs.substring(0, maxFra);
+    // Do not attempt to truncate fractional digits if rounding is enabled
+    var fracsToRetain = (this.isRoundingModeSpecified())? fracsLength : maxFra;
+    fracs = fracs.substring(0, fracsToRetain);
   }
   if(fracsLength <minFra)
   {

@@ -1621,6 +1621,16 @@ public class NumberConverter
   {
     return _facesBean.getProperty(_NEGATIVE_SUFFIX_KEY) != null;
   }
+  
+  /**
+   * Return true if a non-null rounding mode has been set via {@link #setRoundingMode(RoundingMode)}. 
+   * If not set, return false;
+   * @return true, if the rounding mode has been set. 
+   */
+  public boolean isRoundingModeSet()
+  {
+    return _facesBean.getProperty(_ROUNDING_MODE_KEY) != null;
+  }
         
   private static final FacesBean.Type _TYPE = new FacesBean.Type();
 

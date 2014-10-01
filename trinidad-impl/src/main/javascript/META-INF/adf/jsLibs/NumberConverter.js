@@ -34,7 +34,8 @@ function TrNumberConverter(
   minFractionDigits,
   minIntegerDigits,
   negativePrefix,
-  negativeSuffix)
+  negativeSuffix,
+  roundingMode)
 {
   this._pattern = pattern;
   this._type = type;
@@ -48,6 +49,7 @@ function TrNumberConverter(
   this._minIntegerDigits = minIntegerDigits;
   this._negativePrefix = negativePrefix;
   this._negativeSuffix = negativeSuffix;
+  this._roundingMode = roundingMode;
 
   //set the integerOnly value
   if(integerOnly !== undefined)
@@ -66,7 +68,15 @@ function TrNumberConverter(
   
   // for debugging
   this._class = "TrNumberConverter";
-
+  
+  TrNumberConverter.ROUND_UP =           "UP";
+  TrNumberConverter.ROUND_DOWN =         "DOWN";
+  TrNumberConverter.ROUND_CEILING =      "CEILING";
+  TrNumberConverter.ROUND_FLOOR =        "FLOOR";
+  TrNumberConverter.ROUND_HALF_UP =      "HALF_UP";
+  TrNumberConverter.ROUND_HALF_DOWN =    "HALF_DOWN";
+  TrNumberConverter.ROUND_HALF_EVEN =    "HALF_EVEN";
+  TrNumberConverter.ROUND_UNNECESSARY =  "UNNECESSARY";
 }
 
 TrNumberConverter.prototype = new TrConverter();
@@ -166,6 +176,20 @@ TrNumberConverter.prototype.isIntegerOnly = function()
   return this._integerOnly;
 }
 
+TrNumberConverter.prototype.setRoundingMode = function(roundingMode)
+{
+  this._roundingMode = roundingMode;
+}
+TrNumberConverter.prototype.getRoundingMode = function()
+{
+  return this._roundingMode;
+}
+TrNumberConverter.prototype.isJSDefaultRoundingMode = function()
+{
+  // JavaScript using HALF_UP rounding mode
+  return this._roundingMode == TrNumberConverter.ROUND_HALF_UP;
+}
+
 TrNumberConverter.prototype.getFormatHint = function()
 {
   if(this._messages && this._messages["hintPattern"])
@@ -211,7 +235,10 @@ TrNumberConverter.prototype.getAsString = function(
       }
       else
       {
-        return this._numberFormat.format(parseFloat(number.toFixed(this._numberFormat.getMaximumFractionDigits())));
+        // The default rounding mode in JS is HALF-UP. 
+        // If a rounding mode other than HALF-UP is specified, do not attempt to format the number
+        var fmtNumber = (false)? number.toFixed(this._numberFormat.getMaximumFractionDigits()) : number;
+        return this._numberFormat.format(parseFloat(fmtNumber));
       }
     }
   }
@@ -336,7 +363,10 @@ TrNumberConverter.prototype.getAsObject = function(
                          label,
                          !this.isIntegerOnly());
 
-    parsedValue = parseFloat(parsedValue.toFixed(this._numberFormat.getMaximumFractionDigits()));
+    // The default rounding mode in JS is HALF-UP. 
+    // If a rounding mode other than HALF-UP is specified, do not attempt to format the number
+    var fmtNumber = (this.isJSDefaultRoundingMode())? parsedValue.toFixed(this._numberFormat.getMaximumFractionDigits()) : parsedValue; 
+    parsedValue = parseFloat(fmtNumber);
 
     if(this._type=="percent")
     {
@@ -398,7 +428,8 @@ TrNumberConverter.prototype._initNumberFormat = function(
       "maxFractionDigits": this.getMaxFractionDigits(),
       "maxIntegerDigits": this.getMaxIntegerDigits(),
       "minFractionDigits": this.getMinFractionDigits(),
-      "minIntegerDigits": this.getMinIntegerDigits()
+      "minIntegerDigits": this.getMinIntegerDigits(),
+      "roundingMode": this.getRoundingMode()
     };
                       
   if(this._type=="percent")

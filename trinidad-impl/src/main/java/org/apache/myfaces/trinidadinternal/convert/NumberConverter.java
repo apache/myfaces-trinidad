@@ -153,8 +153,8 @@ public class NumberConverter
     {
       // order of parameters: 
       // pattern, type, locale, messagesMap, isInt, isGrouped, CurrencyCode, CurrencySymbol,
-      // maxFractions, maxInts, minFractions, minInts, negPrefix, negSuffix  
-      params = new Object[14];
+      // maxFractions, maxInts, minFractions, minInts, negPrefix, negSuffix, roundingMode  
+      params = new Object[15];
     }
     else
     {
@@ -183,6 +183,7 @@ public class NumberConverter
       params[11] = this.isMinimumIntegerDigitsSet() ? this.getMinIntegerDigits() : null;
       params[12] = this.isNegativePrefixSet() ? this.getNegativePrefix() : null;
       params[13] = this.isNegativeSuffixSet() ? this.getNegativeSuffix() : null;
+      params[14] = this.isRoundingModeSet() ? this.getRoundingMode().toString() : null;
     }
 
     return params;
@@ -203,7 +204,8 @@ public class NumberConverter
       this.isMinimumFractionDigitsSet() ||
       this.isMinimumIntegerDigitsSet() ||
       this.isNegativePrefixSet() ||
-      this.isNegativeSuffixSet());
+      this.isNegativeSuffixSet() ||
+      this.isRoundingModeSet());
   }
   
   private String _getTrNumberConverter(
