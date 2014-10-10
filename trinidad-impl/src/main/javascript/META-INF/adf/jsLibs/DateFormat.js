@@ -1546,17 +1546,15 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
             break;
         }
         parseContext.parsedMonth = monIndx;
-        parsedTime.setMonth(parseContext.parsedMonth);
 
         // For the first month, date and day_of_year are the same
         if (monIndx == 0)
           parseContext.parsedDate = parseContext.parsedDayOfYear;
         else
           parseContext.parsedDate = (parseContext.parsedDayOfYear - lastDayOfYearByMonArray [monIndx - 1]);
-        parsedTime.setDate(date);
       }
     }
-    
+
     // Set the parsed month, if any
     var month = parseContext.parsedMonth;
     if (month != null)
