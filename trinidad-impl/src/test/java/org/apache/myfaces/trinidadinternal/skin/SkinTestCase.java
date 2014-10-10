@@ -64,24 +64,33 @@ public class SkinTestCase extends TestCase
   /**
    * Returns the StyleSheetDocument for the specified test skin.
    */
-  protected StyleSheetDocument getSkinDocument(TestSkin testSkin)
+  protected StyleSheetDocument getSkinDocument(String testSkinPath)
   {
-    return SkinTestUtils.parseSkin(testSkin.getResourceName());
+    return SkinTestUtils.parseSkin(testSkinPath);
   }
 
   /**
    * Performs a visit of all style sheet nodes in the specified test
    * skin
    */
-  protected void visitStyleSheets(TestSkin testSkin, StyleSheetVisitor visitor)
+  protected final void visitStyleSheets(TestSkin testSkin, StyleSheetVisitor visitor)
   {
-    StyleSheetDocument document = getSkinDocument(testSkin);
-    
+    visitStyleSheets(testSkin.getResourceName(), visitor);
+  }
+
+  /**
+   * Performs a visit of all style sheet nodes in the specified test
+   * skin. This overloaded method is useful in extending SkinTestCase to
+   * create more test cases since TestSkin does not provide all the skins
+   * that test needs.
+   */
+  protected void visitStyleSheets(String skinResourcePath, StyleSheetVisitor visitor)
+  {
+    StyleSheetDocument document = getSkinDocument(skinResourcePath);
     StyleSheetVisitUtils.visitStyleSheets(document.getStyleSheetsAsCollection(), visitor);
   }
 
-  private static final String _RESOURCE_PATH =
-    "org/apache/myfaces/trinidadinternal/skin/testSkins/";
-  
+  private static final String _RESOURCE_PATH = "org/apache/myfaces/trinidadinternal/skin/testSkins/";
   private static final String _SUFFIX = ".css";
 }
+
