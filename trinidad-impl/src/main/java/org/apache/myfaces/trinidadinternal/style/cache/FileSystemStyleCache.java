@@ -1384,6 +1384,7 @@ public class FileSystemStyleCache implements StyleProvider
           if (CSSGenerationUtils.isSingleStyleClassSelector(selector))
           {
             String styleClass = selector.substring(1);
+            
             _putStyleClassInShortMap(styleClass, map);
             // don't shorten styleclasses that are states since they are likely to be added
             // and removed on the client.
@@ -1470,13 +1471,15 @@ public class FileSystemStyleCache implements StyleProvider
    * are likely to be added and removed on the client as the state changes, and
    * we don't want to require the shortened map on the client.
    */
-  private static void _putStyleClassInShortMap(String styleClass, Map map)
+  private static void _putStyleClassInShortMap(String styleClass, Map<String, String> map)
   {
     if (styleClass != null &&
         !styleClass.startsWith(SkinSelectors.STATE_PREFIX) &&
         !map.containsKey(styleClass))
     {
-      map.put(styleClass, _getShortStyleClass(map.size()));
+      String shortStyleClass = _getShortStyleClass(map.size());
+      
+      map.put(styleClass, shortStyleClass);
     }
   }
 
