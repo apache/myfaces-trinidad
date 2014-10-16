@@ -89,7 +89,7 @@ abstract class BaseSkinProvider extends SkinProvider
     }
 
     if (_LOG.isFine())
-      _LOG.fine(this + " Adding skin to cache: [" + metadata + ", " + skin + "]");
+      _LOG.fine("Adding skin to cache [metadata: {0}, skin: {1}]", new Object[] {metadata, skin});
 
     synchronized (this)
     {
@@ -171,7 +171,7 @@ abstract class BaseSkinProvider extends SkinProvider
     if (searchMetadata == null)
       throw new NullPointerException("SkinMetadata passed for search is null");
 
-    // find a skin that is already loaded
+    // find a skin that is already loaded using the exact search metadata passed.
     Skin availableSkin = _skins.get(searchMetadata);
     if (availableSkin != null)
       return availableSkin;
@@ -261,7 +261,7 @@ abstract class BaseSkinProvider extends SkinProvider
       // search using family, renderkit, version
       String family = search.getFamily();
 
-      // we need atleast the family to go on with the search
+      // we need at least the family to go on with the search
       if (family == null)
         return null;
 

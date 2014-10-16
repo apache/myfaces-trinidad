@@ -228,14 +228,14 @@ abstract public class RenderKitTestCase extends TestSuite
 
     public BaseTest(String name,
                     String categoryName,
-                    String skin,
+                    String skinFamily,
                     Agent agent,
                     RequestContext.Accessibility accMode,
                     boolean rightToLeft,
                     String outputMode)
     {
       super(name + "-" + categoryName);
-      _skin = skin;
+      _skinFamily = skinFamily;
       _agent = agent;
       _accMode = accMode;
       _rightToLeft = rightToLeft;
@@ -274,7 +274,7 @@ abstract public class RenderKitTestCase extends TestSuite
     {
       _facesContext = createMockFacesContext(MApplication.sharedInstance(), true);
       _requestContext = createRequestContext();
-      _requestContext.setSkinFamily(_skin);
+      _requestContext.setSkinFamily(_skinFamily);
       _requestContext.setAgent(_agent);
       _requestContext.setRightToLeft(_rightToLeft);
       _requestContext.setOutputMode(_outputMode);
@@ -397,13 +397,12 @@ abstract public class RenderKitTestCase extends TestSuite
     private TestResult                   _result;
     private MFacesContext                _facesContext;
     private MRequestContext              _requestContext;
-    private String                       _skin;
+    private String                       _skinFamily;
     private String                       _outputMode;
     private Agent                        _agent;
     private RequestContext.Accessibility _accMode;
     private boolean                      _rightToLeft;
   }
-
 
   public class RendererTest extends BaseTest
   {
@@ -417,7 +416,6 @@ abstract public class RenderKitTestCase extends TestSuite
 
       _script = TestScriptParser.getTestScript(scriptFile, _facesConfigInfo);
       _lenient = lenient;
-      
 
       // We run golden-file checks on each subtest - though all differences
       // get counted only as a single diff.  We also do a comparison
@@ -475,12 +473,12 @@ abstract public class RenderKitTestCase extends TestSuite
       renderRoot(root);
 
       String golden = _loadGoldenFile();
-      
+
       String baseResults = base.toString();
-      
+
       _processResults(golden, baseResults);
     }
-  
+
     private String _loadGoldenFile() throws IOException
     {
       File goldenFile = new File(_goldenDir, getName() + "-golden.xml");
@@ -501,7 +499,7 @@ abstract public class RenderKitTestCase extends TestSuite
         golden = buffer.toString();
         in.close();
       }
-      
+
       return golden;
     }
 
@@ -510,19 +508,19 @@ abstract public class RenderKitTestCase extends TestSuite
       Iterator<TestScript.Test> tests = _script.getTests().iterator();
       Accessibility accMode = getAccMode();
       Agent agent = getAgent();
-      
+
       while (tests.hasNext())
       {
         TestScript.Test test = tests.next();
 
         boolean supportsAccessibilityMode = test.supportsAccessibilityMode(accMode);
-        boolean supportsAgent             = test.supportsAgent(agent);
-        boolean supportsLocale            = test.supportsLocale(RequestContext.getCurrentInstance());
-        
+        boolean supportsAgent = test.supportsAgent(agent);
+        boolean supportsLocale = test.supportsLocale(RequestContext.getCurrentInstance());
+
         if (supportsAccessibilityMode && supportsAgent && supportsLocale)
         {
           UIComponent testComponent = _createComponent();
-      
+
           test.apply(getFacesContext(), testComponent);
           docRoot.getChildren().add(new GatherContent(test.getOutput(),
                                                       testComponent,
@@ -530,7 +528,7 @@ abstract public class RenderKitTestCase extends TestSuite
                                                       this,
                                                       _lenient));
         }
-      }      
+      }
     }
 
     private void _processTest(TestScript.Test test, Writer out, String baseResults) throws IOException
@@ -539,8 +537,8 @@ abstract public class RenderKitTestCase extends TestSuite
       Agent agent = getAgent();
 
       boolean supportsAccessibilityMode = test.supportsAccessibilityMode(accMode);
-      boolean supportsAgent             = test.supportsAgent(agent);
-      boolean supportsLocale            = test.supportsLocale(RequestContext.getCurrentInstance());
+      boolean supportsAgent = test.supportsAgent(agent);
+      boolean supportsLocale = test.supportsLocale(RequestContext.getCurrentInstance());
 
       if (supportsAccessibilityMode && supportsAgent && supportsLocale)
       {
@@ -548,12 +546,12 @@ abstract public class RenderKitTestCase extends TestSuite
         out.write("\n<!--");
         out.write(test.toString());
         out.write("-->\n");
-        
+
         // surround content in a CDATA block to make it more likely to be valid XML
         //out.write("<![CDATA[\n");
-        
+
         String testResults;
-        
+
         try
         {
           testResults = test.getOutput().toString();
@@ -563,23 +561,22 @@ abstract public class RenderKitTestCase extends TestSuite
         {
           //out.write("\n]]>");         
         }
-      
+
         if (!_lenient)
         {
           if (!test.shouldMatchBase() &&
               baseResults.equals(testResults))
           {
             AssertionFailedError failure = new AssertionFailedError(
-              "In " + getName() + ", result of " + test.toString() + " were identical to " +
-              "base, but should not have been!");
+                "In " + getName() + ", result of " + test.toString() + " were identical to " +
+                "base, but should not have been!");
             getResult().addError(this, failure);
-          }
-          else if (test.shouldMatchBase() &&
+          } else if (test.shouldMatchBase() &&
                      !baseResults.equals(testResults))
           {
             AssertionFailedError failure = new AssertionFailedError(
-              "Result of " + test.toString() + " were not identical to " +
-              "base, but should have been!");
+                "Result of " + test.toString() + " were not identical to " +
+                "base, but should have been!");
             getResult().addError(this, failure);
           }
         }
@@ -613,17 +610,17 @@ abstract public class RenderKitTestCase extends TestSuite
         while (tests.hasNext())
         {
           TestScript.Test test = tests.next();
-          
+
           _processTest(test, out, baseResults);
         }
-        
-        out.write("\n</results>\n");    
+
+        out.write("\n</results>\n");
       }
       finally
       {
-        out.close();       
+        out.close();
       }
-      
+
       return out.toString();
     }
 
@@ -636,7 +633,7 @@ abstract public class RenderKitTestCase extends TestSuite
         failureFile = new File(_goldenDir, getName() + "-golden.xml");
       else
         failureFile = new File(_failureDir, getName() + "-golden.xml");
-          
+
       failureFile.getParentFile().mkdirs();
       FileWriter failureOut = new FileWriter(failureFile);
       failureOut.write(results);
@@ -654,8 +651,7 @@ abstract public class RenderKitTestCase extends TestSuite
           throw new AssertionFailedError("No golden file for test " +
                                          _scriptName);
         }
-      }
-      else
+      } else
       {
         int index = StringUtils.indexOfDifference(golden, results);
         String difference = StringUtils.difference(golden, results);
@@ -691,26 +687,26 @@ abstract public class RenderKitTestCase extends TestSuite
         }
         */
         throw new AssertionFailedError(
-             "Golden file for test "+ _scriptName + " did not match; " +
-             "first difference at " + index + ", difference of length " +
-             diffLength + ", \"" + difference + "\"");
-      }      
+            "Golden file for test " + _scriptName + " did not match; " +
+            "first difference at " + index + ", difference of length " +
+            diffLength + ", \"" + difference + "\"");
+      }
     }
-    
+
     private void _processResults(String golden, String baseResults) throws IOException
     {
       String results = _processTests(golden, baseResults);
-      
+
       if ((golden == null) || !golden.equals(results))
       {
         boolean forceGolden = "true".equals(
-                                    System.getProperty("org.apache.myfaces.trinidad.ForceGolden"));
-        
+            System.getProperty("org.apache.myfaces.trinidad.ForceGolden"));
+
         _writeFailureGoldenFile(results, forceGolden);
-        
+
         _throwAssertionFailure(golden, results, forceGolden);
       }
-    }      
+    }
 
     private UIComponent _createComponent()
     {
@@ -723,7 +719,6 @@ abstract public class RenderKitTestCase extends TestSuite
     private boolean    _lenient;
   }
 
-
   static private void _initGlobal() throws IOException, SAXException
   {
     RenderKitBootstrap bootstrap = new RenderKitBootstrap();
@@ -732,7 +727,7 @@ abstract public class RenderKitTestCase extends TestSuite
     _facesConfigInfo = bootstrap.getFacesConfigInfo();
 
     String projectPath = System.getProperty("user.dir");
-      
+
     String scripts = System.getProperty("trinidad.renderkit.scripts", projectPath + "/src/test/resources/org/apache/myfaces/trinidadinternal/renderkit/testScripts/");
     String golden = System.getProperty("trinidad.renderkit.golden", projectPath + "/src/test/resources/org/apache/myfaces/trinidadinternal/renderkit/golden/");
     String failures = System.getProperty("trinidad.renderkit.failures", projectPath + "/target/test-failures/");
@@ -835,24 +830,24 @@ abstract public class RenderKitTestCase extends TestSuite
   {
     public SuiteDefinition(
       String category,
-      String skin,
+      String skinFamily,
       RequestContext.Accessibility accessibilityMode,
       Agent  agent,
       boolean rightToLeft)
     {
-      this(category, skin, accessibilityMode, agent, rightToLeft, "default");
+      this(category, skinFamily, accessibilityMode, agent, rightToLeft, "default");
     }
 
     public SuiteDefinition(
       String category,
-      String skin,
+      String skinFamily,
       RequestContext.Accessibility accessibilityMode,
       Agent  agent,
       boolean rightToLeft,
       String outputMode)
     {
       _category = Args.notNull(category, "category");
-      _skin = Args.notNull(skin, "skin");
+      _skinFamily = Args.notNull(skinFamily, "skinFamily");
       _accessibilityMode = Args.notNull(accessibilityMode, "accessibilityMode");
       _agent = Args.notNull(agent, "agent");
       _rightToLeft = Args.notNull(rightToLeft, "rightToLeft");
@@ -864,10 +859,7 @@ abstract public class RenderKitTestCase extends TestSuite
       return _category;
     }
 
-    public String getSkin()
-    {
-      return _skin;
-    }
+    public String getSkin() { return _skinFamily; }
 
     public String getOutputMode()
     {
@@ -891,7 +883,7 @@ abstract public class RenderKitTestCase extends TestSuite
     }
 
     private String                       _category;
-    private String                       _skin;
+    private String                       _skinFamily;
     private String                       _outputMode;
     private RequestContext.Accessibility _accessibilityMode;
     private Agent                        _agent;
@@ -899,18 +891,17 @@ abstract public class RenderKitTestCase extends TestSuite
   }
 
   static private ExtendedRenderKitService _getExtendedRenderKitService(
-    FacesContext context)
+      FacesContext context)
   {
     return Service.getService(context.getRenderKit(),
                               ExtendedRenderKitService.class);
   }
 
-
   static private FacesConfigInfo _facesConfigInfo;
   static private File            _scriptDir;
   static private File            _goldenDir;
   static private File            _failureDir;
-  
+
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RenderKitTestCase.class);
 
 }

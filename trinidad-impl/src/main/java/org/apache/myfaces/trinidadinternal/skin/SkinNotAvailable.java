@@ -77,4 +77,13 @@ public class SkinNotAvailable extends SkinImpl
   public Map<String, String> getSkinFeatures() {
     return null;
   }
+
+  /**
+   * @return false, since this represents a null skin
+   */
+  @Override
+  public boolean isCacheable()
+  {
+    return false;
+  }
 }

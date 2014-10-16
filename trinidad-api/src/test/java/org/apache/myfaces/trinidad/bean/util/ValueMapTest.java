@@ -56,4 +56,11 @@ public class ValueMapTest extends org.apache.myfaces.trinidadbuild.test.MapTestC
   {
     return new ValueMap(new TestBean());
   }
+
+  @Override
+  protected Map<LameKey, Object> createMapWithLameKey()
+  {
+    return null;
+  }
+
 }

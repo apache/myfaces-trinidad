@@ -18,7 +18,6 @@
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
-import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.context.FacesContext;
@@ -26,12 +25,14 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.util.Args;
+import org.apache.myfaces.trinidad.util.ToStringHelper;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.cache.FileSystemStyleCache;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
-import org.apache.myfaces.trinidadinternal.util.LRUCache;
+import org.apache.myfaces.trinidadinternal.util.CopyOnWriteArrayMap;
 
 
 /**
@@ -83,35 +84,59 @@ public class SkinStyleProvider extends FileSystemStyleCache
                                       targetDirectoryPath);
 
     // Get our cache of existing StyleProviders
-    Map<ProviderKey, StyleProvider> providers = _getProviders();
+    ConcurrentMap<ProviderKey, StyleProvider> providers = _getProviders();
+    StyleProvider provider = providers.get(key);
 
-    StyleProvider provider = null;
-
-    synchronized (providers)
+    if (provider != null)
     {
-      provider = providers.get(key);
-
-      if (provider == null)
-      {
-        // If we haven't created an instance for this skin/custom style sheet
-        // yet, try creating it now.
-        provider = new SkinStyleProvider(skin,
-                                         targetDirectoryPath);
-        if (_LOG.isFine())
-        {
-          _LOG.fine("Create a new SkinStyleProvider for skin {0} and targetDirectoryPath {1}", 
-                    new Object[]{skin.getId(), targetDirectoryPath});
-        }
-
-        // Store the provider in our cache
-        providers.put(key, provider);
-      }
+      _LOG.fine("Style provider served from cache {0}", provider);
+      return provider;
     }
+
+    // If we haven't created an instance for this skin/custom style sheet
+    // yet, create it now.
+    provider = new SkinStyleProvider(skin,
+                                     targetDirectoryPath);
+    // assume caching is "on"
+    boolean cacheStyleProvider = true;
+    boolean logStyleProviderCreated = false;
+
+    // skin framework caches only internal skins.
+    // Internal skins are marked by internal SkinProviders.
+    // So essentially skins created by external SkinProviders or using
+    // SkinFactory.createSkin are not internal skins.
+    if (skin instanceof SkinImpl && !((SkinImpl) skin).isCacheable())
+    {
+      cacheStyleProvider = false;
+      logStyleProviderCreated = true;
+    }
+
+    // Store the provider in our cache
+    if (cacheStyleProvider)
+    {
+      StyleProvider existing = providers.putIfAbsent(key, provider);
+      if (existing != null)
+        provider = existing;
+      else
+        logStyleProviderCreated = true;
+    }
+
+    if (logStyleProviderCreated && _LOG.isFine())
+      _LOG.fine("Create a new SkinStyleProvider for skin {0} and targetDirectoryPath {1}. Skin cacheability is: {2}",
+                new Object[]{skin.getId(), targetDirectoryPath, cacheStyleProvider});
 
     return provider;
   }
 
-  /**
+  @Override
+  public String toString()
+  {
+    return new ToStringHelper(this)
+        .append("skinId", _skin.getId())
+        .toString();
+  }
+
+   /**
    * Creates SkinStyleProvider instance.
    * Only subclasses should call this method.  All other
    * clients should use getSkinStyleProvider().
@@ -224,39 +249,41 @@ public class SkinStyleProvider extends FileSystemStyleCache
   }
 
   // Returns a Map which hashes ProviderKeys to shared instances of SkinStyleProviders.
-  private static Map<ProviderKey, StyleProvider> _getProviders()
+  private static ConcurrentMap<ProviderKey, StyleProvider> _getProviders()
   {
     ConcurrentMap<String, Object> appMap = 
       RequestContext.getCurrentInstance().getApplicationScopedConcurrentMap();
 
-    Map<ProviderKey, StyleProvider> styleProviders = 
-      (Map<ProviderKey, StyleProvider>)appMap.get(_SKIN_PROVIDERS_KEY);
+    ConcurrentMap<ProviderKey, StyleProvider> styleProviders =
+      (ConcurrentMap<ProviderKey, StyleProvider>)appMap.get(_SKIN_PROVIDERS_KEY);
 
     if (styleProviders == null)
     {
-      styleProviders = _createProvidersMap();
-      
-      Map<ProviderKey, StyleProvider> oldStyleProviders = 
-        (Map<ProviderKey, StyleProvider>)appMap.putIfAbsent(_SKIN_PROVIDERS_KEY, styleProviders);
-      
+      styleProviders = _createProvidersCache();
+
+      ConcurrentMap<ProviderKey, StyleProvider> oldStyleProviders =
+        (ConcurrentMap<ProviderKey, StyleProvider>)appMap.putIfAbsent(_SKIN_PROVIDERS_KEY, styleProviders);
+
       if (oldStyleProviders != null)
-      {
         styleProviders = oldStyleProviders;
-      }
     }
 
     return styleProviders;
   }
   
-  private static Map<ProviderKey, StyleProvider> _createProvidersMap()
+  private static ConcurrentMap<ProviderKey, StyleProvider> _createProvidersCache()
+  {
+    return CopyOnWriteArrayMap.newLRUConcurrentMap(_getCacheSize());
+  }
+
+  private static int _getCacheSize()
   {
     FacesContext context = FacesContext.getCurrentInstance();
-    String lruCacheSize = context.getExternalContext().getInitParameter(_MAX_SKINS_CACHED); 
-    
+    String lruCacheSize = context.getExternalContext().getInitParameter(_MAX_SKINS_CACHED);
     int lruCacheSizeInt = _MAX_SKINS_CACHED_DEFAULT;
     boolean invalidInt = false;
 
-    if (lruCacheSize != null && !lruCacheSize.equals(""))
+    if (lruCacheSize != null && !lruCacheSize.isEmpty())
     {
       try
       {
@@ -271,21 +298,18 @@ public class SkinStyleProvider extends FileSystemStyleCache
         invalidInt = true;
       }
     }
-    
-    // The user typed in an invalid integer ( <=0 or a value that couldn't be formatted to a number)
+
+    // Invalid number or number less than zero specified by used in context parameter
     // so log a warning
     if (invalidInt)
     {
-      lruCacheSizeInt = _MAX_SKINS_CACHED_DEFAULT;
-      
       if (_LOG.isWarning())
-      {
-        _LOG.warning("INVALID_INTEGER_MAX_SKINS_CACHED", 
-                     new Object[]{lruCacheSize, _MAX_SKINS_CACHED_DEFAULT});        
-      }
+        _LOG.warning("INVALID_INTEGER_MAX_SKINS_CACHED", new Object[]{lruCacheSize, _MAX_SKINS_CACHED_DEFAULT});
+      // re-initialize to max size because it could have been assigned to a negative number above while parsing
+      lruCacheSizeInt = _MAX_SKINS_CACHED_DEFAULT;
     }
-      
-    return new LRUCache<ProviderKey, StyleProvider>(lruCacheSizeInt);
+
+    return lruCacheSizeInt;
   }
 
   // Key that we use to retrieve a shared SkinStyleProvider
@@ -297,8 +321,20 @@ public class SkinStyleProvider extends FileSystemStyleCache
       String targetDirectoryPath
       )
     {
-      _skin = skin;
+      Args.notNull(skin, "skin");
+      Args.notNull(targetDirectoryPath, "targetDirectoryPath");
+
+      _skinId = skin.getId();
       _targetDirectoryPath = targetDirectoryPath;
+    }
+
+    @Override
+    public String toString()
+    {
+      return new ToStringHelper(this)
+          .append("skinId", _skinId)
+          .append("targetDirectoryPath", _targetDirectoryPath)
+          .toString();
     }
 
     // Test for equality
@@ -313,7 +349,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
 
       ProviderKey key = (ProviderKey)o;
 
-      return (_equals(_skin, key._skin)                                   &&
+      return (_equals(_skinId, key._skinId) &&
               _equals(_targetDirectoryPath, key._targetDirectoryPath));
     }
 
@@ -321,12 +357,10 @@ public class SkinStyleProvider extends FileSystemStyleCache
     @Override
     public int hashCode()
     {
-      int hashCode = _skin.hashCode();
-
-      if (_targetDirectoryPath != null)
-        hashCode ^= _targetDirectoryPath.hashCode();
-
-      return hashCode;
+      int result = 17;
+      result = 37 * result + _skinId.hashCode();
+      result = 37 * result + _targetDirectoryPath.hashCode();
+      return result;
     }
 
     // Tests two objects for equality, taking possible nulls
@@ -339,8 +373,8 @@ public class SkinStyleProvider extends FileSystemStyleCache
       return o1.equals(o2);
     }
 
-    private Skin _skin;
-    private String      _targetDirectoryPath;
+    private final String _skinId;
+    private final String _targetDirectoryPath;
   }
 
   // The Skin which provides styles
@@ -350,7 +384,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
   private StyleSheetDocument _skinDocument;
 
   // Key to cache of shared SkinStyleProvider instances
-  private static final String _SKIN_PROVIDERS_KEY = 
+  private static final String _SKIN_PROVIDERS_KEY =
     "org.apache.myfaces.trinidadinternal.skin.SKIN_PROVIDERS_KEY";
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     SkinStyleProvider.class);

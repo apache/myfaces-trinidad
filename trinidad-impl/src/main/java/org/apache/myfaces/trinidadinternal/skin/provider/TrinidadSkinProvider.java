@@ -71,7 +71,7 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
   @Override
   public Collection<SkinMetadata> getSkinMetadata(ExternalContext context)
   {
-    // already initialized to unmodifiableCollection
+    initialize(context);
     return _skinMetadata;
   }
 
@@ -96,11 +96,9 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
     {
       // This cannot happen because base class checks for availability before it calls for the
       // skin to be loaded
-      if (_LOG.isSevere())
-        _LOG.severe("SP_LOADING_UNKNOWN_SKIN", new Object[]{skinMetadata.getId()});
-
-      throw new NullPointerException(_LOG.getMessage("SP_LOADING_UNKNOWN_SKIN",
-                                                     new Object[]{skinMetadata.getId()}));
+      String message = _LOG.getMessage("SP_LOADING_UNKNOWN_SKIN", skinMetadata.getId());
+      _LOG.severe(message);
+      throw new IllegalArgumentException(message);
     }
 
     String id = matchingNode.getId();
@@ -117,7 +115,6 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
     if (baseSkin == null)
     {
       baseSkin = SkinUtils.getDefaultSkinForRenderKitId(provider, context, renderKitId);
-      baseSkinId = baseSkin.getId();
     }
 
     if (id == null)
@@ -126,11 +123,8 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
     if (family == null)
       throw new NullPointerException("Null family");
 
-    if (_LOG.isFine())
-      _LOG.fine("Creating skin extension for : " + skinMetadata);
-
-    // features object itself cannot be null
-    return new SkinExtension(baseSkin, matchingNode);
+    _LOG.fine("Creating skin extension for skin metadata {0}", skinMetadata);
+    return new SkinExtension(baseSkin, matchingNode, true);
   }
 
   /**
@@ -175,8 +169,8 @@ public final class TrinidadSkinProvider extends BaseSkinProvider
 
       if (_LOG.isFine())
       {
-        _LOG.fine("trindiad-skins loaded: " + _skinMetadata.size());
-        _LOG.fine("trindiad-skins additions loaded: " + _skinAdditionNodes.size());
+        _LOG.fine("Number of skin metadata loaded from trinidad-skins.xml: {0}", _skinMetadata.size());
+        _LOG.fine("Number of skin additions loaded from trinidad-skins.xml: {0}", _skinAdditionNodes.size());
       }
     }
   }

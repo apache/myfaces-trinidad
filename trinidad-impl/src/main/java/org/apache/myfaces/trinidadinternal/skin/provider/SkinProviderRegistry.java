@@ -175,6 +175,15 @@ public class SkinProviderRegistry extends SkinProvider
   }
 
   /**
+   * exposing providers for testability
+   * @return
+   */
+  List<SkinProvider> getProviders()
+  {
+    return _providers;
+  }
+
+  /**
    * ensure sanity in the list of matches received by filtering the skins based on id, family and
    * renderKit
    *

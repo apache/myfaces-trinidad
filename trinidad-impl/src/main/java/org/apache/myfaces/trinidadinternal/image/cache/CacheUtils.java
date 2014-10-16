@@ -20,10 +20,10 @@ package org.apache.myfaces.trinidadinternal.image.cache;
 
 import java.awt.Color;
 
-import java.util.Collections;
 import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
-import org.apache.myfaces.trinidadinternal.util.LRUCache;
+import org.apache.myfaces.trinidadinternal.util.CopyOnWriteArrayMap;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 import org.apache.myfaces.trinidad.context.LocaleContext;
@@ -133,9 +133,9 @@ class CacheUtils
                                font.getStyle(),
                                font.getSize());
 
-    _sFontProxyCache.put(sharedFont, sharedFont);
+    FontProxy existing = _sFontProxyCache.putIfAbsent(sharedFont, sharedFont);
 
-    return sharedFont;
+    return (existing != null) ? existing : sharedFont;
   }
 
   /**
@@ -168,8 +168,7 @@ class CacheUtils
     return buffer.toString();
   }
 
-  private static final Map<FontProxy, FontProxy> _sFontProxyCache = 
-    Collections.synchronizedMap(new LRUCache<FontProxy, FontProxy>(50));
+  private static final ConcurrentMap<FontProxy, FontProxy> _sFontProxyCache = CopyOnWriteArrayMap.newLRUConcurrentMap(50);
 
   // Characters for base 64 encodings
   private static final char[] _BASE_64_CHARS =

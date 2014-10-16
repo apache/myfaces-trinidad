@@ -63,8 +63,9 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
  * This implementation class adds the details that should
  * not be exposed outside of this API.
  *
- * @see SkinFactory
- * @see org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext#getSkinFactory
+ * @see org.apache.myfaces.trinidad.skin.SkinFactory
+ * @see org.apache.myfaces.trinidad.skin.SkinProvider
+ * @see org.apache.myfaces.trinidadinternal.config.GlobalConfiguratorImpl#reloadSkins
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/Skin.java#0 $) $Date: 10-nov-2005.18:58:54 $
  */
@@ -72,11 +73,11 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
 {
 
   /**
-   * Returns an string identifier which uniquely identies this Skin implementation. Skin 
+   * Returns an string identifier which uniquely identifies this Skin implementation. Skin
    * implementations can be retrieved by id via SkinFactory.getSkin().
    * Note that in order to avoid infinite call loop the implementation of getId() in this class or
    * sub classes should not call toString().
-   * @see org.apache.myfaces.trinidadinternal.skin.SkinFactory#getSkin
+   * @see org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl#getSkin
    */
   @Override
   public String getId()
@@ -392,6 +393,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
    * @see #addSkinAddition(SkinAddition)
    * @deprecated Use addSkinAddition instead
    */
+  @Deprecated
   @Override
   public void registerStyleSheet(String styleSheetName)
   {
@@ -455,7 +457,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   {
     _dirty = dirty;
   }
-  
+
   /**
    * @inheritDoc
    * Note that in order to avoid infinite call loop the implementation of getId(), getVersion(),
@@ -473,6 +475,12 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
     addPropertiesToString(helper);
     return helper.toString();
   }
+
+  /**
+   * Used by SkinStyleProvider to decide whether to cache the StyleProvider or not.
+   * @return true if skin is internal to the framework.
+   */
+  public abstract boolean isCacheable();
 
   /**
    * Returns a translated value in the LocaleContext's translation Locale, or null
@@ -1363,14 +1371,10 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   // Optional features for rendering
   protected Map<String, String> _skinFeatures;
 
-
   // HashMap of Skin properties
-  private ConcurrentHashMap<Object, Object> _properties= new ConcurrentHashMap<Object, Object>();
+  private final ConcurrentHashMap<Object, Object> _properties = new ConcurrentHashMap<Object, Object>();
 
-  private boolean _dirty;
+  private volatile boolean _dirty;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinImpl.class);
-
-  private static final String _FORCE_DISABLE_CONTENT_COMPRESSION_PARAM="org.apache.myfaces.trinidad.skin.disableStyleCompression";
-
 }
