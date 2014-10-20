@@ -90,6 +90,7 @@ public class SkinProviderTest extends TestCase
     _externalContext = null;
     _provider = null;
     RenderKitBootstrap.clearFactories();
+    MRequestContext.releaseApplicationState();
   }
 
   public void testTrinidadBaseSkinsUsingId()
@@ -241,7 +242,6 @@ public class SkinProviderTest extends TestCase
 
   public void testSkinCache()
   {
-
     _cleanTempDir();
 
     // access skin from external provider
@@ -441,12 +441,16 @@ public class SkinProviderTest extends TestCase
   {
     try
     {
+      // since the order of test execution is not guaranteed, this test may find some left over application state 
+      // from other test executions. therefore, clear any application state from previous test cases.
+      MRequestContext.releaseApplicationState();
       RenderKitBootstrap bootstrap = new RenderKitBootstrap();
       bootstrap.init();
       _facesConfigInfo = bootstrap.getFacesConfigInfo();
     }
     catch (Exception e)
     {
+      System.out.println("***** RenderKitBootstrap FAILED *******");
     }
   }
 }
