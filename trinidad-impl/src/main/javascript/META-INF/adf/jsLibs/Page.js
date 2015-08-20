@@ -662,8 +662,13 @@ TrPage.prototype._loadScript = function (source)
         // consisitent support for window.execScript, so better 
         // to catch an exception .
         try
-        {      
-          window.execScript(responseText);
+        {   
+			// IE 11 Bug
+			if(window.eval) {
+				window.eval(responseText);
+			} else {
+				window.execScript(responseText);
+			}
         } catch(e) {} 
       } 
       else
@@ -695,7 +700,12 @@ TrPage.prototype._handlePprResponseScript = function (scriptNode)
         // to catch an exception .
         try
         {
-          window.execScript(nodeText);
+			// IE 11 Bug
+			if (window.eval) {
+				window.eval(nodeText);
+			} else {
+				window.execScript(nodeText);
+			}
         }
         catch(e) {}
       } 

@@ -281,8 +281,12 @@ function openWindow(
           dimmerStyle.position = "absolute";
           dimmerStyle.zIndex = "32000";
           dimmerStyle.backgroundColor = "#FFFFFF";
-          dimmerStyle.filter = "alpha(opacity=50)";
-
+		  // IE 9 and greater won't support alpha(opacity)
+		  if (_agent.isIE && _agent.version < 9) {
+			dimmerStyle.filter = "alpha(opacity=50)";
+		  } else if (_agent.isIE && _agent.version >= 9) {
+			  dimmerStyle.opacity = "0.5";
+		  }
           // Position the dimmer element, account for scrolling:
           var docElement = parentDoc.documentElement;
           var width = Math.max(docElement.offsetWidth, docElement.scrollWidth);
@@ -353,7 +357,12 @@ function openWindow(
       if (!isAbsolute)
       {
         var removeCapture = new Function("e", "_removeModalCaptureIE(window.document.body)");
-        newWindow.attachEvent("onunload", removeCapture);
+		// IE 11 bug
+		if(newWindow.attachEvent) {
+			newWindow.attachEvent("onunload", removeCapture);
+		} else {
+			newWindow.addEventListener("onunload", removeCapture);
+		}
       }
     }
 
