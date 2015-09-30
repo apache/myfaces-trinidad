@@ -93,20 +93,30 @@ function _dfsv(
       // target, etc.
       if (_agent.isIE)
       {
-        // attach the value change listener
-        dateField.onpropertychange = function()
-        {
-          var event = window.event;
-          if (event.propertyName == 'value')
+	    // IE 11 won't support onpropertychange
+	    if (dateField.onpropertychange) {
+          // attach the value change listener
+          dateField.onpropertychange = function()
           {
-            // detach the value change listener
-            dateField.onpropertychange = function(){};
+            var event = window.event;
+            if (event.propertyName == 'value')
+            {
+              // detach the value change listener
+              dateField.onpropertychange = function(){};
               
-            dateField.onchange(event);
+              dateField.onchange(event);
+            }
           }
-        }
 
-        dateField.value = newValue;
+          dateField.value = newValue;
+	    } else {
+	      dateField.value = newValue;
+
+          var event = new Object();
+          event.type = 'change';
+          event.target = dateField;
+          dateField.onchange(event);
+	    }
       }
       else
       {
